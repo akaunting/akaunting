@@ -133,11 +133,43 @@ abstract class Document extends Component
 
         return $hide;
     }
-    
+
     public function getClassFromConfig($type, $config_key)
     {
         $class_key = 'type.' . $type . '.class.' . $config_key;
 
         return config($class_key, '');
+    }
+
+    public function getCategoryFromConfig($type)
+    {
+        $category_type = '';
+
+        // if set config trasnlation config_key
+        if ($category_type = config('type.' . $type . '.category_type')) {
+            return $category_type;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $category_type = 'expense';
+                break;
+            case 'item':
+                $category_type = 'item';
+                break;
+            case 'other':
+                $category_type = 'other';
+                break;
+            case 'transfer':
+                $category_type = 'transfer';
+                break;
+            default:
+                $category_type = 'income';
+                break;
+        }
+
+        return $category_type;
     }
 }

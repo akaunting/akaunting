@@ -23,6 +23,7 @@ return [
             'issued_at' => 'invoices.invoice_date',
             'due_at' => 'invoices.due_date',
         ],
+        'category_type' => 'income',
         'contact_type' => 'customer', // use contact type
         'hide' => [], // for document items
         'class' => [],
@@ -45,6 +46,7 @@ return [
             'issued_at' => 'bills.bill_date',
             'due_at'    => 'bills.due_date',
         ],
+        'category_type' => 'expense',
         'contact_type' => 'vendor',
         'hide' => [],
     ],

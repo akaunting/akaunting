@@ -18,6 +18,9 @@ abstract class DocumentForm extends Base
     public $document;
 
     /** Advanced Component Start */
+    /** @var string */
+    public $categoryType;
+
     /** @var bool */
     public $hideRecurring;
 
@@ -192,7 +195,7 @@ abstract class DocumentForm extends Base
     public function __construct(
         $type, $document = false,
         /** Advanced Component Start */
-        bool $hideRecurring = false, bool $hideCategory = false, bool $hideAttachment = false,
+        string $categoryType = '', bool $hideRecurring = false, bool $hideCategory = false, bool $hideAttachment = false,
         /** Advanced Component End */
         /** Company Component Start */
         bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false,
@@ -220,6 +223,7 @@ abstract class DocumentForm extends Base
         $this->document = $document;
 
         /** Advanced Component Start */
+        $this->categoryType = $this->getCategoryType($type, $categoryType);
         $this->hideRecurring = $hideRecurring;
         $this->hideCategory = $hideCategory;
         $this->hideAttachment = $hideAttachment;
@@ -339,6 +343,22 @@ abstract class DocumentForm extends Base
         }
 
         return 'invoices.index';
+    }
+
+    protected function getCategoryType($type, $categoryType)
+    {
+        if (!empty($categoryType)) {
+            return $categoryType;
+        }
+
+        if ($category_type = config('type.' . $type . '.category_type')) {
+            return $category_type;
+        }
+
+        // set default type
+        $type = Document::INVOICE_TYPE;
+
+        return config('type.' . $type . '.category_type');
     }
 
     protected function getContacts($type, $contacts)

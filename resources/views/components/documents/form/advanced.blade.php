@@ -15,7 +15,7 @@
 
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideCategory)
-                            {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.' . $category_type . '_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=' . $category_type, 'remote_action' => route('categories.index'). '?type=' . $category_type], 'col-md-12') }}
+                            {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.' . $categoryType . '_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=' . $categoryType, 'remote_action' => route('categories.index'). '?type=' . $categoryType], 'col-md-12') }}
                         @endif
 
                         @if (!$hideAttachment)

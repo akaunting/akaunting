@@ -78,6 +78,7 @@
             <x-documents.form.advanced
                 type="{{ $type }}"
                 :document="$document"
+                category-type="{{ $categoryType }}"
                 hide-recurring="{{ $hideRecurring }}"
                 hide-category="{{ $hideCategory }}"
                 hide-attachment="{{ $hideAttachment }}"
