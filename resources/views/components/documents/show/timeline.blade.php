@@ -205,5 +205,5 @@
             </div>
         </div>
     </div>
-@stack('timeline_get_paid_end')
+@stack('timeline_body_end')
 @endif
