@@ -441,6 +441,8 @@ export default {
 
       this.filtered.splice(index, 1);
       this.selected_options.splice(index, 1);
+
+      this.filter_last_step = 'options';
     },
 
     onSearchAndFilterClear() {
