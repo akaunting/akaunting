@@ -188,7 +188,10 @@ return [
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
             'status',
-            'issued_at' => ['date' => true],
+            'issued_at' => [
+                'key' => 'billed_at',
+                'date' => true,
+            ],
             'due_at' => ['date' => true],
             'amount',
             'currency_code' => [
@@ -231,7 +234,10 @@ return [
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
             'status',
-            'issued_at' => ['date' => true],
+            'issued_at' => [
+                'key' => 'invoiced_at',
+                'date' => true,
+            ],
             'due_at' => ['date' => true],
             'amount',
             'currency_code' => [

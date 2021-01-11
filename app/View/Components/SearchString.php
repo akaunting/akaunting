@@ -52,7 +52,7 @@ class SearchString extends Component
 
                 $this->filters[] = [
                     'key' => $this->getFilterKey($column, $options),
-                    'value' => $this->getFilterName($column),
+                    'value' => $this->getFilterName($column, $options),
                     'type' => $this->getFilterType($options),
                     'url' => $this->getFilterUrl($column, $options),
                     'values' => $this->getFilterValues($column, $options),
@@ -83,12 +83,16 @@ class SearchString extends Component
         return $column;
     }
 
-    protected function getFilterName($column)
+    protected function getFilterName($column, $options)
     {
         if (strpos($column, '_id') !== false) {
             $column = str_replace('_id', '', $column);
         } else if (strpos($column, '_code') !== false) {
             $column = str_replace('_code', '', $column);
+        }
+
+        if (!empty($options['key'])) {
+            $column = $options['key'];
         }
 
         $plural = Str::plural($column, 2);
