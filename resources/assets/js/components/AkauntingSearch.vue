@@ -175,7 +175,7 @@ export default {
         this.show_date = true;
 
         this.$nextTick(() => {
-          this.$refs['input-search-date-field-' + this._uid].focus();
+          this.$refs['input-search-date-field-' + this._uid].fp.open();
         });
       }
 
@@ -374,7 +374,7 @@ export default {
         this.show_date = true;
 
         this.$nextTick(() => {
-          this.$refs['input-search-date-field-' + this._uid].focus();
+          this.$refs['input-search-date-field-' + this._uid].fp.open();
         });
 
         this.visible = {
