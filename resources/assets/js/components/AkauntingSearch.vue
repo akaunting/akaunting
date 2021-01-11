@@ -3,14 +3,19 @@
     <div class="tags-group" v-for="(filter, index) in filtered" :index="index">
       <span v-if="filter.option" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-option">
         {{ filter.option }}
+
+        <i v-if="!filter.operator && !filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
       </span>
 
       <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
         {{ (filter.operator == '=') ? operatorIsText : operatorIsNotText }}
+
+        <i v-if="!filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
       </span>
 
       <span v-if="filter.value" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-value">
         {{ filter.value }}
+
         <i class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
       </span>
     </div>
