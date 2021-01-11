@@ -479,7 +479,7 @@ export default {
 
       search_string.forEach(function (string) {
         if (string.search(':') === -1) {
-          this.search = string;
+          this.search = string.replace(new RegExp("[" + '"' + "]*$"), '');
         } else {
           let filter = string.split(':');
           let option = '';
