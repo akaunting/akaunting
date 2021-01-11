@@ -50,6 +50,9 @@ abstract class DocumentForm extends Base
     public $routeUpdate;
 
     /** @var string */
+    public $routeCancel;
+
+    /** @var string */
     public $formId;
 
     /** @var string */
@@ -195,7 +198,7 @@ abstract class DocumentForm extends Base
         bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false,
         /** Company Component End */
         /** Content Component Start */
-        string $routeStore = '', string $routeUpdate = '', string $formId = 'document', string $formSubmit = 'onSubmit',
+        string $routeStore = '', string $routeUpdate = '', string $formId = 'document', string $formSubmit = 'onSubmit', string $routeCancel = '',
         bool $hideCompany = false, bool $hideAdvanced = false, bool $hideFooter = false, bool $hideButtons = false,
         /** Content Component End */
         /** Metadata Component Start */
@@ -232,6 +235,7 @@ abstract class DocumentForm extends Base
         /** Content Component Start */
         $this->routeStore = $this->getRouteStore($type, $routeStore);
         $this->routeUpdate = $this->getRouteUpdate($type, $routeUpdate, $document);
+        $this->routeCancel = $this->getRouteCancel($type, $routeCancel);
         $this->formId = $formId;
         $this->formSubmit = $formSubmit;
 
@@ -320,6 +324,21 @@ abstract class DocumentForm extends Base
         }
 
         return 'invoices.update';
+    }
+
+    protected function getRouteCancel($type, $routeCancel)
+    {
+        if (!empty($routeCancel)) {
+            return $routeCancel;
+        }
+
+        $route = $this->getRouteFromConfig($type, 'index');
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        return 'invoices.index';
     }
 
     protected function getContacts($type, $contacts)

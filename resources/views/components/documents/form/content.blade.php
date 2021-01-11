@@ -88,6 +88,7 @@
             <x-documents.form.buttons
                 type="{{ $type }}"
                 :document="$document"
+                route-cancel="{{ $routeCancel }}"
             />
         @endif
 
