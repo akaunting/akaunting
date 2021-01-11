@@ -251,7 +251,13 @@ return [
             'enabled' => ['boolean' => true],
             'precision',
             'symbol',
-            'symbol_first' => ['boolean' => true],
+            'symbol_first' => [
+                'boolean' => true,
+                'translations' => [
+                    0 => 'currencies.symbol.after',
+                    1 => 'currencies.symbol.before',
+                ]
+            ],
             'decimal_mark',
             'thousands_separator',
         ],
