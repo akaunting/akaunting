@@ -21,7 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Common\Contact" />
+                        <x-search-string model="App\Models\Purchase\Vendor" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.vendors', $bulk_actions, ['group' => 'purchases', 'type' => 'vendors']) }}

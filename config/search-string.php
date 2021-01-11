@@ -209,6 +209,23 @@ return [
         ],
     ],
 
+    App\Models\Purchase\Vendor::class => [
+        'columns' => [
+            'type',
+            'name' => ['searchable' => true],
+            'email' => ['searchable' => true],
+            'tax_number' => ['searchable' => true],
+            'phone' => ['searchable' => true],
+            'address' => ['searchable' => true],
+            'website' => ['searchable' => true],
+            'currency_code' => [
+                'route' => 'currencies.index'
+            ],
+            'reference',
+            'enabled' => ['boolean' => true],
+        ],
+    ],
+
     App\Models\Sale\Invoice::class => [
         'columns' => [
             'document_number' => ['searchable' => true],
