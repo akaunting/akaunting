@@ -705,9 +705,7 @@ abstract class DocumentIndex extends Base
             return $textDocumentStatus;
         }
 
-        $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
-
-        $translation = $this->getTextFromConfig($type, 'document_status', $default_key);
+        $translation = $this->getTextFromConfig($type, 'document_status', '.statuses.');
 
         if (!empty($translation)) {
             return $translation;
