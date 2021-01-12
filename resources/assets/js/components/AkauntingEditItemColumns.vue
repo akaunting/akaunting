@@ -147,38 +147,13 @@ export default {
             }
         })
         .then(response => {
-            this.form.loading = false;
+            //this.form.loading = false;
 
-            if (response.data.success) {
-                let contact = response.data.data;
-
-                this.contact_list.push({
-                    key: contact.id,
-                    value: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
-                    type: (contact.type) ? contact.type : 'customer',
-                    id: contact.id,
-                    name: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
-                    address: (contact.address) ? contact.address : '' 
-                });
-
-                this.edit_column.show = false;
-
-                this.edit_column.html = '';
-                this.edit_html = null;
-
-                this.$emit('new', contact);
-
-                let documentClasses = document.body.classList;
-
-                documentClasses.remove("modal-open");
-            }
+            location.reload();
         })
         .catch(error => {
             this.form.loading = false;
-
-            this.form.onFail(error);
-
-            this.method_show_html = error.message;
+            console.log(error);
         });
     },
 
