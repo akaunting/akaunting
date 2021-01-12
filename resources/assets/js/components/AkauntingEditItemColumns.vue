@@ -68,7 +68,7 @@ export default {
       let edit_column = this.edit_column;
 
       window.axios.get(url + '/modals/documents/item-columns/edit', {
-          type: 
+          type: this.type,
       })
       .then(response => {
           edit_column.show = true;
