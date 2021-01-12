@@ -5,7 +5,7 @@
             type="button"
             class="btn-aka-link"
             @click="onEditItemColumns">
-            Edit columns
+            {{ editColumn.text }}
         </button>
 
         <component v-bind:is="edit_html" @submit="onSubmit" @cancel="onCancel"></component>

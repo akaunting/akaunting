@@ -2,6 +2,8 @@
 
 return [
 
+    'edit_columns' => 'Edit Columns',
+
     'statuses' => [
         'draft'     => 'Draft',
         'sent'      => 'Sent',

@@ -2,7 +2,7 @@
     type="{{ $type }}"
     :edit-column="{{ json_encode([
         'status' => true,
-        'text' => trans('general.add_new'),
+        'text' => trans('documents.edit_columns'),
         'new_text' => trans('modules.new'),
         'buttons' => [
             'cancel' => [
