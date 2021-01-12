@@ -40,7 +40,7 @@
                 'novalidate' => 'true',
                 'class' => 'mb-0'
             ]) !!}
-                {{ Form::selectGroup('payment_method', '', 'money el-icon-money', $payment_methods, array_key_first($payment_methods)   , ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control d-none', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'col-sm-12 d-none') }}
+                {{ Form::selectGroup('payment_method', '', 'money el-icon-money', $payment_methods, array_key_first($payment_methods), ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control d-none', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'col-sm-12 d-none') }}
                 {!! Form::hidden('document_id', $invoice->id, ['v-model' => 'form.document_id']) !!}
             {!! Form::close() !!}
 

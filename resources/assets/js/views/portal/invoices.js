@@ -59,7 +59,6 @@ const app = new Vue({
             this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                 resolve({
                     template:'<div id="loading" class="description text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>'
-                    
                 })
             });
 
@@ -84,8 +83,13 @@ const app = new Vue({
                                 CardForm
                             },
 
+                            created: function() {
+                                this.form = new Form('redirect-form ');
+                            },
+
                             data: function () {
                                 return {
+                                    form: {},
                                     formData: {
                                         cardName: '',
                                         cardNumber: '',
@@ -142,7 +146,6 @@ const app = new Vue({
             this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                 resolve({
                     template:'<div id="loading" class="description text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>'
-                    
                 })
             });
 
@@ -163,8 +166,13 @@ const app = new Vue({
                                 CardForm
                             },
 
+                            created: function() {
+                                this.form = new Form('redirect-form ');
+                            },
+
                             data: function () {
                                 return {
+                                    form: {},
                                     formData: {
                                         cardName: '',
                                         cardNumber: '',
