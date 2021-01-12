@@ -268,7 +268,7 @@ class Document extends AbstractFactory
             $init_status = $document->status;
 
             $document->status = 'draft';
-            event(new DocumentCreated($document));
+            event(new DocumentCreated($document, request()));
             $document->status = $init_status;
 
             $amount = $this->faker->randomFloat(2, 1, 1000);
