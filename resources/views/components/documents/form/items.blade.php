@@ -36,27 +36,27 @@
                         @endif
 
                         @stack('quantity_th_start')
-                            @if (!$hideQuantity)
-                                <th class="text-center pl-2 border-top-0 border-right-0 border-bottom-0">
+                            <th class="text-center pl-2 border-top-0 border-right-0 border-bottom-0">
+                                @if (!$hideQuantity)
                                     {{ trans($textQuantity) }}
-                                </th>
-                            @endif
+                                @endif
+                            </th>
                         @stack('quantity_th_end')
 
                         @stack('price_th_start')
-                            @if (!$hidePrice)
-                                <th class="text-right border-top-0 border-right-0 border-bottom-0 pr-1" style="padding-left: 5px;">
+                            <th class="text-right border-top-0 border-right-0 border-bottom-0 pr-1" style="padding-left: 5px;">
+                                @if (!$hidePrice)
                                     {{ trans($textPrice) }}
-                                </th>
-                            @endif
+                                @endif
+                            </th>
                         @stack('price_th_end')
 
                         @stack('total_th_start')
-                            @if (!$hideAmount)
-                                <th class="text-right border-top-0 border-bottom-0 item-total">
+                            <th class="text-right border-top-0 border-bottom-0 item-total">
+                                @if (!$hideAmount)
                                     {{ trans($textAmount) }}
-                                </th>
-                            @endif
+                                @endif
+                            </th>
                         @stack('total_th_end')
 
                         @stack('remove_th_start')

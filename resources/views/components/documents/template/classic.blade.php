@@ -173,13 +173,13 @@
 
                         @stack('quantity_th_start')
                             @if (!$hideQuantity)
-                                <th class="quantity">{{ $textQuantity }}</th>
+                                <th class="quantity">{{ trans($textQuantity) }}</th>
                             @endif
                         @stack('quantity_th_end')
 
                         @stack('price_th_start')
                             @if (!$hidePrice)
-                                <th class="price">{{ $textPrice }}</th>
+                                <th class="price">{{ trans($textPrice) }}</th>
                             @endif
                         @stack('price_th_end')
 
