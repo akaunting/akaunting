@@ -15,4 +15,4 @@
     var document_taxes = {!! $taxes !!};
 </script>
 
-<script src="{{ asset( $scriptFile . '?v=' . version('short')) }}"></script>
+<script src="{{ asset( $scriptFile . '?v=' . $version) }}"></script>
