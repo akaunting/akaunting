@@ -557,7 +557,7 @@ abstract class DocumentShow extends Base
             return $template;
         }
 
-        $documentTemplate = setting($type . '.template', 'default');
+        $documentTemplate = setting($type . '.template') !== null ?: 'default';
 
         return $documentTemplate;
     }
@@ -635,7 +635,7 @@ abstract class DocumentShow extends Base
     {
         if (!empty($textHistoryStatus)) {
             return $textHistoryStatus;
-        }        
+        }
 
         $translation = $this->getTextFromConfig($type, 'document_status', 'statuses.');
 

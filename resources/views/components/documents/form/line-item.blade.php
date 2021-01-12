@@ -27,8 +27,8 @@
                         @stack('items_td_start')
                             @if (!$hideItems || (!$hideName && !$hideDescription))
                                 @stack('name_td_start')
-                                    @if (!$hideName)
-                                        <td class="pb-3 align-middle border-bottom-0">
+                                    <td class="pb-3 align-middle border-bottom-0">
+                                        @if (!$hideName)
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
                                             <div v-else>
                                                 @stack('name_input_start')
@@ -48,13 +48,13 @@
                                                 </div>
                                                 @stack('name_input_end')
                                             </div>
-                                        </td>
-                                    @endif
+                                        @endif
+                                    </td>
                                 @stack('name_td_end')
 
                                 @stack('description_td_start')
-                                    @if (!$hideDescription)
-                                        <td class="pb-3 border-bottom-0">
+                                    <td class="pb-3 border-bottom-0">
+                                        @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
                                                 placeholder="Enter item description"
@@ -65,57 +65,57 @@
                                                 resize="none"
                                                 @input="onBindingItemField(index, 'description')"
                                             ></textarea>
-                                        </td>
-                                    @endif
+                                        @endif
+                                    </td>
                                 @stack('description_td_end')
                             @endif
                         @stack('items_td_end')
 
                         @stack('quantity_td_start')
-                            @if (!$hideQuantity)
                             <td class="pb-3 pl-0 pr-2 border-bottom-0">
-                                <div>
-                                    @stack('quantity_input_start')
-                                    <input type="text"
-                                        class="form-control text-center p-0"
-                                        :name="'items.' + index + '.quantity'"
-                                        autocomplete="off"
-                                        required="required"
-                                        data-item="quantity"
-                                        v-model="row.quantity"
-                                        @input="onCalculateTotal"
-                                        @change="form.errors.clear('items.' + index + '.quantity')">
+                                @if (!$hideQuantity)
+                                    <div>
+                                        @stack('quantity_input_start')
+                                        <input type="text"
+                                            class="form-control text-center p-0"
+                                            :name="'items.' + index + '.quantity'"
+                                            autocomplete="off"
+                                            required="required"
+                                            data-item="quantity"
+                                            v-model="row.quantity"
+                                            @input="onCalculateTotal"
+                                            @change="form.errors.clear('items.' + index + '.quantity')">
 
-                                    <div class="invalid-feedback d-block"
-                                        v-if="form.errors.has('items.' + index + '.quantity')"
-                                        v-html="form.errors.get('items.' + index + '.quantity')">
+                                        <div class="invalid-feedback d-block"
+                                            v-if="form.errors.has('items.' + index + '.quantity')"
+                                            v-html="form.errors.get('items.' + index + '.quantity')">
+                                        </div>
+                                        @stack('quantity_input_end')
                                     </div>
-                                    @stack('quantity_input_end')
-                                </div>
+                                @endif
                             </td>
-                            @endif
                         @stack('quantity_td_end')
 
                         @stack('price_td_start')
-                            @if (!$hidePrice)
-                                <td class="pb-3 pl-0 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                            <td class="pb-3 pl-0 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                                @if (!$hidePrice)
                                     <div>
                                         @stack('price_input_start')
                                             {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
                                         @stack('price_input_end')
                                     </div>
-                                </td>
-                            @endif
+                                @endif
+                            </td>
                         @stack('price_td_end')
 
                         @stack('total_td_start')
-                            @if (!$hideAmount)
-                                <td class="text-right long-texts pb-3 border-bottom-0">
+                            <td class="text-right long-texts pb-3 border-bottom-0">
+                                @if (!$hideAmount)
                                     <div>
                                         {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                     </div>
-                                </td>
-                            @endif
+                                @endif
+                            </td>
                         @stack('total_td_end')
 
                         @stack('delete_td_start')
