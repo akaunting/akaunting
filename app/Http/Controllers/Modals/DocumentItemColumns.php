@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Modals;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 
-class InvoiceItemColumns extends Controller
+class DocumentItemColumns extends Controller
 {
     public $skip_keys = ['company_id', '_method', '_token', '_prefix', '_template'];
 
@@ -25,21 +25,23 @@ class InvoiceItemColumns extends Controller
      */
     public function edit()
     {
+        $type = request()->get('type', 'invoice');
+
         $item_names = [
-            'settings.invoice.item' => trans('settings.invoice.item'),
-            'settings.invoice.product' => trans('settings.invoice.product'),
-            'settings.invoice.service' =>  trans('settings.invoice.service'),
+            'settings.invoice.item' => trans('settings.' . $type . '.item'),
+            'settings.invoice.product' => trans('settings.' . $type . '.product'),
+            'settings.invoice.service' =>  trans('settings.' . $type . '.service'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $price_names = [
-            'settings.invoice.price' => trans('settings.invoice.price'),
-            'settings.invoice.rate' => trans('settings.invoice.rate'),
+            'settings.invoice.price' => trans('settings.' . $type . '.price'),
+            'settings.invoice.rate' => trans('settings.' . $type . '.rate'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $quantity_names = [
-            'settings.invoice.quantity' => trans('settings.invoice.quantity'),
+            'settings.invoice.quantity' => trans('settings.' . $type . '.quantity'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
@@ -52,7 +54,8 @@ class InvoiceItemColumns extends Controller
             '90' => trans('settings.invoice.due_days', ['days' => 90]),
         ];
 
-        $html = view('modals.invoices.item_columns', compact(
+        $html = view('modals.documents.item_columns', compact(
+            'type',
             'item_names',
             'price_names',
             'quantity_names',

@@ -34,8 +34,8 @@ export default {
     },
     type: {
       type: String,
-      default: 'sale',
-      description: 'Show item price'
+      default: 'invoice',
+      description: 'document type'
     },
     editColumn: {
         type: Object,
@@ -67,7 +67,9 @@ export default {
     onEditItemColumns() {
       let edit_column = this.edit_column;
 
-      window.axios.get(url + '/modals/invoices/item-columns/edit')
+      window.axios.get(url + '/modals/documents/item-columns/edit', {
+          type: 
+      })
       .then(response => {
           edit_column.show = true;
           edit_column.html = response.data.html;

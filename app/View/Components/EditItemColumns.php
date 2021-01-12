@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class EditItemColumns extends Component
 {
+    /*  string */
+    public $type;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $type = 'invoice')
     {
-        //
+        $this->type = $type;
     }
 
     /**

@@ -1,4 +1,5 @@
 <akaunting-edit-item-columns
+    type="{{ $type }}"
     :edit-column="{{ json_encode([
         'status' => true,
         'text' => trans('general.add_new'),
