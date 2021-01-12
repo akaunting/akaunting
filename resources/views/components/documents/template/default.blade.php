@@ -148,12 +148,10 @@
     <div class="col-100">
         <div class="text">
             <table class="lines">
-                @foreach($document as $item)
-                    <thead style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
-                @endforeach
+                <thead style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <tr>
                         @stack('name_th_start')
-                            @if ($hideItems || (!$hideName && !$hideDescription))
+                            @if (!$hideItems || (!$hideName && !$hideDescription))
                                 <th class="item text-left text-white">{{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}</th>
                             @endif
                         @stack('name_th_end')
