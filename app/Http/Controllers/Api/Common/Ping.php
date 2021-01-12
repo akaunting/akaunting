@@ -11,6 +11,14 @@ class Ping extends ApiController
     use Helpers;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // do nothing but override permissions
+    }
+
+    /**
      * Responds with a status for heath check.
      *
      * @return \Illuminate\Http\JsonResponse
