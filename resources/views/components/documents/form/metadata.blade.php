@@ -2,7 +2,7 @@
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
         @if (!$hideContact)
         <div class="row">
-            <x-select-contact-card 
+            <x-select-contact-card
                 type="{{ $contactType }}"
                 :contact="$contact"
                 :contacts="$contacts"
@@ -30,6 +30,8 @@
 
             @if (!$hideDueAt)
             {{ Form::dateGroup('due_at', trans($textDueAt), 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $dueAt) }}
+            @else
+            {{ Form::hidden('due_at', old('issued_at', $issuedAt), ['id' => 'due_at', 'v-model' => 'form.issued_at']) }}
             @endif
 
             @if (!$hideOrderNumber)
