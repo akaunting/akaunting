@@ -295,6 +295,24 @@ return [
         ],
     ],
 
+    App\Models\Portal\Sale\Invoice::class => [
+        'columns' => [
+            'document_number' => ['searchable' => true],
+            'order_number' => ['searchable' => true],
+            'status',
+            'issued_at' => [
+                'key' => 'invoiced_at',
+                'date' => true,
+            ],
+            'due_at' => ['date' => true],
+            'amount',
+            'currency_code' => [
+                'route' => 'portal.payment.currencies'
+            ],
+            'parent_id',
+        ],
+    ],
+
     App\Models\Portal\Banking\Transaction::class => [
         'columns' => [
             'paid_at' => ['date' => true],
