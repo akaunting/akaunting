@@ -285,6 +285,12 @@ th, td
     text-align: right;
 }
 
+.lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
 .lines .total
 {
     width: 20%;
@@ -366,6 +372,12 @@ th, td
 .c-lines .price
 {
     width: 20%;
+    text-align: right;
+}
+
+.c-lines .discount
+{
+    width: 10%;
     text-align: right;
 }
 
