@@ -23,8 +23,8 @@ class Advanced extends Component
         }
 
         $recurring_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-        $recurring_form_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-        $more_form_class = 'col-md-12';
+        $more_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+        $more_form_class = 'col-md-12'; 
 
         if ($this->hideRecurring && (!$this->hideCategory || !$this->hideAttachment)) {
             $more_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
