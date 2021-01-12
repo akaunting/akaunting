@@ -7,7 +7,7 @@ use App\Http\Requests\Setting\Setting as Request;
 
 class DocumentItemColumns extends Controller
 {
-    public $skip_keys = ['company_id', '_method', '_token', '_prefix', '_template'];
+    public $skip_keys = ['company_id', '_method', '_token', '_prefix', '_template', 'type'];
 
     public function __construct()
     {
