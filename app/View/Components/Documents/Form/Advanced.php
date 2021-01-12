@@ -22,6 +22,15 @@ class Advanced extends Component
             $categories = Category::enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
         }
 
-        return view('components.documents.form.advanced', compact('categories', 'category_type'));
+        $recurring_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+        $more_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+
+        if ($this->hideRecurring && (!$this->hideCategory || !$this->hideAttachment)) {
+            $more_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
+        } else if ($this->hideRecurring && ($this->hideCategory && $this->hideAttachment)) {
+            $recurring_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
+        }
+
+        return view('components.documents.form.advanced', compact('categories', 'category_type', 'recurring_class', 'more_class'));
     }
 }
