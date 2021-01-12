@@ -208,8 +208,14 @@ abstract class DocumentShow extends Base
     /** @var string */
     public $classHeaderDueAt;
 
-    /** @var bool */
+    /** @var string */
     public $classHeaderStatus;
+
+    /** @var string */
+    public $classFooterHistories;
+
+    /** @var string */
+    public $classFooterTransactions;
 
     /** @var bool */
     public $hideHeaderContact;
@@ -362,7 +368,7 @@ abstract class DocumentShow extends Base
         bool $hideHeader = false,bool $hideRecurringMessage = false, bool $hideStatusMessage = false, bool $hideTimeline = false, bool $hideFooter = false, bool $hideFooterHistories = false, bool $hideFooterTransactions = false,
         array $hideTimelineStatuses = [], bool $hideTimelineSent = false, bool $hideTimelinePaid = false, bool $hideButtonSent = false, bool $hideButtonReceived = false, bool $hideButtonEmail = false, bool $hideButtonShare = false, bool $hideButtonPaid = false,
         string $textHeaderContact = '', string $textHeaderAmount = '', string $textHeaderDueAt = '',
-        string $classHeaderStatus = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderDueAt = '',
+        string $classHeaderStatus = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderDueAt = '', string $classFooterHistories = '', string $classFooterTransactions = '',
         bool $hideHeaderStatus = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderDueAt = false,
         string $textTimelineCreateTitle = '', string $textTimelineCreateMessage = '', string $textTimelineSentTitle = '', string $textTimelineSentStatusDraft = '', string $textTimelineSentStatusMarkSent = '', string $textTimelineSentStatusReceived = '', string $textTimelineSendStatusMail = '',
         string $textTimelineGetPaidTitle = '', string $textTimelineGetPaidStatusAwait = '', string $textTimelineGetPaidStatusPartiallyPaid = '', string $textTimelineGetPaidMarkPaid = '', string $textTimelineGetPaidAddPayment = '',
