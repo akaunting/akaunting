@@ -69,9 +69,7 @@ export default {
 
       let type = this.type;
 
-      window.axios.get(url + '/modals/documents/item-columns/edit', {
-          type: type,
-      })
+      window.axios.get(url + '/modals/documents/item-columns/edit?type=' + type)
       .then(response => {
           edit_column.show = true;
           edit_column.html = response.data.html;
