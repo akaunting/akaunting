@@ -12,6 +12,7 @@ return [
         'invoiced_at'       => 'Invoice Date',
         'issued_at'         => 'Issue Date',
         'symbol_first'      => 'Symbol Position',
+        'reconciled'        => 'Reconciled',
     ],
 
 ];
