@@ -621,19 +621,19 @@ export default {
 
                 let path = this.remoteAction;
 
-               if (!path) {
+                if (!path) {
                    path = url + '/common/items/autocomplete';
-               }
+                }
 
-               if (path.indexOf('?') === -1) {
+                if (path.indexOf('?search') === -1) {
                     path += '?search="' + query + '"';
-               } else {
-                    path += '&search="' + query + '"';
-               }
+                } else {
+                    path += ' "' + query + '"';
+                }
 
-               path += '&currency_code=' + this.currencyCode;
+                path += ' limit:10';
 
-               path += '&limit:10';
+                path += '&currency_code=' + this.currencyCode;
 
                 window.axios({
                     method: 'GET',

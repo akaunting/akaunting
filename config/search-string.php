@@ -206,7 +206,7 @@ return [
             'contact_phone' => ['searchable' => true],
             'contact_address' => ['searchable' => true],
             'category_id' => [
-                'route' => 'categories.index'
+                'route' => ['categories.index', 'search=type:expense']
             ],
             'parent_id',
         ],
@@ -252,7 +252,7 @@ return [
             'contact_phone' => ['searchable' => true],
             'contact_address' => ['searchable' => true],
             'category_id' => [
-                'route' => 'categories.index'
+                'route' => ['categories.index', 'search=type:income']
             ],
             'parent_id',
         ],
