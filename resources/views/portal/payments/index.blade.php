@@ -13,9 +13,8 @@
             ]) !!}
 
                 <div class="row">
-                    <div class="col-12 d-flex align-items-center">
-                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                        <akaunting-search></akaunting-search>
+                    <div class="col-12 align-items-center">
+                        <x-search-string model="App\Models\Portal\Banking\Transaction" />
                     </div>
                 </div>
 

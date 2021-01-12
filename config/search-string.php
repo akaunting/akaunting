@@ -295,4 +295,19 @@ return [
         ],
     ],
 
+    App\Models\Portal\Banking\Transaction::class => [
+        'columns' => [
+            'paid_at' => ['date' => true],
+            'amount',
+            'currency_code' => [
+                'route' => 'portal.payment.currencies'
+            ],
+            'document_id',
+            'description' => ['searchable' => true],
+            'payment_method',
+            'reference',
+            'parent_id',
+        ],
+    ],
+
 ];
