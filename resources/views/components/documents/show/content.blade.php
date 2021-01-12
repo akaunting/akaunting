@@ -78,7 +78,7 @@
     @endif
 @stack('timeline_end')
 
-@stack('invoice_start')
+@stack('document_start')
     <x-documents.show.document
         type="{{ $type }}"
         :document="$document"
@@ -120,7 +120,7 @@
         text-price="{{ $textPrice }}"
         text-amount="{{ $textAmount }}"
     />
-@stack('invoice_end')
+@stack('document_end')
 
 @stack('attachment_start')
     @if (!$hideAttachment)
@@ -139,10 +139,12 @@
             :document="$document"
             :histories="$histories"
             :transactions="$transactions"
+            class-footer-histories="{{ $classFooterHistories }}"
             hide-footer-histories="{{ $hideFooterHistories }}"
             text-histories="{{ $textHistories }}"
             text-history-status="{{ $textHistoryStatus }}"
             hide-footer-transactions="{{ $hideFooterTransactions }}"
+            class-footer-transactions="{{ $classFooterTransactions }}"
         />
     @endif
 @stack('row_footer_end')

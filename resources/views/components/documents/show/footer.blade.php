@@ -1,7 +1,7 @@
 <div class="row">
     @stack('row_footer_histories_start')
         @if (!$hideFooterHistories)
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="{{ $classFooterHistories }}">
                 <x-documents.show.histories
                     type="{{ $type }}"
                     :document="$document"
@@ -15,7 +15,7 @@
 
     @stack('row_footer_transactions_start')
         @if (!$hideFooterTransactions) 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="{{ $classFooterTransactions }}">
                 <x-documents.show.transactions
                     type="{{ $type }}"
                     :document="$document"

@@ -437,6 +437,9 @@ abstract class DocumentShow extends Base
         $this->classHeaderAmount = $this->getClassHeaderAmount($type, $classHeaderAmount);
         $this->classHeaderDueAt = $this->getClassHeaderDueAt($type, $classHeaderDueAt);
 
+        $this->classFooterHistories = $this->getClassFooterHistories($type, $classFooterHistories);
+        $this->classFooterTransactions = $this->getClassFooterTransactions($type, $classFooterTransactions);
+
         $this->hideHeaderStatus = $hideHeaderStatus;
         $this->hideHeaderContact = $hideHeaderContact;
         $this->hideHeaderAmount = $hideHeaderAmount;
@@ -1025,6 +1028,36 @@ abstract class DocumentShow extends Base
         }
 
         return 'col-md-2';
+    }
+
+    protected function getClassFooterHistories($type, $classFooterHistories)
+    {
+        if (!empty($classFooterHistories)) {
+            return $classFooterHistories;
+        }
+
+        $class = $this->getClassFromConfig($type, 'footer_histories');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
+        return 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+    }
+
+    protected function getClassFooterTransactions($type, $classFooterTransactions)
+    {
+        if (!empty($classFooterTransactions)) {
+            return $classFooterTransactions;
+        }
+
+        $class = $this->getClassFromConfig($type, 'footer_transactions');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
+        return 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
     }
 
     protected function getTimelineStatuses($type, $hideTimelineStatuses)
