@@ -19,11 +19,11 @@
                     @if (!$hideCategory && !$hideAttachment)
                     <div class="{{ $more_class }}">
                         @if (!$hideCategory)
-                            {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.' . $categoryType . '_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=' . $categoryType, 'remote_action' => route('categories.index'). '?type=' . $categoryType], 'col-md-12') }}
+                            {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.' . $categoryType . '_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=' . $categoryType, 'remote_action' => route('categories.index'). '?type=' . $categoryType], $more_form_class) }}
                         @endif
 
                         @if (!$hideAttachment)
-                            {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file'], null, 'col-md-12') }}
+                            {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file'], null, $more_form_class) }}
                         @endif
                     </div>
                     @endif

@@ -23,14 +23,16 @@ class Advanced extends Component
         }
 
         $recurring_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-        $more_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+        $recurring_form_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+        $more_form_class = 'col-md-12';
 
         if ($this->hideRecurring && (!$this->hideCategory || !$this->hideAttachment)) {
             $more_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
+            $more_form_class = 'col-md-6';
         } else if ($this->hideRecurring && ($this->hideCategory && $this->hideAttachment)) {
             $recurring_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
         }
 
-        return view('components.documents.form.advanced', compact('categories', 'category_type', 'recurring_class', 'more_class'));
+        return view('components.documents.form.advanced', compact('categories', 'category_type', 'recurring_class', 'more_class', 'more_form_class'));
     }
 }
