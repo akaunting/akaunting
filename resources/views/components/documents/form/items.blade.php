@@ -1,7 +1,7 @@
 <div class="row document-item-body">
     <div class="col-sm-12 p-0" style="table-layout: fixed;">
         @if (!$hideEditItemColumns)
-            <x-edit-item-columns type="{{ $type }}" />
+            <x-edit-item-columns :type="$type" />
         @endif
 
         <div class="table-responsive overflow-x-scroll overflow-y-hidden">
