@@ -19,7 +19,7 @@ class SettingFieldCreated
     {
         $request = $event->request;
 
-        if ($request->has('setting')) {
+        if (!$request->has('setting')) {
             return;
         }
 

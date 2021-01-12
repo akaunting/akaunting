@@ -39,6 +39,17 @@ class InvoicesTest extends FeatureTestCase
         ]);
     }
 
+    public function testItShouldDuplicateInvoice()
+    {
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        $this->loginAs()
+             ->get(route('invoices.duplicate', ['invoice' => $invoice->id]))
+             ->assertStatus(302);
+
+        $this->assertFlashLevel('success');
+    }
+
     public function testItShouldCreateInvoiceWithRecurring()
     {
         $request = $this->getRequest(true);

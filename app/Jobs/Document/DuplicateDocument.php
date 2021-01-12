@@ -33,7 +33,7 @@ class DuplicateDocument extends Job
             $this->clone = $this->document->duplicate();
         });
 
-        event(new DocumentCreated($this->clone));
+        event(new DocumentCreated($this->clone, request()));
 
         return $this->clone;
     }

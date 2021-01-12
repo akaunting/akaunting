@@ -77,7 +77,7 @@ class Invoices extends BulkAction
         foreach ($invoices as $invoice) {
             $clone = $invoice->duplicate();
 
-            event(new DocumentCreated($clone));
+            event(new DocumentCreated($clone, $request));
         }
     }
 

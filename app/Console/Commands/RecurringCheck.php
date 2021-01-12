@@ -135,7 +135,7 @@ class RecurringCheck extends Command
 
             switch ($type) {
                 case 'App\Models\Document\Document':
-                    event(new DocumentCreated($clone));
+                    event(new DocumentCreated($clone, request()));
 
                     event(new DocumentRecurring($clone));
 
