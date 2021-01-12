@@ -30,7 +30,7 @@ class CreateDocumentItemsAndTotals extends Job
     /**
      * Execute the job.
      *
-     * @return voide
+     * @return void
      */
     public function handle()
     {
