@@ -550,8 +550,18 @@ abstract class DocumentForm extends Base
             return $document->document_number;
         }
 
-        $document_number = $this->getNextDocumentNumber($type);
-        
+        $next = $type;
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $next = $alias . '.' . $type;
+        }
+
+        $document_number = $this->getNextDocumentNumber($next);
+
+        if (empty($document_number)) {
+            $document_number = $this->getNextDocumentNumber($type);
+        }
+
         if (empty($document_number)) {
             $document_number = $this->getNextDocumentNumber(Document::INVOICE_TYPE);
         }
