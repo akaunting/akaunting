@@ -266,10 +266,6 @@ class Version210 extends Listener
                 return true;
             }
 
-            if ($value === 'due_at' && in_array($table, ['estimates', 'credit_notes', 'debit_notes'])) {
-                return true;
-            }
-
             if ($value === 'parent_id' && in_array($table, ['estimates', 'credit_notes', 'debit_notes'])) {
                 return true;
             }
@@ -301,6 +297,19 @@ class Version210 extends Listener
                     case self::DEBIT_NOTE_TYPE:
                     case self::CREDIT_NOTE_TYPE:
                         return "issued_at as $column";
+                    default:
+                        return $column;
+                }
+            }
+
+            // due_at column should not be null so we need fill it for the modules that don't have due_at column.
+            if ($column === 'due_at') {
+                switch ($type) {
+                    case self::ESTIMATE_TYPE:
+                        return 'estimated_at';
+                    case self::DEBIT_NOTE_TYPE:
+                    case self::CREDIT_NOTE_TYPE:
+                        return 'issued_at';
                     default:
                         return $column;
                 }
