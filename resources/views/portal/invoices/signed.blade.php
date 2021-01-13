@@ -86,6 +86,7 @@
     <x-documents.show.document
         type="invoice"
         :document="$invoice"
+        document-template="{{ setting('invoice.template', 'default') }}"
     />
 @endsection
 
