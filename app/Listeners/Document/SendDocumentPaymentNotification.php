@@ -11,10 +11,14 @@ class SendDocumentPaymentNotification
      * Handle the event.
      *
      * @param  $event
-     * @return array
+     * @return void
      */
     public function handle(Event $event)
     {
+        if ($event->request['type'] !== 'income') {
+            return;
+        }
+
         $document = $event->document;
         $transaction = $document->transactions()->latest()->first();
 

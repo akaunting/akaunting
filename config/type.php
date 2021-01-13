@@ -24,6 +24,7 @@ return [
             'due_at' => 'invoices.due_date',
         ],
         'category_type' => 'income',
+        'transaction_type' => 'income',
         'contact_type' => 'customer', // use contact type
         'hide' => [], // for document items
         'class' => [],
@@ -47,6 +48,7 @@ return [
             'due_at'    => 'bills.due_date',
         ],
         'category_type' => 'expense',
+        'transaction_type' => 'expense',
         'contact_type' => 'vendor',
         'hide' => [],
     ],
