@@ -118,6 +118,11 @@ export default {
             default: 'sale',
             description: 'Show item price'
         },
+        price: {
+            type: String,
+            default: 'sale_price',
+            description: 'Show item price'
+        },
         items: {
             type: Array,
             default: () => [],
@@ -243,7 +248,7 @@ export default {
                         id: item.id,
                         name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
                         description: (item.description) ? item.description : '',
-                        price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
+                        price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
                         tax_ids: (item.tax_ids) ? item.tax_ids : [],
                     });
                 }, this);
@@ -274,7 +279,7 @@ export default {
                         id: item.id,
                         name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
                         description: (item.description) ? item.description : '',
-                        price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
+                        price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
                         tax_ids: (item.tax_ids) ? item.tax_ids : [],
                     });
                 }, this);
@@ -430,7 +435,7 @@ export default {
                         id: item.id,
                         name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
                         description: (item.description) ? item.description : '',
-                        price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
+                        price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
                         tax_ids: (item.tax_ids) ? item.tax_ids : [],
                     });
 
