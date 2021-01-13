@@ -11,6 +11,10 @@ trait Documents
 {
     public function getNextDocumentNumber(string $type): string
     {
+        if ($alias = config('type.' . $type . '.alias')) {
+            $type = $alias . '.' . str_replace('-', '_', $type);
+        }
+
         $prefix = setting("$type.number_prefix");
         $next = setting("$type.number_next");
         $digit = setting("$type.number_digit");
@@ -20,6 +24,10 @@ trait Documents
 
     public function increaseNextDocumentNumber(string $type): void
     {
+        if ($alias = config('type.' . $type . '.alias')) {
+            $type = $alias . '.' . str_replace('-', '_', $type);
+        }
+
         $next = setting("$type.number_next", 1) + 1;
 
         setting(["$type.number_next" => $next]);
