@@ -64,7 +64,7 @@
             route-button-email="{{ $routeButtonEmail }}"
             text-timeline-send-status-mail="{{ $textTimelineSendStatusMail }}"
             hide-button-share="{{ $hideButtonShare }}"
-            signed-url="{{ $signedUrl }}"
+            :signed-url="$signedUrl"
             hide-timeline-paid="{{ $hideTimelinePaid }}"
             text-timeline-get-paid-title="{{ $textTimelineGetPaidTitle }}"
             text-timeline-get-paid-status-await="{{ $textTimelineGetPaidStatusAwait }}"
