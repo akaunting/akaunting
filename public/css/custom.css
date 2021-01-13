@@ -1442,3 +1442,23 @@ table .align-items-center td span.badge {
 .item-columns-edit .btn-aka-link {
     color: #8688ad;
 }
+
+.apps-store-bar .el-input__inner {
+    padding-left: 20px !important;
+    border: 0 !important;
+}
+
+.apps-store-bar .searh-field {
+    border: 0 !important;
+}
+
+.apps-store-bar .vr {
+    border-left: 2px solid rgba(0, 0, 0, 0.05);
+    height: 50px;
+    position: absolute;
+    left: 16.8%;
+}
+
+.apps-store-bar .searh-field .btn.btn-link.clear {
+    display: none !important;
+}
