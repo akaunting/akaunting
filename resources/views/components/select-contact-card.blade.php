@@ -27,6 +27,7 @@
             ]
         ]
     ])}}"
+    :error="{{ $error }}"
 
     @change="onChangeContactCard"
 ></akaunting-contact-card>

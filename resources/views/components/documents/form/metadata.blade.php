@@ -8,6 +8,7 @@
                 :contacts="$contacts"
                 :search_route="$contactSearchRoute"
                 :create_route="$contactCreateRoute"
+                error="form.errors.get('contact_name')"
                 :text-add-contact="$textAddContact"
                 :text-create-new-contact="$textCreateNewContact"
                 :text-edit-contact="$textEditContact"

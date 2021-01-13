@@ -5,7 +5,7 @@
                 <div v-if="!show.contact_selected" class="document-contact-without-contact-box-contact-select fs-exclude">
                     <div class="aka-select aka-select--medium is-open" tabindex="0">
                         <div>
-                            <div class="aka-box aka-box--large">
+                            <div class="aka-box aka-box--large" :class="[{'aka-error': error}]">
                                 <div class="aka-box-content">
                                     <div class="document-contact-without-contact-box">
                                         <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn" @click="onContactList">
@@ -13,6 +13,10 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div v-if="error" class="invalid-feedback d-block mt--2 mb-2"
+                                v-html="error">
                             </div>
                         </div>
                         
@@ -162,6 +166,10 @@ export default {
             type: String,
             default: '',
             description: 'Contact create route'
+        },
+        error: {
+            type: String,
+            description: "Input error (below input)"
         },
         selected: {
             type: Object,
@@ -324,6 +332,7 @@ export default {
 
             this.show.contact_list = false;
             this.show.contact_selected = true;
+            this.error = '';
 
             this.$emit('change', this.contact);
         },
@@ -618,3 +627,10 @@ export default {
     },
 };
 </script>
+
+<style>
+    .aka-error {
+        border-color: #ef3232 !important;
+        background-color: #fb634038;
+    }
+</style>

@@ -35,13 +35,16 @@ class SelectContactCard extends Component
     /** @var string */
     public $textChooseDifferentContact;
 
+    /** @var $error  */
+    public $error;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct(
-        $type, $contact = false, $contacts = [], $search_route = '', $create_route = '',
+        $type, $contact = false, $contacts = [], $search_route = '', $create_route = '', string $error = '',
         $textAddContact = '', $textCreateNewContact = '', $textEditContact = '', $textContactInfo = '', $textChooseDifferentContact = ''
     )
     {
@@ -50,6 +53,7 @@ class SelectContactCard extends Component
         $this->contacts = $contacts;
         $this->search_route = $search_route;
         $this->create_route = $create_route;
+        $this->error = ($error) ?: "form.errors.get('contact_id')" ;
 
         $this->textAddContact = $this->getTextAddContact($type, $textAddContact);
         $this->textCreateNewContact = $this->getTextCreateNewContact($type, $textCreateNewContact);
