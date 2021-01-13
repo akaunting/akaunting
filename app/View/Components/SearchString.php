@@ -10,6 +10,7 @@ class SearchString extends Component
 {
     public $filters;
 
+    /** string */
     public $model;
 
     /**
@@ -17,9 +18,10 @@ class SearchString extends Component
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct(string $model = '', $filters = false)
     {
         $this->model = $model;
+        $this->filters = $filters;
     }
 
     /**
@@ -29,34 +31,36 @@ class SearchString extends Component
      */
     public function render()
     {
-        $search_string = config('search-string');
-
-        $this->filters = [];
-
-        if (!empty($search_string[$this->model])) {
-            $columns = $search_string[$this->model]['columns'];
-
-            foreach ($columns as $column => $options) {
-                // This column skip for filter
-                if (!empty($options['searchable'])) {
-                    continue;
+        if (empty($this->filters)) {
+            $search_string = config('search-string');
+    
+            $this->filters = [];
+    
+            if (!empty($search_string[$this->model])) {
+                $columns = $search_string[$this->model]['columns'];
+    
+                foreach ($columns as $column => $options) {
+                    // This column skip for filter
+                    if (!empty($options['searchable'])) {
+                        continue;
+                    }
+    
+                    if (!is_array($options)) {
+                        $column = $options;
+                    }
+    
+                    if (!$this->isFilter($column, $options)) {
+                        continue;
+                    }
+    
+                    $this->filters[] = [
+                        'key' => $this->getFilterKey($column, $options),
+                        'value' => $this->getFilterName($column, $options),
+                        'type' => $this->getFilterType($options),
+                        'url' => $this->getFilterUrl($column, $options),
+                        'values' => $this->getFilterValues($column, $options),
+                    ];
                 }
-
-                if (!is_array($options)) {
-                    $column = $options;
-                }
-
-                if (!$this->isFilter($column, $options)) {
-                    continue;
-                }
-
-                $this->filters[] = [
-                    'key' => $this->getFilterKey($column, $options),
-                    'value' => $this->getFilterName($column, $options),
-                    'type' => $this->getFilterType($options),
-                    'url' => $this->getFilterUrl($column, $options),
-                    'values' => $this->getFilterValues($column, $options),
-                ];
             }
         }
 

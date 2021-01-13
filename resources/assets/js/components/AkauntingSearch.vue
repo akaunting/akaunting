@@ -307,6 +307,10 @@ export default {
         if (this.filter_list[i].key == value) {
           option = this.filter_list[i].value;
 
+          if (this.filter_list[i].values !== 'undefined' && Object.keys(this.filter_list[i].values).length) {
+            this.option_values[value] = this.convertOption(this.filter_list[i].values);
+          }
+
           if (typeof this.filter_list[i].url !== 'undefined' && this.filter_list[i].url) {
             option_url = this.filter_list[i].url;
           }
@@ -482,6 +486,29 @@ export default {
       this.onInputConfirm();
     },
 
+    convertOption (options) {
+      let values = [];
+
+      // Option set sort_option data
+      if (!Array.isArray(options)) {
+          for (const [key, value] of Object.entries(options)) {
+              values.push({
+                  key: (key).toString(),
+                  value: (value).toString()
+              });
+          }
+      } else {
+          options.forEach(function (option, index) {
+              values.push({
+                  key: (option.key).toString(),
+                  value: (option.value).toString()
+              });
+          }, this);
+      }
+
+      return values;
+    },
+
     closeIfClickedOutside(event) {
       if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link') {
           this.visible.options = false;
@@ -519,11 +546,13 @@ export default {
           let value = '';
 
           this.filter_list.forEach(function (_filter, i) {
+            let filter_values = this.convertOption(_filter.values);
+
             if (_filter.key == filter[0]) {
               option = _filter.value;
               operator = _filter.operator;
 
-              _filter.values.forEach(function (_value) {
+              filter_values.forEach(function (_value) {
                 if (_value.key == filter[1]) {
                   value = _value.value;
                 }
@@ -545,9 +574,9 @@ export default {
 
               this.filter_list.splice(i, 1);
 
-              this.option_values[_filter.key] = _filter.values;
+              this.option_values[_filter.key] = filter_values;
 
-              _filter.values.forEach(function (value, j) {
+              filter_values.forEach(function (value, j) {
                 if (value.key == filter[1]) {
                   this.selected_values.push(value);
 

@@ -3,18 +3,56 @@
         'method' => 'GET',
         'route' => ['reports.show', $class->model->id],
         'role' => 'form',
+        'class' => 'mb-0'
     ]) !!}
+        @php
+            $filters = [];
 
-        <div id="items" class="float-left">
-            @if(isset($class->filters['years']))
-            {!! Form::select('year', $class->filters['years'], request('year', $class->year), ['class' => 'form-control form-control-sm d-inline-block w-auto']) !!}
-            @php unset($class->filters['years']) @endphp
-            @endif
-            @foreach($class->filters as $name => $values)
-                {!! Form::select($name . '[]', $values, request($name), ['id' => 'filter-' . $name, 'class' => 'form-control form-control-sm d-inline-block w-auto']) !!}
-            @endforeach
-            {!! Form::button(trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-secondary']) !!}
+            foreach ($class->filters as $filter_name => $filter_values) {
+                $key = $filter_name;
+
+                if (isset($class->filters['keys']) && !empty($class->filters['keys'][$filter_name])) {
+                    $key = $class->filters['keys'][$filter_name];
+                } else if ($key == 'years') {
+                    $key = 'year';
+                } else {
+                    $key = Str::singular($key) . '_id';
+                }
+
+                $value = '';
+
+                if (isset($class->filters['names']) && !empty($class->filters['names'][$filter_name])) {
+                    $value = $class->filters['names'][$filter_name];
+                } else if (trans('reports.' . $filter_name) != 'reports.' . $filter_name) {
+                    $value = (strpos(trans('reports.' . $filter_name), '|') !== false) ? trans_choice('reports.' . $filter_name, 2) : trans('reports.' . $filter_name);
+                } else {
+                    $value = (strpos(trans('general.' . $filter_name), '|') !== false) ? trans_choice('general.' . $filter_name, 2) : trans('general.' . $filter_name);
+                }
+
+                $type = 'select';
+
+                if (isset($class->filters['types']) && !empty($class->filters['types'][$filter_name])) {
+                    $type = $class->filters['types'][$filter_name];
+                }
+
+                $url = '';
+
+                if (isset($class->filters['urls']) && !empty($class->filters['urls'][$filter_name])) {
+                    $url = $class->filters['urls'][$filter_name];
+                }
+
+                $filters[] = [
+                    'key' => $key,
+                    'value' => $value,
+                    'type' => $type,
+                    'url' => $url,
+                    'values' => $filter_values,
+                ];
+            }
+        @endphp
+
+        <div class="align-items-center">
+            <x-search-string :filters="$filters" />
         </div>
-
     {!! Form::close() !!}
 </div>
