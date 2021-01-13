@@ -5,9 +5,6 @@
 
     @stack('scripts_start')
 
-    <script src="{{ asset('public/0.js?v=' . version('short')) }}"></script>
-    <script src="{{ asset('public/1.js?v=' . version('short')) }}"></script>
-
     <script src="{{ asset('public/js/common/search.js?v=' . version('short')) }}"></script>
 
     @stack('charts')

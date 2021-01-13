@@ -14,6 +14,15 @@ const mix = require('laravel-mix');
 //mix.js('resources/assets/js/views/**/*.js', 'public/js')
 
 mix
+    .setPublicPath('public/js')
+    .webpackConfig({
+        output: {
+            publicPath: 'public/js/',
+            filename: '[name].js',
+            chunkFilename: '[name].js',
+        },
+    })
+
     // Auth
     .js('resources/assets/js/views/auth/forgot.js', 'public/js/auth')
     .js('resources/assets/js/views/auth/login.js', 'public/js/auth')
