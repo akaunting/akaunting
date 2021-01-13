@@ -11,7 +11,7 @@ class BillTransactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'document')->bill()->isDocument()->usingSearchString(request('search'));
+        $model = Model::with('account', 'category', 'contact', 'document')->expense()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);
