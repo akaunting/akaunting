@@ -131,7 +131,8 @@ class Document extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\Banking\Transaction', 'document_id')->where('type', 'income');
+        return $this->hasMany('App\Models\Banking\Transaction', 'document_id')
+                    ->where('type', config('type.' . $this->type . '.transaction_type'));
     }
 
     public function totals_sorted()
