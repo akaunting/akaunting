@@ -24,9 +24,9 @@
                 if (isset($class->filters['names']) && !empty($class->filters['names'][$filter_name])) {
                     $value = $class->filters['names'][$filter_name];
                 } else if (trans('reports.' . $filter_name) != 'reports.' . $filter_name) {
-                    $value = (strpos(trans('reports.' . $filter_name), '|') !== false) ? trans_choice('reports.' . $filter_name, 2) : trans('reports.' . $filter_name);
+                    $value = (strpos(trans('reports.' . $filter_name), '|') !== false) ? trans_choice('reports.' . $filter_name, 1) : trans('reports.' . $filter_name);
                 } else {
-                    $value = (strpos(trans('general.' . $filter_name), '|') !== false) ? trans_choice('general.' . $filter_name, 2) : trans('general.' . $filter_name);
+                    $value = (strpos(trans('general.' . $filter_name), '|') !== false) ? trans_choice('general.' . $filter_name, 1) : trans('general.' . $filter_name);
                 }
 
                 $type = 'select';
