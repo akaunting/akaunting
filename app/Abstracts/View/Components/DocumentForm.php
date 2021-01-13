@@ -532,7 +532,7 @@ abstract class DocumentForm extends Base
         $issued_at = $type . '_at';
 
         if (request()->has($issued_at)) {
-            $issuedAt = request()->get($issued_at); 
+            $issuedAt = request()->get($issued_at);
         } else {
             $issuedAt = request()->get('invoiced_at', Date::now()->toDateString());
         }
@@ -553,7 +553,7 @@ abstract class DocumentForm extends Base
         $next = $type;
 
         if ($alias = config('type.' . $type . '.alias')) {
-            $next = $alias . '.' . $type;
+            $next = $alias . '.' . str_replace('-', '_', $type);
         }
 
         $document_number = $this->getNextDocumentNumber($next);
@@ -578,7 +578,7 @@ abstract class DocumentForm extends Base
         if ($document) {
             return $document->due_at;
         }
-        
+
         $addDays = (setting($type . '.payment_terms', 0)) ? setting($type . '.payment_terms', 0) : setting('invoice.payment_terms', 0);
 
         switch ($type) {
