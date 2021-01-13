@@ -15,6 +15,8 @@
                     $key = $class->filters['keys'][$filter_name];
                 } else if ($key == 'years') {
                     $key = 'year';
+                } else if ($key == 'customers' || $key == 'vendors') {
+                    $key = 'contact_id';
                 } else {
                     $key = Str::singular($key) . '_id';
                 }
