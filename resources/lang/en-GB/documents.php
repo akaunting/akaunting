@@ -35,11 +35,11 @@ return [
         'delivered'     => 'Delivered',
         'returned'      => 'Returned',
         'drawn'         => 'Drawn',
-        'not_billed'    => 'Not billed',
+        'not_billed'    => 'Not Billed',
         'issued'        => 'Issued',
-        'not_invoiced'  => 'Not invoiced',
+        'not_invoiced'  => 'Not Invoiced',
         'confirmed'     => 'Confirmed',
-        'not_confirmed' => 'Not confirmed',
+        'not_confirmed' => 'Not Confirmed',
     ],
 
     'messages' => [
