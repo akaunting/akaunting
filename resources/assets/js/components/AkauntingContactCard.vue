@@ -629,7 +629,7 @@ export default {
 </script>
 
 <style>
-    .aka-error {
+    .aka-error, .aka-error:hover {
         border-color: #ef3232 !important;
         background-color: #fb634038;
     }

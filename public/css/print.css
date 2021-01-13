@@ -482,3 +482,9 @@ th, td
 }
 /*--Print Reports Finish--*/
 
+.lines .empty-items:hover,
+.c-lines .empty-items:hover,
+.m-lines .empty-items:hover {
+    background-color: #f6f9fc;
+    text-decoration: none;
+}

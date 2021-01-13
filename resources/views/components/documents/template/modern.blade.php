@@ -174,20 +174,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($document->items as $item)
-                        <x-documents.template.line-item
-                            type="{{ $type }}"
-                            :item="$item"
-                            :document="$document"
-                            hide-items="{{ $hideItems }}"
-                            hide-name="{{ $hideName }}"
-                            hide-description="{{ $hideDescription }}"
-                            hide-quantity="{{ $hideQuantity }}"
-                            hide-price="{{ $hidePrice }}"
-                            hide-discount="{{ $hideDiscount }}"
-                            hide-amount="{{ $hideAmount }}"
-                        />
-                    @endforeach
+                    @if ($document->items->count())
+                        @foreach($document->items as $item)
+                            <x-documents.template.line-item
+                                type="{{ $type }}"
+                                :item="$item"
+                                :document="$document"
+                                hide-items="{{ $hideItems }}"
+                                hide-name="{{ $hideName }}"
+                                hide-description="{{ $hideDescription }}"
+                                hide-quantity="{{ $hideQuantity }}"
+                                hide-price="{{ $hidePrice }}"
+                                hide-discount="{{ $hideDiscount }}"
+                                hide-amount="{{ $hideAmount }}"
+                            />
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center empty-items">
+                                {{ trans('documents.empty_items') }}
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
