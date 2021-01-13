@@ -293,7 +293,13 @@ abstract class DocumentIndex extends Base
             return $page;
         }
 
-        return config('type.' . $type . '.route.prefix', 'invoices');
+        $page = config('type.' . $type . '.route.prefix', 'invoices');
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $page = $alias . '.' . $page;
+        }
+
+        return $page;
     }
 
     protected function getDocsPath($type, $docsPath)
@@ -309,15 +315,13 @@ abstract class DocumentIndex extends Base
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $docsPath = 'sales/invoices';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $docsPath = 'purchases/bills';
+                break;
+            default:
+                $docsPath = 'sales/invoices';
                 break;
         }
 
