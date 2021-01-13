@@ -18,7 +18,9 @@
                     <div class="vr d-none d-sm-block"></div>
                     <div class="col-xs-12 col-sm-7">
                         {!! Form::open(['route' => 'apps.search', 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
-                            <x-search-string model="" />
+                            <div class="searh-field tags-input__wrapper">
+                                <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-100" placeholder="{{ trans('general.search_placeholder') }}" autocomplete="off">
+                            </div>
                         {!! Form::close() !!}
                     </div>
                     <div class="col-xs-12 col-sm-3 text-center">
