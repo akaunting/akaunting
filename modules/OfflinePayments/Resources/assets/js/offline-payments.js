@@ -36,7 +36,7 @@ const app = new Vue({
 
             this.form.loading = true;
 
-            axios.post('settings/get', {
+            axios.post('offline-payments/settings/get', {
                 code: code
             })
             .then(response => {
@@ -84,7 +84,7 @@ const app = new Vue({
                        async onDelete() {
                             let promise = Promise.resolve(axios({
                                 method: 'DELETE',
-                                url: 'settings/delete',
+                                url: 'offline-payments/settings/delete',
                                 data: {
                                     code: this.confirm.code
                                 }
@@ -99,7 +99,6 @@ const app = new Vue({
                                     }
                 
                                     document.getElementById('method-' + this.confirm.code).remove();
-
                                 }
 
                                 this.confirm.show = false;
