@@ -15,10 +15,16 @@ abstract class DocumentIndex extends Base
     public $documents;
 
     /** @var string */
-    public $page;
+    public $imageEmptyPage;
 
     /** @var string */
-    public $docsPath;
+    public $textEmptyPage;
+
+    /** @var string */
+    public $textPage;
+
+    /** @var string */
+    public $urlDocsPath;
 
     /** @var bool */
     public $checkPermissionCreate;
@@ -188,7 +194,8 @@ abstract class DocumentIndex extends Base
      * @return void
      */
     public function __construct(
-        string $type, $documents = [], string $page = '', string $docsPath = '', $limits = [], $hideEmptyPage = false,
+        string $type, $documents = [], $limits = [], 
+        string $imageEmptyPage = '', string $textEmptyPage = '', string $textPage = '', string $urlDocsPath = '', $hideEmptyPage = false,
         bool $checkPermissionCreate = true, string $createRoute = '', string $importRoute = '', array $importRouteParameters = [], string $exportRoute = '',
         bool $hideCreate = false, bool $hideImport = false, bool $hideExport = false, // Advanced
         string $textBulkAction = '', array $bulkActions = [], string $bulkActionClass = '', array $bulkActionRouteParameters = [], string $formCardHeaderRoute = '', string $searchStringModel = '',
@@ -203,8 +210,10 @@ abstract class DocumentIndex extends Base
     ) {
         $this->type = $type;
         $this->documents = $documents;
-        $this->page = $this->getPage($type, $page);
-        $this->docsPath = $this->getDocsPath($type, $docsPath);
+        $this->imageEmptyPage = $this->getImageEmptyPage($type, $imageEmptyPage);
+        $this->textEmptyPage = $this->getTextEmptyPage($type, $textEmptyPage);
+        $this->textPage = $this->getTextPage($type, $textPage);
+        $this->urlDocsPath = $this->getUrlDocsPath($type, $urlDocsPath);
         $this->hideEmptyPage = $hideEmptyPage;
 
         /* -- Top Buttons Start -- */
@@ -287,25 +296,49 @@ abstract class DocumentIndex extends Base
         $this->limits = ($limits) ? $limits : ['10' => '10', '25' => '25', '50' => '50', '100' => '100'];
     }
 
-    protected function getPage($type, $page)
+    protected function getImageEmptyPage($type, $imageEmptyPage)
     {
-        if (!empty($page)) {
-            return $page;
+        if (!empty($imageEmptyPage)) {
+            return $imageEmptyPage;
         }
 
-        $page = config('type.' . $type . '.route.prefix', 'invoices');
+        $image_empty_page = config('type.' . $type . '.image_empty_page');
+
+        if (!empty($image_empty_page)) {
+            return $image_empty_page;
+        }
+
+        $page = str_replace('-', '_', config('type.' . $type . '.route.prefix', 'invoices'));
+        $image_path = 'public/img/empty_pages/' . $page . '.png';
 
         if ($alias = config('type.' . $type . '.alias')) {
-            $page = $alias . '.' . $page;
+            $image_path = 'modules/' . Str::studly($alias) . '/Resources/assets/img/empty_pages/' . $page . '.png';
         }
 
-        return $page;
+        return $image_path;
     }
 
-    protected function getDocsPath($type, $docsPath)
+    protected function getTextEmptyPage($type, $textEmptyPage)
     {
-        if (!empty($docsPath)) {
-            return $docsPath;
+        if (!empty($textEmptyPage)) {
+            return $textEmptyPage;
+        }
+
+        $page = str_replace('-', '_', config('type.' . $type . '.route.prefix', 'invoices'));
+
+        $translation = $this->getTextFromConfig($type, 'empty_page', 'empty.' . $page);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.empty.' . $page;
+    }
+
+    protected function getUrlDocsPath($type, $urlDocsPath)
+    {
+        if (!empty($urlDocsPath)) {
+            return $urlDocsPath;
         }
 
         $docs_path = config('type.' . $type . '.docs_path');
@@ -325,7 +358,24 @@ abstract class DocumentIndex extends Base
                 break;
         }
 
-        return $docsPath;
+        return 'https://akaunting.com/docs/user-manual/' . $docsPath;
+    }
+
+    protected function getTextPage($type, $textPage)
+    {
+        if (!empty($textPage)) {
+            return $textPage;
+        }
+
+        $page = str_replace('-', '_', config('type.' . $type . '.route.prefix', 'invoices'));
+
+        $translation = $this->getTextFromConfig($type, 'page', $page);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.' . $page;
     }
 
     protected function getCreateRoute($type, $createRoute)

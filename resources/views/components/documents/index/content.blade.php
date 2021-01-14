@@ -61,7 +61,9 @@
 @else
     <x-documents.index.empty-page
         type="{{ $type }}"
-        page="{{ $page }}"
-        docs-path="{{ $docsPath }}"
+        image-empty-page="{{ $imageEmptyPage }}"
+        text-empty-page="{{ $textEmptyPage }}"
+        url-docs-path="{{ $urlDocsPath }}"
+        create-route="{{ $createRoute }}"
     />
 @endif
