@@ -141,7 +141,9 @@ const app = new Vue({
 
             this.form.payment_action = payment_method;
 
-            let payment_action = payment_action_path[payment_method];
+            let method = payment_method.split('.');
+
+            let payment_action = payment_action_path[method[0]];
 
             this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                 resolve({
@@ -149,7 +151,11 @@ const app = new Vue({
                 })
             });
 
-            axios.get(payment_action)
+            axios.get(payment_action, {
+                params: {
+                    payment_method: payment_method
+                }
+            })
             .then(response => {
                 this.method_show_html = '';
 
