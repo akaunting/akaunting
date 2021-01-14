@@ -13,7 +13,7 @@ class InvoiceTransactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'document')->invoice()->isDocument()->usingSearchString(request('search'));
+        $model = Model::with('account', 'category', 'contact', 'document')->income()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);
