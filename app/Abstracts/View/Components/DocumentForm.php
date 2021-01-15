@@ -390,6 +390,10 @@ abstract class DocumentForm extends Base
             $contact = $document->contact;
         }
 
+        if (request()->old('contact', false)) {
+            $contact = request()->old('contact');
+        }
+
         return $contact;
     }
 
