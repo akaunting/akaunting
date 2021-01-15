@@ -42,11 +42,12 @@ class FinishUpdate extends Job
         if ($this->alias == 'core') {
             $companies = [$this->company_id];
         } else {
+            // Get company list from modules table
             $companies = Module::alias($this->alias)->allCompanies()->cursor();
         }
 
         foreach ($companies as $company) {
-            $company_id = is_object($company) ? $company->id : $company;
+            $company_id = is_object($company) ? $company->company_id : $company;
 
             $command = "update:finish {$this->alias} {$company_id} {$this->new} {$this->old}";
 
