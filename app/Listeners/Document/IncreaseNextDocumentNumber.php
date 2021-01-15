@@ -17,7 +17,7 @@ class IncreaseNextDocumentNumber
      */
     public function handle(Event $event)
     {
-        // Update next invoice number
+        // Update next document number
         $this->increaseNextDocumentNumber($event->document->type);
     }
 }
