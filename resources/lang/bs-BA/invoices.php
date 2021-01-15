@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Kako biti plaćen',
     'accept_payments'       => 'Prihvatite online plaćanja',
 
-    'statuses' => [
-        'draft'             => 'Skica',
-        'sent'              => 'Poslano',
-        'viewed'            => 'Pregledano',
-        'approved'          => 'Odobreno',
-        'partial'           => 'Djelomično',
-        'paid'              => 'Plaćeno',
-        'overdue'           => 'Dospjelo',
-        'unpaid'            => 'Neplaćeno',
-        'cancelled'         => 'Otkazano',
-    ],
-
     'messages' => [
         'email_required'    => 'Nema e-mail adrese za ovog kupca!',
         'draft'             => 'This is a <b>SKICA</b> invoice and will be reflected to charts after it gets sent.',

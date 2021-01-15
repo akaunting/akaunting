@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Menerima Tagihan',
     'make_payment'          => 'Melakukan Pembayaran',
 
-    'statuses' => [
-        'draft'             => 'Konsep',
-        'received'          => 'Diterima',
-        'partial'           => 'Sebagian',
-        'paid'              => 'Dibayar',
-        'overdue'           => 'Jatuh Tempo',
-        'unpaid'            => 'Belum Dibayar',
-        'cancelled'         => 'Dibatalkan',
-    ],
-
     'messages' => [
         'draft'             => 'Ini adalah <b>DRAFT</b> tagihan dan akan terlihat di grafik setelah dibayarkan.',
 

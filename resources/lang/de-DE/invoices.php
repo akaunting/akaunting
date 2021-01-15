@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Zahlung erhalten',
     'accept_payments'       => 'Onlinezahlungen akzeptieren',
 
-    'statuses' => [
-        'draft'             => 'Entwurf',
-        'sent'              => 'Versandt',
-        'viewed'            => 'Gelesen',
-        'approved'          => 'Freigegeben',
-        'partial'           => 'Teilweise',
-        'paid'              => 'Bezahlt',
-        'overdue'           => 'Überfällig',
-        'unpaid'            => 'Unbezahlt',
-        'cancelled'         => 'Storniert',
-    ],
-
     'messages' => [
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
         'draft'             => 'Dies ist eine <b>Vorschau</b>-Rechnung und wird nach dem Versand in den Charts ersichtlich.',

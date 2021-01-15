@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Être payé',
     'accept_payments'       => 'Accepter les paiements en ligne',
 
-    'statuses' => [
-        'draft'             => 'Brouillon',
-        'sent'              => 'Envoyée',
-        'viewed'            => 'Vu',
-        'approved'          => 'Approuvée',
-        'partial'           => 'Partiel',
-        'paid'              => 'Payé',
-        'overdue'           => 'En retard',
-        'unpaid'            => 'Non payé',
-        'cancelled'         => 'Annulé',
-    ],
-
     'messages' => [
         'email_required'    => 'Ce client ne possède pas d\'email !',
         'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisé dans les graphiques après reception.',

@@ -62,12 +62,21 @@ return [
         'default'           => 'Privzeto',
         'classic'           => 'Klasično',
         'modern'            => 'Sodobno',
+        'hide'              => [
+            'item_name'         => 'Skrij ime',
+            'item_description'  => 'Skrij opis',
+            'quantity'          => 'Skrij količino',
+            'price'             => 'Skrij ceno',
+            'amount'            => 'Skrij znesek',
+        ],
     ],
 
     'default' => [
         'description'       => 'Privzeti račun, valuta in jezik podjetja',
         'list_limit'        => 'Rezultatov na stran',
         'use_gravatar'      => 'Uporabi Gravatar',
+        'income_category'   => 'Kategorija prihodkov',
+        'expense_category'  => 'Stroški po kategorijah',
     ],
 
     'email' => [

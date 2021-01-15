@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Primi račun',
     'make_payment'          => 'Napravite plaćanja',
 
-    'statuses' => [
-        'draft'             => 'Skica',
-        'received'          => 'Primljeno',
-        'partial'           => 'Delimično',
-        'paid'              => 'Plaćeno',
-        'overdue'           => 'Dospelo',
-        'unpaid'            => 'Nije plaćeno',
-        'cancelled'         => 'Otkazano',
-    ],
-
     'messages' => [
         'draft'             => 'Ovo je <b>SKICA</b> računa koji će se odraziti na grafikone nakon prijema.',
 

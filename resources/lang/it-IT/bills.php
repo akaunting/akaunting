@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Ricevere Bolletta',
     'make_payment'          => 'Fare un pagamento',
 
-    'statuses' => [
-        'draft'             => 'Bozza',
-        'received'          => 'Ricevuto',
-        'partial'           => 'Parziale',
-        'paid'              => 'Pagato',
-        'overdue'           => 'In Ritardo',
-        'unpaid'            => 'Non pagato',
-        'cancelled'         => 'Cancellato',
-    ],
-
     'messages' => [
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà ricevuta.',
 

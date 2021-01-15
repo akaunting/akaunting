@@ -62,12 +62,21 @@ return [
         'default'           => 'پیشفرض',
         'classic'           => 'کلاسیک',
         'modern'            => 'مدرن',
+        'hide'              => [
+            'item_name'         => 'پنهان کردن نام مورد',
+            'item_description'  => 'پنهان کردن توضیحات مورد',
+            'quantity'          => 'پنهان کردن تعداد',
+            'price'             => 'پنهان کردن قیمت',
+            'amount'            => 'پنهان کردن مقدار',
+        ],
     ],
 
     'default' => [
         'description'       => 'حساب پیش فرض، واحد پول و زبان شرکت شما',
         'list_limit'        => 'تعداد رکورد ها در هر صفحه',
         'use_gravatar'      => 'استفاده از آواتار شناخته شده جهانی',
+        'income_category'   => 'دسته درآمد',
+        'expense_category'  => 'دسته هزینه',
     ],
 
     'email' => [

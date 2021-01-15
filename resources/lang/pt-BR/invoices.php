@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Pagar',
     'accept_payments'       => 'Aceitar Pagamentos Online',
 
-    'statuses' => [
-        'draft'             => 'Rascunho',
-        'sent'              => 'Enviado',
-        'viewed'            => 'Visualizado',
-        'approved'          => 'Aprovado',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pago',
-        'overdue'           => 'Vencido',
-        'unpaid'            => 'Não Pago',
-        'cancelled'         => 'Cancelado',
-    ],
-
     'messages' => [
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
         'draft'             => 'Isto é um <b>RASCUNHO</b> da fatura e será refletida nos gráficos depois de enviada.',

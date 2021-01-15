@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Telah dibayar',
     'accept_payments'       => 'Menerima pembayaran online',
 
-    'statuses' => [
-        'draft'             => 'Konsep',
-        'sent'              => 'Terkirim',
-        'viewed'            => 'Dilihat',
-        'approved'          => 'Disetujui',
-        'partial'           => 'Sebagian',
-        'paid'              => 'Dibayar',
-        'overdue'           => 'Jatuh Tempo',
-        'unpaid'            => 'Belum Dibayar',
-        'cancelled'         => 'Dibatalkan',
-    ],
-
     'messages' => [
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
         'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',

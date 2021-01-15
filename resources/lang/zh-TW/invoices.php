@@ -40,18 +40,6 @@ return [
     'get_paid'              => '獲得報酬',
     'accept_payments'       => '接受線上付款',
 
-    'statuses' => [
-        'draft'             => '草稿',
-        'sent'              => '已發送',
-        'viewed'            => '已閲',
-        'approved'          => '已核准',
-        'partial'           => '部分',
-        'paid'              => '已付',
-        'overdue'           => '逾期',
-        'unpaid'            => '未付',
-        'cancelled'         => '已撤銷',
-    ],
-
     'messages' => [
         'email_required'    => '此客戶沒有電子郵件地址！',
         'draft'             => '這是 <b>草稿</b> 發票, 在簽收後將反映在圖表上。',
