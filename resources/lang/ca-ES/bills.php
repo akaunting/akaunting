@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Recepció de factura',
     'make_payment'          => 'Pagament',
 
-    'statuses' => [
-        'draft'             => 'Esborrany',
-        'received'          => 'Rebuda',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pagada',
-        'overdue'           => 'Vençuda',
-        'unpaid'            => 'Pendent de pagament',
-        'cancelled'         => 'Cancel·lada',
-    ],
-
     'messages' => [
         'draft'             => 'Això és un <b>ESBORRANT</b> de factura. Els canvis es veuran als gràfics un cop sigui marcada com a rebuda.',
 

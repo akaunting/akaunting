@@ -10,6 +10,9 @@ return [
         'billed_at'         => 'Rechnungsdatum',
         'due_at'            => 'Fälligkeitsdatum',
         'invoiced_at'       => 'Rechnungsdatum',
+        'issued_at'         => 'Ausstellungsdatum',
+        'symbol_first'      => 'Symbolposition',
+        'reconciled'        => 'Abgeglichen',
     ],
 
 ];

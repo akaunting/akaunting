@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Merre Pagesen',
     'accept_payments'       => 'Pranoni Pagesat Online',
 
-    'statuses' => [
-        'draft'             => 'Draft',
-        'sent'              => 'E Dërguar',
-        'viewed'            => 'E Shikuar',
-        'approved'          => 'I Miratuar',
-        'partial'           => 'I pjesshëm',
-        'paid'              => 'I paguar',
-        'overdue'           => 'I vonuar',
-        'unpaid'            => 'I papaguar',
-        'cancelled'         => 'Anuluar',
-    ],
-
     'messages' => [
         'email_required'    => 'Ska adresë e-mail për këtë klient!',
         'draft'             => 'Kjo është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pasi të jetë dërguar.',

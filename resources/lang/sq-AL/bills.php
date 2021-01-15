@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Merre Faturën',
     'make_payment'          => 'Bëj Pagesën',
 
-    'statuses' => [
-        'draft'             => 'Draft',
-        'received'          => 'Marrë',
-        'partial'           => 'I pjesshëm',
-        'paid'              => 'I paguar',
-        'overdue'           => 'I vonuar',
-        'unpaid'            => 'I papaguar',
-        'cancelled'         => 'Anuluar',
-    ],
-
     'messages' => [
         'draft'             => 'Ky është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pas marrjes së tij.',
 

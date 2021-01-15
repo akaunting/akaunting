@@ -104,7 +104,10 @@ return [
     'from'                  => 'Od',
     'to'                    => 'Za',
     'print'                 => 'Natisni',
+    'download_pdf'          => 'Prenesi PDF',
+    'customize'             => 'Prilagodi',
     'search'                => 'Išči',
+    'search_text'           => 'Išči to besedilo',
     'search_placeholder'    => 'Iskanje..',
     'filter'                => 'Filtriraj',
     'help'                  => 'Pomoč',
@@ -152,6 +155,12 @@ return [
     'no_matching_data'      => 'Ni ujemajočih podatkov',
     'clear_cache'           => 'Počisti predpomnilnik',
     'go_to_dashboard'       => 'Dodaj na nadzorno ploščo',
+    'is'                    => 'je',
+    'isnot'                 => 'ni', 
+    'recurring_and_more'    => 'Ponovljivi računi in več',
+    'due_on'                => 'Zapade',
+    'amount_due'            => '
+Dolgovani znesek',
 
     'card' => [
         'name'                  => 'Ime na kartici',
@@ -177,8 +186,21 @@ return [
             'field'         => '- Izberi :field -',
             'file'          => 'Izberi datoteko',
         ],
+        'add'               => 'Dodaj :field',
+        'add_an'            => 'Dodaj :field',
         'add_new'           => 'Dodajanje novega :field',
+        'edit'              => 'Uredi :field',
+        'contact_edit'      => 'Uredi :contact_name :field',
+        'choose'            => 'Izberi :field',
+        'choose_different'  => 'Izberi drugačen :field',
         'no_file_selected'  => 'Nobena datoteka ni izbrana...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Vpiši za iskanje...',
+        'search_and_filter' => 'Išči ali filtriraj rezultate...',
+        'contact_search'    => 'Vpiši ime :type',
+        'item_search'       => 'Vnesite ime predmeta',
     ],
 
     'date_range' => [

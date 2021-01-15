@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Betaling afstemmen',
     'accept_payments'       => 'Online betalingen accepteren',
 
-    'statuses' => [
-        'draft'             => 'Concept',
-        'sent'              => 'Verzonden',
-        'viewed'            => 'Bekeken',
-        'approved'          => 'Goedgekeurd',
-        'partial'           => 'Gedeeltelijk',
-        'paid'              => 'Betaald',
-        'overdue'           => 'Vervallen',
-        'unpaid'            => 'Onbetaald',
-        'cancelled'         => 'Geannuleerd',
-    ],
-
     'messages' => [
         'email_required'    => 'Er is geen e-mailadres bekend van deze klant!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',

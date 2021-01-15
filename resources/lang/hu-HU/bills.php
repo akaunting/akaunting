@@ -40,16 +40,6 @@ Számla létrehozása',
     'receive_bill'          => 'Kapott számla',
     'make_payment'          => 'Fizetettnek jelöl',
 
-    'statuses' => [
-        'draft'             => 'Piszkozat',
-        'received'          => 'Kapott',
-        'partial'           => 'Részlegesen',
-        'paid'              => 'Fizetve',
-        'overdue'           => 'Lejárt',
-        'unpaid'            => 'Kifizetetlen',
-        'cancelled'         => 'Megszakítva',
-    ],
-
     'messages' => [
         'draft'             => 'Ez egy <b> DRAFT </b> számla, és az elküldés után megjelenik a diagramokban.',
 

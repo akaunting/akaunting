@@ -38,16 +38,6 @@ return [
     'receive_bill'          => '請求書を受け取る',
     'make_payment'          => '支払う',
 
-    'statuses' => [
-        'draft'             => 'ドラフト',
-        'received'          => '受け取った',
-        'partial'           => '部分的',
-        'paid'              => '支払済み',
-        'overdue'           => '遅れた',
-        'unpaid'            => '未払い',
-        'cancelled'         => 'キャンセル',
-    ],
-
     'messages' => [
         'draft'             => 'これは<b>ドラフト</b>請求書で、受け取り後にチャートに反映されます。',
 

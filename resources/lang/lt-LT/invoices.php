@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Gauti apmokėjimą',
     'accept_payments'       => 'Priimti atsiskaitymus internetu',
 
-    'statuses' => [
-        'draft'             => 'Juodraštis',
-        'sent'              => 'Išsiųsta',
-        'viewed'            => 'Peržiūrėta',
-        'approved'          => 'Patvirtinta',
-        'partial'           => 'Dalinis',
-        'paid'              => 'Apmokėta',
-        'overdue'           => 'Vėluojanti',
-        'unpaid'            => 'Neapmokėta',
-        'cancelled'         => 'Atšaukta',
-    ],
-
     'messages' => [
         'email_required'    => 'Klientas neturi el. pašto!',
         'draft'             => 'Tai yra <b>JUODRAŠTINĖ</b> sąskaita ir ji bus įtraukta į grafikus po to kai bus išsiųsta.',

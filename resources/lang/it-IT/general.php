@@ -104,7 +104,10 @@ return [
     'from'                  => 'Da',
     'to'                    => 'A',
     'print'                 => 'Stampa',
+    'download_pdf'          => 'Scarica PDF',
+    'customize'             => 'Personalizza',
     'search'                => 'Cerca',
+    'search_text'           => 'Cerca questo testo',
     'search_placeholder'    => 'Tipo da ricercare...',
     'filter'                => 'Filtro',
     'help'                  => 'Aiuto',
@@ -152,6 +155,11 @@ return [
     'no_matching_data'      => 'Nessun dato corrispondente',
     'clear_cache'           => 'Svuota Cache',
     'go_to_dashboard'       => 'Vai alla dashboard',
+    'is'                    => 'è',
+    'isnot'                 => 'non è', 
+    'recurring_and_more'    => 'Ricorrenza e altro..',
+    'due_on'                => 'Scade il',
+    'amount_due'            => 'Importo dovuto',
 
     'card' => [
         'name'                  => 'Nome sulla carta',
@@ -177,8 +185,21 @@ return [
             'field'         => '-Seleziona :field -',
             'file'          => 'Seleziona File',
         ],
+        'add'               => 'Aggiungi un :field',
+        'add_an'            => 'Aggiungi un :field',
         'add_new'           => 'Aggiungi nuovo :field',
+        'edit'              => 'Modifica :field',
+        'contact_edit'      => 'Modifica :contact_name :field',
+        'choose'            => 'Scegli :field',
+        'choose_different'  => 'Scegli un campo diverso :field',
         'no_file_selected'  => 'Nessun file selezionato...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Digita per cercare..',
+        'search_and_filter' => 'Risultati della ricerca o del filtro..',
+        'contact_search'    => 'Digita un nome :type',
+        'item_search'       => 'Digita un nome articolo',
     ],
 
     'date_range' => [

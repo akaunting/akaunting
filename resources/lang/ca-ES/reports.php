@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Any|Anys',
     'this_year'             => 'Aquest any',
     'previous_year'         => 'Any anterior',
     'this_quarter'          => 'Aquest trimestre',

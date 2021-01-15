@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Uhrazení faktury',
     'accept_payments'       => 'Přijímat online platby',
 
-    'statuses' => [
-        'draft'             => 'Koncept',
-        'sent'              => 'Odesláno',
-        'viewed'            => 'Zobrazeno',
-        'approved'          => 'Schváleno',
-        'partial'           => 'Častečná',
-        'paid'              => 'Zaplaceno',
-        'overdue'           => 'Po splatnosti',
-        'unpaid'            => 'Neuhrazeno',
-        'cancelled'         => 'Zrušeno',
-    ],
-
     'messages' => [
         'email_required'    => 'Zákazník nemá uvedenou e-mailovou adresu!',
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude odeslána.',

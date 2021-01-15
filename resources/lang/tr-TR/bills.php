@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Faturayı Al',
     'make_payment'          => 'Ödeme Yap',
 
-    'statuses' => [
-        'draft'             => 'Taslak',
-        'received'          => 'Alındı',
-        'partial'           => 'Kısmi Ödeme',
-        'paid'              => 'Ödendi',
-        'overdue'           => 'Gecikmiş',
-        'unpaid'            => 'Ödenmemiş',
-        'cancelled'         => 'İptal Edildi',
-    ],
-
     'messages' => [
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
 

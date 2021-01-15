@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Příjem faktury',
     'make_payment'          => 'Platba faktury',
 
-    'statuses' => [
-        'draft'             => 'Koncept',
-        'received'          => 'Přijato',
-        'partial'           => 'Částečně',
-        'paid'              => 'Zaplaceno',
-        'overdue'           => 'Po splatnosti',
-        'unpaid'            => 'Neuhrazeno',
-        'cancelled'         => 'Zrušeno',
-    ],
-
     'messages' => [
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude zaplacena.',
 

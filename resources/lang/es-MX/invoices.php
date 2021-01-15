@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Recibir Pago',
     'accept_payments'       => 'Aceptar pagos en línea',
 
-    'statuses' => [
-        'draft'             => 'Borrador',
-        'sent'              => 'Enviada',
-        'viewed'            => 'Visto',
-        'approved'          => 'Aprobada',
-        'partial'           => 'Pago Parcial',
-        'paid'              => 'Pagada',
-        'overdue'           => 'Vencida',
-        'unpaid'            => 'No Pagada',
-        'cancelled'         => 'Cancelada',
-    ],
-
     'messages' => [
         'email_required'    => 'No se encontró una dirección de correo para este cliente!',
         'draft'             => 'Esta es una factura <b>BORRADOR</b> y se reflejará en gráficos después de ser enviada.',

@@ -44,18 +44,6 @@ Bejelentkezés az összes számla megtekintéséhez',
     'accept_payments'       => '
 Fogadja az online fizetéseket',
 
-    'statuses' => [
-        'draft'             => 'Piszkozat',
-        'sent'              => 'Elküldve',
-        'viewed'            => 'Megtekintve',
-        'approved'          => 'Jóváhagyva',
-        'partial'           => 'Részlegesen',
-        'paid'              => 'Fizetve',
-        'overdue'           => 'Lejárt',
-        'unpaid'            => 'Kifizetetlen',
-        'cancelled'         => 'Megszakítva',
-    ],
-
     'messages' => [
         'email_required'    => 'E-mail cím nem található a vevőhöz!',
         'draft'             => 'Ez egy <b> DRAFT </b> számla, és az elküldés után megjelenik a diagramokban.',

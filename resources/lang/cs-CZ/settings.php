@@ -29,6 +29,12 @@ return [
             'before'        => 'Před číslem',
             'after'         => 'Za číslem',
         ],
+        'discount_location' => [
+            'name'          => 'Umístění slevy',
+            'item'          => 'Na řádku',
+            'total'         => 'Celkem',
+            'both'          => 'Řádek i celkem',
+        ],
     ],
 
     'invoice' => [
@@ -52,12 +58,25 @@ return [
         'subheading'        => 'Podtitul',
         'due_receipt'       => 'Termín dle účtenky',
         'due_days'          => 'Termín do :days',
+        'choose_template'   => 'Zvolte šablonu faktury',
+        'default'           => 'Výchozí',
+        'classic'           => 'Klasické',
+        'modern'            => 'Moderní',
+        'hide'              => [
+            'item_name'         => 'Skrýt jméno položky',
+            'item_description'  => 'Skrýt popisek položky',
+            'quantity'          => 'Skrýt množství',
+            'price'             => 'Skrýt cenu',
+            'amount'            => 'Skrýt částku',
+        ],
     ],
 
     'default' => [
         'description'       => 'Výchozí účet, měna, jazyk vaší společnosti',
         'list_limit'        => 'Záznamů na stránku',
         'use_gravatar'      => 'Použít Gravatar',
+        'income_category'   => 'Kategorie příjmu',
+        'expense_category'  => 'Kategorie výdaje',
     ],
 
     'email' => [

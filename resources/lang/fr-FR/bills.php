@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Recevoir une facture',
     'make_payment'          => 'Faire un paiement',
 
-    'statuses' => [
-        'draft'             => 'Brouillon',
-        'received'          => 'Reçu',
-        'partial'           => 'Partiel',
-        'paid'              => 'Payé',
-        'overdue'           => 'En retard',
-        'unpaid'            => 'Impayé',
-        'cancelled'         => 'Annulé',
-    ],
-
     'messages' => [
         'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisée dans les graphiques une fois reçue.',
 

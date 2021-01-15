@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Gauti sąskaitą',
     'make_payment'          => 'Atlikti mokėjimą',
 
-    'statuses' => [
-        'draft'             => 'Juodraštis',
-        'received'          => 'Gauta',
-        'partial'           => 'Dalinis',
-        'paid'              => 'Apmokėta',
-        'overdue'           => 'Vėluojanti',
-        'unpaid'            => 'Neapmokėta',
-        'cancelled'         => 'Atšaukta',
-    ],
-
     'messages' => [
         'draft'             => 'Tai yra <b>JUODRAŠTINĖ</b> sąskaita ir ji bus įtraukta į grafikus po to kai bus gauta.',
 

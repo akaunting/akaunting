@@ -104,7 +104,10 @@ return [
     'from'                  => 'از',
     'to'                    => 'به',
     'print'                 => 'چاپ کن',
+    'download_pdf'          => 'دانلود پی دی اف',
+    'customize'             => 'سفارشی سازی',
     'search'                => 'جستجو',
+    'search_text'           => 'جستجو کردن این متن',
     'search_placeholder'    => 'جستجو...',
     'filter'                => 'فیلتر',
     'help'                  => 'راهنما',
@@ -152,6 +155,11 @@ return [
     'no_matching_data'      => 'با هیچ داده‌ای مطابق نیست',
     'clear_cache'           => 'پاکسازی حافظه نهان',
     'go_to_dashboard'       => 'داشبورد',
+    'is'                    => 'است',
+    'isnot'                 => 'نیست', 
+    'recurring_and_more'    => 'تکراری و بیشتر...',
+    'due_on'                => 'به دلیل',
+    'amount_due'            => 'مقدار سررسید',
 
     'card' => [
         'name'                  => 'نام روی کارت',
@@ -177,8 +185,22 @@ return [
             'field'         => '-انتخاب :field-',
             'file'          => 'انتخاب فایل',
         ],
+        'add'               => 'افرودن یک فیلد
+',
+        'add_an'            => 'افزودن یک فیلد',
         'add_new'           => 'افزودن فیلد جدید',
+        'edit'              => 'ویرایش فیلد',
+        'contact_edit'      => 'ویرایش فیلد :contact_name:',
+        'choose'            => 'انتخاب فیلد',
+        'choose_different'  => 'فیلد دیگری را انتخاب کنید',
         'no_file_selected'  => 'هیچ فایلی انتخاب نشده...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'برای جستجو تایپ کنید ..',
+        'search_and_filter' => 'جستجو یا فیلتر نتایج..',
+        'contact_search'    => 'نام کالا را تایپ کنید',
+        'item_search'       => 'نام مورد را تایپ کنید',
     ],
 
     'date_range' => [

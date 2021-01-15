@@ -13,7 +13,7 @@ return [
     'payments'              => 'Betaling|Betalinger',
     'vendors'               => 'Kreditor|Kreditorer',
     'accounts'              => 'Konto|Konti',
-    'transfers'             => 'Overføre|Overførsler',
+    'transfers'             => 'Overførsel|Overførsler',
     'transactions'          => 'Transaktion|Transaktioner',
     'reports'               => 'Rapport|Rapporter',
     'settings'              => 'Indstilling|Indstillinger',

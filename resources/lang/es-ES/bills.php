@@ -38,16 +38,6 @@ return [
     'receive_bill'          => 'Recibir factura',
     'make_payment'          => 'Pagar',
 
-    'statuses' => [
-        'draft'             => 'Borrador',
-        'received'          => 'Recibido',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pagado',
-        'overdue'           => 'Vencido',
-        'unpaid'            => 'No Pagado',
-        'cancelled'         => 'Cancelado',
-    ],
-
     'messages' => [
         'draft'             => 'Este es un<b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
 

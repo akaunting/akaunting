@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Cobrament',
     'accept_payments'       => 'Accepta pagaments online',
 
-    'statuses' => [
-        'draft'             => 'Esborrany',
-        'sent'              => 'Enviada',
-        'viewed'            => 'Vist',
-        'approved'          => 'Aprovada',
-        'partial'           => 'Parcial',
-        'paid'              => 'Cobrada',
-        'overdue'           => 'Vençuda',
-        'unpaid'            => 'No cobrada',
-        'cancelled'         => 'Cancel·lada',
-    ],
-
     'messages' => [
         'email_required'    => 'Aquest client no té adreça de correu electrònic!',
         'draft'             => 'Això és un <b>ESBORRANY</b> de factura i es reflectirà als gràfics un cop s\'hagi enviat.',

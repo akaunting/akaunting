@@ -40,18 +40,6 @@ return [
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
 
-    'statuses' => [
-        'draft'             => 'Draft',
-        'sent'              => 'Sent',
-        'viewed'            => 'Viewed',
-        'approved'          => 'Approved',
-        'partial'           => 'Partial',
-        'paid'              => 'Paid',
-        'overdue'           => 'Overdue',
-        'unpaid'            => 'Unpaid',
-        'cancelled'         => 'Cancelled',
-    ],
-
     'messages' => [
         'email_required'    => 'No email address for this customer!',
         'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',

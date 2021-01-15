@@ -40,18 +40,6 @@ return [
     'get_paid'              => '支払いを受ける',
     'accept_payments'       => 'オンラインでの支払いを受け入れる',
 
-    'statuses' => [
-        'draft'             => 'ドラフト',
-        'sent'              => '送信',
-        'viewed'            => '閲覧',
-        'approved'          => '承認済み',
-        'partial'           => '部分的',
-        'paid'              => '支払済み',
-        'overdue'           => '遅れた',
-        'unpaid'            => '未払い',
-        'cancelled'         => 'キャンセルしました',
-    ],
-
     'messages' => [
         'email_required'    => 'この顧客のメールアドレスはありません。',
         'draft'             => 'これは <b>ドラフト</b>請求書で、送信後にチャートに反映されます。',
