@@ -611,8 +611,15 @@ abstract class DocumentShow extends Base
         }
 
         $page = config('type.' . $type . '.route.prefix');
+        $alias = config('type.' . $type . '.alias');
 
-        $route = 'signed.' . $page . '.show';
+        $route = '';
+
+        if (!empty($alias)) {
+            $route .= $alias . '.';
+        }
+
+        $route .= 'signed.' . $page . '.show';
 
         try {
             route($route, [$this->document->id, 'company_id' => session('company_id')]);
