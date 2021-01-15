@@ -119,6 +119,8 @@ return [
             'payment_terms'             => env('SETTING_FALLBACK_INVOICE_PAYMENT_TERMS', '0'),
             'template'                  => env('SETTING_FALLBACK_INVOICE_TEMPLATE', 'default'),
             'color'                     => env('SETTING_FALLBACK_INVOICE_COLOR', '#55588b'),
+            'logo_size_width'           => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_WIDTH', 128),
+            'logo_size_height'          => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_HEIGHT', 128),
         ],
         'bill' => [
             'number_prefix'             => env('SETTING_FALLBACK_BILL_NUMBER_PREFIX', 'BILL-'),
