@@ -33,8 +33,9 @@ class Currencies extends Controller
         $current = Currency::pluck('code')->toArray();
 
         // Prepare codes
-        $codes = array();
+        $codes = [];
         $currencies = MoneyCurrency::getCurrencies();
+
         foreach ($currencies as $key => $item) {
             // Don't show if already available
             if (in_array($key, $current)) {

@@ -28,7 +28,7 @@ class Updates extends Controller
 
         $core = null;
 
-        $modules = array();
+        $modules = [];
 
         if (isset($updates['core'])) {
             $core = $updates['core'];

@@ -60,7 +60,7 @@ class Transfers extends Controller
         $request = request();
 
         if (isset($request['sort']) && array_key_exists($request['sort'], $special_key)) {
-            $sort_order = array();
+            $sort_order = [];
 
             foreach ($data as $key => $value) {
                 $sort = $request['sort'];

@@ -81,7 +81,7 @@ trait DateTime
             if (in_array($group, $use_zones)) {
                 // Initialize the group if necessary.
                 if (!isset($groups[$group])) {
-                    $groups[$group] = array();
+                    $groups[$group] = [];
                 }
 
                 // Only add options where a locale exists.

@@ -37,8 +37,9 @@ class Currencies extends Controller
         $current = Currency::orderBy('code')->pluck('code')->toArray();
 
         // Prepare codes
-        $codes = array();
+        $codes = [];
         $money_currencies = MoneyCurrency::getCurrencies();
+
         foreach ($money_currencies as $key => $item) {
             $codes[$key] = $key;
         }
