@@ -87,7 +87,7 @@ return [
     'website'               => 'Webside',
     'actions'               => '-',
     'description'           => 'Beskrivelse',
-    'manage'                => 'Administrér',
+    'manage'                => 'Administrer',
     'code'                  => 'Kode',
     'alias'                 => 'Alias',
     'balance'               => 'Balance',
@@ -154,7 +154,7 @@ return [
     'no_data'               => 'Ingen data',
     'no_matching_data'      => 'Ingen matchende data',
     'clear_cache'           => 'Rens Cache',
-    'go_to_dashboard'       => 'Go til skrivebord',
+    'go_to_dashboard'       => 'Gå til skrivebordet',
     'is'                    => 'er',
     'isnot'                 => 'er ikke', 
     'recurring_and_more'    => 'Tilbagevendende og mere..',
@@ -176,7 +176,7 @@ return [
         'send'              => 'Send :type',
         'get'               => 'Hent :type',
         'add'               => 'Tilføj :type',
-        'manage'            => 'Manage :type',
+        'manage'            => 'Administrer :type',
     ],
 
     'form' => [
