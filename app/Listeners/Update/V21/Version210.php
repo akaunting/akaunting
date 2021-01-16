@@ -129,16 +129,18 @@ class Version210 extends Listener
                       );
 
         foreach ($invoices as $invoice) {
-            $documentId = DB::table('documents')
+            $document = DB::table('documents')
                             ->where('document_number', $invoice->invoice_number)
                             ->where('deleted_at', $invoice->deleted_at)
                             ->where('company_id', $invoice->company_id)
                             ->where('type', Document::INVOICE_TYPE)
-                            ->pluck('id')
-                            ->first();
+                            ->first('id');
 
-            DB::table('credits_transactions')
-              ->where('id', $invoice->credits_transactions_id)->update(['document_id' => $documentId]);
+            if ($document) {
+                DB::table('credits_transactions')
+                  ->where('id', $invoice->credits_transactions_id)
+                  ->update(['document_id' => $document->id]);
+            }
         }
 
         $credit_notes = DB::table('credits_transactions')
@@ -154,16 +156,18 @@ class Version210 extends Listener
                           );
 
         foreach ($credit_notes as $credit_note) {
-            $documentId = DB::table('documents')
+            $document = DB::table('documents')
                             ->where('document_number', $credit_note->credit_note_number)
                             ->where('deleted_at', $credit_note->deleted_at)
                             ->where('company_id', $credit_note->company_id)
                             ->where('type', self::CREDIT_NOTE_TYPE)
-                            ->pluck('id')
-                            ->first();
+                            ->first('id');
 
-            DB::table('credits_transactions')
-              ->where('id', $credit_note->credits_transactions_id)->update(['document_id' => $documentId]);
+            if ($document) {
+                DB::table('credits_transactions')
+                  ->where('id', $credit_note->credits_transactions_id)
+                  ->update(['document_id' => $document->id]);
+            }
         }
     }
 
@@ -235,15 +239,17 @@ class Version210 extends Listener
                 $builder->delete();
             }
 
-            $documentType = DB::table($new_table)->orderBy('id')->pluck('type')->first();
-
             // To be able to update TYPE_id relations
-            $this->addDocumentIdForeignKeys($documentType);
+            $document = DB::table($new_table)->orderBy('id')->first('type');
+            if ($document) {
+                $this->addDocumentIdForeignKeys($document->type);
+            }
 
             // Update relation ids
-            DB::table($new_table)
-              ->orderByDesc('id')
-              ->increment('id', DB::table($table)->orderByDesc('id')->pluck('id')->first());
+            $document = DB::table($table)->orderByDesc('id')->first('id');
+            if ($document) {
+                DB::table($new_table)->orderByDesc('id')->increment('id', $document->id);
+            }
         }
 
         $insertColumns = collect(Schema::getColumnListing($new_table));
