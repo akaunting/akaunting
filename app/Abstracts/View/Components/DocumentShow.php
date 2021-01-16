@@ -566,7 +566,7 @@ abstract class DocumentShow extends Base
             return $template;
         }
 
-        $documentTemplate = setting($type . '.template') !== null ?: 'default';
+        $documentTemplate = setting($type . '.template') ?: 'default';
 
         return $documentTemplate;
     }
