@@ -623,6 +623,10 @@ class Version210 extends Listener
         $income_category = Category::income()->enabled()->first();
         $expense_category = Category::expense()->enabled()->first();
 
+        if (empty($income_category) || empty($expense_category)) {
+            return;
+        }
+
         // Set the active company settings
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->forgetAll();
