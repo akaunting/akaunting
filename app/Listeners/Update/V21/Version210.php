@@ -134,8 +134,8 @@ class Version210 extends Listener
                             ->where('deleted_at', $invoice->deleted_at)
                             ->where('company_id', $invoice->company_id)
                             ->where('type', Document::INVOICE_TYPE)
-                            ->pluck('id')
-                            ->first();
+                            ->first()
+                            ->id;
 
             DB::table('credits_transactions')
               ->where('id', $invoice->credits_transactions_id)->update(['document_id' => $documentId]);
@@ -159,8 +159,8 @@ class Version210 extends Listener
                             ->where('deleted_at', $credit_note->deleted_at)
                             ->where('company_id', $credit_note->company_id)
                             ->where('type', self::CREDIT_NOTE_TYPE)
-                            ->pluck('id')
-                            ->first();
+                            ->first()
+                            ->id;
 
             DB::table('credits_transactions')
               ->where('id', $credit_note->credits_transactions_id)->update(['document_id' => $documentId]);
@@ -235,7 +235,7 @@ class Version210 extends Listener
                 $builder->delete();
             }
 
-            $documentType = DB::table($new_table)->orderBy('id')->pluck('type')->first();
+            $documentType = DB::table($new_table)->orderBy('id')->first()->type;
 
             // To be able to update TYPE_id relations
             $this->addDocumentIdForeignKeys($documentType);
@@ -243,7 +243,7 @@ class Version210 extends Listener
             // Update relation ids
             DB::table($new_table)
               ->orderByDesc('id')
-              ->increment('id', DB::table($table)->orderByDesc('id')->pluck('id')->first());
+              ->increment('id', DB::table($table)->orderByDesc('id')->first()->id);
         }
 
         $insertColumns = collect(Schema::getColumnListing($new_table));
