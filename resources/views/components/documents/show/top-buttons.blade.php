@@ -7,7 +7,7 @@
 
         <div class="dropdown-menu" role="menu">
             @stack('button_dropdown_start')
-                @stack('duplicate_button_start')
+            @stack('duplicate_button_start')
                 @if (!$hideButtonDuplicate)
                     @can($permissionCreate)
                         <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $document->id) }}">
@@ -77,11 +77,11 @@
 
             @if (!$hideButtonCustomize)
                 @can($permissionButtonCustomize)
-                    @stack('button_cancelled_start')
+                    @stack('button_customize_start')
                     <a class="dropdown-item" href="{{ route($routeButtonCustomize) }}">
                         {{ trans('general.customize') }}
                     </a>
-                    @stack('button_cancelled_end')
+                    @stack('button_customize_end')
                 @endcan
             @endif
 
