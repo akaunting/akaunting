@@ -37,7 +37,7 @@ class UpdateTransaction extends Job
 
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment')[0], 'transactions');
+                $media = $this->getMedia($this->request->file('attachment'), 'transactions');
 
                 $this->transaction->attachMedia($media, 'attachment');
             }

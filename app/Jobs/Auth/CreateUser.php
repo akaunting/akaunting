@@ -34,7 +34,7 @@ class CreateUser extends Job
 
             // Upload picture
             if ($this->request->file('picture')) {
-                $media = $this->getMedia($this->request->file('picture')[0], 'users');
+                $media = $this->getMedia($this->request->file('picture'), 'users');
 
                 $this->user->attachMedia($media, 'picture');
             }
