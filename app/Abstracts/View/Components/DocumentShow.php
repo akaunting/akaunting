@@ -566,6 +566,10 @@ abstract class DocumentShow extends Base
             return $template;
         }
 
+        if (!empty($alias = config('type.' . $type . '.alias'))) {
+            $type = $alias . '.' . str_replace('-', '_', $type);
+        }
+
         $documentTemplate = setting($type . '.template') ?: 'default';
 
         return $documentTemplate;
