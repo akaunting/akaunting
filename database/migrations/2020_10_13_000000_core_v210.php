@@ -43,6 +43,8 @@ class CoreV210 extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index('company_id');
+            $table->index('type');
             $table->unique(['document_number', 'deleted_at', 'company_id', 'type']);
         });
 
