@@ -1,7 +1,41 @@
 <template>
 <div>
-    <div class="card" v-if="card">
+    <div class="row align-items-center" v-if="Object.keys(cards).length">
         <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="item_name" class="form-control-label">Cards</label>
+                    <div class="input-group-invoice-text" v-for="(name, key, id) in cards">
+                        <div class="custom-control custom-radio mb-2">
+                            <input
+                                type="radio"
+                                :name="'card-' + key"
+                                :id="'card-'+ key + '-' + id"
+                                :value="key"
+                                v-model="card_id"
+                                class="custom-control-input">
+                            <label :for="'card-'+ key + '-' + id" class="custom-control-label">
+                                {{ name }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group-invoice-text">
+                        <div class="custom-control custom-radio mb-2">
+                            <input
+                                type="radio"
+                                name="card-new"
+                                id="card-new-card"
+                                value="new_card"
+                                v-model="card_id"
+                                class="custom-control-input">
+                            <label for="card-new-card" class="custom-control-label">
+                                New Card
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-6 p-5">
                 <div class="form-group">
                     <label for="cardName" class="form-control-label">{{ textCardName }}</label>
@@ -129,7 +163,7 @@
         </div>
     </div>
 
-    <div class="row align-items-center" v-if="!card">
+    <div class="row align-items-center" v-if="!Object.keys(cards).length">
         <div class="col-md-6 p-5">
             <div class="form-group">
                 <label for="cardNumber" class="form-control-label">{{ textCardNumber }}</label>
@@ -202,7 +236,6 @@
                                     v-for="n in 12"
                                     v-bind:disabled="n < minCardMonth"
                                     v-bind:key="n"
-                                    :selected="selected == value"
                                 >{{generateMonthValue(n)}}</option>
                             </select>
                         </div>
@@ -224,7 +257,6 @@
                                         v-bind:value="$index + minCardYear"
                                         v-for="(n, $index) in 12"
                                         v-bind:key="n"
-                                        :selected="selected == value"
                                     >{{$index + minCardYear}}</option>
                             </select>
                         </div>
@@ -267,7 +299,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="form-group">
                 <button class="btn btn-icon btn-success" v-on:click="invaildCard" :disabled="loading">
                     <div v-if="loading" class="aka-loader-frame">
                         <div class="aka-loader"></div>
@@ -277,7 +309,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 mt--3">
+        <div class="col-md-6 mt--6">
             <Card
                 :fields="fields"
                 :labels="formData"
@@ -331,10 +363,9 @@ export default {
     },
 
     props: {
-        card: {
-            type: Boolean,
-            default: false,
-            icon: '',
+        cards: {
+            type: [Array, Object],
+            default: [],
             description: "Add Card Style"
         },
 
@@ -427,6 +458,7 @@ export default {
                     cardYear: '',
                     cardCvv: '',
                     storeCard: false,
+                    card_id: 0,
                 }
             }
         },
@@ -456,7 +488,8 @@ export default {
             minCardYear: new Date().getFullYear(),
             isCardNumberMasked: true,
             mainCardNumber: this.cardNumber,
-            cardNumberMaxLength: 19
+            cardNumberMaxLength: 19,
+            card_id: 0,
         }
     },
 

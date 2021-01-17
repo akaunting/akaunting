@@ -1,5 +1,4 @@
 <card-form
-    :card="false"
     :path="'{{ $confirm_url }}'"
     placeholder-card-number="{{ trans('general.form.enter', ['field' => trans('general.card.number')]) }}"
     placeholder-card-name="{{ trans('general.form.enter', ['field' => trans('general.card.name')]) }}"
@@ -12,6 +11,7 @@
     text-cvv="{{ trans('general.card.cvv') }}"
     textButton="{{ trans('general.confirm') }}"
     textStoreCard="{{ trans('general.card.store') }} "
-    :store-card="true"
+    :store-card="{{ !empty($store_card) ? 'true' : 'false' }}"
+    :cards="{{ !empty($cards) ? json_encode($cards) : json_encode([]) }}"
     :form-data="formData"
 />

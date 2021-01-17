@@ -42,6 +42,7 @@ const app = new Vue({
                 cardYear: '',
                 cardCvv: '',
                 storeCard: false,
+                card_id: 0,
             }
         }
     },
@@ -97,6 +98,7 @@ const app = new Vue({
                                         cardYear: '',
                                         cardCvv: '',
                                         storeCard: false,
+                                        card_id: 0,
                                     }
                                 }
                             },
@@ -187,6 +189,7 @@ const app = new Vue({
                                         cardYear: '',
                                         cardCvv: '',
                                         storeCard: false,
+                                        card_id: 0,
                                     }
                                 }
                             },
