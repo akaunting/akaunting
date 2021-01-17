@@ -14,7 +14,6 @@ import DashboardPlugin from './../../plugins/dashboard-plugin';
 import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
-
 import CardForm from './../../components/CreditCard/CardForm';
 
 // plugin setup
@@ -41,7 +40,8 @@ const app = new Vue({
                 cardNumber: '',
                 cardMonth: '',
                 cardYear: '',
-                cardCvv: ''
+                cardCvv: '',
+                storeCard: false,
             }
         }
     },
@@ -95,7 +95,8 @@ const app = new Vue({
                                         cardNumber: '',
                                         cardMonth: '',
                                         cardYear: '',
-                                        cardCvv: ''
+                                        cardCvv: '',
+                                        storeCard: false,
                                     }
                                 }
                             },
@@ -184,7 +185,8 @@ const app = new Vue({
                                         cardNumber: '',
                                         cardMonth: '',
                                         cardYear: '',
-                                        cardCvv: ''
+                                        cardCvv: '',
+                                        storeCard: false,
                                     }
                                 }
                             },

@@ -258,12 +258,24 @@
                 </div>
             </div>
 
-            <button class="btn btn-icon btn-success" v-on:click="invaildCard" :disabled="loading">
-                <div v-if="loading" class="aka-loader-frame">
-                    <div class="aka-loader"></div>
+            <div class="form-group" v-if="storeCard">
+                <div class="custom-control custom-checkbox">
+                    <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
+                    <label for="store_card" class="custom-control-label">
+                        <strong>{{ textCheckBox }}</strong>
+                    </label>
                 </div>
-                <span v-if="!loading" class="btn-inner--text">{{ textButton }}</span>
-            </button>
+            </div>
+
+            <div class="row">
+
+                <button class="btn btn-icon btn-success" v-on:click="invaildCard" :disabled="loading">
+                    <div v-if="loading" class="aka-loader-frame">
+                        <div class="aka-loader"></div>
+                    </div>
+                    <span v-if="!loading" class="btn-inner--text">{{ textButton }}</span>
+                </button>
+            </div>
         </div>
 
         <div class="col-md-6 mt--3">
@@ -325,6 +337,13 @@ export default {
             default: false,
             icon: '',
             description: "Add Card Style"
+        },
+
+        storeCard: {
+            type: Boolean,
+            default: false,
+            icon: '',
+            description: "Save card"
         },
 
         path: {
@@ -393,6 +412,12 @@ export default {
             description: "Add Card Style"
         },
 
+        textCheckBox: {
+            type: String,
+            default: 'Store Card',
+            description: "Selected store card"
+        },
+
         formData: {
             type: Object,
             default: () => {
@@ -401,7 +426,8 @@ export default {
                     cardNumber: '',
                     cardMonth: '',
                     cardYear: '',
-                    cardCvv: ''
+                    cardCvv: '',
+                    storeCard: false,
                 }
             }
         },
@@ -425,7 +451,8 @@ export default {
                 cardName: 'v-card-name',
                 cardMonth: 'v-card-month',
                 cardYear: 'v-card-year',
-                cardCvv: 'v-card-cvv'
+                cardCvv: 'v-card-cvv',
+                storeCard: 'v-card-store-card'
             },
             minCardYear: new Date().getFullYear(),
             isCardNumberMasked: true,
@@ -457,6 +484,14 @@ export default {
     },
 
     methods: {
+        changeStoreCard(e) {
+            this.formData.storeCard = false;
+
+            if (e.target.checked) {
+                this.formData.storeCard = true;
+            }
+        },
+
         generateMonthValue(n) {
             return n < 10 ? `0${n}` : n;
         },
