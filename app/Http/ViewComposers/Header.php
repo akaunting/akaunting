@@ -52,7 +52,9 @@ class Header
                 }
             }
 
-            $updates = count(Versions::getUpdates());
+            if ($user->can('read-install-updates')) {
+                $updates = count(Versions::getUpdates());
+            }
 
             $this->loadSuggestions();
         }
