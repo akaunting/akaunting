@@ -595,6 +595,8 @@ export default {
                 isOdd = !isOdd;
             }*/
 
+            this.formData.card_id = this.card_id;
+
             if (sum % 10 !== 0) {
                 alert('invaild card number');
                 this.loading = false;
