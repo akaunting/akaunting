@@ -43,7 +43,7 @@ class CreateDocument extends Job
 
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), Str::plural($this->document->type));
+                $media = $this->getMedia($this->request->file('attachment')[0], Str::plural($this->document->type));
 
                 $this->document->attachMedia($media, 'attachment');
             }

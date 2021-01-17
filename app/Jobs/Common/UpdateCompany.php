@@ -79,7 +79,7 @@ class UpdateCompany extends Job
             }
 
             if ($this->request->file('logo')) {
-                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
+                $company_logo = $this->getMedia($this->request->file('logo')[0], 'settings', $this->company->id);
 
                 if ($company_logo) {
                     $this->company->attachMedia($company_logo, 'company_logo');

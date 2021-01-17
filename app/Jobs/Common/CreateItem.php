@@ -34,7 +34,7 @@ class CreateItem extends Job
 
             // Upload picture
             if ($this->request->file('picture')) {
-                $media = $this->getMedia($this->request->file('picture'), 'items');
+                $media = $this->getMedia($this->request->file('picture')[0], 'items');
 
                 $this->item->attachMedia($media, 'picture');
             }
