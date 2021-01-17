@@ -166,6 +166,7 @@ return [
         'number'                => 'Card Number',
         'expiration_date'       => 'Expiration Date',
         'cvv'                   => 'Card CVV',
+        'store'                 => 'Store Card',
     ],
 
     'title' => [

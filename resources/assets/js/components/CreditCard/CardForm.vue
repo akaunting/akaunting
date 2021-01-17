@@ -262,13 +262,12 @@
                 <div class="custom-control custom-checkbox">
                     <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
                     <label for="store_card" class="custom-control-label">
-                        <strong>{{ textCheckBox }}</strong>
+                        <strong>{{ textStoreCard }}</strong>
                     </label>
                 </div>
             </div>
 
             <div class="row">
-
                 <button class="btn btn-icon btn-success" v-on:click="invaildCard" :disabled="loading">
                     <div v-if="loading" class="aka-loader-frame">
                         <div class="aka-loader"></div>
@@ -412,7 +411,7 @@ export default {
             description: "Add Card Style"
         },
 
-        textCheckBox: {
+        textStoreCard: {
             type: String,
             default: 'Store Card',
             description: "Selected store card"
