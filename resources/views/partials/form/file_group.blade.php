@@ -18,6 +18,9 @@
                 @if (!empty($attributes['multiple']))
                 multiple
                 @endif
+                @if (!empty($attributes['isPreviewSingle']))
+                :is-preview-single="{{ $attributes['isPreviewSingle'] }}"
+                @endif
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
             ></dropzone-file-upload>
         </div>

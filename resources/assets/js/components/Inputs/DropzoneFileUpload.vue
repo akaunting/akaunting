@@ -1,6 +1,6 @@
 <template>
   <div class="dropzone mb-3 dz-clickable"
-       :class="[multiple ? 'dropzone-multiple': 'dropzone-single']">
+       :class="[isPreviewSingle ? 'dropzone-single': 'dropzone-multiple']">
     <div class="fallback">
       <div class="custom-file">
         <input type="file"
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="dz-preview dz-preview-single"
-         v-if="!multiple"
+         v-if="isPreviewSingle"
          :class="previewClasses"
          ref="previewSingle">
       <div class="dz-preview-cover">
@@ -57,7 +57,11 @@
         default: 'http://'
       },
       multiple: Boolean,
-      previewClasses: [String, Object, Array]
+      previewClasses: [String, Object, Array],
+      isPreviewSingle: {
+        type: Boolean,
+        default: true
+      } 
     },
     model: {
       prop: 'value',
@@ -75,7 +79,7 @@
         let Dropzone = await import('dropzone')
         Dropzone = Dropzone.default || Dropzone
         Dropzone.autoDiscover = false
-        let preview = this.multiple ? this.$refs.previewMultiple : this.$refs.previewSingle;
+        let preview = this.isPreviewSingle ? this.$refs.previewSingle : this.$refs.previewMultiple;
         let self = this
         let finalOptions = {
           ...this.options,
