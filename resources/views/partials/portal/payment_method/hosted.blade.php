@@ -11,5 +11,6 @@
     :text-cvv="'{{ trans('general.card.cvv') }}'"
     :placeholder-card-cvv="'{{ trans('general.form.enter', ['field' => trans('general.card.cvv')]) }}'"
     :textButton="'{{ trans('general.confirm') }}'"
+    :store-card="true"
     :form-data="formData"
 />
