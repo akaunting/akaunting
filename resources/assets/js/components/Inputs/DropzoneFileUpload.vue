@@ -85,12 +85,8 @@
           previewsContainer: preview,
           previewTemplate: preview.innerHTML,
           maxFiles: (!this.multiple) ? 1 : null,
-          acceptedFiles: (!this.multiple) ? 'image/*' : null,
           init: function () {
             this.on("addedfile", function (file) {
-              if (!self.multiple && self.currentFile) {
-                // this.removeFile(this.currentFile);
-              }
               self.currentFile = file;
             })
           }
