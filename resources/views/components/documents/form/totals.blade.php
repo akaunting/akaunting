@@ -4,7 +4,7 @@
             <table class="table" id="totals">
                 <colgroup>
                     <col style="width: 50%;">
-                    <col style="width: 35%;">
+                    <col style="width: 30%;">
                     <col style="width: 25%;">
                     <col style="width: 40px;">
                 </colgroup>
@@ -12,7 +12,7 @@
                     @stack('sub_total_td_start')
                     <tr id="tr-subtotal">
                         <td class="border-bottom-0 pb-0"></td>
-                        <td class="text-right border-right-0 border-bottom-0 align-middle pb-0">
+                        <td class="text-right border-right-0 border-bottom-0 align-middle pb-0 pr-0">
                             <strong>{{ trans('invoices.sub_total') }}</strong>
                         </td>
                         <td class="text-right border-bottom-0 long-texts pb-0 pr-3">
@@ -28,7 +28,7 @@
                     @stack('item_discount_td_start')
                         <tr id="tr-line-discount" v-if="totals.item_discount">
                             <td class="border-top-0 pt-0 pb-0"></td>
-                            <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0">
+                            <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0 pr-0">
                                 <strong>{{ trans('invoices.item_discount') }}</strong>
                             </td>
                             <td class="text-right border-top-0 border-bottom-0 long-texts pt-0 pb-0 pr-3">
@@ -45,7 +45,7 @@
                     @stack('add_discount_td_start')
                         <tr id="tr-discount">
                             <td class="border-top-0 pt-0 pb-0"></td>
-                            <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0">
+                            <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0 pr-0">
                                 <el-popover
                                     popper-class="p-0 h-0"
                                     placement="bottom"
@@ -101,7 +101,7 @@
                     <tr v-for="(tax, tax_index) in totals.taxes"
                     :index="tax_index">
                         <td class="border-top-0 pt-0 pb-0"></td>
-                        <td class="text-right border-top-0  border-right-0 border-bottom-0 align-middle pt-0 pb-0">
+                        <td class="text-right border-top-0  border-right-0 border-bottom-0 align-middle pt-0 pb-0 pr-0">
                             <strong v-html="tax.name"></strong>
                         </td>
                         <td class="text-right border-top-0 border-bottom-0 long-texts pb-0 pr-3">
@@ -116,7 +116,7 @@
                 @stack('grand_total_td_start')
                     <tr id="tr-total">
                         <td class="border-top-0 pt-0 pb-0"></td>
-                        <td class="text-right border-top-0 border-right-0 align-middle pt-0 pb-0">
+                        <td class="text-right border-top-0 border-right-0 align-middle pt-0 pb-0 pr-0">
                             <strong class="document-total-span">{{ trans('invoices.total') }}</strong>
                             {{ Form::selectGroup('currency_code', '', 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'model' => 'form.currency_code', 'change' => 'onChangeCurrency'], 'document-total-currency') }}
                         </td>
@@ -132,7 +132,7 @@
                     @stack('currency_conversion_td_start')
                         <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ setting('default.currency') }}' != form.currency_code) && totals.total)}]">
                             <td class="border-top-0 pb-0"></td>
-                            <td class="text-right border-top-0 border-right-0 align-middle pb-0 pr-3" colspan="2">
+                            <td class="text-right border-top-0 border-right-0 align-middle pb-0 pr-3 pr-0" colspan="2">
                                 <akaunting-currency-conversion
                                     currency-conversion-text="{{ trans('currencies.conversion') }}"
                                     :price="(totals.total / form.currency_rate).toFixed(2)"
