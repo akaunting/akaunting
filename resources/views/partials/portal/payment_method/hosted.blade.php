@@ -10,7 +10,7 @@
     text-year="{{ trans('general.year') }}"
     text-cvv="{{ trans('general.card.cvv') }}"
     textButton="{{ trans('general.confirm') }}"
-    textStoreCard="{{ trans('general.card.store') }} "
+    textStoreCard="{{ trans('general.card.save') }} "
     :store-card="{{ !empty($store_card) ? 'true' : 'false' }}"
     :cards="{{ !empty($cards) ? json_encode($cards) : json_encode([]) }}"
     :form-data="formData"
