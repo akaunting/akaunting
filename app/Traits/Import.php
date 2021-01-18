@@ -191,8 +191,8 @@ trait Import
             'name'              => $row['item_name'],
         ], [
             'company_id'        => session('company_id'),
-            'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : $row['price'],
-            'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : $row['price'],
+            'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
+            'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : (!empty($row['price']) ? $row['price'] : 0),
             'enabled'           => 1,
         ])->id;
     }
