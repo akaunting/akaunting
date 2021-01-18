@@ -118,10 +118,17 @@ export default {
                     }
 
                     self.$emit('change', self.files);
+
+                    if(self.isPreviewSingle == false)
+                        this.enable()
                 }),
                 this.on("maxfilesexceeded", function(file) {
                     this.removeAllFiles('notCancel');
                     this.addFile(file);
+                }),
+                this.on("maxfilesreached", function(file) {
+                    if(self.isPreviewSingle == false)
+                        this.disable()
                 })
               }
             };
