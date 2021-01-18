@@ -57,7 +57,7 @@ export default {
             type: Object,
             default: () => ({})
         },
-        value: [String, Object, Array],
+        value: [String, Object, Array, File],
         url: {
             type: String,
             default: 'http:'
@@ -99,6 +99,7 @@ export default {
               thumbnailHeight: null,
               previewsContainer: preview,
               previewTemplate: preview.innerHTML,
+              autoProcessQueue: false,
               init: function () {
                 this.on("addedfile", function (file) {
                     self.files.push(file);
@@ -106,81 +107,35 @@ export default {
                     if (self.options.maxFiles == 1) {
                         self.$emit('change', file);
                     } else {
-                        self.$emit('change', this.files);
+                        self.$emit('change', self.files);
                     }
+                }),
+                this.on("removedfile", function (file) {
+                    let index = self.files.findIndex(f => f.upload.uuid === file.upload.uuid);
+
+                    if (index !== -1) {
+                        self.files.splice(index, 1);
+                    }
+
+                    self.$emit('change', self.files);
+
+                    if(self.isPreviewSingle == false)
+                        this.enable()
                 }),
                 this.on("maxfilesexceeded", function(file) {
                     this.removeAllFiles('notCancel');
                     this.addFile(file);
-                });
+                }),
+                this.on("maxfilesreached", function(file) {
+                    if(self.isPreviewSingle == false)
+                        this.disable()
+                })
               }
             };
 
             this.dropzone = new Dropzone(this.$el, finalOptions);
 
-            preview.innerHTML = '';
-
-            let evtList = [
-              'drop',
-              'dragstart',
-              'dragend',
-              'dragenter',
-              'dragover',
-              'addedfile',
-              'removedfile',
-              'thumbnail',
-              'error',
-              'processing',
-              'uploadprogress',
-              'sending',
-              'success',
-              'complete',
-              'canceled',
-              'maxfilesreached',
-              'maxfilesexceeded',
-              'processingmultiple',
-              'sendingmultiple',
-              'successmultiple',
-              'completemultiple',
-              'canceledmultiple',
-              'totaluploadprogress',
-              'reset',
-              'queuecomplete',
-            ];
-
-            evtList.forEach(evt => {
-                this.dropzone.on(evt, (file) => {
-                    this.$emit(evt, file);
-                    /*
-                    if (evt === 'addedfile') {
-                        if (self.multiple) {
-                            this.files.push(file);
-
-                            this.$emit('change', this.files);
-                        } else {
-                            this.file = file;
-                            this.$emit('change', file);
-                        }
-                    }
-                    */
-                    
-                    if (evt === 'removedfile') {
-                        //if (self.multiple) {
-                            let index = this.files.findIndex(f => f.upload.uuid === file.upload.uuid);
-
-                            if (index !== -1) {
-                                this.files.splice(index, 1);
-                            }
-
-                            this.$emit('change', this.files);
-                        //} else {
-                        //    this.file = '';
-
-                        //    this.$emit('change', '');
-                        //}
-                    }
-                })
-            }, this);
+            preview.innerHTML = ''
         }
     },
 

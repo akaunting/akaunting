@@ -13,7 +13,12 @@
                 class="{{ $attributes['dropzone-class'] }}"
                 @endif
                 @if (!empty($attributes['options']))
-                :options={{ json_encode($attributes['options']) }}
+                    @if (isset($attributes['options']['maxFiles']))
+                        :options={{ json_encode($attributes['options']) }}
+                    @else
+                        @php $attributes['options']['maxFiles'] = 1 @endphp
+                        :options={{ json_encode($attributes['options']) }}
+                    @endif
                 @endif
                 @if (!empty($attributes['multiple']))
                 multiple
