@@ -11,103 +11,112 @@
                 <button type="button" class="ql-list" value="bullet"></button>
             </div>
         </div>
+
         <div :id="editorId" :name="name" class="" ref="editor">
         </div>
     </div>
 </template>
+
 <script>
-  export default {
+import Quill from 'quill';
+
+export default {
     name: 'akaunting-html-editor',
+
     props: {
-      value: {
-        type: String,
-        default: ''
-      },
-      name: String
+        name: String,
+        value: {
+            type: String,
+            default: ''
+        },
+        theme: {
+            type: String,
+            default: 'snow'
+        },
     },
+
     data () {
-      return {
-        editor: null,
-        content: null,
-        lastHtmlValue: '',
-        editorId: null,
-        toolbarId: null
-      }
+        return {
+            editor: null,
+            content: null,
+            lastHtmlValue: '',
+            editorId: null,
+            toolbarId: null
+        }
     },
+
     methods: {
-      initialize (Quill) {
-        this.editor = new Quill(`#${this.editorId}`, {
-          theme: 'snow',
-          modules: {
-            toolbar: `#${this.toolbarId}`
-          }
-        })
+        initialize (Quill) {
+            let theme = this.theme;
 
-        if (this.value.length > 0) {
-          this.editor.pasteHTML(this.value)
-        }
+            this.editor = new Quill(`#${this.editorId}`, {
+                theme: theme,
+                modules: {
+                    toolbar: `#${this.toolbarId}`
+                }
+            });
 
-        let editorRef = this.$refs.editor;
-        let node = editorRef.children[0];
+            if (this.value.length > 0) {
+                this.editor.pasteHTML(this.value)
+            }
 
-        this.editor.on('text-change', () => {
-          let html = node.innerHTML;
+            let editorRef = this.$refs.editor;
+            let node = editorRef.children[0];
 
-          if (html === '<p><br></p>') {
-            html = '';
-          }
+            this.editor.on('text-change', () => {
+                let html = node.innerHTML;
 
-          this.content = html;
+                if (html === '<p><br></p>') {
+                    html = '';
+                }
 
-          this.$emit('input', this.content);
-        })
-      },
+                this.content = html;
 
-      pasteHTML () {
-        if (!this.editor) {
-          return
-        }
+                this.$emit('input', this.content);
+            });
+        },
 
-        this.editor.pasteHTML(this.value);
-      },
+        pasteHTML () {
+            if (!this.editor) {
+                return;
+            }
 
-      randomString() {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            this.editor.pasteHTML(this.value);
+        },
 
-        for (let i = 0; i < 5; i++) {
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
+        randomString() {
+            let text = "";
+            let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        return text;
-      }
+            for (let i = 0; i < 5; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+
+            return text;
+        },
     },
 
     async mounted () {
-      this.content = this.value;
+        this.content = this.value;
 
-      let Quill = await import('quill');
+        this.editorId = this.randomString();
+        this.toolbarId = this.randomString();
 
-      Quill = Quill.default || Quill;
-
-      this.editorId = this.randomString();
-      this.toolbarId = this.randomString();
-
-      this.$nextTick(() => {
-        this.initialize(Quill)
-      });
+        this.$nextTick(() => {
+            this.initialize(Quill)
+        });
     },
 
     watch: {
-      value (newVal) {
-        if (newVal !== this.content) {
-          this.pasteHTML(newVal);
-        }
-      },
+        value (newVal) {
+            if (newVal !== this.content) {
+                this.pasteHTML(newVal);
+            }
+        },
 
-      content (newVal) {
-        this.$emit('input', newVal);
-      }
-    }
-  }
+        content (newVal) {
+            this.$emit('input', newVal);
+        },
+    },
+ }
 </script>
