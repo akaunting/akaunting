@@ -8,7 +8,7 @@
         @endif
 
         <div class="input-group input-group-merge">
-            <dropzone-file-upload
+            <akaunting-dropzone-file-upload
                 @if (!empty($attributes['dropzone-class']))
                 class="{{ $attributes['dropzone-class'] }}"
                 @endif
@@ -22,7 +22,7 @@
                 :is-preview-single="{{ $attributes['isPreviewSingle'] }}"
                 @endif
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
-            ></dropzone-file-upload>
+            ></akaunting-dropzone-file-upload>
         </div>
 
         <div class="invalid-feedback d-block"
