@@ -57,7 +57,7 @@ export default {
             type: Object,
             default: () => ({})
         },
-        value: [String, Object, Array],
+        value: [String, Object, Array, File],
         url: {
             type: String,
             default: 'http:'
