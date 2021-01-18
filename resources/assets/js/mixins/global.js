@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import axios from 'axios';
 
-import DropzoneFileUpload from './../components/Inputs/DropzoneFileUpload';
+import AkauntingDropzoneFileUpload from './../components/AkauntingDropzoneFileUpload';
 import AkauntingContactCard from './../components/AkauntingContactCard';
 import AkauntingCompanyEdit from './../components/AkauntingCompanyEdit';
 import AkauntingEditItemColumns from './../components/AkauntingEditItemColumns';
@@ -31,7 +31,7 @@ import { concat } from 'lodash';
 
 export default {
     components: {
-        DropzoneFileUpload,
+        AkauntingDropzoneFileUpload,
         AkauntingContactCard,
         AkauntingCompanyEdit,
         AkauntingEditItemColumns,
@@ -61,7 +61,16 @@ export default {
     data: function () {
         return {
             component: '',
-            currency: null
+            currency: {
+                "name":"US Dollar",
+                "code":"USD",
+                "rate":1,
+                "precision":2,
+                "symbol":"$",
+                "symbol_first":1,
+                "decimal_mark":".",
+                "thousands_separator":",",
+            }
         }
     },
 
