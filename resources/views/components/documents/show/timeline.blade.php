@@ -79,7 +79,7 @@
                                                             </a>
                                                         @else
                                                             <button type="button" class="btn btn-secondary btn-sm" disabled="disabled">
-                                                                <span class="text-disabled">{{ trans($textTimelineSentStatusMarkSent) }}</span>
+                                                                {{ trans($textTimelineSentStatusMarkSent) }}
                                                             </button>
                                                         @endif
                                                     @endcan
@@ -118,9 +118,11 @@
                                                     {{ trans($textTimelineSendStatusMail) }}
                                                 </a>
                                             @else
-                                                <button type="button" class="btn btn-white btn-sm green-tooltip" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
-                                                    <span class="text-disabled">{{ trans($textTimelineSendStatusMail) }}</span>
-                                                </button>
+                                                <el-tooltip content="{{ trans('invoices.messages.email_required') }}" placement="top" effect="danger">
+                                                    <button type="button" class="btn btn-danger btn-sm" disabled="disabled">
+                                                        {{ trans($textTimelineSendStatusMail) }}
+                                                    </button>
+                                                </el-tooltip>
                                             @endif
                                         @endif
                                     @stack('timeline_sent_body_button_email_end')
