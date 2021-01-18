@@ -99,6 +99,7 @@ export default {
               thumbnailHeight: null,
               previewsContainer: preview,
               previewTemplate: preview.innerHTML,
+              autoProcessQueue: false,
               init: function () {
                 this.on("addedfile", function (file) {
                     self.files.push(file);
