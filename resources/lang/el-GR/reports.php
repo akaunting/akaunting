@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Έτος|Έτη',
     'this_year'             => 'Φέτος',
     'previous_year'         => 'Προηγούμενο έτος',
     'this_quarter'          => 'Αυτό το τρίμηνο',

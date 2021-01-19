@@ -10,6 +10,9 @@ return [
         'billed_at'         => 'Data e Faturës',
         'due_at'            => 'Data e Duhur',
         'invoiced_at'       => 'Data e Faturës',
+        'issued_at'         => 'Data e Lëshimit',
+        'symbol_first'      => 'Pozicioni i Simbolit',
+        'reconciled'        => 'I Pajtuar',
     ],
 
 ];

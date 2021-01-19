@@ -62,12 +62,21 @@ return [
         'default'           => 'Varsayılan',
         'classic'           => 'Klasik',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Ürün/Hizmet İsmini Gizle',
+            'item_description'  => 'Ürün/Hizmet Açıklamasını Gizle',
+            'quantity'          => 'Miktarı Gizle',
+            'price'             => 'Fiyatı Gizle',
+            'amount'            => 'Tutarı Gizle',
+        ],
     ],
 
     'default' => [
         'description'       => 'Şirketinizin varsayılan hesap, para birimi, dil vs',
         'list_limit'        => 'Sayfa Başına Kayıt Sayısı',
         'use_gravatar'      => 'Gravatar kullanın',
+        'income_category'   => 'Gelir Kategorisi',
+        'expense_category'  => 'Gider Kategorisi',
     ],
 
     'email' => [

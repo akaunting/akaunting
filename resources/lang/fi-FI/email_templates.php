@@ -4,12 +4,12 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} lasku luotu',
-        'body'          => 'Hyvä {customer_name},<br /><br />Olemme luoneet sinulle laskun numerolla <strong>{invoice_number}</strong>.<br /><br />Voit nähdä laskun tiedot ja jatkaa maksutapahtumaa seuraavasta linkistä: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Otathan yhteyttä, mikäli sinulla on kysyttävää.<br /><br />Terveisin,<br />{company_name}',
+        'body'          => 'Hyvä {customer_name},<br /><br />Olemme luoneet sinulle laskun numerolla <strong>{invoice_number}</strong>.<br /><br />Voit nähdä laskun tiedot seuraavasta linkistä: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Otathan yhteyttä, mikäli sinulla herää kysyttävää.<br /><br />Terveisin,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
         'subject'       => '{invoice_number} lasku erääntynyt',
-        'body'          => 'Hyvä {customer_name},<br /><br />Tämä on ilmoitus erääntyneestä laskusta numerolla <strong>{invoice_number}</strong>.<br /><br />Laskun kokonaissumma on {invoice_total} ja se erääntyi <strong>{invoice_due_date}</strong>.<br /><br />Voit nähdä laskun tiedot ja jatkaa maksutapahtumaa seuraavasta linkistä: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Terveisin,<br />{company_name}',
+        'body'          => 'Hyvä {customer_name},<br /><br />Tämä on ilmoitus erääntyneestä laskusta numerolla <strong>{invoice_number}</strong>.<br /><br />Laskun kokonaissumma on {invoice_total} ja se erääntyi <strong>{invoice_due_date}</strong>.<br /><br />Voit nähdä laskun tiedot seuraavasta linkistä: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Terveisin,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
