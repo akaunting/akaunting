@@ -442,6 +442,7 @@ abstract class DocumentForm extends Base
             return $textCreateNewContact;
         }
 
+        /*
         $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
 
         $translation = $this->getTextFromConfig($type, 'create_new_contact', $default_key, 'trans_choice');
@@ -452,11 +453,9 @@ abstract class DocumentForm extends Base
                 $translation,
             ];
         }
+        */
 
-        return [
-            'general.form.add_new',
-            'general.customers',
-        ];
+        return 'general.add_new';
     }
 
     protected function getTextEditContact($type, $textEditContact)
