@@ -27,13 +27,13 @@ class Bills extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Document $document
+     * @param  Document $bill
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Document $document)
+    public function show(Document $bill)
     {
-        return $this->response->item($document, new Transformer());
+        return $this->response->item($bill, new Transformer());
     }
 
     /**
@@ -53,29 +53,29 @@ class Bills extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  $document
+     * @param  $bill
      * @param  $request
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function update(Document $document, Request $request)
+    public function update(Document $bill, Request $request)
     {
-        $document = $this->dispatch(new UpdateDocument($document, $request));
+        $bill = $this->dispatch(new UpdateDocument($bill, $request));
 
-        return $this->item($document->fresh(), new Transformer());
+        return $this->item($bill->fresh(), new Transformer());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Document $document
+     * @param  Document $bill
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy(Document $bill)
     {
         try {
-            $this->dispatch(new DeleteDocument($document));
+            $this->dispatch(new DeleteDocument($bill));
 
             return $this->response->noContent();
         } catch(\Exception $e) {

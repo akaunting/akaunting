@@ -15,7 +15,7 @@ class Payment extends PaymentController
 
     public $type = 'redirect';
 
-    public function show(Document $document, PaymentRequest $request)
+    public function show(Document $invoice, PaymentRequest $request)
     {
         $setting = [];
 
@@ -40,7 +40,7 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function signed(Document $document, PaymentRequest $request)
+    public function signed(Document $invoice, PaymentRequest $request)
     {
         $setting = [];
 
@@ -54,7 +54,7 @@ class Payment extends PaymentController
             }
         }
 
-        $confirm_url = URL::signedRoute('signed.invoices.offline-payments.confirm', [$document->id, 'company_id' => session('company_id')]);
+        $confirm_url = URL::signedRoute('signed.invoices.offline-payments.confirm', [$invoice->id, 'company_id' => session('company_id')]);
 
         $html = view('offline-payments::signed', compact('setting', 'document', 'confirm_url'))->render();
 
@@ -67,10 +67,10 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function confirm(Document $document, Request $request)
+    public function confirm(Document $invoice, Request $request)
     {
         try {
-            event(new PaymentReceived($document, $request));
+            event(new PaymentReceived($invoice, $request));
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
