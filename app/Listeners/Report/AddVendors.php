@@ -28,6 +28,7 @@ class AddVendors extends Listener
         }
 
         $event->class->filters['vendors'] = $this->getVendors();
+        $event->class->filters['routes']['vendors'] = 'vendors.index';
     }
 
     /**

@@ -52,7 +52,7 @@ abstract class Report
 
     public function getAccounts()
     {
-        return Account::enabled()->orderBy('name')->pluck('name', 'id')->toArray();
+        return Account::enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id')->toArray();
     }
 
     public function getItemCategories()
@@ -77,7 +77,7 @@ abstract class Report
 
     public function getCategories($types)
     {
-        return Category::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
+        return Category::type($types)->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id')->toArray();
     }
 
     public function getCustomers()
@@ -92,7 +92,7 @@ abstract class Report
 
     public function getContacts($types)
     {
-        return Contact::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
+        return Contact::type($types)->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id')->toArray();
     }
 
     public function applyDateFilter($event)

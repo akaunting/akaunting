@@ -26,6 +26,7 @@ class AddIncomeCategories extends Listener
         }
 
         $event->class->filters['categories'] = $this->getIncomeCategories();
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:income'];
     }
 
     /**

@@ -26,6 +26,7 @@ class AddExpenseCategories extends Listener
         }
 
         $event->class->filters['categories'] = $this->getExpenseCategories();
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:expense'];
     }
 
     /**

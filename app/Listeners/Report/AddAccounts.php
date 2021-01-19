@@ -29,6 +29,7 @@ class AddAccounts extends Listener
         }
 
         $event->class->filters['accounts'] = $this->getAccounts();
+        $event->class->filters['routes']['accounts'] = 'accounts.index';
     }
 
     /**
