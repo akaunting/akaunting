@@ -9,7 +9,7 @@
 
     <title>{{ trans('maintenance.title') }}</title>
 
-    <base href="{{ config("app.url") . '/' }}">
+    <base href="{{ config('app.url') . '/' }}">
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" type="text/css">
     <link rel="stylesheet" href="{{ asset('public/css/maintenance.css?v=' . version('short')) }}" type="text/css">

@@ -8,7 +8,7 @@
 
     <title>@yield('title') - @setting('company.name')</title>
 
-    <base href="{{ config("app.url") . '/' }}">
+    <base href="{{ config('app.url') . '/' }}">
 
     @include('partials.pwa.pwa')
 

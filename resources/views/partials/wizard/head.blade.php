@@ -8,7 +8,7 @@
 
     <title>@yield('title') - @setting('company.name')</title>
 
-    <base href="{{ config("app.url") . '/' }}">
+    <base href="{{ config('app.url') . '/' }}">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
