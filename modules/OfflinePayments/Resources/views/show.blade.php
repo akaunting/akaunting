@@ -22,8 +22,9 @@
                 <button @click="onRedirectConfirm" type="button" id="button-confirm" class="btn btn-success">
                     {{ trans('general.confirm') }}
                 </button>
-                {!! Form::hidden('payment_method', $setting['code'], ['v-model' => 'form.payment_method']) !!}
-                {!! Form::hidden('type', 'income', ['v-model' => 'form.type']) !!}
+                {!! Form::hidden('payment_method', $setting['code']) !!}
+                {!! Form::hidden('type', 'income') !!}
+                
             {!! Form::close() !!}
         </div>
     </div>
