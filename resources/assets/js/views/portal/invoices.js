@@ -85,7 +85,7 @@ const app = new Vue({
                             },
 
                             created: function() {
-                                this.form = new Form('redirect-form ');
+                                this.form = new Form('redirect-form');
                             },
 
                             data: function () {
@@ -176,7 +176,7 @@ const app = new Vue({
                             },
 
                             created: function() {
-                                this.form = new Form('redirect-form ');
+                                this.form = new Form('redirect-form');
                             },
 
                             data: function () {
