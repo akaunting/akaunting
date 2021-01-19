@@ -29,7 +29,7 @@ class Payment extends PaymentController
             }
         }
 
-        $html = view('offline-payments::show', compact('setting', 'document'))->render();
+        $html = view('offline-payments::show', compact('setting', 'invoice'))->render();
 
         return response()->json([
             'code' => $setting['code'],
@@ -56,7 +56,7 @@ class Payment extends PaymentController
 
         $confirm_url = URL::signedRoute('signed.invoices.offline-payments.confirm', [$invoice->id, 'company_id' => session('company_id')]);
 
-        $html = view('offline-payments::signed', compact('setting', 'document', 'confirm_url'))->render();
+        $html = view('offline-payments::signed', compact('setting', 'invoice', 'confirm_url'))->render();
 
         return response()->json([
             'code' => $setting['code'],
