@@ -111,9 +111,9 @@ class Invoices extends Controller
             redirect()->route('login');
         }
 
-        $payment_methods = Modules::getPaymentMethods();
-
         $payment_actions = [];
+
+        $payment_methods = Modules::getPaymentMethods();
 
         foreach ($payment_methods as $payment_method_key => $payment_method_value) {
             $codes = explode('.', $payment_method_key);

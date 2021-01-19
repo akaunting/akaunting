@@ -60,7 +60,7 @@
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
                         @php $is_active = true; @endphp
-    
+
                         @foreach ($payment_methods as $key => $name)
                             @stack('invoice_{{ $key }}_content_start')
                             <div class="tab-pane fade{{ ($is_active) ? ' show active': '' }}" id="tabs-payment-method-{{ $key }}" role="tabpanel" aria-labelledby="tabs-payment-method-{{ $key }}-tab">

@@ -41,15 +41,15 @@ abstract class PaymentController extends BaseController
         });
     }
 
-    public function show(Document $document, PaymentRequest $request)
+    public function show(Document $invoice, PaymentRequest $request)
     {
-        $this->setContactFirstLastName($document);
+        $this->setContactFirstLastName($invoice);
 
-        $confirm_url = $this->getConfirmUrl($document);
+        $confirm_url = $this->getConfirmUrl($invoice);
 
         $html = view('partials.portal.payment_method.' . $this->type, [
             'setting' => $this->setting,
-            'invoice' => $document,
+            'invoice' => $invoice,
             'confirm_url' => $confirm_url,
         ])->render();
 
@@ -62,9 +62,9 @@ abstract class PaymentController extends BaseController
         ]);
     }
 
-    public function signed(Document $document, PaymentRequest $request)
+    public function signed(Document $invoice, PaymentRequest $request)
     {
-        return $this->show($document, $request);
+        return $this->show($invoice, $request);
     }
 
     public function cancel(Document $invoice, $force_redirect = false)
