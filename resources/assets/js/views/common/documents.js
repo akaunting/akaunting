@@ -50,16 +50,20 @@ const app = new Vue({
             discounts: [],
             tax_id: [],
 
-
             items: [],
             taxes: [],
             page_loaded: false,
+            currencies: [],
         }
     },
 
     mounted() {
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
+        }
+
+        if (document_currencies) {
+            this.currencies = document_currencies;
         }
     },
 
@@ -512,6 +516,31 @@ const app = new Vue({
             .finally(function () {
                 // always executed
             });
+        },
+
+        // Change currency get money
+        onChangeCurrency(currency_code) {
+            if (!this.currencies.length) {
+                let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
+
+                currency_promise.then(response => {
+                    if ( response.data.success) {
+                        this.currencies = response.data.data;
+                    }
+                })
+                .catch(error => {
+                    this.onChangeCurrency();
+                });
+            }
+
+            this.currencies.forEach(function (currency, index) {
+                if (currency_code == currency.code) {
+                    this.currency = currency;
+
+                    this.form.currency_code = currency.code;
+                    this.form.currency_rate = currency.rate;
+                }
+            }, this);
         },
     },
 

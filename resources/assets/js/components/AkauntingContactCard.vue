@@ -169,6 +169,7 @@ export default {
         },
         error: {
             type: String,
+            default: '',
             description: "Input error (below input)"
         },
         selected: {
@@ -593,7 +594,7 @@ export default {
 
             this.$emit('change', this.contact);
         }
-  } ,
+    },
 
     computed: {
         sortContacts() {

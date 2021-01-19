@@ -70,7 +70,7 @@ export default {
                 "symbol_first":1,
                 "decimal_mark":".",
                 "thousands_separator":",",
-            }
+            },
         }
     },
 
@@ -414,13 +414,15 @@ export default {
         // Change Contact Card set form fields..
         onChangeContactCard(contact) {
             this.form.contact_id = contact.id;
-            this.form.contact_name = contact.name;
-            this.form.contact_email = contact.email;
-            this.form.contact_tax_number = contact.tax_number;
-            this.form.contact_phone = contact.phone;
-            this.form.contact_address = contact.address;
+            this.form.contact_name = (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name;
+            this.form.contact_email = (contact.email) ? contact.email : '';
+            this.form.contact_tax_number = (contact.tax_number) ? contact.tax_number : '';
+            this.form.contact_phone = (contact.phone) ? contact.phone : '';
+            this.form.contact_address = (contact.address) ? contact.address : '';
 
-            this.form.currency_code = contact.currency_code;
+            let currency_code = (contact.currency_code) ? contact.currency_code : this.form.currency_code;
+
+            this.onChangeCurrency(currency_code);
         }
     }
 }
