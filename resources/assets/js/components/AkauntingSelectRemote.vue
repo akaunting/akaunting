@@ -189,7 +189,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled"  :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" disabled  value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -674,10 +674,14 @@ export default {
 
         async onAddItem() {
             // Get Select Input value
-            if (this.title) {
-                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            if (this.multiple) {
+                var value = this.$children[0].$children[0]. $refs.input.value;
             } else {
-                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+                if (this.title) {
+                    var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+                } else {
+                    var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+                }
             }
 
             if (this.add_new.type == 'inline') {
@@ -1018,18 +1022,18 @@ export default {
     }
 
     .el-select__footer {
-        text-align: center;
-        border-top: 1px solid #dee2e6;
-        padding: 0px;
-        cursor: pointer;
-        color: #3c3f72;
-        font-weight: bold;
-        height: 38px;
-        line-height: 38px;
-        margin-top: 5px;
-        margin-bottom: -6px;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        text-align: center !important;
+        border-top: 1px solid #dee2e6 !important;
+        padding: 0px !important;
+        cursor: pointer !important;
+        color: #3c3f72 !important;
+        font-weight: bold !important;
+        height: 38px !important;
+        line-height: 38px !important;
+        margin-top: 5px !important;
+        margin-bottom: -6px !important;
+        border-bottom-left-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
     }
 
     .el-select__footer.el-select-dropdown__item.hover {
