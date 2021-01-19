@@ -401,7 +401,7 @@ trait Permissions
             return;
         }
 
-        $table = request()->is('api/*') ? request()->segment(2) : '';
+        $table = request()->isApi() ? request()->segment(2) : '';
 
         // Fire event to find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
