@@ -54,9 +54,9 @@
                         {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}
 
                         <div class="input-group">
-                            <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
+                            <button type="button" class="btn btn-block btn-outline-primary" @click="onTemplate">
                                 {{ trans('settings.invoice.choose_template') }}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
