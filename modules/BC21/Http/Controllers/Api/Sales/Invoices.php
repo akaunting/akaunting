@@ -59,29 +59,29 @@ class Invoices extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  $document
+     * @param  $invoice
      * @param  $request
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function update(Document $document, Request $request)
+    public function update(Document $invoice, Request $request)
     {
-        $document = $this->dispatch(new UpdateDocument($document, $request));
+        $invoice = $this->dispatch(new UpdateDocument($invoice, $request));
 
-        return $this->response->item($document->fresh(), new Transformer());
+        return $this->response->item($invoice->fresh(), new Transformer());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Document $document
+     * @param  Document $invoice
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy(Document $invoice)
     {
         try {
-            $this->dispatch(new DeleteDocument($document));
+            $this->dispatch(new DeleteDocument($invoice));
 
             return $this->response->noContent();
         } catch(\Exception $e) {
