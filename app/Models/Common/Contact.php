@@ -43,14 +43,12 @@ class Contact extends Model
     public $sortable = ['name', 'email', 'phone', 'enabled'];
 
     /**
-     * The "booting" method of the model.
+     * The "booted" method of the model.
      *
      * @return void
      */
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::addGlobalScope(new Scope);
     }
 

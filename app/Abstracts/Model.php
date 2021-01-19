@@ -28,14 +28,12 @@ abstract class Model extends Eloquent
     }
 
     /**
-     * The "booting" method of the model.
+     * The "booted" method of the model.
      *
      * @return void
      */
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::addGlobalScope(new Company);
     }
 

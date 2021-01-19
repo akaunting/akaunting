@@ -73,14 +73,12 @@ class Document extends Model
     public $cloneable_relations = ['items', 'recurring', 'totals'];
 
     /**
-     * The "booting" method of the model.
+     * The "booted" method of the model.
      *
      * @return void
      */
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::addGlobalScope(new Scope);
     }
 

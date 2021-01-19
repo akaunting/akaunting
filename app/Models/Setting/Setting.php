@@ -17,16 +17,12 @@ class Setting extends Eloquent
     public $timestamps = false;
 
     /**
-     * Attributes that should be mass-assignable.
+     * The "booted" method of the model.
      *
-     * @var array
+     * @return void
      */
-    protected $fillable = ['company_id', 'key', 'value'];
-
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::addGlobalScope(new Company);
     }
 
