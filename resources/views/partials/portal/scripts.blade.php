@@ -14,12 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js" charset=utf-8></script>
 
     <!-- Argon -->
-
     <script type="text/javascript">
         'use strict';
 
         var Layout = (function() {
-
             function pinSidenav() {
                 $('.sidenav-toggler').addClass('active');
                 $('.sidenav-toggler').data('action', 'sidenav-unpin');
@@ -44,7 +42,7 @@
 
             var $sidenavState = Cookies.get('sidenav-state') ? Cookies.get('sidenav-state') : 'pinned';
 
-            if($(window).width() > 1200) {
+            if ($(window).width() > 1200) {
                 if($sidenavState == 'pinned') {
                     pinSidenav()
                 }
@@ -138,4 +136,5 @@
 
     @stack('body_scripts')
 
+    @livewireScripts
 @stack('scripts_end')

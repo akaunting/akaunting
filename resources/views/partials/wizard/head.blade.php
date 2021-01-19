@@ -3,8 +3,8 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8; charset=ISO-8859-1"/>
 
     <title>@yield('title') - @setting('company.name')</title>
 
@@ -29,6 +29,8 @@
     @stack('css')
 
     @stack('stylesheet')
+
+    @livewireStyles
 
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';
