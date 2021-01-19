@@ -90,7 +90,7 @@ abstract class Model extends Eloquent
 
         $query->usingSearchString($search)->sortable($sort);
 
-        if ($request->expectsJson()) {
+        if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
         }
 
