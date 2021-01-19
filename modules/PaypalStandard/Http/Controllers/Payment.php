@@ -17,15 +17,15 @@ class Payment extends PaymentController
 
     public $type = 'redirect';
 
-    public function show(Document $document, PaymentRequest $request)
+    public function show(Document $invoice, PaymentRequest $request)
     {
         $setting = $this->setting;
 
-        $this->setContactFirstLastName($document);
+        $this->setContactFirstLastName($invoice);
 
         $setting['action'] = ($setting['mode'] == 'live') ? 'https://www.paypal.com/cgi-bin/webscr' : 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 
-        $document_url = $this->getInvoiceUrl($document);
+        $invoice_url = $this->getInvoiceUrl($invoice);
 
         $html = view('paypal-standard::show', compact('setting', 'document', 'document_url'))->render();
 
@@ -38,7 +38,7 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function return(Document $document, Request $request)
+    public function return(Document $invoice, Request $request)
     {
         $success = true;
 
@@ -66,12 +66,12 @@ class Payment extends PaymentController
             flash($message)->warning();
         }
 
-        $document_url = $this->getInvoiceUrl($document);
+        $invoice_url = $this->getInvoiceUrl($invoice);
 
-        return redirect($document_url);
+        return redirect($invoice_url);
     }
 
-    public function complete(Document $document, Request $request)
+    public function complete(Document $invoice, Request $request)
     {
         $setting = $this->setting;
 
@@ -79,7 +79,7 @@ class Payment extends PaymentController
 
         $paypal_log->pushHandler(new StreamHandler(storage_path('logs/paypal.log')), Logger::INFO);
 
-        if (!$document) {
+        if (!$invoice) {
             return;
         }
 
@@ -115,10 +115,10 @@ class Payment extends PaymentController
             case 'Completed':
                 $receiver_match = (strtolower($request['receiver_email']) == strtolower($setting['email']));
 
-                $total_paid_match = ((double) $request['mc_gross'] == $document->amount);
+                $total_paid_match = ((double) $request['mc_gross'] == $invoice->amount);
 
                 if ($receiver_match && $total_paid_match) {
-                    event(new PaymentReceived($document, $request->merge(['type' => 'income'])));
+                    event(new PaymentReceived($invoice, $request->merge(['type' => 'income'])));
                 }
 
                 if (!$receiver_match) {
