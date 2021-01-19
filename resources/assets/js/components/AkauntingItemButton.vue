@@ -23,7 +23,7 @@
                                 class="form-control"
                                 autocapitalize="default" autocorrect="ON" 
                                 :placeholder="placeholder"
-                                :ref="'input-contact-field-' + _uid"
+                                :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
                                 @keyup.enter="onInput"
@@ -257,6 +257,10 @@ export default {
 
         onItemList() {
             this.show.item_list = true;
+
+            setTimeout(function() {
+                this.$refs['input-item-field-' + this._uid].focus();
+            }.bind(this), 100);
         },
 
         onInput() {

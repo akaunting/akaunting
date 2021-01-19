@@ -278,6 +278,10 @@ export default {
             this.show.contact_selected = false;
             this.contact = {};
 
+            setTimeout(function() {
+                this.$refs['input-contact-field-' + this._uid].focus();
+            }.bind(this), 100);
+
             this.$emit('change', {
                 index: 0,
                 key: '',
