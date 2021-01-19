@@ -7,8 +7,15 @@
     ]) !!}
         @php
             $filters = [];
+            $skipped = [
+                'keys', 'names', 'types', 'routes'
+            ];
 
             foreach ($class->filters as $filter_name => $filter_values) {
+                if (in_array($filter_name, $skipped)) {
+                    continue;
+                }
+
                 $key = $filter_name;
 
                 if (isset($class->filters['keys']) && !empty($class->filters['keys'][$filter_name])) {
@@ -39,8 +46,10 @@
 
                 $url = '';
 
-                if (isset($class->filters['urls']) && !empty($class->filters['urls'][$filter_name])) {
-                    $url = $class->filters['urls'][$filter_name];
+                if (isset($class->filters['routes']) && !empty($class->filters['routes'][$filter_name])) {
+                    $route = $class->filters['routes'][$filter_name];
+
+                    $url =  (is_array($route)) ? route($route[0], $route[1]) : route($route);
                 }
 
                 $filters[] = [
