@@ -1369,6 +1369,7 @@ table .align-items-center td span.badge {
     width: 135px;
     text-align: right;
 }
+
 .item-select-info-description, .item-select-info-name {
     width: 710px;
     display: block;
@@ -1408,6 +1409,7 @@ table .align-items-center td span.badge {
     margin-left: 45%;
 }
 /* Document Loading Finish */
+
 /* Custom File stype Start */
 .form-file {
     width: 100%;
