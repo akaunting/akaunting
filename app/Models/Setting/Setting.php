@@ -17,6 +17,13 @@ class Setting extends Eloquent
     public $timestamps = false;
 
     /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['company_id', 'key', 'value'];
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
