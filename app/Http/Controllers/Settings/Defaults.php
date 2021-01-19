@@ -24,7 +24,9 @@ class Defaults extends Controller
         if ($sale_category_id && !$sales_categories->has($sale_category_id)) {
             $category = Category::find($sale_category_id);
 
-            $sales_categories->put($category->id, $category->name);
+            if ($category) {
+                $sales_categories->put($category->id, $category->name);
+            }
         }
 
         $purchases_categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
@@ -34,7 +36,9 @@ class Defaults extends Controller
         if ($expense_category_id && !$purchases_categories->has($expense_category_id)) {
             $category = Category::find($expense_category_id);
 
-            $purchases_categories->put($category->id, $category->name);
+            if ($category) {
+                $purchases_categories->put($category->id, $category->name);
+            }
         }
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
