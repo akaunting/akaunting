@@ -24,6 +24,7 @@
             name="recurring_interval"
             type="number"
             :value="0"
+            @input="change"
             class="recurring-single"
             :class="invertalClasses"
             :error="intervalError"
@@ -50,6 +51,7 @@
             name="recurring_count"
             type="number"
             :value="0"
+            @input="change"
             class="recurring-single"
             :class="countClasses"
             :error="countError"
@@ -135,6 +137,11 @@ export default {
 
     mounted() {
         this.recurring_frequency = this.frequencyValue;
+
+        if (this.recurring_frequency != 'custom') {
+            this.recurring_custom_frequency = '';
+            this.recurring_interval = '0';
+        }
 
         this.frequencyChanges();
 

@@ -10,7 +10,11 @@
                     @stack('recurring_row_start')
                     @if (!$hideRecurring)
                         <div class="{{ $recurring_class }}">
-                            {{ Form::recurring('create', null, 'col-md-12') }}
+                            @if (!empty($document))
+                                {{ Form::recurring('edit', $document, 'col-md-12') }}
+                            @else
+                                {{ Form::recurring('create', null, 'col-md-12') }}
+                            @endif
                         </div>
                     @endif
                     @stack('recurring_row_end')
