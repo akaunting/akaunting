@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use InvalidArgumentException;
+use OutOfBoundsException;
+use UnexpectedValueException;
 class Money
 {
     /**
@@ -24,7 +26,13 @@ class Money
             $items = $request->get('items');
 
             if (!empty($amount)) {
-                $amount = money($amount)->getAmount();
+                try {
+                    $amount = money($amount)->getAmount();
+                } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
+                    logger($e->getMessage());
+
+                    $amount = 0;
+                }
 
                 $request->request->set('amount', $amount);
             }
@@ -36,7 +44,15 @@ class Money
                             continue;
                         }
 
-                        $items[$key]['price'] = money($item['price'])->getAmount();
+                        try {
+                            $amount = money($item['price'])->getAmount();
+                        } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
+                            logger($e->getMessage());
+
+                            $amount = 0;
+                        }
+
+                        $items[$key]['price'] = $amount;
                     }
 
                     $request->request->set('items', $items);
@@ -44,7 +60,15 @@ class Money
             }
 
             if (isset($opening_balance)) {
-                $opening_balance = money($opening_balance)->getAmount();
+                try {
+                    $amount = money($opening_balance)->getAmount();
+                } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
+                    logger($e->getMessage());
+
+                    $amount = 0;
+                }
+
+                $opening_balance = $amount;
 
                 $request->request->set('opening_balance', $opening_balance);
             }
