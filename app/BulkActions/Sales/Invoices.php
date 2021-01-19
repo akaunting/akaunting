@@ -48,6 +48,11 @@ class Invoices extends BulkAction
         $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
+            // Already in transactions
+            if ($invoice->status == 'paid') {
+                continue;
+            }
+
             event(new PaymentReceived($invoice, ['type' => 'income']));
         }
     }

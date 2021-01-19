@@ -47,7 +47,11 @@ class Bills extends BulkAction
     {
         $bills = $this->getSelectedRecords($request);
 
-        foreach ($bills as $bill) {
+        foreach ($bills as $bill) {// Already in transactions
+            if ($bill->status == 'paid') {
+                continue;
+            }
+
             $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
         }
     }
