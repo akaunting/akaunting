@@ -5,5 +5,5 @@ Route::group([
     'middleware' => 'portal',
     'namespace' => 'Modules\PaypalStandard\Http\Controllers'
 ], function () {
-    Route::get('invoices/{document}/paypal-standard', 'Payment@show')->name('portal.invoices.paypal-standard.show');
+    Route::get('invoices/{invoice}/paypal-standard', 'Payment@show')->name('portal.invoices.paypal-standard.show');
 });
