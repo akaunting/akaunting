@@ -156,7 +156,7 @@ return [
     'clear_cache'           => 'Rens Cache',
     'go_to_dashboard'       => 'Gå til skrivebordet',
     'is'                    => 'er',
-    'isnot'                 => 'er ikke', 
+    'isnot'                 => 'er ikke',
     'recurring_and_more'    => 'Tilbagevendende og mere..',
     'due_on'                => 'Forfalder den',
     'amount_due'            => 'Forfaldent beløb',
@@ -166,6 +166,7 @@ return [
         'number'                => 'Kort Nummer',
         'expiration_date'       => 'Udløbsdato',
         'cvv'                   => 'Kort CVV',
+        'save'                  => 'Gem kort',
     ],
 
     'title' => [

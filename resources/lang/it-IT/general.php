@@ -156,7 +156,7 @@ return [
     'clear_cache'           => 'Svuota Cache',
     'go_to_dashboard'       => 'Vai alla dashboard',
     'is'                    => 'è',
-    'isnot'                 => 'non è', 
+    'isnot'                 => 'non è',
     'recurring_and_more'    => 'Ricorrenza e altro..',
     'due_on'                => 'Scade il',
     'amount_due'            => 'Importo dovuto',
@@ -166,6 +166,7 @@ return [
         'number'                => 'Numero della carta',
         'expiration_date'       => 'Data di scadenza',
         'cvv'                   => 'CVV carta',
+        'save'                  => 'Salva Carta',
     ],
 
     'title' => [

@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Tahun|Tahun',
     'this_year'             => 'Tahun ini',
     'previous_year'         => 'Tahun sebelumnya',
     'this_quarter'          => 'Kuartal ini',

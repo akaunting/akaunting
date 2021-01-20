@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Anno|Anni',
     'this_year'             => 'Anno Corrente',
     'previous_year'         => 'Anno Precedente',
     'this_quarter'          => 'Trimestre Corrente',

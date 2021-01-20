@@ -6,6 +6,4 @@ return [
 
     'message' => 'Poteka vzdrževanje. Prosimo poizkusite kasneje.',
 
-    'last-updated' => 'To sporočilo je bilo osveženo :timestamp.',
-
 ];
