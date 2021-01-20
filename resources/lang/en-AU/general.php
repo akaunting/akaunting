@@ -156,7 +156,7 @@ return [
     'clear_cache'           => 'Clear Cache',
     'go_to_dashboard'       => 'Go to dashboard',
     'is'                    => 'is',
-    'isnot'                 => 'is not', 
+    'isnot'                 => 'is not',
     'recurring_and_more'    => 'Recurring and more..',
     'due_on'                => 'Due on',
     'amount_due'            => 'Amount due',
@@ -166,6 +166,7 @@ return [
         'number'                => 'Card Number',
         'expiration_date'       => 'Expiration Date',
         'cvv'                   => 'Card CVV',
+        'save'                  => 'Save Card',
     ],
 
     'title' => [

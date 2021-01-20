@@ -156,7 +156,7 @@ return [
     'clear_cache'           => 'Neteja memòria cau',
     'go_to_dashboard'       => 'Vés al tauler de control',
     'is'                    => 'és',
-    'isnot'                 => 'no és', 
+    'isnot'                 => 'no és',
     'recurring_and_more'    => 'Recurrent i més...',
     'due_on'                => 'Límit el',
     'amount_due'            => 'Quantitat',
@@ -166,6 +166,7 @@ return [
         'number'                => 'Número de la tarjeta',
         'expiration_date'       => 'Data de caducitat',
         'cvv'                   => 'CVV de la tarjeta',
+        'save'                  => 'Desa la tarjeta',
     ],
 
     'title' => [
