@@ -390,10 +390,6 @@ const app = new Vue({
             this.items[item_index].tax_ids.splice(tax_index, 1);
             this.form.items[item_index].tax_ids.splice(tax_index, 1);
 
-            if (!this.items[item_index].tax_ids.length) {
-                this.items[item_index].add_tax = false;
-            }
-
             this.onCalculateTotal();
         },
 
