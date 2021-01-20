@@ -89,6 +89,7 @@ const app = new Vue({
 
                 if (item.discount) {
                     line_discount_amount = item.total * (item.discount / 100);
+                    item.discount_amount = line_discount_amount
 
                     item_discounted_total = item.total -= line_discount_amount;
                     item_discount = item.discount;
@@ -302,6 +303,7 @@ const app = new Vue({
                 tax_ids: item_taxes,
                 add_discount: false,
                 discount: 0,
+                discount_amount: 0,
                 total: total,
                 // @todo
                 // invoice_item_checkbox_sample: [],
