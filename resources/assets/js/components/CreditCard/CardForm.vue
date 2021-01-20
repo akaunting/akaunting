@@ -3,10 +3,10 @@
     <div class="row align-items-center" v-if="Object.keys(cards).length">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="item_name" class="form-control-label">Cards</label>
+                <label for="item_name" class="form-control-label">{{ textCard }}</label>
                 <div class="input-group-invoice-text" v-for="(name, key, id) in cards">
                     <div class="custom-radio mb-2">
-                        <button type="button" 
+                        <button type="button"
                             :id="'card-'+ key + '-' + id"
                             class="btn btn-outline-default w-100"
                             @click="onSelectedCard(key)"
@@ -21,19 +21,19 @@
 
                 <div class="input-group-invoice-text">
                     <div class="custom-radio mb-2">
-                        <button type="button" 
+                        <button type="button"
                             id="card-new-card"
                             class="btn btn-outline-default w-100"
                             data-toggle="collapse"
                             data-target="#collapseNewCard"
                             aria-expanded="false"
                             aria-controls="collapseNewCard"
-                            :disabled="loading">New Card</button>
+                            :disabled="loading">{{ textNewCard }}</button>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="collapse w-100" id="collapseNewCard">
             <div class="row">
                 <div class="col-md-6 p-5">
@@ -148,8 +148,8 @@
 
                     <div class="form-group" v-if="storeCard">
                         <div class="custom-control custom-checkbox">
-                            <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
-                            <label for="store_card" class="custom-control-label">
+                            <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="custom-control-input">
+                            <label :for="'store_card' + _uid" class="custom-control-label">
                                 <strong>{{ textStoreCard }}</strong>
                             </label>
                         </div>
@@ -307,8 +307,8 @@
 
             <div class="form-group" v-if="storeCard">
                 <div class="custom-control custom-checkbox">
-                    <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
-                    <label for="store_card" class="custom-control-label">
+                    <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="custom-control-input">
+                    <label :for="'store_card' + _uid" class="custom-control-label">
                         <strong>{{ textStoreCard }}</strong>
                     </label>
                 </div>
@@ -407,6 +407,18 @@ export default {
             type: String,
             default: 'Enter Number',
             description: "Placeholder Card Number Text"
+        },
+
+        textCard: {
+            type: String,
+            default: 'Cards',
+            description: "Label Card Text"
+        },
+
+        textNewCard: {
+            type: String,
+            default: 'New Card',
+            description: "Label New Card Name Text"
         },
 
         textCardName: {
