@@ -6,7 +6,7 @@
                 <label for="item_name" class="form-control-label">Cards</label>
                 <div class="input-group-invoice-text" v-for="(name, key, id) in cards">
                     <div class="custom-radio mb-2">
-                        <button type="button" 
+                        <button type="button"
                             :id="'card-'+ key + '-' + id"
                             class="btn btn-outline-default w-100"
                             @click="onSelectedCard(key)"
@@ -21,7 +21,7 @@
 
                 <div class="input-group-invoice-text">
                     <div class="custom-radio mb-2">
-                        <button type="button" 
+                        <button type="button"
                             id="card-new-card"
                             class="btn btn-outline-default w-100"
                             data-toggle="collapse"
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="collapse w-100" id="collapseNewCard">
             <div class="row">
                 <div class="col-md-6 p-5">
@@ -148,8 +148,8 @@
 
                     <div class="form-group" v-if="storeCard">
                         <div class="custom-control custom-checkbox">
-                            <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
-                            <label for="store_card" class="custom-control-label">
+                            <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="custom-control-input">
+                            <label :for="'store_card' + _uid" class="custom-control-label">
                                 <strong>{{ textStoreCard }}</strong>
                             </label>
                         </div>
@@ -307,8 +307,8 @@
 
             <div class="form-group" v-if="storeCard">
                 <div class="custom-control custom-checkbox">
-                    <input @input="changeStoreCard" id="store_card" name="store_card" type="checkbox" value="true" class="custom-control-input">
-                    <label for="store_card" class="custom-control-label">
+                    <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="custom-control-input">
+                    <label :for="'store_card' + _uid" class="custom-control-label">
                         <strong>{{ textStoreCard }}</strong>
                     </label>
                 </div>
