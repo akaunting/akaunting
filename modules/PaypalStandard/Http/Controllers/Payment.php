@@ -27,7 +27,7 @@ class Payment extends PaymentController
 
         $invoice_url = $this->getInvoiceUrl($invoice);
 
-        $html = view('paypal-standard::show', compact('setting', 'document', 'document_url'))->render();
+        $html = view('paypal-standard::show', compact('setting', 'invoice', 'invoice_url'))->render();
 
         return response()->json([
             'code' => $setting['code'],
