@@ -3,7 +3,7 @@
     <div class="row align-items-center" v-if="Object.keys(cards).length">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="item_name" class="form-control-label">Cards</label>
+                <label for="item_name" class="form-control-label">{{ textCard }}</label>
                 <div class="input-group-invoice-text" v-for="(name, key, id) in cards">
                     <div class="custom-radio mb-2">
                         <button type="button"
@@ -28,7 +28,7 @@
                             data-target="#collapseNewCard"
                             aria-expanded="false"
                             aria-controls="collapseNewCard"
-                            :disabled="loading">New Card</button>
+                            :disabled="loading">{{ textNewCard }}</button>
                     </div>
                 </div>
             </div>
@@ -407,6 +407,18 @@ export default {
             type: String,
             default: 'Enter Number',
             description: "Placeholder Card Number Text"
+        },
+
+        textCard: {
+            type: String,
+            default: 'Cards',
+            description: "Label Card Text"
+        },
+
+        textNewCard: {
+            type: String,
+            default: 'New Card',
+            description: "Label New Card Name Text"
         },
 
         textCardName: {
