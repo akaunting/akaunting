@@ -216,7 +216,7 @@
 
                                         <td class="border-0 pb-0 text-right long-texts" :class="{'pb-2' : !row.add_tax}">
                                             <div>
-                                                {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'value' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
+                                                {{ Form::moneyGroup('discount_amount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.discount_amount', 'data-item' => 'discount_amount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
 
