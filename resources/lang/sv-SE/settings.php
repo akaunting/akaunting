@@ -30,10 +30,10 @@ return [
             'after'         => 'Efter nummret',
         ],
         'discount_location' => [
-            'name'          => 'Discount Location',
-            'item'          => 'At line',
-            'total'         => 'At total',
-            'both'          => 'Both line and total',
+            'name'          => 'Rabattplats',
+            'item'          => 'På rad',
+            'total'         => 'Totalt',
+            'both'          => 'Både rad och total',
         ],
     ],
 
@@ -62,12 +62,21 @@ return [
         'default'           => 'Standard',
         'classic'           => 'Klassisk',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Dölj objektnamn',
+            'item_description'  => 'Dölj objektbeskrivning',
+            'quantity'          => 'Dölj Kvantitet',
+            'price'             => 'Dölj pris',
+            'amount'            => 'Dölj belopp',
+        ],
     ],
 
     'default' => [
         'description'       => 'Standardkonto, valuta, ditt företags språk',
         'list_limit'        => 'Poster Per sida',
         'use_gravatar'      => 'Använda Gravatar',
+        'income_category'   => 'Kategori för inkomst',
+        'expense_category'  => 'Kategori för utlägg',
     ],
 
     'email' => [

@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Amount due',
 
     'card' => [
+        'cards'                 => 'Card|Cards',
         'name'                  => 'Name on Card',
         'number'                => 'Card Number',
         'expiration_date'       => 'Expiration Date',

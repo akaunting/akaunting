@@ -156,16 +156,18 @@ return [
     'clear_cache'           => 'Zwischenspeicher leeren',
     'go_to_dashboard'       => 'Zum Dashboard gehen',
     'is'                    => 'ist',
-    'isnot'                 => 'ist nicht', 
+    'isnot'                 => 'ist nicht',
     'recurring_and_more'    => 'Wiederkehrend und mehr..',
     'due_on'                => 'Fällig am',
     'amount_due'            => 'Fälliger Betrag',
 
     'card' => [
+        'cards'                 => 'Karte|Karten',
         'name'                  => 'Name des Karteninhabers',
         'number'                => 'Kartennummer',
         'expiration_date'       => 'Ablaufdatum',
         'cvv'                   => 'Karten CVV',
+        'save'                  => 'Karte speichern',
     ],
 
     'title' => [
