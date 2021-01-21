@@ -35,7 +35,7 @@
                 <thead class="thead-light">
                     <tr class="row table-head-line">
                         <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                        <th class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1">@sortablelink('paid_at', trans('general.date'))</th>
+                        <th class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1">@sortablelink('paid_at', trans('general.date'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
                         <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-md-2 col-lg-1 col-xl-1 d-none d-md-block text-left">@sortablelink('type', trans_choice('general.types', 1))</th>
                         <th class="col-lg-2 col-xl-2 d-none d-lg-block text-left">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
@@ -49,7 +49,7 @@
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
                             <td class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1">
-                                <a href="{{ route($item->route_name, $item->route_id) }}">
+                                <a class="col-aka" href="{{ route($item->route_name, $item->route_id) }}">
                                     @date($item->paid_at)
                                 </a>
                             </td>
