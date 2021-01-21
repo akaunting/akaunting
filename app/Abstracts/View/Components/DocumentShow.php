@@ -512,7 +512,7 @@ abstract class DocumentShow extends Base
         $this->hideNote = $hideNote;
         $this->hideAttachment = $hideAttachment;
 
-        $this->attachment = $attachment;
+        $this->attachment = !empty($attachment) ? $attachment : !empty($document) ? $document->attachment : '';
 
         $this->textItems = $textItems;
         $this->textQuantity = $textQuantity;
