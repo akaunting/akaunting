@@ -403,27 +403,41 @@ trait Permissions
 
         $table = request()->isApi() ? request()->segment(2) : '';
 
-        // Fire event to find the proper controller for common API endpoints
+        // Find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
-            $controller = '';
+            $controller = $type = '';
 
-            $type = request()->get('type');
+            // Look for type in search variable like api/contacts?search=type:customer
+            $queries = explode(' ', request()->get('search'));
+            foreach ($queries as $query) {
+                $tmp = explode(':', $query);
 
-            $alias = config('type.' . $type . '.alias');
-            $group = config('type.' . $type . '.group');
-            $prefix = config('type.' . $type . '.permission.prefix');
+                if (empty($tmp[0]) || ($tmp[0] != 'type') || empty($tmp[1])) {
+                    continue;
+                }
 
-            // if use module set module alias
-            if (!empty($alias)) {
-                $controller .= $alias . '-';
+                $type = $tmp[1];
+
+                break;
             }
 
-            // if controller in folder it must
-            if (!empty($group)) {
-                $controller .= $group . '-';
-            }
+            if (!empty($type)) {
+                $alias = config('type.' . $type . '.alias');
+                $group = config('type.' . $type . '.group');
+                $prefix = config('type.' . $type . '.permission.prefix');
 
-            $controller .= $prefix;
+                // if use module set module alias
+                if (!empty($alias)) {
+                    $controller .= $alias . '-';
+                }
+
+                // if controller in folder it must
+                if (!empty($group)) {
+                    $controller .= $group . '-';
+                }
+
+                $controller .= $prefix;
+            }
         } else {
             $route = app(Route::class);
 
