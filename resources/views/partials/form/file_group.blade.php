@@ -19,6 +19,9 @@
                         @php $attributes['options']['maxFiles'] = 1 @endphp
                         :options={{ json_encode($attributes['options']) }}
                     @endif
+                @else
+                    @php $attributes['options']['maxFiles'] = 1 @endphp
+                    :options={{ json_encode($attributes['options']) }}
                 @endif
                 @if (!empty($attributes['multiple']))
                 multiple
