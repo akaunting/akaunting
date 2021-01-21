@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Kalan Tutar',
 
     'card' => [
+        'cards'                 => 'Kart|Kartlar',
         'name'                  => 'Kart Sahibi',
         'number'                => 'Kart Numarası',
         'expiration_date'       => 'Geçerlilik Tarihi',

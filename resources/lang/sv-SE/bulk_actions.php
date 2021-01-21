@@ -15,7 +15,9 @@ return [
         'paid'          => 'Är du säker på att du vill markera vald faktura som <b>betald</b>?|Är du säker på att du vill markera markerade fakturor som <b>betalada</b>?',
         'sent'          => 'Är du säker på att du vill markera vald faktura som <b>skickad</b>?|Vill du verkligen markera markerade fakturor som <b>skickade</b>?',
         'received'      => 'Är du säker på att du vill markera vald faktura som <b>mottagen</b>?|Är du säker på att du vill markera markerade räkningar som <b>mottagna</b>?',
-        'cancelled'     => 'Are you sure you want to <b>cancel</b> selected invoice/bill?|Are you sure you want to <b>cancel</b> selected invoices/bills?',
+        'cancelled'     => 'Är du säker på att du vill <b>avbryta</b> markerade poster?|Är du säker på att du vill <b>avbryta</b> markerade poster?',
+        'reconcile'     => 'Är du säker på att du vill <b>avstämd/b> markerade poster?|Är du säker på att du vill <b>avstämd</b> markerade poster?',
+        'unreconcile'   => 'Är du säker på att du vill <b>oavstämd</b> markerade post?<unk> Är du säker på att du vill <b>oavstämd</b> markerade poster?',
     ],
 
 ];

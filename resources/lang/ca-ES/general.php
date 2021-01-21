@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Quantitat',
 
     'card' => [
+        'cards'                 => 'Tarjeta|Tarjetes',
         'name'                  => 'Nom a la tarjeta',
         'number'                => 'Número de la tarjeta',
         'expiration_date'       => 'Data de caducitat',

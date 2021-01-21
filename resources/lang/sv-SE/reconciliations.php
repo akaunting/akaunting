@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'Avstäm',
+    'unreconcile'           => 'Oavstämd',
     'reconciled'            => 'Avstämd',
+    'opening_balance'       => 'Ingående balans',
     'closing_balance'       => 'Slutsaldo',
     'unreconciled'          => 'Oavstämd',
     'transactions'          => 'Transaktioner',

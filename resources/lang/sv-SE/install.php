@@ -21,7 +21,7 @@ return [
         'disabled'          => ':feature måste inaktiveras!',
         'extension'         => ':extension tillägget måste vara installerad och laddad!',
         'directory'         => ':directory katalogen måste vara skrivbar!',
-        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'executable'        => 'PHP CLI körbar fil är inte definierad/fungerar eller dess version är inte :php_version eller högre! Be ditt webbhotellföretag att ställa in miljövariabeln PHP_BINARY eller PHP_PATH på rätt sätt.',
     ],
 
     'database' => [

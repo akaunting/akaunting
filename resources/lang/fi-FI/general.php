@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Erääntynyt',
 
     'card' => [
+        'cards'                 => 'Kortti|Kortit',
         'name'                  => 'Kortissa oleva nimi',
         'number'                => 'Kortin numero',
         'expiration_date'       => 'Vanhenemispäivämäärä',

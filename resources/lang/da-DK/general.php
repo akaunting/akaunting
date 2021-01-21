@@ -162,6 +162,8 @@ return [
     'amount_due'            => 'Forfaldent beløb',
 
     'card' => [
+        'cards'                 => 'Kort|Kort
+',
         'name'                  => 'Navn på kort',
         'number'                => 'Kort Nummer',
         'expiration_date'       => 'Udløbsdato',
