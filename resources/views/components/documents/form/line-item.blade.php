@@ -232,7 +232,7 @@
                                     :index="row_tax_index">
                                         <td colspan="2" class="pl-0 pb-0 border-0" :class="{'pb-2' : !row.add_tax}">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; margin-left: -30px;">
+                                                <div style="float: left; margin-top: 15px; right: 43%; position: absolute;">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
@@ -274,7 +274,7 @@
                                     <tr v-if="row.add_tax">
                                         <td colspan="2" class="pl-0 border-0">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; margin-left: -30px;">
+                                                <div style="float: left; margin-top: 15px; right: 43%; position: absolute;">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
