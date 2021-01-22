@@ -96,7 +96,7 @@ class SelectContactCard extends Component
         }
 
         #todo  3rd part apps
-        $this->placeholder = trans('general.placeholder.contact_search', ['type' => $this->type]);
+        $this->placeholder = trans('general.placeholder.contact_search', ['type' => trans_choice('general.' . Str::plural($this->type, 2), 1)]);
 
         return view('components.select-contact-card');
     }

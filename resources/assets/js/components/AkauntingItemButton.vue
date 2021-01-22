@@ -146,7 +146,7 @@ export default {
             default: 'Add an item',
             description: ""
         },
-        createNewItemText:{
+        createNewItemText: {
             type: String,
             default: 'Create a new item',
             description: ""

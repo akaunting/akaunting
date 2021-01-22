@@ -9,6 +9,9 @@
 
         <div class="input-group input-group-merge">
             <akaunting-dropzone-file-upload
+                text-drop-file="{{ trans('general.drop_file') }}"
+                text-choose-file="{{ trans('general.choose_file') }}"
+
                 @if (!empty($attributes['dropzone-class']))
                 class="{{ $attributes['dropzone-class'] }}"
                 @endif

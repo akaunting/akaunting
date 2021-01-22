@@ -49,6 +49,11 @@ export default {
     name: 'akaunting-dropzone-file-upload',
 
     props: {
+        textDropFile: {
+            type: String,
+            default: 'Drop files here to upload',
+            description: 'Drop file text'
+        },
         textChooseFile: {
             type: String,
             default: 'Choose File',
@@ -100,6 +105,7 @@ export default {
               thumbnailHeight: null,
               previewsContainer: preview,
               previewTemplate: preview.innerHTML,
+              dictDefaultMessage: this.textDropFile,
               autoProcessQueue: false,
               init: function () {
                 this.on('addedfile', function (file) {
