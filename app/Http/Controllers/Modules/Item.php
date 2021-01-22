@@ -236,6 +236,8 @@ class Item extends Controller
     public function install(Request $request)
     {
         try {
+            event(new \App\Events\Module\Installing($request['alias'], session('company_id')));
+
             $this->dispatch(new InstallModule($request['alias'], session('company_id')));
 
             $name = module($request['alias'])->getName();
