@@ -16,14 +16,14 @@
                         {{ Form::hidden('category_page', url("apps/categories"), ['id' => 'category_page']) }}
                     </div>
                     <div class="vr d-none d-sm-block"></div>
-                    <div class="col-xs-12 col-sm-7">
+                    <div class="col-xs-12 col-sm-6">
                         {!! Form::open(['route' => 'apps.search', 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
                             <div class="searh-field tags-input__wrapper">
                                 <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-100" placeholder="{{ trans('general.search_placeholder') }}" autocomplete="off">
                             </div>
                         {!! Form::close() !!}
                     </div>
-                    <div class="col-xs-12 col-sm-3 text-center">
+                    <div class="col-xs-12 col-sm-4 text-center">
                         <a href="{{ route('apps.paid') }}" class="btn btn-sm btn-white">{{ trans('modules.top_paid') }}</a>
                         <a href="{{ route('apps.new') }}" class="btn btn-sm btn-white">{{ trans('modules.new') }}</a>
                         <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white">{{ trans('modules.top_free') }}</a>
