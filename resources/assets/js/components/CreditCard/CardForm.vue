@@ -11,10 +11,11 @@
                             class="btn btn-outline-default w-100"
                             @click="onSelectedCard(key)"
                             :disabled="loading">
-                            <div v-if="loading" class="aka-loader-frame">
-                                <div class="aka-loader"></div>
+                            <div class="description text-center">
+                                <i v-if="loading" class="fa fa-spinner fa-spin fa-1x checkout-spin"></i>
+
+                                {{ name }}
                             </div>
-                            {{ name }}
                         </button>
                     </div>
                 </div>
@@ -28,7 +29,13 @@
                             data-target="#collapseNewCard"
                             aria-expanded="false"
                             aria-controls="collapseNewCard"
-                            :disabled="loading">{{ textNewCard }}</button>
+                            :disabled="loading">
+                            <div class="description text-center">
+                                <i v-if="loading" class="fa fa-spinner fa-spin fa-1x checkout-spin"></i>
+
+                                {{ textNewCard }}
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
