@@ -299,6 +299,18 @@ class Document extends Model
     }
 
     /**
+     * Get the not paid amount.
+     *
+     * @return string
+     */
+    public function getAmountDueAttribute()
+    {
+        $precision = config('money.' . $this->currency_code . '.precision');
+
+        return round($this->amount - $this->paid, $precision);
+    }
+
+    /**
      * Get the status label.
      *
      * @return string

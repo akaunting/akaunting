@@ -20,8 +20,13 @@
     <div class="row">
 
     @foreach($templates as $template)
-        @php $aria_expanded_status = in_array($card, [1, 2]) ? 'true' : 'false'; @endphp
-        @php $collapse_status = in_array($card, [1, 2]) ? 'show' : ''; @endphp
+        @php
+            if (!class_exists($template->class)) {
+                continue;
+            }
+            $aria_expanded_status = in_array($card, [1, 2]) ? 'true' : 'false';
+            $collapse_status = in_array($card, [1, 2]) ? 'show' : '';
+        @endphp
 
         <div class="col-md-6">
             <div class="accordion" id="accordion-{{ $card }}">

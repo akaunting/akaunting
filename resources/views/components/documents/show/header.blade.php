@@ -4,7 +4,7 @@
         <div class="{{ $classHeaderStatus }}">
             {{ trans_choice('general.statuses', 1) }}
             <br>
-            
+
             <strong>
                 <span class="float-left">
                     <span class="badge badge-{{ $document->status_label }}">
@@ -41,7 +41,7 @@
 
             <strong>
                 <span class="float-left">
-                    @money($document->amount - $document->paid, $document->currency_code, true)
+                    @money($document->amount_due, $document->currency_code, true)
                 </span>
             </strong>
             <br><br>

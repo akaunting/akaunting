@@ -66,6 +66,7 @@ class Bill extends Notification
         return [
             '{bill_number}',
             '{bill_total}',
+            '{bill_amount_due}',
             '{bill_due_date}',
             '{bill_admin_link}',
             '{vendor_name}',
@@ -80,8 +81,9 @@ class Bill extends Notification
     public function getTagsReplacement()
     {
         return [
-            $this->bill->bill_number,
+            $this->bill->document_number,
             money($this->bill->amount, $this->bill->currency_code, true),
+            money($this->bill->amount_due, $this->bill->currency_code, true),
             company_date($this->bill->due_at),
             route('bills.show', $this->bill->id),
             $this->bill->contact_name,
