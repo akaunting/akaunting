@@ -43,9 +43,11 @@ class CreateDocument extends Job
 
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), Str::plural($this->document->type));
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, Str::plural($this->document->type));
 
-                $this->document->attachMedia($media, 'attachment');
+                    $this->document->attachMedia($media, 'attachment');
+                }
             }
 
             $this->dispatch(new CreateDocumentItemsAndTotals($this->document, $this->request));

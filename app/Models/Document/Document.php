@@ -3,6 +3,7 @@
 namespace App\Models\Document;
 
 use App\Abstracts\Model;
+use App\Models\Common\Media as MediaModel;
 use App\Models\Setting\Tax;
 use App\Scopes\Document as Scope;
 use App\Traits\Currencies;
@@ -224,7 +225,14 @@ class Document extends Model
             return false;
         }
 
-        return $this->getMedia('attachment')->last();
+        return $this->getMedia('attachment')->all();
+    }
+
+    public function delete_attachment()
+    {
+        foreach ($this->attachment as $file) {
+            MediaModel::where('id', $file->id)->delete();
+        }
     }
 
     /**

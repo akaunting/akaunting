@@ -46,9 +46,13 @@ class UpdateDocument extends Job
         \DB::transaction(function () {
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), Str::plural($this->document->type));
+                $this->document->delete_attachment();
 
-                $this->document->attachMedia($media, 'attachment');
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, Str::plural($this->document->type));
+
+                    $this->document->attachMedia($media, 'attachment');
+                }
             }
 
             $this->deleteRelationships($this->document, ['items', 'item_taxes', 'totals']);
