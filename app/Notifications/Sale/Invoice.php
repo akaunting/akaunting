@@ -90,7 +90,7 @@ class Invoice extends Notification
     public function getTagsReplacement()
     {
         return [
-            $this->invoice->invoice_number,
+            $this->invoice->document_number,
             money($this->invoice->amount, $this->invoice->currency_code, true),
             company_date($this->invoice->due_at),
             URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
