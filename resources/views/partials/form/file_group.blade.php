@@ -12,23 +12,23 @@
                 @if (!empty($attributes['dropzone-class']))
                 class="{{ $attributes['dropzone-class'] }}"
                 @endif
+
                 @if (!empty($attributes['options']))
-                    @if (isset($attributes['options']['maxFiles']))
-                        :options={{ json_encode($attributes['options']) }}
-                    @else
-                        @php $attributes['options']['maxFiles'] = 1 @endphp
-                        :options={{ json_encode($attributes['options']) }}
-                    @endif
-                @else
-                    @php $attributes['options']['maxFiles'] = 1 @endphp
-                    :options={{ json_encode($attributes['options']) }}
+                :options={{ json_encode($attributes['options']) }}
                 @endif
+
                 @if (!empty($attributes['multiple']))
                 multiple
                 @endif
-                @if (isset($attributes['isPreviewSingle']))
-                :is-preview-single="{{ $attributes['isPreviewSingle'] }}"
+
+                @if (!empty($attributes['previewClasses']))
+                preview-classes="{{ $attributes['previewClasses'] }}"
                 @endif
+
+                @if (!empty($attributes['url']))
+                url="{{ $attributes['url'] }}"
+                @endif
+
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
             ></akaunting-dropzone-file-upload>
         </div>

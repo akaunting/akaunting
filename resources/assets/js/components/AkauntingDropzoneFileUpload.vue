@@ -1,14 +1,14 @@
 <template>
-    <div class="dropzone mb-3 dz-clickable" :class="[isPreviewSingle ? 'dropzone-single': 'dropzone-multiple']">
+    <div class="dropzone mb-3 dz-clickable" :class="[!multiple ? 'dropzone-single': 'dropzone-multiple']">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
 
                 <label class="custom-file-label" :for="'projectCoverUploads' + _uid">{{ textChooseFile }}</label>
-          </div>
+            </div>
         </div>
 
-        <div v-if="isPreviewSingle" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
+        <div v-if="!multiple" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
             <div class="dz-preview-cover">
                 <img class="dz-preview-img" data-dz-thumbnail>
             </div>
@@ -25,12 +25,13 @@
 
                     <div class="col ml--3">
                         <h4 class="mb-1" data-dz-name>...</h4>
+
                         <p class="small text-muted mb-0" data-dz-size>...</p>
                     </div>
 
                     <div class="col-auto">
                         <button data-dz-remove="true" class="btn btn-danger btn-sm">
-                          <i class="fas fa-trash"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -68,10 +69,6 @@ export default {
             description: 'Multiple file Upload'
         },
         previewClasses: [String, Object, Array],
-        isPreviewSingle: {
-            type: Boolean,
-            default: true
-        },
     },
 
     model: {
@@ -90,7 +87,11 @@ export default {
     methods: {
         async initDropzone() {
             let self = this;
-            let preview = this.isPreviewSingle ? this.$refs.previewSingle : this.$refs.previewMultiple;
+            let preview = !this.multiple ? this.$refs.previewSingle : this.$refs.previewMultiple;
+
+            if (!this.options.maxFiles && !this.multiple) {
+                this.options['maxFiles'] = 1;
+            }
 
             let finalOptions = {
               ...this.options,
@@ -101,7 +102,7 @@ export default {
               previewTemplate: preview.innerHTML,
               autoProcessQueue: false,
               init: function () {
-                this.on("addedfile", function (file) {
+                this.on('addedfile', function (file) {
                     self.files.push(file);
 
                     if (self.options.maxFiles == 1) {
@@ -110,7 +111,8 @@ export default {
                         self.$emit('change', self.files);
                     }
                 }),
-                this.on("removedfile", function (file) {
+ 
+                this.on('removedfile', function (file) {
                     let index = self.files.findIndex(f => f.upload.uuid === file.upload.uuid);
 
                     if (index !== -1) {
@@ -119,23 +121,27 @@ export default {
 
                     self.$emit('change', self.files);
 
-                    if(self.isPreviewSingle == false)
-                        this.enable()
+                    if (self.multiple) {
+                        this.enable();
+                    }
                 }),
-                this.on("maxfilesexceeded", function(file) {
+
+                this.on('maxfilesexceeded', function(file) {
                     this.removeAllFiles('notCancel');
                     this.addFile(file);
                 }),
-                this.on("maxfilesreached", function(file) {
-                    if(self.isPreviewSingle == false)
-                        this.disable()
+
+                this.on('maxfilesreached', function(file) {
+                    if (self.multiple) {
+                        this.disable();
+                    }
                 })
               }
             };
 
             this.dropzone = new Dropzone(this.$el, finalOptions);
 
-            preview.innerHTML = ''
+            preview.innerHTML = '';
         }
     },
 
