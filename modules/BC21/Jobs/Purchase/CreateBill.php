@@ -19,18 +19,19 @@ class CreateBill extends CreateDocument
     /**
      * Create a new job instance.
      *
-     * @param FormRequest $request
+     * @param FormRequest|array $request
      */
     public function __construct($request)
     {
-        $request->merge(
+        parent::__construct($request);
+
+        $this->request->merge(
             [
                 'type' => Document::BILL_TYPE,
-                'document_number' => $request->get('bill_number'),
-                'issued_at' => $request->get('billed_at'),
+                'document_number' => $this->request->get('bill_number'),
+                'issued_at' => $this->request->get('billed_at'),
             ]
         );
 
-        parent::__construct($request);
     }
 }
