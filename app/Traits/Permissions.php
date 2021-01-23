@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
+use App\Traits\SearchString;
 use App\Utilities\Reports;
 use App\Utilities\Widgets;
 use Illuminate\Routing\Route;
@@ -11,6 +12,8 @@ use Illuminate\Support\Str;
 
 trait Permissions
 {
+    use SearchString;
+
     public function getActionsMap()
     {
         return [
@@ -405,21 +408,10 @@ trait Permissions
 
         // Find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
-            $controller = $type = '';
+            $controller = '';
 
             // Look for type in search variable like api/contacts?search=type:customer
-            $queries = explode(' ', request()->get('search'));
-            foreach ($queries as $query) {
-                $tmp = explode(':', $query);
-
-                if (empty($tmp[0]) || ($tmp[0] != 'type') || empty($tmp[1])) {
-                    continue;
-                }
-
-                $type = $tmp[1];
-
-                break;
-            }
+            $type = $this->getSearchStringValue('type');
 
             if (!empty($type)) {
                 $alias = config('type.' . $type . '.alias');

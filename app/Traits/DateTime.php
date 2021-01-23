@@ -2,10 +2,13 @@
 
 namespace App\Traits;
 
+use App\Traits\SearchString;
 use Date;
 
 trait DateTime
 {
+    use SearchString;
+
     /*
      * Get the date format based on company settings.
      * getDateFormat method is used by Eloquent
@@ -37,19 +40,15 @@ trait DateTime
     public function scopeMonthsOfYear($query, $field)
     {
         $now = Date::now();
-        $year = request('year', $now->year);
+        $year = $this->getSearchStringValue('year', $now->year);
 
-        $financial_start = $this->getFinancialStart();
+        $financial_start = $this->getFinancialStart($year);
 
         // Check if FS has been customized
         if ($now->startOfYear()->format('Y-m-d') === $financial_start->format('Y-m-d')) {
             $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
             $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d H:i:s');
         } else {
-            if (!is_null(request('year'))) {
-                $financial_start->year = $year;
-            }
-
             $start = $financial_start->format('Y-m-d H:i:s');
             $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d H:i:s');
         }
@@ -97,7 +96,7 @@ trait DateTime
         return $groups;
     }
 
-    public function getFinancialStart()
+    public function getFinancialStart($year = null)
     {
         $now = Date::now();
         $start = Date::now()->startOfYear();
@@ -106,7 +105,7 @@ trait DateTime
 
         $day = !empty($setting[0]) ? $setting[0] : $start->day;
         $month = !empty($setting[1]) ? $setting[1] : $start->month;
-        $year = request('year', $now->year);
+        $year = $year ?? $this->getSearchStringValue('year', $now->year);
 
         $financial_start = Date::create($year, $month, $day);
 
@@ -118,22 +117,22 @@ trait DateTime
         return $financial_start;
     }
 
-    public function getMonthlyDateFormat()
+    public function getMonthlyDateFormat($year = null)
     {
         $format = 'M';
 
-        if ($this->getFinancialStart()->month != 1) {
+        if ($this->getFinancialStart($year)->month != 1) {
             $format = 'M Y';
         }
 
         return $format;
     }
 
-    public function getQuarterlyDateFormat()
+    public function getQuarterlyDateFormat($year = null)
     {
         $format = 'M';
 
-        if ($this->getFinancialStart()->month != 1) {
+        if ($this->getFinancialStart($year)->month != 1) {
             $format = 'M Y';
         }
 

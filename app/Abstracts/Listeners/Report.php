@@ -7,11 +7,12 @@ use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Traits\Contacts;
 use App\Traits\DateTime;
+use App\Traits\SearchString;
 use Date;
 
 abstract class Report
 {
-    use Contacts, DateTime;
+    use Contacts, DateTime, SearchString;
 
     protected $classes = [];
 
@@ -102,7 +103,13 @@ abstract class Report
 
     public function applySearchStringFilter($event)
     {
-        $event->model->usingSearchString(request('search'));
+        $input = request('search');
+
+        // Remove year as it's handled based on financial start
+        $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);
+        $input = str_replace($search_year, '', $input);
+
+        $event->model->usingSearchString($input);
     }
 
     public function applyAccountGroup($event)

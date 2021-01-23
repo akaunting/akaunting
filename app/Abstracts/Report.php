@@ -10,18 +10,18 @@ use App\Events\Report\GroupApplying;
 use App\Events\Report\GroupShowing;
 use App\Events\Report\RowsShowing;
 use App\Exports\Common\Reports as Export;
-use App\Models\Banking\Transaction;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
 use App\Traits\Charts;
 use App\Traits\DateTime;
+use App\Traits\SearchString;
 use App\Utilities\Chartjs;
 use Date;
 use Illuminate\Support\Str;
 
 abstract class Report
 {
-    use Charts, DateTime;
+    use Charts, DateTime, SearchString;
 
     public $model;
 
@@ -234,7 +234,7 @@ abstract class Report
 
     public function setYear()
     {
-        $this->year = request('year', Date::now()->year);
+        $this->year = $this->getSearchStringValue('year', Date::now()->year);
     }
 
     public function setViews()
@@ -270,7 +270,7 @@ abstract class Report
 
         $function = 'sub' . ucfirst(str_replace('ly', '', $period));
 
-        $start = $this->getFinancialStart()->copy()->$function();
+        $start = $this->getFinancialStart($this->year)->copy()->$function();
 
         for ($j = 1; $j <= 12; $j++) {
             switch ($period) {
@@ -390,13 +390,13 @@ abstract class Report
                 $i = $date->copy()->format($this->getYearlyDateFormat());
                 break;
             case 'quarterly':
-                $start = $date->copy()->startOfQuarter()->format($this->getQuarterlyDateFormat());
-                $end = $date->copy()->endOfQuarter()->format($this->getQuarterlyDateFormat());
+                $start = $date->copy()->startOfQuarter()->format($this->getQuarterlyDateFormat($this->year));
+                $end = $date->copy()->endOfQuarter()->format($this->getQuarterlyDateFormat($this->year));
 
                 $i = $start . '-' . $end;
                 break;
             default:
-                $i = $date->copy()->format($this->getMonthlyDateFormat());
+                $i = $date->copy()->format($this->getMonthlyDateFormat($this->year));
                 break;
         }
 
@@ -405,21 +405,15 @@ abstract class Report
 
     public function getUrl($action = 'print')
     {
-        $print_url = 'common/reports/' . $this->model->id . '/' . $action . '?year='. $this->year;
+        $url = 'common/reports/' . $this->model->id . '/' . $action;
 
-        collect(request('accounts'))->each(function($item) use (&$print_url) {
-            $print_url .= '&accounts[]=' . $item;
-        });
+        $search = request('search');
 
-        collect(request('customers'))->each(function($item) use (&$print_url) {
-            $print_url .= '&customers[]=' . $item;
-        });
+        if (!empty($search)) {
+            $url .= '?search=' . $search;
+        }
 
-        collect(request('categories'))->each(function($item) use (&$print_url) {
-            $print_url .= '&categories[]=' . $item;
-        });
-
-        return $print_url;
+        return $url;
     }
 
     public function getSetting($name, $default = '')
