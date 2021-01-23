@@ -19,7 +19,7 @@ class TotalProfit extends Widget
         $current_income = $open_invoice = $overdue_invoice = 0;
         $current_expenses = $open_bill = $overdue_bill = 0;
 
-        $this->applyFilters(Transaction::isNotDocument()->isNotTransfer())->each(function ($transaction) use (&$current_income, &$current_expenses) {
+        $this->applyFilters(Transaction::isNotTransfer())->each(function ($transaction) use (&$current_income, &$current_expenses) {
             $amount = $transaction->getAmountConvertedToDefault();
 
             if ($transaction->type == 'income') {
