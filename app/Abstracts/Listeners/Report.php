@@ -114,11 +114,11 @@ abstract class Report
 
     public function applyAccountGroup($event)
     {
-        if (($event->model->getTable() != 'invoices') && ($event->model->getTable() != 'bills')) {
+        if ($event->model->getTable() != 'documents') {
             return;
         }
 
-        $filter = request('accounts', []);
+        $filter = explode(',', $this->getSearchStringValue('account_id'));
 
         $event->model->account_id = 0;
 

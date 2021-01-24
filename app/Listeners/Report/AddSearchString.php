@@ -4,9 +4,8 @@ namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
 use App\Events\Report\FilterApplying;
-use App\Events\Report\FilterShowing;
 
-class AddSearch extends Listener
+class AddSearchString extends Listener
 {
     protected $classes = [
         'App\Reports\IncomeSummary',
@@ -15,21 +14,6 @@ class AddSearch extends Listener
         'App\Reports\ProfitLoss',
         'App\Reports\TaxSummary',
     ];
-
-    /**
-     * Handle filter showing event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleFilterShowing(FilterShowing $event)
-    {
-        if ($this->skipThisClass($event)) {
-            return;
-        }
-
-        //$event->class->filters['search'] = $this->getSearch();
-    }
 
     /**
      * Handle filter applying event.
@@ -43,7 +27,7 @@ class AddSearch extends Listener
             return;
         }
 
-        // Apply date
+        // Apply search string
         $this->applySearchStringFilter($event);
     }
 }

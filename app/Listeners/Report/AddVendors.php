@@ -73,7 +73,9 @@ class AddVendors extends Listener
             return;
         }
 
-        if ($vendors = request('vendors')) {
+        if ($vendor_ids = $this->getSearchStringValue('vendor_id')) {
+            $vendors = explode(',', $vendor_ids);
+
             $rows = collect($event->class->filters['vendors'])->filter(function ($value, $key) use ($vendors) {
                 return in_array($key, $vendors);
             });

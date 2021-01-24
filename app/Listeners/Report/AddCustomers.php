@@ -73,7 +73,9 @@ class AddCustomers extends Listener
             return;
         }
 
-        if ($customers = request('customers')) {
+        if ($customer_ids = $this->getSearchStringValue('customer_id')) {
+            $customers = explode(',', $customer_ids);
+
             $rows = collect($event->class->filters['customers'])->filter(function ($value, $key) use ($customers) {
                 return in_array($key, $customers);
             });

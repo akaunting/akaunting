@@ -92,7 +92,7 @@ class Event extends Provider
         'App\Listeners\Report\AddExpenseCategories',
         'App\Listeners\Report\AddIncomeCategories',
         'App\Listeners\Report\AddIncomeExpenseCategories',
-        'App\Listeners\Report\AddSearch',
+        'App\Listeners\Report\AddSearchString',
         'App\Listeners\Report\AddRowsToTax',
     ];
 }
