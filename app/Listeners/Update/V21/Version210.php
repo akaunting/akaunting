@@ -11,6 +11,7 @@ use App\Utilities\Overrider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -79,6 +80,8 @@ class Version210 extends Listener
 
         #todo remove tax_id column
         $this->copyItemTax();
+
+        $this->deleteOldFiles();
     }
 
     private function copyDocuments()
@@ -656,5 +659,143 @@ class Version210 extends Listener
                 );
             }
         });
+    }
+
+    public function deleteOldFiles()
+    {
+        $files = [
+            'app/Abstracts/DocumentModel.php',
+            'app/Events/Purchase/BillCancelled.php',
+            'app/Events/Purchase/BillCreated.php',
+            'app/Events/Purchase/BillCreating.php',
+            'app/Events/Purchase/BillReceived.php',
+            'app/Events/Purchase/BillRecurring.php',
+            'app/Events/Purchase/BillReminded.php',
+            'app/Events/Purchase/BillUpdated.php',
+            'app/Events/Purchase/BillUpdating.php',
+            'app/Events/Sale/InvoiceCancelled.php',
+            'app/Events/Sale/InvoiceCreated.php',
+            'app/Events/Sale/InvoiceCreating.php',
+            'app/Events/Sale/InvoicePrinting.php',
+            'app/Events/Sale/InvoiceRecurring.php',
+            'app/Events/Sale/InvoiceReminded.php',
+            'app/Events/Sale/InvoiceSent.php',
+            'app/Events/Sale/InvoiceUpdated.php',
+            'app/Events/Sale/InvoiceUpdating.php',
+            'app/Events/Sale/InvoiceViewed.php',
+            'app/Events/Sale/PaymentReceived.php',
+            'app/Http/Controllers/Api/Purchases/Bills.php',
+            'app/Http/Controllers/Api/Sales/InvoiceTransactions.php',
+            'app/Http/Controllers/Api/Sales/Invoices.php',
+            'app/Http/Controllers/Modals/BillTransactions.php',
+            'app/Http/Controllers/Modals/InvoiceTransactions.php',
+            'app/Http/Requests/Purchase/Bill.php',
+            'app/Http/Requests/Purchase/BillAddItem.php',
+            'app/Http/Requests/Purchase/BillHistory.php',
+            'app/Http/Requests/Purchase/BillItem.php',
+            'app/Http/Requests/Purchase/BillItemTax.php',
+            'app/Http/Requests/Purchase/BillTotal.php',
+            'app/Http/Requests/Sale/Invoice.php',
+            'app/Http/Requests/Sale/InvoiceAddItem.php',
+            'app/Http/Requests/Sale/InvoiceHistory.php',
+            'app/Http/Requests/Sale/InvoiceItem.php',
+            'app/Http/Requests/Sale/InvoiceItemTax.php',
+            'app/Http/Requests/Sale/InvoiceTotal.php',
+            'app/Jobs/Banking/CreateDocumentTransaction.php',
+            'app/Jobs/Purchase/CancelBill.php',
+            'app/Jobs/Purchase/CreateBill.php',
+            'app/Jobs/Purchase/CreateBillHistory.php',
+            'app/Jobs/Purchase/CreateBillItem.php',
+            'app/Jobs/Purchase/CreateBillItemsAndTotals.php',
+            'app/Jobs/Purchase/DeleteBill.php',
+            'app/Jobs/Purchase/DuplicateBill.php',
+            'app/Jobs/Purchase/UpdateBill.php',
+            'app/Jobs/Sale/CancelInvoice.php',
+            'app/Jobs/Sale/CreateInvoice.php',
+            'app/Jobs/Sale/CreateInvoiceHistory.php',
+            'app/Jobs/Sale/CreateInvoiceItem.php',
+            'app/Jobs/Sale/CreateInvoiceItemsAndTotals.php',
+            'app/Jobs/Sale/DeleteInvoice.php',
+            'app/Jobs/Sale/DuplicateInvoice.php',
+            'app/Jobs/Sale/UpdateInvoice.php',
+            'app/Listeners/Purchase/CreateBillCreatedHistory.php',
+            'app/Listeners/Purchase/IncreaseNextBillNumber.php',
+            'app/Listeners/Purchase/MarkBillCancelled.php',
+            'app/Listeners/Purchase/MarkBillReceived.php',
+            'app/Listeners/Purchase/SendBillRecurringNotification.php',
+            'app/Listeners/Purchase/SendBillReminderNotification.php',
+            'app/Listeners/Sale/CreateInvoiceCreatedHistory.php',
+            'app/Listeners/Sale/CreateInvoiceTransaction.php',
+            'app/Listeners/Sale/IncreaseNextInvoiceNumber.php',
+            'app/Listeners/Sale/MarkInvoiceCancelled.php',
+            'app/Listeners/Sale/MarkInvoiceSent.php',
+            'app/Listeners/Sale/MarkInvoiceViewed.php',
+            'app/Listeners/Sale/SendInvoicePaymentNotification.php',
+            'app/Listeners/Sale/SendInvoiceRecurringNotification.php',
+            'app/Listeners/Sale/SendInvoiceReminderNotification.php',
+            'app/Models/Purchase/Bill.php',
+            'app/Models/Purchase/BillHistory.php',
+            'app/Models/Purchase/BillItem.php',
+            'app/Models/Purchase/BillItemTax.php',
+            'app/Models/Purchase/BillTotal.php',
+            'app/Models/Sale/Invoice.php',
+            'app/Models/Sale/InvoiceHistory.php',
+            'app/Models/Sale/InvoiceItem.php',
+            'app/Models/Sale/InvoiceItemTax.php',
+            'app/Models/Sale/InvoiceTotal.php',
+            'app/Traits/Purchases.php',
+            'app/Traits/Sales.php',
+            'app/Transformers/Purchase/Bill.php',
+            'app/Transformers/Purchase/BillHistories.php',
+            'app/Transformers/Purchase/BillItems.php',
+            'app/Transformers/Purchase/BillTotals.php',
+            'app/Transformers/Sale/Invoice.php',
+            'app/Transformers/Sale/InvoiceHistories.php',
+            'app/Transformers/Sale/InvoiceItems.php',
+            'app/Transformers/Sale/InvoiceTotals.php',
+            'app/Utilities/Updater.php',
+            'config/maintenancemode.php',
+            'database/factories/Bill.php',
+            'database/factories/Invoice.php',
+            'public/0.js',
+            'public/38.js',
+            'public/js/purchases/bills.js',
+            'public/js/sales/invoices.js',
+            'resources/views/modals/bills/payment.blade.php',
+            'resources/views/modals/invoices/payment.blade.php',
+            'resources/views/partials/documents/item/print.blade.php',
+            'resources/views/partials/documents/item/show.blade.php',
+            'resources/views/purchases/bills/item.blade.php',
+            'resources/views/sales/invoices/item.blade.php',
+        ];
+
+        $directories = [
+            'app/Events/Purchase',
+            'app/Events/Sale',
+            'app/Http/Controllers/Api/Purchases',
+            'app/Http/Controllers/Api/Sales',
+            'app/Http/Requests/Purchase',
+            'app/Http/Requests/Sale',
+            'app/Jobs/Purchase',
+            'app/Jobs/Sale',
+            'app/Listeners/Purchase',
+            'app/Listeners/Sale',
+            'app/Models/Purchase',
+            'app/Models/Sale',
+            'app/Transformers/Purchase',
+            'app/Transformers/Sale',
+            'resources/views/modals/bills',
+            'resources/views/modals/invoices',
+            'resources/views/partials/documents/item',
+            'resources/views/partials/documents',
+        ];
+
+        foreach ($files as $file) {
+            File::delete(base_path($file));
+        }
+
+        foreach ($directories as $directory) {
+            File::deleteDirectory(base_path($directory));
+        }
     }
 }
