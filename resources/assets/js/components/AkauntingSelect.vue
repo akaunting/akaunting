@@ -314,11 +314,19 @@ export default {
                 }
             } else {
                 this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
+                    if (typeof(option) == 'string') {
+                        this.sort_options.push({
+                            index: index,
+                            key: index.toString(),
+                            value: option
+                        });
+                    } else {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }
                 }, this);
             }
         } else {
@@ -332,11 +340,19 @@ export default {
                 }
             } else {
                 this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
+                    if (typeof(option) == 'string') {
+                        this.sort_options.push({
+                            index: index,
+                            key: index.toString(),
+                            value: option
+                        });
+                    } else {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }
                 }, this);
             }
         }
@@ -399,6 +415,7 @@ export default {
                 return 0;
             }
         },
+
         change() {
             // This controll added add new changed..
             if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
@@ -769,11 +786,19 @@ export default {
                     }
                 } else {
                     options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             } else {
@@ -787,11 +812,19 @@ export default {
                     }
                 } else {
                     options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             }
