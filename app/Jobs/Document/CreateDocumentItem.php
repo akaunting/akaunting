@@ -169,7 +169,7 @@ class CreateDocumentItem extends Job
             'document_id' => $this->document->id,
             'item_id' => $item_id,
             'name' => Str::limit($this->request['name'], 180, ''),
-            'description' => $this->request['description'],
+            'description' => !empty($this->request['description']) ? $this->request['description'] : '',
             'quantity' => (double) $this->request['quantity'],
             'price' => round($this->request['price'], $precision),
             'tax' => round($item_tax_total, $precision),
