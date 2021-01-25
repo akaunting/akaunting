@@ -193,8 +193,10 @@ return [
         'add_new'           => 'Tilføj nyt :field',
         'edit'              => 'Rediger :field',
         'contact_edit'      => 'Rediger :contact_name :field',
+        'drop_file'         => 'Slip filer her for at uploade',
         'choose'            => 'Vælg :field',
         'choose_different'  => 'Vælg et andet :field',
+        'choose_file'       => 'Vælg fil',
         'no_file_selected'  => 'Ingen fil valgt...',
     ],
 

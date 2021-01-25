@@ -192,8 +192,10 @@ return [
         'add_new'           => 'Lägg till nytt :field',
         'edit'              => 'Redigera :field',
         'contact_edit'      => 'Redigera :contact_name :field',
+        'drop_file'         => 'Släpp filer här för att ladda upp',
         'choose'            => 'Välj :field',
         'choose_different'  => 'Välj ett annat :field',
+        'choose_file'       => 'Välj fil',
         'no_file_selected'  => 'Ingen fil är vald...',
     ],
 

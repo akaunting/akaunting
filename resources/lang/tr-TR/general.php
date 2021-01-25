@@ -192,8 +192,10 @@ return [
         'add_new'           => ':field Yeni Ekle',
         'edit'              => ':field Düzenle',
         'contact_edit'      => ':contact_name :field ekle',
+        'drop_file'         => 'Dosyaları yüklemek için buraya sürükleyin',
         'choose'            => ':field Seç',
         'choose_different'  => 'Başka bir :field seç',
+        'choose_file'       => 'Dosya Seçin',
         'no_file_selected'  => 'Dosya seçilmemiş...',
     ],
 

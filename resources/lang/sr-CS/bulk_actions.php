@@ -4,7 +4,7 @@ return [
 
     'bulk_actions'      => 'Skupna akcija|Skupne akcije',
     'selected'          => 'izabrano',
-    'no_action'         => 'Ni jedna opcija nije dostupna',
+    'no_action'         => 'Nema dostupnih sekcija.',
 
     'message' => [
         'duplicate'     => 'Jeste li sigurni da želite <b>duplirati </b> odabrani zapis?',

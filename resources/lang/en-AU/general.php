@@ -192,8 +192,10 @@ return [
         'add_new'           => 'Add New :field',
         'edit'              => 'Edit :field',
         'contact_edit'      => 'Edit :contact_name :field',
+        'drop_file'         => 'Drop files here to upload',
         'choose'            => 'Choose :field',
         'choose_different'  => 'Choose a different :field',
+        'choose_file'       => 'Choose File',
         'no_file_selected'  => 'No file selected...',
     ],
 
