@@ -9,6 +9,7 @@ use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Utilities\Overrider;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -22,7 +23,7 @@ class Version210 extends Listener
 
     const VERSION = '2.1.0';
 
-    private $tables = [
+    private $tableRelations = [
         Document::INVOICE_TYPE => [
             'estimate_invoice',
             'foriba_earchive_one_steps',
@@ -61,6 +62,11 @@ class Version210 extends Listener
     private const DEBIT_NOTE_TYPE = 'debit-note';
 
     /**
+     * @var Collection
+     */
+    private $totals;
+
+    /**
      * Handle the event.
      *
      * @param  $event
@@ -76,7 +82,7 @@ class Version210 extends Listener
 
         Artisan::call('migrate', ['--force' => true]);
 
-        $this->copyDocuments();
+        $this->migrateDocuments();
 
         #todo remove tax_id column
         $this->copyItemTax();
@@ -84,28 +90,32 @@ class Version210 extends Listener
         $this->deleteOldFiles();
     }
 
-    private function copyDocuments()
+    private function migrateDocuments()
     {
         try {
+            $this->removeAutoIncrements();
             $this->addForeignKeys();
 
             DB::transaction(function () {
-                $totals = collect($this->getTotals(['invoices', 'bills', 'estimates', 'credit_notes', 'debit_notes']));
+                $this->totals = collect($this->getTotals(['invoice', 'bill', 'estimate', 'credit_note', 'debit_note']));
 
                 // Sort table's count by ascending to improve performance.
-                foreach ($totals->sort() as $table => $count) {
-                    $method = 'copy' . Str::studly($table);
+                    foreach ($this->totals->sort() as $table => $count) {
+                        $method = 'copy' . Str::plural(Str::studly($table));
                     $this->$method();
                 }
 
                 $this->updateCreditNoteTransactionsTable();
+                $this->updateDocumentIds();
             });
 
+            $this->renameTables();
         } catch (\Exception $e) {
             $this->revertTableRenaming();
 
             Log::error($e);
         } finally {
+            $this->addAutoIncrements();
             $this->removeForeignKeys();
             foreach (['estimate', 'bill', 'invoice'] as $item) {
                 $this->removeDocumentIdForeignKeys($item);
@@ -113,21 +123,333 @@ class Version210 extends Listener
         }
     }
 
-    public function updateCreditNoteTransactionsTable(): void
+    private function updateInvoiceIds(): void
+    {
+        $sorted = $this->totals->sortDesc()->keys();
+
+        // Invoice ids do not changed
+        if ('invoice' === $sorted->first()) {
+            return;
+        }
+
+        $incrementAmount = $this->getIncrementAmount('invoice', 's');
+
+        if (0 === $incrementAmount) {
+            return;
+        }
+
+        DB::table('documents')
+          ->where('type', 'invoice')
+          ->whereNotNull('parent_id')
+          ->where('parent_id', '<>', 0)
+          ->increment('parent_id', $incrementAmount);
+
+        DB::table('transactions')
+          ->where('type', 'income')
+          ->whereNotNull('document_id')
+          ->where('document_id', '<>', 0)
+          ->increment('document_id', $incrementAmount);
+    }
+
+    private function updateBillIds(): void
+    {
+        $sorted = $this->totals->sortDesc()->keys();
+
+        // Bill ids do not changed
+        if ('bill' === $sorted->first()) {
+            return;
+        }
+
+        $incrementAmount = $this->getIncrementAmount('bill', 's');
+
+        if (0 === $incrementAmount) {
+            return;
+        }
+
+        DB::table('documents')
+          ->where('type', 'bill')
+          ->whereNotNull('parent_id')
+          ->where('parent_id', '<>', 0)
+          ->increment('parent_id', $incrementAmount);
+
+        DB::table('transactions')
+          ->where('type', 'expense')
+          ->whereNotNull('document_id')
+          ->where('document_id', '<>', 0)
+          ->increment('document_id', $incrementAmount);
+    }
+
+    private function updateDocumentIds()
+    {
+        $this->updateInvoiceIds();
+        $this->updateBillIds();
+
+        $tables = [
+            'recurring'                  => 'recurable',
+            'mediables'                  => 'mediable',
+            'project_activities'         => 'activity',
+            'custom_fields_field_values' => 'model',
+            'double_entry_ledger'        => 'ledgerable',
+            'inventory_histories'        => 'type',
+            'magento_integrations'       => 'item',
+            'opencart_integrations'      => 'item',
+            'prestashop_integrations'    => 'item',
+            'woocommerce_integrations'   => 'item',
+        ];
+
+        foreach ($tables as $table => $column) {
+            if (Schema::hasTable($table) === false || DB::table($table)->count() === 0) {
+                continue;
+            }
+
+            $classes = [
+                'invoices'               => [
+                    'sort_key'     => 'invoice',
+                    'table_suffix' => 's',
+                    'search'       => [
+                        'App\Models\Sale\Invoice',
+                        'App\Models\Income\Invoice',
+                    ],
+                    'replacement'  => 'App\Models\Document\Document',
+                ],
+                'invoice_items'          => [
+                    'sort_key'     => 'invoice',
+                    'table_suffix' => '_items',
+                    'search'       => [
+                        'App\Models\Sale\InvoiceItem',
+                        'App\Models\Income\InvoiceItem',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentItem',
+                ],
+                'invoice_item_taxes'     => [
+                    'sort_key'     => 'invoice',
+                    'table_suffix' => '_item_taxes',
+                    'search'       => [
+                        'App\Models\Sale\InvoiceItemTax',
+                        'App\Models\Income\InvoiceItemTax',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentItemTax',
+                ],
+                'invoice_totals'         => [
+                    'sort_key'     => 'invoice',
+                    'table_suffix' => '_totals',
+                    'search'       => [
+                        'App\Models\Sale\InvoiceTotal',
+                        'App\Models\Income\InvoiceTotal',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentTotal',
+                ],
+                'invoice_histories'      => [
+                    'sort_key'     => 'invoice',
+                    'table_suffix' => '_histories',
+                    'search'       => [
+                        'App\Models\Sale\InvoiceHistory',
+                        'App\Models\Income\InvoiceHistory',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentHistory',
+                ],
+                'bills'                  => [
+                    'sort_key'     => 'bill',
+                    'table_suffix' => 's',
+                    'search'       => [
+                        'App\Models\Purchase\Bill',
+                        'App\Models\Expense\Bill',
+                    ],
+                    'replacement'  => 'App\Models\Document\Document',
+                ],
+                'bill_items'             => [
+                    'sort_key'     => 'bill',
+                    'table_suffix' => '_items',
+                    'search'       => [
+                        'App\Models\Purchase\BillItem',
+                        'App\Models\Expense\BillItem',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentItem',
+                ],
+                'bill_item_taxes'        => [
+                    'sort_key'     => 'bill',
+                    'table_suffix' => '_item_taxes',
+                    'search'       => [
+                        'App\Models\Purchase\BillItemTax',
+                        'App\Models\Expense\BillItemTax',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentItemTax',
+                ],
+                'bill_totals'            => [
+                    'sort_key'     => 'bill',
+                    'table_suffix' => '_totals',
+                    'search'       => [
+                        'App\Models\Purchase\BillTotal',
+                        'App\Models\Expense\BillTotal',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentTotal',
+                ],
+                'bill_histories'         => [
+                    'sort_key'     => 'bill',
+                    'table_suffix' => '_histories',
+                    'search'       => [
+                        'App\Models\Purchase\BillHistory',
+                        'App\Models\Expense\BillHistory',
+                    ],
+                    'replacement'  => 'App\Models\Document\DocumentHistory',
+                ],
+                'estimates'              => [
+                    'sort_key'     => 'estimate',
+                    'table_suffix' => 's',
+                    'search'       => [
+                        'Modules\Estimates\Models\Estimate',
+                    ],
+                ],
+                'estimate_items'         => [
+                    'sort_key'     => 'estimate',
+                    'table_suffix' => '_items',
+                    'search'       => [
+                        'Modules\Estimates\Models\EstimateItem',
+                    ],
+                ],
+                'estimate_item_taxes'    => [
+                    'sort_key'     => 'estimate',
+                    'table_suffix' => '_item_taxes',
+                    'search'       => [
+                        'Modules\Estimates\Models\EstimateItemTax',
+                    ],
+                ],
+                'estimate_totals'        => [
+                    'sort_key'     => 'estimate',
+                    'table_suffix' => '_totals',
+                    'search'       => [
+                        'Modules\Estimates\Models\EstimateTotal',
+                    ],
+                ],
+                'estimate_histories'     => [
+                    'sort_key'     => 'estimate',
+                    'table_suffix' => '_histories',
+                    'search'       => [
+                        'Modules\Estimates\Models\EstimateHistory',
+                    ],
+                ],
+                'credit_notes'           => [
+                    'sort_key'     => 'credit_note',
+                    'table_suffix' => 's',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\CreditNote',
+                    ],
+                ],
+                'credit_note_items'      => [
+                    'sort_key'     => 'credit_note',
+                    'table_suffix' => '_items',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\CreditNoteItem',
+                    ],
+                ],
+                'credit_note_item_taxes' => [
+                    'sort_key'     => 'credit_note',
+                    'table_suffix' => '_item_taxes',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\CreditNoteItemTax',
+                    ],
+                ],
+                'credit_note_totals'     => [
+                    'sort_key'     => 'credit_note',
+                    'table_suffix' => '_totals',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\CreditNoteTotal',
+                    ],
+                ],
+                'credit_note_histories'  => [
+                    'sort_key'     => 'credit_note',
+                    'table_suffix' => '_histories',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\CreditNoteHistory',
+                    ],
+                ],
+                'debit_notes'            => [
+                    'sort_key'     => 'debit_note',
+                    'table_suffix' => 's',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\DebitNote',
+                    ],
+                ],
+                'debit_note_items'       => [
+                    'sort_key'     => 'debit_note',
+                    'table_suffix' => '_items',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\DebitNoteItem',
+                    ],
+                ],
+                'debit_note_item_taxes'  => [
+                    'sort_key'     => 'debit_note',
+                    'table_suffix' => '_item_taxes',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\DebitNoteItemTax',
+                    ],
+                ],
+                'debit_note_totals'      => [
+                    'sort_key'     => 'debit_note',
+                    'table_suffix' => '_totals',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\DebitNoteTotal',
+                    ],
+                ],
+                'debit_note_histories'   => [
+                    'sort_key'     => 'debit_note',
+                    'table_suffix' => '_histories',
+                    'search'       => [
+                        'Modules\CreditDebitNotes\Models\DebitNoteHistory',
+                    ],
+                ],
+            ];
+
+            foreach ($classes as $class) {
+                $incrementAmount = $this->getIncrementAmount($class['sort_key'], $class['table_suffix']);
+
+                $builder = DB::table($table)->where("{$column}_type", $class['search'][0]);
+
+                if (isset($class['search'][1])) {
+                    $builder->orWhere("{$column}_type", $class['search'][1]);
+                }
+
+                if ($incrementAmount !== 0) {
+                    $builder->increment("{$column}_id", $incrementAmount);
+                }
+
+                if (isset($class['replacement'])) {
+                    $builder->update(["{$column}_type" => $class['replacement']]);
+                }
+            }
+        }
+    }
+
+    private function getIncrementAmount(string $key, string $suffix): int
+    {
+        $incrementAmount = 0;
+
+        foreach ($this->totals->sortDesc()->keys()->takeUntil($key) as $table) {
+            $incrementAmount += optional(
+                DB::table($table . $suffix)->orderByDesc('id')->first('id'),
+                function ($document) {
+                    return $document->id;
+                }
+            );
+        }
+        return $incrementAmount;
+    }
+
+    private function updateCreditNoteTransactionsTable(): void
     {
         if (!Schema::hasTable('credits_transactions')) {
             return;
         }
 
         $invoices = DB::table('credits_transactions')
-                      ->join('invoices_v20', 'credits_transactions.document_id', '=', 'invoices_v20.id')
+                      ->join('invoices', 'credits_transactions.document_id', '=', 'invoices.id')
                       ->where('credits_transactions.type', 'expense')
                       ->get(
                           [
                               'credits_transactions.id as credits_transactions_id',
-                              'invoices_v20.company_id',
+                              'invoices.company_id',
                               'invoice_number',
-                              'invoices_v20.deleted_at',
+                              'invoices.deleted_at',
                           ]
                       );
 
@@ -147,14 +469,14 @@ class Version210 extends Listener
         }
 
         $credit_notes = DB::table('credits_transactions')
-                          ->join('credit_notes_v20', 'credits_transactions.document_id', '=', 'credit_notes_v20.id')
+                          ->join('credit_notes', 'credits_transactions.document_id', '=', 'credit_notes.id')
                           ->where('credits_transactions.type', 'income')
                           ->get(
                               [
                                   'credits_transactions.id as credits_transactions_id',
-                                  'credit_notes_v20.company_id',
+                                  'credit_notes.company_id',
                                   'credit_note_number',
-                                  'credit_notes_v20.deleted_at',
+                                  'credit_notes.deleted_at',
                               ]
                           );
 
@@ -170,6 +492,44 @@ class Version210 extends Listener
                 DB::table('credits_transactions')
                   ->where('id', $credit_note->credits_transactions_id)
                   ->update(['document_id' => $document->id]);
+            }
+
+        }
+    }
+
+    private function renameTables(): void
+    {
+        $tables = [
+            'bill_histories',
+            'bill_item_taxes',
+            'bill_items',
+            'bill_totals',
+            'bills',
+            'credit_note_histories',
+            'credit_note_item_taxes',
+            'credit_note_items',
+            'credit_note_totals',
+            'credit_notes',
+            'debit_note_histories',
+            'debit_note_item_taxes',
+            'debit_note_items',
+            'debit_note_totals',
+            'debit_notes',
+            'estimate_histories',
+            'estimate_item_taxes',
+            'estimate_items',
+            'estimate_totals',
+            'estimates',
+            'invoice_histories',
+            'invoice_item_taxes',
+            'invoice_items',
+            'invoice_totals',
+            'invoices',
+        ];
+
+        foreach ($tables as $table) {
+            if (Schema::hasTable($table)) {
+                Schema::rename($table, "{$table}_v20");
             }
         }
     }
@@ -215,11 +575,11 @@ class Version210 extends Listener
     {
         $counts = [];
         foreach ($tables as $table) {
-            if (!Schema::hasTable($table)) {
+            if (!Schema::hasTable(Str::plural($table))) {
                 continue;
             }
 
-            $counts[$table] = DB::table($table)->count();
+            $counts[$table] = DB::table(Str::plural($table))->count();
         }
 
         return $counts;
@@ -232,20 +592,13 @@ class Version210 extends Listener
         $new_table = Str::replaceFirst(Str::replaceFirst('-', '_', $type), 'document', $table);
 
         // To be able to update relation ids
-        if (in_array($new_table, ['document_items', 'documents']) && DB::table($new_table)->count() > 0) {
+        if (DB::table($new_table)->count() > 0) {
             // Delete document's items which are not found in documents table by document_id
-            $builder = DB::table('document_items')
-                         ->join('documents', 'documents.id', '=', 'document_items.document_id', 'left')
-                         ->whereNull('documents.id');
+            $this->deleteOrphanedRecords();
 
-            if ($builder->count()) {
-                $builder->delete();
-            }
-
-            // To be able to update TYPE_id relations
             $document = DB::table($new_table)->orderBy('id')->first('type');
             if ($document) {
-                $this->addDocumentIdForeignKeys($document->type);
+                $this->addForeignKeysToRelationTables($document->type);
             }
 
             // Update relation ids
@@ -258,11 +611,6 @@ class Version210 extends Listener
         $insertColumns = collect(Schema::getColumnListing($new_table));
 
         $insertColumns = $insertColumns->reject(function ($value) use ($new_table, $table) {
-            // Remove only primary keys
-            if ($value === 'id' && !in_array($new_table, ['document_items', 'documents'])) {
-                return true;
-            }
-
             if ($value === 'description' && $new_table === 'document_items') {
                 return true;
             }
@@ -337,8 +685,37 @@ class Version210 extends Listener
             $offset += $limit;
             $builder->limit($limit)->offset($offset);
         }
+    }
 
-        Schema::rename($table, "{$table}_v20");
+    private function deleteOrphanedRecords(): void
+    {
+        $builder = DB::table('document_items')
+                     ->leftJoin(
+                         'documents',
+                         function ($join) {
+                             $join->on('documents.id', '=', 'document_items.document_id')
+                                  ->on('documents.type', '=', 'document_items.type');
+                         }
+                     )
+                     ->whereNull('documents.id');
+
+        if ($builder->count()) {
+            $builder->delete();
+        }
+
+        $builder = DB::table('document_item_taxes')
+                     ->leftJoin(
+                         'document_items',
+                         function ($join) {
+                             $join->on('document_items.id', '=', 'document_item_taxes.document_item_id')
+                                  ->on('document_items.type', '=', 'document_item_taxes.type');
+                         }
+                     )
+                     ->whereNull('document_items.id');
+
+        if ($builder->count()) {
+            $builder->delete();
+        }
     }
 
     private function copyInvoices(): void
@@ -404,9 +781,30 @@ class Version210 extends Listener
         $this->batchCopyRelations('debit_note_totals', self::DEBIT_NOTE_TYPE);
     }
 
-    private function addForeignKeys(): void
+    // To keep original ids
+    private function removeAutoIncrements()
     {
         Schema::disableForeignKeyConstraints();
+
+        Schema::table(
+            'document_histories',
+            function (Blueprint $table) {
+                $table->unsignedInteger('id')->change();
+            }
+        );
+        Schema::table(
+            'document_totals',
+            function (Blueprint $table) {
+                $table->unsignedInteger('id')->change();
+            }
+        );
+
+        Schema::table(
+            'document_item_taxes',
+            function (Blueprint $table) {
+                $table->unsignedInteger('id')->change();
+            }
+        );
 
         Schema::table(
             'document_items',
@@ -421,6 +819,13 @@ class Version210 extends Listener
                 $table->unsignedInteger('id')->change();
             }
         );
+
+        Schema::enableForeignKeyConstraints();
+    }
+
+    private function addForeignKeys(): void
+    {
+        Schema::disableForeignKeyConstraints();
 
         Schema::table(
             'document_histories',
@@ -471,6 +876,48 @@ class Version210 extends Listener
         Schema::enableForeignKeyConstraints();
     }
 
+    private function addAutoIncrements()
+    {
+        Schema::disableForeignKeyConstraints();
+
+        Schema::table(
+            'documents',
+            function (Blueprint $table) {
+                $table->increments('id')->change();
+            }
+        );
+
+        Schema::table(
+            'document_items',
+            function (Blueprint $table) {
+                $table->increments('id')->change();
+            }
+        );
+
+        Schema::table(
+            'document_item_taxes',
+            function (Blueprint $table) {
+                $table->increments('id')->change();
+            }
+        );
+
+        Schema::table(
+            'document_totals',
+            function (Blueprint $table) {
+                $table->increments('id')->change();
+            }
+        );
+
+        Schema::table(
+            'document_histories',
+            function (Blueprint $table) {
+                $table->increments('id')->change();
+            }
+        );
+
+        Schema::enableForeignKeyConstraints();
+    }
+
     private function removeForeignKeys(): void
     {
         Schema::disableForeignKeyConstraints();
@@ -504,28 +951,14 @@ class Version210 extends Listener
             }
         );
 
-        Schema::table(
-            'documents',
-            function (Blueprint $table) {
-                $table->increments('id')->change();
-            }
-        );
-
-        Schema::table(
-            'document_items',
-            function (Blueprint $table) {
-                $table->increments('id')->change();
-            }
-        );
-
         Schema::enableForeignKeyConstraints();
     }
 
-    private function addDocumentIdForeignKeys(string $type): void
+    private function addForeignKeysToRelationTables(string $type): void
     {
         Schema::disableForeignKeyConstraints();
 
-        foreach ($this->tables[$type] as $table) {
+        foreach ($this->tableRelations[$type] as $table) {
             if (!Schema::hasTable($table)) {
                 continue;
             }
@@ -567,7 +1000,7 @@ class Version210 extends Listener
     {
         Schema::disableForeignKeyConstraints();
 
-        foreach ($this->tables[$type] as $table) {
+        foreach ($this->tableRelations[$type] as $table) {
             if (!Schema::hasTable($table)) {
                 continue;
             }
