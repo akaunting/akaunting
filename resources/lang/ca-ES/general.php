@@ -192,8 +192,10 @@ return [
         'add_new'           => 'Afegeix camp nou :field',
         'edit'              => 'Edita :field',
         'contact_edit'      => 'Edita :contact_name :field',
+        'drop_file'         => 'Deixeu anar els fitxers aquí per descarregar-los',
         'choose'            => 'Tria :field',
         'choose_different'  => 'Tria un/a :field diferent',
+        'choose_file'       => 'Tria arxiu',
         'no_file_selected'  => 'No s\'ha seleccionat cap fitxer',
     ],
 

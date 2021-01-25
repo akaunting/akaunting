@@ -192,8 +192,10 @@ return [
         'add_new'           => ':field neu hinzufügen',
         'edit'              => ':field bearbeiten',
         'contact_edit'      => ':contact_name :field bearbeiten',
+        'drop_file'         => 'Dateien zum Hochladen hier herziehen',
         'choose'            => ':field auswählen',
         'choose_different'  => 'Wähle ein anderes :field',
+        'choose_file'       => 'Datei auswählen',
         'no_file_selected'  => 'Keine Datei ausgewählt...',
     ],
 

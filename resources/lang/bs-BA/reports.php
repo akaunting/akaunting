@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Godina|Godine',
     'this_year'             => 'Tekuća godina',
     'previous_year'         => 'Prethodna godina',
     'this_quarter'          => 'Ovaj kvartal',
