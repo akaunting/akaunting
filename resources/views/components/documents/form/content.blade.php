@@ -93,7 +93,15 @@
             />
         @endif
 
+        @php
+            $status = 'draft';
+
+            if (!empty($document)) {
+                $status = $document->status;
+            }
+        @endphp
+
         {{ Form::hidden('type', old('type', $type), ['id' => 'type', 'v-model' => 'form.type']) }}
-        {{ Form::hidden('status', old('status', 'draft'), ['id' => 'status', 'v-model' => 'form.status']) }}
+        {{ Form::hidden('status', old('status', $status), ['id' => 'status', 'v-model' => 'form.status']) }}
         {{ Form::hidden('amount', old('amount', '0'), ['id' => 'amount', 'v-model' => 'form.amount']) }}
     {!! Form::close() !!}
