@@ -62,8 +62,14 @@ class UpdateDocument extends Job
             $this->document->paid_amount = $this->document->paid;
             event(new PaidAmountCalculated($this->document));
 
-            if ($this->request['amount'] > $this->document->paid_amount && $this->document->paid_amount > 0) {
-                $this->request['status'] = 'partial';
+            if ($this->document->paid_amount > 0) {
+                if ($this->request['amount'] == $this->document->paid_amount) {
+                    $this->request['status'] = 'paid';
+                }
+
+                if ($this->request['amount'] > $this->document->paid_amount) {
+                    $this->request['status'] = 'partial';
+                }
             }
 
             unset($this->document->reconciled);
