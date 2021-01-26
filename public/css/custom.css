@@ -1464,3 +1464,7 @@ table .align-items-center td span.badge {
 .apps-store-bar .searh-field .btn.btn-link.clear {
     display: none !important;
 }
+
+#form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light.v-enter-to {
+    margin-top: -50px !important;
+}
