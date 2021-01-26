@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 trait Relationships
 {
@@ -15,7 +16,8 @@ trait Relationships
                 continue;
             }
 
-            $counter[] = $c . ' ' . strtolower(trans_choice('general.' . $text, ($c > 1) ? 2 : 1));
+            $text = Str::contains($text, '::') ? $text : 'general.' . $text;
+            $counter[] = $c . ' ' . strtolower(trans_choice($text, ($c > 1) ? 2 : 1));
         }
 
         return $counter;
