@@ -165,14 +165,14 @@ const app = new Vue({
                             inclusive_total += inclusive.tax_rate;
 
                             // tax price
-                            item.tax_ids[inclusive.tax_index].price = item.grand_total / (1 + inclusive.tax_rate / 100);
+                            item.tax_ids[inclusive.tax_index].price = item.grand_total- (item.grand_total / (1 + inclusive.tax_rate / 100));
 
                             totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, item.tax_ids[inclusive.tax_index].price);
                         }, this);
 
                         let item_base_rate = item.grand_total / (1 + inclusive_total / 100);
 
-                        item.grand_total = item.grand_total - item_base_rate;
+                        //item.grand_total = item.grand_total + item_base_rate;
 
                         item.total = item_base_rate + item_discount;
                     }
