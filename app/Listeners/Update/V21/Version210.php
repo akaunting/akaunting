@@ -100,8 +100,8 @@ class Version210 extends Listener
                 $this->totals = collect($this->getTotals(['invoice', 'bill', 'estimate', 'credit_note', 'debit_note']));
 
                 // Sort table's count by ascending to improve performance.
-                    foreach ($this->totals->sort() as $table => $count) {
-                        $method = 'copy' . Str::plural(Str::studly($table));
+            foreach ($this->totals->sortBy('count') as $total) {
+                $method = 'copy' . Str::plural(Str::studly($total->type));
                     $this->$method();
                 }
 
@@ -125,10 +125,8 @@ class Version210 extends Listener
 
     private function updateInvoiceIds(): void
     {
-        $sorted = $this->totals->sortDesc()->keys();
-
         // Invoice ids do not changed
-        if ('invoice' === $sorted->first()) {
+        if ('invoice' === $this->totals->sortByDesc('count')->pluck('type')->first()) {
             return;
         }
 
@@ -153,10 +151,8 @@ class Version210 extends Listener
 
     private function updateBillIds(): void
     {
-        $sorted = $this->totals->sortDesc()->keys();
-
         // Bill ids do not changed
-        if ('bill' === $sorted->first()) {
+        if ('bill' === $this->totals->sortByDesc('count')->pluck('type')->first()) {
             return;
         }
 
@@ -181,6 +177,7 @@ class Version210 extends Listener
 
     private function updateDocumentIds()
     {
+        $this->totals = $this->getTotals();
         $this->updateInvoiceIds();
         $this->updateBillIds();
 
@@ -420,11 +417,11 @@ class Version210 extends Listener
         }
     }
 
-    private function getIncrementAmount(string $key, string $suffix): int
+    private function getIncrementAmount(string $type, string $suffix): int
     {
         $incrementAmount = 0;
 
-        foreach ($this->totals->sortDesc()->keys()->takeUntil($key) as $table) {
+        foreach ($this->totals->sortByDesc('count')->pluck('type')->takeUntil($type) as $table) {
             $incrementAmount += optional(
                 DB::table($table . $suffix)->orderByDesc('id')->first('id'),
                 function ($document) {
@@ -571,18 +568,37 @@ class Version210 extends Listener
         }
     }
 
-    private function getTotals(array $tables): array
+    private function getTotals(array $types = []): Collection
     {
+        if (DB::table('documents')->count() > 0) {
+            $counts = DB::table('documents')
+                        ->select('type', DB::raw('COUNT(id) count'))
+                        ->groupBy('type')
+                        ->orderBy('id')
+                        ->get();
+
+            return $counts;
+        }
+
         $counts = [];
-        foreach ($tables as $table) {
-            if (!Schema::hasTable(Str::plural($table))) {
+        foreach ($types as $type) {
+            if (!Schema::hasTable(Str::plural($type))) {
                 continue;
             }
 
-            $counts[$table] = DB::table(Str::plural($table))->count();
+            $count = DB::table(Str::plural($type))->count();
+
+            if ($count === 0) {
+                continue;
+            }
+
+            $values = new \stdClass();
+            $values->type = $type;
+            $values->count = $count;
+            $counts[] = $values;
         }
 
-        return $counts;
+        return collect($counts);
     }
 
     private function batchCopyRelations(string $table, string $type): void
