@@ -13,6 +13,12 @@ class Content extends Component
      */
     public function render()
     {
-        return view('components.documents.form.content');
+        $status = 'draft';
+
+        if (!empty($this->document)) {
+            $status = $this->document->status;
+        }
+
+        return view('components.documents.form.content', compact('status'));
     }
 }
