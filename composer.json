@@ -56,6 +56,7 @@
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.5",
+        "brianium/paratest": "^6.1",
         "facade/ignition": "^2.3",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
