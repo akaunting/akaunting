@@ -8,7 +8,8 @@
             </span>
 
             <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
-                {{ (filter.operator == '=') ? operatorIsText : operatorIsNotText }}
+                <i v-if="filter.operator == '='" class="fas fa-equals"></i>
+                <i v-else class="fas fa-not-equal"></i>
 
                 <i v-if="!filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
             </span>
@@ -61,13 +62,13 @@
                 </li>
             </div>
 
-            <div :id="'search-field-operator-' + _uid" class="dropdown-menu" :class="[{'show': visible.operator}]">
+            <div :id="'search-field-operator-' + _uid" class="dropdown-menu operator" :class="[{'show': visible.operator}]">
                 <li ref="" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onOperatorSelected('=')">{{ operatorIsText }}<span class="btn-helptext d-none">is</span></button>
+                    <button type="button" class="btn btn-link" @click="onOperatorSelected('=')"><i class="fas fa-equals"></i><span class="btn-helptext d-none">{{ operatorIsText }}</span></button>
                 </li>
 
                 <li ref="" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')">{{ operatorIsNotText }}<span class="btn-helptext d-none">is not</span></button>
+                    <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')"><i class="fas fa-not-equal"></i><span class="btn-helptext d-none">{{ operatorIsNotText }}</span></button>
                 </li>
             </div>
 
@@ -761,5 +762,13 @@ export default {
 
 .searh-field .form-control.datepicker.flatpickr-input {
   padding: inherit !important;
+}
+
+.searh-field .dropdown-menu.operator {
+    min-width: 50px !important;
+}
+
+.searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
+    margin-right: inherit !important;
 }
 </style>
