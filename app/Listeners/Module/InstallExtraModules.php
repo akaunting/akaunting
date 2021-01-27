@@ -6,6 +6,7 @@ use App\Events\Module\Installed as Event;
 use App\Jobs\Install\DownloadModule;
 use App\Jobs\Install\InstallModule;
 use App\Traits\Jobs;
+use Illuminate\Support\Facades\App;
 
 class InstallExtraModules
 {
@@ -19,6 +20,10 @@ class InstallExtraModules
      */
     public function handle(Event $event)
     {
+        if (App::environment('testing')) {
+            return;
+        }
+
         $module = module($event->alias);
 
         $extra_modules = $module->get('extra-modules');
