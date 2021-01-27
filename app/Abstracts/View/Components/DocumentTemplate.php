@@ -348,7 +348,11 @@ abstract class DocumentTemplate extends Base
 
         // if you use settting translation
         if (setting($type . '.item_name', 'items') == 'custom') {
-            return setting($type . '.item_name_input');
+            if (empty($textItems = setting($type . '.item_name_input'))) {
+                $textItems = 'general.items';
+            }
+
+            return $textItems;
         }
 
         $translation = $this->getTextFromConfig($type, 'items');
@@ -368,7 +372,11 @@ abstract class DocumentTemplate extends Base
 
         // if you use settting translation
         if (setting($type . '.quantity_name', 'quantity') == 'custom') {
-            return setting($type . '.quantity_name_input');
+            if (empty($textQuantity = setting($type . '.quantity_name_input'))) {
+                $textQuantity = 'invoices.quantity';
+            }
+
+            return $textQuantity;
         }
 
         $translation = $this->getTextFromConfig($type, 'quantity');
@@ -388,7 +396,11 @@ abstract class DocumentTemplate extends Base
 
         // if you use settting translation
         if (setting($type . '.price_name', 'price') == 'custom') {
-            return setting($type . '.price_name_input');
+            if (empty($textPrice = setting($type . '.price_name_input'))) {
+                $textPrice = 'invoices.price';
+            }
+
+            return $textPrice;
         }
 
         $translation = $this->getTextFromConfig($type, 'price');
