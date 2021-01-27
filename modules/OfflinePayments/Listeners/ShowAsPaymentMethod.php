@@ -16,6 +16,10 @@ class ShowAsPaymentMethod
     {
         $methods = json_decode(setting('offline-payments.methods'), true);
 
+        if (empty($methods)) {
+            return;
+        }
+
         foreach ($methods as $method) {
             $event->modules->payment_methods[] = $method;
         }
