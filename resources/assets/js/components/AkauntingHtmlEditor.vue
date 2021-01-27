@@ -20,6 +20,10 @@
 <script>
 import Quill from 'quill';
 
+//var Block = Quill.import('blots/block');
+//Block.tagName = 'div';
+//Quill.register(Block);
+
 export default {
     name: 'akaunting-html-editor',
 
@@ -57,7 +61,9 @@ export default {
             });
 
             if (this.value.length > 0) {
-                this.editor.pasteHTML(this.value)
+                this.value = this.value.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
+
+                this.editor.pasteHTML(this.value);
             }
 
             let editorRef = this.$refs.editor;
@@ -68,6 +74,8 @@ export default {
 
                 if (html === '<p><br></p>') {
                     html = '';
+                } else {
+                    html = html.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
                 }
 
                 this.content = html;
@@ -80,6 +88,8 @@ export default {
             if (!this.editor) {
                 return;
             }
+
+            this.value = this.value.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
 
             this.editor.pasteHTML(this.value);
         },
