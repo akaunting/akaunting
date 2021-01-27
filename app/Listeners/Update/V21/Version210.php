@@ -97,7 +97,7 @@ class Version210 extends Listener
             $this->addForeignKeys();
 
             DB::transaction(function () {
-                $this->totals = collect($this->getTotals(['invoice', 'bill', 'estimate', 'credit_note', 'debit_note']));
+            $this->totals = $this->getTotals(['invoice', 'bill', 'estimate', 'credit_note', 'debit_note']);
 
                 // Sort table's count by ascending to improve performance.
             foreach ($this->totals->sortBy('count') as $total) {
@@ -105,7 +105,6 @@ class Version210 extends Listener
                     $this->$method();
                 }
 
-                $this->updateCreditNoteTransactionsTable();
                 $this->updateDocumentIds();
             });
 
@@ -125,7 +124,7 @@ class Version210 extends Listener
 
     private function updateInvoiceIds(): void
     {
-        // Invoice ids do not changed
+        // Invoice ids did not changed
         if ('invoice' === $this->totals->sortByDesc('count')->pluck('type')->first()) {
             return;
         }
@@ -151,7 +150,7 @@ class Version210 extends Listener
 
     private function updateBillIds(): void
     {
-        // Bill ids do not changed
+        // Bill ids did not changed
         if ('bill' === $this->totals->sortByDesc('count')->pluck('type')->first()) {
             return;
         }
@@ -180,6 +179,7 @@ class Version210 extends Listener
         $this->totals = $this->getTotals();
         $this->updateInvoiceIds();
         $this->updateBillIds();
+        $this->updateCreditNoteTransactionsTable();
 
         $tables = [
             'recurring'                  => 'recurable',
@@ -438,57 +438,29 @@ class Version210 extends Listener
             return;
         }
 
-        $invoices = DB::table('credits_transactions')
-                      ->join('invoices', 'credits_transactions.document_id', '=', 'invoices.id')
-                      ->where('credits_transactions.type', 'expense')
-                      ->get(
-                          [
-                              'credits_transactions.id as credits_transactions_id',
-                              'invoices.company_id',
-                              'invoice_number',
-                              'invoices.deleted_at',
-                          ]
-                      );
+        // Invoice ids did not changed
+        if ('invoice' !== $this->totals->sortByDesc('count')->pluck('type')->first()) {
+            $incrementAmount = $this->getIncrementAmount('invoice', 's');
 
-        foreach ($invoices as $invoice) {
-            $document = DB::table('documents')
-                            ->where('document_number', $invoice->invoice_number)
-                            ->where('deleted_at', $invoice->deleted_at)
-                            ->where('company_id', $invoice->company_id)
-                            ->where('type', Document::INVOICE_TYPE)
-                            ->first('id');
-
-            if ($document) {
+            if ($incrementAmount > 0) {
                 DB::table('credits_transactions')
-                  ->where('id', $invoice->credits_transactions_id)
-                  ->update(['document_id' => $document->id]);
+                  ->where('type', 'expense')
+                  ->whereNotNull('document_id')
+                  ->where('document_id', '<>', 0)
+                  ->increment('document_id', $incrementAmount);
             }
         }
 
-        $credit_notes = DB::table('credits_transactions')
-                          ->join('credit_notes', 'credits_transactions.document_id', '=', 'credit_notes.id')
-                          ->where('credits_transactions.type', 'income')
-                          ->get(
-                              [
-                                  'credits_transactions.id as credits_transactions_id',
-                                  'credit_notes.company_id',
-                                  'credit_note_number',
-                                  'credit_notes.deleted_at',
-                              ]
-                          );
+        // Credit Note ids did not changed
+        if ('credit_note' !== $this->totals->sortByDesc('count')->pluck('type')->first()) {
+            $incrementAmount = $this->getIncrementAmount('credit_note', 's');
 
-        foreach ($credit_notes as $credit_note) {
-            $document = DB::table('documents')
-                            ->where('document_number', $credit_note->credit_note_number)
-                            ->where('deleted_at', $credit_note->deleted_at)
-                            ->where('company_id', $credit_note->company_id)
-                            ->where('type', self::CREDIT_NOTE_TYPE)
-                            ->first('id');
-
-            if ($document) {
+            if ($incrementAmount > 0) {
                 DB::table('credits_transactions')
-                  ->where('id', $credit_note->credits_transactions_id)
-                  ->update(['document_id' => $document->id]);
+                  ->where('type', 'income')
+                  ->whereNotNull('document_id')
+                  ->where('document_id', '<>', 0)
+                  ->increment('document_id', $incrementAmount);
             }
 
         }
@@ -575,7 +547,13 @@ class Version210 extends Listener
                         ->select('type', DB::raw('COUNT(id) count'))
                         ->groupBy('type')
                         ->orderBy('id')
-                        ->get();
+                        ->get()
+                        ->transform(
+                            function ($item, $key) {
+                                $item->type = Str::replaceFirst('-', '_', $item->type);
+                                return $item;
+                            }
+                        );
 
             return $counts;
         }
