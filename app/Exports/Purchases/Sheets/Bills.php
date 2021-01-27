@@ -4,9 +4,10 @@ namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\Document as Model;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Bills extends Export
+class Bills extends Export implements WithColumnFormatting
 {
     public function collection()
     {
