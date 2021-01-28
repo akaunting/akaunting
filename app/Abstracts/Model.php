@@ -2,7 +2,6 @@
 
 namespace App\Abstracts;
 
-use App\Scopes\Company;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -25,16 +24,6 @@ abstract class Model extends Eloquent
     public static function observe($classes)
     {
         parent::observe($classes);
-    }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::addGlobalScope(new Company);
     }
 
     /**

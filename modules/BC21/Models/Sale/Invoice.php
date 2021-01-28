@@ -13,8 +13,6 @@ class Invoice extends Document
 {
     protected static function booted()
     {
-        parent::booted();
-
         static::addGlobalScope(new ReplaceDeprecatedColumns);
     }
 
