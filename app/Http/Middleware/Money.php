@@ -3,9 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use InvalidArgumentException;
 use OutOfBoundsException;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
 use UnexpectedValueException;
+
 class Money
 {
     /**
@@ -71,6 +73,38 @@ class Money
                 $opening_balance = $amount;
 
                 $request->request->set('opening_balance', $opening_balance);
+            }
+
+            if (isset($sale_price)) {
+                $sale_price = Str::replaceFirst(',', '.', $sale_price);
+
+                try {
+                    $amount = money($sale_price)->getAmount();
+                } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
+                    logger($e->getMessage());
+
+                    $amount = 0;
+                }
+
+                $sale_price = $amount;
+
+                $request->request->set('sale_price', $sale_price);
+            }
+
+            if (isset($purchase_price)) {
+                $purchase_price = Str::replaceFirst(',', '.', $purchase_price);
+
+                try {
+                    $amount = money($purchase_price)->getAmount();
+                } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
+                    logger($e->getMessage());
+
+                    $amount = 0;
+                }
+
+                $purchase_price = $amount;
+
+                $request->request->set('purchase_price', $purchase_price);
             }
         }
 
