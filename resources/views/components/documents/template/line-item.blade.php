@@ -7,8 +7,8 @@
                 @endif
 
                 @if (!$hideDescription)
-                    @if (!empty($item->item->description))
-                        <br><small>{!! \Illuminate\Support\Str::limit($item->item->description, 500) !!}</small>
+                    @if (!empty($item->description))
+                        <br><small>{!! \Illuminate\Support\Str::limit($item->description, 500) !!}</small>
                     @endif
                 @endif
 
