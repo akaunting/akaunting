@@ -45,7 +45,7 @@ abstract class Model extends Eloquent
      */
     public function scopeAllCompanies($query)
     {
-        return $query->withoutGlobalScope(Company::class);
+        return $query->withoutGlobalScope('App\Scopes\Company');
     }
 
     /**
