@@ -4,19 +4,21 @@ namespace App\Abstracts;
 
 use App\Traits\Import as ImportHelper;
 use App\Utilities\Date;
+use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
-use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
@@ -45,7 +47,12 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
                 continue;
             }
 
-            $row[$date_field] = Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))->format('Y-m-d H:i:s');
+            try {
+                $row[$date_field] = Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))
+                                        ->format('Y-m-d H:i:s');
+            } catch (InvalidFormatException | \Exception $e) {
+                Log::info($e->getMessage());
+            }
         }
 
         return $row;
