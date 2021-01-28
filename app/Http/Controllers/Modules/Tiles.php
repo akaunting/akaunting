@@ -32,7 +32,7 @@ class Tiles extends Controller
         $data = $this->getModulesByCategory($alias, $request);
 
         if (empty($data)) {
-            return redirect()->route('apps.home')->send();
+            return redirect()->route('apps.home.index')->send();
         }
 
         $title = !empty($data->category) ? $data->category->name : Str::studly($alias);
