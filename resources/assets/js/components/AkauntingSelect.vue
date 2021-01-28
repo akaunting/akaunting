@@ -429,7 +429,7 @@ export default {
             // Option changed sort_option data
             if (this.group) {
                 this.sort_options.forEach(function (option_group, group_index) {
-                    this.option_group.value.forEach(function (option, index) {
+                    option_group.value.forEach(function (option, index) {
                         if (this.multiple) {
                             let indexs = [];
                             let values = [];
