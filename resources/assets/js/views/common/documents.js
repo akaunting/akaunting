@@ -309,7 +309,9 @@ const app = new Vue({
                 // invoice_item_checkbox_sample: [],
             });
 
-            this.onCalculateTotal();
+            setTimeout(function() {
+                this.onCalculateTotal();
+            }.bind(this), 800);
         },
 
         onSelectedTax(item_index) {
