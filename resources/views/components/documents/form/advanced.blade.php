@@ -31,7 +31,7 @@
 
                     @if (!$hideAttachment)
                     <div class="col-md-12">
-                        {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple'], !empty($document) ? $document->attachment : null , 'col-md-12') }}
+                        {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple', 'options' => ['acceptedFiles' => $file_types]], !empty($document) ? $document->attachment : null , 'col-md-12') }}
                     </div>
                     @endif
                 </div>

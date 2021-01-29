@@ -45,7 +45,7 @@
                             </div>
                         @stack('picture_input_end')
                     @else
-                        {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file', 'options' => ['acceptedFiles' => 'image/*']]) }}
+                        {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
                     @endif
 
                     @can('read-common-companies')
