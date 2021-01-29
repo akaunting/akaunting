@@ -46,6 +46,20 @@ class Dashboard extends Model
     }
 
     /**
+     * Scope to only include dashboards of a given user id.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $user_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUserId($query, $user_id)
+    {
+        return $query->whereHas('users', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        });
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
