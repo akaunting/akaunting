@@ -99,6 +99,10 @@ export default {
                 this.configurations.maxFiles = 1
             }
 
+            if (this.configurations.acceptedFiles === undefined) {
+                this.configurations.acceptedFiles = 'image/*'
+            }
+
             let finalOptions = {
               ...self.configurations,
               url: this.url,

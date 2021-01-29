@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideLogo)
-                            {{ Form::fileGroup('company_logo', trans('settings.company.logo'), 'file-image-o', ['data-field' => 'setting', 'options' => ['acceptedFiles' => 'image/*']], setting('company.logo')) }}
+                            {{ Form::fileGroup('company_logo', trans('settings.company.logo'), 'file-image-o', ['data-field' => 'setting'], setting('company.logo')) }}
                         @endif
                     </div>
 
