@@ -9,12 +9,9 @@ use App\Jobs\Common\DeleteItem;
 use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 use App\Transformers\Common\Item as Transformer;
-use App\Traits\Uploads;
 
 class Items extends ApiController
 {
-    use Uploads;
-
     /**
      * Display a listing of the resource.
      *

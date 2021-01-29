@@ -56,7 +56,7 @@ abstract class Controller extends BaseController
      */
     public function response($view, $data = [])
     {
-        $class_name = str_replace('Controllers', 'Responses', (new \ReflectionClass($this))->getName());
+        $class_name = str_replace('Controllers', 'Responses', get_class($this));
 
         if (class_exists($class_name)) {
             $response = new $class_name($view, $data);

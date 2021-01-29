@@ -18,6 +18,11 @@ $api->version('v3', ['middleware' => ['api']], function($api) {
         $api->get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
         $api->resource('companies', 'Common\Companies');
 
+        // Dashboards
+        $api->get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('dashboards.enable');
+        $api->get('dashboards/{dashboard}/disable', 'Common\Dashboards@disable')->name('dashboards.disable');
+        $api->resource('dashboards', 'Common\Dashboards');
+
         // Items
         $api->get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
         $api->get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
