@@ -9,9 +9,13 @@ use App\Jobs\Common\DeleteDashboard;
 use App\Jobs\Common\UpdateDashboard;
 use App\Models\Common\Dashboard;
 use App\Transformers\Common\Dashboard as Transformer;
+use App\Traits\Users;
+use Dingo\Api\Http\Response;
 
 class Dashboards extends ApiController
 {
+    use Users;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +23,7 @@ class Dashboards extends ApiController
      */
     public function index()
     {
-        $dashboards = Dashboard::with('widgets')->collect();
+        $dashboards = user()->dashboards()->with('widgets')->collect();
 
         return $this->response->paginator($dashboards, new Transformer());
     }
@@ -32,9 +36,16 @@ class Dashboards extends ApiController
      */
     public function show($id)
     {
-        $dashboard = Dashboard::with('widgets')->find($id);
+        try {
+            $dashboard = Dashboard::with('widgets')->find($id);
 
-        return $this->response->item($dashboard, new Transformer());
+            // Check if user can access dashboard
+            $this->canAccess($dashboard);
+
+            return $this->response->item($dashboard, new Transformer());
+        } catch (\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 
     /**
@@ -117,5 +128,23 @@ class Dashboards extends ApiController
         } catch(\Exception $e) {
             $this->response->errorUnauthorized($e->getMessage());
         }
+    }
+
+    /**
+     * Check user dashboard assignment
+     *
+     * @param  Dashboard  $dashboard
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function canAccess($dashboard)
+    {
+        if (!empty($dashboard) && $this->isUserDashboard($dashboard->id)) {
+            return new Response('');
+        }
+
+        $message = trans('dashboards.error.not_user_dashboard');
+
+        $this->response->errorUnauthorized($message);
     }
 }

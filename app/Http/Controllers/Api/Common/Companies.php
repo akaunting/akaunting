@@ -38,7 +38,7 @@ class Companies extends ApiController
     {
         try {
             // Check if user can access company
-            $this->owner($company);
+            $this->canAccess($company);
 
             return $this->response->item($company, new Transformer());
         } catch (\Exception $e) {
@@ -135,9 +135,9 @@ class Companies extends ApiController
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function owner(Company $company)
+    public function canAccess($company)
     {
-        if ($this->isUserCompany($company->id)) {
+        if (!empty($company) && $this->isUserCompany($company->id)) {
             return new Response('');
         }
 
