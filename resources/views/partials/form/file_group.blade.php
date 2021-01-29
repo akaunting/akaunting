@@ -20,6 +20,10 @@
                 :options={{ json_encode($attributes['options']) }}
                 @endif
 
+                @if (!empty($attributes['preview']))
+                :preview={{ json_encode($attributes['preview']) }}
+                @endif
+
                 @if (!empty($attributes['multiple']))
                 multiple
                 @endif
