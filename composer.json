@@ -44,7 +44,7 @@
         "league/oauth2-client": "2.6.*",
         "league/omnipay": "3.1.*",
         "livewire/livewire": "2.3.*",
-        "lorisleiva/laravel-search-string": "1.0.*",
+        "lorisleiva/laravel-search-string": "1.1.*",
         "maatwebsite/excel": "3.1.*",
         "monooso/unobserve": "^3.0",
         "plank/laravel-mediable": "4.4.*",
