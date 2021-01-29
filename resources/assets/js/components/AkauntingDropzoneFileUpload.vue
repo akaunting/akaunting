@@ -1,5 +1,5 @@
 <template>
-    <div class="dropzone mb-3 dz-clickable" :class="[!multiple ? 'dropzone-single': 'dropzone-multiple']">
+    <div class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div v-if="!multiple" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
+        <div v-if="preview == 'single'" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
             <div class="dz-preview-cover">
                 <img class="dz-preview-img" data-dz-thumbnail>
             </div>
@@ -74,6 +74,12 @@ export default {
             description: 'Multiple file Upload'
         },
         previewClasses: [String, Object, Array],
+        preview: {
+            type: String,
+            default: function () {
+                return this.multiple ? 'multiple' : 'single'
+            },
+        },
     },
 
     model: {
@@ -93,7 +99,7 @@ export default {
     methods: {
         async initDropzone() {
             let self = this;
-            let preview = !this.multiple ? this.$refs.previewSingle : this.$refs.previewMultiple;
+            let preview = this.preview == 'single' ? this.$refs.previewSingle : this.$refs.previewMultiple;
 
             if (this.configurations.maxFiles === undefined && this.multiple == false) {
                 this.configurations.maxFiles = 1
