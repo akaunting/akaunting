@@ -37,6 +37,12 @@ class Document extends FormRequest
             $id = null;
         }
 
+        $company_logo = 'nullable';
+
+        if ($this->request->get('company_logo', null)) {
+            $company_logo = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
+
         $attachment = 'nullable';
 
         if ($this->request->get('attachment', null)) {
@@ -61,6 +67,7 @@ class Document extends FormRequest
             'contact_id' => 'required|integer',
             'contact_name' => 'required|string',
             'category_id' => 'required|integer',
+            'company_logo' => $company_logo,
             'attachment.*' => $attachment,
         ];
     }

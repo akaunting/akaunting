@@ -6,9 +6,11 @@ use App\Abstracts\View\Components\Document as Base;
 use App\Traits\DateTime;
 use App\Models\Common\Media;
 use File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Intervention\Image\Exception\NotReadableException;
 use Image;
 use Storage;
-use Illuminate\Support\Str;
 
 abstract class DocumentTemplate extends Base
 {
@@ -202,11 +204,26 @@ abstract class DocumentTemplate extends Base
             $path = base_path('public/img/company.png');
         }
 
-        $image = Image::cache(function($image) use ($path) {
-            $width = $height = setting('invoice.logo_size', 128);
+        try {
+            $image = Image::cache(function($image) use ($path) {
+                $width = setting('invoice.logo_size_width');
+                $height = setting('invoice.logo_size_height');
 
-            $image->make($path)->resize($width, $height)->encode();
-        });
+                $image->make($path)->resize($width, $height)->encode();
+            });
+        } catch (NotReadableException | \Exception $e) {
+            Log::info('Company ID: ' . session('company_id') . ' components/documentshow.php exception.');
+            Log::info($e->getMessage());
+
+            $path = base_path('public/img/company.png');
+
+            $image = Image::cache(function($image) use ($path) {
+                $width = setting('invoice.logo_size_width');
+                $height = setting('invoice.logo_size_height');
+
+                $image->make($path)->resize($width, $height)->encode();
+            });
+        }
 
         if (empty($image)) {
             return $logo;
