@@ -86,6 +86,7 @@ export default {
             currentFile: null,
             files: [],
             showList: false,
+            configurations: this.options,
         }
     },
 
@@ -94,12 +95,12 @@ export default {
             let self = this;
             let preview = !this.multiple ? this.$refs.previewSingle : this.$refs.previewMultiple;
 
-            if (!this.options.maxFiles && !this.multiple) {
-                this.options['maxFiles'] = 1;
+            if (this.configurations.maxFiles === undefined && this.multiple == false) {
+                this.configurations.maxFiles = 1
             }
 
             let finalOptions = {
-              ...this.options,
+              ...self.configurations,
               url: this.url,
               thumbnailWidth: null,
               thumbnailHeight: null,
@@ -111,7 +112,7 @@ export default {
                 this.on('addedfile', function (file) {
                     self.files.push(file);
 
-                    if (self.options.maxFiles == 1) {
+                    if (self.configurations.maxFiles == 1) {
                         self.$emit('change', file);
                     } else {
                         self.$emit('change', self.files);
