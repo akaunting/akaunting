@@ -33,6 +33,16 @@ class Advanced extends Component
             $recurring_class = 'col-sm-12 col-md-12 col-lg-12 col-xl-12';
         }
 
-        return view('components.documents.form.advanced', compact('categories', 'category_type', 'recurring_class', 'more_class', 'more_form_class'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('components.documents.form.advanced', compact('categories', 'category_type', 'recurring_class', 'more_class', 'more_form_class', 'file_types'));
     }
 }
