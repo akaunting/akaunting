@@ -4,6 +4,7 @@ namespace App\Transformers\Common;
 
 use App\Models\Common\Dashboard as Model;
 use League\Fractal\TransformerAbstract;
+use App\Utilities\Widgets;
 
 class Dashboard extends TransformerAbstract
 {
@@ -34,10 +35,14 @@ class Dashboard extends TransformerAbstract
      */
     public function includeWidgets(Model $model)
     {
-        if (!$model->widgets) {
+        if (!$widgets = $model->widgets) {
             return $this->null();
         }
 
-        return $this->collection($model->widgets, new Widget());
+        $widgets = $widgets->filter(function ($widget) {
+            return Widgets::canShow($widget->class);
+        });
+
+        return $this->collection($widgets, new Widget());
     }
 }
