@@ -18,8 +18,6 @@ class Widget extends TransformerAbstract
      */
     public function transform(Model $model)
     {
-        session(['dashboard_id' => $model->dashboard_id]);
-
         return [
             'id' => $model->id,
             'company_id' => $model->company_id,
@@ -28,7 +26,7 @@ class Widget extends TransformerAbstract
             'name' => $model->name,
             'sort' => $model->sort,
             'settings' => $model->settings,
-            'data' => show_widget($model->class),
+            'data' => show_widget($model),
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
