@@ -37,20 +37,35 @@
                 @endif
 
                 @if (!empty($value))
+                    @php
+                        $attachments = [];
+                    @endphp
+
                     @if (is_array($value))
                         @foreach($value as $attachment)
                             @php
-                                $attachments[] = ['name' => $attachment->filename . '.' . $attachment->extension, 'path' => route('uploads.get', $attachment->id), 'downloadPath' => route('uploads.download', $attachment->id)];
+                                $attachments[] = [
+                                    'name' => $attachment->filename . '.' . $attachment->extension, 
+                                    'path' => route('uploads.get', $attachment->id), 
+                                    'downloadPath' => route('uploads.download', $attachment->id)
+                                ];
                             @endphp
                         @endforeach
                     @elseif ($value instanceof \Plank\Mediable\Media)
                         @php
-                            $attachments = ['name' => $value->filename . '.' . $value->extension, 'path' => route('uploads.get', $value->id)];
-                            $attachments = array($attachments);
+                            $attachments[] = [
+                                'name' => $value->filename . '.' . $value->extension,
+                                'path' => route('uploads.get', $value->id)
+                            ];
                         @endphp
                     @else
                         @php
-                            $attachments = array();
+                            $attachment = \Plank\Mediable\Media::find($value);
+
+                            $attachments[] = [
+                                'name' => $attachment->filename . '.' . $attachment->extension,
+                                'path' => route('uploads.get', $attachment->id)
+                            ];
                         @endphp
                     @endif
                 
