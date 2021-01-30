@@ -36,6 +36,27 @@
                 url="{{ $attributes['url'] }}"
                 @endif
 
+                @if (!empty($value))
+                    @if (is_array($value))
+                        @foreach($value as $attachment)
+                            @php
+                                $attachments[] = ['name' => $attachment->filename . '.' . $attachment->extension, 'path' => route('uploads.get', $attachment->id), 'downloadPath' => route('uploads.download', $attachment->id)];
+                            @endphp
+                        @endforeach
+                    @elseif ($value instanceof \Plank\Mediable\Media)
+                        @php
+                            $attachments = ['name' => $value->filename . '.' . $value->extension, 'path' => route('uploads.get', $value->id)];
+                            $attachments = array($attachments);
+                        @endphp
+                    @else
+                        @php
+                            $attachments = array();
+                        @endphp
+                    @endif
+                
+                :attachments="{{ json_encode($attachments) }}"
+                @endif
+
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
             ></akaunting-dropzone-file-upload>
         </div>
