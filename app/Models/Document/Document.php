@@ -227,8 +227,10 @@ class Document extends Model
 
     public function delete_attachment()
     {
-        foreach ($this->attachment as $file) {
-            MediaModel::where('id', $file->id)->delete();
+        if ($attachments = $this->attachment) {
+            foreach ($attachments as $file) {
+                MediaModel::where('id', $file->id)->delete();
+            }
         }
     }
 

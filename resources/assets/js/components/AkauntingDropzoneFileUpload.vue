@@ -1,5 +1,5 @@
 <template>
-    <div class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
+    <div id="dropzone" class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
@@ -33,6 +33,9 @@
                         <button data-dz-remove="true" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
+                        <a href="#" type="button" class="btn btn-sm btn-info text-white d-none" data-dz-download>
+                            <i class="fas fa-file-download"></i>
+                        </a>
                     </div>
                 </div>
             </li>
@@ -80,6 +83,10 @@ export default {
                 return this.multiple ? 'multiple' : 'single'
             },
         },
+        attachments: {
+            type: Array,
+            default: () => ([])
+        },
     },
 
     model: {
@@ -89,9 +96,7 @@ export default {
 
     data() {
         return {
-            currentFile: null,
             files: [],
-            showList: false,
             configurations: this.options,
         }
     },
@@ -112,14 +117,15 @@ export default {
             let finalOptions = {
               ...self.configurations,
               url: this.url,
-              thumbnailWidth: null,
-              thumbnailHeight: null,
               previewsContainer: preview,
               previewTemplate: preview.innerHTML,
               dictDefaultMessage: this.textDropFile,
               autoProcessQueue: false,
+
               init: function () {
-                this.on('addedfile', function (file) {
+                let dropzone = this
+
+                dropzone.on('addedfile', function (file) {
                     self.files.push(file);
 
                     if (self.configurations.maxFiles == 1) {
@@ -129,8 +135,8 @@ export default {
                     }
                 }),
  
-                this.on('removedfile', function (file) {
-                    let index = self.files.findIndex(f => f.upload.uuid === file.upload.uuid);
+                dropzone.on('removedfile', function (file) {
+                    let index = self.files.findIndex(f => f.name === file.name)
 
                     if (index !== -1) {
                         self.files.splice(index, 1);
@@ -143,22 +149,42 @@ export default {
                     }
                 }),
 
-                this.on('maxfilesexceeded', function(file) {
+                dropzone.on('maxfilesexceeded', function(file) {
                     this.removeAllFiles('notCancel');
                     this.addFile(file);
                 }),
 
-                this.on('maxfilesreached', function(file) {
+                dropzone.on('maxfilesreached', function(file) {
                     if (self.multiple) {
                         this.disable();
                     }
                 })
+
+                setTimeout(() => {
+                    self.attachments.forEach(async (attachment) => {
+                        let blob = await self.getAttachmentContent(attachment.path)
+                        let file = new File([blob], attachment.name, { type: blob.type })
+
+                        dropzone.displayExistingFile(file, attachment.path, () => {
+                            file.previewElement.querySelector("[data-dz-download]").href = attachment.downloadPath
+                            file.previewElement.querySelector("[data-dz-download]").classList.remove("d-none")
+                        })
+                    })
+
+                    if (self.preview == 'single' && self.attachments.length == 1)
+                        document.querySelector("#dropzone").classList.add("dz-max-files-reached");
+                }, 750)
               }
             };
 
             this.dropzone = new Dropzone(this.$el, finalOptions);
 
             preview.innerHTML = '';
+        },
+        async getAttachmentContent(imageUrl) {
+            return await axios.get(imageUrl, { responseType: 'blob' }).then(function (response) {
+                return response.data
+            });
         }
     },
 
