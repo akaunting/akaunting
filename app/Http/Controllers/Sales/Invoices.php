@@ -13,7 +13,6 @@ use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
-use App\Models\Setting\Currency;
 use App\Traits\Documents;
 use File;
 
@@ -128,12 +127,8 @@ class Invoices extends Controller
      */
     public function import(ImportRequest $request)
     {
-        try {
-            \Excel::import(new Import(), $request->file('import'));
-        } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
-            flash($e->getMessage())->error()->important();
-
-            return redirect()->route('import.create', ['sales', 'invoices']);
+        if (true !== $result = $this->importExcel(new Import, $request, 'sales/invoices')) {
+            return $result;
         }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
@@ -217,7 +212,7 @@ class Invoices extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.invoices', 2));
     }
 
     /**

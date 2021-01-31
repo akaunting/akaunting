@@ -128,12 +128,8 @@ class Bills extends Controller
      */
     public function import(ImportRequest $request)
     {
-        try {
-            \Excel::import(new Import(), $request->file('import'));
-        } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
-            flash($e->getMessage())->error()->important();
-
-            return redirect()->route('import.create', ['purchases', 'bills']);
+        if (true !== $result = $this->importExcel(new Import, $request, 'purchases/bills')) {
+            return $result;
         }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.bills', 2)]);
@@ -217,7 +213,7 @@ class Bills extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.bills', 2));
     }
 
     /**

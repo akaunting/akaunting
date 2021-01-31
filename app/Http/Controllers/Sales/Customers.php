@@ -159,7 +159,9 @@ class Customers extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        if (true !== $result = $this->importExcel(new Import, $request, 'sales/customers')) {
+            return $result;
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
@@ -280,7 +282,7 @@ class Customers extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.customers', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.customers', 2));
     }
 
     public function currency(Contact $customer)

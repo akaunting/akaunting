@@ -124,7 +124,9 @@ class Revenues extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        if (true !== $result = $this->importExcel(new Import, $request, 'sales/revenues')) {
+            return $result;
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 
@@ -229,6 +231,6 @@ class Revenues extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.revenues', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.revenues', 2));
     }
 }
