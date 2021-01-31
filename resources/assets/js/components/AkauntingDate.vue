@@ -27,6 +27,8 @@
 <script>
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import { de } from 'flatpickr/dist/l10n/de.js';
+import { en } from 'flatpickr/dist/l10n/default.js';
 
 export default {
     name: 'akaunting-date',
@@ -76,7 +78,8 @@ export default {
 
     data() {
         return {
-            real_model: this.model
+            real_model: this.model,
+            locale: !this.local ? de : en,
         }
     },
 
