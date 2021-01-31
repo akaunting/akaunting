@@ -27,12 +27,16 @@ const app = new Vue({
     data() {
         return {
             form: new Form('offline-payment'),
+            update_code: null,
+            form_loading: '',
         }
     },
 
     methods:{
         onEdit(event) {
             var code = event.target.dataset.code;
+
+            this.form_loading = '<span class="form-loading-bar"><span class="form-loading-spin"><i class="fa fa-spinner fa-spin"></i></span></span>';
 
             this.form.loading = true;
 
@@ -46,10 +50,13 @@ const app = new Vue({
                 this.form.order = response.data.data.order;
                 this.form.description = response.data.data.description;
                 this.form.update_code = response.data.data.update_code;
+                this.update_code = response.data.data.update_code;
                 this.form.loading = false;
+                this.form_loading = '';
             })
             .catch(error => {
                 this.form.loading = false;
+                this.form_loading = '';
             });
         },
 

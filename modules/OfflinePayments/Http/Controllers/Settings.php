@@ -34,13 +34,14 @@ class Settings extends Controller
      */
     public function update(Request $request)
     {
+        $code_exists = true;
         $methods = json_decode(setting('offline-payments.methods'), true);
-        if(array_search($request->update_code, array_column($methods, 'code')) == false) {
-            $request->merge(['code_exists' => false]);
-        }else{
-            $request->merge(['code_exists' => true]);
+
+        if (array_search($request->update_code, array_column($methods, 'code')) == false) {
+            $code_exists = false;
         }
-        if (!empty($request->get('update_code')) && $request->get('code_exists') == true) {
+
+        if (!empty($request->get('update_code')) && $code_exists == true) {
             $payment_method = $this->dispatch(new UpdatePaymentMethod($request));
 
             $message = trans('messages.success.updated', ['type' => $payment_method['name']]);
