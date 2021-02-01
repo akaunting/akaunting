@@ -3,8 +3,8 @@
 namespace App\Abstracts\View\Components;
 
 use App\Abstracts\View\Components\Document as Base;
-use App\Traits\DateTime;
 use App\Models\Common\Media;
+use App\Traits\DateTime;
 use File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -242,6 +242,11 @@ abstract class DocumentTemplate extends Base
 
         if ($background_color = config('type.' . $type . 'color', false)) {
             return $background_color;
+        }
+
+
+        if (!empty($alias = config('type.' . $type . '.alias'))) {
+            $type = $alias . '.' . str_replace('-', '_', $type);
         }
 
         $backgroundColor = setting($type . '.color', '#55588b');
