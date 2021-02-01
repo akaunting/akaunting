@@ -192,8 +192,10 @@ return [
         'add_new'           => 'Lisää Uusi :field',
         'edit'              => 'Muokkaa :field',
         'contact_edit'      => 'Muokkaa :contact_name :field',
+        'drop_file'         => 'Pudota tiedostot tähän ladataksesi',
         'choose'            => 'Lataa tiedosto',
         'choose_different'  => 'Valitse toinen :field',
+        'choose_file'       => 'Valitse tiedosto',
         'no_file_selected'  => 'Tiedostoa ei valittu...',
     ],
 
