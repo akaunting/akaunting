@@ -1,4 +1,4 @@
-<div class="row" style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
+<div class="row" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
     <div class="col-58">
         <div class="text company pl-2 mb-1 d-flex align-items-center">
             @stack('company_logo_start')
@@ -138,7 +138,7 @@
     <div class="col-100">
         <div class="text">
             <table class="m-lines">
-                <thead style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
+                <thead style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <tr>
                         @stack('name_th_start')
                             @if (!$hideItems || (!$hideName && !$hideDescription))
@@ -244,7 +244,7 @@
 @if (!$hideFooter)
     @if ($document->footer)
         <div class="row mt-7">
-            <div class="col-100 py-2" style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
+            <div class="col-100 py-2" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                 <div class="text pl-2">
                     <strong class="text-white">{!! nl2br($document->footer) !!}</strong>
                 </div>

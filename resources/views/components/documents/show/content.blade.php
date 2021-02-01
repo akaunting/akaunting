@@ -84,7 +84,7 @@
         :document="$document"
         document-template="{{ $documentTemplate }}"
         logo="{{ $logo }}"
-        back-ground-color="{{ $backGroundColor }}"
+        background-color="{{ $backgroundColor }}"
         hide-footer="{{ $hideFooter }}"
         hide-company-logo="{{ $hideCompanyLogo }}"
         hide-company-details="{{ $hideCompanyDetails }}"
