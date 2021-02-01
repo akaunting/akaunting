@@ -156,16 +156,18 @@ return [
     'clear_cache'           => 'Limpar o Cache',
     'go_to_dashboard'       => 'Ir para o Painel',
     'is'                    => 'é',
-    'isnot'                 => 'não é', 
+    'isnot'                 => 'não é',
     'recurring_and_more'    => 'Recorrente e mais..',
     'due_on'                => 'Vence em',
     'amount_due'            => 'Total devido',
 
     'card' => [
+        'cards'                 => 'Cartão|Cartões',
         'name'                  => 'Nome que consta no cartão',
         'number'                => 'Número do Cartão',
         'expiration_date'       => 'Data de validade',
         'cvv'                   => 'Código CVV do cartão',
+        'save'                  => 'Salvar cartão',
     ],
 
     'title' => [
@@ -190,8 +192,10 @@ return [
         'add_new'           => 'Adicionar novo :field',
         'edit'              => 'Editar :field',
         'contact_edit'      => 'Editar :contact_name :field',
+        'drop_file'         => 'Solte arquivos aqui para enviar',
         'choose'            => 'Escolher :field',
         'choose_different'  => 'Selecione um :field diferente',
+        'choose_file'       => 'Escolher Arquivo',
         'no_file_selected'  => 'Nenhum arquivo selecionado...',
     ],
 
