@@ -7,9 +7,8 @@ use App\Models\Common\Media;
 use App\Traits\DateTime;
 use File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use Intervention\Image\Exception\NotReadableException;
 use Image;
+use Intervention\Image\Exception\NotReadableException;
 use Storage;
 
 abstract class DocumentTemplate extends Base
@@ -29,7 +28,7 @@ abstract class DocumentTemplate extends Base
 
     public $logo;
 
-    public $backGroundColor;
+    public $backgroundColor;
 
     public $hideFooter;
 
@@ -129,7 +128,7 @@ abstract class DocumentTemplate extends Base
         $this->document = $document;
         $this->documentTemplate = $this->getDocumentTemplate($type, $documentTemplate);
         $this->logo = $this->getLogo($logo);
-        $this->backGroundColor = $this->getBackgroundColor($type, $backgroundColor);
+        $this->backgroundColor = $this->getBackgroundColor($type, $backgroundColor);
 
         $this->hideFooter = $hideFooter;
         $this->hideCompanyLogo = $hideCompanyLogo;

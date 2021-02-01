@@ -3,15 +3,15 @@
 namespace App\Abstracts\View\Components;
 
 use App\Abstracts\View\Components\Document as Base;
-use App\Traits\DateTime;
 use App\Models\Common\Media;
+use App\Traits\DateTime;
 use File;
-use Image;
-use Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Image;
 use Intervention\Image\Exception\NotReadableException;
+use Storage;
 
 abstract class DocumentShow extends Base
 {
@@ -28,7 +28,7 @@ abstract class DocumentShow extends Base
     public $logo;
 
     /** @var string */
-    public $backGroundColor;
+    public $backgroundColor;
 
     /** @var string */
     public $signedUrl;
@@ -359,7 +359,7 @@ abstract class DocumentShow extends Base
      * @return void
      */
     public function __construct(
-        $type, $document, $documentTemplate = '', $logo = '', $backGroundColor = '', string $signedUrl = '', $histories = [], $transactions = [],
+        $type, $document, $documentTemplate = '', $logo = '', $backgroundColor = '', string $signedUrl = '', $histories = [], $transactions = [],
         string $textRecurringType = '', string $textStatusMessage = '', string $textHistories = '', string $textHistoryStatus = '',
         string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $routeButtonPdf = '', string $routeButtonCancelled = '', string $routeButtonDelete = '', string $routeButtonCustomize = '', string $routeButtonSent = '',
         string $routeButtonReceived = '', string $routeButtonEmail = '', string $routeButtonPaid = '',
@@ -387,7 +387,7 @@ abstract class DocumentShow extends Base
         $this->document = $document;
         $this->documentTemplate = $this->getDocumentTemplate($type, $documentTemplate);
         $this->logo = $this->getLogo($logo);
-        $this->backGroundColor = $backGroundColor;
+        $this->backgroundColor = $backgroundColor;
         $this->signedUrl = $this->getSignedUrl($type, $signedUrl);
 
         $this->histories = ($histories) ? $histories : $document->histories;

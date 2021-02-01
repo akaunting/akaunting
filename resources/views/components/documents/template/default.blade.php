@@ -148,7 +148,7 @@
     <div class="col-100">
         <div class="text">
             <table class="lines">
-                <thead style="background-color:{{ $backGroundColor }} !important; -webkit-print-color-adjust: exact;">
+                <thead style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <tr>
                         @stack('name_th_start')
                             @if (!$hideItems || (!$hideName && !$hideDescription))
