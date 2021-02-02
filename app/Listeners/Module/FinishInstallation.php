@@ -20,7 +20,7 @@ class FinishInstallation
     {
         $module = module($event->alias);
 
-        Artisan::call('migrate', ['--force' => true]);
+        Artisan::call('module:migrate', ['alias' => $event->alias, '--force' => true]);
 
         $this->attachDefaultModulePermissions($module);
     }
