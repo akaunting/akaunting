@@ -24,6 +24,10 @@ class InstallExtraModules
             return;
         }
 
+        if ($event->alias == 'core') {
+            return;
+        }
+
         $extra_modules = module($event->alias)->get('extra-modules');
 
         if (empty($extra_modules)) {
