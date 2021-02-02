@@ -24,9 +24,7 @@ class InstallExtraModules
             return;
         }
 
-        $module = module($event->alias);
-
-        $extra_modules = $module->get('extra-modules');
+        $extra_modules = module($event->alias)->get('extra-modules');
 
         if (empty($extra_modules)) {
             return;

@@ -14,6 +14,7 @@ class Event extends Provider
     protected $listen = [
         'App\Events\Install\UpdateFinished' => [
             'App\Listeners\Update\CreateModuleUpdatedHistory',
+            'App\Listeners\Module\UpdateExtraModules',
             'App\Listeners\Update\V20\Version200',
             'App\Listeners\Update\V20\Version203',
             'App\Listeners\Update\V20\Version205',
