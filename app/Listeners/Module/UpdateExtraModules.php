@@ -37,7 +37,13 @@ class UpdateExtraModules
                 continue;
             }
 
-            $installed_version = module_version($alias);
+            $extra_module = module($alias);
+
+            if (empty($extra_module)) {
+                continue;
+            }
+
+            $installed_version = $extra_module->get('version');
             $latest_version = Versions::latest($alias);
 
             // Skip if no update available
