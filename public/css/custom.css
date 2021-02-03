@@ -1465,6 +1465,6 @@ table .align-items-center td span.badge {
     display: none !important;
 }
 
-#form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light.v-enter-to {
+#form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light {
     margin-top: -50px !important;
 }
