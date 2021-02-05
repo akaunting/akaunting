@@ -278,27 +278,11 @@ abstract class Report
                 case 'yearly':
                     $start->addYear();
 
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
-
                     $j += 11;
 
                     break;
                 case 'quarterly':
                     $start->addQuarter();
-
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
 
                     $j += 2;
 
@@ -306,15 +290,15 @@ abstract class Report
                 default:
                     $start->addMonth();
 
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
-
                     break;
+            }
+
+            $date = $this->getFormattedDate($start);
+
+            $this->dates[] = $date;
+
+            foreach ($this->tables as $table) {
+                $this->footer_totals[$table][$date] = 0;
             }
         }
     }
