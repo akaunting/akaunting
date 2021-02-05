@@ -239,6 +239,7 @@ class RecurringCheck extends Command
         $already_cloned = \DB::table($table)
                                 ->where('parent_id', $model->id)
                                 ->whereDate($date_field, $schedule_date)
+                                ->whereNull('deleted_at')
                                 ->value('id');
 
         // Skip if already cloned
@@ -255,6 +256,7 @@ class RecurringCheck extends Command
 
         return \DB::table($table)
             ->where('parent_id', $model->id)
+            ->whereNull('deleted_at')
             ->count();
     }
 
