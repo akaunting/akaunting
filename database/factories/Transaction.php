@@ -25,7 +25,7 @@ class Transaction extends Factory
     public function definition()
     {
         $types = array_merge($this->getIncomeTypes(), $this->getExpenseTypes());
-		$type = $this->faker->randomElement($types);
+        $type = $this->faker->randomElement($types);
 
         $category_type = in_array($type, $this->getIncomeTypes()) ? 'income' : 'expense';
 
