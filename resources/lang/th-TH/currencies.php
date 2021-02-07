@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'เครื่องหมายทศนิยม',
     'thousands_separator'   => 'ตัวคั่นรายการหลักพัน',
     'precision'             => 'ความแม่นยำ',
+    'conversion'            => 'อัตราแลกเปลี่ยนสกุลเงิน: :price (:currency_code) ที่ :currency_rate',
     'symbol' => [
         'symbol'            => 'สัญลักษณ์',
         'position'          => 'ตำแหน่งของสัญลักษณ์',
