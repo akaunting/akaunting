@@ -537,7 +537,7 @@ abstract class DocumentForm extends Base
         if (request()->has($issued_at)) {
             $issuedAt = request()->get($issued_at);
         } else {
-            $issuedAt = request()->get('invoiced_at', Date::now()->toDateString());
+            $issuedAt = request()->get('invoice_at', Date::now()->toDateString());
         }
 
         return $issuedAt;
@@ -572,20 +572,19 @@ abstract class DocumentForm extends Base
             return $document->due_at;
         }
 
-        $addDays = (setting($type . '.payment_terms', 0)) ? setting($type . '.payment_terms', 0) : setting('invoice.payment_terms', 0);
+        $issued_at = $type . '_at';
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $due_at = request()->get('billed_at', Date::now()->toDateString());
-                break;
-            default:
-                $due_at = Date::parse(request()->get('invoiced_at', Date::now()->toDateString()))->addDays($addDays)->toDateString();
-                break;
+        if (request()->has($issued_at)) {
+            $issuedAt = request()->get($issued_at);
+        } else {
+            $issuedAt = Date::now()->toDateString();
         }
 
-        return $due_at;
+        $addDays = (setting($type . '.payment_terms', 0)) ? setting($type . '.payment_terms', 0) : 0;
+
+        $dueAt = Date::parse($issuedAt)->addDays($addDays)->toDateString();
+
+        return $dueAt;
     }
 
     protected function getOrderNumber($type, $document, $orderNumber)
