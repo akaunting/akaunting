@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Traits\SearchString;
+use Carbon\CarbonPeriod;
 use Date;
 
 trait DateTime
@@ -115,6 +116,18 @@ trait DateTime
         }
 
         return $financial_start;
+    }
+
+    public function getFinancialQuarters($year)
+    {
+        $quarters = [];
+        $start = $this->getFinancialStart($year);
+
+        for ($i = 0; $i < 4; $i++) {
+            $quarters[] = CarbonPeriod::create($start->copy()->addQuarters($i), $start->copy()->addQuarters($i + 1)->subDay());
+        }
+
+        return $quarters;
     }
 
     public function getMonthlyDateFormat($year = null)

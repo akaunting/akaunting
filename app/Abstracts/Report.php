@@ -16,7 +16,6 @@ use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 use App\Utilities\Chartjs;
-use Carbon\CarbonPeriod;
 use Date;
 use Illuminate\Support\Str;
 
@@ -376,7 +375,7 @@ abstract class Report
 
                 break;
             case 'quarterly':
-                $quarters = $this->getFiscalBaseQuarters($this->year);
+                $quarters = $this->getFinancialQuarters($this->year);
 
                 foreach ($quarters as $quarter) {
                     if ($date->lessThan($quarter->getStartDate()) || $date->greaterThan($quarter->getEndDate())) {
@@ -497,17 +496,5 @@ abstract class Report
                 'required' => 'required',
             ],
         ];
-    }
-
-    private function getFiscalBaseQuarters($year)
-    {
-        $periods = [];
-        $fiscal_start = $this->getFinancialStart($year);
-
-        for ($i = 0; $i < 4; $i++) { 
-            $periods[] = CarbonPeriod::create($fiscal_start->copy()->addQuarters($i), $fiscal_start->copy()->addQuarters($i + 1)->subDay());
-        }
-
-        return $periods;
     }
 }
