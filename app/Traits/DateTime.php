@@ -118,7 +118,7 @@ trait DateTime
         return $financial_start;
     }
 
-    public function getFinancialQuarters($year)
+    public function getFinancialQuarters($year = null)
     {
         $quarters = [];
         $start = $this->getFinancialStart($year);
