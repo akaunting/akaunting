@@ -107,83 +107,89 @@ export default {
             let preview = this.preview == 'single' ? this.$refs.previewSingle : this.$refs.previewMultiple;
 
             if (this.configurations.maxFiles === undefined && this.multiple == false) {
-                this.configurations.maxFiles = 1
+                this.configurations.maxFiles = 1;
             }
 
             if (this.configurations.acceptedFiles === undefined) {
-                this.configurations.acceptedFiles = 'image/*'
+                this.configurations.acceptedFiles = 'image/*';
             }
 
             let finalOptions = {
-              ...self.configurations,
-              url: this.url,
-              previewsContainer: preview,
-              previewTemplate: preview.innerHTML,
-              dictDefaultMessage: this.textDropFile,
-              autoProcessQueue: false,
+                ...self.configurations,
+                url: this.url,
+                previewsContainer: preview,
+                previewTemplate: preview.innerHTML,
+                dictDefaultMessage: this.textDropFile,
+                autoProcessQueue: false,
 
-              init: function () {
-                let dropzone = this
+                init: function () {
+                    let dropzone = this;
 
-                dropzone.on('addedfile', function (file) {
-                    self.files.push(file);
+                    dropzone.on('addedfile', function (file) {
+                        self.files.push(file);
 
-                    if (self.configurations.maxFiles == 1) {
-                        self.$emit('change', file);
-                    } else {
-                        self.$emit('change', self.files);
-                    }
-                }),
+                        if (self.configurations.maxFiles == 1) {
+                            self.$emit('change', file);
+                        } else {
+                            self.$emit('change', self.files);
+                        }
+                    }),
  
-                dropzone.on('removedfile', function (file) {
-                    let index = self.files.findIndex(f => f.name === file.name)
+                    dropzone.on('removedfile', function (file) {
+                        let index = self.files.findIndex(f => f.name === file.name)
 
-                    if (index !== -1) {
-                        self.files.splice(index, 1);
-                    }
+                        if (index !== -1) {
+                            self.files.splice(index, 1);
+                        }
 
-                    self.$emit('change', self.files);
+                        self.$emit('change', self.files);
 
-                    if (self.multiple) {
-                        this.enable();
-                    }
-                }),
+                        if (self.multiple) {
+                            this.enable();
+                        }
+                    }),
 
-                dropzone.on('maxfilesexceeded', function(file) {
-                    this.removeAllFiles('notCancel');
-                    this.addFile(file);
-                }),
+                    dropzone.on('maxfilesexceeded', function(file) {
+                        this.removeAllFiles('notCancel');
+                        this.addFile(file);
+                    }),
 
-                dropzone.on('maxfilesreached', function(file) {
-                    if (self.multiple) {
-                        this.disable();
-                    }
-                })
-
-                setTimeout(() => {
-                    self.attachments.forEach(async (attachment) => {
-                        let blob = await self.getAttachmentContent(attachment.path)
-                        let file = new File([blob], attachment.name, { type: blob.type })
-
-                        dropzone.displayExistingFile(file, attachment.path, () => {
-                            file.previewElement.querySelector("[data-dz-download]").href = attachment.downloadPath
-                            file.previewElement.querySelector("[data-dz-download]").classList.remove("d-none")
-                        })
+                    dropzone.on('maxfilesreached', function(file) {
+                        if (self.multiple) {
+                            this.disable();
+                        }
                     })
 
-                    if (self.preview == 'single' && self.attachments.length == 1)
-                        document.querySelector("#dropzone").classList.add("dz-max-files-reached");
-                }, 750)
-              }
+                    if (self.attachments.length) {
+                        setTimeout(() => {
+                            self.attachments.forEach(async (attachment) => {
+                                let blob = await self.getAttachmentContent(attachment.path);
+                                let file = new File([blob], attachment.name, { type: blob.type });
+
+                                dropzone.displayExistingFile(file, attachment.path, () => {
+                                    if (attachment.downloadPath) {
+                                        file.previewElement.querySelector("[data-dz-download]").href = attachment.downloadPath;
+                                        file.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
+                                    }
+                                });
+                            });
+
+                            if (self.preview == 'single' && self.attachments.length == 1) {
+                                document.querySelector("#dropzone").classList.add("dz-max-files-reached");
+                            }
+                        }, 100);
+                    }
+                }
             };
 
             this.dropzone = new Dropzone(this.$el, finalOptions);
 
             preview.innerHTML = '';
         },
+
         async getAttachmentContent(imageUrl) {
             return await axios.get(imageUrl, { responseType: 'blob' }).then(function (response) {
-                return response.data
+                return response.data;
             });
         }
     },
