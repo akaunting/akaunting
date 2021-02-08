@@ -33,26 +33,26 @@ class SearchString extends Component
     {
         if (empty($this->filters)) {
             $search_string = config('search-string');
-    
+
             $this->filters = [];
-    
+
             if (!empty($search_string[$this->model])) {
                 $columns = $search_string[$this->model]['columns'];
-    
+
                 foreach ($columns as $column => $options) {
                     // This column skip for filter
                     if (!empty($options['searchable'])) {
                         continue;
                     }
-    
+
                     if (!is_array($options)) {
                         $column = $options;
                     }
-    
+
                     if (!$this->isFilter($column, $options)) {
                         continue;
                     }
-    
+
                     $this->filters[] = [
                         'key' => $this->getFilterKey($column, $options),
                         'value' => $this->getFilterName($column, $options),
@@ -101,19 +101,29 @@ class SearchString extends Component
 
         $plural = Str::plural($column, 2);
 
-        if (trans_choice('general.' . $plural, 1) !== 'general.' . $plural) {
-            return trans_choice('general.' . $plural, 1);
-        } elseif (trans_choice('search_string.columns.' . $plural, 1) !== 'search_string.columns.' . $plural) {
-            return trans_choice('search_string.columns.' . $plural, 1);
+        if (strpos($this->model, 'Modules') !== false) {
+            $module_class = explode('\\', $this->model);
+
+            $prefix = Str::slug($module_class[1], '-') . '::';
+
+            $translation_keys[] = $prefix . 'general.';
+            $translation_keys[] = $prefix . 'search_string.columns.';
         }
 
-        $name = trans('general.' . $column);
+        $translation_keys[] = 'general.';
+        $translation_keys[] = 'search_string.columns.';
 
-        if ($name == 'general.' . $column) {
-            $name = trans('search_string.columns.' . $column);
+        foreach ($translation_keys as $translation_key) {
+            if (trans_choice($translation_key . $plural, 1) !== $translation_key . $plural) {
+                return trans_choice($translation_key . $plural, 1);
+            }
+
+            if (trans($translation_key . $column) !== $translation_key . $column) {
+                return trans($translation_key . $column);
+            }
         }
 
-        return $name;
+        return $column;
     }
 
     protected function getFilterType($options)
