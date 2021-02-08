@@ -16,6 +16,7 @@ use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 use App\Utilities\Chartjs;
+use Carbon\CarbonPeriod;
 use Date;
 use Illuminate\Support\Str;
 
@@ -277,27 +278,11 @@ abstract class Report
                 case 'yearly':
                     $start->addYear();
 
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
-
                     $j += 11;
 
                     break;
                 case 'quarterly':
                     $start->addQuarter();
-
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
 
                     $j += 2;
 
@@ -305,15 +290,15 @@ abstract class Report
                 default:
                     $start->addMonth();
 
-                    $date = $this->getFormattedDate($start);
-
-                    $this->dates[$j] = $date;
-
-                    foreach ($this->tables as $table) {
-                        $this->footer_totals[$table][$date] = 0;
-                    }
-
                     break;
+            }
+
+            $date = $this->getFormattedDate($start);
+
+            $this->dates[] = $date;
+
+            foreach ($this->tables as $table) {
+                $this->footer_totals[$table][$date] = 0;
             }
         }
     }
@@ -388,15 +373,26 @@ abstract class Report
         switch ($this->getSetting('period')) {
             case 'yearly':
                 $i = $date->copy()->format($this->getYearlyDateFormat());
+
                 break;
             case 'quarterly':
-                $start = $date->copy()->startOfQuarter()->format($this->getQuarterlyDateFormat($this->year));
-                $end = $date->copy()->endOfQuarter()->format($this->getQuarterlyDateFormat($this->year));
+                $quarters = $this->getFiscalBaseQuarters($this->year);
+
+                foreach ($quarters as $quarter) {
+                    if ($date->lessThan($quarter->getStartDate()) || $date->greaterThan($quarter->getEndDate())) {
+                        continue;
+                    }
+
+                    $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($this->year));
+                    $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($this->year));
+                }
 
                 $i = $start . '-' . $end;
+
                 break;
             default:
                 $i = $date->copy()->format($this->getMonthlyDateFormat($this->year));
+
                 break;
         }
 
@@ -501,5 +497,17 @@ abstract class Report
                 'required' => 'required',
             ],
         ];
+    }
+
+    private function getFiscalBaseQuarters($year)
+    {
+        $periods = [];
+        $fiscal_start = $this->getFinancialStart($year);
+
+        for ($i = 0; $i < 4; $i++) { 
+            $periods[] = CarbonPeriod::create($fiscal_start->copy()->addQuarters($i), $fiscal_start->copy()->addQuarters($i + 1)->subDay());
+        }
+
+        return $periods;
     }
 }
