@@ -53,6 +53,8 @@ class UpdateDocument extends Job
 
                     $this->document->attachMedia($media, 'attachment');
                 }
+            } elseif (!$this->request->file('attachment') && $this->document->attachment) {
+                $this->document->delete_attachment();
             }
 
             $this->deleteRelationships($this->document, ['items', 'item_taxes', 'totals']);
