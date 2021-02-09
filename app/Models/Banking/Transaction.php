@@ -3,6 +3,7 @@
 namespace App\Models\Banking;
 
 use App\Abstracts\Model;
+use App\Models\Common\Media as MediaModel;
 use App\Models\Setting\Category;
 use App\Scopes\Transaction as Scope;
 use App\Traits\Currencies;
@@ -320,7 +321,16 @@ class Transaction extends Model
             return false;
         }
 
-        return $this->getMedia('attachment')->last();
+        return $this->getMedia('attachment')->all();
+    }
+
+    public function delete_attachment()
+    {
+        if ($attachments = $this->attachment) {
+            foreach ($attachments as $file) {
+                MediaModel::where('id', $file->id)->delete();
+            }
+        }
     }
 
     /**

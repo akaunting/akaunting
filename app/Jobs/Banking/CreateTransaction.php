@@ -37,9 +37,11 @@ class CreateTransaction extends Job
 
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), 'transactions');
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, 'transactions');
 
-                $this->transaction->attachMedia($media, 'attachment');
+                    $this->transaction->attachMedia($media, 'attachment');
+                }
             }
 
             // Recurring

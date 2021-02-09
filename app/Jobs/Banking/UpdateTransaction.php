@@ -37,9 +37,15 @@ class UpdateTransaction extends Job
 
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), 'transactions');
+                $this->transaction->delete_attachment();
 
-                $this->transaction->attachMedia($media, 'attachment');
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, 'transactions');
+
+                    $this->transaction->attachMedia($media, 'attachment');
+                }
+            } elseif (!$this->request->file('attachment') && $this->transaction->attachment) {
+                $this->transaction->delete_attachment();
             }
 
             // Recurring
