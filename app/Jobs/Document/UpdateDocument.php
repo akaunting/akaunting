@@ -46,7 +46,7 @@ class UpdateDocument extends Job
         \DB::transaction(function () {
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $this->document->delete_attachment();
+                $this->deleteMediaModel($this->document, 'attachment', $this->request);
 
                 foreach ($this->request->file('attachment') as $attachment) {
                     $media = $this->getMedia($attachment, Str::plural($this->document->type));
@@ -54,7 +54,7 @@ class UpdateDocument extends Job
                     $this->document->attachMedia($media, 'attachment');
                 }
             } elseif (!$this->request->file('attachment') && $this->document->attachment) {
-                $this->document->delete_attachment();
+                $this->deleteMediaModel($this->document, 'attachment', $this->request);
             }
 
             $this->deleteRelationships($this->document, ['items', 'item_taxes', 'totals']);
