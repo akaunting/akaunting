@@ -144,18 +144,16 @@ export default {
 
                         if (file.type.indexOf("image") == -1) {
                             var ext = file.name.split('.').pop();
-
+                            
+                            file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
+                            
                             if (ext == "pdf") {
-                                file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
                                 file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("d-none");
                             } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
                                 file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("d-none");
                             } else if ((ext.indexOf("xls") != -1) || (ext.indexOf("xlsx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
                                 file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("d-none");
                             } else {
-                                file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
                                 file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("d-none");
                             }
                         }
