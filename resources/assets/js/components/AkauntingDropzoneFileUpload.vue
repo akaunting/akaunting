@@ -195,6 +195,7 @@ export default {
                                     size: attachment.size,
                                     type: attachment.type,
                                     download: attachment.downloadPath,
+                                    dropzone: 'edit',
                                 };
 
                                 dropzone.emit("addedfile", mockFile);

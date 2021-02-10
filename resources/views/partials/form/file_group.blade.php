@@ -57,11 +57,11 @@
                     @elseif ($value instanceof \Plank\Mediable\Media)
                         @php
                             $attachments[] = [
-                                'id' => $attachment->id,
+                                'id' => $value->id,
                                 'name' => $value->filename . '.' . $value->extension,
                                 'path' => route('uploads.get', $value->id),
-                                'type' => $attachment->mime_type,
-                                'size' => $attachment->size,
+                                'type' => $value->mime_type,
+                                'size' => $value->size,
                                 'downloadPath' => false,
                             ];
                         @endphp
