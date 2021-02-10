@@ -65,6 +65,8 @@
             hide-discount="{{ $hideDiscount }}"
             hide-amount="{{ $hideAmount }}"
             text-amount="{{ $textAmount }}"
+            is-sale-price="{{ $isSalePrice }}"
+            is-purchase-price="{{ $isPurchasePrice }}"
         />
 
         @if (!$hideFooter)
