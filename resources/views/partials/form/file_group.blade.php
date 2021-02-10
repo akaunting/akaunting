@@ -45,17 +45,24 @@
                         @foreach($value as $attachment)
                             @php
                                 $attachments[] = [
+                                    'id' => $attachment->id,
                                     'name' => $attachment->filename . '.' . $attachment->extension, 
-                                    'path' => route('uploads.get', $attachment->id), 
-                                    'downloadPath' => route('uploads.download', $attachment->id)
+                                    'path' => route('uploads.get', $attachment->id),
+                                    'type' => $attachment->mime_type,
+                                    'size' => $attachment->size,
+                                    'downloadPath' => route('uploads.download', $attachment->id),
                                 ];
                             @endphp
                         @endforeach
                     @elseif ($value instanceof \Plank\Mediable\Media)
                         @php
                             $attachments[] = [
+                                'id' => $value->id,
                                 'name' => $value->filename . '.' . $value->extension,
-                                'path' => route('uploads.get', $value->id)
+                                'path' => route('uploads.get', $value->id),
+                                'type' => $value->mime_type,
+                                'size' => $value->size,
+                                'downloadPath' => false,
                             ];
                         @endphp
                     @else
@@ -63,12 +70,16 @@
                             $attachment = \Plank\Mediable\Media::find($value);
 
                             $attachments[] = [
+                                'id' => $attachment->id,
                                 'name' => $attachment->filename . '.' . $attachment->extension,
-                                'path' => route('uploads.get', $attachment->id)
+                                'path' => route('uploads.get', $attachment->id),
+                                'type' => $attachment->mime_type,
+                                'size' => $attachment->size,
+                                'downloadPath' => false,
                             ];
                         @endphp
                     @endif
-                
+
                 :attachments="{{ json_encode($attachments) }}"
                 @endif
 

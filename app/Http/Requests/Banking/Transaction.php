@@ -41,7 +41,7 @@ class Transaction extends FormRequest
             'contact_id' => 'nullable|integer',
             'category_id' => 'required|integer',
             'payment_method' => 'required|string',
-            'attachment' => $attachment,
+            'attachment.*' => $attachment,
         ];
     }
 
