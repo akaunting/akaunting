@@ -114,6 +114,7 @@ return [
     App\Models\Common\Company::class => [
         'columns' => [
             'domain' => ['searchable' => true],
+            'settings.value' => ['searchable' => true],
             'enabled' => ['boolean' => true],
         ],
     ],
