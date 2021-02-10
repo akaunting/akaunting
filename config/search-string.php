@@ -111,6 +111,19 @@ return [
         ],
     ],
 
+    App\Models\Banking\Transfer::class => [
+        'columns' => [
+            'expense_account' => [
+                'relationship' => true,
+                'route' => 'accounts.index',
+            ],
+            'income_account' => [
+                'relationship' => true,
+                'route' => 'accounts.index',
+            ],
+        ],
+    ],
+
     App\Models\Common\Company::class => [
         'columns' => [
             'domain' => ['searchable' => true],

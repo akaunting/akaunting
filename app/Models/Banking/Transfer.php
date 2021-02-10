@@ -5,10 +5,11 @@ namespace App\Models\Banking;
 use App\Abstracts\Model;
 use App\Traits\Currencies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Transfer extends Model
 {
-    use HasFactory, Currencies;
+    use BelongsToThrough, Currencies, HasFactory;
 
     protected $table = 'transfers';
 
@@ -33,7 +34,13 @@ class Transfer extends Model
 
     public function expense_account()
     {
-        return $this->belongsTo('App\Models\Banking\Account', 'expense_transaction.account_id', 'id')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsToThrough(
+            'App\Models\Banking\Account',
+            'App\Models\Banking\Transaction',
+            null,
+            '',
+            ['App\Models\Banking\Transaction' => 'expense_transaction_id']
+        )->withDefault(['name' => trans('general.na')]);
     }
 
     public function income_transaction()
@@ -43,7 +50,13 @@ class Transfer extends Model
 
     public function income_account()
     {
-        return $this->belongsTo('App\Models\Banking\Account', 'income_transaction.account_id', 'id')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsToThrough(
+            'App\Models\Banking\Account',
+            'App\Models\Banking\Transaction',
+            null,
+            '',
+            ['App\Models\Banking\Transaction' => 'income_transaction_id']
+        )->withDefault(['name' => trans('general.na')]);
     }
 
     /**
