@@ -57,7 +57,7 @@
                                         @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
-                                                placeholder="Enter item description"
+                                                placeholder="{{ trans('items.enter_item_description') }}"
                                                 style="height: 46px; overflow: hidden;"
                                                 :name="'items.' + index + '.description'"
                                                 v-model="row.description"
