@@ -3,7 +3,7 @@
 namespace App\View\Components\Documents\Form;
 
 use App\Abstracts\View\Components\DocumentForm as Component;
-use Illuminate\Support\Str;
+use App\Models\Common\Company as Model;
 
 class Company extends Component
 {
@@ -14,7 +14,7 @@ class Company extends Component
      */
     public function render()
     {
-        $company = user()->companies()->first();
+        $company = Model::find(session('company_id'));
 
         $inputNameType = config('type.' . $this->type . '.route.parameter');
 
