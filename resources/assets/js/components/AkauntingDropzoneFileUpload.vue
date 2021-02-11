@@ -11,10 +11,11 @@
         <div v-if="preview == 'single'" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
             <div class="dz-preview-cover">
                 <img class="dz-preview-img" data-dz-thumbnail>
-                <i class="fas fa-file-image display-3 d-none" data-dz-thumbnail-image></i>
-                <i class="far fa-file-pdf display-3 d-none" data-dz-thumbnail-pdf></i>
-                <i class="far fa-file-word d-none" data-dz-thumbnail-word></i>
-                <i class="far fa-file-excel d-none" data-dz-thumbnail-excel></i>
+                <i class="fas fa-file-image display-3 fa-2x mt-2 d-none" data-dz-thumbnail-image></i>
+                <i class="far fa-file-pdf display-3 fa-2x mt-2 d-none" data-dz-thumbnail-pdf></i>
+                <i class="far fa-file-word fa-2x mt-2 d-none" data-dz-thumbnail-word></i>
+                <i class="far fa-file-excel fa-2x mt-2 d-none" data-dz-thumbnail-excel></i>
+                <span class="mb-1 d-none" data-dz-name>...</span>
             </div>
         </div>
 
@@ -143,10 +144,11 @@ export default {
                         }
 
                         if (file.type.indexOf("image") == -1) {
-                            var ext = file.name.split('.').pop();
-                            
+                            let ext = file.name.split('.').pop();
+
                             file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
-                            
+                            file.previewElement.querySelector("[data-dz-name]").classList.remove("d-none");
+
                             if (ext == "pdf") {
                                 file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("d-none");
                             } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
