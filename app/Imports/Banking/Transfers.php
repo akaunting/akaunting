@@ -8,7 +8,6 @@ use App\Models\Banking\Transfer as Model;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
 use App\Utilities\Date;
-use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 class Transfers extends Import
 {
@@ -23,7 +22,7 @@ class Transfers extends Import
     {
         $row = parent::map($row);
 
-        $row['transferred_at'] = Date::parse(ExcelDate::excelToDateTimeObject($row['transferred_at']))->format('Y-m-d');
+        $row['transferred_at'] = Date::parse($row['transferred_at'])->format('Y-m-d');
         $row['from_account_id'] = $this->getFromAccountId($row);
         $row['to_account_id'] = $this->getToAccountId($row);
         $row['expense_transaction_id'] = $this->getExpenseTransactionId($row);
