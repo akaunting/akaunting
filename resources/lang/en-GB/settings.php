@@ -3,12 +3,13 @@
 return [
 
     'company' => [
-        'description'       => 'Change company name, email, address, tax number etc',
-        'name'              => 'Name',
-        'email'             => 'Email',
-        'phone'             => 'Phone',
-        'address'           => 'Address',
-        'logo'              => 'Logo',
+        'description'                => 'Change company name, email, address, tax number etc',
+        'name'                       => 'Name',
+        'email'                      => 'Email',
+        'phone'                      => 'Phone',
+        'address'                    => 'Address',
+        'edit_your_business_address' => 'Edit your business address',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
