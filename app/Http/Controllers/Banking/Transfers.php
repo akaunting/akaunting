@@ -95,15 +95,23 @@ class Transfers extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'banking/transfers')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('transfers.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.transfers', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['banking', 'transfers']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.transfers', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('transfers.index');
+        return response()->json($response);
     }
 
     /**

@@ -42,13 +42,23 @@ class Transactions extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.transactions', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('transactions.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.transactions', 1)]);
 
-        return redirect()->route('transactions.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['banking', 'transactions']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**

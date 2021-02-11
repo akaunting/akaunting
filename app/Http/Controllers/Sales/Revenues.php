@@ -134,15 +134,23 @@ class Revenues extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'sales/revenues')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('revenues.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'revenues']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('revenues.index');
+        return response()->json($response);
     }
 
     /**

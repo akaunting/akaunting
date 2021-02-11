@@ -127,15 +127,23 @@ class Invoices extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'sales/invoices')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('invoices.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'invoices']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('invoices.index');
+        return response()->json($response);
     }
 
     /**
