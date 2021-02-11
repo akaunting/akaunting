@@ -24,12 +24,12 @@
 
                         @if (!$hideCompanyEdit)
                             <akaunting-company-edit company-id="{{ session('company_id') }}"
-                            button-text="{{ trans('Edit your business address') }}"
+                            button-text="{{ trans('settings.company.edit_your_business_address') }}"
                             taxt-number-text="{{ trans('general.tax_number') }}"
                             :company="{{ json_encode($company) }}"
                             :company-form="{{ json_encode([
                                 'show' => true,
-                                'text' => trans('Edit your business address'),
+                                'text' => trans('settings.company.edit_your_business_address'),
                                 'buttons' => [
                                     'cancel' => [
                                         'text' => trans('general.cancel'),
