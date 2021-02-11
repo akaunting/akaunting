@@ -134,15 +134,23 @@ class Payments extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'purchases/payments')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('payments.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'payments']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('payments.index');
+        return response()->json($response);
     }
 
     /**

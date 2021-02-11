@@ -82,17 +82,29 @@ abstract class Controller extends BaseController
      *
      * @return mixed
      */
-    public function importExcel($class, $request, $url)
+    public function importExcel($class, $request)
     {
         try {
             Excel::import($class, $request->file('import'));
-        } catch (SheetNotFoundException | ErrorException | Exception | Throwable $e) {
-            flash($e->getMessage())->error()->important();
 
-            return redirect()->route('import.create', explode('/', $url));
+            $response = [
+                'success'   => true,
+                'error'     => false,
+                'data'      => null,
+                'message'   => '',
+            ];
+        } catch (SheetNotFoundException | ErrorException | Exception | Throwable $e) {
+            $message = $e->getMessage();
+
+            $response = [
+                'success'   => false,
+                'error'     => true,
+                'data'      => null,
+                'message'   => $message,
+            ];
         }
 
-        return true;
+        return $response;
     }
 
     /**
