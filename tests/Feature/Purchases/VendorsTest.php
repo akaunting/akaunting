@@ -162,7 +162,6 @@ class VendorsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-
     public function getRequest()
     {
         return Contact::factory()->vendor()->enabled()->raw();
