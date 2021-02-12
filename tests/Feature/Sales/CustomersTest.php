@@ -2,9 +2,12 @@
 
 namespace Tests\Feature\Sales;
 
+use App\Exports\Sales\Customers as Export;
 use App\Jobs\Common\CreateContact;
 use App\Models\Auth\User;
 use App\Models\Common\Contact;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
@@ -121,6 +124,69 @@ class CustomersTest extends FeatureTestCase
     public function getRequest()
     {
         return Contact::factory()->customer()->enabled()->raw();
+    }
+
+    public function testItShouldExportCustomers()
+    {
+        $count = 5;
+        Contact::factory()->customer()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->get(route('customers.export'))
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.customers', 2)) . '.xlsx',
+            function (Export $export) use ($count) {
+                // Assert that the correct export is downloaded.
+                return $export->collection()->count() === $count;
+            }
+        );
+    }
+
+    public function testItShouldExportSelectedCustomers()
+    {
+        $count = 5;
+        $customers = Contact::factory()->customer()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'purchases', 'type' => 'customers']),
+                ['handle' => 'export', 'selected' => [$customers->random()->id]]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.customers', 2)) . '.xlsx',
+            function (Export $export) {
+                return $export->collection()->count() === 1;
+            }
+        );
+    }
+
+    public function testItShouldImportCustomers()
+    {
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('customers.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'customers.xlsx',
+                        File::get(public_path('files/import/customers.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertImported('customers.xlsx');
+
+        $this->assertFlashLevel('success');
     }
 
 	public function getRequestWithUser()
