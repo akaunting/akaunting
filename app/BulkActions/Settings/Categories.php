@@ -37,7 +37,7 @@ class Categories extends BulkAction
             try {
                 $this->dispatch(new UpdateCategory($category, $request->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Categories extends BulkAction
             try {
                 $this->dispatch(new DeleteCategory($category));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

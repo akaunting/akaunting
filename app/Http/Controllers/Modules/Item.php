@@ -259,7 +259,7 @@ class Item extends Controller
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            flash($message)->error();
+            flash($message)->error()->important();
 
             $json = [
                 'success' => false,
@@ -285,7 +285,7 @@ class Item extends Controller
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -304,7 +304,7 @@ class Item extends Controller
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -323,7 +323,7 @@ class Item extends Controller
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();

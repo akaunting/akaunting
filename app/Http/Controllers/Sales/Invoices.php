@@ -94,7 +94,7 @@ class Invoices extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -181,7 +181,7 @@ class Invoices extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -207,7 +207,7 @@ class Invoices extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -367,7 +367,7 @@ class Invoices extends Controller
         } catch(\Exception $e) {
             $message = $e->getMessage();
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return redirect()->back();

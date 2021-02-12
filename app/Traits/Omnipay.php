@@ -145,7 +145,7 @@ trait Omnipay
 
         $invoice_url = $this->getInvoiceUrl($invoice);
 
-        flash($message)->error();
+        flash($message)->error()->important();
 
         if ($force_redirect) {
             return redirect($invoice_url);

@@ -75,7 +75,7 @@ class Companies extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         session(['company_id' => $company_id]);
@@ -128,7 +128,7 @@ class Companies extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         session(['company_id' => $company_id]);
@@ -194,7 +194,7 @@ class Companies extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

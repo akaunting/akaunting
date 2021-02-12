@@ -32,13 +32,13 @@ class CreateDocumentTransaction
             $type = Str::plural($event->document->type);
 
             if (empty($user)) {
-                flash($message)->error();
+                flash($message)->error()->important();
 
                 redirect()->route("signed.$type.show", $document->id)->send();
             }
 
             if ($user->can('read-client-portal')) {
-                flash($message)->error();
+                flash($message)->error()->important();
 
                 redirect()->route("portal.$type.show", $document->id)->send();
             }

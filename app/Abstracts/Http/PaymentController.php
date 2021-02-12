@@ -73,7 +73,7 @@ abstract class PaymentController extends BaseController
 
         $this->logger->info($this->module->getName() . ':: Invoice: ' . $invoice->id . ' - Cancel Message: ' . $message);
 
-        flash($message)->warning();
+        flash($message)->warning()->important();
 
         $invoice_url = $this->getInvoiceUrl($invoice);
 

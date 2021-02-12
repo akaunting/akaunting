@@ -37,7 +37,7 @@ class Companies extends BulkAction
             try {
                 $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 1]), session('company_id')));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Companies extends BulkAction
             try {
                 $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 0]), session('company_id')));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -63,7 +63,7 @@ class Companies extends BulkAction
             try {
                 $this->dispatch(new DeleteCompany($company, session('company_id')));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
