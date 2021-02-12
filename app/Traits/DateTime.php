@@ -110,7 +110,7 @@ trait DateTime
 
         $financial_start = Date::create($year, $month, $day);
 
-        if (setting('localisation.financial_year_denote') == 'ends' && $financial_start->dayOfYear != 1) {
+        if ((setting('localisation.financial_denote') == 'ends') && ($financial_start->dayOfYear != 1)) {
             $financial_start->subYear();
         }
 

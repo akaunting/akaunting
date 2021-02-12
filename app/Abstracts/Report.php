@@ -374,7 +374,7 @@ abstract class Report
                 $financial_year = $this->getFinancialYear($this->year);
 
                 if ($date->greaterThanOrEqualTo($financial_year->getStartDate()) && $date->lessThanOrEqualTo($financial_year->getEndDate())) {
-                    if (setting('localisation.financial_year_denote') == 'begins') {
+                    if (setting('localisation.financial_denote') == 'begins') {
                         $i = $financial_year->getStartDate()->copy()->format($this->getYearlyDateFormat());
                     } else {
                         $i = $financial_year->getEndDate()->copy()->format($this->getYearlyDateFormat());

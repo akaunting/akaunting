@@ -98,12 +98,12 @@ return [
     'fallback' => [
         'localisation' => [
             'financial_start'           => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_START', '01-01'),
+            'financial_denote'          => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_DENOTE', 'ends'),
             'timezone'                  => env('SETTING_FALLBACK_LOCALISATION_TIMEZONE', 'Europe/London'),
             'date_format'               => env('SETTING_FALLBACK_LOCALISATION_DATE_FORMAT', 'd M Y'),
             'date_separator'            => env('SETTING_FALLBACK_LOCALISATION_DATE_SEPARATOR', 'space'),
             'percent_position'          => env('SETTING_FALLBACK_LOCALISATION_PERCENT_POSITION', 'after'),
             'discount_location'         => env('SETTING_FALLBACK_LOCALISATION_DISCOUNT_LOCATION', 'total'),
-            'financial_year_denote'     => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_YEAR_DENOTE', 'ends'),
         ],
         'invoice' => [
             'number_prefix'             => env('SETTING_FALLBACK_INVOICE_NUMBER_PREFIX', 'INV-'),
