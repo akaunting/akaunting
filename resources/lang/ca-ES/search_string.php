@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Data de venciment',
         'symbol_first'      => 'Posició del caràcter',
         'reconciled'        => 'Concilia',
+        'expense_account'   => 'Compte origen',
+        'income_account'    => 'Compte destí',
     ],
 
 ];

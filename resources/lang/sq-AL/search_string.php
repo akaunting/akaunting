@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Data e Lëshimit',
         'symbol_first'      => 'Pozicioni i Simbolit',
         'reconciled'        => 'I Pajtuar',
+        'expense_account'   => 'Nga Llogaria',
+        'income_account'    => 'Në Llogarinë',
     ],
 
 ];

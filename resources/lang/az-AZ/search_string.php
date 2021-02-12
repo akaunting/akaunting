@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Əməliyyat Tarixi',
         'symbol_first'      => 'İşarə Yeri',
         'reconciled'        => 'Razılaşdırıldı',
+        'expense_account'   => 'Göndərən Hesab',
+        'income_account'    => 'Qəbul Edən Hesab',
     ],
 
 ];

@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Datum dospjeća',
         'symbol_first'      => 'Položaj simbola',
         'reconciled'        => 'Usaglašeno',
+        'expense_account'   => 'Sa računa',
+        'income_account'    => 'Na račun',
     ],
 
 ];

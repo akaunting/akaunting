@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Ausstellungsdatum',
         'symbol_first'      => 'Symbolposition',
         'reconciled'        => 'Abgeglichen',
+        'expense_account'   => 'Von Konto',
+        'income_account'    => 'Auf Konto',
     ],
 
 ];
