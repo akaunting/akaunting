@@ -108,7 +108,7 @@ class SearchString extends Component
         if (strpos($this->model, 'Modules') !== false) {
             $module_class = explode('\\', $this->model);
 
-            $prefix = Str::slug($module_class[1], '-') . '::';
+            $prefix = Str::kebab($module_class[1]) . '::';
 
             $translation_keys[] = $prefix . 'general.';
             $translation_keys[] = $prefix . 'search_string.columns.';
