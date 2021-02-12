@@ -112,7 +112,6 @@ class CustomersTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertSoftDeleted('contacts', $request);
-
     }
 
     public function testItShouldNotDeleteCustomerIfHasRelations()
@@ -136,7 +135,7 @@ class CustomersTest extends FeatureTestCase
             \Str::filename(trans_choice('general.customers', 2)) . '.xlsx',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
-                return $export->collection()->count() === $count;
+                return $export->collection()->count() === $count + 1;
             }
         );
     }
