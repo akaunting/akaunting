@@ -35,6 +35,11 @@ return [
             'total'         => 'Toplamda',
             'both'          => 'Satırda ve toplamda',
         ],
+        'financial_year_denote' => [
+            'title'         => 'Mali Yıl Gösterimi',
+            'begins'        => 'Başlangıç Yılı',
+            'ends'          => 'Bitiş Yılı',
+        ],
     ],
 
     'invoice' => [

@@ -110,12 +110,18 @@ trait DateTime
 
         $financial_start = Date::create($year, $month, $day);
 
-        // Check if FS is in last calendar year
-        if ($now->diffInDays($financial_start, false) > 0) {
+        if (setting('localisation.financial_year_denote') == 'ends' && $financial_start->dayOfYear != 1) {
             $financial_start->subYear();
         }
 
         return $financial_start;
+    }
+
+    public function getFinancialYear($year = null)
+    {
+        $start = $this->getFinancialStart($year);
+
+        return CarbonPeriod::create($start, $start->copy()->addYear()->subDay());
     }
 
     public function getFinancialQuarters($year = null)
