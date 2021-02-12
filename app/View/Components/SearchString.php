@@ -80,6 +80,10 @@ class SearchString extends Component
 
     protected function getFilterKey($column, $options)
     {
+        if (isset($options['key'])) {
+            $column = $options['key'];
+        }
+
         if (isset($options['relationship'])) {
             $column .= '.id';
         }
