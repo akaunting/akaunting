@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Purchases;
 
-use App\Exports\Common\Contacts as Export;
+use App\Exports\Purchases\Vendors as Export;
 use App\Jobs\Common\CreateContact;
 use App\Models\Common\Contact;
 use Illuminate\Http\UploadedFile;
