@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Cache;
 class Reports extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // Add CRUD permission check
+        $this->middleware('permission:create-common-reports')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export');
+        $this->middleware('permission:update-common-reports')->only('edit', 'update', 'enable', 'disable');
+        $this->middleware('permission:delete-common-reports')->only('destroy');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return Response
