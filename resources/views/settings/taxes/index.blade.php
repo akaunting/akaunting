@@ -86,7 +86,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'taxes', 'docs_path' => 'settings/taxes'])
+        <x-empty-page group="settings" page="taxes" />
     @endif
 @endsection
 

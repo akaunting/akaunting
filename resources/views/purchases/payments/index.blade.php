@@ -116,7 +116,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'payments', 'docs_path' => 'purchases/payments'])
+        <x-empty-page group="purchases" page="payments" />
     @endif
 @endsection
 
