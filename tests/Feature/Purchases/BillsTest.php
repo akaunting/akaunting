@@ -2,8 +2,11 @@
 
 namespace Tests\Feature\Purchases;
 
+use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Document\Document;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Tests\Feature\FeatureTestCase;
 
 class BillsTest extends FeatureTestCase
@@ -102,6 +105,69 @@ class BillsTest extends FeatureTestCase
         $this->assertSoftDeleted('documents', [
             'document_number' => $request['document_number'],
         ]);
+    }
+
+    public function testItShouldExportBills()
+    {
+        $count = 5;
+        Document::factory()->bill()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->get(route('bills.export'))
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.bills', 2)) . '.xlsx',
+            function (Export $export) use ($count) {
+                // Assert that the correct export is downloaded.
+                return $export->sheets()['bills']->collection()->count() === $count;
+            }
+        );
+    }
+
+    public function testItShouldExportSelectedBills()
+    {
+        $count = 5;
+        $bills = Document::factory()->bill()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'purchases', 'type' => 'bills']),
+                ['handle' => 'export', 'selected' => [$bills->random()->id]]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.bills', 2)) . '.xlsx',
+            function (Export $export) {
+                return $export->sheets()['bills']->collection()->count() === 1;
+            }
+        );
+    }
+
+    public function testItShouldImportBills()
+    {
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bills.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'bills.xlsx',
+                        File::get(public_path('files/import/bills.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertImported('bills.xlsx');
+
+        $this->assertFlashLevel('success');
     }
 
     public function getRequest($recurring = false)
