@@ -41,12 +41,18 @@ class Localisation extends Controller
             'both' => trans('settings.localisation.discount_location.both'),
         ];
 
+        $financial_year_denote_options = [
+            'begins' => trans('settings.localisation.financial_year_denote.begins'),
+            'ends' => trans('settings.localisation.financial_year_denote.ends'),
+        ];
+
         return view('settings.localisation.edit', compact(
             'timezones',
             'date_formats',
             'date_separators',
             'percent_positions',
-            'discount_locations'
+            'discount_locations',
+            'financial_year_denote_options'
         ));
     }
 }

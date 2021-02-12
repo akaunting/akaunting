@@ -20,6 +20,8 @@
             <div class="row">
                 {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off'], setting('localisation.financial_start')) }}
 
+                {{ Form::selectGroup('financial_year_denote', trans('settings.localisation.financial_year_denote.title'), 'calendar', $financial_year_denote_options, setting('localisation.financial_year_denote'), []) }}
+
                 {{ Form::selectGroupGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, setting('localisation.timezone'), []) }}
 
                 {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, setting('localisation.date_format'), ['autocomplete' => 'off']) }}

@@ -36,6 +36,11 @@ return [
             'total'         => 'At total',
             'both'          => 'Both line and total',
         ],
+        'financial_year_denote' => [
+            'title'         => 'Financial Year Denote',
+            'begins'        => 'By the year it begins',
+            'ends'          => 'By the year it ends',
+        ],
     ],
 
     'invoice' => [
