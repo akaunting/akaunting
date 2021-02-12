@@ -155,7 +155,7 @@ class CustomersTest extends FeatureTestCase
 
         $this->loginAs()
             ->post(
-                route('bulk-actions.action', ['group' => 'purchases', 'type' => 'customers']),
+                route('bulk-actions.action', ['group' => 'sales', 'type' => 'customers']),
                 ['handle' => 'export', 'selected' => [$customers->random()->id]]
             )
             ->assertStatus(200);
