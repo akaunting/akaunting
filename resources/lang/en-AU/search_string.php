@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Issue Date',
         'symbol_first'      => 'Symbol Position',
         'reconciled'        => 'Reconciled',
+        'expense_account'   => 'From Account',
+        'income_account'    => 'To Account',
     ],
 
 ];

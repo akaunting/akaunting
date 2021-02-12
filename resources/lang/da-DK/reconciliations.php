@@ -2,7 +2,7 @@
 
 return [
 
-    'reconcile'             => 'Afstemme',
+    'reconcile'             => 'Afstem',
     'unreconcile'           => 'Uafsem',
     'reconciled'            => 'Afstemt',
     'opening_balance'       => 'Åbningsbalance',
