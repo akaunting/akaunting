@@ -16,6 +16,11 @@ return [
         'description'       => 'Postavite fiskalnu godinu, vremensku zonu, format datuma i više',
         'financial_start'   => 'Početak fiskalne godine',
         'timezone'          => 'Vremenska zona',
+        'financial_denote' => [
+            'title'         => 'Početak fiskalne godine',
+            'begins'        => 'Do godine u kojoj se započinje',
+            'ends'          => 'Do godine u kojoj završava',
+        ],
         'date' => [
             'format'        => 'Format datuma',
             'separator'     => 'Separator datuma',
