@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Şirketin ismini, adresini, vergi numrasını vs. değiştirin',
-        'name'              => 'Şirket İsmi',
-        'email'             => 'Şirket Emaili',
-        'phone'             => 'Telefon',
-        'address'           => 'Şirket Adresi',
-        'logo'              => 'Şirket Logosu',
+        'description'                => 'Şirketin ismini, adresini, vergi numrasını vs. değiştirin',
+        'name'                       => 'Şirket İsmi',
+        'email'                      => 'Şirket Emaili',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Şirket Adresi',
+        'edit_your_business_address' => 'Şirket adresini giriniz',
+        'logo'                       => 'Şirket Logosu',
     ],
 
     'localisation' => [
         'description'       => 'Mali yıl başlangıcını, saat dilimini, tarih biçimini vs. ayarlayın',
         'financial_start'   => 'Mali Yıl Başlangıcı',
         'timezone'          => 'Saat Dilimi',
+        'financial_denote' => [
+            'title'         => 'Mali Yıl Gösterimi',
+            'begins'        => 'Yılın başlangıcı',
+            'ends'          => 'Yılın bitişi',
+        ],
         'date' => [
             'format'        => 'Tarih Biçimi',
             'separator'     => 'Tarih Ayracı',
@@ -34,11 +40,6 @@ return [
             'item'          => 'Satırda',
             'total'         => 'Toplamda',
             'both'          => 'Satırda ve toplamda',
-        ],
-        'financial_year_denote' => [
-            'title'         => 'Mali Yıl Gösterimi',
-            'begins'        => 'Başlangıç Yılı',
-            'ends'          => 'Bitiş Yılı',
         ],
     ],
 
