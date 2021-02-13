@@ -16,6 +16,11 @@ return [
         'description'       => 'Set fiscal year, time zone, date format and more locals',
         'financial_start'   => 'Financial Year Start',
         'timezone'          => 'Time Zone',
+        'financial_denote' => [
+            'title'         => 'Financial Year Denote',
+            'begins'        => 'By the year in which it begins',
+            'ends'          => 'By the year in which it ends',
+        ],
         'date' => [
             'format'        => 'Date Format',
             'separator'     => 'Date Separator',
