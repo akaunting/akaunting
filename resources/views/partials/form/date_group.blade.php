@@ -39,8 +39,9 @@
             @if (!empty($attributes['max-date']))
             maxDate: {{ $attributes['max-date'] }}
             @endif
-            locale: '{{ language()->getShortCode() }}',
         }"
+        
+        locale="{{ language()->getShortCode() }}"
 
         @if (!empty($attributes['v-model']))
         @interface="form.errors.clear('{{ $attributes['v-model'] }}'); {{ $attributes['v-model'] . ' = $event' }}"
