@@ -66,7 +66,17 @@ class Revenues extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('sales.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('sales.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods', 'file_types'));
     }
 
     /**
@@ -91,7 +101,7 @@ class Revenues extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -124,15 +134,23 @@ class Revenues extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'sales/revenues')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('revenues.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'revenues']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('revenues.index');
+        return response()->json($response);
     }
 
     /**
@@ -166,7 +184,17 @@ class Revenues extends Controller
 
         $date_format = $this->getCompanyDateFormat();
 
-        return view('sales.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods', 'date_format'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('sales.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods', 'date_format', 'file_types'));
     }
 
     /**
@@ -192,7 +220,7 @@ class Revenues extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -218,7 +246,7 @@ class Revenues extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

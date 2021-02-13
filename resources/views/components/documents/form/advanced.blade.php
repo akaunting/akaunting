@@ -26,6 +26,8 @@
                             {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $document->category_id ?? setting('default.' . $categoryType . '_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=' . $categoryType, 'remote_action' => route('categories.index'). '?search=type:' . $categoryType], $more_form_class) }}
                         @endif
                     </div>
+                    @else
+                    {{ Form::hidden('category_id', $document->category_id ?? setting('default.' . $categoryType . '_category')) }}
                     @endif
                     @stack('more_row_end')
 

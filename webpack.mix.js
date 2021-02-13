@@ -38,10 +38,11 @@ mix
     .js('resources/assets/js/views/banking/reconciliations.js', 'public/js/banking')
 
     // Common
-    .js('resources/assets/js/views/common/items.js', 'public/js/common')
     .js('resources/assets/js/views/common/companies.js', 'public/js/common')
     .js('resources/assets/js/views/common/dashboards.js', 'public/js/common')
     .js('resources/assets/js/views/common/documents.js', 'public/js/common')
+    .js('resources/assets/js/views/common/imports.js', 'public/js/common')
+    .js('resources/assets/js/views/common/items.js', 'public/js/common')
     .js('resources/assets/js/views/common/reports.js', 'public/js/common')
     .js('resources/assets/js/views/common/search.js', 'public/js/common')
 

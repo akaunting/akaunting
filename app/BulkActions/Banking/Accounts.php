@@ -37,7 +37,7 @@ class Accounts extends BulkAction
             try {
                 $this->dispatch(new UpdateAccount($account, $request->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Accounts extends BulkAction
             try {
                 $this->dispatch(new DeleteAccount($account));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

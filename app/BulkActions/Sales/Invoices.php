@@ -99,7 +99,7 @@ class Invoices extends BulkAction
             try {
                 $this->dispatch(new DeleteDocument($invoice));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

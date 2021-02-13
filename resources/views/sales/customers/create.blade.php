@@ -76,7 +76,7 @@
 @push('scripts_start')
     <script>
         var can_login_errors = {
-            valid: '{{ trans('validation.required', ['attribute' => 'email']) }}',
+            valid: '{!! trans('validation.required', ['attribute' => 'email']) !!}',
             email: '{{ trans('customers.error.email') }}'
         };
     </script>

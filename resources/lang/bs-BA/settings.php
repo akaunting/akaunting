@@ -3,12 +3,13 @@
 return [
 
     'company' => [
-        'description'       => 'Promijenite naziv firme, e-mail, adresu, porezni broj itd',
-        'name'              => 'Naziv firme',
-        'email'             => 'E-mail',
-        'phone'             => 'Telefon',
-        'address'           => 'Adresa',
-        'logo'              => 'Logo',
+        'description'                => 'Promijenite naziv firme, e-mail, adresu, porezni broj itd',
+        'name'                       => 'Naziv firme',
+        'email'                      => 'E-mail',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Adresa',
+        'edit_your_business_address' => 'Izmjenite vašu boznis adresu',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [

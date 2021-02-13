@@ -11,6 +11,11 @@
         <div v-if="preview == 'single'" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
             <div class="dz-preview-cover">
                 <img class="dz-preview-img" data-dz-thumbnail>
+                <i class="fas fa-file-image display-3 fa-2x mt-2 d-none" data-dz-thumbnail-image></i>
+                <i class="far fa-file-pdf display-3 fa-2x mt-2 d-none" data-dz-thumbnail-pdf></i>
+                <i class="far fa-file-word fa-2x mt-2 d-none" data-dz-thumbnail-word></i>
+                <i class="far fa-file-excel fa-2x mt-2 d-none" data-dz-thumbnail-excel></i>
+                <span class="mb-1 d-none" data-dz-name>...</span>
             </div>
         </div>
 
@@ -20,6 +25,10 @@
                     <div class="col-auto">
                         <div class="avatar">
                             <img class="avatar-img rounded" data-dz-thumbnail>
+                            <i class="fas fa-file-image display-3 d-none" data-dz-thumbnail-image></i>
+                            <i class="far fa-file-pdf display-3 d-none" data-dz-thumbnail-pdf></i>
+                            <i class="far fa-file-word d-none" data-dz-thumbnail-word></i>
+                            <i class="far fa-file-excel d-none" data-dz-thumbnail-excel></i>
                         </div>
                     </div>
 
@@ -107,85 +116,114 @@ export default {
             let preview = this.preview == 'single' ? this.$refs.previewSingle : this.$refs.previewMultiple;
 
             if (this.configurations.maxFiles === undefined && this.multiple == false) {
-                this.configurations.maxFiles = 1
+                this.configurations.maxFiles = 1;
             }
 
             if (this.configurations.acceptedFiles === undefined) {
-                this.configurations.acceptedFiles = 'image/*'
+                this.configurations.acceptedFiles = 'image/*';
             }
 
             let finalOptions = {
-              ...self.configurations,
-              url: this.url,
-              previewsContainer: preview,
-              previewTemplate: preview.innerHTML,
-              dictDefaultMessage: this.textDropFile,
-              autoProcessQueue: false,
+                ...self.configurations,
+                url: this.url,
+                previewsContainer: preview,
+                previewTemplate: preview.innerHTML,
+                dictDefaultMessage: this.textDropFile,
+                autoProcessQueue: false,
 
-              init: function () {
-                let dropzone = this
+                init: function () {
+                    let dropzone = this;
 
-                dropzone.on('addedfile', function (file) {
-                    self.files.push(file);
+                    dropzone.on('addedfile', function (file) {
+                        self.files.push(file);
 
-                    if (self.configurations.maxFiles == 1) {
-                        self.$emit('change', file);
-                    } else {
-                        self.$emit('change', self.files);
-                    }
-                }),
+                        if (self.configurations.maxFiles == 1) {
+                            self.$emit('change', file);
+                        } else {
+                            self.$emit('change', self.files);
+                        }
+
+                        if (file.type.indexOf("image") == -1) {
+                            let ext = file.name.split('.').pop();
+
+                            file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
+                            file.previewElement.querySelector("[data-dz-name]").classList.remove("d-none");
+
+                            if (ext == "pdf") {
+                                file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("d-none");
+                            } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
+                                file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("d-none");
+                            } else if ((ext.indexOf("xls") != -1) || (ext.indexOf("xlsx") != -1)) {
+                                file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("d-none");
+                            } else {
+                                file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("d-none");
+                            }
+                        }
+                    }),
  
-                dropzone.on('removedfile', function (file) {
-                    let index = self.files.findIndex(f => f.name === file.name)
+                    dropzone.on('removedfile', function (file) {
+                        let index = self.files.findIndex(f => f.name === file.name)
 
-                    if (index !== -1) {
-                        self.files.splice(index, 1);
-                    }
+                        if (index !== -1) {
+                            self.files.splice(index, 1);
+                        }
 
-                    self.$emit('change', self.files);
+                        self.$emit('change', self.files);
 
-                    if (self.multiple) {
-                        this.enable();
-                    }
-                }),
+                        if (self.multiple) {
+                            this.enable();
+                        }
+                    }),
 
-                dropzone.on('maxfilesexceeded', function(file) {
-                    this.removeAllFiles('notCancel');
-                    this.addFile(file);
-                }),
+                    dropzone.on('maxfilesexceeded', function(file) {
+                        this.removeAllFiles('notCancel');
+                        this.addFile(file);
+                    }),
 
-                dropzone.on('maxfilesreached', function(file) {
-                    if (self.multiple) {
-                        this.disable();
-                    }
-                })
-
-                setTimeout(() => {
-                    self.attachments.forEach(async (attachment) => {
-                        let blob = await self.getAttachmentContent(attachment.path)
-                        let file = new File([blob], attachment.name, { type: blob.type })
-
-                        dropzone.displayExistingFile(file, attachment.path, () => {
-                            file.previewElement.querySelector("[data-dz-download]").href = attachment.downloadPath
-                            file.previewElement.querySelector("[data-dz-download]").classList.remove("d-none")
-                        })
+                    dropzone.on('maxfilesreached', function(file) {
+                        if (self.multiple) {
+                            this.disable();
+                        }
                     })
 
-                    if (self.preview == 'single' && self.attachments.length == 1)
-                        document.querySelector("#dropzone").classList.add("dz-max-files-reached");
-                }, 750)
-              }
+                    if (self.attachments.length) {
+                        setTimeout(() => {
+                            self.attachments.forEach(async (attachment) => {
+                                var mockFile = {
+                                    id: attachment.id,
+                                    name: attachment.name,
+                                    size: attachment.size,
+                                    type: attachment.type,
+                                    download: attachment.downloadPath,
+                                    dropzone: 'edit',
+                                };
+
+                                dropzone.emit("addedfile", mockFile);
+                                dropzone.options.thumbnail.call(dropzone, mockFile, attachment.path);
+
+                                // Make sure that there is no progress bar, etc...
+                                dropzone.emit("complete", mockFile);
+                            });
+
+                            self.files.forEach(async (attachment) => {
+                                if (attachment.download) {
+                                    attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
+                                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
+                                }
+                            });
+
+                            if (self.preview == 'single' && self.attachments.length == 1) {
+                                document.querySelector("#dropzone").classList.add("dz-max-files-reached");
+                            }
+                        }, 100);
+                    }
+                }
             };
 
             this.dropzone = new Dropzone(this.$el, finalOptions);
 
             preview.innerHTML = '';
         },
-        async getAttachmentContent(imageUrl) {
-            return await axios.get(imageUrl, { responseType: 'blob' }).then(function (response) {
-                return response.data
-            });
-        }
     },
 
     async mounted() {

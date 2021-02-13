@@ -103,7 +103,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'vendors', 'docs_path' => 'purchases/vendors'])
+        <x-empty-page group="purchases" page="vendors" />
     @endif
 @endsection
 

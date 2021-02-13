@@ -148,6 +148,7 @@ class Kernel extends HttpKernel
         'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
         'company.settings' => \App\Http\Middleware\LoadSettings::class,
         'company.signed' => \App\Http\Middleware\SignedCompany::class,
+        'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
         'menu.admin' => \App\Http\Middleware\AdminMenu::class,
         'menu.portal' => \App\Http\Middleware\PortalMenu::class,

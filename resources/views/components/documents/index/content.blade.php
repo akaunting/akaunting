@@ -65,5 +65,7 @@
         text-empty-page="{{ $textEmptyPage }}"
         url-docs-path="{{ $urlDocsPath }}"
         create-route="{{ $createRoute }}"
+        check-permission-create="{{ $checkPermissionCreate }}"
+        permission-create="{{ $permissionCreate }}"
     />
 @endif

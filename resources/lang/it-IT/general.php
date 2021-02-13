@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Importo dovuto',
 
     'card' => [
+        'cards'                 => 'Carta|Carte',
         'name'                  => 'Nome sulla carta',
         'number'                => 'Numero della carta',
         'expiration_date'       => 'Data di scadenza',
@@ -191,8 +192,10 @@ return [
         'add_new'           => 'Aggiungi nuovo :field',
         'edit'              => 'Modifica :field',
         'contact_edit'      => 'Modifica :contact_name :field',
+        'drop_file'         => 'Trascina i file qui per caricare',
         'choose'            => 'Scegli :field',
         'choose_different'  => 'Scegli un campo diverso :field',
+        'choose_file'       => 'Scegli file',
         'no_file_selected'  => 'Nessun file selezionato...',
     ],
 

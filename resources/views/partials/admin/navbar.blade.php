@@ -254,12 +254,12 @@
 
                         @stack('navbar_profile_edit')
 
-                        @can(['read-auth-users', 'read-auth-profile'])
+                        @canany(['read-auth-users', 'read-auth-profile'])
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
                                 <i class="fas fa-user"></i>
                                 <span>{{ trans('auth.profile') }}</span>
                             </a>
-                        @endcan
+                        @endcanany
 
                         @canany(['read-auth-users', 'read-auth-roles', 'read-auth-permissions'])
                             <div class="dropdown-divider"></div>

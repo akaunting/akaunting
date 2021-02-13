@@ -2,8 +2,11 @@
 
 namespace Tests\Feature\Purchases;
 
+use App\Exports\Purchases\Vendors as Export;
 use App\Jobs\Common\CreateContact;
 use App\Models\Common\Contact;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Tests\Feature\FeatureTestCase;
 
 class VendorsTest extends FeatureTestCase
@@ -94,6 +97,69 @@ class VendorsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertSoftDeleted('contacts', $request);
+    }
+
+    public function testItShouldExportVendors()
+    {
+        $count = 5;
+        Contact::factory()->vendor()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->get(route('vendors.export'))
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx',
+            function (Export $export) use ($count) {
+                // Assert that the correct export is downloaded.
+                return $export->collection()->count() === $count;
+            }
+        );
+    }
+
+    public function testItShouldExportSelectedVendors()
+    {
+        $count = 5;
+        $vendors = Contact::factory()->vendor()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'purchases', 'type' => 'vendors']),
+                ['handle' => 'export', 'selected' => [$vendors->random()->id]]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx',
+            function (Export $export) {
+                return $export->collection()->count() === 1;
+            }
+        );
+    }
+
+    public function testItShouldImportVendors()
+    {
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('vendors.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'vendors.xlsx',
+                        File::get(public_path('files/import/vendors.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertImported('vendors.xlsx');
+
+        $this->assertFlashLevel('success');
     }
 
     public function getRequest()

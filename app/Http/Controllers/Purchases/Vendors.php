@@ -128,7 +128,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -161,15 +161,23 @@ class Vendors extends Controller
      */
     public function import(ImportRequest $request)
     {
-        if (true !== $result = $this->importExcel(new Import, $request, 'purchases/vendors')) {
-            return $result;
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('vendors.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'vendors']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
-
-        flash($message)->success();
-
-        return redirect()->route('vendors.index');
+        return response()->json($response);
     }
 
     /**
@@ -209,7 +217,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -271,7 +279,7 @@ class Vendors extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

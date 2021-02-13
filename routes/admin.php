@@ -18,7 +18,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('companies/{company}/switch', 'Common\Companies@switch')->name('companies.switch');
     Route::get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
     Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
-    Route::resource('companies', 'Common\Companies');
+    Route::resource('companies', 'Common\Companies', ['middleware' => ['dropzone']]);
 
     Route::get('dashboards/{dashboard}/switch', 'Common\Dashboards@switch')->name('dashboards.switch');
     Route::get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('dashboards.enable');
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('items/export', 'Common\Items@export')->name('items.export');
     Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
     Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
-    Route::resource('items', 'Common\Items', ['middleware' => ['money']]);
+    Route::resource('items', 'Common\Items', ['middleware' => ['money', 'dropzone']]);
 
     Route::resource('search', 'Common\Search');
 
@@ -61,7 +61,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices')->name('users.read.invoices');
     Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
     Route::get('users/{user}/disable', 'Auth\Users@disable')->name('users.disable');
-    Route::resource('users', 'Auth\Users');
+    Route::resource('users', 'Auth\Users', ['middleware' => ['dropzone']]);
 
     Route::resource('roles', 'Auth\Roles');
 
@@ -79,12 +79,12 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/addItem', 'Sales\Invoices@addItem')->middleware(['money'])->name('invoice.add.item');
     Route::post('invoices/import', 'Sales\Invoices@import')->name('invoices.import');
     Route::get('invoices/export', 'Sales\Invoices@export')->name('invoices.export');
-    Route::resource('invoices', 'Sales\Invoices', ['middleware' => ['date.format', 'money']]);
+    Route::resource('invoices', 'Sales\Invoices', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('revenues/{revenue}/duplicate', 'Sales\Revenues@duplicate')->name('revenues.duplicate');
     Route::post('revenues/import', 'Sales\Revenues@import')->name('revenues.import');
     Route::get('revenues/export', 'Sales\Revenues@export')->name('revenues.export');
-    Route::resource('revenues', 'Sales\Revenues', ['middleware' => ['date.format', 'money']]);
+    Route::resource('revenues', 'Sales\Revenues', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('customers/currency', 'Sales\Customers@currency');
     Route::get('customers/{customer}/duplicate', 'Sales\Customers@duplicate')->name('customers.duplicate');
@@ -107,12 +107,12 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/addItem', 'Purchases\Bills@addItem')->middleware(['money'])->name('bill.add.item');
     Route::post('bills/import', 'Purchases\Bills@import')->name('bills.import');
     Route::get('bills/export', 'Purchases\Bills@export')->name('bills.export');
-    Route::resource('bills', 'Purchases\Bills', ['middleware' => ['date.format', 'money']]);
+    Route::resource('bills', 'Purchases\Bills', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('payments/{payment}/duplicate', 'Purchases\Payments@duplicate')->name('payments.duplicate');
     Route::post('payments/import', 'Purchases\Payments@import')->name('payments.import');
     Route::get('payments/export', 'Purchases\Payments@export')->name('payments.export');
-    Route::resource('payments', 'Purchases\Payments', ['middleware' => ['date.format', 'money']]);
+    Route::resource('payments', 'Purchases\Payments', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('vendors/currency', 'Purchases\Vendors@currency');
     Route::get('vendors/{vendor}/duplicate', 'Purchases\Vendors@duplicate')->name('vendors.duplicate');
@@ -121,7 +121,7 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('vendors/{vendor}/enable', 'Purchases\Vendors@enable')->name('vendors.enable');
     Route::get('vendors/{vendor}/currency', 'Purchases\Vendors@currency')->name('vendors.currency');
     Route::get('vendors/{vendor}/disable', 'Purchases\Vendors@disable')->name('vendors.disable');
-    Route::resource('vendors', 'Purchases\Vendors');
+    Route::resource('vendors', 'Purchases\Vendors', ['middleware' => ['dropzone']]);
 });
 
 Route::group(['prefix' => 'banking'], function () {
@@ -162,7 +162,7 @@ Route::group(['prefix' => 'settings'], function () {
     Route::group(['as' => 'settings.'], function () {
         Route::get('settings', 'Settings\Settings@index')->name('index');
         Route::patch('settings', 'Settings\Settings@update')->name('update');
-        Route::get('company', 'Settings\Company@edit')->name('company.edit');
+        Route::get('company', 'Settings\Company@edit')->middleware('dropzone')->name('company.edit');
         Route::get('localisation', 'Settings\Localisation@edit')->name('localisation.edit');
         Route::get('invoice', 'Settings\Invoice@edit')->name('invoice.edit');
         Route::get('default', 'Settings\Defaults@edit')->name('default.edit');
@@ -174,7 +174,7 @@ Route::group(['prefix' => 'settings'], function () {
 
 Route::group(['as' => 'settings.'], function () {
     Route::get('{alias}/settings', 'Settings\Modules@edit')->name('module.edit');
-    Route::patch('{alias}/settings', 'Settings\Modules@update')->name('module.update');
+    Route::patch('{alias}/settings', 'Settings\Modules@update')->middleware('dropzone')->name('module.update');
 });
 
 Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
@@ -232,6 +232,6 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::patch('invoice-templates', 'Modals\InvoiceTemplates@update')->name('invoice-templates.update');
     Route::get('documents/item-columns/edit', 'Modals\DocumentItemColumns@edit')->name('documents.item-columns.edit');
     Route::patch('documents/item-columns', 'Modals\DocumentItemColumns@update')->name('documents.item-columns.update');
-    Route::resource('documents/{document}/transactions', 'Modals\DocumentTransactions', ['names' => 'documents.document.transactions', 'middleware' => ['date.format', 'money']]);
+    Route::resource('documents/{document}/transactions', 'Modals\DocumentTransactions', ['names' => 'documents.document.transactions', 'middleware' => ['date.format', 'money', 'dropzone']]);
     Route::resource('taxes', 'Modals\Taxes');
 });

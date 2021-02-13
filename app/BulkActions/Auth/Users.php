@@ -37,7 +37,7 @@ class Users extends BulkAction
             try {
                 $this->dispatch(new UpdateUser($user, $request->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Users extends BulkAction
             try {
                 $this->dispatch(new DeleteUser($user));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

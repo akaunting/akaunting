@@ -3,12 +3,13 @@
 return [
 
     'company' => [
-        'description'       => 'Ændre navn, email, adresse, CVR-nummer mv.',
-        'name'              => 'Navn',
-        'email'             => 'E-mail',
-        'phone'             => 'Telefon',
-        'address'           => 'Adresse',
-        'logo'              => 'Logo',
+        'description'                => 'Ændre navn, email, adresse, CVR-nummer mv.',
+        'name'                       => 'Navn',
+        'email'                      => 'E-mail',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Adresse',
+        'edit_your_business_address' => 'Rediger din adresse',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [

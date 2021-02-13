@@ -103,7 +103,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'items', 'docs_path' => 'items'])
+        <x-empty-page page="items" />
     @endif
 @endsection
 

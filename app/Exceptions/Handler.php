@@ -86,7 +86,7 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Not Found'], 404);
             }
 
-            flash(trans('errors.body.page_not_found'))->error();
+            flash(trans('errors.body.page_not_found'))->error()->important();
 
             // normal 404 view page feedback
             return redirect()
