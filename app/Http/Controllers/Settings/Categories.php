@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Settings\Categories as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Setting\Category as Request;
+use App\Imports\Settings\Categories as Import;
 use App\Jobs\Setting\CreateCategory;
 use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
@@ -79,6 +82,34 @@ class Categories extends Controller
             flash($message)->success();
         } else {
             $response['redirect'] = route('categories.create');
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.categories', 2)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['settings', 'categories']);
 
             $message = $response['message'];
 
@@ -198,6 +229,16 @@ class Categories extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.categories', 2));
     }
 
     public function category(Request $request)

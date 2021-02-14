@@ -145,6 +145,8 @@ Route::group(['prefix' => 'banking'], function () {
 
 Route::group(['prefix' => 'settings'], function () {
     Route::post('categories/category', 'Settings\Categories@category');
+    Route::post('categories/import', 'Settings\Categories@import')->name('categories.import');
+    Route::get('categories/export', 'Settings\Categories@export')->name('categories.export');
     Route::get('categories/{category}/enable', 'Settings\Categories@enable')->name('categories.enable');
     Route::get('categories/{category}/disable', 'Settings\Categories@disable')->name('categories.disable');
     Route::resource('categories', 'Settings\Categories');
