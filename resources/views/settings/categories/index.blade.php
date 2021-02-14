@@ -2,11 +2,13 @@
 
 @section('title', trans_choice('general.categories', 2))
 
-@can('create-settings-categories')
-    @section('new_button')
+@section('new_button')
+    @can('create-settings-categories')
         <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endsection
-@endcan
+        <a href="{{ route('import.create', ['settings', 'categories']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('categories.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+@endsection
 
 @section('content')
     <div class="card">
