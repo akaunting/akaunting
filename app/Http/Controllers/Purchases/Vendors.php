@@ -166,7 +166,7 @@ class Vendors extends Controller
         if ($response['success']) {
             $response['redirect'] = route('vendors.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 1)]);
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
             flash($message)->success();
         } else {

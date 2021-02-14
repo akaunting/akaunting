@@ -116,7 +116,7 @@ class Items extends Controller
         if ($response['success']) {
             $response['redirect'] = route('items.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 1)]);
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
             flash($message)->success();
         } else {

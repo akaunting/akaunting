@@ -139,7 +139,7 @@ class Payments extends Controller
         if ($response['success']) {
             $response['redirect'] = route('payments.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 1)]);
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
 
             flash($message)->success();
         } else {

@@ -132,7 +132,7 @@ class Invoices extends Controller
         if ($response['success']) {
             $response['redirect'] = route('invoices.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 1)]);
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
 
             flash($message)->success();
         } else {

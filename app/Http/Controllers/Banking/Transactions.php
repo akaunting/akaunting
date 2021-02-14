@@ -47,7 +47,7 @@ class Transactions extends Controller
         if ($response['success']) {
             $response['redirect'] = route('transactions.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.transactions', 1)]);
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.transactions', 2)]);
 
             flash($message)->success();
         } else {
