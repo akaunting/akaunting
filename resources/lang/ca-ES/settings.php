@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Canvia el nom d\'empresa, correu electrònic, adreça, NIF, etc...',
-        'name'              => 'Nom',
-        'email'             => 'Correu electrònic',
-        'phone'             => 'Telèfon',
-        'address'           => 'Adreça',
-        'logo'              => 'Logotip',
+        'description'                => 'Canvia el nom d\'empresa, correu electrònic, adreça, NIF, etc...',
+        'name'                       => 'Nom',
+        'email'                      => 'Correu electrònic',
+        'phone'                      => 'Telèfon',
+        'address'                    => 'Adreça',
+        'edit_your_business_address' => 'Edita l\'adreça de l\'empresa',
+        'logo'                       => 'Logotip',
     ],
 
     'localisation' => [
         'description'       => 'Defineix l\'any fiscal, la zona horària, el format de data i altres configuracions locals.',
         'financial_start'   => 'Inici de l\'any fiscal',
         'timezone'          => 'Zona horària',
+        'financial_denote' => [
+            'title'         => 'Denominació de l\'exercici',
+            'begins'        => 'Per l\'any d\'inici',
+            'ends'          => 'Per l\'any de finalització',
+        ],
         'date' => [
             'format'        => 'Format de data',
             'separator'     => 'Separador de la data',
