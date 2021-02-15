@@ -64,6 +64,10 @@ trait Import
     {
         $id = isset($row['document_id']) ? $row['document_id'] : null;
 
+        if (empty($id) && !empty($row['document_number'])) {
+            $id = Document::number($row['document_number'])->pluck('id')->first();
+        }
+
         if (empty($id) && !empty($row['invoice_number'])) {
             $id = Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
         }
