@@ -383,6 +383,7 @@ abstract class Report
 
                 break;
             case 'quarterly':
+                $start = $end = '';
                 $quarters = $this->getFinancialQuarters($this->year);
 
                 foreach ($quarters as $quarter) {
