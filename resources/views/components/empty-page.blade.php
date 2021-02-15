@@ -10,14 +10,16 @@
                 {!! trans($textEmptyPage) !!} {!! trans('general.empty.documentation', ['url' => $urlDocsPath]) !!}
             </p>
 
-            @if ($checkPermissionCreate) 
+            @if ($checkPermissionCreate)
                 @can($permissionCreate)
-            @endif
+                    <a href="{{ route($routeCreate) }}" class="btn btn-success float-right mt-4">
+                        <span class="btn-inner--text">{{ trans('general.title.create', ['type' => trans_choice($textPage, 1)]) }}</span>
+                    </a>
+                @endcan
+            @else
                 <a href="{{ route($routeCreate) }}" class="btn btn-success float-right mt-4">
                     <span class="btn-inner--text">{{ trans('general.title.create', ['type' => trans_choice($textPage, 1)]) }}</span>
                 </a>
-            @if ($checkPermissionCreate)
-                @endcan
             @endif
         </div>
     </div>
