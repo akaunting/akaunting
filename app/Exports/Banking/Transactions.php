@@ -4,8 +4,10 @@ namespace App\Exports\Banking;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Transactions extends Export
+class Transactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
@@ -49,6 +51,13 @@ class Transactions extends Export
             'payment_method',
             'reference',
             'reconciled',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }
