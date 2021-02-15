@@ -808,6 +808,20 @@ table .align-items-center td span.badge {
     }
 }
 
+@media (max-width: 768px) {
+    .navbar.navbar-top.navbar-expand.navbar-dark.border-bottom {
+        z-index: 99999;
+    }
+
+    .dropdown-menu-xl {
+        min-width: 345px !important;
+    }
+
+    .aka-select.aka-select--medium {
+        max-width: 294px !important;
+    }
+}
+
 .navbar-vertical.navbar-expand-xs {
     position: fixed;
     top: 0;
