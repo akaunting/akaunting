@@ -181,7 +181,7 @@
                                     <div class="mt-3">
                                         @stack('timeline_get_paid_body_button_pay_start')
                                             @if (!$hideButtonPaid)
-                                                @can('update-sales-invoices')
+                                                @can($permissionUpdate)
                                                     <a href="{{ route($routeButtonPaid, $document->id) }}" class="btn btn-white btn-sm header-button-top">
                                                         {{ trans($textTimelineGetPaidMarkPaid) }}
                                                     </a>
