@@ -50,8 +50,8 @@ trait DateTime
             $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
             $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d H:i:s');
         } else {
-            $start = $financial_start->format('Y-m-d H:i:s');
-            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d H:i:s');
+            $start = $financial_start->startOfDay()->format('Y-m-d H:i:s');
+            $end = $financial_start->addYear(1)->subDays(1)->endOfDay()->format('Y-m-d H:i:s');
         }
 
         return $query->whereBetween($field, [$start, $end]);
@@ -121,7 +121,7 @@ trait DateTime
     {
         $start = $this->getFinancialStart($year);
 
-        return CarbonPeriod::create($start, $start->copy()->addYear()->subDay());
+        return CarbonPeriod::create($start, $start->copy()->addYear()->subDay()->endOfDay());
     }
 
     public function getFinancialQuarters($year = null)
@@ -130,7 +130,7 @@ trait DateTime
         $start = $this->getFinancialStart($year);
 
         for ($i = 0; $i < 4; $i++) {
-            $quarters[] = CarbonPeriod::create($start->copy()->addQuarters($i), $start->copy()->addQuarters($i + 1)->subDay());
+            $quarters[] = CarbonPeriod::create($start->copy()->addQuarters($i), $start->copy()->addQuarters($i + 1)->subDay()->endOfDay());
         }
 
         return $quarters;
