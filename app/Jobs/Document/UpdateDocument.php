@@ -62,6 +62,7 @@ class UpdateDocument extends Job
             $this->dispatch(new CreateDocumentItemsAndTotals($this->document, $this->request));
 
             $this->document->paid_amount = $this->document->paid;
+
             event(new PaidAmountCalculated($this->document));
 
             if ($this->document->paid_amount > 0) {
