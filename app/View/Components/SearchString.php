@@ -163,7 +163,7 @@ class SearchString extends Component
             if (strpos($this->model, 'Modules') !== false) {
                 $module_class = explode('\\', $this->model);
 
-                $url .= Str::slug($module_class[1], '-') . '::';
+                $url .= Str::kebab($module_class[1]) . '::';
             }
 
             if (strpos($column, '_id') !== false) {
