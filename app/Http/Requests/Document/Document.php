@@ -89,9 +89,9 @@ class Document extends FormRequest
     public function messages()
     {
         return [
-            'items.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
-            'items.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.quantity'))]),
-            'items.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.price'))]),
+            'items.*.name.required' => trans('validation.required', ['attribute' => Str::lower(trans('general.name'))]),
+            'items.*.quantity.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.quantity'))]),
+            'items.*.price.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.price'))]),
             'items.*.currency.required' => trans('validation.custom.invalid_currency'),
             'items.*.currency.string' => trans('validation.custom.invalid_currency'),
         ];
