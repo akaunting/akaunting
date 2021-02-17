@@ -32,7 +32,13 @@ class Document extends FormRequest
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = is_numeric($this->$type) ? $this->$type : $this->{$type}->getAttribute('id');
+            $model  = $type;
+
+            if ($this->isApi()) {
+                $model = 'document';
+            }
+
+            $id = is_numeric($this->$model) ? $this->$model : $this->{$model}->getAttribute('id');
         } else {
             $id = null;
         }
