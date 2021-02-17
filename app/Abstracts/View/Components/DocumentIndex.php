@@ -210,7 +210,7 @@ abstract class DocumentIndex extends Base
         string $textDocumentNumber = '', string $textContactName = '', string $classAmount = '', string $textIssuedAt = '', string $textDueAt = '', string $textDocumentStatus = '',
         bool $checkButtonReconciled = true, bool $checkButtonCancelled = true,
         string $routeButtonShow = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonCancelled = '', string $routeButtonDelete = '',
-        string $textModalDelete = '', string $valueModalDelete = 'name',
+        string $textModalDelete = '', string $valueModalDelete = 'document_number',
         bool $hideDocumentNumber = false, bool $hideContactName = false, bool $hideAmount = false, bool $hideIssuedAt = false, bool $hideDueAt = false, bool $hideStatus = false, bool $hideActions = false,
         bool $hideButtonShow = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonCancel = false, bool $hideButtonDelete = false,
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = ''
