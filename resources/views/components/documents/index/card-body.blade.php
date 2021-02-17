@@ -242,10 +242,10 @@
                                         @can($permissionDelete)
                                             @if ($checkButtonReconciled)
                                                 @if (!$item->reconciled)
-                                                    {!! Form::deleteLink($item, $routeButtonDelete) !!}
+                                                    {!! Form::deleteLink($item, $routeButtonDelete, $textModalDelete, $valueModalDelete) !!}
                                                 @endif
                                             @else
-                                                {!! Form::deleteLink($item, $routeButtonDelete) !!}
+                                                {!! Form::deleteLink($item, $routeButtonDelete, $textModalDelete, $valueModalDelete) !!}
                                             @endif
                                         @endcan
                                     @endif

@@ -51,6 +51,8 @@
             hide-button-delete="{{ $hideButtonDelete }}"
             permission-delete="{{ $permissionDelete }}"
             route-button-delete="{{ $routeButtonDelete }}"
+            text-modal-delete="{{ $textModalDelete }}"
+            value-modal-delete="{{ $valueModalDelete }}"
         />
 
         <x-documents.index.card-footer

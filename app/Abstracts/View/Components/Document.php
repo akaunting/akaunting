@@ -11,7 +11,7 @@ abstract class Document extends Component
     {
         $translation = '';
 
-        // if set config trasnlation config_key
+        // if set config translation config_key
         if ($translation = config('type.' . $type . '.translation.' . $config_key)) {
             return $translation;
         }
