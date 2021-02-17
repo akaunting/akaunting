@@ -35,5 +35,9 @@ class App extends Provider
         Schema::defaultStringLength(191);
 
         Paginator::useBootstrap();
+        
+        if (config('app.env') == 'production') {
+            \URL::forceScheme('https');
+        }
     }
 }
