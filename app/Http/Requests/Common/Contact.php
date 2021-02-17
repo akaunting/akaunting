@@ -31,11 +31,7 @@ class Contact extends FormRequest
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $model  = $type;
-
-            if ($this->isApi()) {
-                $model = 'contact';
-            }
+            $model = $this->isApi() ? 'contact' : $type;
 
             $id = is_numeric($this->$model) ? $this->$model : $this->$model->getAttribute('id');
         } else {
