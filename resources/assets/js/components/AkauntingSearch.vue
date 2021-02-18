@@ -287,7 +287,11 @@ export default {
                     args += 'not ';
                 }
 
-                args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
+                if (this.selected_options[index].type != 'date') {
+                    args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
+                } else {
+                    args += this.selected_options[index].key + ':"' + this.selected_values[index].key + '" ';
+                }
 
                 search_string[path][this.selected_options[index].key] = {
                     'key': this.selected_values[index].key,
@@ -537,6 +541,17 @@ export default {
             let search_string = this.value.replace('not ', '').replace(' not ', ' ');
 
             console.log(search_string);
+
+            // date:"10 Feb 2021"
+            const regex = /[a-zA-Z\w\d]+:\"[a-zA-Z\w\d]+\s[a-zA-Z\w\d]+\s[a-zA-Z\w\d]+\"/g;
+
+            const matched_strings = search_string.match(regex);
+
+            if (matched_strings) {
+                matched_strings.forEach(function (matched_search_string) {
+                    search_string = search_string.replace(matched_search_string, matched_search_string.replace(/\s/g, '-'));
+                });
+            }
 
             search_string = search_string.split(' ');
 

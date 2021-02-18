@@ -5,13 +5,13 @@
     operator-is-not-text="{{ trans('general.isnot') }}" 
     no-data-text="{{ trans('general.no_data') }}"
     no-matching-data-text="{{ trans('general.no_matching_data') }}"
-    value="{{ rtrim(ltrim(request()->get('search', null), '"'), '"') }}"
+    value="{{ request()->get('search', null) }}"
     :filters="{{ json_encode($filters) }}"
     :date-config="{
         allowInput: true,
         altInput: true,
-        altFormat: 'Y-m-d',
-        dateFormat: 'Y-m-d',
+        altFormat: '{{ $date_format }}',
+        dateFormat: '{{ $date_format }}',
         @if (!empty($attributes['min-date']))
         minDate: {{ $attributes['min-date'] }}
         @endif
