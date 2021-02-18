@@ -294,10 +294,12 @@ export default {
     },
 
     created() {
+        let created_option = (this.dynamicOptions) ? this.dynamicOptions : this.options;
+
         if (this.group) {
             // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [index, options] of Object.entries(this.options)) {
+            if (!Array.isArray(created_options)) {
+                for (const [index, options] of Object.entries(created_option)) {
                     let values = [];
 
                     for (const [key, value] of Object.entries(options)) {
@@ -313,7 +315,7 @@ export default {
                     });
                 }
             } else {
-                this.options.forEach(function (option, index) {
+                created_option.forEach(function (option, index) {
                     if (typeof(option) == 'string') {
                         this.sort_options.push({
                             index: index,
@@ -331,15 +333,15 @@ export default {
             }
         } else {
             // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [key, value] of Object.entries(this.options)) {
+            if (!Array.isArray(created_option)) {
+                for (const [key, value] of Object.entries(created_option)) {
                     this.sort_options.push({
                         key: key,
                         value: value
                     });
                 }
             } else {
-                this.options.forEach(function (option, index) {
+                created_option.forEach(function (option, index) {
                     if (typeof(option) == 'string') {
                         this.sort_options.push({
                             index: index,
@@ -765,7 +767,7 @@ export default {
         dynamicOptions: function(options) {
             this.sort_options = [];
             this.selected = '';
-            
+
             if (this.group) {
                 // Option set sort_option data
                 if (!Array.isArray(options)) {
