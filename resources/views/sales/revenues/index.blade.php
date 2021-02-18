@@ -21,7 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Banking\Transaction" />
+                        <x-search-string model="App\Models\Sale\Revenue" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.revenues', $bulk_actions, ['group' => 'sales', 'type' => 'revenues']) }}

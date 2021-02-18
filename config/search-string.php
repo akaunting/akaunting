@@ -98,9 +98,7 @@ return [
                 'route' => 'currencies.index'
             ],
             'document_id',
-            'contact_id' => [
-                'route' => 'customers.index'
-            ],
+            'contact_id',
             'description' => ['searchable' => true],
             'payment_method',
             'reference',
@@ -182,9 +180,7 @@ return [
             'currency_code' => [
                 'route' => 'currencies.index'
             ],
-            'contact_id' => [
-                'route' => 'vendors.index'
-            ],
+            'contact_id',
             'contact_name' => ['searchable' => true],
             'contact_email' => ['searchable' => true],
             'contact_tax_number',
@@ -197,7 +193,7 @@ return [
         ],
     ],
 
-    App\Models\Purchase\Bill::class => [
+    'App\Models\Purchase\Bill' => [
         'columns' => [
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
@@ -226,24 +222,32 @@ return [
         ],
     ],
 
-    App\Models\Purchase\Vendor::class => [
+    'App\Models\Purchase\Payment' => [
         'columns' => [
             'type',
-            'name' => ['searchable' => true],
-            'email' => ['searchable' => true],
-            'tax_number' => ['searchable' => true],
-            'phone' => ['searchable' => true],
-            'address' => ['searchable' => true],
-            'website' => ['searchable' => true],
+            'account_id' => [
+                'route' => 'accounts.index'
+            ],
+            'paid_at' => ['date' => true],
+            'amount',
             'currency_code' => [
                 'route' => 'currencies.index'
             ],
+            'document_id',
+            'contact_id' => [
+                'route' => 'vendors.index'
+            ],
+            'description' => ['searchable' => true],
+            'payment_method',
             'reference',
-            'enabled' => ['boolean' => true],
+            'category_id' => [
+                'route' => ['categories.index', 'search=type:expense']
+            ],
+            'parent_id',
         ],
     ],
 
-    App\Models\Sale\Invoice::class => [
+    'App\Models\Sale\Invoice' => [
         'columns' => [
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
@@ -265,6 +269,31 @@ return [
             'contact_tax_number',
             'contact_phone' => ['searchable' => true],
             'contact_address' => ['searchable' => true],
+            'category_id' => [
+                'route' => ['categories.index', 'search=type:income']
+            ],
+            'parent_id',
+        ],
+    ],
+
+    'App\Models\Sale\Revenue' => [
+        'columns' => [
+            'type',
+            'account_id' => [
+                'route' => 'accounts.index'
+            ],
+            'paid_at' => ['date' => true],
+            'amount',
+            'currency_code' => [
+                'route' => 'currencies.index'
+            ],
+            'document_id',
+            'contact_id' => [
+                'route' => 'customers.index'
+            ],
+            'description' => ['searchable' => true],
+            'payment_method',
+            'reference',
             'category_id' => [
                 'route' => ['categories.index', 'search=type:income']
             ],
