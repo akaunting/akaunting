@@ -11,9 +11,11 @@ use App\Jobs\Setting\CreateCategory;
 use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
+use App\Traits\Categories as Helper;
 
 class Categories extends Controller
 {
+    use Helper;
 
     /**
      * Display a listing of the resource.
@@ -26,12 +28,7 @@ class Categories extends Controller
 
         $transfer_id = Category::transfer();
 
-        $types = collect([
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ]);
+        $types = $this->getCategoryTypes();
 
         return $this->response('settings.categories.index', compact('categories', 'types', 'transfer_id'));
     }
@@ -53,12 +50,7 @@ class Categories extends Controller
      */
     public function create()
     {
-        $types = [
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ];
+        $types = $this->getCategoryTypes();
 
         return view('settings.categories.create', compact('types'));
     }
@@ -128,12 +120,7 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        $types = [
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ];
+        $types = $this->getCategoryTypes();
 
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
