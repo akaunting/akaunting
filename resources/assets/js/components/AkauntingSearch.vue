@@ -542,17 +542,6 @@ export default {
 
             console.log(search_string);
 
-            // date:"10 Feb 2021"
-            const regex = /[a-zA-Z\w\d]+:\"[a-zA-Z\w\d]+\s[a-zA-Z\w\d]+\s[a-zA-Z\w\d]+\"/g;
-
-            const matched_strings = search_string.match(regex);
-
-            if (matched_strings) {
-                matched_strings.forEach(function (matched_search_string) {
-                    search_string = search_string.replace(matched_search_string, matched_search_string.replace(/\s/g, '-'));
-                });
-            }
-
             search_string = search_string.split(' ');
 
             search_string.forEach(function (string) {
