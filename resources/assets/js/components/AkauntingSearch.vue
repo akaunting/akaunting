@@ -290,7 +290,7 @@ export default {
                 if (this.selected_options[index].type != 'date') {
                     args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
                 } else {
-                    args += this.selected_options[index].key + ':"' + this.selected_values[index].key + '" ';
+                    args += this.selected_options[index].key + ':"' + this.selected_values[index].key.replaceAll(' ', '-') + '" ';
                 }
 
                 search_string[path][this.selected_options[index].key] = {
@@ -557,7 +557,7 @@ export default {
 
             search_string.forEach(function (string) {
                 if (string.search(':') === -1) {
-                    this.search = string.replace(new RegExp("[" + '"' + "]*$"), '');
+                    this.search = string.replace(/[\"]+/g, '');
                 } else {
                     let filter = string.split(':');
                     let option = '';
