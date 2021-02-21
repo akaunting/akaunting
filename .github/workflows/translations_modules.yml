@@ -1,4 +1,4 @@
-name: Translation of Modules
+name: Translations of Modules
 
 on:
   schedule:
@@ -24,9 +24,9 @@ jobs:
         download_translations: true
         skip_untranslated_files: true
 
-        localization_branch_name: 'translations'
-        commit_message: 'new crowdin translations'
-        pull_request_title: 'New Crowdin translations'
+        localization_branch_name: 'translations-modules'
+        commit_message: 'new crowdin translations of modules'
+        pull_request_title: 'New Crowdin translations of modules'
         pull_request_body: 'https://crowdin.com/project/akaunting-apps'
         pull_request_labels: 'Translation'
 
