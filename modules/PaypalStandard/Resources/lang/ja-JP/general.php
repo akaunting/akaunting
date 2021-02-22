@@ -15,6 +15,6 @@ return [
     ],
 
     'test_mode'         => '警告: 支払いゲートウェイは \'サンドボックスモード\'です。 アカウントには請求されません。 ',
-    //'description'       => 'PAYPALで支払う',
+    //'description'       => 'Pay with PAYPAL',
 
 ];
