@@ -23,6 +23,9 @@ return [
             'issued_at'     => 'invoices.invoice_date',
             'due_at'        => 'invoices.due_date',
         ],
+        'setting' => [
+            'prefix'        => 'invoice',
+        ],
         'category_type'     => 'income',
         'transaction_type'  => 'income',
         'contact_type'      => 'customer', // use contact type
@@ -46,6 +49,9 @@ return [
             'prefix'        => 'bills',
             'issued_at'     => 'bills.bill_date',
             'due_at'        => 'bills.due_date',
+        ],
+        'setting' => [
+            'prefix'        => 'bill',
         ],
         'category_type'     => 'expense',
         'transaction_type'  => 'expense',
