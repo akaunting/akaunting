@@ -6,7 +6,7 @@
             </div>
 
             <div id="accordion-footer-body" class="collapse hide" aria-labelledby="accordion-footer-header">
-                {{ Form::textareaGroup('footer', '', '', setting($type . '.footer'), ['rows' => '3'], 'embed-acoordion-textarea') }}
+                {{ Form::textareaGroup('footer', '', '', $footerSetting, ['rows' => '3'], 'embed-acoordion-textarea') }}
             </div>
         </div>
     </div>

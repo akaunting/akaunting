@@ -54,6 +54,7 @@
         <x-documents.form.note
             type="{{ $type }}"
             :document="$document"
+            notes-setting="{{ $notesSetting }}"
         />
     </div>
 </div>

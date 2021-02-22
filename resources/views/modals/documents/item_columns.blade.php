@@ -10,23 +10,22 @@
     'novalidate' => true,
 ]) !!}
     <div class="row">
-        {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting($type . '.item_name'), [], 'item_name_input', setting($type . '.item_name_input', null), 'col-md-12') }}
+        {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, $item_name, [], 'item_name_input', $item_name_input, 'col-md-12') }}
 
-        {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, setting($type . '.price_name'), [], 'price_name_input', setting($type . '.price_name_input', null), 'col-md-12') }}
+        {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, $price_name, [], 'price_name_input', $price_name_input, 'col-md-12') }}
 
-        {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, setting($type . '.quantity_name'), [], 'quantity_name_input', setting($type . '.quantity_name_input', null), 'col-md-12') }}
+        {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, $quantity_name, [], 'quantity_name_input', $quantity_name_input, 'col-md-12') }}
 
-        {{ Form::radioGroup('hide_item_name', trans('settings.invoice.hide.item_name'), setting($type . '.hide_item_name', null)) }}
+        {{ Form::radioGroup('hide_item_name', trans('settings.invoice.hide.item_name'), $hide_item_name) }}
 
-        {{ Form::radioGroup('hide_item_description', trans('settings.invoice.hide.item_description'), setting($type . '.hide_item_description', null)) }}
+        {{ Form::radioGroup('hide_item_description', trans('settings.invoice.hide.item_description'), $hide_item_description) }}
 
-        {{ Form::radioGroup('hide_quantity', trans('settings.invoice.hide.quantity'), setting($type . '.hide_quantity', null)) }}
+        {{ Form::radioGroup('hide_quantity', trans('settings.invoice.hide.quantity'), $hide_quantity) }}
 
-        {{ Form::radioGroup('hide_price', trans('settings.invoice.hide.price'), setting($type . '.hide_price', null)) }}
+        {{ Form::radioGroup('hide_price', trans('settings.invoice.hide.price'), $hide_price) }}
 
-        {{ Form::radioGroup('hide_amount', trans('settings.invoice.hide.amount'), setting($type . '.hide_amount', null)) }}
+        {{ Form::radioGroup('hide_amount', trans('settings.invoice.hide.amount'), $hide_amount) }}
 
         {!! Form::hidden('type', $type) !!}
-        {!! Form::hidden('_prefix', $type) !!}
     </div>
 {!! Form::close() !!}

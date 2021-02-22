@@ -5,6 +5,7 @@ namespace App\Abstracts\View\Components;
 use App\Abstracts\View\Components\Document as Base;
 use App\Models\Common\Media;
 use App\Traits\DateTime;
+use App\Traits\Documents;
 use File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
@@ -16,6 +17,7 @@ use Storage;
 abstract class DocumentShow extends Base
 {
     use DateTime;
+    use Documents;
 
     public $type;
 
@@ -578,7 +580,7 @@ abstract class DocumentShow extends Base
             $type = $alias . '.' . str_replace('-', '_', $type);
         }
 
-        $documentTemplate = setting($type . '.template') ?: 'default';
+        $documentTemplate = setting($this->getSettingKey($type, 'template')) ?: 'default';
 
         return $documentTemplate;
     }
@@ -1384,7 +1386,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hideName = setting($type . '.hide_item_name', false)) {
+        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
             return $hideName;
         }
 
@@ -1405,7 +1407,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hideDescription = setting($type . '.hide_item_description', false)) {
+        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
             return $hideDescription;
         }
 
@@ -1426,7 +1428,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hideQuantity = setting($type . '.hide_quantity', false)) {
+        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false)) {
             return $hideQuantity;
         }
 
@@ -1447,7 +1449,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hidePrice = setting($type . '.hide_price', false)) {
+        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false)) {
             return $hidePrice;
         }
 
@@ -1468,7 +1470,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hideDiscount = setting($type . '.hide_discount', false)) {
+        if ($hideDiscount = setting($this->getSettingKey($type, 'hide_discount'), false)) {
             return $hideDiscount;
         }
 
@@ -1489,7 +1491,7 @@ abstract class DocumentShow extends Base
         }
 
         // if you use settting translation
-        if ($hideAmount = setting($type . '.hide_amount', false)) {
+        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
             return $hideAmount;
         }
 
