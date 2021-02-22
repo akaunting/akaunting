@@ -468,12 +468,12 @@ export default {
         },
 
         setSortOptions() {
-            let created_option = (this.dynamicOptions) ? this.dynamicOptions : this.options;
+            let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
 
             if (this.group) {
                 // Option set sort_option data
                 if (!Array.isArray(created_options)) {
-                    for (const [index, options] of Object.entries(created_option)) {
+                    for (const [index, options] of Object.entries(created_options)) {
                         let values = [];
 
                         for (const [key, value] of Object.entries(options)) {
@@ -489,7 +489,7 @@ export default {
                         });
                     }
                 } else {
-                    created_option.forEach(function (option, index) {
+                    created_options.forEach(function (option, index) {
                         this.sort_options.push({
                             index: index,
                             key: option.id,
@@ -499,15 +499,15 @@ export default {
                 }
             } else {
                 // Option set sort_option data
-                if (!Array.isArray(created_option)) {
-                    for (const [key, value] of Object.entries(created_option)) {
+                if (!Array.isArray(created_options)) {
+                    for (const [key, value] of Object.entries(created_options)) {
                         this.sort_options.push({
                             key: key,
                             value: value
                         });
                     }
                 } else {
-                    created_option.forEach(function (option, index) {
+                    created_options.forEach(function (option, index) {
                         this.sort_options.push({
                             index: index,
                             key: option.id,
