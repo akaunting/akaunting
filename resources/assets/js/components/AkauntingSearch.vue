@@ -9,6 +9,7 @@
 
             <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
                 <i v-if="filter.operator == '='" class="fas fa-equals"></i>
+                <i v-else-if="filter.operator == '><'" class="fas fa-arrows-alt-h"></i>
                 <i v-else class="fas fa-not-equal"></i>
 
                 <i v-if="!filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
@@ -41,9 +42,9 @@
                 class="form-control datepicker"
                 :placeholder="placeholder"
                 :ref="'input-search-date-field-' + _uid"
-                v-model="search"
+                value=""
                 @focus="onInputFocus"
-                @input="onInputDateSelected"
+                @on-close="onInputDateSelected"
                 @keyup.enter="onInputConfirm"
             >
             </flat-picker>
@@ -69,6 +70,10 @@
 
                 <li ref="" class="dropdown-item">
                     <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')"><i class="fas fa-not-equal"></i><span class="btn-helptext d-none">{{ operatorIsNotText }}</span></button>
+                </li>
+
+                <li v-if="range" ref="" class="dropdown-item">
+                    <button type="button" class="btn btn-link" @click="onOperatorSelected('><')"><i class="fas fa-arrows-alt-h"></i><span class="btn-helptext d-none">{{ operatorIsNotText }}</span></button>
                 </li>
             </div>
 
@@ -159,6 +164,7 @@ export default {
                 values: false,
             },
 
+            range: false,
             option_values: [],
             selected_options: [],
             selected_operator: [],
@@ -192,12 +198,24 @@ export default {
             console.log('Focus :' + this.filter_last_step);
         },
 
-        onInputDateSelected(event) {
-            this.filtered[this.filter_index].value = event;
+        onInputDateSelected(selectedDates, dateStr, instance) {
+            this.filtered[this.filter_index].value = dateStr;
 
+            let date = instance.formatDate(selectedDates[0], 'Y-m-d');
+
+            if (selectedDates.length > 1) {
+                let dates = [];
+
+                selectedDates.forEach(function (item) {
+                    dates.push(instance.formatDate(item, 'Y-m-d'));
+                }, this);
+
+                date = dates.join('-to-');
+            }
+            
             this.selected_values.push({
-                key: event,
-                value: event,
+                key: date,
+                value: dateStr,
             });
 
             this.$emit('change', this.filtered);
@@ -224,8 +242,6 @@ export default {
                     values: false,
                 };
             }
-
-            this.show_date = false;
 
             this.filter_last_step = 'options';
         },
@@ -287,7 +303,14 @@ export default {
                     args += 'not ';
                 }
 
-                args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
+                if (this.selected_operator[index].key == '><') {
+                    let dates = this.selected_values[index].key.split('-to-');
+
+                    args += this.selected_options[index].key + '>=' + dates[0] + ' ';
+                    args += this.selected_options[index].key + '<=' + dates[1] + ' ';
+                } else {
+                    args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
+                }
 
                 search_string[path][this.selected_options[index].key] = {
                     'key': this.selected_values[index].key,
@@ -303,6 +326,7 @@ export default {
 
         onOptionSelected(value) {
             this.current_value = value;
+            this.range = false;
 
             let option = false;
             let option_url = false;
@@ -321,6 +345,10 @@ export default {
 
                     if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].type == 'boolean') {
                         this.option_values[value] = this.filter_list[i].values;
+                    }
+
+                    if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].type == 'date') {
+                        this.range = true;
                     }
 
                     this.selected_options.push(this.filter_list[i]);
@@ -403,6 +431,9 @@ export default {
                 this.show_date = true;
 
                 this.$nextTick(() => {
+                    let mode = this.selected_operator[this.filter_index].key == '><' ? 'range' : 'single';
+
+                    this.$refs['input-search-date-field-' + this._uid].fp.set('mode', mode);
                     this.$refs['input-search-date-field-' + this._uid].fp.open();
                 });
 
@@ -534,6 +565,9 @@ export default {
         }
 
         if (this.value) {
+            this.value = this.value.replace(/\s+[a-zA-Z\w]+[<=]+/g, '-to-');
+            this.value = this.value.replace('>=', ':');
+
             let search_string = this.value.replace('not ', '').replace(' not ', ' ');
 
             console.log(search_string);
@@ -542,7 +576,7 @@ export default {
 
             search_string.forEach(function (string) {
                 if (string.search(':') === -1) {
-                    this.search = string.replace(new RegExp("[" + '"' + "]*$"), '');
+                    this.search = string.replace(/[\"]+/g, '');
                 } else {
                     let filter = string.split(':');
                     let option = '';
