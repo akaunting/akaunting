@@ -34,7 +34,7 @@
                         @elseif ($type == 'fileGroup')
                             {{ Form::$type($field['name'], trans($field['title']), $field['attributes']) }}
                         @elseif ($type == 'dateGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], array_merge(['id' => $field['name'], 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $field['attributes']), Date::parse($setting[$field['name']] ?? now())->toDateString()) }}
+                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], array_merge(['id' => $field['name'], 'date-format' => 'Y-m-d', 'show-date-format' => company_date_format(), 'autocomplete' => 'off'], $field['attributes']), Date::parse($setting[$field['name']] ?? now())->toDateString()) }}
                         @elseif ($type == 'accountSelectGroup')
                             {{ Form::selectGroup($field['name'], trans_choice('general.accounts', 1), 'university', $accounts, setting($module->getAlias() . '.' . $field['name']), $field['attributes']) }}
                         @elseif ($type == 'categorySelectGroup')

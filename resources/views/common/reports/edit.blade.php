@@ -40,6 +40,7 @@
                         @elseif ($type == 'dateGroup')
                             {{ Form::$type($field['name'], $field['title'], $field['icon'], array_merge([
                                    'data-field' => 'settings',
+                                   'show-date-format' => company_date_format(),
                                ],
                                $field['attributes']),
                                isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']}: null
