@@ -83,7 +83,7 @@ trait Documents
     {
         return Str::slug($document->document_number, $separator, language()->getShortCode());
     }
-    
+
     protected function getTextDocumentStatuses($type)
     {
         $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
@@ -105,5 +105,22 @@ trait Documents
         }
 
         return 'documents.statuses.';
+    }
+
+    protected function getSettingKey($type, $setting_key)
+    {
+        $key = '';
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $key .= $alias . '.';
+        }
+
+        $prefix = config('type.' . $type . '.setting.prefix');
+
+
+        $key .= $prefix . '.' . $setting_key;
+
+        return $key;
     }
 }

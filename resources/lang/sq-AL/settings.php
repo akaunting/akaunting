@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Ndryshoni emrin e kompanisë, emailin, adresën, numrin e taksave etj',
-        'name'              => 'Emri',
-        'email'             => 'Email',
-        'phone'             => 'Telefoni',
-        'address'           => 'Adresa',
-        'logo'              => 'Logoja',
+        'description'                => 'Ndryshoni emrin e kompanisë, emailin, adresën, numrin e taksave etj',
+        'name'                       => 'Emri',
+        'email'                      => 'Email',
+        'phone'                      => 'Telefoni',
+        'address'                    => 'Adresa',
+        'edit_your_business_address' => 'Redakto adresën e biznesit tënd',
+        'logo'                       => 'Logoja',
     ],
 
     'localisation' => [
         'description'       => 'Vendosni vitin fiskal, zonën e kohës, formatin e datës dhe më shumë vendorë',
         'financial_start'   => 'Fillimi i Vitit Financiar',
         'timezone'          => 'Zona Kohore',
+        'financial_denote' => [
+            'title'         => 'Treguesi i Vitit Fiskal',
+            'begins'        => 'Deri në vitin në të cilin fillon',
+            'ends'          => 'Deri në vitin në të cilin përfundon',
+        ],
         'date' => [
             'format'        => 'Formati i Datës',
             'separator'     => 'Ndarës i Datës',

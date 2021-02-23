@@ -6,11 +6,12 @@ use App\Events\Module\Installed as Event;
 use App\Jobs\Install\DownloadModule;
 use App\Jobs\Install\InstallModule;
 use App\Traits\Jobs;
+use App\Traits\Modules;
 use Illuminate\Support\Facades\App;
 
 class InstallExtraModules
 {
-    use Jobs;
+    use Jobs, Modules;
 
     /**
      * Handle the event.
@@ -24,9 +25,11 @@ class InstallExtraModules
             return;
         }
 
-        $module = module($event->alias);
+        if ($event->alias == 'core') {
+            return;
+        }
 
-        $extra_modules = $module->get('extra-modules');
+        $extra_modules = module($event->alias)->get('extra-modules');
 
         if (empty($extra_modules)) {
             return;
@@ -38,8 +41,15 @@ class InstallExtraModules
                 continue;
             }
 
+            // Check if module is already installed
+            if ($this->moduleIsEnabled($alias)) {
+                continue;
+            }
+
             try {
-                $this->dispatch(new DownloadModule($alias, $event->company_id));
+                if (!$this->moduleExists($alias)) {
+                    $this->dispatch(new DownloadModule($alias, $event->company_id));
+                }
 
                 $this->dispatch(new InstallModule($alias, $event->company_id, $event->locale));
             } catch (\Exception $e) {

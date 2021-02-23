@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
+use App\Traits\Documents;
 
 class DocumentItemColumns extends Controller
 {
-    public $skip_keys = ['company_id', '_method', '_token', '_prefix', '_template', 'type'];
+    use Documents;
+
+    public $skip_keys = ['company_id', '_method', '_token', '_template', 'type'];
 
     public function __construct()
     {
@@ -54,12 +57,35 @@ class DocumentItemColumns extends Controller
             '90' => trans('settings.invoice.due_days', ['days' => 90]),
         ];
 
+        $item_name             = setting($this->getSettingKey($type, 'item_name'));
+        $item_name_input       = setting($this->getSettingKey($type, 'item_name_input'));
+        $price_name            = setting($this->getSettingKey($type, 'price_name'));
+        $price_name_input      = setting($this->getSettingKey($type, 'price_name_input'));
+        $quantity_name         = setting($this->getSettingKey($type, 'quantity_name'));
+        $quantity_name_input   = setting($this->getSettingKey($type, 'quantity_name_input'));
+        $hide_item_name        = setting($this->getSettingKey($type, 'hide_item_name'));
+        $hide_item_description = setting($this->getSettingKey($type, 'hide_item_description'));
+        $hide_quantity         = setting($this->getSettingKey($type, 'hide_quantity'));
+        $hide_price            = setting($this->getSettingKey($type, 'hide_price'));
+        $hide_amount           = setting($this->getSettingKey($type, 'hide_amount'));
+
         $html = view('modals.documents.item_columns', compact(
             'type',
             'item_names',
             'price_names',
             'quantity_names',
-            'payment_terms'
+            'payment_terms',
+            'item_name',
+            'item_name_input',
+            'price_name',
+            'price_name_input',
+            'quantity_name',
+            'quantity_name_input',
+            'hide_item_name',
+            'hide_item_description',
+            'hide_quantity',
+            'hide_price',
+            'hide_amount',
         ))->render();
 
         return response()->json([
@@ -80,7 +106,7 @@ class DocumentItemColumns extends Controller
     public function update(Request $request)
     {
         $fields = $request->all();
-        $prefix = $request->get('_prefix', 'invoice');
+        $type = $request->get('type', 'invoice');
         $company_id = $request->get('company_id');
 
         if (empty($company_id)) {
@@ -88,7 +114,7 @@ class DocumentItemColumns extends Controller
         }
 
         foreach ($fields as $key => $value) {
-            $real_key = $prefix . '.' . $key;
+            $real_key = $this->getSettingKey($type, $key);
 
             // Don't process unwanted keys
             if (in_array($key, $this->skip_keys)) {

@@ -142,7 +142,7 @@ class Uploads extends Controller
         if (!$path = $this->getPath($media)) {
             $message = trans('messages.warning.deleted', ['name' => $media->basename, 'text' => $media->basename]);
 
-            flash($message)->warning();
+            flash($message)->warning()->important();
 
             return $return;
         }

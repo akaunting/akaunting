@@ -95,7 +95,7 @@ class Bills extends BulkAction
             try {
                 $this->dispatch(new DeleteDocument($bill));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -21,7 +20,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
-abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
+abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
     use Importable, ImportHelper;
 
@@ -61,11 +60,6 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
     public function rules(): array
     {
         return [];
-    }
-
-    public function batchSize(): int
-    {
-        return 100;
     }
 
     public function chunkSize(): int

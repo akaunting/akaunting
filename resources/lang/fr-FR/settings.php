@@ -12,7 +12,7 @@ return [
     ],
 
     'localisation' => [
-        'description'       => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et plus de locaux',
+        'description'       => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et plus',
         'financial_start'   => 'Date de démarrage de la comptabilité',
         'timezone'          => 'Fuseau horaire',
         'date' => [
@@ -44,34 +44,43 @@ return [
         'next'              => 'Numéro suivant',
         'logo'              => 'Logo',
         'custom'            => 'Personnalisé',
-        'item_name'         => 'Nom de l\'élément',
-        'item'              => 'Éléments',
+        'item_name'         => 'Nom de l\'article',
+        'item'              => 'Articles',
         'product'           => 'Produits',
         'service'           => 'Services',
         'price_name'        => 'Nom du prix',
         'price'             => 'Prix',
-        'rate'              => 'Tarif',
+        'rate'              => 'Taux',
         'quantity_name'     => 'Nom de la quantité',
         'quantity'          => 'Quantité',
         'payment_terms'     => 'Conditions de paiement',
         'title'             => 'Titre',
         'subheading'        => 'Sous-titre',
         'due_receipt'       => 'Échéance après réception',
-        'due_days'          => 'Échéance dans :jours',
-        'choose_template'   => 'Choisi un modèle de facture',
+        'due_days'          => 'Échéance dans :days jours',
+        'choose_template'   => 'Choisir un modèle de facture',
         'default'           => 'Défaut',
         'classic'           => 'Classique',
         'modern'            => 'Moderne',
+        'hide'              => [
+            'item_name'         => 'Cacher le nom de l\'article',
+            'item_description'  => 'Cacher la description de l\'article',
+            'quantity'          => 'Cacher la quantité',
+            'price'             => 'Cacher le prix',
+            'amount'            => 'Cacher le montant',
+        ],
     ],
 
     'default' => [
         'description'       => 'Compte par défaut, devise, langue de votre entreprise',
         'list_limit'        => 'Résultats par page',
         'use_gravatar'      => 'Utiliser Gravatar',
+        'income_category'   => 'Catégorie de factures',
+        'expense_category'  => 'Catégorie de dépenses',
     ],
 
     'email' => [
-        'description'       => 'Modifier les modèles de protocole d\'envoi et les modèles d\'e-mail',
+        'description'       => 'Modifier le protocole d\'envoi et les modèles d\'e-mail',
         'protocol'          => 'Protocole',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -119,7 +128,7 @@ return [
     ],
 
     'currencies' => [
-        'description'       => 'Créez et gérez des devises et définissez leurs taux',
+        'description'       => 'Créez et gérez les devises et définissez leurs taux',
     ],
 
     'taxes' => [

@@ -43,6 +43,12 @@ abstract class DocumentForm extends Base
 
     /** @var bool */
     public $hideCompanyEdit;
+
+    /** @var string */
+    public $titleSetting;
+
+    /** @var string */
+    public $subheadingSetting;
     /** Company Component End */
 
     /** Content Component Start */
@@ -72,6 +78,12 @@ abstract class DocumentForm extends Base
 
     /** @var bool */
     public $hideButtons;
+
+    /** @var string */
+    public $footerSetting;
+
+    /** @var string */
+    public $notesSetting;
     /** Content Component End */
 
     /** Metadata Component Start */
@@ -199,10 +211,12 @@ abstract class DocumentForm extends Base
         /** Advanced Component End */
         /** Company Component Start */
         bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false,
+        string $titleSetting = '', string $subheadingSetting = '',
         /** Company Component End */
         /** Content Component Start */
         string $routeStore = '', string $routeUpdate = '', string $formId = 'document', string $formSubmit = 'onSubmit', string $routeCancel = '',
         bool $hideCompany = false, bool $hideAdvanced = false, bool $hideFooter = false, bool $hideButtons = false,
+        string $footerSetting = '', string $notesSetting = '',
         /** Content Component End */
         /** Metadata Component Start */
         $contacts = [], $contact = false, string $contactType = '', string $contactSearchRoute = '', string $contactCreateRoute = '',
@@ -234,6 +248,8 @@ abstract class DocumentForm extends Base
         $this->hideDocumentTitle = $hideDocumentTitle;
         $this->hideDocumentSubheading = $hideDocumentSubheading;
         $this->hideCompanyEdit = $hideCompanyEdit;
+        $this->titleSetting = $this->getTitleSettingValue($titleSetting);
+        $this->subheadingSetting = $this->getSubheadingSettingValue($subheadingSetting);
         /** Company Component End */
 
         /** Content Component Start */
@@ -247,6 +263,8 @@ abstract class DocumentForm extends Base
         $this->hideAdvanced = $hideAdvanced;
         $this->hideFooter = $hideFooter;
         $this->hideButtons = $hideButtons;
+        $this->footerSetting = $this->getFooterSettingValue($footerSetting);
+        $this->notesSetting = $this->getNotesSettingValue($notesSetting);
         /** Content Component End */
 
         /** Metadata Component Start */
@@ -537,7 +555,7 @@ abstract class DocumentForm extends Base
         if (request()->has($issued_at)) {
             $issuedAt = request()->get($issued_at);
         } else {
-            $issuedAt = request()->get('invoiced_at', Date::now()->toDateString());
+            $issuedAt = request()->get('invoice_at', Date::now()->toDateString());
         }
 
         return $issuedAt;
@@ -572,20 +590,19 @@ abstract class DocumentForm extends Base
             return $document->due_at;
         }
 
-        $addDays = (setting($type . '.payment_terms', 0)) ? setting($type . '.payment_terms', 0) : setting('invoice.payment_terms', 0);
+        $issued_at = $type . '_at';
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $due_at = request()->get('billed_at', Date::now()->toDateString());
-                break;
-            default:
-                $due_at = Date::parse(request()->get('invoiced_at', Date::now()->toDateString()))->addDays($addDays)->toDateString();
-                break;
+        if (request()->has($issued_at)) {
+            $issuedAt = request()->get($issued_at);
+        } else {
+            $issuedAt = Date::now()->toDateString();
         }
 
-        return $due_at;
+        $addDays = setting($this->getSettingKey($type, 'payment_terms'), 0) ?: 0;
+
+        $dueAt = Date::parse($issuedAt)->addDays($addDays)->toDateString();
+
+        return $dueAt;
     }
 
     protected function getOrderNumber($type, $document, $orderNumber)
@@ -690,8 +707,8 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if (setting($type . '.item_name', 'items') == 'custom') {
-            if (empty($textItems = setting($type . '.item_name_input'))) {
+        if (setting($this->getSettingKey($type, 'item_name'), 'items') === 'custom') {
+            if (empty($textItems = setting($this->getSettingKey($type, 'item_name_input')))) {
                 $textItems = 'general.items';
             }
 
@@ -714,8 +731,8 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if (setting($type . '.quantity_name', 'quantity') == 'custom') {
-            if (empty($textQuantity = setting($type . '.quantity_name_input'))) {
+        if (setting($this->getSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
+            if (empty($textQuantity = setting($this->getSettingKey($type, 'quantity_name_input')))) {
                 $textQuantity = 'invoices.quantity';
             }
 
@@ -738,8 +755,8 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if (setting($type . '.price_name', 'price') == 'custom') {
-            if (empty($textPrice = setting($type . '.price_name_input'))) {
+        if (setting($this->getSettingKey($type, 'price_name'), 'price') === 'custom') {
+            if (empty($textPrice = setting($this->getSettingKey($type, 'price_name_input')))) {
                 $textPrice = 'invoices.price';
             }
 
@@ -794,7 +811,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hideName = setting($type . '.hide_item_name', false)) {
+        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
             return $hideName;
         }
 
@@ -815,7 +832,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hideDescription = setting($type . '.hide_item_description', false)) {
+        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
             return $hideDescription;
         }
 
@@ -836,7 +853,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hideQuantity = setting($type . '.hide_quantity', false)) {
+        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false)) {
             return $hideQuantity;
         }
 
@@ -857,7 +874,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hidePrice = setting($type . '.hide_price', false)) {
+        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false)) {
             return $hidePrice;
         }
 
@@ -878,7 +895,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hideDiscount = setting($type . '.hide_discount', false)) {
+        if ($hideDiscount = setting($this->getSettingKey($type, 'hide_discount'), false)) {
             return $hideDiscount;
         }
 
@@ -899,7 +916,7 @@ abstract class DocumentForm extends Base
         }
 
         // if you use settting translation
-        if ($hideAmount = setting($type . '.hide_amount', false)) {
+        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
             return $hideAmount;
         }
 
@@ -911,5 +928,41 @@ abstract class DocumentForm extends Base
 
         // @todo what return value invoice or always false??
         return setting('invoice.hide_amount', $hideAmount);
+    }
+
+    protected function getTitleSettingValue($titleSetting)
+    {
+        if (!empty($titleSetting)) {
+            return $titleSetting;
+        }
+
+        return setting($this->getSettingKey($this->type, 'title'));
+    }
+
+    protected function getSubheadingSettingValue($subheadingSetting)
+    {
+        if (!empty($subheadingSetting)) {
+            return $subheadingSetting;
+        }
+
+        return setting($this->getSettingKey($this->type, 'subheading'));
+    }
+
+    protected function getFooterSettingValue($footerSetting)
+    {
+        if (!empty($footerSetting)) {
+            return $footerSetting;
+        }
+
+        return setting($this->getSettingKey($this->type, 'footer'));
+    }
+
+    protected function getNotesSettingValue($notesSetting)
+    {
+        if (!empty($notesSetting)) {
+            return $notesSetting;
+        }
+
+        return setting($this->getSettingKey($this->type, 'notes'));
     }
 }

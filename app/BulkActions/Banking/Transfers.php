@@ -32,7 +32,7 @@ class Transfers extends BulkAction
             try {
                 $this->dispatch(new DeleteTransfer($transfer));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

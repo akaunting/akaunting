@@ -17,7 +17,7 @@ return [
 
     'password' => [
         'current'           => 'รหัสผ่าน',
-        'current_confirm'   => 'การยืนยันรหัสผ่าน',
+        'current_confirm'   => 'ยืนยันรหัสผ่าน',
         'new'               => 'รหัสผ่านใหม่',
         'new_confirm'       => 'ยืนยันรหัสผ่านใหม่',
     ],

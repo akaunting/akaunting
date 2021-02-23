@@ -46,7 +46,7 @@ class Items extends BulkAction
             try {
                 $this->dispatch(new DeleteItem($item));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

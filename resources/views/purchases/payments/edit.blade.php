@@ -57,19 +57,12 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file',[]) }}
 
-                    @if ($payment->attachment)
-                        <div class="col-md-6">
-                            @php $file = $payment->attachment; @endphp
-                            @include('partials.media.file')
-                        </div>
-                    @else
-                        {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file']) }}
-                    @endif
-
                     @if ($payment->bill)
                         {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->document_number) }}
                         {{ Form::hidden('document_id', $payment->bill->id) }}
                     @endif
+
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple', 'options' => ['acceptedFiles' => $file_types]], $payment->attachment, 'col-md-12') }}
                 </div>
             </div>
 

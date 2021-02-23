@@ -6,9 +6,13 @@
     <div class="card">
         @php 
         $form_open = [
+            'id' => 'import',
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
             'files' => true,
             'role' => 'form',
-            'class' => 'form-loading-button'
+            'class' => 'form-loading-button',
+            'novalidate' => true
         ];
 
         if (!empty($route)) {
@@ -26,24 +30,9 @@
                             {!! trans('import.message', ['link' => url('public/files/import/' . $type . '.xlsx')]) !!}
                         </div>
                     </div>
-                </div>
 
-                @stack('import_input_start')
-                    <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="#">
-                        <div class="fallback">
-                            <div class="custom-file">
-                                <input type="file" name="import" class="custom-file-input" id="projectCoverUploads">
-                                <label class="custom-file-label" for="projectCoverUploads">{{ trans('general.form.no_file_selected') }}</label>
-                            </div>
-                        </div>
-                        <div class="dz-preview dz-preview-single">
-                            <div class="dz-preview-cover">
-                                <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
-                            </div>
-                        </div>
-                        {!! $errors->first('import', '<p class="help-block">:message</p>') !!}
-                    </div>
-                @stack('import_input_end')
+                    {{ Form::fileGroup('import', '', 'plus', ['dropzone-class' => 'form-file', 'options' => ['acceptedFiles' => '.xls,.xlsx']], null, 'col-md-12') }}
+                </div>
             </div>
 
             <div class="card-footer">
@@ -59,10 +48,16 @@
                             </a>
                         @endif
 
-                        {!! Form::button(trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
+                        {!! Form::button(
+                            '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('import.import') . '</span>',
+                            [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
                     </div>
                 </div>
             </div>
         {!! Form::close() !!}
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/common/imports.js?v=' . version('short')) }}"></script>
+@endpush

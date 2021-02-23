@@ -6,12 +6,18 @@ use App\Abstracts\Http\Response;
 use App\Traits\Jobs;
 use App\Traits\Permissions;
 use App\Traits\Relationships;
+use Exception;
+use ErrorException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Exceptions\SheetNotFoundException;
+use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 
 abstract class Controller extends BaseController
 {
@@ -65,5 +71,58 @@ abstract class Controller extends BaseController
         }
 
         return $response;
+    }
+
+    /**
+     * Import the excel file or catch errors
+     *
+     * @param $class
+     * @param $request
+     * @param $url
+     *
+     * @return mixed
+     */
+    public function importExcel($class, $request)
+    {
+        try {
+            Excel::import($class, $request->file('import'));
+
+            $response = [
+                'success'   => true,
+                'error'     => false,
+                'data'      => null,
+                'message'   => '',
+            ];
+        } catch (SheetNotFoundException | ErrorException | Exception | Throwable $e) {
+            $message = $e->getMessage();
+
+            $response = [
+                'success'   => false,
+                'error'     => true,
+                'data'      => null,
+                'message'   => $message,
+            ];
+        }
+
+        return $response;
+    }
+
+    /**
+     * Export the excel file or catch errors
+     *
+     * @param $class
+     * @param $file_name
+     *
+     * @return mixed
+     */
+    public function exportExcel($class, $file_name, $extension = 'xlsx')
+    {
+        try {
+            return Excel::download($class, Str::filename($file_name) . '.' . $extension);
+        } catch (ErrorException | Exception | Throwable $e) {
+            flash($e->getMessage())->error()->important();
+
+            return back();
+        }
     }
 }

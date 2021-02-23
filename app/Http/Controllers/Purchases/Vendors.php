@@ -128,7 +128,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -161,13 +161,23 @@ class Vendors extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('vendors.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
-        return redirect()->route('vendors.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'vendors']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -207,7 +217,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -269,7 +279,7 @@ class Vendors extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -282,7 +292,7 @@ class Vendors extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.vendors', 2));
     }
 
     public function currency(Contact $vendor)

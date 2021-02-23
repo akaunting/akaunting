@@ -82,6 +82,7 @@
     </div>
 
     <akaunting-modal v-if="changelog.show"
+        modal-dialog-class="modal-lg"
         :show="changelog.show"
         :title="'{{ trans('updates.changelog') }}'"
         @cancel="changelog.show = false"

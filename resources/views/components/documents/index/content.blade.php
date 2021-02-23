@@ -51,6 +51,8 @@
             hide-button-delete="{{ $hideButtonDelete }}"
             permission-delete="{{ $permissionDelete }}"
             route-button-delete="{{ $routeButtonDelete }}"
+            text-modal-delete="{{ $textModalDelete }}"
+            value-modal-delete="{{ $valueModalDelete }}"
         />
 
         <x-documents.index.card-footer
@@ -65,5 +67,7 @@
         text-empty-page="{{ $textEmptyPage }}"
         url-docs-path="{{ $urlDocsPath }}"
         create-route="{{ $createRoute }}"
+        check-permission-create="{{ $checkPermissionCreate }}"
+        permission-create="{{ $permissionCreate }}"
     />
 @endif

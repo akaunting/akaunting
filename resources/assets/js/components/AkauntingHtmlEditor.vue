@@ -42,6 +42,7 @@ export default {
     data () {
         return {
             editor: null,
+            editorValue: this.value,
             content: null,
             lastHtmlValue: '',
             editorId: null,
@@ -60,10 +61,10 @@ export default {
                 }
             });
 
-            if (this.value.length > 0) {
-                this.value = this.value.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
+            if (this.editorValue.length > 0) {
+                this.editorValue = this.editorValue.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
 
-                this.editor.pasteHTML(this.value);
+                this.editor.pasteHTML(this.editorValue);
             }
 
             let editorRef = this.$refs.editor;
@@ -89,9 +90,9 @@ export default {
                 return;
             }
 
-            this.value = this.value.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
+            this.editorValue = this.editorValue.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
 
-            this.editor.pasteHTML(this.value);
+            this.editor.pasteHTML(this.editorValue);
         },
 
         randomString() {
@@ -107,7 +108,7 @@ export default {
     },
 
     async mounted () {
-        this.content = this.value;
+        this.content = this.editorValue;
 
         this.editorId = this.randomString();
         this.toolbarId = this.randomString();
@@ -119,6 +120,12 @@ export default {
 
     watch: {
         value (newVal) {
+            if (newVal !== this.content) {
+                this.pasteHTML(newVal);
+            }
+        },
+
+        editorValue (newVal) {
             if (newVal !== this.content) {
                 this.pasteHTML(newVal);
             }

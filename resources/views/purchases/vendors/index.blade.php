@@ -21,7 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Purchase\Vendor" />
+                        <x-search-string model="App\Models\Common\Contact" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.vendors', $bulk_actions, ['group' => 'purchases', 'type' => 'vendors']) }}
@@ -103,7 +103,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'vendors', 'docs_path' => 'purchases/vendors'])
+        <x-empty-page group="purchases" page="vendors" />
     @endif
 @endsection
 

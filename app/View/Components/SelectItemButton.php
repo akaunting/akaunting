@@ -36,7 +36,7 @@ class SelectItemButton extends Component
     public function render()
     {
         $items = Item::enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
-        $price_type= $this->getPriceType($this->type, $this->isSale, $this->isPurchase);
+        $price_type = $this->getPriceType($this->type, $this->isSale, $this->isPurchase);
 
         foreach ($items as $item) {
             $price = $item->{$price_type . '_price'};
@@ -44,7 +44,7 @@ class SelectItemButton extends Component
             $item->price = $price;
         }
 
-        $price = ($this->isPurchase) ? 'purchase_price' : 'sale_price';
+        $price = $price_type . '_price';
 
         return view('components.select-item-button', compact('items', 'price'));
     }
@@ -55,7 +55,7 @@ class SelectItemButton extends Component
             return 'sale';
         }
 
-        if (!empty($is_sale)) {
+        if (!empty($is_purchase)) {
             return 'purchase';
         }
 

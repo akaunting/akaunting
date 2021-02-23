@@ -37,7 +37,7 @@ class Taxes extends BulkAction
             try {
                 $this->dispatch(new UpdateTax($tax, $request->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Taxes extends BulkAction
             try {
                 $this->dispatch(new DeleteTax($tax));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

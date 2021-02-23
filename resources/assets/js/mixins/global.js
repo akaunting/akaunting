@@ -27,7 +27,6 @@ import NProgressAxios from './../plugins/nprogress-axios';
 import { Select, Option, Steps, Step, Button, Link, Tooltip, ColorPicker } from 'element-ui';
 
 import Form from './../plugins/form';
-import { concat } from 'lodash';
 
 export default {
     components: {
@@ -95,10 +94,15 @@ export default {
 
             flash_notification.forEach(notify => {
                 let type = notify.level;
+                let timeout = 5000;
+
+                if (notify.important) {
+                    timeout = 0;
+                }
 
                 this.$notify({
                     message: notify.message,
-                    timeout: 5000,
+                    timeout: timeout,
                     icon: 'fas fa-bell',
                     type
                 });

@@ -134,7 +134,7 @@ abstract class BulkAction
             try {
                 $this->dispatch(new UpdateContact($contact, request()->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -147,7 +147,7 @@ abstract class BulkAction
             try {
                 $this->dispatch(new DeleteContact($contact));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -160,7 +160,7 @@ abstract class BulkAction
             try {
                 $this->dispatch(new DeleteTransaction($transaction));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

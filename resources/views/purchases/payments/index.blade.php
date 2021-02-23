@@ -21,7 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Banking\Transaction" />
+                        <x-search-string model="App\Models\Purchase\Payment" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.payments', $bulk_actions, ['group' => 'purchases', 'type' => 'payments']) }}
@@ -116,7 +116,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'payments', 'docs_path' => 'purchases/payments'])
+        <x-empty-page group="purchases" page="payments" />
     @endif
 @endsection
 

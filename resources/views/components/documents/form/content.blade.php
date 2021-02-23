@@ -29,6 +29,7 @@
                 hide-document-title="{{ $hideDocumentTitle }}"
                 hide-document-subheading="{{ $hideDocumentSubheading }}"
                 hide-company-edit="{{ $hideCompanyEdit }}"
+                title-setting="{{ $titleSetting }}"
             />
         @endif
 
@@ -65,12 +66,16 @@
             hide-discount="{{ $hideDiscount }}"
             hide-amount="{{ $hideAmount }}"
             text-amount="{{ $textAmount }}"
+            is-sale-price="{{ $isSalePrice }}"
+            is-purchase-price="{{ $isPurchasePrice }}"
+            notes-setting="{{ $notesSetting }}"
         />
 
         @if (!$hideFooter)
             <x-documents.form.footer
                 type="{{ $type }}"
                 :document="$document"
+                footer-setting="{{ $footerSetting }}"
             />
         @endif
 

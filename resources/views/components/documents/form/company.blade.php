@@ -15,21 +15,21 @@
 
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideDocumentTitle)
-                            {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', ['data-field' => 'setting'], setting($type . '.title'), 'col-md-12') }}
+                            {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', ['data-field' => 'setting'], $titleSetting, 'col-md-12') }}
                         @endif
 
                         @if (!$hideDocumentSubheading)
-                            {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', ['data-field' => 'setting'], setting($type . '.subheading'), 'col-md-12') }}
+                            {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', ['data-field' => 'setting'], $subheadingSetting, 'col-md-12') }}
                         @endif
 
                         @if (!$hideCompanyEdit)
                             <akaunting-company-edit company-id="{{ session('company_id') }}"
-                            button-text="{{ trans('Edit your business address') }}"
+                            button-text="{{ trans('settings.company.edit_your_business_address') }}"
                             taxt-number-text="{{ trans('general.tax_number') }}"
                             :company="{{ json_encode($company) }}"
                             :company-form="{{ json_encode([
                                 'show' => true,
-                                'text' => trans('Edit your business address'),
+                                'text' => trans('settings.company.edit_your_business_address'),
                                 'buttons' => [
                                     'cancel' => [
                                         'text' => trans('general.cancel'),

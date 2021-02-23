@@ -52,8 +52,8 @@
 
 <div class="row mt-2">
     <div class="col-33">
-        <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ $backGroundColor }};">
-        <hr class="invoice-classic-line" style="background-color:{{ $backGroundColor }};">
+        <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ $backgroundColor }};">
+        <hr class="invoice-classic-line" style="background-color:{{ $backgroundColor }};">
     </div>
 
     <div class="col-33">
@@ -72,8 +72,8 @@
     </div>
 
     <div class="col-33">
-        <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ $backGroundColor }};">
-        <hr class="invoice-classic-line" style="background-color:{{ $backGroundColor }};">
+        <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ $backgroundColor }};">
+        <hr class="invoice-classic-line" style="background-color:{{ $backgroundColor }};">
     </div>
 </div>
 

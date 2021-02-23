@@ -31,8 +31,8 @@ class Item extends FormRequest
 
         return [
             'name' => 'required|string',
-            'sale_price' => 'required|amount',
-            'purchase_price' => 'required|amount',
+            'sale_price' => 'required',
+            'purchase_price' => 'required',
             'tax_ids' => 'nullable|array',
             'category_id' => 'nullable|integer',
             'enabled' => 'integer|boolean',

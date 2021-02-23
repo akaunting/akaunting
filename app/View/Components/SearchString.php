@@ -2,16 +2,20 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
+use App\Traits\DateTime;
 use Illuminate\Support\Str;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\View\Component;
 
 class SearchString extends Component
 {
+    use DateTime;
+
     public $filters;
 
     /** string */
     public $model;
+
+    public $date_format;
 
     /**
      * Create a new component instance.
@@ -22,6 +26,7 @@ class SearchString extends Component
     {
         $this->model = $model;
         $this->filters = $filters;
+        $this->date_format = $this->getCompanyDateFormat();
     }
 
     /**
@@ -33,26 +38,26 @@ class SearchString extends Component
     {
         if (empty($this->filters)) {
             $search_string = config('search-string');
-    
+
             $this->filters = [];
-    
+
             if (!empty($search_string[$this->model])) {
                 $columns = $search_string[$this->model]['columns'];
-    
+
                 foreach ($columns as $column => $options) {
                     // This column skip for filter
                     if (!empty($options['searchable'])) {
                         continue;
                     }
-    
+
                     if (!is_array($options)) {
                         $column = $options;
                     }
-    
+
                     if (!$this->isFilter($column, $options)) {
                         continue;
                     }
-    
+
                     $this->filters[] = [
                         'key' => $this->getFilterKey($column, $options),
                         'value' => $this->getFilterName($column, $options),
@@ -80,6 +85,10 @@ class SearchString extends Component
 
     protected function getFilterKey($column, $options)
     {
+        if (isset($options['key'])) {
+            $column = $options['key'];
+        }
+
         if (isset($options['relationship'])) {
             $column .= '.id';
         }
@@ -101,19 +110,29 @@ class SearchString extends Component
 
         $plural = Str::plural($column, 2);
 
-        if (trans_choice('general.' . $plural, 1) !== 'general.' . $plural) {
-            return trans_choice('general.' . $plural, 1);
-        } elseif (trans_choice('search_string.columns.' . $plural, 1) !== 'search_string.columns.' . $plural) {
-            return trans_choice('search_string.columns.' . $plural, 1);
+        if (strpos($this->model, 'Modules') !== false) {
+            $module_class = explode('\\', $this->model);
+
+            $prefix = Str::kebab($module_class[1]) . '::';
+
+            $translation_keys[] = $prefix . 'general.';
+            $translation_keys[] = $prefix . 'search_string.columns.';
         }
 
-        $name = trans('general.' . $column);
+        $translation_keys[] = 'general.';
+        $translation_keys[] = 'search_string.columns.';
 
-        if ($name == 'general.' . $column) {
-            $name = trans('search_string.columns.' . $column);
+        foreach ($translation_keys as $translation_key) {
+            if (trans_choice($translation_key . $plural, 1) !== $translation_key . $plural) {
+                return trans_choice($translation_key . $plural, 1);
+            }
+
+            if (trans($translation_key . $column) !== $translation_key . $column) {
+                return trans($translation_key . $column);
+            }
         }
 
-        return $name;
+        return $column;
     }
 
     protected function getFilterType($options)
@@ -149,7 +168,7 @@ class SearchString extends Component
             if (strpos($this->model, 'Modules') !== false) {
                 $module_class = explode('\\', $this->model);
 
-                $url .= Str::slug($module_class[1], '-') . '::';
+                $url .= Str::kebab($module_class[1]) . '::';
             }
 
             if (strpos($column, '_id') !== false) {

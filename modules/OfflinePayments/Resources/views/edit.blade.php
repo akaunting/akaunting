@@ -22,6 +22,8 @@
                 ]) !!}
 
                     <div class="card-body">
+                        <div id="form-loading" class="active" v-if="form_loading" v-html="form_loading"></div>
+
                         <div class="row">
                             {{ Form::textGroup('name', trans('general.name'), 'money-check', ['required' => 'required'], null, 'col-md-12') }}
 
@@ -92,6 +94,7 @@
                                                         'title' => trans('general.delete'),
                                                         'data-code' => $item->code,
                                                         'id' => 'delete-' . $item->code,
+                                                        ':disabled' => "update_code == '" . $item->code . "'",
                                                         '@click' => 'confirmDelete("' . $item->code . '", "' . trans('general.delete') . ' ' . trans_choice('offline-payments::general.methods', 1) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans('offline-payments::general.name'))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")',
                                                     ]) !!}
                                                 </div>
@@ -110,4 +113,32 @@
 
 @push('scripts_start')
     <script src="{{ asset('modules/OfflinePayments/Resources/assets/js/offline-payments.min.js?v=' . module_version('offline-payments')) }}"></script>
+@endpush
+
+@push('stylesheet')
+    <style type="text/css">
+        #form-loading.active, #delete-loading.active {
+            font-size: 35px;
+            position: absolute;
+            z-index: 500;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgb(136, 136, 136);
+            opacity: 0.2;
+            -moz-border-radius-bottomleft: 1px;
+            -moz-border-radius-bottomright: 1px;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;
+        }
+
+        .form-loading-spin {
+            font-size: 100px;
+            position: absolute;
+            margin: auto;
+            color: #fff;
+            padding: 73% 37%;
+        }
+    </style>
 @endpush

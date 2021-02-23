@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Traits\SearchString;
+use Carbon\CarbonPeriod;
 use Date;
 
 trait DateTime
@@ -49,8 +50,8 @@ trait DateTime
             $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
             $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d H:i:s');
         } else {
-            $start = $financial_start->format('Y-m-d H:i:s');
-            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d H:i:s');
+            $start = $financial_start->startOfDay()->format('Y-m-d H:i:s');
+            $end = $financial_start->addYear(1)->subDays(1)->endOfDay()->format('Y-m-d H:i:s');
         }
 
         return $query->whereBetween($field, [$start, $end]);
@@ -109,12 +110,30 @@ trait DateTime
 
         $financial_start = Date::create($year, $month, $day);
 
-        // Check if FS is in last calendar year
-        if ($now->diffInDays($financial_start, false) > 0) {
+        if ((setting('localisation.financial_denote') == 'ends') && ($financial_start->dayOfYear != 1)) {
             $financial_start->subYear();
         }
 
         return $financial_start;
+    }
+
+    public function getFinancialYear($year = null)
+    {
+        $start = $this->getFinancialStart($year);
+
+        return CarbonPeriod::create($start, $start->copy()->addYear()->subDay()->endOfDay());
+    }
+
+    public function getFinancialQuarters($year = null)
+    {
+        $quarters = [];
+        $start = $this->getFinancialStart($year);
+
+        for ($i = 0; $i < 4; $i++) {
+            $quarters[] = CarbonPeriod::create($start->copy()->addQuarters($i), $start->copy()->addQuarters($i + 1)->subDay()->endOfDay());
+        }
+
+        return $quarters;
     }
 
     public function getMonthlyDateFormat($year = null)

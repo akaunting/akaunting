@@ -155,6 +155,12 @@ abstract class DocumentIndex extends Base
     /** @var string */
     public $routeButtonDelete;
 
+    /** @var string */
+    public $textModalDelete;
+
+    /** @var string */
+    public $valueModalDelete;
+
     /** @var bool */
     public $hideButtonShow;
 
@@ -194,7 +200,7 @@ abstract class DocumentIndex extends Base
      * @return void
      */
     public function __construct(
-        string $type, $documents = [], $limits = [], 
+        string $type, $documents = [], $limits = [],
         string $imageEmptyPage = '', string $textEmptyPage = '', string $textPage = '', string $urlDocsPath = '', $hideEmptyPage = false,
         bool $checkPermissionCreate = true, string $createRoute = '', string $importRoute = '', array $importRouteParameters = [], string $exportRoute = '',
         bool $hideCreate = false, bool $hideImport = false, bool $hideExport = false, // Advanced
@@ -204,6 +210,7 @@ abstract class DocumentIndex extends Base
         string $textDocumentNumber = '', string $textContactName = '', string $classAmount = '', string $textIssuedAt = '', string $textDueAt = '', string $textDocumentStatus = '',
         bool $checkButtonReconciled = true, bool $checkButtonCancelled = true,
         string $routeButtonShow = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonCancelled = '', string $routeButtonDelete = '',
+        string $textModalDelete = '', string $valueModalDelete = 'document_number',
         bool $hideDocumentNumber = false, bool $hideContactName = false, bool $hideAmount = false, bool $hideIssuedAt = false, bool $hideDueAt = false, bool $hideStatus = false, bool $hideActions = false,
         bool $hideButtonShow = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonCancel = false, bool $hideButtonDelete = false,
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = ''
@@ -259,6 +266,9 @@ abstract class DocumentIndex extends Base
         $this->routeButtonDuplicate = $this->getRouteButtonDuplicate($type, $routeButtonDuplicate);
         $this->routeButtonCancelled = $this->getRouteButtonCancelled($type, $routeButtonCancelled);
         $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);
+
+        $this->textModalDelete = $this->getTextModalDelete($type, $textModalDelete);
+        $this->valueModalDelete = $valueModalDelete;
 
         $this->hideBulkAction = $hideBulkAction;
         $this->hideDocumentNumber = $hideDocumentNumber;
@@ -913,6 +923,19 @@ abstract class DocumentIndex extends Base
         }
 
         return 'invoices.destroy';
+    }
+
+    protected function getTextModalDelete($type, $textModalDelete)
+    {
+        if (!empty($textModalDelete)) {
+            return $textModalDelete;
+        }
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            return $alias . '::general.' . Str::plural(str_replace('-', '_', $type));
+        }
+
+        return '';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)

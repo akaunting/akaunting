@@ -37,7 +37,7 @@ class Currencies extends BulkAction
             try {
                 $this->dispatch(new UpdateCurrency($currency, $request->merge(['enabled' => 0])));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }
@@ -50,7 +50,7 @@ class Currencies extends BulkAction
             try {
                 $this->dispatch(new DeleteCurrency($currency));
             } catch (\Exception $e) {
-                flash($e->getMessage())->error();
+                flash($e->getMessage())->error()->important();
             }
         }
     }

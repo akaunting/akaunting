@@ -71,8 +71,8 @@
                                 {{ trans($textTimelineSendStatusMail) }}
                             </a>
                         @else
-                            <el-tooltip content="{{ trans('invoices.messages.email_required') }}" placement="right" effect="danger">
-                                <button type="button" class="dropdown-item" disabled="disabled">
+                            <el-tooltip content="{{ trans('invoices.messages.email_required') }}" placement="right">
+                                <button type="button" class="dropdown-item btn-tooltip">
                                     <span class="text-disabled">{{ trans($textTimelineSendStatusMail) }}</span>
                                 </button>
                             </el-tooltip>

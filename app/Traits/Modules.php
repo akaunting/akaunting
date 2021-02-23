@@ -4,13 +4,9 @@ namespace App\Traits;
 
 use App\Models\Module\Module;
 use App\Traits\SiteApi;
-use App\Utilities\Console;
 use App\Utilities\Info;
 use Cache;
 use Date;
-use File;
-use Illuminate\Support\Str;
-use ZipArchive;
 
 trait Modules
 {
