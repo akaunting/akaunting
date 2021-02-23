@@ -59,7 +59,7 @@
                                 @stack('timeline_sent_head_end')
 
                                 @stack('timeline_sent_body_start')
-                                    @if ($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed')
+                                    @if ($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed' && $document->status != 'received')
                                         @stack('timeline_sent_body_message_start')
                                             <small>
                                                 {{ trans_choice('general.statuses', 1) . ':' }}
@@ -89,9 +89,15 @@
                                             @stack('timeline_receive_body_button_received_start')
                                                 @if (!$hideButtonReceived)
                                                     @can($permissionUpdate)
-                                                        <a href="{{ route($routeButtonReceived, $document->id) }}" class="btn btn-danger btn-sm btn-alone">
-                                                            {{ trans($textTimelineSentStatusReceived) }}
-                                                        </a>
+                                                        @if ($document->status == 'draft')
+                                                            <a href="{{ route($routeButtonReceived, $document->id) }}" class="btn btn-danger btn-sm btn-alone">
+                                                                {{ trans($textTimelineSentStatusReceived) }}
+                                                            </a>
+                                                        @else
+                                                            <button type="button" class="btn btn-secondary btn-sm" disabled="disabled">
+                                                                {{ trans($textTimelineSentStatusReceived) }}
+                                                            </button>
+                                                        @endif
                                                     @endcan
                                                 @endif
                                             @stack('timeline_receive_body_button_received_end')
@@ -99,7 +105,12 @@
                                         @stack('timeline_viewed_invoice_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
                                             <small>{{ trans('invoices.messages.status.viewed') }}</small>
-                                        @stack('timeline_viewed_invoice_body_message_end')
+                                        @stack('timeline_viewed_invoice_body_message_end'))
+                                    @elseif($document->status == 'received')
+                                        @stack('timeline_receive_bill_body_message_start')
+                                            <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                            <small>{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($document->received_at)->format($date_format)]) }}</small>
+                                        @stack('timeline_receive_bill_body_message_end')
                                     @else
                                         @stack('timeline_sent_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
@@ -107,7 +118,7 @@
                                         @stack('timeline_sent_body_message_end')
                                     @endif
 
-                                    @if (!($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed'))
+                                    @if (!($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed' && $document->status != 'received'))
                                     <div class="mt-3">
                                     @endif
 
