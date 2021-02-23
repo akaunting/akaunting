@@ -163,8 +163,8 @@ Route::group(['prefix' => 'settings'], function () {
 
     Route::group(['as' => 'settings.'], function () {
         Route::get('settings', 'Settings\Settings@index')->name('index');
-        Route::patch('settings', 'Settings\Settings@update')->name('update');
-        Route::get('company', 'Settings\Company@edit')->middleware('dropzone')->name('company.edit');
+        Route::patch('settings', 'Settings\Settings@update')->middleware('dropzone')->name('update');
+        Route::get('company', 'Settings\Company@edit')->name('company.edit');
         Route::get('localisation', 'Settings\Localisation@edit')->name('localisation.edit');
         Route::get('invoice', 'Settings\Invoice@edit')->name('invoice.edit');
         Route::get('default', 'Settings\Defaults@edit')->name('default.edit');
