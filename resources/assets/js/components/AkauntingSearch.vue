@@ -252,7 +252,15 @@ export default {
             let option_url = this.selected_options[this.filter_index].url;
 
             if (this.search) {
-                option_url += '?search="' + this.search + '" limit:10';
+                if (option_url.indexOf('?') === -1) {
+                    option_url += '?search="' + this.search + '" limit:10';
+                } else {
+                    if (option_url.indexOf('search=') === -1) {
+                        option_url += '&search="' + this.search + '" limit:10';
+                    } else {
+                        option_url += ' "' + this.search + '" limit:10';
+                    }
+                }
             }
 
             if (option_url) {
