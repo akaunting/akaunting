@@ -71,12 +71,23 @@ export default {
         icon: {
             type: String,
             description: "Prepend icon (left)"
+        },
+        locale: {
+            type: String,
+            default: 'en',
         }
     },
 
     data() {
         return {
-            real_model: this.model
+            real_model: this.model,
+        }
+    },
+    
+    created() {
+        if (this.locale !== 'en') {
+            const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
+            this.config.locale = lang;
         }
     },
 

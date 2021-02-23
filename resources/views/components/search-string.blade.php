@@ -10,8 +10,8 @@
     :date-config="{
         allowInput: true,
         altInput: true,
-        altFormat: '{{ $date_format }}',
-        dateFormat: '{{ $date_format }}',
+        altFormat: '{{ company_date_format() }}',
+        dateFormat: '{{ company_date_format() }}',
         @if (!empty($attributes['min-date']))
         minDate: {{ $attributes['min-date'] }}
         @endif

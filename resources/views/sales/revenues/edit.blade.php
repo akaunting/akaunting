@@ -36,7 +36,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($revenue->paid_at)->toDateString()) }}
+                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($revenue->paid_at)->toDateString()) }}
 
                     {!! Form::hidden('currency_code', $revenue->currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
                     {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate']) !!}

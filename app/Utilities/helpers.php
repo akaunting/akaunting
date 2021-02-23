@@ -23,6 +23,22 @@ if (!function_exists('user')) {
     }
 }
 
+if (!function_exists('company_date_format')) {
+    /**
+     * Format the given date based on company settings.
+     *
+     * @return string
+     */
+    function company_date_format()
+    {
+        $date_time = new class() {
+            use DateTime;
+        };
+
+        return $date_time->getCompanyDateFormat();
+    }
+}
+
 if (!function_exists('company_date')) {
     /**
      * Format the given date based on company settings.
