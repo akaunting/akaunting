@@ -2,16 +2,20 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
+use App\Traits\DateTime;
 use Illuminate\Support\Str;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\View\Component;
 
 class SearchString extends Component
 {
+    use DateTime;
+
     public $filters;
 
     /** string */
     public $model;
+
+    public $date_format;
 
     /**
      * Create a new component instance.
@@ -22,6 +26,7 @@ class SearchString extends Component
     {
         $this->model = $model;
         $this->filters = $filters;
+        $this->date_format = $this->getCompanyDateFormat();
     }
 
     /**
