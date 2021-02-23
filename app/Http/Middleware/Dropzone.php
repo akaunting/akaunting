@@ -27,6 +27,10 @@ class Dropzone
                 continue;
             }
 
+            if ($key == 'setting' && Arr::has($value, 'company_logo')) {
+                continue;
+            }
+
             $files = [];
             $uploaded = [];
 
