@@ -264,6 +264,10 @@ export default {
             }
 
             if (option_url) {
+                if (option_url.indexOf('limit') === -1) {
+                    option_url += ' limit:10';
+                }
+
                 window.axios.get(option_url)
                 .then(response => {
                     this.values = [];
@@ -385,6 +389,10 @@ export default {
             }
 
             if (!this.option_values[value] && option_url) {
+                if (option_url.indexOf('limit') === -1) {
+                    option_url += ' limit:10';
+                }
+
                 window.axios.get(option_url)
                 .then(response => {
                     let data = response.data.data;
