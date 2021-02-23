@@ -47,11 +47,7 @@ if (!function_exists('company_date')) {
      */
     function company_date($date)
     {
-        $date_time = new class() {
-            use DateTime;
-        };
-
-        return Date::parse($date)->format($date_time->getCompanyDateFormat());
+        return Date::parse($date)->format(company_date_format());
     }
 }
 
