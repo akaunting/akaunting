@@ -73,23 +73,21 @@ class Search extends Controller
             }
         }
 
-        /*
-        if ($user->can('read-sales-revenues')) {
-            $income_transactions = Transaction::income()->usingSearchString($keyword)->get();
+        /*if ($user->can('read-sales-revenues')) {
+            $revenues = Transaction::income()->usingSearchString($search->keyword)->get();
 
-            if ($income_transactions->count()) {
-                foreach ($income_transactions as $transaction) {
+            if ($revenues->count()) {
+                foreach ($revenues as $revenue) {
                     $results[] = (object)[
-                        'id'    => $transaction->id,
-                        'name'  => $transaction->contact_name,
+                        'id'    => $revenue->id,
+                        'name'  => $revenue->contact_name,
                         'type'  => trans_choice('general.revenues', 1),
                         'color' => '#00c0ef',
-                        'href'  => url('sales/revenues/' . $transaction->id),
+                        'href'  => route('revenues.edit', $revenue->id),
                     ];
                 }
             }
-        }
-        */
+        }*/
 
         if ($user->can('read-sales-customers')) {
             $customers = Contact::customer()->enabled()->usingSearchString($search->keyword)->get();
@@ -123,23 +121,21 @@ class Search extends Controller
             }
         }
 
-        /*
-        if ($user->can('read-purchases-payments')) {
-            $payments = Transaction::expense()->usingSearchString($keyword)->get();
+        /*if ($user->can('read-purchases-payments')) {
+            $payments = Transaction::expense()->usingSearchString($search->keyword)->get();
 
-            if ($revenues->count()) {
-                foreach ($revenues as $revenue) {
+            if ($payments->count()) {
+                foreach ($payments as $payment) {
                     $results[] = (object)[
-                        'id'    => $revenue->id,
-                        'name'  => $revenue->contact_name,
-                        'type'  => trans_choice('general.revenues', 1),
+                        'id'    => $payment->id,
+                        'name'  => $payment->contact_name,
+                        'type'  => trans_choice('general.payments', 1),
                         'color' => '#00c0ef',
-                        'href'  => url('sales/revenues/' . $revenue->id),
+                        'href'  => route('payments.edit', $payment->id),
                     ];
                 }
             }
-        }
-        */
+        }*/
 
         if ($user->can('read-purchases-vendors')) {
             $vendors = Contact::vendor()->enabled()->usingSearchString($search->keyword)->get();
