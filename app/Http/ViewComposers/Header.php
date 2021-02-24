@@ -35,20 +35,22 @@ class Header
                 ];
             }
 
-            $unreads = $user->unreadNotifications;
+            if ($user->can('read-common-notifications')) {
+                $unreads = $user->unreadNotifications;
 
-            foreach ($unreads as $unread) {
-                $data = $unread->getAttribute('data');
+                foreach ($unreads as $unread) {
+                    $data = $unread->getAttribute('data');
 
-                switch ($unread->getAttribute('type')) {
-                    case 'App\Notifications\Purchase\Bill':
-                        $bills[$data['bill_id']] = $data['amount'];
-                        $notifications++;
-                        break;
-                    case 'App\Notifications\Sale\Invoice':
-                        $invoices[$data['invoice_id']] = $data['amount'];
-                        $notifications++;
-                        break;
+                    switch ($unread->getAttribute('type')) {
+                        case 'App\Notifications\Purchase\Bill':
+                            $bills[$data['bill_id']] = $data['amount'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Sale\Invoice':
+                            $invoices[$data['invoice_id']] = $data['amount'];
+                            $notifications++;
+                            break;
+                    }
                 }
             }
 

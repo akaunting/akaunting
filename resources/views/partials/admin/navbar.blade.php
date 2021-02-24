@@ -141,62 +141,68 @@
 
                 @stack('navbar_notifications')
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>
-                            <i class="far fa-bell"></i>
-                        </span>
-                        @if ($notifications)
-                            <span class="badge badge-md badge-circle badge-reminder badge-warning">{{ $notifications }}</span>
-                        @endif
-                    </a>
+                @can('read-common-notifications')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>
+                                <i class="far fa-bell"></i>
+                            </span>
+                            @if ($notifications)
+                                <span class="badge badge-md badge-circle badge-reminder badge-warning">{{ $notifications }}</span>
+                            @endif
+                        </a>
 
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0 overflow-hidden">
-                        @if ($notifications)
-                            <div class="p-3">
-                                <a class="text-sm text-muted">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
-                            </div>
-                        @endif
-
-                        <div class="list-group list-group-flush">
-                            @if (count($bills))
-                                <a href="{{ route('users.read.bills', $user->id) }}" class="list-group-item list-group-item-action">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </div>
-                                        <div class="col ml--2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h4 class="mb-0 text-sm">{{ trans_choice('header.notifications.upcoming_bills', count($bills), ['count' => count($bills)]) }}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0 overflow-hidden">
+                            @if ($notifications)
+                                <div class="p-3">
+                                    <a class="text-sm text-muted">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
+                                </div>
                             @endif
 
-                            @if (count($invoices))
-                                <a href="{{ route('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <i class="fa fa-money-bill"></i>
-                                        </div>
-                                        <div class="col ml--2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h4 class="mb-0 text-sm">{{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}</h4>
+                            <div class="list-group list-group-flush">
+                                @can('read-purchases-bills')
+                                    @if (count($bills))
+                                        <a href="{{ route('users.read.bills', $user->id) }}" class="list-group-item list-group-item-action">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </div>
+                                                <div class="col ml--2">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h4 class="mb-0 text-sm">{{ trans_choice('header.notifications.upcoming_bills', count($bills), ['count' => count($bills)]) }}</h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                        </a>
+                                    @endif
+                                @endcan
+
+                                @can('read-sales-invoices')
+                                    @if (count($invoices))
+                                        <a href="{{ route('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <i class="fa fa-money-bill"></i>
+                                                </div>
+                                                <div class="col ml--2">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h4 class="mb-0 text-sm">{{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endif
+                                @endcan
+                            </div>
+
+                            @if ($notifications)
+                                <a href="#" class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans('header.notifications.view_all') }}</a>
+                            @else
+                                <a class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
                             @endif
                         </div>
-
-                        @if ($notifications)
-                            <a href="#" class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans('header.notifications.view_all') }}</a>
-                        @else
-                            <a class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
-                        @endif
-                    </div>
-                </li>
+                    </li>
+                @endcan
 
                 @stack('navbar_updates')
 
