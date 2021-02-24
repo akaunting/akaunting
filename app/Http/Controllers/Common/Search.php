@@ -26,7 +26,7 @@ class Search extends Controller
         $search->keyword = request('keyword');
 
         if ($user->can('read-banking-accounts')) {
-            $accounts = Account::enabled()->usingSearchString($search->keyword)->get();
+            $accounts = Account::enabled()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($accounts->count()) {
                 foreach ($accounts as $account) {
@@ -42,7 +42,7 @@ class Search extends Controller
         }
 
         if ($user->can('read-common-items')) {
-            $items = Item::enabled()->usingSearchString($search->keyword)->get();
+            $items = Item::enabled()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($items->count()) {
                 foreach ($items as $item) {
@@ -58,7 +58,7 @@ class Search extends Controller
         }
 
         if ($user->can('read-sales-invoices')) {
-            $invoices = Document::invoice()->usingSearchString($search->keyword)->get();
+            $invoices = Document::invoice()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($invoices->count()) {
                 foreach ($invoices as $invoice) {
@@ -74,7 +74,7 @@ class Search extends Controller
         }
 
         /*if ($user->can('read-sales-revenues')) {
-            $revenues = Transaction::income()->usingSearchString($search->keyword)->get();
+            $revenues = Transaction::income()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($revenues->count()) {
                 foreach ($revenues as $revenue) {
@@ -90,7 +90,7 @@ class Search extends Controller
         }*/
 
         if ($user->can('read-sales-customers')) {
-            $customers = Contact::customer()->enabled()->usingSearchString($search->keyword)->get();
+            $customers = Contact::customer()->enabled()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($customers->count()) {
                 foreach ($customers as $customer) {
@@ -106,7 +106,7 @@ class Search extends Controller
         }
 
         if ($user->can('read-purchases-bills')) {
-            $bills = Document::bill()->usingSearchString($search->keyword)->get();
+            $bills = Document::bill()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($bills->count()) {
                 foreach ($bills as $bill) {
@@ -122,7 +122,7 @@ class Search extends Controller
         }
 
         /*if ($user->can('read-purchases-payments')) {
-            $payments = Transaction::expense()->usingSearchString($search->keyword)->get();
+            $payments = Transaction::expense()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($payments->count()) {
                 foreach ($payments as $payment) {
@@ -138,7 +138,7 @@ class Search extends Controller
         }*/
 
         if ($user->can('read-purchases-vendors')) {
-            $vendors = Contact::vendor()->enabled()->usingSearchString($search->keyword)->get();
+            $vendors = Contact::vendor()->enabled()->usingSearchString($search->keyword)->take(setting('default.select_limit'))->get();
 
             if ($vendors->count()) {
                 foreach ($vendors as $vendor) {
