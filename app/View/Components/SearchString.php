@@ -15,8 +15,6 @@ class SearchString extends Component
     /** string */
     public $model;
 
-    public $date_format;
-
     /**
      * Create a new component instance.
      *
@@ -26,7 +24,6 @@ class SearchString extends Component
     {
         $this->model = $model;
         $this->filters = $filters;
-        $this->date_format = $this->getCompanyDateFormat();
     }
 
     /**
