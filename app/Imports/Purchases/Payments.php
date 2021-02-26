@@ -3,14 +3,19 @@
 namespace App\Imports\Purchases;
 
 use App\Abstracts\Import;
-use App\Models\Banking\Transaction as Model;
+use App\Events\Common\ModelCreated;
 use App\Http\Requests\Banking\Transaction as Request;
+use App\Models\Banking\Transaction as Model;
 
 class Payments extends Import
 {
     public function model(array $row)
     {
-        return new Model($row);
+        $model = new Model($row);
+
+        event(new ModelCreated($model, $row));
+
+        return $model;
     }
 
     public function map($row): array

@@ -28,6 +28,10 @@ class Company extends Eloquent
         'enabled' => 'boolean',
     ];
 
+    public $extras = [
+        //
+    ];
+
     /**
      * Sortable columns.
      *

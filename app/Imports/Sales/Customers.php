@@ -3,14 +3,19 @@
 namespace App\Imports\Sales;
 
 use App\Abstracts\Import;
-use App\Models\Common\Contact as Model;
+use App\Events\Common\ModelCreated;
 use App\Http\Requests\Common\Contact as Request;
+use App\Models\Common\Contact as Model;
 
 class Customers extends Import
 {
     public function model(array $row)
     {
-        return new Model($row);
+        $model = new Model($row);
+
+        event(new ModelCreated($model, $row));
+
+        return $model;
     }
 
     public function map($row): array

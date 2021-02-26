@@ -21,6 +21,10 @@ abstract class Model extends Eloquent
         'enabled' => 'boolean',
     ];
 
+    public $extras = [
+        //
+    ];
+
     public static function observe($classes)
     {
         parent::observe($classes);
