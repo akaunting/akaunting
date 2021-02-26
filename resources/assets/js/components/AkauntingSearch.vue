@@ -598,6 +598,7 @@ export default {
                     let option = '';
                     let operator = '=';
                     let value = '';
+                    let value_assigned = false;
 
                     this.filter_list.forEach(function (_filter, i) {
                         let filter_values = this.convertOption(_filter.values);
@@ -630,18 +631,18 @@ export default {
 
                             this.option_values[_filter.key] = filter_values;
 
-                            if (filter_values.length > 0) {
-                                filter_values.forEach(function (value, j) {
-                                    if (value.key == filter[1]) {
-                                        this.selected_values.push(value);
+                            filter_values.forEach(function (value, j) {
+                                if (value.key == filter[1]) {
+                                    this.selected_values.push(value);
 
-                                        this.option_values[_filter.key].splice(j, 1);
-                                    }
-                                }, this);
-                            } else {
-                                if (cookie != undefined && cookie[_filter.key]) {
-                                    this.selected_values.push(cookie[_filter.key]);
+                                    this.option_values[_filter.key].splice(j, 1);
+
+                                    value_assigned = true
                                 }
+                            }, this);
+                            
+                            if (!value_assigned && (cookie != undefined && cookie[_filter.key])) {
+                                this.selected_values.push(cookie[_filter.key]);
                             }
                         }
                     }, this);
