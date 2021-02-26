@@ -84,7 +84,7 @@ trait Import
             }
         }
 
-        return (int) $id;
+        return $id == null ? null : (int) $id;
     }
 
     public function getItemId($row)
