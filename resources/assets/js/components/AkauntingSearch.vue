@@ -630,16 +630,18 @@ export default {
 
                             this.option_values[_filter.key] = filter_values;
 
-                            filter_values.forEach(function (value, j) {
-                                if (value.key == filter[1]) {
-                                    this.selected_values.push(value);
+                            if (filter_values.length > 0) {
+                                filter_values.forEach(function (value, j) {
+                                    if (value.key == filter[1]) {
+                                        this.selected_values.push(value);
 
-                                    this.option_values[_filter.key].splice(j, 1);
+                                        this.option_values[_filter.key].splice(j, 1);
+                                    }
+                                }, this);
+                            } else {
+                                if (cookie != undefined && cookie[_filter.key]) {
+                                    this.selected_values.push(cookie[_filter.key]);
                                 }
-                            }, this);
-
-                            if (cookie != undefined && cookie[_filter.key]) {
-                                this.selected_values.push(cookie[_filter.key]);
                             }
                         }
                     }, this);
