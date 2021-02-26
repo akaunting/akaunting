@@ -3,7 +3,6 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Events\Common\ModelCreated;
 use App\Http\Requests\Document\DocumentItem as Request;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem as Model;
@@ -12,11 +11,7 @@ class InvoiceItems extends Import
 {
     public function model(array $row)
     {
-        $model = new Model($row);
-
-        event(new ModelCreated($model, $row));
-
-        return $model;
+        return new Model($row);
     }
 
     public function map($row): array

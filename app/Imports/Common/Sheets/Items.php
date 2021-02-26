@@ -3,7 +3,6 @@
 namespace App\Imports\Common\Sheets;
 
 use App\Abstracts\Import;
-use App\Events\Common\ModelCreated;
 use App\Http\Requests\Common\Item as Request;
 use App\Models\Common\Item as Model;
 
@@ -11,11 +10,7 @@ class Items extends Import
 {
     public function model(array $row)
     {
-        $model = new Model($row);
-
-        event(new ModelCreated($model, $row));
-
-        return $model;
+        return new Model($row);
     }
 
     public function map($row): array

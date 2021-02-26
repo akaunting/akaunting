@@ -3,7 +3,6 @@
 namespace App\Imports\Banking;
 
 use App\Abstracts\Import;
-use App\Events\Common\ModelCreated;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer as Model;
 use App\Models\Setting\Category;
@@ -16,11 +15,7 @@ class Transfers extends Import
 
     public function model(array $row)
     {
-        $model = new Model($row);
-
-        event(new ModelCreated($model, $row));
-
-        return $model;
+        return new Model($row);
     }
 
     public function map($row): array
