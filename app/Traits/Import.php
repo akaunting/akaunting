@@ -27,7 +27,7 @@ trait Import
             $id = $this->getAccountIdFromCurrency($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getCategoryId($row, $type = null)
@@ -40,7 +40,7 @@ trait Import
             $id = $this->getCategoryIdFromName($row, $type);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getContactId($row, $type = null)
@@ -57,7 +57,7 @@ trait Import
             $id = $this->getContactIdFromName($row, $type);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getDocumentId($row)
@@ -84,7 +84,7 @@ trait Import
             }
         }
 
-        return $id == null ? null : (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getItemId($row)
@@ -95,7 +95,7 @@ trait Import
             $id = $this->getItemIdFromName($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getTaxId($row)
@@ -110,7 +110,7 @@ trait Import
             $id = $this->getTaxIdFromRate($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getAccountIdFromCurrency($row)

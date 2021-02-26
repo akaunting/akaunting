@@ -372,7 +372,7 @@ class Transaction extends Model
      */
     public function getRouteIdAttribute($value)
     {
-        return $value ?? $this->document_id ?? $this->id;
+        return !empty($value) ? $value : (!empty($this->document_id) ? $this->document_id : $this->id);
     }
 
     /**
