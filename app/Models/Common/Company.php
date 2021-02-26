@@ -28,9 +28,7 @@ class Company extends Eloquent
         'enabled' => 'boolean',
     ];
 
-    public $allAttributes = [
-        //
-    ];
+    public $allAttributes = [];
 
     /**
      * Sortable columns.

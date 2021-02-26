@@ -20,9 +20,7 @@ class Setting extends Eloquent
      */
     protected $fillable = ['company_id', 'key', 'value'];
 
-    public $allAttributes = [
-        //
-    ];
+    public $allAttributes = [];
 
     public $timestamps = false;
 

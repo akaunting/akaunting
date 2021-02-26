@@ -21,9 +21,7 @@ abstract class Model extends Eloquent
         'enabled' => 'boolean',
     ];
 
-    public $allAttributes = [
-        //
-    ];
+    public $allAttributes = [];
 
     /**
      * Create a new Eloquent model instance.
