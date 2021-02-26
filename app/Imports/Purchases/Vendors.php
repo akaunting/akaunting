@@ -3,8 +3,8 @@
 namespace App\Imports\Purchases;
 
 use App\Abstracts\Import;
-use App\Models\Common\Contact as Model;
 use App\Http\Requests\Common\Contact as Request;
+use App\Models\Common\Contact as Model;
 
 class Vendors extends Import
 {

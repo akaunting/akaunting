@@ -13,14 +13,31 @@ class Setting extends Eloquent
 
     protected $tenantable = true;
 
-    public $timestamps = false;
-
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
     protected $fillable = ['company_id', 'key', 'value'];
+
+    public $allAttributes = [
+        //
+    ];
+
+    public $timestamps = false;
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->allAttributes = $attributes;
+
+        parent::__construct($attributes);
+    }
 
     public function company()
     {

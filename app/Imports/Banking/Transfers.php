@@ -49,19 +49,19 @@ class Transfers extends Import
     private function getExpenseTransactionId($row)
     {
         $expense_transaction = Transaction::create([
-           'company_id'     => session('company_id'),
-           'type'           => 'expense',
-           'account_id'     => $row['from_account_id'],
-           'paid_at'        => $row['transferred_at'],
-           'currency_code'  => $row['from_currency_code'],
-           'currency_rate'  => $row['from_currency_rate'],
-           'amount'         => $row['amount'],
-           'contact_id'     => 0,
-           'description'    => $row['description'],
-           'category_id'    => Category::transfer(), // Transfer Category ID
-           'payment_method' => $row['payment_method'],
-           'reference'      => $row['reference'],
-       ]);
+            'company_id' => session('company_id'),
+            'type' => 'expense',
+            'account_id' => $row['from_account_id'],
+            'paid_at' => $row['transferred_at'],
+            'currency_code' => $row['from_currency_code'],
+            'currency_rate' => $row['from_currency_rate'],
+            'amount' => $row['amount'],
+            'contact_id' => 0,
+            'description' => $row['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $row['payment_method'],
+            'reference' => $row['reference'],
+        ]);
 
         return $expense_transaction->id;
     }
@@ -81,19 +81,19 @@ class Transfers extends Import
         }
 
         $income_transaction = Transaction::create([
-          'company_id' => session('company_id'),
-          'type' => 'income',
-          'account_id' => $row['to_account_id'],
-          'paid_at' => $row['transferred_at'],
-          'currency_code' => $row['to_currency_code'],
-          'currency_rate' => $row['to_currency_rate'],
-          'amount' => $amount,
-          'contact_id' => 0,
-          'description' => $row['description'],
-          'category_id' => Category::transfer(), // Transfer Category ID
-          'payment_method' => $row['payment_method'],
-          'reference' => $row['reference'],
-      ]);
+            'company_id' => session('company_id'),
+            'type' => 'income',
+            'account_id' => $row['to_account_id'],
+            'paid_at' => $row['transferred_at'],
+            'currency_code' => $row['to_currency_code'],
+            'currency_rate' => $row['to_currency_rate'],
+            'amount' => $amount,
+            'contact_id' => 0,
+            'description' => $row['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $row['payment_method'],
+            'reference' => $row['reference'],
+        ]);
 
         return $income_transaction->id;
     }

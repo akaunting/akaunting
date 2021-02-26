@@ -28,12 +28,29 @@ class Company extends Eloquent
         'enabled' => 'boolean',
     ];
 
+    public $allAttributes = [
+        //
+    ];
+
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'domain', 'email', 'enabled', 'created_at'];
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->allAttributes = $attributes;
+
+        parent::__construct($attributes);
+    }
 
     public static function boot()
     {
