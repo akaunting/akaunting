@@ -598,6 +598,7 @@ export default {
                     let option = '';
                     let operator = '=';
                     let value = '';
+                    let value_assigned = false;
 
                     this.filter_list.forEach(function (_filter, i) {
                         let filter_values = this.convertOption(_filter.values);
@@ -635,10 +636,12 @@ export default {
                                     this.selected_values.push(value);
 
                                     this.option_values[_filter.key].splice(j, 1);
+
+                                    value_assigned = true
                                 }
                             }, this);
-
-                            if (cookie != undefined && cookie[_filter.key]) {
+                            
+                            if (!value_assigned && (cookie != undefined && cookie[_filter.key])) {
                                 this.selected_values.push(cookie[_filter.key]);
                             }
                         }
