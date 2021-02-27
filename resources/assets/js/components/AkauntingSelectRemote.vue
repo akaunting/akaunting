@@ -629,12 +629,16 @@ export default {
                 }
 
                 if (path.indexOf('?search') === -1) {
-                    path += '?search="' + query + '"';
+                    path += '?search=' + query;
                 } else {
-                    path += ' "' + query + '"';
+                    path += query;
                 }
 
-                path += ' limit:10';
+                if (path.indexOf('?') + 1) {
+					path += '&limit=10';
+				} else {
+					path += '?limit=10';
+				}
 
                 path += '&currency_code=' + this.currencyCode;
 
@@ -662,7 +666,7 @@ export default {
                             });
                         }, this);
                     } else {
-                        this.sortOptions = [];
+                        this.sort_options = [];
                     }
                 })
                 .catch(e => {
