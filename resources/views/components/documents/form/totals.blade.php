@@ -3,10 +3,10 @@
         <div class="table-responsive overflow-x-scroll overflow-y-hidden">
             <table class="table" id="totals">
                 <colgroup>
-                    <col style="width: 50%;">
-                    <col style="width: 30%;">
-                    <col style="width: 25%;">
-                    <col style="width: 40px;">
+                    <col class="document-50">
+                    <col class="document-30">
+                    <col class="document-25">
+                    <col class="document-40-px">
                 </colgroup>
                 <tbody id="invoice-total-rows" class="table-padding-05">
                     @stack('sub_total_td_start')

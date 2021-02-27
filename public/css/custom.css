@@ -736,6 +736,10 @@ table .align-items-center td span.badge {
     input[type=hidden].form-control.datepicker.input {
         display: none;
     }
+
+    .item-columns-edit {
+        margin-left: 23px !important;
+    }
 }
 /*--Xs Breakpoint Finish--*/
 
@@ -1494,4 +1498,49 @@ table .align-items-center td span.badge {
 
 #form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light {
     margin-top: -50px !important;
+}
+
+.document-50 {
+    width: 50%;
+}
+
+.document-30 {
+    width: 30%;
+}
+
+.document-25 {
+    width: 25%;
+}
+
+.document-40-px {
+    width: 40px;
+}
+
+@media (max-width: 575.98px) {
+    .document-50 {
+        width: 20%;
+    }
+
+    .document-30 {
+        width: 40%;
+    }
+    
+    .document-25 {
+        width: 35%;
+    }
+    
+    .document-40-px {
+        max-width: 1px;
+        width: 1px;
+        padding: 0;
+        margin: 0;
+    }
+
+    #invoice-total-rows td.border-bottom-0.pb-0,
+    #invoice-total-rows .border-top-0.pt-0.pb-0 {
+        max-width: 1px !important;
+        width: 1px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 }
