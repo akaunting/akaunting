@@ -24,13 +24,13 @@
                 </p>
             </div>
 
-            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
 
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
+                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
                         <div @click="onAddItem">
                             <i class="fas fa-plus"></i>
                             <span>
@@ -88,7 +88,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" value="">
+            <el-option v-if="!loading && addNew.status && options.length != 0  && sortOptions.length > 0" class="el-select__footer" :disabled="disabled" value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -125,13 +125,13 @@
                 </p>
             </div>
 
-            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
 
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
+                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
                         <div @click="onAddItem">
                             <i class="fas fa-plus"></i>
                             <span>
@@ -189,7 +189,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" disabled  value="">
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer" disabled  value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -732,6 +732,8 @@ export default {
         },
 
         onModal(value) {
+            this.setSortOptions();
+
             let add_new = this.add_new;
 
             window.axios.get(this.add_new.path)

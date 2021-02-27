@@ -23,7 +23,7 @@
                 </p>
             </div>
 
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -87,7 +87,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer select-add-new" disabled value="">
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer select-add-new" disabled value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
