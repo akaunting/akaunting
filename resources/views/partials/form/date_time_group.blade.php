@@ -22,7 +22,7 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        :config="{
+        :date-config="{
             allowInput: true,
             @if (!empty($attributes['show-date-format']))
             altInput: true,
@@ -34,13 +34,13 @@
             wrap: true,
             enableTime: true,
             @if (!empty($attributes['seconds']))
-            enableSeconds: true
+            enableSeconds: true,
             @endif
             @if (!empty($attributes['min-date']))
-            minDate: {{ $attributes['min-date'] }}
+            minDate: {{ $attributes['min-date'] }},
             @endif
             @if (!empty($attributes['max-date']))
-            maxDate: {{ $attributes['max-date'] }}
+            maxDate: {{ $attributes['max-date'] }},
             @endif
         }"
 

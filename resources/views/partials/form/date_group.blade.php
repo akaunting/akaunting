@@ -24,20 +24,21 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        :config="{
+        :date-config="{
+            wrap: true, // set wrap to true only when using 'input-group'
             allowInput: true,
             @if (!empty($attributes['show-date-format']))
             altInput: true,
             altFormat: '{{ $attributes['show-date-format'] }}',
             @endif
             @if (!empty($attributes['date-format']))
-            dateFormat: '{{ $attributes['date-format'] }}'
+            dateFormat: '{{ $attributes['date-format'] }}',
             @endif
             @if (!empty($attributes['min-date']))
-            minDate: {{ $attributes['min-date'] }}
+            minDate: {{ $attributes['min-date'] }},
             @endif
             @if (!empty($attributes['max-date']))
-            maxDate: {{ $attributes['max-date'] }}
+            maxDate: {{ $attributes['max-date'] }},
             @endif
         }"
 

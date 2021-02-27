@@ -14,7 +14,7 @@
         <flat-picker slot-scope="{focus, blur}"
             @on-open="focus"
             @on-close="blur"
-            :config="config"
+            :config="dateConfig"
             class="form-control datepicker"
             v-model="real_model"
             @input="change"
@@ -67,7 +67,19 @@ export default {
             default: null,
             description: "Input model defalut"
         },
-        config: null,
+        dateConfig: {
+            type: Object,
+            default: function () {
+                return {
+                    allowInput: true,
+                    altFormat: "d M Y",
+                    altInput: true,
+                    dateFormat: "Y-m-d",
+                    wrap: true,
+                };
+            },
+            description: "FlatPckr date configuration"
+        },
         icon: {
             type: String,
             description: "Prepend icon (left)"
