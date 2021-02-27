@@ -655,6 +655,15 @@ table .align-items-center td span.badge {
         margin-bottom: -1rem;
     }
 
+    #header .header-body .btn,
+    .save-buttons .btn {
+        width: 100%;
+        height: 40px;
+        font-size: 0.875rem;
+        padding: 0.425rem 1.25rem;
+        margin-top: 16px;
+    }
+
     .header-button-top {
         width: 100%;
         height: 40px;
@@ -722,6 +731,10 @@ table .align-items-center td span.badge {
 
     .save-buttons {
         float: none !important;
+    }
+
+    input[type=hidden].form-control.datepicker.input {
+        display: none;
     }
 }
 /*--Xs Breakpoint Finish--*/

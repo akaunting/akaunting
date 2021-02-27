@@ -31,7 +31,7 @@
                                         @stack('timeline_create_body_button_edit_start')
                                             @if (!$hideButtonEdit)
                                                 @can($permissionUpdate)
-                                                    <a href="{{ route($routeButtonEdit, $document->id) }}" class="btn btn-primary btn-sm btn-alone">
+                                                    <a href="{{ route($routeButtonEdit, $document->id) }}" class="btn btn-primary btn-sm btn-alone header-button-top">
                                                         {{ trans('general.edit') }}
                                                     </a>
                                                 @endcan
@@ -74,11 +74,11 @@
                                                 @if (!$hideButtonSent)
                                                     @can($permissionUpdate)
                                                         @if($document->status == 'draft')
-                                                            <a href="{{ route($routeButtonSent, $document->id) }}" class="btn btn-white btn-sm">
+                                                            <a href="{{ route($routeButtonSent, $document->id) }}" class="btn btn-white btn-sm header-button-top">
                                                                 {{ trans($textTimelineSentStatusMarkSent) }}
                                                             </a>
                                                         @else
-                                                            <button type="button" class="btn btn-secondary btn-sm" disabled="disabled">
+                                                            <button type="button" class="btn btn-secondary btn-sm header-button-top" disabled="disabled">
                                                                 {{ trans($textTimelineSentStatusMarkSent) }}
                                                             </button>
                                                         @endif
@@ -90,11 +90,11 @@
                                                 @if (!$hideButtonReceived)
                                                     @can($permissionUpdate)
                                                         @if ($document->status == 'draft')
-                                                            <a href="{{ route($routeButtonReceived, $document->id) }}" class="btn btn-danger btn-sm btn-alone">
+                                                            <a href="{{ route($routeButtonReceived, $document->id) }}" class="btn btn-danger btn-sm btn-alone header-button-top">
                                                                 {{ trans($textTimelineSentStatusReceived) }}
                                                             </a>
                                                         @else
-                                                            <button type="button" class="btn btn-secondary btn-sm" disabled="disabled">
+                                                            <button type="button" class="btn btn-secondary btn-sm header-button-top" disabled="disabled">
                                                                 {{ trans($textTimelineSentStatusReceived) }}
                                                             </button>
                                                         @endif
@@ -125,12 +125,12 @@
                                     @stack('timeline_sent_body_button_email_start')
                                         @if (!$hideButtonEmail)
                                             @if($document->contact_email)
-                                                <a href="{{ route($routeButtonEmail, $document->id) }}" class="btn btn-danger btn-sm">
+                                                <a href="{{ route($routeButtonEmail, $document->id) }}" class="btn btn-danger btn-sm header-button-top">
                                                     {{ trans($textTimelineSendStatusMail) }}
                                                 </a>
                                             @else
                                                 <el-tooltip content="{{ trans('invoices.messages.email_required') }}" placement="top">
-                                                    <button type="button" class="btn btn-danger btn-sm btn-tooltip disabled">
+                                                    <button type="button" class="btn btn-danger btn-sm btn-tooltip disabled header-button-top">
                                                         {{ trans($textTimelineSendStatusMail) }}
                                                     </button>
                                                 </el-tooltip>
@@ -141,7 +141,7 @@
                                     @stack('timeline_sent_body_button_share_start')
                                         @if (!$hideButtonShare)
                                             @if ($document->status != 'cancelled')
-                                                <a href="{{ $signedUrl }}" target="_blank" class="btn btn-white btn-sm">
+                                                <a href="{{ $signedUrl }}" target="_blank" class="btn btn-white btn-sm header-button-top">
                                                     {{ trans('general.share') }}
                                                 </a>
                                             @endif

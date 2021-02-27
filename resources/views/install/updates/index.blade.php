@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-sm-10 col-md-6 text-right">
-                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm long-texts">
+                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm long-texts header-button-bottom">
                             {{ trans('updates.update', ['version' => $core]) }}
                         </a>
 
