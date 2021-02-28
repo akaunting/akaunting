@@ -189,7 +189,7 @@ return [
             'file'          => 'Vælg fil',
         ],
         'add'               => 'Tilføj en :field',
-        'add_an'            => 'Tilføj et :field',
+        'add_an'            => 'Tilføj en :field',
         'add_new'           => 'Tilføj nyt :field',
         'edit'              => 'Rediger :field',
         'contact_edit'      => 'Rediger :contact_name :field',

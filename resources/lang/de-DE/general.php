@@ -187,7 +187,7 @@ return [
             'field'         => '- :field auswählen -',
             'file'          => 'Datei auswählen',
         ],
-        'add'               => ':field neu hinzufügen',
+        'add'               => ':field hinzufügen',
         'add_an'            => ':field neu hinzufügen',
         'add_new'           => ':field neu hinzufügen',
         'edit'              => ':field bearbeiten',
