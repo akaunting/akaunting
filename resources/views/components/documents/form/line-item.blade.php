@@ -6,18 +6,18 @@
             colspan="7">
             <table class="w-100">
                 <colgroup>
-                    <col style="width: 40px;">
-                    <col style="width: 25%;">
-                    <col style="width: 30%;">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 20%">
-                    <col style="width: 40px;">
+                    <col class="document-item-40-px">
+                    <col class="document-item-25">
+                    <col class="document-item-30 description">
+                    <col class="document-item-10">
+                    <col class="document-item-10">
+                    <col class="document-item-20">
+                    <col class="document-item-40-px">
                 </colgroup>
                 <tbody>
                     <tr>
                         @stack('move_td_start')
-                            <td class="pl-3 pb-3 align-middle border-bottom-0" style="max-width: 40px;" style="color: #8898aa;">
+                            <td class="pl-3 pb-3 align-middle border-bottom-0 move" style="max-width: 40px;" style="color: #8898aa;">
                                 <div>
                                     <i class="fas fa-grip-vertical"></i>
                                 </div>
@@ -27,7 +27,7 @@
                         @stack('items_td_start')
                             @if (!$hideItems || (!$hideName && !$hideDescription))
                                 @stack('name_td_start')
-                                    <td class="pb-3 align-middle border-bottom-0">
+                                    <td class="pb-3 align-middle border-bottom-0 name">
                                         @if (!$hideName)
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
                                             <div v-else>
@@ -53,7 +53,7 @@
                                 @stack('name_td_end')
 
                                 @stack('description_td_start')
-                                    <td class="pb-3 border-bottom-0">
+                                    <td class="pb-3 border-bottom-0 description">
                                         @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
@@ -72,7 +72,7 @@
                         @stack('items_td_end')
 
                         @stack('quantity_td_start')
-                            <td class="pb-3 pl-0 pr-2 border-bottom-0">
+                            <td class="pb-3 pl-0 pr-2 border-bottom-0 quantity">
                                 @if (!$hideQuantity)
                                     <div>
                                         @stack('quantity_input_start')
@@ -97,7 +97,7 @@
                         @stack('quantity_td_end')
 
                         @stack('price_td_start')
-                            <td class="pb-3 pl-0 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                            <td class="pb-3 pl-0 pr-0 border-bottom-0 price" style="padding-right: 5px; padding-left: 5px;">
                                 @if (!$hidePrice)
                                     <div>
                                         @stack('price_input_start')
@@ -109,7 +109,7 @@
                         @stack('price_td_end')
 
                         @stack('total_td_start')
-                            <td class="text-right long-texts pb-3 border-bottom-0">
+                            <td class="text-right long-texts pb-3 border-bottom-0 total">
                                 @if (!$hideAmount)
                                     <div>
                                         {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
@@ -119,7 +119,7 @@
                         @stack('total_td_end')
 
                         @stack('delete_td_start')
-                            <td class="pb-3 pl-2 align-middle border-bottom-0" style="max-width: 40px;" >
+                            <td class="pb-3 pl-2 align-middle border-bottom-0 delete" style="max-width: 40px;" >
                                 <div>
                                     <button type="button" @click="onDeleteItem(index)" class="btn btn-link btn-delete p-0">
                                         <i class="far fa-trash-alt"></i>

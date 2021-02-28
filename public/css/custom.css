@@ -1500,47 +1500,68 @@ table .align-items-center td span.badge {
     margin-top: -50px !important;
 }
 
-.document-50 {
-    width: 50%;
+.document-item-40-px {
+    width: 40px;
 }
 
-.document-30 {
-    width: 30%;
+.document-item-10 {
+    width: 10%;
 }
 
-.document-25 {
+.document-item-20 {
+    width: 20%;
+}
+
+.document-item-25 {
     width: 25%;
 }
 
-.document-40-px {
+.document-item-30 {
+    width: 30%;
+}
+
+.document-total-50 {
+    width: 50%;
+}
+
+.document-total-30 {
+    width: 30%;
+}
+
+.document-total-25 {
+    width: 25%;
+}
+
+.document-total-40-px {
     width: 40px;
 }
 
 @media (max-width: 575.98px) {
-    .document-50 {
+    table#items {
+        min-width: 700px !important ;
+    }
+
+    .document-total-50 {
         width: 20%;
     }
 
-    .document-30 {
+    .document-total-30 {
         width: 40%;
     }
     
-    .document-25 {
+    .document-total-25 {
         width: 35%;
     }
     
-    .document-40-px {
+    .document-total-40-px {
         max-width: 1px;
         width: 1px;
         padding: 0;
         margin: 0;
     }
 
-    #invoice-total-rows td.border-bottom-0.pb-0,
-    #invoice-total-rows .border-top-0.pt-0.pb-0 {
-        max-width: 1px !important;
-        width: 1px !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    .item-add-new button.btn.btn-link.w-100 {
+        text-align: left;
+        padding-left: 15%;
     }
 }

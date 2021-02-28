@@ -7,19 +7,19 @@
         <div class="table-responsive overflow-x-scroll overflow-y-hidden">
             <table class="table" id="items" style="table-layout: fixed">
                 <colgroup>
-                    <col style="width: 40px;">
-                    <col style="width: 25%;">
-                    <col style="width: 30%;">
-                    <col style="width: 10%;">
-                    <col style="width: 10%;">
-                    <col style="width: 20%;">
-                    <col style="width: 40px;">
+                    <col class="document-item-40-px">
+                    <col class="document-item-25">
+                    <col class="document-item-30 description">
+                    <col class="document-item-10">
+                    <col class="document-item-10">
+                    <col class="document-item-20">
+                    <col class="document-item-40-px">
                 </colgroup>
                 <thead class="thead-light">
                     <tr>
                         @stack('move_th_start')
                             <th class="border-top-0 border-right-0 border-bottom-0" style="max-width: 40px">
-                                <div ></div>
+                                <div></div>
                             </th>
                         @stack('move_th_end')
 
@@ -61,7 +61,7 @@
 
                         @stack('remove_th_start')
                             <th class="border-top-0 border-right-0 border-bottom-0" style="max-width: 40px">
-                                <div ></div>
+                                <div></div>
                             </th>
                         @stack('remove_th_end')
                     </tr>
