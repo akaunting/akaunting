@@ -2,8 +2,8 @@
 
 return [
 
-    'from_account'          => 'Од акаунт',
-    'to_account'            => 'На акаунт',
+    'from_account'          => 'Од Сметка',
+    'to_account'            => 'На сметка',
 
     'messages' => [
         'delete'            => ':од на :на (:износ)',
