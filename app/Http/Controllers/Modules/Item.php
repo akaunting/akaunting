@@ -352,7 +352,7 @@ class Item extends Controller
 
     public function documentation($alias)
     {
-        $documentation = $this->getDocumentation($alias);
+        $documentation = $this->getModuleDocumentation($alias);
 
         $back = route('apps.app.show', $alias);
 

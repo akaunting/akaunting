@@ -32,7 +32,7 @@ trait Modules
     // Get All Modules
     public function getModules($data = [])
     {
-        $key = 'apps.app.' . $this->getDataKey($data);
+        $key = 'apps.app.' . $this->getDataKeyOfModules($data);
 
         $items = Cache::get($key);
 
@@ -55,9 +55,9 @@ trait Modules
         return $item;
     }
 
-    public function getDocumentation($alias, $data = [])
+    public function getModuleDocumentation($alias, $data = [])
     {
-        $key = 'apps.' . $alias . '.docs.' . $this->getDataKey($data);
+        $key = 'apps.' . $alias . '.docs.' . $this->getDataKeyOfModules($data);
 
         $documentation = Cache::get($key);
 
@@ -74,7 +74,7 @@ trait Modules
 
     public function getModuleReviews($alias, $data = [])
     {
-        $key = 'apps.' . $alias . '.reviews.' . $this->getDataKey($data);
+        $key = 'apps.' . $alias . '.reviews.' . $this->getDataKeyOfModules($data);
 
         $reviews = Cache::get($key);
 
@@ -89,9 +89,9 @@ trait Modules
         return $reviews;
     }
 
-    public function getCategories($data = [])
+    public function getCategoriesOfModules($data = [])
     {
-        $key = 'apps.categories.' . $this->getDataKey($data);
+        $key = 'apps.categories.' . $this->getDataKeyOfModules($data);
 
         $categories = Cache::get($key);
 
@@ -108,7 +108,7 @@ trait Modules
 
     public function getModulesByCategory($alias, $data = [])
     {
-        $key = 'apps.categories.' . $alias . '.' . $this->getDataKey($data);
+        $key = 'apps.categories.' . $alias . '.' . $this->getDataKeyOfModules($data);
 
         $category = Cache::get($key);
 
@@ -123,9 +123,9 @@ trait Modules
         return $category;
     }
 
-    public function getVendors($data = [])
+    public function getVendorsOfModules($data = [])
     {
-        $key = 'apps.vendors.' . $this->getDataKey($data);
+        $key = 'apps.vendors.' . $this->getDataKeyOfModules($data);
 
         $vendors = Cache::get($key);
 
@@ -142,7 +142,7 @@ trait Modules
 
     public function getModulesByVendor($alias, $data = [])
     {
-        $key = 'apps.vendors.' . $alias . '.' . $this->getDataKey($data);
+        $key = 'apps.vendors.' . $alias . '.' . $this->getDataKeyOfModules($data);
 
         $vendor = Cache::get($key);
 
@@ -191,7 +191,7 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
-        $key = 'apps.pre_sale.' . $this->getDataKey($data);
+        $key = 'apps.pre_sale.' . $this->getDataKeyOfModules($data);
 
         $pre_sale = Cache::get($key);
 
@@ -208,7 +208,7 @@ trait Modules
 
     public function getPaidModules($data = [])
     {
-        $key = 'apps.paid.' . $this->getDataKey($data);
+        $key = 'apps.paid.' . $this->getDataKeyOfModules($data);
 
         $paid = Cache::get($key);
 
@@ -225,7 +225,7 @@ trait Modules
 
     public function getNewModules($data = [])
     {
-        $key = 'apps.new.' . $this->getDataKey($data);
+        $key = 'apps.new.' . $this->getDataKeyOfModules($data);
 
         $new = Cache::get($key);
 
@@ -242,7 +242,7 @@ trait Modules
 
     public function getFreeModules($data = [])
     {
-        $key = 'apps.free.' . $this->getDataKey($data);
+        $key = 'apps.free.' . $this->getDataKeyOfModules($data);
 
         $free = Cache::get($key);
 
@@ -259,7 +259,7 @@ trait Modules
 
     public function getFeaturedModules($data = [])
     {
-        $key = 'apps.featured.' . $this->getDataKey($data);
+        $key = 'apps.featured.' . $this->getDataKeyOfModules($data);
 
         $featured = Cache::get($key);
 
@@ -396,7 +396,7 @@ trait Modules
         return false;
     }
 
-    public function getPageNumber($data = [])
+    public function getPageNumberOfModules($data = [])
     {
         if (empty($data['query']) || empty($data['query']['page'])) {
             return 1;
@@ -405,9 +405,9 @@ trait Modules
         return $data['query']['page'];
     }
 
-    public function getDataKey($data = [])
+    public function getDataKeyOfModules($data = [])
     {
-        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumber($data);
+        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumberOfModules($data);
 
         if (isset($data['query']['page'])) {
             unset($data['query']['page']);
