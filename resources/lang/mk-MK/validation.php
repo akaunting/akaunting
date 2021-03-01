@@ -39,6 +39,7 @@ return [
     'dimensions'           => ':attribute има неважечки димензии на сликата.',
     'distinct'             => 'Полето :attribute има дупликат вредност.',
     'email'                => 'Полето :attribute не е во валиден формат.',
+    'ends_with'            => 'Атрибутот :attribute мора да завршува со следниве вредности: :values',
     'exists'               => 'Избранато поле :attribute веќе постои.',
     'file'                 => ':attribute мора да биде датотека.',
     'filled'               => 'Полето :attribute е задолжително.',
@@ -60,7 +61,7 @@ return [
         'numeric' => 'Полето :attribute мора да биде минимум :min.',
         'file'    => 'Полето :attribute мора да биде минимум :min килобајти.',
         'string'  => 'Полето :attribute мора да има минимум :min карактери.',
-        'array'   => 'Полето :attribute мора да има минимум :min карактери.',
+        'array'   => 'Атрибутот :attribute мора да има минимум :min ставки.',
     ],
     'not_in'               => 'Избраното поле :attribute е невалидно.',
     'numeric'              => 'Полето :attribute мора да биде број.',
@@ -78,7 +79,7 @@ return [
         'numeric' => 'Полето :attribute мора да биде :size.',
         'file'    => 'Полето :attribute мора да биде :size килобајти.',
         'string'  => 'Полето :attribute мора да има :size карактери.',
-        'array'   => 'Полето :attribute мора да има :size карактери.',
+        'array'   => 'Атрибутот :attribute мора да има :size ставки.',
     ],
     'string'               => ':attribute мора да биде стринг.',
     'timezone'             => ':attribute мора да биде валидна зона.',
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'Порака',
+            'rule-name'             => 'Прилагодена порака',
         ],
-        'invalid_currency' => 'Полето :attribute не е во валиден формат.',
-        'invalid_amount'   => 'The amount :attribute is invalid.',
+        'invalid_currency'      => 'Полето :attribute не е во валиден формат.',
+        'invalid_amount'        => 'Вредноста на :attribute не е валидна.',
+        'invalid_extension'     => 'Екстензијата на датотеката не е валидна.',
     ],
 
     /*

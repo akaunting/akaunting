@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Cambiar el nombre de la empresa, correo electrónico, dirección, CUIT, etc',
-        'name'              => 'Nombre',
-        'email'             => 'Correo electrónico',
-        'phone'             => 'Teléfono',
-        'address'           => 'Dirección',
-        'logo'              => 'Logo',
+        'description'                => 'Cambiar el nombre de la empresa, correo electrónico, dirección, CUIT, etc',
+        'name'                       => 'Nombre',
+        'email'                      => 'Correo electrónico',
+        'phone'                      => 'Teléfono',
+        'address'                    => 'Dirección',
+        'edit_your_business_address' => 'Editar la dirección de su empresa',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Establecer año fiscal, zona horaria, formato de fecha y más locales',
         'financial_start'   => 'Inicio del ejercicio financiero',
         'timezone'          => 'Zona horaria',
+        'financial_denote' => [
+            'title'         => 'Año fiscal indicado',
+            'begins'        => 'Por el año en que comienza',
+            'ends'          => 'Por el año en que termina',
+        ],
         'date' => [
             'format'        => 'Formato de fecha',
             'separator'     => 'Separador de fecha',

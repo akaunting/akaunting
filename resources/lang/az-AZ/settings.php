@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Şirkətin adını, adresini, vergi nömrəsini vs. dəyişdirin',
-        'name'              => 'Şirkət Adı',
-        'email'             => 'Şirkət E-poçtu',
-        'phone'             => 'Telefon',
-        'address'           => 'Şirkət Ünvanı',
-        'logo'              => 'Şirkət Logosu',
+        'description'                => 'Şirkətin adını, adresini, vergi nömrəsini vs. dəyişdirin',
+        'name'                       => 'Şirkət Adı',
+        'email'                      => 'Şirkət E-poçtu',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Şirkət Ünvanı',
+        'edit_your_business_address' => 'Hüquqi ünvanınızı daxil edin',
+        'logo'                       => 'Şirkət Logosu',
     ],
 
     'localisation' => [
         'description'       => 'Maliyyə ilinin başlanğıcını, saat qurşağını, tarix formatını və s. dəyişdirin.',
         'financial_start'   => 'Maliyyə ilinin başlanğıcı',
         'timezone'          => 'Saat Qurşağı',
+        'financial_denote' => [
+            'title'         => 'Maliyyə ilini qeyd edin',
+            'begins'        => 'Başlanğıc il',
+            'ends'          => 'Bitiş il',
+        ],
         'date' => [
             'format'        => 'Tarix Formatı',
             'separator'     => 'Tarix Ayracı',

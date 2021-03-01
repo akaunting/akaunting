@@ -39,7 +39,7 @@ class Recurring
                     // Days between invoiced/billed and due date
                     $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$issued_date_field));
 
-                    $clone->due_at = $start_date->addDays($diff_days)->format('Y-m-d');
+                    $clone->due_at = $start_date->copy()->addDays($diff_days)->format('Y-m-d');
                 }
 
                 $clone->parent_id = $item->id;
