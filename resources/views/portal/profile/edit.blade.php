@@ -20,7 +20,7 @@
             <div class="row">
                 {{ Form::textGroup('name', trans('general.name'), 'user') }}
 
-                {{ Form::emailGroup('email', trans('general.email'), 'envelope') }}
+                {{ Form::emailGroup('email', trans('general.email'), 'envelope', ['readonly']) }}
 
                 {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], $user->contact->tax_number) }}
 
