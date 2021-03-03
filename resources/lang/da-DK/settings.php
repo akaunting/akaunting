@@ -16,6 +16,11 @@ return [
         'description'       => 'Indstil regnskabsår, tidszone, datoformat og lokalindstillinger',
         'financial_start'   => 'Regnskabsårets Start',
         'timezone'          => 'Tidszone',
+        'financial_denote' => [
+            'title'         => 'Regnskabets tilhørsår',
+            'begins'        => 'Det år, hvor det begynder',
+            'ends'          => 'Det år, hvor det ender',
+        ],
         'date' => [
             'format'        => 'Datoformat',
             'separator'     => 'Datoseparator',
@@ -104,12 +109,12 @@ return [
             'invoice_new_customer'      => 'Skabelon til ny faktura (sendt til kunder)',
             'invoice_remind_customer'   => 'Fakturapåmindelses-skabelon (sendt til kunder)',
             'invoice_remind_admin'      => 'Fakturapåmindelses-skabelon (sendt til administrator)',
-            'invoice_recur_customer'    => 'Tilbagevendende skabelon for faktura (sendt til kunde)',
+            'invoice_recur_customer'    => 'Skabelon for tilbagevendende faktura (sendt til kunde)',
             'invoice_recur_admin'       => 'Skabelon for tilbagevendende faktura (sendt til administrator)',
             'invoice_payment_customer'  => 'Skabelon for modtaget betaling (sendt til kunder)',
             'invoice_payment_admin'     => 'Skabelon for modtaget betaling (sendt til administrator)',
             'bill_remind_admin'         => 'Skabelon for regningspåmindelse (sendt til administrator)',
-            'bill_recur_admin'          => 'Tilbagevendende skabelon for regning (sendt til administrator)',
+            'bill_recur_admin'          => 'Skabelon for tilbagevendende regning (sendt til administrator)',
         ],
     ],
 
