@@ -36,6 +36,20 @@ abstract class Model extends Eloquent
         parent::__construct($attributes);
     }
 
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        $this->allAttributes = $attributes;
+
+        return parent::update($attributes, $options);
+    }
+
     public static function observe($classes)
     {
         parent::observe($classes);
