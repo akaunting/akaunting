@@ -93,7 +93,4 @@ _ide_helper_models.php
 /storage/debugbar/*
 .phpunit.result.cache
 modules/*
-!modules/OfflinePayments
-!modules/PaypalStandard
-!modules/BC21
 .laravelstatsrc

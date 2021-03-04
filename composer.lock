@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79c12898250f9e11176ed2a82226d3fa",
+    "content-hash": "7957d8f2405488fbcac455b6ed3f5856",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -209,16 +209,16 @@
         },
         {
             "name": "akaunting/module",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module.git",
-                "reference": "d4b82b8f25d8ef1d220b68f23e0b20946037822a"
+                "reference": "e8d5a883a8c0e66baaaaa59b6726d7738c406933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module/zipball/d4b82b8f25d8ef1d220b68f23e0b20946037822a",
-                "reference": "d4b82b8f25d8ef1d220b68f23e0b20946037822a",
+                "url": "https://api.github.com/repos/akaunting/module/zipball/e8d5a883a8c0e66baaaaa59b6726d7738c406933",
+                "reference": "e8d5a883a8c0e66baaaaa59b6726d7738c406933",
                 "shasum": ""
             },
             "require": {
@@ -273,9 +273,76 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module/issues",
-                "source": "https://github.com/akaunting/module/tree/2.0.5"
+                "source": "https://github.com/akaunting/module/tree/2.0.6"
             },
-            "time": "2021-02-25T11:15:01+00:00"
+            "time": "2021-03-04T08:17:22+00:00"
+        },
+        {
+            "name": "akaunting/module-offline-payments",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/module-offline-payments.git",
+                "reference": "09bd63c03bd81c524d97bc112ca29f0d82c14e46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/09bd63c03bd81c524d97bc112ca29f0d82c14e46",
+                "reference": "09bd63c03bd81c524d97bc112ca29f0d82c14e46",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "Offline Payments app for Akaunting",
+            "homepage": "https://akaunting.com",
+            "keywords": [
+                "Accounting",
+                "akaunting",
+                "invoice",
+                "laravel",
+                "offline-payments"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/module-offline-payments/issues",
+                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.0"
+            },
+            "time": "2021-03-04T09:00:22+00:00"
+        },
+        {
+            "name": "akaunting/module-paypal-standard",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/module-paypal-standard.git",
+                "reference": "0dd391492c6ae47f2d91abe27165907029bf7960"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/module-paypal-standard/zipball/0dd391492c6ae47f2d91abe27165907029bf7960",
+                "reference": "0dd391492c6ae47f2d91abe27165907029bf7960",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "Paypal Standard app for Akaunting",
+            "homepage": "https://akaunting.com",
+            "keywords": [
+                "Accounting",
+                "invoice",
+                "laravel",
+                "paypal"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/module-paypal-standard/issues",
+                "source": "https://github.com/akaunting/module-paypal-standard/tree/2.0.0"
+            },
+            "time": "2021-03-04T08:53:43+00:00"
         },
         {
             "name": "akaunting/money",
@@ -4148,16 +4215,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.104",
+            "version": "v1.2.105",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "a581e89a9212c4e9d18049666dc735718c29de9c"
+                "reference": "719c1ed49224857800c3dc40838b6b761d046105"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/a581e89a9212c4e9d18049666dc735718c29de9c",
-                "reference": "a581e89a9212c4e9d18049666dc735718c29de9c",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/719c1ed49224857800c3dc40838b6b761d046105",
+                "reference": "719c1ed49224857800c3dc40838b6b761d046105",
                 "shasum": ""
             },
             "require": {
@@ -4194,9 +4261,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.104"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.105"
             },
-            "time": "2021-01-13T15:25:20+00:00"
+            "time": "2021-03-03T20:55:48+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -4522,16 +4589,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.29.0",
+            "version": "v8.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d2eba352b3b3a3c515b18c5726b373fe5026733e"
+                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d2eba352b3b3a3c515b18c5726b373fe5026733e",
-                "reference": "d2eba352b3b3a3c515b18c5726b373fe5026733e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
+                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
                 "shasum": ""
             },
             "require": {
@@ -4686,20 +4753,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-02-23T14:27:41+00:00"
+            "time": "2021-03-03T14:59:13+00:00"
         },
         {
             "name": "laravel/tinker",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88"
+                "reference": "04ad32c1a3328081097a181875733fa51f402083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/daae1c43f1300fe88c05d83db6f3d8f76677ad88",
-                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/04ad32c1a3328081097a181875733fa51f402083",
+                "reference": "04ad32c1a3328081097a181875733fa51f402083",
                 "shasum": ""
             },
             "require": {
@@ -4752,9 +4819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/tinker/issues",
-                "source": "https://github.com/laravel/tinker/tree/v2.6.0"
+                "source": "https://github.com/laravel/tinker/tree/v2.6.1"
             },
-            "time": "2021-01-26T20:35:18+00:00"
+            "time": "2021-03-02T16:53:12+00:00"
         },
         {
             "name": "laravel/ui",
@@ -5849,6 +5916,62 @@
                 "source": "https://github.com/maximebf/php-debugbar/tree/v1.16.5"
             },
             "time": "2020-12-07T11:07:24+00:00"
+        },
+        {
+            "name": "mnsami/composer-custom-directory-installer",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnsami/composer-custom-directory-installer.git",
+                "reference": "85f66323978d0b1cb0e6acc7f69b3e7b912f82d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnsami/composer-custom-directory-installer/zipball/85f66323978d0b1cb0e6acc7f69b3e7b912f82d9",
+                "reference": "85f66323978d0b1cb0e6acc7f69b3e7b912f82d9",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.3"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Composer\\CustomDirectoryInstaller\\LibraryPlugin",
+                    "Composer\\CustomDirectoryInstaller\\PearPlugin",
+                    "Composer\\CustomDirectoryInstaller\\PluginPlugin"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\CustomDirectoryInstaller": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mina Nabil Sami",
+                    "email": "mina.nsami@gmail.com"
+                }
+            ],
+            "description": "A composer plugin, to help install packages of different types in custom paths.",
+            "keywords": [
+                "composer",
+                "composer-installer",
+                "composer-plugin"
+            ],
+            "support": {
+                "issues": "https://github.com/mnsami/composer-custom-directory-installer/issues",
+                "source": "https://github.com/mnsami/composer-custom-directory-installer/tree/2.0.0"
+            },
+            "time": "2020-08-18T11:00:11+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -7186,16 +7309,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.16.0",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "76d4323b85129d0c368149c831a07a3e258b2b50"
+                "reference": "c55269cb06911575a126dc225a05c0e4626e5fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/76d4323b85129d0c368149c831a07a3e258b2b50",
-                "reference": "76d4323b85129d0c368149c831a07a3e258b2b50",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/c55269cb06911575a126dc225a05c0e4626e5fb4",
+                "reference": "c55269cb06911575a126dc225a05c0e4626e5fb4",
                 "shasum": ""
             },
             "require": {
@@ -7223,7 +7346,7 @@
             },
             "require-dev": {
                 "dompdf/dompdf": "^0.8.5",
-                "friendsofphp/php-cs-fixer": "^2.16",
+                "friendsofphp/php-cs-fixer": "^2.18",
                 "jpgraph/jpgraph": "^4.0",
                 "mpdf/mpdf": "^8.0",
                 "phpcompatibility/php-compatibility": "^9.3",
@@ -7281,9 +7404,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.16.0"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.17.1"
             },
-            "time": "2020-12-31T18:03:49+00:00"
+            "time": "2021-03-02T17:54:11+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -8312,16 +8435,16 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "6.3.1",
+            "version": "6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82"
+                "reference": "9ab3bfdc06afe18b17f69b77cb77291c36dae9f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/dcb43416ecfeacb67e056423780e288c325e9c82",
-                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/9ab3bfdc06afe18b17f69b77cb77291c36dae9f6",
+                "reference": "9ab3bfdc06afe18b17f69b77cb77291c36dae9f6",
                 "shasum": ""
             },
             "require": {
@@ -8375,7 +8498,7 @@
             ],
             "support": {
                 "issues": "https://github.com/santigarcor/laratrust/issues",
-                "source": "https://github.com/santigarcor/laratrust/tree/6.3.1"
+                "source": "https://github.com/santigarcor/laratrust/tree/6.3.2"
             },
             "funding": [
                 {
@@ -8383,7 +8506,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-09T14:25:23+00:00"
+            "time": "2021-03-03T13:34:32+00:00"
         },
         {
             "name": "seld/jsonlint",
@@ -11580,16 +11703,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.5.13",
+            "version": "2.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "5e9ef386aaad9985cee2ac23281a27568d083b7e"
+                "reference": "17097f7a83e200d90d1cf9f4d1b35c1001513a47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/5e9ef386aaad9985cee2ac23281a27568d083b7e",
-                "reference": "5e9ef386aaad9985cee2ac23281a27568d083b7e",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/17097f7a83e200d90d1cf9f4d1b35c1001513a47",
+                "reference": "17097f7a83e200d90d1cf9f4d1b35c1001513a47",
                 "shasum": ""
             },
             "require": {
@@ -11653,7 +11776,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-02-16T12:46:19+00:00"
+            "time": "2021-03-04T08:48:01+00:00"
         },
         {
             "name": "facade/ignition-contracts",

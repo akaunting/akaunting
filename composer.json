@@ -18,6 +18,9 @@
         "akaunting/language": "1.0.*",
         "akaunting/menu": "1.0.*",
         "akaunting/module": "2.0.*",
+        "akaunting/module-bc21": "^2.0",
+        "akaunting/module-offline-payments": "^2.0",
+        "akaunting/module-paypal-standard": "^2.0",
         "akaunting/money": "1.2.*",
         "akaunting/setting": "1.2.*",
         "akaunting/version": "1.0.*",
@@ -47,6 +50,7 @@
         "lorisleiva/laravel-search-string": "1.1.*",
         "maatwebsite/excel": "3.1.*",
         "monooso/unobserve": "^3.0",
+        "mnsami/composer-custom-directory-installer": "2.0.*",
         "plank/laravel-mediable": "4.4.*",
         "riverskies/laravel-mobile-detect": "^1.3",
         "santigarcor/laratrust": "6.3.*",
@@ -67,6 +71,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "installer-paths": {
+            "modules/BC21": ["akaunting/module-bc21"],
+            "modules/OfflinePayments": ["akaunting/module-offline-payments"],
+            "modules/PaypalStandard": ["akaunting/module-paypal-standard"]
         }
     },
     "autoload": {
