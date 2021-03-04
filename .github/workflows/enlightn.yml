@@ -3,7 +3,7 @@ name: Run Enlightn Checks
 on: [pull_request]
 
 jobs:
-  tests:
+  enlightn:
 
     name: Enlightn
 
