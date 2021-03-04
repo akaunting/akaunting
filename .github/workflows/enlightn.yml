@@ -20,6 +20,12 @@ jobs:
           extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
           coverage: none
 
+      - name: View the secrets context
+        shell: bash
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+        run: echo "$SECRETS_CONTEXT"
+
       - name: Install dependencies
         env:
           ENLIGHTN_USERNAME: ${{ secrets.ENLIGHTN_USERNAME }}
