@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7957d8f2405488fbcac455b6ed3f5856",
+    "content-hash": "b5883814c885acc5ac7af99a95b55cb7",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -276,6 +276,40 @@
                 "source": "https://github.com/akaunting/module/tree/2.0.6"
             },
             "time": "2021-03-04T08:17:22+00:00"
+        },
+        {
+            "name": "akaunting/module-bc21",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/module-bc21.git",
+                "reference": "4158c23c70aea22e6fb774a7a0d1d9e3d856fe8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/module-bc21/zipball/4158c23c70aea22e6fb774a7a0d1d9e3d856fe8d",
+                "reference": "4158c23c70aea22e6fb774a7a0d1d9e3d856fe8d",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "BC21 app for Akaunting",
+            "homepage": "https://akaunting.com",
+            "keywords": [
+                "Accounting",
+                "akaunting",
+                "bc21",
+                "invoice",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/module-bc21/issues",
+                "source": "https://github.com/akaunting/module-bc21/tree/2.0.0"
+            },
+            "time": "2021-03-04T09:21:35+00:00"
         },
         {
             "name": "akaunting/module-offline-payments",
