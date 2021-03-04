@@ -123,6 +123,7 @@ return [
             'notification' => ['path' => 'Notifications', 'generate' => false],
             'route' => ['path' => 'Routes', 'generate' => true],
             'component' => ['path' => 'View/Components', 'generate' => false],
+            'cast' => ['path' => 'Casts', 'generate' => false],
         ],
     ],
 
