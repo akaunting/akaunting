@@ -7,17 +7,17 @@
     "content-hash": "ed2cfd48003ad2099257822754c49cf8",
     "packages": [
         {
-            "name": "akaunting/firewall",
-            "version": "1.2.11",
+            "name": "akaunting/laravel-firewall",
+            "version": "1.2.12",
             "source": {
                 "type": "git",
-                "url": "https://github.com/akaunting/firewall.git",
-                "reference": "102a77045789d773572f2efb04341c81e05c0c9f"
+                "url": "https://github.com/akaunting/laravel-firewall.git",
+                "reference": "c0bd97057897e8c060bcae5e86522e259dcee556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/firewall/zipball/102a77045789d773572f2efb04341c81e05c0c9f",
-                "reference": "102a77045789d773572f2efb04341c81e05c0c9f",
+                "url": "https://api.github.com/repos/akaunting/laravel-firewall/zipball/c0bd97057897e8c060bcae5e86522e259dcee556",
+                "reference": "c0bd97057897e8c060bcae5e86522e259dcee556",
                 "shasum": ""
             },
             "require": {
@@ -68,23 +68,23 @@
                 "xss"
             ],
             "support": {
-                "issues": "https://github.com/akaunting/firewall/issues",
-                "source": "https://github.com/akaunting/firewall/tree/1.2.11"
+                "issues": "https://github.com/akaunting/laravel-firewall/issues",
+                "source": "https://github.com/akaunting/laravel-firewall/tree/1.2.12"
             },
-            "time": "2020-09-10T08:44:05+00:00"
+            "time": "2021-03-05T12:17:46+00:00"
         },
         {
-            "name": "akaunting/language",
-            "version": "1.0.17",
+            "name": "akaunting/laravel-language",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
-                "url": "https://github.com/akaunting/language.git",
-                "reference": "de4915505a5d516d87307f864cc54aaebcb7c780"
+                "url": "https://github.com/akaunting/laravel-language.git",
+                "reference": "19fc3e12ce8e5c052eda5ca6ecd3ae2b0f9952d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/language/zipball/de4915505a5d516d87307f864cc54aaebcb7c780",
-                "reference": "de4915505a5d516d87307f864cc54aaebcb7c780",
+                "url": "https://api.github.com/repos/akaunting/laravel-language/zipball/19fc3e12ce8e5c052eda5ca6ecd3ae2b0f9952d3",
+                "reference": "19fc3e12ce8e5c052eda5ca6ecd3ae2b0f9952d3",
                 "shasum": ""
             },
             "require": {
@@ -123,30 +123,30 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Language switcher package for Laravel.",
+            "description": "Language switcher package for Laravel",
             "keywords": [
                 "language",
                 "laravel",
                 "switcher"
             ],
             "support": {
-                "issues": "https://github.com/akaunting/language/issues",
-                "source": "https://github.com/akaunting/language/tree/1.0.17"
+                "issues": "https://github.com/akaunting/laravel-language/issues",
+                "source": "https://github.com/akaunting/laravel-language/tree/1.0.18"
             },
-            "time": "2020-09-09T13:16:09+00:00"
+            "time": "2021-03-05T11:15:14+00:00"
         },
         {
-            "name": "akaunting/menu",
-            "version": "1.0.11",
+            "name": "akaunting/laravel-menu",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
-                "url": "https://github.com/akaunting/menu.git",
-                "reference": "9ffdbee823eeba62347812380cac0522b569347f"
+                "url": "https://github.com/akaunting/laravel-menu.git",
+                "reference": "8ae636d7ba7d40e25db7ac39887a10f62f8619c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/menu/zipball/9ffdbee823eeba62347812380cac0522b569347f",
-                "reference": "9ffdbee823eeba62347812380cac0522b569347f",
+                "url": "https://api.github.com/repos/akaunting/laravel-menu/zipball/8ae636d7ba7d40e25db7ac39887a10f62f8619c6",
+                "reference": "8ae636d7ba7d40e25db7ac39887a10f62f8619c6",
                 "shasum": ""
             },
             "require": {
@@ -193,7 +193,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Menu and sidebar management package for Laravel.",
+            "description": "Menu and sidebar management package for Laravel",
             "keywords": [
                 "bootstrap",
                 "laravel",
@@ -202,23 +202,23 @@
                 "sidebar"
             ],
             "support": {
-                "issues": "https://github.com/akaunting/menu/issues",
-                "source": "https://github.com/akaunting/menu/tree/master"
+                "issues": "https://github.com/akaunting/laravel-menu/issues",
+                "source": "https://github.com/akaunting/laravel-menu/tree/1.0.12"
             },
-            "time": "2020-07-10T13:32:45+00:00"
+            "time": "2021-03-05T11:27:19+00:00"
         },
         {
-            "name": "akaunting/module",
-            "version": "2.0.6",
+            "name": "akaunting/laravel-module",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/akaunting/module.git",
-                "reference": "e8d5a883a8c0e66baaaaa59b6726d7738c406933"
+                "url": "https://github.com/akaunting/laravel-module.git",
+                "reference": "7baae6c557cc973e772550575c9e6c9bc118fbf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module/zipball/e8d5a883a8c0e66baaaaa59b6726d7738c406933",
-                "reference": "e8d5a883a8c0e66baaaaa59b6726d7738c406933",
+                "url": "https://api.github.com/repos/akaunting/laravel-module/zipball/7baae6c557cc973e772550575c9e6c9bc118fbf2",
+                "reference": "7baae6c557cc973e772550575c9e6c9bc118fbf2",
                 "shasum": ""
             },
             "require": {
@@ -264,7 +264,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Module management package for Laravel.",
+            "description": "Module management package for Laravel",
             "keywords": [
                 "akaunting",
                 "laravel",
@@ -272,10 +272,202 @@
                 "rad"
             ],
             "support": {
-                "issues": "https://github.com/akaunting/module/issues",
-                "source": "https://github.com/akaunting/module/tree/2.0.6"
+                "issues": "https://github.com/akaunting/laravel-module/issues",
+                "source": "https://github.com/akaunting/laravel-module/tree/2.0.7"
             },
-            "time": "2021-03-04T08:17:22+00:00"
+            "time": "2021-03-05T11:58:54+00:00"
+        },
+        {
+            "name": "akaunting/laravel-money",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-money.git",
+                "reference": "38e3af880653700d7e67ca028d6d5f422eda96b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/38e3af880653700d7e67ca028d6d5f422eda96b5",
+                "reference": "38e3af880653700d7e67ca028d6d5f422eda96b5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.4",
+                "illuminate/view": ">=5.4",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": ">=1.0",
+                "phpunit/phpunit": ">=5.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Money\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Money\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Currency formatting and conversion package for Laravel",
+            "keywords": [
+                "convert",
+                "currency",
+                "format",
+                "laravel",
+                "money"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-money/issues",
+                "source": "https://github.com/akaunting/laravel-money/tree/1.2.1"
+            },
+            "time": "2021-03-05T12:06:16+00:00"
+        },
+        {
+            "name": "akaunting/laravel-setting",
+            "version": "1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-setting.git",
+                "reference": "6faedfebd866c3f30efeda58e8a142979ed554b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-setting/zipball/6faedfebd866c3f30efeda58e8a142979ed554b2",
+                "reference": "6faedfebd866c3f30efeda58e8a142979ed554b2",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.3",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "laravel/framework": ">=5.3",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": ">=4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Setting\\Provider"
+                    ],
+                    "aliases": {
+                        "Setting": "Akaunting\\Setting\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Setting\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Persistent settings package for Laravel",
+            "keywords": [
+                "Settings",
+                "config",
+                "laravel",
+                "persistent"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-setting/issues",
+                "source": "https://github.com/akaunting/laravel-setting/tree/1.2.5"
+            },
+            "time": "2021-03-05T12:10:57+00:00"
+        },
+        {
+            "name": "akaunting/laravel-version",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-version.git",
+                "reference": "5d632c8ce54131bbe15f22ea135934efbf1fad85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-version/zipball/5d632c8ce54131bbe15f22ea135934efbf1fad85",
+                "reference": "5d632c8ce54131bbe15f22ea135934efbf1fad85",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.2.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Version\\Provider"
+                    ],
+                    "aliases": {
+                        "Version": "Akaunting\\Version\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Version\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Version management package for Laravel",
+            "keywords": [
+                "laravel",
+                "version"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-version/issues",
+                "source": "https://github.com/akaunting/laravel-version/tree/1.0.4"
+            },
+            "time": "2021-03-05T11:00:11+00:00"
         },
         {
             "name": "akaunting/module-bc21",
@@ -377,198 +569,6 @@
                 "source": "https://github.com/akaunting/module-paypal-standard/tree/2.0.0"
             },
             "time": "2021-03-04T08:53:43+00:00"
-        },
-        {
-            "name": "akaunting/money",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/akaunting/money.git",
-                "reference": "75f6d0d036cd1ca82c2926cfae5a7c2759445cfb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/money/zipball/75f6d0d036cd1ca82c2926cfae5a7c2759445cfb",
-                "reference": "75f6d0d036cd1ca82c2926cfae5a7c2759445cfb",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=5.4",
-                "illuminate/view": ">=5.4",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "mockery/mockery": ">=1.0",
-                "phpunit/phpunit": ">=5.7"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Akaunting\\Money\\Provider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Akaunting\\Money\\": "./src"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Denis Duliçi",
-                    "email": "info@akaunting.com",
-                    "homepage": "https://akaunting.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Currency formatting and conversion package for Laravel.",
-            "keywords": [
-                "convert",
-                "currency",
-                "format",
-                "laravel",
-                "money"
-            ],
-            "support": {
-                "issues": "https://github.com/akaunting/money/issues",
-                "source": "https://github.com/akaunting/money/tree/master"
-            },
-            "time": "2020-07-06T06:21:54+00:00"
-        },
-        {
-            "name": "akaunting/setting",
-            "version": "1.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/akaunting/setting.git",
-                "reference": "1e7d9c9c35a6c8f86930b64c38f51db0fbde3111"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/setting/zipball/1e7d9c9c35a6c8f86930b64c38f51db0fbde3111",
-                "reference": "1e7d9c9c35a6c8f86930b64c38f51db0fbde3111",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": ">=5.3",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "laravel/framework": ">=5.3",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": ">=4.8"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Akaunting\\Setting\\Provider"
-                    ],
-                    "aliases": {
-                        "Setting": "Akaunting\\Setting\\Facade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Akaunting\\Setting\\": "./src"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Denis Duliçi",
-                    "email": "info@akaunting.com",
-                    "homepage": "https://akaunting.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Persistent settings package for Laravel.",
-            "keywords": [
-                "Settings",
-                "config",
-                "laravel",
-                "persistent"
-            ],
-            "support": {
-                "issues": "https://github.com/akaunting/setting/issues",
-                "source": "https://github.com/akaunting/setting/tree/1.2.4"
-            },
-            "time": "2021-02-12T22:44:39+00:00"
-        },
-        {
-            "name": "akaunting/version",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/akaunting/version.git",
-                "reference": "aab53338484268958f15ae09517d7cc901b261f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/version/zipball/aab53338484268958f15ae09517d7cc901b261f6",
-                "reference": "aab53338484268958f15ae09517d7cc901b261f6",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": ">=5.2.0",
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Akaunting\\Version\\Provider"
-                    ],
-                    "aliases": {
-                        "Version": "Akaunting\\Version\\Facade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Akaunting\\Version\\": "./src"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Denis Duliçi",
-                    "email": "info@akaunting.com",
-                    "homepage": "https://akaunting.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Version management package for Laravel.",
-            "keywords": [
-                "laravel",
-                "version"
-            ],
-            "support": {
-                "issues": "https://github.com/akaunting/version/issues",
-                "source": "https://github.com/akaunting/version/tree/master"
-            },
-            "time": "2019-09-26T18:32:38+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -4822,16 +4822,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.30.1",
+            "version": "v8.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6"
+                "reference": "2aa5c2488d25178ebc097052c7897a0e463ddc35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
-                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2aa5c2488d25178ebc097052c7897a0e463ddc35",
+                "reference": "2aa5c2488d25178ebc097052c7897a0e463ddc35",
                 "shasum": ""
             },
             "require": {
@@ -4986,7 +4986,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-03-03T14:59:13+00:00"
+            "time": "2021-03-04T15:22:36+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -9247,16 +9247,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.5",
+            "version": "v6.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7"
+                "reference": "d2791ff0b73247cdc2096b14f5580aba40c12bff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/698a6a9f54d7eb321274de3ad19863802c879fb7",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d2791ff0b73247cdc2096b14f5580aba40c12bff",
+                "reference": "d2791ff0b73247cdc2096b14f5580aba40c12bff",
                 "shasum": ""
             },
             "require": {
@@ -9306,7 +9306,7 @@
             ],
             "support": {
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.5"
+                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.6"
             },
             "funding": [
                 {
@@ -9318,20 +9318,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-12T09:35:59+00:00"
+            "time": "2021-03-05T12:08:49+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "89d4b176d12a2946a1ae4e34906a025b7b6b135a"
+                "reference": "d6d0cc30d8c0fda4e7b213c20509b0159a8f4556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/89d4b176d12a2946a1ae4e34906a025b7b6b135a",
-                "reference": "89d4b176d12a2946a1ae4e34906a025b7b6b135a",
+                "url": "https://api.github.com/repos/symfony/console/zipball/d6d0cc30d8c0fda4e7b213c20509b0159a8f4556",
+                "reference": "d6d0cc30d8c0fda4e7b213c20509b0159a8f4556",
                 "shasum": ""
             },
             "require": {
@@ -9399,7 +9399,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.2.3"
+                "source": "https://github.com/symfony/console/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9415,11 +9415,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-28T22:06:19+00:00"
+            "time": "2021-02-23T10:08:49+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -9464,7 +9464,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v5.2.3"
+                "source": "https://github.com/symfony/css-selector/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9484,16 +9484,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v4.4.19",
+            "version": "v4.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c"
+                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
-                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/157bbec4fd773bae53c5483c50951a5530a2cc16",
+                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16",
                 "shasum": ""
             },
             "require": {
@@ -9533,7 +9533,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.19"
+                "source": "https://github.com/symfony/debug/tree/v4.4.20"
             },
             "funding": [
                 {
@@ -9549,7 +9549,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2021-01-28T16:54:48+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -9620,16 +9620,16 @@
         },
         {
             "name": "symfony/error-handler",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/error-handler.git",
-                "reference": "48f18b3609e120ea66d59142c23dc53e9562c26d"
+                "reference": "b547d3babcab5c31e01de59ee33e9d9c1421d7d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/error-handler/zipball/48f18b3609e120ea66d59142c23dc53e9562c26d",
-                "reference": "48f18b3609e120ea66d59142c23dc53e9562c26d",
+                "url": "https://api.github.com/repos/symfony/error-handler/zipball/b547d3babcab5c31e01de59ee33e9d9c1421d7d0",
+                "reference": "b547d3babcab5c31e01de59ee33e9d9c1421d7d0",
                 "shasum": ""
             },
             "require": {
@@ -9669,7 +9669,7 @@
             "description": "Provides tools to manage errors and ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/error-handler/tree/v5.2.3"
+                "source": "https://github.com/symfony/error-handler/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9685,20 +9685,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-28T22:06:19+00:00"
+            "time": "2021-02-11T08:21:20+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "4f9760f8074978ad82e2ce854dff79a71fe45367"
+                "reference": "d08d6ec121a425897951900ab692b612a61d6240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4f9760f8074978ad82e2ce854dff79a71fe45367",
-                "reference": "4f9760f8074978ad82e2ce854dff79a71fe45367",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/d08d6ec121a425897951900ab692b612a61d6240",
+                "reference": "d08d6ec121a425897951900ab692b612a61d6240",
                 "shasum": ""
             },
             "require": {
@@ -9754,7 +9754,7 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v5.2.3"
+                "source": "https://github.com/symfony/event-dispatcher/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9770,7 +9770,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:36:42+00:00"
+            "time": "2021-02-18T17:12:37+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -9853,16 +9853,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "262d033b57c73e8b59cd6e68a45c528318b15038"
+                "reference": "710d364200997a5afde34d9fe57bd52f3cc1e108"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/262d033b57c73e8b59cd6e68a45c528318b15038",
-                "reference": "262d033b57c73e8b59cd6e68a45c528318b15038",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/710d364200997a5afde34d9fe57bd52f3cc1e108",
+                "reference": "710d364200997a5afde34d9fe57bd52f3cc1e108",
                 "shasum": ""
             },
             "require": {
@@ -9895,7 +9895,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v5.2.3"
+                "source": "https://github.com/symfony/filesystem/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9911,20 +9911,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:01:46+00:00"
+            "time": "2021-02-12T10:38:38+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "4adc8d172d602008c204c2e16956f99257248e03"
+                "reference": "0d639a0943822626290d169965804f79400e6a04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/4adc8d172d602008c204c2e16956f99257248e03",
-                "reference": "4adc8d172d602008c204c2e16956f99257248e03",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/0d639a0943822626290d169965804f79400e6a04",
+                "reference": "0d639a0943822626290d169965804f79400e6a04",
                 "shasum": ""
             },
             "require": {
@@ -9956,7 +9956,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v5.2.3"
+                "source": "https://github.com/symfony/finder/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -9972,7 +9972,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-28T22:06:19+00:00"
+            "time": "2021-02-15T18:55:04+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -10055,16 +10055,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "20c554c0f03f7cde5ce230ed248470cccbc34c36"
+                "reference": "54499baea7f7418bce7b5ec92770fd0799e8e9bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/20c554c0f03f7cde5ce230ed248470cccbc34c36",
-                "reference": "20c554c0f03f7cde5ce230ed248470cccbc34c36",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/54499baea7f7418bce7b5ec92770fd0799e8e9bf",
+                "reference": "54499baea7f7418bce7b5ec92770fd0799e8e9bf",
                 "shasum": ""
             },
             "require": {
@@ -10108,7 +10108,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.2.3"
+                "source": "https://github.com/symfony/http-foundation/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -10124,20 +10124,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-03T04:42:09+00:00"
+            "time": "2021-02-25T17:16:57+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "89bac04f29e7b0b52f9fa6a4288ca7a8f90a1a05"
+                "reference": "c452dbe4f385f030c3957821bf921b13815d6140"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/89bac04f29e7b0b52f9fa6a4288ca7a8f90a1a05",
-                "reference": "89bac04f29e7b0b52f9fa6a4288ca7a8f90a1a05",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/c452dbe4f385f030c3957821bf921b13815d6140",
+                "reference": "c452dbe4f385f030c3957821bf921b13815d6140",
                 "shasum": ""
             },
             "require": {
@@ -10172,7 +10172,7 @@
                 "psr/log-implementation": "1.0"
             },
             "require-dev": {
-                "psr/cache": "~1.0",
+                "psr/cache": "^1.0|^2.0|^3.0",
                 "symfony/browser-kit": "^4.4|^5.0",
                 "symfony/config": "^5.0",
                 "symfony/console": "^4.4|^5.0",
@@ -10220,7 +10220,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v5.2.3"
+                "source": "https://github.com/symfony/http-kernel/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -10236,20 +10236,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-03T04:51:58+00:00"
+            "time": "2021-03-04T18:05:55+00:00"
         },
         {
             "name": "symfony/mime",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "7dee6a43493f39b51ff6c5bb2bd576fe40a76c86"
+                "reference": "5155d2fe14ef1eb150e3bdbbc1ec1455df95e9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/7dee6a43493f39b51ff6c5bb2bd576fe40a76c86",
-                "reference": "7dee6a43493f39b51ff6c5bb2bd576fe40a76c86",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/5155d2fe14ef1eb150e3bdbbc1ec1455df95e9cd",
+                "reference": "5155d2fe14ef1eb150e3bdbbc1ec1455df95e9cd",
                 "shasum": ""
             },
             "require": {
@@ -10302,7 +10302,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v5.2.3"
+                "source": "https://github.com/symfony/mime/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -10318,7 +10318,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-02T06:10:15+00:00"
+            "time": "2021-02-15T18:55:04+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -11051,7 +11051,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -11093,7 +11093,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v5.2.3"
+                "source": "https://github.com/symfony/process/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -11113,16 +11113,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "348b5917e56546c6d96adbf21d7f92c9ef563661"
+                "reference": "cafa138128dfd6ab6be1abf6279169957b34f662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/348b5917e56546c6d96adbf21d7f92c9ef563661",
-                "reference": "348b5917e56546c6d96adbf21d7f92c9ef563661",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/cafa138128dfd6ab6be1abf6279169957b34f662",
+                "reference": "cafa138128dfd6ab6be1abf6279169957b34f662",
                 "shasum": ""
             },
             "require": {
@@ -11183,7 +11183,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v5.2.3"
+                "source": "https://github.com/symfony/routing/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -11199,7 +11199,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:15:41+00:00"
+            "time": "2021-02-22T15:48:39+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -11282,16 +11282,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "c95468897f408dd0aca2ff582074423dd0455122"
+                "reference": "4e78d7d47061fa183639927ec40d607973699609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/c95468897f408dd0aca2ff582074423dd0455122",
-                "reference": "c95468897f408dd0aca2ff582074423dd0455122",
+                "url": "https://api.github.com/repos/symfony/string/zipball/4e78d7d47061fa183639927ec40d607973699609",
+                "reference": "4e78d7d47061fa183639927ec40d607973699609",
                 "shasum": ""
             },
             "require": {
@@ -11345,7 +11345,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.2.3"
+                "source": "https://github.com/symfony/string/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -11361,20 +11361,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-25T15:14:59+00:00"
+            "time": "2021-02-16T10:20:28+00:00"
         },
         {
             "name": "symfony/translation",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "c021864d4354ee55160ddcfd31dc477a1bc77949"
+                "reference": "74b0353ab34ff4cca827a2cf909e325d96815e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/c021864d4354ee55160ddcfd31dc477a1bc77949",
-                "reference": "c021864d4354ee55160ddcfd31dc477a1bc77949",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/74b0353ab34ff4cca827a2cf909e325d96815e60",
+                "reference": "74b0353ab34ff4cca827a2cf909e325d96815e60",
                 "shasum": ""
             },
             "require": {
@@ -11391,7 +11391,7 @@
                 "symfony/yaml": "<4.4"
             },
             "provide": {
-                "symfony/translation-implementation": "2.0"
+                "symfony/translation-implementation": "2.3"
             },
             "require-dev": {
                 "psr/log": "~1.0",
@@ -11438,7 +11438,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.2.3"
+                "source": "https://github.com/symfony/translation/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -11454,7 +11454,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:15:41+00:00"
+            "time": "2021-03-04T15:41:09+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -11536,16 +11536,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "72ca213014a92223a5d18651ce79ef441c12b694"
+                "reference": "6a81fec0628c468cf6d5c87a4d003725e040e223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/72ca213014a92223a5d18651ce79ef441c12b694",
-                "reference": "72ca213014a92223a5d18651ce79ef441c12b694",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6a81fec0628c468cf6d5c87a4d003725e040e223",
+                "reference": "6a81fec0628c468cf6d5c87a4d003725e040e223",
                 "shasum": ""
             },
             "require": {
@@ -11604,7 +11604,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.2.3"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -11620,7 +11620,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:15:41+00:00"
+            "time": "2021-02-18T23:11:19+00:00"
         },
         {
             "name": "symfony/yaml",

@@ -14,16 +14,16 @@
     "require": {
         "php": "^7.3.0",
         "ext-bcmath": "*",
-        "akaunting/firewall": "1.2.*",
-        "akaunting/language": "1.0.*",
-        "akaunting/menu": "1.0.*",
-        "akaunting/module": "2.0.*",
+        "akaunting/laravel-firewall": "^1.2",
+        "akaunting/laravel-language": "^1.0",
+        "akaunting/laravel-menu": "^1.0",
+        "akaunting/laravel-module": "^2.0",
+        "akaunting/laravel-money": "^1.2",
+        "akaunting/laravel-setting": "^1.2",
+        "akaunting/laravel-version": "^1.0",
         "akaunting/module-bc21": "^2.0",
         "akaunting/module-offline-payments": "^2.0",
         "akaunting/module-paypal-standard": "^2.0",
-        "akaunting/money": "1.2.*",
-        "akaunting/setting": "1.2.*",
-        "akaunting/version": "1.0.*",
         "barryvdh/laravel-debugbar": "3.5.*",
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.8.*",
@@ -82,7 +82,7 @@
     "autoload": {
         "psr-4": {
             "App\\": ["app/", "modules/BC21"],
-            "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
+            "Akaunting\\Module\\Commands\\": "overrides/akaunting/laravel-module/Commands/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeds\\": "database/seeds/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
@@ -91,10 +91,10 @@
             "Symfony\\Component\\Process\\": "overrides/symfony/process/"
         },
         "exclude-from-classmap": [
-            "vendor/akaunting/module/src/Commands/DeleteCommand.php",
-            "vendor/akaunting/module/src/Commands/DisableCommand.php",
-            "vendor/akaunting/module/src/Commands/EnableCommand.php",
-            "vendor/akaunting/module/src/Commands/InstallCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/DeleteCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/DisableCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/EnableCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/InstallCommand.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
             "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
             "vendor/symfony/process/PhpExecutableFinder.php"
