@@ -16,6 +16,11 @@ return [
         'description'       => 'Steuerjahr, Zeitzone, Datumsformat und mehr lokale Variablen festlegen',
         'financial_start'   => 'Beginn des Finanzjahrs',
         'timezone'          => 'Zeitzone',
+        'financial_denote' => [
+            'title'         => 'Beginn des Finanzjahrs',
+            'begins'        => 'Nach dem Jahr, in dem es beginnt',
+            'ends'          => 'Nach dem Jahr, in dem es endet',
+        ],
         'date' => [
             'format'        => 'Datumsformat',
             'separator'     => 'Datumstrennzeichen',
@@ -33,7 +38,7 @@ return [
         'discount_location' => [
             'name'          => 'Rabatt Position',
             'item'          => 'pro Artikel / Position',
-            'total'         => 'auf Totalbetrag',
+            'total'         => 'Insgesamt',
             'both'          => 'pro Artikel / Position und Totalbetrag',
         ],
     ],
