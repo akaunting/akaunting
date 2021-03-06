@@ -2,6 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Events\Export\HeadingsPreparing;
+use App\Events\Export\RowsPreparing;
 use App\Utilities\Date;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -15,9 +17,12 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
 {
     public $ids;
 
+    public $fields;
+
     public function __construct($ids = null)
     {
         $this->ids = $ids;
+        $this->fields = $this->fields();
     }
 
     public function title(): string
@@ -38,7 +43,7 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
 
         $evil_chars = ['=', '+', '-', '@'];
 
-        foreach ($this->fields() as $field) {
+        foreach ($this->fields as $field) {
             $value = $model->$field;
 
             if (in_array($field, $date_fields)) {
@@ -58,6 +63,15 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
 
     public function headings(): array
     {
-        return $this->fields();
+        event(new HeadingsPreparing($this));
+
+        return $this->fields;
+    }
+
+    public function prepareRows($rows)
+    {
+        event(new RowsPreparing($this, $rows));
+
+        return $rows;
     }
 }
