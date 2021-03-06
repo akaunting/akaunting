@@ -319,7 +319,7 @@ class Company extends Eloquent
 
         $query = user()->companies()->usingSearchString($search)->sortable($sort);
 
-        if ($request->expectsJson()) {
+        if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
         }
 
