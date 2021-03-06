@@ -24,7 +24,7 @@ class Companies extends Controller
      */
     public function index()
     {
-        $companies = Company::collect();
+        $companies = user()->companies()->collect();
 
         return $this->response('common.companies.index', compact('companies'));
     }

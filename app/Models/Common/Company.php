@@ -317,7 +317,7 @@ class Company extends Eloquent
 
         $search = $request->get('search');
 
-        $query = user()->companies()->usingSearchString($search)->sortable($sort);
+        $query->usingSearchString($search)->sortable($sort);
 
         if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
