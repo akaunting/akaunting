@@ -37,6 +37,20 @@ class Setting extends Eloquent
         parent::__construct($attributes);
     }
 
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        $this->allAttributes = $attributes;
+
+        return parent::update($attributes, $options);
+    }
+
     public function company()
     {
         return $this->belongsTo('App\Models\Common\Company');
