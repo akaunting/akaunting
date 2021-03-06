@@ -93,6 +93,7 @@ return [
         Enlightn\Enlightn\Analyzers\Security\CSRFAnalyzer::class,
         Enlightn\Enlightn\Analyzers\Security\StableDependencyAnalyzer::class,
         Enlightn\EnlightnPro\Analyzers\Reliability\DeadRouteAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Performance\UnusedGlobalMiddlewareAnalyzer::class,
     ],
 
     /*
