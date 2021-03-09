@@ -73,7 +73,7 @@ class SearchString extends Component
     {
         $filter = true;
 
-        if (empty($this->getFilterUrl($column, $options)) && (!isset($options['date']) && !isset($options['boolean']))) {
+        if (empty($this->getFilterUrl($column, $options)) && (!isset($options['date']) && !isset($options['boolean']) && !isset($options['values']))) {
             $filter = false;
         }
 
@@ -199,6 +199,10 @@ class SearchString extends Component
                     'value' => empty($options['translation']) ? trans('general.yes') : trans($options['translation'][1]),
                 ],
             ];
+        } else if (isset($options['values'])) {
+            foreach ($options['values'] as $key => $value) {
+                $values[$key] = trans($value);
+            }
         } else if ($search = request()->get('search', false)) {
             $fields = explode(' ', $search);
 
