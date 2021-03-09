@@ -1,9 +1,13 @@
 name: Run Enlightn Checks
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   enlightn:
+    env:
+      ENLIGHTN_USERNAME: ${{ secrets.ENLIGHTN_USERNAME }}
+      ENLIGHTN_API_TOKEN: ${{ secrets.ENLIGHTN_API_TOKEN }}
+      ENLIGHTN_GITHUB_REPO: ${{ github.repository }}
 
     name: Enlightn
 
@@ -20,27 +24,29 @@ jobs:
           extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
           coverage: none
 
-      - name: View the secrets context
-        shell: bash
-        env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }}
-        run: echo "$SECRETS_CONTEXT"
-
-      - name: Install dependencies
-        env:
-          ENLIGHTN_USERNAME: ${{ secrets.ENLIGHTN_USERNAME }}
-          ENLIGHTN_API_TOKEN: ${{ secrets.ENLIGHTN_API_TOKEN }}
+      - name: Install dependencies with Enlightn Pro
+        if: env.ENLIGHTN_API_TOKEN
         run: |
           composer config http-basic.satis.laravel-enlightn.com "$ENLIGHTN_USERNAME" "$ENLIGHTN_API_TOKEN"
           composer config repositories.enlightn composer https://satis.laravel-enlightn.com
           composer require --prefer-dist --no-interaction enlightn/enlightnpro
 
+      - name: Install Composer dependencies
+        if: ${{ !env.ENLIGHTN_API_TOKEN }}
+        run: composer install --prefer-dist --no-interaction
+
       - name: Run Enlightn Checks and Trigger the Enlightn Bot
+        if: github.event_name == 'pull_request' && env.ENLIGHTN_API_TOKEN
         env:
-          ENLIGHTN_USERNAME: ${{ secrets.ENLIGHTN_USERNAME }}
-          ENLIGHTN_API_TOKEN: ${{ secrets.ENLIGHTN_API_TOKEN }}
-          ENLIGHTN_GITHUB_REPO: ${{ github.repository }}
           APP_ENV: local
         run: |
           cp .env.example .env
           php artisan enlightn --ci --report --review --issue=${{ github.event.number }}
+
+      - name: Run Enlightn Checks
+        if: ${{ github.event_name != 'pull_request' || !env.ENLIGHTN_API_TOKEN }}
+        env:
+          APP_ENV: local
+        run: |
+          cp .env.example .env
+          php artisan enlightn --ci
