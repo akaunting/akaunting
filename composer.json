@@ -86,6 +86,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeds\\": "database/seeds/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
+            "Illuminate\\View\\Concerns\\": "overrides/Illuminate/View/Concerns/",
             "Modules\\": "modules/",
             "Symfony\\Component\\Process\\": "overrides/symfony/process/"
         },
@@ -95,6 +96,7 @@
             "vendor/akaunting/laravel-module/src/Commands/EnableCommand.php",
             "vendor/akaunting/laravel-module/src/Commands/InstallCommand.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
+            "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
             "vendor/symfony/process/PhpExecutableFinder.php"
         ],
         "files": [
