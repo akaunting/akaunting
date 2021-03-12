@@ -48,10 +48,18 @@ class Dropzone
                 }
 
                 // multiple file uploaded..
-                if (!Arr::has($parameter, 'dropzone')) {
-                    $files[] = $parameter;
-
-                    continue;
+                if (is_array($parameter)) {
+                    if (!Arr::has($parameter, 'dropzone')) {
+                        $files[] = $parameter;
+    
+                        continue;
+                    }
+                } else if (is_object($parameter)) {
+                    if (empty($parameter->dropzone)) {
+                        $files[] = $parameter;
+    
+                        continue;
+                    }
                 }
 
                 $multiple = true;
