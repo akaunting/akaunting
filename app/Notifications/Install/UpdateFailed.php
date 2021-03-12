@@ -66,7 +66,7 @@ class UpdateFailed extends Notification
             'domain' => request()->getHttpHost(),
         ]);
 
-        $message = trans('notifications.mail.message', [
+        $message = trans('notifications.update.mail.message', [
             'alias'             => $this->getAliasName(),
             'current_version'   => $this->event->old,
             'new_version'       => $this->event->new,
