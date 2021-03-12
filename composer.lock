@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "akaunting/laravel-firewall",
-            "version": "1.2.12",
+            "version": "1.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-firewall.git",
-                "reference": "c0bd97057897e8c060bcae5e86522e259dcee556"
+                "reference": "e686eda1826f83dea2b403480274800c67181d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-firewall/zipball/c0bd97057897e8c060bcae5e86522e259dcee556",
-                "reference": "c0bd97057897e8c060bcae5e86522e259dcee556",
+                "url": "https://api.github.com/repos/akaunting/laravel-firewall/zipball/e686eda1826f83dea2b403480274800c67181d4a",
+                "reference": "e686eda1826f83dea2b403480274800c67181d4a",
                 "shasum": ""
             },
             "require": {
@@ -69,9 +69,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-firewall/issues",
-                "source": "https://github.com/akaunting/laravel-firewall/tree/1.2.12"
+                "source": "https://github.com/akaunting/laravel-firewall/tree/1.2.13"
             },
-            "time": "2021-03-05T12:17:46+00:00"
+            "time": "2021-03-12T19:05:08+00:00"
         },
         {
             "name": "akaunting/laravel-language",
