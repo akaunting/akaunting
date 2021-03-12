@@ -369,15 +369,17 @@ abstract class Report
 
     public function getFormattedDate($date)
     {
+        $formatted_date = null;
+
         switch ($this->getSetting('period')) {
             case 'yearly':
                 $financial_year = $this->getFinancialYear($this->year);
 
                 if ($date->greaterThanOrEqualTo($financial_year->getStartDate()) && $date->lessThanOrEqualTo($financial_year->getEndDate())) {
                     if (setting('localisation.financial_denote') == 'begins') {
-                        $i = $financial_year->getStartDate()->copy()->format($this->getYearlyDateFormat());
+                        $formatted_date = $financial_year->getStartDate()->copy()->format($this->getYearlyDateFormat());
                     } else {
-                        $i = $financial_year->getEndDate()->copy()->format($this->getYearlyDateFormat());
+                        $formatted_date = $financial_year->getEndDate()->copy()->format($this->getYearlyDateFormat());
                     }
                 }
 
@@ -392,18 +394,18 @@ abstract class Report
 
                     $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($this->year));
                     $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($this->year));
+                    
+                    $formatted_date = $start . '-' . $end;
                 }
-
-                $i = $start . '-' . $end;
 
                 break;
             default:
-                $i = $date->copy()->format($this->getMonthlyDateFormat($this->year));
+                $formatted_date = $date->copy()->format($this->getMonthlyDateFormat($this->year));
 
                 break;
         }
 
-        return $i;
+        return $formatted_date;
     }
 
     public function getUrl($action = 'print')
