@@ -15,7 +15,8 @@ return [
             'enabled'   => env('UPDATE_NOTIFICATIONS_SLACK_ENABLED', false),
             'emoji'     => env('UPDATE_NOTIFICATIONS_SLACK_EMOJI', ':warning:'),
             'from'      => env('UPDATE_NOTIFICATIONS_SLACK_FROM', 'Akaunting Update'),
-            'to'        => env('UPDATE_NOTIFICATIONS_SLACK_TO', '#my-channel'),
+            'to'        => env('UPDATE_NOTIFICATIONS_SLACK_TO'), // webhook url
+            'channel'   => env('UPDATE_NOTIFICATIONS_SLACK_CHANNEL', null), // set null to use the default channel of webhook
         ],
 
     ],
