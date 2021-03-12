@@ -111,7 +111,7 @@ class UpdateFailed extends Notification
     protected function getAliasName()
     {
         if ($this->event->alias == 'core') {
-            return ucfirst($this->event->alias);
+            return config('app.name');
         }
 
         $module = module($this->event->alias);
