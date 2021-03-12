@@ -42,6 +42,7 @@
         "kyslik/column-sortable": "^6.0",
         "laracasts/flash": "3.2.*",
         "laravel/framework": "^8.12",
+        "laravel/slack-notification-channel": "^2.3",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "6.2.*",

@@ -68,6 +68,9 @@ class Event extends Provider
         'App\Events\Document\DocumentViewed' => [
             'App\Listeners\Document\MarkDocumentViewed',
         ],
+        'App\Events\Install\UpdateFailed' => [
+            'App\Listeners\Update\SendNotificationOnFailure',
+        ],
         'App\Events\Menu\AdminCreated' => [
             'App\Listeners\Menu\AddAdminItems',
         ],
