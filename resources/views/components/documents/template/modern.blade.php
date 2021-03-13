@@ -234,7 +234,7 @@
                     @stack('grand_total_tr_start')
                         <strong class="float-left">{{ trans($total->name) }}:</strong>
                         <span>@money($total->amount - $document->paid, $document->currency_code, true)</span>
-                    @stack('grandtotal_tr_end')
+                    @stack('grand_total_tr_end')
                 @endif
             @endforeach
         </div>
