@@ -65,6 +65,7 @@ return [
 
     App\Models\Banking\Account::class => [
         'columns' => [
+            'id',
             'name' => ['searchable' => true],
             'number' => ['searchable' => true],
             'bank_name' => ['searchable' => true],
