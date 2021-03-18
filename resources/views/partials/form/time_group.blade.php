@@ -22,7 +22,7 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        :config="{
+        :date-config="{
             allowInput: true,
             wrap: true,
             enableTime: true,
