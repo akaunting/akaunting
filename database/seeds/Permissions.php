@@ -84,6 +84,7 @@ class Permissions extends Seeder
                 'widgets-total-expenses' => 'r',
                 'widgets-total-income' => 'r',
                 'widgets-total-profit' => 'r',
+                'widgets-currencies' => 'r',
             ],
             'manager' => [
                 'admin-panel' => 'r',
@@ -134,6 +135,7 @@ class Permissions extends Seeder
                 'widgets-total-expenses' => 'r',
                 'widgets-total-income' => 'r',
                 'widgets-total-profit' => 'r',
+                'widgets-currencies' => 'r',
             ],
             'customer' => [
                 'client-portal' => 'r',
