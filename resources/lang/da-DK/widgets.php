@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Valutaer',
     'total_income'              => 'Samlet indtægt',
     'receivables'               => 'Tilgodehavender',
     'open_invoices'             => 'Åbne fakturaer',
