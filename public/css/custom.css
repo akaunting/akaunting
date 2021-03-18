@@ -849,6 +849,7 @@ table .align-items-center td span.badge {
     max-width: 62px;
     padding-right: 0;
     padding-left: 0;
+    z-index: 999999;
 }
 
 .navbar-vertical .navbar-nav .nav-link:not(.active) {
@@ -1548,11 +1549,11 @@ table .align-items-center td span.badge {
     .document-total-30 {
         width: 40%;
     }
-    
+
     .document-total-25 {
         width: 35%;
     }
-    
+
     .document-total-40-px {
         max-width: 1px;
         width: 1px;
@@ -1588,7 +1589,7 @@ table .align-items-center td span.badge {
     color: #fff !important;
     background-color: #6da252 !important;
     box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
-    border-color:#6da252 !important;   
+    border-color:#6da252 !important;
 }
 
  /* Color Picker Submit Button Finish */
