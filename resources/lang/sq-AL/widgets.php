@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Monedhat',
     'total_income'              => 'Fitimet Totale',
     'receivables'               => 'Të Arkëtueshmet',
     'open_invoices'             => 'Faturat e Hapura',

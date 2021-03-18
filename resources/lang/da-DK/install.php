@@ -35,7 +35,7 @@ return [
         'company_name'      => 'Firmanavn',
         'company_email'     => 'Officiel e-mail',
         'admin_email'       => 'Administrator e-mail',
-        'admin_password'    => 'Administrator Password',
+        'admin_password'    => 'Administratorpassword',
     ],
 
     'error' => [

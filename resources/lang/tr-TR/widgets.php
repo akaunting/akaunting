@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Para Birimleri',
     'total_income'              => 'Toplam Gelir',
     'receivables'               => 'Alacak',
     'open_invoices'             => 'Açık Faturalar',
