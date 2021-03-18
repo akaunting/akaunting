@@ -36,11 +36,11 @@ class CreateTransfer extends Job
     public function handle()
     {
         \DB::transaction(function () {
-            $expense_currency_code = Account::where('id', $this->request->get('from_account_id'))->pluck('currency_code')->first();
-            $income_currency_code = Account::where('id', $this->request->get('to_account_id'))->pluck('currency_code')->first();
+            $expense_currency_code = $this->getCurrencyCode('from');
+            $income_currency_code = $this->getCurrencyCode('to');
 
-            $expense_currency_rate = config('money.' . $expense_currency_code . '.rate');
-            $income_currency_rate = config('money.' . $income_currency_code . '.rate');
+            $expense_currency_rate = $this->getCurrencyRate('from');
+            $income_currency_rate = $this->getCurrencyRate('to');
 
             $expense_transaction = Transaction::create([
                 'company_id' => $this->request['company_id'],
@@ -87,5 +87,27 @@ class CreateTransfer extends Job
         });
 
         return $this->transfer;
+    }
+
+    protected function getCurrencyCode($type)
+    {
+        $currency_code = $this->request->get($type . '_account_currency_code');
+
+        if (empty($currency_code)) {
+            $currency_code = Account::where('id', $this->request->get($type . '_account_id'))->pluck('currency_code')->first();
+        }
+
+        return $currency_code;
+    }
+
+    protected function getCurrencyRate($type)
+    {
+        $currency_rate = $this->request->get($type . '_account_rate');
+
+        if (empty($currency_rate)) {
+            $currency_rate = config('money.' . $this->getCurrencyCode($type) . '.rate');
+        }
+
+        return $currency_rate;
     }
 }
