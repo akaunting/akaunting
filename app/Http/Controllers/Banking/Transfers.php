@@ -53,9 +53,11 @@ class Transfers extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
+        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
+
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency'));
+        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currencies', 'currency'));
     }
 
     /**
@@ -124,7 +126,11 @@ class Transfers extends Controller
     public function edit(Transfer $transfer)
     {
         $transfer['from_account_id'] = $transfer->expense_transaction->account_id;
+        $transfer['from_currency_code'] = $transfer->expense_transaction->currency_code;
+        $transfer['from_account_rate'] = $transfer->expense_transaction->currency_rate;
         $transfer['to_account_id'] = $transfer->income_transaction->account_id;
+        $transfer['to_currency_code'] = $transfer->income_transaction->currency_code;
+        $transfer['to_account_rate'] = $transfer->income_transaction->currency_rate;
         $transfer['transferred_at'] = Date::parse($transfer->expense_transaction->paid_at)->format('Y-m-d');
         $transfer['description'] = $transfer->expense_transaction->description;
         $transfer['amount'] = $transfer->expense_transaction->amount;
@@ -137,9 +143,11 @@ class Transfers extends Controller
 
         $account = $transfer->expense_transaction->account;
 
+        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
+
         $currency = Currency::where('code', $account->currency_code)->first();
 
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency'));
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currencies', 'currency'));
     }
 
     /**
