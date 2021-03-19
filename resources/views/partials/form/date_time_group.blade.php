@@ -22,7 +22,7 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        :config="{
+        :date-config="{
             allowInput: true,
             @if (!empty($attributes['show-date-format']))
             altInput: true,
@@ -34,15 +34,17 @@
             wrap: true,
             enableTime: true,
             @if (!empty($attributes['seconds']))
-            enableSeconds: true
+            enableSeconds: true,
             @endif
             @if (!empty($attributes['min-date']))
-            minDate: {{ $attributes['min-date'] }}
+            minDate: {{ $attributes['min-date'] }},
             @endif
             @if (!empty($attributes['max-date']))
-            maxDate: {{ $attributes['max-date'] }}
+            maxDate: {{ $attributes['max-date'] }},
             @endif
         }"
+
+        locale="{{ language()->getShortCode() }}"
 
         @if (!empty($attributes['v-model']))
         @interface="form.errors.clear('{{ $attributes['v-model'] }}'); {{ $attributes['v-model'] . ' = $event' }}"
@@ -50,6 +52,10 @@
         @interface="form.errors.clear('{{ 'form.' . $attributes['data-field'] . '.' . $name }}'); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
+        @endif
+
+        @if (!empty($attributes['change']))
+        @change="{{ $attributes['change'] }}"
         @endif
 
         @if (isset($attributes['readonly']))

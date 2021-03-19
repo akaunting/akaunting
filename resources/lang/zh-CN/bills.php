@@ -13,7 +13,7 @@ return [
     'price'                 => '价格',
     'sub_total'             => '小计',
     'discount'              => '折扣',
-    'item_discount'         => 'Line Discount',
+    'item_discount'         => '行折扣',
     'tax_total'             => '税率',
     'total'                 => '总计',
 
@@ -29,29 +29,16 @@ return [
     'histories'             => '历史记录',
     'payments'              => '付款方式',
     'add_payment'           => '新增付款方式',
-    'mark_paid'             => 'Mark Paid',
+    'mark_paid'             => '标记为已付款',
     'mark_received'         => '标记已收到',
-    'mark_cancelled'        => 'Mark Cancelled',
+    'mark_cancelled'        => '标记为已取消',
     'download_pdf'          => '下载 PDF格式',
     'send_mail'             => '发送邮件',
     'create_bill'           => '创建帐单',
     'receive_bill'          => '接收账单',
     'make_payment'          => '支付',
 
-    'statuses' => [
-        'draft'             => '草稿',
-        'received'          => '已收到',
-        'partial'           => '部分',
-        'paid'              => '已付款',
-        'overdue'           => '已逾期',
-        'unpaid'            => '未付款',
-        'cancelled'         => 'Cancelled',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Bill marked as received!',
-        'marked_paid'       => 'Bill marked as paid!',
-        'marked_cancelled'  => 'Bill marked as cancelled!',
         'draft'             => '这是 <b>草稿</b> 账单, 在收到后将反映在图表上。',
 
         'status' => [

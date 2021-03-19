@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Auth\User;
 use App\Models\Common\Company;
+use App\Utilities\Overrider;
 use Faker\Factory;
 use Tests\TestCase;
 
@@ -25,19 +26,10 @@ abstract class FeatureTestCase extends TestCase
         $this->user = User::first();
         $this->company = $this->user->companies()->first();
 
-        session(['company_id' => $this->company->id]);
-
-        // Set Company settings
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
-
-        setting()->set(['email.protocol' => 'array']);
-        setting()->save();
-
-
         // Disable debugbar
         config(['debugbar.enabled', false]);
+
+        Overrider::load('currencies');
     }
 
     /**

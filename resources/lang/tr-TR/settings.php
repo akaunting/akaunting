@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Şirketin ismini, adresini, vergi numrasını vs. değiştirin',
-        'name'              => 'Şirket İsmi',
-        'email'             => 'Şirket Emaili',
-        'phone'             => 'Telefon',
-        'address'           => 'Şirket Adresi',
-        'logo'              => 'Şirket Logosu',
+        'description'                => 'Şirketin ismini, adresini, vergi numrasını vs. değiştirin',
+        'name'                       => 'Şirket İsmi',
+        'email'                      => 'Şirket Emaili',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Şirket Adresi',
+        'edit_your_business_address' => 'Şirket adresini giriniz',
+        'logo'                       => 'Şirket Logosu',
     ],
 
     'localisation' => [
         'description'       => 'Mali yıl başlangıcını, saat dilimini, tarih biçimini vs. ayarlayın',
         'financial_start'   => 'Mali Yıl Başlangıcı',
         'timezone'          => 'Saat Dilimi',
+        'financial_denote' => [
+            'title'         => 'Mali Yıl Gösterimi',
+            'begins'        => 'Yılın başlangıcı',
+            'ends'          => 'Yılın bitişi',
+        ],
         'date' => [
             'format'        => 'Tarih Biçimi',
             'separator'     => 'Tarih Ayracı',
@@ -62,12 +68,21 @@ return [
         'default'           => 'Varsayılan',
         'classic'           => 'Klasik',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Ürün/Hizmet İsmini Gizle',
+            'item_description'  => 'Ürün/Hizmet Açıklamasını Gizle',
+            'quantity'          => 'Miktarı Gizle',
+            'price'             => 'Fiyatı Gizle',
+            'amount'            => 'Tutarı Gizle',
+        ],
     ],
 
     'default' => [
         'description'       => 'Şirketinizin varsayılan hesap, para birimi, dil vs',
         'list_limit'        => 'Sayfa Başına Kayıt Sayısı',
         'use_gravatar'      => 'Gravatar kullanın',
+        'income_category'   => 'Gelir Kategorisi',
+        'expense_category'  => 'Gider Kategorisi',
     ],
 
     'email' => [

@@ -18,7 +18,6 @@
         'use strict';
 
         var Layout = (function() {
-
             function pinSidenav() {
                 $('.sidenav-toggler').addClass('active');
                 $('.sidenav-toggler').data('action', 'sidenav-unpin');
@@ -32,7 +31,7 @@
             function unpinSidenav() {
                 $('.sidenav-toggler').removeClass('active');
                 $('.sidenav-toggler').data('action', 'sidenav-pin');
-                $('body').removeClass('g-sidenav-pinned').removeClass('g-sidenav-show').addClass('g-sidenav-hidden');
+                $('body').removeClass('g-sidenav-pinned').addClass('g-sidenav-hidden');
                 $('body').find('.backdrop').remove();
 
                 // Store the sidenav state in a cookie session
@@ -43,7 +42,7 @@
 
             var $sidenavState = Cookies.get('sidenav-state') ? Cookies.get('sidenav-state') : 'pinned';
 
-            if($(window).width() > 1200) {
+            if ($(window).width() > 1200) {
                 if($sidenavState == 'pinned') {
                     pinSidenav()
                 }
@@ -137,4 +136,5 @@
 
     @stack('body_scripts')
 
+    @livewireScripts
 @stack('scripts_end')

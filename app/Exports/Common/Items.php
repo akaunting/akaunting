@@ -2,40 +2,24 @@
 
 namespace App\Exports\Common;
 
-use App\Abstracts\Export;
-use App\Models\Common\Item as Model;
+use App\Exports\Common\Sheets\Items as Base;
+use App\Exports\Common\Sheets\ItemTaxes;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class Items extends Export
+class Items implements WithMultipleSheets
 {
-    public function collection()
+    public $ids;
+
+    public function __construct($ids = null)
     {
-        $model = Model::with('category', 'tax')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        $this->ids = $ids;
     }
 
-    public function map($model): array
-    {
-        $model->category_name = $model->category->name;
-        $model->tax_rate = $model->tax->rate;
-
-        return parent::map($model);
-    }
-
-    public function fields(): array
+    public function sheets(): array
     {
         return [
-            'name',
-            'description',
-            'sale_price',
-            'purchase_price',
-            'category_name',
-            'tax_rate',
-            'enabled',
+            'items' => new Base($this->ids),
+            'item_taxes' => new ItemTaxes($this->ids),
         ];
     }
 }

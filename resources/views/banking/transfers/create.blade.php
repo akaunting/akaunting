@@ -17,13 +17,23 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::selectGroup('from_account_id', trans('transfers.from_account'), 'university', $accounts, null, ['required' => 'required', 'change' => 'onChangeAccount']) }}
+                    {{ Form::selectGroup('from_account_id', trans('transfers.from_account'), 'university', $accounts, null, ['required' => 'required', 'change' => 'onChangeFromAccount']) }}
 
-                    {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts) }}
+                    {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts, null, ['required' => 'required', 'change' => 'onChangeToAccount']) }}
+
+                    <div class="d-none w-100" :class="[{'d-flex' : show_rate}]">
+                        {!! Form::hidden('from_currency_code', null, ['id' => 'from_currency_code', 'v-model' => 'form.from_currency_code']) !!}
+
+                        {{ Form::textGroup('from_account_rate', trans('transfers.from_account_rate'), 'sliders-h', []) }}
+
+                        {!! Form::hidden('to_currency_code', null, ['id' => 'to_currency_code', 'v-model' => 'form.to_currency_code']) !!}
+
+                        {{ Form::textGroup('to_account_rate', trans('transfers.to_account_rate'), 'sliders-h', []) }}
+                    </div>
 
                     {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0) }}
 
-                    {{ Form::dateGroup('transferred_at', trans('general.date'), 'calendar', ['id' => 'transferred_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
+                    {{ Form::dateGroup('transferred_at', trans('general.date'), 'calendar', ['id' => 'transferred_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
@@ -46,5 +56,8 @@
 @endsection
 
 @push('scripts_start')
+    <script type="text/javascript">
+    </script>
+
     <script src="{{ asset('public/js/banking/transfers.js?v=' . version('short')) }}"></script>
 @endpush

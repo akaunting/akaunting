@@ -1,45 +1,76 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Setting\Currency;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Setting\Currency as Model;
 
-$factory->define(Currency::class, function (Faker $faker) use ($company) {
-    session(['company_id' => $company->id]);
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Currency extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    $currencies = config('money');
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $currencies = config('money');
 
-    Currency::pluck('code')->each(function ($db_code) use (&$currencies) {
-        unset($currencies[$db_code]);
-    });
+        Model::pluck('code')->each(function ($db_code) use (&$currencies) {
+            unset($currencies[$db_code]);
+        });
 
-    $random = $faker->randomElement($currencies);
+        $random = $this->faker->randomElement($currencies);
 
-    $filtered = array_filter($currencies, function ($value) use ($random) {
-        return ($value['code'] == $random['code']);
-    });
+        $filtered = array_filter($currencies, function ($value) use ($random) {
+            return ($value['code'] == $random['code']);
+        });
 
-    $code = key($filtered);
-    $currency = $filtered[$code];
+        $code = key($filtered);
+        $currency = $filtered[$code];
 
-    return [
-        'company_id' => $company->id,
-        'name' => $currency['name'],
-        'code' => $code,
-        'rate' => $faker->randomFloat($currency['precision'], 1, 10),
-        'precision' => $currency['precision'],
-        'symbol' => $currency['symbol'],
-        'symbol_first' => $currency['symbol_first'],
-        'decimal_mark' => $currency['decimal_mark'],
-        'thousands_separator' => $currency['thousands_separator'],
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+        return [
+            'company_id' => $this->company->id,
+            'name' => $currency['name'],
+            'code' => $code,
+            'rate' => $this->faker->randomFloat($currency['precision'], 1, 10),
+            'precision' => $currency['precision'],
+            'symbol' => $currency['symbol'],
+            'symbol_first' => $currency['symbol_first'],
+            'decimal_mark' => $currency['decimal_mark'],
+            'thousands_separator' => $currency['thousands_separator'],
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Currency::class, 'enabled', ['enabled' => 1]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Currency::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
+}

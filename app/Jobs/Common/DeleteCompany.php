@@ -3,7 +3,6 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
-use App\Models\Common\Company;
 use App\Traits\Users;
 
 class DeleteCompany extends Job
@@ -12,14 +11,17 @@ class DeleteCompany extends Job
 
     protected $company;
 
+    protected $active_company_id;
+
     /**
      * Create a new job instance.
      *
      * @param  $request
      */
-    public function __construct($company)
+    public function __construct($company, $active_company_id)
     {
         $this->company = $company;
+        $this->active_company_id = $active_company_id;
     }
 
     /**
@@ -33,9 +35,8 @@ class DeleteCompany extends Job
 
         \DB::transaction(function () {
             $this->deleteRelationships($this->company, [
-                'accounts', 'bills', 'bill_histories', 'bill_items', 'bill_item_taxes', 'bill_totals', 'categories',
-                'contacts', 'currencies', 'dashboards', 'email_templates', 'invoices', 'invoice_histories', 'invoice_items',
-                'invoice_item_taxes', 'invoice_totals', 'items', 'modules', 'module_histories', 'reconciliations',
+                'accounts', 'documents', 'document_histories', 'document_items', 'document_item_taxes', 'document_totals', 'categories',
+                'contacts', 'currencies', 'dashboards', 'email_templates', 'items', 'modules', 'module_histories', 'reconciliations',
                 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
             ]);
 
@@ -53,7 +54,7 @@ class DeleteCompany extends Job
     public function authorize()
     {
         // Can't delete active company
-        if ($this->company->id == session('company_id')) {
+        if ($this->company->id == $this->active_company_id) {
             $message = trans('companies.error.delete_active');
 
             throw new \Exception($message);

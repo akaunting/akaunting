@@ -7,11 +7,12 @@ use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Traits\Contacts;
 use App\Traits\DateTime;
+use App\Traits\SearchString;
 use Date;
 
 abstract class Report
 {
-    use Contacts, DateTime;
+    use Contacts, DateTime, SearchString;
 
     protected $classes = [];
 
@@ -50,49 +51,67 @@ abstract class Report
         return $years;
     }
 
-    public function getAccounts()
+    public function getAccounts($limit = false)
     {
-        return Account::enabled()->orderBy('name')->pluck('name', 'id')->toArray();
+        $model = Account::enabled()->orderBy('name');
+
+        if ($limit !== false) {
+            $model->take(setting('default.select_limit'));
+        }
+
+        return $model->pluck('name', 'id')->toArray();
     }
 
-    public function getItemCategories()
+    public function getItemCategories($limit = false)
     {
-        return $this->getCategories('item');
+        return $this->getCategories('item', $limit);
     }
 
-    public function getIncomeCategories()
+    public function getIncomeCategories($limit = false)
     {
-        return $this->getCategories('income');
+        return $this->getCategories('income', $limit);
     }
 
-    public function getExpenseCategories()
+    public function getExpenseCategories($limit = false)
     {
-        return $this->getCategories('expense');
+        return $this->getCategories('expense', $limit);
     }
 
-    public function getIncomeExpenseCategories()
+    public function getIncomeExpenseCategories($limit = false)
     {
-        return $this->getCategories(['income', 'expense']);
+        return $this->getCategories(['income', 'expense'], $limit);
     }
 
-    public function getCategories($types)
+    public function getCategories($types, $limit = false)
     {
-        return Category::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
+        $model = Category::type($types)->orderBy('name');
+
+        if ($limit !== false) {
+            $model->take(setting('default.select_limit'));
+        }
+
+        return $model->pluck('name', 'id')->toArray();
     }
 
-    public function getCustomers()
+    public function getCustomers($limit = false)
     {
-        return $this->getContacts($this->getCustomerTypes());
+        return $this->getContacts($this->getCustomerTypes(), $limit);
     }
 
-    public function getVendors()
+    public function getVendors($limit = false)
     {
-        return $this->getContacts($this->getVendorTypes());
+        return $this->getContacts($this->getVendorTypes(), $limit);
     }
 
-    public function getContacts($types)
+    public function getContacts($types, $limit = false)
     {
-        return Contact::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
+        $model = Contact::type($types)->orderBy('name');
+
+        if ($limit !== false) {
+            $model->take(setting('default.select_limit'));
+        }
+
+        return $model->pluck('name', 'id')->toArray();
     }
 
     public function applyDateFilter($event)
@@ -102,16 +121,22 @@ abstract class Report
 
     public function applySearchStringFilter($event)
     {
-        $event->model->usingSearchString(request('search'));
+        $input = request('search');
+
+        // Remove year as it's handled based on financial start
+        $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);
+        $input = str_replace($search_year, '', $input);
+
+        $event->model->usingSearchString($input);
     }
 
     public function applyAccountGroup($event)
     {
-        if (($event->model->getTable() != 'invoices') && ($event->model->getTable() != 'bills')) {
+        if ($event->model->getTable() != 'documents') {
             return;
         }
 
-        $filter = request('accounts', []);
+        $filter = explode(',', $this->getSearchStringValue('account_id'));
 
         $event->model->account_id = 0;
 

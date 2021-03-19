@@ -3,6 +3,8 @@
     <akaunting-select-remote
         class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
 
+        id="form-select-{{ $name }}"
+
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
         @else
@@ -14,6 +16,14 @@
         placeholder="{{ trans('general.form.select.field', ['field' => $text]) }}"
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
+
+        @if (isset($attributes['disabledOptions']))
+        :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
+        @endif
+
+        @if (isset($attributes['dynamicOptions']))
+        :dynamic-options="{{ $attributes['dynamicOptions'] }}"
+        @endif
 
         @if (isset($selected) || old($name))
         value="{{ old($name, $selected) }}"
@@ -35,6 +45,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (!empty($attributes['visible-change']))
+        @visible-change="{{ $attributes['visible-change'] }}"
+        @endif
+        
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif
@@ -54,9 +68,8 @@
         @endif
 
         remote-action="{{ $attributes['remote_action'] }}"
-        remote-type="'{{ $attributes['remote_type'] }}"
 
-        @if (!empty($attributes['currecny_code'])) 
+        @if (!empty($attributes['currecny_code']))
         currency-code="{{ $attributes['currecny_code'] }}"
         @endif
 

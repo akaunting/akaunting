@@ -2,12 +2,10 @@
 
 namespace App\Events\Common;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class CompanyUpdating
+class CompanyUpdating extends Event
 {
-    use SerializesModels;
-
     public $company;
 
     public $request;

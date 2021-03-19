@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Recibir Recibo',
     'make_payment'          => 'Hacer Pago',
 
-    'statuses' => [
-        'draft'             => 'Borrador',
-        'received'          => 'Recibido',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pagado',
-        'overdue'           => 'Vencido',
-        'unpaid'            => 'No Pagado',
-        'cancelled'         => 'Cancelado',
-    ],
-
     'messages' => [
-        'marked_received'   => '¡Recibo marcada como recibido!',
-        'marked_paid'       => '¡Recibo marcado como pagado!',
-        'marked_cancelled'  => '¡Recibo marcado como cancelado!',
         'draft'             => 'Este es un borrador del recibo y será reflejado en los gráficos después de ser recibido.',
 
         'status' => [

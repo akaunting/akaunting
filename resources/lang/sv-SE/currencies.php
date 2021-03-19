@@ -9,6 +9,7 @@ return [
     'thousands_separator'   => 'Tusentals avgränsare',
     'precision'             => 'Noggrannhet
 	',
+    'conversion'            => 'Valutakonvertering: :price (:currency_code) vid :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbol',
         'position'          => 'Symbol Position',

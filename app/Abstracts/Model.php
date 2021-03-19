@@ -2,7 +2,6 @@
 
 namespace App\Abstracts;
 
-use App\Scopes\Company;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -22,16 +21,38 @@ abstract class Model extends Eloquent
         'enabled' => 'boolean',
     ];
 
+    public $allAttributes = [];
+
     /**
-     * The "booting" method of the model.
+     * Create a new Eloquent model instance.
      *
+     * @param  array  $attributes
      * @return void
      */
-    protected static function boot()
+    public function __construct(array $attributes = [])
     {
-        parent::boot();
+        $this->allAttributes = $attributes;
 
-        static::addGlobalScope(new Company);
+        parent::__construct($attributes);
+    }
+
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        $this->allAttributes = $attributes;
+
+        return parent::update($attributes, $options);
+    }
+
+    public static function observe($classes)
+    {
+        parent::observe($classes);
     }
 
     /**
@@ -42,6 +63,18 @@ abstract class Model extends Eloquent
     public function company()
     {
         return $this->belongsTo('App\Models\Common\Company');
+    }
+
+    /**
+     * Scope to only include company data.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllCompanies($query)
+    {
+        return $query->withoutGlobalScope('App\Scopes\Company');
     }
 
     /**
@@ -70,9 +103,16 @@ abstract class Model extends Eloquent
         $request = request();
 
         $search = $request->get('search');
+
+        $query->usingSearchString($search)->sortable($sort);
+
+        if ($request->expectsJson() && $request->isNotApi()) {
+            return $query->get();
+        }
+
         $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+        return $query->paginate($limit);
     }
 
     /**

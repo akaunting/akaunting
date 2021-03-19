@@ -3,32 +3,32 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Cash',
+        'cash'              => 'نقدی',
     ],
 
     'categories' => [
-        'deposit'           => 'Deposit',
-        'sales'             => 'Sales',
+        'deposit'           => 'اقساط',
+        'sales'             => 'فروش',
     ],
 
     'currencies' => [
-        'usd'               => 'US Dollar',
-        'eur'               => 'Euro',
-        'gbp'               => 'British Pound',
-        'try'               => 'Turkish Lira',
+        'usd'               => 'دلار آمریکا',
+        'eur'               => 'یورو',
+        'gbp'               => 'پوند انگلیس',
+        'try'               => 'لیره ترکیه',
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'نقدی',
+        'bank'              => 'حواله بانکی',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'درآمد ماهیانه بر اساس دسته‌بندی.',
+        'expense'           => 'هزینه ماهیانه بر اساس دسته‌بندی.',
+        'income_expense'    => 'درآمد در مقایسه با هزینه ماهیانه بر اساس دسته‌بندی.',
+        'tax'               => 'خلاصه مالیات فصلی.',
+        'profit_loss'       => 'سود و زیان فصلی بر اساس دسته‌بندی.',
     ],
 
 ];

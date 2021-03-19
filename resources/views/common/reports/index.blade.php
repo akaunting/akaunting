@@ -3,9 +3,9 @@
 @section('title', trans_choice('general.reports', 2))
 
 @section('new_button')
-    @permission('create-common-reports')
+    @can('create-common-reports')
         <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('reports.clear') }}" class="btn btn-warning btn-sm">{{ trans('general.clear_cache') }}</a>
 @endsection
 
@@ -19,24 +19,28 @@
             @foreach($reports as $report)
                 <div class="col-md-4">
                     <div class="card card-stats">
+                        @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
                         <span>
                             <div class="dropdown card-action-button">
                                 <a class="btn btn-sm items-align-center py-2 mr-0 shadow-none--hover" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-ellipsis-v text-primary"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
-                                    @permission('create-common-reports')
+                                    @can('update-common-reports')
+                                        <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
+                                    @endcan
+                                    @can('create-common-reports')
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
-                                    @endpermission
-                                    @permission('delete-common-reports')
+                                    @endcan
+                                    @can('delete-common-reports')
                                         <div class="dropdown-divider"></div>
                                         {!! Form::deleteLink($report, 'common/reports') !!}
-                                    @endpermission
+                                    @endcan
                                 </div>
                             </div>
                         </span>
+                        @endcanany
 
                         <div class="card-body">
                             <div class="row">

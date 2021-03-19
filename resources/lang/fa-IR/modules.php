@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key'               => 'API Key',
+    'api_key'               => 'کلید API',
     'my_apps'               => 'برنامه‌های من',
     'pre_sale'              => 'پیش فروش',
     'top_paid'              => 'بهترین غیر رایگان',
@@ -11,9 +11,9 @@ return [
     'free'                  => 'رایگان',
     'install'               => 'نصب',
     'buy_now'               => 'خرید',
-    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">دریافت کلید API</a>',
     'no_apps'               => 'در این بخش هیچ نرم افزاری وجود ندارد.',
-    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
+    'become_developer'      => 'آیا شما یک توسعه دهنده هستید؟<a href=":url" target="_blank">با مراجعه به سایت فروشگاهی می توانید نرم افزار های خود را بسیازید و بفروشید.</a>',
     'recommended_apps'      => 'برنامه‌های توصیه شده',
 
     'about'                 => 'درباره ما',
@@ -40,20 +40,20 @@ return [
 
     'installation' => [
         'header'            => 'محل نصب نرم افزار',
-        'download'          => 'Downloading :module',
-        'unzip'             => 'Extracting :module files',
-        'file_copy'         => 'Copying :module files',
-        'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to updates page',
-        'install'           => 'Installing :module',
+        'download'          => 'دریافت فایل :module',
+        'unzip'             => 'ایجاد خروجی از فایل های :module',
+        'file_copy'         => 'در حال کپی فایل های :module',
+        'finish'            => 'نهایی سازی نصب :module',
+        'redirect'          => ':module نصب شد، در حال انتقال به صفحه آپدیت ها',
+        'install'           => 'در حال نصب :module',
     ],
 
     'errors' => [
-        'download'          => 'Not able to download :module',
-        'zip'               => 'Not able to create :module zip file',
-        'unzip'             => 'Not able to unzip :module',
-        'file_copy'         => 'Not able to copy :module files',
-        'finish'            => 'Not able to finalize :module installation',
+        'download'          => 'امکان دانلود :module وجود ندارد',
+        'zip'               => 'امکان ساخت فایل فشرده :module وجود ندارد',
+        'unzip'             => 'امکان خارج کردن :module از حالت فشرده وجود ندارد',
+        'file_copy'         => 'امکان کپی کردن فایل های :module وجود ندارد',
+        'finish'            => 'امکان نهایی کردن نصب :module وجود ندارد',
     ],
 
     'badge' => [

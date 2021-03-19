@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Ndryshoni emrin e kompanisë, emailin, adresën, numrin e taksave etj',
-        'name'              => 'Emri',
-        'email'             => 'Email',
-        'phone'             => 'Telefoni',
-        'address'           => 'Adresa',
-        'logo'              => 'Logoja',
+        'description'                => 'Ndryshoni emrin e kompanisë, emailin, adresën, numrin e taksave etj',
+        'name'                       => 'Emri',
+        'email'                      => 'Email',
+        'phone'                      => 'Telefoni',
+        'address'                    => 'Adresa',
+        'edit_your_business_address' => 'Redakto adresën e biznesit tënd',
+        'logo'                       => 'Logoja',
     ],
 
     'localisation' => [
         'description'       => 'Vendosni vitin fiskal, zonën e kohës, formatin e datës dhe më shumë vendorë',
         'financial_start'   => 'Fillimi i Vitit Financiar',
         'timezone'          => 'Zona Kohore',
+        'financial_denote' => [
+            'title'         => 'Treguesi i Vitit Fiskal',
+            'begins'        => 'Deri në vitin në të cilin fillon',
+            'ends'          => 'Deri në vitin në të cilin përfundon',
+        ],
         'date' => [
             'format'        => 'Formati i Datës',
             'separator'     => 'Ndarës i Datës',
@@ -62,12 +68,21 @@ return [
         'default'           => 'Parazgjedhur',
         'classic'           => 'Klasike',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Fshih Emrin e Artikullit',
+            'item_description'  => 'Fshih Përshkrimin e Artikullit',
+            'quantity'          => 'Fshih Sasinë',
+            'price'             => 'Fshih Çmimin',
+            'amount'            => 'Fshih Shumën',
+        ],
     ],
 
     'default' => [
         'description'       => 'Llogaria, monedha, gjuha e paracaktuar e kompanisë suaj',
         'list_limit'        => 'Rekordet Për Faqe',
         'use_gravatar'      => 'Përdorni Gravatar',
+        'income_category'   => 'Kategoria e Fitimeve',
+        'expense_category'  => 'Kategoria e Shpenzimeve',
     ],
 
     'email' => [

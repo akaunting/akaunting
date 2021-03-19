@@ -2,7 +2,7 @@
 
 return [
 
-    'recurring'             => 'Pasikartojantis',
+    'recurring'             => 'Periodinis',
     'every'                 => 'Kiekvieną',
     'period'                => 'Periodas',
     'times'                 => 'Kartus',
@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Savaite(ės)',
     'months'                => 'Mėnuo(iai)',
     'years'                 => 'Metai(s)',
-    'message'               => 'Tai pasikartojanti :type ir kita :type bus automatiškai sugeneruota :date',
+    'message'               => 'Tai pasikartojanti(s) :type ir kita(s) :type bus automatiškai sugeneruota(s) :date',
 
 ];

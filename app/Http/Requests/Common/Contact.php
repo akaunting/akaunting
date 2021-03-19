@@ -23,7 +23,6 @@ class Contact extends FormRequest
      */
     public function rules()
     {
-
         $email = '';
         $required = '';
 
@@ -32,7 +31,9 @@ class Contact extends FormRequest
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = is_numeric($this->$type) ? $this->$type : $this->$type->getAttribute('id');
+            $model = $this->isApi() ? 'contact' : $type;
+
+            $id = is_numeric($this->$model) ? $this->$model : $this->$model->getAttribute('id');
         } else {
             $id = null;
         }

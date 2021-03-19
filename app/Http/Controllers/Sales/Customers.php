@@ -12,7 +12,7 @@ use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use Date;
 use Illuminate\Http\Request as BaseRequest;
@@ -28,7 +28,7 @@ class Customers extends Controller
     {
         $customers = Contact::with('invoices.transactions')->customer()->collect();
 
-        return view('sales.customers.index', compact('customers'));
+        return $this->response('sales.customers.index', compact('customers'));
     }
 
     /**
@@ -49,7 +49,7 @@ class Customers extends Controller
         $counts = [];
 
         // Handle invoices
-        $invoices = Invoice::with('transactions')->where('contact_id', $customer->id)->get();
+        $invoices = Document::invoice()->with('transactions')->where('contact_id', $customer->id)->get();
 
         $counts['invoices'] = $invoices->count();
 
@@ -87,7 +87,7 @@ class Customers extends Controller
 
         $limit = request('limit', setting('default.list_limit', '25'));
         $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
-        $invoices = $this->paginate($invoices->sortByDesc('invoiced_at'), $limit);
+        $invoices = $this->paginate($invoices->sortByDesc('issued_at'), $limit);
 
         return view('sales.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices'));
     }
@@ -126,7 +126,7 @@ class Customers extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -159,13 +159,23 @@ class Customers extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('customers.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 1)]);
 
-        return redirect()->route('customers.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'customers']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -205,7 +215,7 @@ class Customers extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -267,7 +277,7 @@ class Customers extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -280,7 +290,7 @@ class Customers extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.customers', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.customers', 2));
     }
 
     public function currency(Contact $customer)

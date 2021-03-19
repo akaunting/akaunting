@@ -30,7 +30,7 @@ class Items extends Controller
     {
         $items = Item::with('category', 'media')->collect();
 
-        return view('common.items.index', compact('items'));
+        return $this->response('common.items.index', compact('items'));
     }
 
     /**
@@ -50,7 +50,7 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -78,7 +78,7 @@ class Items extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -111,13 +111,23 @@ class Items extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('items.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
-        return redirect()->route('items.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['common', 'items']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -129,7 +139,11 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+
+        if ($item->category && !$categories->has($item->category_id)) {
+            $categories->put($item->category->id, $item->category->name);
+        }
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -158,7 +172,7 @@ class Items extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -220,7 +234,7 @@ class Items extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -233,7 +247,7 @@ class Items extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.items', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.items', 2));
     }
 
     public function autocomplete()
@@ -254,12 +268,48 @@ class Items extends Controller
 
         if ($items) {
             foreach ($items as $item) {
-                $tax = Tax::find($item->tax_id);
-
+                $item_price = ($type == 'bill') ? $item->purchase_price : $item->sale_price;
                 $item_tax_price = 0;
 
-                if (!empty($tax)) {
-                    $item_tax_price = ($item->sale_price / 100) * $tax->rate;
+                if ($item->taxes->count()) {
+                    $inclusives = $compounds = [];
+
+                    foreach($item->taxes as $item_tax) {
+                        $tax = $item_tax->tax;
+
+                        switch ($tax->type) {
+                            case 'inclusive':
+                                $inclusives[] = $tax;
+                                break;
+                            case 'compound':
+                                $compounds[] = $tax;
+                                break;
+                            case 'fixed':
+                                $item_tax_price += $tax->rate;
+                                break;
+                            case 'withholding':
+                                $item_tax_amount = 0 - $item_price * ($tax->rate / 100);
+
+                                $item_tax_price += $item_tax_amount;
+                                break;
+                            default:
+                                $item_tax_amount = ($item_price / 100) * $tax->rate;
+
+                                $item_tax_price += $item_tax_amount;
+                                break;
+                        }
+                    }
+
+                    if ($inclusives) {
+                        $item_base_rate = $item_price / (1 + collect($inclusives)->sum('rate') / 100);
+                        $item_tax_price = $item_price - $item_base_rate;
+                    }
+
+                    if ($compounds) {
+                        foreach ($compounds as $compound) {
+                            $item_tax_price += ($item_tax_price / 100) * $compound->rate;
+                        }
+                    }
                 }
 
                 switch ($type) {
@@ -272,7 +322,7 @@ class Items extends Controller
                         break;
                 }
 
-                $item->total = money($total, $currency_code, true)->format();
+                $item->total = $total;
             }
         }
 
@@ -333,6 +383,11 @@ class Items extends Controller
                                 break;
                             case 'fixed':
                                 $item_tax_total += $tax->rate * $quantity;
+                                break;
+                            case 'withholding':
+                                $item_tax_amount = 0 - $item_discounted_total * ($tax->rate / 100);
+
+                                $item_tax_total += $item_tax_amount;
                                 break;
                             default:
                                 $item_tax_amount = ($item_discounted_total / 100) * $tax->rate;

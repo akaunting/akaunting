@@ -37,7 +37,7 @@ class Users extends Controller
     {
         $users = User::with('media', 'roles')->collect();
 
-        return view('auth.users.index', compact('users'));
+        return $this->response('auth.users.index', compact('users'));
     }
 
     /**
@@ -58,7 +58,7 @@ class Users extends Controller
             return $r->hasPermission('read-client-portal');
         });
 
-        $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
+        $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
 
         return view('auth.users.create', compact('roles', 'companies', 'landing_pages'));
     }
@@ -85,7 +85,7 @@ class Users extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -123,7 +123,19 @@ class Users extends Controller
             });
         }
 
-        $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
+        $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
+
+        if ($user->company_ids) {
+            foreach($user->company_ids as $company_id) {
+                if ($companies->has($company_id)) {
+                    continue;
+                }
+
+                $company = \App\Models\Common\Company::find($company_id);
+
+                $companies->put($company->id, $company->name);
+            }
+        }
 
         return view('auth.users.edit', compact('user', 'companies', 'roles', 'landing_pages'));
     }
@@ -155,7 +167,7 @@ class Users extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -217,7 +229,7 @@ class Users extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

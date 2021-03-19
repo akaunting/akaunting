@@ -37,8 +37,9 @@ class Currencies extends Controller
         $current = Currency::orderBy('code')->pluck('code')->toArray();
 
         // Prepare codes
-        $codes = array();
+        $codes = [];
         $money_currencies = MoneyCurrency::getCurrencies();
+
         foreach ($money_currencies as $key => $item) {
             $codes[$key] = $key;
         }
@@ -67,7 +68,7 @@ class Currencies extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -94,7 +95,7 @@ class Currencies extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -120,7 +121,7 @@ class Currencies extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

@@ -76,13 +76,13 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldExportTransfers()
     {
         $count = 5;
-        factory(Transfer::class, $count)->create();
+        Transfer::factory()->count($count)->create();
 
         \Excel::fake();
 
         $this->loginAs()
-             ->get(route('transfers.export'))
-             ->assertStatus(200);
+            ->get(route('transfers.export'))
+            ->assertStatus(200);
 
         \Excel::assertDownloaded(
             \Str::filename(trans_choice('general.transfers', 2)) . '.xlsx',
@@ -96,15 +96,15 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldExportSelectedTransfers()
     {
         $count = 5;
-        $transfers = factory(Transfer::class, $count)->create();
+        $transfers = Transfer::factory()->count($count)->create();
 
         \Excel::fake();
 
         $this->loginAs()
-             ->post(
-                 route('bulk-actions.action', ['group' => 'banking', 'type' => 'transfers']),
-                 ['handle' => 'export', 'selected' => [$transfers->random()->id]]
-             )
+            ->post(
+                route('bulk-actions.action', ['group' => 'banking', 'type' => 'transfers']),
+                ['handle' => 'export', 'selected' => [$transfers->random()->id]]
+            )
             ->assertStatus(200);
 
         \Excel::assertDownloaded(
@@ -120,16 +120,16 @@ class TransfersTest extends FeatureTestCase
         \Excel::fake();
 
         $this->loginAs()
-             ->post(
-                 route('transfers.import'),
-                 [
-                     'import' => UploadedFile::fake()->createWithContent(
-                         'transfers.xlsx',
-                         File::get(public_path('files/import/transfers.xlsx'))
-                     ),
-                 ]
-             )
-             ->assertStatus(302);
+            ->post(
+                route('transfers.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'transfers.xlsx',
+                        File::get(public_path('files/import/transfers.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
 
         \Excel::assertImported('transfers.xlsx');
 
@@ -138,9 +138,9 @@ class TransfersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        $from_account = factory(Account::class)->states('enabled', 'default_currency')->create();
+        $from_account = Account::factory()->enabled()->default_currency()->create();
 
-        $to_account = factory(Account::class)->states('enabled', 'default_currency')->create();
+        $to_account = Account::factory()->enabled()->default_currency()->create();
 
         return [
             'company_id' => $this->company->id,

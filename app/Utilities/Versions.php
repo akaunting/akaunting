@@ -105,7 +105,7 @@ class Versions
         return $versions;
     }
 
-    protected static function getLatestVersion($url, $latest)
+    public static function getLatestVersion($url, $latest)
     {
         if (!$data = static::getResponseData('GET', $url, ['timeout' => 10])) {
             return $latest;
@@ -116,5 +116,45 @@ class Versions
         }
 
         return $data->latest;
+    }
+
+    public static function getUpdates()
+    {
+        // Get data from cache
+        $updates = Cache::get('updates');
+
+        if (!empty($updates)) {
+            return $updates;
+        }
+
+        $updates = [];
+
+        $modules = module()->all();
+
+        $versions = static::all($modules);
+
+        foreach ($versions as $alias => $latest_version) {
+            if ($alias == 'core') {
+                $installed_version = version('short');
+            } else {
+                $module = module($alias);
+
+                if (!$module instanceof \Akaunting\Module\Module) {
+                    continue;
+                }
+
+                $installed_version = $module->get('version');
+            }
+
+            if (version_compare($installed_version, $latest_version, '>=')) {
+                continue;
+            }
+
+            $updates[$alias] = $latest_version;
+        }
+
+        Cache::put('updates', $updates, Date::now()->addHour(6));
+
+        return $updates;
     }
 }

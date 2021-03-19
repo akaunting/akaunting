@@ -4,22 +4,23 @@ namespace App\Abstracts;
 
 use App\Traits\Import as ImportHelper;
 use App\Utilities\Date;
+use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
-use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
-abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
+abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
     use Importable, ImportHelper;
 
@@ -39,13 +40,18 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
             $row['reconciled'] = (int) $row['reconciled'];
         }
 
-        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at'];
+        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at', 'transferred_at'];
         foreach ($date_fields as $date_field) {
             if (!isset($row[$date_field])) {
                 continue;
             }
 
-            $row[$date_field] = Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))->format('Y-m-d H:i:s');
+            try {
+                $row[$date_field] = Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))
+                                        ->format('Y-m-d H:i:s');
+            } catch (InvalidFormatException | \Exception $e) {
+                Log::info($e->getMessage());
+            }
         }
 
         return $row;
@@ -54,11 +60,6 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
     public function rules(): array
     {
         return [];
-    }
-
-    public function batchSize(): int
-    {
-        return 100;
     }
 
     public function chunkSize(): int

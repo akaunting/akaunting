@@ -27,7 +27,8 @@ class AddVendors extends Listener
             return;
         }
 
-        $event->class->filters['vendors'] = $this->getVendors();
+        $event->class->filters['vendors'] = $this->getVendors(true);
+        $event->class->filters['routes']['vendors'] = 'vendors.index';
     }
 
     /**
@@ -72,12 +73,16 @@ class AddVendors extends Listener
             return;
         }
 
-        if ($vendors = request('vendors')) {
-            $rows = collect($event->class->filters['vendors'])->filter(function ($value, $key) use ($vendors) {
+        $all_vendors = $this->getVendors();
+
+        if ($vendor_ids = $this->getSearchStringValue('vendor_id')) {
+            $vendors = explode(',', $vendor_ids);
+
+            $rows = collect($all_vendors)->filter(function ($value, $key) use ($vendors) {
                 return in_array($key, $vendors);
             });
         } else {
-            $rows = $event->class->filters['vendors'];
+            $rows = $all_vendors;
         }
 
         $this->setRowNamesAndValues($event, $rows);

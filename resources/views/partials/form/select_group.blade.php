@@ -15,6 +15,14 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
+        @if (isset($attributes['disabledOptions']))
+        :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
+        @endif
+
+        @if (isset($attributes['dynamicOptions']))
+        :dynamic-options="{{ $attributes['dynamicOptions'] }}"
+        @endif
+
         @if (isset($selected) || old($name))
         value="{{ old($name, $selected) }}"
         @endif
@@ -35,6 +43,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (!empty($attributes['visible-change']))
+        @visible-change="{{ $attributes['visible-change'] }}"
+        @endif
+        
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif

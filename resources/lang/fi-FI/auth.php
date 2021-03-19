@@ -13,7 +13,7 @@ return [
     'current_email'         => 'Nykyinen sähköpostiosoitteesi',
     'reset'                 => 'Palauta',
     'never'                 => 'ei koskaan',
-    'landing_page'          => 'Sisääntulosivu',
+    'landing_page'          => 'Aloitussivu',
 
     'password' => [
         'current'           => 'Salasana',

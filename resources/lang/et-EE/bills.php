@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Arve vastuvõtmine',
     'make_payment'          => 'Tee makse',
 
-    'statuses' => [
-        'draft'             => 'Mustand',
-        'received'          => 'Vastuvõetud',
-        'partial'           => 'Osaline',
-        'paid'              => 'Makstud',
-        'overdue'           => 'Tähtaja ületanud',
-        'unpaid'            => 'Maksmata',
-        'cancelled'         => 'Tühistatud',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Arve on märgitud kättesaaduks!',
-        'marked_paid'       => 'Arve on märgitud makstuks!',
-        'marked_cancelled'  => 'Arve on märgitud tühistatuks!',
         'draft'             => 'See on <b> MUSTAND </b> arve ja kajastub graafikutes pärast selle vastuvõtmist.',
 
         'status' => [

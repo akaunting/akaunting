@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.updates', 2))
 
 @section('new_button')
-    <a href="{{ route('updates.check') }}" class="btn btn-white btn-sm header-button-top">{{ trans('updates.check') }}</a>
+    <a href="{{ route('updates.check') }}" class="btn btn-white btn-sm">{{ trans('updates.check') }}</a>
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-sm-10 col-md-6 text-right">
-                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm header-button-top long-texts">
+                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm long-texts header-button-bottom">
                             {{ trans('updates.update', ['version' => $core]) }}
                         </a>
 
@@ -82,6 +82,7 @@
     </div>
 
     <akaunting-modal v-if="changelog.show"
+        modal-dialog-class="modal-lg"
         :show="changelog.show"
         :title="'{{ trans('updates.changelog') }}'"
         @cancel="changelog.show = false"

@@ -25,7 +25,9 @@ class AddExpenseCategories extends Listener
             return;
         }
 
-        $event->class->filters['categories'] = $this->getExpenseCategories();
+        // send true for add limit on search and filter..
+        $event->class->filters['categories'] = $this->getExpenseCategories(true);
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:expense'];
     }
 
     /**
@@ -55,12 +57,16 @@ class AddExpenseCategories extends Listener
             return;
         }
 
-        if ($categories = request('categories')) {
-            $rows = collect($event->class->filters['categories'])->filter(function ($value, $key) use ($categories) {
+        $all_categories = $this->getExpenseCategories();
+
+        if ($category_ids = $this->getSearchStringValue('category_id')) {
+            $categories = explode(',', $category_ids);
+
+            $rows = collect($all_categories)->filter(function ($value, $key) use ($categories) {
                 return in_array($key, $categories);
             });
         } else {
-            $rows = $event->class->filters['categories'];
+            $rows = $all_categories;
         }
 
         $this->setRowNamesAndValues($event, $rows);

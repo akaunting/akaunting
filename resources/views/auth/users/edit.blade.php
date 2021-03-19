@@ -45,28 +45,28 @@
                             </div>
                         @stack('picture_input_end')
                     @else
-                        {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1)) }}
+                        {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
                     @endif
 
-                    @permission('read-common-companies')
-                        {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'disabled' => (in_array('customer', $user->roles()->pluck('name')->toArray())) ? 'true' : 'false', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
-                    @endpermission
+                    @can('read-common-companies')
+                        {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'disabled' => (in_array('customer', $user->roles()->pluck('name')->toArray())) ? 'true' : 'false', 'remote_action' => route('companies.index')]) }}
+                    @endcan
 
-                    @permission('read-auth-roles')
+                    @can('read-auth-roles')
                         {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
-                    @endpermission
+                    @endcan
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), $user->enabled) }}
                 </div>
             </div>
 
-            @permission(['update-auth-users', 'update-auth-profile'])
+            @canany(['update-auth-users', 'update-auth-profile'])
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('users.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcanany
         {!! Form::close() !!}
     </div>
 @endsection

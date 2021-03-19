@@ -2,17 +2,29 @@
 
 namespace App\Console\Commands;
 
-use App\Utilities\Updater;
+use App\Events\Install\UpdateCopied;
+use App\Events\Install\UpdateDownloaded;
+use App\Events\Install\UpdateFailed;
+use App\Events\Install\UpdateUnzipped;
+use App\Jobs\Install\CopyFiles;
+use App\Jobs\Install\DownloadFile;
+use App\Jobs\Install\FinishUpdate;
+use App\Jobs\Install\UnzipFile;
+use App\Traits\Jobs;
 use App\Utilities\Versions;
 use Illuminate\Console\Command;
 
 class Update extends Command
 {
+    use Jobs;
+
     const CMD_SUCCESS = 0;
 
     const CMD_ERROR = 1;
 
     public $alias;
+
+    public $company;
 
     public $new;
 
@@ -42,17 +54,22 @@ class Update extends Command
         set_time_limit(3600); // 1 hour
 
         $this->alias = $this->argument('alias');
+        $this->company = $this->argument('company');
 
         if (false === $this->new = $this->getNewVersion()) {
-            $this->error('Not able to get the latest version of ' . $this->alias . '!');
+            $message = 'Not able to get the latest version of ' . $this->alias . '!';
+
+            $this->error($message);
+
+            event(new UpdateFailed($this->alias, $this->new, $this->old, 'Version', $message));
 
             return self::CMD_ERROR;
         }
 
         $this->old = $this->getOldVersion();
 
-        session(['company_id' => $this->argument('company')]);
-        setting()->setExtraColumns(['company_id' => $this->argument('company')]);
+        session(['company_id' => $this->company]);
+        setting()->setExtraColumns(['company_id' => $this->company]);
 
         if (!$path = $this->download()) {
             return self::CMD_ERROR;
@@ -96,9 +113,15 @@ class Update extends Command
         $this->info('Downloading update...');
 
         try {
-            $path = Updater::download($this->alias, $this->new, $this->old);
+            $path = $this->dispatch(new DownloadFile($this->alias, $this->new));
+
+            event(new UpdateDownloaded($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $message = $e->getMessage();
+
+            $this->error($message);
+
+            event(new UpdateFailed($this->alias, $this->new, $this->old, 'Download', $message));
 
             return false;
         }
@@ -111,9 +134,15 @@ class Update extends Command
         $this->info('Unzipping update...');
 
         try {
-            Updater::unzip($path, $this->alias, $this->new, $this->old);
+            $this->dispatch(new UnzipFile($this->alias, $path));
+
+            event(new UpdateUnzipped($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $message = $e->getMessage();
+
+            $this->error($message);
+
+            event(new UpdateFailed($this->alias, $this->new, $this->old, 'Unzip', $message));
 
             return false;
         }
@@ -126,9 +155,15 @@ class Update extends Command
         $this->info('Copying update files...');
 
         try {
-            Updater::copyFiles($path, $this->alias, $this->new, $this->old);
+            $this->dispatch(new CopyFiles($this->alias, $path));
+
+            event(new UpdateCopied($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $message = $e->getMessage();
+
+            $this->error($message);
+
+            event(new UpdateFailed($this->alias, $this->new, $this->old, 'Copy Files', $message));
 
             return false;
         }
@@ -141,9 +176,13 @@ class Update extends Command
         $this->info('Finishing update...');
 
         try {
-            Updater::finish($this->alias, $this->new, $this->old);
+            $this->dispatch(new FinishUpdate($this->alias, $this->new, $this->old, $this->company));
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $message = $e->getMessage();
+
+            $this->error($message);
+
+            event(new UpdateFailed($this->alias, $this->new, $this->old, 'Finish', $message));
 
             return false;
         }

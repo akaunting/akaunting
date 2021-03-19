@@ -40,6 +40,7 @@
                         @elseif ($type == 'dateGroup')
                             {{ Form::$type($field['name'], $field['title'], $field['icon'], array_merge([
                                    'data-field' => 'settings',
+                                   'show-date-format' => company_date_format(),
                                ],
                                $field['attributes']),
                                isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']}: null
@@ -67,13 +68,13 @@
                 </div>
             </div>
 
-            @permission('update-common-reports')
+            @can('update-common-reports')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('reports.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

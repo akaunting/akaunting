@@ -1,0 +1,52 @@
+name: Run Enlightn Checks
+
+on: [push, pull_request]
+
+jobs:
+  enlightn:
+    env:
+      ENLIGHTN_USERNAME: ${{ secrets.ENLIGHTN_USERNAME }}
+      ENLIGHTN_API_TOKEN: ${{ secrets.ENLIGHTN_API_TOKEN }}
+      ENLIGHTN_GITHUB_REPO: ${{ github.repository }}
+
+    name: Enlightn
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          coverage: none
+
+      - name: Install dependencies with Enlightn Pro
+        if: env.ENLIGHTN_API_TOKEN
+        run: |
+          composer config http-basic.satis.laravel-enlightn.com "$ENLIGHTN_USERNAME" "$ENLIGHTN_API_TOKEN"
+          composer config repositories.enlightn composer https://satis.laravel-enlightn.com
+          composer require --prefer-dist --no-interaction enlightn/enlightnpro
+
+      - name: Install Composer dependencies
+        if: ${{ !env.ENLIGHTN_API_TOKEN }}
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run Enlightn Checks and Trigger the Enlightn Bot
+        if: github.event_name == 'pull_request' && env.ENLIGHTN_API_TOKEN
+        env:
+          APP_ENV: local
+        run: |
+          cp .env.example .env
+          php artisan enlightn --ci --report --review --issue=${{ github.event.number }}
+
+      - name: Run Enlightn Checks
+        if: ${{ github.event_name != 'pull_request' || !env.ENLIGHTN_API_TOKEN }}
+        env:
+          APP_ENV: local
+        run: |
+          cp .env.example .env
+          php artisan enlightn --ci

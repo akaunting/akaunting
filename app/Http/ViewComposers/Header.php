@@ -2,13 +2,13 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Utilities\Updater;
+use App\Utilities\Versions;
+use App\Traits\Modules;
 use Illuminate\View\View;
-use App\Traits\Modules as RemoteModules;
 
 class Header
 {
-    use RemoteModules;
+    use Modules;
 
     /**
      * Bind data to the view.
@@ -35,24 +35,28 @@ class Header
                 ];
             }
 
-            $undereads = $user->unreadNotifications;
+            if ($user->can('read-common-notifications')) {
+                $unreads = $user->unreadNotifications;
 
-            foreach ($undereads as $underead) {
-                $data = $underead->getAttribute('data');
+                foreach ($unreads as $unread) {
+                    $data = $unread->getAttribute('data');
 
-                switch ($underead->getAttribute('type')) {
-                    case 'App\Notifications\Purchase\Bill':
-                        $bills[$data['bill_id']] = $data['amount'];
-                        $notifications++;
-                        break;
-                    case 'App\Notifications\Sale\Invoice':
-                        $invoices[$data['invoice_id']] = $data['amount'];
-                        $notifications++;
-                        break;
+                    switch ($unread->getAttribute('type')) {
+                        case 'App\Notifications\Purchase\Bill':
+                            $bills[$data['bill_id']] = $data['amount'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Sale\Invoice':
+                            $invoices[$data['invoice_id']] = $data['amount'];
+                            $notifications++;
+                            break;
+                    }
                 }
             }
 
-            $updates = count(Updater::all());
+            if ($user->can('read-install-updates')) {
+                $updates = count(Versions::getUpdates());
+            }
 
             $this->loadSuggestions();
         }

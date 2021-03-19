@@ -20,21 +20,21 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-                    @permission('read-auth-users')
+                    @can('read-auth-users')
                         {{ Form::checkboxGroup('users', trans_choice('general.users', 2), $users, 'name') }}
-                    @endpermission
+                    @endcan
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), $dashboard->enabled) }}
                 </div>
             </div>
 
-            @permission('update-common-dashboards')
+            @can('update-common-dashboards')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('dashboards.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

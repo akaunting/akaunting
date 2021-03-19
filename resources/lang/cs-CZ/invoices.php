@@ -13,6 +13,7 @@ return [
     'price'                 => 'Cena',
     'sub_total'             => 'Mezisoučet',
     'discount'              => 'Sleva',
+    'item_discount'         => 'Řádková sleva',
     'tax_total'             => 'Daň celkem',
     'total'                 => 'Celkem',
 
@@ -29,6 +30,8 @@ return [
     'add_payment'           => 'Přidat platbu',
     'mark_paid'             => 'Označit jako zaplaceno',
     'mark_sent'             => 'Označit jako odesláno',
+    'mark_viewed'           => 'Označit jako zobrazené',
+    'mark_cancelled'        => 'Označit jako zrušené',
     'download_pdf'          => 'Stáhnout PDF',
     'send_mail'             => 'Odeslat e-mail',
     'all_invoices'          => 'Přihlašte se pro zobrazení všech faktur',
@@ -37,19 +40,7 @@ return [
     'get_paid'              => 'Uhrazení faktury',
     'accept_payments'       => 'Přijímat online platby',
 
-    'statuses' => [
-        'draft'             => 'Koncept',
-        'sent'              => 'Odesláno',
-        'viewed'            => 'Zobrazeno',
-        'approved'          => 'Schváleno',
-        'partial'           => 'Častečná',
-        'paid'              => 'Zaplaceno',
-    ],
-
     'messages' => [
-        'email_sent'        => 'E-mail s fakturou byl odeslán!',
-        'marked_sent'       => 'Faktura byla označena jako odeslána!',
-        'marked_paid'       => 'Faktura označená jako zaplacená!',
         'email_required'    => 'Zákazník nemá uvedenou e-mailovou adresu!',
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude odeslána.',
 

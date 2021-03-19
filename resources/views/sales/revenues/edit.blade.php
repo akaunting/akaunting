@@ -36,7 +36,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($revenue->paid_at)->toDateString()) }}
+                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($revenue->paid_at)->toDateString()) }}
 
                     {!! Form::hidden('currency_code', $revenue->currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
                     {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate']) !!}
@@ -45,11 +45,11 @@
 
                     {{ Form::selectAddNewGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $revenue->account_id, ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $revenue->contact_id, ['path' => route('modals.customers.create')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $revenue->contact_id, ['path' => route('modals.customers.create'), 'remote_action' => route('customers.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $revenue->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $revenue->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income', 'remote_action' => route('categories.index'). '?search=type:income']) }}
 
                     {{ Form::recurring('edit', $revenue) }}
 
@@ -57,29 +57,22 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file',[]) }}
 
-                    @if ($revenue->attachment)
-                        <div class="col-md-6">
-                            @php $file = $revenue->attachment; @endphp
-                            @include('partials.media.file')
-                        </div>
-                    @else
-                        {{ Form::fileGroup('attachment', trans('general.attachment')) }}
-                    @endif
-
                     @if ($revenue->invoice)
-                        {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'true'], $revenue->invoice->invoice_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'true'], $revenue->invoice->document_number) }}
                         {{ Form::hidden('document_id', $revenue->invoice->id) }}
                     @endif
+
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple', 'options' => ['acceptedFiles' => $file_types]], $revenue->attachment, 'col-md-12') }}
                 </div>
             </div>
 
-            @permission('update-sales-revenues')
+            @can('update-sales-revenues')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('revenues.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'income') }}
         {!! Form::close() !!}

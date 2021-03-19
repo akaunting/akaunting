@@ -84,6 +84,6 @@ class PermissionsTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Permission::class)->raw();
+        return Permission::factory()->raw();
     }
 }

@@ -14,6 +14,7 @@ class Event extends Provider
     protected $listen = [
         'App\Events\Install\UpdateFinished' => [
             'App\Listeners\Update\CreateModuleUpdatedHistory',
+            'App\Listeners\Module\UpdateExtraModules',
             'App\Listeners\Update\V20\Version200',
             'App\Listeners\Update\V20\Version203',
             'App\Listeners\Update\V20\Version205',
@@ -25,6 +26,9 @@ class Event extends Provider
             'App\Listeners\Update\V20\Version2020',
             'App\Listeners\Update\V20\Version2023',
             'App\Listeners\Update\V20\Version2024',
+            'App\Listeners\Update\V21\Version210',
+            'App\Listeners\Update\V21\Version213',
+            'App\Listeners\Update\V21\Version218',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
@@ -35,44 +39,38 @@ class Event extends Provider
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
         ],
-        'App\Events\Purchase\BillCreated' => [
-            'App\Listeners\Purchase\CreateBillCreatedHistory',
-            'App\Listeners\Purchase\IncreaseNextBillNumber',
+        'App\Events\Document\DocumentCreated' => [
+            'App\Listeners\Document\CreateDocumentCreatedHistory',
+            'App\Listeners\Document\IncreaseNextDocumentNumber',
+            'App\Listeners\Document\SettingFieldCreated',
         ],
-        'App\Events\Purchase\BillReceived' => [
-            'App\Listeners\Purchase\MarkBillReceived',
+        'App\Events\Document\DocumentReceived' => [
+            'App\Listeners\Document\MarkDocumentReceived',
         ],
-        'App\Events\Purchase\BillCancelled' => [
-            'App\Listeners\Purchase\MarkBillCancelled',
+        'App\Events\Document\DocumentCancelled' => [
+            'App\Listeners\Document\MarkDocumentCancelled',
         ],
-        'App\Events\Purchase\BillRecurring' => [
-            'App\Listeners\Purchase\SendBillRecurringNotification',
+        'App\Events\Document\DocumentRecurring' => [
+            'App\Listeners\Document\SendDocumentRecurringNotification',
         ],
-        'App\Events\Purchase\BillReminded' => [
-            'App\Listeners\Purchase\SendBillReminderNotification',
+        'App\Events\Document\DocumentReminded' => [
+            'App\Listeners\Document\SendDocumentReminderNotification',
         ],
-        'App\Events\Sale\PaymentReceived' => [
-            'App\Listeners\Sale\CreateInvoiceTransaction',
-            'App\Listeners\Sale\SendInvoicePaymentNotification',
+        'App\Events\Document\PaymentReceived' => [
+            'App\Listeners\Document\CreateDocumentTransaction',
+            'App\Listeners\Document\SendDocumentPaymentNotification',
         ],
-        'App\Events\Sale\InvoiceCreated' => [
-            'App\Listeners\Sale\CreateInvoiceCreatedHistory',
-            'App\Listeners\Sale\IncreaseNextInvoiceNumber',
+        'App\Events\Document\DocumentSent' => [
+            'App\Listeners\Document\MarkDocumentSent',
         ],
-        'App\Events\Sale\InvoiceSent' => [
-            'App\Listeners\Sale\MarkInvoiceSent',
+        'App\Events\Document\DocumentUpdated' => [
+            'App\Listeners\Document\SettingFieldUpdated',
         ],
-        'App\Events\Sale\InvoiceCancelled' => [
-            'App\Listeners\Sale\MarkInvoiceCancelled',
+        'App\Events\Document\DocumentViewed' => [
+            'App\Listeners\Document\MarkDocumentViewed',
         ],
-        'App\Events\Sale\InvoiceViewed' => [
-            'App\Listeners\Sale\MarkInvoiceViewed',
-        ],
-        'App\Events\Sale\InvoiceRecurring' => [
-            'App\Listeners\Sale\SendInvoiceRecurringNotification',
-        ],
-        'App\Events\Sale\InvoiceReminded' => [
-            'App\Listeners\Sale\SendInvoiceReminderNotification',
+        'App\Events\Install\UpdateFailed' => [
+            'App\Listeners\Update\SendNotificationOnFailure',
         ],
         'App\Events\Menu\AdminCreated' => [
             'App\Listeners\Menu\AddAdminItems',
@@ -81,6 +79,7 @@ class Event extends Provider
             'App\Listeners\Menu\AddPortalItems',
         ],
         'App\Events\Module\Installed' => [
+            'App\Listeners\Module\InstallExtraModules',
             'App\Listeners\Module\FinishInstallation',
         ],
     ];
@@ -99,7 +98,7 @@ class Event extends Provider
         'App\Listeners\Report\AddExpenseCategories',
         'App\Listeners\Report\AddIncomeCategories',
         'App\Listeners\Report\AddIncomeExpenseCategories',
-        'App\Listeners\Report\AddSearch',
+        'App\Listeners\Report\AddSearchString',
         'App\Listeners\Report\AddRowsToTax',
     ];
 }

@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.2', '7.3', '7.4']
+        php: ['7.3', '7.4']
 
     steps:
       - name: Checkout code
@@ -47,4 +47,4 @@ jobs:
         run: composer test
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: php artisan test --parallel

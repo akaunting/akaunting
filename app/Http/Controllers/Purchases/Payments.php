@@ -32,13 +32,7 @@ class Payments extends Controller
     {
         $payments = Transaction::with('account', 'bill', 'category', 'contact')->expense()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        return view('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
+        return $this->response('purchases.payments.index', compact('payments'));
     }
 
     /**
@@ -66,13 +60,23 @@ class Payments extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('purchases.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'vendors', 'categories', 'payment_methods'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('purchases.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'vendors', 'categories', 'payment_methods', 'file_types'));
     }
 
     /**
@@ -97,7 +101,7 @@ class Payments extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -130,13 +134,23 @@ class Payments extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('payments.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
 
-        return redirect()->route('payments.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'payments']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -154,15 +168,33 @@ class Payments extends Controller
 
         $currency = Currency::where('code', $payment->currency_code)->first();
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        if ($payment->contact && !$vendors->has($payment->contact_id)) {
+            $vendors->put($payment->contact->id, $payment->contact->name);
+        }
+
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+
+        if ($payment->category && !$categories->has($payment->category_id)) {
+            $categories->put($payment->category->id, $payment->category->name);
+        }
 
         $payment_methods = Modules::getPaymentMethods();
 
         $date_format = $this->getCompanyDateFormat();
 
-        return view('purchases.payments.edit', compact('payment', 'accounts', 'currencies', 'currency', 'vendors', 'categories', 'payment_methods', 'date_format'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('purchases.payments.edit', compact('payment', 'accounts', 'currencies', 'currency', 'vendors', 'categories', 'payment_methods', 'date_format', 'file_types'));
     }
 
     /**
@@ -188,7 +220,7 @@ class Payments extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -214,7 +246,7 @@ class Payments extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -227,6 +259,6 @@ class Payments extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.payments', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.payments', 2));
     }
 }

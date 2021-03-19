@@ -9,7 +9,7 @@
                 {!! trans('general.empty.' . $page) !!} {!! trans('general.empty.documentation', ['url' => 'https://akaunting.com/docs/user-manual/' . $docs_path]) !!}
             </p>
 
-            <a href="{{ route($page . '.create') }}" class="btn btn-success header-button-top float-right mt-4">
+            <a href="{{ route($page . '.create') }}" class="btn btn-success float-right mt-4">
                 <span class="btn-inner--text">{{ trans('general.title.create', ['type' => trans_choice('general.' . $page, 1)]) }}</span>
             </a>
         </div>

@@ -4,21 +4,21 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Argon',
+    'code'      =>  'Document',
 
     'major'     =>  '2',
 
-    'minor'     =>  '0',
+    'minor'     =>  '1',
 
-    'patch'     =>  '23',
+    'patch'     =>  '8',
 
     'build'     =>  '',
 
     'status'    =>  'Stable',
 
-    'date'      =>  '23-September-2020',
+    'date'      =>  '18-March-2020',
 
-    'time'      =>  '12:00',
+    'time'      =>  '19:00',
 
     'zone'      =>  'GMT +3',
 

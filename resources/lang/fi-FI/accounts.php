@@ -3,7 +3,7 @@
 return [
 
     'account_name'          => 'Tilin nimi',
-    'number'                => 'Numero',
+    'number'                => 'Tilinumero',
     'opening_balance'       => 'Alkusaldo',
     'current_balance'       => 'Nykyinen saldo',
     'bank_name'             => 'Pankin nimi',

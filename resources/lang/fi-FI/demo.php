@@ -3,12 +3,12 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Käteinen',
+        'cash'              => 'Rahat',
     ],
 
     'categories' => [
         'deposit'           => 'Talletus',
-        'sales'             => 'Myyntitapahtumat',
+        'sales'             => 'Myynti',
     ],
 
     'currencies' => [
@@ -19,7 +19,7 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Käteinen',
+        'cash'              => 'Rahat',
         'bank'              => 'Tilisiirto',
     ],
 

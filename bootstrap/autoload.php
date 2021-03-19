@@ -1,7 +1,7 @@
 <?php
 
 // Define minimum supported PHP version
-define('AKAUNTING_PHP', '7.2.5');
+define('AKAUNTING_PHP', '7.3.0');
 
 // Check PHP version
 if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {

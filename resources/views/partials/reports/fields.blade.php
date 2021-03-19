@@ -11,7 +11,8 @@
         {{ Form::$type($field['name'], $field['title']) }}
     @elseif ($type == 'dateGroup')
         {{ Form::$type($field['name'], $field['title'], $field['icon'], array_merge([
-               'model' => 'form.settings'.'.'.$field['name']
+               'model' => 'form.settings'.'.'.$field['name'],
+               'show-date-format' => company_date_format(),
            ],
            $field['attributes'])
        ) }}

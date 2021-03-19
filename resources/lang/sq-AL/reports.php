@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Viti|Vitet',
     'this_year'             => 'Këtë Vit',
     'previous_year'         => 'Viti i Kaluar',
     'this_quarter'          => 'Këtë Tremujor',

@@ -52,6 +52,7 @@ const app = new Vue({
                 steps_total: 0,
                 total: 0,
                 path: '',
+                alias: '',
                 version: '',
                 status: 'success',
                 html: ''
@@ -98,7 +99,8 @@ const app = new Vue({
             this.faq = true;
         },
 
-        async onInstall(path, name, version) {
+        async onInstall(path, alias, name, version) {
+            this.installation.alias = alias;
             this.installation.show = true;
             this.installation.total = 0;
             this.installation.path = path;
@@ -106,6 +108,7 @@ const app = new Vue({
 
             let steps_promise = Promise.resolve(axios.post(url + '/apps/steps', {
                 name: name,
+                alias: alias,
                 version: version
             }));
 
@@ -136,6 +139,7 @@ const app = new Vue({
                 this.installation.html = '<span class="text-default"><i class="fa fa-spinner fa-spin update-spin"></i> ' + data['text'] + '</span> </br>';
 
                 let step_promise = Promise.resolve(axios.post(data.url, {
+                    alias: this.installation.alias,
                     version: this.installation.version,
                     path: this.installation.path,
                 }));

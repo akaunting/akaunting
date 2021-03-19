@@ -26,7 +26,7 @@ class Reconciliations extends Controller
 
         $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        return view('banking.reconciliations.index', compact('reconciliations', 'accounts'));
+        return $this->response('banking.reconciliations.index', compact('reconciliations', 'accounts'));
     }
 
     /**
@@ -85,7 +85,7 @@ class Reconciliations extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -134,7 +134,7 @@ class Reconciliations extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -160,7 +160,7 @@ class Reconciliations extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -177,10 +177,10 @@ class Reconciliations extends Controller
      */
     protected function getTransactions($account, $started_at, $ended_at)
     {
-        $started = explode(' ', $started_at);
-        $ended = explode(' ', $ended_at);
+        $started = explode(' ', $started_at)[0] . ' 00:00:00';
+        $ended = explode(' ', $ended_at)[0] . ' 23:59:59';
 
-        $transactions = Transaction::where('account_id', $account->id)->whereBetween('paid_at', [$started[0], $ended[0]])->get();
+        $transactions = Transaction::where('account_id', $account->id)->whereBetween('paid_at', [$started, $ended])->get();
 
         return collect($transactions)->sortByDesc('paid_at');
     }

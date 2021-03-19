@@ -22,7 +22,7 @@ class Login
         if (!$company) {
             app('App\Http\Controllers\Auth\Login')->logout();
 
-            flash(trans('auth.error.no_company'))->error();
+            flash(trans('auth.error.no_company'))->error()->important();
 
             return;
         }

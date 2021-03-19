@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Recibir factura',
     'make_payment'          => 'Pagar',
 
-    'statuses' => [
-        'draft'             => 'Borrador',
-        'received'          => 'Recibido',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pagado',
-        'overdue'           => 'Vencido',
-        'unpaid'            => 'No Pagado',
-        'cancelled'         => 'Cancelado',
-    ],
-
     'messages' => [
-        'marked_received'   => '¡Recibo marcado como recibido!',
-        'marked_paid'       => '¡Recibo marcado como pagado!',
-        'marked_cancelled'  => '¡Recibo marcado como cancelado!',
         'draft'             => 'Este es un<b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
 
         'status' => [

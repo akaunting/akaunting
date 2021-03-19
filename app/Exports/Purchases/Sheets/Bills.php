@@ -3,13 +3,15 @@
 namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
-use App\Models\Purchase\Bill as Model;
+use App\Models\Document\Document as Model;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Bills extends Export
+class Bills extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('category')->usingSearchString(request('search'));
+        $model = Model::bill()->with('category')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('id', (array) $this->ids);
@@ -21,6 +23,8 @@ class Bills extends Export
     public function map($model): array
     {
         $model->category_name = $model->category->name;
+        $model->bill_number = $model->document_number;
+        $model->billed_at = $model->issued_at;
 
         return parent::map($model);
     }
@@ -43,7 +47,14 @@ class Bills extends Export
             'contact_phone',
             'contact_address',
             'notes',
-            'footer',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'E' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

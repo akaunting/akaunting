@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Decimālā zīme',
     'thousands_separator'   => 'Tūkstošu atdalītāju',
     'precision'             => 'Precizitāte',
+    'conversion'            => 'Valūtas konvertēšana',
     'symbol' => [
         'symbol'            => 'Simbols',
         'position'          => 'Simbola novietojums',

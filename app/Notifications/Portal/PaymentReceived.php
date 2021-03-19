@@ -101,10 +101,10 @@ class PaymentReceived extends Notification
     public function getTagsReplacement()
     {
         return [
-            $this->invoice->invoice_number,
+            $this->invoice->document_number,
             money($this->invoice->amount, $this->invoice->currency_code, true),
             company_date($this->invoice->due_at),
-            trans('invoices.statuses.' . $this->invoice->status),
+            trans('documents.statuses.' . $this->invoice->status),
             URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
             route('invoices.show', $this->invoice->id),
             route('portal.invoices.show', $this->invoice->id),

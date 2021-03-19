@@ -15,7 +15,7 @@ return [
 
     'error' => [
         'over_payment'      => 'Error: Betaling blev ikke tilføjet! Beløbet du har angivet overstiger: :amount',
-        'not_user_company'  => 'Fejl: Du har ikke tilladelse til at kontrollere denne virksomhed!',
+        'not_user_company'  => 'Fejl: Du har ikke tilladelse til at administrere denne enhed!',
         'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne E-mail.',
         'no_file'           => 'Fejl: Ingen fil valgt!',
         'last_category'     => 'Fejl: Kan ikke slette sidste :type kategori!',

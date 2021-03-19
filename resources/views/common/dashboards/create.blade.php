@@ -19,9 +19,9 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-                    @permission('read-auth-users')
+                    @can('read-auth-users')
                         {{ Form::checkboxGroup('users', trans_choice('general.users', 2), $users, 'name') }}
-                    @endpermission
+                    @endcan
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>

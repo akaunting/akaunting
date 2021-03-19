@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Settings\Categories as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Setting\Category as Request;
+use App\Imports\Settings\Categories as Import;
 use App\Jobs\Setting\CreateCategory;
 use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
+use App\Traits\Categories as Helper;
 
 class Categories extends Controller
 {
+    use Helper;
 
     /**
      * Display a listing of the resource.
@@ -23,14 +28,9 @@ class Categories extends Controller
 
         $transfer_id = Category::transfer();
 
-        $types = collect([
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ]);
+        $types = $this->getCategoryTypes();
 
-        return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
+        return $this->response('settings.categories.index', compact('categories', 'types', 'transfer_id'));
     }
 
     /**
@@ -50,12 +50,7 @@ class Categories extends Controller
      */
     public function create()
     {
-        $types = [
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ];
+        $types = $this->getCategoryTypes();
 
         return view('settings.categories.create', compact('types'));
     }
@@ -82,7 +77,35 @@ class Categories extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request);
+
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
+
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.categories', 2)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['settings', 'categories']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -97,12 +120,7 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        $types = [
-            'expense' => trans_choice('general.expenses', 1),
-            'income' => trans_choice('general.incomes', 1),
-            'item' => trans_choice('general.items', 1),
-            'other' => trans_choice('general.others', 1),
-        ];
+        $types = $this->getCategoryTypes();
 
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
@@ -132,7 +150,7 @@ class Categories extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -194,10 +212,20 @@ class Categories extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.categories', 2));
     }
 
     public function category(Request $request)

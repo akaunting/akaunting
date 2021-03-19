@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Factuur ontvangen',
     'make_payment'          => 'Betaling',
 
-    'statuses' => [
-        'draft'             => 'Concept',
-        'received'          => 'Ontvangen',
-        'partial'           => 'Gedeeltelijk',
-        'paid'              => 'Betaald',
-        'overdue'           => 'Verlopen',
-        'unpaid'            => 'Onbetaald',
-        'cancelled'         => 'Geannuleerd',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Factuur gemarkeerd als ontvangen!',
-        'marked_paid'       => 'Factuur gemarkeerd als betaald!',
-        'marked_cancelled'  => 'Factuur gemarkeerd als geannuleerd!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 
         'status' => [

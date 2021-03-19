@@ -97,7 +97,7 @@ class Install extends Command
     {
         $missing_options = [];
 
-        $contants = [
+        $constants = [
             'OPT_LOCALE',
             'OPT_DB_PORT',
             'OPT_DB_HOST',
@@ -113,7 +113,7 @@ class Install extends Command
 
         $allowed_empty = ['db_password', 'db_prefix'];
 
-        foreach ($contants as $const) {
+        foreach ($constants as $const) {
             $option = constant("self::$const");
 
             $property = str_replace('-', '_', $option);
@@ -155,7 +155,7 @@ class Install extends Command
             $this->db_username = $this->ask('What is the database username?', 'root');
         }
 
-        if (empty($this->db_password)) {
+        if (!isset($this->db_password)) {
             $this->db_password = $this->secret('What is the database password?', '');
         }
 

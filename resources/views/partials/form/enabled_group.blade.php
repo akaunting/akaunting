@@ -3,7 +3,7 @@
     <label class="custom-toggle d-inline-block">
         <input type="checkbox"
             name="status[{{ $id }}]"
-            @input="onStatus({{ $id }}, $event)"
+            @input="bulk_action.path='{{ request()->path() }}'; onStatus({{ $id }}, $event)"
                 {{ ($value) ? 'checked' :'' }}>
 
         <span class="custom-toggle-slider rounded-circle status-green"

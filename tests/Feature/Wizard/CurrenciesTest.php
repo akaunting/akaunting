@@ -68,6 +68,6 @@ class CurrenciesTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Currency::class)->states('enabled')->raw();
+        return Currency::factory()->enabled()->raw();
     }
 }

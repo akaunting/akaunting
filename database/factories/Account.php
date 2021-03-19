@@ -1,38 +1,72 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Banking\Account;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Banking\Account as Model;
 
-$factory->define(Account::class, function (Faker $faker) use ($company) {
-    session(['company_id' => $company->id]);
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Account extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'company_id' => $company->id,
-        'name' => $faker->text(15),
-        'number' => (string) $faker->iban(),
-        'currency_code' => $company->currencies()->enabled()->get()->random(1)->pluck('code')->first(),
-        'opening_balance' => '0',
-        'bank_name' => $faker->text(15),
-        'bank_phone' => $faker->phoneNumber,
-        'bank_address' => $faker->address,
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'number' => (string) $this->faker->iban(),
+            'currency_code' => $this->company->currencies()->enabled()->get()->random(1)->pluck('code')->first(),
+            'opening_balance' => '0',
+            'bank_name' => $this->faker->text(15),
+            'bank_phone' => $this->faker->phoneNumber,
+            'bank_address' => $this->faker->address,
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Account::class, 'enabled', ['enabled' => 1]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Account::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
 
-$factory->state(Account::class, 'default_currency', function (Faker $faker) use ($company) {
-    session(['company_id' => $company->id]);
-    setting()->setExtraColumns(['company_id' => $company->id]);
-
-    return [
-        'currency_code' => setting('default.currency'),
-    ];
-});
+    /**
+     * Indicate that the default currency is used.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function default_currency()
+    {
+        return $this->state([
+            'currency_code' => setting('default.currency'),
+        ]);
+    }
+}

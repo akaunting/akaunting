@@ -5,8 +5,7 @@ namespace App\Traits;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Tax;
 
@@ -28,7 +27,7 @@ trait Import
             $id = $this->getAccountIdFromCurrency($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getCategoryId($row, $type = null)
@@ -41,7 +40,7 @@ trait Import
             $id = $this->getCategoryIdFromName($row, $type);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getContactId($row, $type = null)
@@ -58,30 +57,34 @@ trait Import
             $id = $this->getContactIdFromName($row, $type);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getDocumentId($row)
     {
         $id = isset($row['document_id']) ? $row['document_id'] : null;
 
+        if (empty($id) && !empty($row['document_number'])) {
+            $id = Document::number($row['document_number'])->pluck('id')->first();
+        }
+
         if (empty($id) && !empty($row['invoice_number'])) {
-            $id = Invoice::number($row['invoice_number'])->pluck('id')->first();
+            $id = Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
         }
 
         if (empty($id) && !empty($row['bill_number'])) {
-            $id = Bill::number($row['bill_number'])->pluck('id')->first();
+            $id = Document::bill()->number($row['bill_number'])->pluck('id')->first();
         }
 
         if (empty($id) && !empty($row['invoice_bill_number'])) {
             if ($row['type'] == 'income') {
-                $id = Invoice::number($row['invoice_bill_number'])->pluck('id')->first();
+                $id = Document::invoice()->number($row['invoice_bill_number'])->pluck('id')->first();
             } else {
-                $id = Bill::number($row['invoice_bill_number'])->pluck('id')->first();
+                $id = Document::bill()->number($row['invoice_bill_number'])->pluck('id')->first();
             }
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getItemId($row)
@@ -92,7 +95,7 @@ trait Import
             $id = $this->getItemIdFromName($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getTaxId($row)
@@ -107,7 +110,7 @@ trait Import
             $id = $this->getTaxIdFromRate($row);
         }
 
-        return (int) $id;
+        return is_null($id) ? $id : (int) $id;
     }
 
     public function getAccountIdFromCurrency($row)
@@ -192,8 +195,8 @@ trait Import
             'name'              => $row['item_name'],
         ], [
             'company_id'        => session('company_id'),
-            'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : $row['price'],
-            'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : $row['price'],
+            'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
+            'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : (!empty($row['price']) ? $row['price'] : 0),
             'enabled'           => 1,
         ])->id;
     }

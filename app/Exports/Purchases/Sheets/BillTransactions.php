@@ -4,12 +4,14 @@ namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class BillTransactions extends Export
+class BillTransactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'bill')->expense()->isDocument()->usingSearchString(request('search'));
+        $model = Model::with('account', 'category', 'contact', 'document')->expense()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);
@@ -20,13 +22,13 @@ class BillTransactions extends Export
 
     public function map($model): array
     {
-        $bill = $model->bill;
+        $document = $model->document;
 
-        if (empty($bill)) {
+        if (empty($document)) {
             return [];
         }
 
-        $model->bill_number = $bill->bill_number;
+        $model->bill_number = $document->document_number;
         $model->account_name = $model->account->name;
         $model->category_name = $model->category->name;
         $model->contact_email = $model->contact->email;
@@ -49,6 +51,13 @@ class BillTransactions extends Export
             'payment_method',
             'reference',
             'reconciled',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

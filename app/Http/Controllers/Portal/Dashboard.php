@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Portal;
 
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Traits\Charts;
 use App\Utilities\Chartjs;
 use Date;
@@ -20,7 +20,7 @@ class Dashboard
     {
         $contact = user()->contact;
 
-        $invoices = Invoice::accrued()->where('contact_id', $contact->id)->get();
+        $invoices = Document::invoice()->accrued()->where('contact_id', $contact->id)->get();
 
         $start = Date::parse(request('start', Date::today()->startOfYear()->format('Y-m-d')));
         $end = Date::parse(request('end', Date::today()->endOfYear()->format('Y-m-d')));

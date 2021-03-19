@@ -111,7 +111,7 @@ return [
             'resource' => ['path' => 'Http/Resources', 'generate' => false],
             'asset' => ['path' => 'Resources/assets', 'generate' => false],
             'lang' => ['path' => 'Resources/lang/en-GB', 'generate' => true],
-            'views' => ['path' => 'Resources/views', 'generate' => true],
+            'view' => ['path' => 'Resources/views', 'generate' => true],
             'test' => ['path' => 'Tests', 'generate' => false],
             'repository' => ['path' => 'Repositories', 'generate' => false],
             'event' => ['path' => 'Events', 'generate' => false],
@@ -122,6 +122,8 @@ return [
             'email' => ['path' => 'Emails', 'generate' => false],
             'notification' => ['path' => 'Notifications', 'generate' => false],
             'route' => ['path' => 'Routes', 'generate' => true],
+            'component' => ['path' => 'View/Components', 'generate' => false],
+            'cast' => ['path' => 'Casts', 'generate' => false],
         ],
     ],
 

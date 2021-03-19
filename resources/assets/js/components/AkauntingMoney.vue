@@ -1,17 +1,36 @@
 <template>
-    <div class="form-group"
+    <div v-if="!rowInput" class="form-group"
         :class="[{'has-error': error}, {'required': required}, {'readonly': readonly}, {'disabled': disabled}, col]">
         <label v-if="title" :for="name" class="form-control-label">{{ title }}</label>
 
         <div class="input-group input-group-merge" :class="group_class">
             <div v-if="icon" class="input-group-prepend">
                 <span class="input-group-text">
-                    <i class="fa fa-" :class="icon"></i>
+                    <i :class="'fa fa-' + icon"></i>
                 </span>
             </div>
 
-            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
         </div>
+
+        <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
+    </div>
+
+    <div v-else
+        :class="[{'has-error': error}, {'required': required}, {'readonly': readonly}, {'disabled': disabled}, col]">
+        <label v-if="title" :for="name" class="form-control-label">{{ title }}</label>
+
+        <div v-if="icon" class="input-group input-group-merge" :class="group_class">
+            <div v-if="icon" class="input-group-prepend">
+                <span class="input-group-text">
+                    <i :class="'fa fa-' + icon"></i>
+                </span>
+            </div>
+
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
+        </div>
+
+        <money v-else :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
     </div>
@@ -47,6 +66,11 @@ export default {
         icon: {
             type: String,
             description: "Prepend icon (left)"
+        },
+        moneyClass: {
+            type: String,
+            default: null,
+            description: "Selectbox disabled status"
         },
         group_class: {
             type: String,
@@ -105,6 +129,11 @@ export default {
             description: "Default currency"
         },
         masked: {
+            type: Boolean,
+            default: false,
+            description: "Money result value"
+        },
+        rowInput: {
             type: Boolean,
             default: false,
             description: "Money result value"

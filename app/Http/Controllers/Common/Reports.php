@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Cache;
 class Reports extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // Add CRUD permission check
+        $this->middleware('permission:create-common-reports')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export');
+        $this->middleware('permission:update-common-reports')->only('edit', 'update', 'enable', 'disable');
+        $this->middleware('permission:delete-common-reports')->only('destroy');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -45,7 +56,7 @@ class Reports extends Controller
             $categories[$class->getCategory()][] = $report;
         }
 
-        return view('common.reports.index', compact('categories', 'totals', 'icons'));
+        return $this->response('common.reports.index', compact('categories', 'totals', 'icons'));
     }
 
     /**
@@ -101,7 +112,7 @@ class Reports extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -163,7 +174,7 @@ class Reports extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -189,7 +200,7 @@ class Reports extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

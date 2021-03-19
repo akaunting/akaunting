@@ -15,7 +15,7 @@
 @endphp
 
 <akaunting-recurring
-    :form-classes="[{'has-error': form.errors.get('recurring_frequency')}]"
+    :form-classes="[{'has-error': form.errors.get('recurring_frequency')}, '{{ $col }}']"
     title="{{ trans('recurring.recurring') }}"
     placeholder="{{ trans('general.form.select.field', ['field' => trans('recurring.recurring')]) }}"
 

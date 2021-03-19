@@ -12,7 +12,7 @@ use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Traits\Contacts;
 use Date;
@@ -30,7 +30,7 @@ class Vendors extends Controller
     {
         $vendors = Contact::with('bills.transactions')->vendor()->collect();
 
-        return view('purchases.vendors.index', compact('vendors'));
+        return $this->response('purchases.vendors.index', compact('vendors'));
     }
 
     /**
@@ -51,7 +51,7 @@ class Vendors extends Controller
         $counts = [];
 
         // Handle bills
-        $bills = Bill::with('transactions')->where('contact_id', $vendor->id)->get();
+        $bills = Document::bill()->with('transactions')->where('contact_id', $vendor->id)->get();
 
         $counts['bills'] = $bills->count();
 
@@ -89,7 +89,7 @@ class Vendors extends Controller
 
         $limit = request('limit', setting('default.list_limit', '25'));
         $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
-        $bills = $this->paginate($bills->sortByDesc('paid_at'), $limit);
+        $bills = $this->paginate($bills->sortByDesc('issued_at'), $limit);
 
         return view('purchases.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions', 'bills'));
     }
@@ -128,7 +128,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -161,13 +161,23 @@ class Vendors extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('vendors.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
-        return redirect()->route('vendors.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'vendors']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -207,7 +217,7 @@ class Vendors extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -269,7 +279,7 @@ class Vendors extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -282,7 +292,7 @@ class Vendors extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.vendors', 2));
     }
 
     public function currency(Contact $vendor)

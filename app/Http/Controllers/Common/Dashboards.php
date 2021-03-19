@@ -13,6 +13,7 @@ use App\Models\Common\Widget;
 use App\Traits\DateTime;
 use App\Traits\Users;
 use App\Utilities\Widgets;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Dashboards extends Controller
 {
@@ -39,7 +40,7 @@ class Dashboards extends Controller
     {
         $dashboards = user()->dashboards()->collect();
 
-        return view('common.dashboards.index', compact('dashboards'));
+        return $this->response('common.dashboards.index', compact('dashboards'));
     }
 
     /**
@@ -51,9 +52,9 @@ class Dashboards extends Controller
     {
         $dashboard_id = $dashboard_id ?? session('dashboard_id');
 
-        if (!empty($dashboard_id)) {
-            $dashboard = Dashboard::find($dashboard_id);
-        } else {
+        try {
+            $dashboard = Dashboard::findOrFail($dashboard_id);
+        } catch (ModelNotFoundException $e) {
             $dashboard = user()->dashboards()->enabled()->first();
         }
 
@@ -61,7 +62,7 @@ class Dashboards extends Controller
             $dashboard = $this->dispatch(new CreateDashboard([
                 'company_id' => session('company_id'),
                 'name' => trans_choice('general.dashboards', 1),
-                'with_widgets' => true,
+                'default_widgets' => true,
             ]));
         }
 
@@ -109,7 +110,7 @@ class Dashboards extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -155,7 +156,7 @@ class Dashboards extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -219,7 +220,7 @@ class Dashboards extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

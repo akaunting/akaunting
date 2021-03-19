@@ -31,7 +31,7 @@
 
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
-                    {{ Form::fileGroup('logo', trans_choice('general.pictures', 1)) }}
+                    {{ Form::fileGroup('logo', trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 

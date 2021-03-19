@@ -11,4 +11,6 @@
     @stack('body_js')
 
     @stack('body_scripts')
+
+    @livewireScripts
 @stack('scripts_end')

@@ -285,6 +285,12 @@ th, td
     text-align: right;
 }
 
+.lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
 .lines .total
 {
     width: 20%;
@@ -369,6 +375,12 @@ th, td
     text-align: right;
 }
 
+.c-lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
 .c-lines .total
 {
     width: 20%;
@@ -420,6 +432,12 @@ th, td
     text-align: right;
 }
 
+.m-lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
 .m-lines .total
 {
     width: 20%;
@@ -464,3 +482,9 @@ th, td
 }
 /*--Print Reports Finish--*/
 
+.lines .empty-items:hover,
+.c-lines .empty-items:hover,
+.m-lines .empty-items:hover {
+    background-color: #f6f9fc;
+    text-decoration: none;
+}

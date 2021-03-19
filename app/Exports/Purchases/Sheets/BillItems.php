@@ -3,16 +3,16 @@
 namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
-use App\Models\Purchase\BillItem as Model;
+use App\Models\Document\DocumentItem as Model;
 
 class BillItems extends Export
 {
     public function collection()
     {
-        $model = Model::with('bill', 'item')->usingSearchString(request('search'));
+        $model = Model::bill()->with('document', 'item')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
-            $model->whereIn('bill_id', (array) $this->ids);
+            $model->whereIn('document_id', (array) $this->ids);
         }
 
         return $model->cursor();
@@ -20,13 +20,13 @@ class BillItems extends Export
 
     public function map($model): array
     {
-        $bill = $model->bill;
+        $document = $model->document;
 
-        if (empty($bill)) {
+        if (empty($document)) {
             return [];
         }
 
-        $model->bill_number = $bill->bill_number;
+        $model->bill_number = $document->document_number;
         $model->item_name = $model->item->name;
 
         return parent::map($model);

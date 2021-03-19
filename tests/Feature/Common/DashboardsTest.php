@@ -93,7 +93,7 @@ class DashboardsTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Dashboard::class)->states('enabled', 'users')->raw();
+        return Dashboard::factory()->enabled()->users()->raw();
     }
 
     public function getAssertRequest($request)

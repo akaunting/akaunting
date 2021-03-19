@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Abstracts\Http\Controller;
 use App\Traits\Modules;
-use App\Models\Module\Module;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Module\Module;
+use App\Abstracts\Http\Controller;
 
 class Tiles extends Controller
 {
@@ -30,8 +31,12 @@ class Tiles extends Controller
 
         $data = $this->getModulesByCategory($alias, $request);
 
-        $title = $data->category->name;
-        $modules = $data->modules;
+        if (empty($data)) {
+            return redirect()->route('apps.home.index')->send();
+        }
+
+        $title = !empty($data->category) ? $data->category->name : Str::studly($alias);
+        $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
@@ -56,8 +61,8 @@ class Tiles extends Controller
 
         $data = $this->getModulesByVendor($alias, $request);
 
-        $title = $data->vendor->name;
-        $modules = $data->modules;
+        $title = !empty($data->vendor) ? $data->vendor->name : Str::studly($alias);
+        $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));

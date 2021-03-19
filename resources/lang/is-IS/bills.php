@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Taka á móti reikningi',
     'make_payment'          => 'Greiða',
 
-    'statuses' => [
-        'draft'             => 'Uppkast',
-        'received'          => 'Móttekið',
-        'partial'           => 'Partial',
-        'paid'              => 'Greitt',
-        'overdue'           => 'Vanskil',
-        'unpaid'            => 'Ógreitt',
-        'cancelled'         => 'Afturkallað',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Reikningur merktur mótekinn',
-        'marked_paid'       => 'Reikningur merktur greiddur',
-        'marked_cancelled'  => 'Reikningur merktur afturkallaður',
         'draft'             => 'Þetta er <b>PRUFU</b> reikningur sem sést á kortum eftir að hann er móttekinn.',
 
         'status' => [

@@ -40,24 +40,7 @@ return [
     'get_paid'              => 'Essere pagato',
     'accept_payments'       => 'Accetta pagamenti online',
 
-    'statuses' => [
-        'draft'             => 'Bozza',
-        'sent'              => 'Inviato',
-        'viewed'            => 'Visto',
-        'approved'          => 'Approvato',
-        'partial'           => 'Parziale',
-        'paid'              => 'Pagato',
-        'overdue'           => 'In Ritardo',
-        'unpaid'            => 'Non pagato',
-        'cancelled'         => 'Cancellato',
-    ],
-
     'messages' => [
-        'email_sent'        => 'E-mail di fattura inviata!',
-        'marked_sent'       => 'Fattura segnata come inviata!',
-        'marked_paid'       => 'Fattura contrassegnata come pagata!',
-        'marked_viewed'     => 'Fattura contrassegnata come vista!',
-        'marked_cancelled'  => 'Fattura contrassegnata come annullata!',
         'email_required'    => 'Nessun indirizzo email per questo cliente!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà inviata.',
 

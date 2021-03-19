@@ -2,15 +2,16 @@
 
 return [
 
+    'currencies'                => 'Währungen',
     'total_income'              => 'Total Einnahmen',
     'receivables'               => 'Forderungen',
     'open_invoices'             => 'Offene Rechnungen (Einnahmen)',
     'overdue_invoices'          => 'Überfällige Rechnungen (Einnahmen)',
-    'total_expenses'            => 'Total Ausgaben',
+    'total_expenses'            => 'Ausgaben Gesamt',
     'payables'                  => 'Verbindlichkeiten',
     'open_bills'                => 'Offene Rechnungen (Ausgaben)',
     'overdue_bills'             => 'Überfällige Rechnungen (Ausgaben)',
-    'total_profit'              => 'Total Gewinn',
+    'total_profit'              => 'Gewinn Gesamt',
     'open_profit'               => 'Offener Gewinn',
     'overdue_profit'            => 'Überfälliger Gewinn',
     'cash_flow'                 => 'Umlaufvermögen',

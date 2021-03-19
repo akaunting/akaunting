@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.permissions', 2))
 
-@permission('create-auth-permissions')
+@can('create-auth-permissions')
     @section('new_button')
         <a href="{{ route('permissions.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Auth\Permission" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.permissions', $bulk_actions, ['group' => 'auth', 'type' => 'permissions']) }}
@@ -44,7 +41,7 @@
                     @foreach($permissions as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-1 col-lg-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
-                            <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 long-texts"><a class="col-aka" href="{{ route('permissions.edit', $item->id) }}">{{ $item->display_name }}</a></td>
+                            <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><a class="col-aka" href="{{ route('permissions.edit', $item->id) }}">{{ $item->display_name }}</a></td>
                             <td class="col-xs-4 col-sm-4 col-md-3 col-lg-3 long-texts">{{ $item->name }}</td>
                             <td class="col-md-2 col-lg-3 d-none d-md-block long-texts">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
@@ -54,10 +51,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('permissions.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-auth-permissions')
+                                        @can('delete-auth-permissions')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'permissions.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

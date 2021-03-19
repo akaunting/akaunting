@@ -104,7 +104,10 @@ return [
     'from'                  => 'Dari',
     'to'                    => 'Untuk',
     'print'                 => 'Cetak',
+    'download_pdf'          => 'Unduh PDF',
+    'customize'             => 'Sesuaikan',
     'search'                => 'Cari',
+    'search_text'           => 'Telusuri teks ini',
     'search_placeholder'    => 'Ketik untuk mencari..',
     'filter'                => 'Menyaring',
     'help'                  => 'Bantuan',
@@ -152,12 +155,18 @@ return [
     'no_matching_data'      => 'Tidak ada data yang cocok',
     'clear_cache'           => 'Hapus Cache',
     'go_to_dashboard'       => 'Buka dasbor',
+    'is'                    => 'adalah',
+    'isnot'                 => 'bukan',
+    'recurring_and_more'    => 'Mengulangi dan lagi..',
+    'due_on'                => 'Jatuh tempo pada',
+    'amount_due'            => 'Nilai jatuh tempo',
 
     'card' => [
         'name'                  => 'Nama pada Kartu',
         'number'                => 'Nomor Kartu',
         'expiration_date'       => 'Tanggal Kadaluwarsa',
         'cvv'                   => 'Kartu CVV',
+        'save'                  => 'Simpan Kartu',
     ],
 
     'title' => [
@@ -177,8 +186,21 @@ return [
             'field'         => '-Pilih :field -',
             'file'          => 'Pilih Berkas',
         ],
+        'add'               => 'Tambah :isi',
+        'add_an'            => 'Tambah :isi',
         'add_new'           => 'Tambah kolom baru',
+        'edit'              => 'Sunting :isi',
+        'contact_edit'      => 'Sunting :nama_kontak :isi',
+        'choose'            => 'Pilih :isi',
+        'choose_different'  => 'Pilih lainnya :isi',
         'no_file_selected'  => 'Tidak ada Berkas yang dipilih...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Ketik untuk mencari..',
+        'search_and_filter' => 'Cari atau seleksi hasil..',
+        'contact_search'    => 'Ketik :ketik nama',
+        'item_search'       => 'Ketik sebuah nama item',
     ],
 
     'date_range' => [

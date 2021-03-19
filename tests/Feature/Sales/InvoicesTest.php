@@ -2,8 +2,11 @@
 
 namespace Tests\Feature\Sales;
 
-use App\Jobs\Sale\CreateInvoice;
-use App\Models\Sale\Invoice;
+use App\Exports\Sales\Invoices as Export;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Document\Document;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Tests\Feature\FeatureTestCase;
 
 class InvoicesTest extends FeatureTestCase
@@ -34,9 +37,20 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
+    }
+
+    public function testItShouldDuplicateInvoice()
+    {
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        $this->loginAs()
+             ->get(route('invoices.duplicate', ['invoice' => $invoice->id]))
+             ->assertStatus(302);
+
+        $this->assertFlashLevel('success');
     }
 
     public function testItShouldCreateInvoiceWithRecurring()
@@ -49,8 +63,8 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
@@ -58,7 +72,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->get(route('invoices.edit', $invoice->id))
@@ -70,7 +84,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $request['contact_email'] = $this->faker->safeEmail;
 
@@ -81,8 +95,8 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
             'contact_email' => $request['contact_email'],
         ]);
     }
@@ -91,7 +105,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->delete(route('invoices.destroy', $invoice->id))
@@ -99,16 +113,79 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertSoftDeleted('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertSoftDeleted('documents', [
+            'document_number' => $request['document_number'],
         ]);
+    }
+
+    public function testItShouldExportInvoices()
+    {
+        $count = 5;
+        Document::factory()->invoice()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->get(route('invoices.export'))
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx',
+            function (Export $export) use ($count) {
+                // Assert that the correct export is downloaded.
+                return $export->sheets()['invoices']->collection()->count() === $count;
+            }
+        );
+    }
+
+    public function testItShouldExportSelectedInvoices()
+    {
+        $count = 5;
+        $invoices = Document::factory()->invoice()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'sales', 'type' => 'invoices']),
+                ['handle' => 'export', 'selected' => [$invoices->random()->id]]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx',
+            function (Export $export) {
+                return $export->sheets()['invoices']->collection()->count() === 1;
+            }
+        );
+    }
+
+    public function testItShouldImportInvoices()
+    {
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('invoices.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'invoices.xlsx',
+                        File::get(public_path('files/import/invoices.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertImported('invoices.xlsx');
+
+        $this->assertFlashLevel('success');
     }
 
     public function getRequest($recurring = false)
     {
-        $factory = factory(Invoice::class);
+        $factory = Document::factory();
 
-        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
+        $factory = $recurring ? $factory->invoice()->items()->recurring() : $factory->invoice()->items();
 
         return $factory->raw();
     }

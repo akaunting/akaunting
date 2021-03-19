@@ -44,6 +44,10 @@
   </div>
 </template>
 <script>
+  import Dropzone from 'dropzone';
+
+  Dropzone.autoDiscover = false;
+
   export default {
     name: 'dropzone-file-upload',
     props: {
@@ -72,9 +76,6 @@
     },
     methods: {
       async initDropzone() {
-        let Dropzone = await import('dropzone')
-        Dropzone = Dropzone.default || Dropzone
-        Dropzone.autoDiscover = false
         let preview = this.multiple ? this.$refs.previewMultiple : this.$refs.previewSingle;
         let self = this
         let finalOptions = {

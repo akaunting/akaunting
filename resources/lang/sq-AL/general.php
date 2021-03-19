@@ -104,7 +104,10 @@ return [
     'from'                  => 'Nga',
     'to'                    => 'Te',
     'print'                 => 'Printo',
+    'download_pdf'          => 'Shkarko PDF',
+    'customize'             => 'Personalizo',
     'search'                => 'Kërko',
+    'search_text'           => 'Kërko për këtë tekst',
     'search_placeholder'    => 'Lloji për të kërkuar..',
     'filter'                => 'Filtër',
     'help'                  => 'Ndihmë',
@@ -152,12 +155,19 @@ return [
     'no_matching_data'      => 'Nuk ka të dhëna që përputhen',
     'clear_cache'           => 'Pastro Cache',
     'go_to_dashboard'       => 'Shkoni në Panelin e Kontrollit',
+    'is'                    => 'është',
+    'isnot'                 => 'nuk është',
+    'recurring_and_more'    => 'Të përsëritura dhe më shumë ..',
+    'due_on'                => 'Skadimi më',
+    'amount_due'            => 'Shuma e duhur',
 
     'card' => [
+        'cards'                 => 'Karta|Kartat',
         'name'                  => 'Emri ne Karte',
         'number'                => 'Numri i Kartes',
         'expiration_date'       => 'Data e Skadimit',
         'cvv'                   => 'Karta CVV',
+        'save'                  => 'Ruaje Kartën',
     ],
 
     'title' => [
@@ -177,8 +187,23 @@ return [
             'field'         => '- Selekto :field -',
             'file'          => 'Selekto Dosje',
         ],
+        'add'               => 'Shto një :field',
+        'add_an'            => 'Shto një :field',
         'add_new'           => 'Shto :field të ri',
+        'edit'              => 'Ndrysho :field',
+        'contact_edit'      => 'Ndrysho :contact_name :field',
+        'drop_file'         => 'Hidhni skedarët këtu për t\'i ngarkuar',
+        'choose'            => 'Zgjedh :field',
+        'choose_different'  => 'Zgjedh një :field tjetër',
+        'choose_file'       => 'Zgjedh Skedarin',
         'no_file_selected'  => 'Asnjë skedar i përzgjedhur...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Lloji për të kërkuar..',
+        'search_and_filter' => 'Kërko ose filtro rezultatet ..',
+        'contact_search'    => 'Shtypni një emër :type',
+        'item_search'       => 'Shtypni një emër artikulli',
     ],
 
     'date_range' => [

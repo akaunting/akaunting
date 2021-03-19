@@ -3,15 +3,15 @@
 @section('title', trans_choice('general.revenues', 2))
 
 @section('new_button')
-    @permission('create-sales-revenues')
+    @can('create-sales-revenues')
         <a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
         <a href="{{ route('import.create', ['group' => 'sales', 'type' => 'revenues']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('revenues.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
-    @if ($revenues->count())
+    @if ($revenues->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
@@ -21,10 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <akaunting-search
-                            :placeholder="'{{ trans('general.search_placeholder') }}'"
-                            :options="{{ json_encode([]) }}"
-                        ></akaunting-search>
+                        <x-search-string model="App\Models\Sale\Revenue" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.revenues', $bulk_actions, ['group' => 'sales', 'type' => 'revenues']) }}
@@ -50,9 +47,9 @@
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
                                 @if ($item->reconciled)
-                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="#">@date($item->paid_at)</a></td>
+                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1"><a class="col-aka" href="#">@date($item->paid_at)</a></td>
                                 @else
-                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
+                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1"><a class="col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                 <td class="col-md-2 col-lg-3 col-xl-3 d-none d-md-block text-left">
@@ -60,7 +57,7 @@
 
                                     @if($item->invoice)
                                         @if ($item->invoice->status == 'paid')
-                                            <el-tooltip content="{{ $item->invoice->invoice_number }} / {{ trans('invoices.statuses.paid') }}"
+                                            <el-tooltip content="{{ $item->invoice->document_number }} / {{ trans('documents.statuses.paid') }}"
                                             effect="success"
                                             :open-delay="100"
                                             placement="top">
@@ -69,7 +66,7 @@
                                                 </span>
                                             </el-tooltip>
                                         @elseif ($item->invoice->status == 'partial')
-                                            <el-tooltip content="{{ $item->invoice->invoice_number }} / {{ trans('invoices.statuses.partial') }}"
+                                            <el-tooltip content="{{ $item->invoice->document_number }} / {{ trans('documents.statuses.partial') }}"
                                             effect="info"
                                             :open-delay="100"
                                             placement="top">
@@ -93,15 +90,15 @@
                                                 <div class="dropdown-divider"></div>
                                             @endif
                                             @if (empty($item->document_id))
-                                            @permission('create-sales-revenues')
+                                            @can('create-sales-revenues')
                                                 <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 <div class="dropdown-divider"></div>
-                                            @endpermission
+                                            @endcan
                                             @endif
                                             @if (!$item->reconciled)
-                                            @permission('delete-sales-revenues')
+                                            @can('delete-sales-revenues')
                                                 {!! Form::deleteLink($item, 'revenues.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                             @endif
                                         </div>
                                     </div>
@@ -119,7 +116,7 @@
             </div>
         </div>
     @else
-        @include('partials.admin.empty_page', ['page' => 'revenues', 'docs_path' => 'sales/revenues'])
+        <x-empty-page group="sales" page="revenues" />
     @endif
 @endsection
 

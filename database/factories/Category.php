@@ -1,34 +1,106 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Setting\Category;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Setting\Category as Model;
 
-$factory->define(Category::class, function (Faker $faker) use ($company) {
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Category extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    $types = ['income', 'expense', 'item', 'other'];
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $types = ['income', 'expense', 'item', 'other'];
 
-    return [
-        'company_id' => $company->id,
-        'name' => $faker->text(15),
-        'type' => $faker->randomElement($types),
-        'color' => $faker->hexColor,
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'type' => $this->faker->randomElement($types),
+            'color' => $this->faker->hexColor,
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Category::class, 'enabled', ['enabled' => 1]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Category::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
 
-$factory->state(Category::class, 'income', ['type' => 'income']);
+    /**
+     * Indicate that the model type is income.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function income()
+    {
+        return $this->state([
+            'type' => 'income',
+        ]);
+    }
 
-$factory->state(Category::class, 'expense', ['type' => 'expense']);
+    /**
+     * Indicate that the model type is expense.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function expense()
+    {
+        return $this->state([
+            'type' => 'expense',
+        ]);
+    }
 
-$factory->state(Category::class, 'item', ['type' => 'item']);
+    /**
+     * Indicate that the model type is item.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function item()
+    {
+        return $this->state([
+            'type' => 'item',
+        ]);
+    }
 
-$factory->state(Category::class, 'other', ['type' => 'other']);
+    /**
+     * Indicate that the model type is other.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function other()
+    {
+        return $this->state([
+            'type' => 'other',
+        ]);
+    }
+}

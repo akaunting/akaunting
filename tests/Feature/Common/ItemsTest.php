@@ -2,8 +2,11 @@
 
 namespace Tests\Feature\Common;
 
+use App\Exports\Common\Items as Export;
 use App\Jobs\Common\CreateItem;
 use App\Models\Common\Item;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Tests\Feature\FeatureTestCase;
 
 class ItemsTest extends FeatureTestCase
@@ -82,8 +85,71 @@ class ItemsTest extends FeatureTestCase
 		$this->assertSoftDeleted('items', $request);
 	}
 
+    public function testItShouldExportItems()
+    {
+        $count = 5;
+        Item::factory()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->get(route('items.export'))
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.items', 2)) . '.xlsx',
+            function (Export $export) use ($count) {
+                // Assert that the correct export is downloaded.
+                return $export->sheets()['items']->collection()->count() === $count;
+            }
+        );
+    }
+
+    public function testItShouldExportSelectedItems()
+    {
+        $count = 5;
+        $items = Item::factory()->count($count)->create();
+
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'common', 'type' => 'items']),
+                ['handle' => 'export', 'selected' => [$items->random()->id]]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertDownloaded(
+            \Str::filename(trans_choice('general.items', 2)) . '.xlsx',
+            function (Export $export) {
+                return $export->sheets()['items']->collection()->count() === 1;
+            }
+        );
+    }
+
+    public function testItShouldImportItems()
+    {
+        \Excel::fake();
+
+        $this->loginAs()
+            ->post(
+                route('items.import'),
+                [
+                    'import' => UploadedFile::fake()->createWithContent(
+                        'items.xlsx',
+                        File::get(public_path('files/import/items.xlsx'))
+                    ),
+                ]
+            )
+            ->assertStatus(200);
+
+        \Excel::assertImported('items.xlsx');
+
+        $this->assertFlashLevel('success');
+    }
+
     public function getRequest()
     {
-        return factory(Item::class)->states('enabled')->raw();
+        return Item::factory()->enabled()->raw();
     }
 }

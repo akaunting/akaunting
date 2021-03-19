@@ -22,7 +22,7 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        :config="{
+        :date-config="{
             allowInput: true,
             wrap: true,
             enableTime: true,
@@ -38,6 +38,10 @@
         @interface="form.errors.clear('{{ 'form.' . $attributes['data-field'] . '.' . $name }}'); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
+        @endif
+
+        @if (!empty($attributes['change']))
+        @change="{{ $attributes['change'] }}"
         @endif
 
         @if (isset($attributes['readonly']))

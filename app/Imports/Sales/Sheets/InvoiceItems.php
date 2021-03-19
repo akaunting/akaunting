@@ -3,9 +3,9 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Sale\InvoiceItem as Request;
-use App\Models\Sale\Invoice;
-use App\Models\Sale\InvoiceItem as Model;
+use App\Http\Requests\Document\DocumentItem as Request;
+use App\Models\Document\Document;
+use App\Models\Document\DocumentItem as Model;
 
 class InvoiceItems extends Import
 {
@@ -22,7 +22,7 @@ class InvoiceItems extends Import
 
         $row = parent::map($row);
 
-        $row['invoice_id'] = (int) Invoice::number($row['invoice_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
         if (empty($row['item_id']) && !empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);
@@ -32,6 +32,7 @@ class InvoiceItems extends Import
 
         $row['tax'] = (double) $row['tax'];
         $row['tax_id'] = 0;
+        $row['type'] = Document::INVOICE_TYPE;
 
         return $row;
     }
@@ -41,6 +42,7 @@ class InvoiceItems extends Import
         $rules = (new Request())->rules();
 
         $rules['invoice_number'] = 'required|string';
+
         unset($rules['invoice_id']);
 
         return $rules;

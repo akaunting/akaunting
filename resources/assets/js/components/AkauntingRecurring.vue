@@ -1,5 +1,5 @@
 <template>
-    <div class="row col-md-6 pr-0">
+    <div class="row pr-0" :class="formClasses">
         <base-input :label="title"
             name="recurring_frequency"
             :class="frequencyClasses"
@@ -24,6 +24,7 @@
             name="recurring_interval"
             type="number"
             :value="0"
+            @input="change"
             class="recurring-single"
             :class="invertalClasses"
             :error="intervalError"
@@ -50,6 +51,7 @@
             name="recurring_count"
             type="number"
             :value="0"
+            @input="change"
             class="recurring-single"
             :class="countClasses"
             :error="countError"
@@ -80,7 +82,9 @@ export default {
             default: '',
             description: "Modal header title"
         },
-        formClasses: null,
+        formClasses: {
+            default: 'col-md-6',
+        },
         formError: null,
 
         frequencyOptions: null,
@@ -133,6 +137,11 @@ export default {
 
     mounted() {
         this.recurring_frequency = this.frequencyValue;
+
+        if (this.recurring_frequency != 'custom') {
+            this.recurring_custom_frequency = '';
+            this.recurring_interval = '0';
+        }
 
         this.frequencyChanges();
 

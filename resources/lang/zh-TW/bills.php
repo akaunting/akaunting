@@ -38,20 +38,7 @@ return [
     'receive_bill'          => '接收帳單',
     'make_payment'          => '取消付款',
 
-    'statuses' => [
-        'draft'             => '草稿',
-        'received'          => '已收到',
-        'partial'           => '部分',
-        'paid'              => '已付款',
-        'overdue'           => '逾期',
-        'unpaid'            => '未付款',
-        'cancelled'         => '已撤銷',
-    ],
-
     'messages' => [
-        'marked_received'   => '帳單標記為已收到',
-        'marked_paid'       => '帳單標記為已付款',
-        'marked_cancelled'  => '帳單標記為已撤銷',
         'draft'             => '這是 <b>草稿</b> 帳單, 在簽收後將反映在圖表上。',
 
         'status' => [

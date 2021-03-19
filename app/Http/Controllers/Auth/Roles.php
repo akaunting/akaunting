@@ -21,7 +21,7 @@ class Roles extends Controller
     {
         $roles = Role::collect();
 
-        return view('auth.roles.index', compact('roles'));
+        return $this->response('auth.roles.index', compact('roles'));
     }
 
     /**
@@ -63,7 +63,7 @@ class Roles extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -111,7 +111,7 @@ class Roles extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -137,7 +137,7 @@ class Roles extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

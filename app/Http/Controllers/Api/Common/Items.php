@@ -9,12 +9,9 @@ use App\Jobs\Common\DeleteItem;
 use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 use App\Transformers\Common\Item as Transformer;
-use App\Traits\Uploads;
 
 class Items extends ApiController
 {
-    use Uploads;
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +19,7 @@ class Items extends ApiController
      */
     public function index()
     {
-        $items = Item::with('category', 'tax')->collect();
+        $items = Item::with('category', 'taxes')->collect();
 
         return $this->response->paginator($items, new Transformer());
     }
@@ -35,7 +32,7 @@ class Items extends ApiController
      */
     public function show($id)
     {
-        $item = Item::with('category', 'tax')->find($id);
+        $item = Item::with('category', 'taxes')->find($id);
 
         return $this->response->item($item, new Transformer());
     }

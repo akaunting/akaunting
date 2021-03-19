@@ -6,9 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\BulkAction as Request;
 use Illuminate\Support\Str;
 
-class
-
-BulkActions extends Controller
+class BulkActions extends Controller
 {
 
     /**
@@ -44,7 +42,7 @@ BulkActions extends Controller
         }
 
         if (isset($bulk_actions->actions[$request->get('handle')]['permission']) && !user()->can($bulk_actions->actions[$request->get('handle')]['permission'])) {
-            flash(trans('errors.message.403'))->error();
+            flash(trans('errors.message.403'))->error()->important();
 
             return response()->json([
                 'success' => false,

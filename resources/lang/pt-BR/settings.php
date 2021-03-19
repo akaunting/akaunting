@@ -62,12 +62,21 @@ return [
         'default'           => 'Padrão',
         'classic'           => 'Clássico',
         'modern'            => 'Moderno',
+        'hide'              => [
+            'item_name'         => 'Ocultar Nome do item',
+            'item_description'  => 'Ocultar descrição do item',
+            'quantity'          => 'Ocultar quantidade',
+            'price'             => 'Ocultar preço',
+            'amount'            => 'Ocultar quantidade',
+        ],
     ],
 
     'default' => [
         'description'       => 'Conta padrão, moeda, idioma de sua empresa',
         'list_limit'        => 'Registros por Página',
         'use_gravatar'      => 'Usar Gravatar',
+        'income_category'   => 'Categoria de renda',
+        'expense_category'  => 'Categoria de despesa',
     ],
 
     'email' => [

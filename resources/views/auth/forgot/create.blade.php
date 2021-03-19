@@ -27,7 +27,7 @@
             <div class="col-xs-12 col-sm-12">
                 {!! Form::button(
                 '<div class="aka-loader"></div> <span>' . trans('general.send') . '</span>',
-                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success float-right header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success float-right', 'data-loading-text' => trans('general.loading')]) !!}
             </div>
         </div>
     {!! Form::close() !!}

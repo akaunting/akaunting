@@ -104,7 +104,10 @@ return [
     'from'                  => 'De',
     'to'                    => 'Para',
     'print'                 => 'Imprimir',
+    'download_pdf'          => 'Baixar PDF',
+    'customize'             => 'Personalizar',
     'search'                => 'Localizar',
+    'search_text'           => 'Pesquisar por este texto',
     'search_placeholder'    => 'Digite para pesquisa..',
     'filter'                => 'Filtar',
     'help'                  => 'Ajuda',
@@ -152,12 +155,19 @@ return [
     'no_matching_data'      => 'Não há dados correspondentes',
     'clear_cache'           => 'Limpar o Cache',
     'go_to_dashboard'       => 'Ir para o Painel',
+    'is'                    => 'é',
+    'isnot'                 => 'não é',
+    'recurring_and_more'    => 'Recorrente e mais..',
+    'due_on'                => 'Vence em',
+    'amount_due'            => 'Total devido',
 
     'card' => [
+        'cards'                 => 'Cartão|Cartões',
         'name'                  => 'Nome que consta no cartão',
         'number'                => 'Número do Cartão',
         'expiration_date'       => 'Data de validade',
         'cvv'                   => 'Código CVV do cartão',
+        'save'                  => 'Salvar cartão',
     ],
 
     'title' => [
@@ -177,8 +187,23 @@ return [
             'field'         => '- Selecionar :field -',
             'file'          => 'Selecionar Arquivo',
         ],
+        'add'               => 'Adicione um :field',
+        'add_an'            => 'Adicione um :field',
         'add_new'           => 'Adicionar novo :field',
+        'edit'              => 'Editar :field',
+        'contact_edit'      => 'Editar :contact_name :field',
+        'drop_file'         => 'Solte arquivos aqui para enviar',
+        'choose'            => 'Escolher :field',
+        'choose_different'  => 'Selecione um :field diferente',
+        'choose_file'       => 'Escolher Arquivo',
         'no_file_selected'  => 'Nenhum arquivo selecionado...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Digite para pesquisar...',
+        'search_and_filter' => 'Pesquisar ou filtrar resultados...',
+        'contact_search'    => 'Digite um nome :type',
+        'item_search'       => 'Digite um nome de item',
     ],
 
     'date_range' => [

@@ -8,6 +8,8 @@
 
     <title>@yield('title') - @setting('company.name')</title>
 
+    <base href="{{ config('app.url') . '/' }}">
+
     @include('partials.pwa.pwa')
 
     <!-- Favicon -->
@@ -26,10 +28,11 @@
     <link rel="stylesheet" href="{{ asset('public/css/custom.css?v=' . version('short')) }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('public/css/element.css?v=' . version('short')) }}" type="text/css">
 
-
     @stack('css')
 
     @stack('stylesheet')
+
+    @livewireStyles
 
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';

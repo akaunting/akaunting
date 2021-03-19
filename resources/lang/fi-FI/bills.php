@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Vastaanota lasku',
     'make_payment'          => 'Tee maksu',
 
-    'statuses' => [
-        'draft'             => 'Luonnos',
-        'received'          => 'Vastaanotettu',
-        'partial'           => 'Osittainen',
-        'paid'              => 'Maksettu',
-        'overdue'           => 'Erääntynyt',
-        'unpaid'            => 'Maksamatta',
-        'cancelled'         => 'Peruutettu',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Lasku merkitty vastaanotetuksi!',
-        'marked_paid'       => 'Lasku merkitty maksetuksi!',
-        'marked_cancelled'  => 'Lasku merkitty peruutetuksi!',
         'draft'             => 'Tämä lasku on <b>LUONNOS</b> ja se sisällytetään kaavioihin, kun se on vastaanotettu.',
 
         'status' => [

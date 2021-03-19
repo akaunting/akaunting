@@ -2,6 +2,7 @@
 
 namespace $NAMESPACE$;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class $NAME$ extends Provider
@@ -14,9 +15,9 @@ class $NAME$ extends Provider
     public function boot()
     {
         $this->loadViews();
+        $this->loadViewComponents();
         $this->loadTranslations();
         $this->loadMigrations();
-        $this->loadFactories();
         //$this->loadConfig();
     }
 
@@ -41,6 +42,16 @@ class $NAME$ extends Provider
     }
 
     /**
+     * Load view components.
+     *
+     * @return void
+     */
+    public function loadViewComponents()
+    {
+        Blade::componentNamespace('$COMPONENT_NAMESPACE$', '$ALIAS$');
+    }
+
+    /**
      * Load translations.
      *
      * @return void
@@ -58,20 +69,6 @@ class $NAME$ extends Provider
     public function loadMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../$MIGRATIONS_PATH$');
-    }
-
-    /**
-     * Load factories.
-     *
-     * @return void
-     */
-    public function loadFactories()
-    {
-        if (app()->environment('production') || !app()->runningInConsole()) {
-            return;
-        }
-
-        $this->loadFactoriesFrom(__DIR__ . '/../$FACTORIES_PATH$');
     }
 
     /**

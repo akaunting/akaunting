@@ -13,7 +13,7 @@ return [
     'payments'              => 'Betaling|Betalinger',
     'vendors'               => 'Kreditor|Kreditorer',
     'accounts'              => 'Konto|Konti',
-    'transfers'             => 'Overføre|Overførsler',
+    'transfers'             => 'Overførsel|Overførsler',
     'transactions'          => 'Transaktion|Transaktioner',
     'reports'               => 'Rapport|Rapporter',
     'settings'              => 'Indstilling|Indstillinger',
@@ -85,9 +85,9 @@ return [
     'phone'                 => 'Telefon',
     'address'               => 'Adresse',
     'website'               => 'Webside',
-    'actions'               => 'Handlinger:',
+    'actions'               => '-',
     'description'           => 'Beskrivelse',
-    'manage'                => 'Administrér',
+    'manage'                => 'Administrer',
     'code'                  => 'Kode',
     'alias'                 => 'Alias',
     'balance'               => 'Balance',
@@ -104,7 +104,10 @@ return [
     'from'                  => 'Fra:',
     'to'                    => 'Til',
     'print'                 => 'Udskriv',
+    'download_pdf'          => 'Download PDF',
+    'customize'             => 'Tilpas',
     'search'                => 'Søg',
+    'search_text'           => 'Søg efter denne tekst',
     'search_placeholder'    => 'Skriv for at søge..',
     'filter'                => 'Filter',
     'help'                  => 'Hjælp!',
@@ -151,13 +154,21 @@ return [
     'no_data'               => 'Ingen data',
     'no_matching_data'      => 'Ingen matchende data',
     'clear_cache'           => 'Rens Cache',
-    'go_to_dashboard'       => 'Go til skrivebord',
+    'go_to_dashboard'       => 'Gå til skrivebordet',
+    'is'                    => 'er',
+    'isnot'                 => 'er ikke',
+    'recurring_and_more'    => 'Tilbagevendende og mere..',
+    'due_on'                => 'Forfalder den',
+    'amount_due'            => 'Forfaldent beløb',
 
     'card' => [
+        'cards'                 => 'Kort|Kort
+',
         'name'                  => 'Navn på kort',
         'number'                => 'Kort Nummer',
         'expiration_date'       => 'Udløbsdato',
         'cvv'                   => 'Kort CVV',
+        'save'                  => 'Gem kort',
     ],
 
     'title' => [
@@ -168,7 +179,7 @@ return [
         'send'              => 'Send :type',
         'get'               => 'Hent :type',
         'add'               => 'Tilføj :type',
-        'manage'            => 'Manage :type',
+        'manage'            => 'Administrer :type',
     ],
 
     'form' => [
@@ -177,8 +188,23 @@ return [
             'field'         => '- Vælg :field -',
             'file'          => 'Vælg fil',
         ],
+        'add'               => 'Tilføj :field',
+        'add_an'            => 'Tilføj en :field',
         'add_new'           => 'Tilføj nyt :field',
+        'edit'              => 'Rediger :field',
+        'contact_edit'      => 'Rediger :contact_name :field',
+        'drop_file'         => 'Slip filer her for at uploade',
+        'choose'            => 'Vælg :field',
+        'choose_different'  => 'Vælg et andet :field',
+        'choose_file'       => 'Vælg fil',
         'no_file_selected'  => 'Ingen fil valgt...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Skriv for at søge..',
+        'search_and_filter' => 'Søg eller filtrer resultater..',
+        'contact_search'    => 'Indtast et :type navn',
+        'item_search'       => 'Indtast et varenavn',
     ],
 
     'date_range' => [

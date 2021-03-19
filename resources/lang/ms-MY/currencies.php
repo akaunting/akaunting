@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Tanda Perpuluhan',
     'thousands_separator'   => 'Pemisah Nombor Ribu',
     'precision'             => 'Ketepatan',
+    'conversion'            => 'Tukaran mata wang',
     'symbol' => [
         'symbol'            => 'Simbol',
         'position'          => 'Posisi Simbol',

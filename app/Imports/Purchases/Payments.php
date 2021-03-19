@@ -3,8 +3,8 @@
 namespace App\Imports\Purchases;
 
 use App\Abstracts\Import;
-use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
+use App\Models\Banking\Transaction as Model;
 
 class Payments extends Import
 {

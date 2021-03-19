@@ -14,7 +14,7 @@
         <flat-picker slot-scope="{focus, blur}"
             @on-open="focus"
             @on-close="blur"
-            :config="config"
+            :config="dateConfig"
             class="form-control datepicker"
             v-model="real_model"
             @input="change"
@@ -67,21 +67,49 @@ export default {
             default: null,
             description: "Input model defalut"
         },
-        config: null,
+        dateConfig: {
+            type: Object,
+            default: function () {
+                return {
+                    allowInput: true,
+                    altFormat: "d M Y",
+                    altInput: true,
+                    dateFormat: "Y-m-d",
+                    wrap: true,
+                };
+            },
+            description: "FlatPckr date configuration"
+        },
         icon: {
             type: String,
             description: "Prepend icon (left)"
+        },
+        locale: {
+            type: String,
+            default: 'en',
         }
     },
 
     data() {
         return {
-            real_model: this.model
+            real_model: this.model,
+        }
+    },
+    
+    created() {
+        if (this.locale !== 'en') {
+            const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
+
+            this.dateConfig.locale = lang;
         }
     },
 
     mounted() {
         this.real_model = this.value;
+
+        if (this.model) {
+            this.real_model = this.model;
+        }
 
         this.$emit('interface', this.real_model);
     },
@@ -89,6 +117,8 @@ export default {
     methods: {
         change() {
             this.$emit('interface', this.real_model);
+            
+            this.$emit('change', this.real_model);
         }
     }
 }

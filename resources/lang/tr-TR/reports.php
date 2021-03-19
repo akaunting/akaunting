@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Yıl|Yıllar',
     'this_year'             => 'Bu Yıl',
     'previous_year'         => 'Önceki Yıl',
     'this_quarter'          => 'Bu Çeyrek',

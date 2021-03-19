@@ -17,7 +17,7 @@ class RedirectIfNotInstalled
     public function handle($request, Closure $next)
     {
         // Check application is installed or not
-        if (env('APP_INSTALLED', false) == true) {
+        if (config('app.installed', false) == true) {
             return $next($request);
         }
 

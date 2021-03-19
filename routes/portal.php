@@ -16,10 +16,11 @@ Route::group(['as' => 'portal.'], function () {
     Route::post('invoices/{invoice}/confirm', 'Portal\Invoices@confirm')->name('invoices.confirm');
     Route::resource('invoices', 'Portal\Invoices');
 
+    Route::get('payments/currencies', 'Portal\Payments@currencies')->name('payment.currencies');
     Route::resource('payments', 'Portal\Payments');
 
     Route::get('profile/read-invoices', 'Portal\Profile@readOverdueInvoices')->name('invoices.read');
-    Route::resource('profile', 'Portal\Profile');
+    Route::resource('profile', 'Portal\Profile', ['middleware' => ['dropzone']]);
 
     Route::get('logout', 'Auth\Login@destroy')->name('logout');
 });

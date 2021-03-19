@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Jobs\Purchase\CreateBill;
-use App\Models\Purchase\Bill;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Document\Document;
 use App\Notifications\Purchase\Bill as BillNotification;
 use App\Utilities\Date;
 use Illuminate\Support\Facades\Notification as Notification;
@@ -24,7 +24,7 @@ class BillReminderTest extends FeatureTestCase
     {
         Notification::fake();
 
-        $bill = $this->dispatch(new CreateBill($this->getRequest()));
+        $bill = $this->dispatch(new CreateDocument($this->getRequest()));
 
         Date::setTestNow(Date::now()->subDays($this->add_days));
 
@@ -41,7 +41,7 @@ class BillReminderTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Bill::class)->states('items', 'received')->raw([
+        return Document::factory()->bill()->items()->received()->raw([
             'due_at' => Date::now()->subDays($this->add_days - 1),
         ]);
     }

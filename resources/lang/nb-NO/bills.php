@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Motta faktura',
     'make_payment'          => 'Opprett betaling',
 
-    'statuses' => [
-        'draft'             => 'Kladd',
-        'received'          => 'Mottatt',
-        'partial'           => 'Delvis',
-        'paid'              => 'Betalt',
-        'overdue'           => 'Forfalt',
-        'unpaid'            => 'Ubetalt',
-        'cancelled'         => 'Kansellert',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Faktura merket som mottatt!',
-        'marked_paid'       => 'Faktura merket som betalt!',
-        'marked_cancelled'  => 'Faktura merket som kansellert!',
         'draft'             => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er mottatt.',
 
         'status' => [

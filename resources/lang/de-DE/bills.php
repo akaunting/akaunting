@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Rechnung erhalten',
     'make_payment'          => 'Zahlung vornehmen',
 
-    'statuses' => [
-        'draft'             => 'Entwurf',
-        'received'          => 'Erhalten',
-        'partial'           => 'Teilweise',
-        'paid'              => 'Bezahlt',
-        'overdue'           => 'Überfällig',
-        'unpaid'            => 'Unbezahlt',
-        'cancelled'         => 'Storniert',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Rechnung als erhalten markiert!',
-        'marked_paid'       => 'Rechnung als bezahlt markiert!',
-        'marked_cancelled'  => 'Rechnung als storniert markiert!',
         'draft'             => 'Dies ist eine Rechnungs-<b>Vorschau</b>. Die Rechnung erscheint in den Diagrammen nachdem sie als erhalten markiert wurde.',
 
         'status' => [

@@ -7,7 +7,7 @@ return [
     */
     'columns' => [
         'alpha' => [
-            'rows' => ['name', 'contact_name', 'customer_name', 'vendor_name', 'display_name', 'company_name', 'domain', 'email', 'description', 'code', 'type', 'status', 'vendor', 'account'],
+            'rows' => ['name', 'contact_name', 'customer_name', 'vendor_name', 'display_name', 'company_name', 'domain', 'email', 'description', 'code', 'type', 'status', 'vendor', 'account', 'category'],
             'class' => 'fas fa-sort-alpha',
         ],
         'amount' => [
@@ -15,7 +15,7 @@ return [
             'class' => 'fas fa-sort-amount',
         ],
         'numeric' => [
-            'rows' => ['created_at', 'updated_at', 'paid_at', 'invoiced_at', 'billed_at', 'due_at', 'id', 'quantity', 'rate',  'number', 'invoice_number', 'bill_number'],
+            'rows' => ['created_at', 'updated_at', 'paid_at', 'issued_at', 'due_at', 'id', 'quantity', 'rate',  'number', 'document_number'],
             'class' => 'fas fa-sort-numeric',
         ],
     ],

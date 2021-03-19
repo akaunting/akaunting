@@ -45,7 +45,7 @@ return [
         'logo'              => 'Logo',
         'custom'            => 'Personalisasi',
         'item_name'         => 'Nama Barang',
-        'item'              => 'Barang',
+        'item'              => 'Isi',
         'product'           => 'Produk',
         'service'           => 'Layanan',
         'price_name'        => 'Nama Harga',
@@ -62,12 +62,21 @@ return [
         'default'           => 'Default',
         'classic'           => 'Klasik',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Sembunyikan Nama Item',
+            'item_description'  => 'Sembunyikan Deskripsi Item',
+            'quantity'          => 'Sembunyikan Jumlah',
+            'price'             => 'Sembunyikan Harga',
+            'amount'            => 'Sembunyikan Jumlah',
+        ],
     ],
 
     'default' => [
         'description'       => 'Akun default, mata uang, bahasa perusahaan Anda',
         'list_limit'        => 'Data Per Laman',
         'use_gravatar'      => 'Gunakan Gravatar',
+        'income_category'   => 'Kategori Pemasukan',
+        'expense_category'  => 'Kategori Biaya',
     ],
 
     'email' => [

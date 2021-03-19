@@ -6,8 +6,7 @@ use App\Abstracts\Model;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Tax;
 use Illuminate\Database\Seeder;
@@ -35,25 +34,25 @@ class SampleData extends Seeder
 
         $bar->start();
 
-        factory(Contact::class, $count)->create();
+        Contact::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Category::class, $count)->create();
+        Category::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Tax::class, $small_count)->states('enabled')->create();
+        Tax::factory()->count($small_count)->enabled()->create();
         $bar->advance();
 
-        factory(Item::class, $count)->create();
+        Item::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Account::class, $small_count)->create();
+        Account::factory()->count($small_count)->create();
         $bar->advance();
 
-        factory(Bill::class, $count)->create();
+        Document::factory()->bill()->count($count)->create();
         $bar->advance();
 
-        factory(Invoice::class, $count)->create();
+        Document::factory()->invoice()->count($count)->create();
         $bar->advance();
 
         $bar->finish();

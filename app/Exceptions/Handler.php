@@ -12,7 +12,7 @@ use Throwable;
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that should not be reported.
+     * A list of the exception types that are not reported.
      *
      * @var array
      */
@@ -86,7 +86,7 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Not Found'], 404);
             }
 
-            flash(trans('errors.body.page_not_found'))->error();
+            flash(trans('errors.body.page_not_found'))->error()->important();
 
             // normal 404 view page feedback
             return redirect()
@@ -100,8 +100,19 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Not Found'], 404);
             }
 
-            // normal 404 view page feedback
-            return response()->view('errors.404', [], 404);
+            try {
+                $names = explode('.', $request->route()->getName());
+                $names[count($names) - 1] = 'index';
+
+                $route = route(implode('.', $names));
+
+                flash(trans('errors.message.record'))->warning()->important();
+
+                return redirect($route);
+            } catch (\Exception $e) {
+                // normal 404 view page feedback
+                return response()->view('errors.404', [], 404);
+            }
         }
 
         if ($exception instanceof FatalThrowableError) {

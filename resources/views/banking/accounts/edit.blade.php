@@ -38,13 +38,13 @@
                 </div>
             </div>
 
-            @permission('update-banking-accounts')
+            @can('update-banking-accounts')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('accounts.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

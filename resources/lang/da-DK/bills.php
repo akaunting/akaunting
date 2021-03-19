@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Modtag faktura',
     'make_payment'          => 'Opret betaling',
 
-    'statuses' => [
-        'draft'             => 'Kladde',
-        'received'          => 'Modtaget',
-        'partial'           => 'Delvis',
-        'paid'              => 'Betalt',
-        'overdue'           => 'Overskredet',
-        'unpaid'            => 'Ubetalt',
-        'cancelled'         => 'Annulleret',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Regning markeret som modtaget',
-        'marked_paid'       => 'Regning markeret som betalt',
-        'marked_cancelled'  => 'Regning markeret som annulleret',
         'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil først blive vist i oversigten, når den er afsendt.',
 
         'status' => [

@@ -22,6 +22,7 @@ class Widgets
             'App\Widgets\AccountBalance',
             'App\Widgets\LatestIncome',
             'App\Widgets\LatestExpenses',
+            'App\Widgets\Currencies',
         ];
 
         Module::enabled()->each(function ($module) use (&$list) {

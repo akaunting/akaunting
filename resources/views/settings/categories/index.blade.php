@@ -2,11 +2,13 @@
 
 @section('title', trans_choice('general.categories', 2))
 
-@permission('create-settings-categories')
-    @section('new_button')
+@section('new_button')
+    @can('create-settings-categories')
         <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endsection
-@endpermission
+        <a href="{{ route('import.create', ['settings', 'categories']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('categories.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+@endsection
 
 @section('content')
     <div class="card">
@@ -18,10 +20,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Setting\Category" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.categories', $bulk_actions, ['group' => 'settings', 'type' => 'categories']) }}
@@ -48,7 +47,7 @@
                                 {{ Form::bulkActionGroup($item->id, $item->name) }}
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('categories.edit',  $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $types[$item->type] }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $types[$item->type] ?? trans('general.na') }}</td>
                             <td class="col-md-2  col-lg-2 d-none d-md-block"><i class="fa fa-2x fa-circle" style="color:{{ $item->color }};"></i></td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
                                 @if (user()->can('update-settings-categories'))
@@ -69,10 +68,10 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('categories.edit',  $item->id) }}">{{ trans('general.edit') }}</a>
                                         @if ($item->id != $transfer_id)
-                                            @permission('delete-settings-categories')
+                                            @can('delete-settings-categories')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'categories.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         @endif
                                     </div>
                                 </div>

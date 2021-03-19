@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Decimalni znak',
     'thousands_separator'   => 'Znak za razdvajanje hiljada',
     'precision'             => 'Preciznost',
+    'conversion'            => 'Kalkulacija kursa: :price (:currency_code) na :currency_rate',
     'symbol' => [
         'symbol'            => 'Simbol',
         'position'          => 'Pozicija simbola',

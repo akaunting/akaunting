@@ -2,12 +2,10 @@
 
 namespace App\Events\Menu;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class AdminCreated
+class AdminCreated extends Event
 {
-    use SerializesModels;
-
     public $menu;
 
     /**

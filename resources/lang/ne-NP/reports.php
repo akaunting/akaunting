@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'बर्ष | वर्षहरू',
     'this_year'             => 'यस वर्ष',
     'previous_year'         => 'पोहोर साल',
     'this_quarter'          => 'यस त्रैमासिक',

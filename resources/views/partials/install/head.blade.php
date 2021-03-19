@@ -26,6 +26,8 @@
 
     @stack('stylesheet')
 
+    @livewireStyles
+
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';
     //--></script>
@@ -35,7 +37,7 @@
     <script type="text/javascript"><!--
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-        ]); ?>
+        ]); ?>;
 
         var flash_notification = {!! (session()->has('flash_notification')) ? json_encode(session()->get('flash_notification')) : 'false' !!};
     //--></script>

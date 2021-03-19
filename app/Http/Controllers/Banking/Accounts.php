@@ -21,7 +21,7 @@ class Accounts extends Controller
     {
         $accounts = Account::collect();
 
-        return view('banking.accounts.index', compact('accounts'));
+        return $this->response('banking.accounts.index', compact('accounts'));
     }
 
     /**
@@ -70,7 +70,7 @@ class Accounts extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -117,7 +117,7 @@ class Accounts extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -179,7 +179,7 @@ class Accounts extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);

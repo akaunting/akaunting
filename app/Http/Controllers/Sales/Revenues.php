@@ -32,13 +32,7 @@ class Revenues extends Controller
     {
         $revenues = Transaction::with('account', 'category', 'contact', 'invoice')->income()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        return view('sales.revenues.index', compact('revenues', 'customers', 'categories', 'accounts'));
+        return $this->response('sales.revenues.index', compact('revenues'));
     }
 
     /**
@@ -66,13 +60,23 @@ class Revenues extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('sales.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('sales.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods', 'file_types'));
     }
 
     /**
@@ -97,7 +101,7 @@ class Revenues extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -130,13 +134,23 @@ class Revenues extends Controller
      */
     public function import(ImportRequest $request)
     {
-        \Excel::import(new Import(), $request->file('import'));
+        $response = $this->importExcel(new Import, $request);
 
-        $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
+        if ($response['success']) {
+            $response['redirect'] = route('revenues.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 
-        return redirect()->route('revenues.index');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'revenues']);
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -154,15 +168,33 @@ class Revenues extends Controller
 
         $currency = Currency::where('code', $revenue->currency_code)->first();
 
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
+        if ($revenue->contact && !$customers->has($revenue->contact_id)) {
+            $customers->put($revenue->contact->id, $revenue->contact->name);
+        }
+
+        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+
+        if ($revenue->category && !$categories->has($revenue->category_id)) {
+            $categories->put($revenue->category->id, $revenue->category->name);
+        }
 
         $payment_methods = Modules::getPaymentMethods();
 
         $date_format = $this->getCompanyDateFormat();
 
-        return view('sales.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods', 'date_format'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('sales.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods', 'date_format', 'file_types'));
     }
 
     /**
@@ -188,7 +220,7 @@ class Revenues extends Controller
 
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -214,7 +246,7 @@ class Revenues extends Controller
         } else {
             $message = $response['message'];
 
-            flash($message)->error();
+            flash($message)->error()->important();
         }
 
         return response()->json($response);
@@ -227,6 +259,6 @@ class Revenues extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.revenues', 2)) . '.xlsx');
+        return $this->exportExcel(new Export, trans_choice('general.revenues', 2));
     }
 }

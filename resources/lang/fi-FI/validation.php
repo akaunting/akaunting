@@ -37,7 +37,7 @@ return [
     'digits'               => 'Kentän :attribute arvon on oltava :digits numeroa.',
     'digits_between'       => 'Kentän :attribute arvon tulee olla :min - :max numeroa.',
     'dimensions'           => 'Kentän :attribute kuvalla on virheelliset mitat.',
-    'distinct'             => 'Kentän :attribute arvo ei ole uniikki.',
+    'distinct'             => 'Kentän :attribute arvo on duplikaatti.',
     'email'                => 'Kentän :attribute arvo ei ole validi sähköpostiosoite.',
     'ends_with'            => 'Kentän :attribute arvon tulee päättyä johonkin seuraavista: :values',
     'exists'               => 'Kentän :attribute valittu arvo on virheellinen.',

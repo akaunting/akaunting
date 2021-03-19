@@ -2,10 +2,8 @@
 
 return [
 
-    'title' => 'Under Maintenance',
+    'title' => 'در دست احداث',
 
-    'message' => 'Sorry, we\'re down for maintenance. Please, try again later!',
-
-    'last-updated' => 'This message was last updated :timestamp.',
+    'message' => 'متاسفانه در حال راه اندازی سرویس ها هستیم. لطفا بعدا تلاش کنید!',
 
 ];

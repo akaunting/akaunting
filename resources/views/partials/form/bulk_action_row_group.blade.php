@@ -18,7 +18,7 @@
     @endphp
 
     @if(!empty($actions_to_show))
-        <div class="align-items-center d-none"
+        <div class="align-items-center d-none mt-2"
              v-if="bulk_action.show"
              :class="[{'show': bulk_action.show}]">
             <div class="mr-6">
@@ -46,7 +46,7 @@
                             <option
                                 value="{{ $key }}"
                                 @if(!empty($action['message']))
-                                data-message="{{ trans_choice($action['message'], 2, ['type' => $text]) }}"
+                                data-message="{{ trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) }}"
                                 @endif
                                 @if(isset($action['path']) && !empty($action['path']))
                                     data-path="{{ route('bulk-actions.action', $action['path']) }}"
@@ -110,7 +110,7 @@
             </template>
         </akaunting-modal>
     @else
-        <div class="text-white" :class="[{'show': bulk_action.show}]">{{ trans('bulk_actions.no_action') }}</div>
+        <div class="text-white d-none" :class="[{'show': bulk_action.show}]">{{ trans('bulk_actions.no_action') }}</div>
     @endif
 
 @stack('bulk_action_row_input_end')

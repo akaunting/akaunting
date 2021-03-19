@@ -36,7 +36,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($payment->paid_at)->toDateString()) }}
+                    {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($payment->paid_at)->toDateString()) }}
 
                     {!! Form::hidden('currency_code', $payment->currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
                     {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate']) !!}
@@ -45,11 +45,11 @@
 
                     {{ Form::selectAddNewGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $payment->account_id, ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $payment->contact_id, ['path' => route('modals.vendors.create')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $payment->contact_id, ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $payment->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $payment->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?search=type:expense']) }}
 
                     {{ Form::recurring('edit', $payment) }}
 
@@ -57,29 +57,22 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file',[]) }}
 
-                    @if ($payment->attachment)
-                        <div class="col-md-6">
-                            @php $file = $payment->attachment; @endphp
-                            @include('partials.media.file')
-                        </div>
-                    @else
-                        {{ Form::fileGroup('attachment', trans('general.attachment')) }}
-                    @endif
-
                     @if ($payment->bill)
-                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->bill_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->document_number) }}
                         {{ Form::hidden('document_id', $payment->bill->id) }}
                     @endif
+
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple', 'options' => ['acceptedFiles' => $file_types]], $payment->attachment, 'col-md-12') }}
                 </div>
             </div>
 
-            @permission('update-purchases-payments')
+            @can('update-purchases-payments')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('payments.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'expense') }}
         {!! Form::close() !!}

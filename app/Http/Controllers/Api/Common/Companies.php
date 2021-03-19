@@ -38,7 +38,7 @@ class Companies extends ApiController
     {
         try {
             // Check if user can access company
-            $this->owner($company);
+            $this->canAccess($company);
 
             return $this->response->item($company, new Transformer());
         } catch (\Exception $e) {
@@ -69,7 +69,7 @@ class Companies extends ApiController
     public function update(Company $company, Request $request)
     {
         try {
-            $company = $this->dispatch(new UpdateCompany($company, $request));
+            $company = $this->dispatch(new UpdateCompany($company, $request, session('company_id')));
 
             return $this->item($company->fresh(), new Transformer());
         } catch (\Exception $e) {
@@ -86,7 +86,7 @@ class Companies extends ApiController
     public function enable(Company $company)
     {
         try {
-            $company = $this->dispatch(new UpdateCompany($company, request()->merge(['enabled' => 1])));
+            $company = $this->dispatch(new UpdateCompany($company, request()->merge(['enabled' => 1]), session('company_id')));
 
             return $this->item($company->fresh(), new Transformer());
         } catch (\Exception $e) {
@@ -103,7 +103,7 @@ class Companies extends ApiController
     public function disable(Company $company)
     {
         try {
-            $company = $this->dispatch(new UpdateCompany($company, request()->merge(['enabled' => 0])));
+            $company = $this->dispatch(new UpdateCompany($company, request()->merge(['enabled' => 0]), session('company_id')));
 
             return $this->item($company->fresh(), new Transformer());
         } catch (\Exception $e) {
@@ -120,7 +120,7 @@ class Companies extends ApiController
     public function destroy(Company $company)
     {
         try {
-            $this->dispatch(new DeleteCompany($company));
+            $this->dispatch(new DeleteCompany($company, session('company_id')));
 
             return $this->response->noContent();
         } catch (\Exception $e) {
@@ -135,9 +135,9 @@ class Companies extends ApiController
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function owner(Company $company)
+    public function canAccess($company)
     {
-        if ($this->isUserCompany($company->id)) {
+        if (!empty($company) && $this->isUserCompany($company->id)) {
             return new Response('');
         }
 

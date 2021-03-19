@@ -52,7 +52,7 @@ return [
     'sales'                 => 'बिक्री|बिक्री',
     'purchases'             => 'खरीद|खरीद',
 
-    'welcome'               => 'स्वागत हे',
+    'welcome'               => 'स्वागत है',
     'banking'               => 'बैंकिंग',
     'general'               => 'सामान्य',
     'no_records'            => 'कोई रिकॉर्ड नहीं।',
@@ -104,7 +104,10 @@ return [
     'from'                  => 'से',
     'to'                    => 'तक',
     'print'                 => 'प्रिंट करें',
+    'download_pdf'          => 'डाउनलोड PDF',
+    'customize'             => 'अनुकूलित करें',
     'search'                => 'खोजे',
+    'search_text'           => 'टैकस्ट के लिए खोज करें:',
     'search_placeholder'    => 'खोजने के लिए लिखें ..',
     'filter'                => 'फ़िल्टर',
     'help'                  => 'मदद',
@@ -152,12 +155,20 @@ return [
     'no_matching_data'      => 'कोई मिलान डेटा नहीं',
     'clear_cache'           => 'कैश को साफ़ करें',
     'go_to_dashboard'       => 'डैशबोर्ड पर जाएं',
+    'is'                    => 'है
+       ',
+    'isnot'                 => 'क्या नहीं है',
+    'recurring_and_more'    => 'आवर्ती और अधिक..',
+    'due_on'                => 'नियत पर',
+    'amount_due'            => 'देय राशि',
 
     'card' => [
+        'cards'                 => 'कार्ड|कार्ड',
         'name'                  => 'कार्ड पर नाम',
         'number'                => 'कार्ड नंबर',
         'expiration_date'       => 'समाप्ति तिथि',
         'cvv'                   => 'कार्ड CVV',
+        'save'                  => 'कार्ड सेव करे',
     ],
 
     'title' => [
@@ -177,8 +188,23 @@ return [
             'field'         => '- चयन करें :field -',
             'file'          => 'फ़ाइल का चयन करें',
         ],
+        'add'               => 'एक :field जोड़ें',
+        'add_an'            => 'एक :field जोड़ें',
         'add_new'           => 'नई :field जोड़ें',
+        'edit'              => ':field संपादित करें',
+        'contact_edit'      => ':contact_name :field संपादित करें',
+        'drop_file'         => 'अपलोड करने के लिए फ़ाइलें यहाँ डालें',
+        'choose'            => ':field चुनें',
+        'choose_different'  => 'एक अलग :field चुनें',
+        'choose_file'       => 'फाइलें चुनें',
         'no_file_selected'  => 'किसी भी फाइल का चयन नहीं...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'खोजने के लिए लिखें..',
+        'search_and_filter' => 'खोज करें या परिणाम फिल्टर करें..',
+        'contact_search'    => ':type नाम लिखें',
+        'item_search'       => 'एक आइटम नाम लिखें',
     ],
 
     'date_range' => [

@@ -32,7 +32,7 @@
 
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
-                    {{ Form::fileGroup('logo', trans_choice('general.logos', 1)) }}
+                    {{ Form::fileGroup('logo', trans_choice('general.logos', 1), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
@@ -40,13 +40,13 @@
                 </div>
             </div>
 
-            @permission('update-purchases-vendors')
+            @can('update-purchases-vendors')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('vendors.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'vendor') }}
         {!! Form::close() !!}

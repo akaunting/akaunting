@@ -46,7 +46,7 @@
                                 <td class="col-xs-4 col-sm-3 col-md-2 long-texts">@date($item->paid_at)</td>
                                 <td class="col-md-2 text-center d-none d-md-block">{{ $item->description }}</td>
                                 <td class="col-md-2 col-sm-3 col-md-3 d-none d-sm-block">{{ $item->contact->name }}</td>
-                                @if ($item->type == 'income')
+                                @if ($item->isIncome())
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">N/A</td>
                                 @else
@@ -55,14 +55,15 @@
                                 @endif
                                 <td class="col-md-1 text-right d-none d-md-block">
                                     <div class="custom-control custom-checkbox">
-                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount_for_account, $item->reconciled, [
+                                        @php $type = $item->isIncome() ? 'income' : 'expense'; @endphp
+                                        {{ Form::checkbox($type . '_' . $item->id, $item->amount_for_account, $item->reconciled, [
                                             'data-field' => 'transactions',
-                                            'v-model' => 'form.transactions.' . $item->type . '_' . $item->id,
-                                            'id' => 'transaction-' . $item->id . '-'. $item->type,
+                                            'v-model' => 'form.transactions.' . $type . '_' . $item->id,
+                                            'id' => 'transaction-' . $item->id . '-'. $type,
                                             'class' => 'custom-control-input',
                                             '@change' => 'onCalculate'
                                         ]) }}
-                                        <label class="custom-control-label" for="transaction-{{ $item->id . '-'. $item->type }}"></label>
+                                        <label class="custom-control-label" for="transaction-{{ $item->id . '-'. $type }}"></label>
                                     </div>
                                 </td>
                             </tr>
@@ -107,21 +108,21 @@
                 @endif
             </div>
 
-            @permission('update-banking-reconciliations')
+            @can('update-banking-reconciliations')
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-12">
                             @if ($transactions->count())
                                 <div class="float-right">
-                                    <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary header-button-top">{{ trans('general.cancel') }}</a>
+                                    <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary">{{ trans('general.cancel') }}</a>
 
                                     {!! Form::button(
                                         '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'opacity-10\': reconcile}]" class="btn-inner--text">' . trans('reconciliations.reconcile') . '</span>',
-                                        [':disabled' => 'reconcile || form.loading', '@click' => 'onReconcileSubmit', 'type' => 'button', 'class' => 'btn btn-icon btn-info header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                                        [':disabled' => 'reconcile || form.loading', '@click' => 'onReconcileSubmit', 'type' => 'button', 'class' => 'btn btn-icon btn-info', 'data-loading-text' => trans('general.loading')]) !!}
 
                                     {!! Form::button(
                                         '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
-                                        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success header-button-top']) !!}
+                                        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
                                 </div>
                             @else
                                 <div class="text-sm text-muted" id="datatable-basic_info" role="status" aria-live="polite">
@@ -131,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

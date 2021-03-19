@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Cambiar el nombre de la empresa, correo electrónico, dirección, CUIT, etc',
-        'name'              => 'Nombre',
-        'email'             => 'Correo electrónico',
-        'phone'             => 'Teléfono',
-        'address'           => 'Dirección',
-        'logo'              => 'Logo',
+        'description'                => 'Cambiar el nombre de la empresa, correo electrónico, dirección, CUIT, etc',
+        'name'                       => 'Nombre',
+        'email'                      => 'Correo electrónico',
+        'phone'                      => 'Teléfono',
+        'address'                    => 'Dirección',
+        'edit_your_business_address' => 'Editar la dirección de su empresa',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Establecer año fiscal, zona horaria, formato de fecha y más locales',
         'financial_start'   => 'Inicio del ejercicio financiero',
         'timezone'          => 'Zona horaria',
+        'financial_denote' => [
+            'title'         => 'Año fiscal indicado',
+            'begins'        => 'Por el año en que comienza',
+            'ends'          => 'Por el año en que termina',
+        ],
         'date' => [
             'format'        => 'Formato de fecha',
             'separator'     => 'Separador de fecha',
@@ -62,12 +68,21 @@ return [
         'default'           => 'Por defecto',
         'classic'           => 'Clásica',
         'modern'            => 'Moderna',
+        'hide'              => [
+            'item_name'         => 'Ocultar nombre del artículo',
+            'item_description'  => 'Ocultar descripción del artículo',
+            'quantity'          => 'Ocultar cantidad',
+            'price'             => 'Ocultar precio',
+            'amount'            => 'Ocultar monto',
+        ],
     ],
 
     'default' => [
         'description'       => 'Cuenta, moneda, idioma por defecto de su empresa',
         'list_limit'        => 'Registros por página',
         'use_gravatar'      => 'Usar Gravatar',
+        'income_category'   => 'Categoría de ingresos',
+        'expense_category'  => 'Categoría de gastos',
     ],
 
     'email' => [

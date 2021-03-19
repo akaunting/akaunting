@@ -38,20 +38,7 @@ return [
     'receive_bill'          => 'Receber fatura',
     'make_payment'          => 'Fazer pagamento',
 
-    'statuses' => [
-        'draft'             => 'Rascunho',
-        'received'          => 'Recebido',
-        'partial'           => 'Parcial',
-        'paid'              => 'Pago',
-        'overdue'           => 'Vencido',
-        'unpaid'            => 'Não Pago',
-        'cancelled'         => 'Cancelado',
-    ],
-
     'messages' => [
-        'marked_received'   => 'Fatura marcada como paga',
-        'marked_paid'       => 'Fatura marcada como paga!',
-        'marked_cancelled'  => 'Fatura marcada como cancelada',
         'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for recebida.',
 
         'status' => [

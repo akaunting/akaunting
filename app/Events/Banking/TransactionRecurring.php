@@ -2,12 +2,10 @@
 
 namespace App\Events\Banking;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class TransactionRecurring
+class TransactionRecurring extends Event
 {
-    use SerializesModels;
-
     public $transaction;
 
     /**

@@ -17,6 +17,14 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
+        @if (isset($attributes['disabledOptions']))
+        :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
+        @endif
+
+        @if (isset($attributes['dynamicOptions']))
+        :dynamic-options="{{ $attributes['dynamicOptions'] }}"
+        @endif
+
         @if (!empty($selected) || old($name))
         :value="{{ json_encode(old($name, $selected)) }}"
         @endif
@@ -43,6 +51,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (!empty($attributes['visible-change']))
+        @visible-change="{{ $attributes['visible-change'] }}"
+        @endif
+        
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif
@@ -62,9 +74,8 @@
         @endif
 
         remote-action="{{ $attributes['remote_action'] }}"
-        remote-type="{{ $attributes['remote_type'] }}"
 
-        @if (!empty($attributes['currecny_code'])) 
+        @if (!empty($attributes['currecny_code']))
         currency-code="{{ $attributes['currecny_code'] }}"
         @endif
 

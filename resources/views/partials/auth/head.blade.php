@@ -6,6 +6,8 @@
 
     <title>@yield('title')</title>
 
+    <base href="{{ config('app.url') . '/' }}">
+
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
 
@@ -25,6 +27,8 @@
     @stack('css')
 
     @stack('stylesheet')
+
+    @livewireStyles
 
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';

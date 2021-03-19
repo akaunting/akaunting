@@ -104,7 +104,10 @@ return [
     'from'                  => 'Tarafından',
     'to'                    => 'Tarafına',
     'print'                 => 'Yazdır',
+    'download_pdf'          => 'PDF İndir',
+    'customize'             => 'Özelleştir',
     'search'                => 'Ara',
+    'search_text'           => 'Bu metni ara',
     'search_placeholder'    => 'Aranacak kelime..',
     'filter'                => 'Filtrele',
     'help'                  => 'Yardım',
@@ -152,12 +155,19 @@ return [
     'no_matching_data'      => 'Eşleşen veri yok',
     'clear_cache'           => 'Önbelleği Temizle',
     'go_to_dashboard'       => 'Kontrol Paneline Git',
+    'is'                    => 'eşit',
+    'isnot'                 => 'değil',
+    'recurring_and_more'    => 'Tekrarlanan ve daha fazla..',
+    'due_on'                => 'Son Tarih',
+    'amount_due'            => 'Kalan Tutar',
 
     'card' => [
+        'cards'                 => 'Kart|Kartlar',
         'name'                  => 'Kart Sahibi',
         'number'                => 'Kart Numarası',
         'expiration_date'       => 'Geçerlilik Tarihi',
         'cvv'                   => 'CVV Numarası',
+        'save'                  => 'Kartı Kaydet',
     ],
 
     'title' => [
@@ -177,8 +187,23 @@ return [
             'field'         => '- :field Seçin -',
             'file'          => 'Dosya Seçin',
         ],
+        'add'               => ':field Ekle',
+        'add_an'            => ':field Ekle',
         'add_new'           => ':field Yeni Ekle',
+        'edit'              => ':field Düzenle',
+        'contact_edit'      => ':contact_name :field ekle',
+        'drop_file'         => 'Dosyaları yüklemek için buraya sürükleyin',
+        'choose'            => ':field Seç',
+        'choose_different'  => 'Başka bir :field seç',
+        'choose_file'       => 'Dosya Seçin',
         'no_file_selected'  => 'Dosya seçilmemiş...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Aranacak kelime..',
+        'search_and_filter' => 'Kayıtları ara veya filtrele..',
+        'contact_search'    => ':type ismi yazın',
+        'item_search'       => 'Ürün/Hizmet ismi yazın',
     ],
 
     'date_range' => [

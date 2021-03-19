@@ -40,24 +40,7 @@ return [
     'get_paid'              => 'Être payé',
     'accept_payments'       => 'Accepter les paiements en ligne',
 
-    'statuses' => [
-        'draft'             => 'Brouillon',
-        'sent'              => 'Envoyée',
-        'viewed'            => 'Vu',
-        'approved'          => 'Approuvée',
-        'partial'           => 'Partiel',
-        'paid'              => 'Payé',
-        'overdue'           => 'En retard',
-        'unpaid'            => 'Non payé',
-        'cancelled'         => 'Annulé',
-    ],
-
     'messages' => [
-        'email_sent'        => 'L\'e-mail de facture a été envoyé !',
-        'marked_sent'       => 'Facture marquée comme envoyée !',
-        'marked_paid'       => 'Facture marquée comme payée !',
-        'marked_viewed'     => 'Facture marquée comme vue !',
-        'marked_cancelled'  => 'Facture marquée comme annulée !',
         'email_required'    => 'Ce client ne possède pas d\'email !',
         'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisé dans les graphiques après reception.',
 

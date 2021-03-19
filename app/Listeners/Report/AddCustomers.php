@@ -27,7 +27,8 @@ class AddCustomers extends Listener
             return;
         }
 
-        $event->class->filters['customers'] = $this->getCustomers();
+        $event->class->filters['customers'] = $this->getCustomers(true);
+        $event->class->filters['routes']['customers'] = 'customers.index';
     }
 
     /**
@@ -72,12 +73,16 @@ class AddCustomers extends Listener
             return;
         }
 
-        if ($customers = request('customers')) {
-            $rows = collect($event->class->filters['customers'])->filter(function ($value, $key) use ($customers) {
+        $all_customers = $this->getCustomers();
+
+        if ($customer_ids = $this->getSearchStringValue('customer_id')) {
+            $customers = explode(',', $customer_ids);
+
+            $rows = collect($all_customers)->filter(function ($value, $key) use ($customers) {
                 return in_array($key, $customers);
             });
         } else {
-            $rows = $event->class->filters['customers'];
+            $rows = $all_customers;
         }
 
         $this->setRowNamesAndValues($event, $rows);

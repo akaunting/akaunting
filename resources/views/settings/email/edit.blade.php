@@ -20,8 +20,13 @@
     <div class="row">
 
     @foreach($templates as $template)
-        @php $aria_expanded_status = in_array($card, [1, 2]) ? 'true' : 'false'; @endphp
-        @php $collapse_status = in_array($card, [1, 2]) ? 'show' : ''; @endphp
+        @php
+            if (!class_exists($template->class)) {
+                continue;
+            }
+            $aria_expanded_status = in_array($card, [1, 2]) ? 'true' : 'false';
+            $collapse_status = in_array($card, [1, 2]) ? 'show' : '';
+        @endphp
 
         <div class="col-md-6">
             <div class="accordion" id="accordion-{{ $card }}">
@@ -87,7 +92,7 @@
         </div>
     </div>
 
-    @permission('update-settings-settings')
+    @can('update-settings-settings')
         <div class="row ml-0 mr-0">
             <div class="card col-md-12">
                 <div class="card-body mr--3">
@@ -97,7 +102,7 @@
                 </div>
             </div>
         </div>
-    @endpermission
+    @endcan
 
     {!! Form::hidden('_prefix', 'email') !!}
 
@@ -105,8 +110,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/0.js?v=' . version('short')) }}"></script>
-    <script src="{{ asset('public/38.js?v=' . version('short')) }}"></script>
-
     <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
 @endpush

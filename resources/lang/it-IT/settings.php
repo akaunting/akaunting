@@ -3,12 +3,13 @@
 return [
 
     'company' => [
-        'description'       => 'Cambia il nome dell\'azienda, l\'e-mail, il numero di tasse ecc',
-        'name'              => 'Nome',
-        'email'             => 'Email',
-        'phone'             => 'Telefono',
-        'address'           => 'Indirizzo',
-        'logo'              => 'Logo',
+        'description'                => 'Cambia il nome dell\'azienda, l\'e-mail, il numero di tasse ecc',
+        'name'                       => 'Nome',
+        'email'                      => 'Email',
+        'phone'                      => 'Telefono',
+        'address'                    => 'Indirizzo',
+        'edit_your_business_address' => 'Modifica il tuo indirizzo business',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
@@ -62,12 +63,21 @@ return [
         'default'           => 'Predefinito',
         'classic'           => 'Classico',
         'modern'            => 'Moderno',
+        'hide'              => [
+            'item_name'         => 'Nascondi Nome Elemento',
+            'item_description'  => 'Nascondi Descrizione Elemento',
+            'quantity'          => 'Nascondi Quantità',
+            'price'             => 'Nascondi Prezzo',
+            'amount'            => 'Nascondi Importo',
+        ],
     ],
 
     'default' => [
         'description'       => 'Account predefinito, valuta, lingua della tua azienda',
         'list_limit'        => 'Risultati per Pagina',
         'use_gravatar'      => 'Utilizzare Gravatar',
+        'income_category'   => 'Categoria Reddito',
+        'expense_category'  => 'Categoria Spese',
     ],
 
     'email' => [

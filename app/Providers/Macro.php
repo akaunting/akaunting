@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
@@ -15,6 +16,14 @@ class Macro extends ServiceProvider
      */
     public function boot()
     {
+        Request::macro('isApi', function () {
+            return $this->is(config('api.subtype') . '/*');
+        });
+
+        Request::macro('isNotApi', function () {
+            return !$this->isApi();
+        });
+
         Str::macro('filename', function ($string, $separator = '-') {
             // Replace @ with the word 'at'
             $string = str_replace('@', $separator.'at'.$separator, $string);
@@ -34,6 +43,7 @@ class Macro extends ServiceProvider
                     return true;
                 }
             }
+
             return false;
         });
     }

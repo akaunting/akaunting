@@ -1,8 +1,5 @@
 <template>
-    <base-input
-        v-if="title"
-        :label="title"
-        :name="name"
+    <base-input v-if="title" :label="title" :name="name"
         :readonly="readonly"
         :disabled="disabled"
         :class="[
@@ -11,29 +8,40 @@
             formClasses
         ]"
         :error="formError">
-        <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled && !multiple"
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
+
+        <el-select v-model="selected" :placeholder="placeholder" filterable remote reserve-keyword
+            @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
+            :disabled="disabled"
+            :multiple="multiple"
+            :readonly="readonly"
+            :collapse-tags="collapse"
             :remote-method="remoteMethod"
-            :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            :loading="loading"
+        >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
+
+            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
+
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
+                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
                         <div @click="onAddItem">
                             <i class="fas fa-plus"></i>
                             <span>
-                                {{ add_new_text }}
+                                {{ addNew.text }}
                             </span>
                         </div>
                     </li>
                 </ul>
             </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noDataText }}
                 </p>
@@ -42,7 +50,7 @@
                         <div @click="onAddItem">
                             <i class="fas fa-plus"></i>
                             <span>
-                                {{ add_new_text }}
+                                {{ addNew.text }}
                             </span>
                         </div>
                     </li>
@@ -55,445 +63,150 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, index) in sortOptions"
+                :key="index"
+                :disabled="disabledOptions.includes(option.key)"
+                :label="option.value"
+                :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
             </el-option>
 
             <el-option-group
                 v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
+                v-for="(group_options, group_index) in sortOptions"
+                :key="group_index"
+                :label="group_options.key">
                 <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    v-for="(option, option_index) in group_options.value"
+                    :key="option_index"
+                    :disabled="disabledOptions.includes(option.key)"
+                    :label="option.value"
+                    :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0  && sortOptions.length > 0" class="el-select__footer" :disabled="disabled" value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
-                        {{ add_new_text }}
+                        {{ addNew.text }}
                     </span>
                 </div>
             </el-option>
+
         </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
-            :remote-method="remoteMethod"
-            :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                </el-option>
-            </el-option-group>
-
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
-                </div>
-            </el-option>
-        </el-select>
-
-        <el-select v-model="real_model" @input="change" filterable v-if="disabled && multiple && !collapse" multiple disabled
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
-            :remote-method="remoteMethod"
-            :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                </el-option>
-            </el-option-group>
-
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
-                </div>
-            </el-option>
-        </el-select>
-
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
-            :remote-method="remoteMethod"
-            :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                </el-option>
-            </el-option-group>
-
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
-                </div>
-            </el-option>
-        </el-select>
-
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
-            :remote-method="remoteMethod"
-            :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                </el-option>
-            </el-option-group>
-
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
-                </div>
-            </el-option>
-        </el-select>
-
-        <component v-bind:is="add_new_html" @submit="onSubmit"></component>
-
-        <select :name="name" v-model="real_model" class="d-none">
-            <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
+        <select :name="name"  :id="name" v-model="selected" class="d-none">
+            <option v-for="option in sortOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
 
-        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
     </base-input>
 
     <span v-else>
-        <el-select
-            :class="'pl-20 mr-40'"
-            v-model="real_model"
-            @input="change"
-            filterable
-            remote
-            reserve-keyword
-            :placeholder="placeholder"
+        <el-select v-model="selected" :placeholder="placeholder" filterable remote reserve-keyword
+            @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
+            :disabled="disabled"
+            :multiple="multiple"
+            :readonly="readonly"
+            :collapse-tags="collapse"
             :remote-method="remoteMethod"
-            :loading="loading">
-                <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
-                    <p class="el-select-dropdown__empty loading">
-                        {{ loadingText }}
-                    </p>
-                </div>
+            :loading="loading"
+        >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
-                <div v-else-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                    <p class="el-select-dropdown__empty">
-                        {{ noMatchingDataText }}
-                    </p>
-                    <ul class="el-scrollbar__view el-select-dropdown__list">
-                        <li class="el-select-dropdown__item el-select__footer">
-                            <div @click="onAddItem">
-                                <i class="fas fa-plus"></i>
-                                <span>
-                                    {{ add_new_text }}
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingDataText }}
+                </p>
 
-                <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                    <p class="el-select-dropdown__empty">
-                        {{ noDataText }}
-                    </p>
-                    <ul class="el-scrollbar__view el-select-dropdown__list">
-                        <li class="el-select-dropdown__item el-select__footer">
-                            <div @click="onAddItem">
-                                <i class="fas fa-plus"></i>
-                                <span>
-                                    {{ add_new_text }}
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ addNew.text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-                <template slot="prefix">
-                    <span class="el-input__suffix-inner el-select-icon">
-                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noDataText }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ addNew.text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <template slot="prefix">
+                <span class="el-input__suffix-inner el-select-icon">
+                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                </span>
+            </template>
+
+            <el-option v-if="!group" v-for="(option, index) in sortOptions"
+                :key="index"
+                :disabled="disabledOptions.includes(option.key)"
+                :label="option.value"
+                :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
+            </el-option>
+
+            <el-option-group
+                v-if="group"
+                v-for="(group_options, group_index) in sortOptions"
+                :key="group_index"
+                :label="group_options.key">
+                <el-option
+                    v-for="(option, option_index) in group_options.value"
+                    :key="option_index"
+                    :disabled="disabledOptions.includes(option.key)"
+                    :label="option.value"
+                    :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
+                </el-option>
+            </el-option-group>
+
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer" disabled  value="">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ addNew.text }}
                     </span>
-                </template>
+                </div>
+            </el-option>
 
-                <el-option v-if="!group" v-for="option in selectOptions"
-                :key="option.id"
-                :label="option.name"
-                :value="option.id">
-                    <span class="float-left">{{ option.name }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.id]">{{ new_text }}</span>
-                </el-option>
-
-                <el-option-group
-                    v-if="group"
-                    v-for="(options, name) in selectOptions"
-                    :key="name"
-                    :label="name">
-                    <el-option
-                        v-for="(label, value) in options"
-                        :key="value"
-                        :label="label"
-                        :value="value">
-                        <span class="float-left">{{ label }}</span>
-                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                    </el-option>
-                </el-option-group>
-
-                <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                    <div @click="onAddItem">
-                        <i class="fas fa-plus"></i>
-                        <span>
-                            {{ add_new_text }}
-                        </span>
-                    </div>
-                </el-option>
         </el-select>
 
-        <span class="badge badge-success badge-resize float-right mr-2" v-if="new_options[real_model]">{{ new_text }}</span>
+        <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
+
+        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[selected]">{{ addNew.new_text }}</span>
+
+        <select :name="name"  :id="name" v-model="selected" class="d-none">
+            <option v-for="option in sortOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
+        </select>
     </span>
 </template>
 
@@ -535,42 +248,64 @@ export default {
             default: null,
             description: "Selectbox label text"
         },
+
         placeholder: {
             type: String,
             default: '',
             description: "Selectbox input placeholder text"
         },
+
         formClasses: {
             type: Array,
             default: null,
             description: "Selectbox input class name"
         },
+
         formError: {
             type: String,
             default: null,
             description: "Selectbox input error message"
         },
+
+        icon: {
+            type: String,
+            description: "Prepend icon (left)"
+        },
+
         name: {
             type: String,
             default: null,
             description: "Selectbox attribute name"
         },
+
         value: {
-            type: [String, Number, Array],
+            type: [String, Number, Array, Object],
             default: '',
             description: "Selectbox selected value"
         },
+
         options: null,
 
-        model: {
-            type: [String, Number],
-            default: null,
-            description: "Selectbox selected model"
+        dynamicOptions: null,
+
+        disabledOptions: {
+            type: Array,
+            default: function () {
+                return [];
+            },
+            description: "Selectbox Add New Item Feature"
         },
 
-        icon: {
+        option_sortable: {
             type: String,
-            description: "Prepend icon (left)"
+            default: 'value',
+            description: "Option Sortable type (key|value)"
+        },
+
+        model: {
+            type: [String, Number, Array, Object],
+            default: '',
+            description: "Selectbox selected model"
         },
 
         addNew: {
@@ -589,26 +324,30 @@ export default {
             description: "Selectbox Add New Item Feature"
         },
 
-        group:  {
+        group: {
             type: Boolean,
             default: false,
             description: "Selectbox option group status"
         },
+
         multiple: {
             type: Boolean,
             default: false,
             description: "Multible feature status"
         },
+
         readonly: {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
         },
+
         disabled: {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
         },
+
         collapse:  {
             type: Boolean,
             default: false,
@@ -620,11 +359,13 @@ export default {
             default: 'Loading...',
             description: "Selectbox loading message"
         },
+
         noDataText: {
             type: String,
             default: 'No Data',
             description: "Selectbox empty options message"
         },
+
         noMatchingDataText: {
             type: String,
             default: 'No Matchign Data',
@@ -636,11 +377,6 @@ export default {
             default: null,
             description: "Selectbox remote action path"
         },
-        remoteType: {
-            type: String,
-            default: 'invoice',
-            description: "Ger remote item type."
-        },
         currencyCode: {
             type: String,
             default: 'USD',
@@ -650,56 +386,234 @@ export default {
 
     data() {
         return {
-            list: [],
             add_new: {
                 text: this.addNew.text,
                 show: false,
                 path: this.addNew.path,
                 type: this.addNew.type, // modal, inline
                 field: this.addNew.field,
-                buttons: this.addNew.buttons
+                buttons: this.addNew.buttons,
             },
-            add_new_text: this.addNew.text,
-            new_text: this.addNew.new_text,
-            selectOptions: this.options,
-            real_model: this.model,
             add_new_html: '',
+
+            selected: this.model,
+
             form: {},
+            sort_options: [],
+            new_options: {},
             loading: false,
-            new_options: false,
         }
     },
 
     created() {
-        this.new_options = {};
+        this.setSortOptions();
+    },
+
+    computed: {
+        sortOptions() {
+            if (this.group) {
+                this.sort_options.sort(this.sortBy("key"));
+
+                for (const [index, options] of Object.entries(this.sort_options)) {
+                    options.value.sort(this.sortBy(this.option_sortable));
+                }
+            } else {
+                this.sort_options.sort(this.sortBy(this.option_sortable));
+            }
+
+            return this.sort_options;
+        },
     },
 
     mounted() {
-        if (this.multiple) {
-            if (!this.value.length) {
-                this.real_model = [];
+        // Check Here..
+        this.selected = this.value;
+
+        if (this.model.length) {
+            if (eval(this.model) !== undefined) {
+                this.selected = eval(this.model);
             } else {
-                let pre_value = [];
-
-                this.value.forEach(item => {
-                    pre_value.push(item.toString());
-                });
-
-                this.real_model = pre_value;
+                this.selected = this.model;
             }
-            
-        } else {
-            this.real_model = this.value;
         }
 
-        this.$emit('interface', this.real_model);
+        if (this.multiple && !this.selected.length) {
+            this.selected = [];
+        }
+
+        this.$emit('interface', this.selected);
 
         setTimeout(function() {
-            //this.change(); for invoice item
+            this.change();
         }.bind(this), 800);
     },
 
     methods: {
+        sortBy(option) {
+            return (firstEl, secondEl) => {
+                let first_element = firstEl[option].toUpperCase(); // ignore upper and lowercase
+                let second_element = secondEl[option].toUpperCase(); // ignore upper and lowercase
+
+                if (first_element < second_element) {
+                    return -1;
+                }
+
+                if (first_element > second_element) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            }
+        },
+
+        setSortOptions() {
+            let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
+
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [index, options] of Object.entries(created_options)) {
+                        let values = [];
+
+                        for (const [key, value] of Object.entries(options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [key, value] of Object.entries(created_options)) {
+                        this.sort_options.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            }
+        },
+
+        change() {
+            // This controll added add new changed..
+            if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
+                return false;
+            }
+
+            this.$emit('interface', this.selected);
+
+            this.$emit('change', this.selected);
+
+            // Option changed sort_option data
+            if (this.group) {
+                this.sort_options.forEach(function (option_group, group_index) {
+                    this.option_group.value.forEach(function (option, index) {
+                        if (this.multiple) {
+                            let indexs = [];
+                            let values = [];
+                            let labels = [];
+                            let options = [];
+
+                            this.selected.forEach(function (selected_option_id, selected_index) {
+                                if (option.value == selected_option_id) {
+                                    indexs.push(selected_index);
+                                    values.push(option.id);
+                                    labels.push(option.value);
+                                    options.push(option);
+                                }
+                            });
+
+                            this.$emit('index', indexs);
+                            this.$emit('value', values);
+                            this.$emit('label', labels);
+                            this.$emit('option', options);
+                        } else {
+                            if (option.value == this.selected) {
+                                this.$emit('index', index);
+                                this.$emit('value', option.id);
+                                this.$emit('label', option.value);
+                                this.$emit('option', option);
+                            }
+                        }
+                    }, this);
+                }, this);
+            } else {
+                this.sort_options.forEach(function (option, index) {
+                    if (this.multiple) {
+                        let indexs = [];
+                        let values = [];
+                        let labels = [];
+                        let options = [];
+
+                        this.selected.forEach(function (selected_option_id, selected_index) {
+                            if (option.value == selected_option_id) {
+                                indexs.push(selected_index);
+                                values.push(option.id);
+                                labels.push(option.value);
+                                options.push(option);
+                            }
+                        });
+
+                        this.$emit('index', indexs);
+                        this.$emit('value', values);
+                        this.$emit('label', labels);
+                        this.$emit('option', options);
+                    } else {
+                        if (option.value == this.selected) {
+                            this.$emit('index', index);
+                            this.$emit('value', option.id);
+                            this.$emit('label', option.value);
+                            this.$emit('option', option);
+                        }
+                    }
+                }, this);
+            }
+        },
+
+        visibleChange(event) {
+            this.$emit('visible-change', event);
+        },
+
+        removeTag(event) {
+            this.$emit('remove-tag', event);
+        },
+
+        clear(event) {
+            this.$emit('clear', event);
+        },
+
+        blur(event) {
+            this.$emit('blur', event);
+        },
+
+        focus(event) {
+            this.$emit('focus', event);
+        },
+
         remoteMethod(query) {
             if (document.getElementById('form-select-' + this.name)) {
                 document.getElementById('form-select-' + this.name).getElementsByTagName("input")[0].readOnly = false;
@@ -708,18 +622,25 @@ export default {
             if (query !== '') {
                 this.loading = true;
 
-               if (!this.remoteAction) {
-                   this.remoteAction = url + '/common/items/autocomplete';
-               }
+                let path = this.remoteAction;
+
+                if (!path) {
+                   path = url + '/common/items/autocomplete';
+                }
+
+                if (path.indexOf('?search') === -1) {
+                    path += '?search="' + query + '"';
+                } else {
+                    path += ' "' + query + '"';
+                }
+
+                path += ' limit:10';
+
+                path += '&currency_code=' + this.currencyCode;
 
                 window.axios({
                     method: 'GET',
-                    url: this.remoteAction,
-                    params: {
-                        type: this.remoteType,
-                        query: query,
-                        currency_code: this.currencyCode,
-                    },
+                    url: path,
                     headers: {
                         'X-CSRF-TOKEN': window.Laravel.csrfToken,
                         'X-Requested-With': 'XMLHttpRequest',
@@ -730,9 +651,18 @@ export default {
                     this.loading = false;
 
                     if (response.data.data) {
-                        this.selectOptions = response.data.data;
+                        let data = response.data.data;
+
+                        this.sort_options = [];
+
+                        data.forEach(function (option) {
+                            this.sort_options.push({
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }, this);
                     } else {
-                        this.selectOptions = [];
+                        this.sortOptions = [];
                     }
                 })
                 .catch(e => {
@@ -741,55 +671,27 @@ export default {
                     // always executed
                 });
             } else {
-                this.selectOptions = this.options;
+                this.setSortOptions();
             }
-        },
-
-        change() {
-            if (typeof(this.real_model) === 'object' && !Array.isArray(this.real_model)) {
-                return false;
-            }
-
-            if (Array.isArray(this.real_model) && !this.real_model.length) {
-                return false;
-            }
-
-            this.$emit('interface', this.real_model);
-            this.$emit('change', this.real_model);
-
-            if (Array.isArray(this.selectOptions)) {
-                this.selectOptions.forEach(item => {
-                    if (item.id == this.real_model) {
-                        this.$emit('label', item.name);
-                        this.$emit('option', item);
-
-                        return true;
-                    }
-                });
-            }
-        },
-
-        onPressEnter() {
-            alert('Press Enter');
-        },
-
-        OnPressTab() {
-            alert('Press Tab');
         },
 
         async onAddItem() {
             // Get Select Input value
-            if (this.title) {
-                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            if (this.multiple) {
+                var value = this.$children[0].$children[0]. $refs.input.value;
             } else {
-                var value = this.$children[0].$children[0].$refs.input.value;
-            }
-
-            if (value === '') {
-                return false;
+                if (this.title) {
+                    var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+                } else {
+                    var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+                }
             }
 
             if (this.add_new.type == 'inline') {
+                if (value === '') {
+                    return false;
+                }
+
                 await this.addInline(value);
             } else {
                 await this.onModal(value);
@@ -830,6 +732,8 @@ export default {
         },
 
         onModal(value) {
+            this.setSortOptions();
+
             let add_new = this.add_new;
 
             window.axios.get(this.add_new.path)
@@ -926,14 +830,18 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    if (!Object.keys(this.options).length) {
-                        this.selectOptions =  [];
-                    }
+                    this.sort_options.push({
+                        key: response.data.data[this.add_new.field.key].toString(),
+                        value: response.data.data[this.add_new.field.value],
+                    });
 
-                    this.selectOptions.push(response.data.data);
-                    //this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
-                    this.real_model = response.data.data[this.add_new.field.key];//.toString();
+
+                    if (this.multiple) {
+                        this.selected.push(response.data.data[this.add_new.field.key].toString());
+                    } else {
+                        this.selected = response.data.data[this.add_new.field.key].toString();
+                    }
 
                     this.add_new.show = false;
 
@@ -962,7 +870,7 @@ export default {
             this.add_new.show = false;
             this.add_new.html = null;
             this.add_new_html = null;
-            
+
             let documentClasses = document.body.classList;
 
             documentClasses.remove("modal-open");
@@ -974,65 +882,133 @@ export default {
     },
 
     watch: {
-        options: function (options) {
-            // update options
-            this.selectOptions = options;
-
-            if (Object.keys(this.new_options).length) {
-                if (!Object.keys(this.options).length) {
-                    this.selectOptions =  [];
-                }
-
-                Object.values(this.new_options).forEach(item => {
-                    this.selectOptions.push(item);
-                });
-            }
-        },
-
-        real_model: function (value) {
-            if (this.multiple) {
-                return;
-            }
-
-            if (this.real_model != value) {
-                this.change();
-            }
-
-            let e = $.Event('keyup');
-            e.keyCode= 9; // tab
-            $('#' + this.name).trigger(e);
-
-            let event = new window.KeyboardEvent('keydown', { keyCode: 9 }); // Tab key
-
-            window.dispatchEvent(event);
-        },
-
-        value: function (value) {
-            if (this.multiple) {
-                if (Array.isArray(this.real_model) && !this.real_model.length) {
-                    this.real_model = value;
+        selected: function (selected) {
+            if (!this.multiple) {
+                if (typeof selected != 'string' && selected !== undefined) {
+                    this.selected = selected.toString();
                 } else {
+                    this.selected = selected;
+                }
+            } else {
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
                     let pre_value = [];
 
-                    value.forEach(item => {
-                        pre_value.push(item.toString());
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
                     });
 
-                    this.real_model = pre_value;
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
                 }
-            } else {
-                //this.real_model = value.toString();
-                this.real_model = value;
             }
         },
 
-        model: function (value) {
-            if (this.multiple) {
-                this.real_model = value;
+        value: function (selected) {
+            if (!this.multiple) {
+                this.selected = selected.toString();
             } else {
-                this.real_model = value;
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
+
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
+                }
             }
-        }
+
+            this.change();
+        },
+
+        model: function (selected) {
+            if (!this.multiple) {
+                this.selected = selected.toString();
+            } else {
+                let is_string = false;
+                let pre_value = [];
+
+                selected.forEach(item => {
+                    if (typeof item != 'string') {
+                        is_string = true;
+                        pre_value.push(item.toString());
+                    }
+                });
+
+                if (is_string) {
+                    this.selected = pre_value;
+                }
+            }
+
+            this.change();
+        },
+
+        dynamicOptions: function(options) {
+            this.sort_options = [];
+            this.selected = '';
+
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [index, _options] of Object.entries(options)) {
+                        let values = [];
+
+                        for (const [key, value] of Object.entries(_options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [key, value] of Object.entries(options)) {
+                        this.sort_options.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            }
+        },
     },
 }
 </script>
@@ -1051,18 +1027,18 @@ export default {
     }
 
     .el-select__footer {
-        text-align: center;
-        border-top: 1px solid #dee2e6;
-        padding: 0px;
-        cursor: pointer;
-        color: #3c3f72;
-        font-weight: bold;
-        height: 38px;
-        line-height: 38px;
-        margin-top: 5px;
-        margin-bottom: -6px;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        text-align: center !important;
+        border-top: 1px solid #dee2e6 !important;
+        padding: 0px !important;
+        cursor: pointer !important;
+        color: #3c3f72 !important;
+        font-weight: bold !important;
+        height: 38px !important;
+        line-height: 38px !important;
+        margin-top: 5px !important;
+        margin-bottom: -6px !important;
+        border-bottom-left-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
     }
 
     .el-select__footer.el-select-dropdown__item.hover {
@@ -1084,5 +1060,9 @@ export default {
         margin-top: -32px;
         margin-right: 35px;
         position: relative;
+    }
+
+    .badge.badge-pill.badge-success {
+        border-radius: 0.375rem;
     }
 </style>
