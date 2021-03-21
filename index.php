@@ -7,6 +7,7 @@
  * @link        https://akaunting.com
  */
 
+/**
 // Register the auto-loader
 require(__DIR__ . '/bootstrap/autoload.php');
 
@@ -23,3 +24,4 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+**/
