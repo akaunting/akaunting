@@ -1,0 +1,181 @@
+#!/usr/bin/env php
+<?php
+
+trigger_error('The "bin/commonmark" command has been deprecated since league/commonmark 1.4', E_USER_DEPRECATED);
+
+requireAutoloader();
+
+ini_set('display_errors', 'stderr');
+
+$options = array();
+$options_raw = getopt('', array(
+    'use-asterisk',
+    'use-underscore',
+    'enable-strong',
+    'enable-em',
+    'safe',
+));
+foreach ($options_raw as $option => $value) {
+    switch ($option) {
+        case 'safe':
+            $options['html_input'] = 'strip';
+            $options['allow_unsafe_links'] = false;
+            break;
+        case 'use-asterisk':
+        case 'use-underscore':
+        case 'enable-strong':
+        case 'enable-em':
+            if ($value !== true && $value !== false) {
+                fail("Invalid value '$value' for option '$option'");
+            }
+            break;
+    }
+    $options[str_replace('-', '_', $option)] = $value;
+}
+
+foreach ($argv as $i => $arg) {
+    if ($i === 0) {
+        continue;
+    }
+
+    if (substr($arg, 0, 1) === '-') {
+        switch ($arg) {
+            case '-h':
+            case '--help':
+                echo getHelpText();
+                exit(0);
+            case '-v':
+            case '--version':
+                echo \League\CommonMark\CommonMarkConverter::VERSION . "\n";
+                exit(0);
+            case '--safe':
+                $options['safe'] = true;
+                break;
+            default:
+                $option = explode('=', $arg, 2)[0];
+                if (!preg_match('/^--[^-]/', $option)
+                    || !array_key_exists(ltrim($option, '-'), $options_raw)) {
+                    fail('Unknown option: ' . $arg);
+                }
+        }
+    } else {
+        $src = $arg;
+    }
+}
+
+if (isset($src)) {
+    if (!file_exists($src)) {
+        fail('File not found: ' . $src);
+    }
+
+    $markdown = file_get_contents($src);
+} else {
+    $stdin = fopen('php://stdin', 'r');
+
+    if (stream_set_blocking($stdin, false)) {
+        $markdown = stream_get_contents($stdin);
+    }
+
+    fclose($stdin);
+
+    if (empty($markdown)) {
+        fail(getHelpText());
+    }
+}
+
+$converter = new \League\CommonMark\CommonMarkConverter($options);
+echo $converter->convertToHtml($markdown);
+
+/**
+ * Get help and usage info
+ *
+ * @return string
+ */
+function getHelpText()
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        return <<<WINDOWSHELP
+CommonMark - Markdown done right
+
+Usage: commonmark [OPTIONS] [FILE]
+
+    -h, --help    Shows help and usage information
+
+    -v, --version Shows the currently installed version
+
+    (Reading data from STDIN is not currently supported on Windows)
+
+Examples:
+
+    Converting a file named document.md:
+
+        commonmark document.md
+
+    Converting a file and saving its output:
+
+        commonmark document.md > output.html
+
+Full documentation can be found at http://commonmark.thephpleague.com/
+WINDOWSHELP;
+    }
+
+    return <<<HELP
+CommonMark - Markdown done right
+
+Usage: commonmark [OPTIONS] [FILE]
+
+    -h, --help    Shows help and usage information
+
+    -v, --version Shows the currently installed version
+
+    --safe        Escapes all raw HTML input and removes unsafe URLs
+
+    If no file is given, input will be read from STDIN
+
+Examples:
+
+    Converting a file named document.md:
+
+        commonmark document.md
+
+    Converting a file and saving its output:
+
+        commonmark document.md > output.html
+
+    Converting from STDIN:
+
+        echo -e '# Hello World!' | commonmark
+
+    Converting from STDIN and saving the output:
+
+        echo -e '# Hello World!' | commonmark > output.html
+
+Full documentation can be found at http://commonmark.thephpleague.com/
+
+HELP;
+}
+
+/**
+ * @param string $message Error message
+ */
+function fail($message)
+{
+    fwrite(STDERR, $message . "\n");
+    exit(1);
+}
+
+function requireAutoloader()
+{
+    $autoloadPaths = [
+        // Local package usage
+        __DIR__ . '/../vendor/autoload.php',
+        // Package was included as a library
+        __DIR__ . '/../../../autoload.php',
+    ];
+    foreach ($autoloadPaths as $path) {
+        if (file_exists($path)) {
+            require_once $path;
+            break;
+        }
+    }
+}

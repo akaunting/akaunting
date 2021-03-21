@@ -1,0 +1,16 @@
+{
+    "require": {
+
+    },
+    "replace": {
+        "guzzlehttp/guzzle": "*",
+        "guzzlehttp/psr7": "*",
+        "laravel/framework": "*",
+        "symfony/http-foundation": "*"
+    },
+    "scripts": {
+        "test": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-suggest --no-progress --no-ansi"
+        ]
+    }
+}

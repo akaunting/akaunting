@@ -1,0 +1,57 @@
+{
+    "name": "fruitcake/laravel-cors",
+    "description": "Adds CORS (Cross-Origin Resource Sharing) headers support in your Laravel application",
+    "keywords": ["laravel", "cors", "crossdomain", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fruitcake",
+            "homepage": "https://fruitcake.nl"
+        },
+        {
+            "name": "Barry vd. Heuvel",
+            "email": "barryvdh@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": "^6|^7|^8|^9",
+        "illuminate/contracts": "^6|^7|^8|^9",
+        "symfony/http-foundation": "^4|^5",
+        "symfony/http-kernel": "^4.3.4|^5",
+        "asm89/stack-cors": "^2.0.1"
+    },
+    "require-dev": {
+        "laravel/framework": "^6|^7|^8",
+        "phpunit/phpunit": "^6|^7|^8",
+        "squizlabs/php_codesniffer": "^3.5",
+        "orchestra/testbench-dusk": "^4|^5|^6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fruitcake\\Cors\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fruitcake\\Cors\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        },
+        "laravel": {
+            "providers": [
+              "Fruitcake\\Cors\\CorsServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=psr12 src/",
+        "fix-style": "phpcbf -p --standard=psr12 src/"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

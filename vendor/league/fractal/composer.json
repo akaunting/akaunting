@@ -1,0 +1,55 @@
+{
+    "name": "league/fractal",
+    "description": "Handle the output of complex data structures ready for API output.",
+    "keywords": [
+        "league",
+        "api",
+        "json",
+        "rest"
+    ],
+    "homepage": "http://fractal.thephpleague.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Phil Sturgeon",
+            "email": "me@philsturgeon.uk",
+            "homepage": "http://philsturgeon.uk/",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "doctrine/orm": "^2.5",
+        "illuminate/contracts": "~5.0",
+        "mockery/mockery": "~0.9",
+        "pagerfanta/pagerfanta": "~1.0.0",
+        "phpunit/phpunit": "^4.8.35 || ^7.5",
+        "squizlabs/php_codesniffer": "~1.5|~2.0|~3.4",
+        "zendframework/zend-paginator": "~2.3"
+    },
+    "suggest": {
+        "illuminate/pagination": "The Illuminate Pagination component.",
+        "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+        "zendframework/zend-paginator": "Zend Framework Paginator"
+    },
+    "autoload": {
+        "psr-4": {
+            "League\\Fractal\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "League\\Fractal\\Test\\": "test"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.13-dev"
+        }
+    }
+}

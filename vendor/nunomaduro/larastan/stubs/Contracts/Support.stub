@@ -1,0 +1,19 @@
+<?php
+
+namespace Illuminate\Contracts\Support;
+
+interface Htmlable
+{}
+
+interface Arrayable
+{
+    /**
+     * Get the instance as an array.
+     *
+     * @return array<mixed>
+     */
+    public function toArray();
+}
+
+interface Jsonable
+{}

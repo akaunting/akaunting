@@ -1,0 +1,17 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @extends HasOneOrMany<TRelatedModel>
+ */
+abstract class MorphOneOrMany extends HasOneOrMany
+{
+    /**
+     * @param array<string, mixed> $attributes
+     *
+     * @phpstan-return TRelatedModel
+     */
+    public function create(array $attributes = []);
+}

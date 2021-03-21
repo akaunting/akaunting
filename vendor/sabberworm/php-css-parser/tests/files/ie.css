@@ -1,0 +1,6 @@
+.nav-thumb-wrapper:hover img, a.activeSlide img {
+	filter: alpha(opacity=100);
+	-moz-opacity: 1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}	

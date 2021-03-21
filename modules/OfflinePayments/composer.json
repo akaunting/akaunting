@@ -1,0 +1,18 @@
+{
+    "name": "akaunting/module-offline-payments",
+    "description": "Offline Payments app for Akaunting",
+    "homepage": "https://akaunting.com",
+    "keywords": [
+        "laravel",
+        "accounting",
+        "invoice",
+        "akaunting",
+        "offline-payments"
+    ],
+    "license": "GPL-3.0+",
+    "scripts": {
+        "test": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-suggest --no-progress --no-ansi"
+        ]
+    }
+}

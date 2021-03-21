@@ -1,0 +1,58 @@
+{
+    "name": "santigarcor/laratrust",
+    "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+    "keywords": [
+        "acl",
+        "authorization",
+        "laravel",
+        "laratrust",
+        "permissions",
+        "php",
+        "rbac",
+        "roles",
+        "multiusers",
+        "teams"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santiago Garcia",
+            "homepage": "http://santigarcor.me"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "kkszymanowski/traitor": "^0.2.0",
+        "laravel/framework": "~6.0|~7.0|~8.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.3.2",
+        "orchestra/testbench": "4.*|5.*|6.*",
+        "phpunit/phpunit": "^7.5.15|^8.4|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laratrust\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laratrust\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laratrust\\LaratrustServiceProvider"
+            ],
+            "aliases": {
+                "Laratrust": "Laratrust\\LaratrustFacade"
+            }
+        }
+    }
+}

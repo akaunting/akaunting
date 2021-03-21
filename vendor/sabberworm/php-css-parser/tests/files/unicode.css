@@ -1,0 +1,12 @@
+.test-1 { content: "\20"; } /* Same as " " */
+.test-2 { content: "\E9"; } /* Same as "é" */
+.test-3 { content: "\0020"; } /* Same as " " */
+.test-5 { content: "\6C34" } /* Same as "水" */
+.test-6 { content: "\00A5" } /* Same as "¥" */
+.test-7 { content: '\a' } /* Same as "\A" (Newline) */
+.test-8 { content: "\"\22" } /* Same as "\"\"" */
+.test-9 { content: "\"\27" } /* Same as ""\"\'"" */
+.test-10 { content: "\'\\" } /* Same as "'\" */
+.test-11 { content: "\test" } /* Same as "test" */
+
+.test-4 { content: "\1D11E" } /* Beyond the Basic Multilingual Plane */

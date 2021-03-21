@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: "CrassRoots";
+	src: url("../media/cr.ttf")
+}
+
+html, body {
+	font-size: -0.6em
+}
+
+@keyframes mymove {
+	from { top: 0px; }
+	to { top: 200px; }
+}
+
+@-moz-keyframes some-move {
+	from { top: 0px; }
+	to { top: 200px; }
+}
+
+@supports ( (perspective: 10px) or (-moz-perspective: 10px) or (-webkit-perspective: 10px) or (-ms-perspective: 10px) or (-o-perspective: 10px) ) {
+	body {
+		font-family: 'Helvetica';
+	}
+}
+
+@page :pseudo-class {
+  margin:2in;
+}
+
+@-moz-document url(http://www.w3.org/),
+               url-prefix(http://www.w3.org/Style/),
+               domain(mozilla.org),
+               regexp("https:.*") {
+  /* CSS rules here apply to:
+     + The page "http://www.w3.org/".
+     + Any page whose URL begins with "http://www.w3.org/Style/"
+     + Any page whose URL's host is "mozilla.org" or ends with
+       ".mozilla.org"
+     + Any page whose URL starts with "https:" */
+ 
+  /* make the above-mentioned pages really ugly */
+  body { color: purple; background: yellow; }
+}
+
+@media screen and (orientation: landscape) {
+  @-ms-viewport {
+    width: 1024px;
+    height: 768px;
+  }
+  /* CSS for landscape layout goes here */
+}
+
+@region-style #intro {
+    p { color: blue; }
+}

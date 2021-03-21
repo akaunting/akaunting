@@ -1,0 +1,27 @@
+{
+    "name": "php-http/message-factory",
+    "description": "Factory interfaces for PSR-7 HTTP Message",
+    "license": "MIT",
+    "keywords": ["http", "factory", "message", "stream", "uri"],
+    "homepage": "http://php-http.org",
+    "authors": [
+        {
+            "name": "Márk Sági-Kazár",
+            "email": "mark.sagikazar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "psr/http-message": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\Message\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

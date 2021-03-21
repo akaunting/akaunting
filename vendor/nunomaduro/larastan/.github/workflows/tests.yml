@@ -1,0 +1,59 @@
+name: "tests"
+
+on:
+  push:
+    # Prevent duplicating jobs on PR-s from local branches
+    branches:
+      - "master"
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: true
+      matrix:
+        php: ["7.2", "7.3", "7.4", "8.0"]
+        laravel: ["^6.0", "^7.0", "^8.0", "^9.0"]
+        exclude:
+          - php: "7.2"
+            laravel: "^8.0"
+          - php: "7.2"
+            laravel: "^9.0"
+          - php: "7.3"
+            laravel: "^9.0"
+
+    name: "P${{ matrix.php }} - L${{ matrix.laravel }}"
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php }}"
+          extensions: "dom, curl, libxml, mbstring, zip"
+          tools: "composer:v2"
+          coverage: "none"
+
+      - name: "Check Composer configuration"
+        run: "composer validate --strict"
+
+      - name: "Check file permissions"
+        run: "test \"$(find . -type f -not -path './.git/*' -executable)\" == ./tests/laravel-test.sh"
+
+      - name: "Install dependencies"
+        run: "composer update --with='illuminate/contracts:${{ matrix.laravel }}' --prefer-dist --no-interaction --no-progress"
+
+      - name: "Execute static analysis"
+        run: "composer run-script test:types"
+
+      - name: "Execute unit tests"
+        run: "composer run-script test:unit"
+
+      - name: "Run Larastan on Laravel and Lumen sample applications"
+        run: "tests/laravel-test.sh"

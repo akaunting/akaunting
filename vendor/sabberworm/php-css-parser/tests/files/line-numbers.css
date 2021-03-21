@@ -1,0 +1,32 @@
+@charset "utf-8"; /* line 1 */
+
+@namespace "http://toto.example.org"; /* line 3 */
+
+@font-face { /* line 5 */
+    font-family: "CrassRoots";
+    src: url("http://example.com/media/cr.ttf") /* line 7 */
+}
+
+
+#header { /* line 11 */
+    margin: 10px 2em 1cm 2%;
+    font-family: Verdana, Helvetica, "Gill Sans", sans-serif;
+    color: red !important;
+}
+
+@keyframes mymove {    /* line 17 */
+    from { top: 0px; } /* line 18 */
+
+    to { top: 200px; } /* line 20 */
+}
+
+@IMPORT uRL(test.css); /* line 23 */
+
+body {
+    background: #FFFFFF url("http://somesite.com/images/someimage.gif") repeat top center; /* line 25 */
+    color: rgb(   /* line 27 */
+            233,  /* line 28 */
+            100,  /* line 29 */
+            450   /* line 30 */
+    );
+}

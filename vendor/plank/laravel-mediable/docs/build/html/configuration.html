@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; Laravel-Mediable 2.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Laravel-Mediable 2.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Uploading Files" href="uploader.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Laravel-Mediable
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#disks">Disks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#disk-visibility">Disk Visibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregate-types">Aggregate Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extending-functionality">Extending functionality</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uploader.html">Uploading Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mediable.html">Handling Media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Using Media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Aggregate Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Artisan Commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Laravel-Mediable</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/configuration.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="disks">
+<span id="id1"></span><h2>Disks<a class="headerlink" href="#disks" title="Permalink to this headline">¶</a></h2>
+<p>Laravel-Mediable is built on top of Laravel&#8217;s Filesystem component. Before you use the package, you will need to configure the filesystem disks where you would like files to be stored in <code class="docutils literal"><span class="pre">config/filesystems.php</span></code>. <a class="reference external" href="https://laravel.com/docs/5.2/filesystem">Learn more about filesystem disk</a>.</p>
+<p>An example setup with one private disk (<code class="docutils literal"><span class="pre">local</span></code>) and one publicly accessible disk (<code class="docutils literal"><span class="pre">uploads</span></code>):</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="s1">&#39;disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;local&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;root&#39;</span>   <span class="o">=&gt;</span> <span class="nx">storage_path</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+
+    <span class="s1">&#39;uploads&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;root&#39;</span>   <span class="o">=&gt;</span> <span class="nx">public_path</span><span class="p">(</span><span class="s1">&#39;uploads&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+<span class="c1">//...</span>
+</pre></div>
+</div>
+<p>Once you have set up as many disks as you need, edit <code class="docutils literal"><span class="pre">config/mediable.php</span></code> to authorize the package to use the disks you have created.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="cm">/*</span>
+<span class="cm"> * Filesystem disk to use if none is specified</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;default_disk&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;uploads&#39;</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Filesystems that can be used for media storage</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;allowed_disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;uploads&#39;</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="c1">//...</span>
+</pre></div>
+</div>
+<div class="section" id="disk-visibility">
+<h3>Disk Visibility<a class="headerlink" href="#disk-visibility" title="Permalink to this headline">¶</a></h3>
+<p>This package is able to generate public URLs for accessing media, and uses the disk config to determine how this should be done.</p>
+<p>URLs can always be generated for <code class="docutils literal"><span class="pre">Media</span></code> placed on a disk located below the webroot.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="s1">&#39;disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;uploads&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="nx">public_path</span><span class="p">(</span><span class="s1">&#39;uploads&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1">//...</span>
+
+<span class="nv">$media</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">();</span> <span class="c1">// returns http://domain.com/uploads/foo.jpg</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Media</span></code> placed on a disk located elsewhere will throw an exception.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="s1">&#39;disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;private&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="nx">storage_path</span><span class="p">(</span><span class="s1">&#39;private&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1">//...</span>
+
+<span class="nv">$media</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">();</span> <span class="c1">// Throws a Plank\Mediable\Exceptions\MediableUrlException</span>
+</pre></div>
+</div>
+<p>If you are using symbolic links to make local disks accessible, you can instruct the package to generate URLs with the <code class="docutils literal"><span class="pre">'visibility'</span> <span class="pre">=&gt;</span> <span class="pre">'public'</span></code> key. By default, the package will assume that the symlink is named <code class="docutils literal"><span class="pre">'storage'</span></code>, as per <a class="reference external" href="https://laravel.com/docs/5.3/filesystem#the-public-disk">laravel&#8217;s documentation</a>. This can be modified with the <code class="docutils literal"><span class="pre">'prefix'</span></code> key.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="s1">&#39;disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;public&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="nx">storage_path</span><span class="p">(</span><span class="s1">&#39;public&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;visibility&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;assets&#39;</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1">//...</span>
+
+<span class="nv">$media</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">();</span> <span class="c1">// returns http://domain.com/assets/foo.jpg</span>
+</pre></div>
+</div>
+<p>Permissions for S3-based disks is set on the buckets themselves. You can inform the package that <code class="docutils literal"><span class="pre">Media</span></code> on an S3 disk can be linked by URL by adding the <code class="docutils literal"><span class="pre">'visibility'</span> <span class="pre">=&gt;</span> <span class="pre">'public'</span></code> key to the disk config.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="s1">&#39;disks&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;cloud&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;key&#39;</span>    <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;S3_KEY&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;secret&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;S3_SECRET&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;region&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;S3_REGION&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;bucket&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;latest&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;visibility&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;public&#39;</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1">//...</span>
+
+<span class="nv">$media</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">();</span> <span class="c1">// returns https://s3.amazonaws.com/bucket/foo.jpg</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="validation">
+<span id="id2"></span><h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>config/mediable.php</cite> offers a number of options for configuring how media uploads are validated. These values serve as defaults, which can be overridden on a case-by-case basis for each <code class="docutils literal"><span class="pre">MediaUploader</span></code> instance.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="cm">/*</span>
+<span class="cm"> * The maximum file size in bytes for a single uploaded file</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;max_size&#39;</span> <span class="o">=&gt;</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * What to do if a duplicate file is uploaded. Options include:</span>
+<span class="cm"> *</span>
+<span class="cm"> * * &#39;increment&#39;: the new file&#39;s name is given an incrementing suffix</span>
+<span class="cm"> * * &#39;replace&#39; : the old file and media model is deleted</span>
+<span class="cm"> * * &#39;error&#39;: an Exception is thrown</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;on_duplicate&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\MediaUploader</span><span class="o">::</span><span class="na">ON_DUPLICATE_INCREMENT</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Reject files unless both their mime and extension are recognized and both match a single aggregate type</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;strict_type_checking&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Reject files whose mime type or extension is not recognized</span>
+<span class="cm"> * if true, files will be given a type of `&#39;other&#39;`</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;allow_unrecognized_types&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Only allow files with specific MIME type(s) to be uploaded</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;allowed_mime_types&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Only allow files with specific file extension(s) to be uploaded</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;allowed_extensions&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Only allow files matching specific aggregate type(s) to be uploaded</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;allowed_aggregate_types&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+<span class="c1">//...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aggregate-types">
+<span id="id3"></span><h2>Aggregate Types<a class="headerlink" href="#aggregate-types" title="Permalink to this headline">¶</a></h2>
+<p>Laravel-Mediable provides functionality for handling multiple kinds of files under a shared aggregate type. This is intended to make it easy to find similar media without needing to constantly juggle multiple MIME types or file extensions.</p>
+<p>The package defines a number of common file types in the config file (<code class="docutils literal"><span class="pre">config/mediable.php</span></code>). Feel free to modify the default types provided by the package or add your own. Each aggregate type requires a key used to identify the type and a list of MIME types and file extensions that should be recognized as belonging to that aggregate type. For example, if you wanted to add an aggregate type for different types of markup, you could do the following.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="s1">&#39;aggregate_types&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="c1">//...</span>
+    <span class="s1">&#39;markup&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;mime_types&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;text/markdown&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;text/html&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;text/xml&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;application/xml&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;application/xhtml+xml&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;extensions&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;md&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;html&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;htm&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;xhtml&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;xml&#39;</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="c1">//...</span>
+<span class="p">]</span>
+<span class="c1">//...</span>
+</pre></div>
+</div>
+<p>Note: a MIME type or extension could be present in more than one aggregate type&#8217;s definitions (the system will try to find the best match), but each Media record can only have one aggregate type.</p>
+</div>
+<div class="section" id="extending-functionality">
+<span id="id4"></span><h2>Extending functionality<a class="headerlink" href="#extending-functionality" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">config/mediable.php</span></code> file lets you specify a number of classes to be use for internal behaviour. This is to allow for extending some of the the default classes used by the package or to cover additional use cases.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="cm">/*</span>
+<span class="cm"> * FQCN of the model to use for media</span>
+<span class="cm"> *</span>
+<span class="cm"> * Should extend Plank\Mediable\Media::class</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;model&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\Media</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * List of adapters to use for various source inputs</span>
+<span class="cm"> *</span>
+<span class="cm"> * Adapters can map either to a class or a pattern (regex)</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;source_adapters&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="nx">Symfony\Component\HttpFoundation\File\UploadedFile</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\SourceAdapters\UploadedFileAdapter</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="nx">Symfony\Component\HttpFoundation\File\File</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\SourceAdapters\FileAdapter</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;pattern&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;^https?://&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\SourceAdapters\RemoteUrlAdapter</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">&#39;^/&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\SourceAdapters\LocalPathAdapter</span><span class="o">::</span><span class="na">class</span>
+    <span class="p">],</span>
+<span class="p">],</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * List of URL Generators to use for handling various filesystem disks</span>
+<span class="cm"> */</span>
+<span class="s1">&#39;url_generators&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;local&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\UrlGenerators\LocalUrlGenerator</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+    <span class="s1">&#39;s3&#39;</span> <span class="o">=&gt;</span> <span class="nx">Plank\Mediable\UrlGenerators\S3UrlGenerator</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uploader.html" class="btn btn-neutral float-right" title="Uploading Files" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sean Fraser &lt;sean@plankdesign.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

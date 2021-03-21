@@ -1,0 +1,120 @@
+# https://docs.github.com/en/actions
+
+name: "CI"
+
+on:
+    pull_request: ~
+    push:
+        branches:
+            - "master"
+
+env:
+    COMPOSER_ROOT_VERSION: 1.99
+
+jobs:
+    coding-standards:
+        name: "Coding Standards"
+
+        runs-on: "ubuntu-latest"
+
+        steps:
+            -   name: "Checkout"
+                uses: "actions/checkout@v2.3.4"
+
+            -   name: "Install PHP"
+                uses: "shivammathur/setup-php@2.9.0"
+                with:
+                    coverage: "none"
+                    extensions: "mbstring"
+                    php-version: "7.4"
+                    tools: "composer-normalize"
+
+            -   name: "Validate composer.json"
+                run: "composer validate --strict"
+
+            -   name: "Normalize composer.json"
+                run: "composer-normalize --dry-run"
+
+            - name: "PHP-CS-Fixer"
+              uses: "docker://oskarstark/php-cs-fixer-ga:2.18.0"
+              with:
+                args: "--dry-run --diff-format udiff"
+
+    static-code-analysis:
+        name: "Static Code Analysis"
+
+        runs-on: "ubuntu-latest"
+
+        steps:
+            -   name: "Checkout"
+                uses: "actions/checkout@v2.3.4"
+
+            -   name: "Install PHP"
+                uses: "shivammathur/setup-php@2.9.0"
+                with:
+                    coverage: "none"
+                    extensions: "mbstring"
+                    php-version: "7.4"
+
+            -   name: "Install dependencies with composer"
+                run: "composer update --no-interaction --no-progress && composer i --working-dir=ci"
+
+            -   name: "Run vimeo/psalm"
+                run: "ci/vendor/bin/psalm --threads=4"
+
+    tests:
+        name: "Tests"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.2"
+                    - "7.3"
+                    - "7.4"
+                    - "8.0"
+
+        steps:
+            -   name: "Checkout"
+                uses: "actions/checkout@v2.3.4"
+
+            -   name: "Install PHP"
+                uses: "shivammathur/setup-php@2.9.0"
+                with:
+                    coverage: "none"
+                    extensions: "mbstring"
+                    php-version: "${{ matrix.php-version }}"
+
+            -   name: "Install dependencies with composer"
+                run: "composer update --no-interaction --no-progress"
+
+            -   name: "Run unit tests"
+                run: "vendor/bin/phpunit"
+
+    windows-tests:
+        name: "Windows tests"
+
+        runs-on: "windows-latest"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.4"
+
+        steps:
+            -   name: "Checkout"
+                uses: "actions/checkout@v2.3.4"
+
+            -   name: "Install PHP"
+                uses: "shivammathur/setup-php@2.9.0"
+                with:
+                    coverage: "none"
+                    extensions: "mbstring"
+                    php-version: "${{ matrix.php-version }}"
+
+            -   name: "Install dependencies with composer"
+                run: "composer update --no-interaction --no-progress"
+
+            -   name: "Run unit tests"
+                run: "vendor/bin/phpunit tests/AssertTest.php"

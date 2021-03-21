@@ -1,0 +1,36 @@
+language: php
+
+env:
+  - PREFER_LOWEST="--prefer-lowest"
+  - PREFER_LOWEST=""
+
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+    - 7.3
+    - 7.4
+    - nightly
+
+matrix:
+  include:
+    - php: 5.4
+      dist: trusty
+    - php: 5.5
+      dist: trusty
+  allow_failures:
+    - php: nightly
+  fast_finish: true
+  
+before_script:
+    - composer dump-autoload
+    - composer self-update
+    - composer update --prefer-source $PREFER_LOWEST
+
+script: bin/phpunit
+
+
+# Use Travis' new container-based infrastructure.
+# See http://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+sudo: false

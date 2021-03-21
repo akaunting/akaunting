@@ -1,0 +1,53 @@
+{
+    "name"       : "hoa/compiler",
+    "description": "The Hoa\\Compiler library.",
+    "type"       : "library",
+    "keywords"   : ["library", "compiler", "grammar", "language", "ll1",
+                    "llk", "regular", "algebraic", "context-free", "lexer",
+                    "parser", "token", "rule", "pp", "ast", "trace", "syntax",
+                    "sampler", "isotropic", "random", "uniform", "exhaustive",
+                    "coverage"],
+    "homepage"   : "https://hoa-project.net/",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name" : "Ivan Enderlin",
+            "email": "ivan.enderlin@hoa-project.net"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "https://hoa-project.net/"
+        }
+    ],
+    "support": {
+        "email" : "support@hoa-project.net",
+        "irc"   : "irc://chat.freenode.net/hoaproject",
+        "forum" : "https://users.hoa-project.net/",
+        "docs"  : "https://central.hoa-project.net/Documentation/Library/Compiler",
+        "source": "https://central.hoa-project.net/Resource/Library/Compiler"
+    },
+    "require": {
+        "hoa/consistency": "~1.0",
+        "hoa/exception"  : "~1.0",
+        "hoa/file"       : "~1.0",
+        "hoa/iterator"   : "~2.0",
+        "hoa/math"       : "~1.0",
+        "hoa/protocol"   : "~1.0",
+        "hoa/regex"      : "~1.0",
+        "hoa/visitor"    : "~2.0"
+    },
+    "require-dev": {
+        "hoa/json": "~2.0",
+        "hoa/test": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hoa\\Compiler\\": "."
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.x-dev"
+        }
+    }
+}

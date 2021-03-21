@@ -1,0 +1,11 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @template TChildModel of \Illuminate\Database\Eloquent\Model
+ * @extends BelongsTo<TRelatedModel, TChildModel>
+ */
+class MorphTo extends BelongsTo
+{}

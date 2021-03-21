@@ -1,0 +1,18 @@
+button,input,checkbox,textarea {
+    outline: 0;
+    margin: 0;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio:3/@media all and (orientation:portrait) {
+    #wrapper {
+        max-width:640px;
+        margin: 0 auto;
+    }
+}
+
+@media all and (orientation: landscape) {
+    #wrapper {
+        max-width:640px;
+        margin: 0 auto;
+    }
+}

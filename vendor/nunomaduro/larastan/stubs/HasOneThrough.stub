@@ -1,0 +1,24 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @extends HasManyThrough<TRelatedModel>
+ */
+class HasOneThrough extends HasManyThrough
+{
+    /**
+     * @param array<string, mixed> $attributes
+     *
+     * @phpstan-return TRelatedModel
+     */
+    public function create(array $attributes = []);
+
+    /**
+     * Get the results of the relationship.
+     *
+     * @phpstan-return \Illuminate\Database\Eloquent\Collection<TRelatedModel>
+     */
+    public function getResults();
+}

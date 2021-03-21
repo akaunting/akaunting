@@ -1,0 +1,15 @@
+.test1 {
+	//gaga: hello;
+}
+
+.test2 {
+	*hello: 1;
+	hello: 2.2;
+	hello: 2000000000000.2;
+}
+
+#test {
+	#hello: 1}
+
+#test2 {
+	help: none;

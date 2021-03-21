@@ -1,0 +1,20 @@
+language: php
+
+php: 
+  - 5.5
+  - 5.6
+  - 7.1
+  - 7.2
+  - 7.3
+
+sudo: false
+
+before_install:
+  # turn off XDebug
+  - phpenv config-rm xdebug.ini || return
+
+before_script:
+  - composer install --no-interaction --prefer-source
+
+script:
+  - vendor/bin/phpunit --verbose

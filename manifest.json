@@ -1,0 +1,63 @@
+{
+    "name": "Akaunting",
+    "short_name": "Akaunting",
+    "start_url": ".?utm_source=pwa",
+    "display": "standalone",
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "orientation": "any",
+    "splash": {
+        "640x1136":  "public/img/icons/splash-640x1136.png",
+        "750x1334":  "public/img/icons/splash-750x1334.png",
+        "828x1792":  "public/img/icons/splash-828x1792.png",
+        "1125x2436": "public/img/icons/splash-1125x2436.png",
+        "1242x2208": "public/img/icons/splash-1242x2208.png",
+        "1242x2688": "public/img/icons/splash-1242x2688.png",
+        "1536x2048": "public/img/icons/splash-1536x2048.png",
+        "1668x2224": "public/img/icons/splash-1668x2224.png",
+        "1668x2388": "public/img/icons/splash-1668x2388.png",
+        "2048x2732": "public/img/icons/splash-2048x2732.png"
+    },
+    "icons": [
+        {
+            "src": "public/img/icons/akaunting-72x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "public/img/icons/akaunting-96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "public/img/icons/akaunting-128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "public/img/icons/akaunting-144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "public/img/icons/akaunting-152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "public/img/icons/akaunting-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "public/img/icons/akaunting-384x384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "public/img/icons/akaunting-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+div.main { background-image: linear-gradient(#000, #fff) }
+.collapser::before,
+.collapser::-moz-before,
+.collapser::-webkit-before {
+    content: "»";
+    font-size: 1.2em;
+    margin-right: .2em;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: .2s;
+    -moz-transform-origin: center 60%;
+}
+.collapser.expanded::before,
+.collapser.expanded::-moz-before,
+.collapser.expanded::-webkit-before { -moz-transform: rotate(90deg) }
+.collapser + * {
+    height: 0;
+    overflow: hidden;
+    -moz-transition-property: height;
+    -moz-transition-duration: .3s;
+}
+.collapser.expanded + * { height: auto }

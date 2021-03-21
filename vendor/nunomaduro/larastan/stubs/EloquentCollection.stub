@@ -1,0 +1,56 @@
+<?php
+
+namespace Illuminate\Database\Eloquent;
+
+/**
+ * @template TModel
+ * @extends \Illuminate\Support\Collection<int, TModel>
+ */
+class Collection extends \Illuminate\Support\Collection
+{
+    /**
+     * @param  mixed  $key
+     * @param  mixed  $default
+     * @phpstan-return TModel|null
+     */
+    public function find($key, $default = null) {}
+
+    /**
+     * @template TReturn
+     * @param callable(TModel, int): TReturn $callable
+     * @return static<TReturn>|\Illuminate\Support\Collection<int, TReturn>
+     */
+    public function map($callable) {}
+
+    /**
+     * @param callable(TModel, int): array<mixed> $callback
+     * @return \Illuminate\Support\Collection<mixed, static<mixed>>
+     */
+    public function mapToGroups(callable $callback) {}
+
+    /**
+     * @param callable(TModel, int): mixed $callback
+     * @return \Illuminate\Support\Collection<mixed, mixed>
+     */
+    public function flatMap(callable $callback) {}
+
+    /**
+     * @param callable $callback
+     * @return static<mixed>|\Illuminate\Support\Collection<int, mixed>
+     */
+    public function mapSpread(callable $callback) {}
+
+    /**
+     * @param int $number
+     * @param null|callable(int, int): mixed $callback
+     * @return mixed
+     */
+    public static function times($number, callable $callback = null) {}
+
+    /**
+     * @param string|array<mixed> $value
+     * @param string|null $key
+     * @return \Illuminate\Support\Collection<int, mixed>
+     */
+    public function pluck($value, $key = null) {}
+}

@@ -1,0 +1,79 @@
+{
+    "name": "enlightn/enlightn",
+    "description": "Enlightn - Your performance & security consultant, an artisan command away.",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "package",
+        "static analysis",
+        "dynamic analysis",
+        "static analyzer",
+        "dynamic analyzer",
+        "security",
+        "performance",
+        "audit",
+        "analysis tool"
+    ],
+    "homepage": "https://www.laravel-enlightn.com/",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Paras Malhotra",
+            "email": "paras@laravel-enlightn.com"
+        },
+        {
+            "name": "Miguel Piedrafita",
+            "email": "soy@miguelpiedrafita.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/enlightn/enlightn/issues",
+        "docs": "https://www.laravel-enlightn.com/docs/"
+    },
+    "require": {
+        "php": "^7.2|^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^5.0|^6.0|^7.0",
+        "laravel/framework": "^6.0|^7.0|^8.0",
+        "nikic/php-parser": "^4.0",
+        "nunomaduro/larastan": "^0.6.11|^0.7",
+        "phpstan/phpstan": "^0.12.59",
+        "enlightn/security-checker": "^1.1",
+        "symfony/finder": "^4.0|^5.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.8",
+        "brianium/paratest": "^6.1",
+        "fideloper/proxy": "^4.4",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "mockery/mockery": "^1.3",
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^7.5|^8.0|^9.0",
+        "predis/predis": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Enlightn\\Enlightn\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Enlightn\\Enlightn\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/paratest --colors"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Enlightn\\Enlightn\\EnlightnServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

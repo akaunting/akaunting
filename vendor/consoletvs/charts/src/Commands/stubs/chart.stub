@@ -1,0 +1,18 @@
+<?php
+
+namespace DummyNamespace;
+
+use ConsoleTVs\Charts\Classes\Library\Chart;
+
+class DummyClass extends Chart
+{
+    /**
+     * Initializes the chart.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}

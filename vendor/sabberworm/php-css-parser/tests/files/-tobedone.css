@@ -1,0 +1,9 @@
+.some[selectors-may='contain-a-{'] {
+	
+}
+
+@media only screen and (min-width: 200px) {
+  .test {
+    prop: val;
+  }
+}

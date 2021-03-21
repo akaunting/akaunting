@@ -1,0 +1,44 @@
+{
+    "name": "illuminate/auth",
+    "description": "The Illuminate Auth package.",
+    "license": "MIT",
+    "homepage": "https://laravel.com",
+    "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/collections": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "illuminate/http": "^8.0",
+        "illuminate/macroable": "^8.0",
+        "illuminate/queue": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Auth\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "8.x-dev"
+        }
+    },
+    "suggest": {
+        "illuminate/console": "Required to use the auth:clear-resets command (^8.0).",
+        "illuminate/queue": "Required to fire login / logout events (^8.0).",
+        "illuminate/session": "Required to use the session based guard (^8.0)."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @template TValue
+ * @param int $times
+ * @param callable(int): TValue $callback
+ * @param int $sleep
+ * @param null|callable(\Exception): bool $when
+ * @phpstan-return TValue
+ *
+ * @throws \Exception
+ */
+function retry($times, callable $callback, $sleep = 0, $when = null)
+{
+}
+
+/**
+ * @template TValue
+ * @param TValue $value
+ * @param null|callable(TValue): void $callback
+ * @return mixed
+ */
+function tap($value, $callback = null)
+{
+}
+
+/**
+ * @param  view-string|null  $view
+ * @param  \Illuminate\Contracts\Support\Arrayable|array<string, mixed>  $data
+ * @param  array<string, mixed>  $mergeData
+ * @return mixed
+ */
+function view($view = null, $data = [], $mergeData = [])
+{
+}

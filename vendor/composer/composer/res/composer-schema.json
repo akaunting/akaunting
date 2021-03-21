@@ -1,0 +1,975 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "name": "Package",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [ "name", "description" ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Package name, including 'vendor-name/' prefix.",
+            "pattern": "^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$"
+        },
+        "type": {
+            "description": "Package type, either 'library' for common packages, 'composer-plugin' for plugins, 'metapackage' for empty packages, or a custom type ([a-z0-9-]+) defined by whatever project this package applies to.",
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+        },
+        "target-dir": {
+            "description": "DEPRECATED: Forces the package to be installed into the given subdirectory path. This is used for autoloading PSR-0 packages that do not contain their full path. Use forward slashes for cross-platform compatibility.",
+            "type": "string"
+        },
+        "description": {
+            "type": "string",
+            "description": "Short package description."
+        },
+        "keywords": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": "A tag/keyword that this package relates to."
+            }
+        },
+        "homepage": {
+            "type": "string",
+            "description": "Homepage URL for the project.",
+            "format": "uri"
+        },
+        "readme": {
+            "type": "string",
+            "description": "Relative path to the readme document."
+        },
+        "version": {
+            "type": "string",
+            "description": "Package version, see https://getcomposer.org/doc/04-schema.md#version for more info on valid schemes.",
+            "pattern": "^v?\\d+(((\\.\\d+)?\\.\\d+)?\\.\\d+)?|^dev-"
+        },
+        "time": {
+            "type": "string",
+            "description": "Package release date, in 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS' or 'YYYY-MM-DDTHH:MM:SSZ' format."
+        },
+        "license": {
+            "type": ["string", "array"],
+            "description": "License name. Or an array of license names."
+        },
+        "authors": {
+            "$ref": "#/definitions/authors"
+        },
+        "require": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and version constraints (values) that are required to run this package.",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "replace": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and version constraints (values) that can be replaced by this package.",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "conflict": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and version constraints (values) that conflict with this package.",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "provide": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and version constraints (values) that this package provides in addition to this package's name.",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "require-dev": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and version constraints (values) that this package requires for developing it (testing tools and such).",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "suggest": {
+            "type": "object",
+            "description": "This is a hash of package name (keys) and descriptions (values) that this package suggests work well with it (this will be suggested to the user during installation).",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "config": {
+            "type": "object",
+            "description": "Composer options.",
+            "properties": {
+                "process-timeout": {
+                    "type": "integer",
+                    "description": "The timeout in seconds for process executions, defaults to 300 (5mins)."
+                },
+                "use-include-path": {
+                    "type": "boolean",
+                    "description": "If true, the Composer autoloader will also look for classes in the PHP include path."
+                },
+                "preferred-install": {
+                    "type": ["string", "object"],
+                    "description": "The install method Composer will prefer to use, defaults to auto and can be any of source, dist, auto, or a hash of {\"pattern\": \"preference\"}."
+                },
+                "notify-on-install": {
+                    "type": "boolean",
+                    "description": "Composer allows repositories to define a notification URL, so that they get notified whenever a package from that repository is installed. This option allows you to disable that behaviour, defaults to true."
+                },
+                "github-protocols": {
+                    "type": "array",
+                    "description": "A list of protocols to use for github.com clones, in priority order, defaults to [\"git\", \"https\", \"http\"].",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "github-oauth": {
+                    "type": "object",
+                    "description": "A hash of domain name => github API oauth tokens, typically {\"github.com\":\"<token>\"}.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "gitlab-oauth": {
+                    "type": "object",
+                    "description": "A hash of domain name => gitlab API oauth tokens, typically {\"gitlab.com\":\"<token>\"}.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "gitlab-token": {
+                    "type": "object",
+                    "description": "A hash of domain name => gitlab private tokens, typically {\"gitlab.com\":\"<token>\"}.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "bearer": {
+                    "type": "object",
+                    "description": "A hash of domain name => bearer authentication token, for example {\"example.com\":\"<token>\"}.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "disable-tls": {
+                    "type": "boolean",
+                    "description": "Defaults to `false`. If set to true all HTTPS URLs will be tried with HTTP instead and no network level encryption is performed. Enabling this is a security risk and is NOT recommended. The better way is to enable the php_openssl extension in php.ini."
+                },
+                "secure-http": {
+                    "type": "boolean",
+                    "description": "Defaults to `true`. If set to true only HTTPS URLs are allowed to be downloaded via Composer. If you really absolutely need HTTP access to something then you can disable it, but using \"Let's Encrypt\" to get a free SSL certificate is generally a better alternative."
+                },
+                "cafile": {
+                    "type": "string",
+                    "description": "A way to set the path to the openssl CA file. In PHP 5.6+ you should rather set this via openssl.cafile in php.ini, although PHP 5.6+ should be able to detect your system CA file automatically."
+                },
+                "capath": {
+                    "type": "string",
+                    "description": "If cafile is not specified or if the certificate is not found there, the directory pointed to by capath is searched for a suitable certificate. capath must be a correctly hashed certificate directory."
+                },
+                "http-basic": {
+                    "type": "object",
+                    "description": "A hash of domain name => {\"username\": \"...\", \"password\": \"...\"}.",
+                    "additionalProperties": {
+                        "type": "object",
+                        "required": ["username", "password"],
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "description": "The username used for HTTP Basic authentication"
+                            },
+                            "password": {
+                                "type": "string",
+                                "description": "The password used for HTTP Basic authentication"
+                            }
+                        }
+                    }
+                },
+                "store-auths": {
+                    "type": ["string", "boolean"],
+                    "description": "What to do after prompting for authentication, one of: true (store), false (do not store) or \"prompt\" (ask every time), defaults to prompt."
+                },
+                "platform": {
+                    "type": "object",
+                    "description": "This is a hash of package name (keys) and version (values) that will be used to mock the platform packages on this machine.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "vendor-dir": {
+                    "type": "string",
+                    "description": "The location where all packages are installed, defaults to \"vendor\"."
+                },
+                "bin-dir": {
+                    "type": "string",
+                    "description": "The location where all binaries are linked, defaults to \"vendor/bin\"."
+                },
+                "data-dir": {
+                    "type": "string",
+                    "description": "The location where old phar files are stored, defaults to \"$home\" except on XDG Base Directory compliant unixes."
+                },
+                "cache-dir": {
+                    "type": "string",
+                    "description": "The location where all caches are located, defaults to \"~/.composer/cache\" on *nix and \"%LOCALAPPDATA%\\Composer\" on windows."
+                },
+                "cache-files-dir": {
+                    "type": "string",
+                    "description": "The location where files (zip downloads) are cached, defaults to \"{$cache-dir}/files\"."
+                },
+                "cache-repo-dir": {
+                    "type": "string",
+                    "description": "The location where repo (git/hg repo clones) are cached, defaults to \"{$cache-dir}/repo\"."
+                },
+                "cache-vcs-dir": {
+                    "type": "string",
+                    "description": "The location where vcs infos (git clones, github api calls, etc. when reading vcs repos) are cached, defaults to \"{$cache-dir}/vcs\"."
+                },
+                "cache-ttl": {
+                    "type": "integer",
+                    "description": "The default cache time-to-live, defaults to 15552000 (6 months)."
+                },
+                "cache-files-ttl": {
+                    "type": "integer",
+                    "description": "The cache time-to-live for files, defaults to the value of cache-ttl."
+                },
+                "cache-files-maxsize": {
+                    "type": ["string", "integer"],
+                    "description": "The cache max size for the files cache, defaults to \"300MiB\"."
+                },
+                "cache-read-only": {
+                    "type": ["boolean"],
+                    "description": "Whether to use the Composer cache in read-only mode."
+                },
+                "bin-compat": {
+                    "enum": ["auto", "full"],
+                    "description": "The compatibility of the binaries, defaults to \"auto\" (automatically guessed) and can be \"full\" (compatible with both Windows and Unix-based systems)."
+                },
+                "discard-changes": {
+                    "type": ["string", "boolean"],
+                    "description": "The default style of handling dirty updates, defaults to false and can be any of true, false or \"stash\"."
+                },
+                "autoloader-suffix": {
+                    "type": "string",
+                    "description": "Optional string to be used as a suffix for the generated Composer autoloader. When null a random one will be generated."
+                },
+                "optimize-autoloader": {
+                    "type": "boolean",
+                    "description": "Always optimize when dumping the autoloader."
+                },
+                "prepend-autoloader": {
+                    "type": "boolean",
+                    "description": "If false, the composer autoloader will not be prepended to existing autoloaders, defaults to true."
+                },
+                "classmap-authoritative": {
+                    "type": "boolean",
+                    "description": "If true, the composer autoloader will not scan the filesystem for classes that are not found in the class map, defaults to false."
+                },
+                "apcu-autoloader": {
+                    "type": "boolean",
+                    "description": "If true, the Composer autoloader will check for APCu and use it to cache found/not-found classes when the extension is enabled, defaults to false."
+                },
+                "github-domains": {
+                    "type": "array",
+                    "description": "A list of domains to use in github mode. This is used for GitHub Enterprise setups, defaults to [\"github.com\"].",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "github-expose-hostname": {
+                    "type": "boolean",
+                    "description": "Defaults to true. If set to false, the OAuth tokens created to access the github API will have a date instead of the machine hostname."
+                },
+                "gitlab-domains": {
+                    "type": "array",
+                    "description": "A list of domains to use in gitlab mode. This is used for custom GitLab setups, defaults to [\"gitlab.com\"].",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "use-github-api": {
+                    "type": "boolean",
+                    "description": "Defaults to true.  If set to false, globally disables the use of the GitHub API for all GitHub repositories and clones the repository as it would for any other repository."
+                },
+                "archive-format": {
+                    "type": "string",
+                    "description": "The default archiving format when not provided on cli, defaults to \"tar\"."
+                },
+                "archive-dir": {
+                    "type": "string",
+                    "description": "The default archive path when not provided on cli, defaults to \".\"."
+                },
+                "htaccess-protect": {
+                    "type": "boolean",
+                    "description": "Defaults to true. If set to false, Composer will not create .htaccess files in the composer home, cache, and data directories."
+                },
+                "sort-packages": {
+                    "type": "boolean",
+                    "description": "Defaults to false. If set to true, Composer will sort packages when adding/updating a new dependency."
+                },
+                "lock": {
+                    "type": "boolean",
+                    "description": "Defaults to true. If set to false, Composer will not create a composer.lock file."
+                },
+                "platform-check": {
+                    "type": ["boolean", "string"],
+                    "description": "Defaults to \"php-only\" which checks only the PHP version. Setting to true will also check the presence of required PHP extensions. If set to false, Composer will not create and require a platform_check.php file as part of the autoloader bootstrap."
+                }
+            }
+        },
+        "extra": {
+            "type": ["object", "array"],
+            "description": "Arbitrary extra data that can be used by plugins, for example, package of type composer-plugin may have a 'class' key defining an installer class name.",
+            "additionalProperties": true
+        },
+        "autoload": {
+            "$ref": "#/definitions/autoload"
+        },
+        "autoload-dev": {
+            "type": "object",
+            "description": "Description of additional autoload rules for development purpose (eg. a test suite).",
+            "properties": {
+                "psr-0": {
+                    "type": "object",
+                    "description": "This is a hash of namespaces (keys) and the directories they can be found into (values, can be arrays of paths) by the autoloader.",
+                    "additionalProperties": {
+                        "type": ["string", "array"],
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "psr-4": {
+                    "type": "object",
+                    "description": "This is a hash of namespaces (keys) and the PSR-4 directories they can map to (values, can be arrays of paths) by the autoloader.",
+                    "additionalProperties": {
+                        "type": ["string", "array"],
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "classmap": {
+                    "type": "array",
+                    "description": "This is an array of paths that contain classes to be included in the class-map generation process."
+                },
+                "files": {
+                    "type": "array",
+                    "description": "This is an array of files that are always required on every request."
+                }
+            }
+        },
+        "archive": {
+            "type": ["object"],
+            "description": "Options for creating package archives for distribution.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "A base name for archive."
+                },
+                "exclude": {
+                    "type": "array",
+                    "description": "A list of patterns for paths to exclude or include if prefixed with an exclamation mark."
+                }
+            }
+        },
+        "repositories": {
+            "type": ["object", "array"],
+            "description": "A set of additional repositories where packages can be found.",
+            "additionalProperties": {
+                "anyOf": [
+                    { "$ref": "#/definitions/repository" },
+                    { "type": "boolean", "enum": [false] }
+                ]
+            },
+            "items": {
+                "anyOf": [
+                    { "$ref": "#/definitions/repository" },
+                    {
+                        "type": "object",
+                        "additionalProperties": { "type": "boolean", "enum": [false] },
+                        "minProperties": 1,
+                        "maxProperties": 1
+                    }
+                ]
+            }
+        },
+        "minimum-stability": {
+            "type": ["string"],
+            "description": "The minimum stability the packages must have to be install-able. Possible values are: dev, alpha, beta, RC, stable.",
+            "pattern": "^dev|alpha|beta|rc|RC|stable$"
+        },
+        "prefer-stable": {
+            "type": ["boolean"],
+            "description": "If set to true, stable packages will be preferred to dev packages when possible, even if the minimum-stability allows unstable packages."
+        },
+        "bin": {
+            "type": ["string", "array"],
+            "description": "A set of files, or a single file, that should be treated as binaries and symlinked into bin-dir (from config).",
+            "items": {
+                "type": "string"
+            }
+        },
+        "include-path": {
+            "type": ["array"],
+            "description": "DEPRECATED: A list of directories which should get added to PHP's include path. This is only present to support legacy projects, and all new code should preferably use autoloading.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "scripts": {
+            "type": ["object"],
+            "description": "Script listeners that will be executed before/after some events.",
+            "properties": {
+                "pre-install-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before the install command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "post-install-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the install command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "pre-update-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before the update command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "post-update-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the update command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "pre-status-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before the status command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "post-status-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the status command is executed, contains one or more Class::method callables or shell commands."
+                },
+                "pre-package-install": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before a package is installed, contains one or more Class::method callables or shell commands."
+                },
+                "post-package-install": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after a package is installed, contains one or more Class::method callables or shell commands."
+                },
+                "pre-package-update": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before a package is updated, contains one or more Class::method callables or shell commands."
+                },
+                "post-package-update": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after a package is updated, contains one or more Class::method callables or shell commands."
+                },
+                "pre-package-uninstall": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before a package has been uninstalled, contains one or more Class::method callables or shell commands."
+                },
+                "post-package-uninstall": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after a package has been uninstalled, contains one or more Class::method callables or shell commands."
+                },
+                "pre-autoload-dump": {
+                    "type": ["array", "string"],
+                    "description": "Occurs before the autoloader is dumped, contains one or more Class::method callables or shell commands."
+                },
+                "post-autoload-dump": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the autoloader is dumped, contains one or more Class::method callables or shell commands."
+                },
+                "post-root-package-install": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the root-package is installed, contains one or more Class::method callables or shell commands."
+                },
+                "post-create-project-cmd": {
+                    "type": ["array", "string"],
+                    "description": "Occurs after the create-project command is executed, contains one or more Class::method callables or shell commands."
+                }
+            }
+        },
+        "scripts-descriptions": {
+            "type": ["object"],
+            "description": "Descriptions for custom commands, shown in console help.",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "support": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "Email address for support.",
+                    "format": "email"
+                },
+                "issues": {
+                    "type": "string",
+                    "description": "URL to the issue tracker.",
+                    "format": "uri"
+                },
+                "forum": {
+                    "type": "string",
+                    "description": "URL to the forum.",
+                    "format": "uri"
+                },
+                "wiki": {
+                    "type": "string",
+                    "description": "URL to the wiki.",
+                    "format": "uri"
+                },
+                "irc": {
+                    "type": "string",
+                    "description": "IRC channel for support, as irc://server/channel.",
+                    "format": "uri"
+                },
+                "chat": {
+                    "type": "string",
+                    "description": "URL to the support chat.",
+                    "format": "uri"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "URL to browse or download the sources.",
+                    "format": "uri"
+                },
+                "docs": {
+                    "type": "string",
+                    "description": "URL to the documentation.",
+                    "format": "uri"
+                },
+                "rss": {
+                    "type": "string",
+                    "description": "URL to the RSS feed.",
+                    "format": "uri"
+                }
+            }
+        },
+        "funding": {
+            "type": "array",
+            "description": "A list of options to fund the development and maintenance of the package.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "Type of funding or platform through which funding is possible."
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "URL to a website with details on funding and a way to fund the package.",
+                        "format": "uri"
+                    }
+                }
+            }
+        },
+        "non-feature-branches": {
+            "type": ["array"],
+            "description": "A set of string or regex patterns for non-numeric branch names that will not be handled as feature branches.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "default-branch": {
+            "type": ["boolean"],
+            "description": "Internal use only, do not specify this in composer.json. Indicates whether this version is the default branch of the linked VCS repository. Defaults to false."
+        },
+        "abandoned": {
+            "type": ["boolean", "string"],
+            "description": "Indicates whether this package has been abandoned, it can be boolean or a package name/URL pointing to a recommended alternative. Defaults to false."
+        },
+        "_comment": {
+            "type": ["array", "string"],
+            "description": "A key to store comments in"
+        }
+    },
+    "definitions": {
+        "authors": {
+            "type": "array",
+            "description": "List of authors that contributed to the package. This is typically the main maintainers, not the full list.",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [ "name"],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the author."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the author.",
+                        "format": "email"
+                    },
+                    "homepage": {
+                        "type": "string",
+                        "description": "Homepage URL for the author.",
+                        "format": "uri"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "Author's role in the project."
+                    }
+                }
+            }
+        },
+        "autoload": {
+            "type": "object",
+            "description": "Description of how the package can be autoloaded.",
+            "properties": {
+                "psr-0": {
+                    "type": "object",
+                    "description": "This is a hash of namespaces (keys) and the directories they can be found in (values, can be arrays of paths) by the autoloader.",
+                    "additionalProperties": {
+                        "type": ["string", "array"],
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "psr-4": {
+                    "type": "object",
+                    "description": "This is a hash of namespaces (keys) and the PSR-4 directories they can map to (values, can be arrays of paths) by the autoloader.",
+                    "additionalProperties": {
+                        "type": ["string", "array"],
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "classmap": {
+                    "type": "array",
+                    "description": "This is an array of paths that contain classes to be included in the class-map generation process."
+                },
+                "files": {
+                    "type": "array",
+                    "description": "This is an array of files that are always required on every request."
+                },
+                "exclude-from-classmap": {
+                    "type": "array",
+                    "description": "This is an array of patterns to exclude from autoload classmap generation. (e.g. \"exclude-from-classmap\": [\"/test/\", \"/tests/\", \"/Tests/\"]"
+                }
+            }
+        },
+        "repository": {
+            "type": "object",
+            "anyOf": [
+                { "$ref": "#/definitions/composer-repository" },
+                { "$ref": "#/definitions/vcs-repository" },
+                { "$ref": "#/definitions/path-repository" },
+                { "$ref": "#/definitions/artifact-repository" },
+                { "$ref": "#/definitions/pear-repository" },
+                { "$ref": "#/definitions/package-repository" }
+            ]
+        },
+        "composer-repository": {
+            "type": "object",
+            "required": ["type", "url"],
+            "properties": {
+                "type": { "type": "string", "enum": ["composer"] },
+                "url": { "type": "string" },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "options": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "allow_ssl_downgrade": { "type": "boolean" },
+                "force-lazy-providers": { "type": "boolean" }
+            }
+        },
+        "vcs-repository": {
+            "type": "object",
+            "required": ["type", "url"],
+            "properties": {
+                "type": { "type": "string", "enum": ["vcs", "github", "git", "gitlab", "git-bitbucket", "hg", "hg-bitbucket", "fossil", "perforce", "svn"] },
+                "url": { "type": "string" },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "no-api": { "type": "boolean" },
+                "secure-http": { "type": "boolean" },
+                "svn-cache-credentials": { "type": "boolean" },
+                "trunk-path": { "type": ["string", "boolean"] },
+                "branches-path": { "type": ["string", "boolean"] },
+                "tags-path": { "type": ["string", "boolean"] },
+                "package-path": { "type": "string" },
+                "depot": { "type": "string" },
+                "branch": { "type": "string" },
+                "unique_perforce_client_name": { "type": "string" },
+                "p4user": { "type": "string" },
+                "p4password": { "type": "string" }
+            }
+        },
+        "path-repository": {
+            "type": "object",
+            "required": ["type", "url"],
+            "properties": {
+                "type": { "type": "string", "enum": ["path"] },
+                "url": { "type": "string" },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "options": {
+                    "type": "object",
+                    "properties": {
+                        "symlink": { "type": ["boolean", "null"] }
+                    },
+                    "additionalProperties": true
+                }
+            }
+        },
+        "artifact-repository": {
+            "type": "object",
+            "required": ["type", "url"],
+            "properties": {
+                "type": { "type": "string", "enum": ["artifact"] },
+                "url": { "type": "string" },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "pear-repository": {
+            "type": "object",
+            "required": ["type", "url"],
+            "properties": {
+                "type": { "type": "string", "enum": ["pear"] },
+                "url": { "type": "string" },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "vendor-alias": { "type": "string" }
+            }
+        },
+        "package-repository": {
+            "type": "object",
+            "required": ["type", "package"],
+            "properties": {
+                "type": { "type": "string", "enum": ["package"] },
+                "canonical": { "type": "boolean" },
+                "only": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "package": {
+                    "oneOf": [
+                        { "$ref": "#/definitions/inline-package" },
+                        {
+                            "type": "array",
+                            "items": { "$ref": "#/definitions/inline-package" }
+                        }
+                    ]
+                }
+            }
+        },
+        "inline-package": {
+            "type": "object",
+            "required": ["name", "version"],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Package name, including 'vendor-name/' prefix."
+                },
+                "type": {
+                    "type": "string"
+                },
+                "target-dir": {
+                    "description": "DEPRECATED: Forces the package to be installed into the given subdirectory path. This is used for autoloading PSR-0 packages that do not contain their full path. Use forward slashes for cross-platform compatibility.",
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "homepage": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "license": {
+                    "type": [
+                        "string",
+                        "array"
+                    ]
+                },
+                "authors": {
+                    "$ref": "#/definitions/authors"
+                },
+                "require": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "replace": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "conflict": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "provide": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "require-dev": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "suggest": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "extra": {
+                    "type": ["object", "array"],
+                    "additionalProperties": true
+                },
+                "autoload": {
+                    "$ref": "#/definitions/autoload"
+                },
+                "archive": {
+                    "type": ["object"],
+                    "properties": {
+                        "exclude": {
+                            "type": "array"
+                        }
+                    }
+                },
+                "bin": {
+                    "type": ["string", "array"],
+                    "description": "A set of files, or a single file, that should be treated as binaries and symlinked into bin-dir (from config).",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "include-path": {
+                    "type": ["array"],
+                    "description": "DEPRECATED: A list of directories which should get added to PHP's include path. This is only present to support legacy projects, and all new code should preferably use autoloading.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "source": {
+                    "type": "object",
+                    "required": ["type", "url", "reference"],
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "reference": {
+                            "type": "string"
+                        },
+                        "mirrors": {
+                            "type": "array"
+                        }
+                    }
+                },
+                "dist": {
+                    "type": "object",
+                    "required": ["type", "url"],
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "reference": {
+                            "type": "string"
+                        },
+                        "shasum": {
+                            "type": "string"
+                        },
+                        "mirrors": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}

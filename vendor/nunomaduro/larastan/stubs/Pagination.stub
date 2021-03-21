@@ -1,0 +1,23 @@
+<?php
+
+namespace Illuminate\Pagination;
+
+/**
+ * @mixin \Illuminate\Support\Collection
+ */
+abstract class AbstractPaginator implements \Illuminate\Contracts\Support\Htmlable
+{}
+
+/**
+ * @implements \ArrayAccess<mixed, mixed>
+ * @implements \IteratorAggregate<mixed, mixed>
+ */
+class Paginator extends AbstractPaginator implements \Illuminate\Contracts\Support\Arrayable, \ArrayAccess, \Countable, \IteratorAggregate, \Illuminate\Contracts\Support\Jsonable, \JsonSerializable, \Illuminate\Contracts\Pagination\Paginator
+{}
+
+/**
+ * @implements \ArrayAccess<mixed, mixed>
+ * @implements \IteratorAggregate<mixed, mixed>
+ */
+class LengthAwarePaginator extends AbstractPaginator implements \Illuminate\Contracts\Support\Arrayable, \ArrayAccess, \Countable, \IteratorAggregate, \Illuminate\Contracts\Support\Jsonable, \JsonSerializable, \Illuminate\Contracts\Pagination\LengthAwarePaginator
+{}

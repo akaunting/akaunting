@@ -1,0 +1,90 @@
+{
+    "name": "composer/composer",
+    "type": "library",
+    "description": "Composer helps you declare, manage and install dependencies of PHP projects. It ensures you have the right stack everywhere.",
+    "keywords": [
+        "package",
+        "dependency",
+        "autoload"
+    ],
+    "homepage": "https://getcomposer.org/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nils Adermann",
+            "email": "naderman@naderman.de",
+            "homepage": "https://www.naderman.de"
+        },
+        {
+            "name": "Jordi Boggiano",
+            "email": "j.boggiano@seld.be",
+            "homepage": "https://seld.be"
+        }
+    ],
+    "require": {
+        "php": "^5.3.2 || ^7.0 || ^8.0",
+        "composer/ca-bundle": "^1.0",
+        "composer/semver": "^3.0",
+        "composer/spdx-licenses": "^1.2",
+        "composer/xdebug-handler": "^1.1",
+        "justinrainbow/json-schema": "^5.2.10",
+        "psr/log": "^1.0",
+        "seld/jsonlint": "^1.4",
+        "seld/phar-utils": "^1.0",
+        "symfony/console": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
+        "symfony/filesystem": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
+        "symfony/finder": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
+        "symfony/process": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
+        "react/promise": "^1.2 || ^2.7"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.2 || ^5.0",
+        "phpspec/prophecy": "^1.10"
+    },
+    "suggest": {
+        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
+        "ext-zip": "Enabling the zip extension allows you to unzip archives",
+        "ext-zlib": "Allow gzip compression of HTTP requests"
+    },
+    "config": {
+        "platform": {
+            "php": "5.3.9"
+        },
+        "platform-check": false
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Composer\\": "src/Composer"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Composer\\Test\\": "tests/Composer/Test",
+            "Composer\\PHPStanRules\\": "phpstan/Rules/src",
+            "Composer\\PHPStanRulesTests\\": "phpstan/Rules/tests"
+        },
+        "classmap": [
+            "phpstan/Rules/tests/data"
+        ]
+    },
+    "bin": [
+        "bin/composer"
+    ],
+    "scripts": {
+        "compile": "@php -dphar.readonly=0 bin/compile",
+        "test": "simple-phpunit"
+    },
+    "scripts-descriptions": {
+        "compile": "Compile composer.phar",
+        "test": "Run all tests"
+    },
+    "support": {
+        "issues": "https://github.com/composer/composer/issues",
+        "irc": "irc://irc.freenode.org/composer"
+    }
+}

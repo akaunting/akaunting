@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Handling Media &mdash; Laravel-Mediable 2.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Laravel-Mediable 2.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Using Media" href="media.html"/>
+        <link rel="prev" title="Uploading Files" href="uploader.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Laravel-Mediable
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="uploader.html">Uploading Files</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Handling Media</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#attaching-media">Attaching Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#replacing-media">Replacing Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-media">Retrieving Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#media-order">Media Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-for-the-presence-of-media">Checking for the Presence of Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#detaching-media">Detaching Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-media">Loading Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#eager-loading">Eager Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lazy-eager-loading">Lazy Eager Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#automatic-rehydration">Automatic Rehydration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deleting-mediables">Deleting Mediables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#soft-deletes">Soft Deletes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Using Media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Aggregate Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Artisan Commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Laravel-Mediable</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Handling Media</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mediable.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="handling-media">
+<h1>Handling Media<a class="headerlink" href="#handling-media" title="Permalink to this headline">¶</a></h1>
+<p>Add the <code class="docutils literal"><span class="pre">Mediable</span></code> trait to any Eloquent models that you would like to be able to attach media to.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Plank\Mediable\Mediable</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Post</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Mediable</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="attaching-media">
+<h2>Attaching Media<a class="headerlink" href="#attaching-media" title="Permalink to this headline">¶</a></h2>
+<p>You can attach media to your <code class="docutils literal"><span class="pre">Mediable</span></code> model using the <code class="docutils literal"><span class="pre">attachMedia()</span></code> method. This method takes a second argument, specifying one or more tags which define the relationship between the model and the media. Tags are simply strings; you can use any value you need to describe how the model should use its attached media.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">first</span><span class="p">();</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">attachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can attach multiple media to the same tag with a single call. The <code class="docutils literal"><span class="pre">attachMedia()</span></code> method accept any of the following for its first parameter:</p>
+<ul class="simple">
+<li>a numeric or string id</li>
+<li>an instance of <code class="docutils literal"><span class="pre">\Plank\Mediable\Media</span></code></li>
+<li>an array of ids</li>
+<li>an instance of <code class="docutils literal"><span class="pre">\Illuminate\Database\Eloquent\Collection</span></code></li>
+</ul>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">attachMedia</span><span class="p">([</span><span class="nv">$media1</span><span class="o">-&gt;</span><span class="na">getKey</span><span class="p">(),</span> <span class="nv">$media2</span><span class="o">-&gt;</span><span class="na">getKey</span><span class="p">()],</span> <span class="s1">&#39;gallery&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also assign media to multiple tags with a single call.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">attachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gallery&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="replacing-media">
+<h2>Replacing Media<a class="headerlink" href="#replacing-media" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Media</span></code> and <code class="docutils literal"><span class="pre">Mediable</span></code> models share a many-to-many relationship, which allows for any number of media to be added to any key. The <code class="docutils literal"><span class="pre">attachMedia()</span></code> method will add a new association, but will not remove any existing associations to other media. If you want to replace the media previously attached to the specified tag(s) you can use the <code class="docutils literal"><span class="pre">syncMedia()</span></code> method. This method accepts the same inputs as <code class="docutils literal"><span class="pre">attachMedia()</span></code>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">syncMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-media">
+<h2>Retrieving Media<a class="headerlink" href="#retrieving-media" title="Permalink to this headline">¶</a></h2>
+<p>You can retrieve media attached to a file by referring to the tag to which it was previously assigned.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This returns a collection of all media assigned to that tag. In cases where you only need one <code class="docutils literal"><span class="pre">Media</span></code> entity, you can instead use <code class="docutils literal"><span class="pre">firstMedia()</span></code>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">firstMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span>
+<span class="c1">// shorthand for</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If you specify an array of tags, the method will return media is attached to any of those tags. Set the <code class="docutils literal"><span class="pre">$match_all</span></code> parameter to <code class="docutils literal"><span class="pre">true</span></code> to tell the method to only return media that are attached to all of the specified tags.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">([</span><span class="s1">&#39;header&#39;</span><span class="p">,</span> <span class="s1">&#39;footer&#39;</span><span class="p">]);</span> <span class="c1">// get media with either tag</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">([</span><span class="s1">&#39;header&#39;</span><span class="p">,</span> <span class="s1">&#39;footer&#39;</span><span class="p">],</span> <span class="k">true</span><span class="p">);</span> <span class="c1">//get media with both tags</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMediaMatchAll</span><span class="p">([</span><span class="s1">&#39;header&#39;</span><span class="p">,</span> <span class="s1">&#39;footer&#39;</span><span class="p">]);</span> <span class="c1">//alias</span>
+</pre></div>
+</div>
+<p>You can also get all media attached to a model, grouped by tag.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getAllMediaByTag</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="media-order">
+<h2>Media Order<a class="headerlink" href="#media-order" title="Permalink to this headline">¶</a></h2>
+<p>The system keeps track of the order in which <code class="docutils literal"><span class="pre">Media</span></code> are attached to each <code class="docutils literal"><span class="pre">Mediable</span></code> model&#8217;s tags and are always returned in the same order.</p>
+<p>To change the order of media assigned to a given tag, or to insert a new item at a particular index manipulate the eloquent collection then use the <code class="docutils literal"><span class="pre">syncMedia()</span></code> method to commit the changes.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;gallery&#39;</span><span class="p">);</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nv">$media</span><span class="o">-&gt;</span><span class="na">prepend</span><span class="p">(</span><span class="nv">$new_media</span><span class="p">);</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">syncMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="s1">&#39;gallery&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>An <code class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause is automatically applied to all queries run on the <code class="docutils literal"><span class="pre">media()</span></code> relationship. To disable this default behaviour, use the <code class="docutils literal"><span class="pre">unordered()</span></code> query scope.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$mediable</span><span class="o">-&gt;</span><span class="na">media</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">unordered</span><span class="p">()</span>
+    <span class="o">-&gt;...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checking-for-the-presence-of-media">
+<h2>Checking for the Presence of Media<a class="headerlink" href="#checking-for-the-presence-of-media" title="Permalink to this headline">¶</a></h2>
+<p>You can verify if a model has one or more media assigned to a given tag with the <code class="docutils literal"><span class="pre">hasMedia()</span></code> method.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$post</span><span class="o">-&gt;</span><span class="na">hasMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">)){</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can specify multiple tags when calling either method, which functions similarly to <code class="docutils literal"><span class="pre">getMedia()</span></code>. The method will return <code class="docutils literal"><span class="pre">true</span></code> if <code class="docutils literal"><span class="pre">getMedia()</span></code> passed the same parameters would return any instances.</p>
+<p>You also can also perform this check using the query builder.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">whereHasMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="detaching-media">
+<h2>Detaching Media<a class="headerlink" href="#detaching-media" title="Permalink to this headline">¶</a></h2>
+<p>You can remove a media record from a model with the <code class="docutils literal"><span class="pre">detachMedia()</span></code> method.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">detachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">);</span> <span class="c1">// remove media from all tags</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">detachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="s1">&#39;feature&#39;</span><span class="p">);</span> <span class="c1">//remove media from specific tag</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">detachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;thumbnail&#39;</span><span class="p">]);</span> <span class="c1">//remove media from multiple tags</span>
+</pre></div>
+</div>
+<p>You can also remove all media assigned to one or more tags.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">detachMediaTags</span><span class="p">(</span><span class="s1">&#39;feature&#39;</span><span class="p">);</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">detachMediaTags</span><span class="p">([</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;thumbnail&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-media">
+<h2>Loading Media<a class="headerlink" href="#loading-media" title="Permalink to this headline">¶</a></h2>
+<p>When dealing with any model relationships, taking care to avoid running into the &#8220;N+1 problem&#8221; is an important optimization consideration. The N+1 problem can be summed up as a separate query being run for the related content of each record of the parent model. Consider the following example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">firstMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Assuming there are at least 10 Post records available, this code will execute 11 queries: one query to load the 10 posts from the database, then another 10 queries to load the media for each of the post records individually. This will slow down the rendering of the page.</p>
+<p>There are a couple of approaches that can be taken to preload the attached media in order to avoid this issue.</p>
+<div class="section" id="eager-loading">
+<h3>Eager Loading<a class="headerlink" href="#eager-loading" title="Permalink to this headline">¶</a></h3>
+<p>The Eloquent query builder&#8217;s <code class="docutils literal"><span class="pre">with()</span></code> method is the preferred way to eager load related models. This package also provides an alias.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+<span class="c1">// or</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">withMedia</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can also load only media attached to specific tags.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">withMedia</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to either tags</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">withMediaMatchAll</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to both tags</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: if using this approach to conditionally preload media by tag, you will not be able to access media with other tags using <code class="docutils literal"><span class="pre">getMedia()</span></code> without first reloading the media relationship on that record.</p>
+</div>
+<div class="section" id="lazy-eager-loading">
+<h3>Lazy Eager Loading<a class="headerlink" href="#lazy-eager-loading" title="Permalink to this headline">¶</a></h3>
+<p>If you have already loaded models from the database, you can still load relationships with the <code class="docutils literal"><span class="pre">load()</span></code> method of the Eloquent Collection class. The package also provides an alias.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">all</span><span class="p">();</span>
+<span class="c1">// ...</span>
+
+<span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">load</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">);</span>
+<span class="c1">// or</span>
+<span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">loadMedia</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can also load only media attached to specific tags.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">loadMedia</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to either tag</span>
+<span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">loadMediaMatchAll</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to both tags</span>
+</pre></div>
+</div>
+<p>The same method is available as part of the <code class="docutils literal"><span class="pre">Mediable</span></code> trait, and can be used directly on a model instance.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span> <span class="o">=</span> <span class="nx">Post</span><span class="o">::</span><span class="na">first</span><span class="p">();</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">loadMedia</span><span class="p">();</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">loadMedia</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to either tag</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">loadMediaMatchAll</span><span class="p">([</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">]);</span> <span class="c1">// attached to both tags</span>
+</pre></div>
+</div>
+<p>Any of these methods can be used to reload the media relationship of the model.</p>
+<p><strong>Note</strong>: if using this approach to conditionally preload media by tag, you will not be able to access media with other tags using <code class="docutils literal"><span class="pre">getMedia()</span></code> without first reloading the media relationship on that record.</p>
+</div>
+</div>
+<div class="section" id="automatic-rehydration">
+<h2>Automatic Rehydration<a class="headerlink" href="#automatic-rehydration" title="Permalink to this headline">¶</a></h2>
+<p>By default, <code class="docutils literal"><span class="pre">Mediable</span></code> models will automatically reload their media relationship the next time the media at a given tag is accessed after that tag is modified.</p>
+<p>The <code class="docutils literal"><span class="pre">attachMedia()</span></code>, <code class="docutils literal"><span class="pre">syncMedia()</span></code>, <code class="docutils literal"><span class="pre">detachMedia()</span></code>, and <code class="docutils literal"><span class="pre">detachMediaTags()</span></code> methods will mark any tags passed as being dirty, while the <code class="docutils literal"><span class="pre">hasMedia()</span></code> <code class="docutils literal"><span class="pre">getMedia()</span></code>, <code class="docutils literal"><span class="pre">firstMedia()</span></code>, <code class="docutils literal"><span class="pre">getAllMediaByTag()</span></code>, and <code class="docutils literal"><span class="pre">getTagsForMedia()</span></code> methods will execute <code class="docutils literal"><span class="pre">loadMedia()</span></code> to reload all media if they attempt to read a dirty tag.</p>
+<p>For example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">loadMedia</span><span class="p">();</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;gallery&#39;</span><span class="p">);</span> <span class="c1">// returns an empty collection</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span> <span class="c1">// returns an empty collection</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">attachMedia</span><span class="p">(</span><span class="nv">$media</span><span class="p">,</span> <span class="s1">&#39;gallery&#39;</span><span class="p">);</span> <span class="c1">// marks the gallery tag as dirty</span>
+
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">);</span> <span class="c1">// still returns an empty collection</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getMedia</span><span class="p">(</span><span class="s1">&#39;gallery&#39;</span><span class="p">);</span> <span class="c1">// performs a `loadMedia()`, returns a collection with $media</span>
+</pre></div>
+</div>
+<p>You can enable or disable this behaviour on a class-by-class basis by adding the <code class="docutils literal"><span class="pre">$rehydrates_media</span></code> property to your <code class="docutils literal"><span class="pre">Mediable</span></code> model.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Post</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Mediable</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$rehydrates_media</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also set the application-wide default behaviour in <code class="docutils literal"><span class="pre">config/mediable.php</span></code>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">&#39;rehydrate_media&#39; =&gt; true,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting-mediables">
+<h2>Deleting Mediables<a class="headerlink" href="#deleting-mediables" title="Permalink to this headline">¶</a></h2>
+<p>You can delete mediable model with standard Eloquent model <code class="docutils literal"><span class="pre">delete()</span></code> method. This will also detach any associated <code class="docutils literal"><span class="pre">Mediable</span></code> models.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$post</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: The <code class="docutils literal"><span class="pre">delete()</span></code> method on the query builder <em>will not</em> purge media relationships.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">Media</span><span class="o">::</span><span class="na">where</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span> <span class="c1">//will not detach relationships</span>
+</pre></div>
+</div>
+<div class="section" id="soft-deletes">
+<h3>Soft Deletes<a class="headerlink" href="#soft-deletes" title="Permalink to this headline">¶</a></h3>
+<p>If your <code class="docutils literal"><span class="pre">Mediable</span></code> class uses Laravel&#8217;s <code class="docutils literal"><span class="pre">SoftDeletes</span></code> trait, the model will only detach its media relationships if <code class="docutils literal"><span class="pre">forceDelete()</span></code> is used.</p>
+<p>You can change the <code class="docutils literal"><span class="pre">detach_on_soft_delete</span></code> setting to <code class="docutils literal"><span class="pre">true</span></code> in <code class="docutils literal"><span class="pre">config/mediable.php</span></code> to have relationships automatically detach when either the <code class="docutils literal"><span class="pre">Media</span></code> record or <code class="docutils literal"><span class="pre">Mediable</span></code> model are soft deleted.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="media.html" class="btn btn-neutral float-right" title="Using Media" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uploader.html" class="btn btn-neutral" title="Uploading Files" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sean Fraser &lt;sean@plankdesign.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

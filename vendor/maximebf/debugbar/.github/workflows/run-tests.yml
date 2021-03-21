@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+  schedule:
+  - cron: '0 0 * * *'
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 15
+    env:
+      COMPOSER_NO_INTERACTION: 1
+
+    strategy:
+      matrix:
+        php: [8.0, 7.4, 7.3, 7.2, 7.1]
+
+    name: PHP${{ matrix.php }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: none
+        extensions: pdo_sqlite
+
+    - name: Install dependencies
+      run: composer update --prefer-dist --no-progress
+
+    - name: Execute Unit Tests
+      run: vendor/bin/phpunit

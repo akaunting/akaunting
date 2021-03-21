@@ -1,0 +1,72 @@
+{
+    "name": "monolog/monolog",
+    "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+    "keywords": ["log", "logging", "psr-3"],
+    "homepage": "https://github.com/Seldaek/monolog",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jordi Boggiano",
+            "email": "j.boggiano@seld.be",
+            "homepage": "https://seld.be"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "psr/log": "^1.0.1"
+    },
+    "require-dev": {
+        "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+        "doctrine/couchdb": "~1.0@dev",
+        "elasticsearch/elasticsearch": "^7",
+        "mongodb/mongodb": "^1.8",
+        "graylog2/gelf-php": "^1.4.2",
+        "php-amqplib/php-amqplib": "~2.4",
+        "php-console/php-console": "^3.1.3",
+        "phpspec/prophecy": "^1.6.1",
+        "phpunit/phpunit": "^8.5",
+        "predis/predis": "^1.1",
+        "rollbar/rollbar": "^1.3",
+        "ruflin/elastica": ">=0.90 <7.0.1",
+        "swiftmailer/swiftmailer": "^5.3|^6.0",
+        "phpstan/phpstan": "^0.12.59"
+    },
+    "suggest": {
+        "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+        "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+        "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+        "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
+        "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+        "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+        "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+        "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+        "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+        "rollbar/rollbar": "Allow sending log messages to Rollbar",
+        "php-console/php-console": "Allow sending log messages to Google Chrome",
+        "ext-mbstring": "Allow to work properly with unicode symbols"
+    },
+    "autoload": {
+        "psr-4": {"Monolog\\": "src/Monolog"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Monolog\\": "tests/Monolog"}
+    },
+    "provide": {
+        "psr/log-implementation": "1.0.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.x-dev"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "phpstan": "vendor/bin/phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": false
+    },
+    "lock": false
+}

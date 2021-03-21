@@ -1,0 +1,50 @@
+name: "PHPStan"
+
+on:
+  - push
+  - pull_request
+
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
+  SYMFONY_PHPUNIT_VERSION: ""
+
+jobs:
+  tests:
+    name: "PHPStan"
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.4"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: "Install latest dependencies"
+        run: "composer update ${{ env.COMPOSER_FLAGS }}"
+
+      - name: Run PHPStan
+        # Locked to phpunit 7.5 here as newer ones have void return types which break inheritance
+        run: |
+          composer require --dev phpunit/phpunit:^7.5.20 --with-all-dependencies ${{ env.COMPOSER_FLAGS }}
+          vendor/bin/phpstan analyse

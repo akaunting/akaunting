@@ -1,0 +1,9 @@
+checks:
+    php: true
+filter:
+    excluded_paths: [vendor/*, tests/*]
+coding_style:
+    php: {  }
+tools:
+    external_code_coverage: true
+    php_code_coverage: true

@@ -1,0 +1,17 @@
+/**
+ * Comments Hell.
+ */
+@import /* Number 1 */"some/url.css"/* Number 2 */ screen/* Number 3 */;
+
+.foo, /* Number 4 */          #bar/* Number 5 */ {
+    background-color/* Number 6 */: #000/* Number 7 */;
+}
+
+@media /* Number 8 */screen /* Number 9 */{
+    /** Number 10 **/
+    #foo.bar {
+        /** Number 10b **/
+        position: absolute;/**/
+    }
+}
+/** Number 11 **/

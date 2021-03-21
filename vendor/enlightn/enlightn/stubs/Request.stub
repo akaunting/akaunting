@@ -1,0 +1,115 @@
+<?php
+
+namespace Illuminate\Http;
+
+class Request
+{
+    /**
+     * This method belongs to Symfony HttpFoundation and is not usually needed when using Laravel.
+     *
+     * Instead, you may use the "input" method.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function get(string $key, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve an input item from the request.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function input($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve a query string item from the request.
+     *
+     * @param  string|null  $key
+     * @param  string|array<int|string,mixed>|null  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function query($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve a request payload item from the request.
+     *
+     * @param  string|null  $key
+     * @param  string|array<int|string,mixed>|null  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function post($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve an old input item.
+     *
+     * @param  string|null  $key
+     * @param  string|array<int|string,mixed>|null  $default
+     * @phpstan-return request-data|array<int,request-data>
+     */
+    public function old($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve a cookie from the request.
+     *
+     * @param  string|null  $key
+     * @param  string|array<int,string>|null  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function cookie($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Retrieve a header from the request.
+     *
+     * @param  string|null  $key
+     * @param  string|array<int,string>|null  $default
+     * @phpstan-return request-data|array<int,request-data>|null
+     */
+    public function header($key = null, $default = null)
+    {
+    }
+
+    /**
+     * Get all of the input and files for the request.
+     *
+     * @param  array<int,string>|mixed|null  $keys
+     * @phpstan-return request-array
+     */
+    public function all($keys = null)
+    {
+    }
+
+    /**
+     * Get all of the input except for a specified array of items.
+     *
+     * @param  array<int,string>|mixed  $keys
+     * @phpstan-return request-array
+     */
+    public function except($keys)
+    {
+    }
+
+    /**
+     * Get a subset containing the provided keys with values from the input data.
+     *
+     * @param  array|mixed  $keys
+     * @phpstan-return array<string,request-data>
+     */
+    public function only($keys)
+    {
+    }
+}

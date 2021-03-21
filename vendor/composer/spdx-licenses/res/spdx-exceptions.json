@@ -1,0 +1,125 @@
+{
+    "389-exception": [
+        "389 Directory Server Exception"
+    ],
+    "Autoconf-exception-2.0": [
+        "Autoconf exception 2.0"
+    ],
+    "Autoconf-exception-3.0": [
+        "Autoconf exception 3.0"
+    ],
+    "Bison-exception-2.2": [
+        "Bison exception 2.2"
+    ],
+    "Bootloader-exception": [
+        "Bootloader Distribution Exception"
+    ],
+    "Classpath-exception-2.0": [
+        "Classpath exception 2.0"
+    ],
+    "CLISP-exception-2.0": [
+        "CLISP exception 2.0"
+    ],
+    "DigiRule-FOSS-exception": [
+        "DigiRule FOSS License Exception"
+    ],
+    "eCos-exception-2.0": [
+        "eCos exception 2.0"
+    ],
+    "Fawkes-Runtime-exception": [
+        "Fawkes Runtime Exception"
+    ],
+    "FLTK-exception": [
+        "FLTK exception"
+    ],
+    "Font-exception-2.0": [
+        "Font exception 2.0"
+    ],
+    "freertos-exception-2.0": [
+        "FreeRTOS Exception 2.0"
+    ],
+    "GCC-exception-2.0": [
+        "GCC Runtime Library exception 2.0"
+    ],
+    "GCC-exception-3.1": [
+        "GCC Runtime Library exception 3.1"
+    ],
+    "gnu-javamail-exception": [
+        "GNU JavaMail exception"
+    ],
+    "GPL-3.0-linking-exception": [
+        "GPL-3.0 Linking Exception"
+    ],
+    "GPL-3.0-linking-source-exception": [
+        "GPL-3.0 Linking Exception (with Corresponding Source)"
+    ],
+    "GPL-CC-1.0": [
+        "GPL Cooperation Commitment 1.0"
+    ],
+    "i2p-gpl-java-exception": [
+        "i2p GPL+Java Exception"
+    ],
+    "LGPL-3.0-linking-exception": [
+        "LGPL-3.0 Linking Exception"
+    ],
+    "Libtool-exception": [
+        "Libtool Exception"
+    ],
+    "Linux-syscall-note": [
+        "Linux Syscall Note"
+    ],
+    "LLVM-exception": [
+        "LLVM Exception"
+    ],
+    "LZMA-exception": [
+        "LZMA exception"
+    ],
+    "mif-exception": [
+        "Macros and Inline Functions Exception"
+    ],
+    "Nokia-Qt-exception-1.1": [
+        "Nokia Qt LGPL exception 1.1"
+    ],
+    "OCaml-LGPL-linking-exception": [
+        "OCaml LGPL Linking Exception"
+    ],
+    "OCCT-exception-1.0": [
+        "Open CASCADE Exception 1.0"
+    ],
+    "OpenJDK-assembly-exception-1.0": [
+        "OpenJDK Assembly exception 1.0"
+    ],
+    "openvpn-openssl-exception": [
+        "OpenVPN OpenSSL Exception"
+    ],
+    "PS-or-PDF-font-exception-20170817": [
+        "PS/PDF font exception (2017-08-17)"
+    ],
+    "Qt-GPL-exception-1.0": [
+        "Qt GPL exception 1.0"
+    ],
+    "Qt-LGPL-exception-1.1": [
+        "Qt LGPL exception 1.1"
+    ],
+    "Qwt-exception-1.0": [
+        "Qwt exception 1.0"
+    ],
+    "SHL-2.0": [
+        "Solderpad Hardware License v2.0"
+    ],
+    "SHL-2.1": [
+        "Solderpad Hardware License v2.1"
+    ],
+    "Swift-exception": [
+        "Swift Exception"
+    ],
+    "u-boot-exception-2.0": [
+        "U-Boot exception 2.0"
+    ],
+    "Universal-FOSS-exception-1.0": [
+        "Universal FOSS Exception, Version 1.0"
+    ],
+    "WxWindows-exception-3.1": [
+        "WxWindows Library Exception 3.1"
+    ]
+}

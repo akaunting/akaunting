@@ -1,0 +1,15 @@
+@CharSet "utf-8";
+@IMPORT uRL(test.css);
+
+@MEDIA screen {
+
+}
+
+#myid {
+	CaSe: insensitive !imPORTANT;
+	frequency: 30hz;
+	font-size: 1EM;
+	color: RGB(255, 255, 0);
+	color: hSL(40, 40%, 30%);
+	font-Family: Arial; /* The value needs to remain capitalized */
+}

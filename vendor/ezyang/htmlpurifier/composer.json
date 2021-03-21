@@ -1,0 +1,28 @@
+{
+    "name": "ezyang/htmlpurifier",
+    "description": "Standards compliant HTML filter written in PHP",
+    "type": "library",
+    "keywords": ["html"],
+    "homepage": "http://htmlpurifier.org/",
+    "license": "LGPL-2.1-or-later",
+    "authors": [
+        {
+            "name": "Edward Z. Yang",
+            "email": "admin@htmlpurifier.org",
+            "homepage": "http://ezyang.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.2"
+    },
+    "require-dev": {
+        "simpletest/simpletest": "dev-master#72de02a7b80c6bb8864ef9bf66d41d2f58f826bd"
+    },
+    "autoload": {
+        "psr-0": { "HTMLPurifier": "library/" },
+        "files": ["library/HTMLPurifier.composer.php"],
+        "exclude-from-classmap": [
+            "/library/HTMLPurifier/Language/"
+        ]
+    }
+}

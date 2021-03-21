@@ -1,0 +1,17 @@
+<phpunit bootstrap="test/bootstrap.php">
+    <testsuites>
+        <testsuite name="Application">
+            <directory>test</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="clover.xml"/>
+    </logging>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

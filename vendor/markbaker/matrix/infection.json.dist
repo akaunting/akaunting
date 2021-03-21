@@ -1,0 +1,17 @@
+{
+    "timeout": 1,
+    "source": {
+        "directories": [
+            "classes\/src"
+        ]
+    },
+    "logs": {
+        "text": "build/infection/text.log",
+        "summary": "build/infection/summary.log",
+        "debug": "build/infection/debug.log",
+        "perMutator": "build/infection/perMutator.md"
+    },
+    "mutators": {
+        "@default": true
+    }
+}

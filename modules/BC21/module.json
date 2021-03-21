@@ -1,0 +1,16 @@
+{
+    "alias": "bc21",
+    "icon": "fa fa-cog",
+    "version": "2.0.0",
+    "active": 1,
+    "providers": [
+        "Modules\\BC21\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "reports": [],
+    "widgets": [],
+    "settings": [],
+    "extra-modules": {}
+}

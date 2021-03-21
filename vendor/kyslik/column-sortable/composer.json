@@ -1,0 +1,43 @@
+{
+  "name": "kyslik/column-sortable",
+  "description": "Package for handling column sorting in Laravel 6.x",
+  "keywords": [
+    "sortable",
+    "sorting",
+    "column",
+    "sort",
+    "laravel"
+  ],
+  "license": "MIT",
+  "type": "package",
+  "authors": [
+    {
+      "name": "Martin Kiesel",
+      "email": "martin.kiesel@gmail.com",
+      "role": "Developer and maintainer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "illuminate/support": "5.8.*|^6.0|^7.0|^8.0",
+    "illuminate/database": "5.8.*|^6.0|^7.0|^8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5",
+    "orchestra/testbench": "^5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kyslik\\ColumnSortable\\": "src/ColumnSortable/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Kyslik\\ColumnSortable\\ColumnSortableServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

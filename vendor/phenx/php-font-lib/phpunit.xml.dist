@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="vendor/autoload.php"
+        >
+    <testsuites>
+        <testsuite name="PHP Font Lib Test Suite">
+            <directory>./tests/FontLib/</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

@@ -1,0 +1,9 @@
+<?php
+
+namespace Illuminate\Redis\Connections;
+
+/**
+ * @mixin \Redis
+ */
+abstract class Connection
+{}

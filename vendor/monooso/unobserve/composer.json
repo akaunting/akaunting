@@ -1,0 +1,55 @@
+{
+    "name": "monooso/unobserve",
+    "type": "library",
+    "description": "Mute and unmute Laravel observers at will.",
+    "homepage": "https://github.com/monooso/unobserve",
+    "license": "MIT",
+    "keywords": [
+        "laravel"
+    ],
+    "support": {
+        "issues": "https://github.com/monooso/unobserve/issues",
+        "source": "https://github.com/monooso/unobserve"
+    },
+    "authors": [
+        {
+            "name": "Stephen Lewis",
+            "email": "code@stephenlewis.me"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3",
+        "illuminate/contracts": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monooso\\Unobserve\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Monooso\\Unobserve\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Monooso\\Unobserve\\UnobserveServiceProvider"
+            ]
+        }
+    }
+}

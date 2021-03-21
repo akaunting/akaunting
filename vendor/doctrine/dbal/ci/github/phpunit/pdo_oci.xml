@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+>
+    <php>
+        <var name="db_driver" value="pdo_oci"/>
+        <var name="db_host" value="localhost"/>
+        <var name="db_user" value="doctrine"/>
+        <var name="db_password" value="oracle"/>
+        <var name="db_dbname" value="XE"/>
+        <var name="db_event_subscribers" value="Doctrine\DBAL\Event\Listeners\OracleSessionInit"/>
+
+        <var name="tmpdb_driver" value="pdo_oci"/>
+        <var name="tmpdb_host" value="localhost"/>
+        <var name="tmpdb_user" value="system"/>
+        <var name="tmpdb_password" value="oracle"/>
+        <var name="tmpdb_dbname" value="XE"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Doctrine DBAL Test Suite">
+            <directory>../../../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">../../../lib/Doctrine</directory>
+        </include>
+    </coverage>
+</phpunit>

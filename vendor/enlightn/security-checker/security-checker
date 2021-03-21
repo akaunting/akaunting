@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+function includeIfExists($file)
+{
+    if (file_exists($file)) {
+        return include $file;
+    }
+}
+
+if ((!$loader = includeIfExists(__DIR__.'/vendor/autoload.php')) && (!$loader = includeIfExists(__DIR__.'/../../autoload.php'))) {
+    die('You must have Composer installed and must run the composer install CLI command.'.PHP_EOL.
+        'Download Composer from the website: https://getcomposer.org/download/'.PHP_EOL.
+        'Then, run the "composer install" command.'.PHP_EOL);
+}
+
+use Enlightn\SecurityChecker\SecurityCheckerCommand;
+use Symfony\Component\Console\Application;
+
+$console = new Application('Enlightn Security Checker');
+$console->add(new SecurityCheckerCommand);
+$console->run();

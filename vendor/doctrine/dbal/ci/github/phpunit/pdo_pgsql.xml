@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+>
+    <php>
+        <var name="db_driver" value="pdo_pgsql"/>
+        <var name="db_host" value="localhost" />
+        <var name="db_user" value="postgres" />
+        <var name="db_password" value="postgres" />
+        <var name="db_dbname" value="doctrine_tests" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Doctrine DBAL Test Suite">
+            <directory>../../../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">../../../lib/Doctrine</directory>
+        </include>
+    </coverage>
+</phpunit>

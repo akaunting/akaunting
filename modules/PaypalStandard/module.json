@@ -1,0 +1,102 @@
+{
+    "alias": "paypal-standard",
+    "icon": "fab fa-paypal",
+    "version": "2.0.0",
+    "active": 1,
+    "providers": [
+        "Modules\\PaypalStandard\\Providers\\Event",
+        "Modules\\PaypalStandard\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "reports": [],
+    "widgets": [],
+    "settings": [
+        {
+            "type": "textGroup",
+            "name": "name",
+            "title": "general.name",
+            "icon": "fa fa-font",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|string"
+        },
+        {
+            "type": "textGroup",
+            "name": "email",
+            "title": "paypal-standard::general.form.email",
+            "icon": "envelope",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|email"
+        },
+        {
+            "type": "selectGroup",
+            "name": "mode",
+            "title": "paypal-standard::general.form.mode",
+            "icon": "plane",
+            "values": {
+                "live": "Live",
+                "sandbox": "Sandbox"
+            },
+            "selected": "live",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|string"
+        },
+        {
+            "type": "selectGroup",
+            "name": "transaction",
+            "title": "paypal-standard::general.form.transaction",
+            "icon": "exchange-alt",
+            "values": {
+                "authorization": "Authorization",
+                "sale": "Sale"
+            },
+            "selected": "sale",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|string"
+        },
+        {
+            "type": "accountSelectGroup",
+            "name": "account_id",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required"
+        },
+        {
+            "type": "textGroup",
+            "name": "order",
+            "title": "paypal-standard::general.form.order",
+            "icon": "sort",
+            "attributes": {},
+            "rules": "nullable|integer"
+        },
+        {
+            "type": "radioGroup",
+            "name": "customer",
+            "title": "paypal-standard::general.form.customer",
+            "enable": "general.yes",
+            "disable": "general.no",
+            "attributes": {},
+            "rules": "required|integer"
+        },
+        {
+            "type": "radioGroup",
+            "name": "debug",
+            "title": "paypal-standard::general.form.debug",
+            "enable": "general.yes",
+            "disable": "general.no",
+            "attributes": {},
+            "rules": "required|integer"
+        }
+    ],
+    "extra-modules": {}
+}

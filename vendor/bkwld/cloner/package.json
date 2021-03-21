@@ -1,0 +1,9 @@
+{
+  "name": "Cloner",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-phpunit": "^0.8.1"
+  }
+}

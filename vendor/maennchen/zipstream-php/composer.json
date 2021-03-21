@@ -1,0 +1,41 @@
+{
+  "name": "maennchen/zipstream-php",
+  "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
+  "keywords": ["zip", "stream"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [{
+      "name": "Paul Duncan",
+      "email": "pabs@pablotron.org"
+    },
+    {
+      "name": "Jonatan Männchen",
+      "email": "jonatan@maennchen.ch"
+    },
+    {
+      "name": "Jesse Donat",
+      "email": "donatj@gmail.com"
+    },
+    {
+      "name": "András Kolesár",
+      "email": "kolesar@kolesar.hu"
+    }
+  ],
+  "require": {
+    "php": ">= 7.1",
+    "symfony/polyfill-mbstring": "^1.0",
+    "psr/http-message": "^1.0",
+    "myclabs/php-enum": "^1.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">= 7.5",
+    "guzzlehttp/guzzle": ">= 6.3",
+    "ext-zip": "*",
+    "mikey179/vfsstream": "^1.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "ZipStream\\": "src/"
+    }
+  }
+}

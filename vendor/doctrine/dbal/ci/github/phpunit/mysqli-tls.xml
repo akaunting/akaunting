@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+>
+    <php>
+        <var name="db_driver" value="mysqli"/>
+        <var name="db_host" value="127.0.0.1"/>
+        <var name="db_port" value="3306"/>
+        <var name="db_ssl_ca" value="ca.pem"/>
+        <var name="db_ssl_cert" value="client-cert.pem"/>
+        <var name="db_ssl_key" value="client-key.pem"/>
+
+        <!-- Use MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT since there's no way to generate a certificate
+        with a proper common name (CN) on Travis. This flag must be not used in production settings. -->
+        <var name="db_driver_option_flags" value="64"/>
+
+        <var name="db_user" value="root"/>
+        <var name="db_dbname" value="doctrine_tests"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Doctrine DBAL Test Suite">
+            <directory>../../../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">../../../lib/Doctrine</directory>
+        </include>
+    </coverage>
+</phpunit>

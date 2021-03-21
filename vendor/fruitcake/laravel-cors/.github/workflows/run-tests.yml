@@ -1,0 +1,68 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+  schedule:
+  - cron: '0 0 * * *'
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      COMPOSER_NO_INTERACTION: 1
+
+    strategy:
+      matrix:
+        php: [7.4, 7.3, 7.2]
+        laravel: [^8, ^7, ^6]
+        dependency-version: [prefer-stable]
+        exclude:
+          - laravel: ^8
+            php: 7.2
+        include:
+          - laravel: ^7
+            php: 7.2
+            dependency-version: prefer-lowest
+          - laravel: ^8
+            php: 7.3
+            dependency-version: prefer-lowest
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: none
+        tools: composer:v2
+        
+    - name: Install dependencies
+      run: |
+        composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+        composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
+
+    - name: Update Dusk Chromedriver
+      run: vendor/bin/dusk-updater detect --auto-update
+
+    - name: Execute Unit Tests
+      run: vendor/bin/phpunit
+
+    - name: Upload Failed Screenshots
+      uses: actions/upload-artifact@v2-preview
+      if: failure()
+      with:
+        name: screenshots
+        path: tests/Browser/screenshots/*
+
+    - name: Check PSR-12 Codestyle
+      run: vendor/bin/phpcs --standard=psr12 src/

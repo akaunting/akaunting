@@ -1,0 +1,27 @@
+checks:
+  php:
+    code_rating: true
+    duplication: true
+
+filter:
+  excluded_paths:
+    - tests/*
+
+build:
+  environment:
+    php:
+      version: '7.3'
+
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+
+    tests-and-coverage:
+      tests:
+        override:
+          - command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+            coverage:
+              file: 'coverage.clover'
+              format: 'clover'

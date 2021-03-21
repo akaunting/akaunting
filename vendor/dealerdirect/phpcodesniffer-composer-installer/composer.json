@@ -1,0 +1,50 @@
+{
+  "name": "dealerdirect/phpcodesniffer-composer-installer",
+  "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
+  "type": "composer-plugin",
+  "keywords": [
+    "composer", "installer", "plugin",
+    "phpcs", "codesniffer", "phpcodesniffer", "php_codesniffer",
+    "standard", "standards", "style guide", "stylecheck",
+    "qa", "quality", "code quality", "tests"
+  ],
+  "homepage": "http://www.dealerdirect.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Franck Nijhof",
+      "email": "franck.nijhof@dealerdirect.com",
+      "homepage": "http://www.frenck.nl",
+      "role": "Developer / IT Manager"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/dealerdirect/phpcodesniffer-composer-installer/issues",
+    "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
+  },
+  "require": {
+    "php": ">=5.3",
+    "composer-plugin-api": "^1.0 || ^2.0",
+    "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
+  },
+  "require-dev": {
+    "composer/composer": "*",
+    "sensiolabs/security-checker": "^4.1.0",
+    "phpcompatibility/php-compatibility": "^9.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\": "src/"
+    }
+  },
+  "extra": {
+    "class": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin"
+  },
+  "scripts": {
+    "install-codestandards": [
+      "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+    ]
+  }
+}

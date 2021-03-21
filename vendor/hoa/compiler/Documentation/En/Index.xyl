@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay xmlns="http://hoa-project.net/xyl/xylophone">
+<yield id="chapter">
+
+  <p><strong>Compilers</strong> allow to <strong>analyze</strong> and
+  <strong>manipulate textual</strong> data. There is numerous usages.
+  <code>Hoa\Compiler</code> offers to manipulate several compilers based on
+  needs.</p>
+
+  <h2 id="Table_of_contents">Table of contents</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <blockquote cite="https://en.wikipedia.org/wiki/Nicolas_Boileau-Despr%C3%A9aux">What
+  is conceived well is expressed clearly, and the right words come
+  easily.</blockquote>
+  <p>A <strong>language</strong> is a way to express or to
+  <strong>formulate</strong> a <strong>solution</strong> to a
+  <strong>problem</strong>. And there exists a lot of problems. We read and
+  write in several languages daily, and some of these languages are
+  <strong>understood</strong> by <strong>machines</strong>. This operation is
+  possible thanks to <strong>compilers</strong>.</p>
+  <p><a href="https://en.wikipedia.org/wiki/Formal_language">Formal
+  languages</a> is a theory that includes the <strong>automatic
+  analysis</strong> of those languages through tools like
+  <strong>automata</strong> or <strong>grammars</strong>. It is necessary to
+  have a detailed explanation to understand well all these concepts. However, we
+  are going to popularise as much as needed to allow a correct usage of
+  <code>Hoa\Compiler</code>.</p>
+
+  <h3 id="Language_and_grammar" for="main-toc">Language and grammar</h3>
+
+  <p>A <strong>language</strong> is a set of <strong>words</strong>. Each word
+  is a <strong>sequence</strong> of <strong>symbols</strong> belonging to an
+  <strong>alphabet</strong>. A symbol represents the smallest <strong>lexical
+  unit</strong> of a language, it is atomic and we will call it a
+  <strong>lexeme</strong> (also often mentionned as a token). These sequences of
+  lexemes representing words are built with <strong>rules</strong>. From a word
+  and a root rule, we will try to <strong>derive</strong> its sub-rules. If a
+  derivation exists, then the word is considered as <strong>valid</strong>, else
+  it is considered as <strong>invalid</strong>. We also speak about words
+  <strong>matching</strong>. For example, if we consider the following
+  rules:</p>
+  <pre><code>    exp ::= exp + exp
+          | number
+ number ::= digit number
+          | digit
+digit   ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
+  <p>The word that we are going to match is <code>7 + 35</code>. The root rule
+  is <code><em>exp</em></code>. If we derive (from the left to the right and
+  from the top to the bottom), we can have
+  <code><em>exp</em> + <em>exp</em></code> or <code><em>number</em></code> (the
+  <strong>disjunction</strong>, i.e. the “or”, is represented by the
+  “<code>|</code>” symbol):</p>
+  <pre><code>exp + exp | number
+→ exp + exp
+→ ( exp + exp | number ) + exp
+→ number + exp
+→ ( digit number | digit ) + exp</code></pre>
+  <p>We continue to derive until we <strong>eliminate</strong> every rules in
+  order to have only <strong>lexemes</strong>:</p>
+  <pre><code>…
+→ ( digit number | digit ) + exp
+→ digit + exp
+→ ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ) + exp
+→ 7 + exp
+→ 7 + ( exp + exp | number )
+→ 7 + number
+→ 7 + ( digit number | digit )
+→ 7 + digit number
+→ 7 + ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ) number
+→ 7 + 3 number
+→ 7 + 3 ( digit number | digit )
+→ 7 + 3 digit
+→ 7 + 3 ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 )
+→ 7 + 3 5</code></pre>
+  <p>A derivation exists to match the word <code>7 + 35</code>, thus it is a
+  valid word for those rules.</p>
+  <p>A set of rules is called a <strong>grammar</strong>. And so, a grammar
+  represents a <strong>language</strong>!</p>
+  <p>However, these are different kinds of grammars. In 1956, the
+  <a href="https://en.wikipedia.org/wiki/Chomsky_hierarchy">Chomsky
+  hierarchy</a> has been formulated, classifying grammars in four
+  <strong>levels</strong>:</p>
+  <ol>
+    <li><strong>unrestricted</strong> grammars, matching langages known as
+    Turing languages, rules have no restriction,</li>
+    <li><strong>context-sensitive</strong> grammars, matching contextual
+    languages,</li>
+    <li><strong>context-free</strong> grammars, matching algebraic languages,
+    based on stacked automata,</li>
+    <li><strong>regular</strong> grammars, matching regular languages.</li>
+  </ol>
+  <p>Each level includes the next level. <code>Hoa\Compiler</code> only treats
+  languages defined by grammars of level 3 and 4. To give a quick idea, regular
+  grammars can be connected to
+  <a href="https://en.wikipedia.org/wiki/Regular_expression">regular
+  expressions</a> (like <a href="http://pcre.org/">PCRE</a>), well-known by
+  developers. But regular grammars are not able to match a <strong>pair of
+  symbols</strong> (like parentheses, braces or quotes), while algebraic
+  languages allow that (thanks to the concept of stack of lexemes).</p>
+
+  <h3 id="Matching_words" for="main-toc">Matching words</h3>
+
+  <div id="parsers" class="schema"></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper    = Hoa.Graph(Hoa.$('#parsers'), 800, 180);
+      var grid     = paper.grid(0, 0, 800, 180, 5, 2);
+      var word     = grid.push(paper.rect(0, 0, 140, 80, 3, 'word'), 0, 0);
+      var sequence = grid.push(paper.rect(0, 0, 140, 80, 3, 'sequence'), 2, 0);
+      var trace    = grid.push(paper.rect(0, 0, 140, 80, 3, 'result'), 4, 0);
+      grid.push(paper.rect(0, 0, 140, 50, 3, 'abcdef'), 0, 1);
+      grid.push(paper.rect(0, 0, 380, 50, 3, '[[a ⟼ …], [bc ⟼ …], [d ⟼ …], [ef ⟼ …]]'), 2, 1);
+      grid.push(paper.rect(0, 0, 140, 50, 3, 'valid/invalid'), 4, 1);
+
+      paper.link.between(word, sequence, 'lexical analyzer');
+      paper.link.between(sequence, trace, 'syntactic analyzer');
+  });
+  </script>
+  <p>In general, the compilation process begins with two
+  <strong>analyzes</strong>: <strong>lexical</strong> and
+  <strong>syntactic</strong>. A lexical analysis <strong>splits</strong> a word
+  in a <strong>sequence of lexemes</strong>. This sequence will thereafter be
+  used by the syntactic analyzer in order to verify that the word
+  <strong>belongs</strong> to the language.</p>
+  <p>According to the grammar, the matching will not be done in the same way,
+  but the principle stays the same: using lexemes one after the other in the
+  sequence and verify that they allow <strong>going forward</strong> in the
+  <strong>derivation</strong> of grammar's rules.</p>
+  <p>Syntactic analyzes are also classified into categories: LL, LR, LALR etc.
+  <code>Hoa\Compiler</code> only offers LL syntactic analyzers, stands for
+  Left-to-right Leftmost derivation, i.e. from the topest rule to the deepest,
+  and rules are derived from the left to the right. Here, again, there is
+  sub-categories, whose two supported by <code>Hoa\Compiler</code>: LL(1) and
+  LL(*). Globally, we speak about LL(<em>k</em>) syntactic analyzer: if a lexeme
+  does not allow to derive a rule as expected, then the analyzer is allowed to
+  <strong>go back</strong> to <em>k</em> step backward; we also speak about
+  backtrack. Put another way, rules can be <strong>ambiguous</strong>: each time
+  we derive a rule of the grammar, we have several possible choices and the
+  analyzer can be wrong, this is why it needs to backtrack sometimes. The
+  <em>k</em> variable defines the ambiguity <strong>level</strong>. If a grammar
+  can be analyzed by a LL(1) syntactic analyzer, it is known as
+  <strong>unambiguous</strong>: each time a lexeme is used to derive our rules,
+  there is only one choice. And if we have a LL(*) syntactic analyzer, it means
+  that the <em>k</em> variable is <strong>undefined</strong>. The following
+  example illustrates an unambiguous grammar:</p>
+  <pre><code>rule ::= a b c | d e f</code></pre>
+  <p>And this example illustrates an ambiguous grammar:</p>
+  <pre><code>rule1 ::= a rule2
+rule2 ::= b rule3 | b rule4
+rule3 ::= c d
+rule4 ::= e f</code></pre>
+  <p>Let's see what happens when trying to find a derivation for the word
+  <code>abef</code> from the root rule <code>rule1</code>:</p>
+  <pre><code>rule1
+→ a rule2                   <em>   a  bef ✔</em>
+  → a (b rule3 | b rule4)   <em>   a  bef</em>
+    → a b rule3             <em>  ab  ef  ✔</em>
+      → a b c d             <em> abe  f   ✖</em>
+    ← a b rule3             <em>  ab  ef  ✖</em>
+  ← a (b rule3 | b rule4)   <em>   a  bef</em>
+    → a b rule4             <em>  ab  ef  ✔</em>
+      → a b e f             <em>abef      ✔</em></code></pre>
+  <p>The <code>rule2</code> rule is ambiguous, which can lead to a bad
+  derivation and consequently a backtrack.</p>
+
+  <h2 id="LLk_compiler-compiler" for="main-toc">LL(<em>k</em>)
+  compiler-compiler</h2>
+
+  <p>Writing compilers is a <strong>laborious</strong> task. It is not always
+  difficult but most of the time, it is repetitive and it takes time. This is
+  why there exists <strong>compilers of compilers</strong>, or in other words,
+  compilers generators. Most of the time, these compiler-compilers use an
+  <strong>intermediary</strong> language to write a grammar. The
+  <code>Hoa\Compiler</code> library provides the
+  <code>Hoa\Compiler\Llk\Llk</code> class that allows the writing of
+  compiler-compilers through a <strong>dedicated</strong> language.</p>
+
+  <h3 id="PP_language" for="main-toc">PP language</h3>
+
+  <p>The PP language, standing for <em>PHP Parser</em>, allows to express
+  <strong>algebraic grammars</strong>. It is written in files having the
+  <code>.pp</code> extension (please, see the
+  <a href="@central_resource:path=Library/Compiler/.Mime"><code>hoa://Library/Compiler/.Mime</code></a>
+  file).</p>
+  <p>A grammar is composed of <strong>lexemes</strong> and
+  <strong>rules</strong>. The declaration of a lexeme has the following syntax:
+  <code>%token <em>namespace_in</em>:<em>name</em> <em>value</em> ->
+  <em>namespace_out</em></code>, where <code><em>name</em></code> represents the
+  <strong>name</strong> of the lexeme, <code><em>value</em></code> represents
+  its <strong>value</strong>, expressed with the
+  <a href="http://pcre.org/">PCRE</a> format (take care to not match an empty
+  value, in which case an exception will be thrown), and
+  <code><em>namespace_in</em></code> and <code><em>namespace_out</em></code>
+  represent the names of <strong>namespaces</strong> and are optional (the
+  default name is <code>default</code>). For example <code>number</code>
+  describing a number composed of digits from <code>0</code> to
+  <code>9</code>:</p>
+  <pre><code class="language-pp">%token number \d+</code></pre>
+  <p>Namespaces represent disjointed <strong>subsets</strong> of lexemes, used
+  to <strong>ease</strong> analyzes. A <code>%skip</code> declaration is similar
+  to <code>%token</code> excepts that it represents a lexeme to
+  <strong>skip</strong>, it means to not consider. A common example of
+  <code>%skip</code> lexemes are spaces:</p>
+  <pre><code class="language-pp">%skip space \s</code></pre>
+  <p>To explain rules, we will use the <code>Json.pp</code> grammar as an
+  example, which is a softly <strong>simplified</strong> version of the
+  <a href="http://json.org/">JSON language</a> (please, see the
+  <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>). The
+  <strong>complete</strong> grammar is located in the
+  <a href="@central_resource:path=Library/Json/Grammar.pp"><code>hoa://Library/Json/Grammar.pp</code></a>
+  file. Thus:</p>
+  <pre><code class="language-pp">%skip   space          \s
+// Scalars.
+%token  true           true
+%token  false          false
+%token  null           null
+// Strings.
+%token  quote_         "        -> string
+%token  string:string  [^"]+
+%token  string:_quote  "        -> default
+// Objects.
+%token  brace_         {
+%token _brace          }
+// Arrays.
+%token  bracket_       \[
+%token _bracket        \]
+// Rest.
+%token  colon          :
+%token  comma          ,
+%token  number         \d+
+
+value:
+    &amp;lt;true> | &amp;lt;false> | &amp;lt;null> | string() | object() | array() | number()
+
+string:
+    ::quote_:: &amp;lt;string> ::_quote::
+
+number:
+    &amp;lt;number>
+
+#object:
+    ::brace_:: pair() ( ::comma:: pair() )* ::_brace::
+
+#pair:
+    string() ::colon:: value()
+
+#array:
+    ::bracket_:: value() ( ::comma:: value() )* ::_bracket::</code></pre>
+  <p>Notice that we have two namespaces of lexemes: <code>default</code> and
+  <code>string</code> (it allows to avoid <strong>confusion</strong> with the
+  <code>quote_</code> and <code>string::_quote</code> lexemes that have the same
+  representation). We also notice the <code>value</code> rule, which is a
+  <strong>disjunction</strong> of several lexemes and rules. The
+  <strong>constructions</strong> of the PP language are the following:</p>
+  <ul>
+    <li><code><em>rule</em>()</code> to <strong>call</strong> a rule,</li>
+    <li><code>&amp;lt;<em>token</em>></code> and <code>::<em>token</em>::</code>
+    to <strong>declare</strong> a lexeme (namespaces do not appear here),</li>
+    <li><code>|</code> for a <strong>disjunction</strong> (a choice),</li>
+    <li><code>(<em>…</em>)</code> for a group,</li>
+    <li><code><em>e</em>?</code> to say that <code><em>e</em></code> is
+    <strong>optional</strong>,</li>
+    <li><code><em>e</em>+</code> to say that <code><em>e</em></code> can be
+    present <strong>1 or more</strong> times,</li>
+    <li><code><em>e</em>*</code> to say that <code><em>e</em></code> can be
+    present <strong>0 or more</strong> times,</li>
+    <li><code><em>e</em>{<em>x</em>,<em>y</em>}</code> to say that
+    <code><em>e</em></code> can be present between <code><em>x</em></code> and
+    <code><em>y</em></code> times,</li>
+    <li><code>#<em>node</em></code> to create a <strong>node</strong>
+    <code>node</code> in the resulting tree,</li>
+    <li><code><em>token</em>[<em>i</em>]</code> to <strong>unify</strong>
+    lexemes between each others.</li>
+  </ul>
+  <p>Few constructions but largely enough.</p>
+  <p>Finally, the grammar of the PP language is written… with the PP language!
+  You can find it in the
+  <a href="@central_resource:path=Library/Compiler/Llk/Llk.pp"><code>hoa://Library/Compiler/Llk/Llk.pp</code></a>
+  file.</p>
+
+  <h3 id="Compilation_process" for="main-toc">Compilation process</h3>
+
+  <div id="overview" class="schema"></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'lexical analyzer'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'syntactic analyzer'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST'));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4'));
+  });
+  </script>
+  <p>The compilation process used by <code>Hoa\Compiler\Llk\Llk</code> is
+  classical: it starts by <strong>lexically</strong> analyzing the textual data,
+  the word, i.e. to transform our data in a sequence of lexemes. The declaration
+  <strong>order</strong> of the lexemes is primordial because the lexical
+  analyzer will use them one after the other. Next, the
+  <strong>syntactic</strong> analyzer comes into play in order to
+  <strong>match</strong> our data.</p>
+  <p>If the syntactic analysis is successful, we obtain a
+  <strong>trace</strong>.  This trace can be transformed into an AST, stands for
+  Abstract Syntax Tree.  This tree represents our textual data after the
+  analysis. One advantage is that it can visited (we will detail this part
+  later), which allows us to add new <strong>constraints</strong> which can be
+  not be expressed in the grammar, such as type verification.</p>
+  <p>Let's manipulate <code>Hoa\Compiler\Llk\Llk</code> a little bit. This class
+  is a <strong>helper</strong> to easily read a grammar expressed with the PP
+  format. This class takes only one argument, which is an input stream that
+  points to the grammar and returns a <code>Hoa\Compiler\Llk\Parser</code>
+  compiler ready to use. On this compiler, we will call the
+  <code>Hoa\Compiler\Llk\Parser::parse</code> to analyze a JSON data. If the
+  data is correct, we will get an AST, otherwise an exception will be thrown.
+  Finally, we will use the <code>Hoa\Compiler\Visitor\Dump</code> visitor to
+  print our AST:</p>
+  <pre><code class="language-php">// 1. Load grammar.
+$compiler = Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp'));
+
+// 2. Parse a data.
+$ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+
+// 3. Dump the AST.
+$dump     = new Hoa\Compiler\Visitor\Dump();
+echo $dump->visit($ast);
+
+/**
+ * Will output:
+ *     >  #object
+ *     >  >  #pair
+ *     >  >  >  token(string:string, foo)
+ *     >  >  >  token(true, true)
+ *     >  >  #pair
+ *     >  >  >  token(string:string, bar)
+ *     >  >  >  #array
+ *     >  >  >  >  token(null, null)
+ *     >  >  >  >  token(number, 42)
+ */</code></pre>
+  <p>When we write and test a grammar, we will repeat these three tasks very
+  <strong>often</strong>. This is why the <code>hoa</code> script provides the
+  <code>compiler:pp</code> command. This command proposes to analyze a data
+  based on a grammar and to apply a visitor if needed on the resulting AST.
+  Notice that the grammar can be read through a
+  <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">pipe</a>:</p>
+  <pre><code class="language-shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
+>  #array
+>  >  token(number, 1)
+>  >  #array
+>  >  >  token(number, 1)
+>  >  >  #array
+>  >  >  >  token(number, 2)
+>  >  >  >  token(number, 3)
+>  >  >  token(number, 5)
+>  >  token(number, 8)</code></pre>
+  <p>This is a useful way to <strong>quickly</strong> test a data against a
+  grammar. Do not hesitate to read the help of the <code>compiler:pp</code>
+  command to get more details!</p>
+  <p>The analyzes start with the <strong>root</strong> rule but we can use
+  <strong>another rule</strong> thanks to the second argument of the
+  <code>Hoa\Compiler\Llk\Parser::parse</code> method:</p>
+  <pre><code class="language-php">$compiler->parse('{"foo": true, "bar": [null, 42]}', 'object');</code></pre>
+  <p>To use the root rule, we have to use <code>null</code>.</p>
+  <p>And finally, to not generate the AST but only know if a data is valid or
+  not, we can use the last argument of this method by using
+  <code>false</code>:</p>
+  <pre><code class="language-php">$valid = $compiler->parse('{"foo": true, "bar": [null, 42]}', null, false);
+var_dump($valid);
+
+/**
+ * Will output:
+ *     bool(true)
+ */</code></pre>
+
+  <h4 id="Errors" for="main-toc">Errors</h4>
+
+  <p>The compilation errors are represented by exceptions, thus:</p>
+  <pre><code class="language-shell">$ echo '{"foo" true}' | hoa compiler:pp Json.pp 0 --visitor dump
+Uncaught exception (Hoa\Compiler\Exception\UnexpectedToken):
+Hoa\Compiler\Llk\Parser::parse(): (0) Unexpected token "true" (true) at line 1
+and column 8:
+{"foo" true}
+       ↑
+in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
+  <p>Several exceptions can be thrown according to the context:</p>
+  <ul>
+    <li>during the <strong>lexical</strong> analysis,
+    <code>Hoa\Compiler\Exception\UnrecognizedToken</code> when a lexeme is not
+    recognized, i.e. when the textual data can not be split into a sequence of
+    lexemes, and <code>Hoa\Compiler\Exception\Lexer</code> when other more
+    general errors happen, for example if a lexeme matches an empty value,</li>
+    <li>during the <strong>syntactic</strong> analysis,
+    <code>Hoa\Compiler\Exception\UnexpectedToken</code> when a lexeme is not
+    expected, i.e. it is not able to derive the rules of the grammar.</li>
+  </ul>
+  <p>The parent exception is <code>Hoa\Compiler\Exception\Exception</code>.</p>
+
+  <h4 id="Nodes" for="main-toc">Nodes</h4>
+
+  <p>The compilation process very often succeeds by the
+  <strong>production</strong> of an AST. It is important to control its
+  <strong>form</strong>, its <strong>size</strong>, the data it
+  <strong>holds</strong> etc. This is why it is necessary to understand the
+  <code>#<em>node</em></code> notation because it allows to create
+  <strong>nodes</strong> in the AST. First, lexemes declared with the
+  <code>&amp;lt;<em>token</em>></code> syntax will appear in the tree, while the
+  other lexemes, declared with the <code>::<em>token</em>::</code> syntax, will
+  not appear. Indeed, in our last example, the <code>quote_</code>,
+  <code>brace_</code>, <code>colon</code>, <code>comma</code> etc. lexemes do
+  not appear. Next, it is important to notice that the declaration of nodes can
+  be <strong>overwritten</strong> inside a <strong>same rule</strong>. Finally,
+  a rule name can be preceeded by <code>#</code>, just like the
+  <code>#array</code> rule, that allows to define a <strong>default</strong>
+  node, but it can be overwritten. For example, if we replace the
+  <code>array</code> rule by:</p>
+  <pre><code class="language-pp">#array:
+    ::bracket_:: value() ( ::comma:: value() #bigarray )* ::_bracket::</code></pre>
+  <p>If the array contains only one value, the node will be named
+  <code>#array</code>, else it will be named <code>#bigarray</code>. Let's
+  see:</p>
+  <pre><code class="language-shell">$ echo '[42]' | hoa compiler:pp Json.pp 0 --visitor dump
+>  #array
+>  >  token(number, 42)
+$ echo '[4, 2]' | hoa compiler:pp Json.pp 0 --visitor dump
+>  #bigarray
+>  >  token(number, 4)
+>  >  token(number, 2)</code></pre>
+  <p>Of course, a node can be created or not based on the
+  <strong>derivation</strong> of a rule. The mecanism is normally pretty much
+  <strong>intuitive</strong>.</p>
+
+  <h4 id="Namespaces" for="main-toc">Namespaces</h4>
+
+  <p>Let's detail a little bit the behavior of the lexical analyzer regarding
+  the <strong>namespaces</strong>.</p>
+  <p><strong>Lexemes</strong> are put in namespaces, it means that only the
+  lexemes of the <strong>current</strong> namespace are used by the lexical
+  analyzer. The default namespace is <code>default</code>. To declare the
+  namespace of a lexeme, we have to use the <code>:</code> operator. When a
+  lexeme is consumed, it is able to <strong>change</strong> the current
+  namespace for the rest of the lexical analysis, thanks to the <code>-></code>
+  operator. Thus, we will declare five lexemes: <code>foo</code> and
+  <code>bar</code> in the <code>default</code> namespace, <code>baz</code> in
+  <code>ns1</code> and <code>qux</code> and <code>foo</code> in
+  <code>ns2</code>. The fact that <code>foo</code> is declared two times is not
+  embarrassing because it is put in <strong>different</strong> namespaces:</p>
+  <pre><code class="language-pp">%token      foo   fo+     -> ns1
+%token      bar   ba?r+   -> ns2
+%token  ns1:baz   ba?z+   -> default
+%token  ns2:qux   qux+
+%token  ns2:foo   FOO     -> ns1</code></pre>
+  <p>Writing <code>default:bar</code> is strictly equivalent to
+  <code>bar</code>. The <code>foo</code> lexeme leads into <code>ns1</code>,
+  <code>bar</code> into <code>ns2</code>, <code>ns1:baz</code> into
+  <code>default</code>, <code>ns2:qux</code> stays in <code>ns2</code> and
+  <code>ns2:foo</code> leads into <code>ns1</code>. Let's observe the sequence
+  of lexemes produced by the lexical analyzer with the following data
+  <code>fooooobzzbarrrquxFOObaz</code>:</p>
+  <pre><code class="language-php">$pp = '%token      foo   fo+     -> ns1'     . "\n" .
+      '%token      bar   ba?r+   -> ns2'     . "\n" .
+      '%token  ns1:baz   ba?z+   -> default' . "\n" .
+      '%token  ns2:qux   qux+'               . "\n" .
+      '%token  ns2:foo   FOO     -> ns1';
+
+// 1. Parse PP.
+Hoa\Compiler\Llk\Llk::parsePP($pp, $tokens, $rawRules);
+
+// 2. Run the lexical analyzer.
+$lexer    = new Hoa\Compiler\Llk\Lexer();
+$sequence = $lexer->lexMe('fooooobzzbarrrquxFOObaz', $tokens);
+
+// 3. Pretty-print the result.
+$format   = '%' . (strlen((string) count($sequence)) + 1) . 's  ' .
+            '%-13s %-20s  %-20s  %6s' . "\n";
+$header   = sprintf($format, '#', 'namespace', 'token name', 'token value', 'offset');
+
+echo $header, str_repeat('-', strlen($header)), "\n";
+
+foreach ($sequence as $i => $token) {
+    printf(
+        $format,
+        $i,
+        $token['namespace'],
+        $token['token'],
+        $token['value'],
+        $token['offset']
+    );
+}
+
+/**
+ * Will output:
+ *      #  namespace     token name            token value           offset
+ *     ---------------------------------------------------------------------
+ *      0  default       foo                   fooooo                     0
+ *      1  ns1           baz                   bzz                        6
+ *      2  default       bar                   barrr                      9
+ *      3  ns2           qux                   qux                       14
+ *      4  ns2           foo                   FOO                       17
+ *      5  ns1           baz                   baz                       20
+ *      6  default       EOF                   EOF                       23
+ */</code></pre>
+  <p>We read the lexemes, their namespace and their default value in the table.
+  The data has been successfully <strong>splitted</strong>, and we have jumped
+  from one namespace to the other. If this time we try with the
+  <code>foqux</code> data, we will have an error: <code>fo</code> is matched by
+  the <code>foo</code> lexeme in the <code>default</code> namespace, we then
+  jump to the <code>ns1</code> namespace, and here, no lexeme in this namespace
+  is able to recognize at least <code>q</code>. An error is thrown.</p>
+  <p>So far, we have seen how to jump from one namespace to another with the
+  <code>-></code> operator. No <strong>history</strong> about the used
+  namespaces is stored. However, in some rare cases, it is able for a lexeme to
+  be accessible through <strong>several</strong> namespaces and we would like
+  that a lexeme jumps back to the <strong>previous</strong> namespace. Put
+  another way, we would like a history of the used namespaces and being able to
+  navigate (backward only) in it. This is the role of the
+  <code>__shift__ * <em>n</em></code> keyword, in conjunction with the
+  <code>-></code> operator as usual. <code>__shift__</code> is equivalent to
+  say: jump back to the previous namespace. <code>__shift__</code> is equivalent
+  to <code>__shift__ * 1</code>, and <code>__shift__ * <em>n</em></code> to say:
+  jump back <code><em>n</em></code> times to the previous namespace.</p>
+  <p>When the <code>__shift__</code> keyword appears in the grammar, namespaces
+  are managed like a <strong>stack</strong>, hence the <em>shift</em>
+  vocabulary. We have to take care to shift namespaces regularly in order to
+  avoid a huge stack.</p>
+  <p>Let's take the example of the following grammar:</p>
+  <pre><code class="language-pp">%token       foo1  a    -> ns1
+%token       foo2  x    -> ns2
+%token       end   e
+
+%token   ns1:bar   b
+%token   ns1:baz   c    -> ns3
+%token   ns1:tada  t    -> __shift__
+
+%token   ns2:bar   y
+%token   ns2:baz   z    -> ns3
+%token   ns2:tada  T    -> __shift__
+
+%token   ns3:qux   =   -> __shift__
+
+#test:
+    ( &amp;lt;foo1> | &amp;lt;foo2> ) &amp;lt;bar> &amp;lt;baz> &amp;lt;qux> &amp;lt;tada> &amp;lt;end></code></pre>
+  <p>This grammar recognizes two data: <code>abc=te</code> and
+  <code>xyz=Te</code>. If the first lexeme <code>foo1</code> is matched, the
+  syntactic analyzer will jump to the <code>ns1</code> namespace. When it will
+  match the <code>ns1:baz</code> namespace, it will jump into <code>ns3</code>.
+  Then, when it will match <code>ns3:qux</code>, it will jump back to the
+  previous namespace, being <code>ns1</code>. And so on. Now, if it does not
+  match <code>foo1</code> but <code>foo2</code>, it will jump to the
+  <code>ns2</code> namespace, and then in <code>ns3</code> and then in
+  <code>ns2</code> again. The <code>__shift__</code> keywords in
+  <code>ns1:tada</code> and <code>ns2:tada</code> are only used to shift
+  namespaces but no ambiguity exists: these namespaces are accessible by only
+  one namespace, namely <code>default</code>.</p>
+  <p>Now, let's save this grammar in the <code>NamespaceStack.pp</code> file and
+  use the <code>-s/--token-sequence</code> option of the <code>hoa
+  compiler:pp</code> command:</p>
+  <pre><code class="language-shell">$ echo -n 'abc=te' | hoa compiler:pp NamespaceStack.pp 0 --token-sequence
+ #  namespace     token name            token value                     offset
+-------------------------------------------------------------------------------
+ 0  default       foo1                  a                                    0
+ 1  ns1           bar                   b                                    1
+ 2  ns1           baz                   c                                    2
+ 3  ns3           qux                   =                                    3
+ 4  ns1           tada                  t                                    4
+ 5  default       end                   e                                    5
+ 6  default       EOF                   EOF                                  6
+
+$ echo -n 'xyz=Te' | hoa compiler:pp NamespaceStack.pp 0 --token-sequence
+ #  namespace     token name            token value                     offset
+-------------------------------------------------------------------------------
+ 0  default       foo2                  x                                    0
+ 1  ns2           bar                   y                                    1
+ 2  ns2           baz                   z                                    2
+ 3  ns3           qux                   =                                    3
+ 4  ns2           tada                  T                                    4
+ 5  default       end                   e                                    5
+ 6  default       EOF                   EOF                                  6</code></pre>
+  <p>We see that the lexical analyzer has successfully jumped between all
+  namespaces, as expected. We had two ways to access to the <code>ns3</code>
+  namespace: either from <code>ns1</code> or from <code>ns2</code>. The analyzer
+  has succeeded to create a history of namespaces and navigate in it.</p>
+
+  <h4 id="Unification" for="main-toc">Unification</h4>
+
+  <p>A new feature brought by the PP language regarding other grammar languages
+  is the capability to express a <strong>unification</strong> of lexemes. Let's
+  imagine the following grammar:</p>
+  <pre><code class="language-pp">%token  quote   '|"
+%token  string  \w+
+
+rule:
+    ::quote:: &amp;lt;string> ::quote::</code></pre>
+  <p>The quotes surrounding the string can be of two kinds: simple, with the
+  “<code>'</code>” symbol, or double, with the “<code>"</code>” symbol. Thus,
+  the <code>"foo"</code> and <code>'foo'</code> data are valid, but
+  <strong>also</strong> <code>"foo'</code> and <code>'foo"</code>!</p>
+  <p>The unification of lexemes allows to add an additionnal
+  <strong>constraint</strong> on the <strong>value</strong> of lexemes at
+  runtime. The syntax is the following: <code><em>token</em>[<em>i</em>]</code>.
+  The value of <code><em>i</em></code> indicates what lexemes will have the same
+  value. And finally, the unification is <strong>locale</strong> to an instance
+  of a rule, it means that there is no unification between lexemes of different
+  rules and the unification is only applied on the <strong>current</strong>
+  rule. Thus, the example becomes:</p>
+  <pre><code class="language-pp">rule:
+    ::quote[0]:: &amp;lt;string> ::quote[0]::</code></pre>
+  <p>Which invalidates the <code>"foo'</code> and <code>'foo"</code> data.</p>
+  <p>Unification finds numerous applications, such as the name of opening and
+  closing tags in the <a href="http://w3.org/TR/xml11/">XML language</a>.</p>
+
+  <h3 id="Abstract_Syntax_Tree" for="main-toc">Abstract Syntax Tree</h3>
+
+  <div id="overview_ast" class="schema"></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview_ast'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'lexical analyzer').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'syntactic analyzer').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST'));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4'));
+  });
+  </script>
+  <p>An <strong>abstract syntax</strong> tree represents a textual data in a
+  <strong>structural</strong> form. Each <strong>node</strong> of this tree is
+  represented by the <code>Hoa\Compiler\Llk\TreeNode</code> class. Among the
+  most useful methods, we find:</p>
+  <ul>
+    <li><code>getId</code> to get the identifier of the node,</li>
+    <li><code>getValueToken</code> to get the name of the lexeme,</li>
+    <li><code>getValueValue</code> to get the value of the lexeme,</li>
+    <li><code>isToken</code> if the token represents a lexeme,</li>
+    <li><code>getChild(<em>$i</em>)</code> to get the
+    <code><em>$i</em></code>-th child of the node,</li>
+    <li><code>getChildren</code> to get all the children,</li>
+    <li><code>getChildrenNumber</code> to count the number of children,</li>
+    <li><code>getParent</code> to get the parent node,</li>
+    <li><code>getData</code> to get a reference to a data array,</li>
+    <li><code>accept</code> to apply the visitor.</li>
+  </ul>
+  <p>Visitors are the most simple way to <strong>cross</strong> an AST. As an
+  example, let's write the <code>PrettyPrinter</code> visitor which will rewrite
+  a JSON data with our own conventions (spacing, line breaking etc.). A visitor
+  must implement the <code>Hoa\Visitor\Visit</code> interface and will have only
+  one method to implement: <code>visit</code> with three arguments:
+  the element and two optional arguments (by reference and by copy). Let's
+  see:</p>
+  <pre><code class="language-php">class PrettyPrinter implements Hoa\Visitor\Visit
+{
+    public function visit (
+        Hoa\Visitor\Element $element,
+        &amp;amp;$handle = null,
+        $eldnah = null
+    ) {
+        static $i      = 0;
+        static $indent = '    ';
+
+        // One behaviour per node in the AST.
+        switch ($element->getId()) {
+            // Object: { … }.
+            case '#object':
+                echo '{', "\n";
+                ++$i;
+
+                foreach ($element->getChildren() as $e => $child) {
+                    if (0 &amp;lt; $e) {
+                        echo ',', "\n";
+                    }
+
+                    echo str_repeat($indent, $i);
+                    $child->accept($this, $handle, $eldnah);
+                }
+
+                echo "\n", str_repeat($indent, --$i), '}';
+
+                break;
+
+            // Array: [ … ].
+            case '#array':
+                echo '[', "\n";
+                ++$i;
+
+                foreach ($element->getChildren() as $e => $child) {
+                    if (0 &amp;lt; $e) {
+                        echo ',', "\n";
+                    }
+
+                    echo str_repeat($indent, $i);
+                    $child->accept($this, $handle, $eldnah);
+                }
+
+                echo "\n", str_repeat($indent, --$i), ']';
+
+                break;
+
+            // Pair: "…": ….
+            case '#pair':
+                echo
+                    $element->getChild(0)->accept($this, $handle, $eldnah),
+                    ': ',
+                    $element->getChild(1)->accept($this, $handle, $eldnah);
+
+                break;
+
+            // Many tokens.
+            case 'token':
+                switch ($element->getValueToken()) {
+                    // String: "…".
+                    case 'string':
+                        echo '"', $element->getValueValue(), '"';
+
+                        break;
+
+                    // Booleans.
+                    case 'true':
+                    case 'false':
+
+                    // Null.
+                    case 'null':
+
+                    // Number.
+                    case 'number':
+                        echo $element->getValueValue();
+
+                        break;
+                }
+
+                break;
+        }
+    }
+}</code></pre>
+  <p>We are going to see an example:</p>
+  <pre><code class="language-php">$compiler    = Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp'));
+$ast         = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+$prettyPrint = new PrettyPrinter();
+echo $prettyPrint->visit($ast);
+
+/**
+ * Will output:
+ *     {
+ *         "foo": true,
+ *         "bar": [
+ *             null,
+ *             42
+ *         ]
+ *     }
+ */</code></pre>
+  <p>The <code>getData</code> method is very useful to <strong>store</strong>
+  data that are likely to be <strong>reused</strong>, for example from one
+  visitor to another. This method returns a <strong>reference</strong> to an
+  array; thus:</p>
+  <pre><code class="language-php">$data = $element->getData();
+
+if (!isset($data['previousComputing'])) {
+    throw new Exception('Need a previous computing.', 0);
+}
+
+$previous = $data['previousComputing'];</code></pre>
+  <p>It is common to use one visitor per <strong>constraint</strong>:
+  verification of symbols, verification of types etc. Some of them can set data
+  for the next ones. The <code>getData</code> method does not require any
+  data structure, it only provides an access to an array. Feel free to do what
+  you want with it.</p>
+  <p>Using the <code>Hoa\Compiler\Llk\TreeNode</code> is very
+  <strong>trivial</strong> and we will use it most of the time with a
+  visitor.</p>
+
+  <h3 id="Traces" for="main-toc">Traces</h3>
+
+  <div id="overview_trace" class="schema"></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview_trace'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'lexical analyzer').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'syntactic analyzer').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST').attr({opacity: .3}));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4').attr({opacity: .3}));
+  });
+  </script>
+  <p>The LL(<em>k</em>) compiler provided by Hoa is clearly composed of
+  <strong>layers</strong>. Each layer can be used with a maximal modularity and
+  extensibility. When the grammar is translated into “machine rules” and that
+  the lexical and syntactic analyzers have validated a data, a
+  <strong>trace</strong> is computed. This trace is a flat array containing only
+  three kind of classes:</p>
+  <ul>
+    <li><code>Hoa\Compiler\Llk\Rule\Entry</code> when the syntactic analyzer has
+    opened a rule,</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Ekzit</code> when the syntactic analyzer has
+    closed a rule,</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Token</code> when the syntactic analyzer has
+    encountered a lexeme.</li>
+  </ul>
+  <p>We can get the trace with the
+  <code>Hoa\Compiler\Llk\Parser::getTrace</code> method. To understand this
+  trace, we will start with an example:</p>
+  <pre><code class="language-php">$compiler = Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp'));
+$ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+$i        = 0;
+
+foreach ($compiler->getTrace() as $element) {
+    if ($element instanceof Hoa\Compiler\Llk\Rule\Entry) {
+        echo str_repeat('>   ', ++$i), 'enter ', $element->getRule(), "\n";
+    } elseif ($element instanceof Hoa\Compiler\Llk\Rule\Token) {
+        echo
+            str_repeat('    ', $i + 1), 'token ', $element->getTokenName(),
+            ', consumed ', $element->getValue(), "\n";
+    } else {
+        echo str_repeat('&amp;lt;   ', $i--), 'ekzit ', $element->getRule(), "\n";
+    }
+}
+
+/**
+ * Will output:
+ *     >   enter value
+ *     >   >   enter object
+ *                 token brace_, consumed {
+ *     >   >   >   enter pair
+ *     >   >   >   >   enter string
+ *                         token quote_, consumed "
+ *                         token string, consumed foo
+ *                         token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                     token colon, consumed :
+ *     >   >   >   >   enter value
+ *                         token true, consumed true
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
+ *     >   >   >   enter 13
+ *     >   >   >   >   enter 12
+ *                         token comma, consumed ,
+ *     >   >   >   >   >   enter pair
+ *     >   >   >   >   >   >   enter string
+ *                                 token quote_, consumed "
+ *                                 token string, consumed bar
+ *                                 token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                             token colon, consumed :
+ *     >   >   >   >   >   >   enter value
+ *     >   >   >   >   >   >   >   enter array
+ *                                     token bracket_, consumed [
+ *     >   >   >   >   >   >   >   >   enter value
+ *                                         token null, consumed null
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     >   >   >   >   >   >   >   >   enter 21
+ *     >   >   >   >   >   >   >   >   >   enter 20
+ *                                             token comma, consumed ,
+ *     >   >   >   >   >   >   >   >   >   >   enter value
+ *                                                 token number, consumed 42
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 20
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 21
+ *                                     token _bracket, consumed ]
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit array
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 12
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit 13
+ *                 token _brace, consumed }
+ *     &amp;lt;   &amp;lt;   ekzit object
+ *     &amp;lt;   ekzit value
+ */</code></pre>
+  <p>This example reveals several things. First, the informations given by the
+  trace can be useful: if we are on a rule, we have its <strong>name</strong>
+  (with the <code>getRule</code> method), and if we are on a lexeme, we have its
+  <strong>name</strong> (with the <code>getTokenName</code> method), its
+  <strong>representation</strong> (expressed in the PCRE format, with the
+  <code>getRepresentation</code> method), its <strong>value</strong> (with the
+  <code>getValue</code> method), if it is a node to <strong>keep</strong> in the
+  AST (with the <code>isKept</code> method) and its <strong>unification</strong>
+  index if it exists (with the <code>getUnificationIndex</code> method). Of
+  course, all these informations can be edited, which can influence the
+  construction of the AST which is the (optional) next step.</p>
+  <p>Next, we notice that sometimes we enter in a rule that exists in the
+  grammar, like <code>object</code>, <code>pair</code>, <code>value</code> etc.,
+  and sometimes we enter in a <strong>numerical</strong> rule, like
+  <code>13</code>, <code>12</code>, <code>21</code>, <code>20</code> etc. When
+  the grammar is interpreted in order to be translated into “machine rules”,
+  each one of these rules is <strong>linearized</strong> regarding the PP
+  operators:</p>
+  <ul>
+    <li><code>Hoa\Compiler\Llk\Rule\Choice</code> for a disjunction</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Concatenation</code> for a
+    concatenation,</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Repetition</code> for a repetition,</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Token</code> for a token (like seen
+    above).</li>
+  </ul>
+  <p>All these rules in this format are accessible through the
+  <code>Hoa\Compiler\Llk\Parser::getRules</code> methods, represented by an
+  array. We will print all the <strong>accessible</strong> rules from the root
+  for a better understanding:</p>
+  <pre><code class="language-php">$compiler = Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp'));
+
+// 1. Get all rules.
+$rules    = $compiler->getRules();
+
+// 2. Start with the root rule.
+$stack    = [$compiler->getRootRule() => true];
+
+while (false !== current($stack)) {
+    $rule = key($stack);
+    next($stack);
+    echo
+        "\n", '"', $rule, '" is a ',
+        strtolower(substr(get_class($rules[$rule]), 22));
+
+    $subrules = $rules[$rule]->getContent();
+
+    // 3a. Token.
+    if (null === $subrules) {
+        continue;
+    }
+
+    echo ' of rules: ';
+
+    // 3b. Other rules.
+    foreach ((array) $rules[$rule]->getContent() as $subrule) {
+        if (!array_key_exists($subrule, $stack)) {
+            // 4. Unshift new rules to print.
+            $stack[$subrule] = true;
+        }
+
+        echo $subrule, ' ';
+    }
+}
+
+/**
+ * Will output:
+ *     "value" is a choice of rules: 1 2 3 string object array number
+ *     "1" is a token
+ *     "2" is a token
+ *     "3" is a token
+ *     "string" is a concatenation of rules: 5 6 7
+ *     "object" is a concatenation of rules: 10 pair 13 14
+ *     "array" is a concatenation of rules: 18 value 21 22
+ *     "number" is a token
+ *     "5" is a token
+ *     "6" is a token
+ *     "7" is a token
+ *     "10" is a token
+ *     "pair" is a concatenation of rules: string 16 value
+ *     "13" is a repetition of rules: 12
+ *     "14" is a token
+ *     "18" is a token
+ *     "21" is a repetition of rules: 20
+ *     "22" is a token
+ *     "16" is a token
+ *     "12" is a concatenation of rules: 11 pair
+ *     "20" is a concatenation of rules: 19 value
+ *     "11" is a token
+ *     "19" is a token
+ */</code></pre>
+  <p>If we read the <code>object</code> rule, we know that it is a concatenation
+  of the <code>10</code>, <code>pair</code>, <code>13</code> and <code>14</code>
+  rules. <code>10</code> is a lexeme, <code>pair</code> is a concatenation of
+  the <code>string</code>, <code>16</code> and <code>value</code> rules, and so
+  on. The initial grammar is translated in order to be in its
+  <strong>tiniest</strong> form. It allows to <strong>reason</strong> on rules
+  in an <strong>easier</strong> and <strong>faster</strong> way. Indeed,
+  computations on the grammar are not restricted to AST. In the previous step,
+  with the trace, we are already able to apply computations.</p>
+
+  <h3 id="Generation" for="main-toc">Generation</h3>
+
+  <p>A grammar can be used to satisfy two goals: to <strong>validate</strong> a
+  data (if we see it as an automata) or to <strong>generate</strong> a data. So
+  far, we have seen how to validate a data through several steps:
+  <strong>initialization</strong> of our compiler, running of the lexical and
+  syntactic <strong>analyzers</strong>, producing a <strong>trace</strong>,
+  transformation of this trace into an <strong>AST</strong> in order to
+  <strong>visit</strong> that tree. But we can stop at the first step, the
+  initialization of our compiler, to exploit the rules in order to generate a
+  data which will be valid regarding our grammar.</p>
+  <p><code>Hoa\Compiler\Llk\Sampler</code> provides three data
+  <strong>generation</strong> algorithms:</p>
+  <ul>
+    <li>random uniform generation,</li>
+    <li>bounded exhaustive generation,</li>
+    <li>grammar coverage-based generation.</li>
+  </ul>
+  <p>Why providing three algorithms? Because it is illusory to think that one
+  algorithm can satisfy <strong>numerous</strong> context of usages. Each one
+  fits different needs, we will explain them later.</p>
+  <p>Generating a data based on a grammar requires <strong>two
+  steps</strong>:</p>
+  <ol>
+    <li>generating values for all <strong>lexemes</strong> in order to get raw
+    data,</li>
+    <li>generating a <strong>path</strong> in the rules of the grammar.</li>
+  </ol>
+  <p>A path is equivalent to a derivation, the vocabulary is different according
+  to our goal: validation or generation.</p>
+
+  <h4 id="Isotropic_generation_of_lexemes" for="main-toc">Isotropic generation
+  of lexemes</h4>
+
+  <p>In order to generate values for lexemes, no matter what algorithm is used,
+  it has to be <strong>fast</strong>. We are going to use a process called
+  <strong>isotropic</strong>. We start with a rule and we go forward only by
+  using <strong>random</strong> and <strong>locally uniform</strong> (only for
+  this choice) choices. For instance, if we have a disjunction between three
+  sub-rules, we will randomly and uniformly choose between 1 and 3. If we have a
+  concatenation, we will just concatenate each parts. And finally, a repetition
+  is nothing more than a disjunction of concatenation: indeed,
+  <code><em>e</em>{1,3}</code> is strictly equivalent to <code><em>e</em> |
+  <em>ee</em> | <em>eee</em></code>. Let's see:</p>
+  <pre><code>([ae]+|[x-z]!){1,3}              <em>repeat <em>[ae]+|[x-z]!</em> 2 times</em>
+→ ([ae]+|[x-z]!)([ae]+|[x-z]!)  <em>choose between <em>[ae]+</em> and <em>[x-z]!</em></em>
+→ ([ae]+)([ae]+|[x-z]!)         <em>repeat <code>ae</code> 2 times</em>
+→ [ae][ae]([ae]+|[x-z]!)        <em>choose between <em>a</em> and <em>e</em></em>
+→ e[ae]([ae]+|[x-z]!)           <em>again</em>
+→ ea([ae]+|[x-z]!)              <em>choose between <em>[ae]+</em> and <em>[x-z]!</em></em>
+→ ea([x-z]!)                    <em>choose between <em>x</em>, <em>y</em> and <em>z</em></em>
+→ eay!</code></pre>
+  <p>This generation is naive but this is not important. What is important is
+  the path generation in rules, or put another way, the generation of
+  <strong>sequences of lexemes</strong>.</p>
+
+  <h4 id="Uniform_random_generation" for="main-toc">Random uniform
+  generation</h4>
+
+  <p>The first algorithm is the <strong>random</strong> and
+  <strong>uniform</strong> generation. This algorithm is useful if we would like
+  to generate sequences of lexemes of a <strong>given size <em>n</em></strong>
+  with a <strong>uniformity</strong>, not local (like in the isotropic
+  generation), but on the <strong>set</strong> of all the possible sequences.
+  Succinctly, the algorithm works in two steps: <strong>pre-computation</strong>
+  (once per size) followed by a <strong>generation</strong>. The pre-computation
+  is an <strong>automatic</strong> step and computes the <strong>number</strong>
+  of all the possible sequences and sub-sequences of size <em>n</em>. This step
+  helps to compute <strong>cumulative distribution functions</strong> in order
+  to <strong>guide</strong> the final sequences of lexemes.</p>
+  <p>We will generate 10 random data of size 7, it means composed of 7 lexemes.
+  That's why we will use the <code>Hoa\Compiler\Llk\Sampler\Uniform</code> class
+  that takes our grammar in first argument, the lexeme value generator in second
+  argument (here <code>Hoa\Regex\Visitor\Isotropic</code>) and finally a
+  size:</p>
+  <pre><code class="language-php">$sampler = new Hoa\Compiler\Llk\Sampler\Uniform(
+    // Grammar.
+    Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random()),
+    // Length.
+    7
+);
+
+for ($i = 0; $i &amp;lt; 10; ++$i) {
+    echo $i, ' => ', $sampler->uniform(), "\n";
+}
+
+/**
+ * Will output:
+ *     0 => [ false , null , null ]
+ *     1 => [ " l " , null ]
+ *     2 => [ [ true ] , true ]
+ *     3 => [ [ [ 4435 ] ] ]
+ *     4 => [ [ [ 9366 ] ] ]
+ *     5 => [ true , false , null ]
+ *     6 => { " |h&amp;lt;# " : false }
+ *     7 => [ [ [ false ] ] ]
+ *     8 => [ false , true , 7 ]
+ *     9 => [ false , 5 , 79 ]
+ */</code></pre>
+  <p>We can redefine the size with the
+  <code>Hoa\Compiler\Llk\Sampler\Uniform::setLength</code> method. We have
+  noticed that some repetition operators have no upper bound, like
+  <code>+</code> or <code>*</code>; in this case, we set it to <em>n</em>.</p>
+
+  <h4 id="Bounded_exhaustive_generation" for="main-toc">Bounded exhaustive
+  generation</h4>
+
+  <p>The second algorithm is the <strong>bounded exhaustive</strong> generation.
+  This algorithm generates <strong>all</strong> sequences of lexemes (for the
+  exhaustive side) from size 1 <strong>to</strong> <em>n</em> (for the
+  bounded side). An interesting aspect of this algorithm is that the
+  exhaustivity is kind of a <strong>proof</strong>! The algorithm behaves like
+  an iterator and is very simple to use:</p>
+  <pre><code class="language-php">$sampler = new Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
+    // Grammar.
+    Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random()),
+    // Length.
+    7
+);
+
+foreach ($sampler as $i => $data) {
+    echo $i, ' => ', $data, "\n";
+}
+
+/**
+ * Will output:
+ *     0 => true
+ *     1 => false
+ *     2 => null
+ *     3 => " 8u2 "
+ *     4 => { " ,M@aj{ " : true }
+ *     5 => { " x`|V " : false }
+ *     6 => { " NttB " : null }
+ *     7 => { " eJWwA " : 0 }
+ *     8 => [ true ]
+ *     9 => [ true , true ]
+ *     10 => [ true , true , true ]
+ *     11 => [ true , true , false ]
+ *     12 => [ true , true , null ]
+ *     13 => [ true , true , 32 ]
+ *     14 => [ true , false ]
+ *     15 => [ true , false , true ]
+ *     16 => [ true , false , false ]
+ *     17 => [ true , false , null ]
+ *     18 => [ true , false , 729 ]
+ *     19 => [ true , null ]
+ *     20 => [ true , null , true ]
+ *     21 => [ true , null , false ]
+ *     …
+ *     157 => [ 780 , 01559 , 32 ]
+ *     158 => 344
+ */</code></pre>
+  <p>Like the previous algorithm, we can redefine the upper bound with the
+  <code>Hoa\Compiler\Llk\Sampler\BoundedExhaustive::setLength</code> method. And
+  the repetition operators with no upper bounds are bounded to <em>n</em>.</p>
+
+  <h4 id="Grammar_coverage-based_generation" for="main-toc">Grammar
+  coverage-based generation</h4>
+
+  <p>The last algorithm is the <strong>grammar coverage-based</strong>
+  generation. This algorithm reduces the <strong>combinatory explosion</strong>
+  encountered with the previous algorithm but the goal is different: it will
+  generate sequences of lexemes that will “<strong>activate</strong>” all the
+  rules <strong>branches</strong> of the grammar. A rule is said covered if and
+  only if all its sub-rules are covered, and a lexeme is said covered if it has
+  been used in a sequence. To ensure a <strong>diversity</strong> in the
+  produced sequences, choice points between uncovered sub-rules are resolved
+  <strong>randomly</strong>. The algorithm also behaves like an iterator:</p>
+  <pre><code class="language-php">$sampler = new Hoa\Compiler\Llk\Sampler\Coverage(
+    // Grammar.
+    Hoa\Compiler\Llk\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random())
+);
+
+foreach ($sampler as $i => $data) {
+    echo $i, ' => ', $data, "\n";
+}
+
+/**
+ * Will output:
+ *     0 => true
+ *     1 => { " )o?bz " : null , " %3W) " : [ false , 130 , " 6 " ] }
+ *     2 => [ { " ny  " : true } ]
+ *     3 => { " Ne;[3 " : [ true , true ] , " th: " : true , " C[8} " : true }
+ */</code></pre>
+  <p>To avoid the combinatory explosion and to ensure the
+  <strong>termination</strong> of the algorithm, we will use the following
+  <strong>heuristic</strong> on the <strong>repetition</strong> operators:
+  <code>*</code> will repeat <code>0</code>, <code>1</code> and
+  <code>2</code> times, <code>+</code> will repeat <code>1</code> and
+  <code>2</code> times, and finally <code>{<em>x</em>,<em>y</em>}</code> will
+  repeat <code><em>x</em></code>, <code><em>x</em> + 1</code>,
+  <code><em>y</em> - 1</code> and <code><em>y</em></code> times. This heuristic
+  finds its origin in the <strong>limit</strong> testing.</p>
+  <p>We notice in our example that 4 data are generated and are enough to
+  <strong>cover</strong> entirely our grammar!</p>
+
+  <h4 id="Comparison_between_algorithms" for="main-toc">Comparison between
+  algorithms</h4>
+
+  <p>Here are some <strong>clues</strong> to know when to use one algorithm
+  instead of another.</p>
+  <dl>
+    <dt>Random uniform generation:</dt>
+    <dd><ul>
+      <li data-item="+">fast for small data, high data diversity and fixed
+      size,</li>
+      <li data-item="-">the pre-computation step is exponential and therefore
+      long while, next, the generation is very fast.</li>
+    </ul></dd>
+    <dt>Bounded exhaustive generation:</dt>
+    <dd><ul>
+      <li data-item="+">fast for small data and exhaustivity is efficient,</li>
+      <li data-item="-">exponential number of data.</li>
+    </ul></dd>
+    <dt>Grammar coverage-based generation:</dt>
+    <dd><ul>
+      <li data-item="+">fast for average or big data, and diversity of
+      data,</li>
+      <li data-item="-">do not consider size.</li>
+    </ul></dd>
+  </dl>
+
+  <h2 id="LL1_compiler-compiler" for="main-toc">LL(1) compiler-compiler</h2>
+
+  <p>The documentation of the LL(1) compiler, through the
+  <code>Hoa\Compiler\Ll1</code> class, is not written yet. The goal is different
+  regarding <code>Hoa\Compiler\Llk</code>: there is no grammar description
+  language, automata are hard-coded with arrays and this type of compiler is
+  high performance oriented. That's why its behavior is
+  <strong>monolitic</strong>.</p>
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p><code>Hoa\Compiler</code> provides two <strong>compiler-compilers</strong>:
+  <code>Hoa\Compiler\Llk</code> and <code>Hoa\Compiler\Ll1</code>, in order to
+  <strong>validate</strong> data. The <strong>PP language</strong> allows to
+  write <strong>algebraic grammars</strong> in a <strong>simple</strong> and
+  <strong>natural</strong> way. The LL(<em>k</em>) compiler-compiler is split
+  in <strong>distinct processus</strong>, which encourages hackability. Finally,
+  several algorithms allows to <strong>generate</strong> data based on a grammar
+  according to specific usages.</p>
+
+</yield>
+</overlay>

@@ -1,0 +1,14 @@
+<?php
+
+namespace Psr\Log {
+    interface LoggerInterface {}
+}
+
+namespace Illuminate\Log {
+
+    /**
+     * @mixin \Illuminate\Log\LogManager
+     * @mixin \Monolog\Logger
+     */
+    class Logger implements \Psr\Log\LoggerInterface {}
+}

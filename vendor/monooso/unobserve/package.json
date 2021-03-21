@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "devDependencies": {
+        "husky": "^3.0.4",
+        "lint-staged": "^9.2.5"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.php": [
+            "php ./vendor/bin/php-cs-fixer fix --config .php_cs",
+            "git add"
+        ]
+    }
+}

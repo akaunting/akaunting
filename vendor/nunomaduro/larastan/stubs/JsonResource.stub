@@ -1,0 +1,23 @@
+<?php
+
+namespace Illuminate\Http\Resources\Json;
+
+/**
+ * @template TModelClass
+ * @mixin TModelClass
+ * @implements \ArrayAccess<string, mixed>
+ */
+class JsonResource implements \ArrayAccess
+{
+    /**
+     * @var TModelClass
+     */
+    public $resource;
+
+    /**
+     * @param TModelClass $resource
+     */
+    public function __construct($resource)
+    {
+    }
+}

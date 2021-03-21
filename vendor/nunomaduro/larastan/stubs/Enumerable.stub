@@ -1,0 +1,72 @@
+<?php
+
+namespace Illuminate\Support;
+
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @extends \IteratorAggregate<TKey, TValue>
+ */
+interface Enumerable extends \Countable, \IteratorAggregate, \JsonSerializable
+{
+    /**
+     * @param string|callable(TValue, TKey): bool $key
+     * @param mixed $operator
+     * @param mixed $value
+     * @return static<static>
+     */
+    public function partition($key, $operator = null, $value = null);
+
+    /**
+     * @param array<mixed>|string|callable(TValue, TKey): mixed $groupBy
+     * @param bool $preserveKeys
+     * @return static<static<mixed>>
+     */
+    public function groupBy($groupBy, $preserveKeys = false);
+
+    /**
+     * @param string|callable(TValue, TKey): mixed $keyBy
+     * @return static<TValue>
+     */
+    public function keyBy($keyBy);
+
+    /**
+     * @param callable(TValue, TKey): array<mixed> $callback
+     * @return static<mixed>
+     */
+    public function mapWithKeys(callable $callback);
+
+    /**
+     * @param callable(TValue, TKey): array<mixed> $callback
+     * @return static<array<mixed>>
+     */
+    public function mapToDictionary(callable $callback);
+
+    /**
+     * @param string|callable(TValue, TKey): bool $key
+     * @param mixed $operator
+     * @param mixed $value
+     * @return bool
+     */
+    public function every($key, $operator = null, $value = null);
+
+    /**
+     * @template TClass
+     * @param class-string<TClass> $class
+     * @return static<TClass>
+     */
+    public function mapInto($class);
+
+    /**
+     * @param  int  $size
+     * @return static<static>
+     */
+    public function chunk($size);
+
+    /**
+     * @param callable(static): void $callable
+     * @return static
+     */
+    public function tap($callable);
+}

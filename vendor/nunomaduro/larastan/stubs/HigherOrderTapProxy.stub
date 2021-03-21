@@ -1,0 +1,17 @@
+<?php
+
+namespace Illuminate\Support;
+
+/**
+ * @template TClass
+ * @property TClass $target
+ */
+class HigherOrderTapProxy
+{
+    /**
+     * @param TClass $target
+     */
+    public function __construct($target)
+    {
+    }
+}

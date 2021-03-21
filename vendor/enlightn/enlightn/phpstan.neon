@@ -1,0 +1,114 @@
+includes:
+    - %rootDir%/../../nunomaduro/larastan/extension.neon
+
+parameters:
+    customRulesetUsed: true
+    noUnnecessaryCollectionCall: true
+    checkModelProperties: false
+    reportMagicMethods: false
+    checkFunctionNameCase: false
+    checkPhpDocMethodSignatures: false
+    checkExplicitMixedMissingReturn: false
+    checkPhpDocMissingReturn: false
+    checkMaybeUndefinedVariables: true
+    cliArgumentsVariablesRegistered: true
+    checkNullables: false
+    checkThisOnly: false
+    checkUnionTypes: true
+    checkExplicitMixed: false
+    stubFiles:
+        - stubs/Request.stub
+
+rules:
+	- Enlightn\Enlightn\PHPStan\FillableForeignKeyModelRule
+	- Enlightn\Enlightn\PHPStan\MassAssignmentModelInstanceRule
+	- Enlightn\Enlightn\PHPStan\MassAssignmentModelStaticRule
+	- Enlightn\Enlightn\PHPStan\MassAssignmentBuilderInstanceRule
+	- PHPStan\Rules\Arrays\DeadForeachRule
+	- PHPStan\Rules\Arrays\IterableInForeachRule
+	- PHPStan\Rules\Arrays\OffsetAccessAssignmentRule
+	- PHPStan\Rules\Arrays\OffsetAccessAssignOpRule
+	- PHPStan\Rules\Arrays\OffsetAccessValueAssignmentRule
+	- PHPStan\Rules\Classes\ClassConstantRule
+	- PHPStan\Rules\DeadCode\NoopRule
+	- PHPStan\Rules\DeadCode\UnreachableStatementRule
+	- PHPStan\Rules\DeadCode\UnusedPrivateConstantRule
+	- PHPStan\Rules\DeadCode\UnusedPrivateMethodRule
+	- PHPStan\Rules\Functions\CallToFunctionParametersRule
+	- PHPStan\Rules\Functions\PrintfParametersRule
+	- PHPStan\Rules\Methods\ReturnTypeRule
+	- PHPStan\Rules\Variables\UnsetRule
+
+services:
+    -
+        class: PHPStan\Rules\Methods\CallMethodsRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            checkFunctionNameCase: %checkFunctionNameCase%
+            reportMagicMethods: %reportMagicMethods%
+    -
+        class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            checkFunctionNameCase: %checkFunctionNameCase%
+    -
+        class: PHPStan\Rules\Methods\CallStaticMethodsRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            checkFunctionNameCase: %checkFunctionNameCase%
+            reportMagicMethods: %reportMagicMethods%
+    -
+        class: PHPStan\Rules\Methods\OverridingMethodRule
+        arguments:
+            checkPhpDocMethodSignatures: %checkPhpDocMethodSignatures%
+        tags:
+            - phpstan.rules.rule
+    -
+        class: PHPStan\Rules\Missing\MissingReturnRule
+        arguments:
+            checkExplicitMixedMissingReturn: %checkExplicitMixedMissingReturn%
+            checkPhpDocMissingReturn: %checkPhpDocMissingReturn%
+        tags:
+            - phpstan.rules.rule
+    -
+        class: PHPStan\Rules\Namespaces\ExistingNamesInUseRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            checkFunctionNameCase: %checkFunctionNameCase%
+    -
+        class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            checkFunctionNameCase: %checkFunctionNameCase%
+    -
+        class: PHPStan\Rules\Properties\AccessPropertiesRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            reportMagicProperties: %reportMagicProperties%
+    -
+        class: PHPStan\Rules\Variables\DefinedVariableRule
+        arguments:
+            cliArgumentsVariablesRegistered: %cliArgumentsVariablesRegistered%
+            checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
+        tags:
+            - phpstan.rules.rule
+    -
+        class: PHPStan\Rules\Functions\ReturnTypeRule
+        arguments:
+            functionReflector: @betterReflectionFunctionReflector
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Enlightn\Enlightn\PHPStan\RequestDataTypeNodeResolverExtension
+        tags:
+            - phpstan.phpDoc.typeNodeResolverExtension
+    -
+        class: Enlightn\Enlightn\PHPStan\RequestArrayDataTypeNodeResolverExtension
+        tags:
+            - phpstan.phpDoc.typeNodeResolverExtension

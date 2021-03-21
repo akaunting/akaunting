@@ -1,0 +1,43 @@
+{
+    "version": "1.0",
+    "binding-types": {
+        "Http\\Message\\MessageFactory": {
+            "description": "PSR-7 Message Factory",
+            "parameters": {
+                "depends": {
+                    "description": "Optional class dependency which can be checked by consumers"
+                }
+            }
+        },
+        "Http\\Message\\RequestFactory": {
+            "parameters": {
+                "depends": {
+                    "description": "Optional class dependency which can be checked by consumers"
+                }
+            }
+        },
+        "Http\\Message\\ResponseFactory": {
+            "parameters": {
+                "depends": {
+                    "description": "Optional class dependency which can be checked by consumers"
+                }
+            }
+        },
+        "Http\\Message\\StreamFactory": {
+            "description": "PSR-7 Stream Factory",
+            "parameters": {
+                "depends": {
+                    "description": "Optional class dependency which can be checked by consumers"
+                }
+            }
+        },
+        "Http\\Message\\UriFactory": {
+            "description": "PSR-7 URI Factory",
+            "parameters": {
+                "depends": {
+                    "description": "Optional class dependency which can be checked by consumers"
+                }
+            }
+        }
+    }
+}

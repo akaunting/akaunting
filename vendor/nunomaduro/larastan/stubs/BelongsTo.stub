@@ -1,0 +1,27 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @template TChildModel of \Illuminate\Database\Eloquent\Model
+ * @extends Relation<TRelatedModel>
+ */
+class BelongsTo extends Relation
+{
+    /** @phpstan-return TChildModel */
+    public function associate();
+
+    /** @phpstan-return TChildModel */
+    public function dissociate();
+
+    /** @phpstan-return TChildModel */
+    public function getChild();
+
+    /**
+     * Get the results of the relationship.
+     *
+     * @phpstan-return ?TRelatedModel
+     */
+    public function getResults();
+}

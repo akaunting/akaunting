@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+>
+    <php>
+        <var name="db_driver" value="ibm_db2"/>
+        <var name="db_host" value="127.0.0.1"/>
+        <var name="db_user" value="db2inst1"/>
+        <var name="db_password" value="Doctrine2018"/>
+        <var name="db_dbname" value="doctrine"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Doctrine DBAL Test Suite">
+            <directory>../../../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">../../../lib/Doctrine</directory>
+        </include>
+    </coverage>
+</phpunit>

@@ -1,0 +1,18 @@
+language: php
+php:
+  - '7.3'
+  - '7.4'
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+before_script:
+  - composer update --prefer-dist --prefer-stable $PREFER_LOWEST
+script:
+  - mkdir -p build/logs
+  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+after_script:
+  - php vendor/bin/php-coveralls -v
+cache:
+  directories:
+    - $HOME/.composer/cache

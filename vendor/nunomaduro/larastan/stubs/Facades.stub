@@ -1,0 +1,30 @@
+<?php
+
+namespace Illuminate\Support\Facades;
+
+abstract class Facade {}
+
+/**
+ * @mixin \Redis
+ * @mixin \Illuminate\Redis\RedisManager
+ * @mixin \Illuminate\Contracts\Redis\Factory
+ */
+class Redis {}
+
+/**
+ * @mixin \Illuminate\Database\DatabaseManager
+ * @mixin \Illuminate\Database\Connection
+ * @mixin \Illuminate\Database\ConnectionInterface
+ */
+class DB extends Facade {}
+
+/**
+ * @mixin \Illuminate\Queue\QueueManager
+ * @mixin \Illuminate\Queue\Queue
+ */
+class Queue extends Facade {}
+
+/**
+ * @mixin \Illuminate\Log\Logger
+ */
+class Log extends Facade {}

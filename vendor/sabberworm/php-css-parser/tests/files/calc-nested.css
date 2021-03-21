@@ -1,0 +1,4 @@
+.test {
+  font-size: calc((3 * 4px) + -2px);
+  top: calc(200px - calc(20 * 3px));
+}

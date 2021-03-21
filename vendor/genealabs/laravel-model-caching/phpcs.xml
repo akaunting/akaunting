@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+    <description>GeneaLabs coding standards.</description>
+
+    <rule ref="PSR1"></rule>
+    <rule ref="PSR2"></rule>
+    <rule ref="PSR12">
+        <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses"/>
+        <exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon"/>
+    </rule>
+</ruleset>

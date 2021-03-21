@@ -1,0 +1,67 @@
+name: "Continuous Integration"
+
+on:
+  - push
+  - pull_request
+
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
+  SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT: "1"
+
+jobs:
+  tests:
+    name: "CI"
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - "5.3"
+          - "5.4"
+          - "5.5"
+          - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Choose PHPUnit version"
+        run: |
+          if [ "${{ matrix.php-version }}" = "7.4" ]; then
+            echo "SYMFONY_PHPUNIT_VERSION=7.5" >> $GITHUB_ENV;
+          elif [ "${{ matrix.php-version }}" = "8.0" ]; then
+            echo "SYMFONY_PHPUNIT_VERSION=9.4" >> $GITHUB_ENV;
+          fi
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: "Install latest dependencies"
+        run: |
+          # Remove PHPStan as it requires a newer PHP
+          composer remove phpstan/phpstan --dev --no-update
+          composer update ${{ env.COMPOSER_FLAGS }}
+
+      - name: "Run tests"
+        run: "vendor/bin/simple-phpunit --verbose"

@@ -1,0 +1,70 @@
+{
+    "name": "nunomaduro/larastan",
+    "type": "phpstan-extension",
+    "description": "Larastan - Discover bugs in your code without running it. A phpstan/phpstan wrapper for Laravel",
+    "keywords": ["laravel", "larastan", "phpstan", "php", "package", "static analysis", "code analysis", "code analyse"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nuno Maduro",
+            "email": "enunomaduro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "composer/composer": "^1.0 || ^2.0",
+        "illuminate/console": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/container": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/contracts": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/http": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/pipeline": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "mockery/mockery": "^0.9 || ^1.0",
+        "phpstan/phpstan": "^0.12.70",
+        "symfony/process": "^4.3 || ^5.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "phpunit/phpunit": "^7.3 || ^8.2 || ^9.3"
+    },
+    "suggest": {
+        "orchestra/testbench": "^4.0 || ^5.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "App\\": "tests/Application/app"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "NunoMaduro\\Larastan\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.6-dev"
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
+    "scripts": {
+        "test:types": "phpstan analyse --ansi",
+        "test:unit": "phpunit --colors=always",
+        "test": [
+            "@test:types",
+            "@test:unit"
+        ]
+    }
+}

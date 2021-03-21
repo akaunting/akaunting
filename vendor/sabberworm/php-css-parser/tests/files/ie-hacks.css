@@ -1,0 +1,9 @@
+p {
+    padding-right: .75rem \9;
+    background-image: none \9;
+    color:red\9\0;
+    background-color:red \9 \0;
+    background-color:red \9 \0 !important;
+    content: "red \9\0";
+    content: "red\0abc";
+}

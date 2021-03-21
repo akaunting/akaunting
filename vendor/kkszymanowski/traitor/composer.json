@@ -1,0 +1,34 @@
+{
+  "name": "kkszymanowski/traitor",
+  "description": "Add a trait use statement to existing PHP class",
+  "keywords": ["PHP", "trait", "add"],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/kkszymanowski/traitor/issues",
+    "source": "https://github.com/kkszymanowski/traitor",
+    "email": "kuba.szymanowski@inf24.pl"
+  },
+  "authors": [
+    {
+      "name": "Kuba Szymanowski",
+      "email": "kuba.szymanowski@inf24.pl"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "nikic/php-parser": "^1.0|^2.0|^3.0|^4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Traitor\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+parameters:
+    level: 5
+
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+
+    paths:
+        - src/
+#        - tests/
+
+    ignoreErrors:
+        - '#zend_monitor_|ZEND_MONITOR_#'
+        - '#^Cannot call method ltrim\(\) on int\|false.$#'
+        - '#MongoDB\\(Client|Collection)#'
+        - message: '#Return type \(string\) of method Monolog\\Formatter\\LineFormatter::normalizeException\(\) should be compatible with return type \(array\) of method Monolog\\Formatter\\NormalizerFormatter::normalizeException\(\)#'
+          paths:
+            - src/Monolog/Formatter/LineFormatter.php
+        - message: '#Method Monolog\\Handler\\LogglyHandler::loadCurlHandle\(\) never returns resource so it can be removed from the return typehint.#'
+          paths:
+            - src/Monolog/Handler/LogglyHandler.php

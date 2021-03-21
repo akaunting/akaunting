@@ -1,0 +1,8 @@
+parameters:
+    level: max
+    phpVersion: 80000
+    paths:
+        - src
+    ignoreErrors:
+        - '#Call to an undefined method Mockery\\ExpectationInterface#'
+        - '#Mockery\\(?:Legacy)?MockInterface#'

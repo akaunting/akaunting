@@ -1,0 +1,16 @@
+# Packages
+/node_modules
+/vendor
+
+# Caches
+.php_cs.cache
+.phpunit.result.cache
+
+# Configuration
+.env
+.php_cs
+.yo-rc.json
+
+# Logs
+npm-debug.log
+yarn-error.log

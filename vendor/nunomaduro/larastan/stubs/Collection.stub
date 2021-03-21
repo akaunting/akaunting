@@ -1,0 +1,103 @@
+<?php
+
+namespace Illuminate\Support;
+
+/**
+ * @template TKey
+ * @template TValue
+ * @implements \ArrayAccess<TKey, TValue>
+ * @implements Enumerable<TKey, TValue>
+ */
+class Collection implements \ArrayAccess, Enumerable
+{
+    /**
+     * @param  callable|null  $callback
+     * @param  mixed  $default
+     * @return TValue|null
+     */
+    public function first(callable $callback = null, $default = null){}
+
+    /**
+     * @param  callable|null  $callback
+     * @param  mixed  $default
+     * @return TValue|null
+     */
+    public function last(callable $callback = null, $default = null){}
+
+
+    /**
+     * @param  mixed  $key
+     * @param  mixed  $default
+     * @return TValue|null
+     */
+    public function get($key, $default = null) {}
+
+    /**
+     * @return TValue|null
+     */
+    public function pop() {}
+
+    /**
+     * @param  mixed  $key
+     * @param  mixed  $default
+     * @return TValue|null
+     */
+    public function pull($key, $default = null) {}
+
+    /**
+     * @param mixed $value
+     * @param bool  $strict
+     * @return TKey|false
+     */
+    public function search($value, $strict = false) {}
+
+    /**
+     * @return TValue|null
+     */
+    public function shift() {}
+
+    /**
+     * @param callable(TValue, TKey): (void|bool) $callable
+     * @return static<TValue>
+     */
+    public function each($callable) {}
+
+    /**
+     * @template TReturn
+     * @param callable(TValue, TKey): TReturn $callable
+     * @return static<TKey, TReturn>
+     */
+    public function map($callable) {}
+
+    /**
+     * @param callable(TValue, TKey): array<mixed> $callback
+     * @return static<static<mixed>>
+     */
+    public function mapToGroups(callable $callback) {}
+
+    /**
+     * @param callable(TValue, TKey): mixed $callback
+     * @return static<mixed>
+     */
+    public function flatMap(callable $callback) {}
+
+    /**
+     * @param callable $callback
+     * @return static<int, mixed>
+     */
+    public function mapSpread(callable $callback) {}
+
+    /**
+     * @param int $number
+     * @param null|callable(int, int): mixed $callback
+     * @return static<mixed>
+     */
+    public static function times($number, callable $callback = null) {}
+
+    /**
+     * @param string|array<mixed> $value
+     * @param string|null $key
+     * @return static<mixed>
+     */
+    public function pluck($value, $key = null) {}
+}

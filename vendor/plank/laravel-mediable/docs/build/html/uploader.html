@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Uploading Files &mdash; Laravel-Mediable 2.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Laravel-Mediable 2.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Handling Media" href="mediable.html"/>
+        <link rel="prev" title="Configuration" href="configuration.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Laravel-Mediable
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uploading Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#source-files">Source Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specifying-destination">Specifying Destination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specifying-filename">Specifying Filename</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-duplicates">Handling Duplicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-exceptions">Handling Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-files">Importing Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-files">Updating Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mediable.html">Handling Media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Using Media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Aggregate Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Artisan Commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Laravel-Mediable</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Uploading Files</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/uploader.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uploading-files">
+<h1>Uploading Files<a class="headerlink" href="#uploading-files" title="Permalink to this headline">¶</a></h1>
+<p>The easiest way to upload media to your server is with the <code class="docutils literal"><span class="pre">MediaUploader</span></code> class, which handles validating the file, moving it to its destination and creating a <code class="docutils literal"><span class="pre">Media</span></code> record to reference it. You can get an instance of the MediaUploader using the Facade and configure it with a fluent interface.</p>
+<p>To upload a file to the root of the default disk (set in <code class="docutils literal"><span class="pre">config/mediable.php</span></code>), all you need to do is the following:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">MediaUploader</span><span class="p">;</span> <span class="c1">//use the facade</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">))</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="section" id="source-files">
+<h2>Source Files<a class="headerlink" href="#source-files" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">fromSource()</span></code> method will accept any of the following:</p>
+<ul class="simple">
+<li>an instance of <code class="docutils literal"><span class="pre">Symfony\Component\HttpFoundation\UploadedFile</span></code>, which is returned by <code class="docutils literal"><span class="pre">$request-&gt;file()</span></code>.</li>
+<li>an instance of <code class="docutils literal"><span class="pre">Symfony\Component\HttpFoundation\File</span></code>.</li>
+<li>a URL as a string, beginning with <code class="docutils literal"><span class="pre">http://</span></code> or <code class="docutils literal"><span class="pre">https://</span></code>.</li>
+<li>an absolute path as a string, beginning with <code class="docutils literal"><span class="pre">/</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="specifying-destination">
+<h2>Specifying Destination<a class="headerlink" href="#specifying-destination" title="Permalink to this headline">¶</a></h2>
+<p>By default, the uploader will place the file in the root of the default disk specified in <code class="docutils literal"><span class="pre">config/mediable.php</span></code>. You can customize where the uploader will put the file on your server before you invoke the <code class="docutils literal"><span class="pre">upload()</span></code> method.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$uploader</span> <span class="o">=</span> <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;thumbnail&#39;</span><span class="p">))</span>
+
+<span class="c1">// specify a disk to use instead of the default</span>
+<span class="o">-&gt;</span><span class="na">toDisk</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">);</span>
+
+<span class="c1">// place the file in a directory relative to the disk root</span>
+<span class="o">-&gt;</span><span class="na">toDirectory</span><span class="p">(</span><span class="s1">&#39;user/john/profile&#39;</span><span class="p">)</span>
+
+<span class="c1">// alternatively, specify both the disk and directory at once</span>
+<span class="o">-&gt;</span><span class="na">toDestination</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="s1">&#39;user/john/profile&#39;</span><span class="p">)</span>
+
+<span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specifying-filename">
+<h2>Specifying Filename<a class="headerlink" href="#specifying-filename" title="Permalink to this headline">¶</a></h2>
+<p>By default, the uploader will copy the source file while maintaining its original filename. You can override this behaviour by providing a custom filename.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">useFilename</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can also tell the uploader to generate a filename based on the MD5 hash of the file&#8217;s contents.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">useHashForFilename</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can restore the default behaviour with <code class="docutils literal"><span class="pre">useOriginalFilename()</span></code>.</p>
+</div>
+<div class="section" id="handling-duplicates">
+<h2>Handling Duplicates<a class="headerlink" href="#handling-duplicates" title="Permalink to this headline">¶</a></h2>
+<p>Occasionally, a file with a matching name might already exist at the destination you would like to upload to. The uploader allows you to configure how it should respond to this scenario. There are three possible behaviours:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="c1">// keep both, append incrementing counter to new file name</span>
+<span class="nv">$uploader</span><span class="o">-&gt;</span><span class="na">onDuplicateIncrement</span><span class="p">();</span>
+
+<span class="c1">// replace old file with new one</span>
+<span class="nv">$uploader</span><span class="o">-&gt;</span><span class="na">onDuplicateReplace</span><span class="p">();</span>
+
+<span class="c1">// cancel upload, throw an exception</span>
+<span class="nv">$uploader</span><span class="o">-&gt;</span><span class="na">onDuplicateError</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">MediaUpload</span></code> will perform a number of validation checks on the source file. If any of the checks fail, a <code class="docutils literal"><span class="pre">Plank\Mediable\MediaUploadException</span></code> will be thrown with a message indicating why the file was rejected.</p>
+<p>You can override the most validation configuration values set in <code class="docutils literal"><span class="pre">config/mediable.php</span></code> on a case-by-case basis using the same fluent interface.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">))</span>
+
+    <span class="c1">// model class to use</span>
+    <span class="o">-&gt;</span><span class="na">setModelClass</span><span class="p">(</span><span class="nx">MediaSubclass</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+
+    <span class="c1">// maximum filesize in bytes</span>
+    <span class="o">-&gt;</span><span class="na">setMaximumSize</span><span class="p">(</span><span class="mi">99999</span><span class="p">)</span>
+
+    <span class="c1">// whether the aggregate type must match both the MIME type and extension</span>
+    <span class="o">-&gt;</span><span class="na">setStrictTypeChecking</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+
+    <span class="c1">// whether to allow the &#39;other&#39; aggregate type</span>
+    <span class="o">-&gt;</span><span class="na">setAllowUnrecognizedTypes</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+
+    <span class="c1">// only allow files of specific MIME types</span>
+    <span class="o">-&gt;</span><span class="na">setAllowedMimeTypes</span><span class="p">([</span><span class="s1">&#39;image/jpeg&#39;</span><span class="p">])</span>
+
+    <span class="c1">// only allow files of specific extensions</span>
+    <span class="o">-&gt;</span><span class="na">setAllowedExtensions</span><span class="p">([</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;jpeg&#39;</span><span class="p">])</span>
+
+    <span class="c1">// only allow files of specific aggregate types</span>
+    <span class="o">-&gt;</span><span class="na">setAllowedAggregateTypes</span><span class="p">([</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
+
+    <span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-exceptions">
+<h2>Handling Exceptions<a class="headerlink" href="#handling-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>If you want to return more granular HTTP status codes when a <code class="docutils literal"><span class="pre">Plank\Mediable\MediaUploadException</span></code> is thrown, you can use the <code class="docutils literal"><span class="pre">Plank\Mediable\HandlesMediaUploadExceptions</span></code> trait in your app&#8217;s <cite>ExceptionsHandler</cite> or in your controller. For example, if you have set a maximum file size, an 413 HTTP response code (Request Entity Too Large) will be returned instead of a 500.</p>
+<p>Call the <code class="docutils literal"><span class="pre">transformMediaUploadException</span></code> method as part of the <code class="docutils literal"><span class="pre">render</span></code> method of the exception handler, and a <code class="docutils literal"><span class="pre">HttpException</span></code> with the appropriate status code will be returned. Take a look at the <code class="docutils literal"><span class="pre">HandlesMediaExceptions</span></code> source code for the table of associated status codes and exceptions.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Exceptions</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Plank\Mediable\HandlesMediaUploadExceptions</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Handler</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">HandlesMediaUploadExceptions</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$e</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">transformMediaUploadException</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$e</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you only want some actions to throw an <code class="docutils literal"><span class="pre">HttpException</span></code>, you can apply the trait to the controller instead.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">ExampleController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">HandlesMediaUploadExceptions</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">upload</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">fromSource</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">))</span>
+                <span class="o">-&gt;</span><span class="na">toDestination</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">MediaUploadException</span> <span class="nv">$e</span><span class="p">){</span>
+            <span class="k">throw</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">transformMediaUploadException</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="importing-files">
+<h2>Importing Files<a class="headerlink" href="#importing-files" title="Permalink to this headline">¶</a></h2>
+<p>If you need to create a media record for a file that is already in place on the desired filesystem disk, you can use one the import methods instead.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">import</span><span class="p">(</span><span class="nv">$disk</span><span class="p">,</span> <span class="nv">$directory</span><span class="p">,</span> <span class="nv">$filename</span><span class="p">,</span> <span class="nv">$extension</span><span class="p">);</span>
+<span class="c1">// or</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="nx">MediaUploader</span><span class="o">::</span><span class="na">importPath</span><span class="p">(</span><span class="nv">$disk</span><span class="p">,</span> <span class="nv">$path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-files">
+<h2>Updating Files<a class="headerlink" href="#updating-files" title="Permalink to this headline">¶</a></h2>
+<p>If a file has changed on disk, you can re-evaluate its attributes with the <code class="docutils literal"><span class="pre">update()</span></code> method. This will reassign the media record&#8217;s <code class="docutils literal"><span class="pre">mime_type</span></code>, <code class="docutils literal"><span class="pre">aggregate_type</span></code> and <code class="docutils literal"><span class="pre">size</span></code> attributes and will save the changes to the database, if any.</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">MediaUploader</span><span class="o">::</span><span class="na">update</span><span class="p">(</span><span class="nv">$media</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mediable.html" class="btn btn-neutral float-right" title="Handling Media" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sean Fraser &lt;sean@plankdesign.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

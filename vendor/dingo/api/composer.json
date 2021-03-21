@@ -1,0 +1,73 @@
+{
+    "name": "dingo/api",
+    "description": "A RESTful API package for the Laravel and Lumen frameworks.",
+    "keywords": [
+        "api",
+        "dingo",
+        "laravel",
+        "restful"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [{
+        "name": "Jason Lewis",
+        "email": "jason.lewis1991@gmail.com"
+    }],
+    "require": {
+        "php": "^7.2.5",
+        "dingo/blueprint": "^0.4",
+        "illuminate/routing": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "league/fractal": "^0.19"
+    },
+    "require-dev": {
+        "phpdocumentor/reflection-docblock": "3.3.2",
+        "friendsofphp/php-cs-fixer": "~2",
+        "illuminate/auth": "^7.0|^8.0",
+        "illuminate/cache": "^7.0|^8.0",
+        "illuminate/console": "^7.0|^8.0",
+        "illuminate/database": "^7.0|^8.0",
+        "illuminate/events": "^7.0|^8.0",
+        "illuminate/filesystem": "^7.0|^8.0",
+        "illuminate/log": "^7.0|^8.0",
+        "illuminate/pagination": "^7.0|^8.0",
+        "laravel/lumen-framework": "^7.0|^8.0",
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "^8.5|^9.0",
+        "squizlabs/php_codesniffer": "~2.0",
+        "tymon/jwt-auth": "1.0.*"
+    },
+    "suggest": {
+        "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
+    },
+    "autoload": {
+        "psr-4": {
+            "Dingo\\Api\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dingo\\Api\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Dingo\\Api\\Provider\\LaravelServiceProvider"
+            ],
+            "aliases": {
+                "API": "Dingo\\Api\\Facade\\API"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

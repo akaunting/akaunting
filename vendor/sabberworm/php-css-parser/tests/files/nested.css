@@ -1,0 +1,17 @@
+html {
+	some: -test(val1);
+}
+
+html {
+	some-other: -test(val1);
+}
+
+@media screen {
+	html {
+		some: -test(val2);
+	}
+}
+
+#unrelated {
+	other: yes;
+}

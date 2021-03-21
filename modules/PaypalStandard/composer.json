@@ -1,0 +1,17 @@
+{
+    "name": "akaunting/module-paypal-standard",
+    "description": "Paypal Standard app for Akaunting",
+    "homepage": "https://akaunting.com",
+    "keywords": [
+        "laravel",
+        "accounting",
+        "invoice",
+        "paypal"
+    ],
+    "license": "GPL-3.0+",
+    "scripts": {
+        "test": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-suggest --no-progress --no-ansi"
+        ]
+    }
+}

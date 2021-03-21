@@ -1,0 +1,9 @@
+preset: laravel
+
+disabled:
+  - alpha_ordered_imports
+
+enabled:
+  - phpdoc_order
+  - phpdoc_separation
+  - unalign_double_arrow

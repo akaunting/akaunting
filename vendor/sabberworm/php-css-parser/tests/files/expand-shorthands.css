@@ -1,0 +1,7 @@
+body {
+  font: italic 500 14px/1.618 "Trebuchet MS", Georgia, serif;
+  border: 2px solid #f0f;
+  background: #ccc url("/images/foo.png") no-repeat left top;
+  margin: 1em !important;
+  padding: 2px 6px 3px;
+}

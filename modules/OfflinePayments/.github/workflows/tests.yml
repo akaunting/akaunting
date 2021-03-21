@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  tests:
+
+    name: PHP ${{ matrix.php }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.3', '7.4']
+
+    steps:
+      - name: Checkout Akaunting
+        uses: actions/checkout@v2
+        with:
+          repository: akaunting/akaunting
+
+      - name: Checkout Offline Payments module
+        uses: actions/checkout@v2
+        with:
+          path: modules/OfflinePayments
+
+      - name: Cache Composer
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          coverage: none
+
+      - name: Copy .env
+        run: cp .env.testing .env
+
+      - name: Install Composer
+        run: cd modules/OfflinePayments ; composer test ; cd ../.. ; composer test
+
+      - name: Execute tests
+        run: php artisan test --parallel

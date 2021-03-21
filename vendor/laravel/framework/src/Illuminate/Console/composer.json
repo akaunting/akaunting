@@ -1,0 +1,47 @@
+{
+    "name": "illuminate/console",
+    "description": "The Illuminate Console package.",
+    "license": "MIT",
+    "homepage": "https://laravel.com",
+    "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/collections": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "illuminate/macroable": "^8.0",
+        "illuminate/support": "^8.0",
+        "symfony/console": "^5.1.4",
+        "symfony/process": "^5.1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Console\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "8.x-dev"
+        }
+    },
+    "suggest": {
+        "dragonmantank/cron-expression": "Required to use scheduler (^3.0.2).",
+        "guzzlehttp/guzzle": "Required to use the ping methods on schedules (^6.5.5|^7.0.1).",
+        "illuminate/bus": "Required to use the scheduled job dispatcher (^8.0).",
+        "illuminate/container": "Required to use the scheduler (^8.0).",
+        "illuminate/filesystem": "Required to use the generator command (^8.0).",
+        "illuminate/queue": "Required to use closures for scheduled jobs (^8.0)."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

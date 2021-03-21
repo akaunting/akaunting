@@ -1,0 +1,23 @@
+{
+  "output": "security-checker.phar",
+  "chmod": "0755",
+  "compactors": [
+    "KevinGH\\Box\\Compactor\\Php"
+  ],
+  "main": "security-checker",
+  "files": [
+    "LICENSE.md"
+  ],
+  "finder": [
+    {
+      "name": "*.*",
+      "exclude": ["Tests"],
+      "in": "vendor"
+    },
+    {
+      "name": ["*.*"],
+      "in": "src"
+    }
+  ],
+  "stub": true
+}

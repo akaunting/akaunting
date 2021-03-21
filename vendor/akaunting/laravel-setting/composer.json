@@ -1,0 +1,48 @@
+{
+    "name": "akaunting/laravel-setting",
+    "description": "Persistent settings package for Laravel",
+    "keywords": [
+        "laravel",
+        "persistent",
+        "settings",
+        "config"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Duliçi",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": ">=5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=4.8",
+        "mockery/mockery": "0.9.*",
+        "laravel/framework": ">=5.3"
+    },
+    "autoload": {
+    "psr-4": {
+            "Akaunting\\Setting\\": "./src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\Setting\\Provider"
+            ],
+            "aliases": {
+                "Setting": "Akaunting\\Setting\\Facade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

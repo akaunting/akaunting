@@ -1,0 +1,12 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::group([
+    'prefix' => 'portal',
+    'middleware' => 'portal',
+    'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers'
+], function () {
+    // Route::get('invoices/{invoice}/$ALIAS$', 'Main@show')->name('portal.invoices.$ALIAS$.show');
+    // Route::post('invoices/{invoice}/$ALIAS$/confirm', 'Main@confirm')->name('portal.invoices.$ALIAS$.confirm');
+});

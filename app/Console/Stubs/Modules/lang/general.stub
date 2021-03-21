@@ -1,0 +1,8 @@
+<?php
+
+return [
+
+    'name'              => '$STUDLY_NAME$',
+    'description'       => 'This is my awesome module',
+
+];

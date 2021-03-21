@@ -1,0 +1,51 @@
+{
+    "name": "akaunting/laravel-firewall",
+    "description": "Web Application Firewall (WAF) package for Laravel",
+    "keywords": [
+      "laravel",
+      "firewall",
+      "security",
+      "waf",
+      "blacklist",
+      "xss",
+      "sqli",
+      "rfi",
+      "lfi"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Duliçi",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": ">=5.4",
+        "guzzlehttp/guzzle": ">=6.0",
+        "jenssegers/agent": "2.6.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=5.7",
+        "orchestra/testbench": ">=3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Akaunting\\Firewall\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Akaunting\\Firewall\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\Firewall\\Provider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use $EVENTNAME$;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class $CLASS$
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param $SHORTEVENTNAME$ $event
+     * @return void
+     */
+    public function handle($SHORTEVENTNAME$ $event)
+    {
+        //
+    }
+}

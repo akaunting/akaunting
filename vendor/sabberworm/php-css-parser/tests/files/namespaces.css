@@ -1,0 +1,18 @@
+/* From the spec at http://www.w3.org/TR/css3-namespace/ */
+
+@namespace toto "http://toto.example.org";
+@namespace "http://example.com/foo";
+
+
+/* From an introduction at http://www.blooberry.com/indexdot/css/syntax/atrules/namespace.htm */
+@namespace foo url("http://www.example.com/");
+@namespace foo url('http://www.example.com/');
+
+
+foo|test {
+	gaga: 1;
+}
+
+|test {
+	gaga: 2;
+}

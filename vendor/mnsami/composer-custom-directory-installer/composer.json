@@ -1,0 +1,31 @@
+{
+    "name": "mnsami/composer-custom-directory-installer",
+    "type": "composer-plugin",
+    "description": "A composer plugin, to help install packages of different types in custom paths.",
+    "license": "MIT",
+    "keywords": ["composer", "composer-plugin", "composer-installer"],
+    "authors": [
+        {
+            "name": "Mina Nabil Sami",
+            "email": "mina.nsami@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3",
+        "composer-plugin-api": "^1.0 || ^2.0"
+    },
+    "autoload": {
+        "psr-0": {"Composer\\CustomDirectoryInstaller": "src/"}
+    },
+    "extra": {
+        "class": [
+            "Composer\\CustomDirectoryInstaller\\LibraryPlugin",
+            "Composer\\CustomDirectoryInstaller\\PearPlugin",
+            "Composer\\CustomDirectoryInstaller\\PluginPlugin"
+        ],
+        "branch-alias": {
+            "dev-master": "1.1.x-dev"
+        }
+    }
+}

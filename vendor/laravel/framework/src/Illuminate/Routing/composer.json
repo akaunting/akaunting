@@ -1,0 +1,50 @@
+{
+    "name": "illuminate/routing",
+    "description": "The Illuminate Routing package.",
+    "license": "MIT",
+    "homepage": "https://laravel.com",
+    "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "illuminate/collections": "^8.0",
+        "illuminate/container": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "illuminate/http": "^8.0",
+        "illuminate/macroable": "^8.0",
+        "illuminate/pipeline": "^8.0",
+        "illuminate/session": "^8.0",
+        "illuminate/support": "^8.0",
+        "symfony/http-foundation": "^5.1.4",
+        "symfony/http-kernel": "^5.1.4",
+        "symfony/routing": "^5.1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Routing\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "8.x-dev"
+        }
+    },
+    "suggest": {
+        "illuminate/console": "Required to use the make commands (^8.0).",
+        "nyholm/psr7": "Required to use PSR-7 bridging features (^1.2).",
+        "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

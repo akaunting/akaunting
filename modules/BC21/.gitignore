@@ -1,0 +1,7 @@
+/.idea
+/.history
+/.vscode
+/.vagrant
+/node_modules
+/storage/*.key
+/vendor

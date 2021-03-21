@@ -1,0 +1,75 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @extends Relation<TRelatedModel>
+ */
+abstract class HasOneOrMany extends Relation
+{
+    /**
+     * @param array<model-property<TRelatedModel>, mixed> $attributes
+     * @phpstan-return TRelatedModel
+     */
+    public function make(array $attributes = []);
+
+    /**
+     * Find a model by its primary key or return new instance of the related model.
+     *
+     * @param  mixed  $id
+     * @param  array<int, mixed>  $columns
+     * @return \Illuminate\Support\Collection<int, TRelatedModel>|TRelatedModel
+     */
+    public function findOrNew($id, $columns = ['*']);
+
+    /**
+     * Get the first related model record matching the attributes or instantiate it.
+     *
+     * @param  array<model-property<TRelatedModel>, mixed>  $attributes
+     * @param  array<mixed, mixed>  $values
+     * @return TRelatedModel
+     */
+    public function firstOrNew(array $attributes, array $values = []);
+
+    /**
+     * Get the first related record matching the attributes or create it.
+     *
+     * @param  array<model-property<TRelatedModel>, mixed>  $attributes
+     * @param  array<mixed, mixed>  $values
+     * @return TRelatedModel
+     */
+    public function firstOrCreate(array $attributes, array $values = []);
+
+    /**
+     * Create or update a related record matching the attributes, and fill it with values.
+     *
+     * @param  array<model-property<TRelatedModel>, mixed>  $attributes
+     * @param  array<mixed, mixed>  $values
+     * @return TRelatedModel
+     */
+    public function updateOrCreate(array $attributes, array $values = []);
+
+    /**
+     * Attach a model instance to the parent model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return TRelatedModel|false
+     */
+    public function save(\Illuminate\Database\Eloquent\Model $model);
+
+    /**
+     * @param array<model-property<TRelatedModel>, mixed> $attributes
+     *
+     * @phpstan-return TRelatedModel
+     */
+    public function create(array $attributes = []);
+
+    /**
+     * Create a Collection of new instances of the related model.
+     *
+     * @param  iterable<mixed>  $records
+     * @return \Illuminate\Database\Eloquent\Collection<TRelatedModel>
+     */
+    public function createMany(iterable $records);
+}

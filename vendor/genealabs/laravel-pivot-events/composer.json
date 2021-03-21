@@ -1,0 +1,45 @@
+{
+    "name": "genealabs/laravel-pivot-events",
+    "description": "This package introduces new eloquent events for sync(), attach(), detach() or updateExistingPivot() methods on BelongsToMany relation.",
+    "keywords": [
+        "laravel BelongsToMany events",
+        "eloquent extra events",
+        "laravel pivot events",
+        "laravel sync events",
+        "eloquent events"
+    ],
+    "homepage": "https://github.com/fico7489/laravel-pivot",
+    "support": {
+        "issues": "https://github.com/fico7489/laravel-pivot/issues",
+        "source": "https://github.com/fico7489/laravel-pivot"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Bronner",
+            "email": "hello@genealabs.com",
+            "homepage": "https://genealabs.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "symfony/thanks": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeneaLabs\\LaravelPivotEvents\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GeneaLabs\\LaravelPivotEvents\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

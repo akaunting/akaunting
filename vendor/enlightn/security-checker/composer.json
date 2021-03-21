@@ -1,0 +1,60 @@
+{
+    "name": "enlightn/security-checker",
+    "description": "A PHP dependency vulnerabilities scanner based on the Security Advisories Database.",
+    "type": "library",
+    "keywords": [
+        "php",
+        "package",
+        "security",
+        "scanner",
+        "vulnerability scanner",
+        "security advisories"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paras Malhotra",
+            "email": "paras@laravel-enlightn.com"
+        },
+        {
+            "name": "Miguel Piedrafita",
+            "email": "soy@miguelpiedrafita.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/enlightn/security-checker/issues"
+    },
+    "require": {
+        "php": ">=5.6",
+        "ext-json": "*",
+        "ext-zip" : "*",
+        "symfony/console": "^3.4|^4|^5",
+        "symfony/finder": "^3|^4|^5",
+        "symfony/yaml": "^3.4|^4|^5",
+        "guzzlehttp/guzzle": "^6.3|^7.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "phpunit/phpunit": "^5.5|^6|^7|^8|^9"
+    },
+    "bin": ["security-checker"],
+    "autoload": {
+        "psr-4": {
+            "Enlightn\\SecurityChecker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Enlightn\\SecurityChecker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

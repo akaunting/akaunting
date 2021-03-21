@@ -1,0 +1,17 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Relations;
+
+/**
+ * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+ * @extends HasOneOrMany<TRelatedModel>
+ */
+class HasOne extends HasOneOrMany
+{
+    /**
+     * Get the results of the relationship.
+     *
+     * @phpstan-return ?TRelatedModel
+     */
+    public function getResults();
+}
