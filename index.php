@@ -25,3 +25,6 @@ $response->send();
 
 $kernel->terminate($request, $response);
 **/
+
+
+php phpinfo(); 
