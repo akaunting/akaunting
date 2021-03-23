@@ -136,6 +136,46 @@ trait DateTime
         return $quarters;
     }
 
+    public function getDatePickerShortcuts()
+    {
+        $today = new Date();
+        $financial_year = $this->getFinancialYear();
+        $financial_quarters = $this->getFinancialQuarters();
+
+        foreach ($financial_quarters as $quarter) {
+            if ($today->lessThan($quarter->getStartDate()) || $today->greaterThan($quarter->getEndDate())) {
+                continue;
+            }
+
+            $this_quarter = $quarter;
+        }
+
+        $date_picker_shortcuts = [
+            trans('reports.this_year') => [
+                'start' => $financial_year->getStartDate()->format('Y-m-d'),
+                'end' => $financial_year->getEndDate()->format('Y-m-d'),
+            ],
+            trans('reports.previous_year') => [
+                'start' => $financial_year->getStartDate()->copy()->subYear()->format('Y-m-d'),
+                'end' => $financial_year->getEndDate()->copy()->subYear()->format('Y-m-d'),
+            ],
+            trans('reports.this_quarter') => [
+                'start' => $this_quarter->getStartDate()->format('Y-m-d'),
+                'end' => $this_quarter->getEndDate()->format('Y-m-d'),
+            ],
+            trans('reports.previous_quarter') => [
+                'start' => $this_quarter->getStartDate()->copy()->subQuarter()->format('Y-m-d'),
+                'end' => $this_quarter->getEndDate()->copy()->subQuarter()->format('Y-m-d'),
+            ],
+            trans('reports.last_12_months') => [
+                'start' => $today->copy()->subYear()->startOfDay()->format('Y-m-d'),
+                'end' => $today->copy()->subDay()->endOfDay()->format('Y-m-d'),
+            ],
+        ];
+
+        return $date_picker_shortcuts;
+    }
+
     public function getMonthlyDateFormat($year = null)
     {
         $format = 'M';

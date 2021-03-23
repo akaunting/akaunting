@@ -50,6 +50,13 @@ class Dashboards extends Controller
      */
     public function show($dashboard_id = null)
     {
+        $date_picker_shortcuts = $this->getDatePickerShortcuts();
+
+        if (!request()->has('start_date')) {
+            request()->merge(['start_date' => $date_picker_shortcuts[trans('reports.this_year')]['start']]);
+            request()->merge(['end_date' => $date_picker_shortcuts[trans('reports.this_year')]['end']]);
+        }
+
         $dashboard_id = $dashboard_id ?? session('dashboard_id');
 
         try {
@@ -72,9 +79,7 @@ class Dashboards extends Controller
             return Widgets::canShow($widget->class);
         });
 
-        $financial_start = $this->getFinancialStart()->format('Y-m-d');
-
-        return view('common.dashboards.show', compact('dashboard', 'widgets', 'financial_start'));
+        return view('common.dashboards.show', compact('dashboard', 'widgets', 'date_picker_shortcuts'));
     }
 
     /**
