@@ -81,18 +81,15 @@
         value-format="yyyy-MM-dd"
         @change="onChangeFilterDate"
         range-separator=">>"
-        start-placeholder="{{ trans('general.start_date')}}"
-        end-placeholder="{{ trans('general.end_date')}}"
+        start-placeholder="{{ $date_picker_shortcuts[trans("reports.this_year")]["start"] }}"
+        end-placeholder="{{ $date_picker_shortcuts[trans("reports.this_year")]["end"] }}"
         :picker-options="{
             shortcuts: [
                 {
                     text: '{{ trans("reports.this_year") }}',
                     onClick(picker) {
-                        const end = new Date('{{ $financial_start }}');
-                        const start = new Date('{{ $financial_start }}');
-
-                        end.setFullYear(start.getFullYear() + 1);
-                        end.setTime(end.getTime() - 3600 * 1000 * 24 * 1);
+                        const start = new Date('{{ $date_picker_shortcuts[trans("reports.this_year")]["start"] }}');
+                        const end = new Date('{{ $date_picker_shortcuts[trans("reports.this_year")]["end"] }}');
 
                         picker.$emit('pick', [start, end]);
                     }
@@ -100,13 +97,8 @@
                 {
                     text: '{{ trans("reports.previous_year") }}',
                     onClick(picker) {
-                        const end = new Date('{{ $financial_start }}');
-                        const start = new Date('{{ $financial_start }}');
-
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-
-                        end.setFullYear(start.getFullYear() + 1);
-                        end.setTime(end.getTime() - 3600 * 1000 * 24 * 1);
+                        const start = new Date('{{ $date_picker_shortcuts[trans("reports.previous_year")]["start"] }}');
+                        const end = new Date('{{ $date_picker_shortcuts[trans("reports.previous_year")]["end"] }}');
 
                         picker.$emit('pick', [start, end]);
                     }
@@ -114,10 +106,8 @@
                 {
                     text: '{{ trans("reports.this_quarter") }}',
                     onClick(picker) {
-                        const now = new Date();
-                        const quarter = Math.floor((now.getMonth() / 3));
-                        const start = new Date(now.getFullYear(), quarter * 3, 1);
-                        const end = new Date(start.getFullYear(), start.getMonth() + 3, 0);
+                        const start = new Date('{{ $date_picker_shortcuts[trans("reports.this_quarter")]["start"] }}');
+                        const end = new Date('{{ $date_picker_shortcuts[trans("reports.this_quarter")]["end"] }}');
 
                         picker.$emit('pick', [start, end]);
                     }
@@ -125,13 +115,8 @@
                 {
                     text: '{{ trans("reports.previous_quarter") }}',
                     onClick(picker) {
-                        const now = new Date();
-                        const quarter = Math.floor((now.getMonth() / 3));
-                        const start = new Date(now.getFullYear(), quarter * 3, 1);
-                        const end = new Date(start.getFullYear(), start.getMonth() + 3, 0);
-
-                        start.setMonth(start.getMonth() - 3);
-                        end.setMonth(end.getMonth() - 3);
+                        const start = new Date('{{ $date_picker_shortcuts[trans("reports.previous_quarter")]["start"] }}');
+                        const end = new Date('{{ $date_picker_shortcuts[trans("reports.previous_quarter")]["end"] }}');
 
                         picker.$emit('pick', [start, end]);
                     }
@@ -139,10 +124,8 @@
                 {
                     text: '{{ trans("reports.last_12_months") }}',
                     onClick(picker) {
-                        const end = new Date();
-                        const start = new Date();
-
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+                        const start = new Date('{{ $date_picker_shortcuts[trans("reports.last_12_months")]["start"] }}');
+                        const end = new Date('{{ $date_picker_shortcuts[trans("reports.last_12_months")]["end"] }}');
 
                         picker.$emit('pick', [start, end]);
                     }
