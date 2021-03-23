@@ -150,6 +150,10 @@ trait DateTime
             $this_quarter = $quarter;
         }
 
+        if (!isset($this_quarter)) {
+            $this_quarter = $financial_quarters[0];
+        }
+
         $date_picker_shortcuts = [
             trans('reports.this_year') => [
                 'start' => $financial_year->getStartDate()->format('Y-m-d'),
