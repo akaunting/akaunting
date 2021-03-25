@@ -185,7 +185,7 @@ abstract class Report
     {
         $formatted_date = null;
 
-        switch ($event->class->model->settings->period) {
+        switch ($event->class->getSetting('period')) {
             case 'yearly':
                 $financial_year = $this->getFinancialYear($event->class->model->year);
 
