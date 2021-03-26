@@ -15,7 +15,7 @@
                     </tr>
                     <tr v-if="company.tax_number">
                         <th class="text-right p-0">
-                            {{ 'general.tax_number' }}: {{ company.tax_number }}
+                            {{ taxNumberText }}: {{ company.tax_number }}
                         </th>
                     </tr>
                     <tr v-if="company.phone">
@@ -74,11 +74,11 @@ export default {
       default: 'Edit your business address ',
       description: 'Input placeholder'
     },
-    taxNumberTax: {
+    taxNumberText: {
       type: String,
       default: 'Tax Number',
       description: 'Input placeholder'
-    }, 
+    },
     companyId: {
       type: String,
       default: '',
