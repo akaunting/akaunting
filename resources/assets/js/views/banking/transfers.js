@@ -28,7 +28,64 @@ const app = new Vue({
     data: function () {
         return {
             form: new Form('transfer'),
-            bulk_action: new BulkAction('transfers')
+            bulk_action: new BulkAction('transfers'),
+            show_rate: false,
         }
+    },
+
+    methods: {
+        async onChangeFromAccount(from_account_id) {
+            if (!from_account_id) {
+                return;
+            }
+
+            let from_promise = Promise.resolve(window.axios.get(url + '/banking/accounts/currency', {
+                params: {
+                    account_id: from_account_id
+                }
+            }));
+
+            from_promise.then(response => {
+                this.currency = response.data;
+
+                this.form.currency_code = response.data.currency_code;
+                this.form.currency_rate = response.data.currency_rate;
+                this.form.from_currency_code = response.data.currency_code;
+                this.form.from_account_rate = response.data.currency_rate;
+            })
+            .catch(error => {
+            })
+            .finally(() => { 
+                this.show_rate = false;
+                if (this.form.to_currency_code && this.form.from_currency_code != this.form.to_currency_code) {
+                    this.show_rate = true;
+                }
+            });
+        },
+
+        async onChangeToAccount(to_account_id) {
+            if (!to_account_id) {
+                return;
+            }
+
+            let to_promise = Promise.resolve(window.axios.get(url + '/banking/accounts/currency', {
+                params: {
+                    account_id: to_account_id
+                }
+            }));
+
+            to_promise.then(response => {
+                this.form.to_currency_code = response.data.currency_code;
+                this.form.to_account_rate = response.data.currency_rate;
+            })
+            .catch(error => {
+            })
+            .finally(() => { 
+                this.show_rate = false;
+                if (this.form.from_currency_code && this.form.from_currency_code != this.form.to_currency_code) {
+                    this.show_rate = true;
+                }
+            });
+        },
     }
 });

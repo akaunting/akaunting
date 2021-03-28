@@ -70,6 +70,7 @@ export default {
                 "decimal_mark":".",
                 "thousands_separator":",",
             },
+            all_currencies: [],
         }
     },
 
@@ -82,6 +83,10 @@ export default {
 
         if (aka_currency) {
             this.currency = aka_currency;
+        }
+
+        if (typeof all_currencies !== 'undefined' && all_currencies) {
+            this.all_currencies = all_currencies;
         }
     },
 
@@ -210,6 +215,10 @@ export default {
 
         // Change bank account get money and currency rate
         onChangeAccount(account_id) {
+            if (!account_id) {
+                return;
+            }
+
             axios.get(url + '/banking/accounts/currency', {
                 params: {
                     account_id: account_id
@@ -227,19 +236,31 @@ export default {
 
         // Change currency get money
         onChangeCurrency(currency_code) {
-            axios.get(url + '/settings/currencies/currency', {
-                params: {
-                  code: currency_code
-                }
-            })
-            .then(response => {
-                this.currency = response.data;
+            if (!currency_code) {
+                return;
+            }
 
-                this.form.currency_code = response.data.code;
-                this.form.currency_rate = response.data.rate;
-            })
-            .catch(error => {
-            });
+            if (!this.all_currencies.length) {
+                let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
+
+                currency_promise.then(response => {
+                    if ( response.data.success) {
+                        this.all_currencies = response.data.data;
+                    }
+                })
+                .catch(error => {
+                    this.onChangeCurrency(currency_code);
+                });
+            }
+
+            this.all_currencies.forEach(function (currency, index) {
+                if (currency_code == currency.code) {
+                    this.currency = currency;
+
+                    this.form.currency_code = currency.code;
+                    this.form.currency_rate = currency.rate;
+                }
+            }, this);
         },
 
         // Pages limit change
@@ -348,7 +369,7 @@ export default {
                 key: null,
                 value: null,
                 ajax: true,
-                redirect: window.location.href 
+                redirect: window.location.href
             };
 
             if (this.form['page' +  file_id]) {

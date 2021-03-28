@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Valutor',
     'total_income'              => 'Summa inkomster',
     'receivables'               => 'Fordringar',
     'open_invoices'             => 'Öppna fakturor',

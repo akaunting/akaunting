@@ -100,7 +100,7 @@ export default {
         if (this.locale !== 'en') {
             const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
 
-            this.config.locale = lang;
+            this.dateConfig.locale = lang;
         }
     },
 

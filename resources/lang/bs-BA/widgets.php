@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Valute',
     'total_income'              => 'Ukupni prihodi',
     'receivables'               => 'Potraživanja',
     'open_invoices'             => 'Otvorene fakture',

@@ -8,6 +8,8 @@ return [
 
     'models' => [
         'user' => '\App\Models\Auth\User',
+        // 'log' => '\App\Models\YourLogModel',
+        // 'ip'  => '\App\Models\YourIpModel',
     ],
 
     'responses' => [
@@ -27,14 +29,15 @@ return [
             'enabled' => env('FIREWALL_EMAIL_ENABLED', false),
             'name' => env('FIREWALL_EMAIL_NAME', 'Akaunting Firewall'),
             'from' => env('FIREWALL_EMAIL_FROM', 'firewall@mydomain.com'),
-            'to' => [env('FIREWALL_EMAIL_TO', 'admin@mydomain.com')],
+            'to' => env('FIREWALL_EMAIL_TO', 'admin@mydomain.com'),
         ],
 
         'slack' => [
             'enabled' => env('FIREWALL_SLACK_ENABLED', false),
-            'from' => env('FIREWALL_SLACK_FROM', 'Akaunting Firewall'),
-            'to' => env('FIREWALL_SLACK_TO', '#my-channel'),
             'emoji' => env('FIREWALL_SLACK_EMOJI', ':fire:'),
+            'from' => env('FIREWALL_SLACK_FROM', 'Akaunting Firewall'),
+            'to' => env('FIREWALL_SLACK_TO'), // webhook url
+            'channel' => env('FIREWALL_SLACK_CHANNEL', null), // set null to use the default channel of webhook
         ],
 
     ],

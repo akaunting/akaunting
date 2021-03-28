@@ -35,9 +35,8 @@ class DeleteCompany extends Job
 
         \DB::transaction(function () {
             $this->deleteRelationships($this->company, [
-                'accounts', 'bills', 'bill_histories', 'bill_items', 'bill_item_taxes', 'bill_totals', 'categories',
-                'contacts', 'currencies', 'dashboards', 'email_templates', 'invoices', 'invoice_histories', 'invoice_items',
-                'invoice_item_taxes', 'invoice_totals', 'items', 'modules', 'module_histories', 'reconciliations',
+                'accounts', 'documents', 'document_histories', 'document_items', 'document_item_taxes', 'document_totals', 'categories',
+                'contacts', 'currencies', 'dashboards', 'email_templates', 'items', 'modules', 'module_histories', 'reconciliations',
                 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
             ]);
 

@@ -95,7 +95,7 @@ class UpdateFailed extends Notification
         return (new SlackMessage)
             ->error()
             ->from($this->notifications['slack']['from'], $this->notifications['slack']['emoji'])
-            ->to($this->notifications['slack']['to'])
+            ->to($this->notifications['slack']['channel'])
             ->content($message)
             ->attachment(function ($attachment) {
                 $attachment->fields([

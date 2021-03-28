@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'मुद्रा',
     'total_income'              => 'जम्मा आय',
     'receivables'               => 'प्राप्त योग्य',
     'open_invoices'             => 'चलानीहरु खोल्नुहोस',

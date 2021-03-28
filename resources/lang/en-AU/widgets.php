@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Currencies',
     'total_income'              => 'Total Income',
     'receivables'               => 'Receivables',
     'open_invoices'             => 'Open Invoices',
