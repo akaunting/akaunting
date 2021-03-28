@@ -84,6 +84,7 @@ fabric.properties
 Homestead.json
 Homestead.yaml
 npm-debug.log
+.env
 .env.example
 robots.txt
 _ide_helper.php
