@@ -512,7 +512,7 @@ a.text-yellow:focus
 /*--Default Color--*/
 .bg-default
 {
-    background-color: #3c3f72 !important;
+    background-color: #6da252 !important;
 }
 
 a.bg-default:hover,
@@ -894,15 +894,15 @@ button.bg-yellow:focus
 .btn-success
 {
     color: #ffffff;
-    border-color: #6da252;
-    background-color: #6da252;
+    border-color: #55588b;
+    background-color: #55588b;
     box-shadow: 0 4px 6px rgba(30, 31, 57, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .btn-success:hover
 {
     color: #ffffff;
-    border-color: #6da252;
-    background-color: #6da252;
+    border-color: #55588b;
+    background-color: #55588b;
 }
 .btn-success:focus,
 .btn-success.focus
@@ -913,16 +913,16 @@ button.bg-yellow:focus
 .btn-success:disabled
 {
     color: #ffffff;
-    border-color: #6da252;
-    background-color: #6da252;
+    border-color: #55588b;
+    background-color: #55588b;
 }
 .btn-success:not(:disabled):not(.disabled):active,
 .btn-success:not(:disabled):not(.disabled).active,
 .show > .btn-success.dropdown-toggle
 {
     color: #ffffff;
-    border-color: #6da252;
-    background-color: #6da252;
+    border-color: #55588b;
+    background-color: #55588b;
 }
 .btn-success:not(:disabled):not(.disabled):active:focus,
 .btn-success:not(:disabled):not(.disabled).active:focus,
@@ -2360,7 +2360,7 @@ option:focus
 /*--------Login Card Background Color--------*/
 .login-card-bg
 {
-   background-color:rgba(255, 255, 255, 0.18) !important;
+   background-color: rgba(255, 255, 255, 0.18) !important;
    box-shadow: none;
 }
 /*--------Login Card Background Color Finish--------*/

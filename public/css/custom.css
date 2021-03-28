@@ -72,7 +72,7 @@
 /*--------Akaunting Backgrounds--------*/
 /*--Login Page Background--*/
 .login-page {
-    background: url("../img/login.png") no-repeat center center fixed;
+    background: url("../img/login_bg.jpg") no-repeat center center fixed;
     height: 100%;
     width: 100%;
     padding: 5% 0;
@@ -85,7 +85,7 @@
 
 /*--Wizard Page Background--*/
 .wizard-page {
-    background: url("../img/login.png") no-repeat center center fixed;
+    background: url("../img/login_bg.jpg") no-repeat center center fixed;
     height: 100%;
     width: 100%;
     padding: 5% 0;
@@ -1566,7 +1566,6 @@ table .align-items-center td span.badge {
         padding-left: 15%;
     }
 }
-
 
 /* Color Picker Submit Button Start */
 
