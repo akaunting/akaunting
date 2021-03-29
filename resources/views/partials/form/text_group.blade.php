@@ -2,7 +2,11 @@
 
     <div
         class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
-        :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]">
+        :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]"
+        @if (isset($attributes['show']))
+        v-if="{{ $attributes['show'] }}"
+        @endif
+        >
         @if (!empty($text))
             {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
         @endif
