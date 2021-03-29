@@ -40,6 +40,8 @@ class DeleteCompany extends Job
                 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
             ]);
 
+            $this->company->users()->detach();
+
             $this->company->delete();
         });
 

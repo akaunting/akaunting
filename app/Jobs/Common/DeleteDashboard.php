@@ -33,6 +33,8 @@ class DeleteDashboard extends Job
         \DB::transaction(function () {
             $this->deleteRelationships($this->dashboard, ['widgets']);
 
+            $this->dashboard->users()->detach();
+
             $this->dashboard->delete();
         });
 
