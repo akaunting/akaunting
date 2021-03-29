@@ -8,11 +8,10 @@ use App\Jobs\Common\DeleteReport;
 use App\Models\Common\Dashboard;
 use App\Models\Common\Report;
 use App\Traits\Jobs;
-use App\Traits\Relationships;
 
 class FinishUninstallation
 {
-    use Jobs, Relationships;
+    use Jobs;
 
     /**
      * Handle the event.
