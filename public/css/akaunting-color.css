@@ -2360,7 +2360,7 @@ option:focus
 /*--------Login Card Background Color--------*/
 .login-card-bg
 {
-   background-color: rgba(255, 255, 255, 0.18) !important;
+   background-color: rgba(255, 255, 255, 0.28) !important;
    box-shadow: none;
 }
 /*--------Login Card Background Color Finish--------*/

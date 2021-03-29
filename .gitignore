@@ -95,3 +95,7 @@ _ide_helper_models.php
 modules/*
 !modules/.gitkeep
 .laravelstatsrc
+public/vendor/livewire/
+**/.DS_Store
+**/**/.DS_Store
+**/**/**/.DS_Store
