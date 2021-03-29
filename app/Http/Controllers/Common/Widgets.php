@@ -16,7 +16,7 @@ class Widgets extends Controller
      */
     public function index()
     {
-        $widgets = Utility::getClasses();
+        $widgets = Utility::getClasses('all');
 
         return response()->json($widgets);
     }

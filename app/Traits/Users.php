@@ -46,7 +46,7 @@ trait Users
         $user = user();
 
         if (empty($user)) {
-            return false;
+            return app()->runningInConsole() ? true : false;
         }
 
         $dashboard = $user->dashboards()->where('id', $id)->first();
