@@ -101,6 +101,7 @@
                                                     @endcan
                                                 @endif
                                             @stack('timeline_receive_body_button_received_end')
+                                        </div>
                                     @elseif($document->status == 'viewed')
                                         @stack('timeline_viewed_invoice_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
