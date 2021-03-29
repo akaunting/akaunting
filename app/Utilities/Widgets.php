@@ -8,24 +8,30 @@ use Illuminate\Support\Str;
 
 class Widgets
 {
-    public static function getClasses($check_permission = true)
+    public static function getClasses($alias = 'core', $check_permission = true)
     {
-        $classes = [];
+        $classes = $list = [];
 
-        $list = [
-            'App\Widgets\TotalIncome',
-            'App\Widgets\TotalExpenses',
-            'App\Widgets\TotalProfit',
-            'App\Widgets\CashFlow',
-            'App\Widgets\IncomeByCategory',
-            'App\Widgets\ExpensesByCategory',
-            'App\Widgets\AccountBalance',
-            'App\Widgets\LatestIncome',
-            'App\Widgets\LatestExpenses',
-            'App\Widgets\Currencies',
-        ];
+        if (in_array($alias, ['core', 'all'])) {
+            $list = [
+                'App\Widgets\TotalIncome',
+                'App\Widgets\TotalExpenses',
+                'App\Widgets\TotalProfit',
+                'App\Widgets\CashFlow',
+                'App\Widgets\IncomeByCategory',
+                'App\Widgets\ExpensesByCategory',
+                'App\Widgets\AccountBalance',
+                'App\Widgets\LatestIncome',
+                'App\Widgets\LatestExpenses',
+                'App\Widgets\Currencies',
+            ];
+        }
 
-        Module::enabled()->each(function ($module) use (&$list) {
+        Module::enabled()->each(function ($module) use (&$list, $alias) {
+            if (!in_array($alias, [$module->alias, 'all'])) {
+                return;
+            }
+
             $m = module($module->alias);
 
             if (!$m || empty($m->get('widgets'))) {

@@ -82,6 +82,9 @@ class Event extends Provider
             'App\Listeners\Module\InstallExtraModules',
             'App\Listeners\Module\FinishInstallation',
         ],
+        'App\Events\Module\Uninstalled' => [
+            'App\Listeners\Module\FinishUninstallation',
+        ],
     ];
 
     /**

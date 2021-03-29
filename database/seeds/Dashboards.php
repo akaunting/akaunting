@@ -33,7 +33,7 @@ class Dashboards extends Seeder
         $this->dispatch(new CreateDashboard([
             'company_id' => $company_id,
             'name' => trans_choice('general.dashboards', 1),
-            'default_widgets' => true,
+            'default_widgets' => 'core',
             'users' => $user_id,
         ]));
     }
