@@ -3,6 +3,7 @@
 @section('title', trans('general.title.new', ['type' => trans_choice('general.users', 1)]))
 
 @section('content')
+    <div role="alert" class="alert alert-danger d-none" :class="(form.errors.errors.message) ? 'show' : ''" v-if="form.errors.errors.message" v-html="form.errors.errors.message"></div>
     <div class="card">
         {!! Form::open([
             'route' => 'users.store',

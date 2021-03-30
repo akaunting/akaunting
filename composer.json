@@ -48,7 +48,7 @@
         "laravelcollective/html": "6.2.*",
         "league/oauth2-client": "2.6.*",
         "league/omnipay": "3.1.*",
-        "livewire/livewire": "2.3.*",
+        "livewire/livewire": "^2.4",
         "lorisleiva/laravel-search-string": "1.1.*",
         "maatwebsite/excel": "3.1.*",
         "mnsami/composer-custom-directory-installer": "2.0.*",

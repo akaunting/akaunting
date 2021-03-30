@@ -1,4 +1,5 @@
 import Errors from './error';
+import {get} from 'lodash';
 
 export default class Form {
     constructor(form_id) {
@@ -104,7 +105,7 @@ export default class Form {
                         if (!this[form_element.getAttribute('data-field')][name].push) {
                             this[form_element.getAttribute('data-field')][name] = [this[form_element.getAttribute('data-field')][name]];
                         }
-    
+
                         if (form_element.checked) {
                             this[form_element.getAttribute('data-field')][name].push(form_element.value);
                         }
@@ -346,7 +347,7 @@ export default class Form {
     }
 
     submit() {
-        FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+        FormData.prototype.appendRecursive = function(data, wrapper = null) {
             for (var name in data) {
                 if (name == "previewElement" || name == "previewTemplate") {
                     continue;
@@ -405,7 +406,11 @@ export default class Form {
 
     // Form fields check validation issue
     onFail(error) {
-        this.errors.record(error.response.data.errors);
+        var errors = get(error, 'response.data.errors')
+        if(!errors){
+            errors = get(error, 'response.data', {message: 'Server Error'})
+        }
+        this.errors.record(errors);
 
         this.loading = false;
     }
