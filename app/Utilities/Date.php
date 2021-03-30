@@ -27,6 +27,22 @@ class Date extends Carbon
      */
     protected static $parseFunction = 'parseWithCurrentLocale';
 
+    /**
+     * Indicates if months should be calculated with overflow.
+     * Global setting.
+     *
+     * @var bool
+     */
+    protected static $monthsOverflow = false;
+
+    /**
+     * Indicates if years should be calculated with overflow.
+     * Global setting.
+     *
+     * @var bool
+     */
+    protected static $yearsOverflow = false;
+
     public static function parseWithCurrentLocale($time = null, $timezone = null)
     {
         if (is_string($time)) {
