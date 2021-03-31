@@ -59,6 +59,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN rm -rf composer-setup.php
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+
 # RUN mkdir -p /var/www/akaunting
 #  && curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
 # COPY Akaunting_2.1.8-Stable.zip /tmp/
@@ -90,9 +93,8 @@ RUN rm -rf composer-setup.php
 COPY files/akaunting.sh /usr/local/bin/akaunting.sh
 COPY files/html /var/www/html
 RUN cd /tmp && git clone https://github.com/hunzai/akaunting.git
-RUN pwd
 RUN cp -r /tmp/akaunting/* /var/www/html/
-RUN cd /var/www/html && composer install && npm install
+RUN cd /var/www/html && composer install && npm install && npm run dev
 
 RUN ls -la
 ENTRYPOINT ["/usr/local/bin/akaunting.sh"]

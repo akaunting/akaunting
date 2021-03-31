@@ -40,7 +40,7 @@ if [ "$do_setup" -o "$AKAUNTING_SETUP" == "true" ]; then
             "--company-email=$COMPANY_EMAIL" \
             "--admin-email=$ADMIN_EMAIL" \
             "--admin-password=$ADMIN_PASSWORD" \
-            "--locale=$LOCALE" --no-interaction; then break
+            "--locale=$LOCALE" --no-interaction; then php artisan sample-data:seed; break
         else
             if [ $retry_for -le 0 ]; then
                 echo "Unable to find database!" >&2
