@@ -269,7 +269,7 @@ class Document extends Model
         $reconciled = $reconciled_amount = 0;
 
         $code = $this->currency_code;
-        $rate = config('money.' . $code . '.rate');
+        $rate = $this->currency_rate;
         $precision = config('money.' . $code . '.precision');
 
         if ($this->transactions->count()) {
