@@ -49,7 +49,7 @@ class UpdateTransaction extends Job
             }
 
             // Recurring
-            $this->transaction->updateRecurring();
+            $this->transaction->updateRecurring($this->request->all());
         });
 
         return $this->transaction;

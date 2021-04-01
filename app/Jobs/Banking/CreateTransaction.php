@@ -45,7 +45,7 @@ class CreateTransaction extends Job
             }
 
             // Recurring
-            $this->transaction->createRecurring();
+            $this->transaction->createRecurring($this->request->all());
         });
 
         event(new TransactionCreated($this->transaction));

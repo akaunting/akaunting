@@ -9,20 +9,18 @@ use Recurr\Transformer\ArrayTransformerConfig;
 
 trait Recurring
 {
-    public function createRecurring()
+    public function createRecurring($request)
     {
-        $request = request();
-
-        if ($request->get('recurring_frequency', 'no') == 'no') {
+        if (empty($request['recurring_frequency']) || ($request['recurring_frequency'] == 'no')) {
             return;
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
         $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
-        $started_at = $request->get('paid_at') ?: $request->get('issued_at');
+        $started_at = $request['paid_at'] ?: $request['issued_at'];
 
         $this->recurring()->create([
-            'company_id' => session('company_id'),
+            'company_id' => $this->company_id,
             'frequency' => $frequency,
             'interval' => $interval,
             'started_at' => $started_at,
@@ -30,29 +28,23 @@ trait Recurring
         ]);
     }
 
-    public function updateRecurring()
+    public function updateRecurring($request)
     {
-        $request = request();
-
-        if ($request->get('recurring_frequency', 'no') == 'no') {
+        if (empty($request['recurring_frequency']) || ($request['recurring_frequency'] == 'no')) {
             $this->recurring()->delete();
             return;
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
         $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
-        $started_at = $request->get('paid_at') ?: $request->get('issued_at');
+        $started_at = $request['paid_at'] ?: $request['issued_at'];
 
         $recurring = $this->recurring();
 
-        if ($recurring->count()) {
-            $function = 'update';
-        } else {
-            $function = 'create';
-        }
+        $function = $recurring->count() ? 'create' : 'update';
 
         $recurring->$function([
-            'company_id' => session('company_id'),
+            'company_id' => $this->company_id,
             'frequency' => $frequency,
             'interval' => $interval,
             'started_at' => $started_at,

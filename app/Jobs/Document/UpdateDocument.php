@@ -80,7 +80,7 @@ class UpdateDocument extends Job
 
             $this->document->update($this->request->all());
 
-            $this->document->updateRecurring();
+            $this->document->updateRecurring($this->request->all());
         });
 
         event(new DocumentUpdated($this->document, $this->request));
