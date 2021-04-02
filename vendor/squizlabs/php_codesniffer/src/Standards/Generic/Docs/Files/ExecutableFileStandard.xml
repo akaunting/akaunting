@@ -1,0 +1,7 @@
+<documentation title="Executable Files">
+    <standard>
+    <![CDATA[
+    Files should not be executable.
+    ]]>
+    </standard>
+</documentation>

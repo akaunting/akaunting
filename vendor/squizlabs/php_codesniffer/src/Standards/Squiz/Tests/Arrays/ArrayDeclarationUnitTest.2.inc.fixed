@@ -1,0 +1,504 @@
+<?php
+[
+ $a,
+ [$b],
+] = $array;
+
+function test()
+{
+    $a = [];
+
+    $b = [];
+
+    $c = ['a' => 1];
+}
+
+class TestClass
+{
+    public $good = [
+                    'width'  => '',
+                    'height' => '',
+                   ];
+
+    private $_bad = [
+                     'width'  => '',
+                     'height' => '',
+                    ];
+
+
+    public function test()
+    {
+        $truck = [
+                  'width'  => '',
+                  'height' => '',
+                 ];
+
+        $plane = [
+                  'width'  => '',
+                  'height' => '',
+                 ];
+
+        $car = [
+                'width'  => '',
+                'height' => '',
+               ];
+
+        $bus = [
+                'width'  => '',
+                'height' => '',
+               ];
+
+        $train = [
+                  TRUE,
+                  FALSE,
+                  'aaa',
+                 ];
+
+        $inline = [
+                   'aaa',
+                   'bbb',
+                   'ccc',
+                  ];
+        $inline = ['aaa'];
+        $inline = ['aaa'];
+
+        $bigone = [
+                   'name'       => 'bigone',
+                   'children'   => [
+                                    '1a'       => 'child',
+                                    '11b'      => 'child',
+                                    '111c'     => 'child',
+                                    'children' => ['child' => 'aaa'],
+                                   ],
+                   'short_name' => 'big',
+                  ];
+    }
+
+}//end class
+
+$value = [];
+$value = [];
+$value = [
+          '1' => $one,
+          '2' => $two,
+          '3' => $three,
+          '4' => $four,
+         ];
+$value = ['1' => $one];
+
+if (in_array('1', ['1', '2', '3']) === TRUE) {
+    $value = in_array('1', ['1', '2', '3', '4']);
+}
+
+$value = [
+          '1'=> TRUE,
+          FALSE,
+          '3' => 'aaa',
+         ];
+
+$value = [
+          '1'=> TRUE,
+          FALSE,
+         ];
+
+$value = [
+          TRUE,
+          '1' => FALSE,
+         ];
+
+$value = [
+          1,
+          2,
+          3,
+         ];
+
+$value = [
+          1 => $one,
+          2 => $two,
+          3 => $three,
+         ];
+
+$value = [
+          'tag'   => $tag,
+          'space' => $this->_getIndentation($tag, $tagElement),
+         ];
+
+$expected = [
+             [
+              '1' => 1,
+              '1' => 2,
+             ],
+            ];
+
+$expected = [
+             [
+              '1' => 1,
+              '1' => 2,
+             ],
+            ];
+
+// Space in second arg.
+$args = [
+         '"'.$this->id.'"',
+         (int) $hasSessions,
+        ];
+
+// No errors.
+$paths = [
+          Init::ROOT_DIR.'/Systems'   => 'Systems',
+          Init::ROOT_DIR.'/Installer' => 'Systems',
+         ];
+
+$x = [];
+
+$x = ['test'];
+$x = ['test'];
+$x = ['name' => 'test'];
+
+$x = [$x];
+
+$func = [
+         $x,
+         'get'.$x.'Replacement',
+        ];
+
+$array = [
+          'input_one' => 'one',
+          'inputTwo'  => 'two',
+          'input_3'   => 3,
+         ];
+
+$array = [
+          'input_one',
+          'inputTwo',
+          'input_3',
+         ];
+
+// Malformed
+$foo = [
+        1,
+        2,
+       ];
+
+$listItems[$aliasPath] = ['itemContent' => implode('<br/>', $aliases)];
+
+$listItems[$aliasPath] = [
+                          'itemContent' => implode('<br/>', $aliases),
+                         ];
+
+$x =
+     [
+      $x,
+      $y,
+     ];
+
+$x =
+[
+ $x,
+ $y,
+];
+
+$x = [
+
+      $x,
+      $y,
+     ];
+
+$test = [
+         'test' => TestFunction::blah(
+             $value1,
+             $value2
+         ),
+        ];
+
+$c = ['a' => 1];
+$c->{$var}[ ] = 2;
+
+$foo = [
+        '[',
+        ']',
+        ':',
+        "\n",
+        "\r",
+       ];
+$bar = [
+        '&#91;',
+        '&#93;',
+        '&#58;',
+        '&#10;',
+        '&#13;',
+       ];
+
+function foo()
+{
+    return [
+            $a,
+            $b->screen,
+           ];
+}
+
+$array = [
+          'name'       => 'contactSubject',
+          'required'   => TRUE,
+          'validators' => [
+                           new \Zend\Validator\InArray(['haystack' => array_keys($aSubjects)]),
+                          ],
+         ];
+
+$var = [
+        'ViewHelper',
+        ['Foo'],
+        'Errors',
+       ];
+
+$data = [
+         'first',
+         'second',
+         'third',
+         // Add more here
+        ];
+
+$data = [
+         'first',
+         'second',
+         //'third',
+        ];
+
+$data = [
+         'first',
+         'second',
+         //'third',
+        ];
+
+$foo = [
+        $this->getViewName() . '.id'    => 'value',
+        $this->getViewName() . '.title' => 'value',
+       ];
+
+$foo = [
+        $this->getViewName() . '.id',
+        $this->getViewName() . '.title',
+       ];
+
+$weightings = [
+               T_CLOSURE             => 100,
+
+               /*
+                   Conditions.
+               */
+
+               T_WHILE               => 50,
+
+               /*
+                   Operators and arithmetic.
+               */
+
+               T_BITWISE_AND         => 8,
+
+               T_BOOLEAN_AND         => 5,
+
+               /*
+                   Equality.
+               */
+
+               T_IS_GREATER_OR_EQUAL => 5,
+              ];
+
+foreach ([
+          'foo'    => 'bar',
+          'foobaz' => 'bazzy',
+         ] as $key => $value) {
+}
+
+$ids = [
+        '1', // Foo.
+        '13', // Bar.
+       ];
+
+[
+ 'key1' => function($bar) {
+    return $bar;
+ },
+ 'key2' => function($foo) {
+    return $foo;
+ },
+ 'key3' => function($bar) {
+    return $bar;
+ },
+];
+
+[
+ 'key1' => [
+            '1',
+            '2',
+           ],
+];
+
+$var = [
+        'tab_template'   => '
+        <li>%s</li>',
+        'panel_template' => '
+        <div id="%s">
+            %s
+        </div>',
+       ];
+
+function test() : array
+{
+    return [];
+}
+
+$fields = [
+           'id'    => ['type' => 'INT'],
+           'value' => ['type' => 'VARCHAR'],
+          ];
+
+get_current_screen()->add_help_tab( [
+                                     'id' => <<<EOD
+Here comes some text.
+EOD
+,
+                                    ] );
+
+echo [1][0];
+echo 'PHP'[0];
+echo [1][0, 1, 2]; // not valid code, but should not be picked up here
+
+$x = ['a' => false];
+
+$x = [
+      'xxxx' => [
+                 'aaaaaaaaaa' => 'ccccccccccc',
+                 'bbbbbbbb'   => false,
+                ],
+     ];
+
+$foo = [
+        'foo' => [
+                  'bar1' => 1,
+                  'bar2' => 1,
+                  'bar3' => 1,
+                  'bar4' => 1,
+                  'bar5' => 1,
+                 ],
+       ];
+
+$foo = [
+        '1' => $row['status'] === 'rejected'
+            ? self::REJECTED_CODE
+            : self::VERIFIED_CODE,
+        '2' => in_array($row['status'], ['notverified', 'unverified'], true)
+            ? self::STATUS_PENDING
+            : self::STATUS_VERIFIED,
+        '3' => strtotime($row['date']),
+       ];
+
+
+$foo = foo(
+    [
+    // comment
+    ]
+);
+
+$foo = [
+        <<<HERE
+HERE
+,
+        <<<HERE
+HERE
+,
+       ];
+
+[
+ lorem(
+     1
+ ),
+ 2,
+];
+
+[
+ 1 => lorem(
+     1
+ ),
+ 2 => 2,
+];
+
+$foo = [
+        'тип'  => 'авто',
+        'цвет' => 'синий',
+       ];
+
+$paths = [
+          Init::ROOT_DIR.'/тип'  => 'авто',
+          Init::ROOT_DIR.'/цвет' => 'синий',
+         ];
+
+$foo = [<<<JSON
+{
+}
+JSON
+       ];
+
+$array = [
+          'a'   => fn() => return 1,
+          'bb'  => fn() => return 2,
+          'ccc' => ( true ) ?
+              fn() => return 1 :
+              fn() => return 2,
+         ];
+
+$array = [
+          1 => '1',
+          2 => fn ($x) => yield 'a' => $x,
+          3 => '3',
+         ];
+
+$foo = [
+        $this->fn => 'value',
+        $foo->fn  => 'value',
+       ];
+
+[
+ $a,
+ $b,
+ $c,
+];
+
+[
+ 'a' => $a,
+ 'b' => $b,
+ 'c' => $c,
+];
+
+[
+ static function() {
+     return null;
+ },
+ (array) [],
+ (bool) [],
+ (double) [],
+ (int) [],
+ (object) [],
+ (string) [],
+ (unset) [],
+];
+
+[
+ 'foo',
+ 'bar'
+ // This is a non-fixable error.
+ ,
+];
+
+yield [
+       static fn () : string => '',
+      ];
+
+yield [
+       static fn () : string => '',
+      ];
+
+// Intentional syntax error.
+$a = [
+      'a' =>
+     ];

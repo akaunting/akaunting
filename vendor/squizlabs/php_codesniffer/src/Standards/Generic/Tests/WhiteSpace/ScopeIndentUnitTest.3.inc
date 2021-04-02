@@ -1,0 +1,28 @@
+phpcs:set Generic.WhiteSpace.ScopeIndent tabIndent false
+phpcs:set Generic.WhiteSpace.ScopeIndent exact true
+<?php
+function test()
+{
+     echo 'test';
+     echo 'test2';
+    echo 'test3';
+    if (true) {
+         echo 'test3';
+    }
+    echo 'test3';
+    $x = f1(
+        'test1', 'test2',
+        'test3'
+    );
+}
+
+if ($foo) {
+    [
+      'enabled'     => $enabled,
+      'compression' => $compression,
+    ] = $options;
+}
+
+$this->foo()
+    ->bar()
+    ->baz();

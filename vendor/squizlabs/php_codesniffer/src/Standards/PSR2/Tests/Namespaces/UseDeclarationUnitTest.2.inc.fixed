@@ -1,0 +1,27 @@
+<?php
+namespace MyProject;
+
+use BarClass as Bar;
+use My\Full\Classname as Another;
+use My\Full\NSname;
+use function My\Full\functionname as somefunction;
+use function My\Full\otherfunction;
+use const My\Full\constantname as someconstant;
+use const My\Full\otherconstant;
+
+use BarClass as Bar;
+use FooClass;
+use BazClass as Baz;
+use function My\Full\functionname as somefunction;
+use function My\Full\otherfunction;
+use const My\Full\constantname as someconstant;
+use const My\Full\otherconstant;
+
+
+namespace AnotherProject;
+
+use ArrayObject;
+
+$foo = 'bar';
+
+?>
