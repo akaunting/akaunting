@@ -162,6 +162,7 @@ return [
     'amount_due'            => 'Nilai jatuh tempo',
 
     'card' => [
+        'cards'                 => 'Kartu|Kartu',
         'name'                  => 'Nama pada Kartu',
         'number'                => 'Nomor Kartu',
         'expiration_date'       => 'Tanggal Kadaluwarsa',
@@ -191,8 +192,10 @@ return [
         'add_new'           => 'Tambah kolom baru',
         'edit'              => 'Sunting :isi',
         'contact_edit'      => 'Sunting :nama_kontak :isi',
+        'drop_file'         => 'Seret berkas di sini untuk mengunggah',
         'choose'            => 'Pilih :isi',
         'choose_different'  => 'Pilih lainnya :isi',
+        'choose_file'       => 'Pilih File',
         'no_file_selected'  => 'Tidak ada Berkas yang dipilih...',
     ],
 

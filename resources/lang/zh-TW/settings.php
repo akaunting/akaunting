@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => '\'更改公司名稱、電子郵件、地址、稅號等等',
-        'name'              => '名稱',
-        'email'             => '電子郵件',
-        'phone'             => '電話',
-        'address'           => '地址',
-        'logo'              => '商標',
+        'description'                => '\'更改公司名稱、電子郵件、地址、稅號等等',
+        'name'                       => '名稱',
+        'email'                      => '電子郵件',
+        'phone'                      => '電話',
+        'address'                    => '地址',
+        'edit_your_business_address' => '編輯你的營業地址',
+        'logo'                       => '商標',
     ],
 
     'localisation' => [
         'description'       => '設置財年、時區、日期格式和更多局部信息',
         'financial_start'   => '財年開始',
         'timezone'          => '時區',
+        'financial_denote' => [
+            'title'         => '會計開始年度',
+            'begins'        => '在開始的那一年',
+            'ends'          => '在結束的那一年',
+        ],
         'date' => [
             'format'        => '日期格式',
             'separator'     => '日期分隔',
@@ -62,12 +68,21 @@ return [
         'default'           => '默認',
         'classic'           => '傳統',
         'modern'            => '新式',
+        'hide'              => [
+            'item_name'         => '隱藏項目名稱',
+            'item_description'  => '隱藏項目描述',
+            'quantity'          => '隱藏數量',
+            'price'             => '隱藏定價',
+            'amount'            => '隱藏合計',
+        ],
     ],
 
     'default' => [
         'description'       => '默認賬戶、貨幣、公司語言',
         'list_limit'        => '每頁行數',
         'use_gravatar'      => '使用 Gravatar',
+        'income_category'   => '收入分類',
+        'expense_category'  => '支出分類',
     ],
 
     'email' => [

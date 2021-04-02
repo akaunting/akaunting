@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => '貨幣',
     'total_income'              => '總收入',
     'receivables'               => '應收帳款',
     'open_invoices'             => '未付發票',
