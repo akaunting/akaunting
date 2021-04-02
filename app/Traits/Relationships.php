@@ -38,10 +38,13 @@ trait Relationships
                 continue;
             }
 
-            $items = $model->$relationship->all();
+            $items = [];
+            $relation = $model->$relationship;
 
-            if ($items instanceof Collection) {
-                $items = $items->all();
+            if ($relation instanceof Collection) {
+                $items = $relation->all();
+            } else {
+                $items[] = $relation;
             }
 
             foreach ((array) $items as $item) {
