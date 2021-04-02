@@ -1,0 +1,72 @@
+%active-day {
+  background: $datepicker-active-background;
+  color: $datepicker-active-color;
+  box-shadow: $datepicker-active-box-shadow;
+  border: none;
+}
+.flatpickr-calendar {
+  @include box-shadow($dropdown-box-shadow);
+  padding: $datepicker-dropdown-padding;
+  width: 347px;
+  color: $gray-700;
+
+  .flatpickr-weekday {
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $gray-700;
+    font-weight: normal;
+  }
+  .flatpickr-day {
+    border: none;
+  }
+  .flatpickr-day:hover {
+    @extend %active-day;
+  }
+  .flatpickr-day.selected {
+    @extend %active-day;
+    &:hover {
+      @extend %active-day;
+    }
+  }
+
+  .flatpickr-day.today {
+    border: 1px solid $datepicker-active-background;
+    &:hover {
+      background: $datepicker-active-background;
+      color: $datepicker-active-color;
+    }
+  }
+  .flatpickr-day.inRange {
+    background: $datepicker-active-background !important;
+    color: $datepicker-active-color;
+    box-shadow: -5px 0 0 $datepicker-active-background, 5px 0 0 $datepicker-active-background;
+    border: none !important;
+  }
+
+  .flatpickr-day.startRange, .flatpickr-day.endRange {
+    background: $datepicker-active-background;
+  }
+
+  .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+  .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+  .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    box-shadow: -10px 0 0 $datepicker-active-background;
+  }
+
+  .flatpickr-months .flatpickr-prev-month:hover svg,
+  .flatpickr-months .flatpickr-next-month:hover svg{
+    fill: $datepicker-active-background;
+  }
+
+  .flatpickr-current-month span.cur-month,
+  .flatpickr-current-month input.cur-year{
+    padding: 0 10px;
+    color: $gray-700;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    &:hover {
+      background: $gray-200;
+      border-radius: $datepicker-header-cell-border-radius;
+    }
+  }
+}

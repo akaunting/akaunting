@@ -3,8 +3,8 @@
 return [
 
     'version'               => 'Version',
-    'powered'               => 'Powered By Akaunting',
-    'link'                  => 'https://akaunting.com',
-    'software'              => 'Free Accounting Software',
+    'powered'               => 'Developed By',
+    'link'                  => 'mailto:gulguling.travel@gmail.com',
+    'software'              => 'Fairy Garden Resorts',
 
 ];

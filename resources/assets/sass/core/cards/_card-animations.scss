@@ -1,0 +1,10 @@
+//
+// Card with hover animations
+//
+
+.card-lift--hover {
+    &:hover {
+        transform: translateY(-20px);
+        @include transition($transition-base);
+    }
+}

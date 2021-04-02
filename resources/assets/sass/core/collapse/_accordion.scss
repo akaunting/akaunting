@@ -1,0 +1,38 @@
+//
+// Accordion
+//
+
+
+.accordion {
+	.card-header {
+		position: relative;
+		cursor: pointer;
+
+		&:after {
+			content: "\ea0f";
+			position: absolute;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+			font: normal normal normal 14px/1 NucleoIcons;
+            line-height: 0;
+            @include transition($transition-cubic-bezier);
+		}
+	}
+
+	.card-header[aria-expanded="false"] {
+		&:after {
+			content: "\ea0f";
+		}
+	}
+
+	.card-header[aria-expanded="true"] {
+		&:after {
+			transform: rotate(180deg);
+		}
+
+		.heading {
+			color: theme-color("primary");
+		}
+	}
+}

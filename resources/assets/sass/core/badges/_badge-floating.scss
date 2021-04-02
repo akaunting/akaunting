@@ -1,0 +1,18 @@
+//
+// Badge floating
+//
+
+
+.btn {
+    .badge-floating {
+        position: absolute;
+        top: -50%;
+        transform: translateY(50%);
+        border: 3px solid;
+        right: -12px;
+
+        &.badge:not(.badge-circle) {
+            transform: translate(-20%, 50%);
+        }
+    }
+}

@@ -11,7 +11,7 @@
                     <div class="header-body text-center">
                         <div class="row justify-content-center">
                             <div class="col-xl-5 col-lg-6 col-md-8">
-                                <img class="mb-5" src="{{ asset('public/img/akaunting-logo-white.svg') }}" width="22%" alt="Akaunting"/>
+                                <img class="mb-5" src="{{ asset('public/img/logo-white.png') }}" width="22%" alt="Fairy Garden Resorts"/>
                             </div>
                         </div>
                     </div>
@@ -49,6 +49,13 @@
                 <div class="container mt-5 mb-4">
                     <div class="row align-items-center justify-content-xl-between">
                         <div class="col-xl-12">
+                            <div class="copyright text-center text-white">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-7 col-lg-8 col-md-12">
+                                        <img class="mb-5" src="{{ asset('public/img/footer.png') }}" width="80%" alt="Fairy Garden Resorts"/>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="copyright text-center text-white">
                                 <small>
                                     {{ trans('footer.powered') }}: <a href="{{ trans('footer.link') }}" target="_blank" class="text-white">{{ trans('footer.software') }}</a>

@@ -1,0 +1,47 @@
+//
+// Alert notify
+// work together with Bootstrap alerts and bootstrap-notify plugin
+//
+
+
+.alert-notify {
+    display: flex !important;
+    max-width: 600px;
+    width: calc(100% - 30px);
+    padding-right: 80px;
+    box-shadow: 0 3px 10px rgba($black, 0.15);
+    color: rgba($white, 0.85);
+
+    &:hover {
+        z-index: 1081 !important;
+    }
+
+    &:not(.alert-info):not(.alert-success):not(.alert-warning):not(.alert-danger) {
+        background-color: rgba($black, .95);
+
+        .alert-notify-close {
+            color: $yellow;
+
+            &:hover {
+            opacity: .8;
+            }
+        }
+    }
+
+    .alert-icon.ni {
+        position: relative;
+        top: 4px;
+    }
+
+    .alert-title {
+        display: block;
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+    }
+
+    .close {
+        top: $alert-padding-y !important;
+        right: $alert-padding-x !important;
+        transform: translateY(0);
+    }
+}

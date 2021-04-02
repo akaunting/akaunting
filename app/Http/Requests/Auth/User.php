@@ -37,7 +37,7 @@ class User extends FormRequest
             $roles = $this->user->can('read-auth-roles') ? 'required' : '';
         } else {
             // Creating user
-            $id = null;
+            $id = -1;
             $password = 'required|';
             $companies = 'required';
             $roles = 'required';

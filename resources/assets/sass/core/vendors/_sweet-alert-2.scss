@@ -1,0 +1,22 @@
+//
+// Sweet alert 2
+// Sweet alert 2 plugin overrides
+//
+
+
+.swal2-popup {
+
+    padding: $swal2-padding;
+
+    #swal2-title {
+        font-size: $swal2-title-font-size;
+    }
+
+    #swal2-content {
+        font-size: $swal2-content-font-size;
+    }
+
+    #swal2-image {
+        max-width: 200px;
+    }
+}

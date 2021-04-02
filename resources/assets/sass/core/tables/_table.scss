@@ -1,0 +1,153 @@
+//
+// Table
+//
+
+
+// General styles
+
+.table,
+.el-table {
+    thead th {
+        padding-top: $table-head-spacer-y;
+        padding-bottom: $table-head-spacer-y;
+        font-size: $table-head-font-size;
+        text-transform: $table-head-text-transform;
+        letter-spacing: $table-head-letter-spacing;
+        border-bottom: $table-border-width solid $table-border-color;
+        border-top: $table-border-width solid $table-border-color;
+    }
+
+    th {
+        font-weight: $table-head-font-weight;
+    }
+
+    td {
+        .progress {
+            height: 3px;
+            width: 120px;
+            margin: 0;
+        }
+    }
+
+    td,
+    th {
+        color: $table-color;
+        font-size: $table-body-font-size;
+        white-space: nowrap;
+    }
+
+
+    // Vetical align table content
+
+    &.align-items-center {
+        td,
+        th {
+            vertical-align: middle;
+        }
+    }
+
+
+   // Styles for dark table
+
+   .thead-dark {
+        th {
+            background-color: $table-dark-head-bg;
+            color: $table-dark-head-color;
+
+            a {
+                color: $table-dark-head-color;
+            }
+        }
+    }
+
+
+    // Styles for light table
+
+    .thead-light {
+        th {
+            background-color: $table-head-bg;
+            color: $table-head-color;
+
+            a {
+                color: $table-head-color;
+            }
+        }
+    }
+}
+
+
+// Add transition for hover state
+
+.table-hover {
+    tr {
+        @include transition($transition-base);
+    }
+}
+
+.el-table.table-dark,
+.table-dark {
+  color: $body-bg;
+  tbody .cell {
+    color: $body-bg;
+  }
+
+  thead th,
+  th,td {
+    border-color: #1f3a68;
+  }
+}
+
+
+// Flush tables
+
+.table-flush {
+    td,
+    th {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    tbody {
+        tr {
+            &:first-child {
+                td,
+                th {
+                    border-top: 0;
+                }
+            }
+
+            &:last-child {
+                td,
+                th {
+                    border-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+
+// Tables inside cards
+
+.card {
+    .table,
+    .el-table{
+        margin-bottom: 0;
+
+        td,
+        th {
+            padding-left: $card-spacer-x;
+            padding-right: $card-spacer-x;
+        }
+    }
+}
+
+
+// Fixes for custom elements inside tables
+
+.table,
+.el-table {
+    .custom-toggle {
+        display: block;
+    }
+}

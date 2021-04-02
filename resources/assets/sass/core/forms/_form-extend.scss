@@ -1,0 +1,38 @@
+//
+// Form extend
+//
+
+
+// Color variations
+
+.form-primary {
+    .form-control {
+        color: color-yiq(theme-color("primary"));
+        background-color: transparentize(darken(theme-color("primary"), 10%), .5);
+        border-color: darken(theme-color("primary"), 10%);
+
+        &:focus {
+            background-color: transparentize(darken(theme-color("primary"), 12%), .3);
+            border: $input-border-width solid darken(theme-color("primary"), 12%);
+        }
+
+        // Placeholder
+        &::placeholder {
+            color: transparentize(color-yiq(theme-color("primary")), .2);
+        }
+    }
+
+    .input-group-text {
+        color: color-yiq(theme-color("primary"));
+        background-color: transparentize(darken(theme-color("primary"), 10%), .5);
+        border-color: darken(theme-color("primary"), 10%);
+    }
+
+    .focused {
+        .input-group-text {
+            color: color-yiq(theme-color("primary"));
+            background-color: transparentize(darken(theme-color("primary"), 12%), .3);
+            border-color: darken(theme-color("primary"), 12%);
+        }
+    }
+}

@@ -1,0 +1,67 @@
+//
+// Bootstrap tags input
+//
+
+
+.bootstrap-tagsinput {
+    background-color: $input-bg;
+    border: $tags-input-border-width solid $tags-input-border-color;
+    display: inline-block;
+    padding: .25rem;
+    color: $tags-input-color;
+    vertical-align: middle;
+    border-radius: $input-border-radius;
+    max-width: 100%;
+    cursor: text;
+
+    input {
+        border: none;
+        box-shadow: none;
+        outline: none;
+        background-color: transparent;
+        padding: 0 6px;
+        margin: 0;
+        width: auto;
+        max-width: inherit;
+
+        &::placeholder {
+            color: $input-placeholder-color;
+            opacity: 1;
+        }
+
+        &:focus {
+            border: none;
+            box-shadow: none;
+        }
+    }
+
+    .badge {
+        position: relative;
+        padding: .625rem .625rem .5rem;
+        margin: .125rem;
+        border-radius: $input-border-radius;
+        background: $tag-bg;
+        color: $tag-color;
+        line-height: 1.5;
+        @include box-shadow($tag-box-shadow);
+        @include transition($transition-base);
+
+        &:hover {
+            padding-right: 1.5rem;
+        }
+    }
+
+    [data-role="remove"] {
+        margin-left: 10px;
+        cursor: pointer;
+        color: $tag-close-color;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+
+        &:after {
+            content: "×";
+            font-size: 16px;
+        }
+    }
+}
