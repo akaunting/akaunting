@@ -8,4 +8,5 @@ return [
     'inclusive'             => '包含',
     'compound'              => '複合',
     'fixed'                 => '固定的',
+    'withholding'           => '代扣代繳',
 ];

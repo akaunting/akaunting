@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'मुद्राओं',
     'total_income'              => 'कुल आय',
     'receivables'               => 'प्राप्तियां',
     'open_invoices'             => 'वर्तमान चालान',

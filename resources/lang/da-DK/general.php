@@ -24,7 +24,7 @@ return [
     'roles'                 => 'Rolle|Roller',
     'permissions'           => 'Tilladelse|Tilladelser',
     'modules'               => 'App|Apps',
-    'companies'             => 'Virksomhed|Virksomheder',
+    'companies'             => 'Enhed|Enheder',
     'profits'               => 'Overskud|Overskud',
     'taxes'                 => 'Moms|Moms',
     'logos'                 => 'Logo|Logoer',

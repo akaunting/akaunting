@@ -39,7 +39,7 @@ return [
     'make_payment'          => 'Make Payment',
 
     'messages' => [
-        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected in charts after it is received.',
 
         'status' => [
             'created'       => 'Created on :date',

@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => '帳戶核對',
+    'unreconcile'           => '未核對',
     'reconciled'            => '帳戶已核對',
+    'opening_balance'       => '期初餘額',
     'closing_balance'       => '期末餘額',
     'unreconciled'          => '帳戶未核對',
     'transactions'          => '交易',

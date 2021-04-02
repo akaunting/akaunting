@@ -2,13 +2,14 @@
 
 return [
 
+    'currencies'                => 'Mata Uang',
     'total_income'              => 'Total Pendapatan',
     'receivables'               => 'Pihutang',
     'open_invoices'             => 'Membuka Faktur',
     'overdue_invoices'          => 'Faktur Jatuh Tempo',
     'total_expenses'            => 'Total Pengeluaran',
     'payables'                  => 'Hutang',
-    'open_bills'                => 'Membuka Tagihan',
+    'open_bills'                => 'Tagihan Terbuka',
     'overdue_bills'             => 'Tagihan Terlambat',
     'total_profit'              => 'Total Keuntungan',
     'open_profit'               => 'Membuka Keuntungan',
@@ -16,8 +17,8 @@ return [
     'cash_flow'                 => 'Arus Kas',
     'no_profit_loss'            => 'Tidak ada Rugi Laba',
     'income_by_category'        => 'Pendapatan menurut Kategori',
-    'expenses_by_category'      => 'Biaya berdasarkan Kategori',
+    'expenses_by_category'      => 'Pengeluaran berdasarkan Kategori',
     'account_balance'           => 'Saldo Rekening',
     'latest_income'             => 'Pendapatan Terbaru',
-    'latest_expenses'           => 'Biaya Terbaru',
+    'latest_expenses'           => 'Pengeluaran Terbaru',
 ];
