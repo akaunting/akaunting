@@ -1,0 +1,163 @@
+.install-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    display: block;
+    background-image: url('../img/install.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+
+    -webkit-filter: grayscale(50%);
+    -moz-filter: grayscale(50%);
+    -o-filter: grayscale(50%);
+    -ms-filter: grayscale(50%);
+    filter: grayscale(50%);
+}
+
+.install-content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin: 0 auto;
+    max-width : 450px;
+}
+
+.install-logo {
+    text-align: center;
+}
+
+.install-logo img {
+    margin: 25px auto;
+    width: 70px;
+}
+
+.install-loading-bar {
+    font-size: 35px;
+    position: absolute;
+    z-index: 500;
+    top: 45px;
+    left: 7px;
+    width: 434px;
+    background: rgb(136, 136, 136);
+    opacity: 0.2;
+    -moz-border-radius-bottomleft: 1px;
+    -moz-border-radius-bottomright: 1px;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+
+.install-loading-spin {
+    font-size: 100px;
+    position: absolute;
+    margin: auto;
+    color: #fff;
+    padding: 28% 40%;
+}
+
+.table-responsive {
+    overflow-x: hidden;
+}
+
+div.required .control-label:not(span):after, td.required:after {
+    content: ' *';
+    color: #F00;
+    font-weight: bold;
+}
+
+.form-group .select2-container {
+    width: 100% !important;  
+}
+
+.form-group .select2-container--default .select2-selection--single {
+    border-radius: 0px;
+}
+
+.form-group .select2-container .select2-selection--single {
+    height: 34px;
+    border: 1px solid #d2d6de;
+}
+
+.form-group .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px;
+}
+
+.form-group .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: inherit;
+}
+
+.form-group .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 30px;
+}
+
+.form-group .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #555 transparent transparent transparent;
+}
+
+.info-box .progress .progress-bar {
+    background: inherit;
+}
+
+.info-box .progress .progress-bar.progress-bar-green, .progress-bar-success {
+    background-color: #00a65a;
+}
+
+.info-box .progress .progress-bar.progress-bar-red, .progress-bar-danger {
+    background-color: #dd4b39;
+}
+
+.info-box .progress .progress-bar.progress-bar-aqua, .progress-bar-info {
+    background-color: #00c0ef;
+}
+
+.box.box-success .table.table-bordered {
+    font-size: 14px;
+}
+
+.info-box-icon i {
+    margin-top: 20px;
+}
+
+.box.box-success .chart svg, .chart canvas {
+    width: 96% !important;
+    margin-left: 25px;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #00a65a;
+}
+
+.input-group .btn-group.radio-inline {
+    padding-left: inherit;
+}
+
+.input-group input[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus {
+    outline: inherit;
+    outline-offset: 0px;
+}
+
+.input-group .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    margin-left: 0px;
+}
+
+.navbar-custom-menu .navbar-nav > li > a > i {
+    line-height: 20px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #00a65a !important;
+}
+
+.form-control:focus {
+    border-color: #00a65a !important;
+}
+
+.box.box-solid.box-success {
+    border: none;
+    box-shadow: 0 2px 10px rgba(153, 153, 153, 0.5);
+}

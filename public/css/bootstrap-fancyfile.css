@@ -1,0 +1,43 @@
+.fancy-file {
+    display: block;
+    position: relative;
+}
+
+.fancy-file input[type="file"] {
+    position: relative;
+    text-align: right;
+    -moz-opacity: 0;
+    filter: alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.fancy-file div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    height: 36px;
+}
+
+.fancy-file input[type="text"],
+.fancy-file button,
+.fancy-file .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.fancy-file input[type="text"] {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.fancy-file button,
+.fancy-file .btn {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+}

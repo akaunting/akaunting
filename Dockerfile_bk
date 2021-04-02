@@ -1,0 +1,86 @@
+FROM php:7.4-apache
+
+ARG AKAUNTING_DOCKERFILE_VERSION=0.1
+ARG SUPPORTED_LOCALES="en_US.UTF-8"
+
+RUN apt-get update \
+ && apt-get -y upgrade --no-install-recommends \
+ && apt-get install -y \
+    build-essential \
+    imagemagick \
+    libfreetype6-dev \
+    libicu-dev \
+    libjpeg62-turbo-dev \
+    libjpeg-dev \
+    libmcrypt-dev \
+    libonig-dev \
+    libpng-dev \
+    libpq-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxrender1 \
+    libzip-dev \
+    locales \
+    openssl \
+    unzip \
+    zip \
+    zlib1g-dev \
+    --no-install-recommends \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN for locale in ${SUPPORTED_LOCALES}; do \
+    sed -i 's/^# '"${locale}/${locale}/" /etc/locale.gen; done \
+ && locale-gen
+
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+ && docker-php-ext-install -j$(nproc) \
+    gd \
+    bcmath \
+    intl \
+    mbstring \
+    pcntl \
+    pdo \
+    pdo_mysql \
+    zip
+
+RUN mkdir -p /var/www/akaunting
+    #  && curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
+#  && unzip /dist/deskatas-main.zip -d /var/www/html \
+#  && rm -f /tmp/akaunting.zip
+
+# COPY akaunting.zip /tmp/
+
+# RUN unzip /tmp/akaunting.zip -d /var/www/html
+
+
+# COPY app/ /var/www/html/app/
+# COPY bootstrap/ /var/www/html/bootstrap/
+# COPY config/ /var/www/html/config/
+# COPY database/ /var/www/html/database/
+# COPY modules/ /var/www/html/modules/
+# COPY overrides/ /var/www/html/overrides/
+# COPY public/ /var/www/html/public/
+# COPY resources/ /var/www/html/resources
+# COPY routes/ /var/www/html/routes/
+# COPY storage/ /var/www/html/storage/
+# COPY vendor/ /var/www/html/vendor/
+# COPY web.config /var/www/html/
+# COPY serviceworker.js /var/www/html/
+# COPY manifest.json /var/www/html/
+# COPY index.php /var/www/html/
+# COPY composer.json /var/www/html/
+# COPY artisan /var/www/html/
+
+COPY scripts/install.sh /usr/local/bin/install.sh
+COPY scripts/html/config /var/www/html/config/
+
+# WORKDIR /var/www/html
+RUN ["pwd"]
+RUN ["ls"]
+# RUN ["ls", "-Rla"]
+# EXPOSE 9000
+
+ENTRYPOINT ["/usr/local/bin/install.sh"]
+CMD ["--start"]

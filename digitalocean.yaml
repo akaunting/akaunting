@@ -1,0 +1,44 @@
+
+databases:
+- engine: PG
+  name: fgr
+  num_nodes: 1
+  size: db-s-dev-database
+  version: "12"
+name: akaunting-2
+region: fra
+services:
+- build_command: "composer install ; npm install ; npm run dev; \n
+php artisan install --db-name=$DB_DATABASE --db-username=$DB_USERNAME --db-password=$DB_PASSWORD --db-port=5432
+    --admin-email=\"admin@company.com\" --admin-password=\"nihal@13\"" 
+  
+  environment_slug: php
+  envs:
+  - key: DB_CONNECTION
+    scope: RUN_AND_BUILD_TIME
+    value: "pgsql"
+  - key: DB_DATABASE
+    scope: RUN_AND_BUILD_TIME
+    value: ${fgr.DATABASE}
+  - key: DB_USERNAME
+    scope: RUN_AND_BUILD_TIME
+    value: ${fgr.USERNAME}
+  - key: DB_PASSWORD
+    scope: RUN_AND_BUILD_TIME
+    value: ${fgr.PASSWORD}
+  - key: DB_PORT
+    scope: RUN_AND_BUILD_TIME
+    value: ${fgr.PORT}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${fgr.DATABASE_URL}
+  github:
+    branch: master
+    repo: hunzai/akaunting
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: akaunting-2
+  routes:
+  - path: /
+  run_command: heroku-php-apache2 public/
