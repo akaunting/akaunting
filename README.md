@@ -32,6 +32,8 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 * Install dependencies: `composer install ; npm install ; npm run dev`
 * Install Akaunting:
 
+php artisan install --db-name="hillbill" --db-host=localhost --db-name=hillbill --db-username="admin" --db-password="chaplum_bar+geil" --admin-email="me@company.com" --admin-password="geil!" --db-port=3306
+
 ```bash
 php artisan install --db-name="akaunting" --db-username="root" --db-password="pass" --admin-email="admin@company.com" --admin-password="123456" --db-port=5432
 ```
