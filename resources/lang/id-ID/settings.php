@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Ubah nama perusahaan, email, alamat, NPWP dll',
-        'name'              => 'Nama',
-        'email'             => 'Email',
-        'phone'             => 'Telpon',
-        'address'           => 'Alamat',
-        'logo'              => 'Logo',
+        'description'                => 'Ubah nama perusahaan, email, alamat, NPWP dll',
+        'name'                       => 'Nama',
+        'email'                      => 'Email',
+        'phone'                      => 'Telpon',
+        'address'                    => 'Alamat',
+        'edit_your_business_address' => 'Ubah alamat bisnis Anda',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Tetapkan tahun fiskal, zona waktu, format tanggal dan lebih banyak penduduk lokal',
         'financial_start'   => 'Waktu mulai Periode Keuangan',
         'timezone'          => 'Zona Waktu',
+        'financial_denote' => [
+            'title'         => 'Tahun Keuangan Menunjukkan',
+            'begins'        => 'Pada tahun dimulainya',
+            'ends'          => 'Pada tahun berakhirnya',
+        ],
         'date' => [
             'format'        => 'Format Tanggal',
             'separator'     => 'Pemisah Tanggal',

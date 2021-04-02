@@ -104,7 +104,10 @@ return [
     'from'                  => '來自',
     'to'                    => '收件人',
     'print'                 => '列印',
+    'download_pdf'          => '下載 PDF',
+    'customize'             => '自訂',
     'search'                => '搜尋',
+    'search_text'           => '搜尋這個字',
     'search_placeholder'    => '輸入搜尋..',
     'filter'                => '篩選',
     'help'                  => '說明',
@@ -152,12 +155,19 @@ return [
     'no_matching_data'      => '沒肴合適的資料',
     'clear_cache'           => '清除緩存',
     'go_to_dashboard'       => '前往儀表板',
+    'is'                    => '是',
+    'isnot'                 => '不是',
+    'recurring_and_more'    => '重複性以及更多...',
+    'due_on'                => '到期於',
+    'amount_due'            => '應付金額',
 
     'card' => [
+        'cards'                 => '卡片|卡片',
         'name'                  => '持卡人姓名',
         'number'                => '卡號',
         'expiration_date'       => '有效日期',
         'cvv'                   => '信用卡 CVC',
+        'save'                  => '儲存卡片',
     ],
 
     'title' => [
@@ -177,8 +187,23 @@ return [
             'field'         => '- 選擇 :field -',
             'file'          => '選擇檔案',
         ],
+        'add'               => '新增一個 :field',
+        'add_an'            => '新增一個 :field',
         'add_new'           => '新增訂閱',
+        'edit'              => '編輯 :field',
+        'contact_edit'      => '編輯 :contact_name :field',
+        'drop_file'         => '拖曳檔案到這裡上傳',
+        'choose'            => '選擇 :field',
+        'choose_different'  => '選擇一個不同的 :field',
+        'choose_file'       => '選擇檔案',
         'no_file_selected'  => '尚未選擇檔案...',
+    ],
+
+    'placeholder' => [
+        'search'            => '輸入搜尋...',
+        'search_and_filter' => '搜尋或篩選結果...',
+        'contact_search'    => '輸入一個 :type 名稱',
+        'item_search'       => '輸入一個項目名稱',
     ],
 
     'date_range' => [

@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => '錯誤：詢問你的主機供應商以使用 PHP :php_version 或更新版本的 HTTP 和 CLI。',
         'connection'        => '錯誤：無法連線到資料庫！請確認所提供的資訊正確無誤。',
     ],
 

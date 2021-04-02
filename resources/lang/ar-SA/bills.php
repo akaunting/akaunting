@@ -13,7 +13,7 @@ return [
     'price'                 => 'السعر',
     'sub_total'             => 'المبلغ الإجمالي',
     'discount'              => 'خصم',
-    'item_discount'         => 'Line Discount',
+    'item_discount'         => 'خصم على المبيعات',
     'tax_total'             => 'إجمالي الضريبة',
     'total'                 => 'المجموع',
 
@@ -31,27 +31,14 @@ return [
     'add_payment'           => 'إضافة مدفوعات',
     'mark_paid'             => 'تم التحديد كمدفوع',
     'mark_received'         => 'تحديد كمستلم',
-    'mark_cancelled'        => 'تم إلغاء العلامة',
+    'mark_cancelled'        => 'تم الإلغاء',
     'download_pdf'          => 'تحميل PDF',
     'send_mail'             => 'إرسال بريد إلكتروني',
     'create_bill'           => 'إنشاء فاتورة شراء',
     'receive_bill'          => 'إستلام فاتورة شراء',
     'make_payment'          => 'القيام بالدفع',
 
-    'statuses' => [
-        'draft'             => 'مسودة',
-        'received'          => 'مستلمة',
-        'partial'           => 'جزئي',
-        'paid'              => 'مدفوع',
-        'overdue'           => 'متأخر',
-        'unpaid'            => 'غير مدفوع',
-        'cancelled'         => 'ملغى',
-    ],
-
     'messages' => [
-        'marked_received'   => 'تم وضع علامة الاستلام على الفاتورة!',
-        'marked_paid'       => 'الفاتورة عُلّمت كمدفوعة!',
-        'marked_cancelled'  => 'تم وضع علامة الإلغاء على الفاتورة!',
         'draft'             => 'هذة فاتورة شراء عبارة عن <b> مسودة </b> و سوف يتم اظهارها بالنظام بعد ان يتم استحقاقها.',
 
         'status' => [

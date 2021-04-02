@@ -13,6 +13,8 @@ return [
         'issued_at'         => 'Tanggal Dibuat',
         'symbol_first'      => 'Posisi Simbol',
         'reconciled'        => 'Terrekonsiliasi',
+        'expense_account'   => 'Dari Rekening',
+        'income_account'    => 'Ke Rekening',
     ],
 
 ];
