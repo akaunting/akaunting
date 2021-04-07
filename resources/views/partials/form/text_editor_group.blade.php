@@ -31,6 +31,10 @@
             @if (isset($attributes['disabled']))
             :disabled="{{ $attributes['disabled'] }}"
             @endif
+
+            @if (isset($attributes['readonly']))
+            :readonly="{{ $attributes['readonly'] }}"
+            @endif
         ></akaunting-html-editor>
 
         <div class="invalid-feedback d-block"
