@@ -157,6 +157,17 @@ export default {
     mounted() {
         //this.model = this.value;
 
+        if (this.dynamicCurrency.code != this.currency.code) {
+            this.money = {
+                decimal: this.dynamicCurrency.decimal_mark,
+                thousands: this.dynamicCurrency.thousands_separator,
+                prefix: (this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                suffix: (!this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                precision: parseInt(this.dynamicCurrency.precision),
+                masked: this.masked
+            };
+        }
+
         this.$emit('interface', this.model);
     },
 
