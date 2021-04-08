@@ -9,16 +9,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <base-input
+                            required
+                            class="required"
                             v-model="form.name"
                             :label="text.name"
                             prepend-icon="fas fa-font"
                             :placeholder="placeholder.name"
+                            :error="form.errors.name[0]"
+                            @input="form.errors.name[0] = ''"
                             inputGroupClasses="input-group-merge">
                         </base-input>
                     </div>
 
                     <div class="col-md-12">
                         <base-input
+                            required
+                            class="required"
+                            :error="form.errors.class[0]"
                             :label="text.type">
                             <span class="el-input__prefix">
                                 <span class="el-input__suffix-inner el-select-icon">
@@ -27,6 +34,7 @@
                             </span>
                             <el-select
                                 class="select-primary"
+                                @change="form.errors.class[0] = ''"
                                 v-model="form.class" filterable
                                 :placeholder="placeholder.type">
                                 <el-option v-for="(name, value) in types"
@@ -208,7 +216,11 @@ export default {
                 name: this.name,
                 width: this.width,
                 sort: this.sort,
-                dashboard_id: this.dashboard_id
+                dashboard_id: this.dashboard_id,
+                errors: {
+                    name: [],
+                    class: [],
+                }
             },
             display: this.show
         };
@@ -237,21 +249,27 @@ export default {
 
             axios.post(path, data)
                 .then(function (response) {
-                self.form.loading = false;
+                    self.form.loading = false;
 
-                if (response.data.redirect) {
-                    self.form.loading = true;
+                    if (response.data.redirect) {
+                        self.form.loading = true;
 
-                    window.location.href = response.data.redirect;
-                }
+                        window.location.href = response.data.redirect;
+                    }
 
-                self.form.response = response.data;
-            })
-            .catch(function (error) {
-                this.errors.record(error.response.data.errors);
+                    if (response.errors) {
+                        self.form.errors = error.response.data.errors;
 
-                self.form.loading = false;
-            });
+                        self.form.loading = false;
+                    }
+
+                    self.form.response = response.data;
+                })
+                .catch(function (error) {
+                    self.form.errors = error.response.data.errors;
+
+                    self.form.loading = false;
+                });
         },
 
         onCancel() {
