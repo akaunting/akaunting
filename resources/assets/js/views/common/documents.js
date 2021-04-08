@@ -529,7 +529,7 @@ const app = new Vue({
                     }
                 })
                 .catch(error => {
-                    this.onChangeCurrency();
+                    this.onChangeCurrency(currency_code);
                 });
             }
 
