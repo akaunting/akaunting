@@ -41,7 +41,7 @@ trait Recurring
 
         $recurring = $this->recurring();
 
-        $function = $recurring->count() ? 'create' : 'update';
+        $function = $recurring->count() ? 'update' : 'create';
 
         $recurring->$function([
             'company_id' => $this->company_id,
