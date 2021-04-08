@@ -37,6 +37,10 @@ export default {
             type: String,
             default: 'snow'
         },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
     },
 
     data () {
@@ -58,7 +62,8 @@ export default {
                 theme: theme,
                 modules: {
                     toolbar: `#${this.toolbarId}`
-                }
+                },
+                readOnly: this.readonly
             });
 
             if (this.editorValue.length > 0) {
