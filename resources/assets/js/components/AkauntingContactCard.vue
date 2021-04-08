@@ -333,7 +333,11 @@ export default {
         },
 
         onContactSeleted(index, contact_id) {
-            this.contact = this.contact_list[index];
+            this.contact_list.forEach(function (contact, index) {
+                if (contact_id == contact.id) {
+                    this.contact = contact;
+                }
+            }, this);
 
             this.show.contact_list = false;
             this.show.contact_selected = true;
