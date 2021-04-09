@@ -468,7 +468,7 @@ export default {
         },
 
         setSortOptions() {
-            let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
+            let created_options = (this.dynamicOptions.length > 0) ? this.dynamicOptions : this.options;
 
             if (this.group) {
                 // Option set sort_option data
