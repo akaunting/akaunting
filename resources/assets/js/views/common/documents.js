@@ -69,13 +69,14 @@ const app = new Vue({
 
     methods: {
         onCalculateTotal() {
-            let global_discount = this.form.discount;
+            let global_discount = parseFloat(this.form.discount);
             let discount_total = 0;
             let line_item_discount_total = 0;
             let taxes = document_taxes;
             let sub_total = 0;
             let totals_taxes = [];
             let grand_total = 0;
+            let inclusive_tax_total = 0;
 
             // items calculate
             this.items.forEach(function(item, index) {
@@ -165,16 +166,17 @@ const app = new Vue({
                             inclusive_total += inclusive.tax_rate;
 
                             // tax price
-                            item.tax_ids[inclusive.tax_index].price = item.grand_total- (item.grand_total / (1 + inclusive.tax_rate / 100));
+                            item.tax_ids[inclusive.tax_index].price = item.grand_total - (item.grand_total / (1 + inclusive.tax_rate / 100));
 
                             totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, item.tax_ids[inclusive.tax_index].price);
                         }, this);
 
-                        let item_base_rate = item.grand_total / (1 + inclusive_total / 100);
-
+                        let item_base_rate = parseFloat(item.grand_total / (1 + inclusive_total / 100));
                         //item.grand_total = item.grand_total + item_base_rate;
 
-                        item.total = item_base_rate + item_discount;
+                        item.total = item_base_rate;
+
+                        inclusive_tax_total += parseFloat(item.grand_total - item.total);
                     }
 
                     if (compounds.length) {
@@ -191,7 +193,6 @@ const app = new Vue({
                         item.grand_total += price;
                     }
                 }
-
 
                 // set item total
                 if (item.discount) {
@@ -213,11 +214,11 @@ const app = new Vue({
 
             // Apply discount to total
             if (global_discount) {
-                discount_total = sub_total * (global_discount / 100);
+                discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
 
                 this.totals.discount = discount_total;
 
-                grand_total = sub_total - (sub_total * (global_discount / 100));
+                grand_total -= discount_total;
             }
 
             this.totals.item_discount = line_item_discount_total;
