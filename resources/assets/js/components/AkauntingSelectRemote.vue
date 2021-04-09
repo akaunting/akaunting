@@ -960,7 +960,7 @@ export default {
 
         dynamicOptions: function(options) {
             this.sort_options = [];
-            this.selected = '';
+            this.selected = [];
 
             if (this.group) {
                 // Option set sort_option data
