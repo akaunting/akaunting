@@ -135,7 +135,7 @@ class Companies extends ApiController
      *
      * @return \Dingo\Api\Http\Response
      */
-    public function canAccess($company)
+    public function canAccess(Company $company)
     {
         if (!empty($company) && $this->isUserCompany($company->id)) {
             return new Response('');
