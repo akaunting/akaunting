@@ -488,3 +488,9 @@ th, td
     background-color: #f6f9fc;
     text-decoration: none;
 }
+
+.clearfix:after {
+	display: block;
+	clear: both;
+	content: ""
+}
