@@ -137,7 +137,7 @@ export default {
         };
     },
 
-    created: function () {	
+    created: function () {
         let documentClasses = document.body.classList;	
 
         documentClasses.add("modal-open");	
@@ -238,6 +238,12 @@ export default {
                                 this.form.currency = response.data.currency_name;
                                 this.form.currency_code = response.data.currency_code;
                                 this.form.currency_rate = response.data.currency_rate;
+
+                                this.currency.decimal = response.data.decimal_mark;
+                                this.currency.thousands = response.data.thousands_separator;
+                                this.currency.prefix = (response.data.symbol_first) ? response.data.symbol : '';
+                                this.currency.suffix = (!response.data.symbol_first) ? response.data.symbol : '';
+                                this.currency.precision = parseInt(response.data.precision);
                             })
                             .catch(error => {
                             });

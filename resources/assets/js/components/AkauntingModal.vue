@@ -49,6 +49,7 @@ import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
+import AkauntingMoney from './AkauntingMoney';
 
 export default {
     name: 'akaunting-modal',
@@ -58,7 +59,8 @@ export default {
         AkauntingRadioGroup,
         AkauntingSelect,
         AkauntingDate,
-        AkauntingRecurring
+        AkauntingRecurring,
+        AkauntingMoney,
     },
 
     props: {
