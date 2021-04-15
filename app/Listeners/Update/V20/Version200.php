@@ -70,34 +70,25 @@ class Version200 extends Listener
 
     protected function updateCompanies()
     {
-        $company_id = session('company_id');
+        $company_id = company_id();
 
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
-            session(['company_id' => $company->id]);
+            $company->makeCurrent();
 
-            $this->updateSettings($company);
+            $this->updateSettings();
 
             $this->createEmailTemplates($company);
 
             $this->createReports($company);
         }
 
-        setting()->forgetAll();
-
-        session(['company_id' => $company_id]);
-
-        Overrider::load('settings');
+        company($company_id)->makeCurrent();
     }
 
-    public function updateSettings($company)
+    public function updateSettings()
     {
-        // Set the active company settings
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
-
         // Override settings
         config(['app.url' => route('dashboard')]);
         config(['app.timezone' => setting('general.timezone', 'UTC')]);

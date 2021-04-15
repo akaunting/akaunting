@@ -16,7 +16,7 @@ class Modules extends Controller
      */
     public function __construct()
     {
-        $alias = request()->segment(1);
+        $alias = request()->segment(2);
 
         // Add CRUD permission check
         $this->middleware('permission:create-' . $alias . '-settings')->only('create', 'store', 'duplicate', 'import');

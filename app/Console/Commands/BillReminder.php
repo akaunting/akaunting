@@ -47,12 +47,8 @@ class BillReminder extends Command
 
             $this->info('Sending bill reminders for ' . $company->name . ' company.');
 
-            // Set company id
-            session(['company_id' => $company->id]);
-
-            // Override settings and currencies
-            Overrider::load('settings');
-            Overrider::load('currencies');
+            // Set company
+            $company->makeCurrent();
 
             // Don't send reminders if disabled
             if (!setting('schedule.send_bill_reminder')) {
@@ -70,9 +66,7 @@ class BillReminder extends Command
             }
         }
 
-        // Unset company_id
-        session()->forget('company_id');
-        setting()->forgetAll();
+        Company::forgetCurrent();
     }
 
     protected function remind($day)

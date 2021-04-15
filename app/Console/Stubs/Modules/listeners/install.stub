@@ -40,7 +40,7 @@ class FinishInstallation
     protected function callSeeds()
     {
         Artisan::call('company:seed', [
-            'company' => session('company_id'),
+            'company' => company_id(),
             '--class' => 'Modules\$STUDLY_NAME$\Database\Seeds\$STUDLY_NAME$DatabaseSeeder',
         ]);
     }

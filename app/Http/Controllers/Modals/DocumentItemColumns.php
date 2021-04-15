@@ -110,7 +110,7 @@ class DocumentItemColumns extends Controller
         $company_id = $request->get('company_id');
 
         if (empty($company_id)) {
-            $company_id = session('company_id');
+            $company_id = company_id();
         }
 
         foreach ($fields as $key => $value) {

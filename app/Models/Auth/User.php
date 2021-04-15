@@ -5,7 +5,9 @@ namespace App\Models\Auth;
 use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
+use App\Traits\Users;
 use Date;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,9 +16,9 @@ use Kyslik\ColumnSortable\Sortable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
-    use HasFactory, LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
+    use HasFactory, LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants, Users;
 
     protected $table = 'users';
 
@@ -193,18 +195,37 @@ class User extends Authenticatable
     }
 
     /**
-     * Convert tax to Array.
+     * Attach company_ids attribute to model.
      *
      * @return void
      */
     public function setCompanyIds()
     {
-        $this->setAttribute('company_ids', $this->companies->pluck('id')->toArray());
+        $company_ids = $this->withoutEvents(function () {
+            return $this->companies->pluck('id')->toArray();
+        });
+
+        $this->setAttribute('company_ids', $company_ids);
     }
 
+    /**
+     * Detach company_ids attribute from model.
+     *
+     * @return void
+     */
     public function unsetCompanyIds()
     {
         $this->offsetUnset('company_ids');
+    }
+
+    /**
+     * Get the user's preferred locale.
+     *
+     * @return string
+     */
+    public function preferredLocale()
+    {
+        return $this->locale;
     }
 
     /**

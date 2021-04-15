@@ -6,7 +6,6 @@ use Illuminate\View\View;
 
 class InvoiceText
 {
-
     /**
      * Bind data to the view.
      *
@@ -41,5 +40,4 @@ class InvoiceText
 
         $view->with(['text_override' => $text_override]);
     }
-
 }

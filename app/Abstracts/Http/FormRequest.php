@@ -15,7 +15,7 @@ abstract class FormRequest extends BaseFormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'company_id' => session('company_id'),
+            'company_id' => company_id(),
         ]);
     }
 

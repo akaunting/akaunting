@@ -29,17 +29,17 @@ class AddAdminItems
                         if (session('dashboard_id') != $dashboard->id) {
                             $sub->route('dashboards.switch', $dashboard->name, ['dashboard' => $dashboard->id], $key, $attr);
                         } else {
-                            $sub->url('/', $dashboard->name, $key, $attr);
+                            $sub->url('/' . company_id(), $dashboard->name, $key, $attr);
                         }
                     }
                 }, 10, [
-                    'url' => '/',
+                    'url' => '/' . company_id(),
                     'title' => trans_choice('general.dashboards', 2),
                     'icon' => 'fa fa-tachometer-alt',
                 ]);
             } else {
                 $menu->add([
-                    'url' => '/',
+                    'url' => '/' . company_id(),
                     'title' => trans_choice('general.dashboards', 1),
                     'icon' => 'fa fa-tachometer-alt',
                     'order' => 10,

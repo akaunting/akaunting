@@ -31,7 +31,7 @@ class Companies extends Controller
      */
     public function edit()
     {
-        $company = Company::find(session('company_id'));
+        $company = Company::find(company_id());
 
         return view('wizard.companies.edit', compact('company'));
     }
@@ -46,7 +46,7 @@ class Companies extends Controller
     public function update(Request $request)
     {
         // Company
-        $company = Company::find(session('company_id'));
+        $company = Company::find(company_id());
 
         $fields = $request->all();
 

@@ -11,7 +11,6 @@ use App\Models\Common\Company;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
 use App\Traits\Users;
-use App\Utilities\Overrider;
 
 class Companies extends Controller
 {
@@ -60,7 +59,7 @@ class Companies extends Controller
      */
     public function store(Request $request)
     {
-        $company_id = session('company_id');
+        $current_company_id = company_id();
 
         $response = $this->ajaxDispatch(new CreateCompany($request));
 
@@ -78,9 +77,7 @@ class Companies extends Controller
             flash($message)->error()->important();
         }
 
-        session(['company_id' => $company_id]);
-
-        Overrider::load('settings');
+        company($current_company_id)->makeCurrent();
 
         return response()->json($response);
     }
@@ -94,7 +91,7 @@ class Companies extends Controller
      */
     public function edit(Company $company)
     {
-        if (!$this->isUserCompany($company->id)) {
+        if ($this->isNotUserCompany($company->id)) {
             return redirect()->route('companies.index');
         }
 
@@ -113,9 +110,9 @@ class Companies extends Controller
      */
     public function update(Company $company, Request $request)
     {
-        $company_id = session('company_id');
+        $current_company_id = company_id();
 
-        $response = $this->ajaxDispatch(new UpdateCompany($company, $request, session('company_id')));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, $request, company_id()));
 
         if ($response['success']) {
             $response['redirect'] = route('companies.index');
@@ -131,9 +128,7 @@ class Companies extends Controller
             flash($message)->error()->important();
         }
 
-        session(['company_id' => $company_id]);
-
-        Overrider::load('settings');
+        company($current_company_id)->makeCurrent();
 
         return response()->json($response);
     }
@@ -147,7 +142,7 @@ class Companies extends Controller
      */
     public function enable(Company $company)
     {
-        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 1]), session('company_id')));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
             $response['message'] = trans('messages.success.enabled', ['type' => trans_choice('general.companies', 1)]);
@@ -165,7 +160,7 @@ class Companies extends Controller
      */
     public function disable(Company $company)
     {
-        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 0]), session('company_id')));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
             $response['message'] = trans('messages.success.disabled', ['type' => trans_choice('general.companies', 1)]);
@@ -183,7 +178,7 @@ class Companies extends Controller
      */
     public function destroy(Company $company)
     {
-        $response = $this->ajaxDispatch(new DeleteCompany($company, session('company_id')));
+        $response = $this->ajaxDispatch(new DeleteCompany($company));
 
         $response['redirect'] = route('companies.index');
 
@@ -210,22 +205,21 @@ class Companies extends Controller
     public function switch(Company $company)
     {
         if ($this->isUserCompany($company->id)) {
-            $old_company_id = session('company_id');
+            $old_company_id = company_id();
 
-            session(['company_id' => $company->id]);
+            $company->makeCurrent();
+
             session(['dashboard_id' => user()->dashboards()->enabled()->pluck('id')->first()]);
-
-            Overrider::load('settings');
 
             event(new \App\Events\Common\CompanySwitched($company, $old_company_id));
 
             // Check wizard
             if (!setting('wizard.completed', false)) {
-                return redirect()->route('wizard.edit');
+                return redirect()->route('wizard.edit', ['company_id' => $company->id]);
             }
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard', ['company_id' => $company->id]);
     }
 
     public function autocomplete()

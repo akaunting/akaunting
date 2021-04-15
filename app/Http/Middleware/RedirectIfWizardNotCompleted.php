@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Str;
 
 class RedirectIfWizardNotCompleted
 {
@@ -22,11 +21,11 @@ class RedirectIfWizardNotCompleted
         }
 
         // Check url
-        if (Str::startsWith($request->getPathInfo(), '/wizard') || Str::startsWith($request->getPathInfo(), '/settings')) {
+        if ($request->isWizard(company_id()) || $request->is(company_id() . '/settings/*')) {
             return $next($request);
         }
 
         // Redirect to wizard
-        redirect()->route('wizard.edit')->send();
+        return redirect()->route('wizard.edit');
     }
 }

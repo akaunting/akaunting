@@ -7,10 +7,10 @@ use App\Events\Banking\TransactionRecurring;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentRecurring;
 use App\Models\Banking\Transaction;
+use App\Models\Common\Company;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
 use App\Utilities\Date;
-use App\Utilities\Overrider;
 use Illuminate\Console\Command;
 
 class RecurringCheck extends Command
@@ -83,12 +83,7 @@ class RecurringCheck extends Command
                 continue;
             }
 
-            // Set company id
-            session(['company_id' => $recur->company_id]);
-
-            // Override settings and currencies
-            Overrider::load('settings');
-            Overrider::load('currencies');
+            company($recur->company_id)->makeCurrent();
 
             $today = Date::today();
 
@@ -121,9 +116,7 @@ class RecurringCheck extends Command
             }
         }
 
-        // Unset company_id
-        session()->forget('company_id');
-        setting()->forgetAll();
+        Company::forgetCurrent();
     }
 
     protected function recur($model, $type, $schedule_date)

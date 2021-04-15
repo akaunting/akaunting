@@ -51,7 +51,7 @@ class UpdateExtraModules
                 continue;
             }
 
-            $company_id = session('company_id');
+            $company_id = company_id();
 
             $command = "update {$alias} {$company_id} {$latest_version}";
 

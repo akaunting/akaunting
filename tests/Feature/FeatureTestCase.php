@@ -4,8 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Auth\User;
 use App\Models\Common\Company;
-use App\Utilities\Overrider;
-use Faker\Factory;
+use Faker\Factory as Faker;
 use Tests\TestCase;
 
 abstract class FeatureTestCase extends TestCase
@@ -22,14 +21,14 @@ abstract class FeatureTestCase extends TestCase
 
         $this->withoutExceptionHandling();
 
-        $this->faker = Factory::create();
+        $this->faker = Faker::create();
         $this->user = User::first();
         $this->company = $this->user->companies()->first();
 
         // Disable debugbar
         config(['debugbar.enabled', false]);
 
-        Overrider::load('currencies');
+        app('url')->defaults(['company_id' => $this->company->id]);
     }
 
     /**
@@ -45,13 +44,13 @@ abstract class FeatureTestCase extends TestCase
             $user = $this->user;
         }
 
-        if (!$company) {
-            $company = $this->company;
+        if ($company) {
+            $company->makeCurrent();
+
+            app('url')->defaults(['company_id' => $company->id]);
         }
 
-        $this->startSession();
-
-        return $this->actingAs($user)->withSession(['company_id' => $company->id]);
+        return $this->actingAs($user);
     }
 
     public function assertFlashLevel($excepted)

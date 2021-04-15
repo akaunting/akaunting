@@ -3,6 +3,7 @@
 namespace App\Notifications\Portal;
 
 use App\Abstracts\Notification;
+use App\Models\Common\EmailTemplate;
 use Illuminate\Support\Facades\URL;
 
 class PaymentReceived extends Notification
@@ -39,7 +40,7 @@ class PaymentReceived extends Notification
 
         $this->invoice = $invoice;
         $this->transaction = $transaction;
-        $this->template = $template;
+        $this->template = EmailTemplate::alias($template)->first();
     }
 
     /**
@@ -105,7 +106,7 @@ class PaymentReceived extends Notification
             money($this->invoice->amount, $this->invoice->currency_code, true),
             company_date($this->invoice->due_at),
             trans('documents.statuses.' . $this->invoice->status),
-            URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
+            URL::signedRoute('signed.invoices.show', [$this->invoice->id]),
             route('invoices.show', $this->invoice->id),
             route('portal.invoices.show', $this->invoice->id),
             money($this->transaction->amount, $this->transaction->currency_code, true),

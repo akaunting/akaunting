@@ -3,6 +3,7 @@
 namespace App\Notifications\Sale;
 
 use App\Abstracts\Notification;
+use App\Models\Common\EmailTemplate;
 use Illuminate\Support\Facades\URL;
 
 class Invoice extends Notification
@@ -32,7 +33,7 @@ class Invoice extends Notification
         parent::__construct();
 
         $this->invoice = $invoice;
-        $this->template = $template;
+        $this->template = EmailTemplate::alias($template)->first();
     }
 
     /**
@@ -95,7 +96,7 @@ class Invoice extends Notification
             money($this->invoice->amount, $this->invoice->currency_code, true),
             money($this->invoice->amount_due, $this->invoice->currency_code, true),
             company_date($this->invoice->due_at),
-            URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
+            URL::signedRoute('signed.invoices.show', [$this->invoice->id]),
             route('invoices.show', $this->invoice->id),
             route('portal.invoices.show', $this->invoice->id),
             $this->invoice->contact_name,

@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use MediaUploader;
 use App\Models\Common\Media as MediaModel;
+use MediaUploader;
 
 trait Uploads
 {
@@ -16,7 +16,7 @@ trait Uploads
         }
 
         if (!$company_id) {
-            $company_id = session('company_id');
+            $company_id = company_id();
         }
 
         $file_name = $file->getClientOriginalName();
@@ -39,7 +39,7 @@ trait Uploads
         }
 
         if (!$company_id) {
-            $company_id = session('company_id');
+            $company_id = company_id();
         }
 
         $path = $company_id . '/' . $folder;
@@ -56,7 +56,7 @@ trait Uploads
         }
 
         if (!$company_id) {
-            $company_id = session('company_id');
+            $company_id = company_id();
         }
 
         $path = $company_id . '/' . $folder . '/' . basename($file);

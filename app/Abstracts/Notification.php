@@ -2,19 +2,21 @@
 
 namespace App\Abstracts;
 
-use App\Models\Common\EmailTemplate;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as BaseNotification;
 
-abstract class Notification extends BaseNotification
+abstract class Notification extends BaseNotification implements ShouldQueue
 {
+    use Queueable;
+
     /**
      * Create a notification instance.
      */
     public function __construct()
     {
-        $this->queue = 'high';
-        $this->delay = config('queue.connections.database.delay');
+        $this->onQueue('notifications');
     }
 
     /**
@@ -35,24 +37,24 @@ abstract class Notification extends BaseNotification
      */
     public function initMessage()
     {
-        $template = EmailTemplate::alias($this->template)->first();
+        app('url')->defaults(['company_id' => company_id()]);
 
         $message = (new MailMessage)
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject($this->getSubject($template))
-            ->view('partials.email.body', ['body' => $this->getBody($template)]);
+            ->subject($this->getSubject())
+            ->view('partials.email.body', ['body' => $this->getBody()]);
 
         return $message;
     }
 
-    public function getSubject($template)
+    public function getSubject()
     {
-        return $this->replaceTags($template->subject);
+        return $this->replaceTags($this->template->subject);
     }
 
-    public function getBody($template)
+    public function getBody()
     {
-        return $this->replaceTags($template->body);
+        return $this->replaceTags($this->template->body);
     }
 
     public function replaceTags($content)

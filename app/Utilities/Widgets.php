@@ -68,7 +68,7 @@ class Widgets
 
                 $model = new Widget();
                 $model->id = 0;
-                $model->company_id = session('company_id');
+                $model->company_id = company_id();
                 $model->dashboard_id = session('dashboard_id');
                 $model->class = $class_name;
                 $model->name = $class->getDefaultName();

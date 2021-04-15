@@ -11,7 +11,7 @@ class Overrider
     public static function load($type)
     {
         // Overrides apply per company
-        $company_id = session('company_id');
+        $company_id = company_id();
         if (empty($company_id)) {
             return;
         }
@@ -25,11 +25,6 @@ class Overrider
 
     protected static function loadSettings()
     {
-        // Set the active company settings
-        setting()->setExtraColumns(['company_id' => static::$company_id]);
-        setting()->forgetAll();
-        setting()->load(true);
-
         // Timezone
         config(['app.timezone' => setting('localisation.timezone', 'UTC')]);
         date_default_timezone_set(config('app.timezone'));
@@ -56,7 +51,7 @@ class Overrider
         }
 
         // Set app url dynamically
-        config(['app.url' => route('dashboard')]);
+        config(['app.url' => url('/')]);
     }
 
     protected static function loadCurrencies()

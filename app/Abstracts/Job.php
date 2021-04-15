@@ -6,14 +6,10 @@ use App\Abstracts\Http\FormRequest;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
 use App\Traits\Uploads;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
-abstract class Job implements ShouldQueue
+abstract class Job
 {
-    use InteractsWithQueue, Jobs, Queueable, Relationships, SerializesModels, Uploads;
+    use Jobs, Relationships, Uploads;
 
     public function getRequestInstance($request)
     {

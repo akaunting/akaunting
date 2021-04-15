@@ -56,7 +56,7 @@ class Items extends Controller
     {
         if ($request->get('type', false) == 'inline') {
             $data = [
-                'company_id' => session('company_id'),
+                'company_id' => company_id(),
                 'name' => '',
                 'sale_price' => 0,
                 'purchase_price' => 0,

@@ -164,7 +164,7 @@ trait Modules
 
     public function getInstalledModules()
     {
-        $key = 'apps.installed.' . session('company_id');
+        $key = 'apps.installed.' . company_id();
 
         if ($installed = Cache::get($key)) {
             return $installed;

@@ -27,6 +27,8 @@ class Notifications
             return;
         }
 
+        $path = str_replace('{company_id}/', '', $path);
+
         if (!$notifications = $this->getNotifications($path)) {
             return;
         }

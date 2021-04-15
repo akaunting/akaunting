@@ -204,7 +204,7 @@ class Item extends Controller
         try {
             $this->dispatch(new CopyFiles($request['alias'], $request['path']));
 
-            event(new \App\Events\Module\Copied($request['alias'], session('company_id')));
+            event(new \App\Events\Module\Copied($request['alias'], company_id()));
 
             $json = [
                 'success' => true,
@@ -236,9 +236,9 @@ class Item extends Controller
     public function install(Request $request)
     {
         try {
-            event(new \App\Events\Module\Installing($request['alias'], session('company_id')));
+            event(new \App\Events\Module\Installing($request['alias'], company_id()));
 
-            $this->dispatch(new InstallModule($request['alias'], session('company_id')));
+            $this->dispatch(new InstallModule($request['alias'], company_id()));
 
             $name = module($request['alias'])->getName();
 
@@ -277,7 +277,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new UninstallModule($alias, session('company_id')));
+            $this->dispatch(new UninstallModule($alias, company_id()));
 
             $message = trans('modules.uninstalled', ['module' => $name]);
 
@@ -296,7 +296,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new EnableModule($alias, session('company_id')));
+            $this->dispatch(new EnableModule($alias, company_id()));
 
             $message = trans('modules.enabled', ['module' => $name]);
 
@@ -315,7 +315,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new DisableModule($alias, session('company_id')));
+            $this->dispatch(new DisableModule($alias, company_id()));
 
             $message = trans('modules.disabled', ['module' => $name]);
 

@@ -29,8 +29,7 @@ abstract class Factory extends BaseFactory
         $this->user = User::first();
         $this->company = $this->user->companies()->first();
 
-        session(['company_id' => $this->company->id]);
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
+        company($this->company->id)->makeCurrent();
     }
 
     public function getCompanyUsers()

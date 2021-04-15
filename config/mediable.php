@@ -6,12 +6,12 @@ return [
      *
      * Should extend `Plank\Mediable\Media`
      */
-    'model' => Plank\Mediable\Media::class,
+    'model' => env('MEDIABLE_MODEL', 'Plank\Mediable\Media'),
 
     /*
      * Filesystem disk to use if none is specified
      */
-    'default_disk' => 'uploads',
+    'default_disk' => env('MEDIABLE_DEFAULT_DISK', 'uploads'),
 
     /*
      * Filesystems that can be used for media storage
@@ -20,6 +20,7 @@ return [
      */
     'allowed_disks' => [
         'uploads',
+        's3',
     ],
 
     /*

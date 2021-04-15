@@ -1031,24 +1031,20 @@ class Version210 extends Listener
 
     protected function updateCompanies()
     {
-        $company_id = session('company_id');
+        $company_id = company_id();
 
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
-            session(['company_id' => $company->id]);
+            $company->makeCurrent();
 
-            $this->updateSettings($company);
+            $this->updateSettings();
         }
 
-        setting()->forgetAll();
-
-        session(['company_id' => $company_id]);
-
-        Overrider::load('settings');
+        company($company_id)->makeCurrent();
     }
 
-    public function updateSettings($company)
+    public function updateSettings()
     {
         $income_category = Category::income()->enabled()->first();
         $expense_category = Category::expense()->enabled()->first();
@@ -1056,11 +1052,6 @@ class Version210 extends Listener
         if (empty($income_category) || empty($expense_category)) {
             return;
         }
-
-        // Set the active company settings
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
 
         setting()->set(['default.income_category' => setting('default.income_category', $income_category->id)]);
         setting()->set(['default.expense_category' => setting('default.expense_category', $expense_category->id)]);

@@ -92,20 +92,16 @@ class Categories extends Controller
      */
     public function import(ImportRequest $request)
     {
-        $response = $this->importExcel(new Import, $request);
+        $response = $this->importExcel(new Import, $request, trans_choice('general.categories', 2));
 
         if ($response['success']) {
             $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.imported', ['type' => trans_choice('general.categories', 2)]);
-
-            flash($message)->success();
+            flash($response['message'])->success();
         } else {
             $response['redirect'] = route('import.create', ['settings', 'categories']);
 
-            $message = $response['message'];
-
-            flash($message)->error()->important();
+            flash($response['message'])->error()->important();
         }
 
         return response()->json($response);

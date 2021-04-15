@@ -72,7 +72,7 @@ class Modules
 
     public static function getPaymentMethodsCacheKey($type)
     {
-        return 'payment_methods.' . session('company_id') . '.' . $type;
+        return 'payment_methods.' . company_id() . '.' . $type;
     }
 
     protected static function sortPaymentMethods(&$list)

@@ -13,7 +13,7 @@ return [
         | Here you can specify how big the chunk should be.
         |
         */
-        'chunk_size' => 1000,
+        'chunk_size' => 100,
 
         /*
         |--------------------------------------------------------------------------
@@ -114,20 +114,75 @@ return [
         'pdf' => 'Dompdf',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Value Binder
+    |--------------------------------------------------------------------------
+    |
+    | PhpSpreadsheet offers a way to hook into the process of a value being
+    | written to a cell. In there some assumptions are made on how the
+    | value should be formatted. If you want to change those defaults,
+    | you can implement your own default value binder.
+    |
+    | Possible value binders:
+    |
+    | [x] Maatwebsite\Excel\DefaultValueBinder::class
+    | [x] PhpOffice\PhpSpreadsheet\Cell\StringValueBinder::class
+    | [x] PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder::class
+    |
+    */
     'value_binder' => [
+        'default' => 'Maatwebsite\Excel\DefaultValueBinder',
+    ],
+
+    'cache' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Default cell caching driver
+        |--------------------------------------------------------------------------
+        |
+        | By default PhpSpreadsheet keeps all cell values in memory, however when
+        | dealing with large files, this might result into memory issues. If you
+        | want to mitigate that, you can configure a cell caching driver here.
+        | When using the illuminate driver, it will store each value in a the
+        | cache store. This can slow down the process, because it needs to
+        | store each value. You can use the "batch" store if you want to
+        | only persist to the store when the memory limit is reached.
+        |
+        | Drivers: memory|illuminate|batch
+        |
+        */
+        'driver'     => env('EXCEL_CACHE_DRIVER', 'memory'),
 
         /*
         |--------------------------------------------------------------------------
-        | Default Value Binder
+        | Batch memory caching
         |--------------------------------------------------------------------------
         |
-        | PhpSpreadsheet offers a way to hook into the process of a value being
-        | written to a cell. In there some assumptions are made on how the
-        | value should be formatted. If you want to change those defaults,
-        | you can implement your own default value binder.
+        | When dealing with the "batch" caching driver, it will only
+        | persist to the store when the memory limit is reached.
+        | Here you can tweak the memory limit to your liking.
         |
         */
-        'default' => 'Maatwebsite\Excel\DefaultValueBinder',
+        'batch'     => [
+            'memory_limit' => env('EXCEL_CACHE_BATCH_MEMORY_LIMIT', 60000),
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Illuminate cache
+        |--------------------------------------------------------------------------
+        |
+        | When using the "illuminate" caching driver, it will automatically use
+        | your default cache store. However if you prefer to have the cell
+        | cache on a separate store, you can configure the store name here.
+        | You can use any store defined in your cache config. When leaving
+        | at "null" it will use the default store.
+        |
+        */
+        'illuminate' => [
+            'store' => null,
+        ],
     ],
 
     'transactions' => [
@@ -177,7 +232,25 @@ return [
         | in conjunction with queued imports and exports.
         |
         */
-        'remote_disk' => null,
+        'remote_disk'       => env('EXCEL_TEMPORARY_FILES_REMOTE_DISK', null),
+        'remote_prefix'     => env('EXCEL_TEMPORARY_FILES_REMOTE_PREFIX', null),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Force Resync
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with a multi server setup as above, it's possible
+        | for the clean up that occurs after entire queue has been run to only
+        | cleanup the server that the last AfterImportJob runs on. The rest of the server
+        | would still have the local temporary file stored on it. In this case your
+        | local storage limits can be exceeded and future imports won't be processed.
+        | To mitigate this you can set this config value to be true, so that after every
+        | queued chunk is processed the local temporary file is deleted on the server that
+        | processed it.
+        |
+        */
+        'force_resync_remote' => env('EXCEL_TEMPORARY_FILES_FORCE_RESYNC_REMOTE', null),
 
     ],
 

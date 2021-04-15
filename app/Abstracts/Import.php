@@ -5,30 +5,34 @@ namespace App\Abstracts;
 use App\Traits\Import as ImportHelper;
 use App\Utilities\Date;
 use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Validators\Failure;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
-abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
+abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRows, WithChunkReading, WithHeadingRow, WithMapping, WithValidation, ToModel
 {
     use Importable, ImportHelper;
 
-    public $empty_field = 'empty---';
+    public $user;
+
+    public function __construct()
+    {
+        $this->user = user();
+    }
 
     public function map($row): array
     {
-        $row['company_id'] = session('company_id');
+        $row['company_id'] = company_id();
 
         // Make enabled field integer
         if (isset($row['enabled'])) {
@@ -67,31 +71,6 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithChun
         return 100;
     }
 
-    public function onFailure(Failure ...$failures)
-    {
-        $sheet = Str::snake((new \ReflectionClass($this))->getShortName());
-
-        foreach ($failures as $failure) {
-            // @todo remove after 3.2 release https://github.com/Maatwebsite/Laravel-Excel/issues/1834#issuecomment-474340743
-            if (collect($failure->values())->first() == $this->empty_field) {
-                continue;
-            }
-
-            $message = trans('messages.error.import_column', [
-                'message' => collect($failure->errors())->first(),
-                'sheet' => $sheet,
-                'line' => $failure->row(),
-            ]);
-
-            flash($message)->error()->important();
-       }
-    }
-
-    public function onError(\Throwable $e)
-    {
-        flash($e->getMessage())->error()->important();
-    }
-
     public function isNotValid($row)
     {
         return Validator::make($row, $this->rules())->fails();
@@ -110,5 +89,10 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithChun
         }
 
         return false;
+    }
+
+    public function preferredLocale()
+    {
+        return $this->user->locale;
     }
 }

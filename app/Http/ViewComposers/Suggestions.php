@@ -31,6 +31,8 @@ class Suggestions
             return;
         }
 
+        $path = str_replace('{company_id}/', '', $path);
+
         if (!$suggestions = $this->getSuggestions($path)) {
             return;
         }

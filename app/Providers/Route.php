@@ -92,7 +92,8 @@ class Route extends Provider
      */
     protected function mapCommonRoutes()
     {
-        Facade::middleware('common')
+        Facade::prefix('{company_id}')
+            ->middleware('common')
             ->namespace($this->namespace)
             ->group(base_path('routes/common.php'));
     }
@@ -120,7 +121,7 @@ class Route extends Provider
      */
     protected function mapWizardRoutes()
     {
-        Facade::prefix('wizard')
+        Facade::prefix('{company_id}/wizard')
             ->middleware('wizard')
             ->namespace($this->namespace)
             ->group(base_path('routes/wizard.php'));
@@ -135,7 +136,8 @@ class Route extends Provider
      */
     protected function mapAdminRoutes()
     {
-        Facade::middleware('admin')
+        Facade::prefix('{company_id}')
+            ->middleware('admin')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }
@@ -149,7 +151,7 @@ class Route extends Provider
      */
     protected function mapPortalRoutes()
     {
-        Facade::prefix('portal')
+        Facade::prefix('{company_id}/portal')
             ->middleware('portal')
             ->namespace($this->namespace)
             ->group(base_path('routes/portal.php'));
@@ -164,7 +166,7 @@ class Route extends Provider
      */
     protected function mapSignedRoutes()
     {
-        Facade::prefix('signed')
+        Facade::prefix('{company_id}/signed')
             ->middleware('signed')
             ->namespace($this->namespace)
             ->group(base_path('routes/signed.php'));

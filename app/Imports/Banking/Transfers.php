@@ -49,7 +49,7 @@ class Transfers extends Import
     private function getExpenseTransactionId($row)
     {
         $expense_transaction = Transaction::create([
-            'company_id' => session('company_id'),
+            'company_id' => company_id(),
             'type' => 'expense',
             'account_id' => $row['from_account_id'],
             'paid_at' => $row['transferred_at'],
@@ -81,7 +81,7 @@ class Transfers extends Import
         }
 
         $income_transaction = Transaction::create([
-            'company_id' => session('company_id'),
+            'company_id' => company_id(),
             'type' => 'income',
             'account_id' => $row['to_account_id'],
             'paid_at' => $row['transferred_at'],
