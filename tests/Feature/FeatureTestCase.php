@@ -27,8 +27,6 @@ abstract class FeatureTestCase extends TestCase
 
         // Disable debugbar
         config(['debugbar.enabled', false]);
-
-        app('url')->defaults(['company_id' => $this->company->id]);
     }
 
     /**
@@ -46,9 +44,9 @@ abstract class FeatureTestCase extends TestCase
 
         if ($company) {
             $company->makeCurrent();
-
-            app('url')->defaults(['company_id' => $company->id]);
         }
+
+        app('url')->defaults(['company_id' => company_id()]);
 
         return $this->actingAs($user);
     }

@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group([
-    'prefix' => 'portal',
-    'middleware' => 'portal',
-    'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers'
-], function () {
-    // Route::get('invoices/{invoice}/$ALIAS$', 'Main@show')->name('portal.invoices.$ALIAS$.show');
-    // Route::post('invoices/{invoice}/$ALIAS$/confirm', 'Main@confirm')->name('portal.invoices.$ALIAS$.confirm');
+/**
+ * 'portal' middleware and 'portal/$ALIAS$' prefix applied to all routes (including names)
+ *
+ * @see \App\Providers\Route::register
+ */
+
+Route::portal('$ALIAS$', function () {
+    // Route::get('invoices/{invoice}', 'Main@show')->name('invoices.show');
+    // Route::post('invoices/{invoice}/confirm', 'Main@confirm')->name('invoices.confirm');
 });

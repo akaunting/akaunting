@@ -29,6 +29,73 @@ class Route extends Provider
     protected $namespace = 'App\Http\Controllers';
 
     /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        Facade::macro('module', function ($alias, $routes, $attrs) {
+            $attributes = [
+                'middleware' => $attrs['middleware'],
+            ];
+
+            if (isset($attrs['namespace'])) {
+                // null means don't add
+                if (!is_null($attrs['namespace'])) {
+                    $attributes['namespace'] = $attrs['namespace'];
+                }
+            } else {
+                $attributes['namespace'] = 'Modules\\' . module($alias)->getStudlyName() . '\Http\Controllers';
+            }
+
+            if (isset($attrs['prefix'])) {
+                // null means don't add
+                if (!is_null($attrs['prefix'])) {
+                    $attributes['prefix'] = '{company_id}/' . $attrs['prefix'];
+                }
+            } else {
+                $attributes['prefix'] = '{company_id}/' . $alias;
+            }
+
+            if (isset($attrs['as'])) {
+                // null means don't add
+                if (!is_null($attrs['as'])) {
+                    $attributes['as'] = $attrs['as'];
+                }
+            } else {
+                $attributes['as'] = $alias . '.';
+            }
+
+            return Facade::group($attributes, $routes);
+        });
+
+        Facade::macro('admin', function ($alias, $routes, $attributes = []) {
+            return Facade::module($alias, $routes, array_merge([
+                'middleware'    => 'admin',
+            ], $attributes));
+        });
+
+        Facade::macro('portal', function ($alias, $routes, $attributes = []) {
+            return Facade::module($alias, $routes, array_merge([
+                'middleware'    => 'portal',
+                'prefix'        => 'portal/' . $alias,
+                'as'            => 'portal.' . $alias . '.',
+            ], $attributes));
+        });
+
+        Facade::macro('signed', function ($alias, $routes, $attributes = []) {
+            return Facade::module($alias, $routes, array_merge([
+                'middleware'    => 'signed',
+                'prefix'        => 'signed/' . $alias,
+                'as'            => 'signed.' . $alias . '.',
+            ], $attributes));
+        });
+    }
+
+    /**
      * Define the routes for the application.
      *
      * @return void

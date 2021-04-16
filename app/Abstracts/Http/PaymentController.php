@@ -139,14 +139,14 @@ abstract class PaymentController extends BaseController
 
     public function getNotifyUrl($invoice)
     {
-        return route('portal.invoices.' . $this->alias . '.notify', $invoice->id);
+        return route('portal.' . $this->alias . '.invoices.notify', $invoice->id);
     }
 
     public function getModuleUrl($invoice, $suffix)
     {
         return $this->user
-                ? route('portal.invoices.' . $this->alias . '.' . $suffix, $invoice->id)
-                : URL::signedRoute('signed.invoices.' . $this->alias . '.' . $suffix, [$invoice->id, 'company_id' => $invoice->company_id]);
+                ? route('portal.' . $this->alias . '.invoices.' . $suffix, $invoice->id)
+                : URL::signedRoute('signed.' . $this->alias . '.invoices.' . $suffix, [$invoice->id]);
     }
 
     public function getLogger()
