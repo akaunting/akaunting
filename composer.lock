@@ -505,16 +505,16 @@
         },
         {
             "name": "akaunting/module-offline-payments",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-offline-payments.git",
-                "reference": "09bd63c03bd81c524d97bc112ca29f0d82c14e46"
+                "reference": "dea7391efa3c5f8a9426c7f8201a45f1283beb85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/09bd63c03bd81c524d97bc112ca29f0d82c14e46",
-                "reference": "09bd63c03bd81c524d97bc112ca29f0d82c14e46",
+                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/dea7391efa3c5f8a9426c7f8201a45f1283beb85",
+                "reference": "dea7391efa3c5f8a9426c7f8201a45f1283beb85",
                 "shasum": ""
             },
             "type": "library",
@@ -533,22 +533,22 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-offline-payments/issues",
-                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.0"
+                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.1"
             },
-            "time": "2021-03-04T09:00:22+00:00"
+            "time": "2021-04-16T22:29:03+00:00"
         },
         {
             "name": "akaunting/module-paypal-standard",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-paypal-standard.git",
-                "reference": "0dd391492c6ae47f2d91abe27165907029bf7960"
+                "reference": "49671f6f3c2c6319c7b319716292d31c2ad7db51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-paypal-standard/zipball/0dd391492c6ae47f2d91abe27165907029bf7960",
-                "reference": "0dd391492c6ae47f2d91abe27165907029bf7960",
+                "url": "https://api.github.com/repos/akaunting/module-paypal-standard/zipball/49671f6f3c2c6319c7b319716292d31c2ad7db51",
+                "reference": "49671f6f3c2c6319c7b319716292d31c2ad7db51",
                 "shasum": ""
             },
             "type": "library",
@@ -556,19 +556,20 @@
             "license": [
                 "GPL-3.0+"
             ],
-            "description": "Paypal Standard app for Akaunting",
+            "description": "PayPal Standard app for Akaunting",
             "homepage": "https://akaunting.com",
             "keywords": [
                 "Accounting",
+                "akaunting",
                 "invoice",
                 "laravel",
                 "paypal"
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-paypal-standard/issues",
-                "source": "https://github.com/akaunting/module-paypal-standard/tree/2.0.0"
+                "source": "https://github.com/akaunting/module-paypal-standard/tree/2.0.1"
             },
-            "time": "2021-03-04T08:53:43+00:00"
+            "time": "2021-04-16T22:28:17+00:00"
         },
         {
             "name": "asm89/stack-cors",
