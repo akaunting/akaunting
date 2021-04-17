@@ -441,9 +441,9 @@ class Company extends Eloquent
         return $this->getMedia('company_logo')->last();
     }
 
-    public function makeCurrent()
+    public function makeCurrent($force = false)
     {
-        if ($this->isCurrent()) {
+        if (!$force && $this->isCurrent()) {
             return $this;
         }
 

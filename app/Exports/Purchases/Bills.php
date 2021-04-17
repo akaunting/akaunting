@@ -8,10 +8,13 @@ use App\Exports\Purchases\Sheets\BillItemTaxes;
 use App\Exports\Purchases\Sheets\BillHistories;
 use App\Exports\Purchases\Sheets\BillTotals;
 use App\Exports\Purchases\Sheets\BillTransactions;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Bills implements WithMultipleSheets
 {
+    use Exportable;
+
     public $ids;
 
     public function __construct($ids = null)

@@ -99,6 +99,7 @@
             "vendor/akaunting/laravel-module/src/Commands/InstallCommand.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
             "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
+            "vendor/maatwebsite/excel/src/Fakes/ExcelFake.php",
             "vendor/maatwebsite/excel/src/QueuedWriter.php",
             "vendor/symfony/process/PhpExecutableFinder.php"
         ],

@@ -50,13 +50,11 @@ class TestCompany extends Seeder
                 'schedule.send_invoice_reminder' => '1',
                 'schedule.send_bill_reminder' => '1',
                 'wizard.completed' => '1',
+                'email.protocol' => 'array',
             ],
         ]));
 
-        $company->makeCurrent();
-
-        setting()->set(['email.protocol' => 'array']);
-        setting()->save();
+        $company->makeCurrent(true);
 
         $this->command->info('Test company created.');
     }
