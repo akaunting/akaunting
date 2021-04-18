@@ -20,3 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('reset/{token}', 'Auth\Reset@create')->name('reset');
     Route::post('reset', 'Auth\Reset@store')->name('reset.store');
 });
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});

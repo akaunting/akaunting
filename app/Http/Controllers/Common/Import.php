@@ -16,7 +16,7 @@ class Import extends Controller
      */
     public function create($group, $type, $route = null)
     {
-        $path = $group . '/' . $type;
+        $path = company_id() . '/' . $group . '/' . $type;
 
         if (module($group) instanceof \Akaunting\Module\Module) {
             $namespace = $group . '::';

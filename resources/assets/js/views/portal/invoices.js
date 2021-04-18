@@ -55,7 +55,7 @@ const app = new Vue({
 
             let method = payment_method.split('.');
 
-            let path = url + '/portal/invoices/' + this.form.document_id + '/' + method[0];
+            let path = url + '/portal/' + method[0] + '/invoices/' + this.form.document_id;
 
             this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                 resolve({

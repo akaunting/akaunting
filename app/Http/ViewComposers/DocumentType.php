@@ -9,7 +9,6 @@ use Illuminate\View\View;
 
 class DocumentType
 {
-
     /**
      * Bind data to the view.
      *
@@ -18,14 +17,15 @@ class DocumentType
      */
     public function compose(View $view)
     {
-        if (!empty(request()->route())) {
-            $route = request()->route();
+        $route = request()->route();
 
-            /** @var Invoices|Bills|PortalInvoices $controller */
-            $controller = $route->getController();
-
-            $view->with(['type' => $controller->type ?? '']);
+        if (empty($route)) {
+            return;
         }
-    }
 
+        /** @var Invoices|Bills|PortalInvoices $controller */
+        $controller = $route->getController();
+
+        $view->with(['type' => $controller->type ?? '']);
+    }
 }

@@ -108,7 +108,7 @@ class Invoices extends Controller
     public function signed(Document $invoice)
     {
         if (empty($invoice)) {
-            redirect()->route('login');
+            return redirect()->route('login');
         }
 
         $payment_actions = [];
@@ -119,12 +119,12 @@ class Invoices extends Controller
             $codes = explode('.', $payment_method_key);
 
             if (!isset($payment_actions[$codes[0]])) {
-                $payment_actions[$codes[0]] = URL::signedRoute('signed.invoices.' . $codes[0] . '.show', [$invoice->id, 'company_id' => session('company_id')]);
+                $payment_actions[$codes[0]] = URL::signedRoute('signed.' . $codes[0] . '.invoices.show', [$invoice->id]);
             }
         }
 
-        $print_action = URL::signedRoute('signed.invoices.print', [$invoice->id, 'company_id' => session('company_id')]);
-        $pdf_action = URL::signedRoute('signed.invoices.pdf', [$invoice->id, 'company_id' => session('company_id')]);
+        $print_action = URL::signedRoute('signed.invoices.print', [$invoice->id]);
+        $pdf_action = URL::signedRoute('signed.invoices.pdf', [$invoice->id]);
 
         event(new \App\Events\Document\DocumentViewed($invoice));
 

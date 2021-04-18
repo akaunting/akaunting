@@ -30,30 +30,21 @@ class Version203 extends Listener
 
     protected function updateCompanies()
     {
-        $company_id = session('company_id');
+        $company_id = company_id();
 
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
-            session(['company_id' => $company->id]);
+            $company->makeCurrent();
 
             $this->updateSettings($company);
         }
 
-        setting()->forgetAll();
-
-        session(['company_id' => $company_id]);
-
-        Overrider::load('settings');
+        company($company_id)->makeCurrent();
     }
 
     public function updateSettings($company)
     {
-        // Set the active company settings
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
-
         setting()->set(['invoice.payment_terms' => setting('invoice.payment_terms', 0)]);
 
         setting()->save();

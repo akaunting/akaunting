@@ -182,7 +182,7 @@ class Uploads extends Controller
             $folders = explode('/', $media->directory);
 
             // Check if company can access media
-            if ($folders[0] != session('company_id')) {
+            if ($folders[0] != company_id()) {
                 return false;
             }
 

@@ -2,11 +2,16 @@
 
 namespace App\Models\Common;
 
+use App\Events\Common\CompanyForgettingCurrent;
+use App\Events\Common\CompanyForgotCurrent;
+use App\Events\Common\CompanyMadeCurrent;
+use App\Events\Common\CompanyMakingCurrent;
 use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Media;
 use App\Traits\Tenants;
 use App\Traits\Transactions;
+use App\Utilities\Overrider;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -434,5 +439,83 @@ class Company extends Eloquent
     public function getCompanyLogoAttribute()
     {
         return $this->getMedia('company_logo')->last();
+    }
+
+    public function makeCurrent($force = false)
+    {
+        if (!$force && $this->isCurrent()) {
+            return $this;
+        }
+
+        static::forgetCurrent();
+
+        event(new CompanyMakingCurrent($this));
+
+        // Bind to container
+        app()->instance(static::class, $this);
+
+        // Set session for backward compatibility @deprecated
+        //session(['company_id' => $this->id]);
+
+        // Load settings
+        setting()->setExtraColumns(['company_id' => $this->id]);
+        setting()->forgetAll();
+        setting()->load(true);
+
+        // Override settings and currencies
+        Overrider::load('settings');
+        Overrider::load('currencies');
+
+        event(new CompanyMadeCurrent($this));
+
+        return $this;
+    }
+
+    public function isCurrent()
+    {
+        return optional(static::getCurrent())->id === $this->id;
+    }
+
+    public function isNotCurrent()
+    {
+        return !$this->isCurrent();
+    }
+
+    public static function getCurrent()
+    {
+        if (!app()->has(static::class)) {
+            return null;
+        }
+
+        return app(static::class);
+    }
+
+    public static function forgetCurrent()
+    {
+        $current = static::getCurrent();
+
+        if (is_null($current)) {
+            return null;
+        }
+
+        event(new CompanyForgettingCurrent($current));
+
+        // Remove from container
+        app()->forgetInstance(static::class);
+
+        // Unset session for backward compatibility @deprecated
+        //session()->forget('company_id');
+
+        // Remove settings
+        setting()->forgetAll();
+
+        event(new CompanyForgotCurrent($current));
+
+        return $current;
+    }
+
+    public static function hasCurrent()
+    {
+        return static::getCurrent() !== null;
     }
 }

@@ -42,6 +42,6 @@ class Company implements Scope
         }
 
         // Apply company scope
-        $builder->where($table . '.company_id', '=', session('company_id'));
+        $builder->where($table . '.company_id', '=', company_id());
     }
 }

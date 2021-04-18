@@ -3,11 +3,12 @@
 namespace App\Abstracts\Http;
 
 use App\Abstracts\Http\Response;
+use App\Jobs\Auth\NotifyUser;
+use App\Jobs\Common\CreateMediableForExport;
+use App\Notifications\Common\ImportCompleted;
 use App\Traits\Jobs;
 use App\Traits\Permissions;
 use App\Traits\Relationships;
-use Exception;
-use ErrorException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,9 +16,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Exceptions\SheetNotFoundException;
-use Maatwebsite\Excel\Facades\Excel;
-use Throwable;
 
 abstract class Controller extends BaseController
 {
@@ -78,23 +76,49 @@ abstract class Controller extends BaseController
      *
      * @param $class
      * @param $request
-     * @param $url
+     * @param $translation
      *
      * @return mixed
      */
-    public function importExcel($class, $request)
+    public function importExcel($class, $request, $translation)
     {
         try {
-            Excel::import($class, $request->file('import'));
+            $file = $request->file('import');
+
+            if (should_queue()) {
+                $class->queue($file)->onQueue('imports')->chain([
+                    new NotifyUser(user(), new ImportCompleted),
+                ]);
+
+                $message = trans('messages.success.import_queued', ['type' => $translation]);
+            } else {
+                $class->import($file);
+
+                $message = trans('messages.success.imported', ['type' => $translation]);
+            }
 
             $response = [
                 'success'   => true,
                 'error'     => false,
                 'data'      => null,
-                'message'   => '',
+                'message'   => $message,
             ];
-        } catch (SheetNotFoundException | ErrorException | Exception | Throwable $e) {
-            $message = $e->getMessage();
+        } catch (\Throwable $e) {
+            if ($e instanceof \Maatwebsite\Excel\Validators\ValidationException) {
+                foreach ($e->failures() as $failure) {
+                    $message = trans('messages.error.import_column', [
+                        'message'   => collect($failure->errors())->first(),
+                        'column'    => $failure->attribute(),
+                        'line'      => $failure->row(),
+                    ]);
+
+                    flash($message)->error()->important();
+                }
+
+                $message = '';
+            } else {
+                $message = $e->getMessage();
+            }
 
             $response = [
                 'success'   => false,
@@ -111,15 +135,30 @@ abstract class Controller extends BaseController
      * Export the excel file or catch errors
      *
      * @param $class
-     * @param $file_name
+     * @param $translation
+     * @param $extension
      *
      * @return mixed
      */
-    public function exportExcel($class, $file_name, $extension = 'xlsx')
+    public function exportExcel($class, $translation, $extension = 'xlsx')
     {
         try {
-            return Excel::download($class, Str::filename($file_name) . '.' . $extension);
-        } catch (ErrorException | Exception | Throwable $e) {
+            $file_name = Str::filename($translation) . '.' . $extension;
+
+            if (should_queue()) {
+                $class->queue($file_name)->onQueue('exports')->chain([
+                    new CreateMediableForExport(user(), $file_name),
+                ]);
+
+                $message = trans('messages.success.export_queued', ['type' => $translation]);
+
+                flash($message)->success();
+
+                return back();
+            } else {
+                return $class->download($file_name);
+            }
+        } catch (\Throwable $e) {
             flash($e->getMessage())->error()->important();
 
             return back();

@@ -116,9 +116,9 @@ trait Import
     public function getAccountIdFromCurrency($row)
     {
         return Account::firstOrCreate([
+            'company_id'        => company_id(),
             'currency_code'     => $row['currency_code'],
         ], [
-            'company_id'        => session('company_id'),
             'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['currency_code'],
             'number'            => !empty($row['account_number']) ? $row['account_number'] : rand(1, 10000),
             'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
@@ -129,9 +129,9 @@ trait Import
     public function getAccountIdFromName($row)
     {
         return Account::firstOrCreate([
+            'company_id'        => company_id(),
             'name'              => $row['account_name'],
         ], [
-            'company_id'        => session('company_id'),
             'number'            => !empty($row['account_number']) ? $row['account_number'] : rand(1, 10000),
             'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : setting('default.currency'),
             'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
@@ -142,9 +142,9 @@ trait Import
     public function getAccountIdFromNumber($row)
     {
         return Account::firstOrCreate([
+            'company_id'        => company_id(),
             'number'            => $row['account_number'],
         ], [
-            'company_id'        => session('company_id'),
             'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['account_number'],
             'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : setting('default.currency'),
             'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
@@ -155,9 +155,9 @@ trait Import
     public function getCategoryIdFromName($row, $type)
     {
         return Category::firstOrCreate([
+            'company_id'        => company_id(),
             'name'              => $row['category_name'],
         ], [
-            'company_id'        => session('company_id'),
             'type'              => $type,
             'color'             => !empty($row['category_color']) ? $row['category_color'] : '#' . dechex(rand(0x000000, 0xFFFFFF)),
             'enabled'           => 1,
@@ -167,9 +167,9 @@ trait Import
     public function getContactIdFromEmail($row, $type)
     {
         return Contact::firstOrCreate([
+            'company_id'        => company_id(),
             'email'             => $row['contact_email'],
         ], [
-            'company_id'        => session('company_id'),
             'type'              => $type,
             'name'              => !empty($row['contact_name']) ? $row['contact_name'] : $row['contact_email'],
             'currency_code'     => !empty($row['contact_currency']) ? $row['contact_currency'] : setting('default.currency'),
@@ -180,9 +180,9 @@ trait Import
     public function getContactIdFromName($row, $type)
     {
         return Contact::firstOrCreate([
+            'company_id'        => company_id(),
             'name'              => $row['contact_name'],
         ], [
-            'company_id'        => session('company_id'),
             'type'              => $type,
             'currency_code'     => !empty($row['contact_currency']) ? $row['contact_currency'] : setting('default.currency'),
             'enabled'           => 1,
@@ -192,9 +192,9 @@ trait Import
     public function getItemIdFromName($row)
     {
         return Item::firstOrCreate([
+            'company_id'        => company_id(),
             'name'              => $row['item_name'],
         ], [
-            'company_id'        => session('company_id'),
             'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
             'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : (!empty($row['price']) ? $row['price'] : 0),
             'enabled'           => 1,
@@ -204,9 +204,9 @@ trait Import
     public function getTaxIdFromRate($row, $type = 'normal')
     {
         return Tax::firstOrCreate([
+            'company_id'        => company_id(),
             'rate'              => $row['tax_rate'],
         ], [
-            'company_id'        => session('company_id'),
             'type'              => $type,
             'name'              => !empty($row['tax_name']) ? $row['tax_name'] : $row['tax_rate'],
             'enabled'           => 1,

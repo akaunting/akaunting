@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Exception;
+use Illuminate\Bus\Dispatcher;
 use Throwable;
 
 trait Jobs
@@ -17,7 +18,32 @@ trait Jobs
     {
         $function = $this->getDispatchFunction();
 
-        return $function($job);
+        return $this->$function($job);
+    }
+
+    /**
+     * Dispatch a job to its appropriate handler.
+     *
+     * @param  mixed  $command
+     * @return mixed
+     */
+    public function dispatchQueue($job)
+    {
+        return app(Dispatcher::class)->dispatch($job);
+    }
+
+    /**
+     * Dispatch a command to its appropriate handler in the current process.
+     *
+     * Queuable jobs will be dispatched to the "sync" queue.
+     *
+     * @param  mixed  $command
+     * @param  mixed  $handler
+     * @return mixed
+     */
+    public function dispatchSync($job, $handler = null)
+    {
+        return app(Dispatcher::class)->dispatchSync($job, $handler);
     }
 
     /**
@@ -26,12 +52,12 @@ trait Jobs
      * @param mixed $job
      * @param mixed $handler
      * @return mixed
+     *
+     * @deprecated Will be removed in a future Laravel version.
      */
     public function dispatchNow($job, $handler = null)
     {
-        $result = dispatch_now($job, $handler);
-
-        return $result;
+        return app(Dispatcher::class)->dispatchNow($job, $handler);
     }
 
     /**
@@ -65,8 +91,6 @@ trait Jobs
 
     public function getDispatchFunction()
     {
-        $config = config('queue.default');
-
-        return ($config == 'sync') ? 'dispatch_now' : 'dispatch';
+        return should_queue() ? 'dispatchQueue' : 'dispatchSync';
     }
 }

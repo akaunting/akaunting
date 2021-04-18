@@ -43,7 +43,7 @@
                     @foreach($companies as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">
-                                @if ((session('company_id') != $item->id))
+                                @if ((company_id() != $item->id))
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 @else
                                     {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'true']) }}
@@ -54,7 +54,7 @@
                             <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block long-texts">{{ $item->email }}</td>
                             <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->created_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xl-2">
-                                @if ((session('company_id') != $item->id) && user()->can('update-common-companies'))
+                                @if ((company_id() != $item->id) && user()->can('update-common-companies'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                 @else
                                     @if ($item->enabled)

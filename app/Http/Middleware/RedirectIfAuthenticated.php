@@ -20,15 +20,11 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (auth()->guard($guard)->check()) {
-                $user = user();
-
-                if ($user->contact) {
-                    return redirect()->route('portal.dashboard');
-                }
-
-                return redirect()->route($user->landing_page);
+            if (!auth()->guard($guard)->check()) {
+                continue;
             }
+
+            return redirect(user()->getLandingPageOfUser());
         }
 
         return $next($request);

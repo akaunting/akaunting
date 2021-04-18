@@ -73,7 +73,7 @@ class Updates extends Controller
         Cache::forget('updates');
         Cache::forget('versions');
 
-        event(new UpdateCacheCleared(session('company_id')));
+        event(new UpdateCacheCleared(company_id()));
 
         return redirect()->back();
     }
@@ -274,7 +274,7 @@ class Updates extends Controller
         set_time_limit(900); // 15 minutes
 
         try {
-            $this->dispatch(new FinishUpdate($request['alias'], $request['version'], $request['installed'], session('company_id')));
+            $this->dispatch(new FinishUpdate($request['alias'], $request['version'], $request['installed'], company_id()));
 
             $json = [
                 'success' => true,

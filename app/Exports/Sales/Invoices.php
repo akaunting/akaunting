@@ -8,10 +8,13 @@ use App\Exports\Sales\Sheets\InvoiceItemTaxes;
 use App\Exports\Sales\Sheets\InvoiceHistories;
 use App\Exports\Sales\Sheets\InvoiceTotals;
 use App\Exports\Sales\Sheets\InvoiceTransactions;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Invoices implements WithMultipleSheets
 {
+    use Exportable;
+
     public $ids;
 
     public function __construct($ids = null)

@@ -8,10 +8,13 @@ use App\Imports\Sales\Sheets\InvoiceItemTaxes;
 use App\Imports\Sales\Sheets\InvoiceHistories;
 use App\Imports\Sales\Sheets\InvoiceTotals;
 use App\Imports\Sales\Sheets\InvoiceTransactions;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Invoices implements WithMultipleSheets
 {
+    use Importable;
+
     public function sheets(): array
     {
         return [

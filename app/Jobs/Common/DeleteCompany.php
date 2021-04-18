@@ -11,17 +11,17 @@ class DeleteCompany extends Job
 
     protected $company;
 
-    protected $active_company_id;
+    protected $current_company_id;
 
     /**
      * Create a new job instance.
      *
-     * @param  $request
+     * @param  $company
      */
-    public function __construct($company, $active_company_id)
+    public function __construct($company)
     {
         $this->company = $company;
-        $this->active_company_id = $active_company_id;
+        $this->current_company_id = company_id();
     }
 
     /**
@@ -56,14 +56,14 @@ class DeleteCompany extends Job
     public function authorize()
     {
         // Can't delete active company
-        if ($this->company->id == $this->active_company_id) {
+        if ($this->company->id == $this->current_company_id) {
             $message = trans('companies.error.delete_active');
 
             throw new \Exception($message);
         }
 
         // Check if user can access company
-        if (!$this->isUserCompany($this->company->id)) {
+        if ($this->isNotUserCompany($this->company->id)) {
             $message = trans('companies.error.not_user_company');
 
             throw new \Exception($message);

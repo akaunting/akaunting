@@ -7,7 +7,6 @@ use App\Http\Requests\Common\Dashboard as Request;
 use App\Jobs\Common\CreateDashboard;
 use App\Jobs\Common\DeleteDashboard;
 use App\Jobs\Common\UpdateDashboard;
-use App\Models\Common\Company;
 use App\Models\Common\Dashboard;
 use App\Models\Common\Widget;
 use App\Traits\DateTime;
@@ -60,7 +59,7 @@ class Dashboards extends Controller
 
         if (empty($dashboard)) {
             $dashboard = $this->dispatch(new CreateDashboard([
-                'company_id' => session('company_id'),
+                'company_id' => company_id(),
                 'name' => trans_choice('general.dashboards', 1),
                 'default_widgets' => 'core',
             ]));
@@ -89,7 +88,7 @@ class Dashboards extends Controller
      */
     public function create()
     {
-        $users = Company::find(session('company_id'))->users()->get()->sortBy('name');
+        $users = company()->users()->get()->sortBy('name');
 
         return view('common.dashboards.create', compact('users'));
     }
@@ -130,11 +129,11 @@ class Dashboards extends Controller
      */
     public function edit(Dashboard $dashboard)
     {
-        if (!$this->isUserDashboard($dashboard->id)) {
+        if ($this->isNotUserDashboard($dashboard->id)) {
             return redirect()->route('dashboards.index');
         }
 
-        $users = Company::find(session('company_id'))->users()->get()->sortBy('name');
+        $users = company()->users()->get()->sortBy('name');
 
         return view('common.dashboards.edit', compact('dashboard', 'users'));
     }

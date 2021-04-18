@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CanApiKey
+class RedirectIfNoApiKey
 {
     /**
      * Handle an incoming request.
@@ -14,15 +14,15 @@ class CanApiKey
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {        
-        if ($request['alias'] != 'core') {
-            if (setting('apps.api_key')) {
-                return $next($request);
-            } else {
-                redirect('apps/api-key/create')->send();
-            }
-        } else {
+    {
+        if ($request->get('alias') == 'core') {
             return $next($request);
         }
+
+        if (setting('apps.api_key')) {
+            return $next($request);
+        }
+
+        return redirect()->route('apps.api-key.create');
     }
 }

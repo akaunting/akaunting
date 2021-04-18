@@ -3,6 +3,7 @@
 namespace App\Notifications\Purchase;
 
 use App\Abstracts\Notification;
+use App\Models\Common\EmailTemplate;
 
 class Bill extends Notification
 {
@@ -31,7 +32,7 @@ class Bill extends Notification
         parent::__construct();
 
         $this->bill = $bill;
-        $this->template = $template;
+        $this->template = EmailTemplate::alias($template)->first();
     }
 
     /**

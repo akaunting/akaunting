@@ -16,7 +16,7 @@ class UpdateCompany extends Job
 
     protected $request;
 
-    protected $active_company_id;
+    protected $current_company_id;
 
     /**
      * Create a new job instance.
@@ -24,11 +24,11 @@ class UpdateCompany extends Job
      * @param  $company
      * @param  $request
      */
-    public function __construct($company, $request, $active_company_id)
+    public function __construct($company, $request)
     {
         $this->company = $company;
         $this->request = $this->getRequestInstance($request);
-        $this->active_company_id = $active_company_id;
+        $this->current_company_id = company_id();
     }
 
     /**
@@ -45,10 +45,7 @@ class UpdateCompany extends Job
         \DB::transaction(function () {
             $this->company->update($this->request->all());
 
-            // Clear current and load given company settings
-            setting()->setExtraColumns(['company_id' => $this->company->id]);
-            setting()->forgetAll();
-            setting()->load(true);
+            $this->company->makeCurrent();
 
             if ($this->request->has('name')) {
                 setting()->set('company.name', $this->request->get('name'));
@@ -89,10 +86,13 @@ class UpdateCompany extends Job
             }
 
             setting()->save();
-            setting()->forgetAll();
         });
 
         event(new CompanyUpdated($this->company, $this->request));
+
+        if (!empty($this->current_company_id)) {
+            company($this->current_company_id)->makeCurrent();
+        }
 
         return $this->company;
     }
@@ -105,14 +105,14 @@ class UpdateCompany extends Job
     public function authorize()
     {
         // Can't disable active company
-        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == $this->active_company_id)) {
+        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == $this->current_company_id)) {
             $message = trans('companies.error.disable_active');
 
             throw new \Exception($message);
         }
 
         // Check if user can access company
-        if (!$this->isUserCompany($this->company->id)) {
+        if ($this->isNotUserCompany($this->company->id)) {
             $message = trans('companies.error.not_user_company');
 
             throw new \Exception($message);

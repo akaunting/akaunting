@@ -24,14 +24,14 @@ class RedirectSignedIfAuthenticated
         $page = 'dashboard';
         $params = [];
 
-        if ($request->segment(2) == 'invoices') {
+        if ($request->segment(3) == 'invoices') {
             $page = 'invoices.show';
 
-            $invoice = Document::find($request->segment(3));
+            $invoice = Document::find($request->segment(4));
 
             $params = [$invoice->id];
         }
 
-        redirect()->route($prefix . $page, $params)->send();
+        return redirect()->route($prefix . $page, $params);
     }
 }

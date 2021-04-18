@@ -50,18 +50,11 @@ class TestCompany extends Seeder
                 'schedule.send_invoice_reminder' => '1',
                 'schedule.send_bill_reminder' => '1',
                 'wizard.completed' => '1',
+                'email.protocol' => 'array',
             ],
         ]));
 
-        session(['company_id' => $company->id]);
-
-        // Set Company settings
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
-
-        setting()->set(['email.protocol' => 'array']);
-        setting()->save();
+        $company->makeCurrent(true);
 
         $this->command->info('Test company created.');
     }
@@ -73,7 +66,7 @@ class TestCompany extends Seeder
             'email' => 'test@company.com',
             'password' => '123456',
             'locale' => 'en-GB',
-            'companies' => [session('company_id')],
+            'companies' => [company_id()],
             'roles' => ['1'],
             'enabled' => '1',
         ]));
@@ -90,7 +83,7 @@ class TestCompany extends Seeder
             'currency_code' => setting('default.currency'),
             'password' => '123456',
             'password_confirmation' => '123456',
-            'company_id' => session('company_id'),
+            'company_id' => company_id(),
             'enabled' => '1',
             'create_user' => 'true',
         ]));
@@ -113,7 +106,7 @@ class TestCompany extends Seeder
 
             Artisan::call('module:install', [
                 'alias'     => $alias,
-                'company'   => session('company_id'),
+                'company'   => company_id(),
                 'locale'    => session('locale', app()->getLocale()),
             ]);
         }

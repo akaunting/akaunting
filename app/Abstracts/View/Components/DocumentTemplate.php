@@ -213,7 +213,7 @@ abstract class DocumentTemplate extends Base
                 $image->make($path)->resize($width, $height)->encode();
             });
         } catch (NotReadableException | \Exception $e) {
-            Log::info('Company ID: ' . session('company_id') . ' components/documentshow.php exception.');
+            Log::info('Company ID: ' . company_id() . ' components/documentshow.php exception.');
             Log::info($e->getMessage());
 
             $path = base_path('public/img/company.png');

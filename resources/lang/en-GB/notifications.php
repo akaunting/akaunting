@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Import completed',
+            'description'       => 'The import has been completed and the records are available in your panel.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Import failed',
+            'description'       => 'Not able to import the file due to the following issues:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'Export is ready',
+            'description'       => 'The export file is ready to download from the following link:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Export failed',
+            'description'       => 'Not able to create the export file due to the following issue:',
+        ],
+
+    ],
+
 ];
