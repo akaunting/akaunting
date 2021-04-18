@@ -163,19 +163,19 @@ class CreateDocumentItem extends Job
             }
         }
 
-        $document_item = DocumentItem::create([
-            'company_id' => $this->document->company_id,
-            'type' => $this->document->type,
-            'document_id' => $this->document->id,
-            'item_id' => $item_id,
-            'name' => Str::limit($this->request['name'], 180, ''),
-            'description' => !empty($this->request['description']) ? $this->request['description'] : '',
-            'quantity' => (double) $this->request['quantity'],
-            'price' => round($this->request['price'], $precision),
-            'tax' => round($item_tax_total, $precision),
-            'discount_rate' => !empty($this->request['discount']) ? $this->request['discount'] : 0,
-            'total' => round($item_amount, $precision),
-        ]);
+        $this->request['company_id'] = $this->document->company_id;
+        $this->request['type'] = $this->document->type;
+        $this->request['document_id'] = $this->document->id;
+        $this->request['item_id'] = $item_id;
+        $this->request['name'] = Str::limit($this->request['name'], 180, '');
+        $this->request['description'] = !empty($this->request['description']) ? $this->request['description'] : '';
+        $this->request['quantity'] = (double) $this->request['quantity'];
+        $this->request['price'] = round($this->request['price'], $precision);
+        $this->request['tax'] = round($item_tax_total, $precision);
+        $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
+        $this->request['total'] = round($item_amount, $precision);
+
+        $document_item = DocumentItem::create($this->request);
 
         $document_item->item_taxes = false;
         $document_item->inclusives = false;
