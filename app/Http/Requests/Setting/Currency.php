@@ -40,6 +40,7 @@ class Currency extends FormRequest
             'enabled' => 'integer|boolean',
             'default_currency' => 'boolean',
             'symbol_first' => 'nullable|boolean',
+            'thousands_separator' => 'different:decimal_mark',
         ];
     }
 }
