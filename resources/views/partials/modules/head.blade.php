@@ -31,7 +31,7 @@
     @stack('stylesheet')
 
     <script type="text/javascript"><!--
-        var url = '{{ url("/") }}';
+        var url = '{{ url("/" . company_id()) }}';
         var app_home = '{{ route("apps.home.index") }}';
         var app_url = '{{ config("app.url") }}';
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};

@@ -29,7 +29,7 @@
     @livewireStyles
 
     <script type="text/javascript"><!--
-        var url = '{{ url("/") }}';
+        var url = '{{ url("/" . company_id()) }}';
     //--></script>
 
     @stack('js')

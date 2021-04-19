@@ -13,7 +13,7 @@
                             :value="'{{ request('category') }}'"
                             @change="onChangeCategory($event)"
                         ></akaunting-select>
-                        {{ Form::hidden('category_page', url("apps/categories"), ['id' => 'category_page']) }}
+                        {{ Form::hidden('category_page', url(company_id() . "/apps/categories"), ['id' => 'category_page']) }}
                     </div>
 
                     <div class="vr d-none d-sm-block"></div>
