@@ -70,7 +70,7 @@
                                             </button>
                                             @can('delete-settings-currencies')
                                                 <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'wizard/currencies') !!}
+                                                {!! Form::deleteLink($item, 'wizard.currencies.destroy') !!}
                                             @endcan
                                         </div>
                                     </div>

@@ -67,7 +67,7 @@
                                             </button>
                                             @can('delete-settings-taxes')
                                                 <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'wizard/taxes') !!}
+                                                {!! Form::deleteLink($item, 'wizard.taxes.destroy') !!}
                                             @endcan
                                         </div>
                                     </div>

@@ -35,7 +35,7 @@
                                     @endcan
                                     @can('delete-common-reports')
                                         <div class="dropdown-divider"></div>
-                                        {!! Form::deleteLink($report, 'common/reports') !!}
+                                        {!! Form::deleteLink($report, 'reports.destroy') !!}
                                     @endcan
                                 </div>
                             </div>
