@@ -24,7 +24,7 @@
                         @endcan
                         @can('delete-common-widgets')
                         <div class="dropdown-divider"></div>
-                        {!! Form::deleteLink($class->model, 'common/widgets') !!}
+                        {!! Form::deleteLink($class->model, 'widgets.destroy') !!}
                         @endcan
                     </div>
                 </div>
