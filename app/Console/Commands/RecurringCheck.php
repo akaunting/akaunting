@@ -133,11 +133,7 @@ class RecurringCheck extends Command
                 case 'App\Models\Document\Document':
                     event(new DocumentCreated($clone, request()));
 
-                    if ($clone->type === Document::INVOICE_TYPE) {
-                        event(new DocumentRecurring($clone, InvoiceNotification::class));
-                    } elseif ($clone->type === Document::BILL_TYPE) {
-                        event(new DocumentRecurring($clone, BillNotification::class));
-                    }
+                    event(new DocumentRecurring($clone));
 
                     break;
                 case 'App\Models\Banking\Transaction':

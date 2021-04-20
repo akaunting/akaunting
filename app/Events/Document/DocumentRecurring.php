@@ -8,14 +8,14 @@ use App\Models\Document\Document;
 class DocumentRecurring extends Event
 {
     public $document;
-    public $notification;
 
     /**
      * Create a new event instance.
+     *
+     * @param $document
      */
-    public function __construct(Document $document, string $notification)
+    public function __construct(Document $document)
     {
         $this->document     = $document;
-        $this->notification = $notification;
     }
 }
