@@ -44,7 +44,7 @@ return [
         'status' => [
             'created'       => 'Created on :date',
             'receive' => [
-                'draft'     => 'Not sent',
+                'draft'     => 'Not received',
                 'received'  => 'Received on :date',
             ],
             'paid' => [
