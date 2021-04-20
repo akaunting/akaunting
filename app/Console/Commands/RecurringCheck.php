@@ -10,6 +10,8 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
+use App\Notifications\Purchase\Bill as BillNotification;
+use App\Notifications\Sale\Invoice as InvoiceNotification;
 use App\Utilities\Date;
 use Illuminate\Console\Command;
 
@@ -122,6 +124,7 @@ class RecurringCheck extends Command
     protected function recur($model, $type, $schedule_date)
     {
         \DB::transaction(function () use ($model, $type, $schedule_date) {
+            /** @var Document $clone */
             if (!$clone = $this->getClone($model, $schedule_date)) {
                 return;
             }
@@ -130,7 +133,11 @@ class RecurringCheck extends Command
                 case 'App\Models\Document\Document':
                     event(new DocumentCreated($clone, request()));
 
-                    event(new DocumentRecurring($clone));
+                    if ($clone->type === Document::INVOICE_TYPE) {
+                        event(new DocumentRecurring($clone, InvoiceNotification::class));
+                    } elseif ($clone->type === Document::BILL_TYPE) {
+                        event(new DocumentRecurring($clone, BillNotification::class));
+                    }
 
                     break;
                 case 'App\Models\Banking\Transaction':
