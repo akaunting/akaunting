@@ -3,6 +3,7 @@
 namespace App\Listeners\Document;
 
 use App\Events\Document\DocumentRecurring as Event;
+use App\Models\Document\Document;
 
 class SendDocumentRecurringNotification
 {
@@ -18,7 +19,7 @@ class SendDocumentRecurringNotification
         $notification = $event->notification;
 
         // Notify the customer
-        if ($document->contact && !empty($document->contact_email)) {
+        if ($document->type === Document::INVOICE_TYPE && $document->contact && !empty($document->contact_email)) {
             $document->contact->notify(new $notification($document, "{$document->type}_recur_customer"));
         }
 

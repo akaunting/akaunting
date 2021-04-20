@@ -10,7 +10,8 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
-use App\Notifications\Sale\Invoice as Notification;
+use App\Notifications\Purchase\Bill as BillNotification;
+use App\Notifications\Sale\Invoice as InvoiceNotification;
 use App\Utilities\Date;
 use Illuminate\Console\Command;
 
@@ -133,7 +134,9 @@ class RecurringCheck extends Command
                     event(new DocumentCreated($clone, request()));
 
                     if ($clone->type === Document::INVOICE_TYPE) {
-                        event(new DocumentRecurring($clone, Notification::class));
+                        event(new DocumentRecurring($clone, InvoiceNotification::class));
+                    } elseif ($clone->type === Document::BILL_TYPE) {
+                        event(new DocumentRecurring($clone, BillNotification::class));
                     }
 
                     break;
