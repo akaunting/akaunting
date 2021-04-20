@@ -10,8 +10,6 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
-use App\Notifications\Purchase\Bill as BillNotification;
-use App\Notifications\Sale\Invoice as InvoiceNotification;
 use App\Utilities\Date;
 use Illuminate\Console\Command;
 
