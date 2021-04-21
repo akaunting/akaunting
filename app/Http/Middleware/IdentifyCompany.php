@@ -38,6 +38,9 @@ class IdentifyCompany
         // Set company as current
         company($company_id)->makeCurrent();
 
+        // Fix file/folder paths
+        config(['filesystems.disks.' . config('filesystems.default') . '.url' => url('/' . $company_id)  . '/uploads']);
+
         // Fix routes
         app('url')->defaults(['company_id' => $company_id]);
         $request->route()->forgetParameter('company_id');
