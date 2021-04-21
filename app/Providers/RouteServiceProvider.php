@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route as Facade;
 
-class Route extends Provider
+class RouteServiceProvider extends Provider
 {
     /**
      * The path to the "home" route for your application.

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'api' prefix applied to all routes
  *
- * @see \App\Providers\Route::mapApiRoutes
+ * @see \App\Providers\RouteServiceProvider::mapApiRoutes
  */
 
 $api = app('Dingo\Api\Routing\Router');

@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
 
-class Macro extends ServiceProvider
+class MacroServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

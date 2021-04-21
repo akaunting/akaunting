@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'signed' middleware and prefix applied to all routes
  *
- * @see \App\Providers\Route::mapSignedRoutes
+ * @see \App\Providers\RouteServiceProvider::mapSignedRoutes
  * @see \modules\OfflinePayments\Routes\signed.php for module example
  */
 

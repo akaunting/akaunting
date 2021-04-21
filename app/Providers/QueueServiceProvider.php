@@ -7,7 +7,7 @@ use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\ServiceProvider as Provider;
 
-class Queue extends Provider
+class QueueServiceProvider extends Provider
 {
     /**
      * Register any application services.

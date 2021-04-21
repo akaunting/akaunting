@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'wizard' middleware and prefix applied to all routes
  *
- * @see \App\Providers\Route::mapWizardRoutes
+ * @see \App\Providers\RouteServiceProvider::mapWizardRoutes
  */
 
 Route::group(['as' => 'wizard.'], function () {

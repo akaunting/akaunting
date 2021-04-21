@@ -5,7 +5,7 @@ namespace App\Providers;
 use Form as Facade;
 use Illuminate\Support\ServiceProvider as Provider;
 
-class Form extends Provider
+class FormServiceProvider extends Provider
 {
     /**
      * Register bindings in the container.

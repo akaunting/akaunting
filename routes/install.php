@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'install' middleware and prefix applied to all routes
  *
- * @see \App\Providers\Route::mapInstallRoutes
+ * @see \App\Providers\RouteServiceProvider::mapInstallRoutes
  */
 
 Route::get('/', 'Install\Requirements@show');

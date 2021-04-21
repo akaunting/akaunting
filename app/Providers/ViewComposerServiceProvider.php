@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider as Provider;
 use View;
 
-class ViewComposer extends Provider
+class ViewComposerServiceProvider extends Provider
 {
     /**
      * Register bindings in the container.

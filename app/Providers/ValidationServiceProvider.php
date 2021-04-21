@@ -6,7 +6,7 @@ use App\Models\Setting\Currency;
 use Illuminate\Support\ServiceProvider as Provider;
 use Validator;
 
-class Validation extends Provider
+class ValidationServiceProvider extends Provider
 {
     /**
      * Bootstrap any application services.

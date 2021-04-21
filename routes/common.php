@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'common' middleware applied to all routes
  *
- * @see \App\Providers\Route::mapCommonRoutes
+ * @see \App\Providers\RouteServiceProvider::mapCommonRoutes
  */
 
 Route::group(['middleware' => 'auth'], function () {

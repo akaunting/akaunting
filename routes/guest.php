@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'guest' middleware applied to all routes
  *
- * @see \App\Providers\Route::mapGuestRoutes
+ * @see \App\Providers\RouteServiceProvider::mapGuestRoutes
  * @see \modules\PaypalStandard\Routes\guest.php for module example
  */
 

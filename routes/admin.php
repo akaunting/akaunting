@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'admin' middleware applied to all routes
  *
- * @see \App\Providers\Route::mapAdminRoutes
+ * @see \App\Providers\RouteServiceProvider::mapAdminRoutes
  * @see \modules\OfflinePayments\Routes\admin.php for module example
  */
 

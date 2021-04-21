@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * 'portal' middleware and prefix applied to all routes
  *
- * @see \App\Providers\Route::mapPortalRoutes
+ * @see \App\Providers\RouteServiceProvider::mapPortalRoutes
  * @see \modules\OfflinePayments\Routes\portal.php for module example
  */
 

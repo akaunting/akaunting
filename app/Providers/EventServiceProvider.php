@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
 
-class Event extends Provider
+class EventServiceProvider extends Provider
 {
     /**
      * The event listener mappings for the application.

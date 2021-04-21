@@ -6,7 +6,7 @@ use App\Traits\DateTime;
 use Illuminate\Support\Facades\Blade as Facade;
 use Illuminate\Support\ServiceProvider;
 
-class Blade extends ServiceProvider
+class BladeServiceProvider extends ServiceProvider
 {
     use DateTime;
 

@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Models\Banking\Transaction;
 use Illuminate\Support\ServiceProvider as Provider;
 
-class Observer extends Provider
+class ObserverServiceProvider extends Provider
 {
     /**
      * Register any application services.

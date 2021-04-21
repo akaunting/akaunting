@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,18 +172,18 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\App::class,
-        App\Providers\Auth::class,
-        App\Providers\Blade::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
         // App\Providers\Broadcast::class,
-        App\Providers\Event::class,
-        App\Providers\Form::class,
-        App\Providers\Macro::class,
-        App\Providers\Observer::class,
-        App\Providers\Queue::class,
-        App\Providers\Route::class,
-        App\Providers\Validation::class,
-        App\Providers\ViewComposer::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
+        App\Providers\MacroServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
+        App\Providers\QueueServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\ValidationServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
 
     ],
 

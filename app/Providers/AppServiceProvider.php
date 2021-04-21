@@ -6,7 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as Provider;
 
-class App extends Provider
+class AppServiceProvider extends Provider
 {
     /**
      * Register any application services.
