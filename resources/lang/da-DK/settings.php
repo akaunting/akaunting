@@ -81,7 +81,7 @@ return [
         'description'       => 'Standard konto, valuta og sprog',
         'list_limit'        => 'Poster pr side',
         'use_gravatar'      => 'Brug standard-ikoner (Gravatar)',
-        'income_category'   => 'Indkomstkategori',
+        'income_category'   => 'Indtægtskategori',
         'expense_category'  => 'Udgiftskategori',
     ],
 
@@ -130,7 +130,7 @@ return [
     ],
 
     'categories' => [
-        'description'       => 'Ubegrænsede kategorier for indtægt, udgift og varer',
+        'description'       => 'Ubegrænsede kategorier for indtægter, udgifter og varer',
     ],
 
     'currencies' => [

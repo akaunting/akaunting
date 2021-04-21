@@ -3,10 +3,12 @@
 return [
 
     'from_account'          => 'Z konta',
-    'to_account'            => 'Do konta',
+    'from_account_rate'     => 'Z rachunku',
+    'to_account'            => 'Na rachunek',
+    'to_account_rate'       => 'Na rachunek',
 
     'messages' => [
-        'delete'            => ':from do :to (:amount)',
+        'delete'            => ':from na :to (:amount)',
     ],
 
 ];

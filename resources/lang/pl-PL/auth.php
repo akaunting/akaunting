@@ -19,7 +19,7 @@ return [
         'current'           => 'Hasło',
         'current_confirm'   => 'Potwierdzenie hasła',
         'new'               => 'Nowe hasło',
-        'new_confirm'       => 'Potwierdzenie hasła',
+        'new_confirm'       => 'Potwierdzenie nowego hasła',
     ],
 
     'error' => [

@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Importen slutförd',
+            'description'       => 'Importen har slutförts och posterna finns i din panel.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Importen misslyckades',
+            'description'       => 'Kan inte importera filen på grund av följande problem:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'Exporteringen är klar',
+            'description'       => 'Exportfilen är klar att ladda ner från följande länk:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Exporteringen misslyckades',
+            'description'       => 'Kan inte skapa exportfilen på grund av följande problem:',
+        ],
+
+    ],
+
 ];

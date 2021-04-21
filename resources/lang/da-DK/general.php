@@ -4,7 +4,7 @@ return [
 
     'dashboards'            => 'Skrivebord|Skriveborde',
     'items'                 => 'Vare|Varer',
-    'incomes'               => 'Indkomst|Indkomster',
+    'incomes'               => 'Indtægt|Indtægter',
     'invoices'              => 'Faktura|Fakturaer',
     'revenues'              => 'Indtægt|Indtægter',
     'customers'             => 'Medlem|Medlemmer',

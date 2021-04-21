@@ -24,7 +24,7 @@ return [
     ],
 
     'reports' => [
-        'income'            => 'Månedlig indkomst oversigt efter kategori',
+        'income'            => 'Månedlig indtægtsoversigt efter kategori',
         'expense'           => 'Månedlig udgiftsoversigt efter kategori',
         'income_expense'    => 'Månedlig Indkomstoversigt efter kategori',
         'tax'               => 'Kvartalsvis afgifts-oversigt',
