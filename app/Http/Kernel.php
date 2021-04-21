@@ -107,7 +107,6 @@ class Kernel extends HttpKernel
             'session.errors',
             'csrf',
             'signature',
-            'signed.redirect',
             'company.identify',
             'bindings',
             'header.x',
@@ -154,7 +153,6 @@ class Kernel extends HttpKernel
         'install.can' => \App\Http\Middleware\CanInstall::class,
         'install.redirect' => \App\Http\Middleware\RedirectIfNotInstalled::class,
         'money' => \App\Http\Middleware\Money::class,
-        'signed.redirect' => \App\Http\Middleware\RedirectSignedIfAuthenticated::class,
         'wizard.redirect' => \App\Http\Middleware\RedirectIfWizardNotCompleted::class,
 
         // Vendor
