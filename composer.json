@@ -27,7 +27,7 @@
         "barryvdh/laravel-debugbar": "3.5.*",
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.8.*",
-        "mpdf/mpdf": "^8.0",
+        "mpdf/mpdf": "^7.0",
         "bkwld/cloner": "3.9.*",
         "consoletvs/charts": "6.5.*",
         "dingo/api": "3.0.*",
