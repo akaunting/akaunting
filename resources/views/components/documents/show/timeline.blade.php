@@ -105,7 +105,7 @@
                                         @stack('timeline_viewed_invoice_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
                                             <small>{{ trans('invoices.messages.status.viewed') }}</small>
-                                        @stack('timeline_viewed_invoice_body_message_end'))
+                                        @stack('timeline_viewed_invoice_body_message_end')
                                     @elseif($document->status == 'received')
                                         @stack('timeline_receive_bill_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
