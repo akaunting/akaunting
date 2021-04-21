@@ -11,11 +11,11 @@ use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
+use App\Jobs\Export\ExportHtmlToPDFJob;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
 use App\Traits\Documents;
 use File;
-
 class Invoices extends Controller
 {
     use Documents;
@@ -333,16 +333,8 @@ class Invoices extends Controller
         $currency_style = true;
 
         $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
-        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
-
-        $pdf = app('dompdf.wrapper');
-        $pdf->loadHTML($html);
-
-        //$pdf->setPaper('A4', 'portrait');
-
         $file_name = $this->getDocumentFileName($invoice);
-
-        return $pdf->download($file_name);
+        return $this->dispatch(new ExportHtmlToPDFJob($view,$file_name));
     }
 
     /**
