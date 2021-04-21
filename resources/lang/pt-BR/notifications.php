@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Importação concluída',
+            'description'       => 'A importação foi concluída e os registros estão disponíveis em seu painel.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Importação Falhou',
+            'description'       => 'Não é possível importar o arquivo devido aos seguintes problemas:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'A exportação está pronta',
+            'description'       => 'O arquivo de exportação está pronto para ser baixado a partir do seguinte link:',
+        ],
+
+        'failed' => [
+            'subject'           => 'A exportação falhou',
+            'description'       => 'Não é possível importar o arquivo devido aos seguintes problemas:',
+        ],
+
+    ],
+
 ];

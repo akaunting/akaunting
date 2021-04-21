@@ -8,11 +8,12 @@ return [
     'decimal_mark'          => 'Separator dziesiętny',
     'thousands_separator'   => 'Separator tysięczny',
     'precision'             => 'Miejsc po przecinku',
+    'conversion'            => 'Przeliczanie waluty: :price (:currency_code) według :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbol',
         'position'          => 'Pozycja symbolu',
-        'before'            => 'Przed kwotą',
-        'after'             => 'Po kwocie',
+        'before'            => 'Kwota przed',
+        'after'             => 'Kwota po',
     ]
 
 ];

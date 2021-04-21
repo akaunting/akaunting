@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Uvoz završen',
+            'description'       => 'Import je završen i unosi su dostupni na vašoj tabli.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Uvoz nije završen zbog problema',
+            'description'       => 'Nije moguće uraditi import fajla zbog ovih grešaka:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'Izvoz završen',
+            'description'       => 'Export je završen i spreman za download na ovom linku:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Uvoz nije završen zbog problema',
+            'description'       => 'Nije moguće uraditi export fajla zbog ovih grešaka:',
+        ],
+
+    ],
+
 ];

@@ -25,4 +25,31 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Importació completada',
+            'description'       => 'S\'ha completat la importació i els registres ja estan disponibles al teu tauler.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Ha fallat la importació.',
+            'description'       => 'No s\'ha pogut importar el fitxer a causa de:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'L\'exportació està disponible.',
+            'description'       => 'Pots descarregar el fitxer d\'exportació prement el següent enllaç:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Ha fallat l\'exportació',
+            'description'       => 'No s\'ha pogut crear el fitxer d\'exportació a causa de:',
+        ],
+
+    ],
+
 ];
