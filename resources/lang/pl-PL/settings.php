@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'                => 'Zmień nazwę firmy, e-mail, adres, numer podatkowy itp.',
+        'description'                => 'Zmień nazwę firmy, e-mail, adres, numer NIP itp.',
         'name'                       => 'Nazwa firmy',
         'email'                      => 'E-mail',
         'phone'                      => 'Telefon',

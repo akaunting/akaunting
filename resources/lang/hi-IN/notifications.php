@@ -11,7 +11,7 @@ return [
 
         'mail' => [
 
-            'subject' => 'अद्यतन असफल :domain',
+            'subject' => ':domain पर अपडेट विफल',
             'message' => 'निम्न संदेश के साथ :alias का :current_version से :new_version तक का अद्यतन <strong> :step </ strong> चरण में विफल रहा: :error_message',
 
         ],

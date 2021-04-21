@@ -5,7 +5,7 @@ return [
     'rate'                  => 'Stawka',
     'rate_percent'          => 'Stawka procentowa (%)',
     'normal'                => 'Zwykły(stała stawka)',
-    'inclusive'             => 'Włącznie z podatkiem',
+    'inclusive'             => 'Z podatkiem',
     'compound'              => 'Podatek złożony',
     'fixed'                 => 'Stała',
     'withholding'           => 'Wstrzymane',
