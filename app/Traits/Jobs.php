@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use Exception;
-use Illuminate\Bus\Dispatcher;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Throwable;
 
 trait Jobs
