@@ -44,7 +44,7 @@ return [
         'status' => [
             'created'       => ':date मा तयार ',
             'receive' => [
-                'draft'     => 'अप्रेषित',
+                'draft'     => 'प्राप्त भएको छैन',
                 'received'  => ':date मा प्राप्त',
             ],
             'paid' => [
