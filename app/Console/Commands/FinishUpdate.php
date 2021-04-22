@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Events\Install\UpdateFinished;
-use App\Models\Common\Company;
 use Illuminate\Console\Command;
 
 class FinishUpdate extends Command
@@ -48,16 +47,18 @@ class FinishUpdate extends Command
             throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
         }
 
-        // Set locale for modules
-        if ($alias != 'core') {
-            $company = Company::find($company_id);
+        $company = company($company_id);
 
-            if (!empty($company->locale)) {
-                app()->setLocale($company->locale);
-            }
+        if (empty($company)) {
+            return;
         }
 
-        company($company_id)->makeCurrent();
+        $company->makeCurrent();
+
+        // Set locale for modules
+        if (($alias != 'core') && !empty($company->locale)) {
+            app()->setLocale($company->locale);
+        }
 
         // Disable model cache during update
         config(['laravel-model-caching.enabled' => false]);
