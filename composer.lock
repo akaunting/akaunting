@@ -344,16 +344,16 @@
         },
         {
             "name": "akaunting/laravel-setting",
-            "version": "1.2.5",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-setting.git",
-                "reference": "6faedfebd866c3f30efeda58e8a142979ed554b2"
+                "reference": "10186327e3b93fca56eaa9e4d8ee2ead189f0332"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-setting/zipball/6faedfebd866c3f30efeda58e8a142979ed554b2",
-                "reference": "6faedfebd866c3f30efeda58e8a142979ed554b2",
+                "url": "https://api.github.com/repos/akaunting/laravel-setting/zipball/10186327e3b93fca56eaa9e4d8ee2ead189f0332",
+                "reference": "10186327e3b93fca56eaa9e4d8ee2ead189f0332",
                 "shasum": ""
             },
             "require": {
@@ -405,9 +405,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-setting/issues",
-                "source": "https://github.com/akaunting/laravel-setting/tree/1.2.5"
+                "source": "https://github.com/akaunting/laravel-setting/tree/1.2.7"
             },
-            "time": "2021-03-05T12:10:57+00:00"
+            "time": "2021-04-23T22:38:26+00:00"
         },
         {
             "name": "akaunting/laravel-version",
@@ -1814,40 +1814,39 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.10.2",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "13e3381b25847283a91948d04640543941309727"
+                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
-                "reference": "13e3381b25847283a91948d04640543941309727",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
+                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
                 "shasum": ""
             },
             "require": {
                 "php": "~7.1 || ^8.0"
             },
             "conflict": {
-                "doctrine/common": ">2.2,<2.4"
+                "doctrine/common": ">2.2,<2.4",
+                "psr/cache": ">=3"
             },
             "require-dev": {
                 "alcaeus/mongo-php-adapter": "^1.1",
-                "doctrine/coding-standard": "^6.0",
+                "cache/integration-tests": "dev-master",
+                "doctrine/coding-standard": "^8.0",
                 "mongodb/mongodb": "^1.1",
-                "phpunit/phpunit": "^7.0",
-                "predis/predis": "~1.0"
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "predis/predis": "~1.0",
+                "psr/cache": "^1.0 || ^2.0",
+                "symfony/cache": "^4.4 || ^5.2"
             },
             "suggest": {
                 "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
@@ -1894,7 +1893,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.10.x"
+                "source": "https://github.com/doctrine/cache/tree/1.11.0"
             },
             "funding": [
                 {
@@ -1910,7 +1909,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-07T18:54:01+00:00"
+            "time": "2021-04-13T14:46:17+00:00"
         },
         {
             "name": "doctrine/collections",
