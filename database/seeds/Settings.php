@@ -25,8 +25,6 @@ class Settings extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        setting()->setExtraColumns(['company_id' => $company_id]);
-
         $offline_payments = [
             [
                 'code' => 'offline-payments.cash.1',
