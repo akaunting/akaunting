@@ -410,7 +410,7 @@ abstract class Report
 
     public function getUrl($action = 'print')
     {
-        $url = 'common/reports/' . $this->model->id . '/' . $action;
+        $url = company_id() . '/common/reports/' . $this->model->id . '/' . $action;
 
         $search = request('search');
 
