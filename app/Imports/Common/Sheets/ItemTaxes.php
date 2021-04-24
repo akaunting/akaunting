@@ -10,11 +10,6 @@ class ItemTaxes extends Import
 {
     public function model(array $row)
     {
-        // @todo remove after laravel-excel 3.2 release
-        if ($row['item_name'] === $this->empty_field) {
-            return null;
-        }
-
         return new Model($row);
     }
 
