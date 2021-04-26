@@ -13,11 +13,6 @@ class BillItemTaxes extends Import
 {
     public function model(array $row)
     {
-        // @todo remove after laravel-excel 3.2 release
-        if ($row['bill_number'] === $this->empty_field) {
-            return null;
-        }
-
         return new Model($row);
     }
 

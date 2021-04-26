@@ -26,8 +26,6 @@ class Accounts extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        setting()->setExtraColumns(['company_id' => $company_id]);
-
         $account = Account::create([
             'company_id' => $company_id,
             'name' => trans('demo.accounts.cash'),
