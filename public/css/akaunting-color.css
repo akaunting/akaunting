@@ -930,6 +930,11 @@ button.bg-yellow:focus
 {
     box-shadow: none, 0 0 0 0 rgba(109, 162, 82, .5);
 }
+.form-group.disabled .btn-group.btn-group-toggle.radio-yes-no .btn-success.active-disabled {
+    color: #ffffff !important;
+    border-color: #6da252 !important;
+    background-color: #6da252 !important;
+}
 /*--Success Color Finish--*/
 
 /*--Danger Color--*/
@@ -971,6 +976,11 @@ button.bg-yellow:focus
 .show > .btn-danger.dropdown-toggle:focus
 {
     box-shadow: none, 0 0 0 0 rgba(239, 50, 50, .5);
+}
+.form-group.disabled .btn-group.btn-group-toggle.radio-yes-no .btn-danger.active-disabled {
+    color: #ffffff !important;
+    border-color: #ef3232 !important;
+    background-color: #ef3232 !important;
 }
 /*--Danger Color Finish--*/
 
