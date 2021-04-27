@@ -76,6 +76,10 @@ class Money
             logger($e->getMessage());
 
             $amount = 0;
+
+            if ($money_format === null) {
+                $amount = $money_format;
+            }
         }
 
         return $amount;
