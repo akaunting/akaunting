@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Import abgeschlossen',
+            'description'       => 'Der Import wurde abgeschlossen und die Datensätze sind verfügbar.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Import fehlgeschlagen',
+            'description'       => 'Die Daten können aufgrund der folgenden Probleme nicht importiert werden:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'Export ist bereit',
+            'description'       => 'Die Exportdatei kann von folgendem Link heruntergeladen werden:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Export fehlgeschlagen',
+            'description'       => 'Der Export konnte aufgrund des folgenden Problems nicht erstellt werden:',
+        ],
+
+    ],
+
 ];

@@ -178,7 +178,7 @@ return [
         'send'              => 'Invia :type',
         'get'               => 'Ottieni :type',
         'add'               => 'Aggiungi :type',
-        'manage'            => 'Gestisci :tipo',
+        'manage'            => 'Gestisci :type',
     ],
 
     'form' => [

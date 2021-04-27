@@ -44,7 +44,7 @@ return [
         'status' => [
             'created'       => 'Oprettet den :date',
             'receive' => [
-                'draft'     => 'Ikke sendt',
+                'draft'     => 'Ikke modtaget',
                 'received'  => 'Modtaget den :date',
             ],
             'paid' => [

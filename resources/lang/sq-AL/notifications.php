@@ -24,4 +24,31 @@ return [
 
     ],
 
+    'import' => [
+
+        'completed' => [
+            'subject'           => 'Importi ka përfunduar',
+            'description'       => 'Importi ka përfunduar dhe të dhënat janë në dispozicion në panelin tuaj.',
+        ],
+
+        'failed' => [
+            'subject'           => 'Importi dështoi.',
+            'description'       => 'Nuk është në gjendje të importojë skedarin për shkak të çështjeve të mëposhtme:',
+        ],
+    ],
+
+    'export' => [
+
+        'completed' => [
+            'subject'           => 'Eksporti është gati',
+            'description'       => 'Skedari i eksportit është gati për t\'u shkarkuar nga linku vijues:',
+        ],
+
+        'failed' => [
+            'subject'           => 'Eksporti dështoi',
+            'description'       => 'Nuk është në gjendje të krijojë skedarin e eksportit për shkak të çështjes vijuese:',
+        ],
+
+    ],
+
 ];

@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Divisas',
     'total_income'              => 'Total Ingresos',
     'receivables'               => 'Cuentas por cobrar',
     'open_invoices'             => 'Facturas Pendientes',
