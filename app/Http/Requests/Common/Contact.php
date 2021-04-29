@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Common;
 
 use App\Abstracts\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class Contact extends FormRequest
 {
@@ -24,7 +23,7 @@ class Contact extends FormRequest
      */
     public function rules()
     {
-        $email = [];
+        $email = '';
         $required = '';
 
         $type = $this->request->get('type', 'customer');
@@ -44,17 +43,14 @@ class Contact extends FormRequest
         }
 
         if (!empty($this->request->get('email'))) {
-            $email[] = 'email';
-            $email[] = Rule::unique('contacts')
-                           ->ignore($id)
-                           ->where('company_id', $company_id)
-                           ->where('type', $type)
-                           ->where('deleted_at');
+            $email .= 'email|unique:contacts,NULL,'
+                      . $id . ',id'
+                      . ',company_id,' . $company_id
+                      . ',type,' . $type
+                      . ',deleted_at,NULL';
 
             if (isset($model) && $this->$model->user_id) {
-                $email[] = Rule::unique('users')
-                               ->ignore($this->$model->user_id)
-                               ->where('deleted_at');
+                $email .= '|unique:users,NULL,' . $this->$model->user_id . ',id,deleted_at,NULL';
             }
         }
 

@@ -2,13 +2,10 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Traits\Contacts;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class User extends FormRequest
 {
-    use Contacts;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +30,7 @@ class User extends FormRequest
             $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
         }
 
-        $email = ['required', 'email'];
+        $email = 'required|email';
 
         if ($this->getMethod() == 'PATCH') {
             // Updating user
@@ -43,11 +40,11 @@ class User extends FormRequest
             $roles = $this->user->can('read-auth-roles') ? 'required' : '';
 
             if ($this->user->contact) {
-                $email[] = Rule::unique('contacts')
-                               ->ignore($this->user->contact->id)
-                               ->where('company_id', company_id())
-                               ->where('type', $this->getCustomerTypes())
-                               ->where('deleted_at');
+                $email .= '|unique:contacts,NULL,'
+                          . $this->user->contact->id . ',id'
+                          . ',company_id,' . company_id()
+                          . ',type,customer'
+                          . ',deleted_at,NULL';
             }
         } else {
             // Creating user
@@ -57,7 +54,7 @@ class User extends FormRequest
             $roles = 'required';
         }
 
-        $email[] = Rule::unique('users')->ignore($id)->where('deleted_at');
+        $email .= '|unique:users,email,' . $id . ',id,deleted_at,NULL';
 
         return [
             'name' => 'required|string',
