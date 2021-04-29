@@ -44,6 +44,8 @@ class Suggestions
                 continue;
             }
 
+            $s_module->action_url = company_id() . '/' . $s_module->action_url;
+
             $modules[] = $s_module;
         }
 
