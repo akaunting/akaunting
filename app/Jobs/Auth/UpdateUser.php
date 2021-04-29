@@ -55,6 +55,10 @@ class UpdateUser extends Job
             if ($this->request->has('companies')) {
                 $this->user->companies()->sync($this->request->get('companies'));
             }
+
+            if ($this->user->contact) {
+                $this->user->contact->update($this->request->input());
+            }
         });
 
         return $this->user;

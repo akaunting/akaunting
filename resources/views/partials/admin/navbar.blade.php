@@ -160,6 +160,8 @@
                             @endif
 
                             <div class="list-group list-group-flush">
+                                @stack('notification_bills_start')
+
                                 @can('read-purchases-bills')
                                     @if (count($bills))
                                         <a href="{{ route('users.read.bills', $user->id) }}" class="list-group-item list-group-item-action">
@@ -177,6 +179,10 @@
                                     @endif
                                 @endcan
 
+                                @stack('notification_bills_end')
+
+                                @stack('notification_invoices_start')
+
                                 @can('read-sales-invoices')
                                     @if (count($invoices))
                                         <a href="{{ route('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
@@ -193,6 +199,8 @@
                                         </a>
                                     @endif
                                 @endcan
+
+                                @stack('notification_invoices_end')
                             </div>
 
                             @if ($notifications)

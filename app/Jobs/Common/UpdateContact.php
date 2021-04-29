@@ -38,12 +38,14 @@ class UpdateContact extends Job
         \DB::transaction(function () {
             if ($this->request->get('create_user', 'false') === 'true') {
                 $this->createUser();
+            } elseif ($this->contact->user) {
+                $this->contact->user->update($this->request->all());
             }
 
             // Upload logo
             if ($this->request->file('logo')) {
                 $media = $this->getMedia($this->request->file('logo'), Str::plural($this->contact->type));
-    
+
                 $this->contact->attachMedia($media, 'logo');
             }
 

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class User extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,12 +30,22 @@ class User extends FormRequest
             $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
         }
 
+        $email = 'required|email';
+
         if ($this->getMethod() == 'PATCH') {
             // Updating user
             $id = is_numeric($this->user) ? $this->user : $this->user->getAttribute('id');
             $password = '';
             $companies = $this->user->can('read-common-companies') ? 'required' : '';
             $roles = $this->user->can('read-auth-roles') ? 'required' : '';
+
+            if ($this->user->contact) {
+                $email .= '|unique:contacts,NULL,'
+                          . $this->user->contact->id . ',id'
+                          . ',company_id,' . company_id()
+                          . ',type,customer'
+                          . ',deleted_at,NULL';
+            }
         } else {
             // Creating user
             $id = null;
@@ -43,9 +54,11 @@ class User extends FormRequest
             $roles = 'required';
         }
 
+        $email .= '|unique:users,email,' . $id . ',id,deleted_at,NULL';
+
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . $id . ',id,deleted_at,NULL',
+            'email' => $email,
             'password' => $password . 'confirmed',
             'companies' => $companies,
             'roles' => $roles,

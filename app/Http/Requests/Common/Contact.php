@@ -43,7 +43,15 @@ class Contact extends FormRequest
         }
 
         if (!empty($this->request->get('email'))) {
-            $email = 'email|unique:contacts,NULL,' . $id . ',id,company_id,' . $company_id . ',type,' . $type . ',deleted_at,NULL';
+            $email .= 'email|unique:contacts,NULL,'
+                      . $id . ',id'
+                      . ',company_id,' . $company_id
+                      . ',type,' . $type
+                      . ',deleted_at,NULL';
+
+            if (isset($model) && $this->$model->user_id) {
+                $email .= '|unique:users,NULL,' . $this->$model->user_id . ',id,deleted_at,NULL';
+            }
         }
 
         return [
