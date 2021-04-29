@@ -15635,7 +15635,7 @@
 /*--------Select Input Color--------*/
 .el-input__inner
 {
-    height: 46px !important;
+    height: 46px;
     color: #8696a9 !important;
 }
 
