@@ -4,10 +4,13 @@ namespace App\Notifications\Sale;
 
 use App\Abstracts\Notification;
 use App\Models\Common\EmailTemplate;
+use App\Traits\Documents;
 use Illuminate\Support\Facades\URL;
 
 class Invoice extends Notification
 {
+    use Documents;
+
     /**
      * The invoice model.
      *
@@ -23,17 +26,26 @@ class Invoice extends Notification
     public $template;
 
     /**
+     * Should attach pdf or not.
+     *
+     * @var bool
+     */
+    public $attach_pdf;
+
+    /**
      * Create a notification instance.
      *
      * @param  object  $invoice
-     * @param  object  $template
+     * @param  object  $template_alias
+     * @param  object  $attach_pdf
      */
-    public function __construct($invoice = null, $template = null)
+    public function __construct($invoice = null, $template_alias = null, $attach_pdf = false)
     {
         parent::__construct();
 
         $this->invoice = $invoice;
-        $this->template = EmailTemplate::alias($template)->first();
+        $this->template = EmailTemplate::alias($template_alias)->first();
+        $this->attach_pdf = $attach_pdf;
     }
 
     /**
@@ -46,9 +58,9 @@ class Invoice extends Notification
     {
         $message = $this->initMessage();
 
-        // Attach the PDF file if available
-        if (isset($this->invoice->pdf_path)) {
-            $message->attach($this->invoice->pdf_path, [
+        // Attach the PDF file
+        if ($this->attach_pdf) {
+            $message->attach($this->storeInvoicePdfAndGetPath($this->invoice), [
                 'mime' => 'application/pdf',
             ]);
         }

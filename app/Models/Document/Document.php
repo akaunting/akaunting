@@ -363,6 +363,11 @@ class Document extends Model
         return $amount;
     }
 
+    public function getTemplatePathAttribute($value = null)
+    {
+        return $value ?: 'sales.invoices.print_' . setting('invoice.template');
+    }
+
     protected static function newFactory(): Factory
     {
         return DocumentFactory::new();

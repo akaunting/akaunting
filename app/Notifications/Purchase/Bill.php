@@ -25,14 +25,14 @@ class Bill extends Notification
      * Create a notification instance.
      *
      * @param  object  $bill
-     * @param  object  $template
+     * @param  object  $template_alias
      */
-    public function __construct($bill = null, $template = null)
+    public function __construct($bill = null, $template_alias = null)
     {
         parent::__construct();
 
         $this->bill = $bill;
-        $this->template = EmailTemplate::alias($template)->first();
+        $this->template = EmailTemplate::alias($template_alias)->first();
     }
 
     /**
