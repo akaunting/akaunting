@@ -28,6 +28,8 @@
                         @endif
 
                         <div class="list-group list-group-flush">
+                            @stack('notification_bills_start')
+
                             @if (count($bills))
                                 <a href="{{ route('users.read.bills', $user->id) }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
@@ -43,6 +45,10 @@
                                 </a>
                             @endif
 
+                            @stack('notification_bills_end')
+
+                            @stack('notification_invoices_start')
+
                             @if (count($invoices))
                                 <a href="{{ route('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
@@ -57,6 +63,8 @@
                                     </div>
                                 </a>
                             @endif
+
+                            @stack('notification_invoices_end')
                         </div>
 
                         @if ($notifications)
