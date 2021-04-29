@@ -2,11 +2,6 @@
 // Backgrounds
 //
 
-
-@each $color, $value in $colors {
-	@include bg-variant(".bg-#{$color}", $value);
-}
-
 @each $color, $value in $theme-colors {
 	@include bg-gradient-variant(".bg-gradient-#{$color}", $value);
 }
@@ -24,10 +19,6 @@
 
 
 // Sections backgrounds
-
-@each $color, $value in $section-colors {
-    @include bg-variant(".section-#{$color}", $value);
-}
 
 @each $color, $value in $theme-colors {
     @include bg-gradient-variant(".bg-gradient-#{$color}", $value);
