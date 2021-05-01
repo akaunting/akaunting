@@ -212,7 +212,7 @@
     </div>
 </div>
 
-<div class="row mt-9">
+<div class="row mt-9 clearfix">
     <div class="col-58">
         <div class="text company">
             @stack('notes_input_start')
