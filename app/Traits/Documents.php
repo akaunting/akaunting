@@ -124,17 +124,17 @@ trait Documents
         return $key;
     }
 
-    public function storeInvoicePdfAndGetPath($invoice)
+    public function storeDocumentPdfAndGetPath($document)
     {
-        event(new \App\Events\Document\DocumentPrinting($invoice));
+        event(new \App\Events\Document\DocumentPrinting($document));
 
-        $view = view($invoice->template_path, ['invoice' => $invoice])->render();
+        $view = view($document->template_path, ['invoice' => $document, 'document' => $document])->render();
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = $this->getDocumentFileName($invoice);
+        $file_name = $this->getDocumentFileName($document);
 
         $pdf_path = storage_path('app/temp/' . $file_name);
 

@@ -69,7 +69,7 @@ class PaymentReceived extends Notification
 
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeInvoicePdfAndGetPath($this->invoice), [
+            $message->attach($this->storeDocumentPdfAndGetPath($this->invoice), [
                 'mime' => 'application/pdf',
             ]);
         }
