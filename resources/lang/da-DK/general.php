@@ -157,7 +157,7 @@ return [
     'go_to_dashboard'       => 'Gå til skrivebordet',
     'is'                    => 'er',
     'isnot'                 => 'er ikke',
-    'recurring_and_more'    => 'Tilbagevendende og mere..',
+    'recurring_and_more'    => 'Bilag og gentagelser',
     'due_on'                => 'Forfalder den',
     'amount_due'            => 'Forfaldent beløb',
 
