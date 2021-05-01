@@ -1561,6 +1561,14 @@ table .align-items-center td span.badge {
         text-align: left;
         padding-left: 15%;
     }
+
+    @supports (-webkit-touch-callout: none) {
+        .product-select .aka-select.aka-select--fluid.is-open {
+            position: relative;
+            height: 460px;
+            margin-top: unset !important;
+        }
+      }
 }
 /* Color Picker Submit Button Start */
 
