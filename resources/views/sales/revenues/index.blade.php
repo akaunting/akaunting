@@ -77,7 +77,7 @@
                                         @endif
                                     @endif
                                 </td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category->name }}</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left long-texts">{{ $item->category->name }}</td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     <div class="dropdown">

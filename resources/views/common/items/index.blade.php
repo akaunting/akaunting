@@ -52,7 +52,7 @@
                                     <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.svg') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">
                                     <a href="{{ route('items.edit', $item->id) }}">{{ $item->name }}</a>
                                 </td>
-                                <td class="col-lg-1 col-xl-2 d-none d-lg-block">
+                                <td class="col-lg-1 col-xl-2 d-none d-lg-block long-texts">
                                     {{ $item->category->name }}
                                 </td>
                                 <td class="col-md-3 col-lg-3 col-xl-2 text-right d-none d-md-block">
