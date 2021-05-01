@@ -44,7 +44,7 @@ return [
         'status' => [
             'created'       => 'তৈরি করা:  :date',
             'receive' => [
-                'draft'     => 'অপ্রেরিত',
+                'draft'     => 'অপ্রাপ্ত',
                 'received'  => 'গ্রহণ করা হয়েছে :date',
             ],
             'paid' => [
