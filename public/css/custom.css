@@ -1497,10 +1497,6 @@ table .align-items-center td span.badge {
     display: none !important;
 }
 
-#form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light {
-    margin-top: -50px !important;
-}
-
 .document-item-40-px {
     width: 40px;
 }
@@ -1566,8 +1562,6 @@ table .align-items-center td span.badge {
         padding-left: 15%;
     }
 }
-
-
 /* Color Picker Submit Button Start */
 
 .el-button.el-color-dropdown__btn.el-button--default.el-button--mini.is-plain {
@@ -1616,3 +1610,9 @@ table .align-items-center td span.badge {
 }
 
  /* Color Picker Submit Button Finish */
+
+/* Select Tag Fixed Content Start */
+.form-group .el-select .el-select__tags > span {
+    display: contents !important;
+}
+/* Select Tag Fixed Content Finish */
