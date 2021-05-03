@@ -1,5 +1,5 @@
 <template>
-    <div id="dropzone" class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
+    <div :id="'dropzone-' + _uid" class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
@@ -213,7 +213,9 @@ export default {
                             });
 
                             if (self.preview == 'single' && self.attachments.length == 1) {
-                                document.querySelector("#dropzone").classList.add("dz-max-files-reached");
+                                self.$nextTick(() => {
+                                    document.querySelector("#dropzone-" + self._uid).classList.add("dz-max-files-reached");
+                                });
                             }
                         }, 100);
                     }
