@@ -122,8 +122,8 @@ class CustomersTest extends FeatureTestCase
 
     public function testItShouldExportCustomers()
     {
-        $count = 5;
-        Contact::factory()->customer()->count($count)->create();
+        Contact::factory()->customer()->count(5)->create();
+        $count = Contact::count();
 
         \Excel::fake();
 
@@ -135,7 +135,7 @@ class CustomersTest extends FeatureTestCase
             \Str::filename(trans_choice('general.customers', 2)) . '.xlsx',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
-                return $export->collection()->count() === $count + 1;
+                return $export->collection()->count() === $count;
             }
         );
     }
