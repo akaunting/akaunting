@@ -2,6 +2,7 @@
 
 namespace App\Abstracts;
 
+use App\Traits\DateTime;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -11,7 +12,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 abstract class Model extends Eloquent
 {
-    use Cachable, SearchString, SoftDeletes, Sortable, Tenants;
+    use Cachable, DateTime, SearchString, SoftDeletes, Sortable, Tenants;
 
     protected $tenantable = true;
 

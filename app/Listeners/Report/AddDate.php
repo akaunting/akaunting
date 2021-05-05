@@ -39,7 +39,7 @@ class AddDate extends Listener
      */
     public function handleFilterApplying(FilterApplying $event)
     {
-        if ($this->skipThisClass($event)) {
+        if (empty($event->args['date_field'])) {
             return;
         }
 
