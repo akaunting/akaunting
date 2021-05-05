@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\CompanyDeleted;
+use App\Events\Common\CompanyDeleting;
 use App\Traits\Users;
 
 class DeleteCompany extends Job
@@ -33,6 +35,10 @@ class DeleteCompany extends Job
     {
         $this->authorize();
 
+        $this->company->makeCurrent();
+
+        event(new CompanyDeleting($this->company, $this->current_company_id));
+
         \DB::transaction(function () {
             $this->deleteRelationships($this->company, [
                 'accounts', 'documents', 'document_histories', 'document_items', 'document_item_taxes', 'document_totals', 'categories',
@@ -44,6 +50,10 @@ class DeleteCompany extends Job
 
             $this->company->delete();
         });
+
+        event(new CompanyDeleted($this->company, $this->current_company_id));
+
+        company($this->current_company_id)->makeCurrent();
 
         return true;
     }
