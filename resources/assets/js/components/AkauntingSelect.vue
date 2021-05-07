@@ -269,7 +269,7 @@ export default {
             type: String,
             default: 'No Matchign Data',
             description: "Selectbox search option not found item message"
-        }
+        },
     },
 
     data() {
@@ -294,70 +294,7 @@ export default {
     },
 
     created() {
-        let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
-
-        if (this.group) {
-            // Option set sort_option data
-            if (!Array.isArray(created_options)) {
-                for (const [index, options] of Object.entries(created_options)) {
-                    let values = [];
-
-                    for (const [key, value] of Object.entries(options)) {
-                        values.push({
-                            key: key,
-                            value: value
-                        });
-                    }
-
-                    this.sort_options.push({
-                        key: index,
-                        value: values
-                    });
-                }
-            } else {
-                created_options.forEach(function (option, index) {
-                    if (typeof(option) == 'string') {
-                        this.sort_options.push({
-                            index: index,
-                            key: index.toString(),
-                            value: option
-                        });
-                    } else {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
-                    }
-                }, this);
-            }
-        } else {
-            // Option set sort_option data
-            if (!Array.isArray(created_options)) {
-                for (const [key, value] of Object.entries(created_options)) {
-                    this.sort_options.push({
-                        key: key,
-                        value: value
-                    });
-                }
-            } else {
-                created_options.forEach(function (option, index) {
-                    if (typeof(option) == 'string') {
-                        this.sort_options.push({
-                            index: index,
-                            key: index.toString(),
-                            value: option
-                        });
-                    } else {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
-                    }
-                }, this);
-            }
-        }
+        this.setSortOptions();
     },
 
     computed: {
@@ -415,6 +352,76 @@ export default {
 
                 // names must be equal
                 return 0;
+            }
+        },
+
+        setSortOptions() {
+            // Reset sort_options 
+            this.sort_options = [];
+
+            let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
+
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [index, options] of Object.entries(created_options)) {
+                        let values = [];
+
+                        for (const [key, value] of Object.entries(options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [key, value] of Object.entries(created_options)) {
+                        this.sort_options.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
+                    }, this);
+                }
             }
         },
 
@@ -541,6 +548,8 @@ export default {
         },
 
         onModal(value) {
+            //this.setSortOptions();
+
             let add_new = this.add_new;
 
             window.axios.get(this.add_new.path)

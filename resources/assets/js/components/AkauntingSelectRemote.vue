@@ -88,7 +88,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0  && sortOptions.length > 0" class="el-select__footer" :disabled="disabled" value="">
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer" :disabled="disabled" value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -468,6 +468,9 @@ export default {
         },
 
         setSortOptions() {
+            // Reset sort_options 
+            this.sort_options = [];
+
             let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
 
             if (this.group) {
@@ -490,11 +493,19 @@ export default {
                     }
                 } else {
                     created_options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             } else {
@@ -508,11 +519,19 @@ export default {
                     }
                 } else {
                     created_options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             }
@@ -531,7 +550,7 @@ export default {
             // Option changed sort_option data
             if (this.group) {
                 this.sort_options.forEach(function (option_group, group_index) {
-                    this.option_group.value.forEach(function (option, index) {
+                    option_group.value.forEach(function (option, index) {
                         if (this.multiple) {
                             let indexs = [];
                             let values = [];
@@ -539,7 +558,7 @@ export default {
                             let options = [];
 
                             this.selected.forEach(function (selected_option_id, selected_index) {
-                                if (option.value == selected_option_id) {
+                                if (option.key == selected_option_id) {
                                     indexs.push(selected_index);
                                     values.push(option.id);
                                     labels.push(option.value);
@@ -552,7 +571,7 @@ export default {
                             this.$emit('label', labels);
                             this.$emit('option', options);
                         } else {
-                            if (option.value == this.selected) {
+                            if (option.key == this.selected) {
                                 this.$emit('index', index);
                                 this.$emit('value', option.id);
                                 this.$emit('label', option.value);
@@ -570,7 +589,7 @@ export default {
                         let options = [];
 
                         this.selected.forEach(function (selected_option_id, selected_index) {
-                            if (option.value == selected_option_id) {
+                            if (option.key == selected_option_id) {
                                 indexs.push(selected_index);
                                 values.push(option.id);
                                 labels.push(option.value);
@@ -583,7 +602,7 @@ export default {
                         this.$emit('label', labels);
                         this.$emit('option', options);
                     } else {
-                        if (option.value == this.selected) {
+                        if (option.key == this.selected) {
                             this.$emit('index', index);
                             this.$emit('value', option.id);
                             this.$emit('label', option.value);
@@ -982,11 +1001,19 @@ export default {
                     }
                 } else {
                     options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             } else {
@@ -1000,11 +1027,19 @@ export default {
                     }
                 } else {
                     options.forEach(function (option, index) {
-                        this.sort_options.push({
-                            index: index,
-                            key: option.id,
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
+                        if (typeof(option) == 'string') {
+                            this.sort_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sort_options.push({
+                                index: index,
+                                key: option.id,
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
                     }, this);
                 }
             }
