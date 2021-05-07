@@ -17,6 +17,11 @@ class InvoiceShow extends FormRequest
             return true;
         }
 
+        // Allow admin to see signed invoice
+        if (user()->can('read-sales-invoices')) {
+            return true;
+        }
+
         return $this->invoice->contact_id == user()->contact->id;
     }
 
