@@ -144,14 +144,22 @@ trait DateTime
 
         foreach ($financial_quarters as $quarter) {
             if ($today->lessThan($quarter->getStartDate()) || $today->greaterThan($quarter->getEndDate())) {
+                $previous_quarter = $quarter;
+
                 continue;
             }
 
             $this_quarter = $quarter;
+
+            break;
         }
 
         if (!isset($this_quarter)) {
             $this_quarter = $financial_quarters[0];
+        }
+
+        if (!isset($previous_quarter)) {
+            $previous_quarter = $financial_quarters[0];
         }
 
         $date_picker_shortcuts = [
@@ -168,8 +176,8 @@ trait DateTime
                 'end' => $this_quarter->getEndDate()->format('Y-m-d'),
             ],
             trans('reports.previous_quarter') => [
-                'start' => $this_quarter->getStartDate()->copy()->subQuarter()->format('Y-m-d'),
-                'end' => $this_quarter->getEndDate()->copy()->subQuarter()->format('Y-m-d'),
+                'start' => $previous_quarter->getStartDate()->format('Y-m-d'),
+                'end' => $previous_quarter->getEndDate()->format('Y-m-d'),
             ],
             trans('reports.last_12_months') => [
                 'start' => $today->copy()->subYear()->startOfDay()->format('Y-m-d'),
