@@ -7,6 +7,7 @@ use App\Events\Install\UpdateFinished as Event;
 use App\Models\Common\Company;
 use App\Models\Common\Media;
 use App\Utilities\Date;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,6 +28,8 @@ class Version2112 extends Listener
         if ($this->skipThisUpdate($event)) {
             return;
         }
+
+        Artisan::call('migrate', ['--force' => true]);
 
         $this->updateCompanies();
     }
