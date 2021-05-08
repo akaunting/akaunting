@@ -3,32 +3,13 @@
 namespace App\Traits;
 
 use App\Models\Common\Media as MediaModel;
+use App\Utilities\Date;
+use Illuminate\Support\Facades\Storage;
 use MediaUploader;
 
 trait Uploads
 {
-    public function getUploadedFilePath($file, $folder = 'settings', $company_id = null)
-    {
-        $path = '';
-
-        if (!$file || !$file->isValid()) {
-            return $path;
-        }
-
-        if (!$company_id) {
-            $company_id = company_id();
-        }
-
-        $file_name = $file->getClientOriginalName();
-
-        // Upload file
-        $file->storeAs($company_id . '/' . $folder, $file_name);
-
-        // Prepare db path
-        $path = $folder . '/' . $file_name;
-
-        return $path;
-    }
+    public $company_id_index = 3;
 
     public function getMedia($file, $folder = 'settings', $company_id = null)
     {
@@ -38,11 +19,7 @@ trait Uploads
             return $path;
         }
 
-        if (!$company_id) {
-            $company_id = company_id();
-        }
-
-        $path = $company_id . '/' . $folder;
+        $path = $this->getMediaFolder($folder, $company_id);
 
         return MediaUploader::fromSource($file)->toDirectory($path)->upload();
     }
@@ -55,11 +32,7 @@ trait Uploads
             $disk = config('mediable.default_disk');
         }
 
-        if (!$company_id) {
-            $company_id = company_id();
-        }
-
-        $path = $company_id . '/' . $folder . '/' . basename($file);
+        $path = $this->getMediaFolder($folder, $company_id) . '/' . basename($file);
 
         return MediaUploader::importPath($disk, $path);
     }
@@ -93,5 +66,49 @@ trait Uploads
 
             MediaModel::where('id', $media->id)->delete();
         }
+    }
+
+    public function getMediaFolder($folder, $company_id = null)
+    {
+        if (!$company_id) {
+            $company_id = company_id();
+        }
+
+        $date = Date::now()->format('Y/m/d');
+
+        // 2021/04/09/34235/invoices
+        return $date . '/' . $company_id . '/' . $folder;
+    }
+
+    public function getMediaPathOnStorage($media)
+    {
+        if (!is_object($media)) {
+            return false;
+        }
+
+        $path = $media->basename;
+
+        if (!empty($media->directory)) {
+            // 2021/04/09/34235/invoices
+            $folders = explode('/', $media->directory);
+
+            // No company_id in folder path
+            if (empty($folders[$this->company_id_index])) {
+                return false;
+            }
+
+            // Check if company can access media
+            if ($folders[$this->company_id_index] != company_id()) {
+                return false;
+            }
+
+            $path = $media->directory . '/' . $media->basename;
+        }
+
+        if (!Storage::exists($path)) {
+            return false;
+        }
+
+        return Storage::path($path);
     }
 }
