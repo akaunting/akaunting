@@ -10,11 +10,11 @@ use App\Utilities\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class Version2111 extends Listener
+class Version2112 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '2.1.11';
+    const VERSION = '2.1.12';
 
     /**
      * Handle the event.
