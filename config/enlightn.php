@@ -92,6 +92,7 @@ return [
         Enlightn\Enlightn\Analyzers\Performance\QueueDriverAnalyzer::class,
         Enlightn\Enlightn\Analyzers\Security\CSRFAnalyzer::class,
         Enlightn\Enlightn\Analyzers\Security\StableDependencyAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Security\FrontendVulnerableDependencyAnalyzer::class,
         Enlightn\EnlightnPro\Analyzers\Reliability\DeadRouteAnalyzer::class,
         Enlightn\Enlightn\Analyzers\Performance\UnusedGlobalMiddlewareAnalyzer::class,
     ],
@@ -182,4 +183,9 @@ return [
         storage_path(),
         app()->bootstrapPath('cache'),
     ],
+
+    'debug_blacklist' => [
+        'var_dump', 'dump', 'dd', 'print_r', 'var_export', 'debug_print_backtrace', 'debug_zval_dump',
+    ],
+
 ];
