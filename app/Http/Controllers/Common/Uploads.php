@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Common;
 use App\Abstracts\Http\Controller;
 use App\Models\Common\Media;
 use App\Traits\Uploads as Helper;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use File;
 
 class Uploads extends Controller
 {
@@ -31,7 +31,7 @@ class Uploads extends Controller
             return response(null, 204);
         }
 
-        return response()->file($path);
+        return $this->streamMedia($media, $path);
     }
 
     /**
@@ -112,7 +112,7 @@ class Uploads extends Controller
             return false;
         }
 
-        return response()->download($path);
+        return $this->streamMedia($media, $path);
     }
 
     /**
@@ -151,7 +151,7 @@ class Uploads extends Controller
 
         $media->delete(); //will not delete files
 
-        File::delete($path);
+        Storage::delete($path);
 
         if (!empty($request->input('page'))) {
             switch ($request->input('page')) {

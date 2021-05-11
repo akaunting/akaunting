@@ -46,6 +46,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "6.2.*",
+        "league/flysystem-aws-s3-v3": "1.0.*",
         "league/oauth2-client": "2.6.*",
         "league/omnipay": "3.1.*",
         "livewire/livewire": "2.3.*",
