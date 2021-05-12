@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
     var document_items = {!! $document_items !!};
-    var document_default_currency = '{{ setting('default.currency') }}';
+    var document_default_currency = '{{ $currency_code }}';
     var document_currencies = {!! $currencies !!};
     var document_taxes = {!! $taxes !!};
 </script>

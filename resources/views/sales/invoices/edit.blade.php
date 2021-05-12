@@ -7,5 +7,5 @@
 @endsection
 
 @push('scripts_start')
-    <x-documents.script type="invoice" :items="$invoice->items()->get()" />
+    <x-documents.script type="invoice" :items="$invoice->items()->get()" :document="$invoice" />
 @endpush

@@ -5,6 +5,7 @@ namespace App\Abstracts\View\Components;
 use App\Abstracts\View\Components\Document as Base;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
+use App\Models\Setting\Currency;
 use App\Traits\Documents;
 use Date;
 use Illuminate\Support\Str;
@@ -16,6 +17,12 @@ abstract class DocumentForm extends Base
     public $type;
 
     public $document;
+
+    public $currencies;
+
+    public $currency;
+
+    public $currency_code;
 
     /** Advanced Component Start */
     /** @var string */
@@ -205,7 +212,7 @@ abstract class DocumentForm extends Base
      * @return void
      */
     public function __construct(
-        $type, $document = false,
+        $type, $document = false, $currencies = false, $currency = false, $currency_code = false,
         /** Advanced Component Start */
         string $categoryType = '', bool $hideRecurring = false, bool $hideCategory = false, bool $hideAttachment = false,
         /** Advanced Component End */
@@ -235,6 +242,9 @@ abstract class DocumentForm extends Base
     ) {
         $this->type = $type;
         $this->document = $document;
+        $this->currencies = $this->getCurrencies($currencies);
+        $this->currency = $this->getCurrency($document, $currency, $currency_code);
+        $this->currency_code = $this->currency->code;
 
         /** Advanced Component Start */
         $this->categoryType = $this->getCategoryType($type, $categoryType);
@@ -312,6 +322,32 @@ abstract class DocumentForm extends Base
         $this->isSalePrice = $isSalePrice;
         $this->isPurchasePrice = $isPurchasePrice;
         /** Items Component End */
+    }
+
+    protected function getCurrencies($currencies)
+    {
+        if (!empty($currencies)) {
+            return $currencies;
+        }
+
+        return Currency::enabled()->pluck('name', 'code');
+    }
+
+    protected function getCurrency($document, $currency, $currency_code)
+    {
+        if (!empty($currency)) {
+            return $currency;
+        }
+
+        if (!empty($currency_code)) {
+            return Currency::where('code', $currency_code)->first();
+        }
+
+        if (!empty($document)) {
+            return Currency::where('code', $document->currency_code)->first();
+        }
+
+        return Currency::where('code', setting('default.currency'))->first();
     }
 
     protected function getRouteStore($type, $routeStore)

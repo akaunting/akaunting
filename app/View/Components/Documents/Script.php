@@ -18,9 +18,13 @@ class Script extends Component
     /** @var string */
     public $version;
 
+    public $document;
+
     public $items;
 
     public $currencies;
+
+    public $currency_code;
 
     public $taxes;
 
@@ -29,13 +33,15 @@ class Script extends Component
      *
      * @return void
      */
-    public function __construct(string $type = '', string $scriptFile = '', string $version = '', $items = [], $currencies = [], $taxes = [])
+    public function __construct(string $type = '', string $scriptFile = '', string $version = '', $document = false, $items = [], $currencies = [], $taxes = [])
     {
         $this->type = $type;
         $this->scriptFile = ($scriptFile) ? $scriptFile : 'public/js/common/documents.js';
         $this->version = $this->getVersion($version);
+        $this->document = $document;
         $this->items = $items;
         $this->currencies = $this->getCurrencies($currencies);
+        $this->currency_code = ($document) ? $document->currency_code : setting('default.currency');
         $this->taxes = $this->getTaxes($taxes);
     }
 

@@ -61,10 +61,6 @@ const app = new Vue({
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
-
-        if (document_currencies) {
-            this.currencies = document_currencies;
-        }
     },
 
     methods: {
@@ -521,6 +517,11 @@ const app = new Vue({
 
         // Change currency get money
         onChangeCurrency(currency_code) {
+            if (this.edit.status && this.edit.currency <= 3) {
+                this.edit.currency++;
+                return;
+            }
+
             if (!this.currencies.length) {
                 let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
 
@@ -550,6 +551,7 @@ const app = new Vue({
 
         if (typeof document_items !== 'undefined' && document_items) {
             this.edit.status = true;
+            this.edit.currency = 1;
 
             document_items.forEach(function(item) {
                 // form set item
@@ -626,5 +628,9 @@ const app = new Vue({
         }
 
         this.page_loaded = true;
+
+        if (document_currencies) {
+            this.currencies = document_currencies;
+        }
     }
 });
