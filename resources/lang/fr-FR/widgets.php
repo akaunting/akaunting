@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Devises',
     'total_income'              => 'Recettes totales',
     'receivables'               => 'A percevoir',
     'open_invoices'             => 'Factures de vente en cours',

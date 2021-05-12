@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Permiți conectarea?',
+    'can_login'             => 'Se poate autentifica?',
     'user_created'          => 'Utilizator creat',
 
     'error' => [
-        'email'             => 'Acest email a fost deja folosit.'
+        'email'             => 'Acest email a fost deja folosit.',
     ],
 
-    'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Afişare',
-    ],
 ];

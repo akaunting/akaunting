@@ -39,6 +39,7 @@ return [
     'dimensions'           => 'Câmpul :attribute are dimensiuni de imagine nevalide.',
     'distinct'             => 'Câmpul :attribute are o valoare duplicat.',
     'email'                => 'Câmpul :attribute trebuie să fie o adresă de e-mail validă.',
+    'ends_with'            => 'Câmpul :attribute trebuie să se încheie cu una din următoarele valori: :values',
     'exists'               => 'Câmpul :attribute selectat nu este valid.',
     'file'                 => 'Câmpul :attribute trebuie să fie un fișier.',
     'filled'               => 'Câmpul :attribute trebuie completat.',
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'mesaj-personalizat',
+            'rule-name'             => 'mesaj-personalizat',
         ],
-        'invalid_currency' => 'Codul :attribute este invalid.',
-        'invalid_amount'   => 'Cantitatea de :attribute nu este valid.',
+        'invalid_currency'      => 'Codul :attribute este invalid.',
+        'invalid_amount'        => 'Cantitatea de :attribute nu este valid.',
+        'invalid_extension'     => 'Extensia fișierului nu este validă.',
     ],
 
     /*
