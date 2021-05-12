@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'An|Ani',
     'this_year'             => 'Anul curent',
     'previous_year'         => 'Anul precedent',
     'this_quarter'          => 'Trimistrul acesta',
@@ -12,19 +13,19 @@ return [
     'net_profit'            => 'Profit Net',
     'total_expenses'        => 'Total Cheltuieli',
     'net'                   => 'NET',
+    'income_expense'        => 'Venituri & Cheltuieli',
 
     'summary' => [
         'income'            => 'Rezumat Venituri',
-        'expense'           => 'Rezumat Chetuieli',
+        'expense'           => 'Rezumat Cheltuieli',
         'income_expense'    => 'Venituri vs. Cheltuieli',
         'tax'               => 'Rezumat Taxe',
     ],
 
-    'quarter' => [
-        '1'                 => 'Ian-Mar',
-        '2'                 => 'Apr-Iun',
-        '3'                 => 'Iul-Sep',
-        '4'                 => 'Oct-Dec',
+    'charts' => [
+        'line'              => 'Linie',
+        'bar'               => 'Bară',
+        'pie'               => 'Plăcintă',
     ],
 
 ];

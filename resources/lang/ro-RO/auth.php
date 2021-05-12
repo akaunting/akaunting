@@ -13,21 +13,23 @@ return [
     'current_email'         => 'Adresa de Email actuală',
     'reset'                 => 'Resetare',
     'never'                 => 'niciodată',
-    
+    'landing_page'          => 'Pagina de destinație',
+
     'password' => [
         'current'           => 'Parola',
         'current_confirm'   => 'Confirmă parola',
         'new'               => 'Parola nouă',
         'new_confirm'       => 'Confirmă parola nouă',
     ],
-    
+
     'error' => [
-        'self_delete'       => 'Eroare: Nu î-ți poți șterge singur contul!',
-        'no_company'        => 'Eroare: Nici o companie nu este atribuita contului. Contactează administratorul de sistem.',
+        'self_delete'       => 'Eroare: Nu îți poți șterge singur contul!',
+        'self_disable'      => 'Eroare: Nu îți poți șterge singur contul!',
+        'no_company'        => 'Eroare: Nici o companie nu este atribuită contului. Contactează administratorul de sistem.',
     ],
 
     'failed'                => 'Datele de identificare nu pot fi confirmate.',
-    'disabled'              => 'Acest cont este dezactivat. Vă rugăm, contactaţi administratorul de sistem.',
+    'disabled'              => 'Acest cont este dezactivat. Vă rugăm contactați administratorul de sistem.',
     'throttle'              => 'Prea multe încercări de intrare în cont. Poți încerca din nou peste :seconds secunde.',
 
     'notification' => [

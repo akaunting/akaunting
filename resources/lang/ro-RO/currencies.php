@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Delimitare pentru zecimale',
     'thousands_separator'   => 'Separator pentru Mii',
     'precision'             => 'Precizie',
+    'conversion'            => 'Conversia valutei: :price (:currency_code) la :currency_rate',
     'symbol' => [
         'symbol'            => 'Simbol',
         'position'          => 'Poziţia simbolului',

@@ -7,5 +7,6 @@ return [
     'normal'                => 'Normal',
     'inclusive'             => 'Inclusiv',
     'compound'              => 'Taxă compusă',
-
+    'fixed'                 => 'Corectat',
+    'withholding'           => 'Taxă salarială',
 ];

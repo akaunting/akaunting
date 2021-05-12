@@ -2,20 +2,18 @@
 
 return [
 
-    'title'                 => 'Token API',
-    'api_token'             => 'Token',
+    'api_key'               => 'Cheie API',
     'my_apps'               => 'Aplicatiile Mele',
-    'top_paid'              => 'Cel mai bine platit',
+    'pre_sale'              => 'Pre-vânzare',
+    'top_paid'              => 'Top Plătit',
     'new'                   => 'Nou',
     'top_free'              => 'Top gratuit',
     'free'                  => 'GRATUIT',
-    'search'                => 'Cauta',
     'install'               => 'Instalează',
     'buy_now'               => 'Cumpara acum',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Click aici</a> pentru a obtine token API.',
+    'get_api_key'           => '<a href=":url" target="_blank">Click aici</a> pentru a obține cheia API.',
     'no_apps'               => 'Inca nu exista aplicatii in aceasta categorie.',
-    'developer'             => 'Esti un dezvoltator de aplicatii? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aici</a> poti afla cum sa creezi o aplicatie si sa incepi sa vinzi astazi!',
-
+    'become_developer'      => 'Esti un dezvoltator de aplicatii? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aici</a> poti afla cum sa creezi o aplicatie si sa incepi sa vinzi astazi!',
     'recommended_apps'      => 'Aplicaţii recomandate',
 
     'about'                 => 'Despre',
@@ -37,7 +35,7 @@ return [
         'installation'      => 'Instalare',
         'faq'               => 'Întrebări frecvente',
         'changelog'         => 'Istoric modificări',
-        'reviews'            => 'Opinii',
+        'reviews'           => 'Opinii',
     ],
 
     'installation' => [
@@ -45,22 +43,22 @@ return [
         'download'          => 'Descărcare fisier :module.',
         'unzip'             => 'Dezarhivare fisiere :module.',
         'file_copy'         => 'Dezarchivare fișiere pentru :module.',
-        'migrate'           => 'Se aplică un update pentru acest modul: :module.',
         'finish'            => 'Acest update a fost instalat cu succes! Intr-o clipă vei fi redirectionat.',
+        'redirect'          => ':module instalat, redirecționare către pagina de actualizări',
         'install'           => 'Instalare fisiere :module.',
     ],
 
     'errors' => [
-        'download' => ':module - Acest modul nu poate fi descărcat!',
-        'upload' => 'Modulul :module descărcat nu poate fi salvat!',
-        'unzip' => ':module nu poate fi dezarchivat!',
-        'file_copy' => 'Fișierele pentru :module nu pot fi copiate!',
-        'migrate' => 'Acest modul :module pare a fi defect!',
-        'migrate core' => ':module / Folosești deja versiunea recentă. Momentan nu poti actualiza.',
+        'download'          => ':module - Acest modul nu poate fi descărcat!',
+        'zip'               => 'Nu se poate crea fișierul zip al :module ',
+        'unzip'             => ':module nu poate fi dezarchivat!',
+        'file_copy'         => 'Fișierele pentru :module nu pot fi copiate!',
+        'finish'            => 'Nu se poate finaliza instalarea modulului :module',
     ],
 
     'badge' => [
-        'installed' => 'Instalat',
+        'installed'         => 'Instalat',
+        'pre_sale'          => 'Pre-vânzare',
     ],
 
     'button' => [
@@ -70,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Cumparat',
-        'installed' => 'Instalat',
+        'purchased'         => 'Cumparat',
+        'installed'         => 'Instalat',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Adaugă o Opinie'
+            'add'           => 'Adaugă o Opinie'
         ],
-        'na' => 'Inca nu sunt opinii salvate.'
-    ]
+
+        'na'                => 'Inca nu sunt opinii salvate.'
+    ],
+
 ];

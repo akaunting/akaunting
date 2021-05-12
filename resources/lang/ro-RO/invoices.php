@@ -13,6 +13,7 @@ return [
     'price'                 => 'Preț',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Reducere',
+    'item_discount'         => 'Linie reducere',
     'tax_total'             => 'Total taxe',
     'total'                 => 'Total',
 
@@ -30,45 +31,31 @@ Nume articol|Nume articole',
     'add_payment'           => 'Adauga plata',
     'mark_paid'             => 'Marcheaza ca si Platit',
     'mark_sent'             => 'Marcheaza ca si Trimis',
+    'mark_viewed'           => 'Marchează vizualizat',
+    'mark_cancelled'        => 'Marchează anulat',
     'download_pdf'          => 'Descarca PDF',
     'send_mail'             => 'Trimite Email',
-    'all_invoices'          => 'Login to view all invoices',
-    'create_invoice'        => 'Create Invoice',
-    'send_invoice'          => 'Send Invoice',
-    'get_paid'              => 'Get Paid',
-    'accept_payments'       => 'Accept Online Payments',
-
-    'statuses' => [
-        'draft'             => 'Ciornă',
-        'sent'              => 'Trimis',
-        'viewed'            => 'Vizualizat',
-        'approved'          => 'Aprobat',
-        'partial'           => 'Parţial
-Parţială',
-        'paid'              => 'Plătit',
-    ],
+    'all_invoices'          => 'Autentifică-te pentru a vedea toate facturile',
+    'create_invoice'        => 'Crează factură',
+    'send_invoice'          => 'Trimite factură',
+    'get_paid'              => 'Primește plată',
+    'accept_payments'       => 'Acceptă plăți online',
 
     'messages' => [
-        'email_sent'        => 'Emailul cu factura a fost trimis cu succes!',
-        'marked_sent'       => 'Factura a fost marcata ca si trimisa cu succes!',
         'email_required'    => 'Nu exista adresa de email pentru acest client!',
-        'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'             => 'Acesta este o <b>CIORNĂ</b> și va putea fi vizualizată la grafice după ce este primită.',
 
         'status' => [
-            'created'       => 'Created on :date',
+            'created'       => 'Creat în :date',
+            'viewed'        => 'Vizualizat',
             'send' => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'Netrimis',
+                'sent'      => 'Trimis în :date',
             ],
             'paid' => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'În aşteptarea plăţii',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Primesti acest e-mail, pentru că urmeaza la plata o factura in suma de :amount emisa catre :customer.',
-        'button'            => 'Plateste acum',
     ],
 
 ];
