@@ -631,6 +631,14 @@ const app = new Vue({
 
         if (document_currencies) {
             this.currencies = document_currencies;
+
+            this.currencies.forEach(function (currency, index) {
+                if (document_default_currency == currency.code) {
+                    this.currency = currency;
+
+                    this.form.currency_code = currency.code;
+                }
+            }, this);
         }
     }
 });
