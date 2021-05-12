@@ -36,7 +36,7 @@ class Version2112 extends Listener
 
     public function updateCompanies()
     {
-        $companies = Company::cursor();
+        $companies = Company::withTrashed()->cursor();
 
         foreach ($companies as $company) {
             $this->moveMedia($company);
