@@ -21,7 +21,7 @@ trait Uploads
 
         $path = $this->getMediaFolder($folder, $company_id);
 
-        return MediaUploader::fromSource($file)->toDirectory($path)->upload();
+        return MediaUploader::makePrivate()->fromSource($file)->toDirectory($path)->upload();
     }
 
     public function importMedia($file, $folder = 'settings', $company_id = null, $disk = null)
@@ -34,7 +34,7 @@ trait Uploads
 
         $path = $this->getMediaFolder($folder, $company_id) . '/' . basename($file);
 
-        return MediaUploader::importPath($disk, $path);
+        return MediaUploader::makePrivate()->importPath($disk, $path);
     }
 
     public function deleteMediaModel($model, $parameter, $request = null)
