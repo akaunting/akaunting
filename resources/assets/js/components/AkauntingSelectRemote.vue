@@ -64,7 +64,7 @@
             </template>
 
             <el-option v-if="!group" v-for="(option, index) in sortOptions"
-                :key="index"
+                :key="option.key"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
@@ -79,7 +79,7 @@
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option_index"
+                    :key="option.key"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
@@ -165,7 +165,7 @@
             </template>
 
             <el-option v-if="!group" v-for="(option, index) in sortOptions"
-                :key="index"
+                :key="option.key"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
@@ -180,7 +180,7 @@
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option_index"
+                    :key="option.key"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
@@ -671,15 +671,31 @@ export default {
 
                     if (response.data.data) {
                         let data = response.data.data;
-
-                        this.sort_options = [];
+                        //this.sort_options = [];
 
                         data.forEach(function (option) {
-                            this.sort_options.push({
-                                key: option.id.toString(),
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            let check = false;
+
+                            this.sort_options.forEach(function (sort_option) {
+                                if (sort_option.key == option.id) {
+                                    check = true;
+                                    return;
+                                }
                             });
+
+                            if (!check) {
+                                this.sort_options.push({
+                                    key: option.id.toString(),
+                                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                });
+                            }
+
                         }, this);
+
+                        this.sort_options = this.sort_options.filter(item => {
+                            return item.value.toLowerCase()
+                                .indexOf(query.toLowerCase()) > -1;
+                        });
                     } else {
                         this.sortOptions = [];
                     }
