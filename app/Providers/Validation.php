@@ -46,6 +46,10 @@ class Validation extends Provider
                 $status = true;
             }
 
+            if (!preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $value)) {
+                $status = false;
+            }
+
             $amount = $value;
 
             return $status;

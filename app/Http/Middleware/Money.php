@@ -43,6 +43,10 @@ class Money
 
             $money_format = $request->get($parameter);
 
+            if (!preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $money_format)) {
+                continue;
+            }
+
             if ($parameter == 'sale_price' || $parameter == 'purchase_price') {
                 $money_format = Str::replaceFirst(',', '.', $money_format);
             }
@@ -59,6 +63,10 @@ class Money
             if (!empty($items)) {
                 foreach ($items as $key => $item) {
                     if (!isset($item['price'])) {
+                        continue;
+                    }
+
+                    if (!preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $item['price'])) {
                         continue;
                     }
 

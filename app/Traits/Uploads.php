@@ -112,44 +112,20 @@ trait Uploads
         return Storage::path($path);
     }
 
-    public function streamMedia($media, $path = '', $action = '')
-    {
-        if ($this->isLocalStorage()) {
-            if (empty($path)) {
-                $path = $this->getMediaPathOnStorage($media);
-            }
-
-            if (empty($action)) {
-                $action = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
-            }
-
-            return $this->streamLocalMedia($path, $action);
-        }
-
-        return $this->streamRemoteMedia($media);
-    }
-
-    public function streamLocalMedia($path, $action)
-    {
-        $function = ($action == 'get') ? 'file' : $action;
-
-        return response()->$function($path);
-    }
-
-    public function streamRemoteMedia($media)
+    public function streamMedia($media, $path = '')
     {
         return response()->streamDownload(
             function() use ($media) {
                 $stream = $media->stream();
 
-                while($bytes = $stream->read(1024)) {
+                while ($bytes = $stream->read(1024)) {
                     echo $bytes;
                 }
             },
             $media->basename,
             [
-                'Content-Type' => $media->mime_type,
-                'Content-Length' => $media->size,
+                'Content-Type'      => $media->mime_type,
+                'Content-Length'    => $media->size,
             ],
         );
     }

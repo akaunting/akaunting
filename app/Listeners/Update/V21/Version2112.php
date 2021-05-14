@@ -8,6 +8,7 @@ use App\Models\Common\Company;
 use App\Models\Common\Media;
 use App\Utilities\Date;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,9 +30,20 @@ class Version2112 extends Listener
             return;
         }
 
-        Artisan::call('migrate', ['--force' => true]);
+        $this->updateDatabase();
 
         $this->updateCompanies();
+    }
+
+    public function updateDatabase()
+    {
+        DB::table('migrations')->insert([
+            'id' => DB::table('migrations')->max('id') + 1,
+            'migration' => '2016_06_27_000001_create_mediable_test_tables',
+            'batch' => DB::table('migrations')->max('batch') + 1,
+        ]);
+
+        Artisan::call('migrate', ['--force' => true]);
     }
 
     public function updateCompanies()

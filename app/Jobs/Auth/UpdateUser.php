@@ -53,7 +53,15 @@ class UpdateUser extends Job
             }
 
             if ($this->request->has('companies')) {
-                $this->user->companies()->sync($this->request->get('companies'));
+                $user = user();
+
+                $companies = $user->withoutEvents(function () use ($user) {
+                    return $user->companies()->whereIn('id', $this->request->get('companies'))->pluck('id');
+                });
+
+                if ($companies->isNotEmpty()) {
+                    $this->user->companies()->sync($companies->toArray());
+                }
             }
 
             if ($this->user->contact) {

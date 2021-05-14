@@ -30,5 +30,19 @@ const app = new Vue({
             form: new Form('item'),
             bulk_action: new BulkAction('items'),
         }
-    }
+    },
+
+    watch: {
+        'form.sale_price': function (newVal, oldVal) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
+                this.form.sale_price = oldVal;
+            }
+        },
+
+        'form.purchase_price': function (newVal, oldVal) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
+                this.form.purchase_price = oldVal;
+            }
+        }
+    },
 });

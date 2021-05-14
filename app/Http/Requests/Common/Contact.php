@@ -25,6 +25,7 @@ class Contact extends FormRequest
     {
         $email = '';
         $required = '';
+        $logo = 'nullable';
 
         $type = $this->request->get('type', 'customer');
         $company_id = $this->request->get('company_id');
@@ -54,6 +55,10 @@ class Contact extends FormRequest
             }
         }
 
+        if ($this->files->get('logo')) {
+            $logo = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024 . '|dimensions:max_width=1000,max_height=1000';
+        }
+
         return [
             'type' => 'required|string',
             'name' => 'required|string',
@@ -62,6 +67,7 @@ class Contact extends FormRequest
             'currency_code' => 'required|string|currency',
             'password' => $required . 'confirmed',
             'enabled' => 'integer|boolean',
+            'logo' => $logo,
         ];
     }
 }
