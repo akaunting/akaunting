@@ -52,14 +52,18 @@ class CreateUser extends Job
             }
 
             if ($this->request->has('companies')) {
-                $user = user();
+                if (request()->isNotInstall()) {
+                    $user = user();
 
-                $companies = $user->withoutEvents(function () use ($user) {
-                    return $user->companies()->whereIn('id', $this->request->get('companies'))->pluck('id');
-                });
+                    $companies = $user->withoutEvents(function () use ($user) {
+                        return $user->companies()->whereIn('id', $this->request->get('companies'))->pluck('id');
+                    });
 
-                if ($companies->isNotEmpty()) {
-                    $this->user->companies()->attach($companies->toArray());
+                    if ($companies->isNotEmpty()) {
+                        $this->user->companies()->attach($companies->toArray());
+                    }
+                } else {
+                    $this->user->companies()->attach($this->request->get('companies'));
                 }
             }
 
