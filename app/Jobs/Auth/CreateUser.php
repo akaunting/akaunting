@@ -52,7 +52,9 @@ class CreateUser extends Job
             }
 
             if ($this->request->has('companies')) {
-                if (request()->isNotInstall()) {
+                if (app()->runningInConsole() || request()->isInstall()) {
+                    $this->user->companies()->attach($this->request->get('companies'));
+                } else {
                     $user = user();
 
                     $companies = $user->withoutEvents(function () use ($user) {
@@ -62,8 +64,6 @@ class CreateUser extends Job
                     if ($companies->isNotEmpty()) {
                         $this->user->companies()->attach($companies->toArray());
                     }
-                } else {
-                    $this->user->companies()->attach($this->request->get('companies'));
                 }
             }
 
