@@ -54,7 +54,7 @@ class UpdateUser extends Job
 
             if ($this->request->has('companies')) {
                 if (app()->runningInConsole() || request()->isInstall()) {
-                    $this->user->companies()->attach($this->request->get('companies'));
+                    $this->user->companies()->sync($this->request->get('companies'));
                 } else {
                     $user = user();
 
