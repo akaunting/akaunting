@@ -27,9 +27,9 @@ class Version2114 extends Listener
             return;
         }
 
-        $this->updateMediaTables();
-
         Artisan::call('migrate', ['--force' => true]);
+
+        $this->updateMediaTables();
     }
 
     public function updateMediaTables()
