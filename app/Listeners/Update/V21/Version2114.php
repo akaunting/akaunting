@@ -5,6 +5,7 @@ namespace App\Listeners\Update\V21;
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
 use App\Models\Common\Media;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class Version2114 extends Listener
@@ -27,6 +28,8 @@ class Version2114 extends Listener
         }
 
         $this->updateMediaTables();
+
+        Artisan::call('migrate', ['--force' => true]);
     }
 
     public function updateMediaTables()
