@@ -28,7 +28,7 @@ class Company implements Scope
 
         // Skip for specific tables
         $skip_tables = [
-            'jobs', 'firewall_ips', 'firewall_logs', 'media', 'mediables', 'migrations', 'notifications', 'role_companies',
+            'jobs', 'firewall_ips', 'firewall_logs', 'migrations', 'notifications', 'role_companies',
             'role_permissions', 'sessions', 'user_companies', 'user_dashboards', 'user_permissions', 'user_roles',
         ];
 
