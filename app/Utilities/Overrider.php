@@ -50,8 +50,10 @@ class Overrider
             app()->setLocale(setting('default.locale'));
         }
 
-        // Set app url dynamically
-        config(['app.url' => url('/')]);
+        // Set app url dynamically if empty
+        if (!config('app.url')) {
+            config(['app.url' => url('/')]);
+        }
     }
 
     protected static function loadCurrencies()

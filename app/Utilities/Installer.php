@@ -5,10 +5,10 @@ namespace App\Utilities;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
 use App\Utilities\Console;
-use Artisan;
-use Config;
-use DB;
-use File;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 /**
@@ -232,7 +232,7 @@ class Installer
 
     public static function createCompany($name, $email, $locale)
     {
-        dispatch_now(new CreateCompany([
+        dispatch_sync(new CreateCompany([
             'name' => $name,
             'domain' => '',
             'email' => $email,
@@ -244,7 +244,7 @@ class Installer
 
     public static function createUser($email, $password, $locale)
     {
-        dispatch_now(new CreateUser([
+        dispatch_sync(new CreateUser([
             'name' => '',
             'email' => $email,
             'password' => $password,
@@ -258,13 +258,19 @@ class Installer
     public static function finalTouches()
     {
         // Update .env file
-        static::updateEnv([
+        $env = [
             'APP_LOCALE'            =>  session('locale'),
             'APP_INSTALLED'         =>  'true',
             'APP_DEBUG'             =>  'false',
             'FIREWALL_ENABLED'      =>  'true',
             'MODEL_CACHE_ENABLED'   =>  'true',
-        ]);
+        ];
+
+        if (!app()->runningInConsole()) {
+            $env['APP_URL'] = request()->getUriForPath('');
+        }
+
+        static::updateEnv($env);
 
         // Rename the robots.txt file
         try {
