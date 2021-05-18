@@ -20,6 +20,7 @@ class Import extends Controller
 
         if (module($group) instanceof \Akaunting\Module\Module) {
             $namespace = $group . '::';
+            $type = str_replace('-', '_', $type);
         } else {
             $namespace = '';
         }
