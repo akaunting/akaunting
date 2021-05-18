@@ -14,9 +14,9 @@ return [
 
     'name' => env('APP_NAME', 'Akaunting'),
 
-    'installed' => env('APP_INSTALLED', false),
+    'installed' => (bool) env('APP_INSTALLED', false),
 
-    'schedule_time' => env('APP_SCHEDULE_TIME', '9:00'),
+    'schedule_time' => env('APP_SCHEDULE_TIME', '09:00'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en-GB',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en-GB'),
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     | localized telephone numbers, street address information and more.
     |
     */
-    'faker_locale' => 'en_GB',
+    'faker_locale' => env('APP_FAKER_LOCALE', 'en_GB'),
 
     /*
     |--------------------------------------------------------------------------

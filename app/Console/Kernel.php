@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('reminder:invoice')->dailyAt($schedule_time);
         $schedule->command('reminder:bill')->dailyAt($schedule_time);
         $schedule->command('recurring:check')->dailyAt($schedule_time);
+        $schedule->command('storage-temp:clear')->dailyAt('17:00');
     }
 
     /**
@@ -44,5 +45,15 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
 
         $this->load(__DIR__ . '/Commands');
+    }
+
+    /**
+     * Get the timezone that should be used by default for scheduled events.
+     *
+     * @return \DateTimeZone|string|null
+     */
+    protected function scheduleTimezone()
+    {
+        return config('app.timezone');
     }
 }
