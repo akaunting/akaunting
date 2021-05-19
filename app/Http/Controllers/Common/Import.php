@@ -20,9 +20,11 @@ class Import extends Controller
     {
         $path = company_id() . '/' . $group . '/' . $type;
 
-        if (module($group) instanceof Module) {
+        $module = module($group);
+
+        if ($module instanceof Module) {
             $title_type = trans_choice($group . '::general.' . str_replace('-', '_', $type), 2);
-            $sample_file = url('modules/' . $group . '/Resources/assets/' . $type . '.xlsx');
+            $sample_file = url('modules/' . $module->getStudlyName() . '/Resources/assets/' . $type . '.xlsx');
         } else {
             $title_type = trans_choice('general.' . str_replace('-', '_', $type), 2);
             $sample_file = url('public/files/import/' . $type . '.xlsx');
