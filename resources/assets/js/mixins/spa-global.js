@@ -32,7 +32,51 @@ export default {
                 this.model.select = item.code ? item.code : '';
             }
         },
+        dataHandleEvent() {
+            this.newDatas = false;
+            this.currentTab = undefined;
+            this.model.name = '';
+            this.model.rate = '';
+            this.model.select = '';
+            this.model.enabled = 1;
+        },
+        onSuccessEvent(response) {
+            let type = response.data.success ? 'success' : 'error';
+            let timeout = 1000;
+
+            if (response.data.important) {
+                timeout = 0;
+            }
+
+            this.$notify({
+                message: response.data.message,
+                timeout: timeout,
+                icon: "fas fa-bell",
+                type,
+            });
+
+            this.dataHandleEvent();
+            
+        },
+        onSuccessDelete(event) {
+            let type = event.success ? 'success' : 'error';
+            let timeout = 1000;
+
+            if (event.important) {
+                timeout = 0;
+            }
+
+            this.$notify({
+                message: event.message,
+                timeout: timeout,
+                icon: "fas fa-bell",
+                type,
+            });
+
+            this.dataHandleEvent();
+        },
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
+            let self = this;
             const formData = new FormData(this.$refs["form"]);
             const data = {};
 
@@ -46,7 +90,7 @@ export default {
             if (!plus_data || plus_data == undefined) {
                 delete data.type;
             }
-            
+
             window.axios({
                     method: form_method,
                     url: form_url,
@@ -62,27 +106,8 @@ export default {
                         }
                     });
 
-                    let type = response.data.success ? 'success' : 'error';
-                    let timeout = 1000;
-
-                    if (response.data.important) {
-                        timeout = 0;
-                    }
-
-                    this.$notify({
-                        message: response.data.message,
-                        timeout: timeout,
-                        icon: "fas fa-bell",
-                        type,
-                    });
-
-                    this.newDatas = false;
-                    this.currentTab = undefined;
-                    this.model.name = '';
-                    this.model.rate = '';
-                    this.model.select = '';
-                    this.model.enabled = 1;
-                })
+                    this.onSuccessEvent(response);
+                }, this)
                 .catch(error => {
                     this.success = false;
                 });
@@ -116,28 +141,8 @@ export default {
                         "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true'
                     });
 
-                    let type = response.data.success ? 'success' : 'error';
-                    let timeout = 1000;
-
-                    if (response.data.important) {
-                        timeout = 0;
-                    }
-
-                    this.$notify({
-                        message: response.data.message,
-                        timeout: timeout,
-                        icon: "fas fa-bell",
-                        type,
-                    });
-
-
-                    this.newDatas = false;
-                    this.currentTab = undefined;
-                    this.model.name = '';
-                    this.model.rate = '';
-                    this.model.select = '';
-                    this.model.enabled = 1;
-                })
+                    this.onSuccessEvent(response);
+                }, this)
                 .catch(error => {
                     this.success = false;
                 });

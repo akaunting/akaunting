@@ -134,58 +134,63 @@
                     </div>
                   </td>
                 </tr>
+                <tr v-if="newDatas">
+                  <td class="p-0">
+                    <div class="row pt-3 pb-3">
+                      <div
+                        class="form-container col-12 d-flex justify-content-between align-items-start"
+                      >
+                        <base-input
+                          :label="translations.taxes.name"
+                          name="name"
+                          data-name="name"
+                          :placeholder="translations.taxes.name"
+                          prepend-icon="fas fa-font"
+                          v-model="model.name"
+                        />
+                        <base-input
+                          :label="translations.taxes.rate"
+                          name="rate"
+                          data-name="rate"
+                          :placeholder="translations.taxes.rate"
+                          prepend-icon="fas fa-percentage"
+                          v-model="model.rate"
+                          rules="required"
+                        />
+                        <div>
+                          <div class="d-flex">
+                            <akaunting-radio-group
+                              name="enabled"
+                              :text="translations.taxes.enabled"
+                              :enable="translations.taxes.yes"
+                              :disable="translations.taxes.no"
+                              :value="model.enabled"
+                            >
+                            </akaunting-radio-group>
+                          </div>
+                        </div>
+                        <div class="mt-4">
+                          <base-button
+                            type="success"
+                            native-type="button"
+                            @click="onSubmitForm()"
+                            >{{ translations.taxes.save }}</base-button
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
-            <div class="mt-2" v-if="newDatas">
-              <div class="row p-3">
-                <div
-                  class="form-container col-12 d-flex justify-content-between align-items-start"
-                >
-                  <base-input
-                    :label="translations.taxes.name"
-                    name="name"
-                    data-name="name"
-                    :placeholder="translations.taxes.name"
-                    prepend-icon="fas fa-font"
-                    v-model="model.name"
-                  />
-                  <base-input
-                    :label="translations.taxes.rate"
-                    name="rate"
-                    data-name="rate"
-                    :placeholder="translations.taxes.rate"
-                    prepend-icon="fas fa-percentage"
-                    v-model="model.rate"
-                    rules="required"
-                  />
-                  <div>
-                    <div class="d-flex">
-                      <akaunting-radio-group
-                        name="enabled"
-                        :text="translations.taxes.enabled"
-                        :enable="translations.taxes.yes"
-                        :disable="translations.taxes.no"
-                        :value="model.enabled"
-                      >
-                      </akaunting-radio-group>
-                    </div>
-                  </div>
-                  <div class="mt-4">
-                    <base-button
-                      type="success"
-                      native-type="button"
-                      @click="onSubmitForm()"
-                      >{{ translations.taxes.save }}</base-button
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
           </form>
         </div>
         <notifications></notifications>
         <form id="form-dynamic-component" method="POST" action="#"></form>
-        <component v-bind:is="component" @deleted="deleteCurrency($event)"></component>
+        <component
+          v-bind:is="component"
+          @deleted="deleteCurrency($event)"
+        ></component>
       </div>
       <div class="card-footer">
         <div class="row">
@@ -266,12 +271,18 @@ export default {
       this.$router.push("/wizard/currencies");
     },
     onEditSave(item) {
-      this.onEditEvent("PATCH", url + "/wizard/taxes/" + item.id, 'type', this.taxes, item.id);
+      this.onEditEvent(
+        "PATCH",
+        url + "/wizard/taxes/" + item.id,
+        "type",
+        this.taxes,
+        item.id
+      );
     },
     onSubmitForm() {
-      this.onSubmitEvent("POST", url + "/wizard/taxes", 'type', this.taxes);
+      this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
     },
-     deleteCurrency(event) {
+    deleteCurrency(event) {
       this.taxes.forEach(function (tax, index) {
         if (tax.id == event.tax_id) {
           this.taxes.splice(index, 1);
@@ -281,20 +292,14 @@ export default {
 
       this.component = "";
 
-      let type = event.success ? 'success' : 'error';
-      let timeout = 1000;
-
-      if (event.important) {
-        timeout = 0;
-      }
-
-      this.$notify({
-        message: event.message,
-        timeout: timeout,
-        icon: "fas fa-bell",
-        type,
-      });
+      this.onSuccessDelete(event);
     },
   },
 };
 </script>
+
+<style scoped>
+.current-tab-btn {
+  padding: 0 80px;
+}
+</style>

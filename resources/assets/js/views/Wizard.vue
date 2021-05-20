@@ -82,5 +82,13 @@ export default {
   .current-tab-btn {
     padding: 0 15px;
   }
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  .form-container .form-group {
+    width: 100%;
+  }
 }
 </style>

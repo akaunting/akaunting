@@ -21,7 +21,8 @@
             native-type="button"
             class="btn-sm"
             @click="addItem()"
-            >{{ translations.currencies.add_new }}</base-button>
+            >{{ translations.currencies.add_new }}</base-button
+          >
         </div>
 
         <div class="row flex-column">
@@ -171,77 +172,80 @@
                     </div>
                   </td>
                 </tr>
+                <tr v-if="newDatas">
+                  <td class="p-0">
+                    <div class="row pt-3 pb-3">
+                      <div
+                        class="form-container col-12 d-flex justify-content-between align-items-start"
+                      >
+                        <base-input
+                          :label="translations.currencies.name"
+                          name="name"
+                          data-name="name"
+                          :placeholder="translations.currencies.name"
+                          prepend-icon="fas fa-font"
+                          v-model="model.name"
+                        />
+                        <base-input :label="translations.currencies.code">
+                          <el-select
+                            name="code"
+                            v-model="model.select"
+                            required="required"
+                            @change="onChangeCode(model.select)"
+                            filterable
+                          >
+                            <template slot="prefix">
+                              <span
+                                class="el-input__suffix-inner el-select-icon"
+                              >
+                                <i
+                                  :class="'select-icon-position el-input__icon fa fa-code'"
+                                ></i>
+                              </span>
+                            </template>
+                            <el-option
+                              v-for="option in currency_codes"
+                              :key="option"
+                              :label="option"
+                              :value="option"
+                            >
+                            </el-option> </el-select
+                        ></base-input>
+                        <base-input
+                          :label="translations.currencies.rate"
+                          name="rate"
+                          data-name="rate"
+                          :placeholder="translations.currencies.rate"
+                          prepend-icon="fas fa-percentage"
+                          v-model="model.rate"
+                          required="required"
+                        />
+                        <div>
+                          <div class="d-flex">
+                            <akaunting-radio-group
+                              name="enabled"
+                              :text="translations.currencies.enabled"
+                              :enable="translations.currencies.yes"
+                              :disable="translations.currencies.no"
+                              :value="model.enabled"
+                            >
+                            </akaunting-radio-group>
+                          </div>
+                        </div>
+                        <div class="mt-4">
+                          <base-button
+                            type="success"
+                            native-type="button"
+                            @click="onSubmitForm()"
+                            >{{ translations.currencies.save }}</base-button
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
-
-            <div class="mt-2" v-if="newDatas">
-              <div class="row p-3">
-                <div
-                  class="form-container col-12 d-flex justify-content-between align-items-start"
-                >
-                  <base-input
-                    :label="translations.currencies.name"
-                    name="name"
-                    data-name="name"
-                    :placeholder="translations.currencies.name"
-                    prepend-icon="fas fa-font"
-                    v-model="model.name"
-                  />
-                  <base-input :label="translations.currencies.code">
-                    <el-select
-                      name="code"
-                      v-model="model.select"
-                      required="required"
-                      @change="onChangeCode(model.select)"
-                      filterable
-                    >
-                      <template slot="prefix">
-                        <span class="el-input__suffix-inner el-select-icon">
-                          <i
-                            :class="'select-icon-position el-input__icon fa fa-code'"
-                          ></i>
-                        </span>
-                      </template>
-                      <el-option
-                        v-for="option in currency_codes"
-                        :key="option"
-                        :label="option"
-                        :value="option"
-                      >
-                      </el-option> </el-select
-                  ></base-input>
-                  <base-input
-                    :label="translations.currencies.rate"
-                    name="rate"
-                    data-name="rate"
-                    :placeholder="translations.currencies.rate"
-                    prepend-icon="fas fa-percentage"
-                    v-model="model.rate"
-                    required="required"
-                  />
-                  <div>
-                    <div class="d-flex">
-                      <akaunting-radio-group
-                        name="enabled"
-                        :text="translations.currencies.enabled"
-                        :enable="translations.currencies.yes"
-                        :disable="translations.currencies.no"
-                        :value="model.enabled"
-                      >
-                      </akaunting-radio-group>
-                    </div>
-                  </div>
-                  <div class="mt-4">
-                    <base-button
-                      type="success"
-                      native-type="button"
-                      @click="onSubmitForm()"
-                      >{{ translations.currencies.save }}</base-button
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
           </form>
         </div>
 
@@ -353,7 +357,7 @@ export default {
         decimal_mark: "",
         thousands_separator: "",
       };
-      
+
       for (let [key, val] of formData.entries()) {
         Object.assign(data, {
           [key]: val,
@@ -380,11 +384,22 @@ export default {
     },
 
     onEditSave(item) {
-      this.onEditEvent("PATCH", url + "/wizard/currencies/" + item.id, '', this.currencies, item.id);
+      this.onEditEvent(
+        "PATCH",
+        url + "/wizard/currencies/" + item.id,
+        "",
+        this.currencies,
+        item.id
+      );
     },
 
     onSubmitForm() {
-      this.onSubmitEvent("POST", url + "/wizard/currencies", '', this.currencies);
+      this.onSubmitEvent(
+        "POST",
+        url + "/wizard/currencies",
+        "",
+        this.currencies
+      );
     },
 
     deleteCurrency(event) {
@@ -397,19 +412,7 @@ export default {
 
       this.component = "";
 
-      let type = event.success ? 'success' : 'error';
-      let timeout = 1000;
-
-      if (event.important) {
-        timeout = 0;
-      }
-
-      this.$notify({
-        message: event.message,
-        timeout: timeout,
-        icon: "fas fa-bell",
-        type,
-      });
+      this.onSuccessDelete(event);
     },
   },
 };
