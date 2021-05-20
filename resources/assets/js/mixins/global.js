@@ -198,6 +198,8 @@ export default {
                                 if (response.data.redirect) {
                                     window.location.href = response.data.redirect;
                                 }
+
+                                this.$emit('deleted', response.data);
                             })
                             .catch(error => {
                                 this.success = false;

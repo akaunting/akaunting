@@ -33,7 +33,7 @@ class Companies extends Controller
     {
         $company = Company::find(company_id());
 
-        return view('wizard.companies.edit', compact('company'));
+        return $this->response('wizard.companies.edit', compact('company'));
     }
 
     /**

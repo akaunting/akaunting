@@ -44,7 +44,7 @@ class Currencies extends Controller
             $codes[$key] = $key;
         }
 
-        return view('wizard.currencies.index', compact('currencies', 'codes'));
+        return $this->response('wizard.currencies.index', compact('currencies', 'codes'));
     }
 
     /**
@@ -58,18 +58,20 @@ class Currencies extends Controller
     {
         $response = $this->ajaxDispatch(new CreateCurrency($request));
 
-        $response['redirect'] = route('wizard.currencies.index');
+        //$response['redirect'] = route('wizard.currencies.index');
 
         if ($response['success']) {
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
 
-            flash($message)->success();
+            //flash($message)->success();
         } else {
             $message = $response['message'];
 
-            flash($message)->error()->important();
+            //flash($message)->error()->important();
         }
+
+        $response['message'] = $message;
 
         return response()->json($response);
     }
@@ -86,18 +88,20 @@ class Currencies extends Controller
     {
         $response = $this->ajaxDispatch(new UpdateCurrency($currency, $request));
 
-        $response['redirect'] = route('wizard.currencies.index');
+        // $response['redirect'] = route('wizard.currencies.index');
 
         if ($response['success']) {
             $message = trans('messages.success.updated', ['type' => $currency->name]);
 
-            flash($message)->success();
+            // flash($message)->success();
         } else {
             $message = $response['message'];
 
-            flash($message)->error()->important();
+            // flash($message)->error()->important();
         }
 
+        $response['message'] = $message;
+        
         return response()->json($response);
     }
 
@@ -110,19 +114,18 @@ class Currencies extends Controller
      */
     public function destroy(Currency $currency)
     {
-        $response = $this->ajaxDispatch(new DeleteCurrency($currency));
+        $currency_id = $currency->id;
 
-        $response['redirect'] = route('wizard.currencies.index');
+        $response = $this->ajaxDispatch(new DeleteCurrency($currency));
 
         if ($response['success']) {
             $message = trans('messages.success.deleted', ['type' => $currency->name]);
-
-            flash($message)->success();
         } else {
             $message = $response['message'];
-
-            flash($message)->error()->important();
         }
+
+        $response['currency_id'] = $currency_id;
+        $response['message'] = $message;
 
         return response()->json($response);
     }

@@ -3,7 +3,7 @@
         <label :for="name" class="form-control-label">{{ text }}</label>
 
         <div class="tab-pane tab-example-result fade show active" role="tabpanel" aria-labelledby="-component-tab">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons" v-on:click="onClick">
+            <div class="btn-group btn-group-toggle radio-yes-no" data-toggle="buttons" v-on:click="onClick">
                 <label class="btn btn-success"
                        :class="[{'active': value === 1}]">
                     <input type="radio"
@@ -70,7 +70,7 @@ export default {
         },
         onClick(evt) {
             let val = evt.target.control.value;
-            this.value= val;
+            this.real_value = val;
 
             this.$emit("change", val);
         },

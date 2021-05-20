@@ -58,6 +58,10 @@ mix
     .js('resources/assets/js/install.js', 'public/js')
     .js('resources/assets/js/views/install/update.js', 'public/js/install')
 
+    //Wizard
+    .js('resources/assets/js/wizard.js', 'public/js/wizard')
+    .js('resources/assets/js/views/wizard/update.js', 'public/js/wizard')
+
     // Modules
     .js('resources/assets/js/views/modules/item.js', 'public/js/modules')
     .js('resources/assets/js/views/modules/apps.js', 'public/js/modules')

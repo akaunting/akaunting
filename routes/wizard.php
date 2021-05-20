@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::group(['as' => 'wizard.'], function () {
+    Route::get('data', 'Wizard\Data@index')->name('data.index');
+    Route::get('translations', 'Wizard\Translations@index')->name('translations.index');
+
     Route::get('companies', 'Wizard\Companies@edit')->name('companies.edit');
     Route::patch('companies', 'Wizard\Companies@update')->name('companies.update');
 
@@ -21,4 +24,5 @@ Route::group(['as' => 'wizard.'], function () {
     Route::resource('taxes', 'Wizard\Taxes');
 
     Route::get('finish', 'Wizard\Finish@index')->name('finish.index');
+    Route::patch('finish', 'Wizard\Finish@update')->name('finish.update');
 });

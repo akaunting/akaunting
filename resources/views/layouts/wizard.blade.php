@@ -1,21 +1,32 @@
-<html lang="{{ app()->getLocale() }}">
-    @include('partials.wizard.head')
+<html>
+@include('partials.wizard.head')
 
-    <body class="wizard-page">
+<body class="wizard-page">
 
-        <div class="container mt--5">
-            @stack('body_start')
+  <div class="container mt--5">
+    @stack('body_start')
 
-            <div id="app">
+    <div id="app">
+      {!! Form::open([
+      'url' => url()->current(),
+      'role' => 'form',
+      'id' => 'form-wizard',
+      '@submit.prevent' => 'onSubmit',
+      '@keydown' => 'form.errors.clear($event.target.name)',
+      ]) !!}
+      <div class="card-body">
+      <div class="document-loading" v-if="!page_loaded">
+        <div><i class="fas fa-spinner fa-pulse fa-7x"></i></div>
+    </div>
+      @include('flash::message')
 
-                @include('partials.wizard.content')
+      @yield('content')
+      </div>
+    </div>
 
-            </div>
+  </div>
 
-            @stack('body_end')
-        </div>
-
-        @include('partials.wizard.scripts')
-    </body>
+  @include('partials.wizard.scripts')
+</body>
 
 </html>
