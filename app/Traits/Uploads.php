@@ -9,8 +9,6 @@ use MediaUploader;
 
 trait Uploads
 {
-    public $company_id_index = 3;
-
     public function getMedia($file, $folder = 'settings', $company_id = null)
     {
         $path = '';
@@ -21,7 +19,13 @@ trait Uploads
 
         $path = $this->getMediaFolder($folder, $company_id);
 
-        return MediaUploader::makePrivate()->fromSource($file)->toDirectory($path)->upload();
+        return MediaUploader::makePrivate()
+                            ->beforeSave(function(MediaModel $media) {
+                                $media->company_id = company_id();
+                            })
+                            ->fromSource($file)
+                            ->toDirectory($path)
+                            ->upload();
     }
 
     public function importMedia($file, $folder = 'settings', $company_id = null, $disk = null)
@@ -34,7 +38,11 @@ trait Uploads
 
         $path = $this->getMediaFolder($folder, $company_id) . '/' . basename($file);
 
-        return MediaUploader::makePrivate()->importPath($disk, $path);
+        return MediaUploader::makePrivate()
+                            ->beforeSave(function(MediaModel $media) {
+                                $media->company_id = company_id();
+                            })
+                            ->importPath($disk, $path);
     }
 
     public function deleteMediaModel($model, $parameter, $request = null)
@@ -89,19 +97,6 @@ trait Uploads
         $path = $media->basename;
 
         if (!empty($media->directory)) {
-            // 2021/04/09/34235/invoices
-            $folders = explode('/', $media->directory);
-
-            // No company_id in folder path
-            if (empty($folders[$this->company_id_index])) {
-                return false;
-            }
-
-            // Check if company can access media
-            if ($folders[$this->company_id_index] != company_id()) {
-                return false;
-            }
-
             $path = $media->directory . '/' . $media->basename;
         }
 
