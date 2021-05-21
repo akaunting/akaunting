@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Alterar o nome da empresa, e-mail, endereço, número de imposto etc',
-        'name'              => 'Nome',
-        'email'             => 'E-mail',
-        'phone'             => 'Telefone',
-        'address'           => 'Endereço',
-        'logo'              => 'Logo',
+        'description'                => 'Alterar o nome da empresa, e-mail, endereço, número de imposto etc',
+        'name'                       => 'Nome',
+        'email'                      => 'E-mail',
+        'phone'                      => 'Telefone',
+        'address'                    => 'Endereço',
+        'edit_your_business_address' => 'Editar seu endereço comercial',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Definir ano fiscal, fuso horário, formato de data e mais locais',
         'financial_start'   => 'Início do ano fiscal',
         'timezone'          => 'Fuso Horário',
+        'financial_denote' => [
+            'title'         => 'Indicar Ano Fiscal',
+            'begins'        => 'Pelo ano em que começa',
+            'ends'          => 'Pelo ano em que termina',
+        ],
         'date' => [
             'format'        => 'Formato da Data',
             'separator'     => 'Separador de Data',

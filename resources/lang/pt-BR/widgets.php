@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Moedas',
     'total_income'              => 'Receitas totais',
     'receivables'               => 'Recebíveis',
     'open_invoices'             => 'Faturas em aberto',
