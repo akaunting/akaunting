@@ -60,7 +60,6 @@ mix
 
     //Wizard
     .js('resources/assets/js/wizard.js', 'public/js/wizard')
-    .js('resources/assets/js/views/wizard/update.js', 'public/js/wizard')
 
     // Modules
     .js('resources/assets/js/views/modules/item.js', 'public/js/modules')

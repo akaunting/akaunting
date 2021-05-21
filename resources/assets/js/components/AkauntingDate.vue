@@ -12,6 +12,7 @@
         :disabled="disabled"
         >
         <flat-picker slot-scope="{focus, blur}"
+            :name="title"
             @on-open="focus"
             @on-close="blur"
             :config="dateConfig"

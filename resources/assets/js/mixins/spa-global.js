@@ -152,7 +152,7 @@ export default {
 
                 }, this)
                 .catch(error => {
-                    this.onFailError(error)
+                    this.onFailError(error);
                 }, this);
         },
         onDeleteEvent(event, form_list, event_id) {
