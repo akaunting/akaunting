@@ -155,6 +155,18 @@ export default {
                     this.onFailError(error)
                 }, this);
         },
+        onDeleteEvent(event, form_list, event_id) {
+            form_list.forEach(function (item, index) {
+                if (item.id == event_id) {
+                  form_list.splice(index, 1);
+                  return;
+                }
+              }, this);
+        
+              this.component = "";
+        
+              this.onSuccessDelete(event);
+        },
         onFailError(error) {
             this.error_field_name = error.response.data.errors;
         }

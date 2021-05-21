@@ -371,7 +371,6 @@ export default {
           },
         })
         .then((response) => {
-          debugger;
           data.rate = response.data.rate;
           data.precision = response.data.precision;
           data.symbol = response.data.symbol;
@@ -402,16 +401,7 @@ export default {
     },
 
     deleteCurrency(event) {
-      this.currencies.forEach(function (currency, index) {
-        if (currency.id == event.currency_id) {
-          this.currencies.splice(index, 1);
-          return;
-        }
-      }, this);
-
-      this.component = "";
-
-      this.onSuccessDelete(event);
+      this.onDeleteEvent(event, this.currencies, event.currency_id);
     },
   },
 };

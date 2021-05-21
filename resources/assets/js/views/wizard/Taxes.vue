@@ -285,16 +285,7 @@ export default {
       this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
     },
     deleteCurrency(event) {
-      this.taxes.forEach(function (tax, index) {
-        if (tax.id == event.tax_id) {
-          this.taxes.splice(index, 1);
-          return;
-        }
-      }, this);
-
-      this.component = "";
-
-      this.onSuccessDelete(event);
+      this.onDeleteEvent(event, this.taxes, event.tax_id);
     },
   },
 };
