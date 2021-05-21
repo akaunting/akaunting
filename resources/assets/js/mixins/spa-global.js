@@ -9,6 +9,8 @@ export default {
                 select: "",
                 enabled: 1
             },
+            error_field: false,
+            error_field_name: ''
         }
     },
 
@@ -16,6 +18,9 @@ export default {
         addItem() {
             this.newDatas = true;
             this.currentTab = undefined;
+            this.error_field = true;
+            this.error_field_name = '';
+
             if (this.model) {
                 this.model.name = '';
                 this.model.rate = '';
@@ -26,6 +31,9 @@ export default {
         handeClickEdit(item, index) {
             this.newDatas = false;
             this.currentTab = index;
+            this.error_field = true;
+            this.error_field_name = '';
+
             if (this.model) {
                 this.model.name = item.name ? item.name : '';
                 this.model.rate = item.rate ? item.rate : '';
@@ -43,7 +51,7 @@ export default {
         onSuccessEvent(response) {
             let type = response.data.success ? 'success' : 'error';
             let timeout = 1000;
-
+            
             if (response.data.important) {
                 timeout = 0;
             }
@@ -56,12 +64,12 @@ export default {
             });
 
             this.dataHandleEvent();
-            
+
         },
         onSuccessDelete(event) {
             let type = event.success ? 'success' : 'error';
             let timeout = 1000;
-
+            
             if (event.important) {
                 timeout = 0;
             }
@@ -77,9 +85,10 @@ export default {
         },
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
             let self = this;
+
             const formData = new FormData(this.$refs["form"]);
             const data = {};
-
+            
             for (let [key, val] of formData.entries()) {
                 Object.assign(data, {
                     [key]: val,
@@ -90,29 +99,35 @@ export default {
             if (!plus_data || plus_data == undefined) {
                 delete data.type;
             }
-
+            
             window.axios({
                     method: form_method,
                     url: form_url,
                     data: data,
                 })
                 .then(response => {
-                    form_list.forEach(item => {
-                        if (item.id == form_id) {
-                            item.name = response.data.data.name;
-                            item.code = response.data.data.code;
-                            item.rate = response.data.data.rate;
-                            item.type = plus_data == undefined ? 'normal' : ''
-                        }
-                    });
+                    if (form_list.length) {
+                        form_list.forEach(item => {
+                            if (item.id == form_id) {
+                                item.name = response.data.data.name;
+                                item.code = response.data.data.code;
+                                item.rate = response.data.data.rate;
+                                item.type = plus_data == undefined ? 'normal' : ''
+                            }
+                        });
+                    }
 
                     this.onSuccessEvent(response);
+                    this.error_field = false;
                 }, this)
                 .catch(error => {
+                    self.onFailError(error)
                     this.success = false;
                 });
         },
         onSubmitEvent(form_method, form_url, plus_data, form_list) {
+            let self = this;
+
             const formData = new FormData(this.$refs["form"]);
             const data = {};
 
@@ -142,10 +157,16 @@ export default {
                     });
 
                     this.onSuccessEvent(response);
+                    this.error_field = false;
                 }, this)
                 .catch(error => {
+                    self.onFailError(error)
                     this.success = false;
                 });
         },
+        onFailError(error) {
+            this.error_field_name = error.response.data.errors;
+            this.error_field = true;
+        }
     },
 }

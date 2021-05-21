@@ -78,7 +78,28 @@ export default {
   flex-flow: row wrap;
 }
 
+.form-container .invalid-feedback {
+  position: absolute;
+  bottom: -18px;
+}
+
+.form-container .has-error {
+  position: relative;
+  margin-bottom:unset !important;
+}
+
+.form-container .has-error .form-control {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right:1px solid;
+}
+
 @media screen and (max-width: 991px) {
+  .form-container .has-error {
+    position: relative;
+    margin-bottom:1.5rem !important;
+  }
+
   .current-tab-btn {
     padding: 0 15px;
   }

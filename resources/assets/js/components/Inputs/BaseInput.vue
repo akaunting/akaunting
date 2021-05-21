@@ -86,7 +86,7 @@
         description: "Input label (text before input)"
       },
       error: {
-        type: String,
+        type: [String, Object, Array],
         description: "Input error (below input)"
       },
       footerError: {

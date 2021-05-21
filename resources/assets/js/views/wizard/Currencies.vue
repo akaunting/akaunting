@@ -119,16 +119,17 @@
                           :placeholder="translations.currencies.name"
                           prepend-icon="fas fa-font"
                           form-classes="col-md-3"
+                          :error="error_field_name.name"
                           v-model="model.name"
                         />
                         <base-input
                           :label="translations.currencies.code"
+                          :error="error_field_name.code"
                           form-classes="col-md-3"
                         >
                           <el-select
                             name="code"
                             v-model="model.select"
-                            required="required"
                             @change="onChangeCode(model.select)"
                             filterable
                           >
@@ -156,7 +157,7 @@
                           :placeholder="translations.currencies.rate"
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-3"
-                          required="required"
+                          :error="error_field_name.rate"
                           v-model="model.rate"
                         />
                         <div class="mt-4 col-md-3 current-tab-btn">
@@ -185,8 +186,9 @@
                           :placeholder="translations.currencies.name"
                           prepend-icon="fas fa-font"
                           v-model="model.name"
+                          :error="error_field_name.name"
                         />
-                        <base-input :label="translations.currencies.code">
+                        <base-input :label="translations.currencies.code" :error="error_field_name.code">
                           <el-select
                             name="code"
                             v-model="model.select"
@@ -218,7 +220,7 @@
                           :placeholder="translations.currencies.rate"
                           prepend-icon="fas fa-percentage"
                           v-model="model.rate"
-                          required="required"
+                          :error="error_field_name.rate"
                         />
                         <div>
                           <div class="d-flex">
@@ -305,7 +307,6 @@ export default {
       type: [Object, Array],
     },
   },
-
   data() {
     return {
       active: 1,
