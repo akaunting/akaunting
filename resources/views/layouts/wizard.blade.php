@@ -7,13 +7,6 @@
     @stack('body_start')
 
     <div id="app">
-      {!! Form::open([
-      'url' => url()->current(),
-      'role' => 'form',
-      'id' => 'form-wizard',
-      '@submit.prevent' => 'onSubmit',
-      '@keydown' => 'form.errors.clear($event.target.name)',
-      ]) !!}
       <div class="card-body">
       <div class="document-loading" v-if="!page_loaded">
         <div><i class="fas fa-spinner fa-pulse fa-7x"></i></div>

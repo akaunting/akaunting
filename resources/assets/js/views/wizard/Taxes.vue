@@ -111,7 +111,7 @@
                           prepend-icon="fas fa-font"
                           form-classes="col-md-4"
                           class="required"
-                          :error="error_field_name.name"
+                          :error="error_field.name"
                           v-model="model.name"
                         />
                         <base-input
@@ -122,7 +122,7 @@
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-4"
                           class="required"
-                          :error="error_field_name.rate"
+                          :error="error_field.rate"
                           v-model="model.rate"
                         />
                         <div class="mt-4 col-md-4 current-tab-btn">
@@ -149,7 +149,7 @@
                           data-name="name"
                           :placeholder="translations.taxes.name"
                           prepend-icon="fas fa-font"
-                          :error="error_field_name.name"
+                          :error="error_field.name"
                           class="required"
                           v-model="model.name"
                         />
@@ -159,7 +159,7 @@
                           data-name="rate"
                           :placeholder="translations.taxes.rate"
                           prepend-icon="fas fa-percentage"
-                          :error="error_field_name.rate"
+                          :error="error_field.rate"
                           class="required"
                           v-model="model.rate"
                         />
@@ -217,7 +217,6 @@
 <script>
 import { Step, Steps } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
-import Form from "./../../plugins/form";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
 import MixinsSpaGlobal from "./../../mixins/spa-global";

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-white">
-      {{ translations.currencies.title }}
+      {{ translations.currencies.title }} 
     </h1>
 
     <div class="card">
@@ -120,12 +120,12 @@
                           prepend-icon="fas fa-font"
                           form-classes="col-md-3"
                           class="required"
-                          :error="error_field_name.name"
+                          :error="error_field.name"
                           v-model="model.name"
                         />
                         <base-input
                           :label="translations.currencies.code"
-                          :error="error_field_name.code"
+                          :error="error_field.code"
                           class="required"
                           form-classes="col-md-3"
                         >
@@ -160,7 +160,7 @@
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-3"
                           class="required"
-                          :error="error_field_name.rate"
+                          :error="error_field.rate"
                           v-model="model.rate"
                         />
                         <div class="mt-4 col-md-3 current-tab-btn">
@@ -190,9 +190,9 @@
                           prepend-icon="fas fa-font"
                           class="required"
                           v-model="model.name"
-                          :error="error_field_name.name"
+                          :error="error_field.name"
                         />
-                        <base-input :label="translations.currencies.code" class="required" :error="error_field_name.code">
+                        <base-input :label="translations.currencies.code" class="required" :error="error_field.code">
                           <el-select
                             name="code"
                             v-model="model.select"
@@ -225,7 +225,7 @@
                           prepend-icon="fas fa-percentage"
                           class="required"
                           v-model="model.rate"
-                          :error="error_field_name.rate"
+                          :error="error_field.rate"
                         />
                         <div>
                           <div class="d-flex">
@@ -283,7 +283,6 @@
 <script>
 import { Step, Steps, Select, Option } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
-import Form from "./../../plugins/form";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
 import MixinsSpaGlobal from "./../../mixins/spa-global";

@@ -10,7 +10,7 @@ export default {
                 select: "",
                 enabled: 1
             },
-            error_field_name: ''
+            error_field: {}
         }
     },
 
@@ -18,7 +18,7 @@ export default {
         addItem() {
             this.newDatas = true;
             this.currentTab = undefined;
-            this.error_field_name = '';
+            this.error_field = '';
 
             if (this.model) {
                 this.model.name = '';
@@ -30,7 +30,7 @@ export default {
         handeClickEdit(item, index) {
             this.newDatas = false;
             this.currentTab = index;
-            this.error_field_name = '';
+            this.error_field = '';
 
             if (this.model) {
                 this.model.name = item.name ? item.name : '';
@@ -168,7 +168,7 @@ export default {
               this.onSuccessDelete(event);
         },
         onFailError(error) {
-            this.error_field_name = error.response.data.errors;
+            this.error_field = error.response.data.errors;
         }
     },
 }
