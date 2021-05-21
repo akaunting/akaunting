@@ -46,7 +46,6 @@
               <akaunting-date
                 :title="translations.companies.financial_start"
                 :placeholder="translations.companies.financial_start"
-                name="financial_start"
                 prepend-icon="fas fa-calendar"
                 :date-config="{
                   dateFormat: 'd-m',
@@ -72,8 +71,7 @@
             <div class="col-6">
               <base-input :label="translations.companies.logo">
                 <akaunting-dropzone-file-upload
-                  preview="single"
-                  dropzone-class="form-file"
+                  preview-classes="single"
                 >
                 </akaunting-dropzone-file-upload>
               </base-input>
@@ -137,7 +135,8 @@ export default {
       this.$router.push("/wizard/currencies");
     },
     onEditSave() {
-      this.onEditEvent("PATCH", url + "/wizard/companies", '', this.companies, '');
+      this.onEditEvent("PATCH", url + "/wizard/companies", '', '', '');
+      this.$router.push("/wizard/currencies");
     }
   },
 };
