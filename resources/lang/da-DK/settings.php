@@ -63,7 +63,7 @@ return [
         'title'             => 'Titel',
         'subheading'        => 'Undertitel',
         'due_receipt'       => 'Forfalder ved modtagelse',
-        'due_days'          => 'Forfalder om :days dage',
+        'due_days'          => 'Forfalder efter :days dage',
         'choose_template'   => 'Vælg faktura skabelon',
         'default'           => 'Standard',
         'classic'           => 'Klassisk',

@@ -34,7 +34,7 @@ return [
         'billed'        => 'Faturado',
         'delivered'     => 'Entregue',
         'returned'      => 'Devolvido',
-        'drawn'         => 'Esboçado',
+        'drawn'         => 'Rascunho',
         'not_billed'    => 'Não faturado',
         'issued'        => 'Emitido',
         'not_invoiced'  => 'Não faturado',
