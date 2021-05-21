@@ -49,25 +49,10 @@ const app = new Vue({
 
     methods:{
         permissionSelectAll() {
-            var is_admin = false;
-            var is_portal = false;
-
             if (this.permissions.all.length) {
-                for (var i = 0; i < this.permissions.all.length; i++) {
-                    var value = this.permissions.all[i];
-
-                    if ((is_admin && value == this.permissions.read_client_portal) ||
-                        (is_portal && value == this.permissions.read_admin_panel)) {
-                    } else {
-                        this.form.permissions.push(value);
-                    }
-
-                    if (value == this.permissions.read_admin_panel) {
-                        is_admin = true;
-                    } else if (value == this.permissions.read_client_portal) {
-                        is_portal = true;
-                    }
-                }
+                this.permissions.all.forEach(function (value) {
+                    this.setFormPermission(value);
+                }, this);
             }
         },
 
@@ -76,27 +61,12 @@ const app = new Vue({
         },
 
         select(type) {
-            var is_admin = false;
-            var is_portal = false;
-
-            var values = this.permissions[type].permissions;
+            let values = this.permissions[type].permissions;
 
             if (values.length) {
-                for (var i = 0; i < values.length; i++) {
-                    var value = values[i];
-
-                    if ((is_admin && value == this.permissions.read_client_portal) ||
-                        (is_portal && value == this.permissions.read_admin_panel)) {
-                    } else {
-                        this.form.permissions.push(value);
-                    }
-
-                    if (value == this.permissions.read_admin_panel) {
-                        is_admin = true;
-                    } else if (value == this.permissions.read_client_portal) {
-                        is_portal = true;
-                    }
-                }
+                values.forEach(function (value) {
+                    this.setFormPermission(value);
+                }, this);
             }
         },
 
@@ -112,6 +82,26 @@ const app = new Vue({
                     }
                 }
             }
-        }
+        },
+
+        setFormPermission(permission) {
+            if (this.form.permissions.includes(permission)) {
+                return;
+            }
+
+            if ((this.permissions.read_admin_panel == permission) || (this.permissions.read_client_portal == permission)) {
+                if (this.permissions.read_admin_panel == permission && this.form.permissions.includes(this.permissions.read_client_portal)) {
+                    return;
+                } else if(this.permissions.read_client_portal == permission && this.form.permissions.includes(this.permissions.read_admin_panel)) {
+                    return;
+                }
+
+                this.form.permissions.push(permission);
+
+                return;
+            }
+
+            this.form.permissions.push(permission);
+        },
     }
 });

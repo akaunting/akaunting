@@ -48,7 +48,7 @@
                     <div class="tab-content">
                         @foreach($permissions as $action => $action_permissions)
                             @php $active_action_tab = ($action == 'read') ? 'active' : ''; @endphp
-                            <div class="tab-pane fade show {{ $active_action_tab }}" id="tab-{{ $action }}"  role="tabpanel">
+                            <div class="tab-pane fade show {{ $active_action_tab }}" id="tab-{{ $action }}" ref="tab-{{ $action }}" role="tabpanel">
                                 <span class="btn btn-primary btn-sm" @click="select('{{ $action }}')">{{ trans('general.select_all') }}</span>
                                 <span class="btn btn-primary btn-sm" @click="unselect('{{ $action }}')">{{ trans('general.unselect_all') }}</span>
 
@@ -59,12 +59,20 @@
                                         @foreach($action_permissions as $item)
                                             <div class="col-md-4 role-list">
                                                 <div class="custom-control custom-checkbox">
-                                                    {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions']) }}
+                                                    @if (($item->name == 'read-admin-panel'))
+                                                        {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions', ':disabled' => 'form.permissions.includes(permissions.read_client_portal)']) }}
+                                                    @elseif (($item->name == 'read-client-portal'))
+                                                        {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions', ':disabled' => 'form.permissions.includes(permissions.read_admin_panel)']) }}
+                                                    @else
+                                                        {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions']) }}
+                                                    @endif
+
                                                     <label class="custom-control-label" for="permissions-{{ $item->id }}">
                                                         {{ $item->title }}
                                                     </label>
                                                 </div>
                                             </div>
+
                                             @if (($item->name == 'read-admin-panel') || ($item->name == 'read-client-portal'))
                                                 {{ Form::hidden($item->name, $item->id, ['id' => $item->name]) }}
                                             @endif
