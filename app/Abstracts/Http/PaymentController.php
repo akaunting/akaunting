@@ -145,8 +145,8 @@ abstract class PaymentController extends BaseController
     public function getModuleUrl($invoice, $suffix)
     {
         return request()->isPortal($invoice->company_id)
-                ? route('portal.' . $this->alias . '.invoices.' . $suffix, $invoice->id)
-                : URL::signedRoute('signed.' . $this->alias . '.invoices.' . $suffix, [$invoice->id]);
+                ? route('portal.' . $this->alias . '.invoices.' . $suffix, [company_id(), $invoice->id])
+                : URL::signedRoute('signed.' . $this->alias . '.invoices.' . $suffix, [company_id(), $invoice->id]);
     }
 
     public function getLogger()
