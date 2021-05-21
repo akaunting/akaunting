@@ -1,3 +1,4 @@
+
 export default {
     data: function () {
         return {
@@ -9,7 +10,6 @@ export default {
                 select: "",
                 enabled: 1
             },
-            error_field: false,
             error_field_name: ''
         }
     },
@@ -18,7 +18,6 @@ export default {
         addItem() {
             this.newDatas = true;
             this.currentTab = undefined;
-            this.error_field = true;
             this.error_field_name = '';
 
             if (this.model) {
@@ -31,7 +30,6 @@ export default {
         handeClickEdit(item, index) {
             this.newDatas = false;
             this.currentTab = index;
-            this.error_field = true;
             this.error_field_name = '';
 
             if (this.model) {
@@ -64,7 +62,6 @@ export default {
             });
 
             this.dataHandleEvent();
-
         },
         onSuccessDelete(event) {
             let type = event.success ? 'success' : 'error';
@@ -84,8 +81,6 @@ export default {
             this.dataHandleEvent();
         },
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
-            let self = this;
-
             const formData = new FormData(this.$refs["form"]);
             const data = {};
             
@@ -118,16 +113,13 @@ export default {
                     }
 
                     this.onSuccessEvent(response);
-                    this.error_field = false;
+
                 }, this)
                 .catch(error => {
-                    self.onFailError(error)
-                    this.success = false;
-                });
+                    this.onFailError(error)
+                }, this);
         },
         onSubmitEvent(form_method, form_url, plus_data, form_list) {
-            let self = this;
-
             const formData = new FormData(this.$refs["form"]);
             const data = {};
 
@@ -157,16 +149,14 @@ export default {
                     });
 
                     this.onSuccessEvent(response);
-                    this.error_field = false;
+
                 }, this)
                 .catch(error => {
-                    self.onFailError(error)
-                    this.success = false;
-                });
+                    this.onFailError(error)
+                }, this);
         },
         onFailError(error) {
             this.error_field_name = error.response.data.errors;
-            this.error_field = true;
         }
     },
 }

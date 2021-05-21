@@ -313,7 +313,6 @@ export default {
       bulk_action: new BulkAction(url + "/settings/currencies"),
     };
   },
-
   methods: {
     inputHandle(item) {
       this.onStatus(item.id, event);
@@ -347,8 +346,6 @@ export default {
     },
 
     onChangeCode(code) {
-      let self = this;
-
       const formData = new FormData(this.$refs["form"]);
       const data = {
         rate: "",
@@ -374,14 +371,15 @@ export default {
           },
         })
         .then((response) => {
+          debugger;
           data.rate = response.data.rate;
           data.precision = response.data.precision;
           data.symbol = response.data.symbol;
           data.symbol_first = response.data.symbol_first;
           data.decimal_mark = response.data.decimal_mark;
           data.thousands_separator = response.data.thousands_separator;
-          self.model.rate = response.data.rate;
-        });
+          this.model.rate = response.data.rate;
+        }, this);
     },
 
     onEditSave(item) {
