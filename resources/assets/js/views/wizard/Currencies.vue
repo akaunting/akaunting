@@ -119,12 +119,14 @@
                           :placeholder="translations.currencies.name"
                           prepend-icon="fas fa-font"
                           form-classes="col-md-3"
+                          class="required"
                           :error="error_field_name.name"
                           v-model="model.name"
                         />
                         <base-input
                           :label="translations.currencies.code"
                           :error="error_field_name.code"
+                          class="required"
                           form-classes="col-md-3"
                         >
                           <el-select
@@ -157,6 +159,7 @@
                           :placeholder="translations.currencies.rate"
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-3"
+                          class="required"
                           :error="error_field_name.rate"
                           v-model="model.rate"
                         />
@@ -185,10 +188,11 @@
                           data-name="name"
                           :placeholder="translations.currencies.name"
                           prepend-icon="fas fa-font"
+                          class="required"
                           v-model="model.name"
                           :error="error_field_name.name"
                         />
-                        <base-input :label="translations.currencies.code" :error="error_field_name.code">
+                        <base-input :label="translations.currencies.code" class="required" :error="error_field_name.code">
                           <el-select
                             name="code"
                             v-model="model.select"
@@ -219,6 +223,7 @@
                           data-name="rate"
                           :placeholder="translations.currencies.rate"
                           prepend-icon="fas fa-percentage"
+                          class="required"
                           v-model="model.rate"
                           :error="error_field_name.rate"
                         />

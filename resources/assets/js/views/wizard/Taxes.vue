@@ -110,6 +110,7 @@
                           :placeholder="translations.taxes.name"
                           prepend-icon="fas fa-font"
                           form-classes="col-md-4"
+                          class="required"
                           :error="error_field_name.name"
                           v-model="model.name"
                         />
@@ -120,6 +121,7 @@
                           :placeholder="translations.taxes.rate"
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-4"
+                          class="required"
                           :error="error_field_name.rate"
                           v-model="model.rate"
                         />
@@ -148,6 +150,7 @@
                           :placeholder="translations.taxes.name"
                           prepend-icon="fas fa-font"
                           :error="error_field_name.name"
+                          class="required"
                           v-model="model.name"
                         />
                         <base-input
@@ -157,6 +160,7 @@
                           :placeholder="translations.taxes.rate"
                           prepend-icon="fas fa-percentage"
                           :error="error_field_name.rate"
+                          class="required"
                           v-model="model.rate"
                         />
                         <div>
