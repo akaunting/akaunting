@@ -21,8 +21,8 @@ class Items implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            'items' => new Base($this->ids),
-            'item_taxes' => new ItemTaxes($this->ids),
+            new Base($this->ids),
+            new ItemTaxes($this->ids),
         ];
     }
 }

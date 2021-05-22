@@ -72,6 +72,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'temp' => [
+            'driver' => 'local',
+            'root' => storage_path('app/temp'),
+            'url' => app()->runningInConsole() ? '' : url('/') . '/temp',
+            'visibility' => 'private',
+        ],
+
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),

@@ -232,8 +232,8 @@ return [
         | in conjunction with queued imports and exports.
         |
         */
-        'remote_disk'       => env('EXCEL_TEMPORARY_FILES_REMOTE_DISK', null),
-        'remote_prefix'     => env('EXCEL_TEMPORARY_FILES_REMOTE_PREFIX', null),
+        'remote_disk'       => env('EXCEL_TEMPORARY_FILES_REMOTE_DISK'),
+        'remote_prefix'     => env('EXCEL_TEMPORARY_FILES_REMOTE_PREFIX'),
 
         /*
         |--------------------------------------------------------------------------
@@ -250,7 +250,7 @@ return [
         | processed it.
         |
         */
-        'force_resync_remote' => env('EXCEL_TEMPORARY_FILES_FORCE_RESYNC_REMOTE', null),
+        'force_resync_remote' => env('EXCEL_TEMPORARY_FILES_FORCE_RESYNC_REMOTE'),
 
     ],
 

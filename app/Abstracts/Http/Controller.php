@@ -143,10 +143,17 @@ abstract class Controller extends BaseController
     public function exportExcel($class, $translation, $extension = 'xlsx')
     {
         try {
-            $file_name = Str::filename($translation) . '.' . $extension;
+            $file_name = Str::filename($translation) . '-' . time() . '.' . $extension;
 
             if (should_queue()) {
-                $class->queue($file_name)->onQueue('exports')->chain([
+                $disk = 'temp';
+
+                if (config('excel.temporary_files.remote_disk') !== null) {
+                    $disk = config('excel.temporary_files.remote_disk');
+                    $file_name = config('excel.temporary_files.remote_prefix') . $file_name;
+                }
+
+                $class->queue($file_name, $disk)->onQueue('exports')->chain([
                     new CreateMediableForExport(user(), $file_name),
                 ]);
 
