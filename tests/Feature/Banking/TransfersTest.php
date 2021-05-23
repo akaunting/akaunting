@@ -84,8 +84,10 @@ class TransfersTest extends FeatureTestCase
             ->get(route('transfers.export'))
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.transfers', 2)) . '.xlsx',
+            '/' . \Str::filename(trans_choice('general.transfers', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->collection()->count() === $count;
@@ -95,22 +97,26 @@ class TransfersTest extends FeatureTestCase
 
     public function testItShouldExportSelectedTransfers()
     {
-        $count = 5;
-        $transfers = Transfer::factory()->count($count)->create();
+        $create_count = 5;
+        $select_count = 3;
+
+        $transfers = Transfer::factory()->count($create_count)->create();
 
         \Excel::fake();
 
         $this->loginAs()
             ->post(
                 route('bulk-actions.action', ['group' => 'banking', 'type' => 'transfers']),
-                ['handle' => 'export', 'selected' => [$transfers->random()->id]]
+                ['handle' => 'export', 'selected' => $transfers->take($select_count)->pluck('id')->toArray()]
             )
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.transfers', 2)) . '.xlsx',
-            function (Export $export) {
-                return $export->collection()->count() === 1;
+            '/' . \Str::filename(trans_choice('general.transfers', 2)) . '-\d{10}\.xlsx/',
+            function (Export $export) use ($select_count) {
+                return $export->collection()->count() === $select_count;
             }
         );
     }

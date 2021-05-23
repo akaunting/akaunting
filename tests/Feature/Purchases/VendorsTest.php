@@ -110,8 +110,10 @@ class VendorsTest extends FeatureTestCase
             ->get(route('vendors.export'))
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx',
+            '/' . \Str::filename(trans_choice('general.vendors', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->collection()->count() === $count;
@@ -121,22 +123,26 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldExportSelectedVendors()
     {
-        $count = 5;
-        $vendors = Contact::factory()->vendor()->count($count)->create();
+        $create_count = 5;
+        $select_count = 3;
+
+        $vendors = Contact::factory()->vendor()->count($create_count)->create();
 
         \Excel::fake();
 
         $this->loginAs()
             ->post(
                 route('bulk-actions.action', ['group' => 'purchases', 'type' => 'vendors']),
-                ['handle' => 'export', 'selected' => [$vendors->random()->id]]
+                ['handle' => 'export', 'selected' => $vendors->take($select_count)->pluck('id')->toArray()]
             )
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx',
-            function (Export $export) {
-                return $export->collection()->count() === 1;
+            '/' . \Str::filename(trans_choice('general.vendors', 2)) . '-\d{10}\.xlsx/',
+            function (Export $export) use ($select_count) {
+                return $export->collection()->count() === $select_count;
             }
         );
     }

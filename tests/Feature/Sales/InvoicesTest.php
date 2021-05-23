@@ -129,33 +129,39 @@ class InvoicesTest extends FeatureTestCase
             ->get(route('invoices.export'))
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx',
+            '/' . \Str::filename(trans_choice('general.invoices', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
-                return $export->sheets()['invoices']->collection()->count() === $count;
+                return $export->sheets()[0]->collection()->count() === $count;
             }
         );
     }
 
     public function testItShouldExportSelectedInvoices()
     {
-        $count = 5;
-        $invoices = Document::factory()->invoice()->count($count)->create();
+        $create_count = 5;
+        $select_count = 3;
+
+        $invoices = Document::factory()->invoice()->count($create_count)->create();
 
         \Excel::fake();
 
         $this->loginAs()
             ->post(
                 route('bulk-actions.action', ['group' => 'sales', 'type' => 'invoices']),
-                ['handle' => 'export', 'selected' => [$invoices->random()->id]]
+                ['handle' => 'export', 'selected' => $invoices->take($select_count)->pluck('id')->toArray()]
             )
             ->assertStatus(200);
 
+        \Excel::matchByRegex();
+
         \Excel::assertDownloaded(
-            \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx',
-            function (Export $export) {
-                return $export->sheets()['invoices']->collection()->count() === 1;
+            '/' . \Str::filename(trans_choice('general.invoices', 2)) . '-\d{10}\.xlsx/',
+            function (Export $export) use ($select_count) {
+                return $export->sheets()[0]->collection()->count() === $select_count;
             }
         );
     }

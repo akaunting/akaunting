@@ -55,6 +55,6 @@ class Items extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), trans_choice('general.items', 2) . '.xlsx');
+        return $this->exportExcel(new Export($selected), trans_choice('general.items', 2));
     }
 }

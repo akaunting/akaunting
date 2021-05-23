@@ -7,7 +7,8 @@ use App\Jobs\Common\UpdateContact;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
-use Artisan;
+use App\Utilities\Export;
+use App\Utilities\Import;
 
 abstract class BulkAction
 {
@@ -163,5 +164,33 @@ abstract class BulkAction
                 flash($e->getMessage())->error()->important();
             }
         }
+    }
+
+    /**
+     * Import the excel file or catch errors
+     *
+     * @param $class
+     * @param $request
+     * @param $translation
+     *
+     * @return array
+     */
+    public function importExcel($class, $request, $translation)
+    {
+        return Import::fromExcel($class, $request, $translation);
+    }
+
+    /**
+     * Export the excel file or catch errors
+     *
+     * @param $class
+     * @param $translation
+     * @param $extension
+     *
+     * @return mixed
+     */
+    public function exportExcel($class, $translation, $extension = 'xlsx')
+    {
+        return Export::toExcel($class, $translation, $extension);
     }
 }

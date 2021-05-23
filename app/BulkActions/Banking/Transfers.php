@@ -41,6 +41,6 @@ class Transfers extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.transfers', 2)) . '.xlsx');
+        return $this->exportExcel(new Export($selected), trans_choice('general.transfers', 2));
     }
 }

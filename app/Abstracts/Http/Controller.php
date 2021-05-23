@@ -3,19 +3,17 @@
 namespace App\Abstracts\Http;
 
 use App\Abstracts\Http\Response;
-use App\Jobs\Auth\NotifyUser;
-use App\Jobs\Common\CreateMediableForExport;
-use App\Notifications\Common\ImportCompleted;
 use App\Traits\Jobs;
 use App\Traits\Permissions;
 use App\Traits\Relationships;
+use App\Utilities\Export;
+use App\Utilities\Import;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Str;
 
 abstract class Controller extends BaseController
 {
@@ -78,57 +76,11 @@ abstract class Controller extends BaseController
      * @param $request
      * @param $translation
      *
-     * @return mixed
+     * @return array
      */
     public function importExcel($class, $request, $translation)
     {
-        try {
-            $file = $request->file('import');
-
-            if (should_queue()) {
-                $class->queue($file)->onQueue('imports')->chain([
-                    new NotifyUser(user(), new ImportCompleted),
-                ]);
-
-                $message = trans('messages.success.import_queued', ['type' => $translation]);
-            } else {
-                $class->import($file);
-
-                $message = trans('messages.success.imported', ['type' => $translation]);
-            }
-
-            $response = [
-                'success'   => true,
-                'error'     => false,
-                'data'      => null,
-                'message'   => $message,
-            ];
-        } catch (\Throwable $e) {
-            if ($e instanceof \Maatwebsite\Excel\Validators\ValidationException) {
-                foreach ($e->failures() as $failure) {
-                    $message = trans('messages.error.import_column', [
-                        'message'   => collect($failure->errors())->first(),
-                        'column'    => $failure->attribute(),
-                        'line'      => $failure->row(),
-                    ]);
-
-                    flash($message)->error()->important();
-                }
-
-                $message = '';
-            } else {
-                $message = $e->getMessage();
-            }
-
-            $response = [
-                'success'   => false,
-                'error'     => true,
-                'data'      => null,
-                'message'   => $message,
-            ];
-        }
-
-        return $response;
+        return Import::fromExcel($class, $request, $translation);
     }
 
     /**
@@ -142,33 +94,6 @@ abstract class Controller extends BaseController
      */
     public function exportExcel($class, $translation, $extension = 'xlsx')
     {
-        try {
-            $file_name = Str::filename($translation) . '-' . time() . '.' . $extension;
-
-            if (should_queue()) {
-                $disk = 'temp';
-
-                if (config('excel.temporary_files.remote_disk') !== null) {
-                    $disk = config('excel.temporary_files.remote_disk');
-                    $file_name = config('excel.temporary_files.remote_prefix') . $file_name;
-                }
-
-                $class->queue($file_name, $disk)->onQueue('exports')->chain([
-                    new CreateMediableForExport(user(), $file_name),
-                ]);
-
-                $message = trans('messages.success.export_queued', ['type' => $translation]);
-
-                flash($message)->success();
-
-                return back();
-            } else {
-                return $class->download($file_name);
-            }
-        } catch (\Throwable $e) {
-            flash($e->getMessage())->error()->important();
-
-            return back();
-        }
+        return Export::toExcel($class, $translation, $extension);
     }
 }
