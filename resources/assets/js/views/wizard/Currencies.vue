@@ -120,14 +120,14 @@
                           prepend-icon="fas fa-font"
                           form-classes="col-md-3"
                           class="required"
-                          :error="error_field.name"
                           v-model="model.name"
+                          :error="onFailErrorGet('name')"
                         />
                         <base-input
                           :label="translations.currencies.code"
-                          :error="error_field.code"
                           class="required"
                           form-classes="col-md-3"
+                          :error="onFailErrorGet('code')"
                         >
                           <el-select
                             name="code"
@@ -160,8 +160,8 @@
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-3"
                           class="required"
-                          :error="error_field.rate"
                           v-model="model.rate"
+                          :error="onFailErrorGet('rate')"
                         />
                         <div class="mt-4 col-md-3 current-tab-btn">
                           <base-button
@@ -190,9 +190,9 @@
                           prepend-icon="fas fa-font"
                           class="required"
                           v-model="model.name"
-                          :error="error_field.name"
+                          :error="onFailErrorGet('name')"
                         />
-                        <base-input :label="translations.currencies.code" class="required" :error="error_field.code">
+                        <base-input :label="translations.currencies.code" class="required" :error="onFailErrorGet('code')">
                           <el-select
                             name="code"
                             v-model="model.select"
@@ -225,7 +225,7 @@
                           prepend-icon="fas fa-percentage"
                           class="required"
                           v-model="model.rate"
-                          :error="error_field.rate"
+                          :error="onFailErrorGet('rate')"
                         />
                         <div>
                           <div class="d-flex">

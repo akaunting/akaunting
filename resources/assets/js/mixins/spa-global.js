@@ -18,7 +18,7 @@ export default {
         addItem() {
             this.newDatas = true;
             this.currentTab = undefined;
-            this.error_field = '';
+            this.error_field = {};
 
             if (this.model) {
                 this.model.name = '';
@@ -30,7 +30,7 @@ export default {
         handeClickEdit(item, index) {
             this.newDatas = false;
             this.currentTab = index;
-            this.error_field = '';
+            this.error_field = {};
 
             if (this.model) {
                 this.model.name = item.name ? item.name : '';
@@ -167,8 +167,13 @@ export default {
         
               this.onSuccessDelete(event);
         },
+        onFailErrorGet(field_name) {
+            if(this.error_field[field_name]) {
+                return this.error_field[field_name][0];
+            }
+        },
         onFailError(error) {
             this.error_field = error.response.data.errors;
         }
-    },
+    }
 }

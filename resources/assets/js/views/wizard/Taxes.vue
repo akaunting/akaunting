@@ -111,8 +111,8 @@
                           prepend-icon="fas fa-font"
                           form-classes="col-md-4"
                           class="required"
-                          :error="error_field.name"
                           v-model="model.name"
+                          :error="onFailErrorGet('name')"
                         />
                         <base-input
                           :label="translations.taxes.rate"
@@ -122,8 +122,8 @@
                           prepend-icon="fas fa-percentage"
                           form-classes="col-md-4"
                           class="required"
-                          :error="error_field.rate"
                           v-model="model.rate"
+                          :error="onFailErrorGet('rate')"
                         />
                         <div class="mt-4 col-md-4 current-tab-btn">
                           <base-button
@@ -149,9 +149,9 @@
                           data-name="name"
                           :placeholder="translations.taxes.name"
                           prepend-icon="fas fa-font"
-                          :error="error_field.name"
                           class="required"
                           v-model="model.name"
+                          :error="onFailErrorGet('name')"
                         />
                         <base-input
                           :label="translations.taxes.rate"
@@ -159,9 +159,9 @@
                           data-name="rate"
                           :placeholder="translations.taxes.rate"
                           prepend-icon="fas fa-percentage"
-                          :error="error_field.rate"
                           class="required"
                           v-model="model.rate"
+                          :error="onFailErrorGet('rate')"
                         />
                         <div>
                           <div class="d-flex">
