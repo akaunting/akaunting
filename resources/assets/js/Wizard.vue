@@ -5,14 +5,18 @@
     :taxes="taxes"
     :modules="modules.data"
     :currency_codes="currency_codes"
-    :companies="companies"
+    :company="company"
   ></router-view>
 </template>
 
 <script>
 export default {
-  name: 'Wizard',
-
+    name: 'Wizard',
+    data: function () {
+        return {
+            page_loaded: true,
+        }
+    },
   created() {
     let self = this;
 
@@ -31,6 +35,10 @@ export default {
         Object.keys(data.currency_codes).map((key) => {
           return data.currency_codes[key];
         });
+
+        setTimeout(function() {
+            self.page_loaded = false;
+        }.bind(self), 800);
       });
   },
 
@@ -40,9 +48,9 @@ export default {
       currency_codes: [],
       taxes: [],
       modules: {},
-      companies: {},
+      company: {},
       translations: {
-        companies: {},
+        company: {},
         currencies: {},
         taxes: {},
         finish: {},
@@ -93,6 +101,11 @@ export default {
   border-bottom-right-radius: 5px;
   border-right:1px solid;
 }
+
+ .el-step__icon {
+    -webkit-transition: unset;
+    transition: unset;
+  }
 
 @media screen and (max-width: 991px) {
   .form-container .has-error {

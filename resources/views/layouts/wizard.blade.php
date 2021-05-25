@@ -1,25 +1,28 @@
 <html>
-@include('partials.wizard.head')
+    @include('partials.wizard.head')
 
-<body class="wizard-page">
+    <body class="wizard-page">
 
-  <div class="container mt--5">
-    @stack('body_start')
+        <div class="container mt--5">
+            @stack('body_start')
 
-    <div id="app">
-      <div class="card-body">
-      <div class="document-loading" v-if="!page_loaded">
-        <div><i class="fas fa-spinner fa-pulse fa-7x"></i></div>
-    </div>
-      @include('flash::message')
+            <div id="app">
+                <div class="card-body">
+                    <div class="document-loading" v-if="!page_loaded">
+                        <div>
+                            <i class="fas fa-spinner fa-pulse fa-7x"></i>
+                        </div>
+                    </div>
 
-      @yield('content')
-      </div>
-    </div>
+                    @include('flash::message')
 
-  </div>
+                    @yield('content')
+                </div>
+            </div>
 
-  @include('partials.wizard.scripts')
-</body>
+        </div>
 
+        @include('partials.wizard.scripts')
+
+    </body>
 </html>

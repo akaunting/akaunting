@@ -58,17 +58,10 @@ class Currencies extends Controller
     {
         $response = $this->ajaxDispatch(new CreateCurrency($request));
 
-        //$response['redirect'] = route('wizard.currencies.index');
-
         if ($response['success']) {
-
             $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
-
-            //flash($message)->success();
         } else {
             $message = $response['message'];
-
-            //flash($message)->error()->important();
         }
 
         $response['message'] = $message;
@@ -88,16 +81,10 @@ class Currencies extends Controller
     {
         $response = $this->ajaxDispatch(new UpdateCurrency($currency, $request));
 
-        // $response['redirect'] = route('wizard.currencies.index');
-
         if ($response['success']) {
             $message = trans('messages.success.updated', ['type' => $currency->name]);
-
-            // flash($message)->success();
         } else {
             $message = $response['message'];
-
-            // flash($message)->error()->important();
         }
 
         $response['message'] = $message;

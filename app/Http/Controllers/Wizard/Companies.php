@@ -93,19 +93,12 @@ class Companies extends Controller
         // Save all settings
         setting()->save();
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]);
-
-        $response = [
+        return response()->json([
             'status' => null,
             'success' => true,
             'error' => false,
-            'message' => $message,
+            'message' => trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]),
             'data' => null,
-            'redirect' => route('wizard.currencies.index'),
-        ];
-
-        flash($message)->success();
-
-        return response()->json($response);
+        ]);
     }
 }

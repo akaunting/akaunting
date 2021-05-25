@@ -1,51 +1,51 @@
 <template>
   <div>
-    <h1 class="text-white">{{ translations.companies.title }}</h1>
+    <h1 class="text-white">
+      {{ translations.company.title }}
+    </h1>
     <div class="card">
       <div class="card-header wizard-header p-3">
         <el-steps :active="active" finish-status="success" align-center>
-          <el-step :title="translations.companies.title"></el-step>
+          <el-step :title="translations.company.title"></el-step>
           <el-step :title="translations.currencies.title"></el-step>
           <el-step :title="translations.taxes.title"></el-step>
           <el-step :title="translations.finish.title"></el-step>
         </el-steps>
       </div>
-      <form
-        ref="form"
-        class="w-100"
-      >
+      <form ref="form" class="w-100">
         <div class="card-body">
           <div class="row mb-4">
             <div class="col-12 mb-4">
               <base-input
-                :label="translations.companies.api_key"
+                :label="translations.company.api_key"
                 name="api_key"
                 data-name="api_key"
-                :placeholder="translations.companies.api_key"
+                :placeholder="translations.company.api_key"
                 prepend-icon="fas fa-key"
-                v-model="model.apiKey"
+                v-model="company.api_key"
               />
               <p class="mb-0 mt--3">
                 <small>
-                  <div v-html="translations.companies.get_api_key"></div>
+                  <div v-html="translations.company.get_api_key"></div>
                 </small>
               </p>
             </div>
             <div class="col-6 mb-4">
               <base-input
                 type="text"
-                :label="translations.companies.tax_number"
+                :label="translations.company.tax_number"
                 name="tax_number"
                 data-name="tax_number"
-                :placeholder="translations.companies.tax_number"
+                :placeholder="translations.company.tax_number"
                 prepend-icon="fas fa-percent"
-                v-model="companies.tax_number"
+                v-model="company.tax_number"
               />
             </div>
             <div class="col-6 mb-4">
               <akaunting-date
-                :title="translations.companies.financial_start"
-                :placeholder="translations.companies.financial_start"
+                :title="translations.company.financial_start"
+                data-name="financial_start"
+                :placeholder="translations.company.financial_start"
                 prepend-icon="fas fa-calendar"
                 :date-config="{
                   dateFormat: 'd-m',
@@ -53,27 +53,30 @@
                   altInput: true,
                   altFormat: 'j F',
                 }"
-                v-model="model.date"
+                v-model="company.financial_start"
               ></akaunting-date>
             </div>
             <div class="col-12 mb-4">
-              <base-input :label="translations.companies.address">
+              <base-input :label="translations.company.address">
                 <textarea
                   class="form-control"
                   name="address"
                   data-name="address"
                   rows="3"
-                  :placeholder="translations.companies.address"
-                  v-model="companies.address"
+                  :placeholder="translations.company.address"
+                  v-model="company.address"
                 ></textarea>
               </base-input>
             </div>
             <div class="col-6">
-              <base-input :label="translations.companies.logo">
-                <akaunting-dropzone-file-upload
-                  preview-classes="single"
-                >
-                </akaunting-dropzone-file-upload>
+              <base-input :label="translations.company.logo">
+                <keep-alive>
+                  <akaunting-dropzone-file-upload
+                    preview-classes="single"
+                    :attachments="logo"
+                  >
+                  </akaunting-dropzone-file-upload>
+                </keep-alive>
               </base-input>
             </div>
           </div>
@@ -81,11 +84,14 @@
         <div class="card-footer">
           <div class="row">
             <div class="col-md-12 text-right">
-              <base-button type="success" native-type="button" @click="onEditSave()">{{
-                translations.companies.save
-              }}</base-button>
+              <base-button
+                type="success"
+                native-type="button"
+                @click="onEditSave()"
+                >{{ translations.company.save }}</base-button
+              >
               <base-button type="white" native-type="submit" @click="next()">{{
-                translations.companies.skip
+                translations.company.skip
               }}</base-button>
             </div>
           </div>
@@ -111,7 +117,7 @@ export default {
     AkauntingDate,
   },
   props: {
-    companies: {
+    company: {
       type: [Object, Array],
     },
     translations: {
@@ -121,23 +127,56 @@ export default {
   data() {
     return {
       active: 0,
-      model: {
-        apiKey: "503df039-d0bc-4f74-aba8-a6f1d38c645b",
-        taxNumber: "",
-        address: "",
-        date: "01.01",
-      },
-    };
+      logo: [],
+      real_date: ''
+      };
+  },
+  mounted() {
+    setTimeout(() => {
+      debugger;
+      if (this.company != undefined) {
+        let logo_arr = [
+          {
+            id: this.company.logo.id,
+            name:this.company.logo.filename + "." + this.company.logo.extension,
+            path: this.company.logo.path,
+            type: this.company.logo.mime_type,
+            size: this.company.logo.size,
+            downloadPath: false,
+          },
+        ];
+        this.logo.push(logo_arr);
+        this.real_date = this.company.financial_start;
+      }
+    }, 500);
+  },
+  watch: {
+    company: function (company) {
+      let logo_arr = [
+        {
+          id: company.logo.id,
+          name: company.logo.filename + "." + company.logo.extension,
+          path: company.logo.path,
+          type: company.logo.mime_type,
+          size: company.logo.size,
+          downloadPath: false,
+        },
+      ];
+      this.logo.push(logo_arr);
+      this.real_date = company.financial_start;
+    },
   },
   methods: {
     next() {
       if (this.active++ > 2);
       this.$router.push("/wizard/currencies");
     },
+
     onEditSave() {
-      this.onEditEvent("PATCH", url + "/wizard/companies", '', '', '');
+      this.onEditEvent("PATCH", url + "/wizard/company", "", "", "");
+
       this.$router.push("/wizard/currencies");
-    }
+    },
   },
 };
 </script>

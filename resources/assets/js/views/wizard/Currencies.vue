@@ -7,7 +7,7 @@
     <div class="card">
       <div class="card-header wizard-header p-3">
         <el-steps :active="active" finish-status="success" align-center>
-          <el-step :title="translations.companies.title"></el-step>
+          <el-step :title="translations.company.title"></el-step>
           <el-step :title="translations.currencies.title"></el-step>
           <el-step :title="translations.taxes.title"></el-step>
           <el-step :title="translations.finish.title"></el-step>

@@ -34,7 +34,7 @@ class Data extends Controller
     public function index()
     {
         $translations = [
-            'companies' => [
+            'company' => [
                 'title' => trans_choice('general.companies', 1),
                 'api_key' => trans('modules.api_key'),
                 'form_enter' => trans('general.form.enter'),
@@ -112,28 +112,37 @@ class Data extends Controller
         }
 
         $taxes = Tax::collect();
-        
-        $data = [
+
+        $modules = $this->getFeaturedModules([
             'query' => [
                 'limit' => 4
             ]
-        ];
+        ]);
 
-        $modules = $this->getFeaturedModules($data);
+        $company = company();
 
-        $company = Company::find(company_id());
+        $company->api_key = setting('apps.api_key');
+        $company->financial_start = setting('localisation.financial_start');
+
+        if ($company->logo) {
+            $logo = \Plank\Mediable\Media::find($company->logo);
+
+            $logo->path = route('uploads.get', $logo->id);
+
+            $company->logo = $logo;
+        }
 
         return response()->json([
             'success' => true,
             'errors' => false,
-            'message' => 'Get languages text..',
+            'message' => 'Get all data...',
             'data' => [
+                'translations' => $translations,
+                'company' => $company,
                 'currencies' => $currencies,
                 'currency_codes' => $codes,
                 'taxes' => $taxes,
                 'modules' => $modules,
-                'translations' => $translations,
-                'companies' => $company,
             ],
         ]);
     }
