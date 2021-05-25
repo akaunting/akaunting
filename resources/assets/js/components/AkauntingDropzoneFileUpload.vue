@@ -235,7 +235,8 @@ export default {
     watch: {
     attachments: function (attachments) {
       attachments.forEach((attachment) => {
-            var mockFile = {
+          if(attachment.length != undefined) {
+              var mockFile = {
                 id: attachment[0].id,
                 name: attachment[0].name,
                 size: attachment[0].size,
@@ -243,17 +244,13 @@ export default {
                 download: attachment[0].downloadPath,
                 dropzone: 'edit',
             };
-
-            this.dropzone.emit("addedfile", mockFile);
+              this.dropzone.emit("addedfile", mockFile);
             this.dropzone.options.thumbnail.call(this.dropzone, mockFile, attachment[0].path);
 
             // Make sure that there is no progress bar, etc...
             this.dropzone.emit("complete", mockFile);
-        }, this);
 
-
-
-        this.files.forEach(async (attachment) => {
+              this.files.forEach(async (attachment) => {
             if (attachment.download) {
                 attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
                 attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
@@ -265,6 +262,9 @@ export default {
                 document.querySelector("#dropzone-" + this._uid).classList.add("dz-max-files-reached");
             });
         }
+          }
+        }, this);
+
     },
   },
 }

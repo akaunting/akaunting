@@ -127,11 +127,10 @@ export default {
             this.$emit('change', this.real_model);
         }
     },
-    watch: {
-        real_model: function(val) {
-            this.real_model = val;
 
-        this.$emit('interface', this.real_model);
+    watch: {
+        value: function(val) {
+            this.real_model = val;
         }
     }
 }

@@ -53,7 +53,7 @@
                   altInput: true,
                   altFormat: 'j F',
                 }"
-                v-model="company.financial_start"
+                v-model="real_date"
               ></akaunting-date>
             </div>
             <div class="col-12 mb-4">
@@ -133,7 +133,6 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      debugger;
       if (this.company != undefined) {
         let logo_arr = [
           {
@@ -163,6 +162,7 @@ export default {
         },
       ];
       this.logo.push(logo_arr);
+
       this.real_date = company.financial_start;
     },
   },
