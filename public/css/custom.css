@@ -9,6 +9,10 @@
     font-style: normal;
 }
 
+body {
+    height: 100%;
+}
+
 /*--Layout Content--*/
 .content-layout {
     max-width: 1300px !important;
