@@ -49,6 +49,10 @@ $api->version('v3', ['middleware' => ['api']], function($api) {
         // Reports
         $api->resource('reports', 'Common\Reports');
 
+        // Translations
+        $api->get('translations/{locale}/all', 'Common\Translations@all')->name('.translations.all');
+        $api->get('translations/{locale}/{file}', 'Common\Translations@file')->name('.translations.file');
+
         // Settings
         $api->get('categories/{category}/enable', 'Settings\Categories@enable')->name('.categories.enable');
         $api->get('categories/{category}/disable', 'Settings\Categories@disable')->name('.categories.disable');
