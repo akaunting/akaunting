@@ -12,7 +12,7 @@ Route::group(['as' => 'wizard.'], function () {
     Route::get('data', 'Wizard\Data@index')->name('data.index');
 
     Route::get('companies', 'Wizard\Companies@edit')->name('companies.edit');
-    Route::patch('companies', 'Wizard\Companies@update')->name('companies.update');
+    Route::patch('companies', 'Wizard\Companies@update')->middleware('dropzone')->name('companies.update');
 
     Route::get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('currencies.enable');
     Route::get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('currencies.disable');

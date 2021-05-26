@@ -70,12 +70,12 @@
             </div>
             <div class="col-6">
               <base-input :label="translations.company.logo">
-                  <akaunting-dropzone-file-upload
-                    ref="dropzoneWizard"
-                    preview-classes="single"
-                    :attachments="logo"
-                  >
-                  </akaunting-dropzone-file-upload>
+                <akaunting-dropzone-file-upload
+                  ref="dropzoneWizard"
+                  preview-classes="single"
+                  :attachments="logo"
+                >
+                </akaunting-dropzone-file-upload>
               </base-input>
             </div>
           </div>
@@ -127,52 +127,44 @@ export default {
     return {
       active: 0,
       logo: [],
-      real_date: ''
-      };
+      real_date: "",
+    };
   },
   mounted() {
+    let company_data = this.company;
     setTimeout(() => {
-      if (this.company != undefined) {
-        let logo_arr = [
-          {
-            id: this.company.logo.id,
-            name:this.company.logo.filename + "." + this.company.logo.extension,
-            path: this.company.logo.path,
-            type: this.company.logo.mime_type,
-            size: this.company.logo.size,
-            downloadPath: false,
-          },
-        ];
-        this.logo.push(logo_arr);
-        this.real_date = this.company.financial_start;
-      }
+      this.dataWatch(company_data);
     }, 500);
   },
   watch: {
     company: function (company) {
-      let logo_arr = [
-        {
-          id: company.logo.id,
-          name: company.logo.filename + "." + company.logo.extension,
-          path: company.logo.path,
-          type: company.logo.mime_type,
-          size: company.logo.size,
-          downloadPath: false,
-        },
-      ];
-      this.logo.push(logo_arr);
-
-      this.real_date = company.financial_start;
+      this.dataWatch(company);
     },
   },
   methods: {
+    dataWatch(company) {
+      if(Object.keys(company).length) {
+         let logo_arr = [
+            {
+              id: company.logo.id,
+              name: company.logo.filename + "." + company.logo.extension,
+              path: company.logo.path,
+              type: company.logo.mime_type,
+              size: company.logo.size,
+              downloadPath: false,
+            },
+      ];
+      this.logo.push(logo_arr);
+      this.real_date = company.financial_start;
+      }
+    },
     next() {
       if (this.active++ > 2);
       this.$router.push("/wizard/currencies");
     },
 
     onEditSave() {
-      this.onEditEvent("PATCH", url + "/wizard/company", "logo", "", "");
+      this.onEditEvent("PATCH", url + "/wizard/companies", "logo", "", "");
       this.$router.push("/wizard/currencies");
     },
   },

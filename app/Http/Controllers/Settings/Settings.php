@@ -16,7 +16,7 @@ class Settings extends Controller
 {
     use DateTime, Uploads;
 
-    public $skip_keys = ['company_id', '_method', '_token', '_prefix'];
+    public $skip_keys = ['company_id', '_method', '_token', '_prefix', 'uploaded_logo'];
 
     public $file_keys = ['company.logo', 'invoice.logo'];
 
@@ -113,10 +113,6 @@ class Settings extends Controller
             }
 
             if ($real_key == 'default.locale') {
-                if (!in_array($value, config('language.allowed'))) {
-                    continue;
-                }
-
                 user()->setAttribute('locale', $value)->save();
             }
 
@@ -160,10 +156,10 @@ class Settings extends Controller
                 Installer::updateEnv(['MAIL_FROM_NAME' => '"' . $value . '"']);
                 break;
             case 'company.email':
-                Installer::updateEnv(['MAIL_FROM_ADDRESS' => '"' . $value . '"']);
+                Installer::updateEnv(['MAIL_FROM_ADDRESS' => $value]);
                 break;
             case 'default.locale':
-                Installer::updateEnv(['APP_LOCALE' => '"' . $value . '"']);
+                Installer::updateEnv(['APP_LOCALE' => $value]);
                 break;
             case 'schedule.time':
                 Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $value . '"']);

@@ -98,7 +98,7 @@ export default {
                     file = this.$refs.dropzoneWizard.files[0];
                 }
             }
-
+            
             if(plus_data == 'logo') {
                 Object.assign(data, {
                     ['logo']: file
