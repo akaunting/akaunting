@@ -28,6 +28,9 @@ abstract class DocumentForm extends Base
     /** @var string */
     public $categoryType;
 
+    /** @var string */
+    public $textAdvancedAccordion;
+
     /** @var bool */
     public $hideRecurring;
 
@@ -214,7 +217,7 @@ abstract class DocumentForm extends Base
     public function __construct(
         $type, $document = false, $currencies = false, $currency = false, $currency_code = false,
         /** Advanced Component Start */
-        string $categoryType = '', bool $hideRecurring = false, bool $hideCategory = false, bool $hideAttachment = false,
+        string $categoryType = '', string $textAdvancedAccordion = '', bool $hideRecurring = false, bool $hideCategory = false, bool $hideAttachment = false,
         /** Advanced Component End */
         /** Company Component Start */
         bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false,
@@ -248,6 +251,7 @@ abstract class DocumentForm extends Base
 
         /** Advanced Component Start */
         $this->categoryType = $this->getCategoryType($type, $categoryType);
+        $this->textAdvancedAccordion = $this->getTextAdvancedAccordion($type, $textAdvancedAccordion);
         $this->hideRecurring = $hideRecurring;
         $this->hideCategory = $hideCategory;
         $this->hideAttachment = $hideAttachment;
@@ -413,6 +417,21 @@ abstract class DocumentForm extends Base
         $type = Document::INVOICE_TYPE;
 
         return config('type.' . $type . '.category_type');
+    }
+
+    protected function getTextAdvancedAccordion($type, $textAdvancedAccordion)
+    {
+        if (!empty($textAdvancedAccordion)) {
+            return $textAdvancedAccordion;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'advanced_accordion');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.recurring_and_more';
     }
 
     protected function getContacts($type, $contacts)
