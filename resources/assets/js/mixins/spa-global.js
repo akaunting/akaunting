@@ -83,16 +83,32 @@ export default {
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
-            
+            let file = {};
+
             for (let [key, val] of formData.entries()) {
                 Object.assign(data, {
                     [key]: val,
-                    ['type']: 'normal'
+                });
+            }
+           
+            if(this.$refs.dropzoneWizard) {
+                if(this.$refs.dropzoneWizard.dropzone.files.length) {
+                    file = this.$refs.dropzoneWizard.dropzone.files[0];
+                } else {
+                    file = this.$refs.dropzoneWizard.files[0];
+                }
+            }
+
+            if(plus_data == 'logo') {
+                Object.assign(data, {
+                    ['logo']: file
                 });
             }
 
-            if (!plus_data || plus_data == undefined) {
-                delete data.type;
+            if(plus_data == 'type') {
+                Object.assign(data, {
+                    ['type']: 'normal',
+                });
             }
             
             window.axios({
@@ -126,12 +142,13 @@ export default {
             for (let [key, val] of formData.entries()) {
                 Object.assign(data, {
                     [key]: val,
-                    ['type']: 'normal'
                 });
             }
 
-            if (!plus_data || plus_data == undefined) {
-                delete data.type;
+            if(plus_data == 'type') {
+                Object.assign(data, {
+                    ['type']: 'normal',
+                });
             }
 
             window.axios({

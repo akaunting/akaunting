@@ -244,17 +244,17 @@ export default {
                 download: attachment[0].downloadPath,
                 dropzone: 'edit',
             };
-              this.dropzone.emit("addedfile", mockFile);
+            this.dropzone.emit("addedfile", mockFile);
             this.dropzone.options.thumbnail.call(this.dropzone, mockFile, attachment[0].path);
 
             // Make sure that there is no progress bar, etc...
             this.dropzone.emit("complete", mockFile);
 
-              this.files.forEach(async (attachment) => {
-            if (attachment.download) {
-                attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
-                attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
-            }
+            this.files.forEach(async (attachment) => {
+                if (attachment.download) {
+                    attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
+                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
+                }
         });
 
         if (this.preview == 'single' && attachments.length == 1) {

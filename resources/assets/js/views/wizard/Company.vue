@@ -70,13 +70,12 @@
             </div>
             <div class="col-6">
               <base-input :label="translations.company.logo">
-                <keep-alive>
                   <akaunting-dropzone-file-upload
+                    ref="dropzoneWizard"
                     preview-classes="single"
                     :attachments="logo"
                   >
                   </akaunting-dropzone-file-upload>
-                </keep-alive>
               </base-input>
             </div>
           </div>
@@ -173,8 +172,7 @@ export default {
     },
 
     onEditSave() {
-      this.onEditEvent("PATCH", url + "/wizard/company", "", "", "");
-
+      this.onEditEvent("PATCH", url + "/wizard/company", "logo", "", "");
       this.$router.push("/wizard/currencies");
     },
   },
