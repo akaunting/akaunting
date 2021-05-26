@@ -68,15 +68,14 @@
                 ></textarea>
               </base-input>
             </div>
-            <div class="col-6">
-              <base-input :label="translations.company.logo">
+            <div class="col-3">
+              <label class="form-control-label">{{ translations.company.logo }}</label>
                 <akaunting-dropzone-file-upload
                   ref="dropzoneWizard"
                   preview-classes="single"
                   :attachments="logo"
                 >
                 </akaunting-dropzone-file-upload>
-              </base-input>
             </div>
           </div>
         </div>

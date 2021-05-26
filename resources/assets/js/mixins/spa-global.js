@@ -38,6 +38,9 @@ export default {
                 this.model.select = item.code ? item.code : '';
             }
         },
+        handleClickCancel() {
+            this.currentTab = undefined;
+        },
         dataHandleEvent() {
             this.newDatas = false;
             this.currentTab = undefined;

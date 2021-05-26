@@ -127,6 +127,13 @@
                         />
                         <div class="mt-4 col-md-4 current-tab-btn">
                           <base-button
+                            type="white"
+                            native-type="button"
+                            @click="handleClickCancel()"
+                          >
+                            {{ translations.taxes.cancel }}</base-button
+                          >
+                          <base-button
                             type="success"
                             native-type="button"
                             @click="onEditSave(item)"

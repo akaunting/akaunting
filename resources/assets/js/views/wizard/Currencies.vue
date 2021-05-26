@@ -165,6 +165,13 @@
                         />
                         <div class="mt-4 col-md-3 current-tab-btn">
                           <base-button
+                            type="white"
+                            native-type="button"
+                            @click="handleClickCancel()"
+                          >
+                            {{ translations.currencies.cancel }}</base-button
+                          >
+                          <base-button
                             type="success"
                             native-type="button"
                             @click="onEditSave(item)"
