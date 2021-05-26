@@ -40,7 +40,7 @@ class Logo
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make($media->stream())->resize($width, $height)->encode();
+                    $image->make(Storage::get($path))->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
