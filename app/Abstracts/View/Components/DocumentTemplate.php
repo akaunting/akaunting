@@ -198,7 +198,7 @@ abstract class DocumentTemplate extends Base
         if (!empty($media)) {
             $path = Storage::path($media->getDiskPath());
 
-            if (!is_file($path)) {
+            if (!Storage::exists($path)) {
                 return $logo;
             }
         } else {
@@ -206,11 +206,15 @@ abstract class DocumentTemplate extends Base
         }
 
         try {
-            $image = Image::cache(function($image) use ($path) {
+            $image = Image::cache(function($image) use ($media, $path) {
                 $width = setting('invoice.logo_size_width');
                 $height = setting('invoice.logo_size_height');
 
-                $image->make($path)->resize($width, $height)->encode();
+                if ($media) {
+                    $image->make($media->stream())->resize($width, $height)->encode();
+                } else {
+                    $image->make($path)->resize($width, $height)->encode();
+                }
             });
         } catch (NotReadableException | \Exception $e) {
             Log::info('Company ID: ' . company_id() . ' components/documentshow.php exception.');
