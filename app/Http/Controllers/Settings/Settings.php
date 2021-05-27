@@ -20,6 +20,8 @@ class Settings extends Controller
 
     public $file_keys = ['company.logo', 'invoice.logo'];
 
+    public $uploaded_file_keys = ['company.uploaded_logo', 'invoice.uploaded_logo'];
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,6 +94,11 @@ class Settings extends Controller
 
             // Don't process unwanted keys
             if (in_array($key, $this->skip_keys)) {
+                continue;
+            }
+
+            // change dropzone middleware already uploaded file
+            if (in_array($real_key, $this->uploaded_file_keys)) {
                 continue;
             }
 
