@@ -85,7 +85,7 @@
                 <div class="card-footer">
                     @can('create-modules-item')
                         @if ($module->install)
-                            <a href="#" class="btn btn-warning btn-block" disabled="disabled">
+                            <a href="javascript:void(0)" class="btn btn-warning btn-block" disabled="disabled">
                                 {{ trans('modules.pre_sale') }}
                             </a>
                         @else
