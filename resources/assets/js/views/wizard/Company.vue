@@ -12,7 +12,7 @@
           <el-step :title="translations.finish.title"></el-step>
         </el-steps>
       </div>
-      <form ref="form" class="w-100">
+      <form id="company-name" ref="form" class="w-100" method="PATCH">
         <div class="card-body">
           <div class="row mb-4">
             <div class="col-12 mb-4">
@@ -74,6 +74,7 @@
                   ref="dropzoneWizard"
                   preview-classes="single"
                   :attachments="logo"
+                  :v-model="logo"
                 >
                 </akaunting-dropzone-file-upload>
             </div>
@@ -83,8 +84,9 @@
           <div class="row">
             <div class="col-md-12 text-right">
               <base-button
+               id="button"
                 type="success"
-                native-type="button"
+                native-type="submit"
                 @click="onEditSave()"
                 >{{ translations.company.save }}</base-button
               >
@@ -163,7 +165,7 @@ export default {
     },
 
     onEditSave() {
-      this.onEditEvent("PATCH", url + "/wizard/companies", "logo", "", "");
+      this.onEditCompany();
       this.$router.push("/wizard/currencies");
     },
   },

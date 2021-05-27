@@ -38,9 +38,11 @@ export default {
                 this.model.select = item.code ? item.code : '';
             }
         },
+
         handleClickCancel() {
             this.currentTab = undefined;
         },
+
         dataHandleEvent() {
             this.newDatas = false;
             this.currentTab = undefined;
@@ -49,10 +51,11 @@ export default {
             this.model.select = '';
             this.model.enabled = 1;
         },
+
         onSuccessEvent(response) {
             let type = response.data.success ? 'success' : 'error';
             let timeout = 1000;
-            
+
             if (response.data.important) {
                 timeout = 0;
             }
@@ -66,10 +69,11 @@ export default {
 
             this.dataHandleEvent();
         },
+
         onSuccessDelete(event) {
             let type = event.success ? 'success' : 'error';
             let timeout = 1000;
-            
+
             if (event.important) {
                 timeout = 0;
             }
@@ -83,6 +87,7 @@ export default {
 
             this.dataHandleEvent();
         },
+
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
@@ -138,6 +143,7 @@ export default {
                     this.onFailError(error)
                 }, this);
         },
+
         onSubmitEvent(form_method, form_url, plus_data, form_list) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
@@ -175,6 +181,63 @@ export default {
                     this.onFailError(error);
                 }, this);
         },
+
+        onEditCompany() {
+            FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+                for(var name in data) {
+                    if (name == "previewElement" || name == "previewTemplate") {
+                    continue;
+                }
+                if (wrapper) {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                    } else {
+                        this.append(wrapper + '[' + name + ']', data[name]);
+                    }
+                } else {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], name);
+                    } else {
+                        this.append(name, data[name]);
+                    }
+                }
+                }
+            }
+
+            const formData = new FormData(this.$refs["form"]);
+            
+            let data_name = {};
+            for (let [key, val] of formData.entries()) {
+                Object.assign(data_name, {
+                    [key]: val,
+                    ['logo']: this.$refs.dropzoneWizard.files[1],
+                    ['_prefix']: 'company',
+                    ['_token']: window.Laravel.csrfToken,
+                    ['_method']: 'PATCH',
+                });
+            }
+           
+            formData.appendRecursive(data_name);
+           
+            window.axios({
+                    method: 'PATCH',
+                    url: url + "/wizard/companies",
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.onSuccessEvent(response);
+
+                }, this)
+                .catch(error => {
+                    this.onFailError(error)
+                }, this);
+        },
+
         onDeleteEvent(event, form_list, event_id) {
             form_list.forEach(function (item, index) {
                 if (item.id == event_id) {
@@ -182,16 +245,18 @@ export default {
                   return;
                 }
               }, this);
-        
+
               this.component = "";
-        
+
               this.onSuccessDelete(event);
         },
+
         onFailErrorGet(field_name) {
             if(this.error_field[field_name]) {
                 return this.error_field[field_name][0];
             }
         },
+
         onFailError(error) {
             this.error_field = error.response.data.errors;
         }
