@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-white">
-      {{ translations.currencies.title }} 
+      {{ translations.currencies.title }}
     </h1>
 
     <div class="card">
@@ -199,7 +199,11 @@
                           v-model="model.name"
                           :error="onFailErrorGet('name')"
                         />
-                        <base-input :label="translations.currencies.code" class="required" :error="onFailErrorGet('code')">
+                        <base-input
+                          :label="translations.currencies.code"
+                          class="required"
+                          :error="onFailErrorGet('code')"
+                        >
                           <el-select
                             name="code"
                             v-model="model.select"
@@ -327,6 +331,7 @@ export default {
   methods: {
     inputHandle(item) {
       this.onStatus(item.id, event);
+      this.onStatusControl(this.currencies, item.id, event);
     },
 
     handleClickDelete(item) {

@@ -253,6 +253,7 @@ export default {
   methods: {
     inputHandle(item) {
       this.onStatus(item.id, event);
+      this.onStatusControl(this.taxes, item.id, event);
     },
     handleClickDelete(item) {
       this.confirmDelete(

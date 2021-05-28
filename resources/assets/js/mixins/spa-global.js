@@ -88,6 +88,14 @@ export default {
             this.dataHandleEvent();
         },
 
+        onStatusControl(status_form, status_item, event) {
+            status_form.forEach((status) => {
+                if (status.id == status_item) {
+                    status.enabled = event.target.checked;
+                }
+              });
+        },
+
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
