@@ -50,8 +50,9 @@ class Companies extends Controller
 
         $fields = $request->all();
 
-        $skip_keys = ['company_id', '_method', '_token', 'uploaded_logo'];
+        $skip_keys = ['company_id', '_method', '_token'];
         $file_keys = ['company.logo'];
+        $uploaded_file_keys = ['company.uploaded_logo'];
 
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
@@ -68,6 +69,11 @@ class Companies extends Controller
                     break;
                 default:
                     $real_key = 'company.' . $key;
+            }
+
+            // change dropzone middleware already uploaded file
+            if (in_array($real_key, $uploaded_file_keys)) {
+                continue;
             }
 
              // Process file uploads
