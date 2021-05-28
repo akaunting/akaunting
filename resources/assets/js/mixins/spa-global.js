@@ -98,20 +98,6 @@ export default {
                     [key]: val,
                 });
             }
-           
-            if(this.$refs.dropzoneWizard) {
-                if(this.$refs.dropzoneWizard.dropzone.files.length) {
-                    file = this.$refs.dropzoneWizard.dropzone.files[0];
-                } else {
-                    file = this.$refs.dropzoneWizard.files[0];
-                }
-            }
-            
-            if(plus_data == 'logo') {
-                Object.assign(data, {
-                    ['logo']: file
-                });
-            }
 
             if(plus_data == 'type') {
                 Object.assign(data, {
@@ -210,17 +196,16 @@ export default {
             for (let [key, val] of formData.entries()) {
                 Object.assign(data_name, {
                     [key]: val,
-                    ['logo']: this.$refs.dropzoneWizard.files[1],
+                    ['logo']: this.$refs.dropzoneWizard.files[1] ? this.$refs.dropzoneWizard.files[1] : this.$refs.dropzoneWizard.files[0],
                     ['_prefix']: 'company',
                     ['_token']: window.Laravel.csrfToken,
-                    ['_method']: 'PATCH',
+                    ['_method']: 'POST',
                 });
             }
-           
             formData.appendRecursive(data_name);
            
             window.axios({
-                    method: 'PATCH',
+                    method: 'POST',
                     url: url + "/wizard/companies",
                     data: formData,
                     headers: {

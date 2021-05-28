@@ -57,7 +57,7 @@
             <base-button type="white" native-type="submit" @click="prev()"
               >{{ translations.finish.previous }}</base-button
             >
-            <base-button type="success" native-type="submit" @click="finish()"
+            <base-button type="success" native-type="submit" v-if="button_show" @click="finish()"
               >{{ translations.finish.go_to_dashboard }}</base-button
             >
           </div>
@@ -79,9 +79,12 @@ export default {
   },
   created() {
     window.axios({
-      method: 'GET',
-      url
+      method: 'PATCH',
+      url: url + '/wizard/finish'
     }).then(response => {
+      if(response.status == "200") {
+        this.button_show = true;
+      }
 
     }).catch(error => {
       
@@ -99,11 +102,12 @@ export default {
     return {
       active: 3,
       route_url: url,
+      button_show: false
     };
   },
   methods: {
     finish() {
-      window.location.href = "";
+      window.location.href = url;
     },
     prev() {
       if (this.active-- > 2);

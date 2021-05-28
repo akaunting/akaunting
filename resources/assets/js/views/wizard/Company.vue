@@ -12,7 +12,7 @@
           <el-step :title="translations.finish.title"></el-step>
         </el-steps>
       </div>
-      <form id="company-name" ref="form" class="w-100" method="PATCH">
+      <form ref="form" class="w-100">
         <div class="card-body">
           <div class="row mb-4">
             <div class="col-12 mb-4">
@@ -171,9 +171,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-form {
-  flex-flow: row wrap;
-}
-</style>
