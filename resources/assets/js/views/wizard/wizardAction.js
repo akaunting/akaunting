@@ -2,8 +2,8 @@
 export default {
     data: function () {
         return {
-            currentTab: undefined,
-            newDatas: false,
+            current_tab: undefined,
+            new_datas: false,
             model: {
                 name: "",
                 rate: "",
@@ -14,9 +14,9 @@ export default {
         }
     },
     methods: {
-        addItem() {
-            this.newDatas = true;
-            this.currentTab = undefined;
+        onAddItem() {
+            this.new_datas = true;
+            this.current_tab = undefined;
             this.error_field = {};
 
             if (this.model) {
@@ -26,9 +26,9 @@ export default {
             }
         },
 
-        handeClickEdit(item, index) {
-            this.newDatas = false;
-            this.currentTab = index;
+        onEditItem(item, index) {
+            this.new_datas = false;
+            this.current_tab = index;
             this.error_field = {};
 
             if (this.model) {
@@ -38,20 +38,20 @@ export default {
             }
         },
 
-        handleClickCancel() {
-            this.currentTab = undefined;
+        onCancelItem() {
+            this.current_tab = undefined;
         },
 
-        dataHandleEvent() {
-            this.newDatas = false;
-            this.currentTab = undefined;
+        onDataChange() {
+            this.new_datas = false;
+            this.current_tab = undefined;
             this.model.name = '';
             this.model.rate = '';
             this.model.select = '';
             this.model.enabled = 1;
         },
 
-        onSuccessEvent(response) {
+        onSuccessMessage(response) {
             let type = response.data.success ? 'success' : 'error';
             let timeout = 1000;
 
@@ -66,10 +66,10 @@ export default {
                 type,
             });
 
-            this.dataHandleEvent();
+            this.onDataChange();
         },
 
-        onSuccessDelete(event) {
+        onDeleteItemMessage(event) {
             let type = event.success ? 'success' : 'error';
             let timeout = 1000;
 
@@ -84,7 +84,7 @@ export default {
                 type,
             });
 
-            this.dataHandleEvent();
+            this.onDataChange();
         },
 
         onStatusControl(status_form, status_item, event) {
@@ -95,7 +95,7 @@ export default {
               });
         },
 
-        onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
+        onEditItemEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
 
@@ -128,7 +128,7 @@ export default {
                         });
                     }
 
-                    this.onSuccessEvent(response);
+                    this.onSuccessMessage(response);
                 }, this)
                 .catch(error => {
                     this.onFailError(error)
@@ -165,7 +165,7 @@ export default {
                         "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true'
                     });
 
-                    this.onSuccessEvent(response);
+                    this.onSuccessMessage(response);
                 }, this)
                 .catch(error => {
                     this.onFailError(error);
@@ -220,14 +220,14 @@ export default {
                     }
                 })
                 .then(response => {
-                    this.onSuccessEvent(response);
+                    this.onSuccessMessage(response);
                 }, this)
                 .catch(error => {
                     this.onFailError(error)
                 }, this);
         },
 
-        onDeleteEvent(event, form_list, event_id) {
+        onEjetItem(event, form_list, event_id) {
             form_list.forEach(function (item, index) {
                 if (item.id == event_id) {
                   form_list.splice(index, 1);
@@ -237,7 +237,7 @@ export default {
 
               this.component = "";
 
-              this.onSuccessDelete(event);
+              this.onDeleteItemMessage(event);
         },
 
         onFailErrorGet(field_name) {

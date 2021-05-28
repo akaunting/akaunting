@@ -98,6 +98,7 @@ class Data extends Controller
                 'developer' => trans('modules.developer'),
                 'previous' => trans('pagination.previous'),
                 'go_to_dashboard' => trans('general.go_to_dashboard'),
+                'error_message' => trans('errors.title.500'),
             ]
         ];
 

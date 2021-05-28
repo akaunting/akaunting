@@ -16,7 +16,7 @@
             type="success"
             native-type="button"
             class="btn-sm"
-            @click="addItem()"
+            @click="onAddItem()"
             >{{ translations.taxes.add_new }}</base-button
           >
         </div>
@@ -54,7 +54,7 @@
                       <input
                         type="checkbox"
                         :checked="item.enabled"
-                        @input="inputHandle(item)"
+                        @input="onSwitchUpdate(item)"
                       />
                       <span
                         class="custom-toggle-slider rounded-circle status-green"
@@ -83,7 +83,7 @@
                         <button
                           type="button"
                           class="dropdown-item"
-                          @click="handeClickEdit(item, index)"
+                          @click="onEditItem(item, index)"
                         >
                           {{ translations.taxes.edit }}
                         </button>
@@ -91,14 +91,14 @@
                         <button
                           type="button"
                           class="dropdown-item"
-                          @click="handleClickDelete(item)"
+                          @click="onClickDelete(item)"
                         >
                           {{ translations.taxes.delete }}
                         </button>
                       </div>
                     </div>
                   </td>
-                  <td class="w-100 p-0 current-tab" v-if="currentTab == index">
+                  <td class="w-100 p-0 current-tab" v-if="current_tab == index">
                     <div class="row pt-3 pb-3">
                       <div
                         class="form-container col-12 d-flex justify-content-between align-items-start"
@@ -129,14 +129,14 @@
                           <base-button
                             type="white"
                             native-type="button"
-                            @click="handleClickCancel()"
+                            @click="onCancelItem()"
                           >
                             {{ translations.taxes.cancel }}</base-button
                           >
                           <base-button
                             type="success"
                             native-type="button"
-                            @click="onEditSave(item)"
+                            @click="onEditForm(item)"
                             >{{ translations.taxes.save }}</base-button
                           >
                         </div>
@@ -144,7 +144,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr v-if="newDatas">
+                <tr v-if="new_datas">
                   <td class="p-0">
                     <div class="row pt-3 pb-3">
                       <div
@@ -202,7 +202,7 @@
         <form id="form-dynamic-component" method="POST" action="#"></form>
         <component
           v-bind:is="component"
-          @deleted="deleteCurrency($event)"
+          @deleted="onDeleteCurrency($event)"
         ></component>
       </div>
       <div class="card-footer">
@@ -226,11 +226,11 @@ import { Step, Steps } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
-import MixinsSpaGlobal from "./../../mixins/spa-global";
+import WizardAction from "./wizardAction";
 
 export default {
   name: "Taxes",
-  mixins: [MixinsGlobal, MixinsSpaGlobal],
+  mixins: [MixinsGlobal, WizardAction],
   components: {
     [Step.name]: Step,
     [Steps.name]: Steps,
@@ -251,12 +251,12 @@ export default {
     };
   },
   methods: {
-    inputHandle(item) {
+    onSwitchUpdate(item) {
       this.onStatus(item.id, event);
       this.onStatusControl(this.taxes, item.id, event);
     },
 
-    handleClickDelete(item) {
+    onClickDelete(item) {
       this.confirmDelete(
         `${
           new URL(url).protocol +
@@ -277,18 +277,12 @@ export default {
       );
     },
 
-    next() {
-      if (this.active++ > 2);
-      this.$router.push("/wizard/finish");
+    onDeleteCurrency(event) {
+      this.onEjetItem(event, this.taxes, event.tax_id);
     },
 
-    prev() {
-      if (this.active-- > 2);
-      this.$router.push("/wizard/currencies");
-    },
-
-    onEditSave(item) {
-      this.onEditEvent(
+     onEditForm(item) {
+      this.onEditItemEvent(
         "PATCH",
         url + "/wizard/taxes/" + item.id,
         "type",
@@ -300,9 +294,15 @@ export default {
     onSubmitForm() {
       this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
     },
-    
-    deleteCurrency(event) {
-      this.onDeleteEvent(event, this.taxes, event.tax_id);
+
+    prev() {
+      if (this.active-- > 2);
+      this.$router.push("/wizard/currencies");
+    },
+
+    next() {
+      if (this.active++ > 2);
+      this.$router.push("/wizard/finish");
     },
   },
 };

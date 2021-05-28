@@ -26,8 +26,11 @@
               />
               <p class="mb-0 mt--3">
                 <small>
-                  <div><a href="https://akaunting.com/dashboard" target="_blank">Click here</a>
-                   to get your API key.
+                  <div>
+                    <a href="https://akaunting.com/dashboard" target="_blank"
+                      >Click here</a
+                    >
+                    to get your API key.
                   </div>
                 </small>
               </p>
@@ -71,14 +74,16 @@
               </base-input>
             </div>
             <div class="col-3">
-              <label class="form-control-label">{{ translations.company.logo }}</label>
-                <akaunting-dropzone-file-upload
-                  ref="dropzoneWizard"
-                  preview-classes="single"
-                  :attachments="logo"
-                  :v-model="logo"
-                >
-                </akaunting-dropzone-file-upload>
+              <label class="form-control-label">{{
+                translations.company.logo
+              }}</label>
+              <akaunting-dropzone-file-upload
+                ref="dropzoneWizard"
+                preview-classes="single"
+                :attachments="logo"
+                :v-model="logo"
+              >
+              </akaunting-dropzone-file-upload>
             </div>
           </div>
         </div>
@@ -86,7 +91,7 @@
           <div class="row">
             <div class="col-md-12 text-right">
               <base-button
-               id="button"
+                id="button"
                 type="success"
                 native-type="submit"
                 @click="onEditSave()"
@@ -107,11 +112,11 @@
 import { Step, Steps } from "element-ui";
 import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
 import AkauntingDate from "./../../components/AkauntingDate";
-import MixinsSpaGlobal from "./../../mixins/spa-global";
+import WizardAction from "./wizardAction";
 
 export default {
   name: "Company",
-  mixins: [MixinsSpaGlobal],
+  mixins: [WizardAction],
   components: {
     [Step.name]: Step,
     [Steps.name]: Steps,
@@ -127,8 +132,8 @@ export default {
     },
     url: {
       type: String,
-      default: 'text'
-    }
+      default: "text",
+    },
   },
   data() {
     return {
@@ -139,38 +144,38 @@ export default {
   },
   mounted() {
     let company_data = this.company;
-      this.dataWatch(company_data);
+    this.onDataWatch(company_data);
   },
   watch: {
     company: function (company) {
-      this.dataWatch(company);
+      this.onDataWatch(company);
     },
   },
   methods: {
-    dataWatch(company) {
-      if(Object.keys(company).length) {
-         let logo_arr = [
-            {
-              id: company.logo.id,
-              name: company.logo.filename + "." + company.logo.extension,
-              path: company.logo.path,
-              type: company.logo.mime_type,
-              size: company.logo.size,
-              downloadPath: false,
-            },
-      ];
-      this.logo.push(logo_arr);
-      this.real_date = company.financial_start;
+    onDataWatch(company) {
+      if (Object.keys(company).length) {
+        let logo_arr = [
+          {
+            id: company.logo.id,
+            name: company.logo.filename + "." + company.logo.extension,
+            path: company.logo.path,
+            type: company.logo.mime_type,
+            size: company.logo.size,
+            downloadPath: false,
+          },
+        ];
+        this.logo.push(logo_arr);
+        this.real_date = company.financial_start;
       }
-    },
-
-    next() {
-      if (this.active++ > 2);
-      this.$router.push("/wizard/currencies");
     },
 
     onEditSave() {
       this.onEditCompany();
+      this.$router.push("/wizard/currencies");
+    },
+
+    next() {
+      if (this.active++ > 2);
       this.$router.push("/wizard/currencies");
     },
   },

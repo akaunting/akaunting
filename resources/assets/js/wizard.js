@@ -5,11 +5,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import DashboardPlugin from './plugins/dashboard-plugin';
 
-import Wizard from './Wizard.vue';
-
 Vue.use(DashboardPlugin);
 Vue.use(VueRouter);
 
+import Wizard from './Wizard.vue';
 import Company from './views/wizard/Company.vue';
 import Currencies from './views/wizard/Currencies.vue';
 import Taxes from './views/wizard/Taxes.vue';
@@ -53,11 +52,9 @@ const router = new VueRouter({
     if (savedPosition) {
         return savedPosition;
     }
-
     if (to.hash) {
         return { selector: to.hash };
     }
-
     return { x: 0, y: 0 };
 }
 });

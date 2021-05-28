@@ -20,7 +20,7 @@
             type="success"
             native-type="button"
             class="btn-sm"
-            @click="addItem()"
+            @click="onAddItem()"
             >{{ translations.currencies.add_new }}</base-button
           >
         </div>
@@ -63,7 +63,7 @@
                       <input
                         type="checkbox"
                         :checked="item.enabled"
-                        @input="inputHandle(item)"
+                        @input="onSwitchUpdate(item)"
                       />
                       <span
                         class="custom-toggle-slider rounded-circle status-green"
@@ -92,7 +92,7 @@
                         <button
                           type="button"
                           class="dropdown-item"
-                          @click="handeClickEdit(item, index)"
+                          @click="onEditItem(item, index)"
                         >
                           {{ translations.currencies.edit }}
                         </button>
@@ -100,14 +100,14 @@
                         <button
                           type="button"
                           class="dropdown-item"
-                          @click="handleClickDelete(item)"
+                          @click="onClickDelete(item)"
                         >
                           {{ translations.currencies.delete }}
                         </button>
                       </div>
                     </div>
                   </td>
-                  <td class="w-100 p-0 current-tab" v-if="currentTab == index">
+                  <td class="w-100 p-0 current-tab" v-if="current_tab == index">
                     <div class="row pt-3 pb-3">
                       <div
                         class="form-container col-12 d-flex justify-content-between align-items-start"
@@ -132,7 +132,7 @@
                           <el-select
                             name="code"
                             v-model="model.select"
-                            @change="onChangeCode(model.select)"
+                            @change="onChangeCodeItem(model.select)"
                             filterable
                           >
                             <template slot="prefix">
@@ -167,14 +167,14 @@
                           <base-button
                             type="white"
                             native-type="button"
-                            @click="handleClickCancel()"
+                            @click="onCancelItem()"
                           >
                             {{ translations.currencies.cancel }}</base-button
                           >
                           <base-button
                             type="success"
                             native-type="button"
-                            @click="onEditSave(item)"
+                            @click="onEditForm(item)"
                           >
                             {{ translations.currencies.save }}</base-button
                           >
@@ -183,7 +183,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr v-if="newDatas">
+                <tr v-if="new_datas">
                   <td class="p-0">
                     <div class="row pt-3 pb-3">
                       <div
@@ -208,7 +208,7 @@
                             name="code"
                             v-model="model.select"
                             required="required"
-                            @change="onChangeCode(model.select)"
+                            @change="onChangeCodeItem(model.select)"
                             filterable
                           >
                             <template slot="prefix">
@@ -271,7 +271,7 @@
         <form id="form-dynamic-component" method="POST" action="#"></form>
         <component
           v-bind:is="component"
-          @deleted="deleteCurrency($event)"
+          @deleted="onDeleteCurrency($event)"
         ></component>
       </div>
 
@@ -296,11 +296,11 @@ import { Step, Steps, Select, Option } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
-import MixinsSpaGlobal from "./../../mixins/spa-global";
+import WizardAction from "./wizardAction";
 
 export default {
   name: "Currencies",
-  mixins: [MixinsGlobal, MixinsSpaGlobal],
+  mixins: [MixinsGlobal, WizardAction],
   components: {
     [Step.name]: Step,
     [Steps.name]: Steps,
@@ -326,12 +326,12 @@ export default {
     };
   },
   methods: {
-    inputHandle(item) {
+    onSwitchUpdate(item) {
       this.onStatus(item.id, event);
       this.onStatusControl(this.currencies, item.id, event);
     },
 
-    handleClickDelete(item) {
+    onClickDelete(item) {
       this.confirmDelete(
         `${
           new URL(url).protocol +
@@ -348,17 +348,11 @@ export default {
       );
     },
 
-    next() {
-      if (this.active++ > 2);
-      this.$router.push("/wizard/taxes");
+    onDeleteCurrency(event) {
+      this.onEjetItem(event, this.currencies, event.currency_id);
     },
 
-    prev() {
-      if (this.active-- > 2);
-      this.$router.push("/wizard/companies");
-    },
-
-    onChangeCode(code) {
+    onChangeCodeItem(code) {
       const formData = new FormData(this.$refs["form"]);
       const data = {
         rate: "",
@@ -394,8 +388,8 @@ export default {
         }, this);
     },
 
-    onEditSave(item) {
-      this.onEditEvent(
+    onEditForm(item) {
+      this.onEditItemEvent(
         "PATCH",
         url + "/wizard/currencies/" + item.id,
         "",
@@ -413,8 +407,14 @@ export default {
       );
     },
 
-    deleteCurrency(event) {
-      this.onDeleteEvent(event, this.currencies, event.currency_id);
+    prev() {
+      if (this.active-- > 2);
+      this.$router.push("/wizard/companies");
+    },
+
+    next() {
+      if (this.active++ > 2);
+      this.$router.push("/wizard/taxes");
     },
   },
 };
