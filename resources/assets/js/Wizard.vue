@@ -11,12 +11,12 @@
 
 <script>
 export default {
-    name: 'Wizard',
-    data: function () {
-        return {
-            page_loaded: true,
-        }
-    },
+  name: "Wizard",
+  data: function () {
+    return {
+      page_loaded: true,
+    };
+  },
   created() {
     let self = this;
 
@@ -36,9 +36,12 @@ export default {
           return data.currency_codes[key];
         });
 
-        setTimeout(function() {
+        setTimeout(
+          function () {
             self.page_loaded = false;
-        }.bind(self), 800);
+          }.bind(self),
+          800
+        );
       });
   },
 
@@ -93,24 +96,24 @@ export default {
 
 .form-container .has-error {
   position: relative;
-  margin-bottom:unset !important;
+  margin-bottom: unset !important;
 }
 
 .form-container .has-error .form-control {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-right:1px solid;
+  border-right: 1px solid;
 }
 
- .el-step__icon {
-    -webkit-transition: unset;
-    transition: unset;
-  }
+.el-step__icon {
+  -webkit-transition: unset;
+  transition: unset;
+}
 
 @media screen and (max-width: 991px) {
   .form-container .has-error {
     position: relative;
-    margin-bottom:1.5rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .current-tab-btn {

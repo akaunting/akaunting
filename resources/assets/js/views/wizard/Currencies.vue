@@ -300,9 +300,7 @@ import MixinsSpaGlobal from "./../../mixins/spa-global";
 
 export default {
   name: "Currencies",
-
   mixins: [MixinsGlobal, MixinsSpaGlobal],
-
   components: {
     [Step.name]: Step,
     [Steps.name]: Steps,
@@ -310,7 +308,6 @@ export default {
     [Option.name]: Option,
     AkauntingRadioGroup,
   },
-
   props: {
     currencies: {
       type: [Object, Array],

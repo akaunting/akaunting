@@ -255,6 +255,7 @@ export default {
       this.onStatus(item.id, event);
       this.onStatusControl(this.taxes, item.id, event);
     },
+
     handleClickDelete(item) {
       this.confirmDelete(
         `${
@@ -275,14 +276,17 @@ export default {
         this.translations.taxes.delete
       );
     },
+
     next() {
       if (this.active++ > 2);
       this.$router.push("/wizard/finish");
     },
+
     prev() {
       if (this.active-- > 2);
       this.$router.push("/wizard/currencies");
     },
+
     onEditSave(item) {
       this.onEditEvent(
         "PATCH",
@@ -292,9 +296,11 @@ export default {
         item.id
       );
     },
+
     onSubmitForm() {
       this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
     },
+    
     deleteCurrency(event) {
       this.onDeleteEvent(event, this.taxes, event.tax_id);
     },

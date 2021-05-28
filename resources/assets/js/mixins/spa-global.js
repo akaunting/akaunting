@@ -10,10 +10,9 @@ export default {
                 select: "",
                 enabled: 1
             },
-            error_field: {}
+            error_field: {},
         }
     },
-
     methods: {
         addItem() {
             this.newDatas = true;
@@ -99,7 +98,6 @@ export default {
         onEditEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
-            let file = {};
 
             for (let [key, val] of formData.entries()) {
                 Object.assign(data, {
@@ -131,7 +129,6 @@ export default {
                     }
 
                     this.onSuccessEvent(response);
-
                 }, this)
                 .catch(error => {
                     this.onFailError(error)
@@ -169,7 +166,6 @@ export default {
                     });
 
                     this.onSuccessEvent(response);
-
                 }, this)
                 .catch(error => {
                     this.onFailError(error);
@@ -199,8 +195,8 @@ export default {
             }
 
             const formData = new FormData(this.$refs["form"]);
-            
             let data_name = {};
+
             for (let [key, val] of formData.entries()) {
                 Object.assign(data_name, {
                     [key]: val,
@@ -210,6 +206,7 @@ export default {
                     ['_method']: 'POST',
                 });
             }
+
             formData.appendRecursive(data_name);
            
             window.axios({
@@ -224,7 +221,6 @@ export default {
                 })
                 .then(response => {
                     this.onSuccessEvent(response);
-
                 }, this)
                 .catch(error => {
                     this.onFailError(error)

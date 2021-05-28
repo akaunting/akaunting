@@ -26,7 +26,9 @@
               />
               <p class="mb-0 mt--3">
                 <small>
-                  <div v-html="translations.company.get_api_key"></div>
+                  <div><a href="https://akaunting.com/dashboard" target="_blank">Click here</a>
+                   to get your API key.
+                  </div>
                 </small>
               </p>
             </div>
@@ -123,6 +125,10 @@ export default {
     translations: {
       type: [Object, Array],
     },
+    url: {
+      type: String,
+      default: 'text'
+    }
   },
   data() {
     return {
@@ -133,9 +139,7 @@ export default {
   },
   mounted() {
     let company_data = this.company;
-    setTimeout(() => {
       this.dataWatch(company_data);
-    }, 500);
   },
   watch: {
     company: function (company) {
@@ -159,6 +163,7 @@ export default {
       this.real_date = company.financial_start;
       }
     },
+
     next() {
       if (this.active++ > 2);
       this.$router.push("/wizard/currencies");
