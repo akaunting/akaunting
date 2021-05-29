@@ -19,7 +19,7 @@ class CompaniesTest extends FeatureTestCase
         $request = $this->getRequest();
 
         $this->loginAs()
-            ->patch(route('wizard.companies.update'), $request)
+            ->post(route('wizard.companies.update'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
