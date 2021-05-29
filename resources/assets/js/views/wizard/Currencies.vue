@@ -389,7 +389,7 @@ export default {
     },
 
     onEditForm(item) {
-      this.onEditItemEvent(
+      this.onSubmitEvent(
         "PATCH",
         url + "/wizard/currencies/" + item.id,
         "",

@@ -51,7 +51,7 @@
                 :title="translations.company.financial_start"
                 data-name="financial_start"
                 :placeholder="translations.company.financial_start"
-                prepend-icon="fas fa-calendar"
+                icon="fas fa-calendar"
                 :date-config="{
                   dateFormat: 'd-m',
                   allowInput: true,
@@ -84,6 +84,7 @@
                 :v-model="logo"
               >
               </akaunting-dropzone-file-upload>
+              <div class="invalid-feedback d-block">The logo must be a file of type: pdf, jpeg, jpg, png.</div>
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@
               <base-button
                 id="button"
                 type="success"
-                native-type="submit"
+                native-type="button"
                 @click="onEditSave()"
                 >{{ translations.company.save }}</base-button
               >
@@ -170,8 +171,68 @@ export default {
     },
 
     onEditSave() {
-      this.onEditCompany();
-      this.$router.push("/wizard/currencies");
+      FormData.prototype.appendRecursive = function (data, wrapper = null) {
+        for (var name in data) {
+          if (name == "previewElement" || name == "previewTemplate") {
+            continue;
+          }
+          if (wrapper) {
+            if (
+              (typeof data[name] == "object" || Array.isArray(data[name])) &&
+              data[name] instanceof File != true &&
+              data[name] instanceof Blob != true
+            ) {
+              this.appendRecursive(data[name], wrapper + "[" + name + "]");
+            } else {
+              this.append(wrapper + "[" + name + "]", data[name]);
+            }
+          } else {
+            if (
+              (typeof data[name] == "object" || Array.isArray(data[name])) &&
+              data[name] instanceof File != true &&
+              data[name] instanceof Blob != true
+            ) {
+              this.appendRecursive(data[name], name);
+            } else {
+              this.append(name, data[name]);
+            }
+          }
+        }
+      };
+
+      const formData = new FormData(this.$refs["form"]);
+      let data_name = {};
+      
+      for (let [key, val] of formData.entries()) {
+        Object.assign(data_name, {
+          [key]: val,
+          ["logo"]: this.$refs.dropzoneWizard.files[1]
+            ? this.$refs.dropzoneWizard.files[1]
+            : this.$refs.dropzoneWizard.files[0],
+          ["_prefix"]: "company",
+          ["_token"]: window.Laravel.csrfToken,
+          ["_method"]: "POST",
+        });
+      }
+
+      formData.appendRecursive(data_name);
+      window
+        .axios({
+          method: "POST",
+          url: url + "/wizard/companies",
+          data: formData,
+          headers: {
+            "X-CSRF-TOKEN": window.Laravel.csrfToken,
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          this.onSuccessMessage(response);
+          this.$router.push("/wizard/currencies");
+        }, this)
+        .catch((error) => {
+        }, this);
     },
 
     next() {

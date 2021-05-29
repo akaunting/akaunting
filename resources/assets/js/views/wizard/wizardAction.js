@@ -95,7 +95,7 @@ export default {
               });
         },
 
-        onEditItemEvent(form_method, form_url, plus_data, form_list, form_id) {
+        onSubmitEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
 
@@ -110,120 +110,38 @@ export default {
                     ['type']: 'normal',
                 });
             }
-            
+
             window.axios({
                     method: form_method,
                     url: form_url,
                     data: data,
                 })
                 .then(response => {
-                    if (form_list.length) {
-                        form_list.forEach(item => {
-                            if (item.id == form_id) {
-                                item.name = response.data.data.name;
-                                item.code = response.data.data.code;
-                                item.rate = response.data.data.rate;
-                                item.type = plus_data == undefined ? 'normal' : ''
-                            }
-                        });
+                    if(form_list.length && form_list.length != undefined) {
+                        if(form_method == 'POST') {
+                            form_list.push({
+                                "id": response.data.data.id,
+                                "name": response.data.data.name,
+                                "code": response.data.data.code,
+                                "rate": response.data.data.rate,
+                                "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true'
+                            });
+                        }
+    
+                        if(form_method == 'PATCH') {
+                            form_list.forEach(item => {
+                                if (item.id == form_id) {
+                                    item.name = response.data.data.name;
+                                    item.code = response.data.data.code;
+                                    item.rate = response.data.data.rate;
+                                }
+                            });
+                        }
                     }
-
-                    this.onSuccessMessage(response);
-                }, this)
-                .catch(error => {
-                    this.onFailError(error)
-                }, this);
-        },
-
-        onSubmitEvent(form_method, form_url, plus_data, form_list) {
-            const formData = new FormData(this.$refs["form"]);
-            const data = {};
-
-            for (let [key, val] of formData.entries()) {
-                Object.assign(data, {
-                    [key]: val,
-                });
-            }
-
-            if(plus_data == 'type') {
-                Object.assign(data, {
-                    ['type']: 'normal',
-                });
-            }
-
-            window.axios({
-                    method: form_method,
-                    url: form_url,
-                    data: data,
-                })
-                .then(response => {
-                    form_list.push({
-                        "id": response.data.data.id,
-                        "name": response.data.data.name,
-                        "code": response.data.data.code,
-                        "rate": response.data.data.rate,
-                        "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true'
-                    });
-
                     this.onSuccessMessage(response);
                 }, this)
                 .catch(error => {
                     this.onFailError(error);
-                }, this);
-        },
-
-        onEditCompany() {
-            FormData.prototype.appendRecursive = function(data, wrapper = null) {  
-                for(var name in data) {
-                    if (name == "previewElement" || name == "previewTemplate") {
-                    continue;
-                }
-                if (wrapper) {
-                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
-                        this.appendRecursive(data[name], wrapper + '[' + name + ']');
-                    } else {
-                        this.append(wrapper + '[' + name + ']', data[name]);
-                    }
-                } else {
-                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
-                        this.appendRecursive(data[name], name);
-                    } else {
-                        this.append(name, data[name]);
-                    }
-                }
-                }
-            }
-
-            const formData = new FormData(this.$refs["form"]);
-            let data_name = {};
-
-            for (let [key, val] of formData.entries()) {
-                Object.assign(data_name, {
-                    [key]: val,
-                    ['logo']: this.$refs.dropzoneWizard.files[1] ? this.$refs.dropzoneWizard.files[1] : this.$refs.dropzoneWizard.files[0],
-                    ['_prefix']: 'company',
-                    ['_token']: window.Laravel.csrfToken,
-                    ['_method']: 'POST',
-                });
-            }
-
-            formData.appendRecursive(data_name);
-           
-            window.axios({
-                    method: 'POST',
-                    url: url + "/wizard/companies",
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(response => {
-                    this.onSuccessMessage(response);
-                }, this)
-                .catch(error => {
-                    this.onFailError(error)
                 }, this);
         },
 
