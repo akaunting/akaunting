@@ -32,7 +32,7 @@ class Reports extends ApiController
      */
     public function show(Report $report)
     {
-        return $this->response->item($report, new Transformer());
+        return $this->item($report, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Reports extends ApiController
     {
         $report = $this->dispatch(new CreateReport($request));
 
-        return $this->response->created(route('api.reports.show', $report->id));
+        return $this->response->created(route('api.reports.show', $report->id), $this->item($report, new Transformer()));
     }
 
     /**

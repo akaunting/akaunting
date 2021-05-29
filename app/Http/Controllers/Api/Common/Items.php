@@ -34,7 +34,7 @@ class Items extends ApiController
     {
         $item = Item::with('category', 'taxes')->find($id);
 
-        return $this->response->item($item, new Transformer());
+        return $this->item($item, new Transformer());
     }
 
     /**
@@ -47,7 +47,7 @@ class Items extends ApiController
     {
         $item = $this->dispatch(new CreateItem($request));
 
-        return $this->response->created(route('api.items.show', $item->id));
+        return $this->response->created(route('api.items.show', $item->id), $this->item($item, new Transformer()));
     }
 
     /**

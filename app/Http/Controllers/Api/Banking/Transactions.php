@@ -32,7 +32,7 @@ class Transactions extends ApiController
      */
     public function show(Transaction $transaction)
     {
-        return $this->response->item($transaction, new Transformer());
+        return $this->item($transaction, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Transactions extends ApiController
     {
         $transaction = $this->dispatch(new CreateTransaction($request));
 
-        return $this->response->created(route('api.transactions.show', $transaction->id));
+        return $this->response->created(route('api.transactions.show', $transaction->id), $this->item($transaction, new Transformer()));
     }
 
     /**

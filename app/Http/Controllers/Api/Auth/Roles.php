@@ -32,7 +32,7 @@ class Roles extends ApiController
      */
     public function show(Role $role)
     {
-        return $this->response->item($role, new Transformer());
+        return $this->item($role, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Roles extends ApiController
     {
         $role = $this->dispatch(new CreateRole($request));
 
-        return $this->response->created(route('api.roles.show', $role->id));
+        return $this->response->created(route('api.roles.show', $role->id), $this->item($role, new Transformer()));
     }
 
     /**

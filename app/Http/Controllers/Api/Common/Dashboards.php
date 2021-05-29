@@ -42,7 +42,7 @@ class Dashboards extends ApiController
             // Check if user can access dashboard
             $this->canAccess($dashboard);
 
-            return $this->response->item($dashboard, new Transformer());
+            return $this->item($dashboard, new Transformer());
         } catch (\Exception $e) {
             $this->response->errorUnauthorized($e->getMessage());
         }
@@ -58,7 +58,7 @@ class Dashboards extends ApiController
     {
         $dashboard = $this->dispatch(new CreateDashboard($request));
 
-        return $this->response->created(route('api.dashboards.show', $dashboard->id));
+        return $this->response->created(route('api.dashboards.show', $dashboard->id), $this->item($dashboard, new Transformer()));
     }
 
     /**

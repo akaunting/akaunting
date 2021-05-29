@@ -39,7 +39,7 @@ class Settings extends ApiController
             $setting = Setting::where('key', $id)->first();
         }
 
-        return $this->response->item($setting, new Transformer());
+        return $this->item($setting, new Transformer());
     }
 
     /**
@@ -52,7 +52,7 @@ class Settings extends ApiController
     {
         $setting = Setting::create($request->all());
 
-        return $this->response->created(route('api.settings.show', $setting->id));
+        return $this->response->created(route('api.settings.show', $setting->id), $this->item($setting, new Transformer()));
     }
 
     /**
@@ -66,7 +66,7 @@ class Settings extends ApiController
     {
         $setting->update($request->all());
 
-        return $this->response->item($setting->fresh(), new Transformer());
+        return $this->item($setting->fresh(), new Transformer());
     }
 
     /**

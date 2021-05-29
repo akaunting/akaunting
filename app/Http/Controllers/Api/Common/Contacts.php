@@ -42,7 +42,7 @@ class Contacts extends ApiController
             $contact = Contact::where('email', $id)->first();
         }
 
-        return $this->response->item($contact, new Transformer());
+        return $this->item($contact, new Transformer());
     }
 
     /**
@@ -55,7 +55,7 @@ class Contacts extends ApiController
     {
         $contact = $this->dispatch(new CreateContact($request));
 
-        return $this->response->created(route('api.contacts.show', $contact->id));
+        return $this->response->created(route('api.contacts.show', $contact->id), $this->item($contact, new Transformer()));
     }
 
     /**

@@ -32,7 +32,7 @@ class Categories extends ApiController
      */
     public function show(Category $category)
     {
-        return $this->response->item($category, new Transformer());
+        return $this->item($category, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Categories extends ApiController
     {
         $category = $this->dispatch(new CreateCategory($request));
 
-        return $this->response->created(route('api.categories.show', $category->id));
+        return $this->response->created(route('api.categories.show', $category->id), $this->item($category, new Transformer()));
     }
 
     /**
