@@ -84,7 +84,6 @@
                 :v-model="logo"
               >
               </akaunting-dropzone-file-upload>
-              <div class="invalid-feedback d-block">The logo must be a file of type: pdf, jpeg, jpg, png.</div>
             </div>
           </div>
         </div>
