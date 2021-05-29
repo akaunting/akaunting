@@ -219,6 +219,8 @@ export default {
 
     methods: {
         setItemList(items) {
+            this.item_list = [];
+
             // Option set sort_option data
             if (!Array.isArray(items)) {
                 let index = 0;
@@ -296,7 +298,13 @@ export default {
         },
 
         onItemSeleted(index, item_id) {
-            let item = this.item_list[index];
+            let item = '';
+
+            this.item_list.forEach(function (item_list, item_index) {
+                if (item_list.id == item_id) {
+                    item = item_list;
+                }
+            });
 
             this.selected_items.push(item);
 
@@ -306,6 +314,9 @@ export default {
             this.show.item_selected = false;
             this.show.item_list = false;
             this.search = '';
+
+            // Set deault item list
+            this.setItemList(this.items);
         },
 
         onItemCreate() {
@@ -481,6 +492,8 @@ export default {
                 this.search = '';
 
                 document.removeEventListener('click', this.closeIfClickedOutside);
+
+                this.setItemList(this.items);
             }
         },
     },
