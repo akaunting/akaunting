@@ -39,7 +39,7 @@ class Currencies extends ApiController
             $currency = Currency::where('code', $id)->first();
         }
 
-        return $this->response->item($currency, new Transformer());
+        return $this->item($currency, new Transformer());
     }
 
     /**
@@ -52,7 +52,7 @@ class Currencies extends ApiController
     {
         $currency = $this->dispatch(new CreateCurrency($request));
 
-        return $this->response->created(route('api.currencies.show', $currency->id));
+        return $this->response->created(route('api.currencies.show', $currency->id), $this->item($currency, new Transformer()));
     }
 
     /**

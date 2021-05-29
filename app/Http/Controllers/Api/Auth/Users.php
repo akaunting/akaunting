@@ -39,7 +39,7 @@ class Users extends ApiController
             $user = User::with('companies', 'permissions', 'roles')->where('email', $id)->first();
         }
 
-        return $this->response->item($user, new Transformer());
+        return $this->item($user, new Transformer());
     }
 
     /**
@@ -52,7 +52,7 @@ class Users extends ApiController
     {
         $user = $this->dispatch(new CreateUser($request));
 
-        return $this->response->created(route('api.users.show', $user->id));
+        return $this->response->created(route('api.users.show', $user->id), $this->item($user, new Transformer()));
     }
 
     /**

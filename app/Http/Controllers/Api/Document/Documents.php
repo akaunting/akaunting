@@ -39,7 +39,7 @@ class Documents extends ApiController
             $document = Document::where('document_number', $id)->first();
         }
 
-        return $this->response->item($document, new Transformer());
+        return $this->item($document, new Transformer());
     }
 
     /**
@@ -53,7 +53,7 @@ class Documents extends ApiController
     {
         $document = $this->dispatch(new CreateDocument($request));
 
-        return $this->response->created(route('api.documents.show', $document->id));
+        return $this->response->created(route('api.documents.show', $document->id), $this->item($document, new Transformer()));
     }
 
     /**
@@ -68,7 +68,7 @@ class Documents extends ApiController
     {
         $document = $this->dispatch(new UpdateDocument($document, $request));
 
-        return $this->response->item($document->fresh(), new Transformer());
+        return $this->item($document->fresh(), new Transformer());
     }
 
     /**

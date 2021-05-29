@@ -40,7 +40,7 @@ class Companies extends ApiController
             // Check if user can access company
             $this->canAccess($company);
 
-            return $this->response->item($company, new Transformer());
+            return $this->item($company, new Transformer());
         } catch (\Exception $e) {
             $this->response->errorUnauthorized($e->getMessage());
         }
@@ -56,7 +56,7 @@ class Companies extends ApiController
     {
         $company = $this->dispatch(new CreateCompany($request));
 
-        return $this->response->created(route('api.companies.show', $company->id));
+        return $this->response->created(route('api.companies.show', $company->id), $this->item($company, new Transformer()));
     }
 
     /**
