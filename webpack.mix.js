@@ -58,6 +58,9 @@ mix
     .js('resources/assets/js/install.js', 'public/js')
     .js('resources/assets/js/views/install/update.js', 'public/js/install')
 
+    //Wizard
+    .js('resources/assets/js/wizard.js', 'public/js/wizard')
+
     // Modules
     .js('resources/assets/js/views/modules/item.js', 'public/js/modules')
     .js('resources/assets/js/views/modules/apps.js', 'public/js/modules')
@@ -74,11 +77,5 @@ mix
     .js('resources/assets/js/views/settings/modules.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/settings.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/taxes.js', 'public/js/settings')
-
-    // Wizard
-    .js('resources/assets/js/views/wizard/company.js', 'public/js/wizard')
-    .js('resources/assets/js/views/wizard/currencies.js', 'public/js/wizard')
-    .js('resources/assets/js/views/wizard/taxes.js', 'public/js/wizard')
-    .js('resources/assets/js/views/wizard/finish.js', 'public/js/wizard')
 
     .sass('resources/assets/sass/argon.scss', 'public/css');

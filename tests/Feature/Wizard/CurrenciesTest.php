@@ -12,18 +12,22 @@ class CurrenciesTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('wizard.currencies.index'))
             ->assertStatus(200)
-            ->assertSeeText(trans('demo.currencies.usd'));
+            ->assertSeeText(trans('general.wizard'));
     }
 
     public function testItShouldCreateCurrency()
     {
         $request = $this->getRequest();
 
+        $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+
         $this->loginAs()
             ->post(route('wizard.currencies.store'), $request)
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertDatabaseHas('currencies', [
             'code' => $request['code'],
@@ -38,11 +42,15 @@ class CurrenciesTest extends FeatureTestCase
 
         $request['name'] = $this->faker->text(15);
 
+        $message = trans('messages.success.updated', ['type' => $request['name']]);
+
         $this->loginAs()
             ->patch(route('wizard.currencies.update', $currency->id), $request)
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertDatabaseHas('currencies', [
             'code' => $request['code'],
@@ -55,11 +63,15 @@ class CurrenciesTest extends FeatureTestCase
 
         $currency = $this->dispatch(new CreateCurrency($request));
 
+        $message = trans('messages.success.deleted', ['type' => $currency->name]);
+
         $this->loginAs()
             ->delete(route('wizard.currencies.destroy', $currency->id))
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertSoftDeleted('currencies', [
             'code' => $request['code'],

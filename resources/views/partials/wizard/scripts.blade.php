@@ -4,6 +4,8 @@
     <script src="{{ asset('public/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/vendor/js-cookie/js.cookie.js') }}"></script>
 
+    <script src="{{ asset('public/js/wizard/wizard.js?v=' . version('short')) }}"></script>
+
     @stack('body_css')
 
     @stack('body_stylesheet')

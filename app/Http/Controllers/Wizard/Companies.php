@@ -33,7 +33,7 @@ class Companies extends Controller
     {
         $company = Company::find(company_id());
 
-        return view('wizard.companies.edit', compact('company'));
+        return $this->response('wizard.companies.edit', compact('company'));
     }
 
     /**
@@ -52,6 +52,7 @@ class Companies extends Controller
 
         $skip_keys = ['company_id', '_method', '_token'];
         $file_keys = ['company.logo'];
+        $uploaded_file_keys = ['company.uploaded_logo'];
 
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
@@ -70,13 +71,18 @@ class Companies extends Controller
                     $real_key = 'company.' . $key;
             }
 
-            // Process file uploads
-            if (in_array($real_key, $file_keys)) {
+            // change dropzone middleware already uploaded file
+            if (in_array($real_key, $uploaded_file_keys)) {
+                continue;
+            }
+
+             // Process file uploads
+             if (in_array($real_key, $file_keys)) {
                 // Upload attachment
                 if ($request->file($key)) {
                     $media = $this->getMedia($request->file($key), 'settings');
 
-                    $company->attachMedia($media, Str::snake($key));
+                    $company->attachMedia($media, Str::snake($real_key));
 
                     $value = $media->id;
                 }
@@ -87,25 +93,18 @@ class Companies extends Controller
                 }
             }
 
-            setting()->set($real_key, $value);
+            setting()->set($real_key, $value);            
         }
 
         // Save all settings
         setting()->save();
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]);
-
-        $response = [
+        return response()->json([
             'status' => null,
             'success' => true,
             'error' => false,
-            'message' => $message,
+            'message' => trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]),
             'data' => null,
-            'redirect' => route('wizard.currencies.index'),
-        ];
-
-        flash($message)->success();
-
-        return response()->json($response);
+        ]);
     }
 }

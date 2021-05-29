@@ -12,6 +12,7 @@
         :disabled="disabled"
         >
         <flat-picker slot-scope="{focus, blur}"
+            :name="dataName"
             @on-open="focus"
             @on-close="blur"
             :config="dateConfig"
@@ -37,6 +38,11 @@ export default {
 
     props: {
         title: {
+            type: String,
+            default: '',
+            description: "Modal header title"
+        },
+        dataName: {
             type: String,
             default: '',
             description: "Modal header title"
@@ -92,7 +98,7 @@ export default {
 
     data() {
         return {
-            real_model: this.model,
+            real_model: '',
         }
     },
     
@@ -119,6 +125,12 @@ export default {
             this.$emit('interface', this.real_model);
             
             this.$emit('change', this.real_model);
+        }
+    },
+
+    watch: {
+        value: function(val) {
+            this.real_model = val;
         }
     }
 }
