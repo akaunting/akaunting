@@ -18,11 +18,15 @@ class CompaniesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
+        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]);
+
         $this->loginAs()
             ->post(route('wizard.companies.update'), $request)
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
     }
 
     public function getRequest()

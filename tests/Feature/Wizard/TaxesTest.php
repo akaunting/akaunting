@@ -19,11 +19,15 @@ class TaxesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
+        $message = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
+
         $this->loginAs()
             ->post(route('wizard.taxes.store'), $request)
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertDatabaseHas('taxes', $request);
     }
@@ -36,11 +40,15 @@ class TaxesTest extends FeatureTestCase
 
         $request['name'] = $this->faker->text(15);
 
+        $message = trans('messages.success.updated', ['type' => $tax->name]);
+
         $this->loginAs()
             ->patch(route('wizard.taxes.update', $tax->id), $request)
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertDatabaseHas('taxes', $request);
     }
@@ -51,11 +59,15 @@ class TaxesTest extends FeatureTestCase
 
         $tax = $this->dispatch(new CreateTax($request));
 
+        $message = trans('messages.success.deleted', ['type' => $tax->name]);
+
         $this->loginAs()
             ->delete(route('wizard.taxes.destroy', $tax->id))
-            ->assertStatus(200);
-
-        $this->assertFlashLevel('success');
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => $message,
+            ]);
 
         $this->assertDatabaseHas('taxes', $request);
     }
