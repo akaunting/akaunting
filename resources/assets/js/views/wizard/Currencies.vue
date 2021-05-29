@@ -296,7 +296,7 @@ import { Step, Steps, Select, Option } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
-import WizardAction from "./wizardAction";
+import WizardAction from "./../../mixins/wizardAction";
 
 export default {
   name: "Currencies",
@@ -409,6 +409,7 @@ export default {
 
     prev() {
       if (this.active-- > 2);
+      history.back()
       this.$router.push("/wizard/companies");
     },
 

@@ -226,7 +226,7 @@ import { Step, Steps } from "element-ui";
 import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
-import WizardAction from "./wizardAction";
+import WizardAction from "./../../mixins/wizardAction";
 
 export default {
   name: "Taxes",

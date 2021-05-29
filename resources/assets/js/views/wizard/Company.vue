@@ -112,7 +112,7 @@
 import { Step, Steps } from "element-ui";
 import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
 import AkauntingDate from "./../../components/AkauntingDate";
-import WizardAction from "./wizardAction";
+import WizardAction from "./../../mixins/wizardAction";
 
 export default {
   name: "Company",
