@@ -12,7 +12,7 @@ class TaxesTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('wizard.taxes.index'))
             ->assertStatus(200)
-            ->assertSeeText(trans('general.add_new'));
+            ->assertSeeText(trans('general.wizard'));
     }
 
     public function testItShouldCreateTax()
@@ -40,7 +40,7 @@ class TaxesTest extends FeatureTestCase
 
         $request['name'] = $this->faker->text(15);
 
-        $message = trans('messages.success.updated', ['type' => $tax->name]);
+        $message = trans('messages.success.updated', ['type' => $request['name']]);
 
         $this->loginAs()
             ->patch(route('wizard.taxes.update', $tax->id), $request)

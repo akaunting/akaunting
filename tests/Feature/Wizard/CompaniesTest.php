@@ -11,7 +11,7 @@ class CompaniesTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('wizard.companies.edit'))
             ->assertStatus(200)
-            ->assertSeeText(trans('modules.api_key'));
+            ->assertSeeText(trans('general.wizard'));
     }
 
     public function testItShouldUpdateCompany()
