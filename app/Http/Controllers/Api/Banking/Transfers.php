@@ -62,7 +62,7 @@ class Transfers extends ApiController
      */
     public function show(Transfer $transfer)
     {
-        return $this->response->item($transfer, new Transformer());
+        return $this->item($transfer, new Transformer());
     }
 
     /**
@@ -75,7 +75,7 @@ class Transfers extends ApiController
     {
         $transfer = $this->dispatch(new CreateTransfer($request));
 
-        return $this->response->created(route('api.transfers.show', $transfer->id));
+        return $this->response->created(route('api.transfers.show', $transfer->id), $this->item($transfer, new Transformer()));
     }
 
     /**

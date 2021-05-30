@@ -32,7 +32,7 @@ class Permissions extends ApiController
      */
     public function show(Permission $permission)
     {
-        return $this->response->item($permission, new Transformer());
+        return $this->item($permission, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Permissions extends ApiController
     {
         $permission = $this->dispatch(new CreatePermission($request));
 
-        return $this->response->created(route('api.permissions.show', $permission->id));
+        return $this->response->created(route('api.permissions.show', $permission->id), $this->item($permission, new Transformer()));
     }
 
     /**

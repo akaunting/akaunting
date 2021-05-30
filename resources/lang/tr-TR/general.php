@@ -123,7 +123,7 @@ return [
     'overdue'               => 'Gecikmiş',
     'partially'             => 'Kısmen',
     'partially_paid'        => 'Kısmen Ödenmiş',
-    'export'                => 'Dışa Aktar',
+    'export'                => 'Dışarı Aktar',
     'finish'                => 'Bitti',
     'wizard'                => 'Sihirbaz',
     'skip'                  => 'Geç',

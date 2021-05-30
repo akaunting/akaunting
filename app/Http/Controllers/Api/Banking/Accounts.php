@@ -39,7 +39,7 @@ class Accounts extends ApiController
             $account = Account::where('number', $id)->first();
         }
 
-        return $this->response->item($account, new Transformer());
+        return $this->item($account, new Transformer());
     }
 
     /**
@@ -52,7 +52,7 @@ class Accounts extends ApiController
     {
         $account = $this->dispatch(new CreateAccount($request));
 
-        return $this->response->created(route('api.accounts.show', $account->id));
+        return $this->response->created(route('api.accounts.show', $account->id), $this->item($account, new Transformer()));
     }
 
     /**

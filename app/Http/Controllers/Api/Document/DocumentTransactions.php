@@ -48,7 +48,7 @@ class DocumentTransactions extends ApiController
     {
         $transaction = Transaction::documentId($document_id)->find($id);
 
-        return $this->response->item($transaction, new Transformer());
+        return $this->item($transaction, new Transformer());
     }
 
     /**
@@ -64,7 +64,7 @@ class DocumentTransactions extends ApiController
 
         $transaction = $this->dispatch(new CreateBankingDocumentTransaction($document, $request));
 
-        return $this->response->created(route('api.documents.transactions.show', [$document_id, $transaction->id]));
+        return $this->response->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), $this->item($transaction, new Transformer()));
     }
 
     /**

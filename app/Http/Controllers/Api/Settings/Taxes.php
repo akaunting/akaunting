@@ -32,7 +32,7 @@ class Taxes extends ApiController
      */
     public function show(Tax $tax)
     {
-        return $this->response->item($tax, new Transformer());
+        return $this->item($tax, new Transformer());
     }
 
     /**
@@ -45,7 +45,7 @@ class Taxes extends ApiController
     {
         $tax = $this->dispatch(new CreateTax($request));
 
-        return $this->response->created(route('api.taxes.show', $tax->id));
+        return $this->response->created(route('api.taxes.show', $tax->id), $this->item($tax, new Transformer()));
     }
 
     /**
