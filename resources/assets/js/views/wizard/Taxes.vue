@@ -229,82 +229,89 @@ import MixinsGlobal from "./../../mixins/global";
 import WizardAction from "./../../mixins/wizardAction";
 
 export default {
-  name: "Taxes",
-  mixins: [MixinsGlobal, WizardAction],
-  components: {
-    [Step.name]: Step,
-    [Steps.name]: Steps,
-    AkauntingRadioGroup,
-  },
-  props: {
-    taxes: {
-      type: [Object, Array],
-    },
-    translations: {
-      type: [Object, Array],
-    },
-  },
-  data() {
-    return {
-      active: 2,
-      bulk_action: new BulkAction(url + "/settings/taxes"),
-    };
-  },
-  methods: {
-    onSwitchUpdate(item) {
-      this.onStatus(item.id, event);
-      this.onStatusControl(this.taxes, item.id, event);
+    name: "Taxes",
+
+    mixins: [MixinsGlobal, WizardAction],
+
+    components: {
+        [Step.name]: Step,
+        [Steps.name]: Steps,
+        AkauntingRadioGroup,
     },
 
-    onClickDelete(item) {
-      this.confirmDelete(
-        `${
-          new URL(url).protocol +
-          "//" +
-          location.host +
-          location.pathname +
-          "/" +
-          item.id
-        }`,
-        this.translations.taxes.title,
-        `${
-          this.translations.currencies.title +
-          "&nbsp;" +
-          this.translations.currencies.delete
-        } <strong>${item.name}</strong>?`,
-        this.translations.taxes.cancel,
-        this.translations.taxes.delete
-      );
+    props: {
+        taxes: {
+            type: [Object, Array],
+        },
+
+        translations: {
+            type: [Object, Array],
+        },
     },
 
-    onDeleteCurrency(event) {
-      this.onEjetItem(event, this.taxes, event.tax_id);
+    data() {
+        return {
+            active: 2,
+            bulk_action: new BulkAction(url + "/settings/taxes"),
+        };
     },
 
-     onEditForm(item) {
-      this.onSubmitEvent(
-        "PATCH",
-        url + "/wizard/taxes/" + item.id,
-        "type",
-        this.taxes,
-        item.id
-      );
-    },
+    methods: {
+        onSwitchUpdate(item) {
+            this.onStatus(item.id, event);
 
-    onSubmitForm() {
-      this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
-    },
+            this.onStatusControl(this.taxes, item.id, event);
+        },
 
-    prev() {
-      if (this.active-- > 2);
-      this.$router.push("/wizard/currencies");
-    },
+        onClickDelete(item) {
+            this.confirmDelete(
+                `${
+                  new URL(url).protocol +
+                  "//" +
+                  location.host +
+                  location.pathname +
+                  "/" +
+                  item.id
+                }`,
+                this.translations.taxes.title,
+                `${
+                  this.translations.currencies.title +
+                  "&nbsp;" +
+                  this.translations.currencies.delete
+                } <strong>${item.name}</strong>?`,
+                this.translations.taxes.cancel,
+                this.translations.taxes.delete
+            );
+        },
 
-    next() {
-      if (this.active++ > 2);
-      this.$router.push("/wizard/finish");
+        onDeleteCurrency(event) {
+            this.onEjetItem(event, this.taxes, event.tax_id);
+        },
+
+        onEditForm(item) {
+            this.onSubmitEvent(
+                "PATCH",
+                url + "/wizard/taxes/" + item.id,
+                "type",
+                this.taxes,
+                item.id
+            );
+        },
+
+        onSubmitForm() {
+            this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
+        },
+
+        prev() {
+            if (this.active-- > 2);
+            this.$router.push("/wizard/currencies");
+        },
+
+        next() {
+            if (this.active++ > 2);
+            this.$router.push("/wizard/finish");
+        },
     },
-  },
 };
 </script>
 

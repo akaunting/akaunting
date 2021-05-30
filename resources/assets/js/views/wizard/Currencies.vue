@@ -299,124 +299,133 @@ import MixinsGlobal from "./../../mixins/global";
 import WizardAction from "./../../mixins/wizardAction";
 
 export default {
-  name: "Currencies",
-  mixins: [MixinsGlobal, WizardAction],
-  components: {
-    [Step.name]: Step,
-    [Steps.name]: Steps,
-    [Select.name]: Select,
-    [Option.name]: Option,
-    AkauntingRadioGroup,
-  },
-  props: {
-    currencies: {
-      type: [Object, Array],
-    },
-    currency_codes: {
-      type: [Object, Array],
-    },
-    translations: {
-      type: [Object, Array],
-    },
-  },
-  data() {
-    return {
-      active: 1,
-      bulk_action: new BulkAction(url + "/settings/currencies"),
-    };
-  },
-  methods: {
-    onSwitchUpdate(item) {
-      this.onStatus(item.id, event);
-      this.onStatusControl(this.currencies, item.id, event);
+    name: "Currencies",
+
+    mixins: [MixinsGlobal, WizardAction],
+
+    components: {
+        [Step.name]: Step,
+        [Steps.name]: Steps,
+        [Select.name]: Select,
+        [Option.name]: Option,
+        AkauntingRadioGroup,
     },
 
-    onClickDelete(item) {
-      this.confirmDelete(
-        `${
-          new URL(url).protocol +
-          "//" +
-          location.host +
-          location.pathname +
-          "/" +
-          item.id
-        }`,
-        this.translations.currencies.title,
-        `Confirm Delete <strong>${item.name}</strong> ${this.translations.currencies.title}?`,
-        this.translations.currencies.cancel,
-        this.translations.currencies.delete
-      );
+    props: {
+        currencies: {
+            type: [Object, Array],
+        },
+
+        currency_codes: {
+            type: [Object, Array],
+        },
+
+        translations: {
+            type: [Object, Array],
+        },
     },
 
-    onDeleteCurrency(event) {
-      this.onEjetItem(event, this.currencies, event.currency_id);
+    data() {
+        return {
+            active: 1,
+            bulk_action: new BulkAction(url + "/settings/currencies"),
+        };
     },
 
-    onChangeCodeItem(code) {
-      const formData = new FormData(this.$refs["form"]);
-      const data = {
-        rate: "",
-        precision: "",
-        symbol: "",
-        symbol_first: "",
-        decimal_mark: "",
-        thousands_separator: "",
-      };
+    methods: {
+        onSwitchUpdate(item) {
+            this.onStatus(item.id, event);
 
-      for (let [key, val] of formData.entries()) {
-        Object.assign(data, {
-          [key]: val,
-        });
-      }
+            this.onStatusControl(this.currencies, item.id, event);
+        },
 
-      window
-        .axios({
-          method: "GET",
-          url: url + "/settings/currencies/config",
-          params: {
-            code: code,
-          },
-        })
-        .then((response) => {
-          data.rate = response.data.rate;
-          data.precision = response.data.precision;
-          data.symbol = response.data.symbol;
-          data.symbol_first = response.data.symbol_first;
-          data.decimal_mark = response.data.decimal_mark;
-          data.thousands_separator = response.data.thousands_separator;
-          this.model.rate = response.data.rate;
-        }, this);
+        onClickDelete(item) {
+            this.confirmDelete(
+                `${
+                  new URL(url).protocol +
+                  "//" +
+                  location.host +
+                  location.pathname +
+                  "/" +
+                  item.id
+                }`,
+                this.translations.currencies.title,
+                `Confirm Delete <strong>${item.name}</strong> ${this.translations.currencies.title}?`,
+                this.translations.currencies.cancel,
+                this.translations.currencies.delete
+            );
+        },
+
+        onDeleteCurrency(event) {
+            this.onEjetItem(event, this.currencies, event.currency_id);
+        },
+
+        onChangeCodeItem(code) {
+            const formData = new FormData(this.$refs["form"]);
+            const data = {
+                rate: "",
+                precision: "",
+                symbol: "",
+                symbol_first: "",
+                decimal_mark: "",
+                thousands_separator: "",
+            };
+
+            for (let [key, val] of formData.entries()) {
+                Object.assign(data, {
+                    [key]: val,
+                });
+            }
+
+            window.axios({
+                method: "GET",
+                url: url + "/settings/currencies/config",
+                params: {
+                    code: code,
+                },
+            })
+            .then((response) => {
+                data.rate = response.data.rate;
+                data.precision = response.data.precision;
+                data.symbol = response.data.symbol;
+                data.symbol_first = response.data.symbol_first;
+                data.decimal_mark = response.data.decimal_mark;
+                data.thousands_separator = response.data.thousands_separator;
+
+                this.model.rate = response.data.rate;
+            }, this);
+        },
+
+        onEditForm(item) {
+            this.onSubmitEvent(
+                "PATCH",
+                url + "/wizard/currencies/" + item.id,
+                "",
+                this.currencies,
+                item.id
+            );
+        },
+
+        onSubmitForm() {
+            this.onSubmitEvent(
+                "POST",
+                url + "/wizard/currencies",
+                "",
+                this.currencies
+            );
+        },
+
+        prev() {
+            if (this.active-- > 2);
+            history.back()
+
+            this.$router.push("/wizard/companies");
+        },
+
+        next() {
+            if (this.active++ > 2);
+            this.$router.push("/wizard/taxes");
+        },
     },
-
-    onEditForm(item) {
-      this.onSubmitEvent(
-        "PATCH",
-        url + "/wizard/currencies/" + item.id,
-        "",
-        this.currencies,
-        item.id
-      );
-    },
-
-    onSubmitForm() {
-      this.onSubmitEvent(
-        "POST",
-        url + "/wizard/currencies",
-        "",
-        this.currencies
-      );
-    },
-
-    prev() {
-      if (this.active-- > 2);
-      history.back()
-      this.$router.push("/wizard/companies");
-    },
-
-    next() {
-      if (this.active++ > 2);
-      this.$router.push("/wizard/taxes");
-    },
-  },
 };
 </script>
