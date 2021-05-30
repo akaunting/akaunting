@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Image;
 use Intervention\Image\Exception\NotReadableException;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 abstract class DocumentShow extends Base
 {
@@ -598,9 +598,9 @@ abstract class DocumentShow extends Base
         $media = Media::find(setting('company.logo'));
 
         if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
+            $path = $media->getDiskPath();
 
-            if (!Storage::exists($path)) {
+            if (Storage::missing($path)) {
                 return $logo;
             }
         } else {

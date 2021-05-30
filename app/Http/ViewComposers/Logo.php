@@ -25,9 +25,9 @@ class Logo
         $media = Media::find(setting('company.logo'));
 
         if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
+            $path = $media->getDiskPath();
 
-            if (!Storage::exists($path)) {
+            if (Storage::missing($path)) {
                 return $logo;
             }
         } else {
