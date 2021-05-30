@@ -77,6 +77,9 @@ class CreateDocumentItem extends Job
                     case 'fixed':
                         $tax_amount = $tax->rate * (double) $this->request['quantity'];
 
+                        // @todo tax calculate check here
+                        //$tax_amount = round(abs($tax_amount), $precision);
+
                         $item_taxes[] = [
                             'company_id' => $this->document->company_id,
                             'type' => $this->document->type,
@@ -92,6 +95,9 @@ class CreateDocumentItem extends Job
                     case 'withholding':
                         $tax_amount = 0 - $item_discounted_amount * ($tax->rate / 100);
 
+                        // @todo tax calculate check here
+                        //$tax_amount = round(abs($tax_amount), $precision);
+
                         $item_taxes[] = [
                             'company_id' => $this->document->company_id,
                             'type' => $this->document->type,
@@ -106,6 +112,9 @@ class CreateDocumentItem extends Job
                         break;
                     default:
                         $tax_amount = $item_discounted_amount * ($tax->rate / 100);
+
+                        // @todo tax calculate check here
+                        //$tax_amount = round(abs($tax_amount), $precision);
 
                         $item_taxes[] = [
                             'company_id' => $this->document->company_id,
@@ -130,6 +139,8 @@ class CreateDocumentItem extends Job
                 foreach ($inclusives as $inclusive) {
                     $tax_amount = $item_base_rate * ($inclusive->rate / 100);
 
+                    $tax_amount = round(abs($tax_amount), $precision);
+
                     $item_taxes[] = [
                         'company_id' => $this->document->company_id,
                         'type' => $this->document->type,
@@ -148,6 +159,8 @@ class CreateDocumentItem extends Job
             if ($compounds) {
                 foreach ($compounds as $compound) {
                     $tax_amount = (($item_discounted_amount + $item_tax_total) / 100) * $compound->rate;
+
+                    $tax_amount = round(abs($tax_amount), $precision);
 
                     $item_taxes[] = [
                         'company_id' => $this->document->company_id,
