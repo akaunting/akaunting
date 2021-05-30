@@ -132,11 +132,9 @@ export default {
 
     methods: {
         prev() {
-            this.active--;
+            if (this.active-- > 2);
 
-            if (this.active > 2) {
-                this.$router.push("/wizard/taxes");
-            }
+            this.$router.push("/wizard/taxes");
         },
 
         finish() {

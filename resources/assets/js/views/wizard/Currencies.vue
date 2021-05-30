@@ -417,13 +417,14 @@ export default {
 
         prev() {
             if (this.active-- > 2);
-            history.back()
+            //history.back()
 
             this.$router.push("/wizard/companies");
         },
 
         next() {
             if (this.active++ > 2);
+
             this.$router.push("/wizard/taxes");
         },
     },
