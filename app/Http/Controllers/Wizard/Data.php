@@ -126,7 +126,7 @@ class Data extends Controller
         $company->financial_start = setting('localisation.financial_start');
 
         if ($company->company_logo) {
-            $logo = $company->logo;
+            $logo = $company->company_logo;
 
             $logo->path = route('uploads.get', $logo->id);
 
