@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Kümnendmärk',
     'thousands_separator'   => 'Tuhandeliste eraldaja',
     'precision'             => 'Täpsus',
+    'conversion'            => 'Valuutavahetus: :price (:currency_code) :currency_rate',
     'symbol' => [
         'symbol'            => 'Sümbol',
         'position'          => 'Sümbol seisukoht',

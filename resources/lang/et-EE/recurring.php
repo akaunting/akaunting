@@ -5,7 +5,7 @@ return [
     'recurring'             => 'Korduv',
     'every'                 => 'Iga',
     'period'                => 'Periood',
-    'times'                 => 'Korda',
+    'times'                 => 'Ajad',
     'daily'                 => 'Iga päev',
     'weekly'                => 'Iganädalane',
     'monthly'               => 'Igakuine',

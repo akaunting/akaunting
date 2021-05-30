@@ -16,6 +16,8 @@ return [
         'sent'          => 'Kas olete kindel, et soovite valitud arve märkida kui <b>saadetud</b>?|Kas soovite kindlasti märkida valitud arved kui <b>saadetud</b>?',
         'received'      => 'Kas olete kindel, et soovite valitud arve märkida kui <b>vastuvõetud</b>?|Kas soovite kindlasti märkida valitud arved kui <b>vastuvõetud</b>?',
         'cancelled'     => 'Kas soovite kindlasti valitud kirje <b>tühistada</b>?|Kas soovite kindlasti valitud kirjed <b>tühistada</b>?',
+        'reconcile'     => 'Kas soovite kindlasti valitud kirje <b>lubada</b>?|Kas soovite kindlasti valitud kirjed <b>lubada</b>?',
+        'unreconcile'   => 'Kas soovite kindlasti valitud kirje <b>lubada</b>?|Kas soovite kindlasti valitud kirjed <b>lubada</b>?',
     ],
 
 ];
