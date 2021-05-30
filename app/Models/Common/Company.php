@@ -74,11 +74,11 @@ class Company extends Eloquent
         parent::boot();
 
         static::retrieved(function($model) {
-            $model->setSettings();
+            $model->setCommonSettingsAsAttributes();
         });
 
         static::saving(function($model) {
-            $model->unsetSettings();
+            $model->unsetCommonSettingsFromAttributes();
         });
     }
 
@@ -267,7 +267,7 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Widget');
     }
 
-    public function setSettings()
+    public function setCommonSettingsAsAttributes()
     {
         $settings = $this->settings;
 
@@ -299,7 +299,7 @@ class Company extends Eloquent
         }
     }
 
-    public function unsetSettings()
+    public function unsetCommonSettingsFromAttributes()
     {
         $settings = $this->settings;
 
