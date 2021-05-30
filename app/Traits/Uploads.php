@@ -94,13 +94,9 @@ trait Uploads
             return false;
         }
 
-        $path = $media->basename;
+        $path = $media->getDiskPath();
 
-        if (!empty($media->directory)) {
-            $path = $media->directory . '/' . $media->basename;
-        }
-
-        if (!Storage::exists($path)) {
+        if (Storage::missing($path)) {
             return false;
         }
 
