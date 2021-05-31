@@ -430,9 +430,16 @@ export default {
         this.selected = this.value;
 
         if (this.model.length) {
-            if (this.model !== undefined) {
+            try {
+                if (eval(this.model) !== undefined) {
+                    this.selected = eval(this.model);
+                } else {
+                    this.selected = this.model;
+                }
+            } catch (e) {
                 this.selected = this.model;
             }
+            
         }
 
         if (this.multiple && !this.selected.length) {
