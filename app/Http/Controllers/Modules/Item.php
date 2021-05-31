@@ -329,6 +329,27 @@ class Item extends Controller
         return redirect()->route('apps.app.show', $alias)->send();
     }
 
+    public function releases($alias, Request $request)
+    {
+        $data = [
+            'query' => [
+                'page' => $request->get('page', 1),
+            ]
+        ];
+
+        $releases = $this->getModuleReleases($alias, $data);
+
+        $html = view('partials.modules.releases', compact('releases'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $releases,
+            'message' => null,
+            'html' => $html,
+        ]);
+    }
+
     public function reviews($alias, Request $request)
     {
         $data = [

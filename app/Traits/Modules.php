@@ -72,6 +72,23 @@ trait Modules
         return $documentation;
     }
 
+    public function getModuleReleases($alias, $data = [])
+    {
+        $key = 'apps.' . $alias . '.releases.' . $this->getDataKeyOfModules($data);
+
+        $releases = Cache::get($key);
+
+        if (!empty($releases)) {
+            return $releases;
+        }
+
+        $releases = static::getResponseData('GET', 'apps/' . $alias . '/releases', $data);
+
+        Cache::put($key, $releases, Date::now()->addHour());
+
+        return $releases;
+    }
+
     public function getModuleReviews($alias, $data = [])
     {
         $key = 'apps.' . $alias . '.reviews.' . $this->getDataKeyOfModules($data);
