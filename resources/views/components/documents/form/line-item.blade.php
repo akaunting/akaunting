@@ -220,7 +220,7 @@
                                             </div>
                                         </td>
 
-                                        <td class="pb-3 pl-2 align-bottom border-0" style="max-width: 40px;" :class="{'pb-2' : !row.add_tax}">
+                                        <td class="pb-3 pl-2 align-bottom border-0" style="max-width:40px;" :class="{'pb-2' : !row.add_tax}">
                                             <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -230,9 +230,9 @@
 
                                     <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
                                     :index="row_tax_index">
-                                        <td colspan="2" class="pl-0 pb-0 border-0" :class="{'pb-2' : !row.add_tax}">
+                                        <td class="pl-0 pb-0 border-0" :class="{'pb-2' : !row.add_tax}" style="width: 42%;">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; right: 43%; position: absolute;">
+                                                <div style="float: left; margin-top: 15px; margin-right:2px">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
@@ -258,13 +258,13 @@
                                             </div>
                                         </td>
 
-                                        <td :class="{'pb-2' : !row.add_tax}" class="border-0 pb-0 text-right long-texts">
+                                        <td :class="{'pb-2' : !row.add_tax}" class="border-0 pb-0 text-right long-texts" style="width: 39%;">
                                             <div>
                                                 {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
 
-                                        <td class="pb-3 pl-2 align-bottom border-0" :class="{'pb-2' : !row.add_tax}" style="max-width: 40px;" >
+                                        <td class="pb-3 pl-2 align-bottom border-0" :class="{'pb-2' : !row.add_tax}" style="width:19%;" >
                                             <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -272,9 +272,9 @@
                                     </tr>
 
                                     <tr v-if="row.add_tax">
-                                        <td colspan="2" class="pl-0 border-0">
+                                        <td class="pl-0 border-0" style="width:42%;">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; right: 43%; position: absolute;">
+                                                <div style="float: left; margin-top: 15px; margin-right:2px;">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
@@ -322,13 +322,13 @@
                                             </div>
                                         </td>
 
-                                        <td class="border-0 text-right long-texts align-middle">
+                                        <td class="border-0 text-right long-texts align-middle;" style="width:39%;">
                                             <div>
                                                 __
                                             </div>
                                         </td>
 
-                                        <td class="pb-3 pl-2 align-bottom border-0" style="max-width: 40px;" >
+                                        <td class="pb-3 pl-2 align-bottom border-0" style="width:19%;" >
                                             @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                                 <button type="button" @click="onDeleteTax(index, 999)" class="btn btn-link btn-delete p-0">
                                                     <i class="far fa-trash-alt"></i>
