@@ -64,6 +64,7 @@ import AkauntingRecurring from './AkauntingRecurring';
 
 import Form from './../plugins/form';
 import { Alert, ColorPicker } from 'element-ui';
+import Global from './../mixins/global';
 
 export default {
     name: 'akaunting-modal-add-new',
@@ -150,7 +151,7 @@ export default {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
                     template : '<div id="modal-add-new-form-' + form_prefix + '">' + this.message + '</div>',
-
+                    mixins: [Global],
                     components: {
                         AkauntingRadioGroup,
                         AkauntingSelect,

@@ -318,9 +318,7 @@ export default {
         this.selected = this.value;
 
         if (this.model.length) {
-            if (eval(this.model) !== undefined) {
-                this.selected = eval(this.model);
-            } else {
+            if (this.model !== undefined) {
                 this.selected = this.model;
             }
         }
