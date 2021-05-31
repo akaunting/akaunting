@@ -32,11 +32,20 @@ const app = new Vue({
     },
 
     mounted() {
+        this.onReleases(1);
         this.onReviews(1);
     },
 
     data: function () {
         return {
+            releases: {
+                status: false,
+                html: '',
+                pagination: {
+                    current_page: 1,
+                    last_page: 1
+                }
+            },
             reviews: {
                 status: false,
                 html: '',
@@ -75,6 +84,24 @@ const app = new Vue({
             }
 
             location = path;
+        },
+
+        async onReleases(page) {
+            let releases_promise = Promise.resolve(window.axios.post(url + '/apps/' + app_slug  + '/releases', {
+                page: page
+            }));
+
+            releases_promise.then(response => {
+                if (response.data.success) {
+                    this.releases.status= true;
+                    this.releases.html = response.data.html;
+
+                    this.releases.pagination.current_page = page;
+                    this.releases.pagination.last_page = response.data.data.last_page;
+                }
+            })
+            .catch(error => {
+            });
         },
 
         async onReviews(page) {

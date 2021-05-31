@@ -104,7 +104,70 @@
 
                          @if ($module->changelog)
                             <div class="tab-pane fade" id="changelog">
-                                {!! $module->changelog !!}
+                                @php
+                                    $releases = $module->app_releases;
+                                @endphp
+
+                                <div id="releases" class="clearfix" v-if="releases.status" v-html="releases.html"></div>
+
+                                <div id="releases" class="clearfix" v-else>
+                                    @include('partials.modules.releases')
+                                </div>
+
+                                @php
+                                    $release_first_item = count($releases->data) > 0 ? ($releases->current_page - 1) * $releases->per_page + 1 : null;
+                                    $release_last_item = count($releases->data) > 0 ? $release_first_item + count($releases->data) - 1 : null;
+                                @endphp
+
+                                @if (!empty($release_first_item))
+                                    @stack('pagination_start')
+
+                                    <div class="row mt-4">
+                                        <div class="col-md-6">
+                                            <span class="table-text d-lg-block">
+                                                {{ trans('pagination.showing', ['first' => $release_first_item, 'last' => $release_last_item, 'total' => $releases->total, 'type' => strtolower(trans('modules.tab.changelog'))]) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <ul class="pagination float-right">
+                                                {{-- Previous Page Link --}}
+                                                <li class="page-item disabled" v-if="releases.pagination.current_page == 1">
+                                                    <span class="page-link">&laquo;</span>
+                                                </li>
+                                                <li class="page-item" v-else>
+                                                    <button type="button" class="page-link" @click="onReleases(releases.pagination.current_page - 1)" rel="prev">&laquo;</button>
+                                                </li>
+
+                                                {{-- Pagination Elements --}}
+                                                @for ($page = 1; $page <= $releases->last_page; $page++)
+                                                    <li class="page-item" :class="[{'active': releases.pagination.current_page == {{ $page }}}]" v-if="releases.pagination.current_page == {{ $page }}">
+                                                        <span class="page-link">{{ $page }}</span>
+                                                    </li>
+                                                    <li class="page-item" v-else>
+                                                        <button type="button" class="page-link" @click="onReleases({{ $page }})" data-page="{{ $page }}">{{ $page }}</button>
+                                                    </li>
+                                                @endfor
+
+                                                {{-- Next Page Link --}}
+                                                <li class="page-item" v-if="releases.pagination.last_page != releases.pagination.current_page">
+                                                    <button type="button" class="page-link" @click="onReleases(releases.pagination.current_page + 1)" rel="next">&raquo;</button>
+                                                </li>
+                                                <li class="page-item disabled" v-else>
+                                                    <span class="page-link">&raquo;</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    @stack('pagination_end')
+                                @else
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <small>{{ trans('general.no_records') }}</small>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                          @endif
 
