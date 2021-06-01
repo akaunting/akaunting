@@ -14,6 +14,11 @@
       </div>
       <form ref="form" class="w-100">
         <div class="card-body">
+          <div class="document-loading" v-if="pageLoad">
+            <div>
+              <i class="fas fa-spinner fa-pulse fa-7x"></i>
+            </div>
+          </div>
           <div class="row mb-4">
             <div class="col-12 mb-4">
               <base-input
@@ -139,6 +144,10 @@ export default {
             type: String,
             default: "text",
         },
+
+        pageLoad: {
+          type: [Boolean, String]
+        }
     },
 
     data() {
