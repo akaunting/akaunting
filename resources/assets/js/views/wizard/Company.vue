@@ -169,16 +169,19 @@ export default {
     methods: {
         onDataWatch(company) {
             if (Object.keys(company).length) {
-                let logo_arr = [{
-                    id: company.logo.id,
-                    name: company.logo.filename + "." + company.logo.extension,
-                    path: company.logo.path,
-                    type: company.logo.mime_type,
-                    size: company.logo.size,
-                    downloadPath: false,
-                }];
+                if (company.logo) {
+                    let logo_arr = [{
+                        id: company.logo.id,
+                        name: company.logo.filename + "." + company.logo.extension,
+                        path: company.logo.path,
+                        type: company.logo.mime_type,
+                        size: company.logo.size,
+                        downloadPath: false,
+                    }];
 
-                this.logo.push(logo_arr);
+                    this.logo.push(logo_arr);
+                }
+
                 this.real_date = company.financial_start;
             }
         },
