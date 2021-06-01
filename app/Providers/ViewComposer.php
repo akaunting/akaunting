@@ -73,6 +73,11 @@ class ViewComposer extends Provider
             ['documents.*', 'portal.documents.*'],
             'App\Http\ViewComposers\DocumentType'
         );
+
+        // Wizard
+        View::composer(
+            'layouts.wizard', 'App\Http\ViewComposers\Wizard'
+        );
     }
 
     /**

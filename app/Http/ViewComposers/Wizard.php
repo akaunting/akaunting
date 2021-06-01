@@ -1,39 +1,58 @@
 <?php
 
-namespace App\Http\Controllers\Wizard;
-
-use App\Abstracts\Http\Controller;
+namespace App\Http\ViewComposers;
 
 use Akaunting\Money\Currency as MoneyCurrency;
+use App\Models\Common\Media;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Modules;
 use App\Models\Common\Company;
+use Illuminate\View\View;
 
-class Data extends Controller
+class Wizard
 {
     use Modules;
 
     /**
-     * Instantiate a new controller instance.
+     * Bind data to the view.
+     *
+     * @param  View  $view
+     * @return void
      */
-    public function __construct()
+    public function compose(View $view)
     {
-        // Add CRUD permission check
-        $this->middleware('permission:create-common-companies')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-common-companies')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-common-companies')->only('update', 'enable', 'disable');
-        $this->middleware('permission:delete-common-companies')->only('destroy');
+        $translations = $this->getTransalations();
+
+        $currencies = $this->getCurrencies();
+
+        // Prepare codes
+        $codes = $this->getCurrencyCodes();
+
+        $taxes = $this->getTaxes();
+
+        $modules = $this->getFeaturedModules([
+            'query' => [
+                'limit' => 4
+            ]
+        ]);
+
+        $company = $this->getCompany();
+
+        $view->with([
+            'translations' => $translations,
+            'company' => $company,
+            'currencies' => $currencies,
+            'currency_codes' => $codes,
+            'taxes' => $taxes,
+            'modules' => $modules,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function index()
+    /* Wizard page transactions */
+    protected function getTransalations()
     {
-        $translations = [
+        return [
             'company' => [
                 'title' => trans_choice('general.companies', 1),
                 'api_key' => trans('modules.api_key'),
@@ -101,10 +120,15 @@ class Data extends Controller
                 'error_message' => trans('errors.title.500'),
             ]
         ];
+    }
 
-        $currencies = Currency::collect();
+    protected function getCurrencies()
+    {
+        return Currency::all();
+    }
 
-        // Prepare codes
+    protected function getCurrencyCodes()
+    {
         $codes = [];
         $money_currencies = MoneyCurrency::getCurrencies();
 
@@ -112,39 +136,28 @@ class Data extends Controller
             $codes[$key] = $key;
         }
 
-        $taxes = Tax::collect();
+        return $codes;
+    }
 
-        $modules = $this->getFeaturedModules([
-            'query' => [
-                'limit' => 4
-            ]
-        ]);
+    protected function getTaxes()
+    {
+        return Tax::all();
+    }
 
+    protected function getCompany()
+    {
         $company = company();
 
         $company->api_key = setting('apps.api_key');
         $company->financial_start = setting('localisation.financial_start');
 
-        if ($company->logo) {
-            $logo = \Plank\Mediable\Media::find($company->logo);
+        $logo_id = setting('company.logo');
 
-            $logo->path = route('uploads.get', $logo->id);
+        $logo = Media::find($logo_id);
+        $logo->path = route('uploads.get', $logo->id);
 
-            $company->logo = $logo;
-        }
+        $company->logo = $logo;
 
-        return response()->json([
-            'success' => true,
-            'errors' => false,
-            'message' => 'Get all data...',
-            'data' => [
-                'translations' => $translations,
-                'company' => $company,
-                'currencies' => $currencies,
-                'currency_codes' => $codes,
-                'taxes' => $taxes,
-                'modules' => $modules,
-            ],
-        ]);
+        return $company;
     }
 }
