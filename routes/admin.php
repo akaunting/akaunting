@@ -201,6 +201,7 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::post('copy', 'Modules\Item@copy')->name('copy');
         Route::post('install', 'Modules\Item@install')->name('install');
 
+        Route::post('{alias}/releases', 'Modules\Item@releases')->name('app.releases');
         Route::post('{alias}/reviews', 'Modules\Item@reviews')->name('app.reviews');
         Route::get('{alias}/uninstall', 'Modules\Item@uninstall')->name('app.uninstall');
         Route::get('{alias}/enable', 'Modules\Item@enable')->name('app.enable');
