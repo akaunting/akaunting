@@ -190,22 +190,14 @@ trait DateTime
 
     public function getMonthlyDateFormat($year = null)
     {
-        $format = 'M';
-
-        if ($this->getFinancialStart($year)->month != 1) {
-            $format = 'M Y';
-        }
+        $format = 'M Y';
 
         return $format;
     }
 
     public function getQuarterlyDateFormat($year = null)
     {
-        $format = 'M';
-
-        if ($this->getFinancialStart($year)->month != 1) {
-            $format = 'M Y';
-        }
+        $format = 'M Y';
 
         return $format;
     }
