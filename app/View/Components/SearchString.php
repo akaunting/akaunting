@@ -12,6 +12,8 @@ class SearchString extends Component
 
     public $filters;
 
+    public $filtered;
+
     /** string */
     public $model;
 
@@ -20,10 +22,11 @@ class SearchString extends Component
      *
      * @return void
      */
-    public function __construct(string $model = '', $filters = false)
+    public function __construct(string $model = '', $filters = false, $filtered = false)
     {
         $this->model = $model;
         $this->filters = $filters;
+        $this->filtered = $filtered;
     }
 
     /**

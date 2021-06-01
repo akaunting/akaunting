@@ -142,6 +142,11 @@ export default {
             default: () => [],
             description: 'List of filters'
         },
+        defaultFiltered: {
+            type: Array,
+            default: () => [],
+            description: 'List of filters'
+        },
 
         dateConfig: null,
     },
@@ -195,7 +200,7 @@ export default {
                 });
             }
 
-            console.log('Focus :' + this.filter_last_step);
+            //console.log('Focus :' + this.filter_last_step);
         },
 
         onInputDateSelected(selectedDates, dateStr, instance) {
@@ -537,7 +542,7 @@ export default {
             this.onInputConfirm();
         },
 
-        convertOption (options) {
+        convertOption(options) {
             let values = [];
 
             // Option set sort_option data
@@ -656,6 +661,57 @@ export default {
                     this.filter_index++;
                 }
             }, this);
+        } else if (this.defaultFiltered) {
+            this.defaultFiltered.forEach(function (filter) {
+                let option = '';
+                let operator = '=';
+                let value = '';
+
+                this.filter_list.forEach(function (_filter, i) {
+                    let filter_values = this.convertOption(_filter.values);
+
+                    if (_filter.key == filter.option) {
+                        console.log('Filter YES');
+
+                        option = _filter.value;
+                        operator = filter.operator;
+
+                        filter_values.forEach(function (_value) {
+                            if (_value.key == filter.value) {
+                                value = _value.value;
+                            }
+                        }, this);
+
+                        this.selected_options.push(this.filter_list[i]);
+
+                        console.log(operator);
+
+                        this.selected_operator.push({
+                            key: operator,
+                        });
+
+                        this.filter_list.splice(i, 1);
+
+                        this.option_values[_filter.key] = filter_values;
+
+                        filter_values.forEach(function (value, j) {
+                            if (value.key == filter.value) {
+                                this.selected_values.push(value);
+
+                                this.option_values[_filter.key].splice(j, 1);
+                            }
+                        }, this);
+                    }
+                }, this);
+
+                this.filtered.push({
+                    option: option,
+                    operator: operator,
+                    value: value
+                });
+
+                this.filter_index++;
+            }, this);
         }
     },
 
@@ -719,109 +775,109 @@ export default {
 </script>
 
 <style>
-.searh-field {
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-}
+    .searh-field {
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
 
-.searh-field .tags-group {
-  display: contents;
-}
+    .searh-field .tags-group {
+        display: contents;
+    }
 
-.searh-field .el-tag.el-tag--primary {
-  background: #f6f9fc;
-  background-color: #f6f9fc;
-  border-color: #f6f9fc;
-  color: #8898aa;
-  margin-top: 7px;
-}
+    .searh-field .el-tag.el-tag--primary {
+        background: #f6f9fc;
+        background-color: #f6f9fc;
+        border-color: #f6f9fc;
+        color: #8898aa;
+        margin-top: 7px;
+    }
 
-.searh-field .tags-group:hover > span {
-  background:#cbd4de;
-  background-color: #cbd4de;
-  border-color: #cbd4de;
-}
+    .searh-field .tags-group:hover > span {
+        background:#cbd4de;
+        background-color: #cbd4de;
+        border-color: #cbd4de;
+    }
 
-.searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
-  color: #8898aa;
-}
+    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
+        color: #8898aa;
+    }
 
-.searh-field .el-tag-option {
-  border-radius: 0.25rem 0 0 0.25rem;
-  margin-left: 10px;
-}
+    .searh-field .el-tag-option {
+        border-radius: 0.25rem 0 0 0.25rem;
+        margin-left: 10px;
+    }
 
-.searh-field .el-tag-operator {
-  border-radius: 0;
-  margin-left: -1px;
-  margin-right: -1px;
-}
+    .searh-field .el-tag-operator {
+        border-radius: 0;
+        margin-left: -1px;
+        margin-right: -1px;
+    }
 
-.searh-field .el-tag-value {
-  border-radius: 0 0.25rem 0.25rem 0;
-  margin-right: 10px;
-}
+    .searh-field .el-tag-value {
+        border-radius: 0 0.25rem 0.25rem 0;
+        margin-right: 10px;
+    }
 
-.searh-field .el-select.input-new-tag {
-    width: 100%;
-}
+    .searh-field .el-select.input-new-tag {
+        width: 100%;
+    }
 
-.searh-field .input-full {
-  width: 100%;
-}
+    .searh-field .input-full {
+        width: 100%;
+    }
 
-.searh-field .btn.btn-link {
-  width: inherit;
-  text-align: left;
-  display: flex;
-  margin: 0;
-  text-overflow: inherit;
-  text-align: left;
-  text-overflow: ellipsis;
-  padding: unset;
-  color: #212529;
-}
+    .searh-field .btn.btn-link {
+        width: inherit;
+        text-align: left;
+        display: flex;
+        margin: 0;
+        text-overflow: inherit;
+        text-align: left;
+        text-overflow: ellipsis;
+        padding: unset;
+        color: #212529;
+    }
 
-.searh-field .btn.btn-link.clear {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 45px;
-  height: 45px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #adb5bd;
-  opacity: 1;
-}
+    .searh-field .btn.btn-link.clear {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 45px;
+        height: 45px;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: #adb5bd;
+        opacity: 1;
+    }
 
-.searh-field .btn.btn-link.clear:hover {
-  color: #8898aa;
-}
+    .searh-field .btn.btn-link.clear:hover {
+        color: #8898aa;
+    }
 
-.searh-field .btn-helptext {
-  margin-left: auto;
-  color: var(--gray);
-}
+    .searh-field .btn-helptext {
+        margin-left: auto;
+        color: var(--gray);
+    }
 
-.searh-field .btn:not(:disabled):not(.disabled):active:focus,
-.searh-field .btn:not(:disabled):not(.disabled).active:focus {
-  -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-}
+    .searh-field .btn:not(:disabled):not(.disabled):active:focus,
+    .searh-field .btn:not(:disabled):not(.disabled).active:focus {
+    -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
 
-.searh-field .form-control.datepicker.flatpickr-input {
-  padding: inherit !important;
-}
+    .searh-field .form-control.datepicker.flatpickr-input {
+        padding: inherit !important;
+    }
 
-.searh-field .dropdown-menu.operator {
-    min-width: 50px !important;
-}
+    .searh-field .dropdown-menu.operator {
+        min-width: 50px !important;
+    }
 
-.searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
-    margin-right: inherit !important;
-}
+    .searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
+        margin-right: inherit !important;
+    }
 </style>
