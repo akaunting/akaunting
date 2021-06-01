@@ -11,6 +11,11 @@
         </el-steps>
       </div>
       <div class="card-body bg-default">
+        <div class="document-loading" v-if="pageLoad">
+          <div>
+            <i class="fas fa-spinner fa-pulse fa-7x"></i>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="content-header">
@@ -27,10 +32,10 @@
                 <div class="card">
                   <div class="card-header py-2">
                     <h4 class="ml--3 mb-0 float-left">
-                      <a :href="item.slug">{{ item.name }}</a>
+                      <a :href="route_url + '/apps/' + item.slug">{{ item.name }}</a>
                     </h4>
                   </div>
-                  <a :href="route_url + '/' + item.slug"
+                  <a :href="route_url + '/apps/' + item.slug"
                     ><img
                       v-for="(file, indis) in item.files"
                       :key="indis"
@@ -101,6 +106,10 @@ export default {
 
         translations: {
             type: [Object, Array],
+        },
+
+        pageLoad: {
+          type: [Boolean, String]
         }
     },
 
