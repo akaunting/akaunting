@@ -13,42 +13,35 @@
 <script>
 export default {
   name: "Wizard",
+
   created() {
-    let self = this;
+    this.translations = wizard_translations;
+    this.company = wizard_company;
+    this.currencies = wizard_currencies;
+    this.currency_codes = wizard_currency_codes;
+    this.taxes = wizard_taxes;
+    this.modules = wizard_modules;
 
-    window
-      .axios({
-        method: "GET",
-        url: url + "/wizard/data",
-      })
-      .then((response) => {
-        let data = response.data.data;
+    Object.keys(this.currency_codes).map((key) => {
+      return this.currency_codes[key];
+    });
 
-        for (let item in data) {
-          self[item] = data[item];
-        }
-
-        Object.keys(data.currency_codes).map((key) => {
-          return data.currency_codes[key];
-        });
-
-        self.page_loaded = false;
-      });
+    this.page_loaded = false;
   },
 
   data() {
     return {
-      currencies: [],
-      currency_codes: [],
-      taxes: [],
-      modules: {},
-      company: {},
       translations: {
         company: {},
         currencies: {},
         taxes: {},
         finish: {},
       },
+      company: {},
+      currencies: [],
+      currency_codes: [],
+      taxes: [],
+      modules: {},
       page_loaded: true
     };
   },
