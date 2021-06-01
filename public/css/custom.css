@@ -1629,20 +1629,6 @@ table .align-items-center td span.badge {
 }
 /* Select Tag Fixed Content Finish */
 
-@-moz-document url-prefix() {
-    .row-tax-clear {
-        max-width: 40px !important;
-    }
-    
-    .row-tax-value {
-        width: 167px !important;
-    }
-    
-    .row-tax-input {
-        width: 224px !important;
-    }
-  }
-
 .row-tax-clear {
     max-width: 40px !important;
 }

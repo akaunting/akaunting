@@ -258,7 +258,7 @@
                                     </tr>
 
                                     <tr v-if="row.add_tax">
-                                        <td class="pl-0 border-0 row-tax-input" style="width: 244px;">
+                                        <td class="pl-0 border-0 row-tax-input" style="width: 234px;">
                                             <div>
                                                 <div style="float: left; margin-top: 15px; margin-right:2px;">
                                                     {{ trans_choice('general.taxes', 1) }}
@@ -308,7 +308,7 @@
                                             </div>
                                         </td>
 
-                                        <td class="border-0 text-right long-texts align-middle row-tax-value" style="width: 243px;">
+                                        <td class="border-0 text-right long-texts align-middle row-tax-value" style="width: 233px;">
                                             <div>
                                                 __
                                             </div>
