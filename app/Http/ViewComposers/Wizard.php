@@ -153,10 +153,15 @@ class Wizard
 
         $logo_id = setting('company.logo');
 
-        $logo = Media::find($logo_id);
-        $logo->path = route('uploads.get', $logo->id);
+        $logo = false;
+
+        if ($logo_id) {
+            $logo = Media::find($logo_id);
+            $logo->path = route('uploads.get', $logo->id);
+        }
 
         $company->logo = $logo;
+
 
         return $company;
     }
