@@ -7,6 +7,7 @@
     no-matching-data-text="{{ trans('general.no_matching_data') }}"
     value="{{ request()->get('search', null) }}"
     :filters="{{ json_encode($filters) }}"
+    :default-filtered="{{ json_encode($filtered) }}"
     :date-config="{
         allowInput: true,
         altInput: true,
