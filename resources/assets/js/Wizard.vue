@@ -6,13 +6,17 @@
     :modules="modules.data"
     :currency_codes="currency_codes"
     :company="company"
-    :pageLoad="page_loaded"
   ></router-view>
 </template>
 
 <script>
 export default {
   name: "Wizard",
+  data: function () {
+    return {
+      page_loaded: true,
+    };
+  },
   created() {
     let self = this;
 
@@ -32,7 +36,12 @@ export default {
           return data.currency_codes[key];
         });
 
-        self.page_loaded = false;
+        setTimeout(
+          function () {
+            self.page_loaded = false;
+          }.bind(self),
+          800
+        );
       });
   },
 
@@ -49,7 +58,6 @@ export default {
         taxes: {},
         finish: {},
       },
-      page_loaded: true
     };
   },
 };
@@ -61,11 +69,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
 }
 
 .document-loading div {

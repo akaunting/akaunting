@@ -125,8 +125,8 @@ class Data extends Controller
         $company->api_key = setting('apps.api_key');
         $company->financial_start = setting('localisation.financial_start');
 
-        if ($company->logo) {
-            $logo = \Plank\Mediable\Media::find($company->logo);
+        if ($company->company_logo) {
+            $logo = $company->company_logo;
 
             $logo->path = route('uploads.get', $logo->id);
 

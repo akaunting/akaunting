@@ -11,11 +11,6 @@
         </el-steps>
       </div>
       <div class="card-body">
-        <div class="document-loading" v-if="pageLoad">
-          <div>
-            <i class="fas fa-spinner fa-pulse fa-7x"></i>
-          </div>
-        </div>
         <div class="d-flex justify-content-end mb-3">
           <base-button
             type="success"
@@ -252,10 +247,6 @@ export default {
         translations: {
             type: [Object, Array],
         },
-
-        pageLoad: {
-          type: [Boolean, String]
-        }
     },
 
     data() {
