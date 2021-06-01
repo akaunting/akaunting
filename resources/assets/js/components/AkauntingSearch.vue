@@ -661,7 +661,7 @@ export default {
                     this.filter_index++;
                 }
             }, this);
-        }else if (this.defaultFiltered) {
+        } else if (this.defaultFiltered) {
             this.defaultFiltered.forEach(function (filter) {
                 let option = '';
                 let operator = '=';
