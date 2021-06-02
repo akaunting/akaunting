@@ -26,7 +26,7 @@
 
         :date-config="{
             wrap: true, // set wrap to true only when using 'input-group'
-            allowInput: true,
+            allowInput: false,
             @if (!empty($attributes['show-date-format']))
             altInput: true,
             altFormat: '{{ $attributes['show-date-format'] }}',

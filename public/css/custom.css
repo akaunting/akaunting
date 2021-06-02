@@ -13,6 +13,10 @@ body {
     height: 100%;
 }
 
+.datepicker[readonly] {
+    background-color: transparent !important;
+}
+
 /*--Layout Content--*/
 .content-layout {
     max-width: 1300px !important;

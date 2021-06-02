@@ -1,4 +1,4 @@
-<html>
+<html lang="{{ app()->getLocale() }}">
     @include('partials.wizard.head')
 
     <body class="wizard-page">
