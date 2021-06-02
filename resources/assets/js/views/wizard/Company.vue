@@ -64,8 +64,7 @@
                                   dateFormat: 'd-m',
                                   allowInput: false,
                                   altInput: true,
-                                  altFormat: 'j F',
-                                  locale:require(`flatpickr/dist/l10n/${lang_data}.js`).default[lang_data]
+                                  altFormat: 'j F'
                                 }"
                                 v-model="real_date"
                             ></akaunting-date>
@@ -154,8 +153,17 @@ export default {
 
         locale: {
             type: String,
-            default: 'en',
-        }
+        },
+
+        dateConfig: {
+            type: Object,
+            default: function () {
+                return {
+                   
+                };
+            },
+            description: "FlatPckr date configuration"
+        },
     },
 
     data() {
@@ -170,7 +178,12 @@ export default {
     created() {
         if(document.documentElement.lang) {
             let lang_split = document.documentElement.lang.split("-");
-            this.lang_data = lang_split[0];
+
+            if (lang_split[0] !== 'en') {
+                
+            const lang = require(`flatpickr/dist/l10n/${lang_split[0]}.js`).default[lang_split[0]];
+            this.dateConfig.locale = lang;
+            }
         }
     },
 
