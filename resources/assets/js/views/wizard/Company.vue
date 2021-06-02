@@ -62,9 +62,10 @@
                                 icon="fas fa-calendar"
                                 :date-config="{
                                   dateFormat: 'd-m',
-                                  allowInput: true,
+                                  allowInput: false,
                                   altInput: true,
                                   altFormat: 'j F',
+                                  locale:require(`flatpickr/dist/l10n/${lang_data}.js`).default[lang_data]
                                 }"
                                 v-model="real_date"
                             ></akaunting-date>
@@ -149,6 +150,11 @@ export default {
 
         pageLoad: {
           type: [Boolean, String]
+        },
+
+        locale: {
+            type: String,
+            default: 'en',
         }
     },
 
@@ -157,7 +163,15 @@ export default {
             active: 0,
             logo: [],
             real_date: "",
+            lang_data: ''
         };
+    },
+
+    created() {
+        if(document.documentElement.lang) {
+            let lang_split = document.documentElement.lang.split("-");
+            this.lang_data = lang_split[0];
+        }
     },
 
     mounted() {
