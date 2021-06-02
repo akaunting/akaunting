@@ -30,6 +30,18 @@ class Version2114 extends Listener
             return;
         }
 
+        $migration = DB::table('migrations')
+                       ->where('migration', '2016_06_27_000001_create_mediable_test_tables')
+                       ->first();
+
+        if ($migration === null) {
+            DB::table('migrations')->insert([
+                'id' => DB::table('migrations')->max('id') + 1,
+                'migration' => '2016_06_27_000001_create_mediable_test_tables',
+                'batch' => DB::table('migrations')->max('batch') + 1,
+            ]);
+        }
+
         Artisan::call('migrate', ['--force' => true]);
 
         $this->updateMediaTables();
