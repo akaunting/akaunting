@@ -7,6 +7,8 @@
     ]) !!}
         @php
             $filters = [];
+            $filtered = [];
+
             $skipped = [
                 'keys', 'names', 'types', 'routes'
             ];
@@ -63,13 +65,15 @@
                     'url' => $url,
                     'values' => $filter_values,
                 ];
-            }
 
-            $filtered[] = [
-                'option' => 'year',
-                'operator' => '=',
-                'value' => \Date::now()->year,
-            ];
+                if ($key == 'year') {
+                    $filtered[] = [
+                        'option' => $key,
+                        'operator' => '=',
+                        'value' => \Date::now()->year,
+                    ];
+                }
+            }
         @endphp
 
         <div class="align-items-center">
