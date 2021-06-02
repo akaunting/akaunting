@@ -1628,29 +1628,3 @@ table .align-items-center td span.badge {
     display: contents !important;
 }
 /* Select Tag Fixed Content Finish */
-
-.row-tax-clear {
-    max-width: 40px !important;
-}
-
-.row-tax-value {
-    width: 243px !important;
-}
-
-.row-tax-input {
-    width: 244px !important;
-}
-
-@media (max-width: 1300px) {
-    .row-tax-clear {
-        max-width: 40px !important;
-    }
-    
-    .row-tax-value {
-        width: 233px !important;
-    }
-    
-    .row-tax-input {
-        width: 234px !important;
-    }
-}

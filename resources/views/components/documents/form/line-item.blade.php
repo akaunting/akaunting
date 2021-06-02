@@ -136,6 +136,19 @@
 
                         <td class="border-top-0 p-0" colspan="4">
                             <table class="w-100">
+                            <colgroup>
+                                    @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
+                                    <col style="width: 25%;">
+                                    <col style="width: 30%;">
+                                    <col style="width: 55%;">
+                                    <col style="width: 40px;">
+                                    @else
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 42%;">
+                                    <col style="width: 40px;">
+                                    @endif
+                                </colgroup>
                                 <tbody>
 
                                     @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
@@ -166,7 +179,7 @@
                                     <tr v-if="row.add_discount">
                                         <td colspan="2" class="pl-0 pb-0 border-0" :class="{'pb-2' : !row.add_tax}">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; margin-left: -65px;">
+                                                <div style="float: left; margin-top: 15px; margin-left: -65px">
                                                     {{ trans('invoices.discount') }}
                                                 </div>
 
@@ -216,9 +229,9 @@
 
                                     <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
                                     :index="row_tax_index">
-                                        <td class="pl-0 pb-0 border-0 row-tax-input" :class="{'pb-2' : !row.add_tax}" style="width: 244px;">
+                                        <td colspan="2" class="pl-0 pb-0 border-0 row-tax-input" :class="{'pb-2' : !row.add_tax}">
                                             <div>
-                                                <div style="float: left; margin-top: 15px; margin-right:2px">
+                                                <div style="float: left; margin-top: 15px; margin-right:2px; position:absolute; margin-left:-35px;">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
@@ -244,13 +257,13 @@
                                             </div>
                                         </td>
 
-                                        <td :class="{'pb-2' : !row.add_tax}" class="border-0 pb-0 text-right long-texts row-tax-value" style="width: 243px;">
+                                        <td :class="{'pb-2' : !row.add_tax}" class="border-0 pb-0 text-right long-texts">
                                             <div>
                                                 {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
 
-                                        <td class="pb-3 pl-2 align-bottom border-0 row-tax-clear" :class="{'pb-2' : !row.add_tax}" style="max-width: 40px;">
+                                        <td class="pb-3 pl-2 align-bottom border-0" :class="{'pb-2' : !row.add_tax}" style="max-width: 40px;">
                                             <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -258,9 +271,9 @@
                                     </tr>
 
                                     <tr v-if="row.add_tax">
-                                        <td class="pl-0 border-0 row-tax-input" style="width: 234px;">
-                                            <div>
-                                                <div style="float: left; margin-top: 15px; margin-right:2px;">
+                                        <td colspan="2" class="pl-0 border-0 row-tax-input">
+                                            <div style="position: relative;">
+                                                <div style="float: left; margin-top: 15px; margin-right:2px; position: absolute; margin-left: -35px;">
                                                     {{ trans_choice('general.taxes', 1) }}
                                                 </div>
 
@@ -308,7 +321,7 @@
                                             </div>
                                         </td>
 
-                                        <td class="border-0 text-right long-texts align-middle row-tax-value" style="width: 233px;">
+                                        <td class="border-0 text-right long-texts align-middle row-tax-value">
                                             <div>
                                                 __
                                             </div>
