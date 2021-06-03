@@ -104,7 +104,7 @@ export default {
                     [key]: val,
                 });
             }
-
+            
             if(plus_data == 'type') {
                 Object.assign(data, {
                     ['type']: 'normal',
@@ -117,7 +117,7 @@ export default {
                     data: data,
                 })
                 .then(response => {
-                    if(form_list.length && form_list.length != undefined) {
+                    if(form_list.length != undefined) {
                         if(form_method == 'POST') {
                             form_list.push({
                                 "id": response.data.data.id,
@@ -154,7 +154,7 @@ export default {
               }, this);
 
               this.component = "";
-
+              document.body.classList.remove("modal-open");
               this.onDeleteItemMessage(event);
         },
 
