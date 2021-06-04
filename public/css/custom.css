@@ -1632,3 +1632,50 @@ table .align-items-center td span.badge {
     display: contents !important;
 }
 /* Select Tag Fixed Content Finish */
+
+/* Line item */
+.line-item-link {
+    display: flex;
+    padding-bottom:10px;
+}
+
+.line-item-area {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.line-item-content {
+    position: relative;
+    width: 100%;
+    max-width:242px;
+}
+
+.line-item-content-right {
+    display: flex;
+    align-items: center;
+}
+
+.line-item-content-right-price  {
+    padding-right: 1.5rem;
+}
+
+.line-item-content-right-delete {
+    width:40px;
+    padding-right: 1.5rem;
+}
+
+.line-item-text {
+    width: 54px;
+}
+
+@media (max-width: 1500px) {
+  @media not all and (min-resolution:.001dpcm) { @media {
+
+    .line-item-content {
+        max-width:223px;
+    }
+}}
+}
+
+/* Line item */
