@@ -78,7 +78,7 @@ class Vendors extends Controller
         }
 
         // Handle payments
-        $transactions = Transaction::with('category')->where('contact_id', $vendor->id)->expense()->get();
+        $transactions = Transaction::with('account', 'category')->where('contact_id', $vendor->id)->expense()->get();
 
         $counts['transactions'] = $transactions->count();
 

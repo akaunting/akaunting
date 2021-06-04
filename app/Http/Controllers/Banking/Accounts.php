@@ -19,7 +19,7 @@ class Accounts extends Controller
      */
     public function index()
     {
-        $accounts = Account::collect();
+        $accounts = Account::with('income_transactions', 'expense_transactions')->collect();
 
         return $this->response('banking.accounts.index', compact('accounts'));
     }

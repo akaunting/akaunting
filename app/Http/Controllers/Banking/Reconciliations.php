@@ -180,7 +180,7 @@ class Reconciliations extends Controller
         $started = explode(' ', $started_at)[0] . ' 00:00:00';
         $ended = explode(' ', $ended_at)[0] . ' 23:59:59';
 
-        $transactions = Transaction::where('account_id', $account->id)->whereBetween('paid_at', [$started, $ended])->get();
+        $transactions = Transaction::with('account', 'contact')->where('account_id', $account->id)->whereBetween('paid_at', [$started, $ended])->get();
 
         return collect($transactions)->sortByDesc('paid_at');
     }
