@@ -4,7 +4,7 @@
 
     @mobile
         <body id="leftMenu" class="g-sidenav-hidden">	
-    @elsemobile	
+    @elsemobile
         <body id="leftMenu" class="g-sidenav-show">	
     @endmobile
 
