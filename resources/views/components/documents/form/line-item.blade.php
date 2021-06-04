@@ -136,20 +136,6 @@
 
                         <td class="border-top-0 p-0" colspan="4">
                             <table class="w-100">
-                                <!-- <colgroup>
-                                    @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
-                                    <col style="width: 25%;">
-                                    <col style="width: 30%;">
-                                    <col style="width: 55%;">
-                                    <col style="width: 40px;">
-                                    @else
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 42%;">
-                                    <col style="width: 40px;">
-                                    @endif
-                                </colgroup> -->
-
                                 <tbody>
 
                                     @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
