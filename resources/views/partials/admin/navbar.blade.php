@@ -5,40 +5,7 @@
             @stack('navbar_search')
 
             @can('read-common-search')
-                <form class="navbar-search navbar-search-light form-inline mb-0" id="navbar-search-main" autocomplete="off">
-                    <div id="global-search" class="form-group mb-0 mr-sm-3">
-                        <div class="input-group input-group-alternative input-group-merge">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-
-                            <input type="text" name="search" v-model="keyword" @input="onChange" v-click-outside="closeResult" class="form-control" autocomplete="off" placeholder="{{ trans('general.search') }}">
-
-                            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-center" ref="menu" :class="[{show: show}]">
-                                <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action" :href="item.href" v-for="(item, index) in items">
-                                        <div class="row align-items-center">
-                                            <div class="col ml--2">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <div class="name" v-text="item.name"></div>
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        <span class="type" v-text="item.type"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </form>
+                <livewire:common.search />
             @endcan
 
             <ul class="navbar-nav align-items-center ml-md-auto">
