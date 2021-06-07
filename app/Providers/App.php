@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as Provider;
@@ -35,5 +36,13 @@ class App extends Provider
         Schema::defaultStringLength(191);
 
         Paginator::useBootstrap();
+
+        Model::preventLazyLoading();
+
+        Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
+            $class = get_class($model);
+
+            logger("Attempted to lazy load [{$relation}] on model [{$class}].");
+        });
     }
 }
