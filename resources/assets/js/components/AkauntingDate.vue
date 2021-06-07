@@ -134,13 +134,15 @@ export default {
 
         focus() {
             let date_wrapper_html = document.querySelectorAll('.numInputWrapper');
+            if(this.hiddenYear) {
                 date_wrapper_html.forEach((wrapper) => {
-                    if(this.hiddenYear) {
-                        wrapper.classList.add('hidden-year-flatpickr');
-                    } else {
-                        wrapper.classList.remove('hidden-year-flatpickr');
-                    }
+                    wrapper.classList.add('hidden-year-flatpickr');
                 });
+            } else {
+                date_wrapper_html.forEach((wrapper) => {
+                    wrapper.classList.remove('hidden-year-flatpickr');
+                });
+            }
         }
     },
 
