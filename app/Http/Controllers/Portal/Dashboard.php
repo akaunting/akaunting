@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Portal;
 
 use App\Models\Document\Document;
 use App\Traits\Charts;
+use App\Traits\DateTime;
 use App\Utilities\Chartjs;
 use Date;
 
 class Dashboard
 {
-    use Charts;
+    use Charts, DateTime;
 
     /**
      * Display a listing of the resource.
@@ -20,14 +21,25 @@ class Dashboard
     {
         $contact = user()->contact;
 
-        $invoices = Document::invoice()->accrued()->where('contact_id', $contact->id)->get();
+        $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
-        $start = Date::parse(request('start', Date::today()->startOfYear()->format('Y-m-d')));
-        $end = Date::parse(request('end', Date::today()->endOfYear()->format('Y-m-d')));
+        // check and assign year start
+        if (($year_start = Date::today()->startOfYear()->format('Y-m-d')) !== $financial_start) {
+            $year_start = $financial_start;
+        }
+
+        $start = Date::parse(request('start_date', $year_start));
+        $end = Date::parse(request('end_date', Date::parse($year_start)->addYear(1)->subDays(1)->format('Y-m-d')));
+
+        //$invoices = Document::invoice()->accrued()->where('contact_id', $contact->id)->get();
+        $invoices = Document::invoice()->accrued()->whereBetween('due_at', [$start, $end])->where('contact_id', $contact->id)->get();
 
         $start_month = $start->month;
         $end_month = $end->month;
 
+        // look cashFlow widget
+        $end_month   = $end->diffInMonths($start);
+        $start_month = 0;
         // Monthly
         $labels = [];
 
@@ -89,7 +101,14 @@ class Dashboard
             ])
             ->fill(false);
 
-        return view('portal.dashboard.index', compact('contact', 'invoices', 'totals', 'progress', 'chart'));
+        $date_picker_shortcuts = $this->getDatePickerShortcuts();
+
+        if (!request()->has('start_date')) {
+            request()->merge(['start_date' => $date_picker_shortcuts[trans('reports.this_year')]['start']]);
+            request()->merge(['end_date' => $date_picker_shortcuts[trans('reports.this_year')]['end']]);
+        }
+
+        return view('portal.dashboard.index', compact('contact', 'invoices', 'totals', 'progress', 'chart', 'date_picker_shortcuts'));
     }
 
     private function calculateAmounts($invoices, $start, $end)
