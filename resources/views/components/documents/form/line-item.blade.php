@@ -286,7 +286,11 @@
                                 </div>
                                 <div class="line-item-content-right">
                                     <div class="line-item-content-right-price long-texts text-right">
-                                        __
+                                        <div>
+                                            <div class="required disabled text-right input-price disabled-money">
+                                            <input data-v-27d909ce="" type="tel" class="v-money form-control" name="discount_amount" placeholder="" disabled="disabled" value="__">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="line-item-content-right-delete pl-2">
                                         @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))

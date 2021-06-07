@@ -1678,6 +1678,7 @@ table .align-items-center td span.badge {
 .line-item-content-right-delete {
     width:40px;
     padding-right: 1.5rem;
+    /* padding-left: 5px !important; */
 }
 
 .line-item-text {
@@ -1692,6 +1693,12 @@ table .align-items-center td span.badge {
         max-width:223px;
     }
 }}
+}
+
+@media only screen and (max-width: 600px) {
+    .line-item-content {
+        max-width: 133px;
+    }
 }
 
 /* Line item */
