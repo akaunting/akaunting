@@ -273,16 +273,16 @@ class Document extends Model
         $precision = config('money.' . $code . '.precision');
 
         if ($this->transactions->count()) {
-            foreach ($this->transactions as $item) {
-                $amount = $item->amount;
+            foreach ($this->transactions as $transaction) {
+                $amount = $transaction->amount;
 
-                if ($code != $item->currency_code) {
-                    $amount = $this->convertBetween($amount, $item->currency_code, $item->currency_rate, $code, $rate);
+                if ($code != $transaction->currency_code) {
+                    $amount = $this->convertBetween($amount, $transaction->currency_code, $transaction->currency_rate, $code, $rate);
                 }
 
                 $paid += $amount;
 
-                if ($item->reconciled) {
+                if ($transaction->reconciled) {
                     $reconciled_amount = +$amount;
                 }
             }
