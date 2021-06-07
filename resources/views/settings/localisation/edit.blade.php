@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off'], setting('localisation.financial_start')) }}
+                {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off', 'hidden_year' => true], setting('localisation.financial_start')) }}
 
                 {{ Form::selectGroup('financial_denote', trans('settings.localisation.financial_denote.title'), 'calendar', $financial_denote_options, setting('localisation.financial_denote'), []) }}
 
