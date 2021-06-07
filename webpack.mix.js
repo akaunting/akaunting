@@ -44,7 +44,6 @@ mix
     .js('resources/assets/js/views/common/imports.js', 'public/js/common')
     .js('resources/assets/js/views/common/items.js', 'public/js/common')
     .js('resources/assets/js/views/common/reports.js', 'public/js/common')
-    .js('resources/assets/js/views/common/search.js', 'public/js/common')
 
     // Sales
     .js('resources/assets/js/views/sales/revenues.js', 'public/js/sales')
