@@ -134,7 +134,8 @@
                         </td>
                         <td class="border-top-0 p-0" colspan="4">
                             @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
-                            <div v-if="!row.add_tax || !row.add_discount" class="line-item-link">
+                            <div v-if="!row.add_tax || !row.add_discount" class="line-item-link-container position-relative">
+                            <div v-if="!row.add_tax || !row.add_discount" class="line-item-link position-absolute">
                                 <div class="text-left border-0 p-0 mr-5">
                                     <div>
                                         <button type="button" class="btn btn-link btn-sm p-0" @click="onAddLineDiscount(index)" v-if="!row.add_discount">
@@ -149,6 +150,7 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                             <div v-if="row.add_discount" class="line-item-area pb-3">
                                 <div class="line-item-content">

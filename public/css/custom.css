@@ -1634,9 +1634,14 @@ table .align-items-center td span.badge {
 /* Select Tag Fixed Content Finish */
 
 /* Line item */
+.line-item-link-container {
+    height: 25px;
+}
+
 .line-item-link {
     display: flex;
-    padding-bottom:10px;
+    padding-bottom: 10px;
+    top: -12px;
 }
 
 .line-item-area {
@@ -1648,7 +1653,17 @@ table .align-items-center td span.badge {
 .line-item-content {
     position: relative;
     width: 100%;
-    max-width:242px;
+    max-width: 242px;
+}
+
+.line-item-content .form-group {
+    position: relative;
+}
+
+.line-item-content .badge {
+    position: absolute !important;
+    bottom: 12px;
+    right: 0;
 }
 
 .line-item-content-right {
