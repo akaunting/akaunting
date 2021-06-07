@@ -1667,6 +1667,7 @@ table .align-items-center td span.badge {
 
 .line-item-text {
     width: 54px;
+    text-align: right;
 }
 
 @media (max-width: 1500px) {
