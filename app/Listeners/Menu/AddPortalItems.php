@@ -17,7 +17,13 @@ class AddPortalItems
         $user = user();
         $menu = $event->menu;
 
-        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 10, ['icon' => 'fa fa-tachometer-alt']);
+        $inactive = false;
+
+        if (request()->route()->getName() != 'portal.dashboard') {
+            $inactive = true;
+        }
+
+        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 10, ['icon' => 'fa fa-tachometer-alt', 'inactive' => $inactive]);
 
         if ($user->can('read-portal-invoices')) {
             $menu->route('portal.invoices.index', trans_choice('general.invoices', 2), [], 20, ['icon' => 'fa fa-file-signature']);
