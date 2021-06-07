@@ -133,11 +133,14 @@ export default {
         },
 
         focus() {
-            if (this.hiddenYear) {
-                document.querySelector('.numInputWrapper').classList.add('hidden-year-flatpickr');
-            } else {
-                document.querySelector('.numInputWrapper').classList.remove('hidden-year-flatpickr');
-            }
+            let date_wrapper_html = document.querySelectorAll('.numInputWrapper');
+                date_wrapper_html.forEach((wrapper) => {
+                    if(this.hiddenYear) {
+                        wrapper.classList.add('hidden-year-flatpickr');
+                    } else {
+                        wrapper.classList.remove('hidden-year-flatpickr');
+                    }
+                });
         }
     },
 
