@@ -6,7 +6,7 @@
                     <col class="document-total-50">
                     <col class="document-total-30">
                     <col class="document-total-25">
-                    <col class="document-total-40-px">
+                    <col class="document-total-50-px">
                 </colgroup>
                 <tbody id="invoice-total-rows" class="table-padding-05">
                     @stack('sub_total_td_start')
@@ -20,7 +20,7 @@
                                 {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-bottom-0 pb-0" style="max-width: 40px"></td>
+                        <td class="border-bottom-0 pb-0" style="max-width: 50px"></td>
                     </tr>
                     @stack('sub_total_td_end')
 
@@ -36,7 +36,7 @@
                                     {{ Form::moneyGroup('item_discount', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.item_discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                                 </div>
                             </td>
-                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>
                         </tr>
                     @stack('item_discount_td_end')
                 @endif
@@ -92,7 +92,7 @@
                                 </div>
                                 {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right', 'v-model' => 'form.discount']) !!}
                             </td>
-                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>
                         </tr>
                     @stack('add_discount_td_end')
                 @endif
@@ -109,7 +109,7 @@
                                 {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'tax.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
+                        <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>
                     </tr>
                 @stack('tax_total_td_end')
 
@@ -126,7 +126,7 @@
                                 {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
+                        <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>
                     </tr>
                     @stack('grand_total_td_end')
 
@@ -141,7 +141,7 @@
                                     :currency-rate="form.currency_rate"
                                 ></akaunting-currency-conversion>
                             </td>
-                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>
                         </tr>
                         @stack('currency_conversion_td_end')
                 </tbody>
