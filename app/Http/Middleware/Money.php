@@ -95,7 +95,7 @@ class Money
 
             $amount = money($money_format, $currency_code)->getAmount();
         } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
-            logger($e->getMessage());
+            report($e);
 
             $amount = 0;
 

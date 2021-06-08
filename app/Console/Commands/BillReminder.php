@@ -6,8 +6,7 @@ use App\Events\Document\DocumentReminded;
 use App\Models\Common\Company;
 use App\Models\Document\Document;
 use App\Notifications\Purchase\Bill as Notification;
-use App\Utilities\Overrider;
-use Date;
+use App\Utilities\Date;
 use Illuminate\Console\Command;
 
 class BillReminder extends Command
@@ -80,10 +79,10 @@ class BillReminder extends Command
         foreach ($bills as $bill) {
             try {
                 event(new DocumentReminded($bill, Notification::class));
-            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+            } catch (\Throwable $e) {
                 $this->error($e->getMessage());
 
-                logger('Bill reminder:: ' . $e->getMessage());
+                report($e);
             }
         }
     }

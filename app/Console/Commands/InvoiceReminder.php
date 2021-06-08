@@ -6,8 +6,7 @@ use App\Events\Document\DocumentReminded;
 use App\Models\Common\Company;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
-use App\Utilities\Overrider;
-use Date;
+use App\Utilities\Date;
 use Illuminate\Console\Command;
 
 class InvoiceReminder extends Command
@@ -80,10 +79,10 @@ class InvoiceReminder extends Command
         foreach ($invoices as $invoice) {
             try {
                 event(new DocumentReminded($invoice, Notification::class));
-            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+            } catch (\Throwable $e) {
                 $this->error($e->getMessage());
 
-                logger('Invoice reminder:: ' . $e->getMessage());
+                report($e);
             }
         }
     }

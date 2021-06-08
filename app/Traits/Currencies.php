@@ -3,9 +3,6 @@
 namespace App\Traits;
 
 use Akaunting\Money\Money;
-use InvalidArgumentException;
-use OutOfBoundsException;
-use UnexpectedValueException;
 
 trait Currencies
 {
@@ -20,8 +17,8 @@ trait Currencies
 
         try {
             $money = $money->$method((double) $rate);
-        } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
-            logger($e->getMessage());
+        } catch (\Throwable $e) {
+            report($e);
 
             return 0;
         }

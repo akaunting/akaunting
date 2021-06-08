@@ -53,7 +53,7 @@ class InstallExtraModules
 
                 $this->dispatch(new InstallModule($alias, $event->company_id, $event->locale));
             } catch (\Exception $e) {
-                logger($e->getMessage());
+                report($e);
 
                 // Stop the propagation of event if the required module failed to install
                 return false;

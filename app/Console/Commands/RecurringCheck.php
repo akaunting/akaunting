@@ -162,10 +162,10 @@ class RecurringCheck extends Command
 
         try {
             return $this->$function($model, $schedule_date);
-        } catch (\Exception | \Throwable | \Swift_RfcComplianceException| \Swift_TransportException | \Illuminate\Database\QueryException $e) {
+        } catch (\Throwable $e) {
             $this->error($e->getMessage());
 
-            logger('Recurring check:: ' . $e->getMessage());
+            report($e);
 
             return false;
         }

@@ -42,7 +42,7 @@ class App extends Provider
         Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
             $class = get_class($model);
 
-            logger("Attempted to lazy load [{$relation}] on model [{$class}].");
+            report("Attempted to lazy load [{$relation}] on model [{$class}].");
         });
     }
 }
