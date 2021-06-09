@@ -34,7 +34,6 @@
                                         @yield('content')
 
                                         @stack('login_content_end')
-                                        <notifications></notifications>
                                     </div>
                                 </div>
                             </div>
