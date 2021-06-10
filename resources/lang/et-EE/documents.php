@@ -35,7 +35,7 @@ return [
         'delivered'     => 'Kohaletoimetatud',
         'returned'      => 'Tagastatud',
         'drawn'         => 'Tõmmatud',
-        'not_billed'    => 'Arvet pole esitatud',
+        'not_billed'    => 'Ostuarvet pole esitatud',
         'issued'        => 'Väljastatud',
         'not_invoiced'  => 'Arvet pole esitatud',
         'confirmed'     => 'Kinnitatud',

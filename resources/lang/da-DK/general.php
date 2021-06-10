@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Bilag og gentagelser',
     'due_on'                => 'Forfalder den',
     'amount_due'            => 'Forfaldent beløb',
+    'financial_year'        => 'Regnskabsår',
 
     'card' => [
         'cards'                 => 'Kort|Kort

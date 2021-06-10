@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Të përsëritura dhe më shumë ..',
     'due_on'                => 'Skadimi më',
     'amount_due'            => 'Shuma e duhur',
+    'financial_year'        => 'Viti Financiar',
 
     'card' => [
         'cards'                 => 'Karta|Kartat',

@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Год|Годы',
     'this_year'             => 'Этот год',
     'previous_year'         => 'Предыдущий год',
     'this_quarter'          => 'Этот квартал',
@@ -12,7 +13,7 @@ return [
     'net_profit'            => 'Чистая прибыль',
     'total_expenses'        => 'Всего расходов',
     'net'                   => 'Чистая потребность',
-    'income-expense'        => 'Доходы и расходы',
+    'income_expense'        => 'Доходы и расходы',
 
     'summary' => [
         'income'            => 'Сводка поступлений',

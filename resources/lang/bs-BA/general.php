@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Ponavlja se i više',
     'due_on'                => 'Datum dospjeća',
     'amount_due'            => 'Dospjeli iznos',
+    'financial_year'        => 'Početak fiskalne godine',
 
     'card' => [
         'cards'                 => 'Kartica|Kartice',

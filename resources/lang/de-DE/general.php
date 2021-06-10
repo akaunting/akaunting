@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Wiederkehrend und mehr..',
     'due_on'                => 'Fällig am',
     'amount_due'            => 'Fälliger Betrag',
+    'financial_year'        => 'Geschäftsjahr',
 
     'card' => [
         'cards'                 => 'Karte|Karten',

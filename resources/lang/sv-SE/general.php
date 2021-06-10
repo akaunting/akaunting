@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Återkommande och mer..',
     'due_on'                => 'Förfaller den',
     'amount_due'            => 'Belopp att betala',
+    'financial_year'        => 'Räkenskapsår',
 
     'card' => [
         'cards'                 => 'Kort| Kort',

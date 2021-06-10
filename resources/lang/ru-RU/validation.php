@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'Настраиваемое сообщение',
+            'rule-name'             => 'Настраиваемое сообщение',
         ],
-        'invalid_currency' => 'Код :attribute неверен.',
-        'invalid_amount'   => 'Значение :attribute неверно.',
+        'invalid_currency'      => 'Код :attribute неверен.',
+        'invalid_amount'        => 'Значение :attribute неверно.',
+        'invalid_extension'     => 'Недопустимое расширение файла.',
     ],
 
     /*
