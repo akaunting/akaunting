@@ -161,6 +161,7 @@ return [
     'recurring_and_more'    => 'आवर्ती और अधिक..',
     'due_on'                => 'नियत पर',
     'amount_due'            => 'देय राशि',
+    'financial_year'        => 'वित्तीय वर्ष',
 
     'card' => [
         'cards'                 => 'कार्ड|कार्ड',

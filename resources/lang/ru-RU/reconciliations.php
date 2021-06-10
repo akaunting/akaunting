@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'Сверить',
+    'unreconcile'           => 'Не сверено',
     'reconciled'            => 'Сверено',
+    'opening_balance'       => 'Начальное сальдо',
     'closing_balance'       => 'Конечное сальдо',
     'unreconciled'          => 'Не сверено',
     'transactions'          => 'Транзакции',

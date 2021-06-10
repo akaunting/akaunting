@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Recurring and more..',
     'due_on'                => 'Due on',
     'amount_due'            => 'Amount due',
+    'financial_year'        => 'Financial Year',
 
     'card' => [
         'cards'                 => 'Card|Cards',

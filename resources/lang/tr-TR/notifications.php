@@ -27,26 +27,26 @@ return [
     'import' => [
 
         'completed' => [
-            'subject'           => 'İçe aktarma tamamlandı',
-            'description'       => 'İçe aktarma tamamlanmıştır ve kayıtlar panelinizde mevcuttur.',
+            'subject'           => 'İçeri aktarma tamamlandı',
+            'description'       => 'İçeri aktarma tamamlanmıştır ve kayıtlar panelinizde mevcuttur.',
         ],
 
         'failed' => [
-            'subject'           => 'İçe aktarma başarısız oldu',
-            'description'       => 'Aşağıdaki sorunlar nedeniyle dosya içe aktarılamıyor:',
+            'subject'           => 'İçeri aktarma başarısız oldu',
+            'description'       => 'Aşağıdaki sorunlar nedeniyle dosya içeri aktarılamıyor:',
         ],
     ],
 
     'export' => [
 
         'completed' => [
-            'subject'           => 'Dışa aktarma hazır',
-            'description'       => 'Dışa aktarma dosyası aşağıdaki bağlantıdan indirilmeye hazırdır:',
+            'subject'           => 'Dışarı aktarma hazır',
+            'description'       => 'Dışarı aktarma dosyası aşağıdaki bağlantıdan indirilmeye hazırdır:',
         ],
 
         'failed' => [
-            'subject'           => 'Dışa aktarılamadı',
-            'description'       => 'Aşağıdaki sorun nedeniyle dışa aktarma dosyası oluşturulamıyor:',
+            'subject'           => 'Dışarı aktarılamadı',
+            'description'       => 'Aşağıdaki sorun nedeniyle dışarı aktarma dosyası oluşturulamıyor:',
         ],
 
     ],
