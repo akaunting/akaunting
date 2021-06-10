@@ -65,9 +65,11 @@ class Invoices extends Controller
      */
     public function printInvoice(Document $invoice, Request $request)
     {
-        $invoice = $this->prepareInvoice($invoice);
+        event(new \App\Events\Document\DocumentPrinting($invoice));
 
-        return view($invoice->template_path, compact('invoice'));
+        $view = view($invoice->template_path, compact('invoice'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
     }
 
     /**
@@ -79,30 +81,21 @@ class Invoices extends Controller
      */
     public function pdfInvoice(Document $invoice, Request $request)
     {
-        $invoice = $this->prepareInvoice($invoice);
+        event(new \App\Events\Document\DocumentPrinting($invoice));
 
         $currency_style = true;
 
         $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
-        $html = mb_convert_encoding($view, 'HTML-ENTITIES');
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
-        $pdf = \App::make('dompdf.wrapper');
+        $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = 'invoice_' . time() . '.pdf';
+        $file_name = $this->getDocumentFileName($invoice);
 
         return $pdf->download($file_name);
-    }
-
-    protected function prepareInvoice(Document $invoice)
-    {
-        $invoice->template_path = 'sales.invoices.print_' . setting('invoice.template' ,'default');
-
-        event(new \App\Events\Document\DocumentPrinting($invoice));
-
-        return $invoice;
     }
 
     public function signed(Document $invoice)
