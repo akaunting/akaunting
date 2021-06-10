@@ -1690,15 +1690,9 @@ table .align-items-center td span.badge {
   @media not all and (min-resolution:.001dpcm) { @media {
 
     .line-item-content {
-        max-width:223px !important;
+        max-width:223px;
     }
 }}
-}
-
-@media only screen and (max-width: 1650px) {
-    .line-item-content {
-        max-width: 232px;
-    }
 }
 
 @media only screen and (max-width: 600px) {
