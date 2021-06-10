@@ -2,12 +2,12 @@
 
 return [
 
-    'bill_number'           => 'Ostuarve number',
-    'bill_date'             => 'Ostuarve kuupäev',
+    'invoice_number'        => 'Arve number',
+    'invoice_date'          => 'Arve kuupäev',
     'total_price'           => 'Hind kokku',
     'due_date'              => 'Tähtaeg',
     'order_number'          => 'Tellimuse number',
-    'bill_from'             => 'Ostuarve saatja',
+    'bill_to'               => 'Ostuarve saaja',
 
     'quantity'              => 'Kogus',
     'price'                 => 'Hind',
@@ -24,28 +24,32 @@ return [
     'discount_desc'         => 'vahesummast',
 
     'payment_due'           => 'Makse tähtaeg',
-    'amount_due'            => 'Maksmisele kuuluv summa',
     'paid'                  => 'Makstud',
-    'histories'             => 'Ajalood',
+    'histories'             => 'Ajalugu',
     'payments'              => 'Maksed',
     'add_payment'           => 'Lisa makse',
     'mark_paid'             => 'Märgi makstuks',
-    'mark_received'         => 'Makse on saabunud',
+    'mark_sent'             => 'Märgi saadetuks',
+    'mark_viewed'           => 'Märgi vaadatuks',
     'mark_cancelled'        => 'Märgi tühistatuks',
     'download_pdf'          => 'Laadi alla PDF',
     'send_mail'             => 'Saada e-kiri',
-    'create_bill'           => 'Loo Ostuarve',
-    'receive_bill'          => 'Ostuarve vastuvõtmine',
-    'make_payment'          => 'Tee makse',
+    'all_invoices'          => 'Logi sisse, et vaadata kõiki arveid',
+    'create_invoice'        => 'Koosta arve',
+    'send_invoice'          => 'Saada arve',
+    'get_paid'              => 'Väljamakse',
+    'accept_payments'       => 'Aktsepteeri veebimakseid',
 
     'messages' => [
-        'draft'             => 'See on <b> MUSTAND </b> ostuarve ja kajastub diagrammides pärast selle vastuvõtmist.',
+        'email_required'    => 'Selle kliendi e-posti aadressi pole!',
+        'draft'             => 'See on arve <b>MUSTAND</b> ja see kajastub diagrammides pärast saatmist.',
 
         'status' => [
             'created'       => 'Loodud :date',
-            'receive' => [
+            'viewed'        => 'Vaadatud',
+            'send' => [
                 'draft'     => 'Saatmata',
-                'received'  => 'Saadud :date',
+                'sent'      => 'Saadetud :date',
             ],
             'paid' => [
                 'await'     => 'Ootab tasumist',

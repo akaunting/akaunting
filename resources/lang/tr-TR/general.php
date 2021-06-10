@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Tekrarlanan ve daha fazla..',
     'due_on'                => 'Son Tarih',
     'amount_due'            => 'Kalan Tutar',
+    'financial_year'        => 'Mali Yıl',
 
     'card' => [
         'cards'                 => 'Kart|Kartlar',

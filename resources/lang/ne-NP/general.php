@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'दोहोरिने र थप ..',
     'due_on'                => 'बाँकी',
     'amount_due'            => 'रकम बक्यौता/बाँकी रकम',
+    'financial_year'        => 'आर्थिक वर्ष',
 
     'card' => [
         'cards'                 => 'कार्ड | कार्डहरू',

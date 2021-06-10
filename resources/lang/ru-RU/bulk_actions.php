@@ -2,18 +2,22 @@
 
 return [
 
-    'bulk_actions'     => 'Массовое действие|Массовые действия',
-    'selected'         => 'выбрано',
+    'bulk_actions'      => 'Массовое действие|Массовые действия',
+    'selected'          => 'выбрано',
+    'no_action'         => 'Нет доступных действий',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Вы уверены, что хотите <b>дублировать</b> выбранную запись?',
+        'delete'        => 'Вы уверены, что хотите <b>удалить</b> выбранную запись?|Вы уверены, что хотите <b>удалить</b> выбранные записи?',
+        'export'        => 'Вы уверены, что хотите <b>экспортировать</b> выбранную запись?|Вы уверены, что хотите <b>экспортировать</b> выбранные записи?',
+        'enable'        => 'Вы уверены, что хотите <b>включить</b> выбранную запись?|Вы уверены, что хотите <b>включить</b> выбранные записи?',
+        'disable'       => 'Вы уверены, что хотите <b>отключить</b> выбранную запись?|Вы уверены, что хотите <b>отключить</b> выбранные записи?',
+        'paid'          => 'Вы уверены, что хотите отметить выбранный счет-фактуру как <b>оплаченный</b>? Вы уверены, что хотите отметить выбранные счета-фактуры как <b>оплаченные</b>?',
+        'sent'          => 'Вы уверены, что хотите отметить выбранный счет-фактуру как <b>отправленный</b>? Вы уверены, что хотите отметить выбранные счета-фактуры как <b>отправленные</b>?',
+        'received'      => 'Вы уверены, что хотите отметить выбранный счет-фактуру как <b>принятый</b>? Вы уверены, что хотите отметить выбранные счета-фактуры как <b>принятые</b>?',
+        'cancelled'     => 'Вы уверены, что хотите <b>отменить</b> выбранную запись?|Вы уверены, что хотите <b>отменить</b> выбранные записи?',
+        'reconcile'     => 'Вы уверены, что хотите <b>согласовать</b> выбранную запись?|Вы уверены, что хотите <b>согласовать</b> выбранные записи?',
+        'unreconcile'   => 'Вы уверены, что хотите <b>отменить согласование</b> выбранной записи?|Вы уверены, что хотите <b>отменить согласование</b> выбранных записей?',
     ],
 
 ];

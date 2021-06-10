@@ -3,7 +3,7 @@
 return [
 
     'account_name'          => 'Konto nimi',
-    'number'                => 'Number',
+    'number'                => 'Kontonumber',
     'opening_balance'       => 'Algsaldo',
     'current_balance'       => 'Jooksev saldo',
     'bank_name'             => 'Panga nimi',

@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Recurrent i més...',
     'due_on'                => 'Límit el',
     'amount_due'            => 'Quantitat',
+    'financial_year'        => 'Any fiscal',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',

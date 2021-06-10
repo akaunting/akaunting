@@ -9,13 +9,11 @@ return [
     'new'                   => 'Новый',
     'top_free'              => 'Топ бесплатных',
     'free'                  => 'БЕСПЛАТНО',
-    'search'                => 'Поиск',
     'install'               => 'Установить',
     'buy_now'               => 'Купить сейчас',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Нажмите здесь</a>, чтобы получить ваш ключ API.',
+    'get_api_key'           => '<a href=":url" target="_blank">Нажмите здесь,</a> чтобы получить ваш API ключ.',
     'no_apps'               => 'В этой категории еще нет приложений.',
-    'developer'             => 'Вы разработчик? <a href="https://akaunting.com/developers" target="_blank">Здесь</a> вы можете узнать, как создать приложение и начать продавать уже сегодня!',
-
+    'become_developer'      => 'Вы разработчик? <a href=":url" target="_blank">Здесь</a> вы можете научиться создавать приложение и начать продавать их уже сегодня!',
     'recommended_apps'      => 'Рекомендуемые приложения',
 
     'about'                 => 'О нас',
@@ -80,5 +78,6 @@ return [
         ],
 
         'na'                => 'Нет отзывов.'
-    ]
+    ],
+
 ];
