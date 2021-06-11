@@ -288,7 +288,7 @@
                                     <div class="line-item-content-right-price long-texts text-right">
                                         <div>
                                             <div class="required disabled text-right input-price disabled-money">
-                                            <input type="tel" class="v-money form-control" name="discount_amount" placeholder="" disabled="disabled" value="__">
+                                            <input type="tel" class="v-money form-control text-right" name="discount_amount" disabled="disabled" value="__">
                                             </div>
                                         </div>
                                     </div>
