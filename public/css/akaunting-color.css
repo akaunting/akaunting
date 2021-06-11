@@ -2294,6 +2294,10 @@ div.required > .form-control-label:not(span):after, td.required:after
 
 
 /*--------Nav Pills Color--------*/
+.navbar-light .navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
 .nav-link
 {
     color: #3c3f72;
