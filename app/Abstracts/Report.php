@@ -16,7 +16,8 @@ use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 use App\Utilities\Chartjs;
-use Date;
+use App\Utilities\Date;
+use App\Utilities\Export as ExportHelper;
 use Illuminate\Support\Str;
 
 abstract class Report
@@ -205,7 +206,7 @@ abstract class Report
 
     public function export()
     {
-        return \Excel::download(new Export($this->views['content'], $this), \Str::filename($this->model->name) . '.xlsx');
+        return ExportHelper::toExcel(new Export($this->views['content'], $this), $this->model->name);
     }
 
     public function setColumnWidth()
@@ -394,7 +395,7 @@ abstract class Report
 
                     $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($this->year));
                     $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($this->year));
-                    
+
                     $formatted_date = $start . '-' . $end;
                 }
 
