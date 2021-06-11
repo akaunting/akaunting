@@ -718,6 +718,68 @@ button.bg-yellow:focus
     background-color: #bcbf03 !important;
 }
 /*--Yellow Color Finish--*/
+
+/*--Orange Color Finish--*/
+.bg-orange
+{
+    background-color: #fb6340 !important;
+}
+
+a.bg-orange:hover,
+a.bg-orange:focus,
+button.bg-orange:hover,
+button.bg-orange:focus
+{
+    background-color: #fb6340 !important;
+}
+/*--Orange Color Finish--*/
+
+/*--Blue Color Finish--*/
+.bg-blue
+{
+    background-color: #5e72e4 !important;
+}
+
+a.bg-blue:hover,
+a.bg-blue:focus,
+button.bg-blue:hover,
+button.bg-blue:focus
+{
+    background-color: #5e72e4 !important;
+}
+/*--Blue Color Finish--*/
+
+/*--purple Color Finish--*/
+.bg-purple
+{
+    background-color: #8965e0 !important;
+}
+
+a.bg-purple:hover,
+a.bg-purple:focus,
+button.bg-purple:hover,
+button.bg-purple:focus
+{
+    background-color: #8965e0 !important;
+}
+/*--purple Color Finish--*/
+
+/*--red Color Finish--*/
+.bg-red
+{
+    background-color: #f5365c !important;
+}
+
+a.bg-red:hover,
+a.bg-red:focus,
+button.bg-red:hover,
+button.bg-red:focus
+{
+    background-color: #f5365c !important;
+}
+/*--red Color Finish--*/
+
+
 /*--------Background Colors Finish--------*/
 
 
