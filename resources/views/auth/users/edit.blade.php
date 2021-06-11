@@ -63,7 +63,11 @@
             @canany(['update-auth-users', 'update-auth-profile'])
                 <div class="card-footer">
                     <div class="row save-buttons">
-                        {{ Form::saveButtons('users.index') }}
+                        @if (user()->can('read-auth-users'))
+                            {{ Form::saveButtons('users.index') }}
+                        @else
+                            {{ Form::saveButtons('dashboard') }}
+                        @endif
                     </div>
                 </div>
             @endcanany
