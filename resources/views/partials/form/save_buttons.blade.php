@@ -1,6 +1,6 @@
 @stack('save_buttons_start')
     @php
-        if (\Str::contains($cancel, ['.'])) {
+        if (\Str::contains($cancel, ['.']) || $cancel == 'dashboard') {
             $url = route($cancel);
         } else {
             $url = url($cancel);
