@@ -16,9 +16,11 @@
     @stack('button_pdf_end')
 
     @stack('button_dashboard_start')
+    @if (!user())
         <a href="{{ route('portal.dashboard') }}" class="btn btn-white btn-sm">
             {{ trans('invoices.all_invoices') }}
         </a>
+    @endif
     @stack('button_dashboard_end')
 @endsection
 
