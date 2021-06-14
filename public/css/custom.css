@@ -969,6 +969,15 @@ table .align-items-center td span.badge {
     padding-bottom: 0.5rem;
 }
 
+.difference-money .disabled-money {
+    background-color: transparent !important;
+    border: none;
+}
+
+.banking-price-text {
+    color: #525f7f;
+}
+
 .disabled-money,
 .disabled-money input {
     border:none !important;
