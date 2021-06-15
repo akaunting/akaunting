@@ -19,29 +19,25 @@
                 <div class="col-md-4">
                     <div class="card card-stats">
                         @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
-                        <span>
-                            <div class="dropdown card-action-button">
-                                <a class="btn btn-sm items-align-center py-2 mr-0 shadow-none--hover" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v text-primary"></i>
-                                </a>
+                            <a class="btn btn-sm items-align-center py-2 mr-0 card-action-button shadow-none--hover" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v text-primary"></i>
+                            </a>
 
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    @can('update-common-reports')
-                                        <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
-                                    @endcan
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                @can('update-common-reports')
+                                    <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
+                                @endcan
 
-                                    @can('create-common-reports')
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
-                                    @endcan
+                                @can('create-common-reports')
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
+                                @endcan
 
-                                    @can('delete-common-reports')
-                                        <div class="dropdown-divider"></div>
-                                        {!! Form::deleteLink($report, 'reports.destroy') !!}
-                                    @endcan
-                                </div>
+                                @can('delete-common-reports')
+                                    <div class="dropdown-divider"></div>
+                                    {!! Form::deleteLink($report, 'reports.destroy') !!}
+                                @endcan
                             </div>
-                        </span>
                         @endcanany
 
                         <div class="card-body">
