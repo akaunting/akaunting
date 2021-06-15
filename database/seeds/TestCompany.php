@@ -107,7 +107,7 @@ class TestCompany extends Seeder
             Artisan::call('module:install', [
                 'alias'     => $alias,
                 'company'   => company_id(),
-                'locale'    => session('locale', app()->getLocale()),
+                'locale'    => session('locale', company(company_id())->locale),
             ]);
         }
 
