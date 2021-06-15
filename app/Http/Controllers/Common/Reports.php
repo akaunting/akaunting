@@ -24,6 +24,7 @@ class Reports extends Controller
         $this->middleware('permission:update-common-reports')->only('edit', 'update', 'enable', 'disable');
         $this->middleware('permission:delete-common-reports')->only('destroy');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -271,16 +272,17 @@ class Reports extends Controller
      *
      * @return Response
      */
-    public function clear()
+    public function clear(Report $report)
     {
-        Report::all()->each(function ($report) {
-            if (!Utility::canShow($report->class)) {
-                return;
-            }
+        $data = Utility::getClassInstance($report)->getGrandTotal();
 
-            Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getGrandTotal());
-        });
+        Cache::put('reports.totals.' . $report->id, $data);
 
-        return redirect()->back();
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $data,
+            'message' => '',
+        ]);
     }
 }

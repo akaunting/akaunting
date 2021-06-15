@@ -67,6 +67,8 @@ class ReportReminder extends Command
 
             $ttl = 3600 * 6; // 6 hours
 
+            Cache::forget('reports.totals.' . $report->id);
+
             Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
                 return $class->getGrandTotal();
             });

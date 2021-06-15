@@ -142,7 +142,7 @@ abstract class Report
                 $sum += is_array($total) ? array_sum($total) : $total;
             }
 
-            $total = money($sum, setting('default.currency'), true);
+            $total = money($sum, setting('default.currency'), true)->format();
         } else {
             $total = trans('general.na');
         }
