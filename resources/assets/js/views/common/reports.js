@@ -30,7 +30,12 @@ const app = new Vue({
             form: new Form('report'),
             bulk_action: new BulkAction('reports'),
             report_fields: '',
+            reports_total: [],
         }
+    },
+
+    created() {
+        this.reports_total = reports_total;
     },
 
     methods: {
@@ -76,6 +81,15 @@ const app = new Vue({
 
         onChangeReportFields(event) {
             this.form = event;
-        }
+        },
+
+        onRefreshTotal(report_id) {
+            axios.get(url + '/common/reports/' + report_id + '/clear')
+            .then(response => {
+                this.reports_total[report_id] = response.data.data;
+            })
+            .catch(error => {
+            });
+        },
     }
 });
