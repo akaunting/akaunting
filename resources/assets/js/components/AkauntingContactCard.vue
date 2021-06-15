@@ -79,27 +79,27 @@
                         <table class="table table-borderless p-0">
                             <tbody>
                                 <tr>
-                                    <th class="p-0">
+                                    <th class="p-0" style="text-align:left;">
                                         <strong class="d-block">{{ contact.name }}</strong>
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th class="p-0">
+                                    <th class="p-0" style="text-align:left; white-space: normal;">
                                         {{ contact.address }}
                                     </th>
                                 </tr>
                                 <tr v-if="contact.tax_number">
-                                    <th class="p-0">
+                                    <th class="p-0" style="text-align:left;">
                                         {{ taxNumberText }}: {{ contact.tax_number }}
                                     </th>
                                 </tr>
                                 <tr v-if="contact.phone">
-                                    <th class="p-0">
+                                    <th class="p-0" style="text-align:left;">
                                         {{ contact.phone }}
                                     </th>
                                 </tr>
                                 <tr v-if="contact.email">
-                                    <th class="p-0">
+                                    <th class="p-0" style="text-align:left;">
                                         {{ contact.email }}
                                     </th>
                                 </tr>
