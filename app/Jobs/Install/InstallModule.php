@@ -24,7 +24,7 @@ class InstallModule extends Job
     {
         $this->alias = $alias;
         $this->company_id = $company_id;
-        $this->locale = $locale ?: app()->getLocale();
+        $this->locale = $locale ?: company($company_id)->locale;
     }
 
     /**
