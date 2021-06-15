@@ -39,6 +39,5 @@ class Version2116 extends Listener
         }
 
         Artisan::call('migrate', ['--force' => true]);
-
     }
 }
