@@ -5,8 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Common\Company;
 use App\Models\Common\Report;
 use App\Utilities\Reports as Utility;
-use App\Utilities\Overrider;
-use Date;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 
@@ -45,7 +43,7 @@ class ReportReminder extends Command
                 continue;
             }
 
-            $this->info('Sending invoice reminders for ' . $company->name . ' company.');
+            $this->info('Calculate report reminders for ' . $company->name . ' company.');
 
             // Set company
             $company->makeCurrent();
@@ -61,10 +59,6 @@ class ReportReminder extends Command
         $reports = Report::orderBy('name')->get();
 
         foreach ($reports as $report) {
-            if (!Utility::canShow($report->class)) {
-                continue;
-            }
-
             $class = Utility::getClassInstance($report, false);
 
             if (empty($class)) {
