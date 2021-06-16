@@ -29,8 +29,9 @@ return [
     ],
 
     'failed'                => 'These credentials do not match our records.',
-    'disabled'              => 'This account is disabled. Please, contact the system administrator.',
+    'password'              => 'The provided password is incorrect.',
     'throttle'              => 'Too many login attempts. Please try again in :seconds seconds.',
+    'disabled'              => 'This account is disabled. Please, contact the system administrator.',
 
     'notification' => [
         'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
