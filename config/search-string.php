@@ -213,7 +213,15 @@ return [
             'id',
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
-            'status',
+            'status' => [
+                'values' => [
+                    'paid' => 'documents.statuses.paid',
+                    'partial' => 'documents.statuses.partial',
+                    'received' => 'documents.statuses.received',
+                    'cancelled' => 'documents.statuses.cancelled',
+                    'draft' => 'documents.statuses.draft',
+                ],
+            ],
             'issued_at' => [
                 'key' => 'billed_at',
                 'date' => true,
@@ -269,7 +277,16 @@ return [
             'id',
             'document_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
-            'status',
+            'status' => [
+                'values' => [
+                    'paid' => 'documents.statuses.paid',
+                    'partial' => 'documents.statuses.partial',
+                    'sent' => 'documents.statuses.sent',
+                    'viewed' => 'documents.statuses.viewed',
+                    'cancelled' => 'documents.statuses.cancelled',
+                    'draft' => 'documents.statuses.draft',
+                ]
+            ],
             'issued_at' => [
                 'key' => 'invoiced_at',
                 'date' => true,
