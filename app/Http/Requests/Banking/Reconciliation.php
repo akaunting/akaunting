@@ -25,8 +25,8 @@ class Reconciliation extends FormRequest
     {
         return [
             'account_id' => 'required|integer',
-            'started_at' => 'required|date_format:Y-m-d H:i:s',
-            'ended_at' => 'required|date_format:Y-m-d H:i:s',
+            'started_at' => 'required|date_format:Y-m-d H:i:s|before:ended_at',
+            'ended_at' => 'required|date_format:Y-m-d H:i:s|after:started_at',
             'closing_balance' => 'required',
         ];
     }
