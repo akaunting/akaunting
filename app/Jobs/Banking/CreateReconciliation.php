@@ -31,17 +31,12 @@ class CreateReconciliation extends Job
     public function handle()
     {
         \DB::transaction(function () {
-            $reconcile = $this->request->get('reconcile');
+            $reconcile = (int) $this->request->get('reconcile');
             $transactions = $this->request->get('transactions');
 
-            $this->reconciliation = Reconciliation::create([
-                'company_id' => $this->request['company_id'],
-                'account_id' => $this->request->get('account_id'),
-                'started_at' => $this->request->get('started_at'),
-                'ended_at' => $this->request->get('ended_at'),
-                'closing_balance' => $this->request->get('closing_balance'),
-                'reconciled' => $reconcile ? 1 : 0,
-            ]);
+            $this->request->merge(['reconciled' => $reconcile]);
+
+            $this->reconciliation = Reconciliation::create($this->request->all());
 
             if ($reconcile && $transactions) {
                 foreach ($transactions as $key => $value) {

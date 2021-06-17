@@ -32,10 +32,10 @@ class UpdateReconciliation extends Job
     public function handle()
     {
         \DB::transaction(function () {
-            $reconcile = $this->request->get('reconcile');
+            $reconcile = (int) $this->request->get('reconcile');
             $transactions = $this->request->get('transactions');
 
-            $this->reconciliation->reconciled = $reconcile ? 1 : 0;
+            $this->reconciliation->reconciled = $reconcile;
             $this->reconciliation->save();
 
             if ($transactions) {
@@ -47,7 +47,7 @@ class UpdateReconciliation extends Job
                     $t = explode('_', $key);
 
                     $transaction = Transaction::find($t[1]);
-                    $transaction->reconciled = $reconcile ? 1 : 0;
+                    $transaction->reconciled = $reconcile;
                     $transaction->save();
                 }
             }
