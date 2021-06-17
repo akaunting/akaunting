@@ -31,6 +31,7 @@ class Transfer extends TransformerAbstract
             'amount' => $expense_transaction->amount,
             'currency_code' => $expense_transaction->currency_code,
             'paid_at' => $expense_transaction->paid_at ? $expense_transaction->paid_at->toIso8601String() : '',
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

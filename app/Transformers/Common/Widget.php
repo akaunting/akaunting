@@ -27,6 +27,7 @@ class Widget extends TransformerAbstract
             'sort' => $model->sort,
             'settings' => $model->settings,
             'data' => show_widget($model),
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

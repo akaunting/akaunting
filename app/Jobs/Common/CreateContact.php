@@ -22,6 +22,7 @@ class CreateContact extends Job
     public function __construct($request)
     {
         $this->request = $this->getRequestInstance($request);
+        $this->request->merge(['created_by' => user_id()]);
     }
 
     /**
@@ -41,7 +42,7 @@ class CreateContact extends Job
             // Upload logo
             if ($this->request->file('logo')) {
                 $media = $this->getMedia($this->request->file('logo'), Str::plural($this->contact->type));
-    
+
                 $this->contact->attachMedia($media, 'logo');
             }
         });

@@ -19,6 +19,7 @@ class CreateCategory extends Job
     public function __construct($request)
     {
         $this->request = $this->getRequestInstance($request);
+        $this->request->merge(['created_by' => user_id()]);
     }
 
     /**

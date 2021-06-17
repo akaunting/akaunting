@@ -18,7 +18,7 @@ class Transfer extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'expense_transaction_id', 'income_transaction_id'];
+    protected $fillable = ['company_id', 'expense_transaction_id', 'income_transaction_id', 'created_by'];
 
     /**
      * Sortable columns.

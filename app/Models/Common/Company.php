@@ -9,25 +9,25 @@ use App\Events\Common\CompanyMakingCurrent;
 use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Media;
+use App\Traits\Owners;
 use App\Traits\Tenants;
 use App\Traits\Transactions;
 use App\Utilities\Overrider;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
+use Laratrust\Contracts\Ownable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
-class Company extends Eloquent
+class Company extends Eloquent implements Ownable
 {
-    use Contacts, Media, SearchString, SoftDeletes, Sortable, Tenants, Transactions;
+    use Contacts, Media, Owners, SearchString, SoftDeletes, Sortable, Tenants, Transactions;
 
     protected $table = 'companies';
 
-    protected $tenantable = false;
-
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['domain', 'enabled'];
+    protected $fillable = ['domain', 'enabled', 'created_by'];
 
     protected $casts = [
         'enabled' => 'boolean',
@@ -517,5 +517,24 @@ class Company extends Eloquent
     public static function hasCurrent()
     {
         return static::getCurrent() !== null;
+    }
+
+    public function scopeIsOwner($query)
+    {
+        return $query->where('created_by', user_id());
+    }
+
+    public function scopeIsNotOwner($query)
+    {
+        return $query->where('created_by', '<>', user_id());
+    }
+
+    public function ownerKey($owner)
+    {
+        if ($this->isNotOwnable()) {
+            return 0;
+        }
+
+        return $this->created_by;
     }
 }

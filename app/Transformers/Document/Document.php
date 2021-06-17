@@ -41,6 +41,7 @@ class Document extends TransformerAbstract
             'contact_address' => $model->contact_address,
             'notes' => $model->notes,
             'attachment' => $model->attachment,
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

@@ -25,6 +25,7 @@ class Account extends TransformerAbstract
             'bank_phone' => $model->bank_phone,
             'bank_address' => $model->bank_address,
             'enabled' => $model->enabled,
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

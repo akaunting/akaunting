@@ -18,7 +18,6 @@ class Recurring extends Model
      */
     protected $fillable = ['company_id', 'recurable_id', 'recurable_type', 'frequency', 'interval', 'started_at', 'count'];
 
-
     /**
      * Get all of the owning recurable models.
      */

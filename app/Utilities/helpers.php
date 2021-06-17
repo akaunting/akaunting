@@ -24,6 +24,18 @@ if (!function_exists('user')) {
     }
 }
 
+if (!function_exists('user_id')) {
+    /**
+     * Get id of current user.
+     *
+     * @return int
+     */
+    function user_id()
+    {
+        return optional(user())->id;
+    }
+}
+
 if (!function_exists('company_date_format')) {
     /**
      * Format the given date based on company settings.

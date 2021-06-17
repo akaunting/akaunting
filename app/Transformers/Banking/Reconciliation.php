@@ -26,6 +26,7 @@ class Reconciliation extends TransformerAbstract
             'ended_at' => $model->ended_at->toIso8601String(),
             'closing_balance' => $model->closing_balance,
             'reconciled' => $model->reconciled,
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at->toIso8601String(),
             'updated_at' => $model->updated_at->toIso8601String(),
         ];

@@ -8,6 +8,7 @@ use App\Models\Common\Company;
 use App\Models\Common\Report;
 use App\Utilities\Reports as Utility;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 class Version2117 extends Listener
 {
@@ -47,7 +48,7 @@ class Version2117 extends Listener
 
         company($company_id)->makeCurrent();
     }
-    
+
     protected function cacheReports()
     {
         Report::all()->each(function ($report) {
