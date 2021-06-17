@@ -13,4 +13,6 @@ class Media extends BaseMedia
     protected $tenantable = true;
 
     protected $dates = ['deleted_at'];
+
+    protected $fillable = ['company_id'];
 }
