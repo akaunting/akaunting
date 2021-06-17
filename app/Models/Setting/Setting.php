@@ -11,8 +11,6 @@ class Setting extends Eloquent
 
     protected $table = 'settings';
 
-    protected $tenantable = true;
-
     /**
      * Attributes that should be mass-assignable.
      *

@@ -41,6 +41,7 @@ class Document extends Model
         'amount',
         'currency_code',
         'currency_rate',
+        'category_id',
         'contact_id',
         'contact_name',
         'contact_email',
@@ -48,9 +49,9 @@ class Document extends Model
         'contact_phone',
         'contact_address',
         'notes',
-        'category_id',
-        'parent_id',
         'footer',
+        'parent_id',
+        'created_by',
     ];
 
     /**

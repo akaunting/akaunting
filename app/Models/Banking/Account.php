@@ -24,7 +24,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled', 'created_by'];
 
     /**
      * The attributes that should be cast.

@@ -19,7 +19,19 @@ class Currency extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'];
+    protected $fillable = [
+        'company_id',
+        'name',
+        'code',
+        'rate',
+        'enabled',
+        'precision',
+        'symbol',
+        'symbol_first',
+        'decimal_mark',
+        'thousands_separator',
+        'created_by',
+    ];
 
     /**
      * The attributes that should be cast.

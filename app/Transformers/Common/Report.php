@@ -22,6 +22,7 @@ class Report extends TransformerAbstract
             'description' => $model->description,
             'settings' => $model->settings,
             'data' => $this->getReportData($model),
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

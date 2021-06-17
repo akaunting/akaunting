@@ -27,6 +27,7 @@ class Contact extends TransformerAbstract
             'currency_code' => $model->currency_code,
             'enabled' => $model->enabled,
             'reference' => $model->reference,
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

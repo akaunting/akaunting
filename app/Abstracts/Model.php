@@ -3,16 +3,18 @@
 namespace App\Abstracts;
 
 use App\Traits\DateTime;
+use App\Traits\Owners;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
+use Laratrust\Contracts\Ownable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
-abstract class Model extends Eloquent
+abstract class Model extends Eloquent implements Ownable
 {
-    use Cachable, DateTime, SearchString, SoftDeletes, Sortable, Tenants;
+    use Cachable, DateTime, Owners, SearchString, SoftDeletes, Sortable, Tenants;
 
     protected $tenantable = true;
 
@@ -166,5 +168,24 @@ abstract class Model extends Eloquent
         }
 
         return $query->whereIn('contact_id', (array) $contacts);
+    }
+
+    public function scopeIsOwner($query)
+    {
+        return $query->where('created_by', user_id());
+    }
+
+    public function scopeIsNotOwner($query)
+    {
+        return $query->where('created_by', '<>', user_id());
+    }
+
+    public function ownerKey($owner)
+    {
+        if ($this->isNotOwnable()) {
+            return 0;
+        }
+
+        return $this->created_by;
     }
 }

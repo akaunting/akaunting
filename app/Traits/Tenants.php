@@ -18,7 +18,9 @@ trait Tenants
 
     public function isTenantable()
     {
-        return (isset($this->tenantable) && ($this->tenantable === true));
+        $tenantable = $this->tenantable ?: true;
+
+        return ($tenantable === true) && in_array('company_id', $this->getFillable());
     }
 
     public function isNotTenantable()

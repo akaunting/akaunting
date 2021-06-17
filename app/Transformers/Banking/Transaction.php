@@ -37,6 +37,7 @@ class Transaction extends TransformerAbstract
             'payment_method' => $model->payment_method,
             'reference' => $model->reference,
             'attachment' => $model->attachment,
+            'created_by' => $model->created_by,
             'created_at' => $model->created_at->toIso8601String(),
             'updated_at' => $model->updated_at->toIso8601String(),
         ];

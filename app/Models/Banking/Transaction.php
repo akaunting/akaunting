@@ -28,7 +28,23 @@ class Transaction extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'type', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'document_id', 'contact_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
+    protected $fillable = [
+        'company_id',
+        'type',
+        'account_id',
+        'paid_at',
+        'amount',
+        'currency_code',
+        'currency_rate',
+        'document_id',
+        'contact_id',
+        'description',
+        'category_id',
+        'payment_method',
+        'reference',
+        'parent_id',
+        'created_by',
+    ];
 
     /**
      * The attributes that should be cast.

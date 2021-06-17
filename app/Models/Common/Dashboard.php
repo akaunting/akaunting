@@ -18,7 +18,7 @@ class Dashboard extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'enabled', 'created_by'];
 
     /**
      * The attributes that should be cast.

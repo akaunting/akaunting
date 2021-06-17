@@ -17,7 +17,7 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'class', 'name', 'description', 'settings'];
+    protected $fillable = ['company_id', 'class', 'name', 'description', 'settings', 'created_by'];
 
     /**
      * The attributes that should be cast.

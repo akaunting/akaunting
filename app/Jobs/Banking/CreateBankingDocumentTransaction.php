@@ -7,9 +7,8 @@ use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Events\Document\PaidAmountCalculated;
 use App\Models\Banking\Transaction;
-use App\Models\Document\Document;
 use App\Traits\Currencies;
-use Date;
+use App\Utilities\Date;
 
 class CreateBankingDocumentTransaction extends Job
 {
@@ -31,6 +30,7 @@ class CreateBankingDocumentTransaction extends Job
     {
         $this->model = $model;
         $this->request = $this->getRequestInstance($request);
+        $this->request->merge(['created_by' => user_id()]);
     }
 
     /**

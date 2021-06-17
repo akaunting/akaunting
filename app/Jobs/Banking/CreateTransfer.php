@@ -7,7 +7,6 @@ use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
 use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 
 class CreateTransfer extends Job
@@ -26,6 +25,7 @@ class CreateTransfer extends Job
     public function __construct($request)
     {
         $this->request = $this->getRequestInstance($request);
+        $this->request->merge(['created_by' => user_id()]);
     }
 
     /**

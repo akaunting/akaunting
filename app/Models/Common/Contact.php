@@ -24,7 +24,21 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'type', 'name', 'email', 'user_id', 'tax_number', 'phone', 'address', 'website', 'currency_code', 'reference', 'enabled'];
+    protected $fillable = [
+        'company_id',
+        'type',
+        'name',
+        'email',
+        'user_id',
+        'tax_number',
+        'phone',
+        'address',
+        'website',
+        'currency_code',
+        'reference',
+        'enabled',
+        'created_by',
+    ];
 
     /**
      * The attributes that should be cast.
