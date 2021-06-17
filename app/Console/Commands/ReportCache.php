@@ -8,21 +8,21 @@ use App\Utilities\Reports as Utility;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 
-class ReportReminder extends Command
+class ReportCache extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'reminder:report';
+    protected $signature = 'report:cache';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Calculate reminders for reports';
+    protected $description = 'Calculate and cache reports';
 
     /**
      * Execute the console command.
@@ -43,18 +43,18 @@ class ReportReminder extends Command
                 continue;
             }
 
-            $this->info('Calculate report reminders for ' . $company->name . ' company.');
+            $this->info('Calculating reports for ' . $company->name . ' company.');
 
             // Set company
             $company->makeCurrent();
 
-            $this->remind();
+            $this->cacheReportsOfCurrentCompany();
         }
 
         Company::forgetCurrent();
     }
 
-    protected function remind()
+    protected function cacheReportsOfCurrentCompany()
     {
         $reports = Report::orderBy('name')->get();
 
