@@ -100,10 +100,10 @@ trait Uploads
             return false;
         }
 
-        return Storage::path($path);
+        return $path;
     }
 
-    public function streamMedia($media, $path = '')
+    public function streamMedia($media)
     {
         return response()->streamDownload(
             function() use ($media) {
