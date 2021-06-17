@@ -8,6 +8,16 @@ use Illuminate\Support\ServiceProvider as Provider;
 class $NAME$ extends Provider
 {
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->loadRoutes();
+    }
+
+    /**
      * Boot the application events.
      *
      * @return void
@@ -19,16 +29,6 @@ class $NAME$ extends Provider
         $this->loadTranslations();
         $this->loadMigrations();
         //$this->loadConfig();
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->loadRoutes();
     }
 
     /**
