@@ -5,6 +5,7 @@
             {'readonly': readonly},
             {'disabled': disabled},
             {'hidden-year': hiddenYear},
+            {'data-value-min': dataValueMin},
             formClasses
         ]"
         :footer-error="formError"
@@ -98,6 +99,9 @@ export default {
         },
         hiddenYear: {
             type: [Boolean, String]
+        },
+        dataValueMin: {
+            type: [Boolean, String, Date]
         }
     },
 
@@ -149,7 +153,11 @@ export default {
     watch: {
         value: function(val) {
             this.real_model = val;
-        }
+        },
+
+        dataValueMin: function(val) {
+            this.dateConfig.minDate = val;
+        },
     }
 }
 </script>
