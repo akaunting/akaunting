@@ -27,11 +27,11 @@ class Uploads extends Controller
         }
 
         // Get file path
-        if (!$path = $this->getMediaPathOnStorage($media)) {
+        if (!$this->getMediaPathOnStorage($media)) {
             return response(null, 204);
         }
 
-        return $this->streamMedia($media, $path);
+        return $this->streamMedia($media);
     }
 
     /**
@@ -70,7 +70,7 @@ class Uploads extends Controller
         }
 
         // Get file path
-        if (!$path = $this->getMediaPathOnStorage($media)) {
+        if (!$this->getMediaPathOnStorage($media)) {
             return response()->json([
                 'success' => false,
                 'error'   => true,
@@ -108,11 +108,11 @@ class Uploads extends Controller
         }
 
         // Get file path
-        if (!$path = $this->getMediaPathOnStorage($media)) {
+        if (!$this->getMediaPathOnStorage($media)) {
             return false;
         }
 
-        return $this->streamMedia($media, $path);
+        return $this->streamMedia($media);
     }
 
     /**
