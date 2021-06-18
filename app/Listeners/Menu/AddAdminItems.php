@@ -3,9 +3,12 @@
 namespace App\Listeners\Menu;
 
 use App\Events\Menu\AdminCreated as Event;
+use App\Traits\Permissions;
 
 class AddAdminItems
 {
+    use Permissions;
+
     /**
      * Handle the event.
      *
@@ -16,15 +19,15 @@ class AddAdminItems
     {
         $menu = $event->menu;
 
-        $user = user();
         $attr = ['icon' => ''];
 
         // Dashboards
-        if ($user->can('read-common-dashboards')) {
-            $dashboards = $user->dashboards()->enabled()->get();
+        $title = trim(trans_choice('general.dashboards', 2));
+        if ($this->canAccessMenuItem($title, 'read-common-dashboards')) {
+            $dashboards = user()->dashboards()->enabled()->get();
 
             if ($dashboards->count() > 1) {
-                $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {
+                $menu->dropdown($title, function ($sub) use ($attr, $dashboards) {
                     foreach ($dashboards as $key => $dashboard) {
                         if (session('dashboard_id') != $dashboard->id) {
                             $sub->route('dashboards.switch', $dashboard->name, ['dashboard' => $dashboard->id], $key, $attr);
@@ -34,7 +37,7 @@ class AddAdminItems
                     }
                 }, 10, [
                     'url' => '/' . company_id(),
-                    'title' => trans_choice('general.dashboards', 2),
+                    'title' => $title,
                     'icon' => 'fa fa-tachometer-alt',
                 ]);
             } else {
@@ -48,87 +51,104 @@ class AddAdminItems
         }
 
         // Items
-        if ($user->can('read-common-items')) {
-            $menu->route('items.index', trans_choice('general.items', 2), [], 20, ['icon' => 'fa fa-cube']);
+        $title = trim(trans_choice('general.items', 2));
+        if ($this->canAccessMenuItem($title, 'read-common-items')) {
+            $menu->route('items.index', $title, [], 20, ['icon' => 'fa fa-cube']);
         }
 
         // Sales
-        if ($user->canAny(['read-sales-invoices', 'read-sales-revenues', 'read-sales-customers'])) {
-            $menu->dropdown(trim(trans_choice('general.sales', 2)), function ($sub) use ($user, $attr) {
-                if ($user->can('read-sales-invoices')) {
-                    $sub->route('invoices.index', trans_choice('general.invoices', 2), [], 10, $attr);
+        $title = trim(trans_choice('general.sales', 2));
+        if ($this->canAccessMenuItem($title, ['read-sales-invoices', 'read-sales-revenues', 'read-sales-customers'])) {
+            $menu->dropdown($title, function ($sub) use ($attr) {
+                $title = trim(trans_choice('general.invoices', 2));
+                if ($this->canAccessMenuItem($title, 'read-sales-invoices')) {
+                    $sub->route('invoices.index', $title, [], 10, $attr);
                 }
 
-                if ($user->can('read-sales-revenues')) {
-                    $sub->route('revenues.index', trans_choice('general.revenues', 2), [], 20, $attr);
+                $title = trim(trans_choice('general.revenues', 2));
+                if ($this->canAccessMenuItem($title, 'read-sales-revenues')) {
+                    $sub->route('revenues.index', $title, [], 20, $attr);
                 }
 
-                if ($user->can('read-sales-customers')) {
-                    $sub->route('customers.index', trans_choice('general.customers', 2), [], 30, $attr);
+                $title = trim(trans_choice('general.customers', 2));
+                if ($this->canAccessMenuItem($title, 'read-sales-customers')) {
+                    $sub->route('customers.index', $title, [], 30, $attr);
                 }
             }, 30, [
-                'title' => trans_choice('general.sales', 2),
+                'title' => $title,
                 'icon' => 'fa fa-money-bill',
             ]);
         }
 
         // Purchases
-        if ($user->canAny(['read-purchases-bills', 'read-purchases-payments', 'read-purchases-vendors'])) {
-            $menu->dropdown(trim(trans_choice('general.purchases', 2)), function ($sub) use ($user, $attr) {
-                if ($user->can('read-purchases-bills')) {
-                    $sub->route('bills.index', trans_choice('general.bills', 2), [], 10, $attr);
+        $title = trim(trans_choice('general.purchases', 2));
+        if ($this->canAccessMenuItem($title, ['read-purchases-bills', 'read-purchases-payments', 'read-purchases-vendors'])) {
+            $menu->dropdown($title, function ($sub) use ($attr) {
+                $title = trim(trans_choice('general.bills', 2));
+                if ($this->canAccessMenuItem($title, 'read-purchases-bills')) {
+                    $sub->route('bills.index', $title, [], 10, $attr);
                 }
 
-                if ($user->can('read-purchases-payments')) {
-                    $sub->route('payments.index', trans_choice('general.payments', 2), [], 20, $attr);
+                $title = trim(trans_choice('general.payments', 2));
+                if ($this->canAccessMenuItem($title, 'read-purchases-payments')) {
+                    $sub->route('payments.index', $title, [], 20, $attr);
                 }
 
-                if ($user->can('read-purchases-vendors')) {
-                    $sub->route('vendors.index', trans_choice('general.vendors', 2), [], 30, $attr);
+                $title = trim(trans_choice('general.vendors', 2));
+                if ($this->canAccessMenuItem($title, 'read-purchases-vendors')) {
+                    $sub->route('vendors.index', $title, [], 30, $attr);
                 }
             }, 40, [
-                'title' => trans_choice('general.purchases', 2),
+                'title' => $title,
                 'icon' => 'fa fa-shopping-cart',
             ]);
         }
 
         // Banking
-        if ($user->canAny(['read-banking-accounts', 'read-banking-transfers', 'read-banking-transactions', 'read-banking-reconciliations'])) {
-            $menu->dropdown(trim(trans('general.banking')), function ($sub) use ($user, $attr) {
-                if ($user->can('read-banking-accounts')) {
-                    $sub->route('accounts.index', trans_choice('general.accounts', 2), [], 10, $attr);
+        $title = trim(trans('general.banking'));
+        if ($this->canAccessMenuItem($title, ['read-banking-accounts', 'read-banking-transfers', 'read-banking-transactions', 'read-banking-reconciliations'])) {
+            $menu->dropdown($title, function ($sub) use ($attr) {
+                $title = trim(trans_choice('general.accounts', 2));
+                if ($this->canAccessMenuItem($title, 'read-banking-accounts')) {
+                    $sub->route('accounts.index', $title, [], 10, $attr);
                 }
 
-                if ($user->can('read-banking-transfers')) {
-                    $sub->route('transfers.index', trans_choice('general.transfers', 2), [], 20, $attr);
+                $title = trim(trans_choice('general.transfers', 2));
+                if ($this->canAccessMenuItem($title, 'read-banking-transfers')) {
+                    $sub->route('transfers.index', $title, [], 20, $attr);
                 }
 
-                if ($user->can('read-banking-transactions')) {
-                    $sub->route('transactions.index', trans_choice('general.transactions', 2), [], 30, $attr);
+                $title = trim(trans_choice('general.transactions', 2));
+                if ($this->canAccessMenuItem($title, 'read-banking-transactions')) {
+                    $sub->route('transactions.index', $title, [], 30, $attr);
                 }
 
-                if ($user->can('read-banking-reconciliations')) {
-                    $sub->route('reconciliations.index', trans_choice('general.reconciliations', 2), [], 40, $attr);
+                $title = trim(trans_choice('general.reconciliations', 2));
+                if ($this->canAccessMenuItem($title, 'read-banking-reconciliations')) {
+                    $sub->route('reconciliations.index', $title, [], 40, $attr);
                 }
             }, 50, [
-                'title' => trans('general.banking'),
+                'title' => $title,
                 'icon' => 'fa fa-briefcase',
             ]);
         }
 
         // Reports
-        if ($user->can('read-common-reports')) {
-            $menu->route('reports.index', trans_choice('general.reports', 2), [], 60, ['icon' => 'fa fa-chart-pie']);
+        $title = trim(trans_choice('general.reports', 2));
+        if ($this->canAccessMenuItem($title, 'read-common-reports')) {
+            $menu->route('reports.index', $title, [], 60, ['icon' => 'fa fa-chart-pie']);
         }
 
         // Settings
-        if ($user->can('read-settings-settings')) {
-            $menu->route('settings.index', trans_choice('general.settings', 2), [], 70, ['icon' => 'fa fa-cog']);
+        $title = trim(trans_choice('general.settings', 2));
+        if ($this->canAccessMenuItem($title, 'read-settings-settings')) {
+            $menu->route('settings.index', $title, [], 70, ['icon' => 'fa fa-cog']);
         }
 
         // Apps
-        if ($user->can('read-modules-home')) {
-            $menu->route('apps.home.index', trans_choice('general.modules', 2), [], 80, ['icon' => 'fa fa-rocket']);
+        $title = trim(trans_choice('general.modules', 2));
+        if ($this->canAccessMenuItem($title, 'read-modules-home')) {
+            $menu->route('apps.home.index', $title, [], 80, ['icon' => 'fa fa-rocket']);
         }
     }
 }

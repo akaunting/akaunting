@@ -8,6 +8,7 @@ use App\Traits\SearchString;
 use App\Utilities\Reports;
 use App\Utilities\Widgets;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 trait Permissions
@@ -472,5 +473,18 @@ trait Permissions
         $this->middleware('permission:read-' . $controller)->only('index', 'show', 'edit', 'export');
         $this->middleware('permission:update-' . $controller)->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-' . $controller)->only('destroy');
+    }
+
+    public function canAccessMenuItem($title, $permissions)
+    {
+        $permissions = Arr::wrap($permissions);
+
+        $item = new \stdClass();
+        $item->title = $title;
+        $item->permissions = $permissions;
+
+        event(new \App\Events\Menu\ItemAuthorizing($item));
+
+        return user()->canAny($item->permissions);
     }
 }
