@@ -5,6 +5,8 @@
             {'readonly': readonly},
             {'disabled': disabled},
             {'hidden-year': hiddenYear},
+            {'data-value-control': dataValueControl},
+            {'data-value-min': dataValueMin},
             formClasses
         ]"
         :footer-error="formError"
@@ -98,6 +100,12 @@ export default {
         },
         hiddenYear: {
             type: [Boolean, String]
+        },
+        dataValueControl: {
+            type: [Boolean, String, Date]
+        },
+        dataValueMin: {
+            type: [Boolean, String, Date]
         }
     },
 
@@ -126,6 +134,18 @@ export default {
     },
 
     methods: {
+        dataControlEvent() {
+            if(this.dataValueControl) {
+                let date_control = document.querySelector('.data-value-control .datepicker');
+                
+                if(this.dataValueMin) {
+                    debugger;
+                    this.dateConfig.minDate = date_control.value;
+                    // this.$set(this.dateConfig,'minDate', date_control.value);
+                }
+            }
+        },
+
         change() {
             this.$emit('interface', this.real_model);
             
@@ -143,13 +163,18 @@ export default {
                     wrapper.classList.remove('hidden-year-flatpickr');
                 });
             }
+            //this.dataControlEvent();
         }
     },
 
     watch: {
         value: function(val) {
             this.real_model = val;
-        }
+        },
+
+        dataValueMin: function(val) {
+            this.dateConfig.minDate = val;
+        },
     }
 }
 </script>

@@ -55,6 +55,14 @@
         hidden-year
         @endif
 
+        @if (!empty($attributes['data-value-control']))
+        data-value-control
+        @endif
+
+        @if (!empty($attributes['min-date-dynamic']))
+        :data-value-min="{{ $attributes['min-date-dynamic'] }}"
+        @endif
+
         @if (!empty($attributes['change']))
         @change="{{ $attributes['change'] }}"
         @endif
