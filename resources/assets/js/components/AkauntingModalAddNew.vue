@@ -59,6 +59,7 @@ import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
 import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
+import AkauntingSelectRemote from './AkauntingSelectRemote';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
 
@@ -139,9 +140,9 @@ export default {
     },
 
     created: function () {
-        let documentClasses = document.body.classList;	
+        let documentClasses = document.body.classList;
 
-        documentClasses.add("modal-open");	
+        documentClasses.add("modal-open");
     },
 
     mounted() {
@@ -155,6 +156,7 @@ export default {
                     components: {
                         AkauntingRadioGroup,
                         AkauntingSelect,
+                        AkauntingSelectRemote,
                         AkauntingModal,
                         AkauntingMoney,
                         AkauntingDate,
