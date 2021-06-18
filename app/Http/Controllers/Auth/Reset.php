@@ -78,13 +78,44 @@ class Reset extends Controller
      * Get the response for a successful password reset.
      *
      * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetResponse($response)
     {
-        flash(trans($response))->success();
+        $user = user();
 
-        return redirect($this->redirectTo);
+        $company = $user::withoutEvents(function () use ($user) {
+            return $user->companies()->enabled()->first();
+        });
+
+        // Logout if no company assigned
+        if (!$company) {
+            $this->guard()->logout();
+
+            return response()->json([
+                'status' => null,
+                'success' => false,
+                'error' => true,
+                'message' => trans('auth.error.no_company'),
+                'data' => null,
+                'redirect' => null,
+            ]);
+        }
+
+        // Redirect to portal if is customer
+        if ($user->can('read-client-portal')) {
+            $this->redirectTo = route('portal.dashboard', ['company_id' => $company->id]);
+        }
+
+        return response()->json([
+            'status' => null,
+            'success' => true,
+            'error' => false,
+            'message' => null,
+            'data' => null,
+            'redirect' => url($this->redirectTo),
+        ]);
     }
 
     /**
@@ -92,12 +123,18 @@ class Reset extends Controller
      *
      * @param  \Illuminate\Http\Request
      * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return redirect()->back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);
+        return response()->json([
+            'status' => null,
+            'success' => false,
+            'error' => true,
+            'message' => trans($response),
+            'data' => null,
+            'redirect' => null,
+        ]);
     }
 }
