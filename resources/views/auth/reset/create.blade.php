@@ -5,6 +5,8 @@
 @section('message', trans('auth.reset_password'))
 
 @section('content')
+    <div role="alert" class="alert alert-danger d-none" :class="(form.response.error) ? 'show' : ''" v-if="form.response.error" v-html="form.response.message"></div>
+
     {!! Form::open([
         'route' => 'reset.store',
         'id' => 'reset',
@@ -39,3 +41,7 @@
         </div>
     {!! Form::close() !!}
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/reset.js?v=' . version('short')) }}"></script>
+@endpush
