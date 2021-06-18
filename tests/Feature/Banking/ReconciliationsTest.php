@@ -3,11 +3,12 @@
 namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateReconciliation;
+use App\Models\Banking\Reconciliation;
 use Tests\Feature\FeatureTestCase;
 
 class ReconciliationsTest extends FeatureTestCase
 {
-    public function testItShouldSeeReconciliationtListPage()
+    public function testItShouldSeeReconciliationListPage()
     {
         $this->loginAs()
             ->get(route('reconciliations.index'))
@@ -76,16 +77,6 @@ class ReconciliationsTest extends FeatureTestCase
 
     private function getRequest()
     {
-        return [
-            'company_id' => $this->company->id,
-            'account_id' => '1',
-            'currency_code' => setting('default.currency'),
-            'opening_balance' => '0',
-            'closing_balance' => '10',
-            'started_at' => $this->faker->date(),
-            'ended_at' => $this->faker->date(),
-            'reconcile' => null,
-            'reconciled' => '1',
-        ];
+        return Reconciliation::factory()->reconciled()->raw();
     }
 }

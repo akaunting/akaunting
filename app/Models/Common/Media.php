@@ -10,8 +10,6 @@ class Media extends BaseMedia
 {
     use SoftDeletes, Tenants;
 
-    protected $tenantable = true;
-
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['company_id'];

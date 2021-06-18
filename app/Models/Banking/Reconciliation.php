@@ -3,9 +3,12 @@
 namespace App\Models\Banking;
 
 use App\Abstracts\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reconciliation extends Model
 {
+    use HasFactory;
+
     protected $table = 'reconciliations';
 
     protected $dates = ['deleted_at', 'started_at', 'ended_at'];
@@ -37,5 +40,15 @@ class Reconciliation extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Reconciliation::new();
     }
 }
