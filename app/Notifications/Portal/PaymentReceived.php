@@ -86,8 +86,14 @@ class PaymentReceived extends Notification
     public function toArray($notifiable)
     {
         return [
+            'template_alias' => $this->template->alias,
             'invoice_id' => $this->invoice->id,
+            'invoice_number' => $this->invoice->document_number,
+            'customer_name' => $this->invoice->contact_name,
             'amount' => $this->invoice->amount,
+            'invoice_at' => $this->invoice->issued_at,
+            'due_at' => $this->invoice->due_at,
+            'status' => $this->invoice->status,
         ];
     }
 

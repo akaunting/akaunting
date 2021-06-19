@@ -20,7 +20,7 @@ class Header
     {
         $user = user();
 
-        $invoices = $bills = [];
+        $invoices = $bills = $exports = $imports = [];
         $updates = $notifications = 0;
         $company = null;
 
@@ -42,6 +42,22 @@ class Header
                     $data = $unread->getAttribute('data');
 
                     switch ($unread->getAttribute('type')) {
+                        case 'App\Notifications\Common\ExportCompleted':
+                            $exports['completed'][$data['file_name']] = $data['download_url'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ExportFailed':
+                            $exports['failed'][] = $data['message'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ImportCompleted':
+                            $import_completed[$data['bill_id']] = $data['amount'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ImportFailed':
+                            $import_failed[$data['bill_id']] = $data['amount'];
+                            $notifications++;
+                            break;
                         case 'App\Notifications\Purchase\Bill':
                             $bills[$data['bill_id']] = $data['amount'];
                             $notifications++;
@@ -64,6 +80,8 @@ class Header
         $view->with([
             'user' => $user,
             'notifications' => $notifications,
+            'exports' => $exports,
+            'imports' => $imports,
             'bills' => $bills,
             'invoices' => $invoices,
             'company' => $company,

@@ -40,6 +40,8 @@ Route::group(['prefix' => 'common'], function () {
     Route::resource('items', 'Common\Items', ['middleware' => ['money', 'dropzone']]);
 
     Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
+    Route::get('notifications/readAll', 'Common\Notifications@readAll')->name('notifications.read-all');
+    Route::resource('notifications', 'Common\Notifications');
 
     Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action')->name('bulk-actions.action');
 

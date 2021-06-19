@@ -124,6 +124,12 @@
                 }
             })
         })();
+
+        $(document).ready(function () {
+            if ($("[data-toggle=tooltip]").length) {
+                $("[data-toggle=tooltip]").tooltip();
+            }
+        });
     </script>
 
     @stack('body_css')

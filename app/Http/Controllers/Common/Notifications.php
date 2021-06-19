@@ -18,9 +18,7 @@ class Notifications extends Controller
      */
     public function index()
     {
-        $notifications = setting('notifications');
-
-        return view('common.notifications.index', compact('notifications'));
+        return view('common.notifications.index');
     }
 
     /**
@@ -28,11 +26,19 @@ class Notifications extends Controller
      *
      * @return Response
      */
-    public function show($path, $id)
+    public function readAll()
     {
-        $notification = setting('notifications.' . $path . '.' . $id);
+        $notifications = user()->unreadNotifications;
 
-        return view('common.notifications.show', compact('notification'));
+        foreach ($notifications as $notification) {
+            $notification->markAsRead();
+        }
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.items', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('dashboard');
     }
 
     /**

@@ -91,6 +91,6 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
     public function failed(\Throwable $exception): void
     {
-        $this->user->notify(new ExportFailed($exception));
+        $this->user->notify(new ExportFailed($exception->getMessage()));
     }
 }

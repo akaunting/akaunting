@@ -2,23 +2,52 @@
 
 @section('title', trans_choice('general.notifications', 2))
 
-@section('content')
-    <div class="card">
-        <div class="card-header"></div>
-
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-footer">
-            @include('partials.admin.pagination', ['items' => $notifications])
-        </div>
-    </div>
+@section('new_button')
+    <a href="{{ route('notifications.read-all') }}" class="btn btn-outline-success rounded-circle btn-icon-only btn-sm" data-toggle="tooltip" data-placement="right" title="{{ trans('notifications.mark_read_all') }}">
+        <span class="btn-inner--icon"><i class="fas fa-check-double pt-2"></i></span>
+    </a>
 @endsection
+
+@section('content')
+    @stack('new_apps')
+
+    <livewire:common.notifications.new-apps />
+
+    @stack('exports')
+
+    <livewire:common.notifications.exports />
+
+    @stack('imports')
+
+    <livewire:common.notifications.imports />
+
+    @stack('invoices_recurring')
+
+    <livewire:common.notifications.recurring type="invoice" text-title="notifications.recurring_invoices" />
+
+    @stack('invoices_reminder')
+
+    <livewire:common.notifications.reminder type="invoice" text-title="widgets.overdue_invoices" />
+
+    @stack('bills_recurring')
+
+    <livewire:common.notifications.recurring type="bill" text-title="widgets.recurring_bills" />
+
+    @stack('bills_reminder')
+
+    <livewire:common.notifications.reminder type="bill" text-title="notifications.upcoming_bills" />
+
+    @stack('end')
+@endsection
+
+@push('body_js')
+    <script type="text/javascript">
+        var hash_split = location.hash.split('#');
+
+        if (hash_split[1] != undefined) {
+            document.getElementById(hash_split[1]).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
+@endpush

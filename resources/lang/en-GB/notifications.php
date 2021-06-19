@@ -6,6 +6,13 @@ return [
     'hello'               => 'Hello!',
     'salutation'          => 'Regards,<br> :company_name',
     'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
+    'reads'               => 'Read|Reads',
+    'read_all'            => 'Read All',
+    'mark_read'           => 'Mark Read',
+    'mark_read_all'       => 'Mark Read All',
+    'upcoming_bills'      => 'Upcoming Bills',
+    'recurring_invoices'  => 'Recurring Invoices',
+    'recurring_bills'     => 'Recurring Bills',
 
     'update' => [
 
@@ -51,4 +58,9 @@ return [
 
     ],
 
+    'messages' => [
+        'mark_read'             => ':type is read this notification!',
+        'mark_read_all'         => ':type is read all notification!',
+        'export'                => ':type export is ready! The export file is ready to download from the following <a href=":url" target="_blank">:file_name</a>'
+    ],
 ];

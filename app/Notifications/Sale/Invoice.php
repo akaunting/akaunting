@@ -77,8 +77,14 @@ class Invoice extends Notification
     public function toArray($notifiable)
     {
         return [
+            'template_alias' => $this->template->alias,
             'invoice_id' => $this->invoice->id,
+            'invoice_number' => $this->invoice->document_number,
+            'customer_name' => $this->invoice->contact_name,
             'amount' => $this->invoice->amount,
+            'invoiced_date' => company_date($this->invoice->issued_at),
+            'invoice_due_date' => company_date($this->invoice->due_at),
+            'status' => $this->invoice->status,
         ];
     }
 
@@ -88,6 +94,7 @@ class Invoice extends Notification
             '{invoice_number}',
             '{invoice_total}',
             '{invoice_amount_due}',
+            '{invoiced_date}',
             '{invoice_due_date}',
             '{invoice_guest_link}',
             '{invoice_admin_link}',

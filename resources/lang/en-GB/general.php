@@ -51,6 +51,7 @@ return [
     'templates'             => 'Template|Templates',
     'sales'                 => 'Sale|Sales',
     'purchases'             => 'Purchase|Purchases',
+    'notifications'         => 'Notification|Notifications',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',

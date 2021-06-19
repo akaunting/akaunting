@@ -31,7 +31,7 @@ class Export
                 }
 
                 $class->queue($file_name, $disk)->onQueue('exports')->chain([
-                    new CreateMediableForExport(user(), $file_name),
+                    new CreateMediableForExport(user(), $file_name, $translation),
                 ]);
 
                 $message = trans('messages.success.export_queued', ['type' => $translation]);

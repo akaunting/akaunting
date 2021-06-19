@@ -14,18 +14,18 @@ class ExportFailed extends Notification implements ShouldQueue
     /**
      * The error exception.
      *
-     * @var object
+     * @var string
      */
-    public $exception;
+    public $message;
 
     /**
      * Create a notification instance.
      *
-     * @param  object  $exception
+     * @param  string  $message
      */
-    public function __construct($exception)
+    public function __construct($message)
     {
-        $this->exception = $exception;
+        $this->message = $message;
 
         $this->onQueue('notifications');
     }
@@ -38,7 +38,7 @@ class ExportFailed extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -52,6 +52,19 @@ class ExportFailed extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject(trans('notifications.export.failed.subject'))
             ->line(trans('notifications.export.failed.description'))
-            ->line($this->exception->getMessage());
+            ->line($this->message);
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'message' => $this->message,
+        ];
     }
 }
