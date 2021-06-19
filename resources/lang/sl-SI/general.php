@@ -10,7 +10,7 @@ return [
     'customers'             => 'Stranke',
     'expenses'              => 'Stroški',
     'bills'                 => 'Prejeti računi',
-    'payments'              => 'Plačilo|plačila',
+    'payments'              => 'Plačilo|Plačila',
     'vendors'               => 'Prodajalec|Prodajalci',
     'accounts'              => 'Račun|Računi',
     'transfers'             => 'Prenos|Prenosi',
