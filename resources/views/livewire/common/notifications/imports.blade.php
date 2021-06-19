@@ -1,9 +1,9 @@
 @if ($notifications->total())
-    <div class="card" id="export">
+    <div class="card" id="import">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <h5 class="h3 mb-0">{{ trans('general.export') }}</h5>
+                    <h5 class="h3 mb-0">{{ trans('import.import') }}</h5>
                 </div>
 
                 <div class="col-4 text-right">
@@ -20,16 +20,15 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-flush table-hover" id="tbl-export">
+            <table class="table table-flush table-hover" id="tbl-import">
                 <tbody>
                     @foreach ($notifications as $notification)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-xs-8 col-sm-10 col-md-10 col-lg-11 col-xl-11 text-left">
                                 @if (empty($notification->message))
-                                    {!! trans('notifications.messages.export', [
+                                    {!! trans('notifications.messages.import', [
                                         'type' => $notification->translation,
-                                        'file_name' => $notification->file_name,
-                                        'url' => $notification->download_url
+                                        'count' => $notification->total_rows
                                     ]) !!}
                                 @else
                                     {!! $notification->message !!}

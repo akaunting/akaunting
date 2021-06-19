@@ -20,7 +20,7 @@ class Header
     {
         $user = user();
 
-        $invoices = $bills = $exports = $imports = [];
+        $new_apps = $invoices = $bills = $exports = $imports = [];
         $updates = $notifications = 0;
         $company = null;
 
@@ -51,11 +51,11 @@ class Header
                             $notifications++;
                             break;
                         case 'App\Notifications\Common\ImportCompleted':
-                            $import_completed[$data['bill_id']] = $data['amount'];
+                            $imports['completed'][] = $data['translation'];
                             $notifications++;
                             break;
                         case 'App\Notifications\Common\ImportFailed':
-                            $import_failed[$data['bill_id']] = $data['amount'];
+                            $imports['failed'][] = '';
                             $notifications++;
                             break;
                         case 'App\Notifications\Purchase\Bill':
@@ -67,6 +67,12 @@ class Header
                             $notifications++;
                             break;
                     }
+                }
+
+                $new_apps = $this->getNotifications('new-apps');
+
+                foreach ($new_apps as $new_app) {
+                    $notifications++;
                 }
             }
 
@@ -80,6 +86,7 @@ class Header
         $view->with([
             'user' => $user,
             'notifications' => $notifications,
+            'new_apps' => $new_apps,
             'exports' => $exports,
             'imports' => $imports,
             'bills' => $bills,

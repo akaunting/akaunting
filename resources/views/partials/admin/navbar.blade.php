@@ -127,6 +127,25 @@
                             @endif
 
                             <div class="list-group list-group-flush">
+                                @stack('notification_new_apps_start')
+
+                                @if (!empty($new_apps) && count($new_apps))
+                                    <a href="{{ route('notifications.index') . '#new-apps' }}" class="list-group-item list-group-item-action">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <i class="fa fa-rocket"></i>
+                                            </div>
+                                            <div class="col ml--2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h4 class="mb-0 text-sm">{{ trans_choice('header.notifications.new_apps', count($new_apps), ['count' => count($new_apps)]) }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
+
+                                @stack('notification_new_apps_end')
+
                                 @stack('notification_exports_completed_start')
 
                                 @if (!empty($exports['completed']) && count($exports['completed']))

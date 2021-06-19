@@ -10,6 +10,7 @@ return [
     'read_all'            => 'Read All',
     'mark_read'           => 'Mark Read',
     'mark_read_all'       => 'Mark Read All',
+    'new_apps'            => 'New App|New Apps',
     'upcoming_bills'      => 'Upcoming Bills',
     'recurring_invoices'  => 'Recurring Invoices',
     'recurring_bills'     => 'Recurring Bills',
@@ -61,6 +62,8 @@ return [
     'messages' => [
         'mark_read'             => ':type is read this notification!',
         'mark_read_all'         => ':type is read all notification!',
-        'export'                => ':type export is ready! The export file is ready to download from the following <a href=":url" target="_blank">:file_name</a>'
+        'new_app'               => ':type app published.',
+        'export'                => ':type export is ready! The export file is ready to download from the following <a href=":url" target="_blank">:file_name</a>',
+        'import'                => ':type import finished! Added :count :type rows.'
     ],
 ];

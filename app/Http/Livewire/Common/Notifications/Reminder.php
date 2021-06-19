@@ -46,12 +46,13 @@ class Reminder extends Component
 
     public function render()
     {
-        $limit = 10;
+        $limit = 5;
 
         $type = config('type.' . $this->type . '.notification.class');
 
         $documents = user()->notifications()->unread()
             ->where('type', $type)
+            ->where('data', 'like', '%template_alias:{$this->type}_remind_admin%')
             ->paginate($limit);
 
         $items = [];
