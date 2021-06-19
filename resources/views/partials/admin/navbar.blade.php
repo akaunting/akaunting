@@ -226,7 +226,7 @@
 
                                 @can('read-purchases-bills')
                                     @if (count($bills))
-                                        <a href="{{ route('notifications.index') . '#reminder-bills' }}" class="list-group-item list-group-item-action">
+                                        <a href="{{ route('notifications.index') . '#reminder-bill' }}" class="list-group-item list-group-item-action">
                                             <div class="row align-items-center">
                                                 <div class="col-auto">
                                                     <i class="fa fa-shopping-cart"></i>
@@ -247,7 +247,7 @@
 
                                 @can('read-sales-invoices')
                                     @if (count($invoices))
-                                        <a href="{{ route('notifications.index') . '#reminder-invoices' }}" class="list-group-item list-group-item-action">
+                                        <a href="{{ route('notifications.index') . '#reminder-invoice' }}" class="list-group-item list-group-item-action">
                                             <div class="row align-items-center">
                                                 <div class="col-auto">
                                                     <i class="fa fa-money-bill"></i>

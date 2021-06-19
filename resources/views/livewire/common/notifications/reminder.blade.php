@@ -1,5 +1,5 @@
-@if ($documents->count())
-    <div class="card">
+@if ($notifications->count())
+    <div class="card" id="reminder-{{$type}}">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
@@ -104,7 +104,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach($documents as $item)
+                    @foreach($notifications as $item)
                         <tr class="row align-items-center border-top-1">
                             @stack('document_number_td_start')
                             @if (!$hideDocumentNumber)
@@ -196,21 +196,21 @@
             </table>
         </div>
 
-        @if ($documents->total() > 5)
+        @if ($notifications->total() > 5)
             <div class="card-footer table-action">
                 <div class="row">
-                    @if ($documents->count())
+                    @if ($notifications->count())
                         <div class="col-xs-12 col-sm-5 d-flex align-items-center">
                             {!! Form::select('limit', ['5' => '5'], request('limit', 5), ['class' => 'disabled form-control form-control-sm d-inline-block w-auto d-none d-md-block', 'disabled' => 'disabled']) !!}
                             <span class="table-text d-none d-lg-block ml-2">
                                 {{ trans('pagination.page') }}
-                                {{ trans('pagination.showing', ['first' => $documents->firstItem(), 'last' => $documents->lastItem(), 'total' => $documents->total()]) }}
+                                {{ trans('pagination.showing', ['first' => $notifications->firstItem(), 'last' => $notifications->lastItem(), 'total' => $notifications->total()]) }}
                             </span>
                         </div>
 
                         <div class="col-xs-12 col-sm-7 pagination-xs">
                             <nav class="float-right">
-                                {!! $documents->withPath(request()->url())->withQueryString()->links() !!}
+                                {!! $notifications->withPath(request()->url())->withQueryString()->links() !!}
                             </nav>
                         </div>
                     @else
@@ -231,7 +231,7 @@
 @push('body_js')
     <script type="text/javascript">
         window.addEventListener('mark-read', event => {
-            if (event.detail.type == '{{ $type }}') {
+            if (event.detail.type == 'reminder-{{ $type }}') {
                 $.notify(event.detail.message, {
                     type: 'success',
                 });
@@ -239,7 +239,7 @@
         });
 
         window.addEventListener('mark-read-all', event => {
-            if (event.detail.type == '{{ $type }}') {
+            if (event.detail.type == 'reminder-{{ $type }}') {
                 $.notify(event.detail.message, {
                     type: 'success',
                 });

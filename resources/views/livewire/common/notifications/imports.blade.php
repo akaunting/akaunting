@@ -1,5 +1,5 @@
 @if ($notifications->total())
-    <div class="card" id="import">
+    <div class="card" id="imports">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
@@ -31,7 +31,9 @@
                                         'count' => $notification->total_rows
                                     ]) !!}
                                 @else
-                                    {!! $notification->message !!}
+                                    @foreach ($notification->errors as $error)
+                                        {!! $error !!}
+                                    @endforeach
                                 @endif
                             </td>
 

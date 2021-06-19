@@ -21,25 +21,21 @@ class Reminder extends Component
         $notification->markAsRead();
 
         $this->dispatchBrowserEvent('mark-read', [
-            'type' => $this->type,
+            'type' => 'reminder-' . $this->type,
             'message' => trans('notifications.messages.mark_read', ['type' => $data[$this->type . '_number']]),
         ]);
     }
 
     public function markReadAll()
     {
-        $type = config('type.' . $this->type . '.notification.class');
-
-        $notifications = user()->notifications()->unread()
-            ->where('type', $type)
-            ->get();
+        $notifications = $this->getNotifications();
 
         foreach ($notifications as $notification) {
             $notification->markAsRead();
         }
 
         $this->dispatchBrowserEvent('mark-read-all', [
-            'type' => $this->type,
+            'type' => 'reminder-' . $this->type,
             'message' => trans('notifications.messages.mark_read', ['type' => trans_choice('general.' . Str::plural($this->type) , 2)]),
         ]);
     }
@@ -48,28 +44,41 @@ class Reminder extends Component
     {
         $limit = 5;
 
+        $notifications = getNotifications($limit);
+
+        return view('livewire.common.notifications.reminder', compact('notifications'));
+    }
+
+    protected function getNotifications($limit = false)
+    {
         $type = config('type.' . $this->type . '.notification.class');
 
-        $documents = user()->notifications()->unread()
+        $query = user()->notifications()->unread()
             ->where('type', $type)
-            ->where('data', 'like', '%template_alias:{$this->type}_remind_admin%')
-            ->paginate($limit);
+            ->where('data', 'like', '%template_alias:{$this->type}_remind_admin%');
 
-        $items = [];
-
-        foreach ($documents->items() as $key => $document) {
-            $data = $document->getAttribute('data');
-
-            $item = Document::invoice()->where('id', $data['invoice_id'])->first();
-
-            $item->notification_id = $document->getAttribute('id');
-
-            $items[] = $item;
+        if ($limit) {
+            $notifications = $query->paginate($limit);
+        } else {
+            $notifications = $query->get();
         }
 
-        $documents->setCollection(Collection::make($items));
+        if ($notifications->items()) {
+            $items = [];
 
-        return view('livewire.common.notifications.reminder', compact('documents'));
+            foreach ($notifications->items() as $key => $notification) {
+                $data = (object) $notification->getAttribute('data');
+
+                $item = Document::{$this->type}()->where('id', $data[ $this->type'_id'])->first();
+                $item->notification_id = $notification->getAttribute('id');
+    
+                $items[] = $item;
+            }
+
+            $notifications->setCollection(Collection::make($items));
+        }
+
+        return $notifications;
     }
 
     public function paginationView()

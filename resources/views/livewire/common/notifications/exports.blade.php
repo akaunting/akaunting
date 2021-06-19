@@ -1,5 +1,5 @@
 @if ($notifications->total())
-    <div class="card" id="export">
+    <div class="card" id="exports">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
