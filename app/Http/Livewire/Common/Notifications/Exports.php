@@ -23,9 +23,11 @@ class Exports extends Component
 
         $notification->markAsRead();
 
+        $type = isset($data['file_name']) ?: trans('general.export');
+
         $this->dispatchBrowserEvent('mark-read', [
             'type' => 'export',
-            'message' => trans('notifications.messages.mark_read', ['type' => $data['file_name']]),
+            'message' => trans('notifications.messages.mark_read', ['type' => $type]),
         ]);
     }
 

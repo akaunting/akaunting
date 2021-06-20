@@ -23,9 +23,11 @@ class Imports extends Component
 
         $notification->markAsRead();
 
+        $type = isset($data['translation']) ?: trans('import.import');
+
         $this->dispatchBrowserEvent('mark-read', [
             'type' => 'import',
-            'message' => trans('notifications.messages.mark_read', ['type' => $data['translation']]),
+            'message' => trans('notifications.messages.mark_read', ['type' => $type]),
         ]);
     }
 

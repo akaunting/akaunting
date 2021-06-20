@@ -20,7 +20,7 @@
 
         {{ Form::emailGroup('email', false, 'envelope', ['placeholder' => trans('general.email')], null, 'has-feedback', 'input-group-alternative') }}
 
-        {{ Form::passwordGroup('password', false, 'unlock-alt', ['placeholder' => trans('auth.password.current')], 'has-feedback', 'input-group-alternative') }}
+        {{ Form::passwordGroup('password', false, 'unlock-alt', ['placeholder' => trans('install.database.password')], 'has-feedback', 'input-group-alternative') }}
 
         <div class="row align-items-center">
             @stack('remember_input_start')
