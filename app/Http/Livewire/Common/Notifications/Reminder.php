@@ -69,7 +69,7 @@ class Reminder extends Component
             foreach ($notifications->items() as $key => $notification) {
                 $data = (object) $notification->getAttribute('data');
 
-                $item = Document::{$this->type}()->where('id', $data[ $this->type'_id'])->first();
+                $item = Document::{$this->type}()->where('id', $data[$this->type . '_id'])->first();
                 $item->notification_id = $notification->getAttribute('id');
     
                 $items[] = $item;
