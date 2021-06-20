@@ -44,7 +44,7 @@ class Reminder extends Component
     {
         $limit = 5;
 
-        $notifications = getNotifications($limit);
+        $notifications = $this->getNotifications($limit);
 
         return view('livewire.common.notifications.reminder', compact('notifications'));
     }
