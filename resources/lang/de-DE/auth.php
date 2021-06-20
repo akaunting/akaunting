@@ -29,8 +29,9 @@ return [
     ],
 
     'failed'                => 'Diese Anmeldeinformationen entsprechen nicht unseren Aufzeichnungen.',
-    'disabled'              => 'Dieses Konto ist deaktiviert! Bitte kontaktieren Sie den Systemadministrator.',
+    'password'              => 'Das eingegebene Passwort ist nicht korrekt.',
     'throttle'              => 'Zu viele fehlgeschlagene Anmeldeversuche. Bitte versuchen Sie es erneut in :seconds Sekunden.',
+    'disabled'              => 'Dieses Konto ist deaktiviert! Bitte kontaktieren Sie den Systemadministrator.',
 
     'notification' => [
         'message_1'     => 'Sie erhalten diese E-Mail, da Sie das Passwort für Ihr Konto zurücksetzen lassen wollen.',

@@ -3,7 +3,7 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Bar',
+        'cash'              => 'Bargeld',
     ],
 
     'categories' => [
@@ -19,7 +19,7 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Bar',
+        'cash'              => 'Bargeld',
         'bank'              => 'Banküberweisung',
     ],
 

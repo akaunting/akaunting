@@ -31,7 +31,7 @@ return [
     'add_payment'           => 'Zahlung hinzufügen',
     'mark_paid'             => 'Als bezahlt markieren',
     'mark_received'         => 'Als erhalten markieren',
-    'mark_cancelled'        => 'Stornieren',
+    'mark_cancelled'        => 'Als storniert markieren',
     'download_pdf'          => 'Als PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
     'create_bill'           => 'Rechnung erstellen',
@@ -44,7 +44,7 @@ return [
         'status' => [
             'created'       => 'Erstellt am :date',
             'receive' => [
-                'draft'     => 'Noch nicht versandt',
+                'draft'     => 'Noch nicht erhalten',
                 'received'  => 'Empfangen am :date',
             ],
             'paid' => [
