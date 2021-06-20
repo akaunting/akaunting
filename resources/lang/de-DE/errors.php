@@ -17,7 +17,7 @@ return [
     'message' => [
         '403'       => 'Sie können auf diese Seite nicht zugreifen.',
         '404'       => 'Wir konnten die gesuchte Seite nicht finden.',
-        '500'       => 'Wir werden uns sofort darum kümmern.',
+        '500'       => 'Wir werden uns sofort darum kümmern, dieses Problem zu lösen',
         'record'    => 'Wir konnten den Datensatz nicht finden, nach dem Sie gesucht haben.',
     ],
 

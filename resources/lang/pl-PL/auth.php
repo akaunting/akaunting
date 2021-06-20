@@ -29,8 +29,9 @@ return [
     ],
 
     'failed'                => 'Błędny login lub hasło.',
-    'disabled'              => 'To konto jest wyłączone. Proszę skontaktuj się z administrator systemu.',
+    'password'              => 'Podane hasło jest nieprawidłowe.',
     'throttle'              => 'Za dużo nieudanych prób logowania. Proszę spróbować za :seconds sekund.',
+    'disabled'              => 'To konto jest wyłączone. Proszę skontaktuj się z administrator systemu.',
 
     'notification' => [
         'message_1'     => 'Otrzymujesz tę wiadomość, ponieważ otrzymaliśmy żądanie resetowania hasła dla konta.',
