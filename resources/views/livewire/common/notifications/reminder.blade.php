@@ -222,11 +222,6 @@
             </div>
         @endif
     </div>
-@endif
-
-@push('scripts_start')
-    <script src="{{ asset('public/vendor/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-@endpush
 
 @push('body_js')
     <script type="text/javascript">
@@ -247,3 +242,5 @@
         });
     </script>
 @endpush
+
+@endif

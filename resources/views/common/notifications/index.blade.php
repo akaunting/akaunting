@@ -44,10 +44,14 @@
     <script type="text/javascript">
         var hash_split = location.hash.split('#');
 
-        if (hash_split[1] != undefined) {
+        if (hash_split[1] != undefined && document.getElementById(hash_split[1]) != null) {
             document.getElementById(hash_split[1]).scrollIntoView({
                 behavior: 'smooth'
             });
         }
     </script>
+@endpush
+
+@push('scripts_start')
+    <script src="{{ asset('public/vendor/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
 @endpush

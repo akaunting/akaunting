@@ -222,28 +222,24 @@
             </div>
         @endif
     </div>
+
+    @push('body_js')
+        <script type="text/javascript">
+            window.addEventListener('mark-read', event => {
+                if (event.detail.type == 'recurring-{{ $type }}') {
+                    $.notify(event.detail.message, {
+                        type: 'success',
+                    });
+                }
+            });
+    
+            window.addEventListener('mark-read-all', event => {
+                if (event.detail.type == 'recurring-{{ $type }}') {
+                    $.notify(event.detail.message, {
+                        type: 'success',
+                    });
+                }
+            });
+        </script>
+    @endpush
 @endif
-
-@push('scripts_start')
-    <script src="{{ asset('public/vendor/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-@endpush
-
-@push('body_js')
-    <script type="text/javascript">
-        window.addEventListener('mark-read', event => {
-            if (event.detail.type == 'recurring-{{ $type }}') {
-                $.notify(event.detail.message, {
-                    type: 'success',
-                });
-            }
-        });
-
-        window.addEventListener('mark-read-all', event => {
-            if (event.detail.type == 'recurring-{{ $type }}') {
-                $.notify(event.detail.message, {
-                    type: 'success',
-                });
-            }
-        });
-    </script>
-@endpush
