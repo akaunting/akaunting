@@ -71,8 +71,10 @@ class Header
 
                 $new_apps = $this->getNotifications('new-apps');
 
-                foreach ($new_apps as $new_app) {
-                    $notifications++;
+                if ($new_apps) {
+                    foreach ($new_apps as $new_app) {
+                        $notifications++;
+                    }
                 }
             }
 
