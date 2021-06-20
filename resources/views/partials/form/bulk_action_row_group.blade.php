@@ -46,7 +46,7 @@
                             <option
                                 value="{{ $key }}"
                                 @if(!empty($action['message']))
-                                data-message="`{{ trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) }}`"
+                                data-message="{{ trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) }}"
                                 @endif
                                 @if(isset($action['path']) && !empty($action['path']))
                                     data-path="{{ route('bulk-actions.action', $action['path']) }}"
