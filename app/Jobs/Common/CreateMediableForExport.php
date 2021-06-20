@@ -15,16 +15,19 @@ class CreateMediableForExport extends JobShouldQueue
 
     protected $file_name;
 
+    protected $translation;
+
     /**
      * Create a new job instance.
      *
      * @param  $user
      * @param  $file_name
      */
-    public function __construct($user, $file_name)
+    public function __construct($user, $file_name, $translation)
     {
         $this->user = $user;
         $this->file_name = $file_name;
+        $this->translation = $translation;
 
         $this->onQueue('jobs');
     }
@@ -42,7 +45,7 @@ class CreateMediableForExport extends JobShouldQueue
 
         $download_url = route('uploads.download', ['id' => $media->id, 'company_id' => company_id()]);
 
-        $this->user->notify(new ExportCompleted($download_url));
+        $this->user->notify(new ExportCompleted($this->translation, $this->file_name, $download_url));
     }
 
     public function getQueuedMedia()

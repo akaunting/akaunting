@@ -24,8 +24,15 @@ class Import
             $file = $request->file('import');
 
             if (should_queue()) {
+                $rows = $class->toArray($file);
+
+                $total_rows = 0;
+                if (!empty($rows[0])) {
+                    $total_rows = count($rows[0]);
+                }
+
                 $class->queue($file)->onQueue('imports')->chain([
-                    new NotifyUser(user(), new ImportCompleted),
+                    new NotifyUser(user(), new ImportCompleted($translation, $total_rows)),
                 ]);
 
                 $message = trans('messages.success.import_queued', ['type' => $translation]);

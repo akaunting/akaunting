@@ -20,7 +20,7 @@ class Header
     {
         $user = user();
 
-        $invoices = $bills = [];
+        $new_apps = $invoices = $bills = $exports = $imports = [];
         $updates = $notifications = 0;
         $company = null;
 
@@ -42,6 +42,22 @@ class Header
                     $data = $unread->getAttribute('data');
 
                     switch ($unread->getAttribute('type')) {
+                        case 'App\Notifications\Common\ExportCompleted':
+                            $exports['completed'][$data['file_name']] = $data['download_url'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ExportFailed':
+                            $exports['failed'][] = $data['message'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ImportCompleted':
+                            $imports['completed'][] = $data['translation'];
+                            $notifications++;
+                            break;
+                        case 'App\Notifications\Common\ImportFailed':
+                            $imports['failed'][] = '';
+                            $notifications++;
+                            break;
                         case 'App\Notifications\Purchase\Bill':
                             $bills[$data['bill_id']] = $data['amount'];
                             $notifications++;
@@ -50,6 +66,14 @@ class Header
                             $invoices[$data['invoice_id']] = $data['amount'];
                             $notifications++;
                             break;
+                    }
+                }
+
+                $new_apps = $this->getNotifications('new-apps');
+
+                if ($new_apps) {
+                    foreach ($new_apps as $new_app) {
+                        $notifications++;
                     }
                 }
             }
@@ -64,6 +88,9 @@ class Header
         $view->with([
             'user' => $user,
             'notifications' => $notifications,
+            'new_apps' => $new_apps,
+            'exports' => $exports,
+            'imports' => $imports,
             'bills' => $bills,
             'invoices' => $invoices,
             'company' => $company,

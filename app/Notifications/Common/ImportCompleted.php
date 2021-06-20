@@ -11,11 +11,18 @@ class ImportCompleted extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    protected $translation;
+
+    protected $total_rows;
+
     /**
      * Create a notification instance.
      */
-    public function __construct()
+    public function __construct($translation, $total_rows)
     {
+        $this->translation = $translation;
+        $this->total_rows = $total_rows;
+
         $this->onQueue('notifications');
     }
 
@@ -27,7 +34,7 @@ class ImportCompleted extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -44,5 +51,19 @@ class ImportCompleted extends Notification implements ShouldQueue
             ->subject(trans('notifications.import.completed.subject'))
             ->line(trans('notifications.import.completed.description'))
             ->action(trans_choice('general.dashboards', 1), $dashboard_url);
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'translation' => $this->translation,
+            'total_rows' => $this->total_rows,
+        ];
     }
 }
