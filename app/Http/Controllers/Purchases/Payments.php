@@ -40,9 +40,9 @@ class Payments extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transaction $payment)
     {
-        return redirect()->route('payments.index');
+        return view('purchases.payments.show', compact('payment'));
     }
 
     /**
@@ -91,7 +91,7 @@ class Payments extends Controller
         $response = $this->ajaxDispatch(new CreateTransaction($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('payments.index');
+            $response['redirect'] = route('payments.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -206,7 +206,7 @@ class Payments extends Controller
         $response = $this->ajaxDispatch(new UpdateTransaction($payment, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('payments.index');
+            $response['redirect'] = route('payments.show', $payment->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 

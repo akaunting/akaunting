@@ -40,9 +40,9 @@ class Revenues extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transaction $revenue)
     {
-        return redirect()->route('revenues.index');
+        return view('sales.revenues.show', compact('revenue'));
     }
 
     /**
@@ -91,7 +91,7 @@ class Revenues extends Controller
         $response = $this->ajaxDispatch(new CreateTransaction($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('revenues.index');
+            $response['redirect'] = route('revenues.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
@@ -206,7 +206,7 @@ class Revenues extends Controller
         $response = $this->ajaxDispatch(new UpdateTransaction($revenue, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('revenues.index');
+            $response['redirect'] = route('revenues.show', $revenue->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
 
