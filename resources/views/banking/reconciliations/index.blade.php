@@ -45,7 +45,7 @@
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 col-lg-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->account->name) }}</td>
                                 <td class="col-sm-3 col-md-2 col-lg-2 d-none d-sm-block"><a class="col-aka" href="{{ route('reconciliations.edit', $item->id) }}">@date($item->created_at)</a></td>
-                                <td class="col-xs-3 col-sm-2 col-md-2 col-lg-2">{{ $item->account->name }}</td>
+                                <td class="col-xs-3 col-sm-2 col-md-2 col-lg-2 long-texts">{{ $item->account->name }}</td>
                                 <td class="col-md-2 col-lg-2 d-none d-lg-block border-0">@date($item->started_at) - @date($item->ended_at)</td>
                                 <td class="col-md-2 col-lg-2 d-none d-md-block text-right">@money($item->closing_balance, $item->account->currency_code, true)</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
