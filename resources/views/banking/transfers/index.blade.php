@@ -53,9 +53,9 @@
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->expense_transaction->account->name) }}</td>
                                 <td class="col-md-2 d-none d-md-block"><a class="col-aka" href="{{ route('transfers.edit', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
-                                <td class="col-sm-2 col-md-3 d-none d-sm-block">{{ $item->expense_transaction->account->name }}</td>
-                                <td class="col-xs-4 col-sm-4 col-md-2">{{ $item->income_transaction->account->name }}</td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
+                                <td class="col-sm-2 col-md-3 d-none d-sm-block long-texts">{{ $item->expense_transaction->account->name }}</td>
+                                <td class="col-xs-4 col-sm-4 col-md-2 long-texts">{{ $item->income_transaction->account->name }}</td>
+                                <td class="col-xs-4 col-sm-2 col-md-2 text-right long-texts">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 text-center">
                                     <div class="dropdown">
                                         <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

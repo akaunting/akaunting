@@ -56,7 +56,7 @@
                             <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                             <td class="col-md-2 col-lg-1 col-xl-1 d-none d-md-block text-left">{{ $item->type_title }}</td>
                             <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category->name }}</td>
-                            <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->account->name }}</td>
+                            <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left long-texts">{{ $item->account->name }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-3 col-xl-3 d-none d-md-block long-texts">{{ $item->description }}</td>
                         </tr>
                     @endforeach
