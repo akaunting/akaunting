@@ -54,9 +54,9 @@
                 @stack('create_user_input_end')
 
                 <div v-if="can_login" class="row col-md-12">
-                    {{Form::passwordGroup('password', trans('auth.password.current'), 'key', [], 'col-md-6 password')}}
+                    {{Form::passwordGroup('password', trans('auth.password.current'), 'key', ['required' => 'required'], 'col-md-6 password')}}
 
-                    {{Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], 'col-md-6 password')}}
+                    {{Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', ['required' => 'required'], 'col-md-6 password')}}
                 </div>
             </div>
         </div>

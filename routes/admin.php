@@ -88,7 +88,6 @@ Route::group(['prefix' => 'sales'], function () {
 
     Route::get('customers/currency', 'Sales\Customers@currency');
     Route::get('customers/{customer}/duplicate', 'Sales\Customers@duplicate')->name('customers.duplicate');
-    Route::post('customers/field', 'Sales\Customers@field')->name('customers.field');
     Route::post('customers/import', 'Sales\Customers@import')->name('customers.import');
     Route::get('customers/export', 'Sales\Customers@export')->name('customers.export');
     Route::get('customers/{customer}/enable', 'Sales\Customers@enable')->name('customers.enable');
