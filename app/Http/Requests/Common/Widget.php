@@ -27,6 +27,7 @@ class Widget extends FormRequest
             'dashboard_id' => 'required|integer',
             'name' => 'required|string',
             'class' => 'required',
+            'sort' => 'integer',
         ];
     }
 }
