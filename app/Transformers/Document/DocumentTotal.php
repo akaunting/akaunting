@@ -22,6 +22,7 @@ class DocumentTotal extends TransformerAbstract
             'code' => $model->code,
             'name' => $model->name,
             'amount' => $model->amount,
+            'amount_format' => money($model->amount, $model->document->currency_code, true)->format(),
             'sort_order' => $model->sort_order,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',

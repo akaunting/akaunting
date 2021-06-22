@@ -31,6 +31,7 @@ class Document extends TransformerAbstract
             'issued_at' => $model->issued_at ? $model->issued_at->toIso8601String() : '',
             'due_at' => $model->due_at ? $model->due_at->toIso8601String() : '',
             'amount' => $model->amount,
+            'amount_format' => money($model->amount, $model->currency_code, true)->format(),
             'currency_code' => $model->currency_code,
             'currency_rate' => $model->currency_rate,
             'contact_id' => $model->contact_id,
