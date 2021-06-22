@@ -78,7 +78,7 @@
                                     @endif
                                 </td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left long-texts">{{ $item->category->name }}</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->account->name }}</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left long-texts">{{ $item->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     <div class="dropdown">
                                         <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

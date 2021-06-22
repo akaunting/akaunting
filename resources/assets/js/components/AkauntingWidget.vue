@@ -75,6 +75,8 @@
                             :label="text.sort"
                             prepend-icon="fas fa-sort"
                             :placeholder="placeholder.sort"
+                            :error="form.errors.sort[0]"
+                            @input="form.errors.sort[0] = ''"
                             inputGroupClasses="input-group-merge"></base-input>
                     </div>
                 </div>
@@ -220,6 +222,7 @@ export default {
                 errors: {
                     name: [],
                     class: [],
+                    sort: [],
                 }
             },
             display: this.show
@@ -258,7 +261,9 @@ export default {
                     }
 
                     if (response.errors) {
-                        self.form.errors = error.response.data.errors;
+                        self.form.errors.name = (error.response.data.errors.name) ? error.response.data.errors.name : [];
+                        self.form.errors.class = (error.response.data.errors.class) ? error.response.data.errors.class : [];
+                        self.form.errors.sort = (error.response.data.errors.sort) ? error.response.data.errors.sort : [];
 
                         self.form.loading = false;
                     }
@@ -266,7 +271,9 @@ export default {
                     self.form.response = response.data;
                 })
                 .catch(function (error) {
-                    self.form.errors = error.response.data.errors;
+                    self.form.errors.name = (error.response.data.errors.name) ? error.response.data.errors.name : [];
+                    self.form.errors.class = (error.response.data.errors.class) ? error.response.data.errors.class : [];
+                    self.form.errors.sort = (error.response.data.errors.sort) ? error.response.data.errors.sort : [];
 
                     self.form.loading = false;
                 });
