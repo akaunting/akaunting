@@ -70,7 +70,7 @@ return [
     'messages' => [
 
         'mark_read'             => ':type is read this notification!',
-        'mark_read_all'         => ':type is read all notification!',
+        'mark_read_all'         => ':type is read all notifications!',
         'new_app'               => ':type app published.',
         'export'                => 'Your <b>:type</b> export file is ready to <a href=":url" target="_blank"><b>download</b></a>.',
         'import'                => 'Your <b>:type</b> lined <b>:count</b> data is imported successfully.',
