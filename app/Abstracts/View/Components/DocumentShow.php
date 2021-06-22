@@ -237,6 +237,12 @@ abstract class DocumentShow extends Base
     public $hideTimelineCreate;
 
     /** @var string */
+    public $textDocumentTitle;
+
+    /** @var string */
+    public $textDocumentSubheading;
+
+    /** @var string */
     public $textTimelineCreateTitle;
 
     /** @var string */
@@ -377,6 +383,7 @@ abstract class DocumentShow extends Base
         string $textHeaderContact = '', string $textHeaderAmount = '', string $textHeaderDueAt = '',
         string $classHeaderStatus = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderDueAt = '', string $classFooterHistories = '', string $classFooterTransactions = '',
         bool $hideHeaderStatus = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderDueAt = false,
+        string $textDocumentTitle = '', string $textDocumentSubheading = '',
         string $textTimelineCreateTitle = '', string $textTimelineCreateMessage = '', string $textTimelineSentTitle = '', string $textTimelineSentStatusDraft = '', string $textTimelineSentStatusMarkSent = '', string $textTimelineSentStatusReceived = '', string $textTimelineSendStatusMail = '',
         string $textTimelineGetPaidTitle = '', string $textTimelineGetPaidStatusAwait = '', string $textTimelineGetPaidStatusPartiallyPaid = '', string $textTimelineGetPaidMarkPaid = '', string $textTimelineGetPaidAddPayment = '',
         bool $hideTimelineCreate = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false,
@@ -474,6 +481,8 @@ abstract class DocumentShow extends Base
         $this->hideButtonShare = $hideButtonShare;
         $this->hideButtonPaid = $hideButtonPaid;
 
+        $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
+        $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
         $this->textTimelineCreateTitle = $this->getTextTimelineCreateTitle($type, $textTimelineCreateTitle);
         $this->textTimelineCreateMessage = $this->getTextTimelineCreateMessage($type, $textTimelineCreateMessage);
         $this->textTimelineSentTitle = $this->getTextTimelineSentTitle($type, $textTimelineSentTitle);
@@ -1134,6 +1143,44 @@ abstract class DocumentShow extends Base
         }
 
         return $hideTimelineStatuses;
+    }
+
+    protected function getTextDocumentTitle($type, $textDocumentTitle)
+    {
+        if (!empty($textDocumentTitle)) {
+            return $textDocumentTitle;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_title', 'title');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        if (!empty(setting($type . '.title'))) {
+            return setting($type . '.title');
+        }
+
+        return setting('invoice.title');
+    }
+
+    protected function getTextDocumentSubheading($type, $textDocumentSubheading)
+    {
+        if (!empty($textDocumentSubheading)) {
+            return $textDocumentSubheading;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_subheading', 'subheading');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        if (!empty(setting($type . '.subheading'))) {
+            return setting($type . '.subheading');
+        }
+
+        return setting('invoice.subheading');
     }
 
     protected function getTextTimelineCreateTitle($type, $textTimelineCreateTitle)
