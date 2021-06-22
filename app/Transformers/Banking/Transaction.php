@@ -28,6 +28,7 @@ class Transaction extends TransformerAbstract
             'account_id' => $model->account_id,
             'paid_at' => $model->paid_at->toIso8601String(),
             'amount' => $model->amount,
+            'amount_format' => money($model->amount, $model->currency_code, true)->format(),
             'currency_code' => $model->currency_code,
             'currency_rate' => $model->currency_rate,
             'document_id' => $model->document_id,
