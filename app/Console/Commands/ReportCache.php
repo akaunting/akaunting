@@ -59,19 +59,25 @@ class ReportCache extends Command
         $reports = Report::orderBy('name')->get();
 
         foreach ($reports as $report) {
-            $class = Utility::getClassInstance($report, false);
+            try {
+                $class = Utility::getClassInstance($report, false);
 
-            if (empty($class)) {
-                continue;
+                if (empty($class)) {
+                    continue;
+                }
+
+                $ttl = 3600 * 6; // 6 hours
+
+                Cache::forget('reports.totals.' . $report->id);
+
+                Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
+                    return $class->getGrandTotal();
+                });
+            } catch (\Throwable $e) {
+                $this->error($e->getMessage());
+
+                report($e);
             }
-
-            $ttl = 3600 * 6; // 6 hours
-
-            Cache::forget('reports.totals.' . $report->id);
-
-            Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
-                return $class->getGrandTotal();
-            });
         }
     }
 }
