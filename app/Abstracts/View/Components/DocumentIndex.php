@@ -671,7 +671,7 @@ abstract class DocumentIndex extends Base
             return $class;
         }
 
-        return 'col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-left';
+        return 'col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-left long-texts';
     }
 
     protected function getClassAmount($type, $classAmount)

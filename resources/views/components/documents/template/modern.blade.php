@@ -2,12 +2,13 @@
     <div class="col-100">
         <div class="text">
             <h3>
-                {{ setting('invoice.title') }}
+                {{ $textDocumentTitle }}
             </h3>
-            @if (setting('invoice.subheading')) 
-            <h5>
-                {{ setting('invoice.subheading') }}
-            </h5>
+
+            @if ($textDocumentSubheading) 
+                <h5>
+                    {{ $textDocumentSubheading }}
+                </h5>
             @endif
         </div>
     </div>

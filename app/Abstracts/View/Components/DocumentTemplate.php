@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Image;
 use Intervention\Image\Exception\NotReadableException;
 use Storage;
+use Illuminate\Support\Str;
 
 abstract class DocumentTemplate extends Base
 {
@@ -68,6 +69,12 @@ abstract class DocumentTemplate extends Base
 
     public $hideDueAt;
 
+    /** @var string */
+    public $textDocumentTitle;
+
+    /** @var string */
+    public $textDocumentSubheading;
+
     public $textContactInfo;
 
     /** @var string */
@@ -121,6 +128,7 @@ abstract class DocumentTemplate extends Base
         bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
+        string $textDocumentTitle = '', string $textDocumentSubheading = '',
         string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
         string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
@@ -151,6 +159,8 @@ abstract class DocumentTemplate extends Base
         $this->hideIssuedAt = $hideIssuedAt;
         $this->hideDueAt = $hideDueAt;
 
+        $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
+        $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
@@ -257,6 +267,44 @@ abstract class DocumentTemplate extends Base
         $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
 
         return $backgroundColor;
+    }
+
+    protected function getTextDocumentTitle($type, $textDocumentTitle)
+    {
+        if (!empty($textDocumentTitle)) {
+            return $textDocumentTitle;
+        }
+
+        if (!empty(setting($type . '.title'))) {
+            return setting($type . '.title');
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type));
+
+        if (!empty($translation)) {
+            return trans_choice($translation, 1);
+        }
+
+        return setting('invoice.title');
+    }
+
+    protected function getTextDocumentSubheading($type, $textDocumentSubheading)
+    {
+        if (!empty($textDocumentSubheading)) {
+            return $textDocumentSubheading;
+        }
+
+        if (!empty(setting($type . '.subheading'))) {
+            return setting($type . '.subheading');
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_subheading', 'subheading');
+
+        if (!empty($translation)) {
+            return trans($translation);
+        }
+
+        return false;
     }
 
     protected function getTextDocumentNumber($type, $textDocumentNumber)

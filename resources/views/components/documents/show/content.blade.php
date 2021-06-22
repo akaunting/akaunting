@@ -108,6 +108,8 @@
         text-document-number="{{ $textDocumentNumber }}"
         text-due-at="{{ $textDueAt }}"
         text-order-number="{{ $textOrderNumber }}"
+        text-document-title="{{ $textDocumentTitle }}"
+        text-document-subheading="{{ $textDocumentSubheading }}"
         hide-items="{{ $hideItems }}"
         hide-name="{{ $hideName }}"
         hide-description="{{ $hideDescription }}"

@@ -110,7 +110,17 @@ export default class Form {
                         }
                     } else {
                         if (form_element.checked) {
-                            this[form_element.getAttribute('data-field')][name] = form_element.value;
+                            if (form_element.dataset.type != undefined) {
+                                if (form_element.dataset.type == 'multiple') {
+                                    this[name] = [];
+
+                                    this[form_element.getAttribute('data-field')][name].push(form_element.value);
+                                } else {
+                                    this[form_element.getAttribute('data-field')][name] = form_element.value;
+                                }
+                            } else {
+                                this[form_element.getAttribute('data-field')][name] = form_element.value;
+                            }
                         } else {
                             this[form_element.getAttribute('data-field')][name] = [];
                         }
@@ -141,7 +151,17 @@ export default class Form {
                     }
                 } else {
                     if (form_element.checked) {
-                        this[name] = form_element.value;
+                        if (form_element.dataset.type != undefined) {
+                            if (form_element.dataset.type == 'multiple') {
+                                this[name] = [];
+
+                                this[name].push(form_element.value);
+                            } else {
+                                this[name] = form_element.value;
+                            }
+                        } else {
+                            this[name] = form_element.value;
+                        }
                     } else {
                         this[name] = [];
                     }

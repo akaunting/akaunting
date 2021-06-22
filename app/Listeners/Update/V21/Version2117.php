@@ -51,8 +51,12 @@ class Version2117 extends Listener
 
     protected function cacheReports()
     {
-        Report::all()->each(function ($report) {
-            Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getGrandTotal());
-        });
+        try {
+            Report::all()->each(function ($report) {
+                Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getGrandTotal());
+            });
+        } catch (\Throwable $e) {
+            report($e);
+        }
     }
 }

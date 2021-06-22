@@ -47,8 +47,8 @@
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
-                                <td class="col-xs-4 col-sm-3 col-md-4 col-lg-3 col-xl-3 long-texts">
-                                    <a class="col-aka" href="{{ route('vendors.show', $item->id) }}">{{ $item->name }}</a>
+                                <td class="col-xs-4 col-sm-3 col-md-4 col-lg-3 col-xl-3">
+                                    <a class="col-aka long-texts d-block" href="{{ route('vendors.show', $item->id) }}">{{ $item->name }}</a>
                                 </td>
                                 <td class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block long-texts">
                                     <el-tooltip content="{{ !empty($item->phone) ? $item->phone : trans('general.na') }}"
