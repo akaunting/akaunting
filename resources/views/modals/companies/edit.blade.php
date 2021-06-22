@@ -20,6 +20,10 @@
 
         {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
 
+        <div class="form-group col-md-12 d-none">
+            <textarea name="address" class="form-control" rows="3">{{ setting('company.address') }}</textarea>
+        </div>
+
         {!! Form::hidden('_prefix', 'company') !!}
     </div>
 {!! Form::close() !!}

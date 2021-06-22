@@ -19,7 +19,11 @@
 
         {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $vendor->currency_code) }}
 
-        {{ Form::textareaGroup('address', trans('general.address')) }}
+        {{ Form::textareaGroup('address', trans('general.address'), null, $vendor->address) }}
+
+        <div class="form-group col-md-12 d-none">
+            <textarea name="address" class="form-control" rows="3">{{ $vendor->address }}</textarea>
+        </div>
 
         {{ Form::hidden('type', 'vendor') }}
         {!! Form::hidden('enabled', '1', []) !!}
