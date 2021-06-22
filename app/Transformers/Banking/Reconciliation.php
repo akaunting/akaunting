@@ -25,6 +25,7 @@ class Reconciliation extends TransformerAbstract
             'started_at' => $model->started_at->toIso8601String(),
             'ended_at' => $model->ended_at->toIso8601String(),
             'closing_balance' => $model->closing_balance,
+            'closing_balance_format' => money($model->closing_balance, setting('default.currency'), true)->format(),
             'reconciled' => $model->reconciled,
             'created_by' => $model->created_by,
             'created_at' => $model->created_at->toIso8601String(),
