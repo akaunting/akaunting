@@ -37,6 +37,11 @@ return [
     'create_bill'           => 'Create Bill',
     'receive_bill'          => 'Receive Bill',
     'make_payment'          => 'Make Payment',
+    'payment_history'       => 'Payment History',
+    'payment_made'          => 'Payment Made',
+    'overdue_payment'       => 'Overdue Payment',
+    'payment_date'          => 'Payment Date',
+    'related_bill'          => 'Related Bill',
 
     'messages' => [
         'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',

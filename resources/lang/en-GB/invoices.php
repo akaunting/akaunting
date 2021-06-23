@@ -39,6 +39,11 @@ return [
     'send_invoice'          => 'Send Invoice',
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
+    'revenue_date'          => 'Revenue Date',
+    'overdue_revenue'       => 'Overdue Revenue',
+    'revenue_made'          => 'Revenue Made',
+    'revenue_history'       => 'Revenue History',
+    'related_revenue'       => 'Related Revenue',
 
     'messages' => [
         'email_required'    => 'No email address for this customer!',
