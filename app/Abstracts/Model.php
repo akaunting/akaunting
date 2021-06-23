@@ -113,7 +113,7 @@ abstract class Model extends Eloquent implements Ownable
             return $query->get();
         }
 
-        $limit = $request->get('limit', setting('default.list_limit', '25'));
+        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
         return $query->paginate($limit);
     }

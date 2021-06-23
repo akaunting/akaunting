@@ -39,7 +39,7 @@ abstract class Controller extends BaseController
      */
     public function paginate($items, $perPage = 15, $page = null, $options = [])
     {
-        $perPage = $perPage ?: request('limit', setting('default.list_limit', '25'));
+        $perPage = $perPage ?: (int) request('limit', setting('default.list_limit', '25'));
 
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
