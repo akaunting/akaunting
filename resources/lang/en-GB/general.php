@@ -162,6 +162,9 @@ return [
     'due_on'                => 'Due on',
     'amount_due'            => 'Amount due',
     'financial_year'        => 'Financial Year',
+    'paid_to'               => 'Paid To',
+    'paid_by'               => 'Paid By',
+    'payment_date'          => 'Payment Date',
 
     'card' => [
         'cards'                 => 'Card|Cards',
