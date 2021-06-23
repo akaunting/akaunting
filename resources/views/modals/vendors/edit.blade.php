@@ -21,10 +21,6 @@
 
         {{ Form::textareaGroup('address', trans('general.address'), null, $vendor->address) }}
 
-        <div class="form-group col-md-12 d-none">
-            <textarea name="address" class="form-control" rows="3">{{ $vendor->address }}</textarea>
-        </div>
-
         {{ Form::hidden('type', 'vendor') }}
         {!! Form::hidden('enabled', '1', []) !!}
     </div>

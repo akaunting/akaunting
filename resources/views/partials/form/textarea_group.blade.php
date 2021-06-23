@@ -14,9 +14,8 @@
         {!! Form::textarea($name, $value, array_merge([
             'class' => 'form-control',
             'data-name' => $name,
-            'data-value' => $value,
             'placeholder' => trans('general.form.enter', ['field' => $text]),
-            'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name),
+            '@input' => !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event.target.value' : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name . ' = $event.target.value' : 'form.' . $name . ' = $event.target.value'),
         ], $attributes)) !!}
 
         <div class="invalid-feedback d-block"
