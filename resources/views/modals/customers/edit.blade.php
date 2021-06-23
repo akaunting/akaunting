@@ -19,7 +19,7 @@
 
         {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $customer->currency_code) }}
 
-        {{ Form::textareaGroup('address', trans('general.address'), $customer->address) }}
+        {{ Form::textareaGroup('address', trans('general.address'), null, $customer->address) }}
 
         {{ Form::hidden('type', 'customer') }}
         {!! Form::hidden('enabled', '1', []) !!}
