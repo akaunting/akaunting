@@ -57,7 +57,7 @@ abstract class Module extends Command
             'company_id' => $this->company_id,
             'module_id' => $this->model->id,
             'version' => $this->module->get('version'),
-            'description' => trans('modules.' . $action, ['module' => $this->alias]),
+            'description' => trans('modules.history.' . $action, ['module' => $this->alias]),
         ]);
     }
 
