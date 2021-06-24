@@ -15,6 +15,7 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Notifications\Sale\Revenue as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Utilities\Modules;
