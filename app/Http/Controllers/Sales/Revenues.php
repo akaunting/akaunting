@@ -257,4 +257,69 @@ class Revenues extends Controller
     {
         return $this->exportExcel(new Export, trans_choice('general.revenues', 2));
     }
+
+    /**
+     * Download the PDF file of revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function emailRevenue(Transaction $revenue)
+    {
+        if (empty($revenue->contact->email)) {
+            return redirect()->back();
+        }
+
+        // Notify the customer
+        $revenue->contact->notify(new Notification($revenue, 'revenue_new_customer', true));
+
+        event(new \App\Events\Transaction\TransactionSent($revenue));
+
+        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.revenues', 1)]))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Print the revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function printRevenue(Transaction $revenue)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+
+        $view = view($revenue->template_path, compact('revenue'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function pdfRevenue(Transaction $revenue)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+
+        $currency_style = true;
+
+        $view = view($revenue->template_path, compact('revenue', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getDocumentFileName($revenue);
+
+        return $pdf->download($file_name);
+    }
 }

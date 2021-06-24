@@ -257,4 +257,69 @@ class Payments extends Controller
     {
         return $this->exportExcel(new Export, trans_choice('general.payments', 2));
     }
+
+    /**
+     * Download the PDF file of payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function emailPayment(Transaction $payment)
+    {
+        if (empty($payment->contact->email)) {
+            return redirect()->back();
+        }
+
+        // Notify the customer
+        $payment->contact->notify(new Notification($payment, 'payment_new_customer', true));
+
+        event(new \App\Events\Transaction\TransactionSent($payment));
+
+        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.payments', 1)]))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Print the payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function printPayment(Transaction $payment)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($payment));
+
+        $view = view($payment->template_path, compact('payment'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function pdfPayment(Transaction $payment)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($payment));
+
+        $currency_style = true;
+
+        $view = view($payment->template_path, compact('payment', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getDocumentFileName($payment);
+
+        return $pdf->download($file_name);
+    }
 }

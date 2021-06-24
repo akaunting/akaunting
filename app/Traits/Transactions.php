@@ -59,4 +59,20 @@ trait Transactions
             'transaction.type.' . $index => implode(',', $types),
         ])->save();
     }
+
+    protected function getSettingKey($type, $setting_key)
+    {
+        $key = '';
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $key .= $alias . '.';
+        }
+
+        $prefix = config('type.' . $type . '.setting.prefix');
+
+        $key .= $prefix . '.' . $setting_key;
+
+        return $key;
+    }
 }

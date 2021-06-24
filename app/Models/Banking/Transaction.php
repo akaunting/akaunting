@@ -391,6 +391,11 @@ class Transaction extends Model
         return !empty($value) ? $value : (!empty($this->document_id) ? $this->document_id : $this->id);
     }
 
+    public function getTemplatePathAttribute($value = null)
+    {
+        return $value ?: 'sales.revenues.print_default';
+    }
+
     /**
      * Create a new factory instance for the model.
      *
