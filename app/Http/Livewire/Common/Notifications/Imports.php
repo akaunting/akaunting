@@ -58,7 +58,7 @@ class Imports extends Component
     {
         $query = user()->notifications()->unread()
             ->where('type', 'App\Notifications\Common\ImportCompleted')
-            ->orWhere('type', 'App\Notifications\Common\ImportFailed');
+            ->where('type', 'App\Notifications\Common\ImportFailed');
 
         if ($limit) {
             $notifications = $query->paginate($limit);
