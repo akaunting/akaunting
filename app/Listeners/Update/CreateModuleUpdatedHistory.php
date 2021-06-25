@@ -34,7 +34,7 @@ class CreateModuleUpdatedHistory
             'company_id' => $model->company_id,
             'module_id' => $model->id,
             'version' => $event->new,
-            'description' => trans('modules.history.updated', ['module' => $module->getAlias()]),
+            'description' => trans('modules.updated_2', ['module' => $module->getAlias()]),
         ]);
     }
 }

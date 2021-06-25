@@ -25,13 +25,11 @@ return [
     'view'                  => 'View',
     'back'                  => 'Back',
 
-    'history' => [
-        'installed'             => ':module installed',
-        'uninstalled'           => ':module uninstalled',
-        'updated'               => ':module updated',
-        'enabled'               => ':module enabled',
-        'disabled'              => ':module disabled',
-    ],
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    'updated_2'             => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
 
     'tab' => [
         'installation'      => 'Installation',
