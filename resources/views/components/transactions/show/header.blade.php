@@ -6,7 +6,7 @@
             <br>
 
             <strong>
-                <span class="float-left">
+                <span class="float-left long-texts mwpx-200 transaction-head-text">
                     {{ $transaction->account->name }}
                 </span>
             </strong>
@@ -22,7 +22,7 @@
             <br>
 
             <strong>
-                <span class="float-left">
+                <span class="float-left long-texts mwpx-300 transaction-head-text">
                     {{ $transaction->category->name }}
                 </span>
             </strong>
@@ -38,7 +38,7 @@
             <br>
 
             <strong>
-                <span class="float-left">
+                <span class="float-left long-texts mwpx-300 transaction-head-text">
                     {{ $transaction->contact->name }}
                 </span>
             </strong>
@@ -54,7 +54,7 @@
             <br>
 
             <strong>
-                <span class="float-left">
+                <span class="float-left long-texts mwpx-100 transaction-head-text">
                     @money($transaction->amount, $transaction->currency_code, true)
                 </span>
             </strong>
@@ -70,7 +70,7 @@
             <br>
 
             <strong>
-                <span class="float-left">
+                <span class="float-left long-texts mwpx-100 transaction-head-text">
                     @date($transaction->paid_at)
                 </span>
             </strong>

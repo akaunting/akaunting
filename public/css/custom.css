@@ -220,6 +220,22 @@ button:focus {
 .mwpx-100 {
     max-width: 100px !important;
 }
+
+.mwpx-200 {
+    max-width: 200px !important;
+}
+
+.mwpx-300 {
+    max-width: 300px !important;
+}
+
+.mwpx-400 {
+    max-width: 400px !important;
+}
+
+.mwpx-500 {
+    max-width: 500px !important;
+}
 /*--------Max Width 100 Pixel Finish--------*/
 
 /*--------Form Group--------*/
