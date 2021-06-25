@@ -36,7 +36,9 @@
 @push('scripts_end')
 <script type="text/javascript">
     $(window).click(function() {
-        Livewire.emit('resetKeyword');
+        if (Livewire.components.getComponentsByName('common.search')[0].data.results.length > 0) {
+            Livewire.emit('resetKeyword');
+        }
     });
 </script>
 @endpush
