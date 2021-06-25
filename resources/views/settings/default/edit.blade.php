@@ -26,7 +26,7 @@
 
                 {{ Form::selectRemoteGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), ['remote_action' => route('categories.index'). '?search=type:expense']) }}
 
-                {{ Form::selectGroup('tax', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), []) }}
+                {{ Form::selectRemoteAddNewGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), ['path' => route('modals.taxes.create'), 'remote_action' => route('taxes.index')]) }}
 
                 {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('default.payment_method'), []) }}
 
