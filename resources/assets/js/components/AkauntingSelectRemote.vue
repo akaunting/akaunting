@@ -9,7 +9,7 @@
         ]"
         :error="formError">
 
-        <el-select v-model="selected" :placeholder="placeholder" filterable remote reserve-keyword
+        <el-select v-model="selected" :placeholder="placeholder" filterable reserve-keyword
             @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
             :disabled="disabled"
             :multiple="multiple"
