@@ -29,21 +29,58 @@ abstract class TransactionShow extends Base
     /** @var string */
     public $logo;
 
-    /** @var string */
-    public $signedUrl;
-
-    public $histories;
-
-    public $date_format;
-
-    /** @var string */
-    public $textHistories;
-
     /** @var array */
     public $payment_methods;
 
+    public $date_format;
+
+    /** @var bool */
+    public $hideButtonAddNew;
+
+    /** @var bool */
+    public $hideButtonMoreActions;
+
+    /** @var bool */
+    public $hideButtonEdit;
+
+    /** @var bool */
+    public $hideButtonDuplicate;
+
+    /** @var bool */
+    public $hideButtonPrint;
+
+    /** @var bool */
+    public $hideButtonShare;
+
+    /** @var bool */
+    public $hideButtonEmail;
+
+    /** @var bool */
+    public $hideButtonPdf;
+
+    /** @var bool */
+    public $hideButtonDelete;
+
     /** @var string */
     public $checkButtonReconciled;
+
+    /** @var bool */
+    public $hideButtonGroupDivider1;
+
+    /** @var bool */
+    public $hideButtonGroupDivider2;
+
+    /** @var bool */
+    public $hideButtonGroupDivider3;
+
+    /** @var string */
+    public $permissionCreate;
+
+    /** @var string */
+    public $permissionUpdate;
+
+    /** @var string */
+    public $permissionDelete;
 
     /** @var string */
     public $routeButtonAddNew;
@@ -58,67 +95,37 @@ abstract class TransactionShow extends Base
     public $routeButtonPrint;
 
     /** @var string */
+    public $signedUrl;
+
+    /** @var string */
+    public $routeButtonEmail;
+
+    /** @var string */
     public $routeButtonPdf;
 
     /** @var string */
     public $routeButtonDelete;
 
     /** @var string */
-    public $routeButtonEmail;
-
-    /** @var string */
-    public $permissionCreate;
-
-    /** @var string */
-    public $permissionUpdate;
-
-    /** @var string */
-    public $permissionDelete;
-
-    /** @var bool */
-    public $hideButtonGroupDivider1;
-
-    /** @var bool */
-    public $hideButtonGroupDivider2;
-
-    /** @var bool */
-    public $hideButtonGroupDivider3;
-
-    /** @var bool */
-    public $hideButtonMoreActions;
-
-    /** @var bool */
-    public $hideButtonAddNew;
-
-    /** @var bool */
-    public $hideButtonEdit;
-
-    /** @var bool */
-    public $hideButtonDuplicate;
-
-    /** @var bool */
-    public $hideButtonPrint;
-
-    /** @var bool */
-    public $hideButtonPdf;
-
-    /** @var bool */
-    public $hideButtonDelete;
+    public $textDeleteModal;
 
     /** @var bool */
     public $hideHeader;
 
     /** @var bool */
-    public $hideFooter;
+    public $hideHeaderAccount;
 
     /** @var bool */
-    public $hideFooterHistories;
+    public $hideHeaderCategory;
 
     /** @var bool */
-    public $hideButtonEmail;
+    public $hideHeaderContact;
 
     /** @var bool */
-    public $hideButtonShare;
+    public $hideHeaderAmount;
+
+    /** @var bool */
+    public $hideHeaderPaidAt;
 
     /** @var string */
     public $textHeaderAccount;
@@ -135,11 +142,8 @@ abstract class TransactionShow extends Base
     /** @var string */
     public $textHeaderPaidAt;
 
-    /** @var bool */
-    public $hideHeaderAccount;
-
-    /** @var bool */
-    public $hideHeaderCategory;
+    /** @var string */
+    public $classHeaderAccount;
 
     /** @var string */
     public $classHeaderCategory;
@@ -153,76 +157,159 @@ abstract class TransactionShow extends Base
     /** @var string */
     public $classHeaderPaidAt;
 
-    /** @var string */
-    public $classHeaderAccount;
-
-    /** @var string */
-    public $classFooterHistories;
+    /** @var bool */
+    public $hideCompany;
 
     /** @var bool */
-    public $hideHeaderContact;
-
-    /** @var bool */
-    public $hideHeaderAmount;
-
-    /** @var bool */
-    public $hideHeaderPaidAt;
-
     public $hideCompanyLogo;
 
+    /** @var bool */
     public $hideCompanyDetails;
 
     /** @var bool */
     public $hideCompanyName;
 
+    /** @var bool */
     public $hideCompanyAddress;
 
+    /** @var bool */
     public $hideCompanyTaxNumber;
 
+    /** @var bool */
     public $hideCompanyPhone;
 
+    /** @var bool */
     public $hideCompanyEmail;
 
-    public $hideContactInfo;
+    /** @var bool */
+    public $hideContentTitle;
 
-    public $hideContactName;
+    /** @var bool */
+    public $hidePaidAt;
 
-    public $hideContactAddress;
+    /** @var bool */
+    public $hideAccount;
 
-    public $hideContactTaxNumber;
+    /** @var bool */
+    public $hideCategory;
 
-    public $hideContactPhone;
+    /** @var bool */
+    public $hidePaymentMethods;
 
-    public $hideContactEmail;
+    /** @var bool */
+    public $hideReference;
 
-    public $hideIssuedAt;
-
-    public $hideDueAt;
-
-    public $textContactInfo;
-
-    /** @var string */
-    public $textIssuedAt;
-
-    /** @var string */
-    public $textDueAt;
-
-    public $hideName;
-
+    /** @var bool */
     public $hideDescription;
 
+    /** @var bool */
     public $hideAmount;
 
     /** @var string */
+    public $textContentTitle;
+
+    /** @var string */
+    public $textPaidAt;
+
+    /** @var string */
+    public $textAccount;
+
+    /** @var string */
+    public $textCategory;
+
+    /** @var string */
+    public $textPaymentMethods;
+
+    /** @var string */
+    public $textReference;
+
+    /** @var string */
+    public $textDescription;
+
+    /** @var string */
     public $textAmount;
+
+    /** @var string */
+    public $textPaidBy;
+
+    /** @var bool */
+    public $hideContact;
+
+    /** @var bool */
+    public $hideContactInfo;
+
+    /** @var bool */
+    public $hideContactName;
+
+    /** @var bool */
+    public $hideContactAddress;
+
+    /** @var bool */
+    public $hideContactTaxNumber;
+
+    /** @var bool */
+    public $hideContactPhone;
+
+    /** @var bool */
+    public $hideContactEmail;
+
+    /** @var bool */
+    public $hideReletad;
+
+    /** @var bool */
+    public $hideReletadDocumentNumber;
+
+    /** @var bool */
+    public $hideReletadContact;
+
+    /** @var bool */
+    public $hideReletadDocumentDate;
+
+    /** @var bool */
+    public $hideReletadDocumentAmount;
+
+    /** @var bool */
+    public $hideReletadAmount;
+
+    /** @var string */
+    public $textReleatedTransansaction;
+
+    /** @var string */
+    public $textReleatedDocumentNumber;
+
+    /** @var string */
+    public $textReleatedContact;
+
+    /** @var string */
+    public $textReleatedDocumentDate;
+
+    /** @var string */
+    public $textReleatedDocumentAmount;
+
+    /** @var string */
+    public $textReleatedAmount;
+
+    /** @var string */
+    public $routeDocumentShow;
 
     /** @var bool */
     public $hideAttachment;
 
     public $attachment;
 
+    /** @var bool */
+    public $hideFooter;
+
+    /** @var bool */
+    public $hideFooterHistories;
+
+    public $histories;
+
     /** @var string */
-    public $textDeleteModal;
+    public $textHistories;
+
+    /** @var string */
+    public $classFooterHistories;
 
     /**
      * Create a new component instance.
@@ -230,76 +317,76 @@ abstract class TransactionShow extends Base
      * @return void
      */
     public function __construct(
-        $type, $transaction, $transactionTemplate = '', $logo = '', string $signedUrl = '', $histories = [], string $textHistories = '',
-        string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $routeButtonPdf = '', string $routeButtonDelete = '', string $routeButtonEmail = '',
-        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
-        bool $checkButtonReconciled = true, array $payment_methods = [],
+        $type, $transaction, $transactionTemplate = '', $logo = '', array $payment_methods = [],
+        bool $hideButtonAddNew = false, bool $hideButtonMoreActions = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonPrint = false, bool $hideButtonShare = false,
+        bool $hideButtonEmail = false, bool $hideButtonPdf = false, bool $hideButtonDelete = false, bool $checkButtonReconciled = true, 
         bool $hideButtonGroupDivider1 = false, bool $hideButtonGroupDivider2 = false, bool $hideButtonGroupDivider3 = false,
-        bool $hideButtonMoreActions = false, bool $hideButtonAddNew = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonPrint = false, bool $hideButtonPdf = false, bool $hideButtonDelete = false,
-        bool $hideHeader = false, bool $hideFooter = false, bool $hideFooterHistories = false,
-        bool $hideButtonEmail = false, bool $hideButtonShare = false,
+        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
+        string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $signedUrl = '',
+        string $routeButtonEmail = '', string $routeButtonPdf = '', string $routeButtonDelete = '', 
+        string $textDeleteModal = '',
+        bool $hideHeader = false, bool $hideHeaderAccount = false, bool $hideHeaderCategory = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderPaidAt = false,
         string $textHeaderAccount = '', string $textHeaderCategory = '', string $textHeaderContact = '', string $textHeaderAmount = '', string $textHeaderPaidAt = '',
-        string $classHeaderAccount = '', string $classHeaderCategory = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderPaidAt = '', string $classFooterHistories = '',
-        bool $hideHeaderAccount = false, bool $hideHeaderCategory = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderPaidAt = false,
-        bool $hideTimelineCreate = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false,
-        bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
-        bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
-        bool $hideOrderNumber = false, bool $hidetransactionNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
-        string $textContactInfo = '', string $textIssuedAt = '', string $textDueAt = '',
-        bool $hideName = false, bool $hideDescription = false, bool $hideAmount = false, bool $hideAttachment = false,
-        string $textAmount = '', $attachment = [],
-        string $textDeleteModal = ''
+        string $classHeaderAccount = '', string $classHeaderCategory = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderPaidAt = '',
+
+        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false, 
+        bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false,
+        bool $hideContentTitle = false,bool $hidePaidAt = false, bool $hideAccount = false, bool $hideCategory = false, bool $hidePaymentMethods = false, bool $hideReference = false, bool $hideDescription = false,
+        bool $hideAmount = false,
+        string $textContentTitle = '', string $textPaidAt = '', string $textAccount = '', string $textCategory = '', string $textPaymentMethods = '', string $textReference = '', string $textDescription = '',
+        string $textAmount = '', string $textPaidBy = '',
+        bool $hideContact = false, bool $hideContactInfo = false, bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false,
+        bool $hideContactPhone = false, bool $hideContactEmail = false,
+        bool $hideReletad = false, bool $hideReletadDocumentNumber = false, bool $hideReletadContact = false, bool $hideReletadDocumentDate = false, bool $hideReletadDocumentAmount = false, bool $hideReletadAmount = false,
+        string $textReleatedTransansaction = '', string $textReleatedDocumentNumber = '', string $textReleatedContact = '', string $textReleatedDocumentDate = '', string $textReleatedDocumentAmount = '', string $textReleatedAmount = '',
+        string $routeDocumentShow = '',
+
+        bool $hideAttachment = false, $attachment = [],
+        bool $hideFooter = false, bool $hideFooterHistories = false, $histories = [], 
+        string $textHistories = '', string $classFooterHistories = ''
     ) {
         $this->type = $type;
         $this->transaction = $transaction;
         $this->transactionTemplate = $this->getTransactionTemplate($type, $transactionTemplate);
         $this->logo = $this->getLogo($logo);
-        $this->signedUrl = $this->getSignedUrl($type, $signedUrl);
-
-        $this->histories = $this->getHistories($histories);
-
+        $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods();
         $this->date_format = $this->getCompanyDateFormat();
 
-        $this->textHistories = $this->getTextHistories($type, $textHistories);
-
+        // Navbar Hide
+        $this->hideButtonAddNew = $hideButtonAddNew;
+        $this->hideButtonMoreActions = $hideButtonMoreActions;
+        $this->hideButtonEdit = $hideButtonEdit;
+        $this->hideButtonDuplicate  = $hideButtonDuplicate;
+        $this->hideButtonPrint  = $hideButtonPrint;
+        $this->hideButtonShare = $hideButtonShare;
+        $this->hideButtonEmail = $hideButtonEmail;
+        $this->hideButtonPdf  = $hideButtonPdf;
+        $this->hideButtonDelete = $hideButtonDelete;
         $this->checkButtonReconciled = $checkButtonReconciled;
-
-        $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods();
-
-        $this->routeButtonAddNew = $this->getRouteButtonAddNew($type, $routeButtonAddNew);
-        $this->routeButtonEdit = $this->getRouteButtonEdit($type, $routeButtonEdit);
-        $this->routeButtonDuplicate = $this->getRouteButtonDuplicate($type, $routeButtonDuplicate);
-        $this->routeButtonPrint = $this->getRouteButtonPrint($type, $routeButtonPrint);
-        $this->routeButtonPdf = $this->getRouteButtonPdf($type, $routeButtonPdf);
-        $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);
-
-        $this->permissionCreate = $this->getPermissionCreate($type, $permissionCreate);
-        $this->permissionUpdate = $this->getPermissionUpdate($type, $permissionUpdate);
-        $this->permissionDelete = $this->getPermissionDelete($type, $permissionDelete);
-
         $this->hideButtonGroupDivider1 = $hideButtonGroupDivider1;
         $this->hideButtonGroupDivider2 = $hideButtonGroupDivider2;
         $this->hideButtonGroupDivider3 = $hideButtonGroupDivider3;
 
-        $this->hideButtonMoreActions = $hideButtonMoreActions;
-        $this->hideButtonAddNew = $hideButtonAddNew;
-        $this->hideButtonEdit = $hideButtonEdit;
-        $this->hideButtonDuplicate  = $hideButtonDuplicate;
-        $this->hideButtonPrint  = $hideButtonPrint;
-        $this->hideButtonPdf  = $hideButtonPdf;
-        $this->hideButtonDelete = $hideButtonDelete;
+        // Navbar Permission
+        $this->permissionCreate = $this->getPermissionCreate($type, $permissionCreate);
+        $this->permissionUpdate = $this->getPermissionUpdate($type, $permissionUpdate);
+        $this->permissionDelete = $this->getPermissionDelete($type, $permissionDelete);
 
+        // Navbar route
+        $this->routeButtonAddNew = $this->getRouteButtonAddNew($type, $routeButtonAddNew);
+        $this->routeButtonEdit = $this->getRouteButtonEdit($type, $routeButtonEdit);
+        $this->routeButtonDuplicate = $this->getRouteButtonDuplicate($type, $routeButtonDuplicate);
+        $this->routeButtonPrint = $this->getRouteButtonPrint($type, $routeButtonPrint);
+        $this->signedUrl = $this->getSignedUrl($type, $signedUrl);
+        $this->routeButtonEmail = $this->getRouteButtonEmail($type, $routeButtonEmail);
+        $this->routeButtonPdf = $this->getRouteButtonPdf($type, $routeButtonPdf);
+        $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);
+
+        // Navbar Text
+        $this->textDeleteModal = $textDeleteModal;
+
+        // Header Hide 
         $this->hideHeader = $hideHeader;
-        $this->hideFooter = $hideFooter;
-        $this->hideFooterHistories = $hideFooterHistories;
-
-        $this->classHeaderAccount = $this->getclassHeaderAccount($type, $classHeaderAccount);
-        $this->classHeaderContact = $this->getClassHeaderContact($type, $classHeaderContact);
-        $this->classHeaderCategory = $this->getClassHeaderCategory($type, $classHeaderCategory);
-        $this->classHeaderAmount = $this->getClassHeaderAmount($type, $classHeaderAmount);
-        $this->classHeaderPaidAt = $this->getclassHeaderPaidAt($type, $classHeaderPaidAt);
-
-        $this->classFooterHistories = $this->getClassFooterHistories($type, $classFooterHistories);
 
         $this->hideHeaderAccount = $hideHeaderAccount;
         $this->hideHeaderCategory = $hideHeaderCategory;
@@ -308,37 +395,82 @@ abstract class TransactionShow extends Base
         $this->hideHeaderAmount = $hideHeaderAmount;
         $this->hideHeaderPaidAt = $hideHeaderPaidAt;
 
+        // Header Text
         $this->textHeaderAccount = $this->getTextHeaderAccount($type, $textHeaderAccount);
         $this->textHeaderCategory = $this->getTextHeaderCategory($type, $textHeaderCategory);
         $this->textHeaderContact = $this->getTextHeaderContact($type, $textHeaderContact);
         $this->textHeaderAmount = $this->getTextHeaderAmount($type, $textHeaderAmount);
         $this->textHeaderPaidAt = $this->gettextHeaderPaidAt($type, $textHeaderPaidAt);
 
-        $this->hideTimelineCreate = $hideTimelineCreate;
-        $this->hideButtonEmail = $hideButtonEmail;
-        $this->hideButtonShare = $hideButtonShare;
+        // Header Class
+        $this->classHeaderAccount = $this->getclassHeaderAccount($type, $classHeaderAccount);
+        $this->classHeaderContact = $this->getClassHeaderContact($type, $classHeaderContact);
+        $this->classHeaderCategory = $this->getClassHeaderCategory($type, $classHeaderCategory);
+        $this->classHeaderAmount = $this->getClassHeaderAmount($type, $classHeaderAmount);
+        $this->classHeaderPaidAt = $this->getclassHeaderPaidAt($type, $classHeaderPaidAt);
 
-        $this->routeButtonEmail = $this->getRouteButtonEmail($type, $routeButtonEmail);
+        // Hide Attachment
+        $this->hideAttachment = $hideAttachment;
 
-        $this->hideCompanyDetails = $hideCompanyDetails;
+        // Company Information Hide checker
+        $this->hideCompany = $hideCompany;
         $this->hideCompanyLogo = $hideCompanyLogo;
+        $this->hideCompanyDetails = $hideCompanyDetails;
         $this->hideCompanyName = $hideCompanyName;
+        $this->hideCompanyAddress = $hideCompanyAddress;
+        $this->hideCompanyTaxNumber = $hideCompanyTaxNumber;
+        $this->hideCompanyPhone = $hideCompanyPhone;
+        $this->hideCompanyEmail = $hideCompanyEmail;
+
+        // Transaction Information Hide checker
+        $this->hideContentTitle = $hideContentTitle;
+        $this->hidePaidAt = $hidePaidAt;
+        $this->hideAccount = $hideAccount;
+        $this->hideCategory = $hideCategory;
+        $this->hidePaymentMethods = $hidePaymentMethods;
+        $this->hideReference = $hideReference;
+        $this->hideDescription = $hideDescription;
+        $this->hideAmount = $hideAmount;
+
+        // Transaction Information Text
+        $this->textContentTitle = $this->getTextContentTitle($type, $textContentTitle);
+        $this->textPaidAt = $this->getTextPaidAt($type, $textPaidAt);
+        $this->textAccount = $this->getTextAccount($type, $textAccount);
+        $this->textCategory = $this->getTextCategory($type, $textCategory);
+        $this->textPaymentMethods = $this->getTextPaymentMethods($type, $textPaymentMethods);
+        $this->textReference = $this->getTextReference($type, $textReference);
+        $this->textDescription = $this->getTextDescription($type, $textDescription);
+        $this->textAmount = $this->getTextAmount($type, $textAmount);
+        $this->textPaidBy = $this->getTextPaidBy($type, $textPaidBy);
+
+        // Contact Information Hide checker
+        $this->hideContact = $hideContact;
+        $this->hideContactInfo = $hideContactInfo;
+        $this->hideContactName = $hideContactName;
         $this->hideContactAddress = $hideContactAddress;
         $this->hideContactTaxNumber = $hideContactTaxNumber;
         $this->hideContactPhone = $hideContactPhone;
         $this->hideContactEmail = $hideContactEmail;
-        $this->hideIssuedAt = $hideIssuedAt;
-        $this->hideDueAt = $hideDueAt;
 
-        $this->textContactInfo = $textContactInfo;
-        $this->textIssuedAt = $textIssuedAt;
-        $this->textDueAt = $textDueAt;
+        // Releated Information Hide checker
+        $this->hideReletad = $hideReletad;
+        $this->hideReletadDocumentNumber = $hideReletadDocumentNumber;
+        $this->hideReletadContact = $hideReletadContact;
+        $this->hideReletadDocumentDate = $hideReletadDocumentDate;
+        $this->hideReletadDocumentAmount = $hideReletadDocumentAmount;
+        $this->hideReletadAmount = $hideReletadAmount;
 
-        $this->hideName = $this->getHideName($type, $hideName);
-        $this->hideDescription = $this->getHideDescription($type, $hideDescription);
-        $this->hideAmount = $this->getHideAmount($type, $hideAmount);
-        $this->hideAttachment = $hideAttachment;
+        // Releated Information Text
+        $this->textReleatedTransansaction = $this->getTextReleatedTransansaction($type, $textReleatedTransansaction);
+        $this->textReleatedDocumentNumber = $this->getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber);
+        $this->textReleatedContact = $this->getTextReleatedConcat($type, $textReleatedContact);
+        $this->textReleatedDocumentDate = $this->getTextReleatedDocumentDate($type, $textReleatedDocumentDate);
+        $this->textReleatedDocumentAmount = $this->getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount);
+        $this->textReleatedAmount = $this->getTextReleatedAmount($type, $textReleatedAmount);
 
+        $this->routeDocumentShow = $this->routeDocumentShow($type, $routeDocumentShow);
+
+        // Attachment data..
         $this->attachment = '';
 
         if (!empty($attachment)) {
@@ -347,9 +479,14 @@ abstract class TransactionShow extends Base
             $this->attachment = $transaction->attachment;
         }
 
-        $this->textAmount = $textAmount;
+        // Histories Hide
+        $this->hideFooter = $hideFooter;
+        $this->hideFooterHistories = $hideFooterHistories;
 
-        $this->textDeleteModal = $textDeleteModal;
+        // Histories 
+        $this->histories = $this->getHistories($histories);
+        $this->textHistories = $this->getTextHistories($type, $textHistories);
+        $this->classFooterHistories = $this->getClassFooterHistories($type, $classFooterHistories);
     }
 
     protected function getTransactionTemplate($type, $transactionTemplate)
@@ -423,60 +560,6 @@ abstract class TransactionShow extends Base
         return 'data:image/' . $extension . ';base64,' . base64_encode($image);
     }
 
-    protected function getHistories($histories)
-    {
-        if (!empty($histories)) {
-            return $histories;
-        }
-
-        $histories[] = $this->transaction;
-
-        return $histories;
-    }
-
-    protected function getSignedUrl($type, $signedUrl)
-    {
-        if (!empty($signedUrl)) {
-            return $signedUrl;
-        }
-
-        $page = config('type.' . $type . '.route.prefix');
-        $alias = config('type.' . $type . '.alias');
-
-        $route = '';
-
-        if (!empty($alias)) {
-            $route .= $alias . '.';
-        }
-
-        $route .= 'signed.' . $page . '.show';
-
-        try {
-            route($route, [$this->transaction->id, 'company_id' => company_id()]);
-
-            $signedUrl = URL::signedRoute($route, [$this->transaction->id]);
-        } catch (\Exception $e) {
-            $signedUrl = URL::signedRoute('signed.payments.show', [$this->transaction->id]);
-        }
-
-        return $signedUrl;
-    }
-
-    protected function getTextHistories($type, $textHistories)
-    {
-        if (!empty($textHistories)) {
-            return $textHistories;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'histories', 'histories');
-
-        if (!empty($translation)) {
-            return $translation;
-        }
-
-        return 'invoices.histories';
-    }
-
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)
     {
         if (!empty($routeButtonAddNew)) {
@@ -546,6 +629,52 @@ abstract class TransactionShow extends Base
         return 'revenues.print';
     }
 
+    protected function getSignedUrl($type, $signedUrl)
+    {
+        if (!empty($signedUrl)) {
+            return $signedUrl;
+        }
+
+        $page = config('type.' . $type . '.route.prefix');
+        $alias = config('type.' . $type . '.alias');
+
+        $route = '';
+
+        if (!empty($alias)) {
+            $route .= $alias . '.';
+        }
+
+        $route .= 'signed.' . $page . '.show';
+
+        try {
+            route($route, [$this->transaction->id, 'company_id' => company_id()]);
+
+            $signedUrl = URL::signedRoute($route, [$this->transaction->id]);
+        } catch (\Exception $e) {
+            $signedUrl = URL::signedRoute('signed.payments.show', [$this->transaction->id]);
+        }
+
+        return $signedUrl;
+    }
+
+    protected function getRouteButtonEmail($type, $routeButtonEmail)
+    {
+        if (!empty($routeButtonEmail)) {
+            return $routeButtonEmail;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = $this->getRouteFromConfig($type, 'email', $parameter);
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        return 'revenues.email';
+    }
+
     protected function getRouteButtonPdf($type, $routeButtonPdf)
     {
         if (!empty($routeButtonPdf)) {
@@ -580,24 +709,6 @@ abstract class TransactionShow extends Base
         }
 
         return 'revenues.destroy';
-    }
-
-    protected function getRouteButtonEmail($type, $routeButtonEmail)
-    {
-        if (!empty($routeButtonEmail)) {
-            return $routeButtonEmail;
-        }
-
-        //example route parameter.
-        $parameter = 1;
-
-        $route = $this->getRouteFromConfig($type, 'email', $parameter);
-
-        if (!empty($route)) {
-            return $route;
-        }
-
-        return 'revenues.email';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)
@@ -699,7 +810,7 @@ abstract class TransactionShow extends Base
         return 'general.amount_due';
     }
 
-    protected function gettextHeaderPaidAt($type, $textHeaderPaidAt)
+    protected function getTextHeaderPaidAt($type, $textHeaderPaidAt)
     {
         if (!empty($textHeaderPaidAt)) {
             return $textHeaderPaidAt;
@@ -714,7 +825,7 @@ abstract class TransactionShow extends Base
         return 'general.due_on';
     }
 
-    protected function getclassHeaderAccount($type, $classHeaderAccount)
+    protected function getClassHeaderAccount($type, $classHeaderAccount)
     {
         if (!empty($classHeaderAccount)) {
             return $classHeaderAccount;
@@ -774,22 +885,7 @@ abstract class TransactionShow extends Base
         return 'col-md-2';
     }
 
-    protected function getclassHeaderAccountAt($type, $classHeaderAccountAt)
-    {
-        if (!empty($classHeaderPaidAt)) {
-            return $classHeaderPaidAt;
-        }
-
-        $class = $this->getClassFromConfig($type, 'header_paid_at');
-
-        if (!empty($class)) {
-            return $class;
-        }
-
-        return 'col-md-2';
-    }
-
-    protected function getclassHeaderPaidAt($type, $classHeaderPaidAt)
+    protected function getClassHeaderPaidAt($type, $classHeaderPaidAt)
     {
         if (!empty($classHeaderPaidAt)) {
             return $classHeaderPaidAt;
@@ -802,6 +898,279 @@ abstract class TransactionShow extends Base
         }
 
         return 'col-md-2';
+    }
+
+    protected function getTextContentTitle($type, $textContentTitle)
+    {
+        if (!empty($textContentTitle)) {
+            return $textContentTitle;
+        }
+
+        $translation = $this->getTextFromConfig($type, $type . '_made', 'revenue_made');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'revenues.revenue_made';
+    }
+
+    protected function getTextPaidAt($type, $textPaidAt)
+    {
+        if (!empty($textPaidAt)) {
+            return $textPaidAt;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'paid_at', 'date');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.date';
+    }
+
+    protected function getTextAccount($type, $textAccount)
+    {
+        if (!empty($textAccount)) {
+            return $textAccount;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'accounts', 'accounts', 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.accounts';
+    }
+
+    protected function getTextCategory($type, $textCategory)
+    {
+        if (!empty($textCategory)) {
+            return $textCategory;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'categories', 'categories', 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.categories';
+    }
+
+    protected function getTextPaymentMethods($type, $textPaymentMethods)
+    {
+        if (!empty($textPaymentMethods)) {
+            return $textPaymentMethods;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'payment_methods', 'payment_methods', 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.payment_methods';
+    }
+
+    protected function getTextReference($type, $textReference)
+    {
+        if (!empty($textReference)) {
+            return $textReference;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'reference', 'reference');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.reference';
+    }
+
+    protected function getTextDescription($type, $textDescription)
+    {
+        if (!empty($textDescription)) {
+            return $textDescription;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'description', 'description');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.description';
+    }
+
+    protected function getTextAmount($type, $textAmount)
+    {
+        if (!empty($textAmount)) {
+            return $textAmount;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'amount', 'amount');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
+    }
+
+    protected function getTextPaidBy($type, $textPaidBy)
+    {
+        if (!empty($textPaidBy)) {
+            return $textPaidBy;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'paid_by', 'paid_by');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.paid_by';
+    }
+
+    protected function getTextReleatedTransansaction($type, $textReleatedTransansaction)
+    {
+        if (!empty($textReleatedTransansaction)) {
+            return $textReleatedTransansaction;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_revenue', 'related_revenue');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.related_revenue';
+    }
+
+    protected function getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber)
+    {
+        if (!empty($textReleatedDocumentNumber)) {
+            return $textReleatedDocumentNumber;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_document_number', 'numbers');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.numbers';
+    }
+
+    protected function getTextReleatedConcat($type, $textReleatedContact)
+    {
+        if (!empty($textReleatedContact)) {
+            return $textReleatedContact;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_contact', 'contact');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.customers';
+    }
+
+    protected function getTextReleatedDocumentDate($type, $textReleatedDocumentDate)
+    {
+        if (!empty($textReleatedDocumentDate)) {
+            return $textReleatedDocumentDate;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_document_date', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_date';
+    }
+
+    protected function getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount)
+    {
+        if (!empty($textReleatedDocumentAmount)) {
+            return $textReleatedDocumentAmount;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_document_amount', 'amount');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
+    }
+
+    protected function getTextReleatedAmount($type, $textReleatedAmount)
+    {
+        if (!empty($textReleatedAmount)) {
+            return $textReleatedAmount;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_amount', 'amount');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
+    }
+
+    protected function routeDocumentShow($type, $routeDocumentShow)
+    {
+        if (!empty($routeDocumentShow)) {
+            return $routeDocumentShow;
+        }
+
+        if (!$this->transaction->document) {
+            return $routeDocumentShow;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = $this->getRouteFromConfig($this->transaction->document->type, 'show', $parameter);
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        return 'invoices.show';
+    }
+
+    protected function getHistories($histories)
+    {
+        if (!empty($histories)) {
+            return $histories;
+        }
+
+        $histories[] = $this->transaction;
+
+        return $histories;
+    }
+
+    protected function getTextHistories($type, $textHistories)
+    {
+        if (!empty($textHistories)) {
+            return $textHistories;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'histories', 'histories');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.histories';
     }
 
     protected function getClassFooterHistories($type, $classFooterHistories)
@@ -817,83 +1186,5 @@ abstract class TransactionShow extends Base
         }
 
         return 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-    }
-
-    protected function getClassFooterTransactions($type, $classFooterTransactions)
-    {
-        if (!empty($classFooterTransactions)) {
-            return $classFooterTransactions;
-        }
-
-        $class = $this->getClassFromConfig($type, 'footer_transactions');
-
-        if (!empty($class)) {
-            return $class;
-        }
-
-        return 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-    }
-
-    protected function getHideName($type, $hideName)
-    {
-        if (!empty($hideName)) {
-            return $hideName;
-        }
-
-        // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
-            return $hideName;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'name');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_name', $hideName);
-    }
-
-    protected function getHideDescription($type, $hideDescription)
-    {
-        if (!empty($hideDescription)) {
-            return $hideDescription;
-        }
-
-        // if you use settting translation
-        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
-            return $hideDescription;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'description');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_description', $hideDescription);
-    }
-
-    protected function getHideAmount($type, $hideAmount)
-    {
-        if (!empty($hideAmount)) {
-            return $hideAmount;
-        }
-
-        // if you use settting translation
-        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
-            return $hideAmount;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'amount');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_amount', $hideAmount);
     }
 }

@@ -163,6 +163,7 @@ abstract class TransactionTemplate extends Base
 
     /** @var string */
     public $routeDocumentShow;
+
     /**
      * Create a new component instance.
      *

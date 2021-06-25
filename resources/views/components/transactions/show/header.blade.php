@@ -2,7 +2,7 @@
     @stack('header_account_start')
         @if (!$hideHeaderAccount)
         <div class="{{ $classHeaderAccount }}">
-            {{ trans_choice('general.accounts', 1) }}
+            {{ trans_choice($textHeaderAccount, 1) }}
             <br>
 
             <strong>
@@ -18,7 +18,7 @@
     @stack('header_category_start')
         @if (!$hideHeaderCategory)
         <div class="{{ $classHeaderCategory }}">
-            {{ trans_choice('general.categories', 1) }}
+            {{ trans_choice($textHeaderCategory, 1) }}
             <br>
 
             <strong>
