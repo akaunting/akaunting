@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach ($notifications as $notification)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-xs-8 col-sm-10 col-md-10 col-lg-11 col-xl-11 text-left">
+                            <td class="col-xs-8 col-sm-10 col-md-10 col-lg-11 col-xl-11 text-left text-wrap">
                                 @if (empty($notification->message))
                                     {!! trans('notifications.messages.export', [
                                         'type' => $notification->translation,
