@@ -19,134 +19,177 @@ abstract class TransactionTemplate extends Base
     use DateTime;
     use Transactions;
 
+    /** @var string */
     public $type;
-
-    public $item;
 
     public $transaction;
 
-    /** @var string */
-    public $transactionTemplate;
-
-    public $date_format;
-
     public $logo;
-
-    public $backgroundColor;
-
-    public $hideFooter;
-
-    public $hideCompanyLogo;
-
-    public $hideCompanyDetails;
-
-    public $hideCompanyName;
-
-    public $hideCompanyAddress;
-
-    public $hideCompanyTaxNumber;
-
-    public $hideCompanyPhone;
-
-    public $hideCompanyEmail;
-
-    public $hideContactInfo;
-
-    public $hideContactName;
-
-    public $hideContactAddress;
-
-    public $hideContactTaxNumber;
-
-    public $hideContactPhone;
-
-    public $hideContactEmail;
-
-    public $hideOrderNumber;
-
-    public $hidetransactionNumber;
-
-    public $hideIssuedAt;
-
-    public $hideDueAt;
 
     /** @var array */
     public $payment_methods;
 
-    /** @var string */
-    public $texttransactionTitle;
+    /** @var bool */
+    public $hideCompany;
 
-    /** @var string */
-    public $texttransactionSubheading;
+    /** @var bool */
+    public $hideCompanyLogo;
 
-    public $textContactInfo;
+    /** @var bool */
+    public $hideCompanyDetails;
 
-    /** @var string */
-    public $textIssuedAt;
+    /** @var bool */
+    public $hideCompanyName;
 
-    /** @var string */
-    public $textDueAt;
+    /** @var bool */
+    public $hideCompanyAddress;
 
-    /** @var string */
-    public $texttransactionNumber;
+    /** @var bool */
+    public $hideCompanyTaxNumber;
 
-    /** @var string */
-    public $textOrderNumber;
+    /** @var bool */
+    public $hideCompanyPhone;
 
-    public $hideItems;
+    /** @var bool */
+    public $hideCompanyEmail;
 
-    public $hideName;
+    /** @var bool */
+    public $hideContentTitle;
 
+    /** @var bool */
+    public $hidePaidAt;
+
+    /** @var bool */
+    public $hideAccount;
+
+    /** @var bool */
+    public $hideCategory;
+
+    /** @var bool */
+    public $hidePaymentMethods;
+
+    /** @var bool */
+    public $hideReference;
+
+    /** @var bool */
     public $hideDescription;
 
-    public $hideQuantity;
-
-    public $hidePrice;
-
-    public $hideDiscount;
-
+    /** @var bool */
     public $hideAmount;
 
     /** @var string */
-    public $textItems;
+    public $textContentTitle;
 
     /** @var string */
-    public $textQuantity;
+    public $textPaidAt;
 
     /** @var string */
-    public $textPrice;
+    public $textAccount;
+
+    /** @var string */
+    public $textCategory;
+
+    /** @var string */
+    public $textPaymentMethods;
+
+    /** @var string */
+    public $textReference;
+
+    /** @var string */
+    public $textDescription;
 
     /** @var string */
     public $textAmount;
 
-    public $hideNote;
+    /** @var string */
+    public $textPaidBy;
 
+    /** @var bool */
+    public $hideContact;
+
+    /** @var bool */
+    public $hideContactInfo;
+
+    /** @var bool */
+    public $hideContactName;
+
+    /** @var bool */
+    public $hideContactAddress;
+
+    /** @var bool */
+    public $hideContactTaxNumber;
+
+    /** @var bool */
+    public $hideContactPhone;
+
+    /** @var bool */
+    public $hideContactEmail;
+
+    /** @var bool */
+    public $hideReletad;
+
+    /** @var bool */
+    public $hideReletadDocumentNumber;
+
+    /** @var bool */
+    public $hideReletadContact;
+
+    /** @var bool */
+    public $hideReletadDocumentDate;
+
+    /** @var bool */
+    public $hideReletadDocumentAmount;
+
+    /** @var bool */
+    public $hideReletadAmount;
+
+    /** @var string */
+    public $textReleatedTransansaction;
+
+    /** @var string */
+    public $textReleatedDocumentNumber;
+
+    /** @var string */
+    public $textReleatedContact;
+
+    /** @var string */
+    public $textReleatedDocumentDate;
+
+    /** @var string */
+    public $textReleatedDocumentAmount;
+
+    /** @var string */
+    public $textReleatedAmount;
+
+    /** @var string */
+    public $routeDocumentShow;
     /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct(
-        $type, $transaction, $item = false,  $transactionTemplate = '', $logo = '', $backgroundColor = '',
-        bool $hideFooter = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, array $payment_methods = [],
-        bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
-        bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
-        bool $hideOrderNumber = false, bool $hidetransactionNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
-        string $texttransactionTitle = '', string $texttransactionSubheading = '',
-        string $textContactInfo = '', string $texttransactionNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
-        bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
-    ) {
+        $type, $transaction, $logo = '', array $payment_methods = [],
+        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false, 
+        bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false,
+        bool $hideContentTitle = false,bool $hidePaidAt = false, bool $hideAccount = false, bool $hideCategory = false, bool $hidePaymentMethods = false, bool $hideReference = false, bool $hideDescription = false,
+        bool $hideAmount = false,
+        string $textContentTitle = '', string $textPaidAt = '', string $textAccount = '', string $textCategory = '', string $textPaymentMethods = '', string $textReference = '', string $textDescription = '',
+        string $textAmount = '', string $textPaidBy = '',
+        bool $hideContact = false, bool $hideContactInfo = false, bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false,
+        bool $hideContactPhone = false, bool $hideContactEmail = false,
+        bool $hideReletad = false, bool $hideReletadDocumentNumber = false, bool $hideReletadContact = false, bool $hideReletadDocumentDate = false, bool $hideReletadDocumentAmount = false, bool $hideReletadAmount = false,
+        string $textReleatedTransansaction = '', string $textReleatedDocumentNumber = '', string $textReleatedContact = '', string $textReleatedDocumentDate = '', string $textReleatedDocumentAmount = '', string $textReleatedAmount = '',
+        string $routeDocumentShow = ''
+        ) {
         $this->type = $type;
-        $this->item = $item;
         $this->transaction = $transaction;
-        $this->transactionTemplate = $this->gettransactionTemplate($type, $transactionTemplate);
-        $this->logo = $this->getLogo($logo);
-        $this->backgroundColor = $this->getBackgroundColor($type, $backgroundColor);
 
+        $this->logo = $this->getLogo($logo);
         $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods();
 
-        $this->hideFooter = $hideFooter;
+        // Company Information Hide checker
+        $this->hideCompany = $hideCompany;
         $this->hideCompanyLogo = $hideCompanyLogo;
         $this->hideCompanyDetails = $hideCompanyDetails;
         $this->hideCompanyName = $hideCompanyName;
@@ -154,53 +197,54 @@ abstract class TransactionTemplate extends Base
         $this->hideCompanyTaxNumber = $hideCompanyTaxNumber;
         $this->hideCompanyPhone = $hideCompanyPhone;
         $this->hideCompanyEmail = $hideCompanyEmail;
+
+        // Transaction Information Hide checker
+        $this->hideContentTitle = $hideContentTitle;
+        $this->hidePaidAt = $hidePaidAt;
+        $this->hideAccount = $hideAccount;
+        $this->hideCategory = $hideCategory;
+        $this->hidePaymentMethods = $hidePaymentMethods;
+        $this->hideReference = $hideReference;
+        $this->hideDescription = $hideDescription;
+        $this->hideAmount = $hideAmount;
+
+        // Transaction Information Text
+        $this->textContentTitle = $this->getTextContentTitle($type, $textContentTitle);
+        $this->textPaidAt = $this->getTextPaidAt($type, $textPaidAt);
+        $this->textAccount = $this->getTextAccount($type, $textAccount);
+        $this->textCategory = $this->getTextCategory($type, $textCategory);
+        $this->textPaymentMethods = $this->getTextPaymentMethods($type, $textPaymentMethods);
+        $this->textReference = $this->getTextReference($type, $textReference);
+        $this->textDescription = $this->getTextDescription($type, $textDescription);
+        $this->textAmount = $this->getTextAmount($type, $textAmount);
+        $this->textPaidBy = $this->getTextPaidBy($type, $textPaidBy);
+
+        // Contact Information Hide checker
+        $this->hideContact = $hideContact;
         $this->hideContactInfo = $hideContactInfo;
         $this->hideContactName = $hideContactName;
         $this->hideContactAddress = $hideContactAddress;
         $this->hideContactTaxNumber = $hideContactTaxNumber;
         $this->hideContactPhone = $hideContactPhone;
         $this->hideContactEmail = $hideContactEmail;
-        $this->hideOrderNumber = $hideOrderNumber;
-        $this->hidetransactionNumber = $hidetransactionNumber;
-        $this->hideIssuedAt = $hideIssuedAt;
-        $this->hideDueAt = $hideDueAt;
 
-        $this->texttransactionTitle = $this->getTexttransactionTitle($type, $texttransactionTitle);
-        $this->texttransactionSubheading = $this->gettexttransactionSubheading($type, $texttransactionSubheading);
-        $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
-        $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
-        $this->texttransactionNumber = $this->getTexttransactionNumber($type, $texttransactionNumber);
-        $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
-        $this->textOrderNumber = $this->getTextOrderNumber($type, $textOrderNumber);
+        // Releated Information Hide checker
+        $this->hideReletad = $hideReletad;
+        $this->hideReletadDocumentNumber = $hideReletadDocumentNumber;
+        $this->hideReletadContact = $hideReletadContact;
+        $this->hideReletadDocumentDate = $hideReletadDocumentDate;
+        $this->hideReletadDocumentAmount = $hideReletadDocumentAmount;
+        $this->hideReletadAmount = $hideReletadAmount;
 
-        $this->hideItems = $this->getHideItems($type, $hideItems, $hideName, $hideDescription);
-        $this->hideName = $this->getHideName($type, $hideName);
-        $this->hideDescription = $this->getHideDescription($type, $hideDescription);
-        $this->hideQuantity = $this->getHideQuantity($type, $hideQuantity);
-        $this->hidePrice = $this->getHidePrice($type, $hidePrice);
-        $this->hideDiscount = $this->getHideDiscount($type, $hideDiscount);
-        $this->hideAmount = $this->getHideAmount($type, $hideAmount);
-        $this->hideNote = $hideNote;
+        // Releated Information Text
+        $this->textReleatedTransansaction = $this->getTextReleatedTransansaction($type, $textReleatedTransansaction);
+        $this->textReleatedDocumentNumber = $this->getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber);
+        $this->textReleatedContact = $this->getTextReleatedConcat($type, $textReleatedContact);
+        $this->textReleatedDocumentDate = $this->getTextReleatedDocumentDate($type, $textReleatedDocumentDate);
+        $this->textReleatedDocumentAmount = $this->getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount);
+        $this->textReleatedAmount = $this->getTextReleatedAmount($type, $textReleatedAmount);
 
-        $this->textItems = $this->getTextItems($type, $textItems);
-        $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
-        $this->textPrice = $this->getTextPrice($type, $textPrice);
-        $this->textAmount = $this->getTextAmount($type, $textAmount);
-    }
-
-    protected function gettransactionTemplate($type, $transactionTemplate)
-    {
-        if (!empty($transactionTemplate)) {
-            return $transactionTemplate;
-        }
-
-        if ($template = config('type.' . $type . 'template', false)) {
-            return $template;
-        }
-
-        $transactionTemplate =  setting($this->getSettingKey($type, 'template'), 'default');
-
-        return $transactionTemplate;
+        $this->routeDocumentShow = $this->routeDocumentShow($type, $routeDocumentShow);
     }
 
     protected function getLogo($logo)
@@ -255,242 +299,109 @@ abstract class TransactionTemplate extends Base
         return 'data:image/' . $extension . ';base64,' . base64_encode($image);
     }
 
-    protected function getBackgroundColor($type, $backgroundColor)
+    protected function getTextContentTitle($type, $textContentTitle)
     {
-        if (!empty($backgroundColor)) {
-            return $backgroundColor;
+        if (!empty($textContentTitle)) {
+            return $textContentTitle;
         }
 
-        if ($background_color = config('type.' . $type . 'color', false)) {
-            return $background_color;
-        }
-
-
-        if (!empty($alias = config('type.' . $type . '.alias'))) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
-
-        return $backgroundColor;
-    }
-
-    protected function getTexttransactionTitle($type, $texttransactionTitle)
-    {
-        if (!empty($texttransactionTitle)) {
-            return $texttransactionTitle;
-        }
-
-        if (!empty(setting($type . '.title'))) {
-            return setting($type . '.title');
-        }
-
-        $translation = $this->getTextFromConfig($type, 'transaction_title', Str::plural($type));
-
-        if (!empty($translation)) {
-            return trans_choice($translation, 1);
-        }
-
-        return setting('invoice.title');
-    }
-
-    protected function getTexttransactionSubheading($type, $texttransactionSubheading)
-    {
-        if (!empty($texttransactionSubheading)) {
-            return $texttransactionSubheading;
-        }
-
-        if (!empty(setting($type . '.subheading'))) {
-            return setting($type . '.subheading');
-        }
-
-        $translation = $this->getTextFromConfig($type, 'transaction_subheading', 'subheading');
-
-        if (!empty($translation)) {
-            return trans($translation);
-        }
-
-        return false;
-    }
-
-    protected function getTexttransactionNumber($type, $texttransactionNumber)
-    {
-        if (!empty($texttransactionNumber)) {
-            return $texttransactionNumber;
-        }
-
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $default_key = 'bill_number';
-                break;
-            default:
-                $default_key = 'invoice_number';
-                break;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'transaction_number', $default_key);
+        $translation = $this->getTextFromConfig($type, $type . '_made', 'revenue_made');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'general.numbers';
+        return 'revenues.revenue_made';
     }
 
-    protected function getTextOrderNumber($type, $textOrderNumber)
+    protected function getTextPaidAt($type, $textPaidAt)
     {
-        if (!empty($textOrderNumber)) {
-            return $textOrderNumber;
+        if (!empty($textPaidAt)) {
+            return $textPaidAt;
         }
 
-        $translation = $this->getTextFromConfig($type, 'order_number');
+        $translation = $this->getTextFromConfig($type, 'paid_at', 'date');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'invoices.order_number';
+        return 'general.date';
     }
 
-    protected function getTextContactInfo($type, $textContactInfo)
+    protected function getTextAccount($type, $textAccount)
     {
-        if (!empty($textContactInfo)) {
-            return $textContactInfo;
+        if (!empty($textAccount)) {
+            return $textAccount;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $default_key = 'bill_from';
-                break;
-            default:
-                $default_key = 'bill_to';
-                break;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'contact_info', $default_key);
+        $translation = $this->getTextFromConfig($type, 'accounts', 'accounts', 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'invoices.bill_to';
+        return 'general.accounts';
     }
 
-    protected function getTextIssuedAt($type, $textIssuedAt)
+    protected function getTextCategory($type, $textCategory)
     {
-        if (!empty($textIssuedAt)) {
-            return $textIssuedAt;
+        if (!empty($textCategory)) {
+            return $textCategory;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $default_key = 'bill_date';
-                break;
-            default:
-                $default_key = 'invoice_date';
-                break;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
+        $translation = $this->getTextFromConfig($type, 'categories', 'categories', 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'invoices.invoice_date';
+        return 'general.categories';
     }
 
-    protected function getTextDueAt($type, $textDueAt)
+    protected function getTextPaymentMethods($type, $textPaymentMethods)
     {
-        if (!empty($textDueAt)) {
-            return $textDueAt;
+        if (!empty($textPaymentMethods)) {
+            return $textPaymentMethods;
         }
 
-        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
+        $translation = $this->getTextFromConfig($type, 'payment_methods', 'payment_methods', 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'invoices.due_date';
+        return 'general.payment_methods';
     }
 
-    protected function getTextItems($type, $textItems)
+    protected function getTextReference($type, $textReference)
     {
-        if (!empty($textItems)) {
-            return $textItems;
+        if (!empty($textReference)) {
+            return $textReference;
         }
 
-        // if you use settting translation
-        if (setting($this->getSettingKey($type, 'item_name'), 'items') == 'custom') {
-            if (empty($textItems = setting($this->getSettingKey($type, 'item_name_input')))) {
-                $textItems = 'general.items';
-            }
-
-            return $textItems;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'items');
+        $translation = $this->getTextFromConfig($type, 'reference', 'reference');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'general.items';
+        return 'general.reference';
     }
 
-    protected function getTextQuantity($type, $textQuantity)
+    protected function getTextDescription($type, $textDescription)
     {
-        if (!empty($textQuantity)) {
-            return $textQuantity;
+        if (!empty($textDescription)) {
+            return $textDescription;
         }
 
-        // if you use settting translation
-        if (setting($this->getSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
-            if (empty($textQuantity = setting($this->getSettingKey($type, 'quantity_name_input')))) {
-                $textQuantity = 'invoices.quantity';
-            }
-
-            return $textQuantity;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'quantity');
+        $translation = $this->getTextFromConfig($type, 'description', 'description');
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'invoices.quantity';
-    }
-
-    protected function getTextPrice($type, $textPrice)
-    {
-        if (!empty($textPrice)) {
-            return $textPrice;
-        }
-
-        // if you use settting translation
-        if (setting($this->getSettingKey($type, 'price_name'), 'price') === 'custom') {
-            if (empty($textPrice = setting($this->getSettingKey($type, 'price_name_input')))) {
-                $textPrice = 'invoices.price';
-            }
-
-            return $textPrice;
-        }
-
-        $translation = $this->getTextFromConfig($type, 'price');
-
-        if (!empty($translation)) {
-            return $translation;
-        }
-
-        return 'invoices.price';
+        return 'general.description';
     }
 
     protected function getTextAmount($type, $textAmount)
@@ -499,7 +410,7 @@ abstract class TransactionTemplate extends Base
             return $textAmount;
         }
 
-        $translation = $this->getTextFromConfig($type, 'amount');
+        $translation = $this->getTextFromConfig($type, 'amount', 'amount');
 
         if (!empty($translation)) {
             return $translation;
@@ -508,146 +419,130 @@ abstract class TransactionTemplate extends Base
         return 'general.amount';
     }
 
-    protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
+    protected function getTextPaidBy($type, $textPaidBy)
     {
-        if (!empty($hideItems)) {
-            return $hideItems;
+        if (!empty($textPaidBy)) {
+            return $textPaidBy;
         }
 
-        $hide = $this->getHideFromConfig($type, 'items');
+        $translation = $this->getTextFromConfig($type, 'paid_by', 'paid_by');
 
-        if ($hide) {
-            return $hide;
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
-
-        return $hideItems;
+        return 'general.paid_by';
     }
 
-    protected function getHideName($type, $hideName)
+    protected function getTextReleatedTransansaction($type, $textReleatedTransansaction)
     {
-        if (!empty($hideName)) {
-            return $hideName;
+        if (!empty($textReleatedTransansaction)) {
+            return $textReleatedTransansaction;
         }
 
-        // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
-            return $hideName;
+        $translation = $this->getTextFromConfig($type, 'related_revenue', 'related_revenue');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'name');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_name', $hideName);
+        return 'general.related_revenue';
     }
 
-    protected function getHideDescription($type, $hideDescription)
+    protected function getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber)
     {
-        if (!empty($hideDescription)) {
-            return $hideDescription;
+        if (!empty($textReleatedDocumentNumber)) {
+            return $textReleatedDocumentNumber;
         }
 
-        // if you use settting translation
-        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
-            return $hideDescription;
+        $translation = $this->getTextFromConfig($type, 'related_document_number', 'numbers');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'description');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_description', $hideDescription);
+        return 'general.numbers';
     }
 
-    protected function getHideQuantity($type, $hideQuantity)
+    protected function getTextReleatedConcat($type, $textReleatedContact)
     {
-        if (!empty($hideQuantity)) {
-            return $hideQuantity;
+        if (!empty($textReleatedContact)) {
+            return $textReleatedContact;
         }
 
-        // if you use settting translation
-        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false)) {
-            return $hideQuantity;
+        $translation = $this->getTextFromConfig($type, 'related_contact', 'contact');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'quantity');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_quantity', $hideQuantity);
+        return 'general.customers';
     }
 
-    protected function getHidePrice($type, $hidePrice)
+    protected function getTextReleatedDocumentDate($type, $textReleatedDocumentDate)
     {
-        if (!empty($hidePrice)) {
-            return $hidePrice;
+        if (!empty($textReleatedDocumentDate)) {
+            return $textReleatedDocumentDate;
         }
 
-        // if you use settting translation
-        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false)) {
-            return $hidePrice;
+        $translation = $this->getTextFromConfig($type, 'related_document_date', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'price');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_price', $hidePrice);
+        return 'invoices.invoice_date';
     }
 
-    protected function getHideDiscount($type, $hideDiscount)
+    protected function getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount)
     {
-        if (!empty($hideDiscount)) {
-            return $hideDiscount;
+        if (!empty($textReleatedDocumentAmount)) {
+            return $textReleatedDocumentAmount;
         }
 
-        // if you use settting translation
-        if ($hideDiscount = setting($this->getSettingKey($type, 'hide_discount'), false)) {
-            return $hideDiscount;
+        $translation = $this->getTextFromConfig($type, 'related_document_amount', 'amount');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'discount');
-
-        if ($hide) {
-            return $hide;
-        }
-
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_discount', $hideDiscount);
+        return 'general.amount';
     }
 
-    protected function getHideAmount($type, $hideAmount)
+    protected function getTextReleatedAmount($type, $textReleatedAmount)
     {
-        if (!empty($hideAmount)) {
-            return $hideAmount;
+        if (!empty($textReleatedAmount)) {
+            return $textReleatedAmount;
         }
 
-        // if you use settting translation
-        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
-            return $hideAmount;
+        $translation = $this->getTextFromConfig($type, 'related_amount', 'amount');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        $hide = $this->getHideFromConfig($type, 'amount');
+        return 'general.amount';
+    }
 
-        if ($hide) {
-            return $hide;
+    protected function routeDocumentShow($type, $routeDocumentShow)
+    {
+        if (!empty($routeDocumentShow)) {
+            return $routeDocumentShow;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_amount', $hideAmount);
+        if (!$this->transaction->document) {
+            return $routeDocumentShow;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = $this->getRouteFromConfig($this->transaction->document->type, 'show', $parameter);
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        return 'invoices.show';
     }
 }
