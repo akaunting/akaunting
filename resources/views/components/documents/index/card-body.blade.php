@@ -90,7 +90,7 @@
 
         <tbody>
             @foreach($documents as $item)
-                @include('partials.documents.table.row')
+                @include('partials.documents.index.card-table-row')
             @endforeach
         </tbody>
     </table>
