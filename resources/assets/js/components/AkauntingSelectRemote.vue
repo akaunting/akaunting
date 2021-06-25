@@ -427,6 +427,7 @@ export default {
 
     mounted() {
         // Check Here..
+        console.log(this.value)
         this.selected = this.value;
 
         if (this.model.length) {

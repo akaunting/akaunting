@@ -23,10 +23,10 @@
                     {!! Form::hidden('currency_rate', '1', ['id' => 'currency_rate']) !!}
 
                     {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0) }}
+                    
+                    {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, (setting('default.customer') ? [setting('default.customer')] : null), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
-
-                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, null, ['path' => route('modals.customers.create'), 'remote_action' => route('customers.index')]) }}
+                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, (setting('default.customer') ? [setting('default.customer')] : null), ['required' => 'required', 'path' => route('modals.customers.create'), 'change' => 'onChangeAccount']) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
