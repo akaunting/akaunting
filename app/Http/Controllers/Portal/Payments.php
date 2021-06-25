@@ -7,6 +7,7 @@ use App\Models\Banking\Transaction;
 use App\Models\Setting\Currency;
 use App\Http\Requests\Portal\PaymentShow as Request;
 use App\Utilities\Modules;
+use Illuminate\Support\Facades\URL;
 
 class Payments extends Controller
 {
@@ -50,5 +51,19 @@ class Payments extends Controller
         $currencies = Currency::collect();
 
         return $this->response('portal.currencies.index', compact('currencies'));
+    }
+
+    public function signed(Transaction $payment)
+    {
+        if (empty($payment)) {
+            return redirect()->route('login');
+        }
+
+        $payment_methods = Modules::getPaymentMethods();
+
+        $print_action = URL::signedRoute('signed.payments.print', [$payment->id]);
+        $pdf_action = URL::signedRoute('signed.payments.pdf', [$payment->id]);
+
+        return view('portal.payments.signed', compact('payment', 'payment_methods', 'print_action', 'pdf_action'));
     }
 }
