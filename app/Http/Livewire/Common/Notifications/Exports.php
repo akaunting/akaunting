@@ -57,8 +57,10 @@ class Exports extends Component
     protected function getNotifications($limit = false)
     {
         $query = user()->notifications()->unread()
-            ->where('type', 'App\Notifications\Common\ExportCompleted')
-            ->where('type', 'App\Notifications\Common\ExportFailed');
+            ->where(function ($query) {
+                $query->where('type', 'App\Notifications\Common\ExportCompleted')
+                    ->orWhere('type', 'App\Notifications\Common\ExportFailed');
+            });
 
         if ($limit) {
             $notifications = $query->paginate($limit);
