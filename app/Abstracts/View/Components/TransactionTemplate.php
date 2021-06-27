@@ -240,7 +240,7 @@ abstract class TransactionTemplate extends Base
         // Releated Information Text
         $this->textReleatedTransansaction = $this->getTextReleatedTransansaction($type, $textReleatedTransansaction);
         $this->textReleatedDocumentNumber = $this->getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber);
-        $this->textReleatedContact = $this->getTextReleatedConcat($type, $textReleatedContact);
+        $this->textReleatedContact = $this->getTextReleatedContact($type, $textReleatedContact);
         $this->textReleatedDocumentDate = $this->getTextReleatedDocumentDate($type, $textReleatedDocumentDate);
         $this->textReleatedDocumentAmount = $this->getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount);
         $this->textReleatedAmount = $this->getTextReleatedAmount($type, $textReleatedAmount);
@@ -306,7 +306,18 @@ abstract class TransactionTemplate extends Base
             return $textContentTitle;
         }
 
-        $translation = $this->getTextFromConfig($type, $type . '_made', 'revenue_made');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'payment_made';
+                break;
+            default:
+                $default_key = 'revenue_made';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, $type . '_made', $default_key);
 
         if (!empty($translation)) {
             return $translation;
@@ -426,13 +437,24 @@ abstract class TransactionTemplate extends Base
             return $textPaidBy;
         }
 
-        $translation = $this->getTextFromConfig($type, 'paid_by', 'paid_by');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'paid_to';
+                break;
+            default:
+                $default_key = 'paid_by';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'paid_to_by', $default_key);
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'general.paid_by';
+        return 'revenus.paid_by';
     }
 
     protected function getTextReleatedTransansaction($type, $textReleatedTransansaction)
@@ -441,13 +463,24 @@ abstract class TransactionTemplate extends Base
             return $textReleatedTransansaction;
         }
 
-        $translation = $this->getTextFromConfig($type, 'related_revenue', 'related_revenue');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'related_bill';
+                break;
+            default:
+                $default_key = 'related_invoice';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_type', $default_key);
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return 'general.related_revenue';
+        return 'revenues.related_invoice';
     }
 
     protected function getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber)
@@ -465,13 +498,15 @@ abstract class TransactionTemplate extends Base
         return 'general.numbers';
     }
 
-    protected function getTextReleatedConcat($type, $textReleatedContact)
+    protected function getTextReleatedContact($type, $textReleatedContact)
     {
         if (!empty($textReleatedContact)) {
             return $textReleatedContact;
         }
 
-        $translation = $this->getTextFromConfig($type, 'related_contact', 'contact');
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'related_contact', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
@@ -486,7 +521,18 @@ abstract class TransactionTemplate extends Base
             return $textReleatedDocumentDate;
         }
 
-        $translation = $this->getTextFromConfig($type, 'related_document_date', 'due_date');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'bill_date';
+                break;
+            default:
+                $default_key = 'invoice_date';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_document_date', $default_key);
 
         if (!empty($translation)) {
             return $translation;
@@ -501,7 +547,18 @@ abstract class TransactionTemplate extends Base
             return $textReleatedDocumentAmount;
         }
 
-        $translation = $this->getTextFromConfig($type, 'related_document_amount', 'amount');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'bill_amount';
+                break;
+            default:
+                $default_key = 'invoice_amount';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'related_document_amount', $default_key);
 
         if (!empty($translation)) {
             return $translation;

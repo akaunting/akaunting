@@ -16,7 +16,7 @@
                             </th>
 
                             <th class="col-xs-8 col-sm-9 text-left long-texts">
-                                {{ trans('general.description') }}
+                                {{ trans('general.created') }}
                             </th>
                             @stack('row_footer_histories_head_end')
                         </tr>
@@ -33,7 +33,7 @@
                                 </td>
 
                                 <td class="col-xs-4 col-sm-6 text-left long-texts">
-                                    {{ $history->description }}
+                                    {{ $history->created->name }}
                                 </td>
                                 @stack('row_footer_histories_body_td_end')
                             </tr>
