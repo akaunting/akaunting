@@ -456,7 +456,7 @@ abstract class TransactionTemplate extends Base
             return $translation;
         }
 
-        return 'revenus.paid_by';
+        return 'revenues.paid_by';
     }
 
     protected function getTextReleatedTransansaction($type, $textReleatedTransansaction)

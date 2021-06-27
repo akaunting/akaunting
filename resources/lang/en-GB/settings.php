@@ -115,6 +115,7 @@ return [
             'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
             'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
             'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+            'revenue_new_customer'      => 'Revenue Received Template (sent to customer)',
         ],
     ],
 

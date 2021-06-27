@@ -53,7 +53,7 @@
         text-payment-methods="{{ $textPaymentMethods }}"
         text-reference="{{ $textReference }}"
         text-description="{{ $textDescription }}"
-        text-paid-by="{{ $textAmount }}"
+        text-paid-by="{{ $textPaidBy }}"
 
         hide-contact="{{ $hideContact }}"
         hide-contact-info="{{ $hideContactInfo }}"
