@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Bill Number',
     'bill_date'             => 'Bill Date',
+    'bill_amount'           => 'Bill Amount',
     'total_price'           => 'Total Price',
     'due_date'              => 'Due Date',
     'order_number'          => 'Order Number',

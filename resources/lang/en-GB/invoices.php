@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Invoice Number',
     'invoice_date'          => 'Invoice Date',
+    'invoice_amount'        => 'Invoice Amount',
     'total_price'           => 'Total Price',
     'due_date'              => 'Due Date',
     'order_number'          => 'Order Number',

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', trans('invoices.revenue_made'))
+@section('title', trans('revenues.revenue_made'))
 
 @section('new_button')
     <x-transactions.show.top-buttons type="income" :transaction="$revenue" />

@@ -99,7 +99,8 @@ return [
             //'create'          => 'create-sales-revenues',
         ],
         'translation' => [
-            'prefix'            => 'revenues', // this translation file name.
+            'prefix'                    => 'revenues', // this translation file name.
+            'related_document_amount'   => 'invoices.invoice_amount',
         ],
         'contact_type'          => 'customer',
     ],
@@ -116,7 +117,8 @@ return [
             //'create'          => 'create-purchases-payments',
         ],
         'translation' => [
-            'prefix'            => 'payments', // this translation file name.
+            'prefix'                    => 'payments', // this translation file name.
+            'related_document_amount'   => 'bills.bill_amount',
         ],
         'contact_type'          => 'vendor',
     ],
