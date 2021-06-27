@@ -837,7 +837,7 @@ abstract class TransactionShow extends Base
             return $class;
         }
 
-        return 'col-md-2';
+        return 'col-4 col-lg-3';
     }
 
     protected function getClassHeaderContact($type, $classHeaderContact)
@@ -852,7 +852,7 @@ abstract class TransactionShow extends Base
             return $class;
         }
 
-        return 'col-md-3';
+        return 'col-4 col-lg-2';
     }
 
     protected function getClassHeaderCategory($type, $classHeaderCategory)
@@ -867,7 +867,7 @@ abstract class TransactionShow extends Base
             return $class;
         }
 
-        return 'col-md-3';
+        return 'col-4 col-lg-3';
     }
 
     protected function getClassHeaderAmount($type, $classHeaderAmount)
@@ -882,7 +882,7 @@ abstract class TransactionShow extends Base
             return $class;
         }
 
-        return 'col-md-2';
+        return 'col-4 col-lg-2';
     }
 
     protected function getClassHeaderPaidAt($type, $classHeaderPaidAt)
@@ -897,7 +897,7 @@ abstract class TransactionShow extends Base
             return $class;
         }
 
-        return 'col-md-2';
+        return 'col-4 col-lg-2';
     }
 
     protected function getTextContentTitle($type, $textContentTitle)
