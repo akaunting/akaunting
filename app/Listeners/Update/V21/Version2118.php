@@ -34,7 +34,7 @@ class Version2118 extends Listener
         Artisan::call('migrate', ['--force' => true]);
     }
 
-    protected function updateCompanies()
+    protected function updateEmailTemplate()
     {
         $company_id = company_id();
 
