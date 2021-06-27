@@ -48,6 +48,9 @@
             document.getElementById(hash_split[1]).scrollIntoView({
                 behavior: 'smooth'
             });
+
+            document.getElementById('collapse-' + hash_split[1]).classList.add('show');
+            document.getElementById('heading-' + hash_split[1]).ariaExpanded = 'true';
         }
     </script>
 @endpush
