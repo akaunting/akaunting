@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Las credenciales no coinciden con nuestro registro.',
-    'disabled'              => 'Esta cuenta está inhabilitada. Por favor, póngase en contacto con el administrador del sistema.',
     'throttle'              => 'Demasiados intentos fallidos. Por favor intente nuevamente después: segundos segundos.',
+    'disabled'              => 'Esta cuenta está inhabilitada. Por favor, póngase en contacto con el administrador del sistema.',
 
     'notification' => [
         'message_1'     => 'Usted ha solicitado el restablecimiento de su contraseña.',

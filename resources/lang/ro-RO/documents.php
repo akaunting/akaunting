@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Editează coloane',
-    'empty_items'   =>'Nu ai adăugat niciun articol.',
+    'empty_items'   => 'Nu ai adăugat niciun articol.',
 
     'statuses' => [
         'draft'         => 'Schiţă',

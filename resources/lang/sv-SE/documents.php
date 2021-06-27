@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Redigera kolumner',
-    'empty_items'   =>'Du har inte lagt till några objekt.',
+    'empty_items'   => 'Du har inte lagt till några objekt.',
 
     'statuses' => [
         'draft'         => 'Utkast',

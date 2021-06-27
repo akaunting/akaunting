@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Disse opplysningene samsvarer ikke med våre oppføringer.',
-    'disabled'              => 'Denne kontoen er deaktivert. Kontakt systemadministrator.',
     'throttle'              => 'For mange innloggingsforsøk. Forsøk igjen om :seconds sekunder.',
+    'disabled'              => 'Denne kontoen er deaktivert. Kontakt systemadministrator.',
 
     'notification' => [
         'message_1'     => 'Du mottar denne e-posten fordi vi mottok en forespørsel om pasordnullstilling for din konto.',

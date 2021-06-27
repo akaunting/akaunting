@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Tyto přihlašovací údaje neodpovídají žádnému záznamu.',
-    'disabled'              => 'Tento účet je zakázán. Obraťte se na správce systému.',
     'throttle'              => 'Příliš mnoho pokusů o přihlášení. Zkuste to, prosím, znovu za :seconds vteřin.',
+    'disabled'              => 'Tento účet je zakázán. Obraťte se na správce systému.',
 
     'notification' => [
         'message_1'     => 'Posíláme Vám tento e-mail, protože jsme obdrželi žádost o obnovení hesla.',

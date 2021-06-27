@@ -6,7 +6,7 @@ return [
     'rate_percent'          => 'Tarif (%)',
     'normal'                => 'Normal',
     'inclusive'             => 'Inklusif',
-    'compound'              => 'Campuran',
-    'fixed'                 => 'Diperbaiki',
+    'compound'              => 'Gabungan',
+    'fixed'                 => 'Tetap',
     'withholding'           => 'Pemotongan',
 ];

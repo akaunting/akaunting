@@ -9,6 +9,6 @@ return [
     'bank_name'             => 'Nama Bank',
     'bank_phone'            => 'Telepon Bank',
     'bank_address'          => 'Alamat Bank',
-    'default_account'       => 'Akun Utama',
+    'default_account'       => 'Akun Default',
 
 ];

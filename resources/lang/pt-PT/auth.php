@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'As credenciais indicadas não coincidem com as registadas no sistema.',
-    'disabled'              => 'Esta conta está desativada. Por favor, contacte o administrador do sistema.',
     'throttle'              => 'O limite de tentativas para entrar na sua conta foi atingido. Por favor tente novamente dentro de :seconds segundos.',
+    'disabled'              => 'Esta conta está desativada. Por favor, contacte o administrador do sistema.',
 
     'notification' => [
         'message_1'     => 'Recebeu este e-mail porque foi-nos feito uma solicitação de redefinição de palavra-passe para a sua conta.',

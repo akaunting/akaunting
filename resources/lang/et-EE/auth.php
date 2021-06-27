@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Andmed ei kattu.',
-    'disabled'              => 'See konto on keelatud. Palun pöörduge süsteemiadministraatori poole.',
     'throttle'              => 'Liiga palju sisselogimise katseid. Palun proovi uuesti :seconds sekundi pärast.',
+    'disabled'              => 'See konto on keelatud. Palun pöörduge süsteemiadministraatori poole.',
 
     'notification' => [
         'message_1'     => 'Saite selle meili, kuna meile saadeti teie konto parooli lähtestamise taotlus.',

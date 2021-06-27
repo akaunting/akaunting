@@ -3,8 +3,8 @@
 return [
 
     'installed_version'     => 'Versi Terpasang',
-    'latest_version'        => 'Revisi Terakhir',
-    'update'                => 'Memperbaharui Akaunting ke versi :version',
+    'latest_version'        => 'Versi Terbaru',
+    'update'                => 'Perbaharui Akaunting ke versi :version',
     'changelog'             => 'Catatan Perubahan',
     'check'                 => 'Periksa',
     'new_core'              => 'Versi terbaru Akaunting tersedia.',

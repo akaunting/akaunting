@@ -27,7 +27,7 @@ return [
 
     'installed'             => ':module terpasang',
     'uninstalled'           => ':module dihapus',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module diperbarui',
     'enabled'               => ':module diaktifkan',
     'disabled'              => ':module dinonaktifkan',
 

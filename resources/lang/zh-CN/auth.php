@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => '账号或者密码错误',
-    'disabled'              => '此账号已被停用，请联系管理员',
     'throttle'              => '尝试登录次数过多，请在 :seconds 秒后再试。',
+    'disabled'              => '此账号已被停用，请联系管理员',
 
     'notification' => [
         'message_1'     => '您收到此电子邮件是因为我们收到了您帐户的密码重置请求.',

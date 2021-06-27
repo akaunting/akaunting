@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Rediger kolonner',
-    'empty_items'   =>'Du har endnu ikke tilføjet et produkt',
+    'empty_items'   => 'Du har endnu ikke tilføjet et produkt',
 
     'statuses' => [
         'draft'         => 'Udkast',

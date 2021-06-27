@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Spalten bearbeiten',
-    'empty_items'   =>'Sie haben keine Artikel hinzugefügt.',
+    'empty_items'   => 'Sie haben keine Artikel hinzugefügt.',
 
     'statuses' => [
         'draft'         => 'Entwurf',

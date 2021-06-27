@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Butiran ini tidak sepadan dengan rekod kami.',
-    'disabled'              => 'Akaun ini dinyahaktifkan. Sila, hubungi pentadbir sistem.',
     'throttle'              => 'Terlalu banyak percubaan log masuk. Sila cuba lagi dalam :seconds saat.',
+    'disabled'              => 'Akaun ini dinyahaktifkan. Sila, hubungi pentadbir sistem.',
 
     'notification' => [
         'message_1'     => 'Anda menerima emel ini kerana kami menerima permohonan set semula kata laluan untuk akaun anda.',

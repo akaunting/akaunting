@@ -29,7 +29,6 @@ return [
     ],
 
     'failed'                => 'Błędny login lub hasło.',
-    'password'              => 'Podane hasło jest nieprawidłowe.',
     'throttle'              => 'Za dużo nieudanych prób logowania. Proszę spróbować za :seconds sekund.',
     'disabled'              => 'To konto jest wyłączone. Proszę skontaktuj się z administrator systemu.',
 

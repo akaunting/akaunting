@@ -48,4 +48,8 @@ Slobodno nas kontaktirajte za svako pitanje.<br /><br />Lijep Pozdrav,<br />{com
         'body'          => 'Pozdrav, <br /><br /> Na temelju {vendor_name} ponavljajuće pretplate, <strong> {bill_number} </strong> račun je automatski kreiran. <br /> <br /> Pojedinosti računa možete vidjeti kliknuvši na slijedeću vezu: <a href="{bill_admin_link}"> {bill_number} </a>. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} naplata je kreirana',
+        'body'          => 'Poštovani {customer_name},<br /><br />Spremili smo slijedeću uplatu. <br /><br />Možete pogledati detalje uplate na slijedećem linku: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Budite slobodni da nas kontaktirate za bilo kakva pitanja.<br /><br />Srdacan pozdrav,<br />{company_name}',
+    ],
 ];

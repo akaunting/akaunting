@@ -27,7 +27,7 @@ return [
 
     'installed'             => ':module installerad',
     'uninstalled'           => ':module avinstallerad',
-    //'updated'               => ':module updated',
+    'updated_2'             => 'modulen uppdaterades',
     'enabled'               => ':module aktiverad',
     'disabled'              => ':module inaktiverad',
 

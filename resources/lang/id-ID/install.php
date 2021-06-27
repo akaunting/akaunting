@@ -8,7 +8,7 @@ return [
     'steps' => [
         'requirements'      => 'Silakan meminta ke penyedia hosting Anda untuk memperbaiki kesalahan!',
         'language'          => 'Langkah 1/3 : Seleksi Bahasa',
-        'database'          => 'Langkah 2/3 : Setup basis data',
+        'database'          => 'Atur Database',
         'settings'          => 'Langkah 3/3: Detail Perusahaan dan Admin',
     ],
 
@@ -40,7 +40,7 @@ return [
 
     'error' => [
         'php_version'       => 'Terjadi Kesalahan: Minta ke penyedia hosting Anda untuk menggunakan PHP: php_version atau lebih tinggi untuk HTTP dan CLI.',
-        'connection'        => 'Terjadi Kesalahan: Tidak dapat terhubung ke database! Tolong, pastikan detilnya benar.',
+        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Silahkan, pastikan bahwa rinciannya benar.',
     ],
 
 ];

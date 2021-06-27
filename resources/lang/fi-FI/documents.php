@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Muokkaa sarakkeita',
-    'empty_items'   =>'Et ole lisännyt yhtään tuotetta.',
+    'empty_items'   => 'Et ole lisännyt yhtään tuotetta.',
 
     'statuses' => [
         'draft'         => 'Luonnos',

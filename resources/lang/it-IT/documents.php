@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Modifica Colonne',
-    'empty_items'   =>'Non hai aggiunto alcun elemento.',
+    'empty_items'   => 'Non hai aggiunto alcun elemento.',
 
     'statuses' => [
         'draft'         => 'Bozza',

@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Datele de identificare nu pot fi confirmate.',
-    'disabled'              => 'Acest cont este dezactivat. Vă rugăm contactați administratorul de sistem.',
     'throttle'              => 'Prea multe încercări de intrare în cont. Poți încerca din nou peste :seconds secunde.',
+    'disabled'              => 'Acest cont este dezactivat. Vă rugăm contactați administratorul de sistem.',
 
     'notification' => [
         'message_1'     => 'Primești acest Email pentru că a fost făcută o cerere de resetare a parolei pentru contul tău.',

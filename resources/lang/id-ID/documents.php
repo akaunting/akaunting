@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Edit Kolom',
-    'empty_items'   =>'Anda belum menambahkan item apapun',
+    'empty_items'   => 'Anda belum menambahkan item apa pun',
 
     'statuses' => [
         'draft'         => 'Konsep',

@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Credenziali non corrispondenti ai dati registrati.',
-    'disabled'              => 'Questo account è disattivato. Si prega di contattare l\'amministratore di sistema.',
     'throttle'              => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
+    'disabled'              => 'Questo account è disattivato. Si prega di contattare l\'amministratore di sistema.',
 
     'notification' => [
         'message_1'     => 'Hai ricevuto questa email perché abbiamo ricevuto una richiesta di reimpostazione della password per il tuo account.',

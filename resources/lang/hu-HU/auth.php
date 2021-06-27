@@ -30,8 +30,8 @@ Nyitóoldal',
     ],
 
     'failed'                => 'Rossz azonosító-jelszó páros.',
-    'disabled'              => 'Ez a fiók le van tiltva. Kérjük, lépjen kapcsolatba a rendszergazdával!',
     'throttle'              => 'Túl sok próbálkozás. Kérjük próbálja újra :seconds másodperc múlva.',
+    'disabled'              => 'Ez a fiók le van tiltva. Kérjük, lépjen kapcsolatba a rendszergazdával!',
 
     'notification' => [
         'message_1'     => 'Ezt az e-mailt azért kaptad, mert egy jelszóvisszaállítási kérelmet kaptunk a fiókodból.',

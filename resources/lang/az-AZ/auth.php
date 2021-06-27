@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Bu istifadəçi bilgiləri bizim məlumatlarla uyğun gəlmir.',
-    'disabled'              => 'Bu hesab deaktiv edilib. Zəhmət olmasa sistem administratoru ilə əlaqə saxlayın.',
     'throttle'              => 'Çox sayda giriş cəhdi. Zəhmət olmazsa: saniyələr içində yenidən cəhd edin.',
+    'disabled'              => 'Bu hesab deaktiv edilib. Zəhmət olmasa sistem administratoru ilə əlaqə saxlayın.',
 
     'notification' => [
         'message_1'     => 'Bu e-poçtu şifrə Yeniləma tələbinizə uyğun olaraq alırsınız.',

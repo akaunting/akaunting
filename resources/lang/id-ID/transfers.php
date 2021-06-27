@@ -2,13 +2,13 @@
 
 return [
 
-    'from_account'          => 'Dari Rekening',
-    'from_account_rate'     => 'Dari Rekening Taksiran',
-    'to_account'            => 'Ke Rekening',
-    'to_account_rate'       => 'Ke Rekening Taksiran',
+    'from_account'          => 'Dari Akun',
+    'from_account_rate'     => 'Dari Tarif Akun',
+    'to_account'            => 'Ke Akun',
+    'to_account_rate'       => 'Ke Tarif Akun',
 
     'messages' => [
-        'delete'            => ':from ke :to (:amount)',
+        'delete'            => ':from sampai :to (:amount)',
     ],
 
 ];

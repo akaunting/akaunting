@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Podatki ne ustrezajo.',
-    'disabled'              => 'Ta račun je bil onemogočen. Kontaktirajte administratorja.',
     'throttle'              => 'Preveč poskusov prijave. Poskusite znova čez: sekund sekund.',
+    'disabled'              => 'Ta račun je bil onemogočen. Kontaktirajte administratorja.',
 
     'notification' => [
         'message_1'     => 'To sporočilo ste prejeli, ker ste poslali zahtevo za ponastavitev gesla.',
