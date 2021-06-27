@@ -20,7 +20,17 @@ return [
         | Pre-calculate formulas during export
         |--------------------------------------------------------------------------
         */
-        'pre_calculate_formulas' => false,
+        'pre_calculate_formulas' => env('EXCEL_EXPORTS_PRE_CALCULATE_FORMULAS', false),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable strict null comparison
+        |--------------------------------------------------------------------------
+        |
+        | When enabling strict null comparison empty cells ('') will
+        | be added to the sheet.
+        */
+        'strict_null_comparison' => env('EXCEL_EXPORTS_STRING_NULL_COMPARISON', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -38,6 +48,26 @@ return [
             'include_separator_line' => false,
             'excel_compatibility'    => false,
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Worksheet properties
+        |--------------------------------------------------------------------------
+        |
+        | Configure e.g. default title, creator, subject,...
+        |
+        */
+        'properties' => [
+            'creator'        => 'Akaunting',
+            'lastModifiedBy' => '',
+            'title'          => '',
+            'description'    => '',
+            'subject'        => '',
+            'keywords'       => '',
+            'category'       => '',
+            'manager'        => '',
+            'company'        => '',
+        ],
     ],
 
     'imports' => [
@@ -48,19 +78,42 @@ return [
 
         'extensions' => env('EXCEL_IMPORTS_EXTENSIONS', 'xls,xlsx'),
 
-        'read_only' => true,
+        /*
+        |--------------------------------------------------------------------------
+        | Read Only
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with imports, you might only be interested in the
+        | data that the sheet exists. By default we ignore all styles,
+        | however if you want to do some logic based on style data
+        | you can enable it by setting read_only to false.
+        |
+        */
+        'read_only' => env('EXCEL_IMPORTS_READ_ONLY', true),
 
+        /*
+        |--------------------------------------------------------------------------
+        | Ignore Empty
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with imports, you might be interested in ignoring
+        | rows that have null values or empty strings. By default rows
+        | containing empty strings or empty values are not ignored but can be
+        | ignored by enabling the setting ignore_empty to true.
+        |
+        */
+        'ignore_empty' => env('EXCEL_IMPORTS_IGNORE_EMPTY', true),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Heading Row Formatter
+        |--------------------------------------------------------------------------
+        |
+        | Configure the heading row formatter.
+        | Available options: none|slug|custom
+        |
+        */
         'heading_row' => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Heading Row Formatter
-            |--------------------------------------------------------------------------
-            |
-            | Configure the heading row formatter.
-            | Available options: none|slug|custom
-            |
-            */
             'formatter' => 'slug',
         ],
 
@@ -73,11 +126,31 @@ return [
         |
         */
         'csv' => [
-            'delimiter'              => ',',
-            'enclosure'              => '"',
-            'escape_character'       => '\\',
-            'contiguous'             => false,
-            'input_encoding'         => 'UTF-8',
+            'delimiter'        => ',',
+            'enclosure'        => '"',
+            'escape_character' => '\\',
+            'contiguous'       => false,
+            'input_encoding'   => 'UTF-8',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Worksheet properties
+        |--------------------------------------------------------------------------
+        |
+        | Configure e.g. default title, creator, subject,...
+        |
+        */
+        'properties'  => [
+            'creator'        => 'Akaunting',
+            'lastModifiedBy' => '',
+            'title'          => '',
+            'description'    => '',
+            'subject'        => '',
+            'keywords'       => '',
+            'category'       => '',
+            'manager'        => '',
+            'company'        => '',
         ],
     ],
 
@@ -191,24 +264,23 @@ return [
         ],
     ],
 
+     /*
+    |--------------------------------------------------------------------------
+    | Transaction Handler
+    |--------------------------------------------------------------------------
+    |
+    | By default the import is wrapped in a transaction. This is useful
+    | for when an import may fail and you want to retry it. With the
+    | transactions, the previous import gets rolled-back.
+    |
+    | You can disable the transaction handler by setting this to null.
+    | Or you can choose a custom made transaction handler here.
+    |
+    | Supported handlers: null|db
+    |
+    */
     'transactions' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Transaction Handler
-        |--------------------------------------------------------------------------
-        |
-        | By default the import is wrapped in a transaction. This is useful
-        | for when an import may fail and you want to retry it. With the
-        | transactions, the previous import gets rolled-back.
-        |
-        | You can disable the transaction handler by setting this to null.
-        | Or you can choose a custom made transaction handler here.
-        |
-        | Supported handlers: null|db
-        |
-        */
-        'handler' => 'db',
+        'handler' => env('EXCEL_TRANSACTIONS_HANDLER', 'db'),
     ],
 
     'temporary_files' => [
