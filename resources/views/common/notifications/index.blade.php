@@ -31,7 +31,7 @@
 
     @stack('bills_recurring')
 
-    <livewire:common.notifications.recurring type="bill" text-title="widgets.recurring_bills" />
+    <livewire:common.notifications.recurring type="bill" text-title="notifications.recurring_bills" />
 
     @stack('bills_reminder')
 
@@ -48,6 +48,9 @@
             document.getElementById(hash_split[1]).scrollIntoView({
                 behavior: 'smooth'
             });
+
+            document.getElementById('collapse-' + hash_split[1]).classList.add('show');
+            document.getElementById('heading-' + hash_split[1]).ariaExpanded = 'true';
         }
     </script>
 @endpush
