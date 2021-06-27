@@ -187,7 +187,7 @@ abstract class TransactionTemplate extends Base
         $this->transaction = $transaction;
 
         $this->logo = $this->getLogo($logo);
-        $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods();
+        $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods('all');
 
         // Company Information Hide checker
         $this->hideCompany = $hideCompany;
@@ -313,7 +313,7 @@ abstract class TransactionTemplate extends Base
                 $default_key = 'payment_made';
                 break;
             default:
-                $default_key = 'revenue_made';
+                $default_key = 'revenue_received';
                 break;
         }
 
@@ -323,7 +323,7 @@ abstract class TransactionTemplate extends Base
             return $translation;
         }
 
-        return 'revenues.revenue_made';
+        return 'revenues.revenue_received';
     }
 
     protected function getTextPaidAt($type, $textPaidAt)

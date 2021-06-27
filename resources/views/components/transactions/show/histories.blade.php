@@ -33,7 +33,7 @@
                                 </td>
 
                                 <td class="col-xs-4 col-sm-6 text-left long-texts">
-                                    {{ $history->creator->name }}
+                                    {{ $history->owner->name }}
                                 </td>
                                 @stack('row_footer_histories_body_td_end')
                             </tr>
