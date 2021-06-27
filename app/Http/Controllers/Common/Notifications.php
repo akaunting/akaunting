@@ -34,7 +34,19 @@ class Notifications extends Controller
             $notification->markAsRead();
         }
 
-        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.items', 1)]);
+        // Hide New Apps Notifications
+        $module_notifications = $this->getNotifications('new-apps' );
+
+        foreach ($module_notifications as $module_notification) {
+            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.name', $module_notification->name);
+            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.message', $module_notification->alias);
+            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.date', Date::now());
+            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.status', '0');
+        }
+
+        setting()->save();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.notificatinos', 1)]);
 
         flash($message)->success();
 
