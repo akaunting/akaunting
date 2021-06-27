@@ -24,7 +24,7 @@ class Import extends FormRequest
     public function rules()
     {
         return [
-            'import' => 'required|file|extension:xls,xlsx',
+            'import' => 'required|file|extension:' . config('excel.imports.extensions'),
         ];
     }
 }

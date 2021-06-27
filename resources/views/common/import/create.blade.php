@@ -9,8 +9,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="alert alert-warning alert-important">
+                            {!! trans('import.limitations', ['extensions' => strtoupper(config('excel.imports.extensions')), 'row_limit' => config('excel.imports.row_limit')]) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="alert alert-info alert-important">
-                            {!! trans('import.message', ['link' => $sample_file]) !!}
+                            {!! trans('import.sample_file', ['download_link' => $sample_file]) !!}
                         </div>
                     </div>
 
