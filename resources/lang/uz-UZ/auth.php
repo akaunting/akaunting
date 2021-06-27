@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Bunday ma‘lumotlarga ega foydalanuvchi mavjud emas.',
-    'disabled'              => 'Xisobingiz bloklandi. Administratorga xabar bering.',
     'throttle'              => 'Kirish uchun juda ko‘p urunishlar aniqlandi. Iltimos :seconds soniyadan so‘ng yana urinib ko‘ring.',
+    'disabled'              => 'Xisobingiz bloklandi. Administratorga xabar bering.',
 
     'notification' => [
         'message_1'     => 'Ushbu xatni olishingiz sababi - hisobingizdan bizga parolni yangilashga so‘rov kelgan.',

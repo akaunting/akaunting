@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Disse legitimationsoplysninger passer ikke med de gemte.',
-    'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
     'throttle'              => 'For mange loginforsøg. Prøv igen om :seconds sekunder.',
+    'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
 
     'notification' => [
         'message_1'     => 'Du modtager denne e-mail, fordi vi har modtaget en anmodning om nulstilling af adgangskoden til din konto.',

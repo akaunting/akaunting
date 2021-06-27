@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Antamaasi sähköpostiosoitetta ja/tai salasanaa ei löydy.',
-    'disabled'              => 'Tämä käyttäjätili on poistettu käytöstä. Ota yhteyttä järjestelmän ylläpitäjään.',
     'throttle'              => 'Liian monta kirjautumisyritystä. Yritä uudelleen :seconds sekunnin kuluttua.',
+    'disabled'              => 'Tämä käyttäjätili on poistettu käytöstä. Ota yhteyttä järjestelmän ylläpitäjään.',
 
     'notification' => [
         'message_1'     => 'Saat tämän sähköpostiviestin, koska olemme saaneet salasanan palauttamispyynnön tilillesi.',

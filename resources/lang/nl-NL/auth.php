@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Deze gegevens komen niet overeen met onze administratie.',
-    'disabled'              => 'Dit account is uitgeschakeld. Neem alstublieft contact op met de applicatiebeheerder.',
     'throttle'              => 'Te veel inlogpogingen. Probeer het met :seconds seconden opnieuw.',
+    'disabled'              => 'Dit account is uitgeschakeld. Neem alstublieft contact op met de applicatiebeheerder.',
 
     'notification' => [
         'message_1'     => 'U ontvangt deze e-mail omdat wij een wachtwoord reset verzoek hebben ontvangen voor uw account.',

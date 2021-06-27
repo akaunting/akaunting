@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Prihlasovacie údaje nie sú správne.',
-    'disabled'              => 'Tento účet je zakázaný. Prosím, kontaktujte správcu systému.',
     'throttle'              => 'Prekročený limit pokusov. Skúste znovu o :seconds sekúnd.',
+    'disabled'              => 'Tento účet je zakázaný. Prosím, kontaktujte správcu systému.',
 
     'notification' => [
         'message_1'     => 'Dostávate tento e-mail, pretože sme dostali žiadosť o obnovenie hesla pre tento účet.',

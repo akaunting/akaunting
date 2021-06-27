@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Dessa uppgifter stämmer inte överens med vårt register.',
-    'disabled'              => 'Detta konto är inaktiverat. Kontakta systemadministratören.',
     'throttle'              => 'För många inloggningsförsök. Var vänlig försök igen om :seconds sekunder.',
+    'disabled'              => 'Detta konto är inaktiverat. Kontakta systemadministratören.',
 
     'notification' => [
         'message_1'     => 'Du får detta mail eftersom vi fått en begäran om återställning av lösenord för ditt konto.',

@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Sütünları Düzəlt',
-    'empty_items'   =>'Hər hansı bir məhsul/xidmət əlavə etmədiniz.',
+    'empty_items'   => 'Hər hansı bir məhsul/xidmət əlavə etmədiniz.',
 
     'statuses' => [
         'draft'         => 'Qaralama',

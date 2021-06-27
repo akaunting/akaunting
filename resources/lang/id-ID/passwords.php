@@ -16,8 +16,8 @@ return [
     'password' => 'Kata sandi harus minimal enam karakter dan cocok dengan konfirmasi.',
     'reset' => 'Kata sandi Anda sudah direset!',
     'sent' => 'Kami sudah mengirim email yang berisi tautan untuk mereset kata sandi Anda!',
+    'throttled' => 'Silahkan tunggu sebelum mencoba lagi.',
     'token' => 'Kata sandi token pengaturan ulang tidak sah.',
     'user' => "Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.",
-    'throttle' => 'Harap tunggu sebelum mencoba lagi.',
 
 ];

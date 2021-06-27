@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Redigeeri veerge',
-    'empty_items'   =>'Te pole midagi lisanud.',
+    'empty_items'   => 'Te pole midagi lisanud.',
 
     'statuses' => [
         'draft'         => 'Mustand',

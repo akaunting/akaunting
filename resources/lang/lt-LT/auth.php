@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Neteisingi prisijungimo duomenys.',
-    'disabled'              => 'Šis vartotojas yra išjungtas. Prašome susisiekti su sistemos administratoriumi.',
     'throttle'              => 'Per daug bandymų prisijungti. Bandykite po :seconds sec.',
+    'disabled'              => 'Šis vartotojas yra išjungtas. Prašome susisiekti su sistemos administratoriumi.',
 
     'notification' => [
         'message_1'     => 'Jūs gavote šį laišką, nes mes gavome prašymą atstatyti slaptažodį jūsų vartotojui.',

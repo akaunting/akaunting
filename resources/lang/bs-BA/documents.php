@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Izmjena kolona',
-    'empty_items'   =>'Niste dodali nijednu stavku.',
+    'empty_items'   => 'Niste dodali nijednu stavku.',
 
     'statuses' => [
         'draft'         => 'U pripremi',

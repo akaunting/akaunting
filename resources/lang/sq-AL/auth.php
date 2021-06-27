@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Këto kredencialet nuk përputhen me të dhënat tona.',
-    'disabled'              => 'Kjo llogari është e mbyllur. Ju lutemi, kontaktoni administratorin e sistemit.',
     'throttle'              => 'Shumë përpjekje për identifikim. Provo sërish në :seconds sekonda.',
+    'disabled'              => 'Kjo llogari është e mbyllur. Ju lutemi, kontaktoni administratorin e sistemit.',
 
     'notification' => [
         'message_1'     => 'Po pranon këtë email sepse kemi marrë një kërkesë për rivendosjen e fjalëkalimit për llogarinë tënde.',

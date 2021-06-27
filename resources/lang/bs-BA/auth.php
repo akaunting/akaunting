@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Uneseni podaci ne odgovaraju onima u našoj bazi.',
-    'disabled'              => 'Račun je onemogućen. Molimo Vas kontaktirajte sistemskog administratora.',
     'throttle'              => 'Previše pogrešnih unosa. Molimo pokušajte ponovo nakon :seconds sekundi.',
+    'disabled'              => 'Račun je onemogućen. Molimo Vas kontaktirajte sistemskog administratora.',
 
     'notification' => [
         'message_1'     => 'Zaprimili ste ovaj email zato što ste tražili poništavanje lozinke za Vaš račun.',

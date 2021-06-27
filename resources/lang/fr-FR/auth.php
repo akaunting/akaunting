@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Ces identifiants ne correspondent pas à un utilisateur.',
-    'disabled'              => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
     'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
+    'disabled'              => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
 
     'notification' => [
         'message_1'     => 'Vous recevez cet email car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',

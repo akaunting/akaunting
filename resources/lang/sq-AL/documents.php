@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Ndrysho Kolonat',
-    'empty_items'   =>'Ju nuk keni shtuar asnjë artikull.',
+    'empty_items'   => 'Ju nuk keni shtuar asnjë artikull.',
 
     'statuses' => [
         'draft'         => 'Draft',

@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Essas credenciais não correspondem aos nossos registros.',
-    'disabled'              => 'Esta conta está desabilitada. Por favor, entre em contato com o administrador do sistema.',
     'throttle'              => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
+    'disabled'              => 'Esta conta está desabilitada. Por favor, entre em contato com o administrador do sistema.',
 
     'notification' => [
         'message_1'     => 'Você está recebendo este e-mail porque recebemos um pedido de redefinição de senha para sua conta.',

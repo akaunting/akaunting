@@ -27,7 +27,7 @@ return [
 
     'installed'             => ':module instalirana',
     'uninstalled'           => ':module deinstalirana',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module je ažuriran',
     'enabled'               => ':module omogućena',
     'disabled'              => ':module onemogućena',
 

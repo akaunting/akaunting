@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Edita les columnes',
-    'empty_items'   =>'No has afegit cap element.',
+    'empty_items'   => 'No has afegit cap element.',
 
     'statuses' => [
         'draft'         => 'Esborrany',

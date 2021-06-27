@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Podaci ne odgovaraju ni jednom nalogu.',
-    'disabled'              => 'Ovaj nalog je onemogućen. Molim vas, obratite se administratoru sistema.',
     'throttle'              => 'Previše neuspelih pokušaja. Pokušajte ponovo za :seconds sekundi.',
+    'disabled'              => 'Ovaj nalog je onemogućen. Molim vas, obratite se administratoru sistema.',
 
     'notification' => [
         'message_1'     => 'Dobili ste ovu e-poruku jer smo primili poziv za poništavanje lozinke za vaš nalog.',

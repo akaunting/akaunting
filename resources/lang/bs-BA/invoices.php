@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Broj fakture',
     'invoice_date'          => 'Datum fakture',
+    'invoice_amount'        => 'Iznos fakture',
     'total_price'           => 'Ukupna cijena',
     'due_date'              => 'Datum dospijeća',
     'order_number'          => 'Broj narudžbe',

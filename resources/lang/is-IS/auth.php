@@ -29,8 +29,8 @@ return [
     ],
 
     'failed'                => 'Þessar upplýsingar passa ekki við okkar skrá.',
-    'disabled'              => 'Þessi reikningur er óvirkur. Vinsamlega hafið samband við kerfisstjóra.',
     'throttle'              => 'Of margar tilraunir.Vinsamlega reynið aftur eftir: sekúndur sekúndur.',
+    'disabled'              => 'Þessi reikningur er óvirkur. Vinsamlega hafið samband við kerfisstjóra.',
 
     'notification' => [
         'message_1'     => 'Þú ert að fá þennan tölvupóst vegna beiðni um að endursetja lykilorð.',

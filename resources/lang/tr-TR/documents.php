@@ -3,7 +3,7 @@
 return [
 
     'edit_columns'  => 'Sütünları Düzenle',
-    'empty_items'   =>'Herhangi bir ürün/hizmet eklemediniz.',
+    'empty_items'   => 'Herhangi bir ürün/hizmet eklemediniz.',
 
     'statuses' => [
         'draft'         => 'Taslak',

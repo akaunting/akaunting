@@ -29,7 +29,6 @@ return [
     ],
 
     'failed'                => 'Aquestes credencials no concorden amb els nostres registres.',
-    'password'              => 'La contrasenya que has proporcionat es incorrecta.',
     'throttle'              => 'Ha superat el nombre màxim d\'intents d\'accés. Si us plau, torni a intentar-ho en :seconds segons.',
     'disabled'              => 'Aquest compte està desactivat, si us plau contacta amb l\'administrador del sistema.',
 
