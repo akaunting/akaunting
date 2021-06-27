@@ -17,6 +17,8 @@ Route::group(['as' => 'portal.'], function () {
     Route::resource('invoices', 'Portal\Invoices');
 
     Route::get('payments/currencies', 'Portal\Payments@currencies')->name('payment.currencies');
+    Route::get('payments/{payment}/print', 'Portal\Payments@printPayment')->name('payments.print');
+    Route::get('payments/{payment}/pdf', 'Portal\Payments@pdfPayment')->name('payments.pdf');
     Route::resource('payments', 'Portal\Payments');
 
     Route::get('profile/read-invoices', 'Portal\Profile@readOverdueInvoices')->name('invoices.read');

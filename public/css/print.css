@@ -249,6 +249,13 @@ th, td
     vertical-align: top;
 }
 
+.col-16
+{
+    display: inline-block;
+    max-width: 16%;
+    vertical-align: top;
+}
+
 .col-100
 {
     display: inline-block;
@@ -493,4 +500,57 @@ th, td
 	display: block;
 	clear: both;
 	content: ""
+}
+
+.show-card {
+    padding: 0px 15px;
+    border-radius: 0px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 4px 16px;
+}
+
+.card-amount-badge h5 {
+    font-size: 20px;
+}
+
+.card-amount-badge span {
+    font-size: 32px;
+}
+
+.show-card-body {
+    padding: 1.5rem 2.5rem;
+}
+
+.show-card-bg-success {
+    width: 350px;
+    height: 150px;
+    border-radius: unset;
+}
+.show-company-value strong {
+    font-weight: bold;
+}
+
+.show-company p {
+    min-height: 52px;
+}
+
+@media (max-width: 1200px) {
+    .transaction-head-text {
+        max-width: 100px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .transaction-head-text {
+        max-width: 75px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .show-card {
+        overflow-y: scroll;
+    }
+
+    .show-card-body {
+        padding: 1.5rem 1.5rem;
+    }
 }

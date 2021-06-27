@@ -4,7 +4,7 @@
 
 @section('new_button')
     @stack('button_print_start')
-    <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success btn-sm">
+    <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-white btn-sm">
         {{ trans('general.print') }}
     </a>
     @stack('button_print_end')

@@ -15,13 +15,15 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Notifications\Sale\Revenue as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Transactions;
 use App\Utilities\Modules;
 
 class Revenues extends Controller
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Transactions;
 
     /**
      * Display a listing of the resource.
@@ -40,9 +42,9 @@ class Revenues extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transaction $revenue)
     {
-        return redirect()->route('revenues.index');
+        return view('sales.revenues.show', compact('revenue'));
     }
 
     /**
@@ -91,7 +93,7 @@ class Revenues extends Controller
         $response = $this->ajaxDispatch(new CreateTransaction($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('revenues.index');
+            $response['redirect'] = route('revenues.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
@@ -206,7 +208,7 @@ class Revenues extends Controller
         $response = $this->ajaxDispatch(new UpdateTransaction($revenue, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('revenues.index');
+            $response['redirect'] = route('revenues.show', $revenue->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
 
@@ -256,5 +258,70 @@ class Revenues extends Controller
     public function export()
     {
         return $this->exportExcel(new Export, trans_choice('general.revenues', 2));
+    }
+
+    /**
+     * Download the PDF file of revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function emailRevenue(Transaction $revenue)
+    {
+        if (empty($revenue->contact->email)) {
+            return redirect()->back();
+        }
+
+        // Notify the customer
+        $revenue->contact->notify(new Notification($revenue, 'revenue_new_customer', true));
+
+        event(new \App\Events\Transaction\TransactionSent($revenue));
+
+        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.revenues', 1)]))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Print the revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function printRevenue(Transaction $revenue)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+
+        $view = view($revenue->template_path, compact('revenue'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of revenue.
+     *
+     * @param  Transaction $revenue
+     *
+     * @return Response
+     */
+    public function pdfRevenue(Transaction $revenue)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+
+        $currency_style = true;
+
+        $view = view($revenue->template_path, compact('revenue', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getTransactionFileName($revenue);
+
+        return $pdf->download($file_name);
     }
 }

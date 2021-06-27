@@ -371,11 +371,11 @@ class Transaction extends Model
         }
 
         if ($this->isIncome()) {
-            return !empty($this->document_id) ? 'invoices.show' : 'revenues.edit';
+            return !empty($this->document_id) ? 'invoices.show' : 'revenues.show';
         }
 
         if ($this->isExpense()) {
-            return !empty($this->document_id) ? 'bills.show' : 'payments.edit';
+            return !empty($this->document_id) ? 'bills.show' : 'payments.show';
         }
 
         return 'transactions.index';
@@ -389,6 +389,11 @@ class Transaction extends Model
     public function getRouteIdAttribute($value)
     {
         return !empty($value) ? $value : (!empty($this->document_id) ? $this->document_id : $this->id);
+    }
+
+    public function getTemplatePathAttribute($value = null)
+    {
+        return $value ?: 'sales.revenues.print_default';
     }
 
     /**

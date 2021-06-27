@@ -89,18 +89,36 @@ return [
     // Transactions
     'income' => [
         'group'                 => 'sales',
+        'route' => [
+            'prefix'            => 'revenues', // core use with group + prefix, module ex. estimates
+            'parameter'         => 'revenue', // sales/invoices/{parameter}/edit
+            //'create'          => 'invoices.create', // if you change route, you can write full path
+        ],
         'permission' => [
             'prefix'            => 'revenues',
             //'create'          => 'create-sales-revenues',
+        ],
+        'translation' => [
+            'prefix'                    => 'revenues', // this translation file name.
+            'related_document_amount'   => 'invoices.invoice_amount',
         ],
         'contact_type'          => 'customer',
     ],
 
     'expense' => [
         'group'                 => 'purchases',
+        'route' => [
+            'prefix'            => 'payments', // core use with group + prefix, module ex. estimates
+            'parameter'         => 'payment', // sales/invoices/{parameter}/edit
+            //'create'          => 'invoices.create', // if you change route, you can write full path
+        ],
         'permission' => [
             'prefix'            => 'payments',
             //'create'          => 'create-purchases-payments',
+        ],
+        'translation' => [
+            'prefix'                    => 'payments', // this translation file name.
+            'related_document_amount'   => 'bills.bill_amount',
         ],
         'contact_type'          => 'vendor',
     ],

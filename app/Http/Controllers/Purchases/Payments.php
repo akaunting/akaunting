@@ -17,11 +17,12 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Transactions;
 use App\Utilities\Modules;
 
 class Payments extends Controller
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Transactions;
 
     /**
      * Display a listing of the resource.
@@ -40,9 +41,9 @@ class Payments extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transaction $payment)
     {
-        return redirect()->route('payments.index');
+        return view('purchases.payments.show', compact('payment'));
     }
 
     /**
@@ -91,7 +92,7 @@ class Payments extends Controller
         $response = $this->ajaxDispatch(new CreateTransaction($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('payments.index');
+            $response['redirect'] = route('payments.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -206,7 +207,7 @@ class Payments extends Controller
         $response = $this->ajaxDispatch(new UpdateTransaction($payment, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('payments.index');
+            $response['redirect'] = route('payments.show', $payment->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 
@@ -256,5 +257,70 @@ class Payments extends Controller
     public function export()
     {
         return $this->exportExcel(new Export, trans_choice('general.payments', 2));
+    }
+
+    /**
+     * Download the PDF file of payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function emailPayment(Transaction $payment)
+    {
+        if (empty($payment->contact->email)) {
+            return redirect()->back();
+        }
+
+        // Notify the customer
+        $payment->contact->notify(new Notification($payment, 'payment_new_customer', true));
+
+        event(new \App\Events\Transaction\TransactionSent($payment));
+
+        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.payments', 1)]))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Print the payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function printPayment(Transaction $payment)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($payment));
+
+        $view = view($payment->template_path, compact('payment'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of payment.
+     *
+     * @param  Transaction $payment
+     *
+     * @return Response
+     */
+    public function pdfPayment(Transaction $payment)
+    {
+        event(new \App\Events\Transaction\TransactionPrinting($payment));
+
+        $currency_style = true;
+
+        $view = view($payment->template_path, compact('payment', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getTransactionFileName($payment);
+
+        return $pdf->download($file_name);
     }
 }

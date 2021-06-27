@@ -81,6 +81,9 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/export', 'Sales\Invoices@export')->name('invoices.export');
     Route::resource('invoices', 'Sales\Invoices', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
+    Route::get('revenues/{revenue}/email', 'Sales\Revenues@emailRevenue')->name('revenues.email');
+    Route::get('revenues/{revenue}/print', 'Sales\Revenues@printRevenue')->name('revenues.print');
+    Route::get('revenues/{revenue}/pdf', 'Sales\Revenues@pdfRevenue')->name('revenues.pdf');
     Route::get('revenues/{revenue}/duplicate', 'Sales\Revenues@duplicate')->name('revenues.duplicate');
     Route::post('revenues/import', 'Sales\Revenues@import')->name('revenues.import');
     Route::get('revenues/export', 'Sales\Revenues@export')->name('revenues.export');
@@ -108,6 +111,9 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/export', 'Purchases\Bills@export')->name('bills.export');
     Route::resource('bills', 'Purchases\Bills', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
+    Route::get('payments/{payment}/email', 'Purchases\Payments@emailPayment')->name('payments.email');
+    Route::get('payments/{payment}/print', 'Purchases\Payments@printPayment')->name('payments.print');
+    Route::get('payments/{payment}/pdf', 'Purchases\Payments@pdfPayment')->name('payments.pdf');
     Route::get('payments/{payment}/duplicate', 'Purchases\Payments@duplicate')->name('payments.duplicate');
     Route::post('payments/import', 'Purchases\Payments@import')->name('payments.import');
     Route::get('payments/export', 'Purchases\Payments@export')->name('payments.export');
