@@ -26,7 +26,9 @@ class Transfers extends BulkAction
 
     public function destroy($request)
     {
-        $transfers = $this->getSelectedRecords($request);
+        $transfers = $this->getSelectedRecords($request, [
+            'expense_transaction', 'income_transaction'
+        ]);
 
         foreach ($transfers as $transfer) {
             try {

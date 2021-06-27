@@ -31,7 +31,7 @@ class Users extends BulkAction
 
     public function disable($request)
     {
-        $users = $this->getSelectedRecords($request);
+        $users = $this->getSelectedRecords($request, 'contact');
 
         foreach ($users as $user) {
             try {

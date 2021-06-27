@@ -9,6 +9,7 @@ use App\Traits\Jobs;
 use App\Traits\Relationships;
 use App\Utilities\Export;
 use App\Utilities\Import;
+use Illuminate\Support\Arr;
 
 abstract class BulkAction
 {
@@ -39,9 +40,17 @@ abstract class BulkAction
         ],
     ];
 
-    public function getSelectedRecords($request)
+    public function getSelectedRecords($request, $relationships = null)
     {
-        return $this->model::find($this->getSelectedInput($request));
+        if (empty($relationships)) {
+            $model = $this->model::query();
+        } else {
+            $relationships = Arr::wrap($relationships);
+
+            $model = $this->model::with($relationships);
+        }
+
+        return $model->find($this->getSelectedInput($request));
     }
 
     public function getSelectedInput($request)
@@ -129,7 +138,7 @@ abstract class BulkAction
 
     public function disableContacts($request)
     {
-        $contacts = $this->getSelectedRecords($request);
+        $contacts = $this->getSelectedRecords($request, 'user');
 
         foreach ($contacts as $contact) {
             try {
@@ -142,7 +151,7 @@ abstract class BulkAction
 
     public function deleteContacts($request)
     {
-        $contacts = $this->getSelectedRecords($request);
+        $contacts = $this->getSelectedRecords($request, 'user');
 
         foreach ($contacts as $contact) {
             try {
@@ -155,7 +164,7 @@ abstract class BulkAction
 
     public function deleteTransactions($request)
     {
-        $transactions = $this->getSelectedRecords($request);
+        $transactions = $this->getSelectedRecords($request, 'category');
 
         foreach ($transactions as $transaction) {
             try {

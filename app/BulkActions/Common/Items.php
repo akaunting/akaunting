@@ -40,7 +40,7 @@ class Items extends BulkAction
 
     public function destroy($request)
     {
-        $items = $this->getSelectedRecords($request);
+        $items = $this->getSelectedRecords($request, 'taxes');
 
         foreach ($items as $item) {
             try {
