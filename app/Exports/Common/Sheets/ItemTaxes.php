@@ -9,13 +9,7 @@ class ItemTaxes extends Export
 {
     public function collection()
     {
-        $model = Model::with('item', 'tax')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('item_id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('item', 'tax')->collectForExport($this->ids, null, 'item_id');
     }
 
     public function map($model): array

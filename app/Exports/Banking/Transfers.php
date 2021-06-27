@@ -12,18 +12,12 @@ class Transfers extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with(
+        return Model::with(
             'expense_transaction',
             'expense_transaction.account',
             'income_transaction',
             'income_transaction.account'
-        )->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        )->collectForExport($this->ids);
     }
 
     public function map($model): array

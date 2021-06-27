@@ -9,13 +9,7 @@ class InvoiceItemTaxes extends Export
 {
     public function collection()
     {
-        $model = Model::invoice()->with('document', 'item', 'tax')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('document_id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('document', 'item', 'tax')->invoice()->collectForExport($this->ids, null, 'document_id');
     }
 
     public function map($model): array

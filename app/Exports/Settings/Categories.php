@@ -9,13 +9,7 @@ class Categories extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::collectForExport($this->ids);
     }
 
     public function fields(): array

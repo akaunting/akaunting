@@ -119,6 +119,37 @@ abstract class Model extends Eloquent implements Ownable
     }
 
     /**
+     * Scope to export the rows of the current page filtered and sorted.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $ids
+     * @param $sort
+     * @param $id_field
+     *
+     * @return \Illuminate\Support\LazyCollection
+     */
+    public function scopeCollectForExport($query, $ids = [], $sort = 'name', $id_field = 'id')
+    {
+        $request = request();
+
+        if (!empty($ids)) {
+            $query->whereIn($id_field, (array) $ids);
+        }
+
+        $search = $request->get('search');
+
+        $query->usingSearchString($search)->sortable($sort);
+
+        $page = (int) $request->get('page');
+        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
+        $offset = $page ? ($page - 1) * $limit : 0;
+
+        $query->offset($offset)->limit($limit);
+
+        return $query->cursor();
+    }
+
+    /**
      * Scope to only include active models.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

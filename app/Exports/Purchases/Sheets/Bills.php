@@ -11,13 +11,7 @@ class Bills extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::bill()->with('category')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('category')->bill()->collectForExport($this->ids, ['document_number' => 'desc']);
     }
 
     public function map($model): array

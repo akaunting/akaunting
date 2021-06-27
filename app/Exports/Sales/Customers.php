@@ -9,13 +9,7 @@ class Customers extends Export
 {
     public function collection()
     {
-        $model = Model::type('customer')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::customer()->collectForExport($this->ids);
     }
 
     public function fields(): array
