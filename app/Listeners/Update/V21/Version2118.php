@@ -29,6 +29,8 @@ class Version2118 extends Listener
 
         $this->updateEmailTemplate();
 
+        Artisan::call('cache:clear');
+
         Artisan::call('migrate', ['--force' => true]);
     }
 
