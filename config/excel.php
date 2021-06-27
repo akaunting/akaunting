@@ -13,7 +13,7 @@ return [
         | Here you can specify how big the chunk should be.
         |
         */
-        'chunk_size' => 100,
+        'chunk_size' => env('EXCEL_EXPORTS_CHUNK_SIZE', 100),
 
         /*
         |--------------------------------------------------------------------------
@@ -41,6 +41,12 @@ return [
     ],
 
     'imports' => [
+
+        'chunk_size' => env('EXCEL_IMPORTS_CHUNK_SIZE', 100),
+
+        'row_limit' => env('EXCEL_IMPORTS_ROW_LIMIT', 1000),
+
+        'extensions' => env('EXCEL_IMPORTS_EXTENSIONS', 'xls,xlsx'),
 
         'read_only' => true,
 

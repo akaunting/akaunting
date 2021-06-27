@@ -15,11 +15,12 @@ use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithLimit;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
-abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRows, WithChunkReading, WithHeadingRow, WithMapping, WithValidation, ToModel
+abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRows, WithChunkReading, WithHeadingRow, WithLimit, WithMapping, WithValidation, ToModel
 {
     use Importable, ImportHelper;
 
@@ -69,7 +70,12 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
 
     public function chunkSize(): int
     {
-        return 100;
+        return config('excel.imports.chunk_size');
+    }
+
+    public function limit(): int
+    {
+        return config('excel.imports.row_limit');
     }
 
     public function isNotValid($row)
