@@ -69,6 +69,16 @@ abstract class Model extends Eloquent implements Ownable
     }
 
     /**
+     * Owner relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\Auth\User', 'id', 'created_by');
+    }
+
+    /**
      * Scope to only include company data.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
