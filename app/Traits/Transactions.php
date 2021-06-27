@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\Models\Banking\Transaction;
+use Illuminate\Support\Str;
+
 trait Transactions
 {
     public function isIncome()
@@ -58,6 +61,16 @@ trait Transactions
         setting([
             'transaction.type.' . $index => implode(',', $types),
         ])->save();
+    }
+
+    public function getTransactionFileName(Transaction $transaction, string $separator = '-', string $extension = 'pdf'): string
+    {
+        return $this->getSafeTransactionNumber($transaction, $separator) . $separator . time() . '.' . $extension;
+    }
+
+    public function getSafeTransactionNumber(Transaction $transaction, string $separator = '-'): string
+    {
+        return Str::slug($transaction->id, $separator, language()->getShortCode());
     }
 
     protected function getSettingKey($type, $setting_key)

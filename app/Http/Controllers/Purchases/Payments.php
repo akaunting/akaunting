@@ -17,11 +17,12 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Transactions;
 use App\Utilities\Modules;
 
 class Payments extends Controller
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Transactions;
 
     /**
      * Display a listing of the resource.
@@ -318,7 +319,7 @@ class Payments extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = $this->getDocumentFileName($payment);
+        $file_name = $this->getTransactionFileName($payment);
 
         return $pdf->download($file_name);
     }

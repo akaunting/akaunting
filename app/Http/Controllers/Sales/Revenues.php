@@ -18,11 +18,12 @@ use App\Models\Setting\Currency;
 use App\Notifications\Sale\Revenue as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Transactions;
 use App\Utilities\Modules;
 
 class Revenues extends Controller
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Transactions;
 
     /**
      * Display a listing of the resource.
@@ -319,7 +320,7 @@ class Revenues extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = $this->getDocumentFileName($revenue);
+        $file_name = $this->getTransactionFileName($revenue);
 
         return $pdf->download($file_name);
     }
