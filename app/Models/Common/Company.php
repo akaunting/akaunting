@@ -217,6 +217,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Module\ModuleHistory');
     }
 
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\Auth\User', 'id', 'created_by');
+    }
+
     public function reconciliations()
     {
         return $this->hasMany('App\Models\Banking\Reconciliation');
