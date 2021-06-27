@@ -22,7 +22,7 @@ class Reconciliations extends Controller
      */
     public function index()
     {
-        $reconciliations = Reconciliation::collect();
+        $reconciliations = Reconciliation::with('account')->collect();
 
         $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
