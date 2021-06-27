@@ -11,13 +11,7 @@ class Revenues extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'invoice')->income()->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('account', 'category', 'contact', 'invoice')->income()->collectForExport($this->ids, ['paid_at' => 'desc']);
     }
 
     public function map($model): array

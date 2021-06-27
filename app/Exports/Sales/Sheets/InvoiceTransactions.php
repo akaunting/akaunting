@@ -4,8 +4,6 @@ namespace App\Exports\Sales\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
-use App\Models\Document\Document;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
@@ -13,13 +11,7 @@ class InvoiceTransactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'document')->income()->isDocument()->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('document_id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('account', 'category', 'contact', 'document')->income()->isDocument()->collectForExport($this->ids, ['paid_at' => 'desc'], 'document_id');
     }
 
     public function map($model): array

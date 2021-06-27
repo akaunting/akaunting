@@ -11,13 +11,7 @@ class Transactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'document')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('account', 'category', 'contact', 'document')->collectForExport($this->ids, ['paid_at' => 'desc']);
     }
 
     public function map($model): array

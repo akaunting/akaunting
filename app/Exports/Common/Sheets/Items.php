@@ -9,13 +9,7 @@ class Items extends Export
 {
     public function collection()
     {
-        $model = Model::with('category')->usingSearchString(request('search'));
-
-        if (!empty($this->ids)) {
-            $model->whereIn('id', (array) $this->ids);
-        }
-
-        return $model->cursor();
+        return Model::with('category')->collectForExport($this->ids);
     }
 
     public function map($model): array
