@@ -20,7 +20,7 @@
             @stack('company_logo_start')
             @if (!$hideCompanyLogo)
                 @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
-                    <img  class="c-logo" src="{{ Storage::url($document->contact->logo->id) }}" height="128" width="128" alt="{{ $document->contact_name }}"/>
+                    <img  class="c-logo" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
                 @else
                     <img  class="c-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                 @endif

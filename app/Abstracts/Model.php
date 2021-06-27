@@ -75,7 +75,7 @@ abstract class Model extends Eloquent implements Ownable
      */
     public function owner()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'id', 'created_by');
+        return $this->belongsTo('App\Models\Auth\User', 'created_by', 'id');
     }
 
     /**

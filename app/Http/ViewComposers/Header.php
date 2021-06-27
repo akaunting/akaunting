@@ -73,6 +73,10 @@ class Header
 
                 if ($new_apps) {
                     foreach ($new_apps as $new_app) {
+                        if (setting('notifications.' . user()->id . '.' . $new_app->alias)) {
+                            continue;
+                        }
+
                         $notifications++;
                     }
                 }
