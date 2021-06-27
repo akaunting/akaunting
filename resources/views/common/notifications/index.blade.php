@@ -31,7 +31,7 @@
 
     @stack('bills_recurring')
 
-    <livewire:common.notifications.recurring type="bill" text-title="widgets.recurring_bills" />
+    <livewire:common.notifications.recurring type="bill" text-title="notifications.recurring_bills" />
 
     @stack('bills_reminder')
 

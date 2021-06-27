@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header" id="heading-new-apps" data-toggle="collapse" data-target="#collapse-new-apps" aria-expanded="true" aria-controls="collapse-new-apps">
                 <div class="align-items-center">
-                    <h4 class="mb-0">{{ trans_choice('notifications.new_apps', 2) }}</h4>
+                    <h3 class="mb-0">
+                        {{ trans_choice('notifications.new_apps', 2) }}
+                    </h3>
                 </div>
             </div>
 
