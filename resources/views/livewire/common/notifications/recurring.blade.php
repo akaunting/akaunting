@@ -8,7 +8,7 @@
                         {{ trans($textTitle) }}
 
                         @if ($notifications->total())
-                            <button type="button" class="btn btn-outline-success rounded-circle btn-icon-only btn-sm mr-2"
+                            <button type="button" class="btn btn-outline-success rounded-circle btn-icon-only btn-sm mr-2 d-none"
                                 data-toggle="tooltip"
                                 data-placement="right"
                                 title="{{ trans('notifications.mark_read_all') }}"

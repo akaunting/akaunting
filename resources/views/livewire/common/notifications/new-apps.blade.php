@@ -7,7 +7,7 @@
                     {{ trans_choice('notifications.new_apps', 2) }}
 
                     @if ($notifications)
-                        <button type="button" class="btn btn-outline-success rounded-circle btn-icon-only btn-sm ml-2"
+                        <button type="button" class="btn btn-outline-success rounded-circle btn-icon-only btn-sm ml-2 d-none"
                             data-toggle="tooltip"
                             data-placement="right"
                             title="{{ trans('notifications.mark_read_all') }}"
