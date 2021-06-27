@@ -1151,14 +1151,14 @@ abstract class DocumentShow extends Base
             return $textDocumentTitle;
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_title', 'title');
-
-        if (!empty($translation)) {
-            return $translation;
-        }
-
         if (!empty(setting($type . '.title'))) {
             return setting($type . '.title');
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type), 'trans_choice');
+
+        if (!empty($translation)) {
+            return trans_choice($translation, 1);
         }
 
         return setting('invoice.title');
@@ -1170,17 +1170,17 @@ abstract class DocumentShow extends Base
             return $textDocumentSubheading;
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_subheading', 'subheading');
-
-        if (!empty($translation)) {
-            return $translation;
-        }
-
         if (!empty(setting($type . '.subheading'))) {
             return setting($type . '.subheading');
         }
 
-        return setting('invoice.subheading');
+        $translation = $this->getTextFromConfig($type, 'document_subheading', 'subheading');
+
+        if (!empty($translation)) {
+            return trans($translation);
+        }
+
+        return false;
     }
 
     protected function getTextTimelineCreateTitle($type, $textTimelineCreateTitle)

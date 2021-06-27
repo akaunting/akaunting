@@ -279,7 +279,7 @@ abstract class DocumentTemplate extends Base
             return setting($type . '.title');
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type));
+        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type), 'trans_choice');
 
         if (!empty($translation)) {
             return trans_choice($translation, 1);
