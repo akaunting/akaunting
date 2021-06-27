@@ -49,6 +49,6 @@ return [
 
     'revenue_new_customer' => [
         'subject'       => '{revenue_date} payment created',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following payment. <br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following payment. <br /><br />You can see the payment details from the following link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 ];
