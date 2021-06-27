@@ -203,7 +203,9 @@ abstract class DocumentTemplate extends Base
             return $logo;
         }
 
-        $media = Media::find(setting('company.logo'));
+        $media_id = (!empty($this->document->contact->logo) && !empty($this->document->contact->logo->id)) ? $this->document->contact->logo->id : setting('company.logo');
+
+        $media = Media::find($media_id);
 
         if (!empty($media)) {
             $path = $media->getDiskPath();
@@ -279,7 +281,7 @@ abstract class DocumentTemplate extends Base
             return setting($type . '.title');
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type), 'trans_choice');
+        $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type));
 
         if (!empty($translation)) {
             return trans_choice($translation, 1);

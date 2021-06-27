@@ -254,7 +254,9 @@ abstract class TransactionTemplate extends Base
             return $logo;
         }
 
-        $media = Media::find(setting('company.logo'));
+        $media_id = (!empty($this->transaction->contact->logo) && !empty($this->transaction->contact->logo->id)) ? $this->transaction->contact->logo->id : setting('company.logo');
+
+        $media = Media::find($media_id);
 
         if (!empty($media)) {
             $path = $media->getDiskPath();

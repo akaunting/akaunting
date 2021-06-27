@@ -604,7 +604,9 @@ abstract class DocumentShow extends Base
             return $logo;
         }
 
-        $media = Media::find(setting('company.logo'));
+        $media_id = (!empty($this->document->contact->logo) && !empty($this->document->contact->logo->id)) ? $this->document->contact->logo->id : setting('company.logo');
+
+        $media = Media::find($media_id);
 
         if (!empty($media)) {
             $path = $media->getDiskPath();
@@ -1180,7 +1182,7 @@ abstract class DocumentShow extends Base
             return trans($translation);
         }
 
-        return false;
+        return setting('invoice.subheading');
     }
 
     protected function getTextTimelineCreateTitle($type, $textTimelineCreateTitle)
