@@ -29,6 +29,8 @@ class Import
                 $total_rows = 0;
                 if (!empty($rows[0])) {
                     $total_rows = count($rows[0]);
+                } else if (!empty($sheets = $class->sheets())) {
+                    $total_rows = count($rows[array_keys($sheets)[0]]);
                 }
 
                 $class->queue($file)->onQueue('imports')->chain([
