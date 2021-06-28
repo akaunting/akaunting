@@ -11,11 +11,19 @@
             {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
         @endif
 
+        @php
+            $vue_key = '@input';
+        
+            if (!empty($attributes['enable-v-model'])) {
+                $vue_key = 'v-model';
+            }
+        @endphp
+
         {!! Form::textarea($name, $value, array_merge([
             'class' => 'form-control',
             'data-name' => $name,
             'placeholder' => trans('general.form.enter', ['field' => $text]),
-            '@input' => !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event.target.value' : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name . ' = $event.target.value' : 'form.' . $name . ' = $event.target.value'),
+            $vue_key => !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name),
         ], $attributes)) !!}
 
         <div class="invalid-feedback d-block"
