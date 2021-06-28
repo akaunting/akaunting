@@ -393,7 +393,8 @@ class Transaction extends Model
 
     public function getTemplatePathAttribute($value = null)
     {
-        return $value ?: 'sales.revenues.print_default';
+        $type_for_theme = ($this->type == 'income') ? 'sales.revenues.print_default' : 'purchases.payments.print_default';
+        return $value ?: $type_for_theme;
     }
 
     /**

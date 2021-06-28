@@ -5,8 +5,8 @@
             @if (!$hideCompanyLogo)
                 <td style="width:5%;" valign="top">
                     @stack('company_logo_start')
-                    @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
-                        <img src="{{ Storage::url($document->contact->logo->id) }}" height="128" width="128" alt="{{ $document->contact_name }}" />
+                    @if (!empty($transaction->contact->logo) && !empty($transaction->contact->logo->id))
+                        <img src="{{ Storage::url($transaction->contact->logo->id) }}" height="128" width="128" alt="{{ $transaction->contact_name }}" />
                     @else
                         <img src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
