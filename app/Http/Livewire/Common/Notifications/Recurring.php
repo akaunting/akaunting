@@ -63,10 +63,10 @@ class Recurring extends Component
             $notifications = $query->get();
         }
 
-        if ($notifications->items()) {
+        if ($notifications) {
             $items = [];
 
-            foreach ($notifications->items() as $key => $notification) {
+            foreach ($notifications as $key => $notification) {
                 $data = (object) $notification->getAttribute('data');
 
                 $item = Document::{$this->type}()->where('id', $data[$this->type . '_id'])->first();

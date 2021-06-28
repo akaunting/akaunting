@@ -68,10 +68,10 @@ class Imports extends Component
             $notifications = $query->get();
         }
 
-        if ($notifications->items()) {
+        if ($notifications) {
             $items = [];
 
-            foreach ($notifications->items() as $key => $notification) {
+            foreach ($notifications as $key => $notification) {
                 $data = (object) $notification->getAttribute('data');
                 $data->notification_id = $notification->getAttribute('id');
     
