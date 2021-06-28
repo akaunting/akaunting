@@ -8,9 +8,9 @@
             suffix: (!this.currencySymbol.symbol_first) ? this.currencySymbol.symbol : '',
             precision: parseInt(this.currencySymbol.precision),
             masked: true
-        }" :value="price" name="rate" disabled size="5" masked class="disabled-money text-right mr-2 js-conversion-input"></money>
+        }" :value="price" disabled size="5" masked class="disabled-money text-right mr-2 js-conversion-input"></money>
         <span class="mr-2">{{ currecyCode }}</span>
-        <input v-model="currencyRate" @input="onChange" class="disabled-money text-right js-conversion-input" size="4" />
+        <input name="currency_rate" v-model="currencyRate" @input="onChange" class="text-right js-conversion-input" size="4" />
     </div>
 </template>
 
@@ -41,31 +41,14 @@ export default {
         },
         currencySymbol: {
            default: {}
-        },
-        currency: {
-            type: Object,
-            default: function () {
-                return {
-                   
-                };
-            },
-            description: "Default currency"
-        },
+        }
     },
 
     data() {
         return {
             conversion: '',
             rate: this.currencyRate,
-            texts: [],
-            money: {
-                decimal: this.currencySymbol.decimal_mark,
-                thousands: this.currencySymbol.thousands_separator,
-                prefix: (this.currencySymbol.symbol_first) ? this.currencySymbol.symbol : '',
-                suffix: (!this.currencySymbol.symbol_first) ? this.currencySymbol.symbol : '',
-                precision: parseInt(this.currencySymbol.precision),
-                masked: true
-            }
+            texts: []
         };
     },
 
@@ -78,7 +61,27 @@ export default {
 
     methods: {
         onChange() {
+            let self = this;
             this.$emit('change', this.rate);
+
+            if(self.currencyRate.length !== 0) {
+                window.axios({
+                method: 'PATCH',
+                url: url + "/settings/currencies",
+                data: {
+                    name: self.currencySymbol.name,
+                    code: self.currecyCode,
+                    rate: self.currencyRate
+                }
+                }).then(response => {
+                    this.$notify({
+                        message: 'SUCCESS',
+                        timeout: 200,
+                        icon: 'fas fa-bell',
+                        type
+                    });
+                })
+            }
         }
     },
 
