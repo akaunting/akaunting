@@ -251,14 +251,23 @@ export default {
             for (let [key, val] of formData.entries()) {
                 Object.assign(data_name, {
                     [key]: val,
-                    ["logo"]: this.$refs.dropzoneWizard.files[1]
-                        ? this.$refs.dropzoneWizard.files[1]
-                        : this.$refs.dropzoneWizard.files[0],
-                    ["_prefix"]: "company",
-                    ["_token"]: window.Laravel.csrfToken,
-                    ["_method"]: "POST",
                 });
             }
+
+            let logo = '';
+
+            if (this.$refs.dropzoneWizard.files[1]) {
+                logo = this.$refs.dropzoneWizard.files[1];
+            } else if (this.$refs.dropzoneWizard.files[0]) {
+                logo = this.$refs.dropzoneWizard.files[0];
+            }
+
+            Object.assign(data_name, {
+                ["logo"]: logo,
+                ["_prefix"]: "company",
+                ["_token"]: window.Laravel.csrfToken,
+                ["_method"]: "POST",
+            });
 
             formData.appendRecursive(data_name);
 
