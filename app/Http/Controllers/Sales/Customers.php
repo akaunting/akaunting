@@ -320,4 +320,11 @@ class Customers extends Controller
 
         return response()->json($customer);
     }
+
+    public function createInvoice(Contact $customer)
+    {
+        $data['contact'] = $customer;
+
+        return redirect()->route('invoices.create')->withInput($data);
+    }
 }

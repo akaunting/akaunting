@@ -322,4 +322,11 @@ class Vendors extends Controller
 
         return response()->json($vendor);
     }
+
+    public function createBill(Contact $vendor)
+    {
+        $data['contact'] = $vendor;
+
+        return redirect()->route('bills.create')->withInput($data);
+    }
 }

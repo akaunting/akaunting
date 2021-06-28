@@ -70,6 +70,10 @@
             @stack('customer_edit_button_start')
             <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-info btn-block"><b>{{ trans('general.edit') }}</b></a>
             @stack('customer_edit_button_end')
+
+            @stack('customer_create_invoice_button_start')
+            <a href="{{ route('customers.create-invoice', $customer->id) }}" class="btn btn-white btn-block"><b>{{ trans('invoices.create_invoice') }}</b></a>
+            @stack('customer_create_invoice_button_end')
         </div>
 
         <div class="col-xl-9">

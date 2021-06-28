@@ -70,6 +70,10 @@
             @stack('vendor_edit_button_start')
             <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block"><b>{{ trans('general.edit') }}</b></a>
             @stack('vendor_edit_button_end')
+
+            @stack('vendor_create_bill_button_start')
+            <a href="{{ route('vendors.create-bill', $vendor->id) }}" class="btn btn-white btn-block"><b>{{ trans('bills.create_bill') }}</b></a>
+            @stack('vendor_create_bill_button_end')
         </div>
 
         <div class="col-xl-9">
