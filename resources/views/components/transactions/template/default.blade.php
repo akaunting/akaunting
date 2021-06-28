@@ -148,7 +148,7 @@
                     <tr>
                         <td style="padding-top:45px; padding-bottom:0;">
                             <h2 style="font-size: 16px;">
-                                {{ trans($textDescription) }}
+                                {{ trans($textPaidBy) }}
                             </h2>
                         </td>
                     </tr>
