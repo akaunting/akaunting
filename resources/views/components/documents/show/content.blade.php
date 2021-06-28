@@ -9,6 +9,7 @@
         hide-header-contact="{{ $hideHeaderContact }}"
         text-header-contact="{{ $textHeaderContact }}"
         class-header-contact="{{ $classHeaderContact }}"
+        route-contact-show="{{ $routeContactShow }}"
         hide-header-amount="{{ $hideHeaderAmount }}"
         text-header-amount="{{ $textHeaderAmount }}"
         class-header-amount="{{ $classHeaderAmount }}"

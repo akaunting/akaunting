@@ -25,7 +25,9 @@
 
             <strong>
                 <span class="float-left">
-                    {{ $document->contact_name }}
+                    <a href="{{ route($routeContactShow, $document->contact_id) }}">
+                        {{ $document->contact_name }}
+                    </a>
                 </span>
             </strong>
             <br><br>
