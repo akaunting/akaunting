@@ -327,4 +327,11 @@ class Customers extends Controller
 
         return redirect()->route('invoices.create')->withInput($data);
     }
+
+    public function createRevenue(Contact $customer)
+    {
+        $data['contact'] = $customer;
+
+        return redirect()->route('revenues.create')->withInput($data);
+    }
 }
