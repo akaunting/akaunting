@@ -36,12 +36,10 @@ class Bills extends Import
         $rules = (new Request())->rules();
 
         $rules['bill_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
-        $rules['issued_at'] = Str::replaceFirst('|before_or_equal:due_at', '', $rules['issued_at']);
-        $rules['due_at'] = Str::replaceFirst('|after_or_equal:issued_at', '', $rules['due_at']);
         $rules['billed_at'] = $rules['issued_at'];
 
         unset($rules['document_number'], $rules['issued_at'], $rules['type']);
 
-        return $rules;
+        return $this->replaceForBatchRules($rules);
     }
 }
