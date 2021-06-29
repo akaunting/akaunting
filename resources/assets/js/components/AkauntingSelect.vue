@@ -23,7 +23,7 @@
                 </p>
             </div>
 
-            <div v-if="addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0 && sortedOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -62,7 +62,7 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(option, index) in sortOptions"
+            <el-option v-if="!group" v-for="(option, index) in sortedOptions"
                 :key="index"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
@@ -73,7 +73,7 @@
 
             <el-option-group
                 v-if="group"
-                v-for="(group_options, group_index) in sortOptions"
+                v-for="(group_options, group_index) in sortedOptions"
                 :key="group_index"
                 :label="group_options.key">
                 <el-option
@@ -87,7 +87,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer select-add-new" disabled value="">
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length > 0" class="el-select__footer select-add-new" disabled value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -103,7 +103,7 @@
         <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
         <select :name="name"  :id="name" v-model="selected" class="d-none">
-            <option v-for="option in sortOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
+            <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
 
     </base-input>
@@ -201,6 +201,12 @@ export default {
             description: "Option Sortable type (key|value)"
         },
 
+        sortOptions: {
+            type: Boolean,
+            default: true,
+            description: 'Sort options by the option_sortable prop, or sorting is made server-side',
+        },
+
         model: {
             type: [String, Number, Array, Object],
             default: '',
@@ -287,29 +293,33 @@ export default {
             selected: this.model,
 
             form: {},
-            sort_options: [],
+            sorted_options: [],
             new_options: {},
             loading: false,
         }
     },
 
     created() {
-        this.setSortOptions();
+        this.setSortedOptions();
     },
 
     computed: {
-        sortOptions() {
-            if (this.group) {
-                this.sort_options.sort(this.sortBy("key"));
+        sortedOptions() {
+            if (!this.sortOptions) {
+                return this.sorted_options
+            }
 
-                for (const [index, options] of Object.entries(this.sort_options)) {
+            if (this.group) {
+                this.sorted_options.sort(this.sortBy("key"));
+
+                for (const [index, options] of Object.entries(this.sorted_options)) {
                     options.value.sort(this.sortBy(this.option_sortable));
                 }
             } else {
-                this.sort_options.sort(this.sortBy(this.option_sortable));
+                this.sorted_options.sort(this.sortBy(this.option_sortable));
             }
 
-            return this.sort_options;
+            return this.sorted_options;
         },
     },
 
@@ -327,7 +337,7 @@ export default {
             } catch (e) {
                 this.selected = this.model;
             }
-            
+
         }
 
         if (this.multiple && !this.selected.length) {
@@ -360,9 +370,9 @@ export default {
             }
         },
 
-        setSortOptions() {
-            // Reset sort_options 
-            this.sort_options = [];
+        setSortedOptions() {
+            // Reset sorted_options
+            this.sorted_options = [];
 
             let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
 
@@ -379,7 +389,7 @@ export default {
                             });
                         }
 
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: index,
                             value: values
                         });
@@ -387,13 +397,13 @@ export default {
                 } else {
                     created_options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
                                 value: option
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: option.id,
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
@@ -405,7 +415,7 @@ export default {
                 // Option set sort_option data
                 if (!Array.isArray(created_options)) {
                     for (const [key, value] of Object.entries(created_options)) {
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: key,
                             value: value
                         });
@@ -413,13 +423,13 @@ export default {
                 } else {
                     created_options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
                                 value: option
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: option.id,
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
@@ -442,7 +452,7 @@ export default {
 
             // Option changed sort_option data
             if (this.group) {
-                this.sort_options.forEach(function (option_group, group_index) {
+                this.sorted_options.forEach(function (option_group, group_index) {
                     option_group.value.forEach(function (option, index) {
                         if (this.multiple) {
                             let indexs = [];
@@ -474,7 +484,7 @@ export default {
                     }, this);
                 }, this);
             } else {
-                this.sort_options.forEach(function (option, index) {
+                this.sorted_options.forEach(function (option, index) {
                     if (this.multiple) {
                         let indexs = [];
                         let values = [];
@@ -553,7 +563,7 @@ export default {
         },
 
         onModal(value) {
-            //this.setSortOptions();
+            //this.setSortedOptions();
 
             let add_new = this.add_new;
 
@@ -647,7 +657,7 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    this.sort_options.push({
+                    this.sorted_options.push({
                         key: response.data.data[this.add_new.field.key].toString(),
                         value: response.data.data[this.add_new.field.value],
                     });
@@ -779,7 +789,7 @@ export default {
         },
 
         dynamicOptions: function(options) {
-            this.sort_options = [];
+            this.sorted_options = [];
             this.selected = '';
 
             if (this.group) {
@@ -795,7 +805,7 @@ export default {
                             });
                         }
 
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: index,
                             value: values
                         });
@@ -803,13 +813,13 @@ export default {
                 } else {
                     options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
                                 value: option
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: option.id,
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
@@ -821,7 +831,7 @@ export default {
                 // Option set sort_option data
                 if (!Array.isArray(options)) {
                     for (const [key, value] of Object.entries(options)) {
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: key,
                             value: value
                         });
@@ -829,13 +839,13 @@ export default {
                 } else {
                     options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
                                 value: option
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: option.id,
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
