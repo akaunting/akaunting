@@ -1,5 +1,5 @@
 <template>
-    <div :id="'search-field-' + _uid" class="searh-field tags-input__wrapper">
+    <div :id="'search-field-' + _uid" class="searh-field tags-input__wrapper" :style="[!search_hidden ? {'height': '0px'} : {'height': 'auto'}]">
         <div class="tags-group" v-for="(filter, index) in filtered" :index="index">
             <span v-if="filter.option" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-option">
                 {{ filter.option }}
@@ -148,7 +148,8 @@ export default {
             description: 'List of filters'
         },
 
-        dateConfig: null,
+        dateConfig: null
+        
     },
 
     model: {
@@ -177,10 +178,20 @@ export default {
             values: [],
             current_value: null,
             show_date: false,
+            search_hidden: false
         };
     },
 
     methods: {
+        searchBoxShow() {
+            if(document.querySelector('.js-search-input-box')) {
+                let search_box_html = document.querySelector('.js-search-input-box');
+                search_box_html.remove();
+            }
+
+            this.search_hidden = true;
+        },
+
         onInputFocus() {
             if (!this.filter_list.length) {
                 return;
@@ -577,6 +588,8 @@ export default {
     },
 
     created() {
+        this.searchBoxShow();
+
         let path = window.location.href.replace(window.location.search, '');
 
         let cookie = Cookies.get('search-string');
@@ -713,6 +726,10 @@ export default {
                 this.filter_index++;
             }, this);
         }
+    },
+
+    mounted() {
+        this.searchBoxShow();
     },
 
     computed: {
