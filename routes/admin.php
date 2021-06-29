@@ -97,6 +97,7 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('customers/{customer}/disable', 'Sales\Customers@disable')->name('customers.disable');
     Route::get('customers/{customer}/currency', 'Sales\Customers@currency')->name('customers.currency');
     Route::get('customers/{customer}/create-invoice', 'Sales\Customers@createInvoice')->name('customers.create-invoice');
+    Route::get('customers/{customer}/create-revenue', 'Sales\Customers@createRevenue')->name('customers.create-revenue');
     Route::resource('customers', 'Sales\Customers');
 });
 
@@ -128,6 +129,7 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('vendors/{vendor}/currency', 'Purchases\Vendors@currency')->name('vendors.currency');
     Route::get('vendors/{vendor}/disable', 'Purchases\Vendors@disable')->name('vendors.disable');
     Route::get('vendors/{vendor}/create-bill', 'Purchases\Vendors@createBill')->name('vendors.create-bill');
+    Route::get('vendors/{vendor}/create-payment', 'Purchases\Vendors@createPayment')->name('vendors.create-payment');
     Route::resource('vendors', 'Purchases\Vendors', ['middleware' => ['dropzone']]);
 });
 
