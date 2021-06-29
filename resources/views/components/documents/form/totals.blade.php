@@ -137,8 +137,10 @@
                                 <akaunting-currency-conversion
                                     currency-conversion-text="{{ trans('currencies.conversion') }}"
                                     :price="(totals.total / form.currency_rate).toFixed(2)"
-                                    currecy-code="{{ $currency->code }}"
+                                    :currecy-code="form.currency_code"
                                     :currency-rate="form.currency_rate"
+                                    :currency-symbol="currency_symbol"
+                                    @change="form.currency_rate = $event"
                                 ></akaunting-currency-conversion>
                             </td>
                             <td class="border-top-0 pt-0 pb-0" style="max-width: 50px"></td>

@@ -55,6 +55,16 @@
              page_loaded: false,
              currencies: [],
              min_due_date: false,
+             currency_symbol: {
+                "name":"US Dollar",
+                "code":"USD",
+                "rate":1,
+                "precision":2,
+                "symbol":"$",
+                "symbol_first":1,
+                "decimal_mark":".",
+                "thousands_separator":","
+             }
          }
      },
  
@@ -236,6 +246,7 @@
                      }
                  }
              }, this);
+             this.currencyConversion();
          },
  
          calculateTotalsTax(totals_taxes, id, name, price) {
@@ -535,13 +546,16 @@
                      this.onChangeCurrency(currency_code);
                  });
              }
- 
+            
              this.currencies.forEach(function (currency, index) {
                  if (currency_code == currency.code) {
                      this.currency = currency;
  
                      this.form.currency_code = currency.code;
                      this.form.currency_rate = currency.rate;
+                     this.currency_symbol = currency;
+                     
+                     this.currencyConversion();
                  }
              }, this);
          },
@@ -549,6 +563,17 @@
          setDueMinDate(date) {
              this.min_due_date = date;
          },
+
+         currencyConversion() {
+            setTimeout(() => {
+                if(document.querySelectorAll('.js-conversion-input')) {
+                    let currency_input = document.querySelectorAll('.js-conversion-input');
+                    for(let input of currency_input) {
+                        input.setAttribute('size', input.value.length);
+                    }
+                }
+              }, 250)
+         }
      },
  
      created() {
