@@ -70,6 +70,7 @@
     <tr>
         <td style="width: 70%; padding-top:0; padding-bottom:0;">
             <table>
+                @stack('paid_at_input_start')
                 @if (!$hidePaidAt)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -81,7 +82,9 @@
                         </td>
                     </tr>
                 @endif
+                @stack('paid_at_input_end')
 
+                @stack('account_id_input_start')
                 @if (!$hideAccount)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -93,7 +96,9 @@
                         </td>
                     </tr>
                 @endif
+                @stack('account_id_input_end')
 
+                @stack('category_id_input_start')
                 @if (!$hideCategory)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -105,7 +110,9 @@
                         </td>
                     </tr>
                 @endif
+                @stack('category_id_input_end')
 
+                @stack('payment_method_input_start')
                 @if (!$hidePaymentMethods)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -117,7 +124,9 @@
                         </td>
                     </tr>
                 @endif
+                @stack('payment_method_input_end')
 
+                @stack('reference_input_start')
                 @if (!$hideReference)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -129,7 +138,9 @@
                         </td>
                     </tr>
                 @endif
+                @stack('reference_input_end')
 
+                @stack('description_input_start')
                 @if (!$hideDescription)
                     <tr>
                         <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
@@ -143,6 +154,7 @@
                         </td>
                     </tr>
                 @endif
+                @stack('description_input_end')
 
                 @if (!$hideContact)
                     <tr>
