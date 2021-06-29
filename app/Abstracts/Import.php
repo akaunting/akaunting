@@ -10,6 +10,7 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -101,5 +102,40 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     public function preferredLocale()
     {
         return $this->user->locale;
+    }
+
+    protected function replaceForBatchRules(array $rules): array
+    {
+        $dependent_rules = [
+            'after',
+            'after_or_equal',
+            'before',
+            'before_or_equal',
+            'different',
+            'exclude_if',
+            'exclude_unless',
+            'gt',
+            'gte',
+            'in_array',
+            'lt',
+            'lte',
+            'prohibited_if',
+            'prohibited_unless',
+            'required_if',
+            'required_unless',
+            'required_with',
+            'required_with_all',
+            'required_without',
+            'required_without_all',
+            'same',
+        ];
+
+        foreach ($rules as $field => $rule) {
+            foreach ($dependent_rules as $dependent_rule) {
+                $rules[$field] = Str::replaceFirst($dependent_rule . ':', $dependent_rule . ':*.', $rules[$field]);
+            }
+        }
+
+        return $rules;
     }
 }
