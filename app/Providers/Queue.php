@@ -82,7 +82,7 @@ class Queue extends Provider
             // Get import class
             $class = $ref->getValue($excel_job);
 
-            if (!$class instanceof \App\Abstracts\Import) {
+            if (!$class instanceof \App\Abstracts\Import && !$class instanceof \App\Abstracts\ImportMultipleSheets) {
                 return;
             }
 
