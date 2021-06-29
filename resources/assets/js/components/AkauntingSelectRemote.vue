@@ -41,10 +41,8 @@
                 </ul>
             </div>
 
-            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
+            <div v-if="!loading && addNew.status && options.length == 0">
+                <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
                         <div @click="onAddItem">
@@ -142,10 +140,8 @@
                 </ul>
             </div>
 
-            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
+            <div v-if="!loading && addNew.status && options.length == 0">
+                <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
                         <div @click="onAddItem">
