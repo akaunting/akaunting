@@ -246,6 +246,7 @@
                      }
                  }
              }, this);
+             this.currencyConversion();
          },
  
          calculateTotalsTax(totals_taxes, id, name, price) {
