@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Traits\Jobs;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;

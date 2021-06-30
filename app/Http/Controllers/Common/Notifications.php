@@ -68,19 +68,24 @@ class Notifications extends Controller
 
         $notifications = $this->getNotifications($path);
 
-        foreach ($notifications as $notification) {
-            if ($notification->id == $id) {
-                setting()->set('notifications.'. $path . '.' . $id . '.name', $notification->name);
-                setting()->set('notifications.'. $path . '.' . $id . '.message', $notification->message);
-                setting()->set('notifications.'. $path . '.' . $id . '.date', Date::now());
-                setting()->set('notifications.'. $path . '.' . $id . '.status', '0');
+        if ($notifications) {
+            foreach ($notifications as $notification) {
+                if ($notification->id == $id) {
+                    setting()->set('notifications.'. $path . '.' . $id . '.name', $notification->name);
+                    setting()->set('notifications.'. $path . '.' . $id . '.message', $notification->message);
+                    setting()->set('notifications.'. $path . '.' . $id . '.date', Date::now());
+                    setting()->set('notifications.'. $path . '.' . $id . '.status', '0');
 
-                setting()->save();
-                break;
+                    setting()->save();
+                    break;
+                }
             }
         }
 
         return response()->json([
+            'message' => trans('messages.success.disabled', [
+                'type' => Str::lower(trans_choice('general.notifications', 2))
+            ]),
             'success' => true,
             'error' => false,
             'data' => null,
