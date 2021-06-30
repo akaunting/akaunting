@@ -19,6 +19,18 @@ class RevenuesTest extends FeatureTestCase
             ->assertSeeText(trans_choice('general.revenues', 2));
     }
 
+    public function testItShouldSeeRevenueShowPage()
+    {
+        $request = $this->getRequest();
+
+        $revenue = $this->dispatch(new CreateTransaction($request));
+
+        $this->loginAs()
+            ->get(route('revenues.show', $revenue->id))
+            ->assertStatus(200)
+            ->assertSee($revenue->contact->email);
+    }
+
     public function testItShouldSeeRevenueCreatePage()
     {
         $this->loginAs()

@@ -20,6 +20,18 @@ class CustomersTest extends FeatureTestCase
             ->assertSeeText(trans_choice('general.customers', 2));
     }
 
+    public function testItShouldSeeCustomerShowPage()
+    {
+        $request = $this->getRequest();
+
+        $customer = $this->dispatch(new CreateContact($request));
+
+        $this->loginAs()
+            ->get(route('customers.show', $customer->id))
+            ->assertStatus(200)
+            ->assertSee($customer->email);
+    }
+
     public function testItShouldSeeCustomerCreatePage()
     {
         $this->loginAs()

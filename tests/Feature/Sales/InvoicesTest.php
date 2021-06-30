@@ -19,6 +19,18 @@ class InvoicesTest extends FeatureTestCase
             ->assertSeeText(trans_choice('general.invoices', 2));
     }
 
+    public function testItShouldSeeInvoiceShowPage()
+    {
+        $request = $this->getRequest();
+
+        $invoice = $this->dispatch(new CreateDocument($request));
+
+        $this->loginAs()
+            ->get(route('invoices.show', $invoice->id))
+            ->assertStatus(200)
+            ->assertSee($invoice->contact_email);
+    }
+
     public function testItShouldSeeInvoiceCreatePage()
     {
         $this->loginAs()

@@ -18,6 +18,17 @@ class PaymentsTest extends FeatureTestCase
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.payments', 2));
     }
+    public function testItShouldSeePaymentShowPage()
+    {
+        $request = $this->getRequest();
+
+        $payment = $this->dispatch(new CreateTransaction($request));
+
+        $this->loginAs()
+            ->get(route('payments.show', $payment->id))
+            ->assertStatus(200)
+            ->assertSee($payment->contact->email);
+    }
 
     public function testItShouldSeePaymentCreatePage()
     {

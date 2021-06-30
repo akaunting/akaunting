@@ -19,6 +19,18 @@ class BillsTest extends FeatureTestCase
             ->assertSeeText(trans_choice('general.bills', 2));
     }
 
+    public function testItShouldSeeBillShowPage()
+    {
+        $request = $this->getRequest();
+
+        $bill = $this->dispatch(new CreateDocument($request));
+
+        $this->loginAs()
+            ->get(route('bills.show', $bill->id))
+            ->assertStatus(200)
+            ->assertSee($bill->contact_email);
+    }
+
     public function testItShouldSeeBillCreatePage()
     {
         $this->loginAs()

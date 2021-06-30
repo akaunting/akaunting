@@ -19,6 +19,18 @@ class VendorsTest extends FeatureTestCase
             ->assertSeeText(trans_choice('general.vendors', 2));
     }
 
+    public function testItShouldSeeVendorShowPage()
+    {
+        $request = $this->getRequest();
+
+        $vendor = $this->dispatch(new CreateContact($request));
+
+        $this->loginAs()
+            ->get(route('vendors.show', $vendor->id))
+            ->assertStatus(200)
+            ->assertSee($vendor->email);
+    }
+
     public function testItShouldSeeVendorCreatePage()
     {
         $this->loginAs()
