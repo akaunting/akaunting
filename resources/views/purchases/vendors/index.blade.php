@@ -77,12 +77,17 @@
                                             <i class="fa fa-ellipsis-h text-muted"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{ route('vendors.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                            <a class="dropdown-item" href="{{ route('vendors.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                                <a class="dropdown-item" href="{{ route('vendors.show', $item->id) }}">{{ trans('general.show') }}</a>
+                                                
+                                            @can('create-purchases-vendors')
+                                                <a class="dropdown-item" href="{{ route('vendors.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                            @endcan
+
                                             @can('create-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('vendors.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                             @endcan
+                                            
                                             @can('delete-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'vendors.destroy') !!}

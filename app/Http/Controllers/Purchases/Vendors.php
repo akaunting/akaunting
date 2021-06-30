@@ -329,4 +329,11 @@ class Vendors extends Controller
 
         return redirect()->route('bills.create')->withInput($data);
     }
+
+    public function createPayment(Contact $vendor)
+    {
+        $data['contact'] = $vendor;
+
+        return redirect()->route('payments.create')->withInput($data);
+    }
 }
