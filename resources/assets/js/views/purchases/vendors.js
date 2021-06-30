@@ -24,6 +24,7 @@
      mixins: [
          Global
      ],
+ 
      data: function () {
          return {
              form: new Form('vendor'),
@@ -31,4 +32,3 @@
          }
      }
  });
- 
