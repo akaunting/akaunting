@@ -16,6 +16,14 @@
         'use strict';
 
         var Layout = (function() {
+            if(document.querySelector('.js-search-box-hidden')) {
+                let search_box_html = document.querySelector('.js-search-box-hidden');
+                let search_box_parent = search_box_html.parentNode.querySelector('.js-search');
+                
+                    search_box_parent.classList.add('d-none');
+                    search_box_html.classList.add('d-none');
+                    search_box_parent.classList.remove('d-none');
+            }
             function pinSidenav() {
                 $('.sidenav-toggler').addClass('active');
                 $('.sidenav-toggler').data('action', 'sidenav-unpin');
