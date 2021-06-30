@@ -3,7 +3,7 @@
 @section('title', trans('payments.payment_made'))
 
 @section('new_button')
-    <x-transactions.show.top-buttons type="expense" :transaction="$payment" hide-button-share />
+    <x-transactions.show.top-buttons type="expense" :transaction="$payment" hide-button-share hide-button-email />
 @endsection
 
 @section('content')
