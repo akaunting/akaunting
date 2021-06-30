@@ -77,6 +77,11 @@ class EmailTemplates extends Seeder
                 'class' => 'App\Notifications\Sale\Revenue',
                 'name' => 'settings.email.templates.revenue_new_customer',
             ],
+            [
+                'alias' => 'payment_new_vendor',
+                'class' => 'App\Notifications\Purchase\Payment',
+                'name' => 'settings.email.templates.payment_new_vendor',
+            ],
         ];
 
         foreach ($templates as $template) {

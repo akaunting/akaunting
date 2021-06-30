@@ -79,7 +79,7 @@ class Payment extends Notification
         return [
             'template_alias' => $this->template->alias,
             'payment_id' => $this->payment->id,
-            'customer_name' => $this->payment->contact->name,
+            'vendor_name' => $this->payment->contact->name,
             'amount' => $this->payment->amount,
             'payment_date' => company_date($this->payment->paid_at),
         ];
@@ -91,7 +91,7 @@ class Payment extends Notification
             '{payment_amount}',
             '{payment_date}',
             '{payment_admin_link}',
-            '{customer_name}',
+            '{vendor_name}',
             '{company_name}',
             '{company_email}',
             '{company_tax_number}',
