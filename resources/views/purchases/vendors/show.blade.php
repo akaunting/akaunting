@@ -30,7 +30,7 @@
             @stack('bill_button_end')
 
             @stack('payment_button_start')
-            @can('create-purchases-payment')
+            @can('create-purchases-payments')
                 <a class="dropdown-item" href="{{ route('vendors.create-payment', $vendor->id) }}">
                     {{ trans('payments.create_payment') }}
                 </a>

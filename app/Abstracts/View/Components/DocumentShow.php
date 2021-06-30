@@ -902,12 +902,12 @@ abstract class DocumentShow extends Base
         $route = Str::plural(config('type.' . $type . '.contact_type'), 2) . '.show';
 
         try {
-            route($route, $config_parameters);
+            route($route, $parameter);
         } catch (\Exception $e) {
             try {
                 $route = Str::plural($type, 2) . '.' . $config_key;
 
-                route($route, $config_parameters);
+                route($route, $parameter);
             } catch (\Exception $e) {
                 $route = '';
             }
