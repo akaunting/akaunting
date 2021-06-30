@@ -13,9 +13,11 @@
 
         @php
             $vue_key = '@input';
+            $vue_value = !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event.target.value' : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name . ' = $event.target.value' : 'form.' . $name . ' = $event.target.value');
         
             if (!empty($attributes['enable-v-model'])) {
                 $vue_key = 'v-model';
+                $vue_value = !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name);
             }
         @endphp
 
@@ -23,7 +25,7 @@
             'class' => 'form-control',
             'data-name' => $name,
             'placeholder' => trans('general.form.enter', ['field' => $text]),
-            $vue_key => !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name),
+            $vue_key => $vue_value,
         ], $attributes)) !!}
 
         <div class="invalid-feedback d-block"
