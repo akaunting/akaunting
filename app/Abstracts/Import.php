@@ -107,35 +107,53 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     protected function replaceForBatchRules(array $rules): array
     {
         $dependent_rules = [
-            'after',
-            'after_or_equal',
-            'before',
-            'before_or_equal',
-            'different',
-            'exclude_if',
-            'exclude_unless',
-            'gt',
-            'gte',
-            'in_array',
-            'lt',
-            'lte',
-            'prohibited_if',
-            'prohibited_unless',
-            'required_if',
-            'required_unless',
-            'required_with',
-            'required_with_all',
-            'required_without',
-            'required_without_all',
-            'same',
+            'after:',
+            'after_or_equal:',
+            'before:',
+            'before_or_equal:',
+            'different:',
+            'exclude_if:',
+            'exclude_unless:',
+            'gt:',
+            'gte:',
+            'in_array:',
+            'lt:',
+            'lte:',
+            'prohibited_if:',
+            'prohibited_unless:',
+            'required_if:',
+            'required_unless:',
+            'required_with:',
+            'required_with_all:',
+            'required_without:',
+            'required_without_all:',
+            'same:',
         ];
 
-        foreach ($rules as $field => $rule) {
-            foreach ($dependent_rules as $dependent_rule) {
-                $rules[$field] = Str::replaceFirst($dependent_rule . ':', $dependent_rule . ':*.', $rules[$field]);
-            }
-        }
+        $batch_rules = [
+            'after:*.',
+            'after_or_equal:*.',
+            'before:*.',
+            'before_or_equal:*.',
+            'different:*.',
+            'exclude_if:*.',
+            'exclude_unless:*.',
+            'gt:*.',
+            'gte:*.',
+            'in_array:*.',
+            'lt:*.',
+            'lte:*.',
+            'prohibited_if:*.',
+            'prohibited_unless:*.',
+            'required_if:*.',
+            'required_unless:*.',
+            'required_with:*.',
+            'required_with_all:*.',
+            'required_without:*.',
+            'required_without_all:*.',
+            'same:*.',
+        ];
 
-        return $rules;
+        return str_replace($dependent_rules, $batch_rules, $rules);
     }
 }
