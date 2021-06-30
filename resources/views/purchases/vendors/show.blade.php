@@ -12,7 +12,7 @@
             @stack('button_dropdown_start')
 
             @stack('duplicate_button_start')
-            @can('create-purchases-bills')
+            @can('create-purchases-vendors')
                 <a class="dropdown-item" href="{{ route('vendors.duplicate', $vendor->id) }}">
                     {{ trans('general.duplicate') }}
                 </a>
@@ -21,21 +21,21 @@
 
             <div class="dropdown-divider"></div>
 
-            @stack('invoice_button_start')
+            @stack('bill_button_start')
             @can('create-purchases-bills')
                 <a class="dropdown-item" href="{{ route('vendors.create-bill', $vendor->id) }}">
                     {{ trans('bills.create_bill') }}
                 </a>
             @endcan
-            @stack('invoice_button_end')
+            @stack('bill_button_end')
 
-            @stack('revenue_button_start')
-            @can('create-purchases-payments')
+            @stack('payment_button_start')
+            @can('create-purchases-vendors')
                 <a class="dropdown-item" href="{{ route('vendors.create-payment', $vendor->id) }}">
                     {{ trans('payments.create_payment') }}
                 </a>
             @endcan
-            @stack('revenue_button_end')
+            @stack('payment_button_end')
 
             <div class="dropdown-divider"></div>
 
