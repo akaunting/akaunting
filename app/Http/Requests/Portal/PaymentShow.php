@@ -13,6 +13,15 @@ class PaymentShow extends FormRequest
      */
     public function authorize()
     {
+        if (auth()->guest()) {
+            return true;
+        }
+
+        // Allow admin to see signed invoice
+        if (user()->can('read-sales-revenues')) {
+            return true;
+        }
+
         return $this->payment->contact_id == user()->contact->id;
     }
 
