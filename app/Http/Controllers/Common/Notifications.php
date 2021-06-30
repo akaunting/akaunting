@@ -6,6 +6,7 @@ use Date;
 use App\Abstracts\Http\Controller;
 use App\Traits\Modules as RemoteModules;
 use App\Http\Requests\Common\Notification as Request;
+use Illuminate\Support\Str;
 
 class Notifications extends Controller
 {
@@ -46,7 +47,7 @@ class Notifications extends Controller
 
         setting()->save();
 
-        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.notificatinos', 1)]);
+        $message = trans('messages.success.clear_all', ['type' => Str::lower(trans_choice('general.notifications', 2))]);
 
         flash($message)->success();
 

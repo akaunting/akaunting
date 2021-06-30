@@ -13,6 +13,8 @@ return [
         'export_queued'     => ':type export of the current page has been scheduled! You will receive an email when it is ready to download.',
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
+
+        'clear_all'         => 'Great! You\'ve cleared all of your :type.',
     ],
 
     'error' => [
