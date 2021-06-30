@@ -9,7 +9,7 @@
             precision: parseInt(this.currencySymbol.precision),
             masked: true
         }" :value="price" disabled size="5" masked class="disabled-money text-right mr-2 js-conversion-input"></money>
-        <span class="mr-2">{{ currecyCode }} {{ texts[2] }}</span>
+        <span class="mr-2">{{ texts[1] }}</span>
         <input name="currency_rate" v-model="rate" @input="onChange" class="form-control text-right mwpx-100 h-auto js-conversion-input" />
     </div>
 </template>
@@ -48,16 +48,16 @@ export default {
         return {
             conversion: '',
             rate: this.currencyRate,
-            texts: []
+            texts: [],
+            texts_split: []
         };
     },
 
     created() {
         let conver = this.currencyConversionText.split(':price');
-        
+
         this.texts.push(conver[0]);
-        this.texts.push(conver[1].replace(':currency_code', this.currecyCode).replace(':currency_rate', this.currencyRate));
-        this.texts.push(this.texts[1].split(" ")[2])        
+        this.texts.push(conver[1].replace(':currency_code', this.currecyCode).replace(':currency_rate', ''));
     },
 
     methods: {
@@ -72,19 +72,19 @@ export default {
         },
 
         price: function (price) {
-            this.conversion = this.currencyConversionText.replace(':price', price).replace(':currency_code', this.currecyCode).replace(':currency_rate', '');
+            this.conversion = this.currencyConversionText.replace(':price', price).replace(':currency_code', this.currecyCode).replace();
         },
 
         currecyCode: function (currecyCode) {
-            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace(':currency_rate', '');
+            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace();
         },
 
         currencyRate: function (currencyRate) {
             this.rate = currencyRate;
-            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace(':currency_rate', '');
+            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace();
         },
          currencySymbol: function (currencySymbol) {
-            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace(':currency_rate', '');
+            this.conversion = this.currencyConversionText.replace(':price', this.price).replace(':currency_code', this.currecyCode).replace();
         },
     },
 };
