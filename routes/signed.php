@@ -16,5 +16,5 @@ Route::post('invoices/{invoice}/payment', 'Portal\Invoices@payment')->name('sign
 Route::post('invoices/{invoice}/confirm', 'Portal\Invoices@confirm')->name('signed.invoices.confirm');
 
 Route::get('payments/{payment}', 'Portal\Payments@signed')->name('signed.payments.show');
-Route::get('payments/{payment}/print', 'Portal\Payments@printInvoice')->name('signed.payments.print');
-Route::get('payments/{payment}/pdf', 'Portal\Payments@pdfInvoice')->name('signed.payments.pdf');
+Route::get('payments/{payment}/print', 'Portal\Payments@printPayment')->name('signed.payments.print');
+Route::get('payments/{payment}/pdf', 'Portal\Payments@pdfPayment')->name('signed.payments.pdf');
