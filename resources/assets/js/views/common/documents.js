@@ -553,9 +553,12 @@
  
                      this.form.currency_code = currency.code;
                      this.form.currency_rate = currency.rate;
-                     this.currency_symbol = currency;
-                     
+
                      this.currencyConversion();
+                 }
+
+                 if (document_default_currency == currency.code) {
+                    this.currency_symbol = currency;
                  }
              }, this);
          },
