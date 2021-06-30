@@ -39,7 +39,10 @@
 
             <strong>
                 <span class="float-left long-texts mwpx-300 transaction-head-text">
-                    {{ $transaction->contact->name }}
+                    <a href="{{ route($routeContactShow, $transaction->contact->id) }}">
+                        {{ $transaction->contact->name }}
+                    </a>
+
                 </span>
             </strong>
             <br><br>

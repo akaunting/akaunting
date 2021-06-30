@@ -38,7 +38,7 @@
             @stack('revenue_button_end')
 
             <div class="dropdown-divider"></div>
-            
+
             @stack('delete_button_start')
             @can('delete-sales-customers')
                 {!! Form::deleteLink($customer, 'customers.destroy') !!}
@@ -254,7 +254,7 @@
                                         <tbody>
                                             @foreach($transactions as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-6 col-sm-2">@date($item->paid_at)</td>
+                                                    <td class="col-xs-6 col-sm-2"><a href="{{ route('revenues.show', $item->id) }}">@date($item->paid_at)</a></td>
                                                     <td class="col-xs-6 col-sm-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-4 d-none d-sm-block">{{ $item->category->name }}</td>
                                                     <td class="col-sm-4 d-none d-sm-block">{{ $item->account->name }}</td>

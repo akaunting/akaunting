@@ -95,6 +95,9 @@ abstract class TransactionShow extends Base
     public $routeButtonPrint;
 
     /** @var string */
+    public $routeContactShow;
+
+    /** @var string */
     public $signedUrl;
 
     /** @var string */
@@ -319,17 +322,17 @@ abstract class TransactionShow extends Base
     public function __construct(
         $type, $transaction, $transactionTemplate = '', $logo = '', array $payment_methods = [],
         bool $hideButtonAddNew = false, bool $hideButtonMoreActions = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonPrint = false, bool $hideButtonShare = false,
-        bool $hideButtonEmail = false, bool $hideButtonPdf = false, bool $hideButtonDelete = false, bool $checkButtonReconciled = true, 
+        bool $hideButtonEmail = false, bool $hideButtonPdf = false, bool $hideButtonDelete = false, bool $checkButtonReconciled = true,
         bool $hideButtonGroupDivider1 = false, bool $hideButtonGroupDivider2 = false, bool $hideButtonGroupDivider3 = false,
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $signedUrl = '',
-        string $routeButtonEmail = '', string $routeButtonPdf = '', string $routeButtonDelete = '', 
+        string $routeButtonEmail = '', string $routeButtonPdf = '', string $routeButtonDelete = '', string $routeContactShow = '',
         string $textDeleteModal = '',
         bool $hideHeader = false, bool $hideHeaderAccount = false, bool $hideHeaderCategory = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderPaidAt = false,
         string $textHeaderAccount = '', string $textHeaderCategory = '', string $textHeaderContact = '', string $textHeaderAmount = '', string $textHeaderPaidAt = '',
         string $classHeaderAccount = '', string $classHeaderCategory = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderPaidAt = '',
 
-        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false, 
+        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false,
         bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false,
         bool $hideContentTitle = false,bool $hidePaidAt = false, bool $hideAccount = false, bool $hideCategory = false, bool $hidePaymentMethods = false, bool $hideReference = false, bool $hideDescription = false,
         bool $hideAmount = false,
@@ -342,7 +345,7 @@ abstract class TransactionShow extends Base
         string $routeDocumentShow = '',
 
         bool $hideAttachment = false, $attachment = [],
-        bool $hideFooter = false, bool $hideFooterHistories = false, $histories = [], 
+        bool $hideFooter = false, bool $hideFooterHistories = false, $histories = [],
         string $textHistories = '', string $classFooterHistories = ''
     ) {
         $this->type = $type;
@@ -381,11 +384,12 @@ abstract class TransactionShow extends Base
         $this->routeButtonEmail = $this->getRouteButtonEmail($type, $routeButtonEmail);
         $this->routeButtonPdf = $this->getRouteButtonPdf($type, $routeButtonPdf);
         $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);
+        $this->routeContactShow = $this->getRouteContactShow($type, $routeContactShow);
 
         // Navbar Text
         $this->textDeleteModal = $textDeleteModal;
 
-        // Header Hide 
+        // Header Hide
         $this->hideHeader = $hideHeader;
 
         $this->hideHeaderAccount = $hideHeaderAccount;
@@ -483,7 +487,7 @@ abstract class TransactionShow extends Base
         $this->hideFooter = $hideFooter;
         $this->hideFooterHistories = $hideFooterHistories;
 
-        // Histories 
+        // Histories
         $this->histories = $this->getHistories($histories);
         $this->textHistories = $this->getTextHistories($type, $textHistories);
         $this->classFooterHistories = $this->getClassFooterHistories($type, $classFooterHistories);
@@ -711,6 +715,36 @@ abstract class TransactionShow extends Base
         }
 
         return 'revenues.destroy';
+    }
+
+    protected function getRouteContactShow($type, $routeContactShow)
+    {
+        if (!empty($routeContactShow)) {
+            return $routeContactShow;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = Str::plural(config('type.' . $type . '.contact_type'), 2) . '.show';
+
+        try {
+            route($route, $config_parameters);
+        } catch (\Exception $e) {
+            try {
+                $route = Str::plural($type, 2) . '.' . $config_key;
+
+                route($route, $config_parameters);
+            } catch (\Exception $e) {
+                $route = '';
+            }
+        }
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        return 'customers.show';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)
