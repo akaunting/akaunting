@@ -276,7 +276,7 @@ class Revenues extends Controller
         // Notify the customer
         $revenue->contact->notify(new Notification($revenue, 'revenue_new_customer', true));
 
-        event(new \App\Events\Transaction\TransactionSent($revenue));
+        event(new \App\Events\Banking\TransactionSent($revenue));
 
         flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.revenues', 1)]))->success();
 
@@ -292,7 +292,7 @@ class Revenues extends Controller
      */
     public function printRevenue(Transaction $revenue)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+        event(new \App\Events\Banking\TransactionPrinting($revenue));
 
         $view = view($revenue->template_path, compact('revenue'));
 
@@ -308,7 +308,7 @@ class Revenues extends Controller
      */
     public function pdfRevenue(Transaction $revenue)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($revenue));
+        event(new \App\Events\Banking\TransactionPrinting($revenue));
 
         $currency_style = true;
 

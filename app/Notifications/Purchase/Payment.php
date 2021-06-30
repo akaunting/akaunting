@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Notifications\Sale;
+namespace App\Notifications\Purchase;
 
 use App\Abstracts\Notification;
 use App\Models\Common\EmailTemplate;
 use App\Traits\Transactions;
 use Illuminate\Support\Facades\URL;
 
-class Revenue extends Notification
+class Payment extends Notification
 {
     use Transactions;
 
     /**
-     * The revenue model.
+     * The payment model.
      *
      * @var object
      */
-    public $revenue;
+    public $payment;
 
     /**
      * The email template.
@@ -35,15 +35,15 @@ class Revenue extends Notification
     /**
      * Create a notification instance.
      *
-     * @param  object  $revenue
+     * @param  object  $payment
      * @param  object  $template_alias
      * @param  object  $attach_pdf
      */
-    public function __construct($revenue = null, $template_alias = null, $attach_pdf = false)
+    public function __construct($payment = null, $template_alias = null, $attach_pdf = false)
     {
         parent::__construct();
 
-        $this->revenue = $revenue;
+        $this->payment = $payment;
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
     }
@@ -60,7 +60,7 @@ class Revenue extends Notification
 
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeTransactionPdfAndGetPath($this->revenue), [
+            $message->attach($this->storeTransactionPdfAndGetPath($this->payment), [
                 'mime' => 'application/pdf',
             ]);
         }
@@ -78,21 +78,19 @@ class Revenue extends Notification
     {
         return [
             'template_alias' => $this->template->alias,
-            'revenue_id' => $this->revenue->id,
-            'customer_name' => $this->revenue->contact->name,
-            'amount' => $this->revenue->amount,
-            'revenue_date' => company_date($this->revenue->paid_at),
+            'payment_id' => $this->payment->id,
+            'customer_name' => $this->payment->contact->name,
+            'amount' => $this->payment->amount,
+            'payment_date' => company_date($this->payment->paid_at),
         ];
     }
 
     public function getTags()
     {
         return [
-            '{revenue_amount}',
-            '{revenue_date}',
-            '{revenue_guest_link}',
-            '{revenue_admin_link}',
-            '{revenue_portal_link}',
+            '{payment_amount}',
+            '{payment_date}',
+            '{payment_admin_link}',
             '{customer_name}',
             '{company_name}',
             '{company_email}',
@@ -105,17 +103,15 @@ class Revenue extends Notification
     public function getTagsReplacement()
     {
         return [
-            money($this->revenue->amount, $this->revenue->currency_code, true),
-            company_date($this->revenue->paid_at),
-            URL::signedRoute('signed.payments.show', [$this->revenue->id]),
-            route('revenues.show', $this->revenue->id),
-            route('portal.payments.show', $this->revenue->id),
-            $this->revenue->contact->name,
-            $this->revenue->company->name,
-            $this->revenue->company->email,
-            $this->revenue->company->tax_number,
-            $this->revenue->company->phone,
-            nl2br(trim($this->revenue->company->address)),
+            money($this->payment->amount, $this->payment->currency_code, true),
+            company_date($this->payment->paid_at),
+            route('payments.show', $this->payment->id),
+            $this->payment->contact->name,
+            $this->payment->company->name,
+            $this->payment->company->email,
+            $this->payment->company->tax_number,
+            $this->payment->company->phone,
+            nl2br(trim($this->payment->company->address)),
         ];
     }
 }

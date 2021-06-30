@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Events\Transaction;
+namespace App\Events\Banking;
 
-use App\Abstracts\Event;
+use Illuminate\Queue\SerializesModels;
 
-class TransactionSent extends Event
+class TransactionPrinting
 {
+    use SerializesModels;
+
     public $transaction;
 
     /**

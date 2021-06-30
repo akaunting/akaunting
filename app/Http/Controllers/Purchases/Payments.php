@@ -275,7 +275,7 @@ class Payments extends Controller
         // Notify the customer
         $payment->contact->notify(new Notification($payment, 'payment_new_customer', true));
 
-        event(new \App\Events\Transaction\TransactionSent($payment));
+        event(new \App\Events\Banking\TransactionSent($payment));
 
         flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.payments', 1)]))->success();
 
@@ -291,7 +291,7 @@ class Payments extends Controller
      */
     public function printPayment(Transaction $payment)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($payment));
+        event(new \App\Events\Banking\TransactionPrinting($payment));
 
         $view = view($payment->template_path, compact('payment'));
 
@@ -307,7 +307,7 @@ class Payments extends Controller
      */
     public function pdfPayment(Transaction $payment)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($payment));
+        event(new \App\Events\Banking\TransactionPrinting($payment));
 
         $currency_style = true;
 
