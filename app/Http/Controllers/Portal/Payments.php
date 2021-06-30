@@ -65,7 +65,7 @@ class Payments extends Controller
      */
     public function printPayment(Transaction $payment, Request $request)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($payment));
+        event(new \App\Events\Banking\TransactionPrinting($payment));
 
         $revenue = $payment;
         $view = view($payment->template_path, compact('revenue'));
@@ -82,7 +82,7 @@ class Payments extends Controller
      */
     public function pdfPayment(Transaction $payment, Request $request)
     {
-        event(new \App\Events\Transaction\TransactionPrinting($payment));
+        event(new \App\Events\Banking\TransactionPrinting($payment));
 
         $currency_style = true;
 
