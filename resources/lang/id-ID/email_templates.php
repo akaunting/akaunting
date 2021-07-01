@@ -3,8 +3,8 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => '{invoice_number} tagihan dibuat',
-        'body'          => 'Kepada {customer_name},<br /><br />Kami telah mempersiapkan tagihan kepada Anda sebagai berikut: <strong>{invoice_number}</strong>.<br /><br />Anda dapat melihat rincian tagihan dan dilanjutkan dengan pembayaran dari link berikut ini: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Apabila ada pertanyaan harap hubungi kami.<br /><br />Hormat Kami,,<br />{company_name}',
+        'subject'       => '{invoice_number} Faktur dibuat',
+        'body'          => 'Kepada {customer_name},<br /><br />Kami telah Menyiapkan tagihan kepada Anda sebagai berikut: <strong>{invoice_number}</strong>.<br /><br />Anda dapat melihat rincian tagihan dan dilanjutkan dengan pembayaran dari link berikut ini: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Hubungi Kami Jika ada pertanyaan.<br /><br />Hormat Kami,,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -47,4 +47,13 @@ return [
         'body'          => 'Halo, <br /> <br /> Berdasarkan lingkaran berulang {customer_name}, <strong> {invoice_number} </strong> faktur telah dibuat secara otomatis. <br /> <br /> Anda dapat melihat detail faktur dari tautan berikut: <a href="{invoice_admin_link}"> {invoice_number} </a>. <br /> <br /> Salam, <br /> {company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} pembayaran dibuat',
+        'body'          => 'Yang Terhormat {customer_name},<br /><br />Kami telah Menyiapkan pembayaran sebagai berikut. <br /><br />Anda dapat melihat rincian pembayaran dari tautan berikut: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Silahkan hubungi Kami jika ada pertanyaan..<br /><br />Hormat Kami,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} pembayaran dibuat',
+        'body'          => 'Yang Terhormat {vendor_name},<br /><br />Kami telah menyiapkan pembayaran sebagai berikut. <br /><br />Anda dapat melihat rincian pembayaran dari tautan berikut: <a href="{payment_admin_link}"></a>.<br /><br />Silahkan hubungi kami jika ada pertanyaan apa pun..<br /><br />Hormat Kami, <br />{company_name}',
+    ],
 ];

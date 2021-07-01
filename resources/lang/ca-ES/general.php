@@ -51,6 +51,7 @@ return [
     'templates'             => 'Plantilla|Plantilles',
     'sales'                 => 'Venda|Vendes',
     'purchases'             => 'Compra|Compres',
+    'notifications'         => 'Notificació|Notificacions',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
@@ -161,6 +162,7 @@ return [
     'due_on'                => 'Límit el',
     'amount_due'            => 'Quantitat',
     'financial_year'        => 'Any fiscal',
+    'created'               => 'Creat/da',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',

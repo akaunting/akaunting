@@ -8,9 +8,13 @@ return [
         'deleted'           => ':type dihapus!',
         'duplicated'        => ':type duplikat!',
         'imported'          => ':type diimpor!',
+        'import_queued'     => 'Impor :type telah dijadwalkan! Anda akan menerima sebuah email ketika hal tersebut selesai.',
         'exported'          => ':type diimpor!',
+        'export_queued'     => 'Ekspor :type dari halaman ini telah dijadwalkan! Anda akan menerima sebuah email ketika hal tersebut siap untuk diunduh.',
         'enabled'           => ':type diaktifkan!',
         'disabled'          => ':type dinonaktifkan!',
+
+        'clear_all'         => 'Bagus! Anda telah membersihkan semua :type Anda.',
     ],
 
     'error' => [
@@ -21,7 +25,7 @@ return [
         'last_category'     => 'Error: Tidak dapat menghapus kategori :type terakhir!',
         'change_type'       => 'Kesalahan: Tidak dapat mengubah jenis karena memiliki: teks terkait!',
         'invalid_apikey'    => 'Galat: Token yang dimasukkan tidak sah!',
-        'import_column'     => 'Error: :message Nama sheet: :sheet. Baris ke :line.',
+        'import_column'     => 'Kesalahan: :message Nama kolom: :column. Nomor baris: :line.',
         'import_sheet'      => 'Error: Nama sheet tidak valid. Mohon untuk memeriksa contoh file yang tersedia.',
     ],
 

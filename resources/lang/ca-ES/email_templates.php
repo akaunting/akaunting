@@ -47,4 +47,13 @@ return [
         'body'          => 'Hola,<br /><br />En base al pagament recurrent a {vendor_name}, s\'ha creat automàticament la factura de proveïdor <strong>{bill_number}</strong>.<br /><br />Pots veure els detalls de la factura seguint l\'enllaç: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Salutacions,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => 'S\'ha creat el pagament {revenue_date}',
+        'body'          => 'Benvolgut/da {customer_name},<br /><br />Hem preparat el pagament següent. <br /><br />Pots veure els detalls del pagament a l\'enllaç següent:  <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte.<br /><br />Salutacions,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => 'Pagament creat el {revenue_date}',
+        'body'          => 'Benvolgut/da {vendor_name},<br /><br />Hem preparat el següent pagament. <br /><br />Pots veure\'n els detalls accedint a l\'enllaç: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte..<br /><br />Salutacions,<br />{company_name}',
+    ],
 ];

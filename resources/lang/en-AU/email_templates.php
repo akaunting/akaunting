@@ -51,4 +51,9 @@ return [
         'subject'       => '{revenue_date} payment created',
         'body'          => 'Dear {customer_name},<br /><br />We have prepared the following payment. <br /><br />You can see the payment details from the following link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} payment created',
+        'body'          => 'Dear {vendor_name},<br /><br />We have prepared the following payment. <br /><br />You can see the payment details from the following link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Feel free to contact us with any questions..<br /><br />Best Regards,<br />{company_name}',
+    ],
 ];

@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Impor',
     'title'                 => 'Impor :type',
-    'message'               => 'Jenis file yang diizinkan: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>unduh</strong></a> contoh berkas.',
+    'limitations'           => 'Jenis berkas yang diizinkan: :extensions<br>Baris maksimal yang diizinkan: :row_limit',
+    'sample_file'           => 'Anda dapat <a target="_blank" href=":download_link"><strong>mengunduh</strong></a> berkas contoh dan lengkapi itu dengan data Anda.',
 
 ];

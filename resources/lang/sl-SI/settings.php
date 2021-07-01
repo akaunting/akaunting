@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Spremeni podatke podjetja',
-        'name'              => 'Ime',
-        'email'             => 'Elektronski naslov',
-        'phone'             => 'Telefon',
-        'address'           => 'Naslov',
-        'logo'              => 'Logotip',
+        'description'                => 'Spremeni podatke podjetja',
+        'name'                       => 'Ime',
+        'email'                      => 'Elektronski naslov',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Naslov',
+        'edit_your_business_address' => 'Uredi naslov podjetja',
+        'logo'                       => 'Logotip',
     ],
 
     'localisation' => [
         'description'       => 'Nastavite proračunsko leto, časovni pas, obliko datuma in ostale nastavitve',
         'financial_start'   => 'Začetek finančnega leta',
         'timezone'          => 'Časovni pas',
+        'financial_denote' => [
+            'title'         => 'Označitev proračunskega leta',
+            'begins'        => 'Leto, v katerem se začne',
+            'ends'          => 'Leto, v katerem se konča',
+        ],
         'date' => [
             'format'        => 'Zapis datuma',
             'separator'     => 'Besedilno ločilo za datum',
@@ -117,6 +123,7 @@ Predloga za prejeto plačilo (poslano skrbniku)',
 Predloga za opomin za račun (poslano skrbniku)',
             'bill_recur_admin'          => '
 Predloga za ponavljajoče se račune (poslana skrbniku)',
+            'revenue_new_customer'      => 'Predloga za prejem prihodka (poslana stranki)',
         ],
     ],
 

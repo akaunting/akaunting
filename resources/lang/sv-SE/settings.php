@@ -116,6 +116,7 @@ Mottagning av betalning (skickad till kund)',
             'invoice_payment_admin'     => 'Mottagning av betalning (skickad till admin)',
             'bill_remind_admin'         => 'Faktura påminnelsemall (skickad till admin)',
             'bill_recur_admin'          => 'Räkning återkommande mall (skickad till admin)',
+            'revenue_new_customer'      => 'Intäkter mottagen mall (skickas till kunden)',
         ],
     ],
 

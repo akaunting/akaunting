@@ -115,6 +115,7 @@ return [
             'invoice_payment_admin'     => 'Template Penerimaan Pembayaran (dikirim ke admin)',
             'bill_remind_admin'         => 'Template Pengingat Tagihan (dikirim ke admin)',
             'bill_recur_admin'          => 'Template Perulangan Tagihan (dikirim ke admin)',
+            'revenue_new_customer'      => 'Template Penerimaan Pendapatan (dikirim ke pelanggan)',
         ],
     ],
 

@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Fakturanummer',
     'bill_date'             => 'Fakturadatum',
+    'bill_amount'           => 'Fakturans belopp',
     'total_price'           => 'Summa pris',
     'due_date'              => 'Förfallodatum',
     'order_number'          => 'Ordernummer',

@@ -27,7 +27,7 @@ return [
 
     'installed'             => 'S\'ha instal·lat :module',
     'uninstalled'           => 'S\'ha desinstal·lat :module',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module actualitzat',
     'enabled'               => 'S\'ha activat :module',
     'disabled'              => 'S\'ha desactivat :module',
 

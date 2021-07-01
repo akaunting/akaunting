@@ -115,6 +115,7 @@ return [
             'invoice_payment_admin'     => 'Skabelon for modtaget betaling (sendt til administrator)',
             'bill_remind_admin'         => 'Skabelon for regningspåmindelse (sendt til administrator)',
             'bill_recur_admin'          => 'Skabelon for tilbagevendende regning (sendt til administrator)',
+            'revenue_new_customer'      => 'Skabelon for modtaget betaling (sendt til kunder)',
         ],
     ],
 

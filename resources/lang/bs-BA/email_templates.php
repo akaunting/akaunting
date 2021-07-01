@@ -52,4 +52,9 @@ Slobodno nas kontaktirajte za svako pitanje.<br /><br />Lijep Pozdrav,<br />{com
         'subject'       => '{revenue_date} naplata je kreirana',
         'body'          => 'Poštovani {customer_name},<br /><br />Spremili smo slijedeću uplatu. <br /><br />Možete pogledati detalje uplate na slijedećem linku: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Budite slobodni da nas kontaktirate za bilo kakva pitanja.<br /><br />Srdacan pozdrav,<br />{company_name}',
     ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} uplata kreirana',
+        'body'          => 'Poštovani {vendor_name},<br /><br />Spremili smo slijedeću uplatu. <br /><br />Možete pogledati detalje uplate na slijedećem linku: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Budite slobodni da nas kontaktirate za bilo kakva pitanja.<br /><br />Srdacan pozdrav,<br />{company_name}',
+    ],
 ];

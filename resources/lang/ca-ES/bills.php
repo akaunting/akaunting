@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Número de factura',
     'bill_date'             => 'Data de factura',
+    'bill_amount'           => 'Quantitat de la factura',
     'total_price'           => 'Total',
     'due_date'              => 'Data de venciment',
     'order_number'          => 'Número de comanda',

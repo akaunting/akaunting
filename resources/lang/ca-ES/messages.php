@@ -13,6 +13,8 @@ return [
         'export_queued'     => 'S\'ha planificat l\'exportació de :type. Rebràs un correu quan estigui llesta per la descàrrega.',
         'enabled'           => 'S\'ha activat :type!',
         'disabled'          => 'S\'ha desactivat :type!',
+
+        'clear_all'         => 'Fet! Has esborrat tots els :type.',
     ],
 
     'error' => [

@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Importa',
     'title'                 => 'Importa :type',
-    'message'               => 'Tipus de fitxers permesos: XLS, XLSX. Si us plau, <a target="_blank" href=":link"><strong>descarrega</strong></a> el fitxer de mostra.',
+    'limitations'           => 'Es permet els fitxers :extensions<br>Màxim de files permeses: :row_limit',
+    'sample_file'           => 'Pots <a target="_blank" href=":download_link"><strong>descarregar</strong></a> el fitxer de mostra i omplir-lo amb les teves dades.',
 
 ];

@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Leto|Letih',
     'this_year'             => 'Tekoče leto',
     'previous_year'         => 'Prejšnje leto',
     'this_quarter'          => 'To četrtletje',

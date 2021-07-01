@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Številka računa',
     'invoice_date'          => 'Datum računa',
+    'invoice_amount'        => 'Znesek računa',
     'total_price'           => 'Skupna cena',
     'due_date'              => 'Datum zapadlosti',
     'order_number'          => 'Številka naročila',

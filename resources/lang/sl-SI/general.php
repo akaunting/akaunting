@@ -51,6 +51,7 @@ return [
     'templates'             => 'Predloga | Predloge',
     'sales'                 => 'Prodaja | Prodaja',
     'purchases'             => 'Nakup | Nakupi',
+    'notifications'         => 'Obvestilo|Onvestila',
 
     'welcome'               => 'Dobrodošli',
     'banking'               => 'Bančništvo',
@@ -156,17 +157,21 @@ return [
     'clear_cache'           => 'Počisti predpomnilnik',
     'go_to_dashboard'       => 'Dodaj na nadzorno ploščo',
     'is'                    => 'je',
-    'isnot'                 => 'ni', 
+    'isnot'                 => 'ni',
     'recurring_and_more'    => 'Ponovljivi računi in več',
     'due_on'                => 'Zapade',
     'amount_due'            => '
 Dolgovani znesek',
+    'financial_year'        => 'Finančno leto',
+    'created'               => 'Ustvarjeno',
 
     'card' => [
+        'cards'                 => 'Kartica|Kartice',
         'name'                  => 'Ime na kartici',
         'number'                => 'Številka kartice',
         'expiration_date'       => 'Datum veljavnosti',
         'cvv'                   => 'CVV',
+        'save'                  => 'Shrani kartico',
     ],
 
     'title' => [
@@ -191,8 +196,10 @@ Dolgovani znesek',
         'add_new'           => 'Dodajanje novega :field',
         'edit'              => 'Uredi :field',
         'contact_edit'      => 'Uredi :contact_name :field',
+        'drop_file'         => 'Spustite datoteko tukaj za nalaganje',
         'choose'            => 'Izberi :field',
         'choose_different'  => 'Izberi drugačen :field',
+        'choose_file'       => 'Izberi datoteko',
         'no_file_selected'  => 'Nobena datoteka ni izbrana...',
     ],
 

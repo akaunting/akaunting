@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Rechnungsnummer',
     'bill_date'             => 'Rechnungsdatum',
+    'bill_amount'           => 'Rechnungsbetrag',
     'total_price'           => 'Gesamtpreis',
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',
@@ -44,7 +45,7 @@ return [
         'status' => [
             'created'       => 'Erstellt am :date',
             'receive' => [
-                'draft'     => 'Noch nicht erhalten',
+                'draft'     => 'Nicht erhalten',
                 'received'  => 'Empfangen am :date',
             ],
             'paid' => [
