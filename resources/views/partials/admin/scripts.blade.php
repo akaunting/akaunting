@@ -3,6 +3,10 @@
     <script src="{{ asset('public/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/vendor/js-cookie/js.cookie.js') }}"></script>
 
+    <script type="text/javascript">
+        var company_currency_code = '{{ setting("default.currency") }}';
+    </script>
+    
     @stack('scripts_start')
 
     @stack('charts')

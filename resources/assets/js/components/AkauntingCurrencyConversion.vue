@@ -49,7 +49,6 @@ export default {
             conversion: '',
             rate: this.currencyRate,
             texts: [],
-            texts_split: []
         };
     },
 
@@ -57,12 +56,13 @@ export default {
         let conver = this.currencyConversionText.split(':price');
 
         this.texts.push(conver[0]);
-        this.texts.push(conver[1].replace(':currency_code', this.currecyCode).replace(':currency_rate', ''));
+        this.texts.push(conver[1].replace(':currency_code', company_currency_code).replace(':currency_rate', ''));
     },
 
     methods: {
         onChange() {
             this.$emit('change', this.rate);
+            this.currencySymbol.rate = this.rate;
         }
     },
 

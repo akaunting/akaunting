@@ -64,7 +64,8 @@
                 "symbol_first":1,
                 "decimal_mark":".",
                 "thousands_separator":","
-             }
+             },
+             dropdown_visible: true
          }
      },
  
@@ -72,6 +73,24 @@
          if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
              this.colspan = document.getElementById("items").rows[0].cells.length - 1;
          }
+         
+         if (!this.edit.status) {
+            this.dropdown_visible = false;
+         }
+         
+         this.currency_symbol.rate = this.form.currency_rate;
+
+         if(company_currency_code) {
+            let default_currency_symbol = null;
+
+            for(let symbol of this.currencies) {
+                if(symbol.code == company_currency_code) {
+                    default_currency_symbol = symbol.symbol;
+                }
+            }
+            this.currency_symbol.symbol = default_currency_symbol;
+         }
+         
      },
  
      methods: {
@@ -529,11 +548,11 @@
  
          // Change currency get money
          onChangeCurrency(currency_code) {
-             if (this.edit.status && this.edit.currency <= 3) {
+             if (this.edit.status && this.edit.currency <= 2) {
                  this.edit.currency++;
                  return;
              }
- 
+                
              if (!this.currencies.length) {
                  let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
  
@@ -552,12 +571,12 @@
                      this.currency = currency;
  
                      this.form.currency_code = currency.code;
-                     this.form.currency_rate = currency.rate;
 
+                     this.form.currency_rate = currency.rate;
                      this.currencyConversion();
                  }
-
-                 if (document_default_currency == currency.code) {
+                
+                 if (company_currency_code == currency.code) {
                     this.currency_symbol = currency;
                  }
              }, this);
