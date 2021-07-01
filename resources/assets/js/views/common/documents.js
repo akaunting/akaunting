@@ -552,7 +552,6 @@
                  this.edit.currency++;
                  return;
              }
-                
              if (!this.currencies.length) {
                  let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
  
@@ -572,10 +571,8 @@
  
                      this.form.currency_code = currency.code;
                      this.form.currency_rate = currency.rate;
-                     
                      this.currencyConversion();
                  }
-                
                  if (company_currency_code == currency.code) {
                     this.currency_symbol = currency;
                  }
