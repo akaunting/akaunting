@@ -80,10 +80,10 @@
          
          this.currency_symbol.rate = this.form.currency_rate;
 
-         if(company_currency_code) {
+         if (company_currency_code) {
             let default_currency_symbol = null;
 
-            for(let symbol of this.currencies) {
+            for (let symbol of this.currencies) {
                 if(symbol.code == company_currency_code) {
                     default_currency_symbol = symbol.symbol;
                 }
