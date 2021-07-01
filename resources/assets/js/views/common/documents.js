@@ -571,8 +571,8 @@
                      this.currency = currency;
  
                      this.form.currency_code = currency.code;
-
                      this.form.currency_rate = currency.rate;
+                     
                      this.currencyConversion();
                  }
                 
