@@ -34,8 +34,10 @@ const app = new Vue({
 
     watch: {
         'form.sale_price': function (newVal, oldVal) {
-            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
-                this.form.sale_price = oldVal;
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') === -1) {
+                if(newVal.search('(?<!.).(?!.)') === -1){ 
+                    this.form.sale_price = oldVal;
+                }
             }
         },
 
