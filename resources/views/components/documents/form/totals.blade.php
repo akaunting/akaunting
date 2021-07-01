@@ -131,7 +131,7 @@
                     @stack('grand_total_td_end')
 
                     @stack('currency_conversion_td_start')
-                        <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ $currency->code }}' != form.currency_code) && totals.total)}]">
+                        <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ $currency->code }}' != form.currency_code) && totals.total || dropdown_visible)}]">
                             <td class="border-top-0 pb-0"></td>
                             <td class="text-right border-top-0 border-right-0 align-middle pb-0 pr-3 pr-0" colspan="2">
                                 <akaunting-currency-conversion
