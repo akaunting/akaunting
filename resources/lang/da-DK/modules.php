@@ -35,7 +35,7 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'FAQ',
         'changelog'         => 'Ændringslog',
-        'reviews'           => 'Gennemsyn',
+        'reviews'           => 'Anmeldelser',
     ],
 
     'installation' => [

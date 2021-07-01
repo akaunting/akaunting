@@ -49,4 +49,13 @@ Spoštovani {customer_name}, <br /> <br /> Zahvaljujemo se vam za plačilo. Podr
         'body'          => 'Pozdravljeni, <br /> <br /> Na podlagi ponavljajočega se obračunavanja {vendor_name} je bil račun <strong>{bill_number}</strong> samodejno ustvarjen. <br /> <br /> Podrobnosti računa si lahko ogledate na naslednji povezavi: <a href="<a href="{bill_admin_link}">"> {bill_number} </a>. <br /> <br /> Lep pozdrav, <br /> {company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => 'Plačilo {revenue_date} ustvarjeno',
+        'body'          => 'Spoštovani {customer_name}, <br /><br />Za vas smo pripravili naslednji račun. <br /><br /> Ogledate si lahko podatke o računu na tej povezavi: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br /> Za vsa vprašanja nas lahko kontaktirate.<br /><br /> Lep pozdrav,<br /> {company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => 'Plačilo {revenue_date} ustvarjeno',
+        'body'          => 'Spoštovani {vendor_name}, <br /><br />Za vas smo pripravili naslednji račun. <br /><br /> Ogledate si lahko podatke o računu na tej povezavi: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br /> Za vsa vprašanja nas lahko kontaktirate.<br /><br /> Lep pozdrav,<br /> {company_name}',
+    ],
 ];

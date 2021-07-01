@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Uvozi',
     'title'                 => 'Uvozi :type',
-    'message'               => 'Dovoljene vrste datotek: XLS, XLSX. <a target="_blank" href=":link"><strong>Naloži</strong></a> testno datoteko.',
+    'limitations'           => 'Dovoljene vrste datotek: :extensions<br>Največ dovoljenih vrstic: :row_limit',
+    'sample_file'           => 'Vzorčno datoteko lahko <a target="_blank" href=":download_link"><strong>prenesete</strong></a> in jo izpolnite s svojimi podatki.',
 
 ];

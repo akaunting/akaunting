@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Nomor Tagihan',
     'bill_date'             => 'Tanggal Tagihan',
+    'bill_amount'           => 'Jumlah Tagihan',
     'total_price'           => 'Total Harga',
     'due_date'              => 'Tanggal Jatuh Tempo',
     'order_number'          => 'Nomor Pesanan',
@@ -17,7 +18,7 @@ return [
     'tax_total'             => 'Total Pajak',
     'total'                 => 'Total',
 
-    'item_name'             => 'Nama Barang | Nama Barang',
+    'item_name'             => 'Nama Item|Nama Item',
 
     'show_discount'         => 'Diskon :discount%',
     'add_discount'          => 'Tambahkan diskon',

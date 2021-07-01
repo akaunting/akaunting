@@ -27,7 +27,7 @@ return [
 
     'installed'             => ': modul nameščen',
     'uninstalled'           => ': modul odstranjen',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module posodobljen',
     'enabled'               => ': modul omogočen',
     'disabled'              => ': modul onemogočen',
 

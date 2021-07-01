@@ -51,6 +51,7 @@ return [
     'templates'             => 'Mall|mallar',
     'sales'                 => 'Sälj|Försäljning',
     'purchases'             => 'Inköpning|Inköp',
+    'notifications'         => 'Notifiering|Notifikationer',
 
     'welcome'               => 'Välkommen',
     'banking'               => 'Banktjänster',
@@ -161,6 +162,7 @@ return [
     'due_on'                => 'Förfaller den',
     'amount_due'            => 'Belopp att betala',
     'financial_year'        => 'Räkenskapsår',
+    'created'               => 'Skapad',
 
     'card' => [
         'cards'                 => 'Kort| Kort',

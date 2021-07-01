@@ -15,9 +15,9 @@ return [
 
     'password' => 'Geslo mora biti dolgo vsaj šest znakov in se mora ujemati z potrditvenim geslom.',
     'reset' => 'Geslo je bilo spremenjeno!',
-    'sent' => 'Opomnik za geslo poslano!',
+    'sent' => 'Povezava za ponastavitev gesla je poslana!',
+    'throttled' => 'Počakaj, preden poskusiš znova.',
     'token' => 'Ponastavitveni žeton je neveljaven.',
-    'user' => "Ne moremo najti uporabnika s tem e-poštnim naslovom.",
-    'throttle' => 'Prosimo počakajte preden poizkusite ponovno',
+    'user' => "Uporabnika s tem e-poštnim naslovom ni bilo mogoče najti.",
 
 ];

@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Nomor faktur',
     'invoice_date'          => 'Tanggal faktur',
+    'invoice_amount'        => 'Jumlah Faktur',
     'total_price'           => 'Total harga',
     'due_date'              => 'Batas tanggal terakhir',
     'order_number'          => 'Jumlah Pesanan',
@@ -17,7 +18,7 @@ return [
     'tax_total'             => 'Total Pajak',
     'total'                 => 'Total',
 
-    'item_name'             => 'Nama Item | Nama Item',
+    'item_name'             => 'Nama Item|Nama Item',
 
     'show_discount'         => 'Diskon :discount%',
     'add_discount'          => 'Tambahkan diskon',

@@ -115,6 +115,7 @@ return [
             'invoice_payment_admin'     => 'Modelo de Pagamento Recebido (enviado ao administrador)',
             'bill_remind_admin'         => 'Modelo de Lembrete de Fatura (enviado ao administrador)',
             'bill_recur_admin'          => 'Modelo de cobrança recorrente (enviado ao administrador)',
+            'revenue_new_customer'      => 'Modelo de Pagamento Recebido (enviado ao cliente)',
         ],
     ],
 
