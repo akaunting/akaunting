@@ -7,20 +7,20 @@
 require('./../../bootstrap');
 
 import Vue from 'vue';
- 
+
 import DashboardPlugin from './../../plugins/dashboard-plugin';
- 
+
 import Global from './../../mixins/global';
- 
+
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
- 
+
 // plugin setup
 Vue.use(DashboardPlugin);
- 
+
 const app = new Vue({
     el: '#app',
- 
+
     mixins: [
         Global
     ],
@@ -35,10 +35,10 @@ const app = new Vue({
                 ',.',
                 ',,'
             ],
-            splice_value: null
+            splice_value: null,
         }
     },
-     
+
     watch: {
         'form.sale_price': function (newVal, oldVal) {
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
@@ -53,20 +53,19 @@ const app = new Vue({
                 }
             }
         },
- 
+
         'form.purchase_price': function (newVal, oldVal) {
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.purchase_price = oldVal;
                 return;
             }
- 
+
             for (let item of this.regex_condition) {
                 if (this.form.purchase_price.includes(item)) {
                     this.splice_value = this.form.purchase_price.replace(item, '');
                     this.form.purchase_price = this.splice_value;
                 }
             }
-        }
+        },
      },
- });
- 
+});
