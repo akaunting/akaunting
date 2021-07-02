@@ -242,12 +242,12 @@
             <td style="width:30%; padding-top:32px; padding-left: 25px;" valign="top">
                 <table>
                     <tr>
-                        <td style="background-color: #6da252; -webkit-print-color-adjust: exact; width: 280px; font-weight:bold !important; display:block;">
+                        <td style="background-color: #6da252; -webkit-print-color-adjust: exact; font-weight:bold !important; display:block;">
                             <h5 class="text-muted mb-0 text-white" style="font-size: 20px; color:#ffffff; text-align:center; margin-top: 16px;">
                                 {{ trans($textAmount) }}
                             </h5>
 
-                            <p class="font-weight-bold mb-0 text-white" style="font-size: 32px; color:#ffffff; text-align:center;">
+                            <p class="font-weight-bold mb-0 text-white" style="font-size: 26px; color:#ffffff; text-align:center;">
                                 @money($transaction->amount, $transaction->currency_code, true)
                             </p>
                         </td>
