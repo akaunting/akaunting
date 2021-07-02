@@ -35,7 +35,6 @@ const app = new Vue({
                 ',.',
                 ',,'
             ],
-            splice_value: null,
         }
     },
 
@@ -63,8 +62,9 @@ const app = new Vue({
 
             for (let item of this.regex_condition) {
                 if (this.form.purchase_price.includes(item)) {
-                    this.splice_value = this.form.purchase_price.replace(item, '');
-                    this.form.purchase_price = this.splice_value;
+                    const removeLastChar  = newVal.length - 1 
+                    const inputShown = newVal.slice(0, removeLastChar)
+                    this.form.purchase_price = inputShown;
                 }
             }
         },
