@@ -34,7 +34,8 @@
                  '.,',
                  ',.',
                  ',,'
-             ]
+             ],
+             splice_value: null
          }
      },
      
@@ -46,13 +47,11 @@
                  this.form.sale_price = oldVal;
              }
  
-             let splice_value;
- 
              if (newVal.search('^(?=.*?[0-9])[0-9.,]+$') == 0) {
                  for (let item of this.regex_condition) {
                      if (this.form.sale_price.includes(item)) {
-                        splice_value = this.form.sale_price.replace(item, '');
-                        this.form.sale_price = splice_value;
+                        this.splice_value = this.form.sale_price.replace(item, '');
+                        this.form.sale_price = this.splice_value;
                      }
                  }
              }
@@ -63,13 +62,11 @@
                  this.form.purchase_price = oldVal;
              }
 
-             let splice_value;
-
              if (newVal.search('^(?=.*?[0-9])[0-9.,]+$') == 0) {
                 for (let item of this.regex_condition) {
                     if (this.form.purchase_price.includes(item)) {
-                       splice_value = this.form.purchase_price.replace(item, '');
-                       this.form.purchase_price = splice_value;
+                        this.splice_value = this.form.purchase_price.replace(item, '');
+                       this.form.purchase_price = this.splice_value;
                     }
                 }
             }
