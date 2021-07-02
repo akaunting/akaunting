@@ -4,47 +4,76 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./../../bootstrap');
+ require('./../../bootstrap');
 
-import Vue from 'vue';
+ import Vue from 'vue';
+ 
+ import DashboardPlugin from './../../plugins/dashboard-plugin';
+ 
+ import Global from './../../mixins/global';
+ 
+ import Form from './../../plugins/form';
+ import BulkAction from './../../plugins/bulk-action';
+ 
+ // plugin setup
+ Vue.use(DashboardPlugin);
+ 
+ const app = new Vue({
+     el: '#app',
+ 
+     mixins: [
+         Global
+     ],
+ 
+     data: function () {
+         return {
+             form: new Form('item'),
+             bulk_action: new BulkAction('items'),
+             regex_condition: [
+                 '..',
+                 '.,',
+                 ',.',
+                 ',,'
+             ]
+         }
+     },
+     
+ 
+ 
+     watch: {
+         'form.sale_price': function (newVal, oldVal) {
+             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
+                 this.form.sale_price = oldVal;
+             }
+ 
+             let splice_value;
+ 
+             if (newVal.search('^(?=.*?[0-9])[0-9.,]+$') == 0) {
+                 for (let item of this.regex_condition) {
+                     if (this.form.sale_price.includes(item)) {
+                        splice_value = this.form.sale_price.replace(item, '');
+                        this.form.sale_price = splice_value;
+                     }
+                 }
+             }
+         },
+ 
+         'form.purchase_price': function (newVal, oldVal) {
+             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
+                 this.form.purchase_price = oldVal;
+             }
 
-import DashboardPlugin from './../../plugins/dashboard-plugin';
+             let splice_value;
 
-import Global from './../../mixins/global';
-
-import Form from './../../plugins/form';
-import BulkAction from './../../plugins/bulk-action';
-
-// plugin setup
-Vue.use(DashboardPlugin);
-
-const app = new Vue({
-    el: '#app',
-
-    mixins: [
-        Global
-    ],
-
-    data: function () {
-        return {
-            form: new Form('item'),
-            bulk_action: new BulkAction('items'),
-        }
-    },
-
-    watch: {
-        'form.sale_price': function (newVal, oldVal) {
-            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') === -1) {
-                if(newVal.search('(?<!.).(?!.)') === -1){ 
-                    this.form.sale_price = oldVal;
+             if (newVal.search('^(?=.*?[0-9])[0-9.,]+$') == 0) {
+                for (let item of this.regex_condition) {
+                    if (this.form.purchase_price.includes(item)) {
+                       splice_value = this.form.purchase_price.replace(item, '');
+                       this.form.purchase_price = splice_value;
+                    }
                 }
             }
-        },
-
-        'form.purchase_price': function (newVal, oldVal) {
-            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
-                this.form.purchase_price = oldVal;
-            }
-        }
-    },
-});
+         }
+     },
+ });
+ 
