@@ -39,8 +39,6 @@
          }
      },
      
- 
- 
      watch: {
          'form.sale_price': function (newVal, oldVal) {
              if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
