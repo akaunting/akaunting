@@ -48,8 +48,9 @@ const app = new Vue({
  
             for (let item of this.regex_condition) {
                 if (this.form.sale_price.includes(item)) {
-                    this.splice_value = this.form.sale_price.replace(item, '');
-                    this.form.sale_price = this.splice_value;
+                    const removeLastChar  = newVal.length - 1 
+                    const inputShown = newVal.slice(0, removeLastChar)
+                    this.form.sale_price = inputShown;
                 }
             }
         },
