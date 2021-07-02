@@ -41,16 +41,15 @@ const app = new Vue({
      
     watch: {
         'form.sale_price': function (newVal, oldVal) {
-            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') == -1) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.sale_price = oldVal;
+                return;
             }
  
-            if (newVal.search('^(?=.*?[0-9])[0-9.,]+$') == 0) {
-                for (let item of this.regex_condition) {
-                    if (this.form.sale_price.includes(item)) {
-                        this.splice_value = this.form.sale_price.replace(item, '');
-                        this.form.sale_price = this.splice_value;
-                    }
+            for (let item of this.regex_condition) {
+                if (this.form.sale_price.includes(item)) {
+                    this.splice_value = this.form.sale_price.replace(item, '');
+                    this.form.sale_price = this.splice_value;
                 }
             }
         },
