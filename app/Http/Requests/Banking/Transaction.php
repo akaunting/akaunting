@@ -26,7 +26,7 @@ class Transaction extends FormRequest
             'paid_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required|amount',
             'currency_code' => 'required|string|currency',
-            'currency_rate' => 'required',
+            'currency_rate' => 'required|gt:0',
             'document_id' => 'nullable|integer',
             'contact_id' => 'nullable|integer',
             'category_id' => 'required|integer',
