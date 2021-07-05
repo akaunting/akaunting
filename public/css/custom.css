@@ -1730,8 +1730,8 @@ table .align-items-center td span.badge {
 
 /* Accordion Header Arrow Start */
 
-.modal .modal-dialog .modal-content > .card-header.pb-2::after {
-    z-index: -1 !important;
+.modal .modal-content .card-header::after {
+    display: none !important;
 }
 
 /* Accordion Header Arrow Finish */
