@@ -75,7 +75,6 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/{invoice}/print', 'Sales\Invoices@printInvoice')->name('invoices.print');
     Route::get('invoices/{invoice}/pdf', 'Sales\Invoices@pdfInvoice')->name('invoices.pdf');
     Route::get('invoices/{invoice}/duplicate', 'Sales\Invoices@duplicate')->name('invoices.duplicate');
-    Route::get('invoices/addItem', 'Sales\Invoices@addItem')->middleware(['money'])->name('invoice.add.item');
     Route::post('invoices/import', 'Sales\Invoices@import')->name('invoices.import');
     Route::get('invoices/export', 'Sales\Invoices@export')->name('invoices.export');
     Route::resource('invoices', 'Sales\Invoices', ['middleware' => ['date.format', 'money', 'dropzone']]);
@@ -105,7 +104,6 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/{bill}/print', 'Purchases\Bills@printBill')->name('bills.print');
     Route::get('bills/{bill}/pdf', 'Purchases\Bills@pdfBill')->name('bills.pdf');
     Route::get('bills/{bill}/duplicate', 'Purchases\Bills@duplicate')->name('bills.duplicate');
-    Route::get('bills/addItem', 'Purchases\Bills@addItem')->middleware(['money'])->name('bill.add.item');
     Route::post('bills/import', 'Purchases\Bills@import')->name('bills.import');
     Route::get('bills/export', 'Purchases\Bills@export')->name('bills.export');
     Route::resource('bills', 'Purchases\Bills', ['middleware' => ['date.format', 'money', 'dropzone']]);
