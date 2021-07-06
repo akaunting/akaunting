@@ -143,6 +143,9 @@ Route::group(['prefix' => 'banking'], function () {
     Route::get('transactions/export', 'Banking\Transactions@export')->name('transactions.export');
     Route::resource('transactions', 'Banking\Transactions');
 
+    Route::get('transfers/{transfer}/print', 'Banking\Transfers@printTransfer')->name('transfers.print');
+    Route::get('transfers/{transfer}/pdf', 'Banking\Transfers@pdfTransfer')->name('transfers.pdf');
+    Route::get('transfers/{transfer}/duplicate', 'Banking\Transfers@duplicate')->name('transfers.duplicate');
     Route::post('transfers/import', 'Banking\Transfers@import')->name('transfers.import');
     Route::get('transfers/export', 'Banking\Transfers@export')->name('transfers.export');
     Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money']]);

@@ -42,7 +42,7 @@ class TransfersTest extends FeatureTestCase
         $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('transfers.edit', $transfer->id))
+            ->get(route('transfers.show', $transfer->id))
             ->assertStatus(200)
             ->assertSee($transfer->description);
     }

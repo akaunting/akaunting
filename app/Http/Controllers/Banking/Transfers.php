@@ -37,9 +37,11 @@ class Transfers extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transfer $transfer)
     {
-        return redirect()->route('transfers.index');
+        $this->itemData($transfer);
+
+        return view('banking.transfers.show', compact('transfer'));
     }
 
     /**
@@ -72,7 +74,7 @@ class Transfers extends Controller
         $response = $this->ajaxDispatch(new CreateTransfer($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('transfers.index');
+            $response['redirect'] = route('transfers.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -86,6 +88,24 @@ class Transfers extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function duplicate(Transfer $transfer)
+    {
+        $clone = $transfer->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.transfers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('transfers.show', $clone->id);
     }
 
     /**
@@ -159,7 +179,7 @@ class Transfers extends Controller
         $response = $this->ajaxDispatch(new UpdateTransfer($transfer, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('transfers.index');
+            $response['redirect'] = route('transfers.show', $transfer->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -210,4 +230,66 @@ class Transfers extends Controller
     {
         return $this->exportExcel(new Export, trans_choice('general.transfers', 2));
     }
+
+    /**
+     * Print the transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function printRevenue(Transfer $transfer)
+    {
+        //event(new \App\Events\Banking\TransactionPrinting($transfer));
+
+        $view = view($transfer->template_path, compact('transfer'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function pdfRevenue(Transfer $transfer)
+    {
+        //event(new \App\Events\Banking\TransactionPrinting($transfer));
+
+        $currency_style = true;
+
+        $view = view($transfer->template_path, compact('transfer', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getTransactionFileName($transfer);
+
+        return $pdf->download($file_name);
+    }
+
+    /**
+     * Display a datas of show.
+     *
+     * @return Response
+     */
+
+    public function itemData($transfer) {
+        $transfer['from_account_id'] = $transfer->expense_transaction->account_id;
+        $transfer['from_currency_code'] = $transfer->expense_transaction->currency_code;
+        $transfer['from_account_rate'] = $transfer->expense_transaction->currency_rate;
+        $transfer['to_account_id'] = $transfer->income_transaction->account_id;
+        $transfer['to_currency_code'] = $transfer->income_transaction->currency_code;
+        $transfer['to_account_rate'] = $transfer->income_transaction->currency_rate;
+        $transfer['description'] = $transfer->expense_transaction->description;
+        $transfer['amount'] = $transfer->expense_transaction->amount;
+        $transfer['payment_method'] = $transfer->expense_transaction->payment_method;
+        $transfer['reference'] = $transfer->expense_transaction->reference;
+        $transfer['transferred_at'] = Date::parse($transfer->expense_transaction->paid_at)->format('Y-m-d');
+     }
 }
