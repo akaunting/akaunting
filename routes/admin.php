@@ -154,8 +154,7 @@ Route::group(['prefix' => 'settings'], function () {
     Route::get('categories/export', 'Settings\Categories@export')->name('categories.export');
     Route::resource('categories', 'Settings\Categories');
 
-    Route::get('currencies/currency', 'Settings\Currencies@currency');
-    Route::get('currencies/config', 'Settings\Currencies@config');
+    Route::get('currencies/config', 'Settings\Currencies@config')->name('currencies.config');
     Route::get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('currencies.enable');
     Route::get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('currencies.disable');
     Route::resource('currencies', 'Settings\Currencies');

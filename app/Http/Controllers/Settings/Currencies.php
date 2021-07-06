@@ -226,25 +226,6 @@ class Currencies extends Controller
         return response()->json($response);
     }
 
-    public function currency()
-    {
-        $json = new \stdClass();
-
-        $code = request('code');
-
-        if ($code) {
-            // Get currency object
-            $currency = Currency::where('code', $code)->first();
-
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-
-            $json = (object) $currency;
-        }
-
-        return response()->json($json);
-    }
-
     public function config()
     {
         $json = new \stdClass();
