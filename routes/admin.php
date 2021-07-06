@@ -31,7 +31,6 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('import/{group}/{type}/{route?}', 'Common\Import@create')->name('import.create');
 
     Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
-    Route::post('items/total', 'Common\Items@total')->middleware(['money'])->name('items.total');
     Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
     Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
     Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
