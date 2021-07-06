@@ -32,11 +32,11 @@ Route::group(['prefix' => 'common'], function () {
 
     Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
     Route::post('items/total', 'Common\Items@total')->middleware(['money'])->name('items.total');
+    Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
+    Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
     Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
     Route::post('items/import', 'Common\Items@import')->name('items.import');
     Route::get('items/export', 'Common\Items@export')->name('items.export');
-    Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
-    Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
     Route::resource('items', 'Common\Items', ['middleware' => ['money', 'dropzone']]);
 
     Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
@@ -89,15 +89,13 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('revenues/export', 'Sales\Revenues@export')->name('revenues.export');
     Route::resource('revenues', 'Sales\Revenues', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-    Route::get('customers/currency', 'Sales\Customers@currency');
+    Route::get('customers/{customer}/create-invoice', 'Sales\Customers@createInvoice')->name('customers.create-invoice');
+    Route::get('customers/{customer}/create-revenue', 'Sales\Customers@createRevenue')->name('customers.create-revenue');
+    Route::get('customers/{customer}/enable', 'Sales\Customers@enable')->name('customers.enable');
+    Route::get('customers/{customer}/disable', 'Sales\Customers@disable')->name('customers.disable');
     Route::get('customers/{customer}/duplicate', 'Sales\Customers@duplicate')->name('customers.duplicate');
     Route::post('customers/import', 'Sales\Customers@import')->name('customers.import');
     Route::get('customers/export', 'Sales\Customers@export')->name('customers.export');
-    Route::get('customers/{customer}/enable', 'Sales\Customers@enable')->name('customers.enable');
-    Route::get('customers/{customer}/disable', 'Sales\Customers@disable')->name('customers.disable');
-    Route::get('customers/{customer}/currency', 'Sales\Customers@currency')->name('customers.currency');
-    Route::get('customers/{customer}/create-invoice', 'Sales\Customers@createInvoice')->name('customers.create-invoice');
-    Route::get('customers/{customer}/create-revenue', 'Sales\Customers@createRevenue')->name('customers.create-revenue');
     Route::resource('customers', 'Sales\Customers');
 });
 
@@ -121,15 +119,13 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('payments/export', 'Purchases\Payments@export')->name('payments.export');
     Route::resource('payments', 'Purchases\Payments', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-    Route::get('vendors/currency', 'Purchases\Vendors@currency');
+    Route::get('vendors/{vendor}/create-bill', 'Purchases\Vendors@createBill')->name('vendors.create-bill');
+    Route::get('vendors/{vendor}/create-payment', 'Purchases\Vendors@createPayment')->name('vendors.create-payment');
+    Route::get('vendors/{vendor}/enable', 'Purchases\Vendors@enable')->name('vendors.enable');
+    Route::get('vendors/{vendor}/disable', 'Purchases\Vendors@disable')->name('vendors.disable');
     Route::get('vendors/{vendor}/duplicate', 'Purchases\Vendors@duplicate')->name('vendors.duplicate');
     Route::post('vendors/import', 'Purchases\Vendors@import')->name('vendors.import');
     Route::get('vendors/export', 'Purchases\Vendors@export')->name('vendors.export');
-    Route::get('vendors/{vendor}/enable', 'Purchases\Vendors@enable')->name('vendors.enable');
-    Route::get('vendors/{vendor}/currency', 'Purchases\Vendors@currency')->name('vendors.currency');
-    Route::get('vendors/{vendor}/disable', 'Purchases\Vendors@disable')->name('vendors.disable');
-    Route::get('vendors/{vendor}/create-bill', 'Purchases\Vendors@createBill')->name('vendors.create-bill');
-    Route::get('vendors/{vendor}/create-payment', 'Purchases\Vendors@createPayment')->name('vendors.create-payment');
     Route::resource('vendors', 'Purchases\Vendors', ['middleware' => ['dropzone']]);
 });
 
@@ -154,10 +150,10 @@ Route::group(['prefix' => 'banking'], function () {
 
 Route::group(['prefix' => 'settings'], function () {
     Route::post('categories/category', 'Settings\Categories@category');
-    Route::post('categories/import', 'Settings\Categories@import')->name('categories.import');
-    Route::get('categories/export', 'Settings\Categories@export')->name('categories.export');
     Route::get('categories/{category}/enable', 'Settings\Categories@enable')->name('categories.enable');
     Route::get('categories/{category}/disable', 'Settings\Categories@disable')->name('categories.disable');
+    Route::post('categories/import', 'Settings\Categories@import')->name('categories.import');
+    Route::get('categories/export', 'Settings\Categories@export')->name('categories.export');
     Route::resource('categories', 'Settings\Categories');
 
     Route::get('currencies/currency', 'Settings\Currencies@currency');
@@ -244,6 +240,9 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::patch('invoice-templates', 'Modals\InvoiceTemplates@update')->name('invoice-templates.update');
     Route::get('documents/item-columns/edit', 'Modals\DocumentItemColumns@edit')->name('documents.item-columns.edit');
     Route::patch('documents/item-columns', 'Modals\DocumentItemColumns@update')->name('documents.item-columns.update');
-    Route::resource('documents/{document}/transactions', 'Modals\DocumentTransactions', ['names' => 'documents.document.transactions', 'middleware' => ['date.format', 'money', 'dropzone']]);
+    Route::resource('documents/{document}/transactions', 'Modals\DocumentTransactions', [
+        'names' => 'documents.document.transactions',
+        'middleware' => ['date.format', 'money', 'dropzone']
+    ]);
     Route::resource('taxes', 'Modals\Taxes');
 });

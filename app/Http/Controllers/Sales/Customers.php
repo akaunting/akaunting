@@ -289,38 +289,6 @@ class Customers extends Controller
         return $this->exportExcel(new Export, trans_choice('general.customers', 2));
     }
 
-    public function currency(Contact $customer)
-    {
-        if (empty($customer)) {
-            return response()->json([]);
-        }
-
-        $currency_code = setting('default.currency');
-
-        if (isset($customer->currency_code)) {
-            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-            if (array_key_exists($customer->currency_code, $currencies)) {
-                $currency_code = $customer->currency_code;
-            }
-        }
-
-        // Get currency object
-        $currency = Currency::where('code', $currency_code)->first();
-
-        $customer->currency_name = $currency->name;
-        $customer->currency_code = $currency_code;
-        $customer->currency_rate = $currency->rate;
-
-        $customer->thousands_separator = $currency->thousands_separator;
-        $customer->decimal_mark = $currency->decimal_mark;
-        $customer->precision = (int) $currency->precision;
-        $customer->symbol_first = $currency->symbol_first;
-        $customer->symbol = $currency->symbol;
-
-        return response()->json($customer);
-    }
-
     public function createInvoice(Contact $customer)
     {
         $data['contact'] = $customer;

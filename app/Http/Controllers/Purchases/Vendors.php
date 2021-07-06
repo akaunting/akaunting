@@ -291,38 +291,6 @@ class Vendors extends Controller
         return $this->exportExcel(new Export, trans_choice('general.vendors', 2));
     }
 
-    public function currency(Contact $vendor)
-    {
-        if (empty($vendor)) {
-            return response()->json([]);
-        }
-
-        $currency_code = setting('default.currency');
-
-        if (isset($vendor->currency_code)) {
-            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-            if (array_key_exists($vendor->currency_code, $currencies)) {
-                $currency_code = $vendor->currency_code;
-            }
-        }
-
-        // Get currency object
-        $currency = Currency::where('code', $currency_code)->first();
-
-        $vendor->currency_name = $currency->name;
-        $vendor->currency_code = $currency_code;
-        $vendor->currency_rate = $currency->rate;
-
-        $vendor->thousands_separator = $currency->thousands_separator;
-        $vendor->decimal_mark = $currency->decimal_mark;
-        $vendor->precision = (int) $currency->precision;
-        $vendor->symbol_first = $currency->symbol_first;
-        $vendor->symbol = $currency->symbol;
-
-        return response()->json($vendor);
-    }
-
     public function createBill(Contact $vendor)
     {
         $data['contact'] = $vendor;
