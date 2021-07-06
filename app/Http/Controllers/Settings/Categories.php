@@ -223,11 +223,4 @@ class Categories extends Controller
     {
         return $this->exportExcel(new Export, trans_choice('general.categories', 2));
     }
-
-    public function category(Request $request)
-    {
-        $category = $this->dispatch(new CreateCategory($request));
-
-        return response()->json($category);
-    }
 }
