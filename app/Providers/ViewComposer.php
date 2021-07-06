@@ -56,18 +56,6 @@ class ViewComposer extends Provider
             'partials.form.recurring', 'App\Http\ViewComposers\Recurring'
         );
 
-        // Add logo
-        View::composer(
-            ['purchases.bills.print', 'purchases.bills.show', 'sales.invoices.print_default', 'sales.invoices.print_classic', 'sales.invoices.print_modern', 'sales.invoices.show', 'portal.invoices.show', 'portal.invoices.signed'],
-            'App\Http\ViewComposers\Logo'
-        );
-
-        // Add Invoice Text
-        View::composer(
-            ['sales.invoices.*', 'portal.invoices.*'],
-            'App\Http\ViewComposers\InvoiceText'
-        );
-
         // Add Document Type
         View::composer(
             ['documents.*', 'portal.documents.*'],
