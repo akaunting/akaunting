@@ -1727,3 +1727,11 @@ table .align-items-center td span.badge {
 }
 
 /* Line item */
+
+/* Accordion Header Arrow Start */
+
+.modal .modal-content .card-header::after {
+    display: none !important;
+}
+
+/* Accordion Header Arrow Finish */
