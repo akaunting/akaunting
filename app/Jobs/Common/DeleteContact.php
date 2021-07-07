@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ContactGettingRelationships;
 use App\Jobs\Auth\DeleteUser;
 use App\Traits\Contacts;
 
@@ -68,6 +69,11 @@ class DeleteContact extends Job
             $rels['bills'] = 'bills';
         }
 
-        return $this->countRelationships($this->contact, $rels);
+        $rel = new \stdClass();
+        $rel->relationships = $rels;
+
+        event(new ContactGettingRelationships($rel));
+
+        return $this->countRelationships($this->contact, $rel->relationships);
     }
 }
