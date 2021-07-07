@@ -25,7 +25,7 @@ class Script extends Component
     public function __construct(string $type = '', string $scriptFile = '', string $version = '', $transaction = false)
     {
         $this->type = $type;
-        $this->scriptFile = ($scriptFile) ? $scriptFile : 'public/js/common/documents.js';
+        $this->scriptFile = ($scriptFile) ? $scriptFile : 'public/js/banking/transactions.js';
         $this->version = $this->getVersion($version);
         $this->transaction = $transaction;
     }
