@@ -150,13 +150,15 @@ export default {
         addDays(dateInput) {
             if(!default_payment_terms) return;
 
+            console.log(dateInput)
             const dateString = new Date(dateInput);
             const aMillisec = 86400000;
             const dateInMillisecs = dateString.getTime();
-            const settingPaymentTermInMs = default_payment_terms * aMillisec;
+            const settingPaymentTermInMs = parseInt(default_payment_terms) * aMillisec;
             const prospectedDueDate = new Date(dateInMillisecs + settingPaymentTermInMs);
 
             return prospectedDueDate;
+            debugger;
         },
     },
 
@@ -167,7 +169,7 @@ export default {
             }
 
             if(this.dateConfig.minDate && this.real_model > this.dateConfig.minDate ){
-                this.real_model = this.addDays(this.real_model);
+                this.real_model = this.addDays(this.dateConfig.minDate);
             }
         },
     }
