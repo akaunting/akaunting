@@ -5,7 +5,6 @@
 
     <script type="text/javascript">
         var company_currency_code = '{{ setting("default.currency") }}';
-        var default_payment_terms = '{{ setting("invoice.payment_terms") }}';
     </script>
     
     @stack('scripts_start')
