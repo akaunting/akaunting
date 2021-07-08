@@ -93,6 +93,20 @@ class Route extends Provider
                 'as'            => 'signed.' . $alias . '.',
             ], $attributes));
         });
+
+        Facade::macro('api', function ($alias, $routes, $attrs = []) {
+            $attributes = array_merge([
+                'namespace'     => 'Modules\\' . module($alias)->getStudlyName() . '\Http\Controllers\Api',
+                'prefix'        => $alias,
+                'as'            => 'api.' . $alias,
+            ], $attrs);
+
+            $api = app('Dingo\Api\Routing\Router');
+
+            return $api->version(config('api.version'), ['middleware' => ['api']], function($api) use ($attributes, $routes) {
+                $api->group($attributes, $routes);
+            });
+        });
     }
 
     /**
