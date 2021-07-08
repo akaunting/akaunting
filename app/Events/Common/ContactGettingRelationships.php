@@ -6,10 +6,10 @@ use App\Abstracts\Event;
 
 class ContactGettingRelationships extends Event
 {
-    public $rel;
+    public $contact;
 
-    public function __construct($rel)
+    public function __construct($contact)
     {
-        $this->rel = $rel;
+        $this->contact = $contact;
     }
 }
