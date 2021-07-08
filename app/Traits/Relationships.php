@@ -19,7 +19,7 @@ trait Relationships
 
         $counter = [];
 
-        foreach ($relationships as $relationship => $text) {
+        foreach ((array) $record->relationships as $relationship => $text) {
             if (!$c = $model->$relationship()->count()) {
                 continue;
             }
@@ -47,7 +47,7 @@ trait Relationships
 
         event(new RelationshipDeleting($record));
 
-        foreach ((array) $relationships as $relationship) {
+        foreach ((array) $record->relationships as $relationship) {
             if (empty($model->$relationship)) {
                 continue;
             }
