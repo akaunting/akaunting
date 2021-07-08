@@ -449,7 +449,7 @@ trait Permissions
             }
 
             // Add folder
-            if (strtolower($arr[1]) != 'controllers') {
+            if (!in_array(strtolower($arr[1]), ['api', 'controllers'])) {
                 $controller .= Str::kebab($arr[1]) . '-';
             }
 
