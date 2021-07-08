@@ -60,7 +60,7 @@ export default {
             default: false,
             description: "Input readonly status"
         },
-        props: {
+        period: {
             type: Number,
             description: "Payment period"
         },
