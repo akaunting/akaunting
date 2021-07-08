@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Events\Common\RelationshipCounting;
+use App\Events\Common\RelationshipDeleting;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
@@ -9,6 +11,12 @@ trait Relationships
 {
     public function countRelationships($model, $relationships)
     {
+        $record = new \stdClass();
+        $record->model = $model;
+        $record->relationships = $relationships;
+
+        event(new RelationshipCounting($record));
+
         $counter = [];
 
         foreach ($relationships as $relationship => $text) {
@@ -33,6 +41,12 @@ trait Relationships
      */
     public function deleteRelationships($model, $relationships)
     {
+        $record = new \stdClass();
+        $record->model = $model;
+        $record->relationships = $relationships;
+
+        event(new RelationshipDeleting($record));
+
         foreach ((array) $relationships as $relationship) {
             if (empty($model->$relationship)) {
                 continue;
