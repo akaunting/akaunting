@@ -18,7 +18,7 @@
                 <div class="row align-items-center">
                     {{ Form::dateGroup('started_at', trans('reconciliations.start_date'), 'calendar', ['id' => 'started_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'change' => 'setDueMinDate'], request('started_at', Date::now()->firstOfMonth()->toDateString()), 'col-xl-3') }}
 
-                    {{ Form::dateGroup('ended_at', trans('reconciliations.end_date'), 'calendar', ['id' => 'ended_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'min-date' => 'form.started_at', 'min-date-dynamic' => 'min_due_date', 'data-value-min' => true], request('ended_at', Date::now()->endOfMonth()->toDateString()), 'col-xl-3') }}
+                    {{ Form::dateGroup('ended_at', trans('reconciliations.end_date'), 'calendar', ['id' => 'ended_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'min-date' => 'form.started_at', 'min-date-dynamic' => 'min_due_date', 'data-value-min' => true, 'period' => 30], request('ended_at', Date::now()->endOfMonth()->toDateString()), 'col-xl-3') }}
 
                     {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency, 'dynamic-currency' => 'currency', 'input' => 'onCalculate'], request('closing_balance', 0.00), 'col-xl-2') }}
 
