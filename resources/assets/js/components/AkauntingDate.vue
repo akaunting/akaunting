@@ -110,7 +110,7 @@ export default {
             real_model: '',
         }
     },
-    
+
     created() {
         if (this.locale !== 'en') {
             const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
@@ -125,6 +125,8 @@ export default {
         if (this.model) {
             this.real_model = this.model;
         }
+
+        this.$emit('interface', this.real_model);
     },
 
     methods: {
@@ -150,7 +152,6 @@ export default {
         addDays(dateInput) {
             if(!default_payment_terms) return;
 
-            console.log(dateInput)
             const dateString = new Date(dateInput);
             const aMillisec = 86400000;
             const dateInMillisecs = dateString.getTime();
@@ -158,17 +159,20 @@ export default {
             const prospectedDueDate = new Date(dateInMillisecs + settingPaymentTermInMs);
 
             return prospectedDueDate;
-            debugger;
         },
     },
 
     watch: {
+        value: function(val) {
+            this.real_model = val;
+        },
+
         dateConfig: function() {
-            if(!default_payment_terms || this.real_model < this.dateConfig.minDate){
+            if(!default_payment_terms || this.real_model < this.dateConfig.minDate) {
                  this.real_model = this.dateConfig.minDate;
             }
 
-            if(this.dateConfig.minDate && this.real_model > this.dateConfig.minDate ){
+            if(this.dateConfig.minDate && this.real_model > this.dateConfig.minDate ) {
                 this.real_model = this.addDays(this.dateConfig.minDate);
             }
         },
