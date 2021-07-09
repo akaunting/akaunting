@@ -245,6 +245,7 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::resource('vendors', 'Modals\Vendors');
     Route::resource('items', 'Modals\Items');
     Route::patch('invoice-templates', 'Modals\InvoiceTemplates@update')->name('invoice-templates.update');
+    Route::patch('transfer-templates', 'Modals\TransferTemplates@update')->name('transfer-templates.update');
     Route::get('documents/item-columns/edit', 'Modals\DocumentItemColumns@edit')->name('documents.item-columns.edit');
     Route::patch('documents/item-columns', 'Modals\DocumentItemColumns@update')->name('documents.item-columns.update');
     Route::resource('documents/{document}/transactions', 'Modals\DocumentTransactions', ['names' => 'documents.document.transactions', 'middleware' => ['date.format', 'money', 'dropzone']]);

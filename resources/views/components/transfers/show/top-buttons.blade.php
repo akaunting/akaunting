@@ -57,9 +57,9 @@
 
             @if (!$hideButtonTemplate)
                 @stack('button_template_start')
-                <a class="dropdown-item" href="javascipt::void();">
+                <button type="button" class="dropdown-item" @click="onTemplate">
                     {{ trans('general.form.choose', ['field' => trans_choice('general.templates', 1)]) }}
-                </a>
+                </button>
                 @stack('button_template_end')
             @endif
 
