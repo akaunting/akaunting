@@ -22,12 +22,22 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
+        @if (!empty($attributes['value']))
+        :value="{{ $attributes['value'] }}"
+        @endif
+
         :date-config="{
             allowInput: true,
             wrap: true,
             enableTime: true,
             @if (!empty($attributes['seconds']))
             enableSeconds: true,
+            @endif
+            @if (!empty($attributes['time_24hr']))
+            wrap: false,
+            time_24hr: true,
+            @else
+            wrap: true,
             @endif
             noCalendar: true
         }"
