@@ -420,9 +420,7 @@ abstract class TransferShow extends Component
             return $transferTemplate;
         }
 
-        $transferTemplate = setting('transfer.template') ?: 'default';
-
-        return $transferTemplate;
+        return setting('transfer.template');
     }
 
     protected function getRouteButtonAddNew($routeButtonAddNew)

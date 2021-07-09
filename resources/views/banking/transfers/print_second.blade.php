@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.transfers', 1))
 
 @section('content')
-    <x-trasnfers.template.second
+    <x-transfers.template.second
         :transfer="$transfer"
     />
 @endsection

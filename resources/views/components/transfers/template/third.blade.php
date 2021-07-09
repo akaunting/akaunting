@@ -126,7 +126,7 @@
                             </td>
 
                             <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                @date($transfer->transferred_at)
+                                @date($transfer->expense_transaction->paid_at)
                             </td>
                         </tr>
                     @endif
@@ -138,7 +138,7 @@
                             </td>
 
                             <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $payment_methods[$transfer->payment_method] }}
+                                {{ $payment_methods[$transfer->expense_transaction->payment_method] }}
                             </td>
                         </tr>
                     @endif
@@ -150,7 +150,7 @@
                             </td>
 
                             <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $transfer->reference }}
+                                {{ $transfer->expense_transaction->reference }}
                             </td>
                         </tr>
                     @endif
@@ -162,7 +162,7 @@
                             </td>
 
                             <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $transfer->description }}
+                                {{ $transfer->expense_transaction->description }}
                             </td>
                         </tr>
                     @endif
@@ -179,7 +179,7 @@
                                 </h5>
 
                                 <p class="font-weight-bold mb-0 text-white" style="font-size: 26px; color:#ffffff; text-align:center;">
-                                    @money($transfer->amount, $transfer->from_currency_code, true)
+                                    @money($transfer->expense_transaction->amount, $transfer->expense_transaction->currency_code, true)
                                 </p>
                             </td>
                         </tr>

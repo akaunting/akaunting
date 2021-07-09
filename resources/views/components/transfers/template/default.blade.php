@@ -167,7 +167,7 @@
                                 </h5>
 
                                 <p class="font-weight-bold mb-0 text-white" style="font-size: 26px; color:#ffffff; text-align:center;">
-                                    @money($transfer->expense_transaction->amount, $transfer->from_currency_code, true)
+                                    @money($transfer->expense_transaction->amount, $transfer->expense_transaction->currency_code, true)
                                 </p>
                             </td>
                         </tr>
