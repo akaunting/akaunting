@@ -84,6 +84,15 @@ class CreateTransfer extends Job
                 'expense_transaction_id' => $expense_transaction->id,
                 'income_transaction_id' => $income_transaction->id,
             ]);
+
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, 'transfers');
+
+                    $this->transfer->attachMedia($media, 'attachment');
+                }
+            }
         });
 
         return $this->transfer;

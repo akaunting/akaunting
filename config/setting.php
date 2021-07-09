@@ -164,6 +164,9 @@ return [
                 'expense'               => env('SETTING_FALLBACK_TRANSACTION_TYPE_EXPENSE', 'expense'),
             ],
         ],
+        'transfer' => [
+            'template'                  => env('SETTING_FALLBACK_BANKING_TEMPLATE', 'default'),
+        ],
     ],
 
     /*

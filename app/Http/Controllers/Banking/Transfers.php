@@ -15,6 +15,7 @@ use App\Models\Banking\Transfer;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use Date;
+use Illuminate\Support\Str;
 
 class Transfers extends Controller
 {
@@ -39,8 +40,6 @@ class Transfers extends Controller
      */
     public function show(Transfer $transfer)
     {
-        $this->itemData($transfer);
-
         return view('banking.transfers.show', compact('transfer'));
     }
 
@@ -55,11 +54,19 @@ class Transfers extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
-
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currencies', 'currency'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency', 'file_types'));
     }
 
     /**
@@ -159,11 +166,19 @@ class Transfers extends Controller
 
         $account = $transfer->expense_transaction->account;
 
-        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
-
         $currency = Currency::where('code', $account->currency_code)->first();
 
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currencies', 'currency'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency', 'file_types'));
     }
 
     /**
@@ -238,9 +253,9 @@ class Transfers extends Controller
      *
      * @return Response
      */
-    public function printRevenue(Transfer $transfer)
+    public function printTransfer(Transfer $transfer)
     {
-        //event(new \App\Events\Banking\TransactionPrinting($transfer));
+        event(new \App\Events\Banking\TransferPrinting($transfer));
 
         $view = view($transfer->template_path, compact('transfer'));
 
@@ -254,9 +269,9 @@ class Transfers extends Controller
      *
      * @return Response
      */
-    public function pdfRevenue(Transfer $transfer)
+    public function pdfTransfer(Transfer $transfer)
     {
-        //event(new \App\Events\Banking\TransactionPrinting($transfer));
+        event(new \App\Events\Banking\TransferPrinting($transfer));
 
         $currency_style = true;
 
@@ -268,28 +283,8 @@ class Transfers extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = $this->getTransactionFileName($transfer);
+        $file_name = trans_choice('general.transfers', 1) . '-' . Str::slug($transfer->id, '-', language()->getShortCode()) . '-' . time() . '.pdf';
 
         return $pdf->download($file_name);
     }
-
-    /**
-     * Display a datas of show.
-     *
-     * @return Response
-     */
-
-    public function itemData($transfer) {
-        $transfer['from_account_id'] = $transfer->expense_transaction->account_id;
-        $transfer['from_currency_code'] = $transfer->expense_transaction->currency_code;
-        $transfer['from_account_rate'] = $transfer->expense_transaction->currency_rate;
-        $transfer['to_account_id'] = $transfer->income_transaction->account_id;
-        $transfer['to_currency_code'] = $transfer->income_transaction->currency_code;
-        $transfer['to_account_rate'] = $transfer->income_transaction->currency_rate;
-        $transfer['description'] = $transfer->expense_transaction->description;
-        $transfer['amount'] = $transfer->expense_transaction->amount;
-        $transfer['payment_method'] = $transfer->expense_transaction->payment_method;
-        $transfer['reference'] = $transfer->expense_transaction->reference;
-        $transfer['transferred_at'] = Date::parse($transfer->expense_transaction->paid_at)->format('Y-m-d');
-     }
 }
