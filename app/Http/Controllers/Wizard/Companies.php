@@ -93,7 +93,7 @@ class Companies extends Controller
                 }
             }
 
-            setting()->set($real_key, $value);            
+            setting()->set($real_key, $value);
         }
 
         // Save all settings
