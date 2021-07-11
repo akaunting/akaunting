@@ -21,6 +21,11 @@ class Dashboard
     {
         $contact = user()->contact;
 
+        // Redirect user redirect landing page..
+        if (!$contact) {
+            return redirect(user()->getLandingPageOfUser());
+        }
+
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
         // check and assign year start
