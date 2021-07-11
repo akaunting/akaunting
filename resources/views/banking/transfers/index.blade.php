@@ -52,7 +52,7 @@
                             @endphp
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->expense_transaction->account->name) }}</td>
-                                <td class="col-md-2 d-none d-md-block"><a class="col-aka" href="{{ route('transfers.edit', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
+                                <td class="col-md-2 d-none d-md-block"><a class="col-aka" href="{{ route('transfers.show', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
                                 <td class="col-sm-2 col-md-3 d-none d-sm-block long-texts">{{ $item->expense_transaction->account->name }}</td>
                                 <td class="col-xs-4 col-sm-4 col-md-2 long-texts">{{ $item->income_transaction->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 text-right long-texts">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
@@ -62,6 +62,8 @@
                                             <i class="fa fa-ellipsis-h text-muted"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="{{ route('transfers.show', $item->id) }}">{{ trans('general.show') }}</a>
+                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                             @can('delete-banking-transfers')
                                                 <div class="dropdown-divider"></div>

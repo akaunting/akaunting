@@ -38,6 +38,19 @@ class UpdateTransfer extends Job
     public function handle()
     {
         \DB::transaction(function () {
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $this->deleteMediaModel($this->transfer, 'attachment', $this->request);
+
+                foreach ($this->request->file('attachment') as $attachment) {
+                    $media = $this->getMedia($attachment, 'transfers');
+
+                    $this->transfer->attachMedia($media, 'attachment');
+                }
+            } elseif (!$this->request->file('attachment') && $this->transfer->attachment) {
+                $this->deleteMediaModel($this->transfer, 'attachment', $this->request);
+            }
+
             $expense_currency_code = $this->getCurrencyCode('from');
             $income_currency_code = $this->getCurrencyCode('to');
 

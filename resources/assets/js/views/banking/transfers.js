@@ -19,7 +19,7 @@ import BulkAction from './../../plugins/bulk-action';
 Vue.use(DashboardPlugin);
 
 const app = new Vue({
-    el: '#app',
+    el: '#main-body',
 
     mixins: [
         Global
@@ -30,6 +30,15 @@ const app = new Vue({
             form: new Form('transfer'),
             bulk_action: new BulkAction('transfers'),
             show_rate: false,
+
+            transfer_form: new Form('template'),
+            template: {
+                modal: false,
+                title: '',
+                message: '',
+                html: '',
+                errors: new Error()
+            },
         }
     },
 
@@ -86,6 +95,36 @@ const app = new Vue({
                     this.show_rate = true;
                 }
             });
+        },
+
+        onTemplate() {
+            this.template.modal = true;
+
+            this.transfer_form = new Form('template');
+
+            this.transfer_form.template = this.transfer_form._template;
+        },
+
+        addTemplate() {
+            if (this.transfer_form.template != 1) {
+
+                this.transfer_form.submit();
+
+                this.template.errors = this.transfer_form.errors;
+            }
+
+            this.form.loading = true;
+
+            this.$emit("confirm");
+        },
+
+        closeTemplate() {
+            this.template = {
+                modal: false,
+                title: '',
+                message: '',
+                errors: this.transfer_form.errors
+            };
         },
     }
 });

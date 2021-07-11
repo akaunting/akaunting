@@ -41,6 +41,8 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'w-100', 'multiple' => 'multiple', 'options' => ['acceptedFiles' => $file_types]], null , 'col-md-12') }}
+
                     {!! Form::hidden('currency_code', null, ['id' => 'currency_code', 'v-model' => 'form.currency_code']) !!}
                     {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate', 'v-model' => 'form.currency_rate']) !!}
                 </div>

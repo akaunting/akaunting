@@ -15,6 +15,7 @@ use App\Models\Banking\Transfer;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use Date;
+use Illuminate\Support\Str;
 
 class Transfers extends Controller
 {
@@ -37,9 +38,9 @@ class Transfers extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Transfer $transfer)
     {
-        return redirect()->route('transfers.index');
+        return view('banking.transfers.show', compact('transfer'));
     }
 
     /**
@@ -53,11 +54,19 @@ class Transfers extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
-
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currencies', 'currency'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency', 'file_types'));
     }
 
     /**
@@ -72,7 +81,7 @@ class Transfers extends Controller
         $response = $this->ajaxDispatch(new CreateTransfer($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('transfers.index');
+            $response['redirect'] = route('transfers.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -86,6 +95,24 @@ class Transfers extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function duplicate(Transfer $transfer)
+    {
+        $clone = $transfer->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.transfers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('transfers.show', $clone->id);
     }
 
     /**
@@ -139,11 +166,19 @@ class Transfers extends Controller
 
         $account = $transfer->expense_transaction->account;
 
-        $currencies = Currency::enabled()->orderBy('name')->get()->makeHidden(['id', 'company_id', 'created_at', 'updated_at', 'deleted_at']);
-
         $currency = Currency::where('code', $account->currency_code)->first();
 
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currencies', 'currency'));
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency', 'file_types'));
     }
 
     /**
@@ -159,7 +194,7 @@ class Transfers extends Controller
         $response = $this->ajaxDispatch(new UpdateTransfer($transfer, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('transfers.index');
+            $response['redirect'] = route('transfers.show', $transfer->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -209,5 +244,47 @@ class Transfers extends Controller
     public function export()
     {
         return $this->exportExcel(new Export, trans_choice('general.transfers', 2));
+    }
+
+    /**
+     * Print the transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function printTransfer(Transfer $transfer)
+    {
+        event(new \App\Events\Banking\TransferPrinting($transfer));
+
+        $view = view($transfer->template_path, compact('transfer'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function pdfTransfer(Transfer $transfer)
+    {
+        event(new \App\Events\Banking\TransferPrinting($transfer));
+
+        $currency_style = true;
+
+        $view = view($transfer->template_path, compact('transfer', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = trans_choice('general.transfers', 1) . '-' . Str::slug($transfer->id, '-', language()->getShortCode()) . '-' . time() . '.pdf';
+
+        return $pdf->download($file_name);
     }
 }
