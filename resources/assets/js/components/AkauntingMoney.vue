@@ -156,7 +156,7 @@ export default {
 
     mounted() {
         //this.model = this.value;
-
+        console.log(this.moneyClass)
         if (this.dynamicCurrency.code != this.currency.code) {
             if (!this.dynamicCurrency.decimal) {
                 this.money = {
@@ -224,5 +224,9 @@ export default {
 <style scoped>
     .text-right.input-price .v-money {
         text-align: right;
+    }
+
+    .form-control {
+        font-size: 13px;
     }
 </style>

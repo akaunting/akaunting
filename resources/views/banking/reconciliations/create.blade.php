@@ -108,26 +108,26 @@
                                 </td>
                             </tr>
                             <tr class="row">
-                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.closing_balance') }}:</th>
-                                <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block pt-0">
-                                    <div class="mt-1">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block pt-4 pb-1">{{ trans('reconciliations.closing_balance') }}:</th>
+                                <td id="closing-balance" class="col-md-1 col-lg-1 align-baseline text-right d-none d-md-block">
+                                    <div>
                                         {{ Form::moneyGroup('closing_balance_total', '', '', ['disabled' => true, 'row-input' => 'true', 'v-model' => 'totals.closing_balance', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money banking-price-text'], 0.00, 'text-right disabled-money') }}
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row">
-                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.cleared_amount') }}:</th>
-                                <td id="cleared-amount" class="col-md-3 col-lg-1 text-right d-none d-md-block pt-0">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block pt-4 pb-1">{{ trans('reconciliations.cleared_amount') }}:</th>
+                                <td id="cleared-amount" class="col-md-1 align-baseline text-right pr-0 px-2 m-0">
                                     <div class="mt-1">
-                                        {{ Form::moneyGroup('cleared_amount_total', '', '', ['disabled' => true, 'row-input' => 'true', 'v-model' => 'totals.cleared_amount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money banking-price-text'], 0.00, 'text-right disabled-money') }}
+                                        {{ Form::moneyGroup('cleared_amount_total', '', '', ['disabled' => true, 'row-input' => 'true', 'v-model' => 'totals.cleared_amount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money banking-price-text js-conversion-input'], 0.00, 'disabled-money') }}
                                     </div>
                                 </td>
                             </tr>
                             <tr :class="difference" class="row">
-                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('general.difference') }}:</th>
-                                <td id="difference" class="col-md-3 col-lg-1 text-right d-none d-md-block pt-0">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block pt-4 align-middle pb-3">{{ trans('general.difference') }}:</th>
+                                <td id="difference" class="col-md-1 align-baseline text-right pr-0 px-2 m-0">
                                     <div class="mt-1 difference-money">
-                                        {{ Form::moneyGroup('difference_total', '', '', ['disabled' => true, 'row-input' => 'true', 'v-model' => 'totals.difference', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money banking-price-text'], 0.00, 'text-right disabled-money') }}
+                                        {{ Form::moneyGroup('difference_total', '', '', ['disabled' => true, 'row-input' => 'true', 'v-model' => 'totals.difference', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money banking-price-text js-conversion-input'], 0.00, 'disabled-money') }}
                                     </div>
                                 </td>
                             </tr>
