@@ -48,11 +48,23 @@
          if (this.form._method == 'PATCH') {
              this.onCalculate();
          }
+         this.currencyConversion();
      },
  
      methods:{
          setDueMinDate(date) {
              this.min_due_date = date;
+         },
+
+         currencyConversion() {
+            setTimeout(() => {
+                if(document.querySelectorAll('.js-conversion-input')) {
+                    let currency_input = document.querySelectorAll('.js-conversion-input');
+                    for(let input of currency_input) {
+                        input.setAttribute('size', input.value.length);
+                    }
+                }
+              }, 250)
          },
          
          onReconcilition() {
