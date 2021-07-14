@@ -14,7 +14,7 @@
     <akaunting-modal
         :show="template.modal"
         @cancel="template.modal = false"
-        :title="'{{ trans('settings.invoice.choose_template') }}'"
+        :title="'{{ trans('settings.transfer.choose_template') }}'"
         :message="template.html"
         :button_cancel="'{{ trans('general.button.save') }}'"
         :button_delete="'{{ trans('general.button.cancel') }}'">
