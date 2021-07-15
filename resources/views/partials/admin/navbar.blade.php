@@ -336,6 +336,8 @@
                                 <span>{{ trans('auth.profile') }}</span>
                             </a>
                         @endcanany
+                        
+                        @stack('navbar_profile_edit_end')
 
                         @canany(['read-auth-users', 'read-auth-roles', 'read-auth-permissions'])
                             <div class="dropdown-divider"></div>

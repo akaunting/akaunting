@@ -21,7 +21,7 @@
                     @foreach($module->get('settings') as $field)
                         @php $type = $field['type']; @endphp
 
-                        @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup'))
+                        @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup') || ($type == 'numberGroup'))
                             {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['attributes']) }}
                         @elseif ($type == 'textareaGroup')
                             {{ Form::$type($field['name'], trans($field['title'])) }}
