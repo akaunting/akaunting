@@ -155,10 +155,10 @@ export default {
 
         addDays(dateInput) {
             if(!this.period) return;
-
             const dateString = new Date(dateInput);
             const aMillisec = 86400000;
             const dateInMillisecs = dateString.getTime();
+            
             const settingPaymentTermInMs = parseInt(this.period) * aMillisec;
             const prospectedDueDate = new Date(dateInMillisecs + settingPaymentTermInMs);
 
@@ -175,6 +175,7 @@ export default {
            if(this.dateConfig.minDate) { 
                 if(this.real_model < this.dateConfig.minDate){
                     this.real_model = this.addDays(this.dateConfig.minDate);
+                    debugger;
                 }
             }
         },
