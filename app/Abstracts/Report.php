@@ -32,6 +32,8 @@ abstract class Report
 
     public $icon = 'fa fa-chart-pie';
 
+    public $has_money = true;
+
     public $year;
 
     public $views = [];
@@ -142,7 +144,7 @@ abstract class Report
                 $sum += is_array($total) ? array_sum($total) : $total;
             }
 
-            $total = money($sum, setting('default.currency'), true)->format();
+            $total = $this->has_money ? money($sum, setting('default.currency'), true)->format() : $sum;
         } else {
             $total = trans('general.na');
         }

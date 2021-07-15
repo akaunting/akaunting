@@ -8,7 +8,7 @@ use App\Models\Setting\Category;
 use App\Traits\Contacts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
-use Date;
+use App\Utilities\Date;
 
 abstract class Report
 {
@@ -208,7 +208,7 @@ abstract class Report
 
                     $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($event->class->model->year));
                     $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($event->class->model->year));
-                    
+
                     $formatted_date = $start . '-' . $end;
                 }
 
