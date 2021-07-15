@@ -31,7 +31,9 @@ class CreateDocumentTransaction
 
             $type = Str::plural($event->document->type);
 
-            if (empty($user)) {
+            $signed = request()->isSigned($document->company_id);
+
+            if (empty($user) || $signed) {
                 flash($message)->error()->important();
 
                 redirect()->route("signed.$type.show", $document->id)->send();
