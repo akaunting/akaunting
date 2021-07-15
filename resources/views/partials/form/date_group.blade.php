@@ -43,7 +43,7 @@
 
         locale="{{ language()->getShortCode() }}"
 
-        @if (!empty($attributes['period']))
+        @if (isset($attributes['period']))
         period="{{ $attributes['period'] }}"
         @endif
 
