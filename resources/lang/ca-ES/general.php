@@ -115,7 +115,7 @@ return [
     'all'                   => 'Tot',
     'all_type'              => 'Tot :type',
     'upcoming'              => 'Pròxims',
-    'created'               => 'Creat',
+    'created'               => 'Creat/da',
     'id'                    => 'ID',
     'more_actions'          => 'Més accions',
     'duplicate'             => 'Duplica',

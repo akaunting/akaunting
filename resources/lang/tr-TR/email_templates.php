@@ -47,4 +47,13 @@ return [
         'body'          => 'Merhaba,<br /><br />{vendor_name} tedarikçinizin ödeme dönemine uygun olarak <strong>{bill_number}</strong> numaralı gider faturası otomatik olarak oluşturuldu.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} ödemesi oluşturuldu',
+        'body'          => 'Sayın {customer_name},<br /><br />Aşağıdaki ödemeyi hazırladık. <br /><br />Ödeme ayrıntılarını şu bağlantıdan görebilirsiniz: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Bizimle iletişime geçmekten çekinmeyin. herhangi bir sorunuz varsa..<br /><br />Saygılarımızla,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} ödemesi oluşturuldu',
+        'body'          => 'Sayın {vendor_name},<br /><br />Aşağıdaki ödemeyi hazırladık. <br /><br />Ödeme ayrıntılarını aşağıdaki bağlantıdan görebilirsiniz: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Bizimle iletişime geçmekten çekinmeyin. herhangi bir sorunuz varsa..<br /><br />Saygılarımızla,<br />{company_name}',
+    ],
 ];

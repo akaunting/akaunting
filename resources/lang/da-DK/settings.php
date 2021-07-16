@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Vælg overførselsskabelon',
+        'second'            => 'Anden',
+        'third'             => 'Tredje',
+    ],
+
     'default' => [
         'description'       => 'Standard konto, valuta og sprog',
         'list_limit'        => 'Poster pr side',

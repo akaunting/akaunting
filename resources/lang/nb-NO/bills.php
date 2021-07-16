@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Fakturanummer',
     'bill_date'             => 'Fakturadato',
+    'bill_amount'           => 'Fakturabeløp',
     'total_price'           => 'Totalpris',
     'due_date'              => 'Forfallsdato',
     'order_number'          => 'Ordrenummer',
@@ -44,7 +45,7 @@ return [
         'status' => [
             'created'       => 'Opprettet :date',
             'receive' => [
-                'draft'     => 'Ikke sendt',
+                'draft'     => 'Ikke mottatt',
                 'received'  => 'Mottatt :date',
             ],
             'paid' => [

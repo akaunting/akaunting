@@ -51,6 +51,7 @@ return [
     'templates'             => 'Vorlage|Vorlagen',
     'sales'                 => 'Einnahme|Einnahmen',
     'purchases'             => 'Ausgabe|Ausgaben',
+    'notifications'         => 'Benachrichtigung|Benachrichtigungen',
 
     'welcome'               => 'Willkommen',
     'banking'               => 'Bankwesen',
@@ -161,6 +162,7 @@ return [
     'due_on'                => 'Fällig am',
     'amount_due'            => 'Fälliger Betrag',
     'financial_year'        => 'Geschäftsjahr',
+    'created'               => 'Erstellt',
 
     'card' => [
         'cards'                 => 'Karte|Karten',

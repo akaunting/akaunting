@@ -47,4 +47,13 @@ return [
         'body'          => 'Olá,<br /><br /> Baseado no círculo recorrente de {vendor_name}, a fatura <strong>{bill_number}</strong> foi criada automaticamente.<br /><br />Você pode ver os detalhes da fatura a partir do seguinte link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} pagamento criado',
+        'body'          => 'Caro {customer_name},<br /><br />Nós preparamos a seguinte fatura para você: <strong>{invoice_number}</strong>.<br /><br />Você pode ver os detalhes da fatura e prosseguir com o pagamento a partir do seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Sinta-se a vontade para entrar em contato conosco para qualquer pergunta.<br /><br />Atenciosamente,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} pagamento criado',
+        'body'          => 'Caro {vendor_name},<br /><br />Preparamos o seguinte pagamento. <br /><br />Você pode ver os detalhes do pagamento do seguinte link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Sinta-se à vontade para nos contatar em qualquer dúvida.<br /><br />Atenciosamente,<br />{company_name}',
+    ],
 ];

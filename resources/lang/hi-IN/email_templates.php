@@ -47,4 +47,13 @@ return [
         'body'          => 'नमस्ते,<br/><br/>{vendor_name} के आवर्ती सर्कल के आधार पर, <strong>{bill_number}</strong> चालान स्वचालित रूप से बनाया गया है।<br/><br/>आप नीचे दिए गए लिंक से बिल का विवरण देख सकते हैं: <a href="{bill_admin_link}">{bill_number}</a>।<br/><br/>सादर,<br/>{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} भुगतान बनाया गया',
+        'body'          => 'प्रिय {customer_name},<br /><br />हमने निम्नलिखित भुगतान तैयार किया है।<br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं : <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />किसी भी प्रश्न के लिए हमसे बेझिझक संपर्क करें..<br /><br />सादर,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} भुगतान बनाया गया',
+        'body'          => 'प्रिय {{vendor_name}},<br /><br />हमने निम्नलिखित भुगतान तैयार किया है।<br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं : <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />किसी भी प्रश्न के लिए हमसे बेझिझक संपर्क करें..<br /><br />सादर,<br />{company_name}',
+    ],
 ];

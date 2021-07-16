@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Fatura Numarası',
     'bill_date'             => 'Fatura Tarihi',
+    'bill_amount'           => 'Fatura Tutarı',
     'total_price'           => 'Toplam Tutar',
     'due_date'              => 'Vade Tarihi',
     'order_number'          => 'Sipariş Numarası',
@@ -44,7 +45,7 @@ return [
         'status' => [
             'created'       => ':date tarihinde oluşturuldu',
             'receive' => [
-                'draft'     => 'Gönderilmedi',
+                'draft'     => 'Alınamadı',
                 'received'  => ':date tarihinde alındı',
             ],
             'paid' => [

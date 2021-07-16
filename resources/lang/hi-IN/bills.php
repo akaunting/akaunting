@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'बिल संख्या',
     'bill_date'             => 'बिल तारीख',
+    'bill_amount'           => 'बिल राशि',
     'total_price'           => 'कुल राशि',
     'due_date'              => 'नियत तारीख',
     'order_number'          => 'ऑर्डर संख्या',

@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'चालान संख्या',
     'invoice_date'          => 'चालान तारीख',
+    'invoice_amount'        => 'चालान राशि',
     'total_price'           => 'कुल कीमत',
     'due_date'              => 'नियत तारीख',
     'order_number'          => 'क्रम संख्या',

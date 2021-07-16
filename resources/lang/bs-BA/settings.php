@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Odaberite šablon prenosa',
+        'second'            => 'Drugi',
+        'third'             => 'Treći',
+    ],
+
     'default' => [
         'description'       => 'Zadani račun, valuta, jezik vaše tvrtke',
         'list_limit'        => 'Zapisa po stranici',
