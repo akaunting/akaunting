@@ -10,7 +10,7 @@
             'class' => 'form-loading-button mb-0',
             'novalidate' => true
     ]) !!}
-        <div class="row mt-4">
+        <div class="row mb-4">
             <div class="col-md-4 text-center">
                 <div class="bg-print border-radius-default print-edge choose" @click="transfer_form.template='default'">
                     <img src="{{ asset('public/img/transfer_templates/default.png') }}" class="mb-1 mt-3" height="200" alt="Default"/>
