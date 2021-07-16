@@ -324,17 +324,23 @@ abstract class Report
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
+        $group_field = $this->getSetting('group') . '_id';
+
         foreach ($items as $item) {
             // Make groups extensible
             $item = $this->applyGroups($item);
 
             $date = $this->getFormattedDate(Date::parse($item->$date_field));
 
-            $id_field = $this->getSetting('group') . '_id';
+            if (!isset($item->$group_field)) {
+                continue;
+            }
+
+            $group = $item->$group_field;
 
             if (
-                !isset($this->row_values[$table][$item->$id_field])
-                || !isset($this->row_values[$table][$item->$id_field][$date])
+                !isset($this->row_values[$table][$group])
+                || !isset($this->row_values[$table][$group][$date])
                 || !isset($this->footer_totals[$table][$date])
             ) {
                 continue;
@@ -345,15 +351,78 @@ abstract class Report
             $type = ($item->type === Document::INVOICE_TYPE || $item->type === 'income') ? 'income' : 'expense';
 
             if (($check_type == false) || ($type == 'income')) {
-                $this->row_values[$table][$item->$id_field][$date] += $amount;
+                $this->row_values[$table][$group][$date] += $amount;
 
                 $this->footer_totals[$table][$date] += $amount;
             } else {
-                $this->row_values[$table][$item->$id_field][$date] -= $amount;
+                $this->row_values[$table][$group][$date] -= $amount;
 
                 $this->footer_totals[$table][$date] -= $amount;
             }
         }
+    }
+
+    public function setArithmeticTotals($items, $date_field, $operator = 'add', $table = 'default', $amount_field = 'amount')
+    {
+        $group_field = $this->getSetting('group') . '_id';
+
+        $function = $operator . 'ArithmeticAmount';
+
+        foreach ($items as $item) {
+            // Make groups extensible
+            $item = $this->applyGroups($item);
+
+            $date = $this->getFormattedDate(Date::parse($item->$date_field));
+
+            if (!isset($item->$group_field)) {
+                continue;
+            }
+
+            $group = $item->$group_field;
+
+            if (
+                !isset($this->row_values[$table][$group])
+                || !isset($this->row_values[$table][$group][$date])
+                || !isset($this->footer_totals[$table][$date])
+            ) {
+                continue;
+            }
+
+            $amount = isset($item->$amount_field) ? $item->$amount_field : 1;
+
+            $this->$function($this->row_values[$table][$group][$date], $amount);
+            $this->$function($this->footer_totals[$table][$date], $amount);
+        }
+    }
+
+    public function addArithmeticAmount(&$current, $amount)
+    {
+        $current = $current + $amount;
+    }
+
+    public function subArithmeticAmount(&$current, $amount)
+    {
+        $current = $current - $amount;
+    }
+
+    public function mulArithmeticAmount(&$current, $amount)
+    {
+        $current = $current * $amount;
+    }
+
+    public function divArithmeticAmount(&$current, $amount)
+    {
+        $current = $current / $amount;
+    }
+
+    public function modArithmeticAmount(&$current, $amount)
+    {
+        $current = $current % $amount;
+    }
+
+    public function expArithmeticAmount(&$current, $amount)
+    {
+        $current = $current ** $amount;
     }
 
     public function applyFilters($model, $args = [])
