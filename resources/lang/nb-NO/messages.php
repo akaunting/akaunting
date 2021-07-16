@@ -8,9 +8,13 @@ return [
         'deleted'           => ':type slettet.',
         'duplicated'        => ':type duplisert.',
         'imported'          => ':type importert.',
+        'import_queued'     => ':type import er planlagt! Du vil motta en e-post når det er ferdig.',
         'exported'          => ':type eksportert!',
+        'export_queued'     => ':type eksport av gjeldende side er planlagt! Du vil motta en e-post når den er klar til å laste ned.',
         'enabled'           => ':type aktivert!',
         'disabled'          => ':type deaktivert!',
+
+        'clear_all'         => 'Utmerket! Du har slettet all din :type.',
     ],
 
     'error' => [
@@ -21,7 +25,7 @@ return [
         'last_category'     => 'Feil: Kan ikke slette siste :type kategori.',
         'change_type'       => 'Feil: Du kan ikke endre denne typen fordi den har relatert :text!',
         'invalid_apikey'    => 'Feil: API nøkkelen du har skrevet er feil!',
-        'import_column'     => 'Feil: :message Arknavn: :sheet. Linjenummer: :line.',
+        'import_column'     => 'Feil: :message kolonnenavn: :column. Linjenummer: :line.',
         'import_sheet'      => 'Feil: Arknavn er ikke gyldig. Vennligst sjekk malfilen.',
     ],
 

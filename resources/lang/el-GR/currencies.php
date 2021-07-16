@@ -3,11 +3,12 @@
 return [
 
     'code'                  => 'Κωδικός',
-    'rate'                  => 'Ποσοστό',
+    'rate'                  => 'Ισοτιμία',
     'default'               => 'Προεπιλεγμένο νόμισμα',
     'decimal_mark'          => 'Υποδιαστολή',
     'thousands_separator'   => 'Σύμβολο διαχωρισμού χιλιάδων',
     'precision'             => 'Ακρίβεια',
+    'conversion'            => 'Συνάλλαγμα: :price (:currency_code) προς :currency_rate',
     'symbol' => [
         'symbol'            => 'Σύμβολο',
         'position'          => 'Θέση συμβόλου',

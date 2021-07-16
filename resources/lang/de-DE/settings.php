@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Wählen Sie eine Vorlage aus',
+        'second'            => 'Zweite',
+        'third'             => 'Dritte',
+    ],
+
     'default' => [
         'description'       => 'Standardkonto, Währung, Sprache Ihres Unternehmens',
         'list_limit'        => 'Datensätze pro Seite',
@@ -115,6 +121,7 @@ return [
             'invoice_payment_admin'     => 'Vorlage für Zahlungseingang (an Admin gesendet)',
             'bill_remind_admin'         => 'Vorlage für Erinnerungen - Ausgaben (an Admin gesendet)',
             'bill_recur_admin'          => 'Vorlage für wiederkehrende Rechnungen - Ausgaben (an Admin gesendet)',
+            'revenue_new_customer'      => 'Vorlage für Zahlungseingang (an Kunden gesendet)',
         ],
     ],
 

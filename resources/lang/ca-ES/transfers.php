@@ -6,6 +6,7 @@ return [
     'from_account_rate'     => 'Tipus del compte origen',
     'to_account'            => 'Compte destí',
     'to_account_rate'       => 'Tipus del compte destinació',
+    'details'               => 'Detall|Detalls',
 
     'messages' => [
         'delete'            => ':from a :to (:amount)',

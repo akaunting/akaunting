@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Escolher modelo de transferência',
+        'second'            => 'Segundo',
+        'third'             => 'Terceiro',
+    ],
+
     'default' => [
         'description'       => 'Conta padrão, moeda, idioma de sua empresa',
         'list_limit'        => 'Registros por Página',

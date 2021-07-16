@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Choose transfer template',
+        'second'            => 'Second',
+        'third'             => 'Third',
+    ],
+
     'default' => [
         'description'       => 'Default account, currency, language of your company',
         'list_limit'        => 'Records Per Page',

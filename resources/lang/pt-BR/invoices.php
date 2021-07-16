@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Número da Fatura',
     'invoice_date'          => 'Data de Emissão',
+    'invoice_amount'        => 'Valor da Fatura',
     'total_price'           => 'Valor total',
     'due_date'              => 'Data de Vencimento',
     'order_number'          => 'Número',

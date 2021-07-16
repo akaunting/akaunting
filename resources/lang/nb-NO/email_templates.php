@@ -47,4 +47,13 @@ return [
         'body'          => 'Hei,<br /><br />Basert på {vendor_name} sin betalingsordning for deg, er faktura <strong>{bill_number}</strong> automatisk opprettet.<br /><br />Du kan se fakturadetaljene på følgende lenke: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Vennlig hilsen,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} betaling opprettet',
+        'body'          => 'Kjære {customer_name},<br /><br />Vi har opprettet følgende faktura til deg. <br /><br />Du kan se fakturadetaljene og fortsette med betaling på følgende lenke: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Vennligst kontakt oss hvis du har spørsmål.<br /><br />Vennlig hilsen,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} betaling opprettet',
+        'body'          => 'Kjære {customer_name},<br /><br />Vi har opprettet følgende faktura til deg: <strong>{invoice_number}</strong>.<br /><br />Du kan se fakturadetaljene og fortsette med betaling på følgende lenke: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Vennligst kontakt oss hvis du har spørsmål.<br /><br />Vennlig hilsen,<br />{company_name}',
+    ],
 ];

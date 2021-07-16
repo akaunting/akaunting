@@ -13,6 +13,8 @@ return [
         'export_queued'     => ':type import har schemalagts! Du kommer att få ett e-postmeddelande när den är klar.',
         'enabled'           => ': typ aktiverad!',
         'disabled'          => ':type inaktiverat!',
+
+        'clear_all'         => 'Bra! Du har rensat alla dina :type.',
     ],
 
     'error' => [
