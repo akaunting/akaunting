@@ -6,6 +6,7 @@
         "guzzlehttp/guzzle": "*",
         "guzzlehttp/psr7": "*",
         "laravel/framework": "*",
+        "omnipay/common": "*",
         "symfony/http-foundation": "*"
     },
     "scripts": {
