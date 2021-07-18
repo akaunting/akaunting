@@ -20,7 +20,7 @@ class Tax extends FormRequest
             $id = null;
         }
 
-        $company_id = $this->request->get('company_id');
+        $company_id = (int) $this->request->get('company_id');
 
         $type = 'required|string';
 

@@ -52,7 +52,7 @@ return [
         'firewall.referrer',
         'firewall.rfi',
         'firewall.session',
-        'firewall.sqli',
+        //'firewall.sqli',
         'firewall.swear',
         'firewall.xss',
         //'App\Http\Middleware\YourCustomRule',
