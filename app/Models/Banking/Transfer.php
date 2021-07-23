@@ -6,12 +6,13 @@ use App\Abstracts\Model;
 use App\Models\Common\Media as MediaModel;
 use App\Traits\Currencies;
 use App\Traits\Media;
+use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Transfer extends Model
 {
-    use BelongsToThrough, Currencies, HasFactory, Media;
+    use BelongsToThrough, Cloneable, Currencies, HasFactory, Media;
 
     protected $table = 'transfers';
 
@@ -30,6 +31,13 @@ class Transfer extends Model
      * @var array
      */
     public $sortable = ['expense.paid_at', 'expense.amount', 'expense.name', 'income.name'];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['expense_transaction', 'income_transaction'];
 
     public function expense_transaction()
     {
