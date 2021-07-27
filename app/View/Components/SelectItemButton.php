@@ -16,16 +16,20 @@ class SelectItemButton extends Component
     /** @var bool */
     public $isPurchase;
 
+    /** @var int */
+    public $searchCharLimit;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $type = 'sale', bool $isSale = false, bool $isPurchase = false)
+    public function __construct(string $type = 'sale', bool $isSale = false, bool $isPurchase = false, int $searchCharLimit = 3)
     {
         $this->type = $type;
         $this->isSale = $isSale;
         $this->isPurchase = $isPurchase;
+        $this->searchCharLimit = $searchCharLimit;
     }
 
     /**
