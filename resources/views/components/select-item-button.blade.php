@@ -6,6 +6,7 @@
     price="{{ $price }}"
     :dynamic-currency="currency"
     :items="{{ json_encode($items) }}"
+    :search-char-limit="3"
     @item="onSelectedItem($event)"
     add-item-text="{{ trans('general.form.add_an', ['field' => trans_choice('general.items', 1)]) }}"
     create-new-item-text="{{ trans('general.title.create', ['type' =>  trans_choice('general.items', 1)]) }}"
