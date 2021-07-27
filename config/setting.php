@@ -122,6 +122,7 @@ return [
             'color'                     => env('SETTING_FALLBACK_INVOICE_COLOR', '#55588b'),
             'logo_size_width'           => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_WIDTH', 128),
             'logo_size_height'          => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_HEIGHT', 128),
+            'item_search_char_limit'    => env('SETTING_FALLBACK_INVOICE_ITEM_SEARCH_CHAR_LIMIT', 3),
         ],
         'bill' => [
             'number_prefix'             => env('SETTING_FALLBACK_BILL_NUMBER_PREFIX', 'BILL-'),
@@ -133,6 +134,7 @@ return [
             'payment_terms'             => env('SETTING_FALLBACK_BILL_PAYMENT_TERMS', '0'),
             'template'                  => env('SETTING_FALLBACK_BILL_TEMPLATE', 'default'),
             'color'                     => env('SETTING_FALLBACK_BILL_COLOR', '#55588b'),
+            'item_search_char_limit'    => env('SETTING_FALLBACK_BILL_ITEM_SEARCH_CHAR_LIMIT', 3),
         ],
         'default' => [
             'currency'                  => env('SETTING_FALLBACK_DEFAULT_CURRENCY', 'USD'),

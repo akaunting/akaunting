@@ -68,6 +68,7 @@
             text-amount="{{ $textAmount }}"
             is-sale-price="{{ $isSalePrice }}"
             is-purchase-price="{{ $isPurchasePrice }}"
+            search-char-limit="{{ $searchCharLimit }}"
             notes-setting="{{ $notesSetting }}"
         />
 

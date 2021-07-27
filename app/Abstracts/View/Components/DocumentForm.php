@@ -207,6 +207,9 @@ abstract class DocumentForm extends Base
 
     /** @var bool */
     public $isPurchasePrice;
+
+    /** @var int */
+    public $searchCharLimit;
     /** Items Component End */
 
     /**
@@ -240,7 +243,7 @@ abstract class DocumentForm extends Base
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false,
         bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false,
         bool $hideEditItemColumns = false,
-        bool $isSalePrice = false, bool $isPurchasePrice = false
+        bool $isSalePrice = false, bool $isPurchasePrice = false, int $searchCharLimit = 0
         /** Items Component End */
     ) {
         $this->type = $type;
@@ -325,6 +328,7 @@ abstract class DocumentForm extends Base
         $this->hideEditItemColumns = $hideEditItemColumns;
         $this->isSalePrice = $isSalePrice;
         $this->isPurchasePrice = $isPurchasePrice;
+        $this->searchCharLimit = $this->getSearchCharLimit($type, $searchCharLimit);
         /** Items Component End */
     }
 
@@ -1019,5 +1023,26 @@ abstract class DocumentForm extends Base
         }
 
         return setting($this->getSettingKey($this->type, 'notes'));
+    }
+
+    protected function getSearchCharLimit($type, $searchCharLimit)
+    {
+        if (!empty($searchCharLimit)) {
+            return $searchCharLimit;
+        }
+
+        // if you use settting translation
+        if ($settingCharLimit = setting($this->getSettingKey($type, 'item_search_chart_limit'), false)) {
+            return $settingCharLimit;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'item_search_char_limit');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.item_search_char_limit', $searchCharLimit);
     }
 }
