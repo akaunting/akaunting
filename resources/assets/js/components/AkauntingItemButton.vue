@@ -33,7 +33,7 @@
                 </div>
 
                 <ul class="aka-select-menu-options">
-                    <div class="aka-select-menu-option" v-for="(item, index) in sortItems" :key="index" @click="onItemSeleted(index, item.id)">
+                    <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSeleted(index, item.id)">
                         <div class="item-select w-100">
                             <div class="item-select-column item-select-info w-75">
                                 <b class="item-select-info-name"><span>{{ item.name }}</span></b>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="aka-select-menu-option" v-if="!sortItems.length">
+                    <div class="aka-select-menu-option" v-if="!sortedItems.length">
                         <div>
                             <strong class="text-strong" v-if="!items.length && !search">
                                 <span>{{ noDataText }}</span>
@@ -128,7 +128,6 @@ export default {
             default: () => [],
             description: 'List of Items'
         },
-
         addNew: {
             type: Object,
             default: function () {
@@ -187,18 +186,22 @@ export default {
             },
             description: "Default currency"
         },
+        searchCharLimit: {
+            type: Number,
+            default: 3,
+            description: "Character limit for item search input"
+        }
     },
 
     data() {
         return {
             item_list: [],
             selected_items: [],
-            search: '', // search cloumn model
+            search: '', // search coLumn model
             show: {
                 item_selected: false,
                 item_list: false,
             },
-
             form: {},
             add_new: {
                 text: this.addNew.text,
@@ -266,7 +269,11 @@ export default {
         },
 
         onInput() {
-            if (!this.search) {
+           if (this.search.length < this.searchCharLimit) {
+                this.setItemList(this.items);
+                this.sortItems();
+                this.$emit('input', this.search);
+
                 return;
             }
 
@@ -496,13 +503,6 @@ export default {
                 this.setItemList(this.items);
             }
         },
-    },
-
-    created() {
-        this.setItemList(this.items);
-    },
-
-    computed: {
         sortItems() {
             this.item_list.sort(function (a, b) {
                 var nameA = a.value.toUpperCase(); // ignore upper and lowercase
@@ -520,9 +520,21 @@ export default {
                 return 0;
             });
 
-            return this.item_list.filter(item => {
-                return item.value.toLowerCase().includes(this.search.toLowerCase())
-            });
+            const sortedItemList = this.item_list.filter(item => 
+                item.value.toLowerCase().includes(this.search.toLowerCase())
+            );
+
+            return sortedItemList;
+        },
+    },
+
+    created() {
+        this.setItemList(this.items);
+    },
+
+    computed: {
+        sortedItems() {
+            return this.sortItems();
         },
     },
 
