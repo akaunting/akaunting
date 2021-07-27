@@ -197,7 +197,7 @@ export default {
         return {
             item_list: [],
             selected_items: [],
-            search: '', // search coLumn model
+            search: '', // search column model
             show: {
                 item_selected: false,
                 item_list: false,
@@ -269,12 +269,17 @@ export default {
         },
 
         onInput() {
-           if (this.search.length < this.searchCharLimit) {
-                this.setItemList(this.items);
-                this.sortItems();
-                this.$emit('input', this.search);
-
+            //to optimize performance we kept the condition that checks for if search exists or not
+            if (!this.search) {
                 return;
+            }
+            //condition that checks if input is below the given character limit 
+            if (this.search.length < this.searchCharLimit) {
+                    this.setItemList(this.items); //once the user deletes the search input, we show the overall item list
+                    this.sortItems(); // we order it as wanted
+                    this.$emit('input', this.search); // keep the input binded to v-model
+
+                    return;
             }
 
             window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
