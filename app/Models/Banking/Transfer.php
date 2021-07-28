@@ -16,7 +16,20 @@ class Transfer extends Model
 
     protected $table = 'transfers';
 
-    protected $appends = ['attachment'];
+    protected $appends = [
+        'attachment',
+        'from_account_id',
+        'from_currency_code',
+        'from_account_rate',
+        'to_account_id',
+        'to_currency_code',
+        'to_account_rate',
+        'transferred_at',
+        'description',
+        'amount',
+        'payment_method',
+        'reference',
+    ];
 
     /**
      * Attributes that should be mass-assignable.
@@ -99,6 +112,116 @@ class Transfer extends Model
     public function getTemplatePathAttribute($value = null)
     {
         return $value ?: 'banking.transfers.print_' . setting('transfer.template');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return int
+     */
+    public function getFromAccountIdAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->account_id;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getFromCurrencyCodeAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->currency_code;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getFromAccountRateAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->currency_rate;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return int
+     */
+    public function getToAccountIdAttribute($value = null)
+    {
+        return $value ?: $this->income_transaction->account_id;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getToCurrencyCodeAttribute($value = null)
+    {
+        return $value ?: $this->income_transaction->currency_code;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getToAccountRateAttribute($value = null)
+    {
+        return $value ?: $this->income_transaction->currency_rate;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return date
+     */
+    public function getTransferredAtAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->paid_at;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getDescriptionAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->description;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return float
+     */
+    public function getAmountAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->amount;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getPaymentMethodAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->payment_method;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getReferenceAttribute($value = null)
+    {
+        return $value ?: $this->expense_transaction->reference;
     }
 
     /**

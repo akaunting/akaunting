@@ -24,11 +24,11 @@
                     <div class="d-none w-100" :class="[{'d-flex' : show_rate}]">
                         {!! Form::hidden('from_currency_code', null, ['id' => 'from_currency_code', 'v-model' => 'form.from_currency_code']) !!}
 
-                        {{ Form::textGroup('from_account_rate', trans('transfers.from_account_rate'), 'sliders-h', []) }}
+                        {{ Form::textGroup('from_account_rate', trans('transfers.from_account_rate'), 'sliders-h', [':disabled' => "form.from_currency_code == '" . setting('default.currency') . "'"]) }}
 
                         {!! Form::hidden('to_currency_code', null, ['id' => 'to_currency_code', 'v-model' => 'form.to_currency_code']) !!}
 
-                        {{ Form::textGroup('to_account_rate', trans('transfers.to_account_rate'), 'sliders-h', []) }}
+                        {{ Form::textGroup('to_account_rate', trans('transfers.to_account_rate'), 'sliders-h', [':disabled' => "form.to_currency_code == '" . setting('default.currency') . "'"]) }}
                     </div>
 
                     {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0) }}

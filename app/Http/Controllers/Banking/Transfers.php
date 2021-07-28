@@ -56,15 +56,7 @@ class Transfers extends Controller
 
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        $file_type_mimes = explode(',', config('filesystems.mimes'));
-
-        $file_types = [];
-
-        foreach ($file_type_mimes as $mime) {
-            $file_types[] = '.' . $mime;
-        }
-
-        $file_types = implode(',', $file_types);
+        $file_types = $this->prepeareFileTypes();
 
         return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency', 'file_types'));
     }
@@ -148,18 +140,6 @@ class Transfers extends Controller
      */
     public function edit(Transfer $transfer)
     {
-        $transfer['from_account_id'] = $transfer->expense_transaction->account_id;
-        $transfer['from_currency_code'] = $transfer->expense_transaction->currency_code;
-        $transfer['from_account_rate'] = $transfer->expense_transaction->currency_rate;
-        $transfer['to_account_id'] = $transfer->income_transaction->account_id;
-        $transfer['to_currency_code'] = $transfer->income_transaction->currency_code;
-        $transfer['to_account_rate'] = $transfer->income_transaction->currency_rate;
-        $transfer['transferred_at'] = Date::parse($transfer->expense_transaction->paid_at)->format('Y-m-d');
-        $transfer['description'] = $transfer->expense_transaction->description;
-        $transfer['amount'] = $transfer->expense_transaction->amount;
-        $transfer['payment_method'] = $transfer->expense_transaction->payment_method;
-        $transfer['reference'] = $transfer->expense_transaction->reference;
-
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
@@ -168,15 +148,7 @@ class Transfers extends Controller
 
         $currency = Currency::where('code', $account->currency_code)->first();
 
-        $file_type_mimes = explode(',', config('filesystems.mimes'));
-
-        $file_types = [];
-
-        foreach ($file_type_mimes as $mime) {
-            $file_types[] = '.' . $mime;
-        }
-
-        $file_types = implode(',', $file_types);
+        $file_types = $this->prepeareFileTypes();
 
         return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency', 'file_types'));
     }
@@ -286,5 +258,20 @@ class Transfers extends Controller
         $file_name = trans_choice('general.transfers', 1) . '-' . Str::slug($transfer->id, '-', language()->getShortCode()) . '-' . time() . '.pdf';
 
         return $pdf->download($file_name);
+    }
+
+    protected function prepeareFileTypes()
+    {
+        $file_type_mimes = explode(',', config('filesystems.mimes'));
+
+        $file_types = [];
+
+        foreach ($file_type_mimes as $mime) {
+            $file_types[] = '.' . $mime;
+        }
+
+        $file_types = implode(',', $file_types);
+
+        return $file_types;
     }
 }

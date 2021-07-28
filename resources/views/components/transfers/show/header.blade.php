@@ -35,13 +35,13 @@
         @if (!$hideHeaderAmount)
         <div class="{{ $classHeaderAmount }}">
             <span class="float-right">
-            {{ trans($textHeaderAmount) }}
+                {{ trans($textHeaderAmount) }}
             </span>
             <br>
 
             <strong>
                 <span class="float-right long-texts mwpx-100 transaction-head-text">
-                    @money($transfer->expense_transaction->amount, $transfer->from_currency_code, true)
+                    @money($transfer->expense_transaction->amount, $transfer->expense_transaction->currency_code, true)
                 </span>
             </strong>
             <br><br>
