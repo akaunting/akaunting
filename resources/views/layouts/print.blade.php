@@ -7,5 +7,7 @@
             @yield('content')
 
         @stack('body_end')
+        
+        @include('partials.print.scripts')
     </body>
 </html>
