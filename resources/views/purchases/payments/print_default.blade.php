@@ -4,7 +4,7 @@
 
 @section('content')
     <x-transactions.template.ddefault
-        type="payment"
+        type="expense"
         :transaction="$payment"
     />
 @endsection

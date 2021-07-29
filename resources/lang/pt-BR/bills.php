@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Número da conta',
     'bill_date'             => 'Data de Emissão',
+    'bill_amount'           => 'Valor da Conta',
     'total_price'           => 'Valor Total',
     'due_date'              => 'Data de Vencimento',
     'order_number'          => 'Número',

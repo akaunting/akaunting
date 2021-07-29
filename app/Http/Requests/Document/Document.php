@@ -41,7 +41,7 @@ class Document extends FormRequest
         }
 
         // Get company id
-        $company_id = $this->request->get('company_id');
+        $company_id = (int) $this->request->get('company_id');
 
         return [
             'type' => 'required|string',

@@ -48,7 +48,17 @@ class Money
             }
 
             if ($parameter == 'sale_price' || $parameter == 'purchase_price') {
-                $money_format = Str::replaceFirst(',', '.', $money_format);
+                $money_format = Str::replace(',', '.', $money_format);
+
+                if ($dot_count = Str::substrCount($money_format, '.') > 1) {
+                    if ($dot_count > 2) {
+                        $money_format = Str::replaceLast('.', '#', $money_format);
+                        $money_format = Str::replace('.', '', $money_format);
+                        $money_format = Str::replaceFirst('#', '.', $money_format);
+                    } else {
+                        $money_format = Str::replaceFirst('.', '', $money_format);
+                    }
+                }
             }
 
             $amount = $this->getAmount($money_format, $currency_code);

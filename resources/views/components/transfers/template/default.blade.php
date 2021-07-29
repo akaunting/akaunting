@@ -126,7 +126,7 @@
                             </td>
 
                             <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $payment_methods[$transfer->expense_transaction->payment_method] }}
+                                {{ !empty($payment_methods[$transfer->expense_transaction->payment_method]) ? $payment_methods[$transfer->expense_transaction->payment_method] : trans('general.na') }}
                             </td>
                         </tr>
                     @endif

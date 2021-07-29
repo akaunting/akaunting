@@ -17,8 +17,8 @@ class Profile extends FormRequest
 
         $picture = 'nullable';
 
-        if ($this->request->get('picture', null)) {
-            $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        if ($this->files->get('picture')) {
+            $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024 . '|dimensions:max_width=1000,max_height=1000';
         }
 
         $email = 'required|email|unique:users,email,' . $id . ',id,deleted_at,NULL';

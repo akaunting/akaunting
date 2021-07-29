@@ -6,7 +6,7 @@ return [
     'last_login'            => 'Zadnja prijava: čas',
 
     'notifications' => [
-        'counter'           => '{0} Nimate obvestil{1} Imate :count obvestilo|[2,*] Imate :count obvestil',
+        'counter'           => '{0} Nimate obvestil|{1} Imate :count obvestilo|[2,*] Imate :count obvestil',
         'new_apps'          => '{1} :count nova aplikacija je objavljena|[2,*] :count novih aplikacij objavljenih',
         'overdue_invoices'  => '{1} :count zapadlega računa|[2, *] :count zapadlih računov',
         'upcoming_bills'    => '{1} :count prihajajoč račun|[2,*] :count prihajajoči računi',

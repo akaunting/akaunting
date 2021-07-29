@@ -45,19 +45,6 @@ class Invoices extends Controller
      */
     public function show(Document $invoice)
     {
-        // Get Invoice Totals
-        foreach ($invoice->totals_sorted as $invoice_total) {
-            $invoice->{$invoice_total->code} = $invoice_total->amount;
-        }
-
-        $total = money($invoice->total, $invoice->currency_code, true)->format();
-
-        $invoice->grand_total = money($total, $invoice->currency_code)->getAmount();
-
-        if (!empty($invoice->paid)) {
-            $invoice->grand_total = round($invoice->total - $invoice->paid, config('money.' . $invoice->currency_code . '.precision'));
-        }
-
         return view('sales.invoices.show', compact('invoice'));
     }
 

@@ -27,7 +27,7 @@ return [
 
     'installed'             => ':module इंस्टॉल',
     'uninstalled'           => ':module अनइंस्टॉल',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module अपडेट किया गया',
     'enabled'               => ':module सक्रिय',
     'disabled'              => ':module निष्क्रिय',
 

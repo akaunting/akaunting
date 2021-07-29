@@ -13,7 +13,7 @@
     <h2>{{ $title }}</h2>
 
     <div class="row">
-        @if ($modules)
+        @if ($modules && !empty($modules->data))
             @foreach ($modules->data as $module)
                 @if ($module->status_type == 'pre_sale')
                     @include('partials.modules.pre_sale')

@@ -18,7 +18,13 @@ class Contact extends FormRequest
         $logo = 'nullable';
 
         $type = $this->request->get('type', 'customer');
-        $company_id = $this->request->get('company_id');
+
+        // @todo must put contact types under a specific array, see category
+        if (empty(config('type.' . $type))) {
+            $type = null;
+        }
+
+        $company_id = (int) $this->request->get('company_id');
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {

@@ -5,7 +5,7 @@
                 {{ $textDocumentTitle }}
             </h3>
 
-            @if ($textDocumentSubheading) 
+            @if ($textDocumentSubheading)
                 <h5>
                     {{ $textDocumentSubheading }}
                 </h5>
@@ -249,7 +249,7 @@
                     @endif
                     @stack('grand_total_tr_start')
                         <strong class="float-left">{{ trans($total->name) }}:</strong>
-                        <span>@money($total->amount - $document->paid, $document->currency_code, true)</span>
+                        <span>@money($document->amount_due, $document->currency_code, true)</span>
                     @stack('grand_total_tr_end')
                 @endif
             @endforeach

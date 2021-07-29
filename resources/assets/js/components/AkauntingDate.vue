@@ -45,41 +45,53 @@ export default {
             default: '',
             description: "Modal header title"
         },
+
         dataName: {
             type: String,
             default: '',
             description: "Modal header title"
         },
+
         placeholder: {
             type: String,
             default: '',
             description: "Modal header title"
         },
+
         readonly: {
             type: Boolean,
             default: false,
             description: "Input readonly status"
         },
+
         period: {
-            type: Number,
+            type: [Number, String],
+            default: 0,
             description: "Payment period"
         },
+
         disabled: {
             type: Boolean,
             default: false,
             description: "Input disabled status"
         },
+
         formClasses: null,
+
         formError: null,
+
         name: null,
+
         value: {
             default: null,
             description: "Input value defalut"
         },
+
         model: {
             default: null,
             description: "Input model defalut"
         },
+
         dateConfig: {
             type: Object,
             default: function () {
@@ -93,17 +105,21 @@ export default {
             },
             description: "FlatPckr date configuration"
         },
+
         icon: {
             type: String,
             description: "Prepend icon (left)"
         },
+
         locale: {
             type: String,
             default: 'en',
         },
+
         hiddenYear: {
             type: [Boolean, String]
         },
+
         dataValueMin: {
             type: [Boolean, String, Date]
         }
@@ -121,11 +137,11 @@ export default {
 
             this.dateConfig.locale = lang;
         }
-
-        this.real_model = this.value;
     },
 
     mounted() {
+        this.real_model = this.value;
+
         if (this.model) {
             this.real_model = this.model;
         }
@@ -142,7 +158,8 @@ export default {
 
         focus() {
             let date_wrapper_html = document.querySelectorAll('.numInputWrapper');
-            if(this.hiddenYear) {
+
+            if (this.hiddenYear) {
                 date_wrapper_html.forEach((wrapper) => {
                     wrapper.classList.add('hidden-year-flatpickr');
                 });

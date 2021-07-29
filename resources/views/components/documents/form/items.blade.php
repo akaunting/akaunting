@@ -77,6 +77,7 @@
                                     type="{{ $type }}"
                                     is-sale="{{ $isSalePrice }}"
                                     is-purchase="{{ $isPurchasePrice }}"
+                                    search-char-limit="{{ $searchCharLimit }}"
                                 />
                             </td>
                         </tr>

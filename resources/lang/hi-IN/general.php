@@ -51,6 +51,7 @@ return [
     'templates'             => 'टेम्पलेट|टेम्पलेट्स',
     'sales'                 => 'बिक्री|बिक्री',
     'purchases'             => 'खरीद|खरीद',
+    'notifications'         => 'सूचना|सूचनाएं',
 
     'welcome'               => 'स्वागत है',
     'banking'               => 'बैंकिंग',
@@ -162,6 +163,7 @@ return [
     'due_on'                => 'नियत पर',
     'amount_due'            => 'देय राशि',
     'financial_year'        => 'वित्तीय वर्ष',
+    'created'               => 'बनाया गया',
 
     'card' => [
         'cards'                 => 'कार्ड|कार्ड',

@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Välj överföringsmall',
+        'second'            => 'Andra',
+        'third'             => 'Tredje',
+    ],
+
     'default' => [
         'description'       => 'Standardkonto, valuta, ditt företags språk',
         'list_limit'        => 'Poster Per sida',

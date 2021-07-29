@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Tria la plantilla de transferència',
+        'second'            => 'Segona',
+        'third'             => 'Tercera',
+    ],
+
     'default' => [
         'description'       => 'Compte per defecte, moneda, idioma de la teva empresa',
         'list_limit'        => 'Registres per pàgina',

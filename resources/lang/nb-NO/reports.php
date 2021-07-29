@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'År|År',
     'this_year'             => 'Inneværende år',
     'previous_year'         => 'Foregående år',
     'this_quarter'          => 'Inneværende kvartal',

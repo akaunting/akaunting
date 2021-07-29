@@ -35,7 +35,9 @@ const app = new Vue({
     },
 
     created() {
-        this.reports_total = reports_total;
+        if (typeof reports_total !== 'undefined' && reports_total) {
+            this.reports_total = reports_total;
+        }
     },
 
     methods: {

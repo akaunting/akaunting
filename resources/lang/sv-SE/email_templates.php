@@ -47,4 +47,13 @@ return [
         'body'          => 'Hej,<br /><br /> Baserat på {vendor_name} återkommande cirkel, <strong>{bill_number}</strong> fakturan har skapats automatiskt.<br /><br />Du kan se räkningen detaljer från följande länk: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Vänliga hälsningar,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} betalning skapad',
+        'body'          => 'Kära {customer_name},<br /><br />Vi har förberett följande betalning. <br /><br />Du kan se betalningsuppgifterna från följande länk: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Kontakta oss gärna med några frågor..<br /><br />Vänliga hälsningar,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} betalning skapad',
+        'body'          => 'Kära {customer_name},<br /><br />Vi har förberett följande betalning. <br /><br />Du kan se betalningsuppgifterna från följande länk: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Kontakta oss gärna med några frågor..<br /><br />Vänliga hälsningar,<br />{company_name}',
+    ],
 ];

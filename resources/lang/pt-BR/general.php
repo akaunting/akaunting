@@ -51,6 +51,7 @@ return [
     'templates'             => 'Modelo|Modelos',
     'sales'                 => 'Venda|Vendas',
     'purchases'             => 'Compra|Compras',
+    'notifications'         => 'Notificações',
 
     'welcome'               => 'Bem-vindo',
     'banking'               => 'Banco',
@@ -161,6 +162,7 @@ return [
     'due_on'                => 'Vence em',
     'amount_due'            => 'Total devido',
     'financial_year'        => 'Ano Fiscal',
+    'created'               => 'Criado',
 
     'card' => [
         'cards'                 => 'Cartão|Cartões',
