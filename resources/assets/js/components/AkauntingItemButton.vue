@@ -220,6 +220,23 @@ export default {
         };
     },
 
+    mounted() {
+        if (this.dynamicCurrency.code != this.currency.code) {
+            if (!this.dynamicCurrency.decimal) {
+                this.money = {
+                    decimal: this.dynamicCurrency.decimal_mark,
+                    thousands: this.dynamicCurrency.thousands_separator,
+                    prefix: (this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                    suffix: (!this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                    precision: parseInt(this.dynamicCurrency.precision),
+                    masked: this.masked
+                };
+            } else {
+                this.money = this.dynamicCurrency;
+            }
+        }
+    },
+
     methods: {
         setItemList(items) {
             this.item_list = [];
@@ -509,6 +526,7 @@ export default {
                 this.setItemList(this.items);
             }
         },
+
         sortItems() {
             this.item_list.sort(function (a, b) {
                 var nameA = a.value.toUpperCase(); // ignore upper and lowercase
