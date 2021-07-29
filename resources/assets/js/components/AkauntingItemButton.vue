@@ -26,7 +26,7 @@
                                 :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
-                                @keyup.enter="onInput"
+                                @keydown.enter="onItemCreate"
                             />
                         </div>
                     </span>
@@ -273,13 +273,14 @@ export default {
             if (!this.search) {
                 return;
             }
+
             //condition that checks if input is below the given character limit 
             if (this.search.length < this.searchCharLimit) {
-                    this.setItemList(this.items); //once the user deletes the search input, we show the overall item list
-                    this.sortItems(); // we order it as wanted
-                    this.$emit('input', this.search); // keep the input binded to v-model
+                this.setItemList(this.items); //once the user deletes the search input, we show the overall item list
+                this.sortItems(); // we order it as wanted
+                this.$emit('input', this.search); // keep the input binded to v-model
 
-                    return;
+                return;
             }
 
             window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
