@@ -26,11 +26,13 @@
                                 :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
-                                @keyup.enter="onInput"
+                                @keydown.enter="onItemCreate"
                             />
                         </div>
                     </span>
                 </div>
+
+                 <pre>{{sortedItems.length}}</pre>
 
                 <ul class="aka-select-menu-options">
                     <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSeleted(index, item.id)">
