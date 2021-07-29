@@ -26,7 +26,7 @@
                                 :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
-                                @keyup.enter="onInput"
+                                @keydown.enter="onItemCreate"
                             />
                         </div>
                     </span>
