@@ -30,6 +30,11 @@ const app = new Vue({
             form: new Form('transfer'),
             bulk_action: new BulkAction('transfers'),
             show_rate: false,
+            edit: {
+                status: false,
+                form_account: false,
+                to_account: false,
+            },
 
             transfer_form: new Form('template'),
             template: {
@@ -45,6 +50,11 @@ const app = new Vue({
     methods: {
         async onChangeFromAccount(from_account_id) {
             if (!from_account_id) {
+                return;
+            }
+
+            if (this.edit.status && this.edit.form_account < 2) {
+                this.edit.form_account++;
                 return;
             }
 
@@ -74,6 +84,11 @@ const app = new Vue({
 
         async onChangeToAccount(to_account_id) {
             if (!to_account_id) {
+                return;
+            }
+
+            if (this.edit.status && this.edit.to_account < 2) {
+                this.edit.to_account++;
                 return;
             }
 
@@ -126,5 +141,15 @@ const app = new Vue({
                 errors: this.transfer_form.errors
             };
         },
-    }
+    },
+
+    created() {
+        if (typeof transfer_edit !== 'undefined' && transfer_edit) {
+            this.show_rate = true;
+
+            this.edit.status = true;
+            this.edit.form_account = 1;
+            this.edit.to_account = 1;
+        }
+    },
 });
