@@ -38,7 +38,7 @@ class ValidateSignature
     public function hasValidSignature(Request $request, $absolute = true)
     {
         return $this->hasCorrectSignature($request, $absolute)
-            && $this->signatureHasNotExpired($request);
+        && $this->signatureHasNotExpired($request);
     }
 
     /**
@@ -50,10 +50,12 @@ class ValidateSignature
      */
     public function hasCorrectSignature(Request $request, $absolute = true)
     {
-        $url = $absolute ? $request->url() : '/'.$request->path();
+        $url = $absolute ? $request->url() : '/' . $request->path();
 
         $original = rtrim($url . '?' . Arr::query(
             Arr::only($request->query(), ['company_id'])
+        ) . Arr::query(
+            Arr::only($request->query(), ['expires'])
         ), '?');
 
         $signature = hash_hmac('sha256', $original, call_user_func(function () {
@@ -73,6 +75,6 @@ class ValidateSignature
     {
         $expires = $request->query('expires');
 
-        return ! ($expires && Carbon::now()->getTimestamp() > $expires);
+        return !($expires && Carbon::now()->getTimestamp() > $expires);
     }
 }
