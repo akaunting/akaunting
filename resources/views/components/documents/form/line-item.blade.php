@@ -79,7 +79,7 @@
                                         <input 
                                             type="number"
                                             min="0"
-                                            class="form-control text-center p-0"
+                                            class="form-control text-center p-0 input-number-disabled"
                                             :name="'items.' + index + '.quantity'"
                                             autocomplete="off"
                                             required="required"
