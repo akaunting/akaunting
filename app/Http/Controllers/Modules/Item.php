@@ -71,7 +71,7 @@ class Item extends Controller
             return view('modules.item.pre_sale', compact('module', 'installed', 'enable'));
         }
 
-        return view('modules.item.show', compact('module', 'installed', 'enable'));
+        return view('modules.item.show', compact('module', 'installed', 'enable', 'alias'));
     }
 
     /**
