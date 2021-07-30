@@ -76,7 +76,9 @@
                                 @if (!$hideQuantity)
                                     <div>
                                         @stack('quantity_input_start')
-                                        <input type="text"
+                                        <input 
+                                            type="number"
+                                            min="0"
                                             class="form-control text-center p-0"
                                             :name="'items.' + index + '.quantity'"
                                             autocomplete="off"
