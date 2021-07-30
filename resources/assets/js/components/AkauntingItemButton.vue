@@ -280,6 +280,8 @@ export default {
         onItemList() {
             this.show.item_list = true;
 
+            console.log(this.$refs['input-item-field-' + this._uid].focus());
+
             setTimeout(function() {
                 this.$refs['input-item-field-' + this._uid].focus();
             }.bind(this), 100);
@@ -367,9 +369,8 @@ export default {
 
             this.selected_items.push(item);
 
-            this.$emit('item', item);
+            this.$emit('item', item)
             this.$emit('items', this.selected_items);
-
             this.setItemList(this.items);
 
             this.show.item_selected = false;

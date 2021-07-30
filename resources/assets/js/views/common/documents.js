@@ -9,6 +9,8 @@ require('./../../bootstrap');
 import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
+import { promiseTimeout } from './../../plugins/functions';
+
 
 import Global from './../../mixins/global';
 
@@ -288,11 +290,16 @@ const app = new Vue({
             return totals_taxes;
         },
 
+
         // Select Item added form
         onSelectedItem(item) {
+            let { index } = item;
+
             let total = 1 * item.price;
             let item_taxes = [];
 
+            promiseTimeout(500).then(() => this.$refs['name-input'][index].focus());
+            
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
                     if (this.taxes.includes(tax_id)) {
@@ -466,6 +473,7 @@ const app = new Vue({
                         methods: {
                             onSubmit(event) {
                                 this.form = event;
+
                                 this.form.response = {};
 
                                 this.loading = true;

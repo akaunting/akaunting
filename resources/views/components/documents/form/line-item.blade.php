@@ -32,7 +32,9 @@
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
                                             <div v-else>
                                                 @stack('name_input_start')
-                                                <input type="text"
+                                                <input 
+                                                    type="text"
+                                                    ref="name-input"
                                                     class="form-control"
                                                     :name="'items.' + index + '.name'"
                                                     autocomplete="off"

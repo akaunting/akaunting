@@ -15,4 +15,14 @@ function getQueryVariable(variable) {
     return(false);
 }
 
-export {getQueryVariable}
+function promiseTimeout(time) {
+    return new Promise(function(resolve,reject) {
+      setTimeout(function(){
+          resolve(time);
+      }, time);
+    });
+};
+
+
+
+export {getQueryVariable, promiseTimeout}
