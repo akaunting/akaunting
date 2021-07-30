@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\BulkAction as Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
 class BulkActions extends Controller
@@ -57,6 +58,14 @@ class BulkActions extends Controller
 
         if (!empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
             return $result;
+        } elseif (!empty($result) && ($result instanceof RedirectResponse)) {
+            return response()->json([
+                'success' => true,
+                'redirect' => $result->getTargetUrl(),
+                'error' => false,
+                'data' => [],
+                'message' => ''
+            ]);
         } else {
             return response()->json([
                 'success' => true,

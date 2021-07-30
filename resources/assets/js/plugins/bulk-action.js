@@ -152,8 +152,10 @@ export default class BulkAction {
                 }));
 
                 type_promise.then(response => {
-                    if (response.data.redirect) {
+                    if (response.data.redirect === true) {
                         window.location.reload(false);
+                    } else if (typeof response.data.redirect === 'string') {
+                        window.location.href = response.data.redirect;
                     }
                 })
                 .catch(error => {
