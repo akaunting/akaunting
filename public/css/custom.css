@@ -1735,3 +1735,17 @@ table .align-items-center td span.badge {
 }
 
 /* Accordion Header Arrow Finish */
+
+/* Disable default html styling for input[type="number] Start */
+
+.input-number-disabled::-webkit-inner-spin-button,
+.input-number-disabled::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+.input-number-disabled {
+    -moz-appearance: textfield;
+}
+
+/* Disable default html styling for input[type="number] Finish */
