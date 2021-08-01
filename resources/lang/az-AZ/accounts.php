@@ -2,13 +2,13 @@
 
 return [
 
-    'account_name'          => 'Hesab Adı',
+    'account_name'          => 'Hesab adı',
     'number'                => 'Nömrə',
-    'opening_balance'       => 'Açılış Balansı',
-    'current_balance'       => 'Mövcud Balans',
-    'bank_name'             => 'Bank Adı',
-    'bank_phone'            => 'Bank Telefonu',
-    'bank_address'          => 'Bank Ünvanı',
-    'default_account'       => 'Varsayılan Hesab',
+    'opening_balance'       => 'Açılış balansı',
+    'current_balance'       => 'Mövcud balans',
+    'bank_name'             => 'Bank adı',
+    'bank_phone'            => 'Bank telefonu',
+    'bank_address'          => 'Bank ünvanı',
+    'default_account'       => 'İlkin hesab',
 
 ];

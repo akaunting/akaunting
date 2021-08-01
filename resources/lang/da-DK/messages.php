@@ -13,6 +13,8 @@ return [
         'export_queued'     => ':type eksport er planlagt! Du vil modtage en e-mail, når den er klar til download.',
         'enabled'           => ':type aktiveret!',
         'disabled'          => ':type deaktiveret!',
+
+        'clear_all'         => 'Fantastisk! Du har ryddet alle dine :type.',
     ],
 
     'error' => [

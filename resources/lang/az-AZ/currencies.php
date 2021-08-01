@@ -4,16 +4,16 @@ return [
 
     'code'                  => 'Kod',
     'rate'                  => 'Məzənnə',
-    'default'               => 'Varsayılan Valyuta',
-    'decimal_mark'          => 'Onluq Ayırıcı',
-    'thousands_separator'   => 'Minlik Aıyrıcı',
+    'default'               => 'İlkin pul vahidi',
+    'decimal_mark'          => 'Onluq ayırıcı',
+    'thousands_separator'   => 'Minlik ayırıcı',
     'precision'             => 'Dəqiqlik',
-    'conversion'            => 'Valyuta konversiyası',
+    'conversion'            => 'İlkin konversiya: :currency_rate əmsalı ilə :price (:currency_code)',
     'symbol' => [
-        'symbol'            => 'İşarə',
-        'position'          => 'İşarənin Yeri',
-        'before'            => 'Məbləğdən Əvvəl',
-        'after'             => 'Məbləğdən Sonra',
+        'symbol'            => 'Simvol',
+        'position'          => 'Simvol mövqeyi',
+        'before'            => 'Məbləğdən əvvəl',
+        'after'             => 'Məbləğdən sonra',
     ]
 
 ];

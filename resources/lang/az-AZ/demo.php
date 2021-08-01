@@ -3,7 +3,7 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Nəğd',
+        'cash'              => 'Nağd',
     ],
 
     'categories' => [
@@ -12,22 +12,22 @@ return [
     ],
 
     'currencies' => [
-        'usd'               => 'Amerika Dolları',
+        'usd'               => 'Amerikan dolları',
         'eur'               => 'Avro',
-        'gbp'               => 'İngilis Sterlinqi',
-        'try'               => 'Türk Lirəsı',
+        'gbp'               => 'İngilis sterlinqi',
+        'try'               => 'Türk lirəsi',
     ],
 
     'offline_payments' => [
-        'cash'              => 'Nəğd',
-        'bank'              => 'Bank Köçürməsi',
+        'cash'              => 'Nağd',
+        'bank'              => 'Bank köçürməsi',
     ],
 
     'reports' => [
-        'income'            => 'Kateqoriya əsaslı aylıq gəlir xülasəsi.',
-        'expense'           => 'Kateqoriya əsaslı aylıq xərc xülasəsi.',
-        'income_expense'    => 'Kateqoriya əsaslı aylıq gəlir-xərc balansı.',
-        'tax'               => 'Rüblük vergi xülasəsi.',
+        'income'            => 'Kateqoriyaya görə aylıq gəlir icmalı.',
+        'expense'           => 'Katqoriyaya görə aylıq xərc icmalı.',
+        'income_expense'    => 'Kateqoriyaya görə aylıq gəlir - xərc icmalı.',
+        'tax'               => 'Rüblük vergi icmalı.',
         'profit_loss'       => 'Rüblük mənfəət və zərər hesabatı.',
     ],
 
