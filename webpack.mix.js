@@ -77,4 +77,7 @@ mix
     .js('resources/assets/js/views/settings/settings.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/taxes.js', 'public/js/settings')
 
-    .sass('resources/assets/sass/argon.scss', 'public/css');
+    .sass('resources/assets/sass/argon.scss', 'public/css')
+
+    // RTL Support
+    .sass('resources/assets/sass/custom/_rtl.scss', 'public/css');
