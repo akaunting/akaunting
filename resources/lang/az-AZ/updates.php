@@ -2,8 +2,8 @@
 
 return [
 
-    'installed_version'     => 'Yüklü Versiya',
-    'latest_version'        => 'Ən Son Versiya',
+    'installed_version'     => 'Quraşdırılmış versiya',
+    'latest_version'        => 'Son versiya',
     'update'                => ':version versiyasına yenilə',
     'changelog'             => 'Dəyişiklik Qeydi',
     'check'                 => 'Yenilə',

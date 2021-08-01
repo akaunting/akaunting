@@ -2,11 +2,11 @@
 
 return [
 
-    'can_login'             => 'Giriş Edə Bilər',
-    'user_created'          => 'İstifadəçi yarat',
+    'can_login'             => 'Giriş edilə bilər?',
+    'user_created'          => 'İstifadəçi yaradıldı',
 
     'error' => [
-        'email'             => 'E-poçt ünvanı istifadə edilir.',
+        'email'             => 'E-poçt ünvanı artıq istifadədədir.',
     ],
 
 ];
