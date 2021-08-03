@@ -1,7 +1,7 @@
 <template>
     <div :id="'select-item-button-' + _uid" class="product-select">
         <div class="item-add-new">
-            <button type="button" class="btn btn-link w-100" @click="onItemList">
+            <button type="button" class="btn btn-link w-100" @click="showItems">
                 <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
             </button>
         </div>
@@ -10,7 +10,7 @@
             <div class="aka-select-menu" v-if="show.item_list">
                 <div class="aka-select-search-container">
                     <span class="aka-prefixed-input aka-prefixed-input--fluid">
-                        <div class="input-group input-group-merge">
+                        <div class="input-group input-group-merge focused">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fa fa-search"></i>
@@ -278,7 +278,7 @@ export default {
             }
         },
 
-        onItemList() {
+        showItems() {
             this.show.item_list = true;
         },
 
