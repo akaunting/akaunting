@@ -29,9 +29,9 @@ class Accounts extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Account $account)
     {
-        return redirect()->route('accounts.index');
+        return view('banking.accounts.show', compact('account'));
     }
 
     /**
@@ -60,7 +60,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new CreateAccount($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('accounts.index');
+            $response['redirect'] = route('accounts.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.accounts', 1)]);
 
@@ -74,6 +74,24 @@ class Accounts extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Account $account
+     *
+     * @return Response
+     */
+    public function duplicate(Account $account)
+    {
+        $clone = $account->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.accounts', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('account.edit', $clone->id);
     }
 
     /**
@@ -107,7 +125,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new UpdateAccount($account, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('accounts.index');
+            $response['redirect'] = route('accounts.show', $account->id);
 
             $message = trans('messages.success.updated', ['type' => $account->name]);
 
