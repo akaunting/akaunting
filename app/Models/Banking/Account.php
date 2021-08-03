@@ -5,10 +5,11 @@ namespace App\Models\Banking;
 use App\Abstracts\Model;
 use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Bkwld\Cloner\Cloneable;
 
 class Account extends Model
 {
-    use HasFactory, Transactions;
+    use Cloneable, HasFactory, Transactions;
 
     protected $table = 'accounts';
 

@@ -8,6 +8,7 @@ use App\Jobs\Banking\CreateAccount;
 use App\Jobs\Banking\DeleteAccount;
 use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
@@ -31,9 +32,17 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        return view('banking.accounts.show', compact('account'));
-    }
+        $amounts = [
+            'incoming' => 0,
+            'outgoing' => 0,
+            'balance' => 0,
+        ];
 
+        $transactions = $account->transactions;
+
+        return view('banking.accounts.show', compact('account', 'amounts', 'transactions'));
+    
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -91,7 +100,7 @@ class Accounts extends Controller
 
         flash($message)->success();
 
-        return redirect()->route('account.edit', $clone->id);
+        return redirect()->route('accounts.edit', $clone->id);
     }
 
     /**
