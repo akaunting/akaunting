@@ -9,8 +9,7 @@ require('./../../bootstrap');
 import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
-import { promiseTimeout } from './../../plugins/functions';
-
+import { setPromiseTimeout } from './../../plugins/functions';
 
 import Global from './../../mixins/global';
 
@@ -291,15 +290,13 @@ const app = new Vue({
         },
 
 
-        // Select Item added form
-        onSelectedItem(item) {
+        // addItem to list
+        onAddItem(item) {
             let { index } = item;
-
             let total = 1 * item.price;
             let item_taxes = [];
 
-            promiseTimeout(500).then(() => this.$refs['name-input'][index].focus());
-            
+            setPromiseTimeout(200).then(() => this.$refs['name-input'][index].focus()); //add focus to new item name input 
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
                     if (this.taxes.includes(tax_id)) {

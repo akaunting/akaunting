@@ -15,14 +15,12 @@ function getQueryVariable(variable) {
     return(false);
 }
 
-function promiseTimeout(time) {
-    return new Promise(function(resolve,reject) {
-      setTimeout(function(){
-          resolve(time);
-      }, time);
-    });
-};
+//This function wraps setTimeout function in a promise in order to display dom manipulations on root components asynchronously & fast 
+const setPromiseTimeout = time => 
+    new Promise(resolve => 
+        setTimeout(() => 
+            resolve(time)
+        , time)
+    );
 
-
-
-export {getQueryVariable, promiseTimeout}
+export {getQueryVariable, setPromiseTimeout}

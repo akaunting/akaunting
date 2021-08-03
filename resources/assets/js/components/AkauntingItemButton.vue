@@ -21,9 +21,9 @@
                                 type="text"
                                 data-input="true"
                                 class="form-control"
-                                autocapitalize="default" autocorrect="ON" 
+                                autocapitalize="default" 
+                                autocorrect="ON" 
                                 :placeholder="placeholder"
-                                :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
                                 @keydown.enter="onItemCreate"
@@ -33,7 +33,7 @@
                 </div>
 
                 <ul class="aka-select-menu-options">
-                    <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSeleted(index, item.id)">
+                    <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSelected(item)">
                         <div class="item-select w-100">
                             <div class="item-select-column item-select-info w-75">
                                 <b class="item-select-info-name"><span>{{ item.name }}</span></b>
@@ -196,7 +196,7 @@ export default {
     data() {
         return {
             item_list: [],
-            selected_items: [],
+            invoiceItems: [],
             search: '', // search column model
             show: {
                 item_selected: false,
@@ -208,6 +208,7 @@ export default {
                 show: false,
                 buttons: this.addNew.buttons,
             },
+            newItems: [],
             add_new_html: '',
             money: {
                 decimal: this.currency.decimal_mark,
@@ -279,12 +280,6 @@ export default {
 
         onItemList() {
             this.show.item_list = true;
-
-            console.log(this.$refs['input-item-field-' + this._uid].focus());
-
-            setTimeout(function() {
-                this.$refs['input-item-field-' + this._uid].focus();
-            }.bind(this), 100);
         },
 
         onInput() {
@@ -303,60 +298,55 @@ export default {
             }
 
             window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
-            .then(response => {
-                this.item_list = [];
+                        .then(response => {
+                            this.item_list = [];
 
-                let items = response.data.data;
+                            let items = response.data.data;
 
-                items.forEach(function (item, index) {
-                    this.item_list.push({
-                        index: index,
-                        key: item.id,
-                        value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                        type: this.type,
-                        id: item.id,
-                        name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                        description: (item.description) ? item.description : '',
-                        price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
-                        tax_ids: (item.tax_ids) ? item.tax_ids : [],
-                    });
-                }, this);
-            })
-            .catch(error => {
+                            items.forEach(function (item, index) {
+                                this.item_list.push({
+                                    index: index,
+                                    key: item.id,
+                                    value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                    type: this.type,
+                                    id: item.id,
+                                    name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                    description: (item.description) ? item.description : '',
+                                    price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
+                                    tax_ids: (item.tax_ids) ? item.tax_ids : [],
+                                });
+                            }, this);
+                        })
+                        .catch(error => {
 
-            });
+                        });
 
             this.$emit('input', this.search);
         },
 
-        onItemSeleted(index, item_id) {
-            let item = '';
+        onItemSelected(item) {
+            const indexeditem = { ...item, index: this.currentIndex };
 
-            this.item_list.forEach(function (item_list, item_index) {
-                if (item_list.id == item_id) {
-                    item = item_list;
-                }
-            });
+            this.addItem(indexeditem);
+        },
 
-            this.selected_items.push(item);
+        addItem(item) {
+            this.invoiceItems.push(item);
 
             this.$emit('item', item);
-            this.$emit('items', this.selected_items);
+            this.$emit('items', this.invoiceItems);
 
             this.show.item_selected = false;
             this.show.item_list = false;
-            this.search = '';
 
-            // Set deault item list
+            this.search = '';
+            // Set default item list
             this.setItemList(this.items);
         },
 
         onItemCreate() {
-            let index = Object.keys(this.item_list).length;
-            index++;
-
-            let item = {
-                index: index,
+            const newItem = {
+                index: this.newItems.length,
                 key: 0,
                 value: this.search,
                 type: this.type,
@@ -367,15 +357,9 @@ export default {
                 tax_ids: [],
             };
 
-            this.selected_items.push(item);
+            this.newItems.push(newItem);
 
-            this.$emit('item', item)
-            this.$emit('items', this.selected_items);
-            this.setItemList(this.items);
-
-            this.show.item_selected = false;
-            this.show.item_list = false;
-            this.search = '';
+            this.addItem(newItem);
 
             /*
             let add_new = this.add_new;
@@ -560,6 +544,9 @@ export default {
     computed: {
         sortedItems() {
             return this.sortItems();
+        },
+        currentIndex() {
+            return this.invoiceItems.length;
         },
     },
 
