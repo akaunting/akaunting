@@ -289,7 +289,6 @@ const app = new Vue({
             return totals_taxes;
         },
 
-
         // addItem to list
         onAddItem(item) {
             let { index } = item;
