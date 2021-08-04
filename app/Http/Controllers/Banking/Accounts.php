@@ -9,6 +9,7 @@ use App\Jobs\Banking\DeleteAccount;
 use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
+use App\Models\Banking\Transfer;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
@@ -32,16 +33,25 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        $amounts = [
-            'incoming' => 0,
-            'outgoing' => 0,
-            'balance' => 0,
-        ];
+        $limit = (int) request('limit', setting('default.list_limit', '25'));
 
-        $transactions = $account->transactions;
+        // Handle transactions
+        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
 
-        return view('banking.accounts.show', compact('account', 'amounts', 'transactions'));
-    
+        $transfers = Transfer::with('transaction')->all()->filter(function ($transfer) use($account) {
+            if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
+                return true;
+            }
+        
+            return false;
+        })->sortByDesc(function ($transfer) {
+            return $transfer->expense_transaction->paid_at;
+        });
+
+        $limit = (int) request('limit', setting('default.list_limit', '25'));
+        $transfers = $this->paginate($transfers, $limit);
+
+        return view('banking.accounts.show', compact('account', 'transactions', 'transfers'));
     }
     /**
      * Show the form for creating a new resource.

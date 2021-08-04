@@ -21,26 +21,36 @@
 
             <div class="dropdown-divider"></div>
 
-            @stack('transaction_button_start')
-            @can('create-account-transactions')
-                <a class="dropdown-item" href="{{ route('banking.create-transaction', $account->id) }}">
-                    CREATE TRANSACTION
+            @stack('revenue_button_start')
+            @can('create-sales-revenues')
+                <a class="dropdown-item" href="{{ route('revenues.create') . '?account_id=' . $account->id }}">
+                    {{ trans('general.add_income')}}
                 </a>
             @endcan
-            @stack('transaction_button_end')
+            @stack('revenue_button_end')
+
+            @stack('revenue_button_start')
+            @can('create-sales-revenues')
+                <a class="dropdown-item" href="{{ route('payments.create') . '?account_id=' . $account->id }}">
+                    {{ trans('general.add_expense') }}           
+                </a>
+            @endcan
+            @stack('revenue_button_end')
 
             @stack('transfer_button_start')
-            @can('show-performance')
-                <a class="dropdown-item" href="{{ route('banking.create-transfer', $account->id) }}">
-                    create_transfer
+            @can('create-banking-transfers')
+                <a class="dropdown-item" href="{{ route('transfers.create') . '?from_account_id=' . $account->id }}">
+                    Add Transfer
                 </a>
             @endcan
             @stack('transfer_button_end')
 
+            <div class="dropdown-divider"></div>
+
             @stack('performance_button_start')
-            @can('show-performance')
-                <a class="dropdown-item" href="{{ route('accounts.show-performance', $account->id) }}">
-                    performance 
+            @can('read-banking-accounts')
+                <a class="dropdown-item" href="#">
+                    See Performance
                 </a>
             @endcan
             @stack('performance_button_end')
@@ -48,22 +58,21 @@
             <div class="dropdown-divider"></div>
 
             @stack('delete_button_start')
-            @can('delete-banking-accounts')
+            @can('delete-sales-customers')
                 {!! Form::deleteLink($account, 'accounts.destroy') !!}
             @endcan
             @stack('delete_button_end')
 
             @stack('button_dropdown_end')
         </div>
+        @stack('edit_button_start')
+            @can('update-sales-customers')
+                <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-white btn-sm">
+                    {{ trans('general.edit') }}
+                </a>
+            @endcan
+        @stack('edit_button_end')
     </div>
-       
-    @stack('account_edit_button_start')
-        @can('update-banking-account')
-            <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-white btn-sm">
-                {{ trans('general.edit') }}
-            </a>
-        @endcan
-    @stack('account_edit_button_end')
 @endsection
 
 @section('content')
@@ -71,23 +80,23 @@
         <div class="col-xl-3">
             <ul class="list-group mb-4">
                 @stack('account_number_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    {{ trans_choice('general.account_number', 2) }}
-                    <span class="badge badge-primary badge-pill">{{  }}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 font-weight-600">
+                    {{ trans_choice('general.accounts', 1) }} {{ trans_choice('accounts.number', 2) }}
+                    <small class="long-texts">{{ $account -> number}}</small>
                 </li>
                 @stack('account_number_end')
 
                 @stack('account_currency_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1">
-                    {{ trans_choice('general.transactions', 2) }}
-                    <span class="badge badge-primary badge-pill">{{ $ }}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
+                    {{ trans_choice('general.currencies', 2) }}
+                    <small class="long-texts"> {{ $account -> currency -> name}} </small>
                 </li>
                 @stack('account_currency_end')
 
                 @stack('account_starting_balance_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    {{ trans_choice('banking.starting_balance', 2) }}
-                    <span class="badge badge-primary badge-pill">{{ }}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
+                    {{ trans_choice('accounts.opening_balance', 2) }}
+                    <small class="long-texts"> @money($account -> opening_balance, $account -> currency -> currency_code, true) </small>
                 </li>
                 @stack('account_starting_balance_end')
             </ul>
@@ -95,28 +104,25 @@
             <ul class="list-group mb-4">
                 @stack('bank_name_start')
                 <li class="list-group-item border-0">
-                    <div class="font-weight-600">{{ trans('') }}</div>
-                    <div><small class="long-texts" title="{{ $account->name }}">{{ $account->name }}</small></div>
+                    <div class="font-weight-600">{{ trans('accounts.bank_name') }}</div>
+                    <div><small class="long-texts" title="{{ $account->bank_name }}">{{ $account->bank_name }}</small></div>
                 </li>
                 @stack('bank_name_end')
 
                 @stack('account_phone_start')
                 <li class="list-group-item border-0 border-top-1">
-                    <div class="font-weight-600">{{ trans('general.phone') }}</div>
-                    <div><small class="long-texts" title="{{ $account->phone }}">{{ $account->phone }}</small></div>
+                    <div class="font-weight-600">{{ trans('accounts.bank_phone') }}</div>
+                    <div><small class="long-texts" title="{{ $account->bank_phone }}">{{ $account->bank_phone }}</small></div>
                 </li>
                 @stack('account_phone_end')
 
                 @stack('account_address_start')
                 <li class="list-group-item border-0 border-top-1">
-                    <div class="font-weight-600">{{ trans('general.address') }}</div>
-                    <div><small class="long-texts" title="{{ $account->address }}">{{ $account->address }}</small></div>
+                    <div class="font-weight-600">{{ trans('accounts.bank_address') }}</div>
+                    <div><small class="long-texts" title="{{ $account->bank_address }}">{{ $account->bank_address }}</small></div>
                 </li>
                 @stack('account_address_end')
             </ul>
-
-            @stack('account_edit_button_start')
-            @stack('account_edit_button_end')
         </div>
 
         <div class="col-xl-9">
@@ -129,7 +135,7 @@
                                 <div class="col">
                                     <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('general.incoming') }}</h5>
                                     <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['incoming'], setting('default.currency'), true)</span>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->income_balance, $account->currency_code, true)</span>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +151,7 @@
                                 <div class="col">
                                     <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.outgoing') }}</h5>
                                     <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['outgoing'], setting('default.currency'), true)</span>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->expense_balance, $account->currency_code, true)</span>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +165,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.balance') }}</h5>
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.account_balance') }}</h5>
                                     <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['balance'], setting('default.currency'), true)</span>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->balance, $account->currency_code, true)</span>
                                 </div>
                             </div>
                         </div>
@@ -176,16 +182,16 @@
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                             @stack('account_transactions_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0 active" id="invoices-tab" data-toggle="tab" href="#invoices-content" role="tab" aria-controls="invoices-content" aria-selected="true">
-                                    {{ trans_choice('general.invoices', 2) }}
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="true">
+                                    {{ trans_choice('general.transactions', 2) }}
                                 </a>
                             </li>
                             @stack('account_transactions_tab_end')
 
                             @stack('account_transfers_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="false">
-                                    {{ trans_choice('general.transactions', 2) }}
+                                <a class="nav-link mb-sm-3 mb-md-0" id="transfers-tab" data-toggle="tab" href="#transfers-content" role="tab" aria-controls="transfers-content" aria-selected="false">
+                                    {{ trans_choice('general.transfers', 2) }}
                                 </a>
                             </li>
                             @stack('account_transfers_tab_end')
@@ -197,23 +203,23 @@
                             @stack('account_transactions_content_start')
                             <div class="tab-pane fade show active" id="transactions-content" role="tabpanel" aria-labelledby="transactions-tab">
                                 <div class="table-responsive">
-                                    <table class="table table-flush table-hover" id="tbl-invoices">
+                                    <table class="table table-flush table-hover" id="tbl-transactions">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-4 col-sm-1">{{ trans_choice('general.date', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-3 text-right">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-3 d-none d-sm-block text-left">{{ trans('general.type') }}</th>
-                                                <th class="col-sm-3 d-none d-sm-block text-left">{{ trans('general.category') }}</th>
+                                                <th class="col-sm-3">{{ trans_choice('general.date', 1) }}</th>
+                                                <th class="col-sm-3">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-3">{{ trans_choice('general.types', 1) }}</th>
+                                                <th class="col-sm-3">{{ trans_choice('general.categories', 1) }}</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             @foreach($transactions as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-4 col-sm-1">@date($item->issued_at)</td>
-                                                    <td class="col-xs-4 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-3 d-none d-sm-block text-left">{{ $item->type }}</td>
-                                                    <td class="col-sm-3 d-none d-sm-block text-left">$item->category </td>
+                                                    <td class="col-sm-3"><a href="{{ route($item->route_name, $item->route_id) }}">@date($item->issued_at)</a></td>
+                                                    <td class="col-sm-3">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-3">{{ $item->type_title }}</td>
+                                                    <td class="col-sm-3">{{ $item->category->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -228,39 +234,39 @@
                             </div>
                             @stack('account_transactions_content_end')
 
-                            @stack('customer_transactions_content_start')
-                            <div class="tab-pane fade" id="transactions-content" role="tabpanel" aria-labelledby="transactions-tab">
+                            @stack('account_transfers_content_start')
+                            <div class="tab-pane fade" id="transfers-content" role="tabpanel" aria-labelledby="transfers-tab">
                                 <div class="table-responsive">
-                                    <table class="table table-flush table-hover" id="tbl-transactions">
+                                    <table class="table table-flush table-hover" id="tbl-transfers">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-6 col-sm-2">{{ trans('general.date') }}</th>
-                                                <th class="col-xs-6 col-sm-2 text-right">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
-                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th class="col-sm-3">{{ trans('general.date') }}</th>
+                                                <th class="col-sm-3">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-3">{{ trans_choice('transfers.from_account', 1) }}</th>
+                                                <th class="col-sm-3">{{ trans_choice('transfers.to_account', 1) }}</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            @foreach($transactions as $item)
+                                            @foreach($transfers as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-6 col-sm-2"><a href="{{ route('revenues.show', $item->id) }}">@date($item->paid_at)</a></td>
-                                                    <td class="col-xs-6 col-sm-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->category->name }}</td>
-                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->account->name }}</td>
+                                                    <td class="col-sm-3"><a href="{{ route('transfers.show', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
+                                                    <td class="col-sm-3">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
+                                                    <td class="col-sm-3">{{ $item->expense_transaction->account->name }}</td>
+                                                    <td class="col-sm-3">{{ $item->income_transaction->account->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>
+                                    </table>                                 
                                 </div>
 
                                 <div class="card-footer py-4 table-action">
                                     <div class="row">
-                                        @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
+                                        @include('partials.admin.pagination', ['items' => $transfers, 'type' => 'transfers'])
                                     </div>
                                 </div>
                             </div>
-                            @stack('customer_transactions_content_end')
+                            @stack('account_transfers_content_end')
                         </div>
                     </div>
                 </div>
@@ -271,5 +277,5 @@
 
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/sales/accounts.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/banking/accounts.js?v=' . version('short')) }}"></script>
 @endpush

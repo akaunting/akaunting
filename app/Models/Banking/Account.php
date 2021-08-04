@@ -94,6 +94,41 @@ class Account extends Model
     }
 
     /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getIncomeBalanceAttribute()
+    {
+        // Opening Balance
+        //$total = $this->opening_balance;
+        $total = 0;
+
+        // Sum Incomes
+        $total += $this->income_transactions->sum('amount');
+
+        return $total;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getExpenseBalanceAttribute()
+    {
+        // Opening Balance
+        //$total = $this->opening_balance;
+        $total = 0;
+
+        // Subtract Expenses
+        $total += $this->expense_transactions->sum('amount');
+
+        return $total;
+    }
+
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

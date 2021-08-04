@@ -128,11 +128,9 @@ Route::group(['prefix' => 'purchases'], function () {
 
 Route::group(['prefix' => 'banking'], function () {
     Route::get('accounts/currency', 'Banking\Accounts@currency')->name('accounts.currency');
-    Route::get('accounts/{account}/create-transaction', 'Banking\Accounts@createTransaction')->name('accounts.create-transaction');
     Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
     Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
-    Route::get('accounts/{account}/duplicate', 'Banking\Accounts@duplicate')->name('accounts.duplicate');
-    Route::get('accounts/{account}/edit', 'Banking\Accounts@edit')->name('account.edit');
+    Route::get('accounts/{account}/duplicate', 'Banking\Accounts@duplicate')->name('accounts.duplicate');  
     Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['date.format', 'money']]);
 
     Route::post('transactions/import', 'Banking\Transactions@import')->name('transactions.import');
@@ -140,7 +138,6 @@ Route::group(['prefix' => 'banking'], function () {
 
     Route::resource('transactions', 'Banking\Transactions');
   
-
     Route::get('transfers/{transfer}/print', 'Banking\Transfers@printTransfer')->name('transfers.print');
     Route::get('transfers/{transfer}/pdf', 'Banking\Transfers@pdfTransfer')->name('transfers.pdf');
     Route::get('transfers/{transfer}/duplicate', 'Banking\Transfers@duplicate')->name('transfers.duplicate');
