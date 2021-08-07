@@ -133,7 +133,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('general.incoming') }}</h5>
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('accounts.incoming') }}</h5>
                                     <div class="dropdown-divider"></div>
                                     <span class="h2 font-weight-bold mb-0 text-white">@money($account->income_balance, $account->currency_code, true)</span>
                                 </div>
@@ -149,7 +149,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.outgoing') }}</h5>
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('accounts.outgoing') }}</h5>
                                     <div class="dropdown-divider"></div>
                                     <span class="h2 font-weight-bold mb-0 text-white">@money($account->expense_balance, $account->currency_code, true)</span>
                                 </div>
