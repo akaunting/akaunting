@@ -128,6 +128,9 @@ Route::group(['prefix' => 'purchases'], function () {
 
 Route::group(['prefix' => 'banking'], function () {
     Route::get('accounts/currency', 'Banking\Accounts@currency')->name('accounts.currency');
+    Route::get('accounts/{account}/create-revenue', 'Banking\Accounts@createRevenue')->name('accounts.create-revenue');
+    Route::get('accounts/{account}/create-payment', 'Banking\Accounts@createPayment')->name('accounts.create-payment');
+    Route::get('accounts/{account}/create-transfer', 'Banking\Accounts@createTransfer')->name('accounts.create-transfer');
     Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
     Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
     Route::get('accounts/{account}/duplicate', 'Banking\Accounts@duplicate')->name('accounts.duplicate');  

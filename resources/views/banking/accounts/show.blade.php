@@ -23,24 +23,24 @@
 
             @stack('revenue_button_start')
             @can('create-sales-revenues')
-                <a class="dropdown-item" href="{{ route('revenues.create') . '?account_id=' . $account->id }}">
+                <a class="dropdown-item" href="{{ route('accounts.create-revenue', $account->id) }}">
                     {{ trans('general.add_income')}}
                 </a>
             @endcan
             @stack('revenue_button_end')
 
-            @stack('revenue_button_start')
-            @can('create-sales-revenues')
-                <a class="dropdown-item" href="{{ route('payments.create') . '?account_id=' . $account->id }}">
-                    {{ trans('general.add_expense') }}           
+            @stack('payment_button_start')
+            @can('create-purchases-payments')
+                <a class="dropdown-item" href="{{ route('accounts.create-payment', $account->id) }}">
+                    {{ trans('general.add_expense') }}
                 </a>
             @endcan
-            @stack('revenue_button_end')
+            @stack('payment_button_end')
 
             @stack('transfer_button_start')
             @can('create-banking-transfers')
-                <a class="dropdown-item" href="{{ route('transfers.create') . '?from_account_id=' . $account->id }}">
-                    Add Transfer
+                <a class="dropdown-item" href="{{ route('accounts.create-transfer', $account->id) }}">
+                    {{ trans('general.add_transfer') }}
                 </a>
             @endcan
             @stack('transfer_button_end')
@@ -129,7 +129,7 @@
             <div class="row mb--3">
                 @stack('account_incoming_card_start')
                 <div class="col-md-4">
-                    <div class="card bg-gradient-success border-0">
+                    <div class="card bg-gradient-info border-0">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
@@ -145,7 +145,7 @@
 
                 @stack('account_outgoing_card_start')
                 <div class="col-md-4">
-                    <div class="card bg-gradient-warning border-0">
+                    <div class="card bg-gradient-danger border-0">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
@@ -161,7 +161,7 @@
 
                 @stack('account_balance_card_start')
                 <div class="col-md-4">
-                    <div class="card bg-gradient-danger border-0">
+                    <div class="card bg-gradient-success border-0">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">

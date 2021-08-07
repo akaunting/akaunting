@@ -222,6 +222,27 @@ class Accounts extends Controller
         return response()->json($response);
     }
 
+    public function createRevenue(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        return redirect()->route('revenues.create')->withInput($data);
+    }
+
+    public function createPayment(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        return redirect()->route('payments.create')->withInput($data);
+    }
+
+    public function createTransfer(Account $account)
+    {
+        $data['from_account_id'] = $account->id;
+
+        return redirect()->route('transfers.create')->withInput($data);
+    }
+
     public function currency()
     {
         $account_id = (int) request('account_id');
