@@ -10,6 +10,7 @@ use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
+use App\Utilities\Reports as Utility;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
@@ -241,6 +242,23 @@ class Accounts extends Controller
         $data['from_account_id'] = $account->id;
 
         return redirect()->route('transfers.create')->withInput($data);
+    }
+
+    public function seePerformance(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        $report = Utility::getClassInstance('App\Reports\IncomeExpenseSummary');
+
+        if (empty($report) || empty($report->model)) {
+            $message = trans('accounts.create_report');
+
+            flash($message)->warning()->important();
+
+            return redirect()->route('reports.create');
+        }
+
+        return redirect()->route('reports.show', $report->model->id)->withInput($data);
     }
 
     public function currency()

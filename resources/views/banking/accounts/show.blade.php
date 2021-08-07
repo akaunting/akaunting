@@ -49,8 +49,8 @@
 
             @stack('performance_button_start')
             @can('read-banking-accounts')
-                <a class="dropdown-item" href="#">
-                    See Performance
+                <a class="dropdown-item" href="{{ route('accounts.see-performance', $account->id) }}">
+                    {{ trans('accounts.see_performance') }}
                 </a>
             @endcan
             @stack('performance_button_end')
