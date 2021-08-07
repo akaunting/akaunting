@@ -19,7 +19,7 @@ import BulkAction from './../../plugins/bulk-action';
 Vue.use(DashboardPlugin);
 
 const app = new Vue({
-    el: '#app',
+    el: '#main-body',
 
     mixins: [
         Global
@@ -28,8 +28,7 @@ const app = new Vue({
     data: function () {
         return {
             form: new Form('account'),
-            bulk_action: new BulkAction('accounts')
+            bulk_action: new BulkAction('accounts'),
         }
     },
-
 });
