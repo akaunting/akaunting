@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Add New',
     'add_income'            => 'Add Income',
     'add_expense'           => 'Add Expense',
+    'add_transfer'          => 'Add Transfer',
     'show'                  => 'Show',
     'edit'                  => 'Edit',
     'delete'                => 'Delete',

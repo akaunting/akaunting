@@ -24,7 +24,7 @@ return [
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',
         'last_category'     => 'Error: Tidak dapat menghapus kategori :type terakhir!',
         'change_type'       => 'Kesalahan: Tidak dapat mengubah jenis karena memiliki: teks terkait!',
-        'invalid_apikey'    => 'Galat: Token yang dimasukkan tidak sah!',
+        'invalid_apikey'    => 'Galat: Token API yang dimasukkan tidak sah!',
         'import_column'     => 'Kesalahan: :message Nama kolom: :column. Nomor baris: :line.',
         'import_sheet'      => 'Error: Nama sheet tidak valid. Mohon untuk memeriksa contoh file yang tersedia.',
     ],

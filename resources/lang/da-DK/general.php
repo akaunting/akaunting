@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Tilføj ny',
     'add_income'            => 'Tilføj Indkomst',
     'add_expense'           => 'Tilføj Udgift',
+    'add_transfer'          => 'Tilføj overførsel',
     'show'                  => 'Vis',
     'edit'                  => 'Rediger',
     'delete'                => 'Slet',

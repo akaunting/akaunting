@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Wybierz szablon faktury',
+        'second'            => 'Drugi',
+        'third'             => 'Trzeci',
+    ],
+
     'default' => [
         'description'       => 'Domyślne konto, waluta, język twojej firmy',
         'list_limit'        => 'Wyników na stronę',
@@ -115,6 +121,7 @@ return [
             'invoice_payment_admin'     => 'Szablon otrzymanej płatności (wysyłany do administratora)',
             'bill_remind_admin'         => 'Szablon przypomnienia o rachunku (wysyłany do administratora)',
             'bill_recur_admin'          => 'Szablon cyklicznego rachunku (wysyłany do administratora)',
+            'revenue_new_customer'      => 'Szablon informacji o otrzymanej płatności (wysyłany do klienta)',
         ],
     ],
 

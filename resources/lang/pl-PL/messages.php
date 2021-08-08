@@ -13,6 +13,8 @@ return [
         'export_queued'     => 'Eksport :type został zaplanowany! Otrzymasz e-mail, gdy będzie gotowy do pobrania.',
         'enabled'           => ':type włączony!',
         'disabled'          => ':type wyłączony!',
+
+        'clear_all'         => 'Świetnie! Wyczyszczono wszystkie Twoje :typ.',
     ],
 
     'error' => [
