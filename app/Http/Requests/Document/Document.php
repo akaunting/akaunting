@@ -57,7 +57,7 @@ class Document extends FormRequest
             'due_at' => 'required|date_format:Y-m-d H:i:s|after_or_equal:issued_at',
             'amount' => 'required',
             'items.*.name' => 'required|string',
-            'items.*.quantity' => 'required|size:' . $quantity_size,
+            'items.*.quantity' => 'required|max:' . $quantity_size,
             'items.*.price' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required|gt:0',
