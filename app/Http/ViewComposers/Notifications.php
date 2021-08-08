@@ -3,7 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Traits\Modules;
-use Route;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class Notifications
@@ -29,9 +29,7 @@ class Notifications
 
         $path = str_replace('{company_id}/', '', $path);
 
-        if (!$notifications = $this->getNotifications($path)) {
-            return;
-        }
+        $notifications = $this->getNotifications($path);
 
         // Push to a stack
         foreach ($notifications as $notification) {

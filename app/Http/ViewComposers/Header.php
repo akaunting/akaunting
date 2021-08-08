@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Utilities\Versions;
 use App\Traits\Modules;
+use App\Utilities\Versions;
 use Illuminate\View\View;
 
 class Header
@@ -71,16 +71,14 @@ class Header
 
                 $new_apps = $this->getNotifications('new-apps');
 
-                if ($new_apps) {
-                    foreach ($new_apps as $key => $new_app) {
-                        if (setting('notifications.' . user()->id . '.' . $new_app->alias)) {
-                            unset($new_apps[$key]);
+                foreach ($new_apps as $key => $new_app) {
+                    if (setting('notifications.' . user()->id . '.' . $new_app->alias)) {
+                        unset($new_apps[$key]);
 
-                            continue;
-                        }
-
-                        $notifications++;
+                        continue;
                     }
+
+                    $notifications++;
                 }
             }
 

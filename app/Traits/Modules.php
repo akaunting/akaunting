@@ -396,7 +396,7 @@ trait Modules
         return false;
     }
 
-    public function getNotifications($path)
+    public function getNotifications($path): array
     {
         $key = 'apps.notifications';
 
@@ -407,10 +407,10 @@ trait Modules
         }
 
         if (!empty($data) && array_key_exists($path, $data)) {
-            return $data[$path];
+            return (array) $data[$path];
         }
 
-        return false;
+        return [];
     }
 
     public function getPageNumberOfModules($data = [])

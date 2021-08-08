@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Common\Notifications;
 
-use Date;
 use App\Traits\Modules;
+use App\Utilities\Date;
 use Livewire\Component;
 
 class NewApps extends Component
@@ -12,39 +12,46 @@ class NewApps extends Component
 
     public function markRead($alias)
     {
-        $notifications = $this->getNotifications('new-apps' );
+        $notifications = $this->getNotifications('new-apps');
 
         foreach ($notifications as $notification) {
             if ($notification->alias != $alias) {
                 continue;
             }
 
-            $readed = $notification;
+            $read = $notification;
         }
 
-        setting()->set('notifications.'. user()->id . '.' . $alias . '.name', $readed->name);
-        setting()->set('notifications.'. user()->id . '.' . $alias . '.message', $readed->alias);
-        setting()->set('notifications.'. user()->id . '.' . $alias . '.date', Date::now());
-        setting()->set('notifications.'. user()->id . '.' . $alias . '.status', '0');
+        $prefix = 'notifications.' . user()->id . '.' . $alias;
+
+        setting()->set([
+            $prefix . '.name'       => $read->name,
+            $prefix . '.message'    => $read->alias,
+            $prefix . '.date'       => Date::now(),
+            $prefix . '.status'     => '0',
+        ]);
 
         setting()->save();
 
         $this->dispatchBrowserEvent('mark-read', [
             'type' => 'new-apps',
-            'message' => trans('notifications.messages.mark_read', ['type' => $notification->name]),
+            'message' => trans('notifications.messages.mark_read', ['type' => $read->name]),
         ]);
     }
 
     public function markReadAll()
     {
-        $notifications = $this->getNotifications('new-apps' );
+        $notifications = $this->getNotifications('new-apps');
 
         foreach ($notifications as $notification) {
-            setting()->set('notifications.'. user()->id . '.' . $notification->alias . '.name', $notification->name);
-            setting()->set('notifications.'. user()->id . '.' . $notification->alias . '.message', $notification->alias);
-            setting()->set('notifications.'. user()->id . '.' . $notification->alias . '.date', Date::now());
-            setting()->set('notifications.'. user()->id . '.' . $notification->alias . '.status', '0');
+            $prefix = 'notifications.' . user()->id . '.' . $notification->alias;
 
+            setting()->set([
+                $prefix . '.name'       => $notification->name,
+                $prefix . '.message'    => $notification->alias,
+                $prefix . '.date'       => Date::now(),
+                $prefix . '.status'     => '0',
+            ]);
         }
 
         setting()->save();
