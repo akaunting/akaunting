@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Pilih contoh transfer',
+        'second'            => 'Kedua',
+        'third'             => 'Ketiga',
+    ],
+
     'default' => [
         'description'       => 'Akun default, mata uang, bahasa perusahaan Anda',
         'list_limit'        => 'Data Per Laman',

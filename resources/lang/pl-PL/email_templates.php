@@ -47,4 +47,16 @@ return [
         'body'          => 'Witaj,<br /><br />Cykliczny rachunek <strong>{bill_number}</strong>  dla {vendor_name} został wygenerowany automatycznie.<br /><br />Szczegóły rachunku są dostępne w poniższym linku: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Pozdrawiamy,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => 'Płatność uworzono dnia {revenue_date}
+',
+        'body'          => 'Szanowny(a) {customer_name},<br /><br />Przygotowaliśmy dla Ciebie płatność za fakturę: <strong>{invoice_number}</strong>.<br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => 'Płatność uworzono dnia {revenue_date}
+',
+        'body'          => '
+Szanowny {vendor_name},<br /><br />Przygotowaliśmy dla Ciebie płatność za fakturę. <br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
+    ],
 ];

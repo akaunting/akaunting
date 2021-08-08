@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Tambah Baru',
     'add_income'            => 'Tambahkan pendapatan',
     'add_expense'           => 'Tambahkan Biaya',
+    'add_transfer'          => 'Tambahkan Transfer',
     'show'                  => 'Tampilkan',
     'edit'                  => 'Sunting',
     'delete'                => 'Hapus',

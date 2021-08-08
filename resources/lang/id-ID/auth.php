@@ -6,7 +6,7 @@ return [
     'logout'                => 'Keluar',
     'login'                 => 'Masuk',
     'login_to'              => 'Masuk untuk memulai sesi Anda',
-    'remember_me'           => 'Ingatkan Saya',
+    'remember_me'           => 'Ingat Saya',
     'forgot_password'       => 'Lupa kata sandi',
     'reset_password'        => 'Atur Ulang Kata Sandi',
     'enter_email'           => 'Masukan Alamat Email Anda',
@@ -23,9 +23,9 @@ return [
     ],
 
     'error' => [
-        'self_delete'       => 'Error: Tidak dapat menghapus akun sendiri!',
-        'self_disable'      => 'Error: Anda tidak dapat mengaktifkan akun Anda sendiri!',
-        'no_company'        => 'Error: Tidak ada perusahaan yang ditunjuk ke akun Anda. Silakan hubungi administrator sistem.',
+        'self_delete'       => 'Kesalahan: Tidak dapat menghapus akun sendiri!',
+        'self_disable'      => 'Kesalahan: Tidak dapat menonaktifkan akun sendiri!',
+        'no_company'        => 'Kesalahan: Tidak ada perusahaan yang ditunjuk ke akun Anda. Silakan hubungi administrator sistem.',
     ],
 
     'failed'                => 'Identitas ini tidak cocok dengan data kami.',
