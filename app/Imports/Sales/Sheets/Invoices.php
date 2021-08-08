@@ -37,6 +37,7 @@ class Invoices extends Import
 
         $rules['invoice_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
         $rules['invoiced_at'] = $rules['issued_at'];
+        $rules['currency_rate'] = 'required';
 
         unset($rules['document_number'], $rules['issued_at'], $rules['type']);
 
