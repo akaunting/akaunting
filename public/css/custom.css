@@ -1748,4 +1748,8 @@ table .align-items-center td span.badge {
     -moz-appearance: textfield;
 }
 
+.z-index-higher {
+    z-index: 9999999 !important;
+}
+
 /* Disable default html styling for input[type="number] Finish */
