@@ -37,7 +37,7 @@ class App extends Provider
 
         Paginator::useBootstrap();
 
-        Model::preventLazyLoading();
+        Model::preventLazyLoading(config('app.eager_load'));
 
         Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
             $class = get_class($model);
