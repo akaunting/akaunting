@@ -57,7 +57,7 @@ class Customers extends Controller
 
         foreach ($invoices as $item) {
             // Already in transactions
-            if ($item->status == 'paid') {
+            if ($item->status == 'paid' || $item->status == 'cancelled') {
                 continue;
             }
 

@@ -59,7 +59,7 @@ class Vendors extends Controller
 
         foreach ($bills as $item) {
             // Already in transactions
-            if ($item->status == 'paid') {
+            if ($item->status == 'paid' || $item->status == 'cancelled') {
                 continue;
             }
 
