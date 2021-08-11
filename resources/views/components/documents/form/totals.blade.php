@@ -54,21 +54,26 @@
                                     <div class="card d-none" :class="[{'show' : discount}]">
                                         <div class="discount card-body">
                                             <div class="row align-items-center">
-                                                <div class="col-sm-6">
-                                                    <div class="input-group input-group-merge">
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="input-discount">
-                                                                <i class="fa fa-percent"></i>
-                                                            </span>
+                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'percentage'}, {'btn-primary' : form.discount_type === 'percentage'}]"
+                                                                    @click="onChangeDiscountType('percentage')" type="button">
+                                                                <i class="fa fa-percent fa-sm"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'amount'}, {'btn-primary' : form.discount_type === 'amount'}]"
+                                                                    @click="onChangeDiscountType('amount')" type="button">{{ $currency->symbol }}
+                                                            </button>
                                                         </div>
                                                         {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control', 'v-model' => 'form.discount']) !!}
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="discount-description">
                                                         <strong>{{ trans('invoices.discount_desc') }}</strong>
                                                     </div>
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="discount card-footer">

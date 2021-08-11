@@ -116,7 +116,12 @@ const app = new Vue({
                 let line_discount_amount = 0;
 
                 if (item.discount) {
-                    line_discount_amount = item.total * (item.discount / 100);
+                    if (item.discount_type === 'percentage') {
+                        line_discount_amount = item.total * (item.discount / 100);
+                    } else {
+                        line_discount_amount = item.discount;
+                    }
+
                     item.discount_amount = line_discount_amount
 
                     item_discounted_total = item.total -= line_discount_amount;
@@ -126,7 +131,11 @@ const app = new Vue({
                 let item_discounted_total = item.total;
 
                 if (global_discount) {
-                    item_discounted_total = item.total - (item.total * (global_discount / 100));
+                    if (this.form.discount_type === 'percentage') {
+                        item_discounted_total = item.total - (item.total * (global_discount / 100));
+                    } else {
+                        item_discounted_total = item.total - global_discount;
+                    }
 
                     item_discount = global_discount;
                 }
@@ -241,7 +250,11 @@ const app = new Vue({
 
             // Apply discount to total
             if (global_discount) {
-                discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
+                if (this.form.discount_type === 'percentage') {
+                    discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
+                } else {
+                    discount_total = global_discount;
+                }
 
                 this.totals.discount = discount_total;
 
@@ -389,13 +402,31 @@ const app = new Vue({
             this.items[item_index].add_discount = true;
         },
 
+        onChangeDiscountType(type) {
+            this.form.discount_type = type;
+            this.onCalculateTotal();
+        },
+
+        onChangeLineDiscountType(item_index, type) {
+            this.items[item_index].discount_type = type;
+            this.onCalculateTotal();
+        },
+
         onAddTotalDiscount() {
             let discount = document.getElementById('pre-discount').value;
 
-            if (discount < 0) {
-                discount = 0;
-            } else if (discount > 100) {
-                discount = 100;
+            if (this.form.discount_type === 'percentage') {
+                if (discount < 0) {
+                    discount = 0;
+                } else if (discount > 100) {
+                    discount = 100;
+                }
+            } else {
+                if (discount < 0) {
+                    discount = 0;
+                } else if (discount > this.totals.sub) {
+                    discount = this.totals.sub;
+                }
             }
 
             document.getElementById('pre-discount').value = discount;
