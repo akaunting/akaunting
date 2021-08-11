@@ -34,8 +34,6 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        $limit = (int) request('limit', setting('default.list_limit', '25'));
-
         // Handle transactions
         $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
 
@@ -43,7 +41,7 @@ class Accounts extends Controller
             if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
                 return true;
             }
-        
+
             return false;
         })->sortByDesc(function ($transfer) {
             return $transfer->expense_transaction->paid_at;

@@ -216,7 +216,7 @@
                                         <tbody>
                                             @foreach($transactions as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-sm-3"><a href="{{ route($item->route_name, $item->route_id) }}">@date($item->issued_at)</a></td>
+                                                    <td class="col-sm-3"><a href="{{ route($item->route_name, $item->route_id) }}">@date($item->paid_at)</a></td>
                                                     <td class="col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-3">{{ $item->type_title }}</td>
                                                     <td class="col-sm-3">{{ $item->category->name }}</td>
@@ -257,7 +257,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>                                 
+                                    </table>
                                 </div>
 
                                 <div class="card-footer py-4 table-action">
