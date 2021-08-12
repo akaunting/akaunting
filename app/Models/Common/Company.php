@@ -443,7 +443,7 @@ class Company extends Eloquent implements Ownable
      */
     public function getCompanyLogoAttribute()
     {
-        return $this->getMedia('company_logo')->last();
+        return $this->getMedia('company.logo')->last();
     }
 
     public function makeCurrent($force = false)
