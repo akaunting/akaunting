@@ -49,7 +49,7 @@
                                 <el-popover
                                     popper-class="p-0 h-0"
                                     placement="bottom"
-                                    width="300"
+                                    width="350"
                                     v-model="discount">
                                     <div class="card d-none" :class="[{'show' : discount}]">
                                         <div class="discount card-body">

@@ -70,6 +70,8 @@ const app = new Vue({
     },
 
     mounted() {
+        this.form.discount_type = 'percentage';
+
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
@@ -117,9 +119,16 @@ const app = new Vue({
 
                 if (item.discount) {
                     if (item.discount_type === 'percentage') {
+                        if (item.discount > 100) {
+                            item.discount = 100;
+                        }
+
                         line_discount_amount = item.total * (item.discount / 100);
                     } else {
-                        line_discount_amount = item.discount;
+                        if (parseInt(item.discount) > item.price) {
+                            item.discount = item.price;
+                        }
+                        line_discount_amount = parseFloat(item.discount);
                     }
 
                     item.discount_amount = line_discount_amount
@@ -129,16 +138,6 @@ const app = new Vue({
                 }
 
                 let item_discounted_total = item.total;
-
-                if (global_discount) {
-                    if (this.form.discount_type === 'percentage') {
-                        item_discounted_total = item.total - (item.total * (global_discount / 100));
-                    } else {
-                        item_discounted_total = item.total - global_discount;
-                    }
-
-                    item_discount = global_discount;
-                }
 
                 // item tax calculate.
                 if (item.tax_ids) {
@@ -399,6 +398,7 @@ const app = new Vue({
         },
 
         onAddLineDiscount(item_index) {
+            this.items[item_index].discount_type = 'percentage';
             this.items[item_index].add_discount = true;
         },
 
