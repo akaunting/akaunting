@@ -57,12 +57,12 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'percentage'}, {'btn-primary' : form.discount_type === 'percentage'}]"
-                                                                    @click="onChangeDiscountType('percentage')" type="button">
+                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'normal'}, {'btn-primary' : form.discount_type === 'normal'}]"
+                                                                    @click="onChangeDiscountType('normal')" type="button">
                                                                 <i class="fa fa-percent fa-sm"></i>
                                                             </button>
-                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'amount'}, {'btn-primary' : form.discount_type === 'amount'}]"
-                                                                    @click="onChangeDiscountType('amount')" type="button">{{ $currency->symbol }}
+                                                            <button class="btn btn-sm" :class="[{'btn-outline-primary' : form.discount_type !== 'fixed'}, {'btn-primary' : form.discount_type === 'fixed'}]"
+                                                                    @click="onChangeDiscountType('fixed')" type="button">{{ $currency->symbol }}
                                                             </button>
                                                         </div>
                                                         {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control', 'v-model' => 'form.discount']) !!}

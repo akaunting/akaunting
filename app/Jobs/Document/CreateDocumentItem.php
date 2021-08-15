@@ -43,16 +43,13 @@ class CreateDocumentItem extends Job
 
         // Apply line discount to amount
         if (!empty($this->request['discount'])) {
-            $discount += $this->request['discount'];
+            $discount = $this->request['discount'];
 
-            $item_discounted_amount = $item_amount -= ($item_amount * ($this->request['discount'] / 100));
-        }
-
-        // Apply global discount to amount
-        if (!empty($this->request['global_discount'])) {
-            $discount += $this->request['global_discount'];
-
-            $item_discounted_amount = $item_amount - ($item_amount * ($this->request['global_discount'] / 100));
+            if ($this->request['discount_type'] === 'normal') {
+                $item_discounted_amount = $item_amount -= ($item_amount * ($this->request['discount'] / 100));
+            } else {
+                $item_discounted_amount = $item_amount -= $this->request['discount'];
+            }
         }
 
         $tax_amount = 0;
@@ -153,7 +150,11 @@ class CreateDocumentItem extends Job
                     $item_tax_total += $tax_amount;
                 }
 
-                $item_amount = ($item_amount - $item_tax_total) / (1 - $discount / 100);
+                if (!empty($this->request['discount_type']) && $this->request['discount_type'] === 'normal') {
+                    $item_amount = ($item_amount - $item_tax_total) / (1 - $discount / 100);
+                } else {
+                    $item_amount = ($item_amount - $item_tax_total) - $discount;
+                }
             }
 
             if ($compounds) {
@@ -185,6 +186,7 @@ class CreateDocumentItem extends Job
         $this->request['quantity'] = (double) $this->request['quantity'];
         $this->request['price'] = round($this->request['price'], $precision);
         $this->request['tax'] = round($item_tax_total, $precision);
+        $this->request['discount_type'] = !empty($this->request['discount_type']) ? $this->request['discount_type'] : 'normal';
         $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
         $this->request['total'] = round($item_amount, $precision);
 

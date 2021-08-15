@@ -70,7 +70,7 @@ const app = new Vue({
     },
 
     mounted() {
-        this.form.discount_type = 'percentage';
+        this.form.discount_type = 'normal';
 
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
@@ -118,7 +118,7 @@ const app = new Vue({
                 let line_discount_amount = 0;
 
                 if (item.discount) {
-                    if (item.discount_type === 'percentage') {
+                    if (item.discount_type === 'normal') {
                         if (item.discount > 100) {
                             item.discount = 100;
                         }
@@ -249,7 +249,7 @@ const app = new Vue({
 
             // Apply discount to total
             if (global_discount) {
-                if (this.form.discount_type === 'percentage') {
+                if (this.form.discount_type === 'normal') {
                     discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
                 } else {
                     discount_total = global_discount;
@@ -398,7 +398,7 @@ const app = new Vue({
         },
 
         onAddLineDiscount(item_index) {
-            this.items[item_index].discount_type = 'percentage';
+            this.items[item_index].discount_type = 'normal';
             this.items[item_index].add_discount = true;
         },
 
@@ -415,7 +415,7 @@ const app = new Vue({
         onAddTotalDiscount() {
             let discount = document.getElementById('pre-discount').value;
 
-            if (this.form.discount_type === 'percentage') {
+            if (this.form.discount_type === 'normal') {
                 if (discount < 0) {
                     discount = 0;
                 } else if (discount > 100) {
@@ -649,6 +649,7 @@ const app = new Vue({
                     price: (item.price).toFixed(2),
                     tax_ids: item.tax_ids,
                     discount: item.discount_rate,
+                    discount_type: item.discount_type,
                     total: (item.total).toFixed(2)
                 });
 
@@ -686,6 +687,7 @@ const app = new Vue({
                     tax_ids: item_taxes,
                     add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
+                    discount_type: item.discount_type,
                     total: (item.total).toFixed(2),
                     // @todo
                     // invoice_item_checkbox_sample: [],
