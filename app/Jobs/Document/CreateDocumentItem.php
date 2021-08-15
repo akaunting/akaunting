@@ -45,7 +45,7 @@ class CreateDocumentItem extends Job
         if (!empty($this->request['discount'])) {
             $discount = $this->request['discount'];
 
-            if ($this->request['discount_type'] === 'normal') {
+            if ($this->request['discount_type'] === 'percentage') {
                 $item_discounted_amount = $item_amount -= ($item_amount * ($this->request['discount'] / 100));
             } else {
                 $item_discounted_amount = $item_amount -= $this->request['discount'];
@@ -150,10 +150,10 @@ class CreateDocumentItem extends Job
                     $item_tax_total += $tax_amount;
                 }
 
-                if (!empty($this->request['discount_type']) && $this->request['discount_type'] === 'normal') {
-                    $item_amount = ($item_amount - $item_tax_total) / (1 - $discount / 100);
-                } else {
+                if (!empty($this->request['discount_type']) && $this->request['discount_type'] === 'fixed') {
                     $item_amount = ($item_amount - $item_tax_total) - $discount;
+                } else {
+                    $item_amount = ($item_amount - $item_tax_total) / (1 - $discount / 100);
                 }
             }
 
@@ -186,7 +186,7 @@ class CreateDocumentItem extends Job
         $this->request['quantity'] = (double) $this->request['quantity'];
         $this->request['price'] = round($this->request['price'], $precision);
         $this->request['tax'] = round($item_tax_total, $precision);
-        $this->request['discount_type'] = !empty($this->request['discount_type']) ? $this->request['discount_type'] : 'normal';
+        $this->request['discount_type'] = !empty($this->request['discount_type']) ? $this->request['discount_type'] : 'percentage';
         $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
         $this->request['total'] = round($item_amount, $precision);
 

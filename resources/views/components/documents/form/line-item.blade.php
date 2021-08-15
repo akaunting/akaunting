@@ -163,8 +163,8 @@
                                     <div class="form-group mb-0 w-100" style="display: inline-block; position: relative;">
                                         <div class="input-group mb-0 select-tax">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-sm" :class="[{'btn-outline-primary' : row.discount_type !== 'normal'}, {'btn-primary' : row.discount_type === 'normal'}]"
-                                                        @click="onChangeLineDiscountType(index, 'normal')" type="button">
+                                                <button class="btn btn-sm" :class="[{'btn-outline-primary' : row.discount_type !== 'percentage'}, {'btn-primary' : row.discount_type === 'percentage'}]"
+                                                        @click="onChangeLineDiscountType(index, 'percentage')" type="button">
                                                     <i class="fa fa-percent fa-sm"></i>
                                                 </button>
                                                 <button class="btn btn-sm" :class="[{'btn-outline-primary' : row.discount_type !== 'fixed'}, {'btn-primary' : row.discount_type === 'fixed'}]"

@@ -71,7 +71,7 @@ class CreateDocumentItemsAndTotals extends Job
         }
 
         if (!empty($this->request['discount'])) {
-            if ($this->request['discount_type'] === 'normal') {
+            if ($this->request['discount_type'] === 'percentage') {
                 $discount_total = $sub_total * ($this->request['discount'] / 100);
             } else {
                 $discount_total = $this->request['discount'];
@@ -195,7 +195,7 @@ class CreateDocumentItemsAndTotals extends Job
             $discount_amount = 0;
 
             if (!empty($item['discount'])) {
-                if ($item['discount_type'] === 'normal') {
+                if ($item['discount_type'] === 'percentage') {
                     $discount_amount = ($item_amount * ($item['discount'] / 100));
                 } else {
                     $discount_amount = $item['discount'];

@@ -33,7 +33,7 @@
     @if (!$hideDiscount)
         @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
             @stack('discount_td_start')
-                @if ($item->discount_type === 'normal')
+                @if ($item->discount_type === 'percentage')
                     <td class="discount">{{ $item->discount }}</td>
                 @else
                     <td class="discount">@money($item->discount, $document->currency_code, true)</td>
