@@ -3,6 +3,8 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Events\Auth\UserUpdated;
+use App\Events\Auth\UserUpdating;
 use App\Models\Auth\User;
 
 class UpdateUser extends Job
@@ -38,6 +40,8 @@ class UpdateUser extends Job
             unset($this->request['password_confirmation']);
         }
 
+        event(new UserUpdating($this->user, $this->request));
+
         \DB::transaction(function () {
             $this->user->update($this->request->input());
 
@@ -72,6 +76,8 @@ class UpdateUser extends Job
                 $this->user->contact->update($this->request->input());
             }
         });
+
+        event(new UserUpdated($this->user, $this->request));
 
         return $this->user;
     }
