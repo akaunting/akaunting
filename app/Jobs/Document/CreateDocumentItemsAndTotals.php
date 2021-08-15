@@ -67,15 +67,17 @@ class CreateDocumentItemsAndTotals extends Job
                 'sort_order' => $sort_order,
             ]);
 
-            $this->request['amount'] -= $discount_amount_total;
-
             $sort_order++;
         }
 
         if (!empty($this->request['discount'])) {
-            $discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
+            if ($this->request['discount_type'] === 'percentage') {
+                $discount_total = $sub_total * ($this->request['discount'] / 100);
+            } else {
+                $discount_total = $this->request['discount'];
+            }
 
-            DocumentTotal::create([
+                DocumentTotal::create([
                 'company_id' => $this->document->company_id,
                 'type' => $this->document->type,
                 'document_id' => $this->document->id,
@@ -193,11 +195,15 @@ class CreateDocumentItemsAndTotals extends Job
             $discount_amount = 0;
 
             if (!empty($item['discount'])) {
-                $discount_amount = ($item_amount * ($item['discount'] / 100));
+                if ($item['discount_type'] === 'percentage') {
+                    $discount_amount = ($item_amount * ($item['discount'] / 100));
+                } else {
+                    $discount_amount = $item['discount'];
+                }
             }
 
             // Calculate totals
-            $sub_total += $document_item->total + $discount_amount;
+            $sub_total += $document_item->total;
 
             $discount_amount_total += $discount_amount;
 

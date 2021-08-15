@@ -70,6 +70,8 @@ const app = new Vue({
     },
 
     mounted() {
+        this.form.discount_type = 'percentage';
+
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
@@ -116,7 +118,19 @@ const app = new Vue({
                 let line_discount_amount = 0;
 
                 if (item.discount) {
-                    line_discount_amount = item.total * (item.discount / 100);
+                    if (item.discount_type === 'percentage') {
+                        if (item.discount > 100) {
+                            item.discount = 100;
+                        }
+
+                        line_discount_amount = item.total * (item.discount / 100);
+                    } else {
+                        if (parseInt(item.discount) > item.price) {
+                            item.discount = item.price;
+                        }
+                        line_discount_amount = parseFloat(item.discount);
+                    }
+
                     item.discount_amount = line_discount_amount
 
                     item_discounted_total = item.total -= line_discount_amount;
@@ -124,12 +138,6 @@ const app = new Vue({
                 }
 
                 let item_discounted_total = item.total;
-
-                if (global_discount) {
-                    item_discounted_total = item.total - (item.total * (global_discount / 100));
-
-                    item_discount = global_discount;
-                }
 
                 // item tax calculate.
                 if (item.tax_ids) {
@@ -241,7 +249,11 @@ const app = new Vue({
 
             // Apply discount to total
             if (global_discount) {
-                discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
+                if (this.form.discount_type === 'percentage') {
+                    discount_total = parseFloat(sub_total + inclusive_tax_total) * (global_discount / 100);
+                } else {
+                    discount_total = global_discount;
+                }
 
                 this.totals.discount = discount_total;
 
@@ -386,16 +398,35 @@ const app = new Vue({
         },
 
         onAddLineDiscount(item_index) {
+            this.items[item_index].discount_type = 'percentage';
             this.items[item_index].add_discount = true;
+        },
+
+        onChangeDiscountType(type) {
+            this.form.discount_type = type;
+            this.onCalculateTotal();
+        },
+
+        onChangeLineDiscountType(item_index, type) {
+            this.items[item_index].discount_type = type;
+            this.onCalculateTotal();
         },
 
         onAddTotalDiscount() {
             let discount = document.getElementById('pre-discount').value;
 
-            if (discount < 0) {
-                discount = 0;
-            } else if (discount > 100) {
-                discount = 100;
+            if (this.form.discount_type === 'percentage') {
+                if (discount < 0) {
+                    discount = 0;
+                } else if (discount > 100) {
+                    discount = 100;
+                }
+            } else {
+                if (discount < 0) {
+                    discount = 0;
+                } else if (discount > this.totals.sub) {
+                    discount = this.totals.sub;
+                }
             }
 
             document.getElementById('pre-discount').value = discount;
@@ -618,6 +649,7 @@ const app = new Vue({
                     price: (item.price).toFixed(2),
                     tax_ids: item.tax_ids,
                     discount: item.discount_rate,
+                    discount_type: item.discount_type,
                     total: (item.total).toFixed(2)
                 });
 
@@ -655,6 +687,7 @@ const app = new Vue({
                     tax_ids: item_taxes,
                     add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
+                    discount_type: item.discount_type,
                     total: (item.total).toFixed(2),
                     // @todo
                     // invoice_item_checkbox_sample: [],

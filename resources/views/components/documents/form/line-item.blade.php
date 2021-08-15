@@ -76,7 +76,7 @@
                                 @if (!$hideQuantity)
                                     <div>
                                         @stack('quantity_input_start')
-                                        <input 
+                                        <input
                                             type="number"
                                             min="0"
                                             class="form-control text-center p-0 input-number-disabled"
@@ -161,11 +161,15 @@
                                     </div>
                                             @stack('discount_input_start')
                                     <div class="form-group mb-0 w-100" style="display: inline-block; position: relative;">
-                                        <div class="input-group input-group-merge mb-0 select-tax">
+                                        <div class="input-group mb-0 select-tax">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="input-discount">
-                                                    <i class="fa fa-percent"></i>
-                                                </span>
+                                                <button class="btn btn-sm" :class="[{'btn-outline-primary' : row.discount_type !== 'percentage'}, {'btn-primary' : row.discount_type === 'percentage'}]"
+                                                        @click="onChangeLineDiscountType(index, 'percentage')" type="button">
+                                                    <i class="fa fa-percent fa-sm"></i>
+                                                </button>
+                                                <button class="btn btn-sm" :class="[{'btn-outline-primary' : row.discount_type !== 'fixed'}, {'btn-primary' : row.discount_type === 'fixed'}]"
+                                                        @click="onChangeLineDiscountType(index, 'fixed')" type="button">{{ $currency->symbol }}
+                                                </button>
                                             </div>
                                             <input type="number"
                                                 max="100"
@@ -227,7 +231,7 @@
                                     ></akaunting-select>
                                     @stack('taxes_input_end')
                                 </div>
-                            
+
                                 <div class="line-item-content-right">
                                     <div class="line-item-content-right-price long-texts text-right">
                                         {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
@@ -242,7 +246,7 @@
                             <div v-if="row.add_tax" class="line-item-area pb-3" :class="{'pt-2' : row.add_discount}">
                                 <div class="line-item-content">
                                     <div class="long-texts line-item-text" style="float: left; margin-top: 15px; margin-right:2px; position: absolute; left: -63px;">
-                                        {{ trans_choice('general.taxes', 1) }} 
+                                        {{ trans_choice('general.taxes', 1) }}
                                     </div>
 
                                     @stack('taxes_input_start')
