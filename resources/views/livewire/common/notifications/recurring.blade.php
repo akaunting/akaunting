@@ -1,4 +1,4 @@
-<div class="accordion" id="recurring-{{$type}}">
+<div class="accordion" id="notification-recurring-{{$type}}">
     <div class="card">
         <div class="card-header" id="heading-recurring-{{$type}}" data-toggle="collapse" data-target="#collapse-recurring-{{$type}}"
                 aria-expanded="false" aria-controls="collapse-recurring-{{$type}}">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div id="collapse-recurring-{{$type}}" class="collapse" aria-labelledby="heading-recurring-{{$type}}" data-parent="#recurring-{{$type}}">
+        <div id="collapse-recurring-{{$type}}" class="collapse" aria-labelledby="heading-recurring-{{$type}}" data-parent="#notification-recurring-{{$type}}">
             @if ($notifications->total())
                 <div class="table-responsive">
                     <table class="table table-flush table-hover" id="tbl-recurring-{{ $type }}">
