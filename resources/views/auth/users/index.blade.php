@@ -57,7 +57,7 @@
                             <td class="col-sm-2 col-md-2 col-lg-3 d-none d-sm-block long-texts">{{ $item->email }}</td>
                             <td class="col-md-2 col-lg-2 d-none d-md-block">
                                 @foreach($item->roles as $role)
-                                    <label class="label label-default">{{ $role->display_name }}</label>
+                                    <label class="badge badge-default">{{ $role->display_name }}</label>
                                 @endforeach
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
