@@ -46,11 +46,9 @@ mix
     .js('resources/assets/js/views/common/reports.js', 'public/js/common')
 
     // Sales
-    .js('resources/assets/js/views/sales/revenues.js', 'public/js/sales')
     .js('resources/assets/js/views/sales/customers.js', 'public/js/sales')
 
     // Purchases
-    .js('resources/assets/js/views/purchases/payments.js', 'public/js/purchases')
     .js('resources/assets/js/views/purchases/vendors.js', 'public/js/purchases')
 
     // Install
