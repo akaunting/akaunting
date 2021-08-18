@@ -82,21 +82,21 @@
                 @stack('account_number_start')
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 font-weight-600">
                     {{ trans_choice('general.accounts', 1) }} {{ trans_choice('accounts.number', 2) }}
-                    <small class="long-texts">{{ $account -> number}}</small>
+                    <small>{{ $account->number}}</small>
                 </li>
                 @stack('account_number_end')
 
                 @stack('account_currency_start')
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
                     {{ trans_choice('general.currencies', 2) }}
-                    <small class="long-texts"> {{ $account -> currency -> name}} </small>
+                    <small>{{ $account->currency->name}}</small>
                 </li>
                 @stack('account_currency_end')
 
                 @stack('account_starting_balance_start')
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
                     {{ trans_choice('accounts.opening_balance', 2) }}
-                    <small class="long-texts"> @money($account -> opening_balance, $account -> currency -> currency_code, true) </small>
+                    <small>@money($account->opening_balance, $account->currency->currency_code, true)</small>
                 </li>
                 @stack('account_starting_balance_end')
             </ul>
@@ -105,21 +105,21 @@
                 @stack('bank_name_start')
                 <li class="list-group-item border-0">
                     <div class="font-weight-600">{{ trans('accounts.bank_name') }}</div>
-                    <div><small class="long-texts" title="{{ $account->bank_name }}">{{ $account->bank_name }}</small></div>
+                    <div><small>{{ $account->bank_name }}</small></div>
                 </li>
                 @stack('bank_name_end')
 
                 @stack('account_phone_start')
                 <li class="list-group-item border-0 border-top-1">
                     <div class="font-weight-600">{{ trans('accounts.bank_phone') }}</div>
-                    <div><small class="long-texts" title="{{ $account->bank_phone }}">{{ $account->bank_phone }}</small></div>
+                    <div><small>{{ $account->bank_phone }}</small></div>
                 </li>
                 @stack('account_phone_end')
 
                 @stack('account_address_start')
                 <li class="list-group-item border-0 border-top-1">
                     <div class="font-weight-600">{{ trans('accounts.bank_address') }}</div>
-                    <div><small class="long-texts" title="{{ $account->bank_address }}">{{ $account->bank_address }}</small></div>
+                    <div><small>{{ $account->bank_address }}</small></div>
                 </li>
                 @stack('account_address_end')
             </ul>
