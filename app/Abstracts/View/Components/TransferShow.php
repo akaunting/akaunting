@@ -102,6 +102,12 @@ abstract class TransferShow extends Component
     public $routeButtonDelete;
 
     /** @var string */
+    public $routeFromAccountShow;
+
+    /** @var string */
+    public $routeToAccountShow;
+
+    /** @var string */
     public $textDeleteModal;
 
     /** @var bool */
@@ -267,7 +273,7 @@ abstract class TransferShow extends Component
         bool $hideButtonGroupDivider1 = false, bool $hideButtonGroupDivider2 = false, bool $hideButtonGroupDivider3 = false,
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $signedUrl = '',
-        string $routeButtonEmail = '', string $routeButtonPdf = '', string $routeButtonDelete = '',
+        string $routeButtonEmail = '', string $routeButtonPdf = '', string $routeButtonDelete = '', string $routeFromAccountShow = '', string $routeToAccountShow = '',
         string $textDeleteModal = '',
         bool $hideHeader = false, bool $hideHeaderFromAccount = false, bool $hideHeaderToAccount = false, bool $hideHeaderAmount = false, bool $hideHeaderPaidAt = false,
         string $textHeaderFromAccount = '', string $textHeaderToAccount = '', string $textHeaderAmount = '', string $textHeaderPaidAt = '',
@@ -324,6 +330,8 @@ abstract class TransferShow extends Component
         $this->routeButtonEmail = $this->getRouteButtonEmail($routeButtonEmail);
         $this->routeButtonPdf = $this->getRouteButtonPdf($routeButtonPdf);
         $this->routeButtonDelete = $this->getRouteButtonDelete($routeButtonDelete);
+        $this->routeFromAccountShow = $this->getRouteFromAccountShow($routeFromAccountShow);
+        $this->routeToAccountShow = $this->getRouteToAccountShow($routeToAccountShow);
 
         // Navbar Text
         $this->textDeleteModal = $textDeleteModal;
@@ -499,6 +507,24 @@ abstract class TransferShow extends Component
         }
 
         return 'transfers.destroy';
+    }
+
+    protected function getRouteFromAccountShow($routeFromAccountShow)
+    {
+        if (!empty($routeFromAccountShow)) {
+            return $routeFromAccountShow;
+        }
+
+        return 'accounts.show';
+    }
+
+    protected function getRouteToAccountShow($routeToAccountShow)
+    {
+        if (!empty($routeToAccountShow)) {
+            return $routeToAccountShow;
+        }
+
+        return 'accounts.show';
     }
 
     protected function getPermissionCreate($permissionCreate)
