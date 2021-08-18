@@ -118,7 +118,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new CreateContact($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('vendors.index');
+            $response['redirect'] = route('vendors.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
 
