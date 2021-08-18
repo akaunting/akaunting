@@ -8,6 +8,8 @@
         hide-header-to-account="{{ $hideHeaderToAccount }}"
         text-header-to-account="{{ $textHeaderToAccount }}"
         class-header-to-account="{{ $classHeaderToAccount }}"
+        route-from-account-show="{{ $routeFromAccountShow }}"
+        route-to-account-show="{{ $routeToAccountShow }}"
         hide-header-amount="{{ $hideHeaderAmount }}"
         text-header-amount="{{ $textHeaderAmount }}"
         class-header-amount="{{ $classHeaderAmount }}"

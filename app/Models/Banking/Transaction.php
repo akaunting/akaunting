@@ -350,6 +350,16 @@ class Transaction extends Model
     }
 
     /**
+     * Check if the record is attached to a transfer.
+     *
+     * @return bool
+     */
+    public function getHasTransferRelationAttribute()
+    {
+        return (bool) (optional($this->category)->id == optional($this->category)->transfer());
+    }
+
+    /**
      * Get the title of type.
      *
      * @return string
