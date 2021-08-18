@@ -8,6 +8,7 @@
         <div class="dropdown-menu" role="menu">
             @stack('button_dropdown_start')
             @stack('edit_button_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonEdit)
                     @can($permissionUpdate)
                         <a class="dropdown-item" href="{{ route($routeButtonEdit, $transaction->id) }}">
@@ -15,9 +16,11 @@
                         </a>
                     @endcan
                 @endif
+            @endif
             @stack('edit_button_end')
 
             @stack('duplicate_button_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonDuplicate)
                     @can($permissionCreate)
                         <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $transaction->id) }}">
@@ -25,12 +28,15 @@
                         </a>
                     @endcan
                 @endif
+            @endif
             @stack('duplicate_button_end')
 
             @stack('button_dropdown_divider_1_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonGroupDivider1)
                     <div class="dropdown-divider"></div>
                 @endif
+            @endif
             @stack('button_dropdown_divider_1_end')
 
             @if (!$hideButtonPrint)
@@ -42,14 +48,17 @@
             @endif
 
             @stack('share_button_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonShare)
                     <a class="dropdown-item" href="{{ $signedUrl }}" target="_blank">
                         {{ trans('general.share') }}
                     </a>
                 @endif
+            @endif
             @stack('share_button_end')
 
             @stack('edit_button_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonEmail)
                     @if($transaction->contact->email)
                         <a class="dropdown-item" href="{{ route($routeButtonEmail, $transaction->id) }}">
@@ -63,6 +72,7 @@
                         </el-tooltip>
                     @endif
                 @endif
+            @endif
             @stack('edit_button_end')
 
             @stack('button_pdf_start')
@@ -74,12 +84,15 @@
             @stack('button_pdf_end')
 
             @stack('button_dropdown_divider_3_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonGroupDivider3)
                     <div class="dropdown-divider"></div>
                 @endif
+            @endif
             @stack('button_dropdown_divider_3_end')
 
             @stack('delete_button_start')
+            @if (!$transaction->hasTransferRelation)
                 @if (!$hideButtonDelete)
                     @can($permissionDelete)
                         @if ($checkButtonReconciled)
@@ -91,6 +104,7 @@
                         @endif
                     @endcan
                 @endif
+            @endif
             @stack('delete_button_end')
             @stack('button_dropdown_end')
         </div>
