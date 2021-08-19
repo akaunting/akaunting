@@ -11,6 +11,7 @@
 
         <el-select v-model="selected" :placeholder="placeholder" filterable
             @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
+            :clearable="clearable"
             :disabled="disabled"
             :multiple="multiple"
             :readonly="readonly"
@@ -245,6 +246,12 @@ export default {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
+        },
+
+        clearable: {
+            type: Boolean,
+            default: true,
+            description: "Selectbox clearable status"
         },
 
         disabled: {
