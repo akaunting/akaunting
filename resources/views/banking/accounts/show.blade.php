@@ -96,7 +96,7 @@
                 @stack('account_starting_balance_start')
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
                     {{ trans_choice('accounts.opening_balance', 2) }}
-                    <small>@money($account->opening_balance, $account->currency->currency_code, true)</small>
+                    <small>@money($account->opening_balance, $account->currency_code, true)</small>
                 </li>
                 @stack('account_starting_balance_end')
             </ul>
