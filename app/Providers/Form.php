@@ -136,7 +136,7 @@ class Form extends Provider
         ]);
 
         Facade::component('bulkActionAllGroup', 'partials.form.bulk_action_all_group', [
-
+            'attributes' => []
         ]);
 
         Facade::component('bulkActionGroup', 'partials.form.bulk_action_group', [
