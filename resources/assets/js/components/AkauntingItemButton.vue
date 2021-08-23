@@ -297,6 +297,8 @@ export default {
                 return;
             }
 
+            this.onItemMatchedSearchQuery()
+
             window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
                         .then(response => {
                             this.item_list = [];
@@ -323,6 +325,8 @@ export default {
 
             this.$emit('input', this.search);
         },
+
+        onItemMatchedSearchQuery() {},
 
         onItemSelected(item) {
             const indexeditem = { ...item, index: this.currentIndex };
@@ -573,7 +577,7 @@ export default {
                 }
             },
             deep: true
-        }
+        },
     },
 };
 </script>
