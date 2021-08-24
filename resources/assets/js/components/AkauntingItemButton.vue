@@ -33,7 +33,13 @@
                 </div>
 
                 <ul class="aka-select-menu-options">
-                    <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSelected(item)">
+                    <div 
+                        class="aka-select-menu-option" 
+                        v-for="(item, index) in sortedItems" 
+                        :key="index" 
+                        :class="isItemMatched ? 'highlightItem' : ''"
+                        @click="onItemSelected(item)"
+                    >
                         <div class="item-select w-100">
                             <div class="item-select-column item-select-info w-75">
                                 <b class="item-select-info-name"><span>{{ item.name }}</span></b>
@@ -202,6 +208,7 @@ export default {
                 item_selected: false,
                 item_list: false,
             },
+            isItemMatched: false,
             form: {},
             add_new: {
                 text: this.addNew.text,
@@ -219,6 +226,10 @@ export default {
                 masked: this.masked
             }
         };
+    },
+
+    created() {
+        this.setItemList(this.items);
     },
 
     mounted() {
@@ -283,6 +294,8 @@ export default {
         },
 
         onInput() {
+            this.isItemMatched = false; //to remove the style from first item on input change (option)
+
             //to optimize performance we kept the condition that checks for if search exists or not
             if (!this.search) {
                 return;
@@ -297,9 +310,17 @@ export default {
                 return;
             }
 
-            this.onItemMatchedSearchQuery()
+            this.fetchMatchedItems();
 
-            window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
+            this.item_list.length > 0
+                ? this.isItemMatched = true
+                : {}
+
+            this.$emit('input', this.search);
+        },
+
+        async fetchMatchedItems() {
+            await window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
                         .then(response => {
                             this.item_list = [];
 
@@ -319,14 +340,8 @@ export default {
                                 });
                             }, this);
                         })
-                        .catch(error => {
-
-                        });
-
-            this.$emit('input', this.search);
+                        .catch(error => {});
         },
-
-        onItemMatchedSearchQuery() {},
 
         onItemSelected(item) {
             const indexeditem = { ...item, index: this.currentIndex };
@@ -344,12 +359,13 @@ export default {
             this.show.item_list = false;
 
             this.search = '';
+
             // Set default item list
             this.setItemList(this.items);
         },
 
         onItemCreate() {
-            const newItem = {
+            let item = {
                 index: this.newItems.length,
                 key: 0,
                 value: this.search,
@@ -361,60 +377,11 @@ export default {
                 tax_ids: [],
             };
 
-            this.newItems.push(newItem);
+            this.item_list.length === 1 
+                ? item = this.item_list[0] 
+                : this.newItems.push(item)
 
-            this.addItem(newItem);
-
-            /*
-            let add_new = this.add_new;
-
-            window.axios.get(this.createRoute)
-            .then(response => {
-                add_new.show = true;
-                add_new.html = response.data.html;
-
-                this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
-                    resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
-
-                        components: {
-                            [Select.name]: Select,
-                            [Option.name]: Option,
-                            [OptionGroup.name]: OptionGroup,
-                            [ColorPicker.name]: ColorPicker,
-                            AkauntingModalAddNew,
-                            AkauntingModal,
-                            AkauntingMoney,
-                            AkauntingRadioGroup,
-                            AkauntingSelect,
-                            AkauntingDate,
-                        },
-
-                        data: function () {
-                            return {
-                                add_new: add_new,
-                            }
-                        },
-
-                        methods: {
-                            onSubmit(event) {
-                                this.$emit('submit', event);
-                            },
-
-                            onCancel(event) {
-                                this.$emit('cancel', event);
-                            }
-                        }
-                    })
-                });
-            })
-            .catch(e => {
-                console.log(e);
-            })
-            .finally(function () {
-                // always executed
-            });
-            */
+            this.addItem(item);
         },
 
         onSubmit(event) {
@@ -541,10 +508,6 @@ export default {
         },
     },
 
-    created() {
-        this.setItemList(this.items);
-    },
-
     computed: {
         sortedItems() {
             return this.sortItems();
@@ -581,3 +544,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+    .highlightItem:first-child {
+        background-color: #F5F7FA;    
+    }
+</style>
