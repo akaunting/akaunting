@@ -202,7 +202,7 @@ export default {
     data() {
         return {
             item_list: [],
-            invoiceItems: [],
+            selected_items: [],
             search: '', // search column model
             show: {
                 item_selected: false,
@@ -321,26 +321,25 @@ export default {
 
         async fetchMatchedItems() {
             await window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
-                        .then(response => {
-                            this.item_list = [];
+                .then(response => {
+                    this.item_list = [];
+                    let items = response.data.data;
 
-                            let items = response.data.data;
-
-                            items.forEach(function (item, index) {
-                                this.item_list.push({
-                                    index: index,
-                                    key: item.id,
-                                    value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                                    type: this.type,
-                                    id: item.id,
-                                    name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                                    description: (item.description) ? item.description : '',
-                                    price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
-                                    tax_ids: (item.tax_ids) ? item.tax_ids : [],
-                                });
-                            }, this);
-                        })
-                        .catch(error => {});
+                    items.forEach(function (item, index) {
+                        this.item_list.push({
+                            index: index,
+                            key: item.id,
+                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            type: this.type,
+                            id: item.id,
+                            name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            description: (item.description) ? item.description : '',
+                            price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
+                            tax_ids: (item.tax_ids) ? item.tax_ids : [],
+                        });
+                    }, this);
+                })
+                .catch(error => {});
         },
 
         onItemSelected(item) {
@@ -350,10 +349,10 @@ export default {
         },
 
         addItem(item) {
-            this.invoiceItems.push(item);
+            this.selected_items.push(item);
 
             this.$emit('item', item);
-            this.$emit('items', this.invoiceItems);
+            this.$emit('items', this.selected_items);
 
             this.show.item_selected = false;
             this.show.item_list = false;
@@ -513,7 +512,7 @@ export default {
             return this.sortItems();
         },
         currentIndex() {
-            return this.invoiceItems.length;
+            return this.selected_items.length;
         },
     },
 
