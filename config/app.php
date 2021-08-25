@@ -18,6 +18,8 @@ return [
 
     'schedule_time' => env('APP_SCHEDULE_TIME', '09:00'),
 
+    'eager_load' => (bool) env('APP_EAGER_LOAD', true),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

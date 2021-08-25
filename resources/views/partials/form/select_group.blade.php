@@ -51,6 +51,12 @@
         :readonly="{{ $attributes['readonly'] }}"
         @endif
 
+        @if (isset($attributes['clearable']))
+        :clearable="{{ $attributes['clearable'] }}"
+        @else
+        clearable
+        @endif
+
         @if (isset($attributes['disabled']))
         :disabled="{{ $attributes['disabled'] }}"
         @endif

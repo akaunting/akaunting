@@ -44,7 +44,7 @@
                             <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
                                 {{ Form::bulkActionGroup($item->id, $item->name) }}
                             </td>
-                            <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-3 long-texts"><a href="{{ route('accounts.edit', $item->id) }}">{{ $item->name }}</a></td>
+                            <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-3 long-texts"><a href="{{ route('accounts.show', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block text-left">{{ $item->number }}</td>
                             <td class="col-sm-2 col-md-2 col-lg-2 col-xl-4 d-none d-sm-block text-right">@money($item->balance, $item->currency_code, true)</td>
                             <td class="col-xs-4 col-sm-2 col-md-1 col-lg-2 col-xl-1">

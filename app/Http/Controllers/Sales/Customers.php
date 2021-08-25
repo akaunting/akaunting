@@ -57,7 +57,7 @@ class Customers extends Controller
 
         foreach ($invoices as $item) {
             // Already in transactions
-            if ($item->status == 'paid') {
+            if ($item->status == 'paid' || $item->status == 'cancelled') {
                 continue;
             }
 
@@ -116,7 +116,7 @@ class Customers extends Controller
         $response = $this->ajaxDispatch(new CreateContact($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('customers.index');
+            $response['redirect'] = route('customers.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
 

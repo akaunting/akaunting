@@ -7,7 +7,9 @@
 
             <strong>
                 <span class="float-left long-texts mwpx-200 transaction-head-text">
-                    {{ $transfer->expense_transaction->account->name }}
+                    <a href="{{ route($routeFromAccountShow, $transfer->expense_transaction->account->id) }}">
+                        {{ $transfer->expense_transaction->account->name }}
+                    </a>
                 </span>
             </strong>
             <br><br>
@@ -23,7 +25,9 @@
 
             <strong>
                 <span class="float-left long-texts mwpx-300 transaction-head-text">
-                    {{ $transfer->income_transaction->account->name }}
+                    <a href="{{ route($routeToAccountShow, $transfer->income_transaction->account->id) }}">
+                        {{ $transfer->income_transaction->account->name }}
+                    </a>
                 </span>
             </strong>
             <br><br>

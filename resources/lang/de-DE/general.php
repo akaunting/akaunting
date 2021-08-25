@@ -100,7 +100,7 @@ return [
     'color'                 => 'Farbe',
     'save'                  => 'Speichern',
     'confirm'               => 'Bestätigen',
-    'cancel'                => 'Abbrechen',
+    'cancel'                => 'Stornieren',
     'loading'               => 'Wird geladen...',
     'from'                  => 'Von',
     'to'                    => 'An',

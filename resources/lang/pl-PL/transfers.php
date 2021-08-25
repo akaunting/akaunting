@@ -6,9 +6,10 @@ return [
     'from_account_rate'     => 'Z rachunku',
     'to_account'            => 'Na rachunek',
     'to_account_rate'       => 'Na rachunek',
+    'details'               => 'Szczegóły',
 
     'messages' => [
-        'delete'            => ':from na :to (:amount)',
+        'delete'            => ':from do :to (:amount)',
     ],
 
 ];

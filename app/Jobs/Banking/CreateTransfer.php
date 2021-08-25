@@ -55,6 +55,7 @@ class CreateTransfer extends Job
                 'category_id' => Category::transfer(), // Transfer Category ID
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
+                'created_by' => $this->request->get('created_by'),
             ]);
 
             $amount = $this->request->get('amount');
@@ -77,12 +78,14 @@ class CreateTransfer extends Job
                 'category_id' => Category::transfer(), // Transfer Category ID
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
+                'created_by' => $this->request->get('created_by'),
             ]);
 
             $this->transfer = Transfer::create([
                 'company_id' => $this->request['company_id'],
                 'expense_transaction_id' => $expense_transaction->id,
                 'income_transaction_id' => $income_transaction->id,
+                'created_by' => $this->request->get('created_by'),
             ]);
 
             // Upload attachment

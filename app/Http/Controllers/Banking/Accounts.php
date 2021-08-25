@@ -8,6 +8,9 @@ use App\Jobs\Banking\CreateAccount;
 use App\Jobs\Banking\DeleteAccount;
 use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
+use App\Models\Banking\Transfer;
+use App\Utilities\Reports as Utility;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
@@ -29,11 +32,26 @@ class Accounts extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(Account $account)
     {
-        return redirect()->route('accounts.index');
-    }
+        // Handle transactions
+        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
 
+        $transfers = Transfer::with('transaction')->all()->filter(function ($transfer) use($account) {
+            if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
+                return true;
+            }
+
+            return false;
+        })->sortByDesc(function ($transfer) {
+            return $transfer->expense_transaction->paid_at;
+        });
+
+        $limit = (int) request('limit', setting('default.list_limit', '25'));
+        $transfers = $this->paginate($transfers, $limit);
+
+        return view('banking.accounts.show', compact('account', 'transactions', 'transfers'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -60,7 +78,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new CreateAccount($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('accounts.index');
+            $response['redirect'] = route('accounts.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.accounts', 1)]);
 
@@ -74,6 +92,24 @@ class Accounts extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Account $account
+     *
+     * @return Response
+     */
+    public function duplicate(Account $account)
+    {
+        $clone = $account->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.accounts', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('accounts.edit', $clone->id);
     }
 
     /**
@@ -107,7 +143,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new UpdateAccount($account, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('accounts.index');
+            $response['redirect'] = route('accounts.show', $account->id);
 
             $message = trans('messages.success.updated', ['type' => $account->name]);
 
@@ -183,6 +219,44 @@ class Accounts extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function createRevenue(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        return redirect()->route('revenues.create')->withInput($data);
+    }
+
+    public function createPayment(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        return redirect()->route('payments.create')->withInput($data);
+    }
+
+    public function createTransfer(Account $account)
+    {
+        $data['from_account_id'] = $account->id;
+
+        return redirect()->route('transfers.create')->withInput($data);
+    }
+
+    public function seePerformance(Account $account)
+    {
+        $data['account_id'] = $account->id;
+
+        $report = Utility::getClassInstance('App\Reports\IncomeExpenseSummary');
+
+        if (empty($report) || empty($report->model)) {
+            $message = trans('accounts.create_report');
+
+            flash($message)->warning()->important();
+
+            return redirect()->route('reports.create');
+        }
+
+        return redirect()->route('reports.show', $report->model->id)->withInput($data);
     }
 
     public function currency()

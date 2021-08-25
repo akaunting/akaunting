@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Bank Phone',
     'bank_address'          => 'Bank Address',
     'default_account'       => 'Default Account',
+    'incoming'              => 'Incoming',
+    'outgoing'              => 'Outgoing',
+    'see_performance'       => 'See Performance',
+    'create_report'         => 'If you want to see account performance. You can create Income vs Expense report instance.',
 
 ];

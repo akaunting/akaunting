@@ -1,4 +1,4 @@
-<div class="accordion" id="reminder-{{$type}}">
+<div class="accordion" id="notification-reminder-{{$type}}">
     <div class="card">
         <div class="card-header" id="heading-reminder-{{$type}}" data-toggle="collapse" data-target="#collapse-reminder-{{$type}}"
                 aria-expanded="false" aria-controls="collapse-reminder-{{$type}}">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div id="collapse-reminder-{{$type}}" class="collapse" aria-labelledby="heading-reminder-{{$type}}" data-parent="#reminder-{{$type}}">
+        <div id="collapse-reminder-{{$type}}" class="collapse" aria-labelledby="heading-reminder-{{$type}}" data-parent="#notification-reminder-{{$type}}">
             @if ($notifications->total())
                 <div class="table-responsive">
                     <table class="table table-flush table-hover" id="tbl-reminder-{{ $type }}">

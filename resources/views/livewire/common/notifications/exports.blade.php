@@ -1,4 +1,4 @@
-<div class="accordion" id="exports">
+<div class="accordion" id="notification-exports">
     <div class="card">
         <div class="card-header" id="heading-exports" data-toggle="collapse" data-target="#collapse-exports"
                 aria-expanded="false" aria-controls="collapse-exports">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div id="collapse-exports" class="collapse" aria-labelledby="heading-exports" data-parent="#exports">
+        <div id="collapse-exports" class="collapse" aria-labelledby="heading-exports" data-parent="#notification-exports">
             @if ($notifications->total())
                 <div class="table-responsive">
                     <table class="table table-flush table-hover" id="tbl-export">

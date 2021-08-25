@@ -11,6 +11,7 @@
 
         <el-select v-model="selected" :placeholder="placeholder" filterable
             @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
+            :clearable="clearable"
             :disabled="disabled"
             :multiple="multiple"
             :readonly="readonly"
@@ -247,6 +248,12 @@ export default {
             description: "Selectbox disabled status"
         },
 
+        clearable: {
+            type: Boolean,
+            default: true,
+            description: "Selectbox clearable status"
+        },
+
         disabled: {
             type: Boolean,
             default: false,
@@ -384,13 +391,13 @@ export default {
 
                         for (const [key, value] of Object.entries(options)) {
                             values.push({
-                                key: key,
+                                key: key.toString(),
                                 value: value
                             });
                         }
 
                         this.sorted_options.push({
-                            key: index,
+                            key: index.toString(),
                             value: values
                         });
                     }
@@ -405,7 +412,7 @@ export default {
                         } else {
                             this.sorted_options.push({
                                 index: index,
-                                key: option.id,
+                                key: option.id.toString(),
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                             });
                         }
@@ -416,7 +423,7 @@ export default {
                 if (!Array.isArray(created_options)) {
                     for (const [key, value] of Object.entries(created_options)) {
                         this.sorted_options.push({
-                            key: key,
+                            key: key.toString(),
                             value: value
                         });
                     }
@@ -431,7 +438,7 @@ export default {
                         } else {
                             this.sorted_options.push({
                                 index: index,
-                                key: option.id,
+                                key: option.id.toString(),
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                             });
                         }
@@ -654,6 +661,7 @@ export default {
                 }
             })
             .then(response => {
+                this.loading = false;
                 this.form.loading = false;
 
                 if (response.data.success) {
@@ -675,9 +683,13 @@ export default {
                     this.add_new.html = '';
                     this.add_new_html = null;
 
+                    response.data.data.mark_new = true;
+
                     this.$emit('new', response.data.data);
 
                     this.change();
+
+                    this.$emit('visible-change', event);
 
                     let documentClasses = document.body.classList;
 
