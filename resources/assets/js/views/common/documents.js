@@ -49,7 +49,6 @@ const app = new Vue({
             tax: false,
             discounts: [],
             tax_id: [],
-
             items: [],
             taxes: [],
             page_loaded: false,
@@ -310,6 +309,7 @@ const app = new Vue({
             let item_taxes = [];
 
             setPromiseTimeout(200).then(() => this.$refs['name-input'][index].focus()); //add focus to new item name input 
+            
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
                     if (this.taxes.includes(tax_id)) {

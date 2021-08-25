@@ -12,7 +12,7 @@
 
         {!! Form::button(
         '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
-        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
+        [':disabled' => 'form.loading', 'class' => 'btn btn-icon btn-success']) !!}
     </div>
 
 @stack('save_buttons_end')
