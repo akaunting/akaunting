@@ -345,13 +345,13 @@ export default {
         onItemSelected(item) {
             const indexeditem = { ...item, index: this.currentIndex };
 
-            this.addItem(indexeditem);
+            this.addItem(indexeditem, 'oldItem');
         },
 
-        addItem(item) {
+        addItem(item, itemType) {
             this.selected_items.push(item);
 
-            this.$emit('item', item);
+            this.$emit('item',  { item, itemType } );
             this.$emit('items', this.selected_items);
 
             this.show.item_selected = false;
@@ -380,7 +380,7 @@ export default {
                 ? item = this.item_list[0] 
                 : this.newItems.push(item)
 
-            this.addItem(item);
+            this.addItem(item, 'newItem');
         },
 
         onSubmit(event) {

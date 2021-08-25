@@ -27,6 +27,10 @@
         v-if="{{ $attributes['show'] }}"
         @endif
 
+        @if (isset($attributes['inputRef']))
+        ref="{{ $attributes['inputRef'] }}"
+        @endif
+
         @if (isset($attributes['masked']))
         :masked="{{ ($attributes['masked']) ? 'true' : 'false' }}"
         @endif
@@ -74,6 +78,7 @@
         @if (isset($attributes['row-input']))
         :row-input="{{ $attributes['row-input'] }}"
         @endif
+
     ></akaunting-money>
 
 @stack($name . '_input_end')

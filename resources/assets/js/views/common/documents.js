@@ -97,6 +97,14 @@ const app = new Vue({
     },
 
     methods: {
+        onRefFocus(ref, index) {
+            ref
+                ?  ref === 'price' 
+                    ?  setPromiseTimeout(100).then(() => this.$refs[ref][0].$children[0].$el.focus())
+                    :  setPromiseTimeout(100).then(() => this.$refs[ref][index].focus())
+                : {}
+        },
+
         onCalculateTotal() {
             let global_discount = parseFloat(this.form.discount);
             let discount_total = 0;
@@ -303,12 +311,14 @@ const app = new Vue({
         },
 
         // addItem to list
-        onAddItem(item) {
+        onAddItem(payload) {
+            let { item, itemType } = payload
             let { index } = item;
+            let inputRef = `${itemType === 'newItem' ? 'name' : 'description'}`; // indication for which input to focus first
             let total = 1 * item.price;
             let item_taxes = [];
-
-            setPromiseTimeout(200).then(() => this.$refs['name-input'][index].focus()); //add focus to new item name input 
+            
+            this.onRefFocus(inputRef, index); // trigger initial focus event on input
             
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {

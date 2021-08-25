@@ -34,7 +34,7 @@
                                                 @stack('name_input_start')
                                                 <input 
                                                     type="text"
-                                                    ref="name-input"
+                                                    ref="name"
                                                     class="form-control"
                                                     :name="'items.' + index + '.name'"
                                                     autocomplete="off"
@@ -42,8 +42,8 @@
                                                     data-item="name"
                                                     v-model="row.name"
                                                     @input="onBindingItemField(index, 'name')"
-                                                    @change="form.errors.clear('items.' + index + '.name')">
-
+                                                    @change="form.errors.clear('items.' + index + '.name')"
+                                                    @keydown.enter="onRefFocus('description', index)">
                                                 <div class="invalid-feedback d-block"
                                                     v-if="form.errors.has('items.' + index + '.name')"
                                                     v-html="form.errors.get('items.' + index + '.name')">
@@ -59,6 +59,7 @@
                                         @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
+                                                ref="description"
                                                 placeholder="{{ trans('items.enter_item_description') }}"
                                                 style="height: 46px; overflow: hidden;"
                                                 :name="'items.' + index + '.description'"
@@ -66,6 +67,8 @@
                                                 data-item="description"
                                                 resize="none"
                                                 @input="onBindingItemField(index, 'description')"
+                                                @keydown.enter.exact.prevent
+                                                @keydown.enter.exact="onRefFocus('quantity', index)"
                                             ></textarea>
                                         @endif
                                     </td>
@@ -81,6 +84,7 @@
                                         <input
                                             type="number"
                                             min="0"
+                                            ref="quantity"
                                             class="form-control text-center p-0 input-number-disabled"
                                             :name="'items.' + index + '.quantity'"
                                             autocomplete="off"
@@ -88,8 +92,8 @@
                                             data-item="quantity"
                                             v-model="row.quantity"
                                             @input="onCalculateTotal"
-                                            @change="form.errors.clear('items.' + index + '.quantity')">
-
+                                            @change="form.errors.clear('items.' + index + '.quantity')"
+                                            @keydown.enter="onRefFocus('price', index)">
                                         <div class="invalid-feedback d-block"
                                             v-if="form.errors.has('items.' + index + '.quantity')"
                                             v-html="form.errors.get('items.' + index + '.quantity')">
@@ -105,7 +109,7 @@
                                 @if (!$hidePrice)
                                     <div>
                                         @stack('price_input_start')
-                                            {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
+                                            {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'inputRef' => 'price', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
                                         @stack('price_input_end')
                                     </div>
                                 @endif
