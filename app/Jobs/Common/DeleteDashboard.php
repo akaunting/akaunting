@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Exceptions\Common\LastDashboard;
+use App\Exceptions\Common\NotUserDashboard;
 use App\Traits\Users;
 
 class DeleteDashboard extends Job
@@ -56,14 +58,14 @@ class DeleteDashboard extends Job
 
             $message = trans('dashboards.error.delete_last');
 
-            throw new \Exception($message);
+            throw new LastDashboard($message);
         }
 
         // Check if user can access dashboard
         if ($this->isNotUserDashboard($this->dashboard->id)) {
             $message = trans('dashboards.error.not_user_dashboard');
 
-            throw new \Exception($message);
+            throw new NotUserDashboard($message);
         }
     }
 }

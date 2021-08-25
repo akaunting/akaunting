@@ -3,11 +3,13 @@
 namespace App\Listeners\Module;
 
 use App\Events\Module\Uninstalled as Event;
+use App\Exceptions\Common\LastDashboard;
 use App\Jobs\Common\DeleteDashboard;
 use App\Jobs\Common\DeleteReport;
 use App\Models\Common\Dashboard;
 use App\Models\Common\Report;
 use App\Traits\Jobs;
+use Throwable;
 
 class FinishUninstallation
 {
@@ -36,7 +38,11 @@ class FinishUninstallation
         Dashboard::alias($alias)->get()->each(function ($dashboard) {
             try {
                 $this->dispatch(new DeleteDashboard($dashboard));
-            } catch (\Exception | \Throwable $e) {
+            } catch (Throwable $e) {
+                if ($e instanceof LastDashboard) {
+                    return;
+                }
+
                 report($e);
             }
         });
@@ -53,7 +59,7 @@ class FinishUninstallation
         Report::alias($alias)->get()->each(function ($report) {
             try {
                 $this->dispatch(new DeleteReport($report));
-            } catch (\Exception | \Throwable $e) {
+            } catch (Throwable $e) {
                 report($e);
             }
         });
