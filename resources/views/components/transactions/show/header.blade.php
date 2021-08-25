@@ -7,7 +7,9 @@
 
             <strong>
                 <span class="float-left long-texts mwpx-200 transaction-head-text">
-                    {{ $transaction->account->name }}
+                    <a href="{{ route('accounts.show', $transaction->account->id) }}">
+                        {{ $transaction->account->name }}
+                    </a>
                 </span>
             </strong>
             <br><br>

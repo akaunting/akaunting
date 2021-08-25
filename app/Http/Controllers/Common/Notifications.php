@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Common;
 
-use Date;
 use App\Abstracts\Http\Controller;
-use App\Traits\Modules as RemoteModules;
 use App\Http\Requests\Common\Notification as Request;
+use App\Traits\Modules;
+use App\Utilities\Date;
 use Illuminate\Support\Str;
 
 class Notifications extends Controller
 {
-    use RemoteModules;
+    use Modules;
 
     /**
      * Display a listing of the resource.
@@ -36,13 +36,17 @@ class Notifications extends Controller
         }
 
         // Hide New Apps Notifications
-        $module_notifications = $this->getNotifications('new-apps' );
+        $module_notifications = $this->getNotifications('new-apps');
 
         foreach ($module_notifications as $module_notification) {
-            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.name', $module_notification->name);
-            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.message', $module_notification->alias);
-            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.date', Date::now());
-            setting()->set('notifications.'. user()->id . '.' . $module_notification->alias . '.status', '0');
+            $prefix = 'notifications.' . user()->id . '.' . $module_notification->alias;
+
+            setting()->set([
+                $prefix . '.name'       => $module_notification->name,
+                $prefix . '.message'    => $module_notification->alias,
+                $prefix . '.date'       => Date::now(),
+                $prefix . '.status'     => '0',
+            ]);
         }
 
         setting()->save();
@@ -68,17 +72,20 @@ class Notifications extends Controller
 
         $notifications = $this->getNotifications($path);
 
-        if ($notifications) {
-            foreach ($notifications as $notification) {
-                if ($notification->id == $id) {
-                    setting()->set('notifications.'. $path . '.' . $id . '.name', $notification->name);
-                    setting()->set('notifications.'. $path . '.' . $id . '.message', $notification->message);
-                    setting()->set('notifications.'. $path . '.' . $id . '.date', Date::now());
-                    setting()->set('notifications.'. $path . '.' . $id . '.status', '0');
+        foreach ($notifications as $notification) {
+            if ($notification->id == $id) {
+                $prefix = 'notifications.' . $path . '.' . $id;
 
-                    setting()->save();
-                    break;
-                }
+                setting()->set([
+                    $prefix . '.name'       => $notification->name,
+                    $prefix . '.message'    => $notification->message,
+                    $prefix . '.date'       => Date::now(),
+                    $prefix . '.status'     => '0',
+                ]);
+
+                setting()->save();
+
+                break;
             }
         }
 

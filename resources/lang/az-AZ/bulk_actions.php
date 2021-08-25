@@ -2,20 +2,20 @@
 
 return [
 
-    'bulk_actions'      => 'Toplu Hərəkət|Toplu Hərəkətlər',
-    'selected'          => 'seçili',
+    'bulk_actions'      => 'Toplu əməliyyat|Toplu əməliyyatlar',
+    'selected'          => 'seçildi',
     'no_action'         => 'Heç bir əməliyyat yoxdur',
 
     'message' => [
-        'duplicate'     => 'Seşilmiş qeydi <b>dublikat etməl</b> istədiyinizdən əminsiniz?',
-        'delete'        => 'Seşilmiş qeydi <b>silmək</b> istədiyinizdən əminsiniz?|Seşilmiş qeydiləri <b>silmək</b> istədiyinizdən əminsiniz?',
-        'export'        => 'Seçilmiş qeydi <b>ixrac etmək</b> istədiyinizdən əminsiniz?|Seçilmiş qeydləri <b>ixrac etmək</b> istədiyinizdən əminsiniz?',
-        'enable'        => 'Seçilmiş qeydi <b>aktiv etmək</b> istədiyinizdən əminsiniz?|Seçilmiş qeydləri <b>aktiv etmək</b> istədiyinizdən əminsiniz?',
-        'disable'       => 'Seçilmiş qeydi <b>deaktiv etmək</b> istədiyinizdən əminsiniz?|Seçilmiş qeydləri <b>deaktiv etmək</b> istədiyinizdən əminsiniz?',
-        'paid'          => 'Seçilmiş fakturanı <b>ödənildi</b> olaraq işarələmək istədiyinizdən əminsiniz?|Seçilmiş fakturaları <b>ödənildi</b> olaraq işarələmək istədiyinizdən əminsiniz?',
-        'sent'          => 'Seçilmiş fakturanı <b>göndərildi</b> olaraq işarələmək istədiyinizdən əminsiniz?|Seçilmiş fakturaları <b>göndərildi</b> olaraq işarələmək istədiyinizdən əminsiniz?',
-        'received'      => 'Seçilmiş fakturanı <b>qəbul edildi</b> olaraq işarələmək istədiyinizdən əminsiniz?|Seçilmiş fakturaları <b>qəbul edildi</b> olaraq işarələmək istədiyinizdən əminsiniz?',
-        'cancelled'     => 'Seçilmiş fakturanı <b>ləğv etmək</b> istədiyinizdən əminsiniz?|Seçilmiş fakturaları <b>ləğv etmək</b> istədiyinizdən əminsiniz?',
+        'duplicate'     => 'Seçilmiş qeydi <b>çoxaltmaq</b> istədiyinizə əminsiniz?',
+        'delete'        => 'Seçilmiş qeydi <b>silmək</b> istədiyinizə əminsiniz?|Seçilmiş qeydləri <b>silmək</b> istədiyinizə əminsiniz?',
+        'export'        => 'Seçilmiş qeydi <b>ixrac etmək</b> istədiyinizə əminsiniz?|Seçilmiş qeydləri <b>ixrac etmək</b> istədiyinizə əminsiniz?',
+        'enable'        => 'Seçilmiş qeydi <b>fəallaşdırmaq</b> istədiyinizə əminsiniz?|Seçilmiş qeydləri <b>fəallaşdırmaq</b> istədiyinizə əminsiniz?',
+        'disable'       => 'Seçilmiş qeydi <b>sıradan çıxartmaq</b> istədiyinizə əminsiniz?|Seçilmiş qeydləri <b>sıradan çıxartmaq</b> istədiyinizə əminsiniz?',
+        'paid'          => 'Seçilmiş fakturanı <b>ödənildi</b> olaraq işarələmək istədiyinizə əminsiniz?|Seçilmiş fakturaları <b>ödənildi</b> olaraq istədiyinizə istədiyinizdən əminsiniz?',
+        'sent'          => 'Seçilmiş fakturanı <b>göndərildi</b> olaraq işarələmək istədiyinizə əminsiniz?|Seçilmiş fakturaları <b>göndərildi</b> olaraq işarələmək istədiyinizə əminsiniz?',
+        'received'      => 'Seçilmiş fakturanı <b>qəbul edildi</b> olaraq işarələmək istədiyinizə əminsiniz?|Seçilmiş fakturaları <b>qəbul edildi</b> olaraq işarələmək istədiyinizə əminsiniz?',
+        'cancelled'     => 'Seçilmiş fakturanı <b>ləğv etmək</b> istədiyinizə əminsiniz?|Seçilmiş fakturaları <b>ləğv etmək</b> istədiyinizə əminsiniz?',
         'reconcile'     => 'Seçilmiş qeyd üçün <b>razılaşmaq</b> istədiyinizdən əminsiniz?|Seçilmiş qeydlər üçün <b>razılaşmaq</b> istədiyinizdən əminsiniz?',
         'unreconcile'   => 'Seçilmiş qeyd üçün <b>razılaşmaq istəmədiyinizdən</b> əminsiniz?|Seçilmiş qeydlər üçün <b>razılaşmaq istəmədiyinizdən</b> əminsiniz?',
     ],

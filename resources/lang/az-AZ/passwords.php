@@ -16,8 +16,8 @@ return [
     'password' => 'Parollar ən azı altı simvoldan ibarət olmalı və təsdiqlə uyğun olmalıdır.',
     'reset' => 'Şifrəniz sıfırlandı!',
     'sent' => 'Şifrə sıfırlama linkinizi elektron poçtla göndərdik!',
+    'throttled' => 'Yenidən sınamazdan əvvəl gözləyin.',
     'token' => 'Şifrə sıfırlama ünvanı/kodu etibarsızdır.',
     'user' => "Bu e-poçt ünvanı ilə qeydiyyatdan keçmiş bir üzv yoxdur.",
-    'throttle' => 'Zəhmət olmazsa, yenidən cəhd etmədən əvvəl gözləyin.',
 
 ];

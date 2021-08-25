@@ -57,7 +57,7 @@ class TransferTemplates extends Controller
             'error' => false,
             'message' => $message,
             'data' => null,
-            'redirect' => route('settings.invoice.edit'),
+            'redirect' => url()->previous(),
         ];
 
         flash($message)->success();

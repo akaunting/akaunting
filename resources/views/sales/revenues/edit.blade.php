@@ -27,7 +27,7 @@
             'files' => true,
             'route' => ['revenues.update', $revenue->id],
             'role' => 'form',
-            'id' => 'revenue',
+            'id' => 'transaction',
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',
             'class' => 'form-loading-button',
@@ -80,5 +80,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/sales/revenues.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/banking/transactions.js?v=' . version('short')) }}"></script>
 @endpush

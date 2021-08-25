@@ -43,6 +43,12 @@ class Document extends FormRequest
         // Get company id
         $company_id = (int) $this->request->get('company_id');
 
+        $quantity_size = 5;
+
+        if ((Str::substrCount($this->request->get('quantity'), '.') > 1) || (Str::substrCount($this->request->get('quantity'), ',') > 1)) {
+            $quantity_size = 7;
+        }
+
         return [
             'type' => 'required|string',
             'document_number' => 'required|string|unique:documents,NULL,' . $id . ',id,type,' . $type . ',company_id,' . $company_id . ',deleted_at,NULL',
@@ -51,7 +57,7 @@ class Document extends FormRequest
             'due_at' => 'required|date_format:Y-m-d H:i:s|after_or_equal:issued_at',
             'amount' => 'required',
             'items.*.name' => 'required|string',
-            'items.*.quantity' => 'required',
+            'items.*.quantity' => 'required|max:' . $quantity_size,
             'items.*.price' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required|gt:0',
@@ -80,6 +86,7 @@ class Document extends FormRequest
         return [
             'items.*.name.required' => trans('validation.required', ['attribute' => Str::lower(trans('general.name'))]),
             'items.*.quantity.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.quantity'))]),
+            'items.*.quantity.size' => trans('validation.size', ['attribute' => Str::lower(trans('invoices.quantity'))]),
             'items.*.price.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.price'))]),
             'items.*.currency.required' => trans('validation.custom.invalid_currency'),
             'items.*.currency.string' => trans('validation.custom.invalid_currency'),

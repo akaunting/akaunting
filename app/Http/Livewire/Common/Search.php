@@ -109,7 +109,7 @@ class Search extends Component
                 'name' => $account->name,
                 'type' => trans_choice('general.accounts', 1),
                 'color' => '#55588b',
-                'href' => route('accounts.edit', $account->id),
+                'href' => route('accounts.show', $account->id),
             ];
         }
     }

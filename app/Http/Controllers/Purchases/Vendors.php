@@ -59,7 +59,7 @@ class Vendors extends Controller
 
         foreach ($bills as $item) {
             // Already in transactions
-            if ($item->status == 'paid') {
+            if ($item->status == 'paid' || $item->status == 'cancelled') {
                 continue;
             }
 
@@ -118,7 +118,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new CreateContact($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('vendors.index');
+            $response['redirect'] = route('vendors.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
 

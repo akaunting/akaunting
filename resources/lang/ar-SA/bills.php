@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'رقم فاتورة الشراء',
     'bill_date'             => 'تاريخ الفاتورة',
+    'bill_amount'           => 'مبلغ الفاتورة',
     'total_price'           => 'السعر الإجمالي',
     'due_date'              => 'تاريخ الاستحقاق',
     'order_number'          => 'رقم الطلب',
@@ -13,7 +14,7 @@ return [
     'price'                 => 'السعر',
     'sub_total'             => 'المبلغ الإجمالي',
     'discount'              => 'خصم',
-    'item_discount'         => 'خصم على المبيعات',
+    'item_discount'         => 'خصم على هذه المنتجات',
     'tax_total'             => 'إجمالي الضريبة',
     'total'                 => 'المجموع',
 

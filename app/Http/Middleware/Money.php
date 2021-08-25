@@ -59,6 +59,8 @@ class Money
                         $money_format = Str::replaceFirst('.', '', $money_format);
                     }
                 }
+
+                $money_format = (double) $money_format;
             }
 
             $amount = $this->getAmount($money_format, $currency_code);

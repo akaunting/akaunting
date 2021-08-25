@@ -73,6 +73,14 @@
                         'value' => \Date::now()->year,
                     ];
                 }
+
+                if (old($key) || request()->get($key)) {
+                    $filtered[] = [
+                        'option' => $key,
+                        'operator' => '=',
+                        'value' => old($key, request()->get($key)),
+                    ];
+                }
             }
         @endphp
 

@@ -49,4 +49,14 @@ return [
         'body'          => 'Hej,<br /><br /> Baseret på {vendor_name}\'s tilbagevendende betaling, er faktura nummer <strong>{bill_number}</strong> automatisk genereret.<br /><br />Du kan se fakturadetaljerne på dette link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Med venlig hilsen,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} betaling oprettet',
+        'body'          => 'Kære {customer_name},<br /><br />Vi har forberedt følgende betaling. <br /><br />Du kan se betalingsdetaljerne på følgende link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Du er velkommen til at kontakte os, hvis du har spørgsmål til betalingen.<br /><br />Venlig hilsen,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} betaling oprettet',
+        'body'          => 'Kære {vendor_name},<br /><br />Vi har forberedt følgende betaling. <br /><br />Du kan se betalingsdetaljerne på følgende link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Du er velkommen til at kontakte os, hvis du har spørgsmål.<br /><br />Venlig hilsen,<br />{company_name}
+',
+    ],
 ];

@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Број на сметка',
     'bill_date'             => 'Датум на сметка',
+    'bill_amount'           => 'Сума на Сметката',
     'total_price'           => 'Вкупна цена',
     'due_date'              => 'Доспева на',
     'order_number'          => 'Број на нарачка',

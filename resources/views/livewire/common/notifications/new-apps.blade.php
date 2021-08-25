@@ -1,4 +1,4 @@
-<div class="accordion" id="new-apps">
+<div class="accordion" id="notification-new-apps">
     <div class="card">
         <div class="card-header" id="heading-new-apps" data-toggle="collapse" data-target="#collapse-new-apps"
              aria-expanded="{{ ($notifications) ? 'true' : 'false' }}" aria-controls="collapse-new-apps">
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div id="collapse-new-apps" class="collapse{{ ($notifications) ? ' show' : '' }}" aria-labelledby="heading-new-apps" data-parent="#new-apps">
+        <div id="collapse-new-apps" class="collapse{{ ($notifications) ? ' show' : '' }}" aria-labelledby="heading-new-apps" data-parent="#notification-new-apps">
             @if ($notifications)
                 <div class="table-responsive">
                     <table class="table table-flush table-hover" id="tbl-export">

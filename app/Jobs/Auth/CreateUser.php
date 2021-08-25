@@ -3,6 +3,8 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Events\Auth\UserCreated;
+use App\Events\Auth\UserCreating;
 use App\Models\Auth\User;
 use Artisan;
 
@@ -29,6 +31,8 @@ class CreateUser extends Job
      */
     public function handle()
     {
+        event(new UserCreating($this->request));
+
         \DB::transaction(function () {
             $this->user = User::create($this->request->input());
 
@@ -78,6 +82,8 @@ class CreateUser extends Job
                 ]);
             }
         });
+
+        event(new UserCreated($this->user, $this->request));
 
         return $this->user;
     }

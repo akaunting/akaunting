@@ -6,7 +6,7 @@
     <div class="card">
         {!! Form::open([
             'route' => 'revenues.store',
-            'id' => 'revenue',
+            'id' => 'transaction',
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',
             'files' => true,
@@ -56,5 +56,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/sales/revenues.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/banking/transactions.js?v=' . version('short')) }}"></script>
 @endpush
