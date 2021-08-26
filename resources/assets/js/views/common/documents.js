@@ -92,8 +92,7 @@ const app = new Vue({
            }
 
            this.currency_symbol.symbol = default_currency_symbol;
-        }
-
+        };
     },
 
     methods: {

@@ -10,7 +10,7 @@
             <div class="aka-select-menu" v-if="show.item_list">
                 <div class="aka-select-search-container">
                     <span class="aka-prefixed-input aka-prefixed-input--fluid">
-                        <div class="input-group input-group-merge focused">
+                        <div class="input-group input-group-merge">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fa fa-search"></i>
@@ -26,6 +26,7 @@
                                 :placeholder="placeholder"
                                 v-model="search"
                                 @input="onInput"
+                                :ref="'input-item-field-' + _uid"
                                 @keydown.enter="onItemCreate"
                             />
                         </div>
@@ -291,6 +292,10 @@ export default {
 
         showItems() {
             this.show.item_list = true;
+
+            setTimeout(function() {
+                this.$refs['input-item-field-' + this._uid].focus();
+            }.bind(this), 100);
         },
 
         onInput() {
