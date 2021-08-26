@@ -2124,7 +2124,7 @@ button.bg-red:focus
 
 /*--------Form Error Color--------*/
 /*--Required Sign Color--*/
-div.required > .form-control-label:not(span):after, td.required:after
+div.required > .form-control-label:not(span):after, td.required:after, button.document-contact-without-contact-box-btn > span.text-add-contact::after
 {
     content: ' *';
     color: #ef3232;
