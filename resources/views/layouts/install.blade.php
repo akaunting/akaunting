@@ -1,7 +1,6 @@
 <html>
     @include('partials.install.head')
 
-    @stack('body_start')
     <body class="installation-page">
 
         <div class="main-content">
@@ -66,4 +65,5 @@
         @include('partials.install.scripts')
 
     </body>
+
 </html>
