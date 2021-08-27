@@ -26,7 +26,7 @@ class Document extends Model
 
     protected $table = 'documents';
 
-    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at', 'reconciled'];
 
     protected $dates = ['deleted_at', 'issued_at', 'due_at'];
 
@@ -267,7 +267,6 @@ class Document extends Model
         }
 
         $paid = 0;
-        $reconciled = $reconciled_amount = 0;
 
         $code = $this->currency_code;
         $rate = $this->currency_rate;
@@ -282,6 +281,36 @@ class Document extends Model
                 }
 
                 $paid += $amount;
+            }
+        }
+
+        return round($paid, $precision);
+    }
+
+    /**
+     * Get the reconcilation status.
+     *
+     * @return integer
+     */
+    public function getReconciledAttribute()
+    {
+        if (empty($this->amount)) {
+            return 0;
+        }
+
+        $reconciled = $reconciled_amount = 0;
+
+        $code = $this->currency_code;
+        $rate = $this->currency_rate;
+        $precision = config('money.' . $code . '.precision');
+
+        if ($this->transactions->count()) {
+            foreach ($this->transactions as $transaction) {
+                $amount = $transaction->amount;
+
+                if ($code != $transaction->currency_code) {
+                    $amount = $this->convertBetween($amount, $transaction->currency_code, $transaction->currency_rate, $code, $rate);
+                }
 
                 if ($transaction->reconciled) {
                     $reconciled_amount = +$amount;
@@ -293,9 +322,7 @@ class Document extends Model
             $reconciled = 1;
         }
 
-        $this->setAttribute('reconciled', $reconciled);
-
-        return round($paid, $precision);
+        return $reconciled;
     }
 
     /**
