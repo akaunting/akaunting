@@ -97,11 +97,18 @@ const app = new Vue({
 
     methods: {
         onRefFocus(ref, index) {
+            this.disableFormSubmission();
+
             ref
                 ?  ref === 'price' 
-                    ?  setPromiseTimeout(100).then(() => this.$refs[ref][0].$children[0].$el.focus())
+                    ?  setPromiseTimeout(100).then(() => this.$refs[ref][index].$children[0].$el.focus())
                     :  setPromiseTimeout(100).then(() => this.$refs[ref][index].focus())
                 : {}
+        },
+
+        disableFormSubmission() {
+            const saveButtonEl = document.getElementsByClassName("btn btn-icon btn-success")[0];
+            saveButtonEl.setAttribute("type", "button");
         },
 
         onCalculateTotal() {
@@ -316,7 +323,7 @@ const app = new Vue({
             let inputRef = `${itemType === 'newItem' ? 'name' : 'description'}`; // indication for which input to focus first
             let total = 1 * item.price;
             let item_taxes = [];
-            
+
             this.onRefFocus(inputRef, index); // trigger initial focus event on input
             
             if (item.tax_ids) {
