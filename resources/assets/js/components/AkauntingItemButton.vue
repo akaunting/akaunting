@@ -27,7 +27,7 @@
                                 v-model="search"
                                 @input="onInput"
                                 :ref="'input-item-field-' + _uid"
-                                @keydown.enter="onItemCreate"
+                                @keydown.enter="inputEnterEvent"
                             />
                         </div>
                     </span>
@@ -324,6 +324,12 @@ export default {
             this.$emit('input', this.search);
         },
 
+        inputEnterEvent(event) {
+            this.isItemMatched 
+                ? this.onItemSelected()
+                : this.onItemCreate()
+        },
+
         async fetchMatchedItems() {
             await window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
                 .then(response => {
@@ -347,7 +353,8 @@ export default {
                 .catch(error => {});
         },
 
-        onItemSelected(item) {
+        onItemSelected() {
+            const item = this.item_list[0] 
             const indexeditem = { ...item, index: this.currentIndex };
 
             this.addItem(indexeditem, 'oldItem');
@@ -380,10 +387,8 @@ export default {
                 price: 0,
                 tax_ids: [],
             };
-
-            this.item_list.length === 1 
-                ? item = this.item_list[0] 
-                : this.newItems.push(item)
+            
+            this.newItems.push(item)
 
             this.addItem(item, 'newItem');
         },
