@@ -299,10 +299,9 @@ export default {
         },
 
         onInput() {
-            this.isItemMatched = false; //to remove the style from first item on input change (option)
-
             //to optimize performance we kept the condition that checks for if search exists or not
             if (!this.search) {
+                this.isItemMatched = false; //to remove the style from matched item on input is cleared (option)
                 return;
             }
 
