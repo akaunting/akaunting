@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Bankens telefon',
     'bank_address'          => 'Bankens adress',
     'default_account'       => 'Huvudsakligt Konto',
+    'incoming'              => 'Inkommande',
+    'outgoing'              => 'Utgående',
+    'see_performance'       => 'Se resultat',
+    'create_report'         => 'Om du vill se kontots resultat. Du kan skapa inkomst vs utgift rapportinstans.',
 
 ];
