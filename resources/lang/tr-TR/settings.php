@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Aktarım şablonunu seçin',
+        'second'            => 'Saniye',
+        'third'             => 'Üçüncü',
+    ],
+
     'default' => [
         'description'       => 'Şirketinizin varsayılan hesap, para birimi, dil vs',
         'list_limit'        => 'Sayfa Başına Kayıt Sayısı',
@@ -115,6 +121,7 @@ return [
             'invoice_payment_admin'     => 'Ödeme Alındı Şablonu (yöneticiye gönderilen)',
             'bill_remind_admin'         => 'Gider Faturası Hatırlatma Şablonu (yöneticiye gönderilen)',
             'bill_recur_admin'          => 'Tekrarlı Gider Faturası Şablonu (yöneticiye gönderilen)',
+            'revenue_new_customer'      => 'Gelir Alındı ​​Şablonu (müşteriye gönderilir)',
         ],
     ],
 

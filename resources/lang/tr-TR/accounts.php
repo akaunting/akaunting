@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Banka Telefonu',
     'bank_address'          => 'Banka Adresi',
     'default_account'       => 'Varsayılan Hesap',
+    'incoming'              => 'Gelen',
+    'outgoing'              => 'Giden',
+    'see_performance'       => 'Performansı Gör',
+    'create_report'         => 'Hesap performansını görmek istiyorsanız.  Gelir - Gider raporu örneği oluşturabilirsiniz.',
 
 ];

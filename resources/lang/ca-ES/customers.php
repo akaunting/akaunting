@@ -2,7 +2,7 @@
 
 return [
 
-    'can_login'             => 'Pots iniciar?',
+    'can_login'             => 'Pot iniciar?',
     'user_created'          => 'S\'ha creat l\'usuari',
 
     'error' => [

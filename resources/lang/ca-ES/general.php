@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Afegeix-ne un de nou',
     'add_income'            => 'Afegeix ingrés',
     'add_expense'           => 'Afegeix despesa',
+    'add_transfer'          => 'Afegeix transferència',
     'show'                  => 'Mostra',
     'edit'                  => 'Edita',
     'delete'                => 'Esborra',

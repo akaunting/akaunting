@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Nov',
     'add_income'            => 'Dodaj prihodek',
     'add_expense'           => 'Dodaj strošek',
+    'add_transfer'          => 'Dodaj prenos',
     'show'                  => 'Pokaži',
     'edit'                  => 'Uredi',
     'delete'                => 'Briši',

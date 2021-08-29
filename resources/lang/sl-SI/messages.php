@@ -14,7 +14,7 @@ return [
         'enabled'           => ':type omogočen!',
         'disabled'          => ':type onemogočen!',
 
-        'clear_all'         => 'Super! Počistili ste vse svoje :type.',
+        'clear_all'         => 'Super! Počistili ste vsa svoja :type.',
     ],
 
     'error' => [

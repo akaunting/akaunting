@@ -73,6 +73,7 @@ return [
     'add_new'               => 'Lägg till ny',
     'add_income'            => 'Lägg till inkomst',
     'add_expense'           => 'Lägg till utlägg',
+    'add_transfer'          => 'Lägg till överföring',
     'show'                  => 'Visa',
     'edit'                  => 'Redigera',
     'delete'                => 'Ta bort',
