@@ -1,6 +1,6 @@
     <div class="card">
         <div class="card-footer">
-            <div class="row save-buttons" @click="onSubmit">
+            <div class="row save-buttons">
                 {{ Form::saveButtons($routeCancel) }}
             </div>
         </div>
