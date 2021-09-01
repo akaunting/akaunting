@@ -167,7 +167,7 @@ abstract class Model extends Eloquent implements Ownable
      */
     public function scopeEnabled($query)
     {
-        return $query->where('enabled', 1);
+        return $query->where($this->table . '.enabled', 1);
     }
 
     /**
@@ -178,7 +178,7 @@ abstract class Model extends Eloquent implements Ownable
      */
     public function scopeDisabled($query)
     {
-        return $query->where('enabled', 0);
+        return $query->where($this->table . '.enabled', 0);
     }
 
     /**
@@ -190,7 +190,7 @@ abstract class Model extends Eloquent implements Ownable
      */
     public function scopeReconciled($query, $value = 1)
     {
-        return $query->where('reconciled', $value);
+        return $query->where($this->table . '.reconciled', $value);
     }
 
     public function scopeAccount($query, $accounts)
@@ -199,7 +199,7 @@ abstract class Model extends Eloquent implements Ownable
             return $query;
         }
 
-        return $query->whereIn('account_id', (array) $accounts);
+        return $query->whereIn($this->table . '.account_id', (array) $accounts);
     }
 
     public function scopeContact($query, $contacts)
@@ -208,17 +208,17 @@ abstract class Model extends Eloquent implements Ownable
             return $query;
         }
 
-        return $query->whereIn('contact_id', (array) $contacts);
+        return $query->whereIn($this->table . '.contact_id', (array) $contacts);
     }
 
     public function scopeIsOwner($query)
     {
-        return $query->where('created_by', user_id());
+        return $query->where($this->table . '.created_by', user_id());
     }
 
     public function scopeIsNotOwner($query)
     {
-        return $query->where('created_by', '<>', user_id());
+        return $query->where($this->table . '.created_by', '<>', user_id());
     }
 
     public function ownerKey($owner)
