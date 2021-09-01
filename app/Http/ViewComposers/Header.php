@@ -26,7 +26,7 @@ class Header
 
         if (!empty($user)) {
             // Get customer company
-            if ($user->can('read-client-portal')) {
+            if ($user->isCustomer()) {
                 $company = (object) [
                     'company_name' => setting('company.name'),
                     'company_email' => setting('company.email'),

@@ -83,7 +83,7 @@ class Login extends Controller
         }
 
         // Redirect to portal if is customer
-        if ($user->can('read-client-portal')) {
+        if ($user->isCustomer()) {
             $path = session('url.intended', '');
 
             // Path must start with company id and 'portal' prefix

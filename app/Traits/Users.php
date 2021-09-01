@@ -100,7 +100,7 @@ trait Users
             return route('login');
         }
 
-        $route_name = $user->can('read-client-portal') ? 'portal.dashboard' : $user->landing_page;
+        $route_name = $user->isCustomer() ? 'portal.dashboard' : $user->landing_page;
 
         $company_id = company_id() ?: optional($this->getFirstCompanyOfUser())->id;
 

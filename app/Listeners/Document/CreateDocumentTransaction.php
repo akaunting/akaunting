@@ -39,7 +39,7 @@ class CreateDocumentTransaction
                 return $this->getResponse('signed.' . $type . '.show', $document, $message);
             }
 
-            if ($user->can('read-client-portal')) {
+            if ($user->isCustomer()) {
                 flash($message)->error()->important();
 
                 return $this->getResponse('portal.' . $type . '.show', $document, $message);

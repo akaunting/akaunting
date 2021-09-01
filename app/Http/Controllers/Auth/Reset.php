@@ -104,7 +104,7 @@ class Reset extends Controller
         }
 
         // Redirect to portal if is customer
-        if ($user->can('read-client-portal')) {
+        if ($user->isCustomer()) {
             $this->redirectTo = route('portal.dashboard', ['company_id' => $company->id]);
         }
 

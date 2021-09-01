@@ -121,7 +121,7 @@ class Users extends Controller
 
         $landing_pages = $u->landing_pages;
 
-        if ($user->can('read-client-portal')) {
+        if ($user->isCustomer()) {
             // Show only roles with customer permission
             $roles = Role::all()->reject(function ($r) {
                 return !$r->hasPermission('read-client-portal');
