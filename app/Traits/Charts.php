@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Akaunting\Money\Money;
+
 use App\Utilities\Chartjs;
 
 use Balping\JsonRaw\Raw;
@@ -106,8 +108,12 @@ trait Charts
                 'intersect' => 0,
                 'position' => 'nearest',
                 'callbacks' => [
-                    'label' => new Raw("function(tooltipItem, data) {
-                        return '" . config('money.' . setting('default.currency') . '.symbol') . "' + tooltipItem.yLabel;
+                    'label' => new Raw("function(tooltipItem, data) { 
+                        ". config('money.' . setting('default.currency') . '.symbol_first' ) . " === 1 
+                            ? 
+                            '" . config('money.' . setting('default.currency') . '.symbol' ) . "' + tooltipItem.yLabel;
+                        :
+                            tooltipItem.yLabel + '" . config('money.' . setting('default.currency') . '.symbol') . "';
                     }"),
                 ],
             ],
@@ -158,3 +164,4 @@ trait Charts
         ];
     }
 }
+
