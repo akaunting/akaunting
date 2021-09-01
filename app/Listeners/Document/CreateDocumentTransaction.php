@@ -51,15 +51,17 @@ class CreateDocumentTransaction
 
     protected function getResponse($path, $document, $message)
     {
+        $url = route($path, $document->id);
+
         if (request()->expectsJson()) {
             return response()->json([
                 'success' => false,
                 'errors' => true,
                 'message' => $message,
-                'redirect' => route($path, $document->id)
+                'redirect' => $url,
             ]);
         }
 
-        return redirect()->route($path, $document->id);
+        return redirect($url);
     }
 }
