@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use App\Utilities\Chartjs;
 
+use Balping\JsonRaw\Raw;
+
 trait Charts
 {
     public $donut = [
@@ -103,6 +105,21 @@ trait Charts
                 'mode' => 'nearest',
                 'intersect' => 0,
                 'position' => 'nearest',
+                'callbacks' => [
+                    'label' => new Raw("function(tooltipItem, data) {
+                        return '" . config('money.' . setting('default.currency') . '.symbol') . "' + tooltipItem.yLabel;
+                    }"),
+                ],
+            ],
+            'scales' => [
+                'yAxes' => [[
+                    'ticks' => [
+                        'beginAtZero' => true,
+                        'callback' => new Raw("function(value, index, values) { 
+                            return '" . config('money.' . setting('default.currency') . '.symbol') . "' + value; 
+                        }"),
+                    ],
+                ]
             ],
             'responsive' => true,
             'scales' => [
@@ -111,7 +128,10 @@ trait Charts
                     'ticks' => [
                         'padding' => 10,
                         'fontColor' => '#9e9e9e',
-                    ],
+                        'callback' => new Raw("function(value, index, values) { 
+                            return '" . config('money.' . setting('default.currency') . '.symbol') . "' + value; 
+                        }"),
+                    ]],
                     'gridLines' => [
                         'drawBorder' => false,
                         'color' => 'rgba(29,140,248,0.1)',
