@@ -32,7 +32,9 @@
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
                                             <div v-else>
                                                 @stack('name_input_start')
-                                                <input type="text"
+                                                <input 
+                                                    type="text"
+                                                    :ref="'items-' + index + '-name'"
                                                     class="form-control"
                                                     :name="'items.' + index + '.name'"
                                                     autocomplete="off"
@@ -40,8 +42,7 @@
                                                     data-item="name"
                                                     v-model="row.name"
                                                     @input="onBindingItemField(index, 'name')"
-                                                    @change="form.errors.clear('items.' + index + '.name')">
-
+                                                    @change="form.errors.clear('items.' + index + '.name')"/>
                                                 <div class="invalid-feedback d-block"
                                                     v-if="form.errors.has('items.' + index + '.name')"
                                                     v-html="form.errors.get('items.' + index + '.name')">
@@ -57,6 +58,7 @@
                                         @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
+                                                :ref="'items-' + index + '-description'"
                                                 placeholder="{{ trans('items.enter_item_description') }}"
                                                 style="height: 46px; overflow: hidden;"
                                                 :name="'items.' + index + '.description'"
@@ -79,6 +81,7 @@
                                         <input
                                             type="number"
                                             min="0"
+                                            :ref="'items-' + index + '-quantity'"
                                             class="form-control text-center p-0 input-number-disabled"
                                             :name="'items.' + index + '.quantity'"
                                             autocomplete="off"
@@ -87,7 +90,6 @@
                                             v-model="row.quantity"
                                             @input="onCalculateTotal"
                                             @change="form.errors.clear('items.' + index + '.quantity')">
-
                                         <div class="invalid-feedback d-block"
                                             v-if="form.errors.has('items.' + index + '.quantity')"
                                             v-html="form.errors.get('items.' + index + '.quantity')">

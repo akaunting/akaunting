@@ -74,6 +74,7 @@
         @if (isset($attributes['row-input']))
         :row-input="{{ $attributes['row-input'] }}"
         @endif
+
     ></akaunting-money>
 
 @stack($name . '_input_end')

@@ -1,7 +1,7 @@
 <template>
     <div :id="'select-item-button-' + _uid" class="product-select">
         <div class="item-add-new">
-            <button type="button" class="btn btn-link w-100" @click="onItemList">
+            <button type="button" class="btn btn-link w-100" @click="showItems">
                 <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
             </button>
         </div>
@@ -21,19 +21,26 @@
                                 type="text"
                                 data-input="true"
                                 class="form-control"
-                                autocapitalize="default" autocorrect="ON" 
+                                autocapitalize="default" 
+                                autocorrect="ON" 
                                 :placeholder="placeholder"
-                                :ref="'input-item-field-' + _uid"
                                 v-model="search"
                                 @input="onInput"
-                                @keydown.enter="onItemCreate"
+                                :ref="'input-item-field-' + _uid"
+                                @keydown.enter="inputEnterEvent"
                             />
                         </div>
                     </span>
                 </div>
 
                 <ul class="aka-select-menu-options">
-                    <div class="aka-select-menu-option" v-for="(item, index) in sortedItems" :key="index" @click="onItemSeleted(index, item.id)">
+                    <div 
+                        class="aka-select-menu-option" 
+                        v-for="(item, index) in sortedItems" 
+                        :key="index" 
+                        :class="isItemMatched ? 'highlightItem' : ''"
+                        @click="onItemSelected(item)"
+                    >
                         <div class="item-select w-100">
                             <div class="item-select-column item-select-info w-75">
                                 <b class="item-select-info-name"><span>{{ item.name }}</span></b>
@@ -202,12 +209,14 @@ export default {
                 item_selected: false,
                 item_list: false,
             },
+            isItemMatched: false,
             form: {},
             add_new: {
                 text: this.addNew.text,
                 show: false,
                 buttons: this.addNew.buttons,
             },
+            newItems: [],
             add_new_html: '',
             money: {
                 decimal: this.currency.decimal_mark,
@@ -218,6 +227,10 @@ export default {
                 masked: this.masked
             }
         };
+    },
+
+    created() {
+        this.setItemList(this.items);
     },
 
     mounted() {
@@ -240,6 +253,8 @@ export default {
     methods: {
         setItemList(items) {
             this.item_list = [];
+
+            this.search.length === 0 ? this.isItemMatched = false : {}
 
             // Option set sort_option data
             if (!Array.isArray(items)) {
@@ -277,7 +292,7 @@ export default {
             }
         },
 
-        onItemList() {
+        showItems() {
             this.show.item_list = true;
 
             setTimeout(function() {
@@ -286,8 +301,10 @@ export default {
         },
 
         onInput() {
+            this.isItemMatched = false;
             //to optimize performance we kept the condition that checks for if search exists or not
             if (!this.search) {
+                this.isItemMatched = false; //to remove the style from matched item on input is cleared (option)
                 return;
             }
 
@@ -300,61 +317,70 @@ export default {
                 return;
             }
 
-            window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
-            .then(response => {
-                this.item_list = [];
-
-                let items = response.data.data;
-
-                items.forEach(function (item, index) {
-                    this.item_list.push({
-                        index: index,
-                        key: item.id,
-                        value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                        type: this.type,
-                        id: item.id,
-                        name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                        description: (item.description) ? item.description : '',
-                        price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
-                        tax_ids: (item.tax_ids) ? item.tax_ids : [],
-                    });
-                }, this);
-            })
-            .catch(error => {
-
-            });
+            this.fetchMatchedItems().then(() => this.item_list.length > 0 ? this.isItemMatched = true : this.isItemMatched = false );
 
             this.$emit('input', this.search);
+
+            this.isItemMatched === true && this.search.length > 0  ? this.isItemMatched = true : this.isItemMatched = true;
         },
 
-        onItemSeleted(index, item_id) {
-            let item = '';
+        inputEnterEvent() {
+            this.isItemMatched 
+                ? this.onItemSelected()
+                : this.onItemCreate()
+        },
 
-            this.item_list.forEach(function (item_list, item_index) {
-                if (item_list.id == item_id) {
-                    item = item_list;
-                }
-            });
+        async fetchMatchedItems() {
+            await window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
+                .then(response => {
+                    this.item_list = [];
+                    let items = response.data.data;
 
+                    items.forEach(function (item, index) {
+                        this.item_list.push({
+                            index: index,
+                            key: item.id,
+                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            type: this.type,
+                            id: item.id,
+                            name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            description: (item.description) ? item.description : '',
+                            price: (item.price) ? item.price : (this.price == 'purchase_price') ? item.purchase_price : item.sale_price,
+                            tax_ids: (item.tax_ids) ? item.tax_ids : [],
+                        });
+                    }, this);
+                })
+                .catch(error => {});
+        },
+
+        onItemSelected(clickSelectedItem) {
+            let item; 
+            const firstMatchedItem = this.item_list[0];
+            const isClickSelectedItem = clickSelectedItem ? true : false;
+            isClickSelectedItem ? item = clickSelectedItem  : item = firstMatchedItem;
+            const indexeditem = { ...item, index: this.currentIndex };
+
+            this.addItem(indexeditem, 'oldItem');
+        },
+
+        addItem(item, itemType) {
             this.selected_items.push(item);
 
-            this.$emit('item', item);
+            this.$emit('item',  { item, itemType } );
             this.$emit('items', this.selected_items);
 
             this.show.item_selected = false;
             this.show.item_list = false;
+
             this.search = '';
 
-            // Set deault item list
+            // Set default item list
             this.setItemList(this.items);
         },
 
         onItemCreate() {
-            let index = Object.keys(this.item_list).length;
-            index++;
-
             let item = {
-                index: index,
+                index: this.currentIndex,
                 key: 0,
                 value: this.search,
                 type: this.type,
@@ -364,68 +390,10 @@ export default {
                 price: 0,
                 tax_ids: [],
             };
+            
+            this.newItems.push(item);
 
-            this.selected_items.push(item);
-
-            this.$emit('item', item);
-            this.$emit('items', this.selected_items);
-
-            this.setItemList(this.items);
-
-            this.show.item_selected = false;
-            this.show.item_list = false;
-            this.search = '';
-
-            /*
-            let add_new = this.add_new;
-
-            window.axios.get(this.createRoute)
-            .then(response => {
-                add_new.show = true;
-                add_new.html = response.data.html;
-
-                this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
-                    resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
-
-                        components: {
-                            [Select.name]: Select,
-                            [Option.name]: Option,
-                            [OptionGroup.name]: OptionGroup,
-                            [ColorPicker.name]: ColorPicker,
-                            AkauntingModalAddNew,
-                            AkauntingModal,
-                            AkauntingMoney,
-                            AkauntingRadioGroup,
-                            AkauntingSelect,
-                            AkauntingDate,
-                        },
-
-                        data: function () {
-                            return {
-                                add_new: add_new,
-                            }
-                        },
-
-                        methods: {
-                            onSubmit(event) {
-                                this.$emit('submit', event);
-                            },
-
-                            onCancel(event) {
-                                this.$emit('cancel', event);
-                            }
-                        }
-                    })
-                });
-            })
-            .catch(e => {
-                console.log(e);
-            })
-            .finally(function () {
-                // always executed
-            });
-            */
+            this.addItem(item, 'newItem');
         },
 
         onSubmit(event) {
@@ -552,13 +520,12 @@ export default {
         },
     },
 
-    created() {
-        this.setItemList(this.items);
-    },
-
     computed: {
         sortedItems() {
             return this.sortItems();
+        },
+        currentIndex() {
+            return this.$root.form.items.length;
         },
     },
 
@@ -589,3 +556,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+    .highlightItem:first-child {
+        background-color: #F5F7FA;    
+    }
+</style>

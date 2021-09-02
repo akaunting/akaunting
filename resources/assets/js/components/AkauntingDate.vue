@@ -66,7 +66,7 @@ export default {
 
         period: {
             type: [Number, String],
-            default: 0,
+            default: "0",
             description: "Payment period"
         },
 
@@ -145,7 +145,6 @@ export default {
         if (this.model) {
             this.real_model = this.model;
         }
-
         this.$emit('interface', this.real_model);
     },
 

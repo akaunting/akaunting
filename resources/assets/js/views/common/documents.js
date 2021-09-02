@@ -9,6 +9,7 @@ require('./../../bootstrap');
 import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
+import { setPromiseTimeout } from './../../plugins/functions';
 
 import Global from './../../mixins/global';
 
@@ -48,8 +49,8 @@ const app = new Vue({
             tax: false,
             discounts: [],
             tax_id: [],
-
             items: [],
+            selected_items:[],
             taxes: [],
             page_loaded: false,
             currencies: [],
@@ -92,11 +93,16 @@ const app = new Vue({
            }
 
            this.currency_symbol.symbol = default_currency_symbol;
-        }
-
+        };
     },
 
     methods: {
+        onRefFocus(ref) {
+            let index = this.form.items.length - 1;  
+
+            this.$refs['items-' + index + '-'  + ref][0].focus();
+        },
+
         onCalculateTotal() {
             let global_discount = parseFloat(this.form.discount);
             let discount_total = 0;
@@ -302,11 +308,17 @@ const app = new Vue({
             return totals_taxes;
         },
 
-        // Select Item added form
-        onSelectedItem(item) {
+        onSelectedItem(item){
+            this.onAddItem(item);
+        },
+
+        // addItem to list
+        onAddItem(payload) {
+            let { item, itemType } = payload;
+            let inputRef = `${itemType === 'newItem' ? 'name' : 'description'}`; // indication for which input to focus first
             let total = 1 * item.price;
             let item_taxes = [];
-
+            
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
                     if (this.taxes.includes(tax_id)) {
@@ -350,6 +362,10 @@ const app = new Vue({
                 // @todo
                 // invoice_item_checkbox_sample: [],
             });
+
+            setTimeout(function() {
+                this.onRefFocus(inputRef);
+            }.bind(this), 100);
 
             setTimeout(function() {
                 this.onCalculateTotal();
@@ -499,6 +515,7 @@ const app = new Vue({
                         methods: {
                             onSubmit(event) {
                                 this.form = event;
+
                                 this.form.response = {};
 
                                 this.loading = true;
