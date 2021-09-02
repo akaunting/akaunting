@@ -1,0 +1,63 @@
+name: Bug report
+description: File a bug report related to Akaunting
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: akaunting
+    attributes:
+      label: Akaunting version
+      description: "Please provide the full Akaunting version of your installation."
+      placeholder: "2.1.20"
+    validations:
+      required: true
+  - type: input
+    id: php
+    attributes:
+      label: PHP version
+      description: "Please provide the full PHP version that is powering Akaunting."
+      placeholder: "7.4.10"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: "Which operating system do you use? Please provide the version as well."
+      placeholder: "Ubuntu 20.04"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Which steps do we need to take to reproduce this error?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: What is the expected result?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What is the actual result?
+    validations:
+      required: true
+  - type: textarea
+    id: comments
+    attributes:
+      label: Additional comments
+      description: Anything else we should know about?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Copy and paste any relevant log output. No need for backticks.
+      render: shell
