@@ -92,9 +92,9 @@ trait Charts
         ];
     }
 
-    public function getLineChartOptions()
+    public function getLineChartOptions($money_format = true)
     {
-        return [
+        $options = [
             'tooltips' => [
                 'backgroundColor' => '#000000',
                 'titleFontColor' => '#ffffff',
@@ -104,7 +104,44 @@ trait Charts
                 'mode' => 'nearest',
                 'intersect' => 0,
                 'position' => 'nearest',
-                'callbacks' => [
+            ],
+            'responsive' => true,
+            'scales' => [
+                'yAxes' => [[
+                    'barPercentage' => 1.6,
+                    'ticks' => [
+                        'beginAtZero' => true,
+                        'padding' => 10,
+                        'fontColor' => '#9e9e9e',
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'color' => 'rgba(29,140,248,0.1)',
+                        'zeroLineColor' => 'transparent',
+                        'borderDash' => [2],
+                        'borderDashOffset' => [2],
+                    ],
+                ]],
+                'xAxes' => [[
+                    'barPercentage' => 1.6,
+                    'ticks' => [
+                        'suggestedMin' => 60,
+                        'suggestedMax' => 125,
+                        'padding' => 20,
+                        'fontColor' => '#9e9e9e',
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'color' => 'rgba(29,140,248,0.0)',
+                        'zeroLineColor' => 'transparent',
+                    ],
+                ]],
+            ],
+        ];
+
+        if ($money_format) {
+            // for Tooltip money format
+            $options['tooltips']['callbacks'] = [
                     'label' => new Raw("function(tooltipItem, data) {
                         const moneySettings = {
                             decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
@@ -154,13 +191,10 @@ trait Charts
 
                         return formattedCurrency(tooltipItem.yLabel, moneySettings);
                     }")
-                ],
-            ],
-            'scales' => [
-                'yAxes' => [[
-                    'ticks' => [
-                        'beginAtZero' => true,
-                        'callback' => new Raw("function(value, index, values) {
+                ];
+
+            // for Y variable money format
+            $options['scales']['yAxes'][0]['ticks']['callback'] = new Raw("function(value, index, values) {
                             const moneySettings = {
                                 decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
                                 thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
@@ -208,41 +242,9 @@ trait Charts
                             };
 
                             return formattedCurrency(value, moneySettings);
-                        }"),
-                    ],
-                ]
-            ],
-            'responsive' => true,
-            'scales' => [
-                'yAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                    ],
-                ]],
-                'xAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'suggestedMin' => 60,
-                        'suggestedMax' => 125,
-                        'padding' => 20,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.0)',
-                        'zeroLineColor' => 'transparent',
-                    ],
-                ]],
-            ],
-        ];
+                        }");
+        }
+
+        return $options;
     }
 }
