@@ -66,7 +66,6 @@
                                                 data-item="description"
                                                 resize="none"
                                                 @input="onBindingItemField(index, 'description')"
-                                                @keydown.enter.exact.prevent
                                             ></textarea>
                                         @endif
                                     </td>
