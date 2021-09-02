@@ -97,18 +97,7 @@ const app = new Vue({
 
     methods: {
         onRefFocus(ref, index) {
-            this.disableFormSubmission();
-
-            ref
-                ?  ref === 'price' 
-                    ?  setPromiseTimeout(100).then(() => this.$refs[ref][index].$children[0].$el.focus())
-                    :  setPromiseTimeout(100).then(() => this.$refs[ref][index].focus())
-                : {}
-        },
-
-        disableFormSubmission() {
-            const saveButtonEl = document.getElementsByClassName("btn btn-icon btn-success")[0];
-            saveButtonEl.setAttribute("type", "button");
+            setPromiseTimeout(100).then(() => this.$refs[ref][index].focus());
         },
 
         onCalculateTotal() {

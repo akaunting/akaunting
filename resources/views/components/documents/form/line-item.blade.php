@@ -42,8 +42,7 @@
                                                     data-item="name"
                                                     v-model="row.name"
                                                     @input="onBindingItemField(index, 'name')"
-                                                    @change="form.errors.clear('items.' + index + '.name')"
-                                                    @keydown.enter="onRefFocus('description', index)">
+                                                    @change="form.errors.clear('items.' + index + '.name')"/>
                                                 <div class="invalid-feedback d-block"
                                                     v-if="form.errors.has('items.' + index + '.name')"
                                                     v-html="form.errors.get('items.' + index + '.name')">
@@ -68,7 +67,6 @@
                                                 resize="none"
                                                 @input="onBindingItemField(index, 'description')"
                                                 @keydown.enter.exact.prevent
-                                                @keydown.enter.exact="onRefFocus('quantity', index)"
                                             ></textarea>
                                         @endif
                                     </td>
@@ -92,8 +90,7 @@
                                             data-item="quantity"
                                             v-model="row.quantity"
                                             @input="onCalculateTotal"
-                                            @change="form.errors.clear('items.' + index + '.quantity')"
-                                            @keydown.enter="onRefFocus('price', index)">
+                                            @change="form.errors.clear('items.' + index + '.quantity')">
                                         <div class="invalid-feedback d-block"
                                             v-if="form.errors.has('items.' + index + '.quantity')"
                                             v-html="form.errors.get('items.' + index + '.quantity')">
