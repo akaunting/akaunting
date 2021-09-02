@@ -313,7 +313,7 @@ const app = new Vue({
             let total = 1 * item.price;
             let item_taxes = [];
 
-            this.onRefFocus(inputRef, index); // trigger initial focus event on input
+            this.onRefFocus(inputRef, index); // trigger initial focus event on input or description based on type of item added to the list
             
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {

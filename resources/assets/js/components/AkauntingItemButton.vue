@@ -254,6 +254,8 @@ export default {
         setItemList(items) {
             this.item_list = [];
 
+            this.search.length === 0 ? this.isItemMatched = false : {}
+
             // Option set sort_option data
             if (!Array.isArray(items)) {
                 let index = 0;
@@ -299,6 +301,7 @@ export default {
         },
 
         onInput() {
+            this.isItemMatched = false;
             //to optimize performance we kept the condition that checks for if search exists or not
             if (!this.search) {
                 this.isItemMatched = false; //to remove the style from matched item on input is cleared (option)
@@ -314,16 +317,14 @@ export default {
                 return;
             }
 
-            this.fetchMatchedItems();
-
-            this.item_list.length > 0
-                ? this.isItemMatched = true
-                : {}
+            this.fetchMatchedItems().then(() => this.item_list.length > 0 ? this.isItemMatched = true : this.isItemMatched = false );
 
             this.$emit('input', this.search);
+
+            this.isItemMatched === true && this.search.length > 0  ? this.isItemMatched = true : this.isItemMatched = true;
         },
 
-        inputEnterEvent(event) {
+        inputEnterEvent() {
             this.isItemMatched 
                 ? this.onItemSelected()
                 : this.onItemCreate()
@@ -352,8 +353,14 @@ export default {
                 .catch(error => {});
         },
 
-        onItemSelected() {
-            const item = this.item_list[0] 
+        onItemSelected(clickSelectedItem) {
+            let item; 
+            const firstMatchedItem = this.item_list[0];
+            
+            const isClickSelectedItem = clickSelectedItem ? true : false;
+            
+            isClickSelectedItem ? item = clickSelectedItem  : item = firstMatchedItem;
+            
             const indexeditem = { ...item, index: this.currentIndex };
 
             this.addItem(indexeditem, 'oldItem');
