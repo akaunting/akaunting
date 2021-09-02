@@ -95,6 +95,10 @@ trait Charts
         ];
     }
 
+    public function formatMoney( ){
+        
+    }
+
     public function getLineChartOptions()
     {
         return [
@@ -109,67 +113,53 @@ trait Charts
                 'position' => 'nearest',
                 'callbacks' => [
                     'label' => new Raw("function(tooltipItem, data) { 
-                        const isPrefix =  '" . config('money.' . setting('default.currency') . '.symbol_first') . "'
-                        
-                        const money = {
+                        const moneySettings = {
                             decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
                             thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
-                            prefix: '" . config('money.' . setting('default.currency') . '.symbol') . "',
-                            suffix: '" . config('money.' . setting('default.currency') . '.symbol') . "',
+                            symbol: '" . config('money.' . setting('default.currency') . '.symbol') . "',
+                            isPrefix: '" . config('money.' . setting('default.currency') . '.symbol_first') . "',
                             precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
-                        }
+                        };
 
-                        const format = function (input, opt = {
-                            decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
-                            thousands: '" . config('money.' . setting('default.currency') . '.thousands_separator') . "',
-                            prefix: '" . config('money.' . setting('default.currency') . '.symbol') . "',
-                            suffix: '" . config('money.' . setting('default.currency') . '.symbol') . "',
-                            precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
-                        }) {
+                        const formattedCurrency = function (input, opt = moneySettings) {
+                            function fixed (precision) {
+                                return Math.max(0, Math.min(precision, 20));
+                            };
+
+                            function toStr(value) {
+                                return value ? value.toString() : '';
+                            };
+
+                            function numbersToCurrency(numbers, precision) {
+                                var exp = Math.pow(10, precision);
+                                var float = parseFloat(numbers) / exp;
+    
+                                return float.toFixed(fixed(precision));
+                            };
+
+                            function joinIntegerAndDecimal (integer, decimal, separator) {
+                                return decimal ? integer + separator + decimal : integer;
+                            };
+
                             if (typeof input === 'number') {
                               input = input.toFixed(fixed(opt.precision));
-                            }
+                            };
 
                             var negative = input.indexOf('-') >= 0 ? '-' : '';
                             var numbers = toStr(input).replace(/\D+/g, '') || '0';
-                            var currency = numbersToCurrency(numbers, 2);
+                            var currency = numbersToCurrency(numbers, opt.precision);
                             var parts = toStr(currency).split('.');
-                            var integer = parts[0];
+                            var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm, opt.thousands);;
                             var decimal = parts[1];
 
-                            integer.replace(/(\d)(?=(?:\d{3})+\b)/gm, `,`);
-                    
-                            return opt.prefix + negative + joinIntegerAndDecimal(integer, decimal, opt.decimal) + opt.suffix;
-                        }
-                        
-                        const fixed = function (precision) {
-                            return between(0, precision, 20)
-                        }
+                            if(opt.isPrefix) {
+                                return opt.symbol + negative + joinIntegerAndDecimal(integer, decimal, opt.decimal)
+                            }
 
-                        const joinIntegerAndDecimal =  function (integer, decimal, separator) {
-                            return decimal ? integer + separator + decimal : integer;
-                        }
-                        
-                        const toStr = function (value) {
-                            return value ? value.toString() : '';
-                        }
-                          
-                        const numbersToCurrency = function (numbers, precision) {
-                            var exp = Math.pow(10, precision);
-                            var float = parseFloat(numbers) / exp;
+                            return negative + joinIntegerAndDecimal(integer, decimal, opt.decimal) + opt.suffix;
+                        };
 
-                            return float.toFixed(fixed(precision));
-                        }
-
-                        const between = function (min, n, max) {
-                            return Math.max(min, Math.min(n, max));
-                        }
-
-                        if ('" . config('money.' . setting('default.currency') . '.symbol_first') . "' === 1) {
-                            return  format(tooltipItem.yLabel);
-                        }
-                        
-                        return format(tooltipItem.yLabel);
+                        return formattedCurrency(tooltipItem.yLabel, moneySettings);
                     }")
                 ],
             ],
@@ -178,6 +168,7 @@ trait Charts
                     'ticks' => [
                         'beginAtZero' => true,
                         'callback' => new Raw("function(value, index, values) { 
+
                             return '" . config('money.' . setting('default.currency') . '.symbol') . "' + value; 
                         }"),
                     ],
