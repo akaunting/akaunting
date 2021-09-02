@@ -356,11 +356,8 @@ export default {
         onItemSelected(clickSelectedItem) {
             let item; 
             const firstMatchedItem = this.item_list[0];
-            
             const isClickSelectedItem = clickSelectedItem ? true : false;
-            
             isClickSelectedItem ? item = clickSelectedItem  : item = firstMatchedItem;
-            
             const indexeditem = { ...item, index: this.currentIndex };
 
             this.addItem(indexeditem, 'oldItem');
@@ -383,7 +380,7 @@ export default {
 
         onItemCreate() {
             let item = {
-                index: this.newItems.length,
+                index: this.currentIndex,
                 key: 0,
                 value: this.search,
                 type: this.type,
@@ -394,7 +391,7 @@ export default {
                 tax_ids: [],
             };
             
-            this.newItems.push(item)
+            this.newItems.push(item);
 
             this.addItem(item, 'newItem');
         },
@@ -528,7 +525,7 @@ export default {
             return this.sortItems();
         },
         currentIndex() {
-            return this.selected_items.length;
+            return this.$root.form.items.length;
         },
     },
 

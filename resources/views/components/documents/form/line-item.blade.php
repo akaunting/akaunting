@@ -34,7 +34,7 @@
                                                 @stack('name_input_start')
                                                 <input 
                                                     type="text"
-                                                    ref="name"
+                                                    :ref="'items-' + index + '-name'"
                                                     class="form-control"
                                                     :name="'items.' + index + '.name'"
                                                     autocomplete="off"
@@ -58,7 +58,7 @@
                                         @if (!$hideDescription)
                                             <textarea
                                                 class="form-control"
-                                                ref="description"
+                                                :ref="'items-' + index + '-description'"
                                                 placeholder="{{ trans('items.enter_item_description') }}"
                                                 style="height: 46px; overflow: hidden;"
                                                 :name="'items.' + index + '.description'"
@@ -81,7 +81,7 @@
                                         <input
                                             type="number"
                                             min="0"
-                                            ref="quantity"
+                                            :ref="'items-' + index + '-quantity'"
                                             class="form-control text-center p-0 input-number-disabled"
                                             :name="'items.' + index + '.quantity'"
                                             autocomplete="off"

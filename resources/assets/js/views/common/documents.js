@@ -50,6 +50,7 @@ const app = new Vue({
             discounts: [],
             tax_id: [],
             items: [],
+            selected_items:[],
             taxes: [],
             page_loaded: false,
             currencies: [],
@@ -96,8 +97,10 @@ const app = new Vue({
     },
 
     methods: {
-        onRefFocus(ref, index) {
-            setPromiseTimeout(100).then(() => this.$refs[ref][index].focus());
+        onRefFocus(ref) {
+            let index = this.form.items.length - 1;  
+
+            this.$refs['items-' + index + '-'  + ref][0].focus();
         },
 
         onCalculateTotal() {
@@ -305,15 +308,16 @@ const app = new Vue({
             return totals_taxes;
         },
 
+        onSelectedItem(item){
+            this.onAddItem(item);
+        },
+
         // addItem to list
         onAddItem(payload) {
-            let { item, itemType } = payload
-            let { index } = item;
+            let { item, itemType } = payload;
             let inputRef = `${itemType === 'newItem' ? 'name' : 'description'}`; // indication for which input to focus first
             let total = 1 * item.price;
             let item_taxes = [];
-
-            this.onRefFocus(inputRef, index); // trigger initial focus event on input or description based on type of item added to the list
             
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
@@ -360,7 +364,13 @@ const app = new Vue({
             });
 
             setTimeout(function() {
+                this.onRefFocus(inputRef);
+            }.bind(this), 100);
+
+            setTimeout(function() {
                 this.onCalculateTotal();
+
+                this.onRefFocus(inputRef);
             }.bind(this), 800);
         },
 
