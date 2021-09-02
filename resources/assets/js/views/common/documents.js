@@ -369,8 +369,6 @@ const app = new Vue({
 
             setTimeout(function() {
                 this.onCalculateTotal();
-
-                this.onRefFocus(inputRef);
             }.bind(this), 800);
         },
 
