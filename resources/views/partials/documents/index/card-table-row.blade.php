@@ -95,6 +95,7 @@
 
                     @stack('edit_button_start')
                     @if (!$hideButtonEdit)
+                        @can($permissionUpdate)
                         @if ($checkButtonReconciled)
                             @if (!$item->reconciled)
                                 <a class="dropdown-item" href="{{ route($routeButtonEdit, $item->id) }}">{{ trans('general.edit') }}</a>
@@ -102,6 +103,7 @@
                         @else
                             <a class="dropdown-item" href="{{ route($routeButtonEdit, $item->id) }}">{{ trans('general.edit') }}</a>
                         @endif
+                        @endcan
                     @endif
                     @stack('edit_button_end')
 

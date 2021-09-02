@@ -88,8 +88,10 @@
                                             <a class="dropdown-item" href="{{ route('payments.show', $item->id) }}">{{ trans('general.show') }}</a>
 
                                             @if (!$item->reconciled)
+                                            @can('update-purchases-payments')
                                                 <a class="dropdown-item" href="{{ route('payments.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                                 <div class="dropdown-divider"></div>
+                                            @endcan
                                             @endif
 
                                             @if (empty($item->document_id))

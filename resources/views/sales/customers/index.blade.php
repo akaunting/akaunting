@@ -87,7 +87,7 @@
                                                 {{ trans('general.show') }}
                                             </a>
 
-                                            @can('create-sales-customers')
+                                            @can('update-sales-customers')
                                                 <a class="dropdown-item" href="{{ route('customers.edit', $item->id) }}">
                                                     {{ trans('general.edit') }}
                                                 </a>
