@@ -63,8 +63,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('transfers.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                            @can('update-banking-transfers')
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                            @endcan
                                             @can('delete-banking-transfers')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'transfers.destroy') !!}

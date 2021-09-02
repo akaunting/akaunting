@@ -79,7 +79,7 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 <a class="dropdown-item" href="{{ route('vendors.show', $item->id) }}">{{ trans('general.show') }}</a>
                                                 
-                                            @can('create-purchases-vendors')
+                                            @can('update-purchases-vendors')
                                                 <a class="dropdown-item" href="{{ route('vendors.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                             @endcan
 

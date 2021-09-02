@@ -64,7 +64,9 @@
                                         <i class="fa fa-ellipsis-h text-muted"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                        @can('update-banking-accounts')
+                                            <a class="dropdown-item" href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                        @endcan
                                         @can('delete-banking-accounts')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'accounts.destroy') !!}
