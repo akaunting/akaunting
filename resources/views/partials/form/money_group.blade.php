@@ -27,10 +27,6 @@
         v-if="{{ $attributes['show'] }}"
         @endif
 
-        @if (isset($attributes['inputRef']))
-        ref="{{ $attributes['inputRef'] }}"
-        @endif
-
         @if (isset($attributes['masked']))
         :masked="{{ ($attributes['masked']) ? 'true' : 'false' }}"
         @endif
