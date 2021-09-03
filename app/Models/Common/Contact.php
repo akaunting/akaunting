@@ -20,6 +20,13 @@ class Contact extends Model
     protected $table = 'contacts';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['location'];
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array

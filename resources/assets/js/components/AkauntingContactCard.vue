@@ -88,9 +88,9 @@
                                         {{ contact.address }}
                                     </th>
                                 </tr>
-                                <tr v-if="contact.locations">
+                                <tr v-if="contact.location">
                                     <th class="p-0" style="text-align:left; white-space: normal;">
-                                        {{ contact.locations }}
+                                        {{ contact.location }}
                                     </th>
                                 </tr>
                                 <tr v-if="contact.tax_number">
@@ -197,7 +197,7 @@ export default {
                     zip_code:'',
                     state:'',
                     country:'',
-                    country_name:'',
+                    location:'',
                     reference: ''
                 };
             },
@@ -241,10 +241,6 @@ export default {
             default: 'Bill to',
             description: ""
         },
-        countryText: {
-            type: [Array, Object],
-            default: () => [],
-        },
         taxNumberText: {
             type: String,
             default: 'Tax number',
@@ -284,7 +280,6 @@ export default {
             buttons: this.addNew.buttons,
         },
         add_new_html: '',
-        country_text_data: this.countryText,
         };
     },
 
@@ -315,7 +310,7 @@ export default {
                 zip_code: '',
                 state: '',
                 country: '',
-                countryname: '',
+                location: '',
                 reference: ''
             });
         },
@@ -345,7 +340,7 @@ export default {
                         zip_code: (contact.zip_code) ? contact.zip_code : '',
                         state: (contact.state) ? contact.state : '',
                         country: (contact.country) ? contact.country : '',
-                        country_name: (contact.country_name) ? contact.country_name : '',
+                        location: (contact.location) ? contact.location : '',
                         reference: (contact.reference) ? contact.reference : ''
                     });
                 }, this);
@@ -361,26 +356,6 @@ export default {
             this.contact_list.forEach(function (contact, index) {
                 if (contact_id == contact.id) {
                     this.contact = contact;
-
-                    let locations = [];
-
-                    if (this.contact.city) {
-                        locations.push(this.contact.city);
-                    }
-
-                    if (this.contact.zip_code) {
-                        locations.push(this.contact.zip_code);
-                    }
-
-                    if (this.contact.state) {
-                        locations.push(this.contact.state);
-                    }
-
-                    if (this.contact.country) {
-                        locations.push(this.country_text_data[this.contact.country]);
-                    }
-
-                    this.contact.locations = locations.join(', ');
                 }
             }, this);
 
@@ -616,7 +591,7 @@ export default {
                     zip_code: '',
                     state: '',
                     country: '',
-                    country_name: '',
+                    location: '',
                     reference: ''
                 });
 
@@ -641,30 +616,9 @@ export default {
                     zip_code: (contact.zip_code) ? contact.zip_code : '',
                     state: (contact.state) ? contact.state : '',
                     country: (contact.country) ? contact.country : '',
-                    country_name: (contact.country_name) ? contact.country_name : '',
+                    location: (contact.location) ? contact.location : '',
                     reference: (contact.reference) ? contact.reference : ''
                 });
-
-                let locations = [];
-
-                if (contact.city) {
-                    locations.push(contact.city);
-                }
-
-                if (contact.zip_code) {
-                    locations.push(contact.zip_code);
-                }
-
-                if (contact.state) {
-                    locations.push(contact.state);
-                }
-
-                if (contact.country) {
-                    locations.push(this.country_text_data[contact.country])
-                }
-
-                this.contact.locations = locations.join(', ');
-
             }, this);
         }
 

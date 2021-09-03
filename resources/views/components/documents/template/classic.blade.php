@@ -41,7 +41,7 @@
                     <p>
                         {!! nl2br(setting('company.address')) !!}
                         <br>
-                        {!! $companyLocation !!}
+                        {!! $document->company->location !!}
                     </p>
                 @endif
 
@@ -115,7 +115,7 @@
                     <p>
                         {!! nl2br($document->contact_address) !!}
                         <br>
-                        {!! $contactLocation !!}
+                        {!! $document->contact->location !!}
                     </p>
                 @endif
             @stack('address_input_end')

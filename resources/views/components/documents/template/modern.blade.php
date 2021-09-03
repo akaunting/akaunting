@@ -41,7 +41,7 @@
                     <strong class="text-white">
                         {!! nl2br(setting('company.address')) !!}
                         <br>
-                        {!! $companyLocation !!}
+                        {!! $document->company->location !!}
                     </strong><br><br>
                 @endif
 
@@ -89,7 +89,7 @@
                 @if (!$hideContactAddress)
                     {!! nl2br($document->contact_address) !!}
                     <br>
-                    {!! $contactLocation !!}
+                    {!! $document->contact->location !!}
                     <br><br>
                 @endif
             @stack('address_input_end')

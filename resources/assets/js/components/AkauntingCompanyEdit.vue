@@ -13,9 +13,9 @@
                             {{ company.address }}
                         </th>
                     </tr>
-                    <tr v-if="company_data.locations">
+                    <tr v-if="company.location">
                         <th class="text-right p-0">
-                            {{ company_data.locations }}
+                            {{ company.location }}
                         </th>
                     </tr>
                     <tr v-if="company.tax_number">
@@ -60,18 +60,18 @@ import Form from './../plugins/form';
 export default {
     name: 'akaunting-company-edit',
 
-        components: {
-            [Select.name]: Select,
-            [Option.name]: Option,
-            [OptionGroup.name]: OptionGroup,
-            [ColorPicker.name]: ColorPicker,
-            AkauntingModalAddNew,
-            AkauntingModal,
-            AkauntingMoney,
-            AkauntingRadioGroup,
-            AkauntingSelect,
-            AkauntingDate,
-        },
+    components: {
+        [Select.name]: Select,
+        [Option.name]: Option,
+        [OptionGroup.name]: OptionGroup,
+        [ColorPicker.name]: ColorPicker,
+        AkauntingModalAddNew,
+        AkauntingModal,
+        AkauntingMoney,
+        AkauntingRadioGroup,
+        AkauntingSelect,
+        AkauntingDate,
+    },
 
     props: {
         buttonText: {
@@ -93,9 +93,6 @@ export default {
             type: Object,
             default: {},
             description: 'Company object'
-        },
-        countryText: {
-            type: [Array, Object],
         },
         companyForm: {
             type: Object,
@@ -120,7 +117,6 @@ export default {
                 buttons: this.companyForm.buttons,
             },
             company_html: '',
-            company_data: this.company,
         };
     },
 
@@ -246,28 +242,6 @@ export default {
 
             documentClasses.remove("modal-open");
         },
-    },
-
-    created() {
-        let locations = [];
-
-        if (this.company.city) {
-            locations.push(this.company.city);
-        }
-
-        if (this.company.zip_code) {
-            locations.push(this.company.zip_code);
-        }
-
-        if (this.company.state) {
-            locations.push(this.company.state);
-        }
-
-        if (this.company.country) {
-            locations.push(this.countryText[this.company.country])
-        }
-
-        this.company.locations = locations.join(', ');
     },
 };
 </script>

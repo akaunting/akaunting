@@ -4,7 +4,6 @@
     no-matching-data-text="{{ trans('general.no_matching_data') }}"
     search-route="{{ $search_route }}"
     create-route="{{ $create_route }}"
-    :country-text="{{ json_encode(trans('countries')) }}"
     :contacts="{{ json_encode($contacts) }}"
     :selected="{{ json_encode($contact) }}"
     add-contact-text="{{ is_array($textAddContact) ? trans($textAddContact[0], ['field' => trans_choice($textAddContact[1], 1)]) : trans($textAddContact) }}"

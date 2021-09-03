@@ -25,6 +25,13 @@ class Company extends Eloquent implements Ownable
 
     protected $table = 'companies';
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['location'];
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['domain', 'enabled', 'created_by'];
@@ -444,6 +451,29 @@ class Company extends Eloquent implements Ownable
     public function getCompanyLogoAttribute()
     {
         return $this->getMedia('company.logo')->last();
+    }
+
+    public function getLocationAttribute()
+    {
+        $location = [];
+
+        if (setting('company.city')) {
+            $location[] = setting('company.city');
+        }
+
+        if (setting('company.zip_code')) {
+            $location[] = setting('company.zip_code');
+        }
+
+        if (setting('company.state')) {
+            $location[] = setting('company.state');
+        }
+
+        if (setting('company.country')) {
+            $location[] = trans('countries.' . setting('company.country'));
+        }
+
+        return implode(', ', $location);
     }
 
     public function makeCurrent($force = false)
