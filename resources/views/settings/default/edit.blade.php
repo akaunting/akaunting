@@ -32,7 +32,7 @@
 
                 {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), setting('default.locale'), []) }}
 
-                {{ Form::selectGroup('country', trans_choice('addresses.countries', 1), 'globe-americas', trans('countries'), setting('default.country'), []) }}
+                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('default.country'), []) }}
 
                 {{ Form::selectGroup('list_limit', trans('settings.default.list_limit'), 'columns', ['10' => '10', '25' => '25', '50' => '50', '100' => '100'], setting('default.list_limit'), []) }}
 
