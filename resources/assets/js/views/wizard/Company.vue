@@ -69,7 +69,6 @@
                                 v-model="real_date"
                             ></akaunting-date>
                         </div>
-
                         <div class="col-12">
                             <base-input :label="translations.company.address">
                                 <textarea
@@ -82,8 +81,25 @@
                                 ></textarea>
                             </base-input>
                         </div>
-
-                        <div class="col-3 mb-0">
+                        <div class="col-6">
+                            <base-input :label="translations.company.country">
+                                <el-select name="country" v-model="model" filterable>
+                                    <template slot="prefix">
+                                        <span class="el-input__suffix-inner el-select-icon">
+                                            <i :class="'select-icon-position el-input__icon fas fa-globe-americas'"></i>
+                                        </span>
+                                    </template>
+                                    <el-option
+                                    v-for="(country, index) in country_data"
+                                    :key="index"
+                                    :label="country"
+                                    :value="country"
+                                    >
+                                    </el-option>
+                                </el-select>
+                            </base-input>
+                        </div>
+                        <div class="col-6 mb-0">
                             <label class="form-control-label">{{  translations.company.logo }}</label>
                             <akaunting-dropzone-file-upload
                                 ref="dropzoneWizard"
@@ -116,7 +132,7 @@
 </template>
 
 <script>
-import { Step, Steps } from "element-ui";
+import { Step, Steps, Select, Option } from "element-ui";
 import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
 import AkauntingDate from "./../../components/AkauntingDate";
 import WizardAction from "./../../mixins/wizardAction";
@@ -129,6 +145,8 @@ export default {
     components: {
         [Step.name]: Step,
         [Steps.name]: Steps,
+        [Select.name]: Select,
+        [Option.name]: Option,
         AkauntingDropzoneFileUpload,
         AkauntingDate,
     },
@@ -159,7 +177,7 @@ export default {
             type: Object,
             default: function () {
                 return {
-                   
+
                 };
             },
             description: "FlatPckr date configuration"
@@ -171,7 +189,9 @@ export default {
             active: 0,
             logo: [],
             real_date: "",
-            lang_data: ''
+            lang_data: '',
+            country_data: wizard_country,
+            model: ''
         };
     },
 
@@ -180,7 +200,7 @@ export default {
             let lang_split = document.documentElement.lang.split("-");
 
             if (lang_split[0] !== 'en') {
-                
+
             const lang = require(`flatpickr/dist/l10n/${lang_split[0]}.js`).default[lang_split[0]];
             this.dateConfig.locale = lang;
             }
@@ -247,7 +267,7 @@ export default {
             const formData = new FormData(this.$refs["form"]);
 
             let data_name = {};
-      
+
             for (let [key, val] of formData.entries()) {
                 Object.assign(data_name, {
                     [key]: val,

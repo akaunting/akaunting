@@ -31,6 +31,10 @@ abstract class DocumentTemplate extends Base
 
     public $logo;
 
+    public $companyLocation;
+
+    public $contactLocation;
+
     public $backgroundColor;
 
     public $hideFooter;
@@ -123,7 +127,7 @@ abstract class DocumentTemplate extends Base
      * @return void
      */
     public function __construct(
-        $type, $document, $item = false,  $documentTemplate = '', $logo = '', $backgroundColor = '',
+        $type, $document, $item = false,  $documentTemplate = '', $logo = '', $backgroundColor = '', $companyLocation = '', $contactLocation = '',
         bool $hideFooter = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false,
         bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
@@ -139,6 +143,8 @@ abstract class DocumentTemplate extends Base
         $this->documentTemplate = $this->getDocumentTemplate($type, $documentTemplate);
         $this->logo = $this->getLogo($logo);
         $this->backgroundColor = $this->getBackgroundColor($type, $backgroundColor);
+        $this->companyLocation = $this->getCompanyLocation();
+        $this->contactLocation = $this->getContactLocation($document);
 
         $this->hideFooter = $hideFooter;
         $this->hideCompanyLogo = $hideCompanyLogo;
@@ -645,5 +651,51 @@ abstract class DocumentTemplate extends Base
 
         // @todo what return value invoice or always false??
         return setting('invoice.hide_amount', $hideAmount);
+    }
+
+    protected function getCompanyLocation()
+    {
+        $location = [];
+
+        if (setting('company.city')) {
+            $location[] = setting('company.city');
+        }
+
+        if (setting('company.zip_code')) {
+            $location[] = setting('company.zip_code');
+        }
+
+        if (setting('company.state')) {
+            $location[] = setting('company.state');
+        }
+
+        if (setting('company.country')) {
+            $location[] = trans('countries.' . setting('company.country'));
+        }
+
+        return implode(', ', $location);
+    }
+
+    protected function getContactLocation($document)
+    {
+        $location = [];
+
+        if ($document->contact->city) {
+            $location[] = $document->contact->city;
+        }
+
+        if ($document->contact->zip_code) {
+            $location[] = $document->contact->zip_code;
+        }
+
+        if ($document->contact->state) {
+            $location[] = $document->contact->state;
+        }
+
+        if ($document->contact->country) {
+            $location[] = trans('countries.' . $document->contact->country);
+        }
+
+        return implode(', ', $location);
     }
 }

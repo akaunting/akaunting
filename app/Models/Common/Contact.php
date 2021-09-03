@@ -33,6 +33,10 @@ class Contact extends Model
         'tax_number',
         'phone',
         'address',
+        'city',
+        'zip_code',
+        'state',
+        'country',
         'website',
         'currency_code',
         'reference',
@@ -186,6 +190,30 @@ class Contact extends Model
         });
 
         return $amount;
+    }
+
+
+    public function getLocationAttribute()
+    {
+        $location = [];
+
+        if ($this->city) {
+            $location[] = $this->city;
+        }
+
+        if ($this->zip_code) {
+            $location[] = $this->zip_code;
+        }
+
+        if ($this->state) {
+            $location[] = $this->state;
+        }
+
+        if ($this->country) {
+            $location[] = trans('countries.' . $this->country);
+        }
+
+        return implode(', ', $location);
     }
 
     /**

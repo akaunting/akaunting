@@ -67,6 +67,22 @@ class UpdateCompany extends Job
                 setting()->set('company.address', $this->request->get('address'));
             }
 
+            if ($this->request->has('city')) {
+                setting()->set('company.city', $this->request->get('city'));
+            }
+
+            if ($this->request->has('zip_code')) {
+                setting()->set('company.zip_code', $this->request->get('zip_code'));
+            }
+
+            if ($this->request->has('state')) {
+                setting()->set('company.state', $this->request->get('state'));
+            }
+
+            if ($this->request->has('country')) {
+                setting()->set('company.country', $this->request->get('country'));
+            }
+
             if ($this->request->has('currency')) {
                 setting()->set('default.currency', $this->request->get('currency'));
             }

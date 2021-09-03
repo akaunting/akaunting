@@ -109,6 +109,7 @@
                 <li class="list-group-item border-0 border-top-1">
                     <div class="font-weight-600">{{ trans('general.address') }}</div>
                     <div><small>{{ $vendor->address }}</small></div>
+                    <div><small>{{ $vendor->location }}</small></div>
                 </li>
                 @stack('vendor_address_end')
 
