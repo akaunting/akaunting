@@ -75,24 +75,24 @@ export default {
 
     props: {
         buttonText: {
-        type: String,
-        default: 'Edit your business address ',
-        description: 'Input placeholder'
+            type: String,
+            default: 'Edit your business address ',
+            description: 'Input placeholder'
         },
         taxNumberText: {
-        type: String,
-        default: 'Tax Number',
-        description: 'Input placeholder'
+            type: String,
+            default: 'Tax Number',
+            description: 'Input placeholder'
         },
         companyId: {
-        type: String,
-        default: '',
-        description: 'Contact search route'
+            type: String,
+            default: '',
+            description: 'Contact search route'
         },
         company: {
-        type: Object,
-        default: {},
-        description: 'Company object'
+            type: Object,
+            default: {},
+            description: 'Company object'
         },
         countryText: {
             type: [Array, Object],
@@ -112,15 +112,15 @@ export default {
 
     data() {
         return {
-        form: {},
-        company_form: {
-            text: this.companyForm.text,
-            show: false,
-            path: url + '/modals/companies/' + this.companyId + '/edit',
-            buttons: this.companyForm.buttons,
-        },
-        company_html: '',
-        company_data: this.company,
+            form: {},
+            company_form: {
+                text: this.companyForm.text,
+                show: false,
+                path: url + '/modals/companies/' + this.companyId + '/edit',
+                buttons: this.companyForm.buttons,
+            },
+            company_html: '',
+            company_data: this.company,
         };
     },
 
