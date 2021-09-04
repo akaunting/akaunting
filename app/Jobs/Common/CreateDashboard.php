@@ -136,7 +136,7 @@ class CreateDashboard extends Job
                 'name' => $name,
                 'sort' => $sort,
                 'settings' => (new $class())->getDefaultSettings(),
-                'created_by' => user_id(),
+                'created_by' => $this->dashboard->created_by,
             ]);
 
             $sort++;
