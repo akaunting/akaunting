@@ -25,7 +25,7 @@ class Money
 
         $currency_code = setting('default.currency');
 
-        if ($request->has('currency_code')) {
+        if ($request->get('currency_code')) {
             $currency_code = $request->get('currency_code');
         }
 
