@@ -31,6 +31,14 @@
 
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
+                    {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', []) }}
+
+                    {{ Form::textGroup('zip_code', trans('general.zip_code'), 'mail-bulk', []) }}
+
+                    {{ Form::textGroup('state', trans('general.state'), 'city', []) }}
+
+                    {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('default.country'), []) }}
+
                     {{ Form::fileGroup('logo', trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}

@@ -38,7 +38,11 @@
                 @endif
 
                 @if (!$hideCompanyAddress)
-                    <p>{!! nl2br(setting('company.address')) !!}</p>
+                    <p>
+                        {!! nl2br(setting('company.address')) !!}
+                        <br>
+                        {!! $document->company->location !!}
+                    </p>
                 @endif
 
                 @if (!$hideCompanyTaxNumber)
@@ -108,7 +112,11 @@
 
             @stack('address_input_start')
                 @if (!$hideContactAddress)
-                    <p>{!! nl2br($document->contact_address) !!}</p>
+                    <p>
+                        {!! nl2br($document->contact_address) !!}
+                        <br>
+                        {!! $document->contact->location !!}
+                    </p>
                 @endif
             @stack('address_input_end')
 

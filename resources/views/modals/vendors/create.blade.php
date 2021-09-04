@@ -18,6 +18,8 @@
 
         {{ Form::textareaGroup('address', trans('general.address')) }}
 
+        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('default.country'), []) }}
+
         {{ Form::hidden('type', 'vendor') }}
         {!! Form::hidden('enabled', '1', []) !!}
     </div>

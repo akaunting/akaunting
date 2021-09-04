@@ -19,7 +19,7 @@
                                 v-html="error">
                             </div>
                         </div>
-                        
+
                         <div class="aka-select-menu" v-if="show.contact_list">
                             <div class="aka-select-search-container">
                                 <span class="aka-prefixed-input aka-prefixed-input--fluid">
@@ -30,11 +30,11 @@
                                             </span>
                                         </div>
 
-                                        <input 
+                                        <input
                                             type="text"
                                             data-input="true"
                                             class="form-control"
-                                            autocapitalize="default" autocorrect="ON" 
+                                            autocapitalize="default" autocorrect="ON"
                                             :placeholder="placeholder"
                                             :ref="'input-contact-field-' + _uid"
                                             v-model="search"
@@ -44,7 +44,7 @@
                                     </div>
                                 </span>
                             </div>
-                            
+
                             <ul class="aka-select-menu-options">
                                 <div class="aka-select-menu-option" v-for="(contact, index) in sortContacts" :key="index" @click="onContactSeleted(index, contact.id)">
                                     <div>
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </ul>
-                            
+
                             <div class="aka-select-footer" tabindex="0" @click="onContactCreate">
                                 <span>
                                     <i class="fas fa-plus"></i> {{ createNewContactText }}
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div v-else class="document-contact-with-contact-bill-to">
                     <div>
                         <span class="aka-text aka-text--block-label">{{ contactInfoText }}</span>
@@ -83,9 +83,14 @@
                                         <strong class="d-block">{{ contact.name }}</strong>
                                     </th>
                                 </tr>
-                                <tr>
+                                <tr v-if="contact.address">
                                     <th class="p-0" style="text-align:left; white-space: normal;">
                                         {{ contact.address }}
+                                    </th>
+                                </tr>
+                                <tr v-if="contact.location">
+                                    <th class="p-0" style="text-align:left; white-space: normal;">
+                                        {{ contact.location }}
                                     </th>
                                 </tr>
                                 <tr v-if="contact.tax_number">
@@ -188,7 +193,12 @@ export default {
                     phone: '',
                     website: '',
                     address: '',
-                    reference: '' 
+                    city: '',
+                    zip_code:'',
+                    state:'',
+                    country:'',
+                    location:'',
+                    reference: ''
                 };
             },
             description: 'List of Contacts'
@@ -198,6 +208,7 @@ export default {
             default: () => [],
             description: 'List of Contacts'
         },
+
         addNew: {
             type: Object,
             default: function () {
@@ -295,7 +306,12 @@ export default {
                 phone: '',
                 website: '',
                 address: '',
-                reference: '' 
+                city: '',
+                zip_code: '',
+                state: '',
+                country: '',
+                location: '',
+                reference: ''
             });
         },
 
@@ -320,7 +336,12 @@ export default {
                         phone: (contact.phone) ? contact.phone : '',
                         website: (contact.website) ? contact.website : '',
                         address: (contact.address) ? contact.address : '',
-                        reference: (contact.reference) ? contact.reference : '' 
+                        city: (contact.city) ? contact.city : '',
+                        zip_code: (contact.zip_code) ? contact.zip_code : '',
+                        state: (contact.state) ? contact.state : '',
+                        country: (contact.country) ? contact.country : '',
+                        location: (contact.location) ? contact.location : '',
+                        reference: (contact.reference) ? contact.reference : ''
                     });
                 }, this);
             })
@@ -566,7 +587,12 @@ export default {
                     phone: '',
                     website: '',
                     address: '',
-                    reference: '' 
+                    city: '',
+                    zip_code: '',
+                    state: '',
+                    country: '',
+                    location: '',
+                    reference: ''
                 });
 
                 index++;
@@ -586,7 +612,12 @@ export default {
                     phone: (contact.phone) ? contact.phone : '',
                     website: (contact.website) ? contact.website : '',
                     address: (contact.address) ? contact.address : '',
-                    reference: (contact.reference) ? contact.reference : '' 
+                    city: (contact.city) ? contact.city : '',
+                    zip_code: (contact.zip_code) ? contact.zip_code : '',
+                    state: (contact.state) ? contact.state : '',
+                    country: (contact.country) ? contact.country : '',
+                    location: (contact.location) ? contact.location : '',
+                    reference: (contact.reference) ? contact.reference : ''
                 });
             }, this);
         }

@@ -67,6 +67,11 @@ class Companies extends Controller
                 case 'financial_start':
                     $real_key = 'localisation.' . $key;
                     break;
+                case 'country':
+                    $countries = trans('countries');
+                    $value = array_search($value, $countries);
+                    $real_key = 'company.' . $key;
+                    break;
                 default:
                     $real_key = 'company.' . $key;
             }

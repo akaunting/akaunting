@@ -20,6 +20,8 @@
 
         {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
 
+        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('company.country'), []) }}
+
         {!! Form::hidden('_prefix', 'company') !!}
     </div>
 {!! Form::close() !!}

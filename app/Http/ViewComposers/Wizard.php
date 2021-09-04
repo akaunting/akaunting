@@ -64,6 +64,7 @@ class Wizard
                 'logo' => trans('settings.company.logo'),
                 'skip' => trans('general.skip'),
                 'save' => trans('general.save'),
+                'country' => trans_choice('general.countries', 1),
             ],
 
             'currencies' => [

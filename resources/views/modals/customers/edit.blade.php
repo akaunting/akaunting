@@ -21,6 +21,8 @@
 
         {{ Form::textareaGroup('address', trans('general.address'), null, $customer->address) }}
 
+        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, []) }}
+
         {{ Form::hidden('type', 'customer') }}
         {!! Form::hidden('enabled', '1', []) !!}
     </div>

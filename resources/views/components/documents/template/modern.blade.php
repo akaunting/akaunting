@@ -38,7 +38,11 @@
             @stack('company_details_start')
             @if (!$hideCompanyDetails)
                 @if (!$hideCompanyAddress)
-                    <strong class="text-white">{!! nl2br(setting('company.address')) !!}</strong><br><br>
+                    <strong class="text-white">
+                        {!! nl2br(setting('company.address')) !!}
+                        <br>
+                        {!! $document->company->location !!}
+                    </strong><br><br>
                 @endif
 
                 @if (!$hideCompanyTaxNumber)
@@ -84,6 +88,8 @@
             @stack('address_input_start')
                 @if (!$hideContactAddress)
                     {!! nl2br($document->contact_address) !!}
+                    <br>
+                    {!! $document->contact->location !!}
                     <br><br>
                 @endif
             @stack('address_input_end')

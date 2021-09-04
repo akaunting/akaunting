@@ -100,6 +100,10 @@ class CreateCompany extends Job
             'company.tax_number' => $this->request->get('tax_number'),
             'company.phone' => $this->request->get('phone'),
             'company.address' => $this->request->get('address'),
+            'company.city' => $this->request->get('city'),
+            'company.zip_code' => $this->request->get('zip_code'),
+            'company.state' => $this->request->get('state'),
+            'company.country' => $this->request->get('country'),
             'default.currency' => $this->request->get('currency'),
             'default.locale' => $this->request->get('locale', 'en-GB'),
         ]);
