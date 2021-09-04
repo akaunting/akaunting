@@ -4,18 +4,18 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 
-class DeleteItem extends Job
+class DeleteWidget extends Job
 {
-    protected $item;
+    protected $widget;
 
     /**
      * Create a new job instance.
      *
-     * @param  $item
+     * @param  $widget
      */
-    public function __construct($item)
+    public function __construct($widget)
     {
-        $this->item = $item;
+        $this->widget = $widget;
     }
 
     /**
@@ -25,38 +25,10 @@ class DeleteItem extends Job
      */
     public function handle()
     {
-        $this->authorize();
-
         \DB::transaction(function () {
-            $this->deleteRelationships($this->item, ['taxes']);
-
-            $this->item->delete();
+            $this->widget->delete();
         });
 
         return true;
-    }
-
-    /**
-     * Determine if this action is applicable.
-     *
-     * @return void
-     */
-    public function authorize()
-    {
-        if ($relationships = $this->getRelationships()) {
-            $message = trans('messages.warning.deleted', ['name' => $this->item->name, 'text' => implode(', ', $relationships)]);
-
-            throw new \Exception($message);
-        }
-    }
-
-    public function getRelationships()
-    {
-        $rels = [
-            'invoice_items' => 'invoices',
-            'bill_items' => 'bills',
-        ];
-
-        return $this->countRelationships($this->item, $rels);
     }
 }

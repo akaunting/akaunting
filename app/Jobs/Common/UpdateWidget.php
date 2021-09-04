@@ -5,7 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Models\Common\Widget;
 
-class UpdateItem extends Job
+class UpdateWidget extends Job
 {
     protected $widget;
 
