@@ -133,7 +133,7 @@ class Widgets extends Controller
      */
     public function destroy(Widget $widget)
     {
-        $response = $this->ajaxDispatch(new DeleteWidget($item));
+        $response = $this->ajaxDispatch(new DeleteWidget($widget));
 
         $response['redirect'] = route('dashboard');
 
