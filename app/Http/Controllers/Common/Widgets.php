@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Common;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\Widget as Request;
 use App\Models\Common\Widget;
+use App\Jobs\Common\CreateWidget;
+use App\Jobs\Common\DeleteWidget;
+use App\Jobs\Common\UpdateWidget;
 use App\Utilities\Widgets as Utility;
 
 class Widgets extends Controller
@@ -33,23 +36,34 @@ class Widgets extends Controller
             'width' => $request->get('width'),
         ];
 
-        $widget = Widget::create($request->input());
+        $response = $this->ajaxDispatch(new CreateWidget($request));
 
-        $settings = $widget->settings;
+        if ($response['success']) {
+            $response['redirect'] = route('dashboard');
 
-        return response()->json([
-            'status' => 200,
-            'success' => true,
-            'error' => false,
-            'message' => trans('messages.success.added', ['type' => $widget->name]),
-            'data' => [
+            $widget = $response['data'];
+
+            $settings = $widget->settings;
+
+            $response['data'] = [
                 'class'     => $widget->class,
                 'name'      => $widget->name,
                 'settings'  => $settings,
                 'sort'      => $widget->sort,
-            ],
-            'redirect' => route('dashboard'),
-        ]);
+            ];
+
+            $message = trans('messages.success.added', ['type' => $widget->name]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('dashboard');
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -84,23 +98,30 @@ class Widgets extends Controller
             'width' => $request->get('width'),
         ];
 
-        $widget->update($request->input());
+        $response = $this->ajaxDispatch(new UpdateWidget($widget, $request));
 
-        $settings = $widget->settings;
+        $response['redirect'] = route('dashboard');
 
-        return response()->json([
-            'status' => 200,
-            'success' => true,
-            'error' => false,
-            'message' => trans('messages.success.added', ['type' => $widget->name]),
-            'data' => [
+        if ($response['success']) {
+            $settings = $response['data']->settings;
+
+            $response['data'] = [
                 'class'     => $widget->class,
                 'name'      => $widget->name,
                 'settings'  => $settings,
                 'sort'      => $widget->sort,
-            ],
-            'redirect' => route('dashboard'),
-        ]);
+            ];
+
+            $message = trans('messages.success.updated', ['type' => $widget->name]);
+
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -112,18 +133,21 @@ class Widgets extends Controller
      */
     public function destroy(Widget $widget)
     {
-        $message = trans('messages.success.deleted', ['type' => $widget->name]);
+        $response = $this->ajaxDispatch(new DeleteWidget($item));
 
-        $widget->delete();
+        $response['redirect'] = route('dashboard');
 
-        return response()->json([
-            'status' => 200,
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'data' => null,
-            'redirect' => route('dashboard'),
-        ]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $widget->name]);
+
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     public function getData(Request $request)
