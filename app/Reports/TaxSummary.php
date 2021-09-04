@@ -8,7 +8,7 @@ use App\Models\Document\Document;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Utilities\Recurring;
-use Date;
+use App\Utilities\Date;
 
 class TaxSummary extends Report
 {
