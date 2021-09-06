@@ -1,11 +1,22 @@
 @charset "UTF-8";
 
 /*--General Start--*/
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url("public/fonts/NotoSans-Regular.ttf") format("truetype");
+}
+
+
+* {
+    font-family: 'Noto Sans', sans-serif !important;
+}
+
 body
 {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Noto Sans';
     color: #3c3f72;
 }
 

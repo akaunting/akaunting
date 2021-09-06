@@ -14,6 +14,8 @@ use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
 use App\Traits\Documents;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Invoices extends Controller
 {
@@ -289,21 +291,35 @@ class Invoices extends Controller
      */
     public function pdfInvoice(Document $invoice)
     {
+        define("DOMPDF_UNICODE_ENABLED", true);
+        mb_internal_encoding('UTF-8');
+
+        $options = new Options(); 
+        $options->set('defaultFont', 'Noto Sans');
+
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('defaultMediaType', 'all');
+        $dompdf->set_option('isFontSubsettingEnabled', true); 
+        $dompdf->setPaper('A4', 'portrait');
+        
+
+        $file_name = $this->getDocumentFileName($invoice);
+ 
         event(new \App\Events\Document\DocumentPrinting($invoice));
 
         $currency_style = true;
 
         $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
+
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
-        $pdf = app('dompdf.wrapper');
-        $pdf->loadHTML($html);
+        $dompdf = app('dompdf.wrapper');
+        
+        $dompdf->loadHTML($html, 'UTF-8');
 
-        //$pdf->setPaper('A4', 'portrait');
+        // return $pdf->download($file_name);
 
-        $file_name = $this->getDocumentFileName($invoice);
-
-        return $pdf->download($file_name);
+        return $dompdf->stream();
     }
 
     /**
