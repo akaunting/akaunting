@@ -3,15 +3,16 @@
 namespace App\Imports\Banking;
 
 use App\Abstracts\Import;
-use App\Models\Banking\Transaction;
+use App\Jobs\Banking\CreateTransaction;
 use App\Models\Banking\Transfer as Model;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
+use App\Traits\Jobs;
 use App\Utilities\Date;
 
 class Transfers extends Import
 {
-    use Currencies;
+    use Currencies, Jobs;
 
     public function model(array $row)
     {
@@ -48,8 +49,8 @@ class Transfers extends Import
 
     private function getExpenseTransactionId($row)
     {
-        $expense_transaction = Transaction::create([
-            'company_id' => company_id(),
+        $expense_transaction = $this->dispatch(new CreateTransaction([
+            'company_id' => $row['company_id'],
             'type' => 'expense',
             'account_id' => $row['from_account_id'],
             'paid_at' => $row['transferred_at'],
@@ -61,7 +62,8 @@ class Transfers extends Import
             'category_id' => Category::transfer(), // Transfer Category ID
             'payment_method' => $row['payment_method'],
             'reference' => $row['reference'],
-        ]);
+            'created_by' => $row['created_by'],
+        ]));
 
         return $expense_transaction->id;
     }
@@ -69,6 +71,7 @@ class Transfers extends Import
     private function getIncomeTransactionId($row)
     {
         $amount = $row['amount'];
+
         // Convert amount if not same currency
         if ($row['from_currency_code'] !== $row['to_currency_code']) {
             $amount = $this->convertBetween(
@@ -80,8 +83,8 @@ class Transfers extends Import
             );
         }
 
-        $income_transaction = Transaction::create([
-            'company_id' => company_id(),
+        $income_transaction = $this->dispatch(new CreateTransaction([
+            'company_id' => $row['company_id'],
             'type' => 'income',
             'account_id' => $row['to_account_id'],
             'paid_at' => $row['transferred_at'],
@@ -93,7 +96,8 @@ class Transfers extends Import
             'category_id' => Category::transfer(), // Transfer Category ID
             'payment_method' => $row['payment_method'],
             'reference' => $row['reference'],
-        ]);
+            'created_by' => $row['created_by'],
+        ]));
 
         return $income_transaction->id;
     }
