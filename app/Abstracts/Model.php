@@ -2,6 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Events\Common\SearchStringApplied;
+use App\Events\Common\SearchStringApplying;
 use App\Traits\DateTime;
 use App\Traits\Owners;
 use App\Traits\Tenants;
@@ -115,9 +117,7 @@ abstract class Model extends Eloquent implements Ownable
     {
         $request = request();
 
-        $search = $request->get('search');
-
-        $query->usingSearchString($search)->sortable($sort);
+        $query->usingSearchString()->sortable($sort);
 
         if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
@@ -126,6 +126,15 @@ abstract class Model extends Eloquent implements Ownable
         $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
         return $query->paginate($limit);
+    }
+
+    public function scopeUsingSearchString($query)
+    {
+        event(new SearchStringApplying($query));
+
+        $this->getSearchStringManager()->updateBuilder($query, request('search'));
+
+        event(new SearchStringApplied($query));
     }
 
     /**
