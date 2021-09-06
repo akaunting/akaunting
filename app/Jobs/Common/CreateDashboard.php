@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\ShouldCreate;
+use App\Jobs\Common\CreateWidget;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Models\Common\Dashboard;
@@ -110,16 +111,21 @@ class CreateDashboard extends Job implements HasOwner, ShouldCreate
                 $name = (new $class())->getDefaultName();
             }
 
-            Widget::firstOrCreate([
-                'company_id' => $this->model->company_id,
-                'dashboard_id' => $this->model->id,
-                'class' => $class,
-            ], [
-                'name' => $name,
-                'sort' => $sort,
-                'settings' => (new $class())->getDefaultSettings(),
-                'created_by' => $this->model->created_by,
-            ]);
+            $widget = Widget::companyId($this->model->company_id)
+                        ->where('dashboard_id', $this->model->id)
+                        ->where('class', $class)
+                        ->first();
+
+            if (! $widget) {
+                $this->dispatch(new CreateWidget([
+                    'company_id' => $this->model->company_id,
+                    'dashboard_id' => $this->model->id,
+                    'class' => $class,
+                    'name' => $name,
+                    'sort' => $sort,
+                    'settings' => (new $class())->getDefaultSettings(),
+                ]));
+            }
 
             $sort++;
         }

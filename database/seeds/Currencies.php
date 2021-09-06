@@ -3,11 +3,14 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Setting\Currency;
+use App\Jobs\Setting\CreateCurrency;
+use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
 class Currencies extends Seeder
 {
+    use Jobs;
+
     /**
      * Run the database seeds.
      *
@@ -75,7 +78,7 @@ class Currencies extends Seeder
         ];
 
         foreach ($rows as $row) {
-            Currency::create($row);
+            $this->dispatch(new CreateCurrency($row));
         }
     }
 }

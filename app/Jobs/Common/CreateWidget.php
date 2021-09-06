@@ -11,8 +11,6 @@ class CreateWidget extends Job implements HasOwner, ShouldCreate
 {
     public function handle(): Widget
     {
-        $this->request['enabled'] = $this->request['enabled'] ?? 1;
-
         \DB::transaction(function () {
             $this->widget = Widget::create($this->request->all());
         });

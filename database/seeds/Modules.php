@@ -3,8 +3,8 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use Artisan;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class Modules extends Seeder
 {

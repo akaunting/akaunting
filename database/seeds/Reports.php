@@ -3,11 +3,14 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Common\Report;
+use App\Jobs\Common\CreateReport;
+use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
 class Reports extends Seeder
 {
+    use Jobs;
+
     /**
      * Run the database seeds.
      *
@@ -65,7 +68,7 @@ class Reports extends Seeder
         ];
 
         foreach ($rows as $row) {
-            Report::create($row);
+            $this->dispatch(new CreateReport($row));
         }
     }
 }
