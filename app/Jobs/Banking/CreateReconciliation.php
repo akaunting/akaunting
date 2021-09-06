@@ -3,32 +3,14 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
 
-class CreateReconciliation extends Job
+class CreateReconciliation extends Job implements HasOwner, ShouldCreate
 {
-    protected $reconciliation;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Reconciliation
-     */
-    public function handle()
+    public function handle(): Reconciliation
     {
         \DB::transaction(function () {
             $reconcile = (int) $this->request->get('reconcile');
@@ -36,7 +18,7 @@ class CreateReconciliation extends Job
 
             $this->request->merge(['reconciled' => $reconcile]);
 
-            $this->reconciliation = Reconciliation::create($this->request->all());
+            $this->model = Reconciliation::create($this->request->all());
 
             if ($reconcile && $transactions) {
                 foreach ($transactions as $key => $value) {
@@ -53,6 +35,6 @@ class CreateReconciliation extends Job
             }
         });
 
-        return $this->reconciliation;
+        return $this->model;
     }
 }

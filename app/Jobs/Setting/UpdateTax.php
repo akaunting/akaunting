@@ -3,67 +3,45 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Setting\Tax;
 
-class UpdateTax extends Job
+class UpdateTax extends Job implements ShouldUpdate
 {
-    protected $tax;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $tax
-     * @param  $request
-     */
-    public function __construct($tax, $request)
-    {
-        $this->tax = $tax;
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Tax
-     */
-    public function handle()
+    public function handle(): Tax
     {
         $this->authorize();
 
         \DB::transaction(function () {
-            $this->tax->update($this->request->all());
+            $this->model->update($this->request->all());
         });
 
-        return $this->tax;
+        return $this->model;
     }
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
-        if (!$relationships = $this->getRelationships()) {
+        if (! $relationships = $this->getRelationships()) {
             return;
         }
 
-        if ($this->request->has('type') && ($this->request->get('type') != $this->tax->type)) {
+        if ($this->request->has('type') && ($this->request->get('type') != $this->model->type)) {
             $message = trans('messages.error.change_type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
 
-        if (!$this->request->get('enabled')) {
-            $message = trans('messages.warning.disabled', ['name' => $this->tax->name, 'text' => implode(', ', $relationships)]);
+        if (! $this->request->get('enabled')) {
+            $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
     }
 
-    public function getRelationships()
+    public function getRelationships(): array
     {
         $rels = [
             'items' => 'items',
@@ -71,6 +49,6 @@ class UpdateTax extends Job
             'bill_items' => 'bills',
         ];
 
-        return $this->countRelationships($this->tax, $rels);
+        return $this->countRelationships($this->model, $rels);
     }
 }

@@ -3,30 +3,14 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 
-class DeleteWidget extends Job
+class DeleteWidget extends Job implements ShouldDelete
 {
-    protected $widget;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $widget
-     */
-    public function __construct($widget)
-    {
-        $this->widget = $widget;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         \DB::transaction(function () {
-            $this->widget->delete();
+            $this->model->delete();
         });
 
         return true;

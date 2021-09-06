@@ -3,37 +3,17 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Report;
 
-class UpdateReport extends Job
+class UpdateReport extends Job implements ShouldUpdate
 {
-    protected $report;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $report
-     * @param  $request
-     */
-    public function __construct($report, $request)
-    {
-        $this->report = $report;
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Report
-     */
-    public function handle()
+    public function handle(): Report
     {
         \DB::transaction(function () {
-            $this->report->update($this->request->all());
+            $this->model->update($this->request->all());
         });
 
-        return $this->report;
+        return $this->model;
     }
 }

@@ -3,32 +3,16 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 
-class DeleteAccount extends Job
+class DeleteAccount extends Job implements ShouldDelete
 {
-    protected $account;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $account
-     */
-    public function __construct($account)
-    {
-        $this->account = $account;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         $this->authorize();
 
         \DB::transaction(function () {
-            $this->account->delete();
+            $this->model->delete();
         });
 
         return true;
@@ -36,27 +20,25 @@ class DeleteAccount extends Job
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         if ($relationships = $this->getRelationships()) {
-            $message = trans('messages.warning.deleted', ['name' => $this->account->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
     }
 
-    public function getRelationships()
+    public function getRelationships(): array
     {
         $rels = [
             'transactions' => 'transactions',
         ];
 
-        $relationships = $this->countRelationships($this->account, $rels);
+        $relationships = $this->countRelationships($this->model, $rels);
 
-        if ($this->account->id == setting('default.account')) {
+        if ($this->model->id == setting('default.account')) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
         }
 

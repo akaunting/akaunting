@@ -3,52 +3,31 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
 use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 
-class UpdateTransfer extends Job
+class UpdateTransfer extends Job implements ShouldUpdate
 {
     use Currencies;
 
-    protected $transfer;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $transfer
-     * @param  $request
-     */
-    public function __construct($transfer, $request)
-    {
-        $this->transfer = $transfer;
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Transfer
-     */
-    public function handle()
+    public function handle(): Transfer
     {
         \DB::transaction(function () {
             // Upload attachment
             if ($this->request->file('attachment')) {
-                $this->deleteMediaModel($this->transfer, 'attachment', $this->request);
+                $this->deleteMediaModel($this->model, 'attachment', $this->request);
 
                 foreach ($this->request->file('attachment') as $attachment) {
                     $media = $this->getMedia($attachment, 'transfers');
 
-                    $this->transfer->attachMedia($media, 'attachment');
+                    $this->model->attachMedia($media, 'attachment');
                 }
-            } elseif (!$this->request->file('attachment') && $this->transfer->attachment) {
-                $this->deleteMediaModel($this->transfer, 'attachment', $this->request);
+            } elseif (!$this->request->file('attachment') && $this->model->attachment) {
+                $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 
             $expense_currency_code = $this->getCurrencyCode('from');
@@ -57,8 +36,8 @@ class UpdateTransfer extends Job
             $expense_currency_rate = $this->getCurrencyRate('from');
             $income_currency_rate = $this->getCurrencyRate('to');
 
-            $expense_transaction = Transaction::findOrFail($this->transfer->expense_transaction_id);
-            $income_transaction = Transaction::findOrFail($this->transfer->income_transaction_id);
+            $expense_transaction = Transaction::findOrFail($this->model->expense_transaction_id);
+            $income_transaction = Transaction::findOrFail($this->model->income_transaction_id);
 
             $expense_transaction->update([
                 'company_id' => $this->request['company_id'],
@@ -97,14 +76,14 @@ class UpdateTransfer extends Job
                 'reference' => $this->request->get('reference'),
             ]);
 
-            $this->transfer->update([
+            $this->model->update([
                 'company_id' => $this->request['company_id'],
                 'expense_transaction_id' => $expense_transaction->id,
                 'income_transaction_id' => $income_transaction->id,
             ]);
         });
 
-        return $this->transfer;
+        return $this->model;
     }
 
     protected function getCurrencyCode($type)

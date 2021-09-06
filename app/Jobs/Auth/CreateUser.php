@@ -3,61 +3,43 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldCreate;
 use App\Events\Auth\UserCreated;
 use App\Events\Auth\UserCreating;
 use App\Models\Auth\User;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 
-class CreateUser extends Job
+class CreateUser extends Job implements ShouldCreate
 {
-    protected $user;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Permission
-     */
-    public function handle()
+    public function handle(): User
     {
         event(new UserCreating($this->request));
 
         \DB::transaction(function () {
-            $this->user = User::create($this->request->input());
+            $this->model = User::create($this->request->input());
 
             // Upload picture
             if ($this->request->file('picture')) {
                 $media = $this->getMedia($this->request->file('picture'), 'users');
 
-                $this->user->attachMedia($media, 'picture');
+                $this->model->attachMedia($media, 'picture');
             }
 
             if ($this->request->has('dashboards')) {
-                $this->user->dashboards()->attach($this->request->get('dashboards'));
+                $this->model->dashboards()->attach($this->request->get('dashboards'));
             }
 
             if ($this->request->has('permissions')) {
-                $this->user->permissions()->attach($this->request->get('permissions'));
+                $this->model->permissions()->attach($this->request->get('permissions'));
             }
 
             if ($this->request->has('roles')) {
-                $this->user->roles()->attach($this->request->get('roles'));
+                $this->model->roles()->attach($this->request->get('roles'));
             }
 
             if ($this->request->has('companies')) {
                 if (app()->runningInConsole() || request()->isInstall()) {
-                    $this->user->companies()->attach($this->request->get('companies'));
+                    $this->model->companies()->attach($this->request->get('companies'));
                 } else {
                     $user = user();
 
@@ -66,25 +48,25 @@ class CreateUser extends Job
                     });
 
                     if ($companies->isNotEmpty()) {
-                        $this->user->companies()->attach($companies->toArray());
+                        $this->model->companies()->attach($companies->toArray());
                     }
                 }
             }
 
-            if (empty($this->user->companies)) {
+            if (empty($this->model->companies)) {
                 return;
             }
 
-            foreach ($this->user->companies as $company) {
+            foreach ($this->model->companies as $company) {
                 Artisan::call('user:seed', [
-                    'user' => $this->user->id,
+                    'user' => $this->model->id,
                     'company' => $company->id,
                 ]);
             }
         });
 
-        event(new UserCreated($this->user, $this->request));
+        event(new UserCreated($this->model, $this->request));
 
-        return $this->user;
+        return $this->model;
     }
 }

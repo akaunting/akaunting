@@ -3,34 +3,18 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 
-class DeleteUser extends Job
+class DeleteUser extends Job implements ShouldDelete
 {
-    protected $user;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $user
-     */
-    public function __construct($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         $this->authorize();
 
         \DB::transaction(function () {
-            $this->user->delete();
+            $this->model->delete();
 
-            $this->user->flushCache();
+            $this->model->flushCache();
         });
 
         return true;
@@ -38,13 +22,11 @@ class DeleteUser extends Job
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         // Can't delete yourself
-        if ($this->user->id == user()->id) {
+        if ($this->model->id == user()->id) {
             $message = trans('auth.error.self_delete');
 
             throw new \Exception($message);

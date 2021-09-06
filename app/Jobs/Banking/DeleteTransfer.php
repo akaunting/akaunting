@@ -3,32 +3,16 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 
-class DeleteTransfer extends Job
+class DeleteTransfer extends Job implements ShouldDelete
 {
-    protected $transfer;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $transfer
-     */
-    public function __construct($transfer)
-    {
-        $this->transfer = $transfer;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         \DB::transaction(function () {
-            $this->transfer->expense_transaction->delete();
-            $this->transfer->income_transaction->delete();
-            $this->transfer->delete();
+            $this->model->expense_transaction->delete();
+            $this->model->income_transaction->delete();
+            $this->model->delete();
         });
 
         return true;

@@ -5,53 +5,41 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\CompanyDeleted;
 use App\Events\Common\CompanyDeleting;
+use App\Interfaces\Job\ShouldDelete;
 use App\Traits\Users;
 
-class DeleteCompany extends Job
+class DeleteCompany extends Job implements ShouldDelete
 {
     use Users;
 
-    protected $company;
-
     protected $current_company_id;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $company
-     */
-    public function __construct($company)
+    public function booted(...$arguments): void
     {
-        $this->company = $company;
         $this->current_company_id = company_id();
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         $this->authorize();
 
-        $this->company->makeCurrent();
+        $this->model->makeCurrent();
 
-        event(new CompanyDeleting($this->company, $this->current_company_id));
+        event(new CompanyDeleting($this->model, $this->current_company_id));
 
         \DB::transaction(function () {
-            $this->deleteRelationships($this->company, [
+            $this->deleteRelationships($this->model, [
                 'accounts', 'document_histories', 'document_item_taxes', 'document_items', 'document_totals', 'documents', 'categories',
                 'contacts', 'currencies', 'dashboards', 'email_templates', 'items', 'module_histories', 'modules', 'reconciliations',
                 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
             ]);
 
-            $this->company->users()->detach();
+            $this->model->users()->detach();
 
-            $this->company->delete();
+            $this->model->delete();
         });
 
-        event(new CompanyDeleted($this->company, $this->current_company_id));
+        event(new CompanyDeleted($this->model, $this->current_company_id));
 
         company($this->current_company_id)->makeCurrent();
 
@@ -60,20 +48,18 @@ class DeleteCompany extends Job
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         // Can't delete active company
-        if ($this->company->id == $this->current_company_id) {
+        if ($this->model->id == $this->current_company_id) {
             $message = trans('companies.error.delete_active');
 
             throw new \Exception($message);
         }
 
         // Check if user can access company
-        if ($this->isNotUserCompany($this->company->id)) {
+        if ($this->isNotUserCompany($this->model->id)) {
             $message = trans('companies.error.not_user_company');
 
             throw new \Exception($message);

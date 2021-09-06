@@ -3,59 +3,37 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Dashboard;
 use App\Traits\Users;
 
-class UpdateDashboard extends Job
+class UpdateDashboard extends Job implements ShouldUpdate
 {
     use Users;
 
-    protected $dashboard;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $dashboard
-     * @param  $request
-     */
-    public function __construct($dashboard, $request)
-    {
-        $this->dashboard = $dashboard;
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Dashboard
-     */
-    public function handle()
+    public function handle(): Dashboard
     {
         $this->authorize();
 
         \DB::transaction(function () {
-            $this->dashboard->update($this->request->all());
+            $this->model->update($this->request->all());
 
             if ($this->request->has('users')) {
-                $this->dashboard->users()->sync($this->request->get('users'));
+                $this->model->users()->sync($this->request->get('users'));
             }
         });
 
-        return $this->dashboard;
+        return $this->model;
     }
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         // Can't disable last dashboard for any shared user
         if ($this->request->has('enabled') && !$this->request->get('enabled')) {
-            foreach ($this->dashboard->users as $user) {
+            foreach ($this->model->users as $user) {
                 if ($user->dashboards()->enabled()->count() > 1) {
                     continue;
                 }
@@ -77,7 +55,7 @@ class UpdateDashboard extends Job
         }
 
         // Check if user can access dashboard
-        if ($this->isNotUserDashboard($this->dashboard->id)) {
+        if ($this->isNotUserDashboard($this->model->id)) {
             $message = trans('dashboards.error.not_user_dashboard');
 
             throw new \Exception($message);

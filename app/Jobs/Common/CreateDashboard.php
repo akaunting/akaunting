@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Models\Common\Dashboard;
@@ -10,29 +12,9 @@ use App\Models\Common\Widget;
 use App\Utilities\Widgets;
 use Illuminate\Support\Arr;
 
-class CreateDashboard extends Job
+class CreateDashboard extends Job implements HasOwner, ShouldCreate
 {
-    protected $dashboard;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Item
-     */
-    public function handle()
+    public function handle(): Dashboard
     {
         $this->request['enabled'] = $this->request['enabled'] ?? 1;
 
@@ -43,17 +25,17 @@ class CreateDashboard extends Job
                 return;
             }
 
-            $this->dashboard = Dashboard::create($this->request->only(['company_id', 'name', 'enabled']));
+            $this->model = Dashboard::create($this->request->only(['company_id', 'name', 'enabled']));
 
-            $this->dashboard->users()->attach($users);
+            $this->model->users()->attach($users);
 
             $this->checkAndCreateWidgets();
         });
 
-        return $this->dashboard;
+        return $this->model;
     }
 
-    protected function getUsers()
+    protected function getUsers(): array
     {
         $list = [];
 
@@ -88,7 +70,7 @@ class CreateDashboard extends Job
         return $list;
     }
 
-    protected function shouldCreateDashboardFor($user)
+    protected function shouldCreateDashboardFor($user): bool
     {
         if (empty($user)) {
             return false;
@@ -102,7 +84,7 @@ class CreateDashboard extends Job
         return true;
     }
 
-    protected function checkAndCreateWidgets()
+    protected function checkAndCreateWidgets(): void
     {
         $sort = 1;
 
@@ -119,7 +101,7 @@ class CreateDashboard extends Job
         }
     }
 
-    protected function createWidgets($widgets, &$sort)
+    protected function createWidgets($widgets, &$sort): void
     {
         foreach ($widgets as $class => $name) {
             // It's just an array of classes
@@ -129,14 +111,14 @@ class CreateDashboard extends Job
             }
 
             Widget::firstOrCreate([
-                'company_id' => $this->dashboard->company_id,
-                'dashboard_id' => $this->dashboard->id,
+                'company_id' => $this->model->company_id,
+                'dashboard_id' => $this->model->id,
                 'class' => $class,
             ], [
                 'name' => $name,
                 'sort' => $sort,
                 'settings' => (new $class())->getDefaultSettings(),
-                'created_by' => $this->dashboard->created_by,
+                'created_by' => $this->model->created_by,
             ]);
 
             $sort++;

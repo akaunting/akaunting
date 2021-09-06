@@ -3,42 +3,24 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Banking\Account;
 
-class CreateAccount extends Job
+class CreateAccount extends Job implements HasOwner, ShouldCreate
 {
-    protected $account;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Account
-     */
-    public function handle()
+    public function handle(): Account
     {
         \DB::transaction(function () {
-            $this->account = Account::create($this->request->all());
+            $this->model = Account::create($this->request->all());
 
             // Set default account
             if ($this->request['default_account']) {
-                setting()->set('default.account', $this->account->id);
+                setting()->set('default.account', $this->model->id);
                 setting()->save();
             }
         });
 
-        return $this->account;
+        return $this->model;
     }
 }

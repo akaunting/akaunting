@@ -3,54 +3,36 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Auth\User;
 use App\Models\Auth\Role;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
-class CreateContact extends Job
+class CreateContact extends Job implements HasOwner, ShouldCreate
 {
-    protected $contact;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Contact
-     */
-    public function handle()
+    public function handle(): Contact
     {
         \DB::transaction(function () {
             if ($this->request->get('create_user', 'false') === 'true') {
                 $this->createUser();
             }
 
-            $this->contact = Contact::create($this->request->all());
+            $this->model = Contact::create($this->request->all());
 
             // Upload logo
             if ($this->request->file('logo')) {
-                $media = $this->getMedia($this->request->file('logo'), Str::plural($this->contact->type));
+                $media = $this->getMedia($this->request->file('logo'), Str::plural($this->model->type));
 
-                $this->contact->attachMedia($media, 'logo');
+                $this->model->attachMedia($media, 'logo');
             }
         });
 
-        return $this->contact;
+        return $this->model;
     }
 
-    public function createUser()
+    public function createUser(): void
     {
         // Check if user exist
         if ($user = User::where('email', $this->request['email'])->first()) {

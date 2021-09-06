@@ -7,34 +7,26 @@ use App\Models\Document\Document;
 
 class CancelDocument extends Job
 {
-    protected $document;
+    protected $model;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $document
-     */
-    public function __construct($document)
+    public function __construct(Document $model)
     {
-        $this->document = $document;
+        $this->model = $model;
+
+        parent::__construct($model);
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return Document
-     */
-    public function handle()
+    public function handle(): Document
     {
         \DB::transaction(function () {
-            $this->deleteRelationships($this->document, [
+            $this->deleteRelationships($this->model, [
                 'transactions', 'recurring'
             ]);
 
-            $this->document->status = 'cancelled';
-            $this->document->save();
+            $this->model->status = 'cancelled';
+            $this->model->save();
         });
 
-        return $this->document;
+        return $this->model;
     }
 }

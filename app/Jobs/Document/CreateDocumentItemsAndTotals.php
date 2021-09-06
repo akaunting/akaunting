@@ -3,36 +3,27 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
-use App\Traits\DateTime;
-use App\Traits\Currencies;
+use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Common\CreateItem;
+use App\Models\Document\Document;
 use App\Models\Document\DocumentTotal;
+use App\Traits\Currencies;
+use App\Traits\DateTime;
 
-class CreateDocumentItemsAndTotals extends Job
+class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
 {
     use Currencies, DateTime;
 
     protected $document;
 
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($document, $request)
+    public function __construct(Document $document, $request)
     {
         $this->document = $document;
-        $this->request  = $this->getRequestInstance($request);
+
+        parent::__construct($request);
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $precision = config('money.' . $this->document->currency_code . '.precision');
 
@@ -152,7 +143,7 @@ class CreateDocumentItemsAndTotals extends Job
         ]);
     }
 
-    protected function createItems()
+    protected function createItems(): array
     {
         $sub_total = $discount_amount = $discount_amount_total = 0;
 

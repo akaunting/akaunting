@@ -5,47 +5,31 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\CompanyUpdated;
 use App\Events\Common\CompanyUpdating;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Company;
 use App\Traits\Users;
 
-class UpdateCompany extends Job
+class UpdateCompany extends Job implements ShouldUpdate
 {
     use Users;
 
-    protected $company;
-
-    protected $request;
-
     protected $current_company_id;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $company
-     * @param  $request
-     */
-    public function __construct($company, $request)
+    public function booted(...$arguments): void
     {
-        $this->company = $company;
-        $this->request = $this->getRequestInstance($request);
         $this->current_company_id = company_id();
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return Company
-     */
-    public function handle()
+    public function handle(): Company
     {
         $this->authorize();
 
-        event(new CompanyUpdating($this->company, $this->request));
+        event(new CompanyUpdating($this->model, $this->request));
 
         \DB::transaction(function () {
-            $this->company->update($this->request->all());
+            $this->model->update($this->request->all());
 
-            $this->company->makeCurrent();
+            $this->model->makeCurrent();
 
             if ($this->request->has('name')) {
                 setting()->set('company.name', $this->request->get('name'));
@@ -92,10 +76,10 @@ class UpdateCompany extends Job
             }
 
             if ($this->request->file('logo')) {
-                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
+                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id);
 
                 if ($company_logo) {
-                    $this->company->attachMedia($company_logo, 'company_logo');
+                    $this->model->attachMedia($company_logo, 'company_logo');
 
                     setting()->set('company.logo', $company_logo->id);
                 }
@@ -104,31 +88,29 @@ class UpdateCompany extends Job
             setting()->save();
         });
 
-        event(new CompanyUpdated($this->company, $this->request));
+        event(new CompanyUpdated($this->model, $this->request));
 
         if (!empty($this->current_company_id)) {
             company($this->current_company_id)->makeCurrent();
         }
 
-        return $this->company;
+        return $this->model;
     }
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         // Can't disable active company
-        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == $this->current_company_id)) {
+        if (($this->request->get('enabled', 1) == 0) && ($this->model->id == $this->current_company_id)) {
             $message = trans('companies.error.disable_active');
 
             throw new \Exception($message);
         }
 
         // Check if user can access company
-        if ($this->isNotUserCompany($this->company->id)) {
+        if ($this->isNotUserCompany($this->model->id)) {
             $message = trans('companies.error.not_user_company');
 
             throw new \Exception($message);

@@ -3,46 +3,28 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Common\CreateItemTaxes;
 use App\Models\Common\Item;
 
-class CreateItem extends Job
+class CreateItem extends Job implements HasOwner, ShouldCreate
 {
-    protected $item;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Item
-     */
-    public function handle()
+    public function handle(): Item
     {
         \DB::transaction(function () {
-            $this->item = Item::create($this->request->all());
+            $this->model = Item::create($this->request->all());
 
             // Upload picture
             if ($this->request->file('picture')) {
                 $media = $this->getMedia($this->request->file('picture'), 'items');
 
-                $this->item->attachMedia($media, 'picture');
+                $this->model->attachMedia($media, 'picture');
             }
 
-            $this->dispatch(new CreateItemTaxes($this->item, $this->request));
+            $this->dispatch(new CreateItemTaxes($this->model, $this->request));
         });
 
-        return $this->item;
+        return $this->model;
     }
 }

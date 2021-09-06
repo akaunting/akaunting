@@ -3,9 +3,11 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldCreate;
+use App\Models\Document\Document;
 use App\Models\Document\DocumentHistory;
 
-class CreateDocumentHistory extends Job
+class CreateDocumentHistory extends Job implements ShouldCreate
 {
     protected $document;
 
@@ -13,26 +15,16 @@ class CreateDocumentHistory extends Job
 
     protected $description;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $document
-     * @param  $notify
-     * @param  $description
-     */
-    public function __construct($document, $notify = 0, $description = null)
+    public function __construct(Document $document, $notify = 0, $description = null)
     {
         $this->document = $document;
         $this->notify = $notify;
         $this->description = $description;
+
+        parent::__construct($document, $notify, $description);
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return DocumentHistory
-     */
-    public function handle()
+    public function handle(): DocumentHistory
     {
         $description = $this->description ?: trans_choice('general.payments', 1);
 

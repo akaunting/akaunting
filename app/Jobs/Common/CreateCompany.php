@@ -5,57 +5,39 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\CompanyCreated;
 use App\Events\Common\CompanyCreating;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Common\Company;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 
-class CreateCompany extends Job
+class CreateCompany extends Job implements HasOwner, ShouldCreate
 {
-    protected $company;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-        $this->request->merge(['created_by' => user_id()]);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Company
-     */
-    public function handle()
+    public function handle(): Company
     {
         $current_company_id = company_id();
 
         event(new CompanyCreating($this->request));
 
         \DB::transaction(function () {
-            $this->company = Company::create($this->request->all());
+            $this->model = Company::create($this->request->all());
 
-            $this->company->makeCurrent();
+            $this->model->makeCurrent();
 
             $this->callSeeds();
 
             $this->updateSettings();
         });
 
-        event(new CompanyCreated($this->company));
+        event(new CompanyCreated($this->model));
 
         if (!empty($current_company_id)) {
             company($current_company_id)->makeCurrent();
         }
 
-        return $this->company;
+        return $this->model;
     }
 
-    protected function callSeeds()
+    protected function callSeeds(): void
     {
         // Set custom locale
         if ($this->request->has('locale')) {
@@ -64,7 +46,7 @@ class CreateCompany extends Job
 
         // Company seeds
         Artisan::call('company:seed', [
-            'company' => $this->company->id
+            'company' => $this->model->id
         ]);
 
         if (!$user = user()) {
@@ -72,22 +54,22 @@ class CreateCompany extends Job
         }
 
         // Attach company to user logged in
-        $user->companies()->attach($this->company->id);
+        $user->companies()->attach($this->model->id);
 
         // User seeds
         Artisan::call('user:seed', [
             'user' => $user->id,
-            'company' => $this->company->id,
+            'company' => $this->model->id,
         ]);
     }
 
-    protected function updateSettings()
+    protected function updateSettings(): void
     {
         if ($this->request->file('logo')) {
-            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
+            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id);
 
             if ($company_logo) {
-                $this->company->attachMedia($company_logo, 'company_logo');
+                $this->model->attachMedia($company_logo, 'company_logo');
 
                 setting()->set('company.logo', $company_logo->id);
             }

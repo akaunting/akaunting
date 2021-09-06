@@ -3,40 +3,24 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 use App\Observers\Transaction;
 use Illuminate\Support\Str;
 
-class DeleteDocument extends Job
+class DeleteDocument extends Job implements ShouldDelete
 {
-    protected $document;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $document
-     */
-    public function __construct($document)
-    {
-        $this->document = $document;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         $this->authorize();
 
         \DB::transaction(function () {
             Transaction::mute();
 
-            $this->deleteRelationships($this->document, [
+            $this->deleteRelationships($this->model, [
                 'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
             ]);
 
-            $this->document->delete();
+            $this->model->delete();
 
             Transaction::unmute();
         });
@@ -46,13 +30,11 @@ class DeleteDocument extends Job
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
-        if ($this->document->transactions()->isReconciled()->count()) {
-            $type = Str::plural($this->document->type);
+        if ($this->model->transactions()->isReconciled()->count()) {
+            $type = Str::plural($this->model->type);
             $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice("general.$type", 1)]);
 
             throw new \Exception($message);

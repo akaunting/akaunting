@@ -3,32 +3,16 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldDelete;
 
-class DeleteCurrency extends Job
+class DeleteCurrency extends Job implements ShouldDelete
 {
-    protected $currency;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $currency
-     */
-    public function __construct($currency)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return boolean|Exception
-     */
-    public function handle()
+    public function handle(): bool
     {
         $this->authorize();
 
         \DB::transaction(function () {
-            $this->currency->delete();
+            $this->model->delete();
         });
 
         return true;
@@ -36,19 +20,17 @@ class DeleteCurrency extends Job
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
         if ($relationships = $this->getRelationships()) {
-            $message = trans('messages.warning.deleted', ['name' => $this->currency->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
     }
 
-    public function getRelationships()
+    public function getRelationships(): array
     {
         $rels = [
             'accounts' => 'accounts',
@@ -58,9 +40,9 @@ class DeleteCurrency extends Job
             'transactions' => 'transactions',
         ];
 
-        $relationships = $this->countRelationships($this->currency, $rels);
+        $relationships = $this->countRelationships($this->model, $rels);
 
-        if ($this->currency->code == setting('default.currency')) {
+        if ($this->model->code == setting('default.currency')) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
         }
 

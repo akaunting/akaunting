@@ -8,29 +8,19 @@ use App\Models\Document\Document;
 
 class DuplicateDocument extends Job
 {
-    protected $document;
-
     protected $clone;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $document
-     */
-    public function __construct($document)
+    public function __construct(Document $model)
     {
-        $this->document = $document;
+        $this->model = $model;
+
+        parent::__construct($model);
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return Document
-     */
-    public function handle()
+    public function handle(): Document
     {
         \DB::transaction(function () {
-            $this->clone = $this->document->duplicate();
+            $this->clone = $this->model->duplicate();
         });
 
         event(new DocumentCreated($this->clone, request()));

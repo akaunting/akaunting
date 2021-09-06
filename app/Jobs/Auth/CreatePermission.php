@@ -3,35 +3,17 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldCreate;
 use App\Models\Auth\Permission;
 
-class CreatePermission extends Job
+class CreatePermission extends Job implements ShouldCreate
 {
-    protected $permission;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $request
-     */
-    public function __construct($request)
-    {
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Permission
-     */
-    public function handle()
+    public function handle(): Permission
     {
         \DB::transaction(function () {
-            $this->permission = Permission::create($this->request->all());
+            $this->model = Permission::create($this->request->all());
         });
 
-        return $this->permission;
+        return $this->model;
     }
 }

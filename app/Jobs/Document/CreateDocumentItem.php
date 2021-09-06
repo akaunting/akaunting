@@ -3,35 +3,28 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldCreate;
+use App\Models\Document\Document;
 use App\Models\Document\DocumentItem;
 use App\Models\Document\DocumentItemTax;
 use App\Models\Setting\Tax;
 use Illuminate\Support\Str;
 
-class CreateDocumentItem extends Job
+class CreateDocumentItem extends Job implements ShouldCreate
 {
     protected $document;
 
     protected $request;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $document
-     * @param  $request
-     */
-    public function __construct($document, $request)
+    public function __construct(Document $document, $request)
     {
         $this->document = $document;
         $this->request = $request;
+
+        parent::__construct($document, $request);
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return DocumentItem
-     */
-    public function handle()
+    public function handle(): DocumentItem
     {
         $item_id = !empty($this->request['item_id']) ? $this->request['item_id'] : 0;
         $precision = config('money.' . $this->document->currency_code . '.precision');

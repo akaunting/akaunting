@@ -3,30 +3,29 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldCreate;
+use App\Models\Common\Item;
 use App\Models\Common\ItemTax;
 
-class CreateItemTaxes extends Job
+class CreateItemTaxes extends Job implements ShouldCreate
 {
     protected $item;
 
     protected $request;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  $item
-     * @param  $request
-     */
-    public function __construct($item, $request)
+    public function __construct(Item $item, $request)
     {
         $this->item = $item;
         $this->request = $request;
+
+        parent::__construct($item, $request);
     }
 
     /**
      * Execute the job.
      *
      * @return mixed
+     * @todo type hint after upgrading to PHP 8
      */
     public function handle()
     {

@@ -3,32 +3,12 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Setting\Currency;
 
-class UpdateCurrency extends Job
+class UpdateCurrency extends Job implements ShouldUpdate
 {
-    protected $currency;
-
-    protected $request;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  $currency
-     * @param  $request
-     */
-    public function __construct($currency, $request)
-    {
-        $this->currency = $currency;
-        $this->request = $this->getRequestInstance($request);
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return Currency
-     */
-    public function handle()
+    public function handle(): Currency
     {
         $this->authorize();
 
@@ -38,7 +18,7 @@ class UpdateCurrency extends Job
         }
 
         \DB::transaction(function () {
-            $this->currency->update($this->request->all());
+            $this->model->update($this->request->all());
 
             // Update default currency setting
             if ($this->request->get('default_currency')) {
@@ -47,34 +27,32 @@ class UpdateCurrency extends Job
             }
         });
 
-        return $this->currency;
+        return $this->model;
     }
 
     /**
      * Determine if this action is applicable.
-     *
-     * @return void
      */
-    public function authorize()
+    public function authorize(): void
     {
-        if (!$relationships = $this->getRelationships()) {
+        if (! $relationships = $this->getRelationships()) {
             return;
         }
 
-        if ($this->currency->code != $this->request->get('code')) {
-            $message = trans('messages.warning.disable_code', ['name' => $this->currency->name, 'text' => implode(', ', $relationships)]);
+        if ($this->model->code != $this->request->get('code')) {
+            $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
 
-        if (!$this->request->get('enabled')) {
-            $message = trans('messages.warning.disable_code', ['name' => $this->currency->name, 'text' => implode(', ', $relationships)]);
+        if (! $this->request->get('enabled')) {
+            $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
     }
 
-    public function getRelationships()
+    public function getRelationships(): array
     {
         $rels = [
             'accounts' => 'accounts',
@@ -84,9 +62,9 @@ class UpdateCurrency extends Job
             'transactions' => 'transactions',
         ];
 
-        $relationships = $this->countRelationships($this->currency, $rels);
+        $relationships = $this->countRelationships($this->model, $rels);
 
-        if ($this->currency->code == setting('default.currency')) {
+        if ($this->model->code == setting('default.currency')) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
         }
 
