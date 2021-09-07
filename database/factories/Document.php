@@ -131,8 +131,8 @@ class Document extends AbstractFactory
     public function received()
     {
         return $this->state([
-                                'status' => 'received',
-                            ]);
+            'status' => 'received',
+        ]);
     }
 
     /**
@@ -246,7 +246,7 @@ class Document extends AbstractFactory
                     'quantity' => '1',
                     'price' => $amount,
                     'currency' => setting('default.currency'),
-                ]
+                ],
             ];
 
             return [
@@ -299,7 +299,7 @@ class Document extends AbstractFactory
                     'quantity' => '1',
                     'price' => $amount,
                     'currency' => $document->currency_code,
-                ]
+                ],
             ];
 
             $request = [
