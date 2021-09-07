@@ -288,12 +288,13 @@ class Invoices extends Controller
      * @return Response
      */
     public function pdfInvoice(Document $invoice)
-    {
+    {   
         event(new \App\Events\Document\DocumentPrinting($invoice));
 
         $currency_style = true;
 
         $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
+        
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
