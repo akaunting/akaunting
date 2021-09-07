@@ -3,10 +3,12 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Auth\Role;
 
-class CreateRole extends Job implements ShouldCreate
+class CreateRole extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Role
     {

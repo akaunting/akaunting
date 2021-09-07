@@ -51,6 +51,7 @@ class Document extends Model
         'notes',
         'footer',
         'parent_id',
+        'created_from',
         'created_by',
     ];
 

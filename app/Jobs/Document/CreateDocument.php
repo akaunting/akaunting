@@ -6,12 +6,13 @@ use App\Abstracts\Job;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentCreating;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Document\CreateDocumentItemsAndTotals;
 use App\Models\Document\Document;
 use Illuminate\Support\Str;
 
-class CreateDocument extends Job implements HasOwner, ShouldCreate
+class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Document
     {

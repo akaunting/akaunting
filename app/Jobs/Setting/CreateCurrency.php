@@ -4,10 +4,11 @@ namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Setting\Currency;
 
-class CreateCurrency extends Job implements HasOwner, ShouldCreate
+class CreateCurrency extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Currency
     {

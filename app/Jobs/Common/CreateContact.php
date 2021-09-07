@@ -4,13 +4,14 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Auth\User;
 use App\Models\Auth\Role;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
-class CreateContact extends Job implements HasOwner, ShouldCreate
+class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Contact
     {

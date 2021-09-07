@@ -18,7 +18,7 @@ class Reconciliation extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'account_id', 'started_at', 'ended_at', 'closing_balance', 'reconciled', 'created_by'];
+    protected $fillable = ['company_id', 'account_id', 'started_at', 'ended_at', 'closing_balance', 'reconciled', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.

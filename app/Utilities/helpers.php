@@ -2,6 +2,7 @@
 
 use App\Models\Common\Company;
 use App\Traits\DateTime;
+use App\Traits\Sources;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
 
@@ -38,7 +39,7 @@ if (!function_exists('user_id')) {
 
 if (!function_exists('company_date_format')) {
     /**
-     * Format the given date based on company settings.
+     * Get the date format of company.
      *
      * @return string
      */
@@ -127,13 +128,30 @@ if (!function_exists('should_queue')) {
     }
 }
 
+if (!function_exists('source_name')) {
+    /**
+     * Get the current source.
+     *
+     * @return string
+     */
+    function source_name()
+    {
+        $tmp = new class() {
+            use Sources;
+        };
+
+        return $tmp->getSourceName();
+    }
+}
+
 if (!function_exists('cache_prefix')) {
     /**
      * Cache system added company_id prefix.
      *
      * @return string
      */
-    function cache_prefix() {
+    function cache_prefix()
+    {
         return company_id() . '_';
     }
 }

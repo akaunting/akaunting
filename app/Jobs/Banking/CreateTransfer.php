@@ -4,6 +4,7 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Banking\CreateTransaction;
 use App\Models\Banking\Account;
@@ -11,7 +12,7 @@ use App\Models\Banking\Transfer;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
 
-class CreateTransfer extends Job implements HasOwner, ShouldCreate
+class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
 {
     use Currencies;
 

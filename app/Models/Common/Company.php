@@ -10,6 +10,7 @@ use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Media;
 use App\Traits\Owners;
+use App\Traits\Sources;
 use App\Traits\Tenants;
 use App\Traits\Transactions;
 use App\Utilities\Overrider;
@@ -21,7 +22,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent implements Ownable
 {
-    use Contacts, Media, Owners, SearchString, SoftDeletes, Sortable, Tenants, Transactions;
+    use Contacts, Media, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Transactions;
 
     protected $table = 'companies';
 
@@ -34,7 +35,7 @@ class Company extends Eloquent implements Ownable
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['domain', 'enabled', 'created_by'];
+    protected $fillable = ['domain', 'enabled', 'created_from', 'created_by'];
 
     protected $casts = [
         'enabled' => 'boolean',
@@ -554,14 +555,19 @@ class Company extends Eloquent implements Ownable
         return static::getCurrent() !== null;
     }
 
+    public function scopeSource($query, $source)
+    {
+        return $query->where($this->table . '.created_from', $source);
+    }
+
     public function scopeIsOwner($query)
     {
-        return $query->where('created_by', user_id());
+        return $query->where($this->table . '.created_by', user_id());
     }
 
     public function scopeIsNotOwner($query)
     {
-        return $query->where('created_by', '<>', user_id());
+        return $query->where($this->table . '.created_by', '<>', user_id());
     }
 
     public function ownerKey($owner)

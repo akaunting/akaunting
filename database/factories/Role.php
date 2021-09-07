@@ -28,6 +28,7 @@ class Role extends Factory
             'name' => strtolower($name),
             'display_name' => $name,
             'description' => $name,
+            'created_from' => 'factory',
         ];
     }
 

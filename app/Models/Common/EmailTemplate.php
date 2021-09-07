@@ -13,7 +13,7 @@ class EmailTemplate extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'alias', 'class', 'name', 'subject', 'body', 'params'];
+    protected $fillable = ['company_id', 'alias', 'class', 'name', 'subject', 'body', 'params', 'created_from', 'created_by'];
 
     /**
      * Scope to only include contacts of a given type.

@@ -43,6 +43,7 @@ class Transaction extends Model
         'payment_method',
         'reference',
         'parent_id',
+        'created_from',
         'created_by',
     ];
 

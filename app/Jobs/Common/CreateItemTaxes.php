@@ -3,11 +3,13 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Common\Item;
 use App\Models\Common\ItemTax;
 
-class CreateItemTaxes extends Job implements ShouldCreate
+class CreateItemTaxes extends Job implements HasOwner, HasSource, ShouldCreate
 {
     protected $item;
 
@@ -44,6 +46,8 @@ class CreateItemTaxes extends Job implements ShouldCreate
                     'company_id' => $this->item->company_id,
                     'item_id' => $this->item->id,
                     'tax_id' => $tax_id,
+                    'created_from' => $this->request['created_from'],
+                    'created_by' => $this->request['created_by'],
                 ]);
             }
         });

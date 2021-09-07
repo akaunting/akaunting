@@ -13,7 +13,7 @@ class DocumentHistory extends Model
 
     protected $table = 'document_histories';
 
-    protected $fillable = ['company_id', 'type', 'document_id', 'status', 'notify', 'description'];
+    protected $fillable = ['company_id', 'type', 'document_id', 'status', 'notify', 'description', 'created_from', 'created_by'];
 
     public function document()
     {

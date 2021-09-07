@@ -4,6 +4,7 @@ namespace App\Abstracts;
 
 use App\Traits\DateTime;
 use App\Traits\Owners;
+use App\Traits\Sources;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -14,7 +15,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 abstract class Model extends Eloquent implements Ownable
 {
-    use Cachable, DateTime, Owners, SearchString, SoftDeletes, Sortable, Tenants;
+    use Cachable, DateTime, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants;
 
     protected $tenantable = true;
 
@@ -209,6 +210,11 @@ abstract class Model extends Eloquent implements Ownable
         }
 
         return $query->whereIn($this->table . '.contact_id', (array) $contacts);
+    }
+
+    public function scopeSource($query, $source)
+    {
+        return $query->where($this->table . '.created_from', $source);
     }
 
     public function scopeIsOwner($query)

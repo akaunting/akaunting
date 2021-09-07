@@ -16,7 +16,7 @@ class ItemTax extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'item_id', 'tax_id'];
+    protected $fillable = ['company_id', 'item_id', 'tax_id', 'created_from', 'created_by'];
 
     public function item()
     {

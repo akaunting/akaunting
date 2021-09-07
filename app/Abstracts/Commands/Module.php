@@ -58,6 +58,8 @@ abstract class Module extends Command
             'module_id' => $this->model->id,
             'version' => $this->module->get('version'),
             'description' => trans('modules.' . $action, ['module' => $this->alias]),
+            'created_from' => source_name(),
+            'created_by' => user_id(),
         ]);
     }
 

@@ -45,6 +45,7 @@ class Document extends AbstractFactory
             'currency_rate' => '1',
             'notes' => $this->faker->text(5),
             'amount' => '0',
+            'created_from' => 'factory',
         ];
     }
 

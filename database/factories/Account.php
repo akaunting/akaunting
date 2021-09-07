@@ -31,6 +31,7 @@ class Account extends Factory
             'bank_phone' => $this->faker->phoneNumber,
             'bank_address' => $this->faker->address,
             'enabled' => $this->faker->boolean ? 1 : 0,
+            'created_from' => 'factory',
         ];
     }
 

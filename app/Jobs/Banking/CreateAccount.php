@@ -4,10 +4,11 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Banking\Account;
 
-class CreateAccount extends Job implements HasOwner, ShouldCreate
+class CreateAccount extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Account
     {

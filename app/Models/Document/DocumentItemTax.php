@@ -13,7 +13,7 @@ class DocumentItemTax extends Model
 
     protected $table = 'document_item_taxes';
 
-    protected $fillable = ['company_id', 'type', 'document_id', 'document_item_id', 'tax_id', 'name', 'amount'];
+    protected $fillable = ['company_id', 'type', 'document_id', 'document_item_id', 'tax_id', 'name', 'amount', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.

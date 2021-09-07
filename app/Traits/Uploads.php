@@ -22,6 +22,8 @@ trait Uploads
         return MediaUploader::makePrivate()
                             ->beforeSave(function(MediaModel $media) {
                                 $media->company_id = company_id();
+                                $media->created_from = source_name();
+                                $media->created_by = user_id();
                             })
                             ->fromSource($file)
                             ->toDirectory($path)
@@ -41,6 +43,8 @@ trait Uploads
         return MediaUploader::makePrivate()
                             ->beforeSave(function(MediaModel $media) {
                                 $media->company_id = company_id();
+                                $media->created_from = source_name();
+                                $media->created_by = user_id();
                             })
                             ->importPath($disk, $path);
     }

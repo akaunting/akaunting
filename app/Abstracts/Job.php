@@ -4,18 +4,20 @@ namespace App\Abstracts;
 
 use App\Abstracts\Http\FormRequest;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Interfaces\Job\ShouldDelete;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
+use App\Traits\Sources;
 use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 abstract class Job
 {
-    use Jobs, Relationships, Uploads;
+    use Jobs, Relationships, Sources, Uploads;
 
     protected $model;
 
@@ -48,6 +50,10 @@ abstract class Job
 
         if ($this instanceof HasOwner) {
             $this->setOwner();
+        }
+
+        if ($this instanceof HasSource) {
+            $this->setSource();
         }
     }
 
@@ -105,5 +111,18 @@ abstract class Job
         }
 
         $this->request->merge(['created_by' => user_id()]);
+    }
+
+    public function setSource(): void
+    {
+        if (! $this->request instanceof Request) {
+            return;
+        }
+
+        if ($this->request->has('created_from')) {
+            return;
+        }
+
+        $this->request->merge(['created_from' => $this->getSourceName($this->request)]);
     }
 }

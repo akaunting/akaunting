@@ -78,6 +78,8 @@ class Currencies extends Seeder
         ];
 
         foreach ($rows as $row) {
+            $row['created_from'] = 'seed';
+
             $this->dispatch(new CreateCurrency($row));
         }
     }

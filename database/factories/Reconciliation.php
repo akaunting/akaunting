@@ -34,6 +34,7 @@ class Reconciliation extends Factory
             'started_at' => $started_at,
             'ended_at' => $ended_at,
             'reconcile' => $this->faker->boolean ? 1 : 0,
+            'created_from' => 'factory',
         ];
     }
 

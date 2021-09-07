@@ -29,6 +29,7 @@ class Tax extends Factory
             'rate' => $this->faker->randomFloat(2, 10, 20),
             'type' => $this->faker->randomElement($types),
             'enabled' => $this->faker->boolean ? 1 : 0,
+            'created_from' => 'factory',
         ];
     }
 

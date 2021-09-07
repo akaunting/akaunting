@@ -30,6 +30,7 @@ class Currency extends Model
         'symbol_first',
         'decimal_mark',
         'thousands_separator',
+        'created_from',
         'created_by',
     ];
 

@@ -3,13 +3,15 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Events\Auth\UserCreated;
 use App\Events\Auth\UserCreating;
 use App\Models\Auth\User;
 use Illuminate\Support\Facades\Artisan;
 
-class CreateUser extends Job implements ShouldCreate
+class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): User
     {

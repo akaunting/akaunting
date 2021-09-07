@@ -3,11 +3,14 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Common\EmailTemplate;
+use App\Jobs\Common\CreateEmailTemplate;
+use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
 class EmailTemplates extends Seeder
 {
+    use Jobs;
+
     /**
      * Run the database seeds.
      *
@@ -80,14 +83,15 @@ class EmailTemplates extends Seeder
         ];
 
         foreach ($templates as $template) {
-            EmailTemplate::create([
+            $this->dispatch(new CreateEmailTemplate([
                 'company_id' => $company_id,
                 'alias' => $template['alias'],
                 'class' => $template['class'],
                 'name' => $template['name'],
                 'subject' => trans('email_templates.' . $template['alias'] . '.subject'),
                 'body' => trans('email_templates.' . $template['alias'] . '.body'),
-            ]);
+                'created_from' => 'seed',
+            ]));
         }
     }
 }

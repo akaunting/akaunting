@@ -45,6 +45,7 @@ class Dashboards extends Seeder
                 'App\Widgets\LatestExpenses',
             ],
             'users' => $user_id,
+            'created_from' => 'seed',
         ]));
     }
 }

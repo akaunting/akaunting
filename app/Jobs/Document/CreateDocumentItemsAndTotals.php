@@ -3,6 +3,8 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Common\CreateItem;
 use App\Models\Document\Document;
@@ -10,7 +12,7 @@ use App\Models\Document\DocumentTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 
-class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
+class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, ShouldCreate
 {
     use Currencies, DateTime;
 
@@ -40,6 +42,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
             'name' => 'invoices.sub_total',
             'amount' => round($sub_total, $precision),
             'sort_order' => $sort_order,
+            'created_from' => $this->request['created_from'],
+            'created_by' => $this->request['created_by'],
         ]);
 
         $this->request['amount'] += $sub_total;
@@ -56,6 +60,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                 'name' => 'invoices.item_discount',
                 'amount' => round($discount_amount_total, $precision),
                 'sort_order' => $sort_order,
+                'created_from' => $this->request['created_from'],
+                'created_by' => $this->request['created_by'],
             ]);
 
             $sort_order++;
@@ -68,7 +74,7 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                 $discount_total = $this->request['discount'];
             }
 
-                DocumentTotal::create([
+            DocumentTotal::create([
                 'company_id' => $this->document->company_id,
                 'type' => $this->document->type,
                 'document_id' => $this->document->id,
@@ -76,6 +82,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                 'name' => 'invoices.discount',
                 'amount' => round($discount_total, $precision),
                 'sort_order' => $sort_order,
+                'created_from' => $this->request['created_from'],
+                'created_by' => $this->request['created_by'],
             ]);
 
             $this->request['amount'] -= $discount_total;
@@ -94,6 +102,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                     'name' => $tax['name'],
                     'amount' => round(abs($tax['amount']), $precision),
                     'sort_order' => $sort_order,
+                    'created_from' => $this->request['created_from'],
+                    'created_by' => $this->request['created_by'],
                 ]);
 
                 $this->request['amount'] += $tax['amount'];
@@ -109,6 +119,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                 $total['type'] = $this->document->type;
                 $total['document_id'] = $this->document->id;
                 $total['sort_order'] = $sort_order;
+                $total['created_from'] = $this->request['created_from'];
+                $total['created_by'] = $this->request['created_by'];
 
                 if (empty($total['code'])) {
                     $total['code'] = 'extra';
@@ -140,6 +152,8 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
             'name' => 'invoices.total',
             'amount' =>  $this->request['amount'],
             'sort_order' => $sort_order,
+            'created_from' => $this->request['created_from'],
+            'created_by' => $this->request['created_by'],
         ]);
     }
 
@@ -167,7 +181,7 @@ class CreateDocumentItemsAndTotals extends Job implements ShouldCreate
                     'description' => $item['description'],
                     'sale_price' => $item['price'],
                     'purchase_price' => $item['price'],
-                    'enabled' => '1'
+                    'enabled' => '1',
                 ];
 
                 if (!empty($item['tax_ids'])) {

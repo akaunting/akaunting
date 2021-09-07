@@ -30,6 +30,8 @@ class DocumentItem extends Model
         'tax',
         'discount_rate',
         'discount_type',
+        'created_from',
+        'created_by',
     ];
 
     /**

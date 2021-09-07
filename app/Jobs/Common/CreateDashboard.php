@@ -4,6 +4,7 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Common\CreateWidget;
 use App\Models\Auth\User;
@@ -13,7 +14,7 @@ use App\Models\Common\Widget;
 use App\Utilities\Widgets;
 use Illuminate\Support\Arr;
 
-class CreateDashboard extends Job implements HasOwner, ShouldCreate
+class CreateDashboard extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Dashboard
     {

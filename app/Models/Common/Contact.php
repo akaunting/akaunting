@@ -48,6 +48,7 @@ class Contact extends Model
         'currency_code',
         'reference',
         'enabled',
+        'created_from',
         'created_by',
     ];
 

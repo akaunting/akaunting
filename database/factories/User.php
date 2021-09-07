@@ -34,6 +34,7 @@ class User extends Factory
             'companies' => ['1'],
             'roles' => ['1'],
             'enabled' => $this->faker->boolean ? 1 : 0,
+            'created_from' => 'factory',
         ];
     }
 

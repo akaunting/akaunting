@@ -36,6 +36,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     {
         $row['company_id'] = company_id();
         $row['created_by'] = $this->user->id;
+        $row['created_from'] = 'import';
 
         // Make enabled field integer
         if (isset($row['enabled'])) {

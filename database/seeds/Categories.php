@@ -70,6 +70,8 @@ class Categories extends Seeder
         $income_category_id = $expense_category_id = 0;
 
         foreach ($rows as $row) {
+            $row['created_from'] = 'seed';
+
             $category = $this->dispatch(new CreateCategory($row));
 
             switch ($category->type) {

@@ -6,14 +6,14 @@ use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
-use App\Models\Common\Report;
+use App\Models\Common\EmailTemplate;
 
-class CreateReport extends Job implements HasOwner, HasSource, ShouldCreate
+class CreateEmailTemplate extends Job implements HasOwner, HasSource, ShouldCreate
 {
-    public function handle(): Report
+    public function handle(): EmailTemplate
     {
         \DB::transaction(function () {
-            $this->model = Report::create($this->request->all());
+            $this->model = EmailTemplate::create($this->request->all());
         });
 
         return $this->model;

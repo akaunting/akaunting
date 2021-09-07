@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use App\Models\Module\Module;
 use App\Traits\SiteApi;
+use App\Utilities\Date;
 use App\Utilities\Info;
-use Cache;
-use Date;
+use Illuminate\Support\Facades\Cache;
 
 trait Modules
 {

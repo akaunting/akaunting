@@ -20,7 +20,7 @@ class Role extends LaratrustRole
      *
      * @var array
      */
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'display_name', 'description', 'created_from', 'created_by'];
 
     /**
      * Scope to get all rows filtered, sorted and paginated.

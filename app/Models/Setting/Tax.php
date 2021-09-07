@@ -24,7 +24,7 @@ class Tax extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'rate', 'type', 'enabled', 'created_by'];
+    protected $fillable = ['company_id', 'name', 'rate', 'type', 'enabled', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.

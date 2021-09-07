@@ -3,6 +3,8 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem;
@@ -10,7 +12,7 @@ use App\Models\Document\DocumentItemTax;
 use App\Models\Setting\Tax;
 use Illuminate\Support\Str;
 
-class CreateDocumentItem extends Job implements ShouldCreate
+class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreate
 {
     protected $document;
 
@@ -182,6 +184,8 @@ class CreateDocumentItem extends Job implements ShouldCreate
         $this->request['discount_type'] = !empty($this->request['discount_type']) ? $this->request['discount_type'] : 'percentage';
         $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
         $this->request['total'] = round($item_amount, $precision);
+        $this->request['created_from'] = source_name();
+        $this->request['created_by'] = user_id();
 
         $document_item = DocumentItem::create($this->request);
 
@@ -197,6 +201,8 @@ class CreateDocumentItem extends Job implements ShouldCreate
             foreach ($item_taxes as $item_tax) {
                 $item_tax['document_item_id'] = $document_item->id;
                 $item_tax['amount'] = round(abs($item_tax['amount']), $precision);
+                $item_tax['created_from'] = $this->request['created_from'];
+                $item_tax['created_by'] = $this->request['created_by'];
 
                 DocumentItemTax::create($item_tax);
             }

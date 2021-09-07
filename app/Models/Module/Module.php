@@ -13,7 +13,7 @@ class Module extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'alias', 'enabled'];
+    protected $fillable = ['company_id', 'alias', 'enabled', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.

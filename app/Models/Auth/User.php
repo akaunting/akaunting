@@ -5,6 +5,8 @@ namespace App\Models\Auth;
 use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
+use App\Traits\Owners;
+use App\Traits\Sources;
 use App\Traits\Users;
 use App\Utilities\Date;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -18,7 +20,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use HasFactory, LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants, Users;
+    use HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
 
     protected $table = 'users';
 
@@ -27,7 +29,7 @@ class User extends Authenticatable implements HasLocalePreference
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled', 'landing_page'];
+    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled', 'landing_page', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.
@@ -256,6 +258,30 @@ class User extends Authenticatable implements HasLocalePreference
     public function isNotCustomer()
     {
         return (bool) $this->can('read-admin-panel');
+    }
+
+    public function scopeSource($query, $source)
+    {
+        return $query->where($this->table . '.created_from', $source);
+    }
+
+    public function scopeIsOwner($query)
+    {
+        return $query->where($this->table . '.created_by', user_id());
+    }
+
+    public function scopeIsNotOwner($query)
+    {
+        return $query->where($this->table . '.created_by', '<>', user_id());
+    }
+
+    public function ownerKey($owner)
+    {
+        if ($this->isNotOwnable()) {
+            return 0;
+        }
+
+        return $this->created_by;
     }
 
     /**

@@ -3,11 +3,13 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentHistory;
 
-class CreateDocumentHistory extends Job implements ShouldCreate
+class CreateDocumentHistory extends Job implements HasOwner, HasSource, ShouldCreate
 {
     protected $document;
 
@@ -35,6 +37,8 @@ class CreateDocumentHistory extends Job implements ShouldCreate
             'status' => $this->document->status,
             'notify' => $this->notify,
             'description' => $description,
+            'created_from' => source_name(),
+            'created_by' => user_id(),
         ]);
 
         return $document_history;

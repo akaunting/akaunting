@@ -25,6 +25,7 @@ class Dashboard extends Factory
             'company_id' => $this->company->id,
             'name' => $this->faker->text(15),
             'enabled' => $this->faker->boolean ? 1 : 0,
+            'created_from' => 'factory',
         ];
     }
 
