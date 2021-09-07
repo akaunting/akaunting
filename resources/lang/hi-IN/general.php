@@ -52,6 +52,8 @@ return [
     'sales'                 => 'बिक्री|बिक्री',
     'purchases'             => 'खरीद|खरीद',
     'notifications'         => 'सूचना|सूचनाएं',
+    'countries'             => 'देश|देशों',
+    'cities'                => 'नगर / शहर|नगरों / शहरों',
 
     'welcome'               => 'स्वागत है',
     'banking'               => 'बैंकिंग',
@@ -165,6 +167,8 @@ return [
     'amount_due'            => 'देय राशि',
     'financial_year'        => 'वित्तीय वर्ष',
     'created'               => 'बनाया गया',
+    'state'                 => 'प्रांत / राज्य',
+    'zip_code'              => 'डाक / ज़िप कोड:',
 
     'card' => [
         'cards'                 => 'कार्ड|कार्ड',

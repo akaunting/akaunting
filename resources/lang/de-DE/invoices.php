@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Rechnungsnummer',
     'invoice_date'          => 'Rechnungsdatum',
+    'invoice_amount'        => 'Rechnungsbetrag',
     'total_price'           => 'Gesamtpreis',
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',

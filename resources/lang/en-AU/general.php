@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Sale|Sales',
     'purchases'             => 'Purchase|Purchases',
     'notifications'         => 'Notification|Notifications',
+    'countries'             => 'Country|Countries',
+    'cities'                => 'Town/City|Towns/Cities',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',
@@ -164,6 +166,8 @@ return [
     'amount_due'            => 'Amount due',
     'financial_year'        => 'Financial Year',
     'created'               => 'Created',
+    'state'                 => 'Province/State',
+    'zip_code'              => 'Postal/Zip code',
 
     'card' => [
         'cards'                 => 'Card|Cards',
