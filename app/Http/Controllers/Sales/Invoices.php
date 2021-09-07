@@ -297,10 +297,12 @@ class Invoices extends Controller
         
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
-        $file_name = $this->getDocumentFileName($invoice);
-
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = $this->getDocumentFileName($invoice);
 
         return $pdf->download($file_name);
     }
