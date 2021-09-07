@@ -27,7 +27,9 @@ class CreateDashboard extends Job implements HasOwner, HasSource, ShouldCreate
                 return;
             }
 
-            $this->model = Dashboard::create($this->request->only(['company_id', 'name', 'enabled']));
+            $this->model = Dashboard::create($this->request->only([
+                'company_id', 'name', 'enabled', 'created_from', 'created_by'
+            ]));
 
             $this->model->users()->attach($users);
 
