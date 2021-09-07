@@ -90,7 +90,11 @@ class SearchString extends Component
         }
 
         if (isset($options['relationship'])) {
-            $column .= '.id';
+            if (isset($options['foreign_key'])) {
+                $column .= '.' . $options['foreign_key'];
+            } else {
+                $column .= '.id';
+            }
         }
 
         return $column;
@@ -102,6 +106,10 @@ class SearchString extends Component
             $column = str_replace('_id', '', $column);
         } else if (strpos($column, '_code') !== false) {
             $column = str_replace('_code', '', $column);
+        }
+
+        if (!empty($options['translation'])) {
+            return $options['translation'];
         }
 
         if (!empty($options['key'])) {
