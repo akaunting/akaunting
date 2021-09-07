@@ -25,11 +25,11 @@ return [
     'view'                  => 'Pogled',
     'back'                  => 'Nazaj',
 
-    'installed'             => ': modul nameščen',
-    'uninstalled'           => ': modul odstranjen',
+    'installed'             => ':module nameščen',
+    'uninstalled'           => ':module odstranjen',
     'updated_2'             => ':module posodobljen',
-    'enabled'               => ': modul omogočen',
-    'disabled'              => ': modul onemogočen',
+    'enabled'               => ':module omogočen',
+    'disabled'              => ':module onemogočen',
 
     'tab' => [
         'installation'      => 'Namestitev',

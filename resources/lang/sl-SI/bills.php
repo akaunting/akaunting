@@ -31,7 +31,7 @@ return [
     'payments'              => 'Plačila',
     'add_payment'           => 'Dodaj plačilo',
     'mark_paid'             => 'Označi kot plačano',
-    'mark_received'         => 'Označi kot plačano',
+    'mark_received'         => 'Označi kot prejeto',
     'mark_cancelled'        => 'Označi preklicano',
     'download_pdf'          => 'Prenesi PDF',
     'send_mail'             => 'Pošljite e-pošto',

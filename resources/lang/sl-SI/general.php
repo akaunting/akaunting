@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Prodaja | Prodaja',
     'purchases'             => 'Nakup | Nakupi',
     'notifications'         => 'Obvestilo|Obvestila',
+    'countries'             => 'Država|Države',
+    'cities'                => 'Mesto/Mesta',
 
     'welcome'               => 'Dobrodošli',
     'banking'               => 'Bančništvo',
@@ -165,6 +167,8 @@ return [
 Dolgovani znesek',
     'financial_year'        => 'Finančno leto',
     'created'               => 'Ustvarjeno',
+    'state'                 => 'Regija',
+    'zip_code'              => 'Poštna številka',
 
     'card' => [
         'cards'                 => 'Kartica|Kartice',

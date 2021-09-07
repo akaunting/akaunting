@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Bankens telefon',
     'bank_address'          => 'Bankens adresse',
     'default_account'       => 'Standard konto',
+    'incoming'              => 'Innkommende',
+    'outgoing'              => 'Utgående',
+    'see_performance'       => 'Se ytelse',
+    'create_report'         => 'Hvis du vil se kontoytelse kan du opprette rapport med inntekter mot utgifter.',
 
 ];

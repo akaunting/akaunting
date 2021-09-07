@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Venda|Vendes',
     'purchases'             => 'Compra|Compres',
     'notifications'         => 'Notificació|Notificacions',
+    'countries'             => 'País|Països',
+    'cities'                => 'Població/Ciutat|Poblacions/Ciutats',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
@@ -164,6 +166,8 @@ return [
     'amount_due'            => 'Quantitat',
     'financial_year'        => 'Any fiscal',
     'created'               => 'Creat/da',
+    'state'                 => 'Província/Estat',
+    'zip_code'              => 'Codi postal',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',

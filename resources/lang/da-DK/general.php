@@ -25,7 +25,7 @@ return [
     'permissions'           => 'Tilladelse|Tilladelser',
     'modules'               => 'App|Apps',
     'companies'             => 'Enhed|Enheder',
-    'profits'               => 'Overskud|Overskud',
+    'profits'               => 'Resultat|Resultater',
     'taxes'                 => 'Moms|Moms',
     'logos'                 => 'Logo|Logoer',
     'pictures'              => 'Billede|Billeder',
@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Salg|Salg',
     'purchases'             => 'Bestilling|Bestillinger',
     'notifications'         => 'Notifikation|Notifikationer',
+    'countries'             => 'Land|Lande',
+    'cities'                => 'By|Byer',
 
     'welcome'               => 'Velkommen',
     'banking'               => 'Bank',
@@ -164,6 +166,8 @@ return [
     'amount_due'            => 'Forfaldent beløb',
     'financial_year'        => 'Regnskabsår',
     'created'               => 'Oprettet',
+    'state'                 => 'Provins/Stat',
+    'zip_code'              => 'Postnummer',
 
     'card' => [
         'cards'                 => 'Kort|Kort
