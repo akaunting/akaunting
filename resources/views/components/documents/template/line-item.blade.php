@@ -48,3 +48,47 @@
         @endif
     @stack('total_td_end')
 </tr>
+
+
+<?php $currency_style  = false; ?>
+
+@if (app()->getLocale() == "zh-CN" )
+<?php $currency_style  = true; ?>
+@endif
+
+@if (app()->getLocale() == "ja-JP" )
+<?php $currency_style  = true; ?>
+@endif
+
+@if (app()->getLocale() == "zh-TW" )
+<?php $currency_style  = true; ?>
+@endif
+
+
+@if ($currency_style)
+    @push('stylesheet')
+    <style type="text/css">
+        @font-face {
+            font-family: 'Firefly Sung';
+            font-weight: 'normal';
+            src: url("/public/css/fonts/firefly_sung_normal.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: 'Firefly Sung';
+            font-weight: 'bold';
+            src: url("/public/css/fonts/firefly_sung_normal.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: 'Firefly Sung';
+            font-weight: 'italic';
+            src: url("/public/css/fonts/firefly_sung_normal.ttf") format("truetype");
+        }
+
+        body {
+            font-family: 'Firefly Sung', sans-serif !important;
+        }
+    </style>
+    @endpush
+@endif
