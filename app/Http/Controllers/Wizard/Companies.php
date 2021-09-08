@@ -68,8 +68,6 @@ class Companies extends Controller
                     $real_key = 'localisation.' . $key;
                     break;
                 case 'country':
-                    $countries = trans('countries');
-                    $value = array_search($value, $countries);
                     $real_key = 'company.' . $key;
                     break;
                 default:
@@ -99,6 +97,10 @@ class Companies extends Controller
             }
 
             setting()->set($real_key, $value);
+
+            if ($key == 'country') {
+                setting()->set('default.' . $key, $value);
+            }
         }
 
         // Save all settings

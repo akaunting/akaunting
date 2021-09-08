@@ -89,6 +89,7 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
             'company.country' => $this->request->get('country'),
             'default.currency' => $this->request->get('currency'),
             'default.locale' => $this->request->get('locale', 'en-GB'),
+            'default.country' => $this->request->get('country'),
         ]);
 
         if (!empty($this->request->settings)) {

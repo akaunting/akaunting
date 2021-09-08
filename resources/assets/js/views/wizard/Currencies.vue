@@ -20,6 +20,7 @@
             <i class="fas fa-spinner fa-pulse fa-7x"></i>
           </div>
         </div>
+
         <div class="d-flex justify-content-end mb-3">
           <base-button
             type="success"
@@ -52,6 +53,7 @@
                   </th>
                 </tr>
               </thead>
+
               <tbody>
                 <tr
                   v-for="(item, index) in currencies"
@@ -273,7 +275,9 @@
         </div>
 
         <notifications></notifications>
+
         <form id="form-dynamic-component" method="POST" action="#"></form>
+
         <component
           v-bind:is="component"
           @deleted="onDeleteCurrency($event)"
@@ -286,6 +290,7 @@
             <base-button type="white" native-type="submit" @click="prev()">{{
               translations.currencies.previous
             }}</base-button>
+
             <base-button type="white" native-type="submit" @click="next()">{{
               translations.currencies.next
             }}</base-button>
