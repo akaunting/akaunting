@@ -679,16 +679,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.192.1",
+            "version": "3.193.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "60b618429c040b4a1f567cf9ee56b3d2d14fe54b"
+                "reference": "5294e06519479b9f41d6e18a88d077c4837a58ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/60b618429c040b4a1f567cf9ee56b3d2d14fe54b",
-                "reference": "60b618429c040b4a1f567cf9ee56b3d2d14fe54b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5294e06519479b9f41d6e18a88d077c4837a58ff",
+                "reference": "5294e06519479b9f41d6e18a88d077c4837a58ff",
                 "shasum": ""
             },
             "require": {
@@ -764,9 +764,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.192.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.193.1"
             },
-            "time": "2021-09-07T18:32:31+00:00"
+            "time": "2021-09-09T18:28:04+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -5125,16 +5125,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.59.0",
+            "version": "v8.60.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "51d4755cc6232e7f8abb437567d713fa37661da2"
+                "reference": "44f16a31a1d4ac8a51605550d7796e2273984a48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/51d4755cc6232e7f8abb437567d713fa37661da2",
-                "reference": "51d4755cc6232e7f8abb437567d713fa37661da2",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/44f16a31a1d4ac8a51605550d7796e2273984a48",
+                "reference": "44f16a31a1d4ac8a51605550d7796e2273984a48",
                 "shasum": ""
             },
             "require": {
@@ -5289,7 +5289,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-09-07T13:29:53+00:00"
+            "time": "2021-09-08T13:37:21+00:00"
         },
         {
             "name": "laravel/slack-notification-channel",
@@ -8425,16 +8425,16 @@
         },
         {
             "name": "plank/laravel-mediable",
-            "version": "5.1.1",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/plank/laravel-mediable.git",
-                "reference": "c26f8b3ebb2e1d3db8202dec83b3135f77ec4b88"
+                "reference": "c1efa74ceabe7ef978ddfb38fc1427903cb4c294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/plank/laravel-mediable/zipball/c26f8b3ebb2e1d3db8202dec83b3135f77ec4b88",
-                "reference": "c26f8b3ebb2e1d3db8202dec83b3135f77ec4b88",
+                "url": "https://api.github.com/repos/plank/laravel-mediable/zipball/c1efa74ceabe7ef978ddfb38fc1427903cb4c294",
+                "reference": "c1efa74ceabe7ef978ddfb38fc1427903cb4c294",
                 "shasum": ""
             },
             "require": {
@@ -8444,7 +8444,7 @@
                 "illuminate/filesystem": ">6.0",
                 "illuminate/support": ">6.0",
                 "intervention/image": "^2.5",
-                "league/flysystem": "^1.0.23",
+                "league/flysystem": "^1.1.4",
                 "php": ">=7.3.0",
                 "psr/http-message": "^1.0"
             },
@@ -8497,9 +8497,9 @@
             ],
             "support": {
                 "issues": "https://github.com/plank/laravel-mediable/issues",
-                "source": "https://github.com/plank/laravel-mediable/tree/5.1.1"
+                "source": "https://github.com/plank/laravel-mediable/tree/5.2.0"
             },
-            "time": "2021-04-30T02:05:55+00:00"
+            "time": "2021-09-08T17:46:04+00:00"
         },
         {
             "name": "psr/cache",
