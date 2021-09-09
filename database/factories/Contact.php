@@ -39,7 +39,7 @@ class Contact extends Factory
             'currency_code' => setting('default.currency'),
             'reference' => $this->faker->text(5),
             'enabled' => $this->faker->boolean ? 1 : 0,
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
     }
 

@@ -36,7 +36,7 @@ class Accounts extends Seeder
             'currency_code' => 'USD',
             'bank_name' => trans('demo.accounts.cash'),
             'enabled' => '1',
-            'created_from' => 'seed',
+            'created_from' => 'core::seed',
         ]));
 
         setting()->set('default.account', $account->id);

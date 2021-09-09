@@ -47,7 +47,7 @@ class Currency extends Factory
             'decimal_mark' => $currency['decimal_mark'],
             'thousands_separator' => $currency['thousands_separator'],
             'enabled' => $this->faker->boolean ? 1 : 0,
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
     }
 

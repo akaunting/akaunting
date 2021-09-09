@@ -90,7 +90,7 @@ class EmailTemplates extends Seeder
                 'name' => $template['name'],
                 'subject' => trans('email_templates.' . $template['alias'] . '.subject'),
                 'body' => trans('email_templates.' . $template['alias'] . '.body'),
-                'created_from' => 'seed',
+                'created_from' => 'core::seed',
             ]));
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Abstracts;
 
 use App\Traits\Import as ImportHelper;
+use App\Traits\Sources;
 use App\Utilities\Date;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +11,6 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -23,7 +23,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRows, WithChunkReading, WithHeadingRow, WithLimit, WithMapping, WithValidation, ToModel
 {
-    use Importable, ImportHelper;
+    use Importable, ImportHelper, Sources;
 
     public $user;
 
@@ -36,7 +36,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     {
         $row['company_id'] = company_id();
         $row['created_by'] = $this->user->id;
-        $row['created_from'] = 'import';
+        $row['created_from'] = $this->getSourcePrefix() . 'import';
 
         // Make enabled field integer
         if (isset($row['enabled'])) {

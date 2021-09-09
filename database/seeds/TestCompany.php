@@ -52,6 +52,7 @@ class TestCompany extends Seeder
                 'wizard.completed' => '1',
                 'email.protocol' => 'array',
             ],
+            'created_from' => 'core::seed',
         ]));
 
         $company->makeCurrent(true);

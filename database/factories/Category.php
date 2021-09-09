@@ -29,7 +29,7 @@ class Category extends Factory
             'type' => $this->faker->randomElement($types),
             'color' => $this->faker->hexColor,
             'enabled' => $this->faker->boolean ? 1 : 0,
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
     }
 

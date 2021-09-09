@@ -43,7 +43,7 @@ class Transfer extends Factory
             'category_id' => Category::transfer(),
             'description' => $this->faker->text(20),
             'reference' => $this->faker->text(20),
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
 
         $expense_transaction = Transaction::factory()->create(array_merge($request, [

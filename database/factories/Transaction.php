@@ -41,7 +41,7 @@ class Transaction extends Factory
             'category_id' => $this->company->categories()->$category_type()->get()->random(1)->pluck('id')->first(),
             'reference' => $this->faker->text(5),
             'payment_method' => setting('default.payment_method'),
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
     }
 

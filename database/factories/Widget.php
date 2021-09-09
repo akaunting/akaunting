@@ -42,7 +42,7 @@ class Widget extends Factory
             'dashboard_id' => $dashboard->id,
             'name' => $this->faker->text(15),
             'class' => $this->faker->randomElement($this->classes),
-            'created_from' => 'factory',
+            'created_from' => 'core::factory',
         ];
     }
 }

@@ -68,7 +68,7 @@ class Reports extends Seeder
         ];
 
         foreach ($rows as $row) {
-            $row['created_from'] = 'seed';
+            $row['created_from'] = 'core::seed';
 
             $this->dispatch(new CreateReport($row));
         }

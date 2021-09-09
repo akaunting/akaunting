@@ -132,15 +132,17 @@ if (!function_exists('source_name')) {
     /**
      * Get the current source.
      *
+     * @param string|null $alias
+     *
      * @return string
      */
-    function source_name()
+    function source_name($alias = null)
     {
         $tmp = new class() {
             use Sources;
         };
 
-        return $tmp->getSourceName();
+        return $tmp->getSourceName(null, $alias);
     }
 }
 
