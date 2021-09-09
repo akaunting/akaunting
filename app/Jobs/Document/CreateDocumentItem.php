@@ -184,8 +184,8 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $this->request['discount_type'] = !empty($this->request['discount_type']) ? $this->request['discount_type'] : 'percentage';
         $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
         $this->request['total'] = round($item_amount, $precision);
-        $this->request['created_from'] = source_name();
-        $this->request['created_by'] = user_id();
+        $this->request['created_from'] = $this->request['created_from'];
+        $this->request['created_by'] = $this->request['created_by'];
 
         $document_item = DocumentItem::create($this->request);
 

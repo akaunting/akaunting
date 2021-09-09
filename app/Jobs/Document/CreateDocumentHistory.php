@@ -17,11 +17,12 @@ class CreateDocumentHistory extends Job implements HasOwner, HasSource, ShouldCr
 
     protected $description;
 
-    public function __construct(Document $document, $notify = 0, $description = null)
+    public function __construct(Document $document, $notify = 0, $description = null, $request = null)
     {
         $this->document = $document;
         $this->notify = $notify;
         $this->description = $description;
+        $this->request = $request;
 
         parent::__construct($document, $notify, $description);
     }
@@ -37,10 +38,19 @@ class CreateDocumentHistory extends Job implements HasOwner, HasSource, ShouldCr
             'status' => $this->document->status,
             'notify' => $this->notify,
             'description' => $description,
-            'created_from' => source_name(),
+            'created_from' => $this->getCustomSourceName(),
             'created_by' => user_id(),
         ]);
 
         return $document_history;
+    }
+
+    public function getCustomSourceName(): string
+    {
+        if (empty($this->request) || empty($this->request['created_from'])) {
+            return $this->getSourceName();
+        }
+
+        return $this->request['created_from'];
     }
 }

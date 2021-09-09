@@ -193,6 +193,9 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                 $item['item_id'] = $new_item->id;
             }
 
+            $item['created_from'] = $this->request['created_from'];
+            $item['created_by'] = $this->request['created_by'];
+
             $document_item = $this->dispatch(new CreateDocumentItem($this->document, $item));
 
             $item_amount = (double) $item['price'] * (double) $item['quantity'];

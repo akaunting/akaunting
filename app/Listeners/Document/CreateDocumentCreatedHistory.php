@@ -20,6 +20,6 @@ class CreateDocumentCreatedHistory
     {
         $message = trans('messages.success.added', ['type' => $event->document->document_number]);
 
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, $message));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, $message, $event->request));
     }
 }

@@ -16,7 +16,7 @@ class DocumentTotal extends Model
 
     protected $appends = ['title'];
 
-    protected $fillable = ['company_id', 'type', 'document_id', 'code', 'name', 'amount', 'sort_order'];
+    protected $fillable = ['company_id', 'type', 'document_id', 'code', 'name', 'amount', 'sort_order', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.
