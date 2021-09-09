@@ -8,6 +8,7 @@ use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentHistory;
+use Illuminate\Http\Request;
 
 class CreateDocumentHistory extends Job implements HasOwner, HasSource, ShouldCreate
 {
@@ -47,8 +48,18 @@ class CreateDocumentHistory extends Job implements HasOwner, HasSource, ShouldCr
 
     public function getCustomSourceName(): string
     {
-        if (empty($this->request) || empty($this->request['created_from'])) {
+        if (empty($this->request)) {
             return $this->getSourceName();
+        }
+
+        if (is_array($this->request)) {
+            if (empty($this->request['created_from'])) {
+                return $this->getSourceName();
+            }
+        } elseif ($this->request instanceof Request) {
+            if ($this->request->missing('created_from')) {
+                return $this->getSourceName();
+            }
         }
 
         return $this->request['created_from'];
