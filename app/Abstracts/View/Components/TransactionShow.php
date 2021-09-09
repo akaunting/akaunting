@@ -407,11 +407,11 @@ abstract class TransactionShow extends Base
         $this->textHeaderPaidAt = $this->gettextHeaderPaidAt($type, $textHeaderPaidAt);
 
         // Header Class
-        $this->classHeaderAccount = $this->getclassHeaderAccount($type, $classHeaderAccount);
+        $this->classHeaderAccount = $this->getClassHeaderAccount($type, $classHeaderAccount);
         $this->classHeaderContact = $this->getClassHeaderContact($type, $classHeaderContact);
         $this->classHeaderCategory = $this->getClassHeaderCategory($type, $classHeaderCategory);
         $this->classHeaderAmount = $this->getClassHeaderAmount($type, $classHeaderAmount);
-        $this->classHeaderPaidAt = $this->getclassHeaderPaidAt($type, $classHeaderPaidAt);
+        $this->classHeaderPaidAt = $this->getClassHeaderPaidAt($type, $classHeaderPaidAt);
 
         // Hide Attachment
         $this->hideAttachment = $hideAttachment;
