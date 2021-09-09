@@ -15,7 +15,7 @@ class SourcesTest extends FeatureTestCase
 
         $this->assertDatabaseHas('categories', [
             'id' => $category->id,
-            'created_from' => 'console',
+            'created_from' => 'core::console',
         ]);
     }
 
