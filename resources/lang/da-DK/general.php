@@ -2,14 +2,14 @@
 
 return [
 
-    'dashboards'            => 'Skrivebord|Skriveborde',
+    'dashboards'            => 'Overblik|Overblik',
     'items'                 => 'Vare|Varer',
     'incomes'               => 'Indtægt|Indtægter',
     'invoices'              => 'Faktura|Fakturaer',
     'revenues'              => 'Indtægt|Indtægter',
-    'customers'             => 'Medlem|Medlemmer',
+    'customers'             => 'Kunde|Kunder',
     'expenses'              => 'Udgift|Udgifter',
-    'bills'                 => 'Regning|Regninger',
+    'bills'                 => 'Køb|Køb',
     'payments'              => 'Betaling|Betalinger',
     'vendors'               => 'Kreditor|Kreditorer',
     'accounts'              => 'Konto|Konti',
@@ -50,7 +50,7 @@ return [
     'widgets'               => 'Widget|Widgets',
     'templates'             => 'Skabelon|Skabeloner',
     'sales'                 => 'Salg|Salg',
-    'purchases'             => 'Bestilling|Bestillinger',
+    'purchases'             => 'Indkøb|Indkøb',
     'notifications'         => 'Notifikation|Notifikationer',
     'countries'             => 'Land|Lande',
     'cities'                => 'By|Byer',
@@ -166,7 +166,7 @@ return [
     'amount_due'            => 'Forfaldent beløb',
     'financial_year'        => 'Regnskabsår',
     'created'               => 'Oprettet',
-    'state'                 => 'Provins/Stat',
+    'state'                 => 'Region/Stat',
     'zip_code'              => 'Postnummer',
 
     'card' => [

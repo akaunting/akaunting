@@ -31,7 +31,7 @@ return [
     'payments'              => 'Betalinger',
     'add_payment'           => 'Tilføj betaling',
     'mark_paid'             => 'Marker som betalt',
-    'mark_received'         => 'Modtagelse godkendt',
+    'mark_received'         => 'Marker som modtaget',
     'mark_cancelled'        => 'Marker som annulleret',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send e-mail',
