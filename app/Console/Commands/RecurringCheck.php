@@ -193,6 +193,7 @@ class RecurringCheck extends Command
         $clone->parent_id = $model->id;
         $clone->$date_field = $schedule_date->format('Y-m-d');
         $clone->due_at = $schedule_date->copy()->addDays($diff_days)->format('Y-m-d');
+        $clone->created_from = 'core::recurring';
         $clone->save();
 
         return $clone;
@@ -214,6 +215,7 @@ class RecurringCheck extends Command
 
         $clone->parent_id = $model->id;
         $clone->paid_at = $schedule_date->format('Y-m-d');
+        $clone->created_from = 'core::recurring';
         $clone->save();
 
         return $clone;
