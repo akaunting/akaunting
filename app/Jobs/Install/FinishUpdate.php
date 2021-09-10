@@ -3,7 +3,7 @@
 namespace App\Jobs\Install;
 
 use App\Abstracts\Job;
-use App\Interfaces\Update\ShouldUpdateAllCompanies;
+use App\Interfaces\Listener\ShouldUpdateAllCompanies;
 use App\Models\Module\Module;
 use App\Utilities\Console;
 use Illuminate\Filesystem\Filesystem;

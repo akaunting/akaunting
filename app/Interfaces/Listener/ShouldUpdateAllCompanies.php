@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\Update;
+namespace App\Interfaces\Listener;
 
 interface ShouldUpdateAllCompanies
 {
