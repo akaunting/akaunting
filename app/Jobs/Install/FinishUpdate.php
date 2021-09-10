@@ -7,6 +7,7 @@ use App\Interfaces\Update\ShouldUpdateAllCompanies;
 use App\Models\Module\Module;
 use App\Utilities\Console;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 
 class FinishUpdate extends Job
 {
@@ -84,6 +85,10 @@ class FinishUpdate extends Job
         $filesystem = app(Filesystem::class);
 
         $updates_folder = $module->getPath() . '/Listeners/Update';
+
+        if (! File::isDirectory($updates_folder)) {
+            return $listener;
+        }
 
         foreach ($filesystem->allFiles($updates_folder) as $file) {
             $path = str_replace([$module->getPath(), '.php'], '', $file->getPathname());
