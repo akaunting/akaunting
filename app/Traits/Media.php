@@ -44,13 +44,17 @@ trait Media
 
         foreach ($tags as $tag) {
             $attach = [];
+
             foreach ($ids as $id) {
                 $attach[$id] = [
                     'company_id' => company_id(),
+                    'created_from' => source_name(),
+                    'created_by' => user_id(),
                     'tag' => $tag,
                     'order' => ++$increments[$tag],
                 ];
             }
+
             $this->media()->attach($attach);
         }
 
