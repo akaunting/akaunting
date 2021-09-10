@@ -103,7 +103,7 @@ abstract class Model extends Eloquent implements Ownable
      */
     public function scopeCompanyId($query, $company_id)
     {
-        return $query->where($this->getTable() . '.company_id', '=', $company_id);
+        return $query->where($this->qualifyColumn('company_id'), '=', $company_id);
     }
 
     /**
