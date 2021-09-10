@@ -133,7 +133,7 @@ class Contact extends Model
             return $query;
         }
 
-        return $query->whereIn($this->table . '.type', (array) $types);
+        return $query->whereIn($this->qualifyColumn('type'), (array) $types);
     }
 
     /**
@@ -144,7 +144,7 @@ class Contact extends Model
      */
     public function scopeVendor($query)
     {
-        return $query->whereIn($this->table . '.type', (array) $this->getVendorTypes());
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getVendorTypes());
     }
 
     /**
@@ -155,7 +155,7 @@ class Contact extends Model
      */
     public function scopeCustomer($query)
     {
-        return $query->whereIn($this->table . '.type', (array) $this->getCustomerTypes());
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getCustomerTypes());
     }
 
     public function scopeEmail($query, $email)

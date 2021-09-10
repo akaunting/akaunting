@@ -180,7 +180,7 @@ class Currency extends Model
      */
     public function scopeCode($query, $code)
     {
-        return $query->where($this->table . '.code', $code);
+        return $query->where($this->qualifyColumn('code'), $code);
     }
 
     /**

@@ -84,37 +84,37 @@ class Tax extends Model
             return $query;
         }
 
-        return $query->whereIn($this->table . '.type', (array) $types);
+        return $query->whereIn($this->qualifyColumn('type'), (array) $types);
     }
 
     public function scopeFixed($query)
     {
-        return $query->where($this->table . '.type', '=', 'fixed');
+        return $query->where($this->qualifyColumn('type'), '=', 'fixed');
     }
 
     public function scopeNormal($query)
     {
-        return $query->where($this->table . '.type', '=', 'normal');
+        return $query->where($this->qualifyColumn('type'), '=', 'normal');
     }
 
     public function scopeInclusive($query)
     {
-        return $query->where($this->table . '.type', '=', 'inclusive');
+        return $query->where($this->qualifyColumn('type'), '=', 'inclusive');
     }
 
     public function scopeCompound($query)
     {
-        return $query->where($this->table . '.type', '=', 'compound');
+        return $query->where($this->qualifyColumn('type'), '=', 'compound');
     }
 
     public function scopeWithholding($query)
     {
-        return $query->where($this->table . '.type', '=', 'withholding');
+        return $query->where($this->qualifyColumn('type'), '=', 'withholding');
     }
 
     public function scopeNotWithholding($query)
     {
-        return $query->where($this->table . '.type', '<>', 'withholding');
+        return $query->where($this->qualifyColumn('type'), '<>', 'withholding');
     }
 
     /**

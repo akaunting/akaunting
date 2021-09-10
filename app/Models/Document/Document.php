@@ -172,17 +172,17 @@ class Document extends Model
 
     public function scopeType(Builder $query, string $type)
     {
-        return $query->where($this->table . '.type', '=', $type);
+        return $query->where($this->qualifyColumn('type'), '=', $type);
     }
 
     public function scopeInvoice(Builder $query)
     {
-        return $query->where($this->table . '.type', '=', self::INVOICE_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::INVOICE_TYPE);
     }
 
     public function scopeBill(Builder $query)
     {
-        return $query->where($this->table . '.type', '=', self::BILL_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::BILL_TYPE);
     }
 
     /**

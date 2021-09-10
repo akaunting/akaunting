@@ -262,17 +262,17 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function scopeSource($query, $source)
     {
-        return $query->where($this->table . '.created_from', $source);
+        return $query->where($this->qualifyColumn('created_from'), $source);
     }
 
     public function scopeIsOwner($query)
     {
-        return $query->where($this->table . '.created_by', user_id());
+        return $query->where($this->qualifyColumn('created_by'), user_id());
     }
 
     public function scopeIsNotOwner($query)
     {
-        return $query->where($this->table . '.created_by', '<>', user_id());
+        return $query->where($this->qualifyColumn('created_by'), '<>', user_id());
     }
 
     public function ownerKey($owner)

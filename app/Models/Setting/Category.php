@@ -84,7 +84,7 @@ class Category extends Model
             return $query;
         }
 
-        return $query->whereIn($this->table . '.type', (array) $types);
+        return $query->whereIn($this->qualifyColumn('type'), (array) $types);
     }
 
     /**
@@ -95,7 +95,7 @@ class Category extends Model
      */
     public function scopeIncome($query)
     {
-        return $query->where($this->table . '.type', '=', 'income');
+        return $query->where($this->qualifyColumn('type'), '=', 'income');
     }
 
     /**
@@ -106,7 +106,7 @@ class Category extends Model
      */
     public function scopeExpense($query)
     {
-        return $query->where($this->table . '.type', '=', 'expense');
+        return $query->where($this->qualifyColumn('type'), '=', 'expense');
     }
 
     /**
@@ -117,7 +117,7 @@ class Category extends Model
      */
     public function scopeItem($query)
     {
-        return $query->where($this->table . '.type', '=', 'item');
+        return $query->where($this->qualifyColumn('type'), '=', 'item');
     }
 
     /**
@@ -128,7 +128,7 @@ class Category extends Model
      */
     public function scopeOther($query)
     {
-        return $query->where($this->table . '.type', '=', 'other');
+        return $query->where($this->qualifyColumn('type'), '=', 'other');
     }
 
     public function scopeName($query, $name)
