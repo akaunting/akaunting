@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 trait Relationships
 {
-    public function countRelationships($model, $relationships)
+    public function countRelationships($model, $relationships): array
     {
         $record = new \stdClass();
         $record->model = $model;
@@ -36,10 +36,9 @@ trait Relationships
      *
      * @param  $model
      * @param  $relationships
-     *
-     * @return void
+     * @param  $permanently
      */
-    public function deleteRelationships($model, $relationships)
+    public function deleteRelationships($model, $relationships, $permanently = false): void
     {
         $record = new \stdClass();
         $record->model = $model;
@@ -61,8 +60,10 @@ trait Relationships
                 $items[] = $relation;
             }
 
+            $function = $permanently ? 'forceDelete' : 'delete';
+
             foreach ((array) $items as $item) {
-                $item->delete();
+                $item->$function();
             }
         }
     }

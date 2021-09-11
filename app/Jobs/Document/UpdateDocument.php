@@ -38,7 +38,7 @@ class UpdateDocument extends Job implements ShouldUpdate
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['items', 'item_taxes', 'totals']);
+            $this->deleteRelationships($this->model, ['items', 'item_taxes', 'totals'], true);
 
             $this->dispatch(new CreateDocumentItemsAndTotals($this->model, $this->request));
 
