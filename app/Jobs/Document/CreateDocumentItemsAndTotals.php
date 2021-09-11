@@ -174,6 +174,9 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                 $item['global_discount'] = $this->request['discount'];
             }
 
+            $item['created_from'] = $this->request['created_from'];
+            $item['created_by'] = $this->request['created_by'];
+
             if (empty($item['item_id'])) {
                 $new_item_request = [
                     'company_id' => $this->request['company_id'],
@@ -181,6 +184,8 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                     'description' => $item['description'],
                     'sale_price' => $item['price'],
                     'purchase_price' => $item['price'],
+                    'created_from' => $item['created_from'],
+                    'created_by' => $item['created_by'],
                     'enabled' => '1',
                 ];
 
