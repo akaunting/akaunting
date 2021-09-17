@@ -39,11 +39,6 @@ class BillReminder extends Command
         $companies = Company::enabled()->withCount('bills')->cursor();
 
         foreach ($companies as $company) {
-            // Has company bills
-            if (!$company->bills_count) {
-                continue;
-            }
-
             $this->info('Sending bill reminders for ' . $company->name . ' company.');
 
             // Set company

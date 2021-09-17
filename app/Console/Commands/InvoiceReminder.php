@@ -39,11 +39,6 @@ class InvoiceReminder extends Command
         $companies = Company::enabled()->withCount('invoices')->cursor();
 
         foreach ($companies as $company) {
-            // Has company invoices
-            if (!$company->invoices_count) {
-                continue;
-            }
-
             $this->info('Sending invoice reminders for ' . $company->name . ' company.');
 
             // Set company
