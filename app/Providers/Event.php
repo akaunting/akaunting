@@ -111,5 +111,6 @@ class Event extends Provider
         'App\Listeners\Report\AddIncomeExpenseCategories',
         'App\Listeners\Report\AddSearchString',
         'App\Listeners\Report\AddRowsToTax',
+        'App\Listeners\Report\AddBasis',
     ];
 }
