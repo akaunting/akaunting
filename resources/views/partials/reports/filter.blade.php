@@ -10,7 +10,7 @@
             $filtered = [];
 
             $skipped = [
-                'keys', 'names', 'types', 'routes'
+                'keys', 'names', 'types', 'routes', 'defaults'
             ];
 
             foreach ($class->filters as $filter_name => $filter_values) {
@@ -58,6 +58,16 @@
                     $url =  (is_array($route)) ? route($route[0], $route[1]) : route($route);
                 }
 
+                $default_value = null;
+
+                if (isset($class->filters['defaults']) && !empty($class->filters['defaults'][$filter_name])) {
+                    $default_value = $class->filters['defaults'][$filter_name];
+                }
+
+                if ($key == 'year') {
+                    $default_value = \Date::now()->year;
+                }
+
                 $filters[] = [
                     'key' => $key,
                     'value' => $value,
@@ -66,11 +76,11 @@
                     'values' => $filter_values,
                 ];
 
-                if ($key == 'year') {
+                if (!is_null($default_value)) {
                     $filtered[] = [
                         'option' => $key,
                         'operator' => '=',
-                        'value' => \Date::now()->year,
+                        'value' => $default_value,
                     ];
                 }
 
