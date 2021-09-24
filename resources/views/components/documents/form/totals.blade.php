@@ -75,14 +75,14 @@
                                                 </div>
                                             </div>
                                             </div>
-                                        </div>
-                                        <div class="discount card-footer">
-                                            <div class="row float-right">
-                                                <div class="col-xs-12 col-sm-12">
-                                                    <a href="javascript:void(0)" @click="discount = false" class="btn btn-outline-secondary" @click="closePayment">
-                                                        {{ trans('general.cancel') }}
-                                                    </a>
-                                                    {!! Form::button(trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddTotalDiscount', 'class' => 'btn btn-success']) !!}
+                                            <div class="discount card-footer py-3">
+                                                <div class="row float-right">
+                                                    <div class="col-xs-12 col-sm-12">
+                                                        <a href="javascript:void(0)" @click="discount = false" class="btn btn-outline-secondary" @click="closePayment">
+                                                            {{ trans('general.cancel') }}
+                                                        </a>
+                                                        {!! Form::button(trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddTotalDiscount', 'class' => 'btn btn-success']) !!}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
