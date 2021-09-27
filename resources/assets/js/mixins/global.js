@@ -79,6 +79,12 @@ export default {
     },
 
     mounted() {
+        if (this.$root.$refs.searchTemp) {
+            this.$nextTick(() => {
+                this.$root.$refs.searchTemp.hidden = true;
+            })
+        }; //hides the placeholder searchbar after vue component is mounted to page.
+
         this.checkNotify();
 
         if (aka_currency) {
