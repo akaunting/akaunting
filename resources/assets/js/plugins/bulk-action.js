@@ -175,7 +175,15 @@ export default class BulkAction {
         this.show = false;
         this.select_all = false;
         this.selected = [];
+        this.hideSearchHTML();
     }
+
+    hideSearchHTML() {
+        setInterval(() => {
+            const search_box_html = document.querySelector('.js-search-box-hidden');
+            search_box_html.classList.add('d-none');
+        }, 5);
+    };
 
     // Change enabled status
     status(item_id, event, notify) {
