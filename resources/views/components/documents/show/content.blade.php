@@ -116,6 +116,7 @@
         hide-description="{{ $hideDescription }}"
         hide-quantity="{{ $hideQuantity }}"
         hide-price="{{ $hidePrice }}"
+        hide-discount="{{ $hideDiscount }}"
         hide-amount="{{ $hideAmount }}"
         hide-note="{{ $hideNote }}"
         text-items="{{ $textItems }}"
