@@ -18,7 +18,7 @@
 
         {{ Form::textareaGroup('address', trans('general.address')) }}
 
-        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('default.country'), []) }}
+        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('company.country'), []) }}
 
         {{ Form::hidden('type', 'customer') }}
         {!! Form::hidden('enabled', '1', []) !!}

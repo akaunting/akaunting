@@ -97,10 +97,6 @@ class Companies extends Controller
             }
 
             setting()->set($real_key, $value);
-
-            if ($key == 'country') {
-                setting()->set('default.' . $key, $value);
-            }
         }
 
         // Save all settings
