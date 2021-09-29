@@ -39,6 +39,7 @@ export default class BulkAction {
 
         if (!this.count) {
             this.show = false;
+            this.hideSearchHTML();
         }
     }
 
@@ -46,6 +47,7 @@ export default class BulkAction {
     selectAll() {
         this.show = false;
         this.selected = [];
+        this.hideSearchHTML();
 
         if (!this.select_all) {
             this.show = true;
@@ -175,7 +177,17 @@ export default class BulkAction {
         this.show = false;
         this.select_all = false;
         this.selected = [];
+        this.hideSearchHTML();
     }
+
+    hideSearchHTML() {
+        setInterval(() => {
+            const search_box_html = document.querySelector('.js-search-box-hidden');
+            if (search_box_html) {
+                search_box_html.classList.add('d-none');
+            }
+        }, 5);
+    };
 
     // Change enabled status
     status(item_id, event, notify) {
