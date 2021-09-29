@@ -152,6 +152,10 @@ trait Charts
                         };
 
                         const formattedCurrency = function (input, opt = moneySettings) {
+                             if (typeof input === 'number') {
+                                input = input.toFixed(fixed(opt.precision))
+                            }
+
                             function fixed (precision) {
                                 return Math.max(0, Math.min(precision, 20));
                             };
@@ -179,7 +183,7 @@ trait Charts
                             var numbers = toStr(input).replace(/\D+/g, '') || '0';
                             var currency = numbersToCurrency(numbers, opt.precision);
                             var parts = toStr(currency).split('.');
-                            var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm, opt.thousands);
+                            var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm,  ('$1' + opt.thousands));
                             var decimal = parts[1];
 
                             if (opt.isPrefix == 1) {
@@ -204,6 +208,10 @@ trait Charts
                             };
 
                             const formattedCurrency = function (input, opt = moneySettings) {
+                                if (typeof input === 'number') {
+                                    input = input.toFixed(fixed(opt.precision))
+                                }
+
                                 function fixed (precision) {
                                     return Math.max(0, Math.min(precision, 20));
                                 };
@@ -231,7 +239,7 @@ trait Charts
                                 var numbers = toStr(input).replace(/\D+/g, '') || '0';
                                 var currency = numbersToCurrency(numbers, opt.precision);
                                 var parts = toStr(currency).split('.');
-                                var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm, opt.thousands);
+                                var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm,  ('$1' + opt.thousands));
                                 var decimal = parts[1];
 
                                 if (opt.isPrefix == 1) {
