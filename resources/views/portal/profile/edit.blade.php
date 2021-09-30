@@ -28,6 +28,14 @@
 
                 {{ Form::textareaGroup('address', trans('general.address'), [], $user->contact->address) }}
 
+                {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', [], $user->contact->city) }}
+
+                {{ Form::textGroup('zip_code', trans('general.zip_code'), 'mail-bulk', [], $user->contact->zip_code) }}
+
+                {{ Form::textGroup('state', trans('general.state'), 'city', [], $user->contact->state) }}
+
+                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $user->contact->country, []) }}
+
                 {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', []) }}
 
                 {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', []) }}
