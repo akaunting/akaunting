@@ -10,6 +10,8 @@ class IdentifyCompany
 {
     use Users;
 
+    public $request;
+
     /**
      * Handle an incoming request.
      *
@@ -22,16 +24,18 @@ class IdentifyCompany
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        $company_id = $request->isApi()
-                        ? $this->getCompanyIdFromApi($request)
-                        : $this->getCompanyIdFromWeb($request);
+        $this->request = $request;
+
+        $company_id = $this->request->isApi()
+                        ? $this->getCompanyIdFromApi()
+                        : $this->getCompanyIdFromWeb();
 
         if (empty($company_id)) {
             abort(500, 'Missing company');
         }
 
         // Check if user can access company
-        if ($request->isNotSigned($company_id) && $this->isNotUserCompany($company_id)) {
+        if ($this->request->isNotSigned($company_id) && $this->isNotUserCompany($company_id)) {
             throw new AuthenticationException('Unauthenticated.', $guards);
         }
 
@@ -42,21 +46,38 @@ class IdentifyCompany
         config(['filesystems.disks.' . config('filesystems.default') . '.url' => url('/' . $company_id)  . '/uploads']);
 
         // Fix routes
-        app('url')->defaults(['company_id' => $company_id]);
-        $request->route()->forgetParameter('company_id');
+        if ($this->request->isNotApi()) {
+            app('url')->defaults(['company_id' => $company_id]);
+            $this->request->route()->forgetParameter('company_id');
+        }
 
-        return $next($request);
+        return $next($this->request);
     }
 
-    protected function getCompanyIdFromWeb($request)
+    protected function getCompanyIdFromWeb()
     {
-        return (int) $request->route('company_id');
+        return $this->getCompanyIdFromRoute() ?: ($this->getCompanyIdFromQuery() ?: $this->getCompanyIdFromHeader());
     }
 
-    protected function getCompanyIdFromApi($request)
+    protected function getCompanyIdFromApi()
     {
-        $company_id = $request->get('company_id', $request->header('X-Company'));
+        $company_id = $this->getCompanyIdFromQuery() ?: $this->getCompanyIdFromHeader();
 
         return $company_id ?: optional($this->getFirstCompanyOfUser())->id;
+    }
+
+    protected function getCompanyIdFromRoute()
+    {
+        return (int) $this->request->route('company_id');
+    }
+
+    protected function getCompanyIdFromQuery()
+    {
+        return (int) $this->request->query('company_id');
+    }
+
+    protected function getCompanyIdFromHeader()
+    {
+        return (int) $this->request->header('X-Company');
     }
 }
