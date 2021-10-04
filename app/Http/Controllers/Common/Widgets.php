@@ -25,6 +25,16 @@ class Widgets extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('dashboard');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  $request
