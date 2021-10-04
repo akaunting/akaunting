@@ -48,6 +48,16 @@ class Currencies extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('wizard.currencies.index');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Request  $request

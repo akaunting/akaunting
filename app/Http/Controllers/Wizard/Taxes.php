@@ -36,6 +36,16 @@ class Taxes extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('wizard.taxes.index');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
