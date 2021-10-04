@@ -86,7 +86,7 @@
 
                         <div class="col-6">
                             <base-input :label="translations.company.country">
-                                <el-select name="country" v-model="company.country" filterable>
+                                <el-select v-model="company.country" filterable>
                                     <template slot="prefix">
                                         <span class="el-input__suffix-inner el-select-icon">
                                             <i :class="'select-icon-position el-input__icon fas fa-globe-americas'"></i>
@@ -101,6 +101,8 @@
                                     </el-option>
                                 </el-select>
                             </base-input>
+
+                            <input name="country" type="hidden" class="d-none" v-model="company.country"></input>
                         </div>
 
                         <div class="col-6 mb-0">
