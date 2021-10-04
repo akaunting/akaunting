@@ -26,7 +26,7 @@ return [
 
     'ALL' => [
         'name'                => 'Lek',
-        'code'                => 8,
+        'code'                => 8
         'precision'           => 2,
         'subunit'             => 100,
         'symbol'              => 'L',
@@ -1635,8 +1635,8 @@ return [
         'code'                => 860,
         'precision'           => 2,
         'subunit'             => 100,
-        'symbol'              => null,
-        'symbol_first'        => false,
+        'symbol'              => 'лв',
+        'symbol_first'        => true,
         'decimal_mark'        => '.',
         'thousands_separator' => ',',
     ],
