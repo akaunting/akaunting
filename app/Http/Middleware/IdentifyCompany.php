@@ -40,7 +40,13 @@ class IdentifyCompany
         }
 
         // Set company as current
-        company($company_id)->makeCurrent();
+        $company = company($company_id);
+
+        if (empty($company)) {
+            abort(500, 'Company not found');
+        }
+
+        $company->makeCurrent();
 
         // Fix file/folder paths
         config(['filesystems.disks.' . config('filesystems.default') . '.url' => url('/' . $company_id)  . '/uploads']);
