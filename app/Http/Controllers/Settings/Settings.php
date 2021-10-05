@@ -128,6 +128,12 @@ class Settings extends Controller
             }
 
             if ($real_key == 'default.currency') {
+                $currencies = Currency::enabled()->pluck('code')->toArray();
+
+                if (!in_array($value, $currencies)) {
+                    continue;
+                }
+
                 $currency = Currency::code($value)->first();
                 $currency->rate = '1';
                 $currency->save();
