@@ -26,7 +26,13 @@ class Overrider
     protected static function loadSettings()
     {
         // Timezone
-        config(['app.timezone' => setting('localisation.timezone', 'UTC')]);
+        $timezone = setting('localisation.timezone');
+
+        if (empty($timezone)) {
+            $timezone = config('setting.fallback.localisation.timezone')
+        }
+
+        config(['app.timezone' => $timezone]);
         date_default_timezone_set(config('app.timezone'));
 
         // Email
