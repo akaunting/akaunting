@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Common;
+namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;

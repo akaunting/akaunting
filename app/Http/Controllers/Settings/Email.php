@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
+use App\Jobs\Setting\UpdateEmailTemplate;
 use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
 use App\Utilities\Installer;
@@ -106,10 +107,10 @@ class Email extends Controller
 
         $template = EmailTemplate::alias($alias)->first();
 
-        $template->update([
+        $this->dispatch(new UpdateEmailTemplate($template, [
             'subject' => $fields[$subject_key],
             'body' => $fields[$body_key],
-        ]);
+        ]));
 
         unset($fields[$subject_key]);
         unset($fields[$body_key]);
