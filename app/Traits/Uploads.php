@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Common\Media as MediaModel;
 use App\Utilities\Date;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use MediaUploader;
 
 trait Uploads
@@ -19,6 +20,8 @@ trait Uploads
 
         $path = $this->getMediaFolder($folder, $company_id);
 
+        $file_name = $this->getMediaFileName($file);
+
         return MediaUploader::makePrivate()
                             ->beforeSave(function(MediaModel $media) {
                                 $media->company_id = company_id();
@@ -27,6 +30,7 @@ trait Uploads
                             })
                             ->fromSource($file)
                             ->toDirectory($path)
+                            ->useFilename($file_name)
                             ->upload();
     }
 
@@ -128,5 +132,38 @@ trait Uploads
     public function isLocalStorage()
     {
         return config('filesystems.disks.' . config('filesystems.default') . '.driver') == 'local';
+    }
+
+    public function getMediaFileName($file): string
+    {
+        $file_name = $this->filename($file);
+
+        if (Str::length($file_name) > '110') {
+            $file_name = Str::limit($file_name, 110);
+        }
+
+        return $file_name . '.' . $this->extension($file);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filename($file): string
+    {
+        return pathinfo((string)$file->getClientOriginalName(), PATHINFO_FILENAME);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function extension($file): string
+    {
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension) {
+            return $extension;
+        }
+
+        return (string)$file->guessExtension();
     }
 }
