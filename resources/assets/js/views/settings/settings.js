@@ -103,6 +103,16 @@ const app = new Vue({
 
             this.invoice_form = new Form('template');
 
+            let skips = [
+                '_method', '_prefix', '_token', 'action', 'errors', 'loading', 'method', 'response'
+            ];
+
+            for (const [key, value] of Object.entries(this.form)) {
+                if (!skips.includes(key)) {
+                    this.invoice_form[key] = value;
+                }
+            }
+
             this.invoice_form.template = this.invoice_form._template;
         },
 
