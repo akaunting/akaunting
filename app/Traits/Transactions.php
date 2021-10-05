@@ -9,14 +9,14 @@ trait Transactions
 {
     public function isIncome()
     {
-        $type = $this->type ?? $this->transaction->type ?? 'income';
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? 'income';
 
         return in_array($type, $this->getIncomeTypes());
     }
 
     public function isExpense()
     {
-        $type = $this->type ?? $this->transaction->type ?? 'expense';
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? 'expense';
 
         return in_array($type, $this->getExpenseTypes());
     }

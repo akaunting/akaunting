@@ -6,14 +6,14 @@ trait Contacts
 {
     public function isCustomer()
     {
-        $type = $this->type ?? $this->contact->type ?? 'customer';
+        $type = $this->type ?? $this->contact->type ?? $this->model->type ?? 'customer';
 
         return in_array($type, $this->getCustomerTypes());
     }
 
     public function isVendor()
     {
-        $type = $this->type ?? $this->contact->type ?? 'vendor';
+        $type = $this->type ?? $this->contact->type ?? $this->model->type ?? 'vendor';
 
         return in_array($type, $this->getVendorTypes());
     }
