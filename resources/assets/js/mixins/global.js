@@ -364,6 +364,33 @@ export default {
             });
         },
 
+        onDynamicFormParams(path, params) {
+            let data = {};
+
+            for (const [key, value] of Object.entries(params)) {
+                data[key] = eval(value);
+            }
+
+            axios.get(path, {
+                params: data
+            }).then(response => {
+                if (response.data.data) {
+                    let rows = response.data.data;
+
+                    if (!Array.isArray(rows)) {
+                        for (const [key, value] of Object.entries(rows)) {
+                            this.form[key] = value;
+                        }
+                    } else {
+                        rows.forEach(function (key, index) {
+                            this.form[index] = key;
+                        }, this);
+                    }
+                }
+            }).catch(error => {
+            });
+        },
+
         // Delete attachment file
         onDeleteFile(file_id, url, title, message, button_cancel, button_delete) {
             let file_data = {
@@ -450,6 +477,6 @@ export default {
             let currency_code = (contact.currency_code) ? contact.currency_code : this.form.currency_code;
 
             this.onChangeCurrency(currency_code);
-        }
+        },
     }
 }

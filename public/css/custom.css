@@ -1740,8 +1740,8 @@ table .align-items-center td span.badge {
 
 .input-number-disabled::-webkit-inner-spin-button,
 .input-number-disabled::-webkit-outer-spin-button {
-    -webkit-appearance: none; 
-    margin: 0; 
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .input-number-disabled {
@@ -1749,3 +1749,13 @@ table .align-items-center td span.badge {
 }
 
 /* Disable default html styling for input[type="number] Finish */
+
+.remove-arrow-select .el-input__inner {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: auto !important;
+}
+
+.remove-arrow-select .el-select__caret {
+    display: none;
+}
