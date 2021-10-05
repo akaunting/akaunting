@@ -58,9 +58,10 @@
                                 </label>
                             @else
                                 {{ Form::checkbox('create_user', '1', null, [
+                                    'v-model' => 'form.create_user',
                                     'id' => 'create_user',
                                     'class' => 'custom-control-input',
-                                    'v-on:input' => 'onCanLogin($event)'
+                                    '@input' => 'onCanLogin($event)'
                                 ]) }}
 
                                 <label class="custom-control-label" for="create_user">
@@ -94,5 +95,12 @@
 @endsection
 
 @push('scripts_start')
+    <script>
+        var can_login_errors = {
+            valid: '{!! trans('validation.required', ['attribute' => 'email']) !!}',
+            email: '{{ trans('customers.error.email') }}'
+        };
+    </script>
+
     <script src="{{ asset('public/js/sales/customers.js?v=' . version('short')) }}"></script>
 @endpush
