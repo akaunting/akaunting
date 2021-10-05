@@ -40,7 +40,9 @@ class TaxSummary extends Report
 
     public function setData()
     {
-        switch ($this->getSetting('basis')) {
+        $basis = $this->getSearchStringValue('basis', $this->getSetting('basis'));
+
+        switch ($basis) {
             case 'cash':
                 // Invoice Payments
                 $invoices = $this->applyFilters(Transaction::with('recurring', 'invoice', 'invoice.totals')->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();

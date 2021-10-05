@@ -32,7 +32,9 @@ class IncomeSummary extends Report
     {
         $transactions = $this->applyFilters(Transaction::with('recurring')->income()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        switch ($this->getSetting('basis')) {
+        $basis = $this->getSearchStringValue('basis', $this->getSetting('basis'));
+
+        switch ($basis) {
             case 'cash':
                 // Revenues
                 $revenues = $transactions->get();

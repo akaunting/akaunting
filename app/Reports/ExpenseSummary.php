@@ -32,7 +32,9 @@ class ExpenseSummary extends Report
     {
         $transactions = $this->applyFilters(Transaction::with('recurring')->expense()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        switch ($this->getSetting('basis')) {
+        $basis = $this->getSearchStringValue('basis', $this->getSetting('basis'));
+
+        switch ($basis) {
             case 'cash':
                 // Payments
                 $payments = $transactions->get();

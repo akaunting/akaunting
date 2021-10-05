@@ -114,6 +114,14 @@ abstract class Report
         return $model->pluck('name', 'id')->toArray();
     }
 
+    public function getBasis()
+    {
+        return [
+            'cash' => trans('general.cash'),
+            'accrual' => trans('general.accrual'),
+        ];
+    }
+
     public function applyDateFilter($event)
     {
         $event->model->monthsOfYear($event->args['date_field']);
@@ -126,6 +134,10 @@ abstract class Report
         // Remove year as it's handled based on financial start
         $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);
         $input = str_replace($search_year, '', $input);
+
+        // Remove basis as it's handled based on report itself
+        $search_basis = 'basis:' . $this->getSearchStringValue('basis', 'accrual', $input);
+        $input = str_replace($search_basis, '', $input);
 
         $event->model->usingSearchString($input);
     }
