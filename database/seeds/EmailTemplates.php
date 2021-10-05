@@ -3,7 +3,7 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Jobs\Common\CreateEmailTemplate;
+use App\Jobs\Setting\CreateEmailTemplate;
 use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
