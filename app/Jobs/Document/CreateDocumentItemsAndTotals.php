@@ -11,6 +11,7 @@ use App\Models\Document\Document;
 use App\Models\Document\DocumentTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use Illuminate\Support\Str;
 
 class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, ShouldCreate
 {
@@ -99,7 +100,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                     'type' => $this->document->type,
                     'document_id' => $this->document->id,
                     'code' => 'tax',
-                    'name' => $tax['name'],
+                    'name' => Str::ucfirst($tax['name']),
                     'amount' => round(abs($tax['amount']), $precision),
                     'sort_order' => $sort_order,
                     'created_from' => $this->request['created_from'],
