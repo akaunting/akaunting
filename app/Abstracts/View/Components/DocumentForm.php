@@ -250,7 +250,7 @@ abstract class DocumentForm extends Base
         $this->document = $document;
         $this->currencies = $this->getCurrencies($currencies);
         $this->currency = $this->getCurrency($document, $currency, $currency_code);
-        $this->currency_code = $this->currency->code;
+        $this->currency_code = !empty($this->currency) ? $this->currency->code : setting('default.currency');
 
         /** Advanced Component Start */
         $this->categoryType = $this->getCategoryType($type, $categoryType);
@@ -348,14 +348,18 @@ abstract class DocumentForm extends Base
         }
 
         if (!empty($currency_code)) {
-            return Currency::where('code', $currency_code)->first();
+            $currency = Currency::where('code', $currency_code)->first();
         }
 
-        if (!empty($document)) {
-            return Currency::where('code', $document->currency_code)->first();
+        if (empty($currency) && !empty($document)) {
+            $currency = Currency::where('code', $document->currency_code)->first();
         }
 
-        return Currency::where('code', setting('default.currency'))->first();
+        if (empty($currency)) {
+            $currency = Currency::where('code', setting('default.currency'))->first();
+        }
+
+        return $currency;
     }
 
     protected function getRouteStore($type, $routeStore)
