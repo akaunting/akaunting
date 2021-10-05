@@ -29,7 +29,7 @@ class Overrider
         $timezone = setting('localisation.timezone');
 
         if (empty($timezone)) {
-            $timezone = config('setting.fallback.localisation.timezone')
+            $timezone = config('setting.fallback.localisation.timezone');
         }
 
         config(['app.timezone' => $timezone]);
