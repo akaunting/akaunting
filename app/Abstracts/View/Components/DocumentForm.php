@@ -285,7 +285,7 @@ abstract class DocumentForm extends Base
         /** Content Component End */
 
         /** Metadata Component Start */
-        $this->contacts = $this->getContacts($type, $contacts);
+        $this->contacts = $this->getContacts($type, $document, $contacts);
         $this->contact = $this->getContact($contact, $document);
         $this->contactType = $this->getContactType($type, $contactType);
 
@@ -442,7 +442,7 @@ abstract class DocumentForm extends Base
         return 'general.recurring_and_more';
     }
 
-    protected function getContacts($type, $contacts)
+    protected function getContacts($type, $document, $contacts)
     {
         if (!empty($contacts)) {
             return $contacts;
@@ -454,6 +454,10 @@ abstract class DocumentForm extends Base
             $contacts = Contact::$contact_type()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
         } else {
             $contacts = Contact::enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        }
+
+        if (!empty($document) && ($document->contact && !$contacts->has($document->contact_id))) {
+            $contacts->put($document->contact->id, $document->contact->name);
         }
 
         return $contacts;

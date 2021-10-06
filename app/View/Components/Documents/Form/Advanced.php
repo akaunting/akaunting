@@ -22,6 +22,10 @@ class Advanced extends Component
             $categories = Category::enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
         }
 
+        if (!empty($this->document) && ($this->document->category && !$categories->has($this->document->category_id))) {
+            $categories->put($this->document->category->id, $this->document->category->name);
+        }
+
         $recurring_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
         $more_class = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
         $more_form_class = 'col-md-12'; 

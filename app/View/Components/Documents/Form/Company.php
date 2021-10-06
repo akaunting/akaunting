@@ -18,6 +18,6 @@ class Company extends Component
 
         $inputNameType = config('type.' . $this->type . '.route.parameter');
 
-        return view('components.documents.form.company', compact('company','inputNameType'));
+        return view('components.documents.form.company', compact('company', 'inputNameType'));
     }
 }
