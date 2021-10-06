@@ -29,7 +29,7 @@
 
                 {{ Form::textGroup('website', trans('general.website'), 'globe',[]) }}
 
-                {{ Form::textareaGroup('address', trans('general.address')) }}
+                {{ Form::textareaGroup('address', trans('general.address'), '', $customer->address, ['rows' => '2', 'v-model' => 'form.address']) }}
 
                 {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', []) }}
 
@@ -37,7 +37,7 @@
 
                 {{ Form::textGroup('state', trans('general.state'), 'city', []) }}
 
-                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, []) }}
+                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, ['model' => 'form.country']) }}
 
                 {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 

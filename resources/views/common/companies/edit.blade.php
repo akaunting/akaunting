@@ -30,7 +30,7 @@
 
                     {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], $company->phone) }}
 
-                    {{ Form::textareaGroup('address', trans('general.address')) }}
+                    {{ Form::textareaGroup('address', trans('general.address'), '', $company->address, ['rows' => '2', 'v-model' => 'form.address']) }}
 
                     {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', []) }}
 
@@ -38,7 +38,7 @@
 
                     {{ Form::textGroup('state', trans('general.state'), 'city', []) }}
 
-                    {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $company->country, []) }}
+                    {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $company->country, ['model' => 'form.country']) }}
 
                     {{ Form::fileGroup('logo', trans('companies.logo'), '', ['dropzone-class' => 'form-file'], $company->company_logo) }}
 
