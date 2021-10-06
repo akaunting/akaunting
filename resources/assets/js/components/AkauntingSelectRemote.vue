@@ -432,18 +432,13 @@ export default {
     mounted() {
         // Check Here..
         this.selected = this.value;
+        const optionsKey = Object.keys(this.options);
 
-        if (this.model.length) {
-            try {
-                if (eval(this.model) !== undefined) {
-                    this.selected = eval(this.model);
-                } else {
-                    this.selected = this.model;
-                }
-            } catch (e) {
-                this.selected = this.model;
-            }
-            
+        if(optionsKey.includes(this.value)) {
+           this.selected = this.value;
+           this.model = this.value;
+        } else { 
+            this.selected = [];
         }
 
         if (this.multiple && !this.selected.length) {
