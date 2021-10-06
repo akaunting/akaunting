@@ -36,11 +36,11 @@ class InvoiceReminder extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all companies
-        $companies = Company::enabled()->withCount('invoices')->cursor();
+        $companies = Company::enabled()->with('invoices')->cursor();
 
         foreach ($companies as $company) {
             // Has company invoices
-            if (!$company->invoices_count) {
+            if (!$company->invoices->count()) {
                 continue;
             }
 

@@ -36,11 +36,11 @@ class BillReminder extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all companies
-        $companies = Company::enabled()->withCount('bills')->cursor();
+        $companies = Company::enabled()->with('bills')->cursor();
 
         foreach ($companies as $company) {
             // Has company bills
-            if (!$company->bills_count) {
+            if (!$company->bills->count()) {
                 continue;
             }
 
