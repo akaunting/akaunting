@@ -434,8 +434,19 @@ export default {
         this.selected = this.value;
         const optionsKey = Object.keys(this.options);
 
-        if(optionsKey.includes(this.value)) {
-           this.selected = this.value;
+        if (this.model.length) {
+            try {
+                if (eval(this.model) !== undefined) {
+                    this.selected = eval(this.model);
+                } else {
+                    this.selected = this.model;
+                }
+            } catch (e) {
+                this.selected = this.model;
+            }
+        }
+
+        if (optionsKey.includes(this.value)) {
            this.model = this.value;
         } else { 
             this.selected = [];
