@@ -30,7 +30,7 @@
 
                     {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], $company->phone) }}
 
-                    {{ Form::textareaGroup('address', trans('general.address')) }}
+                    {{ Form::textareaGroup('address', trans('general.address'), '', $company->address, ['rows' => '2', 'v-model' => 'form.address']) }}
 
                     {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', []) }}
 

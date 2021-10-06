@@ -29,7 +29,7 @@
 
                     {{ Form::textGroup('website', trans('general.website'), 'globe', []) }}
 
-                    {{ Form::textareaGroup('address', trans('general.address')) }}
+                    {{ Form::textareaGroup('address', trans('general.address'), '', '', ['rows' => '2', 'v-model' => 'form.address']) }}
 
                     {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', []) }}
 
