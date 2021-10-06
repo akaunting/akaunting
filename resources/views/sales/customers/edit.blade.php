@@ -37,7 +37,7 @@
 
                 {{ Form::textGroup('state', trans('general.state'), 'city', []) }}
 
-                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, []) }}
+                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, ['model' => 'form.country']) }}
 
                 {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 

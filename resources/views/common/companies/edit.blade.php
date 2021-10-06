@@ -38,7 +38,7 @@
 
                     {{ Form::textGroup('state', trans('general.state'), 'city', []) }}
 
-                    {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $company->country, []) }}
+                    {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $company->country, ['model' => 'form.country']) }}
 
                     {{ Form::fileGroup('logo', trans('companies.logo'), '', ['dropzone-class' => 'form-file'], $company->company_logo) }}
 
