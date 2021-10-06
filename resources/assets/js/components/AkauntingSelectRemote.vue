@@ -446,7 +446,7 @@ export default {
             }
         }
 
-        if (optionsKey.includes(this.value)) {
+        if (optionsKey.includes(this.value) && !this.multiple) {
            this.model = this.value;
         } else { 
             this.selected = [];
