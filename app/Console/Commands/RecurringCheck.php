@@ -40,7 +40,7 @@ class RecurringCheck extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all recurring
-        $recurring = Recurring::allCompanies()->with('company')->cursor();
+        $recurring = Recurring::allCompanies()->with('company')->get();
 
         $this->info('Creating recurring records ' . $recurring->count());
 
@@ -111,6 +111,11 @@ class RecurringCheck extends Command
             // Recur all schedules, previously failed
             foreach ($schedules as $schedule) {
                 $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
+
+                // Don't recur the future
+                if ($schedule_date->greaterThan($today)) {
+                    continue;
+                }
 
                 $this->recur($model, $recur->recurable_type, $schedule_date);
             }
