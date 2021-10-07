@@ -47,6 +47,16 @@ class DeleteCategory extends Job implements ShouldDelete
             'transactions' => 'transactions',
         ];
 
-        return $this->countRelationships($this->model, $rels);
+        $relationships = $this->countRelationships($this->model, $rels);
+
+        if ($this->model->id == setting('default.income_category')) {
+            $relationships[] = strtolower(trans_choice('general.incomes', 1));
+        }
+
+        if ($this->model->id == setting('default.expense_category')) {
+            $relationships[] = strtolower(trans_choice('general.incomes', 1));
+        }
+
+        return $relationships;
     }
 }
