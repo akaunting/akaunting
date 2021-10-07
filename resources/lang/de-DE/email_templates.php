@@ -47,4 +47,13 @@ return [
         'body'          => 'Hallo,<br /><br /> Basierend auf {vendor_name} wiederkehrenden Kreis, <strong>{bill_number}</strong> Rechnung wurde automatisch erstellt.<br /><br />Sie können die Details der Rechnung unter folgendem Link sehen: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Beste Grüße,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} Zahlung erstellt',
+        'body'          => 'Hallo {customer_name},<br /><br />Wir haben die folgende Zahlung vorbereitet. <br /><br />Die Zahlungsdetails können Sie dem folgenden Link entnehmen: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Bei Fragen stehen wir Ihnen gerne zur Verfügung<br /><br />Mit freundlichen Grüßen<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} Zahlung erstellt',
+        'body'          => 'Hallo {vendor_name},<br /><br />Wir haben die folgende Zahlung vorbereitet. <br /><br />Die Zahlungsdetails können Sie dem folgenden Link entnehmen: <a href="{payment_admin_link}">{payment_date}</a><br /><br />Bei Fragen stehen wir Ihnen gerne zur Verfügung<br /><br />Mit freundlichen Grüßen<br />{company_name}',
+    ],
 ];

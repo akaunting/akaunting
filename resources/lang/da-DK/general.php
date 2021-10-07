@@ -9,7 +9,7 @@ return [
     'revenues'              => 'Indtægt|Indtægter',
     'customers'             => 'Kunde|Kunder',
     'expenses'              => 'Udgift|Udgifter',
-    'bills'                 => 'Køb|Køb',
+    'bills'                 => 'Regning|Regninger',
     'payments'              => 'Betaling|Betalinger',
     'vendors'               => 'Kreditor|Kreditorer',
     'accounts'              => 'Konto|Konti',

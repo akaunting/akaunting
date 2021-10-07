@@ -6,14 +6,14 @@ return [
     'hello'               => 'Merhaba!',
     'salutation'          => 'Saygılar,<br> :company_name',
     'subcopy'             => '":text" butonuna tıklayamıyorsanız, aşağıdaki bağlantıyı kopyalayıp tarayıcıya yapıştırın: [:url](:url)',
-    'reads'               => 'Okuma|Okunma',
+    'reads'               => 'Okunma|Okunma',
     'read_all'            => 'Hepsini Oku',
-    'mark_read'           => 'Okundu Olarak İşaretle',
-    'mark_read_all'       => 'Tümünü Oku İşaretle',
+    'mark_read'           => 'Okundu İşaretle',
+    'mark_read_all'       => 'Hepsini Okundu İşaretle',
     'new_apps'            => 'Yeni Uygulama|Yeni Uygulamalar',
     'upcoming_bills'      => 'Yaklaşan Faturalar',
-    'recurring_invoices'  => 'Yinelenen Faturalar',
-    'recurring_bills'     => 'Yinelenen Faturalar',
+    'recurring_invoices'  => 'Tekrarlanan Faturalar',
+    'recurring_bills'     => 'Tekrarlanan Faturalar',
 
     'update' => [
 

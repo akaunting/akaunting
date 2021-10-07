@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Salg|Salg',
     'purchases'             => 'Kjøp|Kjøp',
     'notifications'         => 'Varsel|Varsler',
+    'countries'             => 'Land|Land',
+    'cities'                => 'By|Byer ',
 
     'welcome'               => 'Velkommen',
     'banking'               => 'Bank',
@@ -73,6 +75,7 @@ return [
     'add_new'               => 'Legg til ny',
     'add_income'            => 'Legg til inntekt',
     'add_expense'           => 'Legg til utgift',
+    'add_transfer'          => 'Legg til overføring',
     'show'                  => 'Vis',
     'edit'                  => 'Endre',
     'delete'                => 'Slett',
@@ -163,6 +166,8 @@ return [
     'amount_due'            => 'Forfalt beløp',
     'financial_year'        => 'Regnskapsår',
     'created'               => 'Opprettet',
+    'state'                 => 'Provins / Delstat',
+    'zip_code'              => 'Postnr / Zip Code',
 
     'card' => [
         'cards'                 => 'Kort|Kort',

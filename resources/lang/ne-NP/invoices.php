@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'चलानी नम्बर',
     'invoice_date'          => 'चलानी मिति',
+    'invoice_amount'        => 'बीजक रकम',
     'total_price'           => 'जम्मा रकम',
     'due_date'              => 'बक्यौता मिति',
     'order_number'          => 'माग सङ्ख्या',

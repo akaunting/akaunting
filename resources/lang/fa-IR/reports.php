@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'سال|سال‌ها',
     'this_year'             => 'امسال',
     'previous_year'         => 'سال قبل',
     'this_quarter'          => 'سه ماه',

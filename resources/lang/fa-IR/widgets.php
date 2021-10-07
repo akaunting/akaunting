@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'ارزها',
     'total_income'              => 'کل درآمد',
     'receivables'               => 'دریافتنی',
     'open_invoices'             => 'فاکتورهای باز',

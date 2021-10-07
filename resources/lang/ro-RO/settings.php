@@ -77,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Alege șablonul pentru transfer ',
+        'second'            => 'Al doilea',
+        'third'             => 'Al treilea',
+    ],
+
     'default' => [
         'description'       => 'Contul implicit, moneda, limba companiei dvs.',
         'list_limit'        => 'Înregistrări pe pagină',
@@ -115,6 +121,7 @@ return [
             'invoice_payment_admin'     => 'Șablon plată primită (trimis către administrator)',
             'bill_remind_admin'         => 'Șablon memento factură (trimis administratorului)',
             'bill_recur_admin'          => 'Șablon memento factură (trimis administratorului)',
+            'revenue_new_customer'      => 'Șablon  plată primită (trimis clientului)',
         ],
     ],
 

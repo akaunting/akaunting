@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Bedrijfsnaam, e-mail, adres, belastingnummer etc. wijzigen',
-        'name'              => 'Naam',
-        'email'             => 'E-mail',
-        'phone'             => 'Telefoonnummer',
-        'address'           => 'Adres',
-        'logo'              => 'Logo',
+        'description'                => 'Bedrijfsnaam, e-mail, adres, belastingnummer etc. wijzigen',
+        'name'                       => 'Naam',
+        'email'                      => 'E-mail',
+        'phone'                      => 'Telefoonnummer',
+        'address'                    => 'Adres',
+        'edit_your_business_address' => 'Bewerk uw bedrijfsadres',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Stel fiscaal jaar, tijdzone, datumnotatie en meer lokale instellingen in.',
         'financial_start'   => 'Start financieel boekjaar',
         'timezone'          => 'Tijdzone',
+        'financial_denote' => [
+            'title'         => 'Fiscale jaarweergave',
+            'begins'        => 'In het jaar waarin het financieel boekjaar begint',
+            'ends'          => 'In het jaar waarin het financieel boekjaar eindigt',
+        ],
         'date' => [
             'format'        => 'Datum formaat',
             'separator'     => 'Datumscheidingsteken',
@@ -44,8 +50,8 @@ return [
         'next'              => 'Volgende nummer',
         'logo'              => 'Logo',
         'custom'            => 'Aangepast',
-        'item_name'         => 'Item Naam',
-        'item'              => 'Artikel|Artikelen',
+        'item_name'         => 'Artikel Naam',
+        'item'              => 'Artikelen',
         'product'           => 'Producten',
         'service'           => 'Diensten',
         'price_name'        => 'Prijs label',
@@ -62,12 +68,27 @@ return [
         'default'           => 'Standaard',
         'classic'           => 'Klassiek',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Naam artikel/dienst verbergen',
+            'item_description'  => 'Omschrijving artikel/dienst verbergen',
+            'quantity'          => 'Hoeveelheid verbergen',
+            'price'             => 'Prijs verbergen',
+            'amount'            => 'Bedrag verbergen',
+        ],
+    ],
+
+    'transfer' => [
+        'choose_template'   => 'Kies het overdrachtssjabloon',
+        'second'            => 'Tweede',
+        'third'             => 'Derde',
     ],
 
     'default' => [
         'description'       => 'Standaard rekening, valuta, taal van uw bedrijf',
         'list_limit'        => 'Resultaten per pagina',
         'use_gravatar'      => 'Gebruik Gravatar',
+        'income_category'   => 'Inkomenscategorie',
+        'expense_category'  => 'Onkostencategorie',
     ],
 
     'email' => [
@@ -93,13 +114,14 @@ return [
             'tags'                      => '<strong>Beschikbare tags:</strong> :tag_list',
             'invoice_new_customer'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
             'invoice_remind_customer'   => 'Nieuw factuursjabloon (verzonden naar de klant)',
-            'invoice_remind_admin'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
-            'invoice_recur_customer'    => 'Nieuw factuursjabloon (verzonden naar de klant)',
-            'invoice_recur_admin'       => 'Nieuw factuursjabloon (verzonden naar de klant)',
-            'invoice_payment_customer'  => 'Betaling ontvangen sjabloom (verzonden naar de klant)',
+            'invoice_remind_admin'      => 'Factuurherinneringssjabloon (verzonden naar beheerder)',
+            'invoice_recur_customer'    => 'Terugkerende factuursjabloon (verzonden naar klant)',
+            'invoice_recur_admin'       => 'Terugkerende factuursjabloon (verzonden naar admin)',
+            'invoice_payment_customer'  => 'Betaling ontvangen sjabloon (verzonden naar de klant)',
             'invoice_payment_admin'     => 'Betaling ontvangen sjabloon (verzonden naar admin)',
-            'bill_remind_admin'         => 'Betalingsherinnering Template (verzonden naar admin) ',
-            'bill_recur_admin'          => 'Abonnementsfactuur sjabloon (verzonden naar admin)',
+            'bill_remind_admin'         => 'Sjabloon voor onkostenfactuur (verzonden naar beheerder)',
+            'bill_recur_admin'          => 'Sjabloon voor terugkerende onkostenfactuur (verzonden naar beheerder)',
+            'revenue_new_customer'      => 'Inkomstenbevestigingssjabloon (verzonden naar klant)',
         ],
     ],
 

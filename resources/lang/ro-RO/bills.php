@@ -2,8 +2,9 @@
 
 return [
 
-    'bill_number'           => 'Numarul facturii',
+    'bill_number'           => 'Numărul facturii',
     'bill_date'             => 'Data facturii',
+    'bill_amount'           => 'Suma facturată',
     'total_price'           => 'Preț total',
     'due_date'              => 'Scadența',
     'order_number'          => 'Număr de comandă',

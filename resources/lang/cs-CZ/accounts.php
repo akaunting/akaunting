@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Telefon do banky',
     'bank_address'          => 'Adresa banky',
     'default_account'       => 'Výchozí účet',
+    'incoming'              => 'Příchozí',
+    'outgoing'              => 'Odchozí',
+    'see_performance'       => 'Zobrazit výkonnost',
+    'create_report'         => 'Pokud chcete zobrazit výkonnost účtu, vytvořte sestavu instance Příjem vs. Náklady.',
 
 ];

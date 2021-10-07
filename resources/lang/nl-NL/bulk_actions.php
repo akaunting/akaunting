@@ -16,6 +16,8 @@ return [
         'sent'          => 'Weet u zeker dat u de geselecteerde factuur als <b>verzonden</b> wilt markeren?|Weet u zeker dat u de geselecteerde facturen als <b>verzonden</b> wilt markeren?',
         'received'      => 'Weet u zeker dat u de geselecteerde rekening als <b>ontvangen</b> wilt markeren?|Weet u zeker dat u de geselecteerde rekeningen als <b>ontvangen</b> wilt markeren?',
         'cancelled'     => 'Weet u zeker dat u het geselecteerde record wilt <b>annuleren</b>?|Weet u zeker dat u de geselecteerde records wilt <b>annuleren</b>?',
+        'reconcile'     => 'Weet u zeker dat u het geselecteerde record wilt <b>afstemmen</b>?|Weet u zeker dat u de geselecteerde records wilt <b>afstemmen</b>?',
+        'unreconcile'   => 'Weet u zeker dat u het geselecteerde record wilt <b>de-afstemmen</b>?|Weet u zeker dat u de geselecteerde records wilt <b>de-afstemmen</b>?',
     ],
 
 ];

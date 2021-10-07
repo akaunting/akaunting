@@ -47,4 +47,13 @@ return [
         'body'          => 'Hallo,<br /><br />gebaseerd op {vendor_name} terugkerende betalingen, is rekening <strong>{bill_number}</strong>  automatisch aangemaakt.<br /><br />Je kunt de rekeninggegevens bekijken via de volgende link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Met vriendelijke groeten,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => 'Betaling met {revenue_date} aangemaakt',
+        'body'          => 'Geachte {customer_name},<br /><br />We hebben de volgende betaling aangemaakt. <br /><br />U kunt de betalingsgegevens bekijken via de volgende link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Neem gerust contact met ons op met eventuele vragen.<br /><br />Met vriendelijke groet.<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => 'Betaling met {revenue_date} aangemaakt',
+        'body'          => 'Geachte {vendor_name},<br /><br />We hebben de volgende betaling aangemaakt. <br /><br />U kunt de betalingsgegevens bekijken via de volgende link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Neem gerust contact met ons op met eventuele vragen.<br /><br />Met vriendelijke groet.<br />{company_name}',
+    ],
 ];
