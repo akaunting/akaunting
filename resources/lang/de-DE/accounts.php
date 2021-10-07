@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Bank Telefonnummer',
     'bank_address'          => 'Bank Adresse',
     'default_account'       => 'Standardkonto',
+    'incoming'              => 'Eingehende',
+    'outgoing'              => 'Ausgehende',
+    'see_performance'       => 'Einkommen vs Ausgaben',
+    'create_report'         => 'Wenn Sie die Einnahmen vs Ausgaben für dieses Konto sehen möchten, können Sie eine Bericht-Instanz erstellen.',
 
 ];

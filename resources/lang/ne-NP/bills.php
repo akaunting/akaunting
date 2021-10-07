@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'बिल नम्बर',
     'bill_date'             => 'बिलको मिति',
+    'bill_amount'           => 'बिल रकम',
     'total_price'           => 'जम्मा रकम',
     'due_date'              => 'बक्यौता मिति',
     'order_number'          => 'माग सङ्ख्या',

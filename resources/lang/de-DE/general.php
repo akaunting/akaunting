@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Einnahme|Einnahmen',
     'purchases'             => 'Ausgabe|Ausgaben',
     'notifications'         => 'Benachrichtigung|Benachrichtigungen',
+    'countries'             => 'Land|Länder',
+    'cities'                => 'Ort|Orte',
 
     'welcome'               => 'Willkommen',
     'banking'               => 'Bankwesen',
@@ -73,6 +75,7 @@ return [
     'add_new'               => 'Neu anlegen',
     'add_income'            => 'Einnahmen hinzufügen',
     'add_expense'           => 'Ausgaben hinzufügen',
+    'add_transfer'          => 'Transaktion hinzufügen',
     'show'                  => 'Anzeigen',
     'edit'                  => 'Bearbeiten',
     'delete'                => 'Löschen',
@@ -100,7 +103,7 @@ return [
     'color'                 => 'Farbe',
     'save'                  => 'Speichern',
     'confirm'               => 'Bestätigen',
-    'cancel'                => 'Stornieren',
+    'cancel'                => 'Abbrechen',
     'loading'               => 'Wird geladen...',
     'from'                  => 'Von',
     'to'                    => 'An',
@@ -163,6 +166,8 @@ return [
     'amount_due'            => 'Fälliger Betrag',
     'financial_year'        => 'Geschäftsjahr',
     'created'               => 'Erstellt',
+    'state'                 => 'Provinz / Bundesland / Kanton',
+    'zip_code'              => 'PLZ',
 
     'card' => [
         'cards'                 => 'Karte|Karten',
@@ -197,7 +202,7 @@ return [
         'contact_edit'      => ':contact_name :field bearbeiten',
         'drop_file'         => 'Dateien zum Hochladen hier herziehen',
         'choose'            => ':field auswählen',
-        'choose_different'  => 'Wähle ein anderes :field',
+        'choose_different'  => 'Wähle einen anderen :field',
         'choose_file'       => 'Datei auswählen',
         'no_file_selected'  => 'Keine Datei ausgewählt...',
     ],

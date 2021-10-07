@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Factuurnummer',
     'bill_date'             => 'Factuur datum',
+    'bill_amount'           => 'Rekening bedrag',
     'total_price'           => 'Totaalprijs',
     'due_date'              => 'Vervaldatum',
     'order_number'          => 'Bestelnummer',

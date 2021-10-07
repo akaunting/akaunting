@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Měny',
     'total_income'              => 'Celkové příjmy',
     'receivables'               => 'Pohledávky',
     'open_invoices'             => 'Otevřené faktury',

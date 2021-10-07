@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'شماره صورتحساب',
     'bill_date'             => 'تاریخ صورتحساب',
+    'bill_amount'           => 'مقدار صورت‌حساب',
     'total_price'           => 'قیمت کل',
     'due_date'              => 'سررسید',
     'order_number'          => 'شماره سفارش',

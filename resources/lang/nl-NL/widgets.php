@@ -2,6 +2,7 @@
 
 return [
 
+    'currencies'                => 'Valuta\'s',
     'total_income'              => 'Totale inkomsten',
     'receivables'               => 'Debiteuren',
     'open_invoices'             => 'Openstaande facturen',

@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'Afstemmen',
+    'unreconcile'           => 'Afstemming verwijderen',
     'reconciled'            => 'Afgestemd',
+    'opening_balance'       => 'Openingsbalans',
     'closing_balance'       => 'Eindsaldo',
     'unreconciled'          => 'Nog af te stemmen',
     'transactions'          => 'Transacties',

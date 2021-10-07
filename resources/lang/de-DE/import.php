@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Importieren',
     'title'                 => ':type importieren',
-    'message'               => 'Erlaubte Datei-Typen: XLS, XLSX. Bitte, <a target="_blank" href=":link"><strong>hier</strong></a> die Beispieldatei herunterladen.',
+    'limitations'           => 'Erlaubte Dateitypen: :extensions<br>Erlaubte max. Zeilen: :row_limit',
+    'sample_file'           => 'Sie können <a target="_blank" href=":download_link"><strong></strong></a> die Beispieldatei herunterladen und mit Ihren Daten ergänzen.',
 
 ];

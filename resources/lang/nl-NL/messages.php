@@ -8,9 +8,13 @@ return [
         'deleted'           => ':type verwijderd!',
         'duplicated'        => ':type gedupliceerd!',
         'imported'          => ':type geïmporteerd!',
+        'import_queued'     => ':type import is ingepland! U ontvangt een e-mail wanneer het klaar is.',
         'exported'          => ':type geëxporteerd!',
+        'export_queued'     => ':type export van de huidige pagina is ingepland! U ontvangt een e-mail wanneer deze klaar is om te downloaden.',
         'enabled'           => ':type ingeschakeld!',
         'disabled'          => ':type uitgeschakeld!',
+
+        'clear_all'         => 'Geweldig! U heeft al uw :type verwijderd.',
     ],
 
     'error' => [

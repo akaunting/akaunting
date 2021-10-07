@@ -27,7 +27,7 @@ return [
 
     'installed'             => ':module نصب شد',
     'uninstalled'           => ':module حذف شد',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module به‌روز شد',
     'enabled'               => ':module فعال شد',
     'disabled'              => ':module غیر فعال شد',
 

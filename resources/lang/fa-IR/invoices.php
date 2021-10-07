@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'شماره فاکتور',
     'invoice_date'          => 'تاریخ فاکتور',
+    'invoice_amount'        => 'مبلغ فاکتور',
     'total_price'           => 'قیمت کل',
     'due_date'              => 'سررسید',
     'order_number'          => 'شماره فاکتور',

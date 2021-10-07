@@ -166,8 +166,8 @@ return [
     'amount_due'            => 'Amount due',
     'financial_year'        => 'Financial Year',
     'created'               => 'Created',
-    'state'                 => 'Province/State',
-    'zip_code'              => 'Postal/Zip code',
+    'state'                 => 'State',
+    'zip_code'              => 'Post Code',
 
     'card' => [
         'cards'                 => 'Card|Cards',
