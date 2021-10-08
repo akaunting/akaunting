@@ -72,7 +72,7 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $this->request['payment_method'] = isset($this->request['payment_method']) ? $this->request['payment_method'] : setting('default.payment_method');
         $this->request['notify'] = isset($this->request['notify']) ? $this->request['notify'] : 0;
 
-        if ($this->request['mark_paid'] || ($this->request['account_id'] == setting('default.account'))) {
+        if ($this->request['mark_paid'] && ($this->request['account_id'] == setting('default.account'))) {
             $account = Account::find((int) $this->request['account_id']);
 
             $code = $account->currency_code;
