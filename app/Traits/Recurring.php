@@ -87,13 +87,13 @@ trait Recurring
             ->setFreq($this->getRecurringRuleFrequency())
             ->setInterval($this->getRecurringRuleInterval());
 
-        if ($set_until_date) {
-            $rule->setUntil($this->getRecurringRuleUntilDate());
-        }
-
         // 0 means infinite
         if ($this->count != 0) {
             $rule->setCount($this->getRecurringRuleCount());
+        }
+
+        if ($set_until_date) {
+            $rule->setUntil($this->getRecurringRuleUntilDate());
         }
 
         return $rule;

@@ -112,11 +112,6 @@ class RecurringCheck extends Command
             foreach ($schedules as $schedule) {
                 $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
 
-                // Don't recur the future
-                if ($schedule_date->greaterThan($today)) {
-                    continue;
-                }
-
                 $this->recur($model, $recur->recurable_type, $schedule_date);
             }
         }

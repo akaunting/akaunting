@@ -203,10 +203,9 @@ class Document extends AbstractFactory
     public function recurring()
     {
         return $this->state([
-            'recurring_frequency' => 'yes',
+            'recurring_frequency' => 'daily',
             'recurring_interval' => '1',
-            'recurring_custom_frequency' => $this->faker->randomElement(['monthly', 'weekly']),
-            'recurring_count' => '1',
+            'recurring_count' => '7',
         ]);
     }
 

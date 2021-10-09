@@ -35,7 +35,7 @@ class SendDocumentRecurringNotification
 
         // Notify all users assigned to this company
         foreach ($document->company->users as $user) {
-            if (!$user->can('read-notifications')) {
+            if ($user->cannot('read-notifications')) {
                 continue;
             }
 
