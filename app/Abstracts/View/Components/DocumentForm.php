@@ -782,6 +782,10 @@ abstract class DocumentForm extends Base
             return $textItems;
         }
 
+        if (setting($this->getSettingKey($type, 'item_name')) !== null) {
+            return setting($this->getSettingKey($type, 'item_name'));
+        }
+
         $translation = $this->getTextFromConfig($type, 'items');
 
         if (!empty($translation)) {
@@ -806,6 +810,10 @@ abstract class DocumentForm extends Base
             return $textQuantity;
         }
 
+        if (setting($this->getSettingKey($type, 'quantity_name')) !== null) {
+            return setting($this->getSettingKey($type, 'quantity_name'));
+        }
+
         $translation = $this->getTextFromConfig($type, 'quantity');
 
         if (!empty($translation)) {
@@ -828,6 +836,10 @@ abstract class DocumentForm extends Base
             }
 
             return $textPrice;
+        }
+
+        if (setting($this->getSettingKey($type, 'price_name')) !== null) {
+            return setting($this->getSettingKey($type, 'price_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'price');
