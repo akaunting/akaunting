@@ -13,7 +13,11 @@
                     <th class="{{ $classDocumentNumber }}">
                         @stack('document_number_th_inside_start')
 
-                        @sortablelink('document_number', trans_choice($textDocumentNumber, 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])
+                        @if (!$hideBulkAction)
+                            @sortablelink('document_number', trans_choice($textDocumentNumber, 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])
+                        @else
+                            @sortablelink('document_number', trans_choice($textDocumentNumber, 1), ['filter' => 'active, visible'], ['rel' => 'nofollow'])
+                        @endif
 
                         @stack('document_number_th_inside_end')
                     </th>

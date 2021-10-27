@@ -12,7 +12,11 @@
         <td class="{{ $classDocumentNumber }}">
             @stack('document_number_td_inside_start')
 
-            <a class="col-aka" href="{{ route($routeButtonShow , $item->id) }}">{{ $item->document_number }}</a>
+            @if (!$hideBulkAction)
+                <a class="col-aka" href="{{ route($routeButtonShow , $item->id) }}">{{ $item->document_number }}</a>
+            @else
+                <a href="{{ route($routeButtonShow , $item->id) }}">{{ $item->document_number }}</a>
+            @endif
 
             @stack('document_number_td_inside_end')
         </td>
