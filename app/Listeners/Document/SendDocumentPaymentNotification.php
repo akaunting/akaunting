@@ -19,6 +19,10 @@ class SendDocumentPaymentNotification
             return;
         }
 
+        if (!empty($event->request['mark_paid'])) {
+            return;
+        }
+
         $document = $event->document;
         $transaction = $document->transactions()->latest()->first();
 
