@@ -57,7 +57,7 @@ Please see [Releases](../../releases) for more information what has changed rece
 
 ## Security
 
-If you discover any security related issues, please email security@akaunting.com instead of using the issue tracker.
+Please review [our security policy](https://github.com/akaunting/akaunting/security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
