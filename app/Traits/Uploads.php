@@ -142,7 +142,7 @@ trait Uploads
             $file_name = Str::limit($file_name, 110);
         }
 
-        return $file_name . '.' . $this->extension($file);
+        return $file_name;
     }
 
     /**
