@@ -6,7 +6,9 @@ use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Tests\Feature\FeatureTestCase;
 
 class BillsTest extends FeatureTestCase
@@ -51,6 +53,47 @@ class BillsTest extends FeatureTestCase
 
         $this->assertDatabaseHas('documents', [
             'document_number' => $request['document_number'],
+        ]);
+    }
+
+    public function testItShouldCreateBillWithAttachment()
+    {
+        Storage::fake('uploads');
+        Carbon::setTestNow(Carbon::create(2021, 05, 15));
+
+        $file = new UploadedFile(
+            base_path('public/img/empty_pages/bills.png'),
+            'bills.png',
+            'image/png',
+            null,
+            true
+        );
+
+        $request = $this->getRequest();
+        $request['attachment'] = [$file];
+
+        $this->loginAs()
+            ->post(route('bills.store'), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        Storage::disk('uploads')->assertExists('2021/05/15/1/bills/bills.png');
+
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number']
+        ]);
+        $this->assertDatabaseHas('mediables', [
+            'mediable_type' => Document::class,
+            'tag'           => 'attachment',
+        ]);
+        $this->assertDatabaseHas('media', [
+            'disk'           => 'uploads',
+            'directory'      => '2021/05/15/1/bills',
+            'filename'       => 'bills',
+            'extension'      => 'png',
+            'mime_type'      => 'image/png',
+            'aggregate_type' => 'image',
         ]);
     }
 
