@@ -63,6 +63,17 @@ const app = new Vue({
                             return true;
                         }
 
+                        if (response.data.error) {
+                            this.$notify({
+                                message: response.data.message,
+                                timeout: 0,
+                                icon: 'fas fa-bell',
+                                type: 'warning',
+                            });
+
+                            return false;
+                        }
+
                         if (response.data.success) {
                             this.form.errors.set('email', {
                                 0: can_login_errors.email
