@@ -66,6 +66,8 @@ class Document extends FormRequest
             'category_id' => 'required|integer',
             'company_logo' => $company_logo,
             'attachment.*' => $attachment,
+            'recurring_count' => 'gte:0',
+            'recurring_interval' => 'exclude_unless:recurring_frequency,custom|gt:0',
         ];
     }
 
