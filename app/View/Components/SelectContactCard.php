@@ -16,9 +16,9 @@ class SelectContactCard extends Component
 
     public $contacts;
 
-    public $search_route;
+    public $searchRoute;
 
-    public $create_route;
+    public $createRoute;
 
     /** @var string */
     public $textAddContact;
@@ -44,15 +44,15 @@ class SelectContactCard extends Component
      * @return void
      */
     public function __construct(
-        $type, $contact = false, $contacts = [], $search_route = '', $create_route = '', string $error = '',
+        $type, $contact = false, $contacts = [], $searchRoute = '', $createRoute = '', string $error = '',
         $textAddContact = '', $textCreateNewContact = '', $textEditContact = '', $textContactInfo = '', $textChooseDifferentContact = ''
     )
     {
         $this->type = $type;
         $this->contact = $contact;
         $this->contacts = $contacts;
-        $this->search_route = $search_route;
-        $this->create_route = $create_route;
+        $this->searchRoute = $searchRoute;
+        $this->createRoute = $createRoute;
         $this->error = ($error) ?: "form.errors.get('contact_id')" ;
 
         $this->textAddContact = $this->getTextAddContact($type, $textAddContact);
@@ -73,24 +73,24 @@ class SelectContactCard extends Component
             $this->contacts = Contact::{$this->type}()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
         }
 
-        if (empty($this->search_route)) {
+        if (empty($this->searchRoute)) {
             switch ($this->type) {
                 case 'customer':
-                    $this->search_route = route('customers.index');
+                    $this->searchRoute = route('customers.index');
                     break;
                 case 'vendor':
-                    $this->search_route = route('vendors.index');
+                    $this->searchRoute = route('vendors.index');
                     break;
             }
         }
 
-        if (empty($this->create_route)) {
+        if (empty($this->createRoute)) {
             switch ($this->type) {
                 case 'customer':
-                    $this->create_route = route('modals.customers.create');
+                    $this->createRoute = route('modals.customers.create');
                     break;
                 case 'vendor':
-                    $this->create_route = route('modals.vendors.create');
+                    $this->createRoute = route('modals.vendors.create');
                     break;
             }
         }
@@ -100,7 +100,7 @@ class SelectContactCard extends Component
 
         return view('components.select-contact-card');
     }
-    
+
     protected function getTextAddContact($type, $textAddContact)
     {
         if (!empty($textAddContact)) {
