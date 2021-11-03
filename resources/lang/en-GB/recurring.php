@@ -16,5 +16,6 @@ return [
     'months'                => 'Month(s)',
     'years'                 => 'Year(s)',
     'message'               => 'This is a recurring :type and the next :type will be automatically generated on :date',
+    'message_parent'        => 'This :type was automatically generated from :link',
 
 ];

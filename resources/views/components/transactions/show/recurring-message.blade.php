@@ -1,5 +1,5 @@
 @stack('recurring_message_start')
-@if (($recurring = $document->recurring) && ($next = $recurring->getNextRecurring()))
+@if (($recurring = $transaction->recurring) && ($next = $recurring->getNextRecurring()))
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-info fade show" role="alert">
@@ -20,7 +20,7 @@
         </div>
     </div>
 @endif
-@if ($document->parent)
+@if ($transaction->parent)
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-info fade show" role="alert">
@@ -33,7 +33,7 @@
                 @stack('recurring_parent_message_body_start')
                     <p class="text-sm lh-160 mb-0">{!! trans('recurring.message_parent', [
                         'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
-                        'link' => '<a href="' . route(mb_strtolower(trans_choice($textRecurringType, 2)) . '.show', $document->parent->id) . '">' . $document->parent->document_number . '</a>'
+                        'link' => '<a href="' . route(mb_strtolower(trans_choice($textRecurringType, 2)) . '.show', $transaction->parent->id) . '">' . trans_choice($textRecurringType, 1) . '#' . $transaction->parent->id . '</a>'
                     ]) !!}
                     </p>
                 @stack('recurring_parent_message_body_end')

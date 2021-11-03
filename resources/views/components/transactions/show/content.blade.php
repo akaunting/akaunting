@@ -22,6 +22,16 @@
 @endif
 @stack('content_header_end')
 
+@stack('recurring_message_start')
+@if (!$hideRecurringMessage)
+    <x-transactions.show.recurring-message
+        type="{{ $type }}"
+        :transaction="$transaction"
+        text-recurring-type="{{ $textRecurringType }}"
+     />
+@endif
+@stack('recurring_message_end')
+
 @stack('transaction_start')
     <x-transactions.show.transaction
         type="{{ $type }}"
