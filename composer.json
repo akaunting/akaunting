@@ -125,36 +125,26 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan ide-helper:models --nowrite",
-            "php artisan clear-compiled",
-            "composer dump-autoload"
+            "php artisan ide-helper:models --nowrite"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan ide-helper:models --nowrite",
-            "php artisan clear-compiled",
-            "composer dump-autoload"
+            "php artisan ide-helper:models --nowrite"
         ],
         "post-create-project-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan clear-compiled",
-            "composer dump-autoload"
+            "php artisan ide-helper:meta"
         ],
         "prod": [
             "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi --no-dev",
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan clear-compiled",
-            "composer dump-autoload"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "test": [
             "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi",
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan clear-compiled",
-            "composer dump-autoload"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ]
     },
     "config": {
