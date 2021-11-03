@@ -46,7 +46,7 @@
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('currencies.edit', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-md-2  col-lg-2 d-none d-md-block">{{ $item->code }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $item->rate }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-2 long-texts d-none d-sm-block">{{ $item->rate }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
                                 @if (user()->can('update-settings-currencies'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
