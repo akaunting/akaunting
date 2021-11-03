@@ -144,8 +144,14 @@
             "php artisan clear-compiled",
             "composer dump-autoload"
         ],
+        "prod": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi --no-dev",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan clear-compiled",
+            "composer dump-autoload"
+        ],
         "test": [
-            "composer install --prefer-dist --no-interaction --no-scripts --no-suggest --no-progress --no-ansi",
+            "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi",
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan clear-compiled",
             "composer dump-autoload"
