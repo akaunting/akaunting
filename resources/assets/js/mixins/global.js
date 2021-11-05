@@ -119,6 +119,11 @@ export default {
             this.form.submit();
         },
 
+        // Form Async Submit
+        async onAsyncSubmit() {
+            await this.form.asyncSubmit();
+        },
+
         onHandleFileUpload(key, event) {
             this.form[key] = '';
             this.form[key] = event.target.files[0];

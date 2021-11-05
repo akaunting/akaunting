@@ -409,6 +409,50 @@ export default class Form {
         .catch(this.onFail.bind(this));
     }
 
+    async asyncSubmit() {
+        FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+            for (var name in data) {
+                if (name == "previewElement" || name == "previewTemplate") {
+                    continue;
+                }
+
+                if (wrapper) {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                    } else {
+                        this.append(wrapper + '[' + name + ']', data[name]);
+                    }
+                } else {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], name);
+                    } else {
+                        this.append(name, data[name]);
+                    }
+                }
+            }
+        };
+
+        this.loading = true;
+
+        let data = this.data();
+
+        let form_data = new FormData();
+        form_data.appendRecursive(data);
+
+        await window.axios({
+            method: this.method,
+            url: this.action,
+            data: form_data,
+            headers: {
+                'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(this.onSuccess.bind(this))
+        .catch(this.onFail.bind(this));
+    }
+
     onSuccess(response) {
         this.errors.clear();
 
