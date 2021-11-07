@@ -89,7 +89,7 @@
                     <p>
                         {!! nl2br($document->contact_address) !!}
                         <br>
-                        {!! $document->contact->location !!}
+                        {!! $document->contact_location !!}
                     </p>
                 @endif
             @stack('address_input_end')

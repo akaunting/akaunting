@@ -22,11 +22,14 @@ class Invoices extends Import
 
         $row = parent::map($row);
 
+        $country = array_search($row['contact_country'], trans('countries'));
+
         $row['document_number'] = $row['invoice_number'];
         $row['issued_at'] = $row['invoiced_at'];
         $row['category_id'] = $this->getCategoryId($row, 'income');
         $row['contact_id'] = $this->getContactId($row, 'customer');
         $row['type'] = Model::INVOICE_TYPE;
+        $row['contact_country'] = !empty($country) ? $country : null;
 
         return $row;
     }

@@ -200,7 +200,6 @@ class Contact extends Model
         return $amount;
     }
 
-
     public function getLocationAttribute()
     {
         $location = [];

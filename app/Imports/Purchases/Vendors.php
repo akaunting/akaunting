@@ -17,7 +17,10 @@ class Vendors extends Import
     {
         $row = parent::map($row);
 
+        $country = array_search($row['country'], trans('countries'));
+
         $row['type'] = 'vendor';
+        $row['country'] = !empty($country) ? $country : null;
 
         return $row;
     }

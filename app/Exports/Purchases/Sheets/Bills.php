@@ -19,6 +19,7 @@ class Bills extends Export implements WithColumnFormatting
         $model->category_name = $model->category->name;
         $model->bill_number = $model->document_number;
         $model->billed_at = $model->issued_at;
+        $model->contact_country = ($model->contact_country) ? trans('countries.' . $model->contact_country) : null;
 
         return parent::map($model);
     }
@@ -40,6 +41,10 @@ class Bills extends Export implements WithColumnFormatting
             'contact_tax_number',
             'contact_phone',
             'contact_address',
+            'contact_country',
+            'contact_state',
+            'contact_zip_code',
+            'contact_city',
             'notes',
         ];
     }

@@ -22,11 +22,14 @@ class Bills extends Import
 
         $row = parent::map($row);
 
+        $country = array_search($row['contact_country'], trans('countries'));
+
         $row['document_number'] = $row['bill_number'];
         $row['issued_at'] = $row['billed_at'];
         $row['category_id'] = $this->getCategoryId($row, 'expense');
         $row['contact_id'] = $this->getContactId($row, 'vendor');
         $row['type'] = Model::BILL_TYPE;
+        $row['contact_country'] = !empty($country) ? $country : null;
 
         return $row;
     }

@@ -478,6 +478,10 @@ export default {
             this.form.contact_tax_number = (contact.tax_number) ? contact.tax_number : '';
             this.form.contact_phone = (contact.phone) ? contact.phone : '';
             this.form.contact_address = (contact.address) ? contact.address : '';
+            this.form.contact_country = (contact.country) ? contact.country : '';
+            this.form.contact_state = (contact.state) ? contact.state : '';
+            this.form.contact_zip_code = (contact.zip_code) ? contact.zip_code : '';
+            this.form.contact_city = (contact.city) ? contact.city : '';
 
             let currency_code = (contact.currency_code) ? contact.currency_code : this.form.currency_code;
 

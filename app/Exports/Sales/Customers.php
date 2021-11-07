@@ -12,6 +12,13 @@ class Customers extends Export
         return Model::customer()->collectForExport($this->ids);
     }
 
+    public function map($model): array
+    {
+        $model->country = ($model->country) ? trans('countries.' . $model->country) : null;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
@@ -20,6 +27,10 @@ class Customers extends Export
             'tax_number',
             'phone',
             'address',
+            'country',
+            'state',
+            'zip_code',
+            'city',
             'website',
             'currency_code',
             'reference',

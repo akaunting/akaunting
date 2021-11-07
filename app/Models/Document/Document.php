@@ -26,7 +26,7 @@ class Document extends Model
 
     protected $table = 'documents';
 
-    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at', 'reconciled'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at', 'reconciled', 'contact_location'];
 
     protected $dates = ['deleted_at', 'issued_at', 'due_at'];
 
@@ -48,6 +48,10 @@ class Document extends Model
         'contact_tax_number',
         'contact_phone',
         'contact_address',
+        'contact_country',
+        'contact_state',
+        'contact_zip_code',
+        'contact_city',
         'notes',
         'footer',
         'parent_id',
@@ -395,6 +399,29 @@ class Document extends Model
     public function getTemplatePathAttribute($value = null)
     {
         return $value ?: 'sales.invoices.print_' . setting('invoice.template');
+    }
+
+    public function getContactLocationAttribute()
+    {
+        $location = [];
+
+        if ($this->contact_city) {
+            $location[] = $this->contact_city;
+        }
+
+        if ($this->contact_zip_code) {
+            $location[] = $this->contact_zip_code;
+        }
+
+        if ($this->contact_state) {
+            $location[] = $this->contact_state;
+        }
+
+        if ($this->contact_country) {
+            $location[] = trans('countries.' . $this->contact_country);
+        }
+
+        return implode(', ', $location);
     }
 
     protected static function newFactory(): Factory

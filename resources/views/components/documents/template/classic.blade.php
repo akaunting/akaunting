@@ -41,7 +41,7 @@
                     <p>
                         {!! nl2br(setting('company.address')) !!}
                         <br>
-                        {!! $document->company->location !!}
+                        {!! $document->contact_location !!}
                     </p>
                 @endif
 
