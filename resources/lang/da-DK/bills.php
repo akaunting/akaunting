@@ -40,7 +40,7 @@ return [
     'make_payment'          => 'Opret betaling',
 
     'messages' => [
-        'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil først blive vist i oversigten, når den er afsendt.',
+        'draft'             => 'Dette er et <b>UDKAST</b> til en regning og vil først blive vist i oversigten, når den er markeret som modtaget.',
 
         'status' => [
             'created'       => 'Oprettet den :date',

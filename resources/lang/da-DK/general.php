@@ -166,7 +166,7 @@ return [
     'amount_due'            => 'Forfaldent beløb',
     'financial_year'        => 'Regnskabsår',
     'created'               => 'Oprettet',
-    'state'                 => 'Region/Stat',
+    'state'                 => 'Region',
     'zip_code'              => 'Postnummer',
 
     'card' => [
