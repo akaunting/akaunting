@@ -71,6 +71,10 @@ class SelectContactCard extends Component
     {
         if (empty($this->contacts)) {
             $this->contacts = Contact::{$this->type}()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+
+            if (!empty($this->contact) && (!$this->contacts->contains('id', $contact->id))) {
+                $this->contacts->push($this->contact);
+            }
         }
 
         if (empty($this->searchRoute)) {

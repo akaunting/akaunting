@@ -456,8 +456,8 @@ abstract class DocumentForm extends Base
             $contacts = Contact::enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
         }
 
-        if (!empty($document) && ($document->contact && !$contacts->has($document->contact_id))) {
-            $contacts->put($document->contact->id, $document->contact->name);
+        if (!empty($document) && ($document->contact && !$contacts->contains('id', $document->contact_id))) {
+            $contacts->push($document->contact);
         }
 
         return $contacts;
