@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class Document extends FormRequest
 {
+    protected $items_quantity_size = [];
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -43,13 +45,7 @@ class Document extends FormRequest
         // Get company id
         $company_id = (int) $this->request->get('company_id');
 
-        $quantity_size = 5;
-
-        if ((Str::substrCount($this->request->get('quantity'), '.') > 1) || (Str::substrCount($this->request->get('quantity'), ',') > 1)) {
-            $quantity_size = 7;
-        }
-
-        return [
+        $rules = [
             'type' => 'required|string',
             'document_number' => 'required|string|unique:documents,NULL,' . $id . ',id,type,' . $type . ',company_id,' . $company_id . ',deleted_at,NULL',
             'status' => 'required|string',
@@ -57,7 +53,6 @@ class Document extends FormRequest
             'due_at' => 'required|date_format:Y-m-d H:i:s|after_or_equal:issued_at',
             'amount' => 'required',
             'items.*.name' => 'required|string',
-            'items.*.quantity' => 'required|max:' . $quantity_size,
             'items.*.price' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required|gt:0',
@@ -67,6 +62,23 @@ class Document extends FormRequest
             'company_logo' => $company_logo,
             'attachment.*' => $attachment,
         ];
+
+        $items = $this->request->get('items');
+
+        if ($items) {
+            foreach ($items as $key => $item) {
+                $size = 5; 
+
+                if (Str::contains($item['quantity'], ['.', ','])) {
+                    $size = 7;
+                }
+
+                $rules['items.' . $key . '.quantity'] = 'required|max:' . $size;
+                $this->items_quantity_size[$key] = $size;
+            }
+        }
+
+        return $rules;
     }
 
     public function withValidator($validator)
@@ -83,13 +95,20 @@ class Document extends FormRequest
 
     public function messages()
     {
-        return [
+        $messages = [
             'items.*.name.required' => trans('validation.required', ['attribute' => Str::lower(trans('general.name'))]),
             'items.*.quantity.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.quantity'))]),
-            'items.*.quantity.size' => trans('validation.size', ['attribute' => Str::lower(trans('invoices.quantity'))]),
             'items.*.price.required' => trans('validation.required', ['attribute' => Str::lower(trans('invoices.price'))]),
             'items.*.currency.required' => trans('validation.custom.invalid_currency'),
             'items.*.currency.string' => trans('validation.custom.invalid_currency'),
         ];
+
+        if ($this->items_quantity_size) {
+            foreach ($this->items_quantity_size as $key => $quantity_size) {
+                $messages['items.' . $key . '.quantity.max'] = trans('validation.size', ['attribute' => Str::lower(trans('invoices.quantity')), 'size' => $quantity_size]);
+            }
+        }
+
+        return $messages;
     }
 }

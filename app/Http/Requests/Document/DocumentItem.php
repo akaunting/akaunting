@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class DocumentItem extends FormRequest
 {
+    protected $quantity_size = 5;
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,21 +16,26 @@ class DocumentItem extends FormRequest
      */
     public function rules()
     {
-        $quantity_size = 5;
-
-        if ((Str::substrCount($this->request->get('quantity'), '.') > 1) || (Str::substrCount($this->request->get('quantity'), ',') > 1)) {
-            $quantity_size = 7;
+        if (Str::contains($item['quantity'], ['.', ','])) {
+            $this->quantity_size = 7;
         }
 
         return [
             'type' => 'required|string',
             'document_id' => 'required|integer',
             'name' => 'required|string',
-            'quantity' => 'required|max:' . $quantity_size,
+            'quantity' => 'required|max:' . $this->quantity_size,
             'price' => 'required|amount',
             'total' => 'required',
             'tax' => 'required',
             'tax_id' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'quantity.max' => trans('validation.size', ['attribute' => Str::lower(trans('invoices.quantity')), 'size' => $this->quantity_size]),
         ];
     }
 }
