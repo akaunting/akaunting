@@ -505,16 +505,16 @@
         },
         {
             "name": "akaunting/module-offline-payments",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-offline-payments.git",
-                "reference": "ad4dfc9f0cb19c695f7ace724e088262be889016"
+                "reference": "a9ee1e166441bb92039290997e8087e8756deda4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/ad4dfc9f0cb19c695f7ace724e088262be889016",
-                "reference": "ad4dfc9f0cb19c695f7ace724e088262be889016",
+                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/a9ee1e166441bb92039290997e8087e8756deda4",
+                "reference": "a9ee1e166441bb92039290997e8087e8756deda4",
                 "shasum": ""
             },
             "type": "library",
@@ -533,9 +533,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-offline-payments/issues",
-                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.2"
+                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.3"
             },
-            "time": "2021-05-01T09:51:56+00:00"
+            "time": "2021-11-08T11:45:00+00:00"
         },
         {
             "name": "akaunting/module-paypal-standard",
@@ -679,16 +679,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.199.9",
+            "version": "3.200.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "48e4e8679a3c9f7f8879e22880a569e4e2e85ea5"
+                "reference": "41ffdb283c524c6632610ec43d89ba7f6094b575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/48e4e8679a3c9f7f8879e22880a569e4e2e85ea5",
-                "reference": "48e4e8679a3c9f7f8879e22880a569e4e2e85ea5",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/41ffdb283c524c6632610ec43d89ba7f6094b575",
+                "reference": "41ffdb283c524c6632610ec43d89ba7f6094b575",
                 "shasum": ""
             },
             "require": {
@@ -764,9 +764,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.199.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.200.1"
             },
-            "time": "2021-11-02T19:37:19+00:00"
+            "time": "2021-11-05T19:19:45+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -4844,16 +4844,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.107",
+            "version": "v1.2.108",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "62b9055b555be9e1479d7c37515d7c58975c2aa4"
+                "reference": "69a38c09f99ee056e7cca9fe7c8b1952fd62b837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/62b9055b555be9e1479d7c37515d7c58975c2aa4",
-                "reference": "62b9055b555be9e1479d7c37515d7c58975c2aa4",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/69a38c09f99ee056e7cca9fe7c8b1952fd62b837",
+                "reference": "69a38c09f99ee056e7cca9fe7c8b1952fd62b837",
                 "shasum": ""
             },
             "require": {
@@ -4890,9 +4890,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.107"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.108"
             },
-            "time": "2021-10-12T16:06:07+00:00"
+            "time": "2021-10-21T18:55:50+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -5578,16 +5578,16 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v3.3.1",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "a449e3364d9780a80a49894a3af9795c85af806f"
+                "reference": "28f3d190fe270b6dcd6fdab4a77a392e693ceca5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/a449e3364d9780a80a49894a3af9795c85af806f",
-                "reference": "a449e3364d9780a80a49894a3af9795c85af806f",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/28f3d190fe270b6dcd6fdab4a77a392e693ceca5",
+                "reference": "28f3d190fe270b6dcd6fdab4a77a392e693ceca5",
                 "shasum": ""
             },
             "require": {
@@ -5630,9 +5630,9 @@
                 "ui"
             ],
             "support": {
-                "source": "https://github.com/laravel/ui/tree/v3.3.1"
+                "source": "https://github.com/laravel/ui/tree/v3.3.2"
             },
-            "time": "2021-11-02T17:04:20+00:00"
+            "time": "2021-11-05T08:25:44+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -7306,16 +7306,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.13.0",
+            "version": "v4.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53"
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/50953a2691a922aa1769461637869a0a2faa3f53",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/63a79e8daa781cac14e5195e63ed8ae231dd10fd",
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd",
                 "shasum": ""
             },
             "require": {
@@ -7356,9 +7356,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.1"
             },
-            "time": "2021-09-20T12:20:58+00:00"
+            "time": "2021-11-03T20:52:16+00:00"
         },
         {
             "name": "nunomaduro/larastan",
