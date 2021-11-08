@@ -118,7 +118,7 @@ return [
     'all'                   => 'सबै',
     'all_type'              => 'सबै :type',
     'upcoming'              => 'आउँदा',
-    'created'               => 'सिर्जना भयो',
+    'created'               => 'सिर्जना गरियो',
     'id'                    => 'आईडी',
     'more_actions'          => 'थप कदमहरू',
     'duplicate'             => 'नक्कल',
