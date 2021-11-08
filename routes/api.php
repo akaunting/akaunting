@@ -16,7 +16,7 @@ $api->version('v3', ['middleware' => ['api']], function($api) {
         $api->get('companies/{company}/owner', 'Common\Companies@canAccess')->name('.companies.owner');
         $api->get('companies/{company}/enable', 'Common\Companies@enable')->name('.companies.enable');
         $api->get('companies/{company}/disable', 'Common\Companies@disable')->name('.companies.disable');
-        $api->resource('companies', 'Common\Companies');
+        $api->resource('companies', 'Common\Companies', ['middleware' => ['dropzone']]);
 
         // Dashboards
         $api->get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('.dashboards.enable');
@@ -26,7 +26,7 @@ $api->version('v3', ['middleware' => ['api']], function($api) {
         // Items
         $api->get('items/{item}/enable', 'Common\Items@enable')->name('.items.enable');
         $api->get('items/{item}/disable', 'Common\Items@disable')->name('.items.disable');
-        $api->resource('items', 'Common\Items');
+        $api->resource('items', 'Common\Items', ['middleware' => ['dropzone']]);
 
         // Contacts
         $api->get('contacts/{contact}/enable', 'Common\Contacts@enable')->name('.contacts.enable');
@@ -34,17 +34,17 @@ $api->version('v3', ['middleware' => ['api']], function($api) {
         $api->resource('contacts', 'Common\Contacts');
 
         // Sales
-        $api->resource('documents', 'Document\Documents');
-        $api->resource('documents.transactions', 'Document\DocumentTransactions');
+        $api->resource('documents', 'Document\Documents', ['middleware' => ['date.format', 'money', 'dropzone']]);
+        $api->resource('documents.transactions', 'Document\DocumentTransactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
         $api->get('documents/{document}/received', 'Document\Documents@received')->name('.documents.received');
 
         // Banking
         $api->get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('.accounts.enable');
         $api->get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('.accounts.disable');
-        $api->resource('accounts', 'Banking\Accounts');
-        $api->resource('reconciliations', 'Banking\Reconciliations');
-        $api->resource('transactions', 'Banking\Transactions');
-        $api->resource('transfers', 'Banking\Transfers');
+        $api->resource('accounts', 'Banking\Accounts', ['middleware' => ['date.format', 'money', 'dropzone']]);
+        $api->resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['date.format', 'money', 'dropzone']]);
+        $api->resource('transactions', 'Banking\Transactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
+        $api->resource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
         // Reports
         $api->resource('reports', 'Common\Reports');

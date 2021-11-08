@@ -140,7 +140,7 @@ Route::group(['prefix' => 'banking'], function () {
     Route::post('transactions/import', 'Banking\Transactions@import')->name('transactions.import');
     Route::get('transactions/export', 'Banking\Transactions@export')->name('transactions.export');
 
-    Route::resource('transactions', 'Banking\Transactions');
+    Route::resource('transactions', 'Banking\Transactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
   
     Route::get('transfers/{transfer}/print', 'Banking\Transfers@printTransfer')->name('transfers.print');
     Route::get('transfers/{transfer}/pdf', 'Banking\Transfers@pdfTransfer')->name('transfers.pdf');
