@@ -31,4 +31,14 @@ class Home extends Controller
 
         return $this->response('modules.home.index', compact('pre_sale', 'paid', 'new', 'free', 'installed'));
     }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('apps.home.index');
+    }
 }
