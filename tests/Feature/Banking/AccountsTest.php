@@ -82,6 +82,18 @@ class AccountsTest extends FeatureTestCase
         $this->assertSoftDeleted('accounts', $request);
     }
 
+    public function testItShouldShowAccount()
+    {
+        $request = $this->getRequest();
+
+        $account = $this->dispatch(new CreateAccount($request));
+
+        $this->loginAs()
+            ->get(route('accounts.show', $account->id))
+            ->assertStatus(200)
+            ->assertSee($account->name);
+    }
+
     public function getRequest()
     {
         return Account::factory()->enabled()->raw();
