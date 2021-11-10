@@ -37,7 +37,7 @@ class Accounts extends Controller
         // Handle transactions
         $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
 
-        $transfers = Transfer::with('transaction')->all()->filter(function ($transfer) use($account) {
+        $transfers = Transfer::with('transaction')->cursor()->filter(function ($transfer) use($account) {
             if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
                 return true;
             }
