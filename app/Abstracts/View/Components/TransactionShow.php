@@ -511,10 +511,6 @@ abstract class TransactionShow extends Base
             return $template;
         }
 
-        if (!empty($alias = config('type.' . $type . '.alias'))) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
         $transactionTemplate = setting($this->getSettingKey($type, 'template')) ?: 'default';
 
         return $transactionTemplate;
