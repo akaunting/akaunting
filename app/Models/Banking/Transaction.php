@@ -126,6 +126,11 @@ class Transaction extends Model
         return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Banking\Transaction', 'parent_id');
+    }
+
     /**
      * Scope to only include contacts of a given type.
      *

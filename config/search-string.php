@@ -112,6 +112,12 @@ return [
                 'route' => 'categories.index'
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'foreign_key' => '',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 
@@ -205,6 +211,11 @@ return [
                 'route' => 'categories.index'
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 
@@ -243,6 +254,12 @@ return [
                 'route' => ['categories.index', 'search=type:expense']
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'foreign_key' => '',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 
@@ -269,6 +286,12 @@ return [
                 'route' => ['categories.index', 'search=type:expense']
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'foreign_key' => '',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 
@@ -308,6 +331,12 @@ return [
                 'route' => ['categories.index', 'search=type:income']
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'foreign_key' => '',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 
@@ -334,6 +363,12 @@ return [
                 'route' => ['categories.index', 'search=type:income']
             ],
             'parent_id',
+            'recurring' => [
+                'key' => 'recurring',
+                'foreign_key' => '',
+                'relationship' => true,
+                'boolean' => true,
+            ]
         ],
     ],
 

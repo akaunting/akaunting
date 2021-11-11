@@ -32,6 +32,8 @@ class Transaction extends FormRequest
             'category_id' => 'required|integer',
             'payment_method' => 'required|string',
             'attachment.*' => $attachment,
+            'recurring_count' => 'gte:0',
+            'recurring_interval' => 'exclude_unless:recurring_frequency,custom|gt:0',
         ];
     }
 

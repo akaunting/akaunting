@@ -4,6 +4,15 @@
             name="recurring_frequency"
             :class="frequencyClasses"
             :error="frequencyError">
+            <template slot="label">
+                <label v-if="title" :class="labelClasses">
+                    {{ title }}
+                    <el-tooltip class="item" effect="dark" placement="top-start">
+                        <div slot="content" v-html="tooltip"></div>
+                        <i class="far fa-question-circle fa-xs" style="vertical-align: top;"></i>
+                    </el-tooltip>
+                </label>
+            </template>
             <el-select v-model="recurring_frequency" @input="change" filterable
                 :placeholder="placeholder">
                 <template slot="prefix">
@@ -20,21 +29,19 @@
             </el-select>
         </base-input>
 
-        <base-input :label="''"
+        <base-input :label="titleInterval"
             name="recurring_interval"
             type="number"
             :value="0"
             @input="change"
-            class="recurring-single"
             :class="invertalClasses"
             :error="intervalError"
             v-model="recurring_interval"
             >
         </base-input>
 
-        <base-input :label="''"
+        <base-input :label="titleFrequency"
             name="recurring_custom_frequency"
-            class="recurring-single"
             :class="customFrequencyClasses"
             :error="customFrequencyError">
             <el-select v-model="recurring_custom_frequency" @input="change" filterable
@@ -47,12 +54,11 @@
             </el-select>
         </base-input>
 
-        <base-input :label="''"
+        <base-input :label="titleCount"
             name="recurring_count"
             type="number"
             :value="0"
             @input="change"
-            class="recurring-single"
             :class="countClasses"
             :error="countError"
             v-model="recurring_count">
@@ -61,7 +67,7 @@
 </template>
 
 <script>
-import { Select, Option } from 'element-ui'
+import { Select, Option, Tooltip } from 'element-ui'
 
 export default {
     name: 'akaunting-recurring',
@@ -69,6 +75,7 @@ export default {
     components: {
         [Select.name]: Select,
         [Option.name]: Option,
+        [Tooltip.name]: Tooltip,
     },
 
     props: {
@@ -76,6 +83,26 @@ export default {
             type: String,
             default: '',
             description: "Modal header title"
+        },
+        titleInterval: {
+            type: String,
+            default: '',
+            description: "Title of interval"
+        },
+        titleFrequency: {
+            type: String,
+            default: '',
+            description: "Title of frequency"
+        },
+        titleCount: {
+            type: String,
+            default: '',
+            description: "Title of count"
+        },
+        tooltip: {
+            type: String,
+            default: '',
+            description: "Tooltip message"
         },
         placeholder: {
             type: String,
@@ -112,7 +139,12 @@ export default {
         icon: {
             type: String,
             description: "Prepend icon (left)"
-        }
+        },
+        labelClasses: {
+            type: String,
+            description: "Input label css classes",
+            default: "form-control-label"
+        },
     },
 
     data() {

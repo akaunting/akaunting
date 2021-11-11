@@ -314,6 +314,12 @@ abstract class TransactionShow extends Base
     /** @var string */
     public $classFooterHistories;
 
+    /** @var string */
+    public $textRecurringType;
+
+    /** @var bool */
+    public $hideRecurringMessage;
+
     /**
      * Create a new component instance.
      *
@@ -346,7 +352,7 @@ abstract class TransactionShow extends Base
 
         bool $hideAttachment = false, $attachment = [],
         bool $hideFooter = false, bool $hideFooterHistories = false, $histories = [],
-        string $textHistories = '', string $classFooterHistories = ''
+        string $textHistories = '', string $classFooterHistories = '', string $textRecurringType = '', bool $hideRecurringMessage = false
     ) {
         $this->type = $type;
         $this->transaction = $transaction;
@@ -354,6 +360,8 @@ abstract class TransactionShow extends Base
         $this->logo = $this->getLogo($logo);
         $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods('all');
         $this->date_format = $this->getCompanyDateFormat();
+        $this->textRecurringType = $this->getTextRecurringType($type, $textRecurringType);
+        $this->hideRecurringMessage = $hideRecurringMessage;
 
         // Navbar Hide
         $this->hideButtonAddNew = $hideButtonAddNew;
@@ -1275,5 +1283,22 @@ abstract class TransactionShow extends Base
         }
 
         return 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
+    }
+
+    protected function getTextRecurringType($type, $textRecurringType)
+    {
+        if (!empty($textRecurringType)) {
+            return $textRecurringType;
+        }
+
+        $default_key = config('type.' . $type . '.translation.prefix');
+
+        $translation = $this->getTextFromConfig($type, 'recurring_tye', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.revenues';
     }
 }

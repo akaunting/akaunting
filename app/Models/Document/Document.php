@@ -144,6 +144,11 @@ class Document extends Model
         return $this->totals()->orderBy('sort_order');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Document\Document', 'parent_id');
+    }
+
     public function scopeLatest(Builder $query)
     {
         return $query->orderBy('issued_at', 'desc');

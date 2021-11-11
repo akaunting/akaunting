@@ -18,6 +18,10 @@
                 <a href="{{ route($routeButtonShow , $item->id) }}">{{ $item->document_number }}</a>
             @endif
 
+            @if ($item->recurring)
+                <i class="fas fa-redo-alt fa-xs" title="{{ trans('recurring.recurring') }}"></i>
+            @endif
+
             @stack('document_number_td_inside_end')
         </td>
     @endif

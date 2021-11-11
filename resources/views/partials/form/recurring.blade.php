@@ -17,6 +17,10 @@
 <akaunting-recurring
     :form-classes="[{'has-error': form.errors.get('recurring_frequency')}, '{{ $col }}']"
     title="{{ trans('recurring.recurring') }}"
+    title-interval="{{ trans('recurring.interval') }}"
+    title-frequency="{{ trans('recurring.frequency') }}"
+    title-count="{{ trans('recurring.count') }}"
+    tooltip="{{ trans('recurring.tooltip') }}"
     placeholder="{{ trans('general.form.select.field', ['field' => trans('recurring.recurring')]) }}"
 
     :frequency-options="{{ json_encode($recurring_frequencies) }}"

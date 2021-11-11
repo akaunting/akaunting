@@ -89,12 +89,12 @@ class SearchString extends Component
             $column = $options['key'];
         }
 
-        if (isset($options['relationship'])) {
-            if (isset($options['foreign_key'])) {
-                $column .= '.' . $options['foreign_key'];
-            } else {
-                $column .= '.id';
-            }
+        if (isset($options['relationship']) && isset($options['foreign_key']) && !empty($options['foreign_key'])) {
+            $column .= '.' . $options['foreign_key'];
+        }
+
+        if (isset($options['relationship']) && !isset($options['foreign_key'])) {
+            $column .= '.id';
         }
 
         return $column;
