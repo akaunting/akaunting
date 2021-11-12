@@ -329,6 +329,11 @@ trait Modules
         return true;
     }
 
+    public function moduleIsDisabled($alias)
+    {
+        return ! $this->moduleIsEnabled($alias);
+    }
+
     public function loadSuggestions()
     {
         $key = 'apps.suggestions';
