@@ -261,11 +261,6 @@ abstract class DocumentTemplate extends Base
             return $background_color;
         }
 
-
-        if (!empty($alias = config('type.' . $type . '.alias'))) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
         $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
 
         return $backgroundColor;
