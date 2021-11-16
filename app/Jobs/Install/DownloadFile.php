@@ -40,6 +40,12 @@ class DownloadFile extends Job
 
         $file = $response->getBody()->getContents();
 
+        $json = json_decode($file);
+
+        if (is_object($json)) {
+            throw new \Exception($json->message);
+        }
+
         $path = 'temp-' . md5(mt_rand());
         $temp_path = storage_path('app/temp/' . $path);
 
