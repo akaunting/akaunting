@@ -144,6 +144,7 @@
                                                     <li class="page-item" :class="[{'active': releases.pagination.current_page == {{ $page }}}]" v-if="releases.pagination.current_page == {{ $page }}">
                                                         <span class="page-link">{{ $page }}</span>
                                                     </li>
+
                                                     <li class="page-item" v-else>
                                                         <button type="button" class="page-link" @click="onReleases({{ $page }})" data-page="{{ $page }}">{{ $page }}</button>
                                                     </li>
@@ -212,6 +213,7 @@
                                                 <li class="page-item" :class="[{'active': reviews.pagination.current_page == {{ $page }}}]" v-if="reviews.pagination.current_page == {{ $page }}">
                                                     <span class="page-link">{{ $page }}</span>
                                                 </li>
+
                                                 <li class="page-item" v-else>
                                                     <button type="button" class="page-link" @click="onReviews({{ $page }})" data-page="{{ $page }}">{{ $page }}</button>
                                                 </li>
@@ -296,9 +298,19 @@
                     @else
                         @can('create-modules-item')
                             @if ($module->install)
-                                <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
-                                    {{ trans('modules.install') }}
-                                </button>
+                                @if (!empty($module->isPurchase) && (!empty($module->purchase_type) && $module->purchase_type == 'monthly'))
+                                    <el-tooltip placement="right">
+                                        <div slot="content">{!! trans('modules.can_not_install', ['app' => $module->name]) !!}</div>
+
+                                        <button type="button" class="btn btn-success btn-block btn-tooltip disabled">
+                                            <span class="text-disabled">{{ trans('modules.install') }}</span>
+                                        </button>
+                                    </el-tooltip>
+                                @else
+                                    <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
+                                        {{ trans('modules.install') }}
+                                    </button>
+                                @endif
                             @else
                                 <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
                                     {{ trans('modules.buy_now') }}

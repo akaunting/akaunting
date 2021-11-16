@@ -15,6 +15,7 @@ return [
     'no_apps'               => 'There are no apps in this category, yet.',
     'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'Recommended Apps',
+    'can_not_install'       => 'You can not install :app app. </br> Beacuse monthly subscription just support <a href="https://akaunting.com/start" target="_blank">cloud</a>',
 
     'about'                 => 'About',
 
