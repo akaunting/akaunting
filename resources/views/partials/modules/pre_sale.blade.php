@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header py-2">
             <h4 class="ml--3 mb-0 float-left">
-                <a href="{{ route('apps.app.show', $module->slug) }}">{{ $module->name }}</a>
+                <a href="{{ route('apps.app.show', $module->slug) }}">{!! $module->name !!}</a>
             </h4>
 
             <span class="mr--3 float-right">
@@ -31,14 +31,15 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            {!! $module->price_prefix !!}
-                                @if (isset($module->special_price))
-                                    <del class="text-danger">{{ $module->price }}</del>
-                                    {{ $module->special_price }}
-                                @else
-                                    {{ $module->price }}
-                                @endif
-                            {!! $module->price_suffix !!}
+                            @if ($module->is_discount)
+                                <del class="text-danger">
+                                    {!! $module->yearly_price !!}
+                                </del>
+
+                                {!! $module->yearly_special_price !!}
+                            @else
+                                {!! $module->yearly_price !!}
+                            @endif
                         @endif
                     </strong>
                 </small>

@@ -2,8 +2,26 @@
     <div class="card">
         <div class="card-header py-2">
             <h4 class="ml--3 mb-0 float-left">
-                <a href="{{ route('apps.app.show', $module->slug) }}">{{ $module->name }}</a>
+                <a href="{{ route('apps.app.show', $module->slug) }}">{!! $module->name !!}</a>
             </h4>
+
+            @if (!empty($module->subscription_type))
+                <span class="mr--3 float-right">
+                    @php $subscription_color = 'bg-info'; @endphp
+    
+                    @if ($module->subscription_type == 'monthly')
+                        @php $subscription_color = 'bg-warning'; @endphp
+                    @endif
+
+                    <span class="badge {{ $subscription_color }} text-white">
+                        @if ($module->subscription_type == 'yearly')
+                            {{ trans('modules.yearly') }}
+                        @else
+                            {{ trans('modules.monthly') }}
+                        @endif
+                    </span>
+                </span>
+            @endif
 
             @if (isset($installed[$module->slug]))
                 @php $color = 'bg-green'; @endphp
@@ -12,8 +30,10 @@
                     @php $color = 'bg-warning'; @endphp
                 @endif
 
-                <span class="mr--3 float-right">
-                    <span class="badge {{ $color }} text-white">{{ trans('modules.badge.installed') }}</span>
+                <span class="{{ !empty($module->subscription_type) ? 'mr-2' : 'mr--3' }} float-right">
+                    <span class="badge {{ $color }} text-white">
+                        {{ trans('modules.badge.installed') }}
+                    </span>
                 </span>
             @endif
         </div>
@@ -38,7 +58,7 @@
 
                 <small class="text-xs">
                     @if ($module->total_review)
-                      ({{ $module->total_review }})
+                        ({{ $module->total_review }})
                     @endif
                 </small>
             </div>
@@ -49,14 +69,7 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            {!! $module->price_prefix !!}
-                        @if (isset($module->special_price))
-                            <del class="text-danger">{{ $module->price }}</del>
-                            {{ $module->special_price }}
-                        @else
-                            {{ $module->price }}
-                        @endif
-                            {!! $module->price_suffix !!}
+                            {{ trans('modules.monthly_price', ['price' => $module->yearly_per_monthly_price]) }}
                         @endif
                     </strong>
                 </small>

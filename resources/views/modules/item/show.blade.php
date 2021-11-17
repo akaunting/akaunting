@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
                     <div class="float-left">
-                        <h3>{{ $module->name }}</h3>
+                        <h3>{!! $module->name !!}</h3>
                     </div>
                 </div>
 
@@ -39,6 +39,7 @@
                             {{ trans('general.description') }}
                         </a>
                     </li>
+
                     @if ($module->installation)
                         <li class="nav-item">
                             <a class="nav-link mb-sm-2 mb-md-0" href="#installation" data-toggle="tab" aria-selected="false">
@@ -46,6 +47,7 @@
                             </a>
                         </li>
                     @endif
+
                     @if ($module->faq)
                         <li class="nav-item">
                             <a class="nav-link mb-sm-2 mb-md-0" href="#faq" data-toggle="tab" aria-selected="false">
@@ -53,6 +55,7 @@
                             </a>
                         </li>
                     @endif
+
                     @if ($module->changelog)
                         <li class="nav-item">
                             <a class="nav-link mb-sm-2 mb-md-0" href="#changelog" data-toggle="tab" aria-selected="false">
@@ -60,8 +63,9 @@
                             </a>
                         </li>
                     @endif
+
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-2 mb-md-0" href="#review" data-toggle="tab" aria-selected="false">
+                        <a class="nav-link mb-sm-2 mb-md-0" href="#review" data-toggle="tab" id="tab-{{ $module->slug }}-review" aria-selected="false">
                             {{ trans('modules.tab.reviews') }} @if ($module->total_review) ({{ $module->total_review }}) @endif
                         </a>
                     </li>
@@ -75,7 +79,7 @@
                             {!! $module->description !!}
 
                             @if($module->screenshots || $module->video)
-                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'" arrow="always"
+                               <akaunting-carousel name="{!! $module->name !!}" height="430px" arrow="always"
                                     @if($module->video)
                                         @php
                                             if (strpos($module->video->link, '=') !== false) {
@@ -259,71 +263,15 @@
         <div class="col-md-4">
             <h3>{{ trans_choice('general.actions', 1) }}</h3>
 
+            @include('partials.modules.show.actions_header')
+
             <div class="card">
                 <div class="card-body">
-                    <div class="text-center">
-                        <strong>
-                            <div class="text-xl">
-                                @if ($module->price == '0.0000')
-                                    {{ trans('modules.free') }}
-                                @else
-                                    {!! $module->price_prefix !!}
-
-                                    @if (isset($module->special_price))
-                                        <del class="text-danger">{{ $module->price }}</del>
-                                        {{ $module->special_price }}
-                                    @else
-                                        {{ $module->price }}
-                                    @endif
-                                    {!! $module->price_suffix !!}
-                                @endif
-                            </div>
-                        </strong>
-                    </div>
+                    @include('partials.modules.show.price')
                 </div>
 
                 <div class="card-footer">
-                    @if ($installed)
-                        @can('delete-modules-item')
-                            <a href="{{ route('apps.app.uninstall', $module->slug) }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
-                        @endcan
-
-                        @can('update-modules-item')
-                            @if ($enable)
-                                <a href="{{ route('apps.app.disable', $module->slug) }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
-                            @else
-                                <a href="{{ route('apps.app.enable', $module->slug) }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
-                            @endif
-                        @endcan
-                    @else
-                        @can('create-modules-item')
-                            @if ($module->install)
-                                @if (!empty($module->isPurchase) && (!empty($module->purchase_type) && $module->purchase_type == 'monthly'))
-                                    <el-tooltip placement="right">
-                                        <div slot="content">{!! trans('modules.can_not_install', ['app' => $module->name]) !!}</div>
-
-                                        <button type="button" class="btn btn-success btn-block btn-tooltip disabled">
-                                            <span class="text-disabled">{{ trans('modules.install') }}</span>
-                                        </button>
-                                    </el-tooltip>
-                                @else
-                                    <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
-                                        {{ trans('modules.install') }}
-                                    </button>
-                                @endif
-                            @else
-                                <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
-                                    {{ trans('modules.buy_now') }}
-                                </a>
-                            @endif
-                        @endcan
-                    @endif
-
-                    @if (!empty($module->purchase_desc))
-                        <div class="text-center mt-3">
-                            {!! $module->purchase_desc !!}
-                        </div>
-                    @endif
+                    @include('partials.modules.show.buttons')
                 </div>
             </div>
 
@@ -338,24 +286,28 @@
                                 <td class="col-7 text-right"><a href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
+
                         @if ($module->version)
                             <tr class="row">
                                 <th class="col-5">{{ trans('footer.version') }}</th>
                                 <td class="col-7 text-right">{{ $module->version }}</td>
                             </tr>
                         @endif
+
                         @if ($module->created_at)
                             <tr class="row">
                                 <th class="col-5">{{ trans('modules.added') }}</th>
                                 <td class="col-7 text-right long-texts">@date($module->created_at)</td>
                             </tr>
                         @endif
+
                         @if ($module->updated_at)
                             <tr class="row">
                                 <th class="col-5">{{ trans('modules.updated') }}</th>
                                 <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
+
                         @if ($module->categories)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.categories', (count($module->categories) > 1) ? 2 : 1) }}</th>
@@ -366,6 +318,7 @@
                                 </td>
                             </tr>
                         @endif
+
                         <tr class="row">
                             <th class="col-5">{{ trans('modules.documentation') }}</th>
                             @if ($module->documentation)
@@ -373,7 +326,7 @@
                                     <a href="{{ route('apps.docs.show', $module->slug) }}">{{ trans('modules.view') }}</a>
                                 </td>
                             @else
-                               <th class="col-7 text-right">{{ trans('general.na') }}</th>
+                               <td class="col-7 text-right">{{ trans('general.na') }}</td>
                             @endif
                         </tr>
                     </tbody>
@@ -411,6 +364,16 @@
 @push('scripts_start')
     <script type="text/javascript">
         var app_slug = "{{ $module->slug }}";
+
+        $(document).on("click", "#app-pricing .nav-link", function() {
+            $('#button-monthly').removeClass('d-none');
+            $('#button-yearly').addClass('d-none');
+
+            if ($(this).attr('href') == '#yearly') {
+                $('#button-yearly').removeClass('d-none');
+                $('#button-monthly').addClass('d-none');
+            }
+        });
     </script>
 
     <script src="{{ asset('public/js/modules/item.js?v=' . version('short')) }}"></script>
