@@ -146,7 +146,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new AccountRequest)->rules());
+        Validator::validate($data, [(new AccountRequest)->rules()]);
 
         $account = $this->dispatch(new CreateAccount($data));
 
@@ -172,7 +172,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new AccountRequest)->rules());
+        Validator::validate($data, [(new AccountRequest)->rules()]);
 
         $account = $this->dispatch(new CreateAccount($data));
 
@@ -198,7 +198,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new AccountRequest)->rules());
+        Validator::validate($data, [(new AccountRequest)->rules()]);
 
         $account = $this->dispatch(new CreateAccount($data));
 
@@ -223,7 +223,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new CategoryRequest)->rules());
+        Validator::validate($data, [(new CategoryRequest)->rules()]);
 
         $category = $this->dispatch(new CreateCategory($data));
 
@@ -249,7 +249,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new ContactRequest)->rules());
+        Validator::validate($data, [(new ContactRequest)->rules()]);
 
         $contact = $this->dispatch(new CreateContact($data));
 
@@ -275,7 +275,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new ContactRequest)->rules());
+        Validator::validate($data, [(new ContactRequest)->rules()]);
 
         $contact = $this->dispatch(new CreateContact($data));
 
@@ -300,7 +300,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new ItemRequest())->rules());
+        Validator::validate($data, [(new ItemRequest())->rules()]);
 
         $item = $this->dispatch(new CreateItem($data));
 
@@ -325,7 +325,7 @@ trait Import
             'created_by'        => $row['created_by'],
         ];
 
-        Validator::validate($data, (new TaxRequest())->rules());
+        Validator::validate($data, [(new TaxRequest())->rules()]);
 
         $tax = $this->dispatch(new CreateTax($data));
 
