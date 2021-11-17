@@ -64,7 +64,13 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.22.12",
         "sass-loader": "^7.3.1",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "ansi-regex": ">=5.0.1",
+        "nth-check": ">=2.0.1",
+        "tar": ">=4.4.18",
+        "trim-newlines": ">=3.0.1",
+        "is-svg": ">=4.2.2",
+        "object-path": ">=0.11.8"
     },
     "postcss": {
         "plugins": {
