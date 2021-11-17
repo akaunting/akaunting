@@ -16,7 +16,7 @@ class DocumentItem extends FormRequest
      */
     public function rules()
     {
-        if (Str::contains($item['quantity'], ['.', ','])) {
+        if (Str::contains($this->request->get('quantity'), ['.', ','])) {
             $this->quantity_size = 7;
         }
 
