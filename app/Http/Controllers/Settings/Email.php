@@ -8,10 +8,13 @@ use App\Jobs\Setting\UpdateEmailTemplate;
 use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
 use App\Utilities\Installer;
+use App\Traits\Modules;
 use Illuminate\Support\Str;
 
 class Email extends Controller
 {
+    use Modules;
+
     public $skip_keys = ['company_id', '_method', '_token', '_prefix'];
 
     /**
@@ -33,7 +36,7 @@ class Email extends Controller
 
     public function edit()
     {
-        $templates = EmailTemplate::all();
+        $templates = $this->getTemplates();
 
         $email_protocols = [
             'mail' => trans('settings.email.php'),
@@ -142,5 +145,23 @@ class Email extends Controller
                 Installer::updateEnv(['MAIL_ENCRYPTION' => '"' . $value . '"']);
                 break;
         }
+    }
+
+    protected function getTemplates()
+    {
+        $templates = EmailTemplate::all();
+
+        foreach ($templates as $key => $template) {
+            if (strstr($template->class, 'Modules')) {
+                $class = explode("\\", $template->class);
+                $alias = mb_strtolower($class[1]);
+
+                if (!$this->moduleIsEnabled($alias)) {
+                    unset($templates[$key]);
+                }
+            }
+        }
+
+        return $templates;
     }
 }
