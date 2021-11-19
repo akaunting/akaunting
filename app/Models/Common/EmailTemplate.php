@@ -3,6 +3,7 @@
 namespace App\Models\Common;
 
 use App\Abstracts\Model;
+use Illuminate\Support\Str;
 
 class EmailTemplate extends Model
 {
