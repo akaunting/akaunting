@@ -7,11 +7,14 @@ use App\Http\Requests\Setting\Setting as Request;
 use App\Jobs\Setting\UpdateEmailTemplate;
 use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
+use App\Traits\Modules;
 use App\Utilities\Installer;
 use Illuminate\Support\Str;
 
 class Email extends Controller
 {
+    use Modules;
+
     public $skip_keys = ['company_id', '_method', '_token', '_prefix'];
 
     /**
@@ -33,7 +36,15 @@ class Email extends Controller
 
     public function edit()
     {
-        $templates = EmailTemplate::all();
+        $templates = EmailTemplate::all()->reject(function($template) {
+            if (Str::startsWith($template->class, 'App')) {
+                return false;
+            }
+
+            $class = explode('\\', $template->class);
+
+            return $this->moduleIsDisabled(Str::kebab($class[1]));
+        })->all();
 
         $email_protocols = [
             'mail' => trans('settings.email.php'),
