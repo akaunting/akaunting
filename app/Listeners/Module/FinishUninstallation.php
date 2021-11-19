@@ -6,7 +6,9 @@ use App\Events\Module\Uninstalled as Event;
 use App\Exceptions\Common\LastDashboard;
 use App\Jobs\Common\DeleteDashboard;
 use App\Jobs\Common\DeleteReport;
+use App\Jobs\Setting\DeleteEmailTemplate;
 use App\Models\Common\Dashboard;
+use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
 use App\Traits\Jobs;
 use Throwable;
@@ -24,6 +26,7 @@ class FinishUninstallation
     public function handle(Event $event)
     {
         $this->deleteDashboards($event->alias);
+        $this->deleteEmailTemplates($event->alias);
         $this->deleteReports($event->alias);
     }
 
@@ -43,6 +46,23 @@ class FinishUninstallation
                     return;
                 }
 
+                report($e);
+            }
+        });
+    }
+
+    /**
+     * Delete any email template created by the module.
+     *
+     * @param  string $alias
+     * @return void
+     */
+    protected function deleteEmailTemplates($alias)
+    {
+        EmailTemplate::moduleAlias($alias)->get()->each(function ($template) {
+            try {
+                $this->dispatch(new DeleteEmailTemplate($template));
+            } catch (Throwable $e) {
                 report($e);
             }
         });
