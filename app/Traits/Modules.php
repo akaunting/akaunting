@@ -316,20 +316,20 @@ trait Modules
         return true;
     }
 
-    public function moduleIsEnabled($alias)
+    public function moduleIsEnabled($alias): bool
     {
-        if (!$this->moduleExists($alias)) {
+        if (! $this->moduleExists($alias)) {
             return false;
         }
 
-        if (!Module::alias($alias)->enabled()->first()) {
+        if (! Module::alias($alias)->enabled()->first()) {
             return false;
         }
 
         return true;
     }
 
-    public function moduleIsDisabled($alias)
+    public function moduleIsDisabled($alias): bool
     {
         return ! $this->moduleIsEnabled($alias);
     }
