@@ -50,7 +50,7 @@
                                     @if ($item->reconciled)
                                         <a class="col-aka" href="#">@date($item->paid_at)</a>
                                     @else
-                                        <a class="col-aka" href="{{ route('revenues.show', $item->id) }}">@date($item->paid_at)</a>
+                                        <a class="col-aka" href="{{ route('payments.show', $item->id) }}">@date($item->paid_at)</a>
                                     @endif
                                     @if ($item->recurring)
                                         <i class="fas fa-redo-alt fa-xs" title="{{ trans('recurring.recurring') }}"></i>
