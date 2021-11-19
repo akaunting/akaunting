@@ -11,7 +11,7 @@
     @include('partials.modules.bar')
 
     <div class="card">
-        <div class="card-body">
+        <div class="card-body documentation-content">
             @if ($documentation)
                 {!! $documentation->body !!}
             @else
@@ -28,6 +28,14 @@
         </div>
     </div>
 @endsection
+
+@push('stylesheet')
+    <style>
+        .documentation-content img {
+            width: 100%;
+        }
+    </style>
+@endpush
 
 @push('scripts_start')
     <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
