@@ -26,15 +26,7 @@
 
             <div class="text-center text-sm mt-3 mb--2">
                 <span style="font-size: 12px;">
-                    @if (!empty($module->is_discount))
-                        @php
-                            $price = '<del class="text-danger">' . '$' . $module->raw_monthly_price * 4 . '</del> ' . '$' . $module->raw_monthly_special_price * 4;
-                        @endphp
-
-                        {!! trans('modules.save_year', ['price' => $price]) !!}
-                    @else
-                        {!! trans('modules.save_year', ['price' => '$' . $module->raw_monthly_price * 4]) !!}
-                    @endif
+                    {!! trans('modules.save_year', ['price' => '$' . $module->raw_monthly_price * 4]) !!}
                 </span>
             </div>
 
