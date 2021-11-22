@@ -52,6 +52,8 @@ return [
     'sales'                 => 'Sälj|Försäljning',
     'purchases'             => 'Inköpning|Inköp',
     'notifications'         => 'Notifiering|Notifikationer',
+    'countries'             => 'Land|Länder',
+    'cities'                => 'Stad / Stadskärna / Städer',
 
     'welcome'               => 'Välkommen',
     'banking'               => 'Banktjänster',
@@ -164,6 +166,8 @@ return [
     'amount_due'            => 'Belopp att betala',
     'financial_year'        => 'Räkenskapsår',
     'created'               => 'Skapad',
+    'state'                 => 'Provins / delstat',
+    'zip_code'              => 'Postnummer / Postnummer',
 
     'card' => [
         'cards'                 => 'Kort| Kort',

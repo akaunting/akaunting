@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Concilia',
         'expense_account'   => 'Compte origen',
         'income_account'    => 'Compte destí',
+        'recurring'         => 'Recurrent',
     ],
 
 ];
