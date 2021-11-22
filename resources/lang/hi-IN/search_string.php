@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'मेल मिलाप',
         'expense_account'   => 'खाते से',
         'income_account'    => 'खाते में',
+        'recurring'         => 'आवर्ती',
     ],
 
 ];

@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Broj računa',
     'bill_date'             => 'Datum računa',
+    'bill_amount'           => 'Iznos računa',
     'total_price'           => 'Ukupna cena',
     'due_date'              => 'Datum dospeća',
     'order_number'          => 'Broj narudžbine',
