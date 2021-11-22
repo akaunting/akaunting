@@ -7,7 +7,7 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            @if (isset($module->is_discount))
+                            @if (!empty($module->is_discount))
                                 <del class="text-danger">{!! $module->yearly_per_monthly_price !!}</del>
                                 {!! $module->yearly_per_monthly_special_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
                             @else
@@ -26,7 +26,15 @@
 
             <div class="text-center text-sm mt-3 mb--2">
                 <span style="font-size: 12px;">
-                    {!! trans('modules.save_year', ['price' => '$' . $module->raw_monthly_price * 4]) !!}
+                    @if (!empty($module->is_discount))
+                        @php
+                            $price = '<del class="text-danger">' . '$' . $module->raw_monthly_price * 4 . '</del> ' . '$' . $module->raw_monthly_special_price * 4;
+                        @endphp
+
+                        {!! trans('modules.save_year', ['price' => $price]) !!}
+                    @else
+                        {!! trans('modules.save_year', ['price' => '$' . $module->raw_monthly_price * 4]) !!}
+                    @endif
                 </span>
             </div>
 
@@ -42,7 +50,7 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            @if (isset($module->is_discount))
+                            @if (!empty($module->is_discount))
                                 <del class="text-danger">{!! $module->monthly_price !!}</del>
                                 {!! $module->monthly_special_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
                             @else
@@ -61,7 +69,11 @@
 
             <div class="text-center text-sm mt-3 mb--2">
                 <span style="font-size: 12px;">
-                    {!! trans('modules.if_paid_year', ['price' => $module->yearly_per_monthly_price]) !!}
+                    @if (!empty($module->is_discount))
+                        {!! trans('modules.if_paid_year', ['price' => '<del class="text-danger">' . $module->yearly_per_monthly_price . '</del> ' . $module->yearly_per_monthly_special_price]) !!}
+                    @else
+                        {!! trans('modules.if_paid_year', ['price' => $module->yearly_per_monthly_price]) !!}
+                    @endif
                 </span>
             </div>
 

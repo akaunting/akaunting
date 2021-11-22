@@ -69,8 +69,8 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            @if (isset($module->is_discount))
-                                {!! trans('modules.monthly_price', ['price' => '<del class="text-danger">' . $module->yearly_per_monthly_price . '</del>' . $module->yearly_per_monthly_special_price]) !!}
+                            @if (!empty($module->is_discount))
+                                {!! trans('modules.monthly_price', ['price' => '<del class="text-danger">' . $module->yearly_per_monthly_price . '</del> ' . $module->yearly_per_monthly_special_price]) !!}
                             @else
                                 {!! trans('modules.monthly_price', ['price' => $module->yearly_per_monthly_price]) !!}
                             @endif
