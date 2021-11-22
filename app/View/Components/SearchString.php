@@ -108,7 +108,7 @@ class SearchString extends Component
             $column = str_replace('_code', '', $column);
         }
 
-        if (!empty($options['translation'])) {
+        if (!empty($options['translation']) && !isset($options['boolean'])) {
             return $options['translation'];
         }
 
