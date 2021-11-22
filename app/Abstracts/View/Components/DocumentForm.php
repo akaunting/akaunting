@@ -782,7 +782,9 @@ abstract class DocumentForm extends Base
             return $textItems;
         }
 
-        if (setting($this->getSettingKey($type, 'item_name')) !== null) {
+        if (setting($this->getSettingKey($type, 'item_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'item_name'))) != setting($this->getSettingKey($type, 'item_name')))
+        ) {
             return setting($this->getSettingKey($type, 'item_name'));
         }
 
@@ -810,7 +812,9 @@ abstract class DocumentForm extends Base
             return $textQuantity;
         }
 
-        if (setting($this->getSettingKey($type, 'quantity_name')) !== null) {
+        if (setting($this->getSettingKey($type, 'quantity_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'quantity_name'))) != setting($this->getSettingKey($type, 'quantity_name')))
+        ) {
             return setting($this->getSettingKey($type, 'quantity_name'));
         }
 
@@ -838,7 +842,9 @@ abstract class DocumentForm extends Base
             return $textPrice;
         }
 
-        if (setting($this->getSettingKey($type, 'price_name')) !== null) {
+        if (setting($this->getSettingKey($type, 'price_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'price_name'))) != setting($this->getSettingKey($type, 'price_name')))
+        ) {
             return setting($this->getSettingKey($type, 'price_name'));
         }
 

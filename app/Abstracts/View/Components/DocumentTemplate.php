@@ -419,12 +419,18 @@ abstract class DocumentTemplate extends Base
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'item_name'), 'items') == 'custom') {
+        if (setting($this->getSettingKey($type, 'item_name'), 'items') === 'custom') {
             if (empty($textItems = setting($this->getSettingKey($type, 'item_name_input')))) {
                 $textItems = 'general.items';
             }
 
             return $textItems;
+        }
+
+        if (setting($this->getSettingKey($type, 'item_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'item_name'))) != setting($this->getSettingKey($type, 'item_name')))
+        ) {
+            return setting($this->getSettingKey($type, 'item_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'items');
@@ -451,6 +457,12 @@ abstract class DocumentTemplate extends Base
             return $textQuantity;
         }
 
+        if (setting($this->getSettingKey($type, 'quantity_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'quantity_name'))) != setting($this->getSettingKey($type, 'quantity_name')))
+        ) {
+            return setting($this->getSettingKey($type, 'quantity_name'));
+        }
+
         $translation = $this->getTextFromConfig($type, 'quantity');
 
         if (!empty($translation)) {
@@ -473,6 +485,12 @@ abstract class DocumentTemplate extends Base
             }
 
             return $textPrice;
+        }
+
+        if (setting($this->getSettingKey($type, 'price_name')) !== null && 
+            (trans(setting($this->getSettingKey($type, 'price_name'))) != setting($this->getSettingKey($type, 'price_name')))
+        ) {
+            return setting($this->getSettingKey($type, 'price_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'price');
