@@ -7,7 +7,12 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            {!! $module->yearly_per_monthly_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @if (isset($module->is_discount))
+                                <del class="text-danger">{!! $module->yearly_per_monthly_price !!}</del>
+                                {!! $module->yearly_per_monthly_special_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @else
+                                {!! $module->yearly_per_monthly_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @endif
                         @endif
                     </div>
                 </strong>
@@ -37,7 +42,12 @@
                         @if ($module->price == '0.0000')
                             {{ trans('modules.free') }}
                         @else
-                            {!! $module->monthly_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @if (isset($module->is_discount))
+                                <del class="text-danger">{!! $module->monthly_price !!}</del>
+                                {!! $module->monthly_special_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @else
+                                {!! $module->monthly_price !!} <span class="small">{{ trans('modules.per_month') }}</span>
+                            @endif
                         @endif
                     </div>
                 </strong>
