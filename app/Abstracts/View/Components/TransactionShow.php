@@ -257,40 +257,40 @@ abstract class TransactionShow extends Base
     public $hideContactEmail;
 
     /** @var bool */
-    public $hideReletad;
+    public $hideRelated;
 
     /** @var bool */
-    public $hideReletadDocumentNumber;
+    public $hideRelatedDocumentNumber;
 
     /** @var bool */
-    public $hideReletadContact;
+    public $hideRelatedContact;
 
     /** @var bool */
-    public $hideReletadDocumentDate;
+    public $hideRelatedDocumentDate;
 
     /** @var bool */
-    public $hideReletadDocumentAmount;
+    public $hideRelatedDocumentAmount;
 
     /** @var bool */
-    public $hideReletadAmount;
+    public $hideRelatedAmount;
 
     /** @var string */
-    public $textReleatedTransansaction;
+    public $textRelatedTransansaction;
 
     /** @var string */
-    public $textReleatedDocumentNumber;
+    public $textRelatedDocumentNumber;
 
     /** @var string */
-    public $textReleatedContact;
+    public $textRelatedContact;
 
     /** @var string */
-    public $textReleatedDocumentDate;
+    public $textRelatedDocumentDate;
 
     /** @var string */
-    public $textReleatedDocumentAmount;
+    public $textRelatedDocumentAmount;
 
     /** @var string */
-    public $textReleatedAmount;
+    public $textRelatedAmount;
 
     /** @var string */
     public $routeDocumentShow;
@@ -346,8 +346,8 @@ abstract class TransactionShow extends Base
         string $textAmount = '', string $textPaidBy = '',
         bool $hideContact = false, bool $hideContactInfo = false, bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false,
         bool $hideContactPhone = false, bool $hideContactEmail = false,
-        bool $hideReletad = false, bool $hideReletadDocumentNumber = false, bool $hideReletadContact = false, bool $hideReletadDocumentDate = false, bool $hideReletadDocumentAmount = false, bool $hideReletadAmount = false,
-        string $textReleatedTransansaction = '', string $textReleatedDocumentNumber = '', string $textReleatedContact = '', string $textReleatedDocumentDate = '', string $textReleatedDocumentAmount = '', string $textReleatedAmount = '',
+        bool $hideRelated = false, bool $hideRelatedDocumentNumber = false, bool $hideRelatedContact = false, bool $hideRelatedDocumentDate = false, bool $hideRelatedDocumentAmount = false, bool $hideRelatedAmount = false,
+        string $textRelatedTransansaction = '', string $textRelatedDocumentNumber = '', string $textRelatedContact = '', string $textRelatedDocumentDate = '', string $textRelatedDocumentAmount = '', string $textRelatedAmount = '',
         string $routeDocumentShow = '',
 
         bool $hideAttachment = false, $attachment = [],
@@ -464,21 +464,21 @@ abstract class TransactionShow extends Base
         $this->hideContactPhone = $hideContactPhone;
         $this->hideContactEmail = $hideContactEmail;
 
-        // Releated Information Hide checker
-        $this->hideReletad = $hideReletad;
-        $this->hideReletadDocumentNumber = $hideReletadDocumentNumber;
-        $this->hideReletadContact = $hideReletadContact;
-        $this->hideReletadDocumentDate = $hideReletadDocumentDate;
-        $this->hideReletadDocumentAmount = $hideReletadDocumentAmount;
-        $this->hideReletadAmount = $hideReletadAmount;
+        // Related Information Hide checker
+        $this->hideRelated = $hideRelated;
+        $this->hideRelatedDocumentNumber = $hideRelatedDocumentNumber;
+        $this->hideRelatedContact = $hideRelatedContact;
+        $this->hideRelatedDocumentDate = $hideRelatedDocumentDate;
+        $this->hideRelatedDocumentAmount = $hideRelatedDocumentAmount;
+        $this->hideRelatedAmount = $hideRelatedAmount;
 
-        // Releated Information Text
-        $this->textReleatedTransansaction = $this->getTextReleatedTransansaction($type, $textReleatedTransansaction);
-        $this->textReleatedDocumentNumber = $this->getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber);
-        $this->textReleatedContact = $this->getTextReleatedContact($type, $textReleatedContact);
-        $this->textReleatedDocumentDate = $this->getTextReleatedDocumentDate($type, $textReleatedDocumentDate);
-        $this->textReleatedDocumentAmount = $this->getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount);
-        $this->textReleatedAmount = $this->getTextReleatedAmount($type, $textReleatedAmount);
+        // Related Information Text
+        $this->textRelatedTransansaction = $this->getTextRelatedTransansaction($type, $textRelatedTransansaction);
+        $this->textRelatedDocumentNumber = $this->getTextRelatedDocumentNumber($type, $textRelatedDocumentNumber);
+        $this->textRelatedContact = $this->getTextRelatedContact($type, $textRelatedContact);
+        $this->textRelatedDocumentDate = $this->getTextRelatedDocumentDate($type, $textRelatedDocumentDate);
+        $this->textRelatedDocumentAmount = $this->getTextRelatedDocumentAmount($type, $textRelatedDocumentAmount);
+        $this->textRelatedAmount = $this->getTextRelatedAmount($type, $textRelatedAmount);
 
         $this->routeDocumentShow = $this->routeDocumentShow($type, $routeDocumentShow);
 
@@ -1093,10 +1093,10 @@ abstract class TransactionShow extends Base
         return 'revenues.paid_by';
     }
 
-    protected function getTextReleatedTransansaction($type, $textReleatedTransansaction)
+    protected function getTextRelatedTransansaction($type, $textRelatedTransansaction)
     {
-        if (!empty($textReleatedTransansaction)) {
-            return $textReleatedTransansaction;
+        if (!empty($textRelatedTransansaction)) {
+            return $textRelatedTransansaction;
         }
 
         switch ($type) {
@@ -1119,10 +1119,10 @@ abstract class TransactionShow extends Base
         return 'revenues.related_invoice';
     }
 
-    protected function getTextReleatedDocumentNumber($type, $textReleatedDocumentNumber)
+    protected function getTextRelatedDocumentNumber($type, $textRelatedDocumentNumber)
     {
-        if (!empty($textReleatedDocumentNumber)) {
-            return $textReleatedDocumentNumber;
+        if (!empty($textRelatedDocumentNumber)) {
+            return $textRelatedDocumentNumber;
         }
 
         $translation = $this->getTextFromConfig($type, 'related_document_number', 'numbers');
@@ -1134,10 +1134,10 @@ abstract class TransactionShow extends Base
         return 'general.numbers';
     }
 
-    protected function getTextReleatedContact($type, $textReleatedContact)
+    protected function getTextRelatedContact($type, $textRelatedContact)
     {
-        if (!empty($textReleatedContact)) {
-            return $textReleatedContact;
+        if (!empty($textRelatedContact)) {
+            return $textRelatedContact;
         }
 
         $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
@@ -1151,10 +1151,10 @@ abstract class TransactionShow extends Base
         return 'general.customers';
     }
 
-    protected function getTextReleatedDocumentDate($type, $textReleatedDocumentDate)
+    protected function getTextRelatedDocumentDate($type, $textRelatedDocumentDate)
     {
-        if (!empty($textReleatedDocumentDate)) {
-            return $textReleatedDocumentDate;
+        if (!empty($textRelatedDocumentDate)) {
+            return $textRelatedDocumentDate;
         }
 
         switch ($type) {
@@ -1177,10 +1177,10 @@ abstract class TransactionShow extends Base
         return 'invoices.invoice_date';
     }
 
-    protected function getTextReleatedDocumentAmount($type, $textReleatedDocumentAmount)
+    protected function getTextRelatedDocumentAmount($type, $textRelatedDocumentAmount)
     {
-        if (!empty($textReleatedDocumentAmount)) {
-            return $textReleatedDocumentAmount;
+        if (!empty($textRelatedDocumentAmount)) {
+            return $textRelatedDocumentAmount;
         }
 
         switch ($type) {
@@ -1203,10 +1203,10 @@ abstract class TransactionShow extends Base
         return 'general.amount';
     }
 
-    protected function getTextReleatedAmount($type, $textReleatedAmount)
+    protected function getTextRelatedAmount($type, $textRelatedAmount)
     {
-        if (!empty($textReleatedAmount)) {
-            return $textReleatedAmount;
+        if (!empty($textRelatedAmount)) {
+            return $textRelatedAmount;
         }
 
         $translation = $this->getTextFromConfig($type, 'related_amount', 'amount');
