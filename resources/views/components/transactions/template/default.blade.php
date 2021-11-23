@@ -258,7 +258,7 @@
     </tr>
 </table>
 
-@if (!$hideReletad)
+@if (!$hideRelated)
     @if ($transaction->document)
         <table>
             <tr>
@@ -269,7 +269,7 @@
         <table>
             <tr>
                 <td style="padding-bottom: 0; padding-top:36px;">
-                    <h2 style="font-size: 16px;">{{ trans($textReleatedTransansaction) }}</h2>
+                    <h2 style="font-size: 16px;">{{ trans($textRelatedTransansaction) }}</h2>
                 </td>
             </tr>
         </table>
@@ -277,33 +277,33 @@
         <table class="table table-flush table-hover" cellspacing="0" cellpadding="0" style="margin-bottom: 36px;">
             <thead style="background-color: #f6f9fc; -webkit-print-color-adjust: exact; font-family: Arial, sans-serif; color:#8898aa; font-size:11px;">
                 <tr class="border-bottom-1">    
-                    @if (!$hideReletadDocumentNumber)
+                    @if (!$hideRelatedDocumentNumber)
                         <th class="item text-left" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
-                            <span>{{ trans_choice($textReleatedDocumentNumber, 1) }}</span>
+                            <span>{{ trans_choice($textRelatedDocumentNumber, 1) }}</span>
                         </th>
                     @endif
 
-                    @if (!$hideReletadContact)
+                    @if (!$hideRelatedContact)
                         <th class="quantity" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
-                            {{ trans_choice($textReleatedContact, 1) }}
+                            {{ trans_choice($textRelatedContact, 1) }}
                         </th>
                     @endif
 
-                    @if (!$hideReletadDocumentDate)
+                    @if (!$hideRelatedDocumentDate)
                         <th class="price" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
-                            {{ trans($textReleatedDocumentDate) }}
+                            {{ trans($textRelatedDocumentDate) }}
                         </th>
                     @endif
 
-                    @if (!$hideReletadDocumentAmount)
+                    @if (!$hideRelatedDocumentAmount)
                         <th class="price" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
-                            {{ trans($textReleatedDocumentAmount) }}
+                            {{ trans($textRelatedDocumentAmount) }}
                         </th>
                     @endif
 
-                    @if (!$hideReletadAmount)
+                    @if (!$hideRelatedAmount)
                         <th class="total" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
-                            {{ trans($textReleatedAmount) }}
+                            {{ trans($textRelatedAmount) }}
                         </th>
                     @endif
                 </tr>
@@ -311,7 +311,7 @@
 
             <tbody>
                 <tr>
-                    @if (!$hideReletadDocumentNumber)
+                    @if (!$hideRelatedDocumentNumber)
                         <td class="item" style="color:#525f7f; font-size:13px;">
                             <a style="color:#6da252 !important;" href="{{ route($routeDocumentShow, $transaction->document->id) }}">
                                 {{ $transaction->document->document_number }}
@@ -319,25 +319,25 @@
                         </td>
                     @endif
 
-                    @if (!$hideReletadContact)
+                    @if (!$hideRelatedContact)
                         <td class="quantity" style="color:#525f7f; font-size:13px;">
                             {{ $transaction->document->contact_name }}
                         </td>
                     @endif
 
-                    @if (!$hideReletadDocumentDate)
+                    @if (!$hideRelatedDocumentDate)
                         <td class="price" style="color:#525f7f; font-size:13px;">
                             @date($transaction->document->due_at)
                         </td>
                     @endif
 
-                    @if (!$hideReletadDocumentAmount)
+                    @if (!$hideRelatedDocumentAmount)
                         <td class="price" style="color:#525f7f; font-size:13px;">
                             @money($transaction->document->amount, $transaction->document->currency_code, true)
                         </td>
                     @endif
 
-                    @if (!$hideReletadAmount)
+                    @if (!$hideRelatedAmount)
                         <td class="total" style="color:#525f7f; font-size:13px;">
                             @money($transaction->amount, $transaction->currency_code, true)
                         </td>

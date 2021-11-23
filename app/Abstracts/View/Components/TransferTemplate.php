@@ -177,7 +177,7 @@ abstract class TransferTemplate extends Component
         $this->hideDetailDescription = $hideDetailDescription;
         $this->hideDetailAmount = $hideDetailAmount;
 
-        // Releated Information Text
+        // Related Information Text
         $this->textDetailTitle = $this->getTextDetailTitle($textDetailTitle);
         $this->textDetailDate = $this->getTextDetailDate($textDetailDate);
         $this->textDetailPaymentMethod = $this->getTextDetailPaymentMethod($textDetailPaymentMethod);
