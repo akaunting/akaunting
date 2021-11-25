@@ -33,7 +33,7 @@
                 @stack('recurring_parent_message_body_start')
                     <p class="text-sm lh-160 mb-0">{!! trans('recurring.message_parent', [
                         'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
-                        'link' => '<a href="' . route(mb_strtolower(trans_choice($textRecurringType, 2)) . '.show', $document->parent->id) . '"><u>' . $document->parent->document_number . '</u></a>'
+                        'link' => '<a href="' . route($routePrefix . '.show', $document->parent->id) . '"><u>' . $document->parent->document_number . '</u></a>'
                     ]) !!}
                     </p>
                 @stack('recurring_parent_message_body_end')
