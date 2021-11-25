@@ -12,7 +12,7 @@
                 @stack('recurring_message_body_start')
                     <p class="text-sm lh-160 mb-0">{{ trans('recurring.message', [
                         'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
-                        'date' => $next->format($date_format)
+                        'date' => $next->format(company_date_format())
                     ]) }}
                     </p>
                 @stack('recurring_message_body_end')
