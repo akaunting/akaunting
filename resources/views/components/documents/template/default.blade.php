@@ -74,7 +74,7 @@
     <div class="col-58">
         <div class="text company">
             <br>
-            @if ($hideContactInfo)
+            @if (!$hideContactInfo)
                 <strong>{{ trans($textContactInfo) }}</strong><br>
             @endif
 

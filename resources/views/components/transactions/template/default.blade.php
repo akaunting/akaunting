@@ -165,7 +165,7 @@
                         </td>
                     </tr>
 
-                    @if ($hideContactInfo)
+                    @if (!$hideContactInfo)
                         <tr>
                             <td style="padding-bottom:5px; padding-top:0; font-size:14px;">
                                 <strong>{{ trans($textContactInfo) }}</strong><br>
@@ -276,7 +276,7 @@
 
         <table class="table table-flush table-hover" cellspacing="0" cellpadding="0" style="margin-bottom: 36px;">
             <thead style="background-color: #f6f9fc; -webkit-print-color-adjust: exact; font-family: Arial, sans-serif; color:#8898aa; font-size:11px;">
-                <tr class="border-bottom-1">    
+                <tr class="border-bottom-1">
                     @if (!$hideRelatedDocumentNumber)
                         <th class="item text-left" style="text-align: left; text-transform: uppercase; font-family: Arial, sans-serif;">
                             <span>{{ trans_choice($textRelatedDocumentNumber, 1) }}</span>
