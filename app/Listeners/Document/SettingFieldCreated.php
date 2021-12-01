@@ -42,7 +42,7 @@ class SettingFieldCreated
                 continue;
             }
 
-            $real_key = $type . '.' . $key;
+            $real_key = $this->getSettingKey($type, $key);
 
             setting()->set($real_key, $value);
         }
@@ -53,7 +53,7 @@ class SettingFieldCreated
             $company = Company::find($document->company_id);
 
             foreach ($files as $key => $value) {
-                // Upload attachment    
+                // Upload attachment
                 $media = $this->getMedia($value, 'settings');
 
                 $company->attachMedia($media, Str::snake($real_key));
@@ -66,7 +66,7 @@ class SettingFieldCreated
                     continue;
                 }
 
-                $real_key = $type . '.' . $key;
+                $real_key = setting($this->getSettingKey($type, $key));
 
                 setting()->set($real_key, $value);
             }
