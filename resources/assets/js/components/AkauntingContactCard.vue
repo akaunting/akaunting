@@ -316,7 +316,7 @@ export default {
         },
 
         onInput() {
-            window.axios.get(this.searchRoute + '?search="' + this.search + '" limit:10')
+            window.axios.get(this.searchRoute + '?search="' + this.search + '" enabled:1 limit:10')
             .then(response => {
                 this.contact_list = [];
 

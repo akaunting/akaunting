@@ -30,7 +30,7 @@
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.income_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income', 'remote_action' => route('categories.index'). '?search=type:income']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.income_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income', 'remote_action' => route('categories.index'). '?search=type:income enabled:1']) }}
 
                     {{ Form::recurring('create') }}
 

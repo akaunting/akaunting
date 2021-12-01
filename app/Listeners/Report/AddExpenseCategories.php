@@ -27,7 +27,7 @@ class AddExpenseCategories extends Listener
 
         // send true for add limit on search and filter..
         $event->class->filters['categories'] = $this->getExpenseCategories(true);
-        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:expense'];
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:expense enabled:1'];
     }
 
     /**

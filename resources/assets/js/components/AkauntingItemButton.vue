@@ -331,7 +331,7 @@ export default {
         },
 
         async fetchMatchedItems() {
-            await window.axios.get(url + '/common/items?search=enabled:1 "' + this.search + '" limit:10')
+            await window.axios.get(url + '/common/items?search="' + this.search + '" enabled:1 limit:10')
                 .then(response => {
                     this.item_list = [];
                     let items = response.data.data;
@@ -390,7 +390,7 @@ export default {
                 price: 0,
                 tax_ids: [],
             };
-            
+
             this.newItems.push(item);
 
             this.addItem(item, 'newItem');
@@ -524,6 +524,7 @@ export default {
         sortedItems() {
             return this.sortItems();
         },
+
         currentIndex() {
             return this.$root.form.items.length;
         },
@@ -559,6 +560,6 @@ export default {
 
 <style scoped>
     .highlightItem:first-child {
-        background-color: #F5F7FA;    
+        background-color: #F5F7FA;
     }
 </style>
