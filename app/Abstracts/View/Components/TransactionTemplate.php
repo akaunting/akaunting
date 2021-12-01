@@ -104,6 +104,9 @@ abstract class TransactionTemplate extends Base
     /** @var string */
     public $textPaidBy;
 
+    /** @var string */
+    public $textContactInfo;
+
     /** @var bool */
     public $hideContact;
 
@@ -171,12 +174,12 @@ abstract class TransactionTemplate extends Base
      */
     public function __construct(
         $type, $transaction, $logo = '', array $payment_methods = [],
-        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false, 
+        bool $hideCompany = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false, bool $hideCompanyName = false, bool $hideCompanyAddress = false,
         bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false,
         bool $hideContentTitle = false,bool $hidePaidAt = false, bool $hideAccount = false, bool $hideCategory = false, bool $hidePaymentMethods = false, bool $hideReference = false, bool $hideDescription = false,
         bool $hideAmount = false,
         string $textContentTitle = '', string $textPaidAt = '', string $textAccount = '', string $textCategory = '', string $textPaymentMethods = '', string $textReference = '', string $textDescription = '',
-        string $textAmount = '', string $textPaidBy = '',
+        string $textAmount = '', string $textPaidBy = '', string $textContactInfo = '',
         bool $hideContact = false, bool $hideContactInfo = false, bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false,
         bool $hideContactPhone = false, bool $hideContactEmail = false,
         bool $hideRelated = false, bool $hideRelatedDocumentNumber = false, bool $hideRelatedContact = false, bool $hideRelatedDocumentDate = false, bool $hideRelatedDocumentAmount = false, bool $hideRelatedAmount = false,
@@ -219,6 +222,7 @@ abstract class TransactionTemplate extends Base
         $this->textDescription = $this->getTextDescription($type, $textDescription);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
         $this->textPaidBy = $this->getTextPaidBy($type, $textPaidBy);
+        $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
 
         // Contact Information Hide checker
         $this->hideContact = $hideContact;
@@ -246,6 +250,26 @@ abstract class TransactionTemplate extends Base
         $this->textRelatedAmount = $this->getTextRelatedAmount($type, $textRelatedAmount);
 
         $this->routeDocumentShow = $this->routeDocumentShow($type, $routeDocumentShow);
+    }
+
+    protected function getTextContactInfo($type, $textContactInfo)
+    {
+        if (!empty($textContactInfo)) {
+            return $textContactInfo;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textContactInfo = 'bills.bill_from';
+                break;
+            default:
+                $textContactInfo = 'invoices.bill_to';
+                break;
+        }
+
+        return $textContactInfo;
     }
 
     protected function getLogo($logo)
