@@ -59,8 +59,7 @@
         "santigarcor/laratrust": "6.3.*",
         "simshaun/recurr": "4.0.*",
         "staudenmeir/belongs-to-through": "^2.11",
-        "staudenmeir/eloquent-has-many-deep": "^1.13",
-        "symfony/http-kernel": "5.3.12"
+        "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.5",
