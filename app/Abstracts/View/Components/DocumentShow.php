@@ -1187,8 +1187,10 @@ abstract class DocumentShow extends Base
             return $textDocumentTitle;
         }
 
-        if (!empty(setting($type . '.title'))) {
-            return setting($type . '.title');
+        $key = $this->getSettingKey($type, 'title');
+
+        if (!empty(setting($key))) {
+            return setting($key);
         }
 
         $translation = $this->getTextFromConfig($type, 'document_title', Str::plural($type), 'trans_choice');
@@ -1206,8 +1208,10 @@ abstract class DocumentShow extends Base
             return $textDocumentSubheading;
         }
 
-        if (!empty(setting($type . '.subheading'))) {
-            return setting($type . '.subheading');
+        $key = $this->getSettingKey($type, 'subheading');
+
+        if (!empty(setting($key))) {
+            return setting($key);
         }
 
         $translation = $this->getTextFromConfig($type, 'document_subheading', 'subheading');
