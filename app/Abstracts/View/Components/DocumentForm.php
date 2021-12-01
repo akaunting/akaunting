@@ -1039,6 +1039,10 @@ abstract class DocumentForm extends Base
             return $footerSetting;
         }
 
+        if (!empty($this->document)) {
+            return $this->document->footer;
+        }
+
         return setting($this->getSettingKey($this->type, 'footer'));
     }
 
@@ -1046,6 +1050,10 @@ abstract class DocumentForm extends Base
     {
         if (!empty($notesSetting)) {
             return $notesSetting;
+        }
+
+        if (!empty($this->document)) {
+            return $this->document->notes;
         }
 
         return setting($this->getSettingKey($this->type, 'notes'));
