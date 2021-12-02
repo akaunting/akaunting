@@ -40,7 +40,11 @@ class AddSearchString extends Listener
             }
 
             foreach ($old as $key => $value) {
-                $filters[] = $key . ':' . $value;
+                $filter = $key . ':' . $value;
+
+                if (!in_array($filter, $filters)) {
+                    $filters[] = $filter;
+                }
             }
 
             foreach ($request as $key => $value) {
