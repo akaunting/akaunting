@@ -113,6 +113,10 @@ class Kernel extends HttpKernel
             'language',
             'firewall.all',
         ],
+
+        'import' => [
+            'throttle:import',
+        ],
     ];
 
     /**

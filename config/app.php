@@ -20,6 +20,11 @@ return [
 
     'eager_load' => (bool) env('APP_EAGER_LOAD', true),
 
+    'throttles' => [
+        'api' => env('APP_THROTTLES_API', '60'),
+        'import' => env('APP_THROTTLES_IMPORT', '1'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
