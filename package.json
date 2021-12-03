@@ -4,15 +4,12 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "serve": "vue-cli-service serve --open",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
+        "production": "mix --production"
     },
     "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -60,9 +57,9 @@
         "@vue/eslint-config-prettier": "^4.0.1",
         "ansi-regex": ">=5.0.1",
         "babel-plugin-component": "^1.1.0",
-        "cross-env": "^7.0.3",
+        "cross-env": "^5.2.1",
         "is-svg": "^4.3.2",
-        "laravel-mix": "^4.1.4",
+        "laravel-mix": "^6.0.39",
         "node-sass": "^6.0.1",
         "nth-check": ">=2.0.1",
         "object-path": ">=0.11.8",
@@ -71,7 +68,10 @@
         "sass-loader": "^12.3.0",
         "tar": ">=4.4.18",
         "trim-newlines": ">=3.0.1",
-        "vue-template-compiler": "^2.6.10"
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.10",
+        "webpack": "^5.64.4",
+        "webpack-cli": "^4.9.1"
     },
     "postcss": {
         "plugins": {
