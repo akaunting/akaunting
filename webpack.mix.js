@@ -22,6 +22,11 @@ mix
             chunkFilename: '[name].js',
         },
     })
+    .options({
+        terser: {
+            extractComments: false,
+        }
+    })
 
     // Auth
     .js('resources/assets/js/views/auth/forgot.js', 'public/js/auth')
