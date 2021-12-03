@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -125,6 +126,13 @@ class Handler extends ExceptionHandler
 
             // normal 500 view page feedback
             return response()->view('errors.500', [], 500);
+        }
+
+        if ($exception instanceof ThrottleRequestsException) {
+            // ajax 500 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => $exception->getMessage()], 429);
+            }
         }
 
         return parent::render($request, $exception);
