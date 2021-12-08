@@ -147,6 +147,7 @@ return [
                 'types' => ['SELECT'],     // // workaround ['SELECT'] only. https://github.com/barryvdh/laravel-debugbar/issues/888 ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'             => true,    // Show hints for common mistakes
+            'show_copy'         => true,    // Show copy button next to the query
         ],
         'mail' => [
             'full_log' => false
