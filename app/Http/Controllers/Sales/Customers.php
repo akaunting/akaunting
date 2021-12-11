@@ -26,7 +26,7 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Contact::with('invoices.transactions')->customer()->collect();
+        $customers = Contact::query()->customer()->collect();
 
         return $this->response('sales.customers.index', compact('customers'));
     }
