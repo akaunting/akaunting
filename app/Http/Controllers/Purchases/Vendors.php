@@ -15,7 +15,7 @@ use App\Models\Common\Contact;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Traits\Contacts;
-use Date;
+use App\Utilities\Date;
 
 class Vendors extends Controller
 {
