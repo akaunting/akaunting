@@ -192,9 +192,7 @@ class Contact extends Model
         $collection = $this->isCustomer() ? 'invoices' : 'bills';
 
         $this->$collection->whereNotIn('status', ['draft', 'cancelled', 'paid'])->each(function ($item) use (&$amount) {
-            $unpaid = $item->amount - $item->paid;
-
-            $amount += $this->convertToDefault($unpaid, $item->currency_code, $item->currency_rate);
+            $amount += $this->convertToDefault($item->amount_due, $item->currency_code, $item->currency_rate);
         });
 
         return $amount;
