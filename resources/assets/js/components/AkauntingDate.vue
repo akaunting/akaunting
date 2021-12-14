@@ -133,9 +133,12 @@ export default {
 
     created() {
         if (this.locale !== 'en') {
-            const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
-
-            this.dateConfig.locale = lang;
+            try {
+                const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
+                this.dateConfig.locale = lang;
+            }
+            catch (e) {
+            }
         }
     },
 
@@ -151,7 +154,7 @@ export default {
     methods: {
         change() {
             this.$emit('interface', this.real_model);
-            
+
             this.$emit('change', this.real_model);
         },
 
