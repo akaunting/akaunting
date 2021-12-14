@@ -145,7 +145,7 @@ trait Charts
                     'label' => new Raw("function(tooltipItem, data) {
                         const moneySettings = {
                             decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
-                            thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
+                            thousands: ". json_encode(config('money.' . setting('default.currency') . '.thousands_separator')) . ",
                             symbol: '" . config('money.' . setting('default.currency') . '.symbol') . "',
                             isPrefix: '" . config('money.' . setting('default.currency') . '.symbol_first') . "',
                             precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
@@ -201,7 +201,7 @@ trait Charts
             $options['scales']['yAxes'][0]['ticks']['callback'] = new Raw("function(value, index, values) {
                             const moneySettings = {
                                 decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
-                                thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
+                                thousands: ". json_encode(config('money.' . setting('default.currency') . '.thousands_separator')) . ",
                                 symbol: '" . config('money.' . setting('default.currency') . '.symbol') . "',
                                 isPrefix: '" . config('money.' . setting('default.currency') . '.symbol_first') . "',
                                 precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
