@@ -26,9 +26,7 @@ class Info
             'laravel' => app()->version(),
             'php' => static::phpVersion(),
             'mysql' => static::mysqlVersion(),
-            'vuejs' => static::nodePackageVersion('vue'),
             'livewire' => InstalledVersions::getPrettyVersion('livewire/livewire'),
-            'tailwindcss' => static::nodePackageVersion('tailwindcss'),
         ];
     }
 
@@ -55,17 +53,5 @@ class Info
         }
 
         return 'N/A';
-    }
-
-    public static function nodePackageVersion($package)
-    {
-        $version = '-';
-        $shell_exec_result = shell_exec('npm list ' . $package . ' --depth=0');
-
-        if (!strpos($shell_exec_result, '(empty)')) {
-            $version = trim(substr($shell_exec_result, strpos($shell_exec_result, $package . '@') + strlen($package) + 1));
-        }
-
-        return $version;
     }
 }
