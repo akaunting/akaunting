@@ -21,6 +21,7 @@
         "akaunting/laravel-money": "^1.2",
         "akaunting/laravel-setting": "^1.2",
         "akaunting/laravel-version": "^1.0",
+        "akaunting/laravel-debugbar-collector": "^1.0",
         "akaunting/module-bc21": "^2.0",
         "akaunting/module-offline-payments": "^2.0",
         "akaunting/module-paypal-standard": "^2.0",
