@@ -94,6 +94,12 @@ trait Charts
 
     public function getLineChartOptions($money_format = true)
     {
+        $decimal_mark = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.decimal_mark'));
+        $thousands_separator = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.thousands_separator'));
+        $symbol = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.symbol'));
+        $symbol_first = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.symbol_first'));
+        $precision = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.precision'));
+
         $options = [
             'tooltips' => [
                 'backgroundColor' => '#000000',
@@ -144,11 +150,11 @@ trait Charts
             $options['tooltips']['callbacks'] = [
                     'label' => new Raw("function(tooltipItem, data) {
                         const moneySettings = {
-                            decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
-                            thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
-                            symbol: '" . config('money.' . setting('default.currency') . '.symbol') . "',
-                            isPrefix: '" . config('money.' . setting('default.currency') . '.symbol_first') . "',
-                            precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
+                            decimal: '" . $decimal_mark . "',
+                            thousands: '". $thousands_separator . "',
+                            symbol: '" . $symbol . "',
+                            isPrefix: '" . $symbol_first . "',
+                            precision: '" . $precision . "',
                         };
 
                         const formattedCurrency = function (input, opt = moneySettings) {
@@ -200,11 +206,11 @@ trait Charts
             // for Y variable money format
             $options['scales']['yAxes'][0]['ticks']['callback'] = new Raw("function(value, index, values) {
                             const moneySettings = {
-                                decimal: '" . config('money.' . setting('default.currency') . '.decimal_mark') . "',
-                                thousands: '". config('money.' . setting('default.currency') . '.thousands_separator') . "',
-                                symbol: '" . config('money.' . setting('default.currency') . '.symbol') . "',
-                                isPrefix: '" . config('money.' . setting('default.currency') . '.symbol_first') . "',
-                                precision: '" . config('money.' . setting('default.currency') . '.precision') . "',
+                                decimal: '" . $decimal_mark . "',
+                                thousands: '". $thousands_separator . "',
+                                symbol: '" . $symbol . "',
+                                isPrefix: '" . $symbol_first . "',
+                                precision: '" . $precision . "',
                             };
 
                             const formattedCurrency = function (input, opt = moneySettings) {
