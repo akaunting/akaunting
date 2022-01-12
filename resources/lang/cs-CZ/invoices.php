@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Číslo faktury',
     'invoice_date'          => 'Datum faktury',
+    'invoice_amount'        => 'Částka faktury',
     'total_price'           => 'Celková cena',
     'due_date'              => 'Datum splatnosti',
     'order_number'          => 'Číslo objednávky',
