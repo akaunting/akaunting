@@ -3,18 +3,24 @@
 return [
 
     'company' => [
-        'description'       => 'Změnit název společnosti, e-mail, adresu, číslo daně atd',
-        'name'              => 'Název',
-        'email'             => 'E-mail',
-        'phone'             => 'Telefon',
-        'address'           => 'Adresa',
-        'logo'              => 'Logo',
+        'description'                => 'Změnit název společnosti, e-mail, adresu, číslo daně atd',
+        'name'                       => 'Název',
+        'email'                      => 'E-mail',
+        'phone'                      => 'Telefon',
+        'address'                    => 'Adresa',
+        'edit_your_business_address' => 'Upravit adresu vaší firmy',
+        'logo'                       => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Nastavit fiskální rok, časové pásmo, formát data a další lokální',
         'financial_start'   => 'Začátek rozpočtového roku',
         'timezone'          => 'Časové pásmo',
+        'financial_denote' => [
+            'title'         => 'Označení účetního roku',
+            'begins'        => 'Podle roku, ve kterém začíná',
+            'ends'          => 'Podle roku, ve kterém končí',
+        ],
         'date' => [
             'format'        => 'Formát data',
             'separator'     => 'Oddělovač data',
@@ -71,6 +77,12 @@ return [
         ],
     ],
 
+    'transfer' => [
+        'choose_template'   => 'Vyberte šablonu převodu',
+        'second'            => 'Druhý',
+        'third'             => 'Třetí',
+    ],
+
     'default' => [
         'description'       => 'Výchozí účet, měna, jazyk vaší společnosti',
         'list_limit'        => 'Záznamů na stránku',
@@ -109,6 +121,7 @@ return [
             'invoice_payment_admin'     => 'Šablona příjmu platby (posíláno správci)',
             'bill_remind_admin'         => 'Šablona připomenutí účtu (posíláno správci)',
             'bill_recur_admin'          => 'Šablona opakovaného účtu (posíláno správci)',
+            'revenue_new_customer'      => 'Šablona přijatých příjmů (odeslána zákazníkovi)',
         ],
     ],
 

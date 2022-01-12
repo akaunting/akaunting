@@ -47,4 +47,13 @@ return [
         'body'          => 'Hello,<br /><br /> Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => '{revenue_date} platba byla vytvořena',
+        'body'          => 'Vážený/á {customer_name},<br /><br />Připravili jsme následující platby. <br /><br />Platební údaje můžete vidět z následujícího odkazu: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Neváhejte nás kontaktovat s otázkami.<br /><br />S pozdravem,<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => '{revenue_date} platba byla vytvořena',
+        'body'          => 'Vážený/á {vendor_name},<br /><br />Připravili jsme následující platby. <br /><br />Platební údaje můžete vidět z následujícího odkazu: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Neváhejte nás kontaktovat s otázkami.<br /><br />S pozdravemy,<br />{company_name}',
+    ],
 ];

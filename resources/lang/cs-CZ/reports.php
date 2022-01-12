@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'Rok|Roky',
     'this_year'             => 'Aktuální rok',
     'previous_year'         => 'Předchozí rok',
     'this_quarter'          => 'Aktuální čtvrtletí',

@@ -13,7 +13,7 @@ return [
     'current_email'         => 'Trenutni E-mail',
     'reset'                 => 'Resetiranje',
     'never'                 => 'nikad',
-    'landing_page'          => 'Odredišna stranica',
+    'landing_page'          => 'Odredišna Stranica',
 
     'password' => [
         'current'           => 'Lozinka',
