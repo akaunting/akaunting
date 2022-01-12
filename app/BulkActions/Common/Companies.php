@@ -22,11 +22,6 @@ class Companies extends BulkAction
             'message' => 'bulk_actions.message.disable',
             'permission' => 'update-common-companies',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-common-companies',
-        ],
     ];
 
     public function enable($request)
