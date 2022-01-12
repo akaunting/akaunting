@@ -10,5 +10,9 @@ return [
     'bank_phone'            => 'Telefon banke',
     'bank_address'          => 'Adresa banke',
     'default_account'       => 'Zadani račun',
+    'incoming'              => 'Dolazni',
+    'outgoing'              => 'Odlazni',
+    'see_performance'       => 'Vidi Performanse',
+    'create_report'         => 'Ako želite vidjeti performanse računa. Morate kreirati instancu izvješće o prihodima i rashodima.',
 
 ];

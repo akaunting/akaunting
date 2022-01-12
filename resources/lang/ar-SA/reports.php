@@ -2,6 +2,7 @@
 
 return [
 
+    'years'                 => 'سنة/سنوات',
     'this_year'             => 'هذه السنة',
     'previous_year'         => 'السنة الماضية',
     'this_quarter'          => 'هذا الربع',

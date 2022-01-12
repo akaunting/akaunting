@@ -8,9 +8,13 @@ return [
         'deleted'           => ':type odstraněno!',
         'duplicated'        => ':type duplikováno!',
         'imported'          => ':type importováno!',
+        'import_queued'     => ':type import byl naplánován! Po dokončení obdržíte e-mail.',
         'exported'          => ':type exportován!',
+        'export_queued'     => ':type export aktuální stránky byl naplánován! Až bude připraven ke stažení, obdržíte e-mail.',
         'enabled'           => ':type aktivován!',
         'disabled'          => ':type deaktivován!',
+
+        'clear_all'         => 'Skvělé! Vyčistili jste všechny své :type .',
     ],
 
     'error' => [

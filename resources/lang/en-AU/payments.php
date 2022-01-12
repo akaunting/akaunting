@@ -4,7 +4,7 @@ return [
 
     'payment_made'      => 'Payment Made',
     'paid_to'           => 'Paid To',
-    'related_bill'      => 'Releated Bill',
+    'related_bill'      => 'Related Bill',
     'create_payment'    => 'Create Payment',
 
 ];
