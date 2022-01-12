@@ -269,8 +269,10 @@
                 <div class="card-body">
                     @include('partials.modules.show.price')
                 </div>
+            </div>
 
-                <div class="card-footer">
+            <div class="card">
+                <div class="card-body">
                     @include('partials.modules.show.buttons')
                 </div>
             </div>
