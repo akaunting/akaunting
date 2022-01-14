@@ -33,6 +33,10 @@ class Transaction extends Observer
     {
         $invoice = $transaction->invoice;
 
+        if (empty($invoice)) {
+            return;
+        }
+
         $invoice->transactions_count = $invoice->transactions->count();
         event(new TransactionsCounted($invoice));
 
@@ -48,6 +52,10 @@ class Transaction extends Observer
     protected function updateBill($transaction)
     {
         $bill = $transaction->bill;
+
+        if (empty($bill)) {
+            return;
+        }
 
         $bill->transactions_count = $bill->transactions->count();
         event(new TransactionsCounted($bill));
