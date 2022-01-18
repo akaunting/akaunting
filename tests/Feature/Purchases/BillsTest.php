@@ -112,24 +112,6 @@ class BillsTest extends FeatureTestCase
         ]);
     }
 
-    public function testItShouldNotCreateBillWithNegativeQuantity()
-    {
-        $request = $this->getRequest();
-
-        $request['items'][0]['quantity'] = '-1';
-
-        $this->handleValidationExceptions();
-
-        $this->loginAs()
-            ->post(route('bills.store'), $request)
-            ->assertRedirect()
-            ->assertInvalid(['items.0.quantity']);
-
-        $this->assertDatabaseMissing('documents', [
-            'document_number' => $request['document_number'],
-        ]);
-    }
-
     public function testItShouldSeeBillUpdatePage()
     {
         $request = $this->getRequest();

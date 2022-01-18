@@ -123,24 +123,6 @@ class InvoicesTest extends FeatureTestCase
         ]);
     }
 
-    public function testItShouldNotCreateInvoiceWithNegativeQuantity()
-    {
-        $request = $this->getRequest();
-
-        $request['items'][0]['quantity'] = '-1';
-
-        $this->handleValidationExceptions();
-
-        $this->loginAs()
-            ->post(route('invoices.store'), $request)
-            ->assertRedirect()
-            ->assertInvalid(['items.0.quantity']);
-
-        $this->assertDatabaseMissing('documents', [
-            'document_number' => $request['document_number'],
-        ]);
-    }
-
     public function testItShouldSeeInvoiceUpdatePage()
     {
         $request = $this->getRequest();
