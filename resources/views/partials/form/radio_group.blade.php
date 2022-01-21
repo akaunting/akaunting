@@ -15,24 +15,24 @@
             <div class="btn-group btn-group-toggle radio-yes-no" data-toggle="buttons">
                 @if (empty($attributes['disabled']))
                 <label class="btn btn-success" @click="form.{{ $name }}=1" v-bind:class="{ active: form.{{ $name }} == 1 }">
-                    {{ trans('general.yes') }}
+                    {{ empty($enable) ? trans('general.yes') : $enable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-1" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}">
                 </label>
                 @else
                 <label class="btn btn-success{{ ($value) ? ' active-disabled disabled' : ' disabled' }}">
-                    {{ trans('general.yes') }}
+                    {{ empty($enable) ? trans('general.yes') : $enable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-1" disabled>
                 </label>
                 @endif
 
                 @if (empty($attributes['disabled']))
                 <label class="btn btn-danger" @click="form.{{ $name }}=0" v-bind:class="{ active: form.{{ $name }} == 0 }">
-                    {{ trans('general.no') }}
+                    {{ empty($disable) ? trans('general.no') : $disable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-0" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}">
                 </label>
                 @else
                 <label class="btn btn-danger{{ ($value) ? ' disabled' : ' active-disabled disabled' }}">
-                    {{ trans('general.no') }}
+                    {{ empty($disable) ? trans('general.no') : $disable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-0" disabled>
                 </label>
                 @endif
