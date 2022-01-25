@@ -291,7 +291,7 @@
 
                 @stack('navbar_help_start')
 
-                <li class="nav-item d-none d-md-block">
+                <li class="nav-item d-md-block">
                     <a class="nav-link" href="{{ url(trans('header.support_link')) }}" target="_blank" title="{{ trans('general.help') }}" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-life-ring"></i>
                     </a>
