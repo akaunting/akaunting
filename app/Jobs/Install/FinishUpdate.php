@@ -97,7 +97,7 @@ class FinishUpdate extends Job
             $class = '\Modules\\' . $module->getStudlyName() . str_replace('/', '\\', $path);
 
             // Skip if listener is same or lower than old version
-            if (version_compare($class::VERSION, $this->old, '=<')) {
+            if (version_compare($class::VERSION, $this->old, '<=')) {
                 continue;
             }
 
