@@ -3,10 +3,13 @@
 namespace App\Jobs\Install;
 
 use App\Abstracts\Job;
+use App\Traits\Modules;
 use App\Utilities\Console;
 
 class InstallModule extends Job
 {
+    use Modules;
+
     protected $alias;
 
     protected $company_id;
@@ -34,6 +37,8 @@ class InstallModule extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         $command = "module:install {$this->alias} {$this->company_id} {$this->locale}";
 
         $result = Console::run($command);
@@ -42,6 +47,16 @@ class InstallModule extends Job
             $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $this->alias]);
 
             throw new \Exception($message);
+        }
+    }
+
+    /**
+     * Determine if this action is applicable.
+     */
+    public function authorize(): void
+    {
+        if (! $this->moduleExists($this->alias)) {
+            throw new \Exception("Module [{$this->alias}] not found.");
         }
     }
 }

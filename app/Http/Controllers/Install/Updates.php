@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Install;
 
 use App\Abstracts\Http\Controller;
+use App\Http\Requests\Module\Install as InstallRequest;
 use App\Events\Install\UpdateCacheCleared;
 use App\Events\Install\UpdateCopied;
 use App\Events\Install\UpdateDownloaded;
@@ -13,7 +14,6 @@ use App\Jobs\Install\FinishUpdate;
 use App\Jobs\Install\UnzipFile;
 use App\Utilities\Versions;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Http\Request;
 
 class Updates extends Controller
 {
@@ -110,7 +110,7 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function steps(Request $request)
+    public function steps(InstallRequest $request)
     {
         $steps = [];
 
@@ -161,7 +161,7 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function download(Request $request)
+    public function download(InstallRequest $request)
     {
         set_time_limit(900); // 15 minutes
 
@@ -197,7 +197,7 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function unzip(Request $request)
+    public function unzip(InstallRequest $request)
     {
         set_time_limit(900); // 15 minutes
 
@@ -233,7 +233,7 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function copyFiles(Request $request)
+    public function copyFiles(InstallRequest $request)
     {
         set_time_limit(900); // 15 minutes
 
@@ -269,7 +269,7 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function finish(Request $request)
+    public function finish(InstallRequest $request)
     {
         set_time_limit(900); // 15 minutes
 

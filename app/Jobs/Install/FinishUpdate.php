@@ -5,12 +5,15 @@ namespace App\Jobs\Install;
 use App\Abstracts\Job;
 use App\Interfaces\Listener\ShouldUpdateAllCompanies;
 use App\Models\Module\Module;
+use App\Traits\Modules;
 use App\Utilities\Console;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 
 class FinishUpdate extends Job
 {
+    use Modules;
+
     protected $alias;
 
     protected $new;
@@ -37,6 +40,8 @@ class FinishUpdate extends Job
 
     public function handle(): void
     {
+        $this->authorize();
+
         $companies = $this->getCompanies();
 
         foreach ($companies as $company) {
@@ -49,6 +54,16 @@ class FinishUpdate extends Job
 
                 throw new \Exception($message);
             }
+        }
+    }
+
+    /**
+     * Determine if this action is applicable.
+     */
+    public function authorize(): void
+    {
+        if (! $this->moduleExists($this->alias)) {
+            throw new \Exception("Module [{$this->alias}] not found.");
         }
     }
 

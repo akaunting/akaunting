@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Abstracts\Http\Controller;
+use App\Http\Requests\Module\Install as InstallRequest;
 use App\Jobs\Install\CopyFiles;
 use App\Jobs\Install\DisableModule;
 use App\Jobs\Install\DownloadFile;
@@ -81,7 +82,7 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function steps(Request $request)
+    public function steps(InstallRequest $request)
     {
         $steps = [];
 
@@ -135,7 +136,7 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function download(Request $request)
+    public function download(InstallRequest $request)
     {
         try {
             $path = $this->dispatch(new DownloadFile($request['alias'], $request['version']));
@@ -167,7 +168,7 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function unzip(Request $request)
+    public function unzip(InstallRequest $request)
     {
         try {
             $path = $this->dispatch(new UnzipFile($request['alias'], $request['path']));
@@ -199,7 +200,7 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function copy(Request $request)
+    public function copy(InstallRequest $request)
     {
         try {
             $this->dispatch(new CopyFiles($request['alias'], $request['path']));
@@ -233,7 +234,7 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function install(Request $request)
+    public function install(InstallRequest $request)
     {
         try {
             event(new \App\Events\Module\Installing($request['alias'], company_id()));

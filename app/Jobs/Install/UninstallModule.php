@@ -3,10 +3,13 @@
 namespace App\Jobs\Install;
 
 use App\Abstracts\Job;
+use App\Traits\Modules;
 use App\Utilities\Console;
 
 class UninstallModule extends Job
 {
+    use Modules;
+
     protected $alias;
 
     protected $company_id;
@@ -34,12 +37,24 @@ class UninstallModule extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         $command = "module:uninstall {$this->alias} {$this->company_id} {$this->locale}";
 
         $result = Console::run($command);
 
         if ($result !== true) {
             throw new \Exception($result);
+        }
+    }
+
+    /**
+     * Determine if this action is applicable.
+     */
+    public function authorize(): void
+    {
+        if (! $this->moduleExists($this->alias)) {
+            throw new \Exception("Module [{$this->alias}] not found.");
         }
     }
 }
