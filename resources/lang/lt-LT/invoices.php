@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Sąskaitos-faktūros numeris',
     'invoice_date'          => 'Sąskaitos-faktūros data',
+    'invoice_amount'        => 'Sąskaitos suma',
     'total_price'           => 'Bendra kaina',
     'due_date'              => 'Terminas',
     'order_number'          => 'Užsakymo numeris',

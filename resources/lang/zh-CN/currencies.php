@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => '小数点',
     'thousands_separator'   => '千位分隔符',
     'precision'             => '精确度',
+    'conversion'            => '货币转换: :price (:currency_code) 为 :currency_rate',
     'symbol' => [
         'symbol'            => '货币符号',
         'position'          => '货币符号位置',

@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'رقم فاتورة البيع',
     'invoice_date'          => 'تاريخ فاتورة البيع',
+    'invoice_amount'        => 'مبلغ الفاتورة',
     'total_price'           => 'السعر الإجمالي',
     'due_date'              => 'تاريخ الاستحقاق',
     'order_number'          => 'رقم الطلب',
