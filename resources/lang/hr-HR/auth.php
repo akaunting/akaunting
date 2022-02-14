@@ -13,7 +13,7 @@ return [
     'current_email'         => 'Trenutni E-mail',
     'reset'                 => 'Resetiranje',
     'never'                 => 'nikad',
-    'landing_page'          => 'Odredišna Stranica',
+    'landing_page'          => 'Odredišna stranica',
 
     'password' => [
         'current'           => 'Lozinka',
@@ -24,7 +24,7 @@ return [
 
     'error' => [
         'self_delete'       => 'Pogreška: Nije moguće izbrisati sebe!',
-        'self_disable'      => 'Pogreška: Ne možete se onemogućiti!',
+        'self_disable'      => 'Pogreška: Ne možete sebe onemogućiti!',
         'no_company'        => 'Pogleška: Nema dodijeljene tvrtke za vaš račun. Obratite se administratoru sustava.',
     ],
 

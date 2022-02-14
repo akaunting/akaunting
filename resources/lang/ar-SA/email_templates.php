@@ -47,4 +47,13 @@ return [
         'body'          => 'مرحبا,<br /><br /> بناء على الإتفاق الدورى ل <vendor_name} <strong>{bill_number}</strong} تم إنشاء الفاتورة أتوماتكيا <br /><br /> يمكنك الاطلاع على تفاصيل الفاتورة من الرابط: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br /< Regards,<br />{company_name} مع أطيب التحيات{br /> {company_name>',
     ],
 
+    'revenue_new_customer' => [
+        'subject'       => 'تم دفعة {revenue_date}',
+        'body'          => 'عزيزي {customer_name}،<br /><br /> قمنا باصدار الفاتورة التالية:<strong>{invoice_number}</strong>.<br /><br /> يمكنك اﻹطلاع على تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
+    ],
+
+    'payment_new_vendor' => [
+        'subject'       => 'تم دفعة {revenue_date}',
+        'body'          => 'عزيزي {customer_name}،<br /><br /> قمنا باصدار الفاتورة التالية:<strong>{invoice_number}</strong>.<br /><br /> يمكنك اﻹطلاع على تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
+    ],
 ];

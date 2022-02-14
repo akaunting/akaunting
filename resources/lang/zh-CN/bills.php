@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => '账单编号',
     'bill_date'             => '账单日期',
+    'bill_amount'           => '账单金额',
     'total_price'           => '总价',
     'due_date'              => '到期日',
     'order_number'          => '订单编号',
