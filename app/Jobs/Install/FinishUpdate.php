@@ -62,7 +62,7 @@ class FinishUpdate extends Job
      */
     public function authorize(): void
     {
-        if (! $this->moduleExists($this->alias)) {
+        if (($this->alias != 'core') && ! $this->moduleExists($this->alias)) {
             throw new \Exception("Module [{$this->alias}] not found.");
         }
     }
