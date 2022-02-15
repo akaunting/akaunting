@@ -157,3 +157,15 @@ if (!function_exists('cache_prefix')) {
         return company_id() . '_';
     }
 }
+
+if (!function_exists('running_in_queue')) {
+    /**
+     * Detect if application is running in queue.
+     *
+     * @return bool
+     */
+    function running_in_queue()
+    {
+        return defined('APP_RUNNING_IN_QUEUE') ?? false;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Utilities\QueueCollection;
 use Illuminate\Support\Str;
 
 trait Sources
@@ -29,7 +30,11 @@ trait Sources
         if (empty($source)) {
             $request = $request ?: request();
 
-            $source = $request->isApi() ? $prefix . 'api' : null;
+            if ($request instanceof QueueCollection || running_in_queue()) {
+                $source = $prefix . 'queue';
+            } else {
+                $source = $request->isApi() ? $prefix . 'api' : null;
+            }
         }
 
         if (empty($source)) {

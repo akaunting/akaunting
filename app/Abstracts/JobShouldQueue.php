@@ -12,10 +12,10 @@ use App\Traits\Jobs;
 use App\Traits\Relationships;
 use App\Traits\Sources;
 use App\Traits\Uploads;
+use App\Utilities\QueueCollection;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
@@ -48,7 +48,7 @@ abstract class JobShouldQueue implements ShouldQueue
         }
 
         $request = $this->getRequestInstance($arguments[0]);
-        if ($request instanceof Collection) {
+        if ($request instanceof QueueCollection) {
             $this->request = $request;
         }
 
@@ -72,7 +72,7 @@ abstract class JobShouldQueue implements ShouldQueue
         }
 
         $request = $this->getRequestInstance($arguments[1]);
-        if ($request instanceof Collection) {
+        if ($request instanceof QueueCollection) {
             $this->request = $request;
         }
     }
@@ -110,7 +110,7 @@ abstract class JobShouldQueue implements ShouldQueue
      * Covert the request to collection.
      *
      * @param mixed $request
-     * @return \Illuminate\Support\Collection
+     * @return \App\Utilities\QueueCollection
      */
     public function getRequestAsCollection($request)
     {
@@ -122,12 +122,12 @@ abstract class JobShouldQueue implements ShouldQueue
             $request->merge($data);
         }
 
-        return collect($request->all());
+        return new QueueCollection($request->all());
     }
 
     public function setOwner(): void
     {
-        if (! $this->request instanceof Collection) {
+        if (! $this->request instanceof QueueCollection) {
             return;
         }
 
@@ -140,7 +140,7 @@ abstract class JobShouldQueue implements ShouldQueue
 
     public function setSource(): void
     {
-        if (! $this->request instanceof Collection) {
+        if (! $this->request instanceof QueueCollection) {
             return;
         }
 

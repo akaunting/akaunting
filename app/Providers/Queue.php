@@ -37,6 +37,10 @@ class Queue extends Provider
         });
 
         app('events')->listen(JobProcessing::class, function ($event) {
+            if (! defined('APP_RUNNING_IN_QUEUE')) {
+                define('APP_RUNNING_IN_QUEUE', true);
+            }
+
             $payload = $event->job->payload();
 
             if (!array_key_exists('company_id', $payload)) {
