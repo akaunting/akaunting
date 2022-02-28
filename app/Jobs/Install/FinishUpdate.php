@@ -8,6 +8,7 @@ use App\Models\Module\Module;
 use App\Traits\Modules;
 use App\Utilities\Console;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
 class FinishUpdate extends Job
@@ -81,6 +82,8 @@ class FinishUpdate extends Job
         $listener = $this->getListenerTypeOfModule();
 
         if ($listener == 'none') {
+            Artisan::call('cache:clear');
+
             return [];
         }
 
