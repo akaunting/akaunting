@@ -74,6 +74,7 @@ const app = new Vue({
 
         async steps() {
             let name = document.getElementById('name').value;
+            let version = document.getElementById('version').value;
 
             let steps_promise = Promise.resolve(axios.post(url + '/install/updates/steps', {
                 name: name,
