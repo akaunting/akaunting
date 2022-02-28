@@ -59,6 +59,12 @@ class DocumentItem extends Model
                 $model->setTaxIds();
             }
         );
+
+        static::saving(
+            function ($model) {
+                $model->offsetUnset('tax_ids');
+            }
+        );
     }
 
     public function document()
