@@ -60,6 +60,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Trebali biste kupiti/obnoviti :module!',
         'download'          => 'Ne mogu preuzeti: modul',
         'zip'               => 'Ne može stvoriti: zip datoteku modula',
         'unzip'             => 'Ne mogu raspakirati: modul',

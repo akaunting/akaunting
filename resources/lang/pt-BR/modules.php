@@ -60,6 +60,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Você deve comprar/renovar :module!',
         'download'          => 'Não é possível baixar :module',
         'zip'               => 'Não é possível criar o arquivo zip :module',
         'unzip'             => 'Não é possível descompactar :module',

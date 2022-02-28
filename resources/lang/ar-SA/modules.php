@@ -60,6 +60,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'يجب عليك الشراء/تجديد :module!',
         'download'          => 'لم نتمكن من تحميل :module',
         'zip'               => 'لم نتمكن من انشاء ملف zip :module',
         'unzip'             => 'لم نتمكن من فك ضغط :module',
