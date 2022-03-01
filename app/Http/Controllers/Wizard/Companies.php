@@ -50,7 +50,7 @@ class Companies extends Controller
 
         $fields = $request->all();
 
-        $skip_keys = ['company_id', '_method', '_token'];
+        $skip_keys = ['company_id', '_method', '_token', '_prefix'];
         $file_keys = ['company.logo'];
         $uploaded_file_keys = ['company.uploaded_logo'];
 
