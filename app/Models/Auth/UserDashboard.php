@@ -15,7 +15,7 @@ class UserDashboard extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'company_id'];
+    protected $fillable = ['user_id', 'dashboard_id'];
 
     /**
      * Indicates if the model should be timestamped.
@@ -27,5 +27,10 @@ class UserDashboard extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User');
+    }
+
+    public function dashboard()
+    {
+        return $this->belongsTo('App\Models\Common\Dashboard');
     }
 }

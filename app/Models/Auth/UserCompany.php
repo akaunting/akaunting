@@ -28,4 +28,9 @@ class UserCompany extends Model
     {
         return $this->belongsTo('App\Models\Auth\User');
     }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Common\Company');
+    }
 }
