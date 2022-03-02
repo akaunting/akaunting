@@ -374,12 +374,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Akaunting\\Money\\": "./src"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Akaunting\\Money\\": "./src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -442,12 +442,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Akaunting\\Setting\\": "./src"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Akaunting\\Setting\\": "./src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -570,16 +570,16 @@
         },
         {
             "name": "akaunting/module-offline-payments",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-offline-payments.git",
-                "reference": "a9ee1e166441bb92039290997e8087e8756deda4"
+                "reference": "c649c76b8f94308581d9419510343505014d3f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/a9ee1e166441bb92039290997e8087e8756deda4",
-                "reference": "a9ee1e166441bb92039290997e8087e8756deda4",
+                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/c649c76b8f94308581d9419510343505014d3f72",
+                "reference": "c649c76b8f94308581d9419510343505014d3f72",
                 "shasum": ""
             },
             "type": "library",
@@ -598,9 +598,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-offline-payments/issues",
-                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.3"
+                "source": "https://github.com/akaunting/module-offline-payments/tree/2.0.4"
             },
-            "time": "2021-11-08T11:45:00+00:00"
+            "time": "2021-12-05T13:13:09+00:00"
         },
         {
             "name": "akaunting/module-paypal-standard",
@@ -744,16 +744,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.210.0",
+            "version": "3.211.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b5cd025eb804a023f4d9fe7a4f6de437b5910a13"
+                "reference": "fa6b2cc2df7563b775b346d60da4d36c06062ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b5cd025eb804a023f4d9fe7a4f6de437b5910a13",
-                "reference": "b5cd025eb804a023f4d9fe7a4f6de437b5910a13",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fa6b2cc2df7563b775b346d60da4d36c06062ce1",
+                "reference": "fa6b2cc2df7563b775b346d60da4d36c06062ce1",
                 "shasum": ""
             },
             "require": {
@@ -829,9 +829,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.210.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.211.1"
             },
-            "time": "2022-02-25T19:18:59+00:00"
+            "time": "2022-03-01T19:17:13+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -5258,12 +5258,12 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Laracasts\\Flash": "src/"
-                },
                 "files": [
                     "src/Laracasts/Flash/functions.php"
-                ]
+                ],
+                "psr-0": {
+                    "Laracasts\\Flash": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -9339,12 +9339,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Ramsey\\Uuid\\": "src/"
-                },
                 "files": [
                     "src/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Ramsey\\Uuid\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -9597,13 +9597,13 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "Source/Wrapper.php"
+                ],
                 "psr-4": {
                     "Hoa\\Protocol\\": "Source",
                     "Hoa\\Protocol\\Bin\\": "Bin"
-                },
-                "files": [
-                    "Source/Wrapper.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
