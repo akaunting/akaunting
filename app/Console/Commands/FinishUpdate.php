@@ -47,17 +47,19 @@ class FinishUpdate extends Command
             throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
         }
 
-        $company = company($company_id);
+        if ($alias != 'core') {
+            $company = company($company_id);
 
-        if (empty($company)) {
-            return;
-        }
+            if (empty($company)) {
+                return;
+            }
 
-        $company->makeCurrent();
+            $company->makeCurrent();
 
-        // Set locale for modules
-        if (($alias != 'core') && !empty($company->locale)) {
-            app()->setLocale($company->locale);
+            // Set locale for modules
+            if (empty($company->locale)) {
+                app()->setLocale($company->locale);
+            }
         }
 
         // Disable model cache during update
