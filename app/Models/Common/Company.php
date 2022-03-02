@@ -81,13 +81,17 @@ class Company extends Eloquent implements Ownable
     {
         parent::boot();
 
-        static::retrieved(function($model) {
-            $model->setCommonSettingsAsAttributes();
-        });
+        try { // TODO will optimize..
+            static::retrieved(function($model) {
+                $model->setCommonSettingsAsAttributes();
+            });
 
-        static::saving(function($model) {
-            $model->unsetCommonSettingsFromAttributes();
-        });
+            static::saving(function($model) {
+                $model->unsetCommonSettingsFromAttributes();
+            });
+        } catch(\Throwable $e) {
+            
+        }
     }
 
     public function documents()
