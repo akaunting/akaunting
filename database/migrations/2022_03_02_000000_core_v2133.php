@@ -27,8 +27,8 @@ return new class extends Migration
         });
 
         Schema::table('user_dashboards', function (Blueprint $table) {
-            $table->dropPrimary(['user_id', 'company_id', 'user_type']);
-            $table->primary(['user_id', 'company_id']);
+            $table->dropPrimary(['user_id', 'dashboard_id', 'user_type']);
+            $table->primary(['user_id', 'dashboard_id']);
         });
 
         Schema::table('user_dashboards', function (Blueprint $table) {
