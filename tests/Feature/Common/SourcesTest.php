@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Common;
 
-use Tests\Feature\FeatureTestCase;
 use App\Jobs\Setting\CreateCategory;
+use Tests\Feature\FeatureTestCase;
 
 class SourcesTest extends FeatureTestCase
 {
