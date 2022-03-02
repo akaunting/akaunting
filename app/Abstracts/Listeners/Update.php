@@ -23,7 +23,7 @@ abstract class Update
             return true;
         }
 
-        return Versions::shouldUpdate(static::VERSION, $event->old, $event->new);
+        return ! Versions::shouldUpdate(static::VERSION, $event->old, $event->new);
     }
 
     /**
