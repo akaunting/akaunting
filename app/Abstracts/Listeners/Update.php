@@ -2,6 +2,8 @@
 
 namespace App\Abstracts\Listeners;
 
+use App\Utilities\Versions;
+
 abstract class Update
 {
     const ALIAS = '';
@@ -21,12 +23,7 @@ abstract class Update
             return true;
         }
 
-        // Do not apply to the same or newer versions
-        if (version_compare($event->old, static::VERSION, '>=')) {
-            return true;
-        }
-
-        return false;
+        return Versions::shouldUpdate(static::VERSION, $event->old, $event->new);
     }
 
     /**

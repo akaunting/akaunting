@@ -157,4 +157,19 @@ class Versions
 
         return $updates;
     }
+
+    public static function shouldUpdate($listener_version, $old_version, $new_version): bool
+    {
+        // Don't update if "listener" is same or lower than "old" version
+        if (version_compare($listener_version, $old_version, '<=')) {
+            return false;
+        }
+
+        // Don't update if "listener" is higher than "new" version
+        if (version_compare($listener_version, $new_version, '>')) {
+            return false;
+        }
+
+        return true;
+    }
 }
