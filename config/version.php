@@ -18,7 +18,7 @@ return [
 
     'date'      =>  '02-March-2021',
 
-    'time'      =>  '14:00',
+    'time'      =>  '15:00',
 
     'zone'      =>  'GMT +3',
 
