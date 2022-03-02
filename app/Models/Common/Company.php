@@ -267,7 +267,7 @@ class Company extends Eloquent implements Ownable
 
     public function users()
     {
-        return $this->morphedByMany('App\Models\Auth\User', 'user', 'user_companies', 'company_id', 'user_id');
+        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserCompany');
     }
 
     public function vendors()

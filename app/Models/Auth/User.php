@@ -76,7 +76,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function companies()
     {
-        return $this->morphToMany('App\Models\Common\Company', 'user', 'user_companies', 'user_id', 'company_id');
+        return $this->belongsToMany('App\Models\Common\Company', 'App\Models\Auth\UserCompany');
     }
 
     public function contact()
@@ -86,7 +86,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function dashboards()
     {
-        return $this->morphToMany('App\Models\Common\Dashboard', 'user', 'user_dashboards', 'user_id', 'dashboard_id');
+        return $this->belongsToMany('App\Models\Common\Dashboard', 'App\Models\Auth\UserDashboard');
     }
 
     /**

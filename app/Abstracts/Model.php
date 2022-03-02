@@ -56,11 +56,6 @@ abstract class Model extends Eloquent implements Ownable
         return parent::update($attributes, $options);
     }
 
-    public static function observe($classes)
-    {
-        parent::observe($classes);
-    }
-
     /**
      * Global company relation.
      *

@@ -38,7 +38,7 @@ class Dashboard extends Model
 
     public function users()
     {
-        return $this->morphedByMany('App\Models\Auth\User', 'user', 'user_dashboards', 'dashboard_id', 'user_id');
+        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserDashboard');
     }
 
     public function widgets()
