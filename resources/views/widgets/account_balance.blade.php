@@ -22,8 +22,8 @@
                 </tbody>
                 <div class="thead-light">
                     <tr class="row table-head-line">
-                        <th class="col-xs-6 col-md-6 text-left text-lg">TOTAL</th>
-                        <th class="col-xs-6 col-md-6 text-right text-lg">@money($total, $item->currency_code, true)</th>
+                        <th class="col-xs-6 col-md-6 text-left text-lg @if ($total < 0) text-danger  @endif">TOTAL</th>
+                        <th class="col-xs-6 col-md-6 text-right text-xl  @if ($total < 0) text-danger  @endif">@money($total, $item->currency_code, true)</th>
                     </tr>
                 </div>
             </table>
