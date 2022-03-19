@@ -149,6 +149,9 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "mnsami/composer-custom-directory-installer": true
+        }
     }
 }

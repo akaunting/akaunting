@@ -11,13 +11,21 @@
                     </tr>
                 </thead>
                 <tbody class="thead-light">
+                    @php $total = 0; @endphp
                     @foreach($accounts as $item)
+                        @php $total += $item->balance @endphp
                         <tr class="row border-top-1 tr-py">
                             <td class="col-xs-6 col-md-6 text-left long-texts">{{ $item->name }}</td>
                             <td class="col-xs-6 col-md-6 text-right">@money($item->balance, $item->currency_code, true)</td>
                         </tr>
                     @endforeach
                 </tbody>
+                <div class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-xs-6 col-md-6 text-left text-lg">TOTAL</th>
+                        <th class="col-xs-6 col-md-6 text-right text-lg">@money($total, $item->currency_code, true)</th>
+                    </tr>
+                </div>
             </table>
         </div>
     </div>

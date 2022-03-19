@@ -3,8 +3,8 @@
 return [
 
     'version'               => 'Versão',
-    'powered'               => 'Desenvolvido por Akaunting',
-    'link'                  => 'https://akaunting.com',
-    'software'              => 'Software de contabilidade gratuito',
+    'powered'               => 'Desenvolvido por Alex',
+    'link'                  => 'https://alexmarquezini.com',
+    'software'              => 'Software de gestão simples',
 
 ];
