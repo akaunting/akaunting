@@ -17,7 +17,7 @@ class Bill extends Notification
     /**
      * The email template.
      *
-     * @var string
+     * @var \App\Models\Common\EmailTemplate
      */
     public $template;
 
