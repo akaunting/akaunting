@@ -101,18 +101,14 @@ class RecurringCheck extends Command
                 continue;
             }
 
-            // Recur only today
-            if ($children_count == ($schedule_count - 1)) {
-                $this->recur($model, $recur->recurable_type, $today);
-
-                continue;
-            }
-
-            // Recur all schedules, previously failed
+            // Recur all schedules that don´t already exist
             foreach ($schedules as $schedule) {
                 $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
-
-                $this->recur($model, $recur->recurable_type, $schedule_date);
+                $today_date = Date::parse($today->format('Y-m-d'));
+                $recurAlreadyExists = $this->skipThisClone($model, $today_date) || $this->skipThisClone($model, $schedule_date);
+                if (!$recurAlreadyExists) {
+                    $this->recur($model, $recur->recurable_type, $schedule_date);
+                }
             }
         }
 
