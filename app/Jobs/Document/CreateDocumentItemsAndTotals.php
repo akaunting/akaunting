@@ -147,7 +147,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             'document_id' => $this->document->id,
             'code' => 'total',
             'name' => 'invoices.total',
-            'amount' =>  round($this->request['amount'], $precision),
+            'amount' =>  $this->request['amount'],
             'sort_order' => $sort_order,
             'created_from' => $this->request['created_from'],
             'created_by' => $this->request['created_by'],
