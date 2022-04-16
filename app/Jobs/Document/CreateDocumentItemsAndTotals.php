@@ -140,6 +140,8 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             }
         }
 
+        $this->request['amount'] = round($this->request['amount'], $precision);
+
         // Add total
         DocumentTotal::create([
             'company_id' => $this->document->company_id,
