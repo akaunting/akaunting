@@ -387,11 +387,42 @@ class Transaction extends Model
         }
 
         if ($this->isIncome()) {
-            return !empty($this->document_id) ? 'invoices.show' : 'revenues.show';
+            if ($this->document->type != 'invoice') {
+                return $this->getRouteFromConfig();
+            } else {
+                return !empty($this->document_id) ? 'invoices.show' : 'revenues.show';
+            }
         }
 
         if ($this->isExpense()) {
-            return !empty($this->document_id) ? 'bills.show' : 'payments.show';
+            if ($this->document->type != 'bill') {
+                return $this->getRouteFromConfig();
+            } else {
+                return !empty($this->document_id) ? 'bills.show' : 'payments.show';
+            }
+        }
+
+        return 'transactions.index';
+    }
+
+    public function getRouteFromConfig()
+    {
+        $route = '';
+
+        $alias = config('type.' . $this->document->type . '.alias');
+        $prefix = config('type.' . $this->document->type . '.route.prefix');
+
+        // if use module set module alias
+        if (!empty($alias)) {
+            $route .= $alias . '.';
+        }
+
+        if (!empty($prefix)) {
+            $route .= $prefix . '.';
+        }
+
+        if ($route) {
+            return $route . 'show';
         }
 
         return 'transactions.index';
