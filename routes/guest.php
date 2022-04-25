@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('login', 'Auth\Login@create')->name('login');
-    Route::post('login', 'Auth\Login@store');
+    Route::post('login', 'Auth\Login@store')->name('login.store');
 
     Route::get('forgot', 'Auth\Forgot@create')->name('forgot');
-    Route::post('forgot', 'Auth\Forgot@store');
+    Route::post('forgot', 'Auth\Forgot@store')->name('forgot.store');
 
     //Route::get('reset', 'Auth\Reset@create');
     Route::get('reset/{token}', 'Auth\Reset@create')->name('reset');

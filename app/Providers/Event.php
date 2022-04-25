@@ -48,6 +48,10 @@ class Event extends Provider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
         ],
+        //'Illuminate\Console\Events\ScheduledTaskStarting' => [
+        'Illuminate\Console\Events\CommandStarting' => [
+            'App\Listeners\Common\SkipScheduleInReadOnlyMode',
+        ],
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
         ],
