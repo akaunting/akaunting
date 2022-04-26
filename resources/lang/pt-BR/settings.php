@@ -112,7 +112,7 @@ return [
             'subject'                   => 'Assunto',
             'body'                      => 'Corpo',
             'tags'                      => '<strong>Tags disponíveis:</strong> :tag_list',
-            'invoice_new_customer'      => 'Novo Modelo de Fatura (enviado ao cliente)',
+            'invoice_new_customer'      => 'Modelo de Fatura Criada (enviado ao cliente)',
             'invoice_remind_customer'   => 'Modelo de lembrete de fatura (enviado ao cliente)',
             'invoice_remind_admin'      => 'Modelo de lembrete de fatura (enviado para administrador)',
             'invoice_recur_customer'    => 'Modelo de Fatura Recorrente (enviado ao cliente)',

@@ -6,9 +6,9 @@ return [
     'logo'                  => 'Logo',
 
     'error' => [
-        'not_user_company'  => 'Error: You are not allowed to change this company!',
-        'delete_active'     => 'Error: Can not delete the active company. Please, switch to another first!',
-        'disable_active'    => 'Error: Can not disable the active company. Please, switch to another first!',
+        'not_user_company'  => 'Kļūda: Jums nav tiesības strādāt ar šo uzņēmumu!',
+        'delete_active'     => 'Kļūda: nevar izdzēst aktīvo uzņēmumu. Lūdzu, vispirms pārslēdzieties uz citu!',
+        'disable_active'    => 'Kļūda: nevar atspējot aktīvo uzņēmumu. Lūdzu, vispirms pārslēdzieties uz citu!',
     ],
 
 ];

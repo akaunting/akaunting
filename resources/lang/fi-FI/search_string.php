@@ -3,7 +3,7 @@
 return [
 
     'columns' => [
-        'last_logged_in_at' => 'Viimeinen kirjautuminen',
+        'last_logged_in_at' => 'Viimeisin kirjautuminen',
         'paid_at'           => 'Maksettu päivämäärä',
         'started_at'        => 'Aloituspäivä',
         'ended_at'          => 'Päättymispäivä',
@@ -13,6 +13,9 @@ return [
         'issued_at'         => 'Luontipäivä',
         'symbol_first'      => 'Symbolin sijainti',
         'reconciled'        => 'Täysmäytetty',
+        'expense_account'   => 'Tililtä',
+        'income_account'    => 'Tilille',
+        'recurring'         => 'Toistuva',
     ],
 
 ];

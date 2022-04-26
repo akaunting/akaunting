@@ -2,11 +2,12 @@
 
 return [
 
-    'bill_number'           => 'Número de Recibo',
-    'bill_date'             => 'Fecha del Recibo',
+    'bill_number'           => 'Nº de Recibo',
+    'bill_date'             => 'Fecha Recibo',
+    'bill_amount'           => 'Total de la factura',
     'total_price'           => 'Precio Total',
-    'due_date'              => 'Fecha de Vencimiento',
-    'order_number'          => 'Número de Orden',
+    'due_date'              => 'Fecha de vencimiento',
+    'order_number'          => 'Nº Pedido',
     'bill_from'             => 'Factura de',
 
     'quantity'              => 'Cantidad',

@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Versija',
-    'powered'               => 'Powered By Akaunting',
+    'powered'               => 'Darbojas, izmantojot Akaunting',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Bezmaksas grāmatvedības programma',
 

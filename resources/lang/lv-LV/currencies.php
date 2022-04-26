@@ -6,7 +6,7 @@ return [
     'rate'                  => 'Kurss',
     'default'               => 'Noklusētā valūta',
     'decimal_mark'          => 'Decimālā zīme',
-    'thousands_separator'   => 'Tūkstošu atdalītāju',
+    'thousands_separator'   => 'Tūkstošu atdalītājs',
     'precision'             => 'Precizitāte',
     'conversion'            => 'Valūtas konvertēšana',
     'symbol' => [
