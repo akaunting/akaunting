@@ -1174,7 +1174,7 @@ abstract class DocumentShow extends Base
 
         $hideTimelineStatuses = ['paid', 'cancelled'];
 
-        if ($timelime_statuses = config('type.' . $type . 'timeline_statuses')) {
+        if ($timelime_statuses = config('type.' . $type . '.timeline_statuses')) {
             $hideTimelineStatuses = $timelime_statuses;
         }
 
