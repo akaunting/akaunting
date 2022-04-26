@@ -4,7 +4,7 @@
 
 @section('new_button')
     <div class="dropup header-drop-top">
-        <button type="button" class="btn btn-white btn-sm" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="more_actions_cus_show" class="btn btn-white btn-sm" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-chevron-down"></i>&nbsp; {{ trans('general.more_actions') }}
         </button>
 
@@ -23,7 +23,7 @@
 
             @stack('invoice_button_start')
             @can('create-sales-invoices')
-                <a class="dropdown-item" href="{{ route('customers.create-invoice', $customer->id) }}">
+                <a class="dropdown-item" id="create_invoice" href="{{ route('customers.create-invoice', $customer->id) }}">
                     {{ trans('invoices.create_invoice') }}
                 </a>
             @endcan
@@ -31,7 +31,7 @@
 
             @stack('revenue_button_start')
             @can('create-sales-revenues')
-                <a class="dropdown-item" href="{{ route('customers.create-revenue', $customer->id) }}">
+                <a class="dropdown-item" id="create_revenue" href="{{ route('customers.create-revenue', $customer->id) }}">
                     {{ trans('revenues.create_revenue') }}
                 </a>
             @endcan
