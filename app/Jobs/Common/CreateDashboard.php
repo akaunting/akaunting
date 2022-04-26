@@ -24,6 +24,8 @@ class CreateDashboard extends Job implements HasOwner, HasSource, ShouldCreate
             $users = $this->getUsers();
 
             if (empty($users)) {
+                $this->model = Dashboard::make();
+
                 return;
             }
 
