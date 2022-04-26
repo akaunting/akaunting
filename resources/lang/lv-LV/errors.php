@@ -3,21 +3,22 @@
 return [
 
     'title' => [
-        '403' => 'Oops! Forbidden Access',
-        '404' => 'Oops! Page not found',
-        '500' => 'Oops! Something went wrong',
+        '403'       => 'Oopss! Aizliegta piekļuve!',
+        '404'       => 'Oopss! Lapa nav atrasta!',
+        '500'       => 'Oopss! Radās kļūda!',
     ],
 
     'header' => [
-        '403' => '403 Forbidden',
-        '404' => '404 Not Found',
-        '500' => '500 Internal Server Error',
+        '403'       => '403 Aizliegts!',
+        '404'       => '404 Nav atrasts!',
+        '500'       => '500 Iekšējā servera kļūda!',
     ],
 
     'message' => [
-        '403' => 'You can not access this page.',
-        '404' => 'We could not find the page you were looking for.',
-        '500' => 'We will work on fixing that right away.',
+        '403'       => 'Šai lapai nevar piekļūt.',
+        '404'       => 'Mēs nevarējām atrast jūsu meklēto lapu.',
+        '500'       => 'Mēs nekavējoties strādāsim pie tā novēršanas.',
+        'record'    => 'Mēs nevarējām atrast meklējamo ierakstu.',
     ],
 
 ];

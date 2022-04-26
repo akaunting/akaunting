@@ -9,12 +9,24 @@ return [
     'new'                   => 'Nowy',
     'top_free'              => 'Najlepsze darmowe',
     'free'                  => 'DARMOWE',
+    'monthly'               => 'Miesięcznie',
+    'yearly'                => 'Rocznie',
+    'yearly_pricing'        => 'Rocznie',
+    'monthly_price'         => 'od :price
+',
+    'per_month'             => 'za miesiąc',
+    'billed_yearly'         => 'Płatne rocznie',
+    'billed_monthly'        => 'Płatne miesięcznie',
+    'save_year'             => 'Oszczędzasz <strong>:price</strong> rocznie!',
+    'if_paid_year'          => 'Lub <strong>:price/mo</strong> jeśli płacisz za rok z góry',
+    'information_monthly'   => 'Ta opcja jest dostępna tylko dla <strong>usługi Cloud</strong>',
     'install'               => 'Zainstaluj',
     'buy_now'               => 'Kup teraz',
     'get_api_key'           => '<a href=":url" target="_blank">Kliknij tutaj</a> , aby uzyskać klucz API.',
     'no_apps'               => 'Brak aplikacji w tej kategorii.',
     'become_developer'      => 'Jesteś programistą? <a href=":url" target="_blank">Tutaj</a> możesz nauczyć się tworzyć aplikację i rozpocząć sprzedaż już dziś!',
     'recommended_apps'      => 'Rekomendowane aplikacje',
+    'can_not_install'       => 'Subskrypcje miesięczne są dostępne tylko w usłudze Cloud. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Dowiedz się więcej.</a>',
 
     'about'                 => 'O nas',
 
@@ -49,6 +61,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Powinieneś kupić/odnowić :module!',
         'download'          => 'Nie można pobrać :module',
         'zip'               => 'Nie można utworzyć pliku zip :module',
         'unzip'             => 'Nie można rozpakować :module',

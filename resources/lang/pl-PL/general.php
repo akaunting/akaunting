@@ -51,6 +51,9 @@ return [
     'templates'             => 'Szablon|Szablony',
     'sales'                 => 'Sprzedaż|Sprzedaż',
     'purchases'             => 'Zakup|Zakupy',
+    'notifications'         => 'Powiadomienia|Powiadomienia',
+    'countries'             => 'Kraj | Kraje',
+    'cities'                => 'Miasto / Miasta',
 
     'welcome'               => 'Witaj',
     'banking'               => 'Bankowość',
@@ -72,6 +75,7 @@ return [
     'add_new'               => 'Dodaj nowy',
     'add_income'            => 'Dodaj dochód',
     'add_expense'           => 'Dodaj wydatek',
+    'add_transfer'          => 'Dodaj przelew',
     'show'                  => 'Pokaż',
     'edit'                  => 'Edytuj',
     'delete'                => 'Usuń',
@@ -81,7 +85,7 @@ return [
     'delete_confirm'        => 'Potwierdzić usunięcie :name :type?',
     'name'                  => 'Nazwa',
     'email'                 => 'Adres e-mail',
-    'tax_number'            => 'Numer podatkowy',
+    'tax_number'            => 'NIP',
     'phone'                 => 'Telefon',
     'address'               => 'Adres',
     'website'               => 'Strona internetowa',
@@ -160,6 +164,10 @@ return [
     'recurring_and_more'    => 'Powtarzające się i więcej..',
     'due_on'                => 'Termin zapadalności',
     'amount_due'            => 'Kwota do zapłaty',
+    'financial_year'        => 'Rok finansowy',
+    'created'               => 'Utworzono',
+    'state'                 => 'Województwo',
+    'zip_code'              => 'Kod pocztowy',
 
     'card' => [
         'cards'                 => 'Karta|Karty',

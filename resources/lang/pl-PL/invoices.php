@@ -4,10 +4,11 @@ return [
 
     'invoice_number'        => 'Numer faktury',
     'invoice_date'          => 'Data wystawienia faktury',
+    'invoice_amount'        => 'Kwota faktury',
     'total_price'           => 'Cena Całkowita',
     'due_date'              => 'Termin płatności',
     'order_number'          => 'Numer zamówienia',
-    'bill_to'               => 'Dane płatnika',
+    'bill_to'               => 'Nabywca',
 
     'quantity'              => 'Ilość',
     'price'                 => 'Cena',
@@ -19,7 +20,7 @@ return [
 
     'item_name'             => 'Nazwa artykułu|Nazwy artykułów',
 
-    'show_discount'         => ':discount% Rabatu',
+    'show_discount'         => ':discount% rabatu',
     'add_discount'          => 'Dodaj Rabat',
     'discount_desc'         => 'sumy częściowej',
 

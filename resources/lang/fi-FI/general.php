@@ -2,7 +2,7 @@
 
 return [
 
-    'dashboards'            => 'Etusivu|Etusivut',
+    'dashboards'            => 'Kojelauta|Kojelaudat',
     'items'                 => 'Tuote|Tuotteet',
     'incomes'               => 'Myynti|Myynnit',
     'invoices'              => 'Lasku|Laskut',
@@ -51,6 +51,9 @@ return [
     'templates'             => 'Mallipohja|Mallipohjat',
     'sales'                 => 'Myynti|Myynnit',
     'purchases'             => 'Osto|Ostot',
+    'notifications'         => 'Ilmoitus|Ilmoitukset',
+    'countries'             => 'Maa|Maat',
+    'cities'                => 'Kaupunki / Kaupunki|Kaupungit / Kaupungit',
 
     'welcome'               => 'Tervetuloa',
     'banking'               => 'Pankkitoiminta',
@@ -72,6 +75,7 @@ return [
     'add_new'               => 'Lisää Uusi',
     'add_income'            => 'Lisää tulo',
     'add_expense'           => 'Lisää meno',
+    'add_transfer'          => 'Lisää siirto',
     'show'                  => 'Näytä',
     'edit'                  => 'Muokkaa',
     'delete'                => 'Poista',
@@ -160,6 +164,10 @@ return [
     'recurring_and_more'    => 'Toistuva ja enemmän..',
     'due_on'                => 'Erääntyy',
     'amount_due'            => 'Erääntynyt',
+    'financial_year'        => 'Tilikausi',
+    'created'               => 'Luotu',
+    'state'                 => 'Provinssi / Osavaltio',
+    'zip_code'              => 'Postinumero / Postinumero',
 
     'card' => [
         'cards'                 => 'Kortti|Kortit',

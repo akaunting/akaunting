@@ -60,6 +60,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Du bør købe/forny :module!',
         'download'          => 'Kan ikke hente :module',
         'zip'               => 'Kan ikke oprette :module zip filen',
         'unzip'             => 'Kan ikke udpakke zip filen :module',
