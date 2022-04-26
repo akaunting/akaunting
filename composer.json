@@ -32,7 +32,6 @@
         "consoletvs/charts": "6.5.*",
         "dingo/api": "3.0.*",
         "doctrine/dbal": "^3.1",
-        "enlightn/enlightn": "^1.16",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "genealabs/laravel-model-caching": "0.11.*",

@@ -66,6 +66,11 @@ class ViewComposer extends Provider
         View::composer(
             'layouts.wizard', 'App\Http\ViewComposers\Wizard'
         );
+
+        View::composer(
+            ['partials.admin.content'],
+            'App\Http\ViewComposers\ReadOnlyNotification'
+        );
     }
 
     /**
