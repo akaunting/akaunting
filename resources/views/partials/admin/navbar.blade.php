@@ -32,12 +32,13 @@
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-plus"></i>
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark dropdown-menu-right">
                             <div class="row shortcuts px-4">
                                 @stack('navbar_create_invoice')
 
                                 @can('create-sales-invoices')
-                                    <a href="{{ route('invoices.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('invoices.create') }}" id="quick-add_inv" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fa fa-money-bill"></i>
                                         </span>
@@ -48,7 +49,7 @@
                                 @stack('navbar_create_revenue')
 
                                 @can('create-sales-revenues')
-                                    <a href="{{ route('revenues.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('revenues.create') }}" id="quick-add_rev" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                             <i class="fas fa-hand-holding-usd"></i>
                                         </span>
@@ -59,7 +60,7 @@
                                 @stack('navbar_create_customer')
 
                                 @can('create-sales-customers')
-                                    <a href="{{ route('customers.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('customers.create') }}" id="quick-add_cus" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fas fa-user"></i>
                                         </span>
@@ -70,7 +71,7 @@
                                 @stack('navbar_create_bill')
 
                                 @can('create-purchases-bills')
-                                    <a href="{{ route('bills.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('bills.create') }}" id="quick-add_bll" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fa fa-shopping-cart"></i>
                                         </span>
@@ -81,7 +82,7 @@
                                 @stack('navbar_create_payment')
 
                                 @can('create-purchases-payments')
-                                    <a href="{{ route('payments.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('payments.create') }}" id="quick-add_pym" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                             <i class="fas fa-hand-holding-usd"></i>
                                         </span>
@@ -92,7 +93,7 @@
                                 @stack('navbar_create_vendor_start')
 
                                 @can('create-purchases-vendors')
-                                    <a href="{{ route('vendors.create') }}" class="col-4 shortcut-item">
+                                    <a href="{{ route('vendors.create') }}" id="quick-add_vnd" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fas fa-user"></i>
                                         </span>

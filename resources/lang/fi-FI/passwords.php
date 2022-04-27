@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'password' => 'Parool peab olema vähemalt 6 tähemärki pikk ja vastama kinnitusele.',
-    'reset' => 'Sinu parool on lähtestatud!',
-    'sent' => 'Oleme saatnud sulle e-postiga parooli lähtestamise lingi!',
-    'token' => 'See parooli lähtestamise tunnus on vigane.',
-    'user' => "Ei suutnud leida sellise e-posti aadressiga kasutajat.",
-    'throttle' => 'Odota ennen kuin yrität uudelleen.',
+    'password' => 'Salasanan on oltava vähintään kuusi merkkiä ja vastata vahvistuskenttää.',
+    'reset' => 'Salasanasi on nyt nollattu!',
+    'sent' => 'Olemme lähettäneet salasanan nollauslinkin sähköpostiin!',
+    'throttled' => 'Odota ennen kuin yrität uudelleen.',
+    'token' => 'Salasanan nollauslinkki on virheellinen.',
+    'user' => "Emme löydä käyttäjää, jolla on kyseinen sähköpostiosoite.",
 
 ];

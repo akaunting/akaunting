@@ -2,15 +2,17 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'transactions'          => 'Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
-    'deposit'               => 'Deposit',
-    'withdrawal'            => 'Withdrawal',
+    'reconcile'             => 'Saskaņot ',
+    'unreconcile'           => 'Nesaskaņot',
+    'reconciled'            => 'Saskaņots',
+    'opening_balance'       => 'Sākuma bilance',
+    'closing_balance'       => 'Beigu bilance',
+    'unreconciled'          => 'Nesaskaņots',
+    'transactions'          => 'Darījumi',
+    'start_date'            => 'Sākuma datums',
+    'end_date'              => 'Beigu datums',
+    'cleared_amount'        => 'Dzēšamā summa',
+    'deposit'               => 'Ieņēmumi',
+    'withdrawal'            => 'Atsaukt',
 
 ];

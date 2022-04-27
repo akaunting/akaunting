@@ -4,7 +4,7 @@
 
 @section('new_button')
     <div class="dropup header-drop-top">
-        <button type="button" class="btn btn-white btn-sm" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="more_actions_vnd_show" class="btn btn-white btn-sm" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-chevron-down"></i>&nbsp; {{ trans('general.more_actions') }}
         </button>
 
@@ -23,7 +23,7 @@
 
             @stack('bill_button_start')
             @can('create-purchases-bills')
-                <a class="dropdown-item" href="{{ route('vendors.create-bill', $vendor->id) }}">
+                <a class="dropdown-item" id="create_bill" href="{{ route('vendors.create-bill', $vendor->id) }}">
                     {{ trans('bills.create_bill') }}
                 </a>
             @endcan
@@ -31,7 +31,7 @@
 
             @stack('payment_button_start')
             @can('create-purchases-payments')
-                <a class="dropdown-item" href="{{ route('vendors.create-payment', $vendor->id) }}">
+                <a class="dropdown-item" id="create_payment" href="{{ route('vendors.create-payment', $vendor->id) }}">
                     {{ trans('payments.create_payment') }}
                 </a>
             @endcan

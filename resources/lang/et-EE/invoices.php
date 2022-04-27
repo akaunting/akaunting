@@ -4,6 +4,7 @@ return [
 
     'invoice_number'        => 'Arve number',
     'invoice_date'          => 'Arve kuupäev',
+    'invoice_amount'        => 'Arve summa',
     'total_price'           => 'Hind kokku',
     'due_date'              => 'Tähtaeg',
     'order_number'          => 'Tellimuse number',

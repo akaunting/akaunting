@@ -13,7 +13,7 @@ return [
     'current_email'         => 'Correo electrónico actual',
     'reset'                 => 'Resetear',
     'never'                 => 'nunca',
-    'landing_page'          => 'Página de destino',
+    'landing_page'          => 'Página de inicio',
 
     'password' => [
         'current'           => 'Actual',
@@ -24,7 +24,7 @@ return [
 
     'error' => [
         'self_delete'       => 'Error: No puede eliminarse usted mismo!',
-        'self_disable'      => 'Error: ¡No puedes desactivarte a ti mismo!',
+        'self_disable'      => 'Error: ¡No puede desactivarse a usted mismo!',
         'no_company'        => 'Error: No hay compañías asignadas a su cuenta. Por favor contacte al administrador del sistema.',
     ],
 

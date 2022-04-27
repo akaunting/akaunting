@@ -3,32 +3,32 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Cash',
+        'cash'              => 'Naudas līdzekļi',
     ],
 
     'categories' => [
-        'deposit'           => 'Deposit',
-        'sales'             => 'Sales',
+        'deposit'           => 'Iemaksa',
+        'sales'             => 'Pārdošana',
     ],
 
     'currencies' => [
-        'usd'               => 'US Dollar',
+        'usd'               => 'ASV dolārs',
         'eur'               => 'Euro',
-        'gbp'               => 'British Pound',
-        'try'               => 'Turkish Lira',
+        'gbp'               => 'Angļu mārciņa',
+        'try'               => 'Turku lira',
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Naudas līdzekļi',
+        'bank'              => 'Bankas pārskaitījums',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Mēneša ienākumu kopsavilkums pa kategorijām.',
+        'expense'           => 'Mēneša izdevumu kopsavilkums pa kategorijām.',
+        'income_expense'    => 'Mēneša ienākumi/izdevumi pa kategorijām.',
+        'tax'               => 'Ceturkšņa nodokļu kopsavilkums.',
+        'profit_loss'       => 'Ceturkšņa peļņa un zaudējumi pa kategorijām.',
     ],
 
 ];

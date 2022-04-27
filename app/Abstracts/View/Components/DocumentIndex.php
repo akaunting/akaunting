@@ -420,8 +420,6 @@ abstract class DocumentIndex extends Base
             return $importRouteParameters;
         }
 
-        $route = $this->getRouteFromConfig($type, 'import');
-
         $alias = config('type.' . $type . '.alias');
         $group = config('type.' . $type . '.group');
 
@@ -434,7 +432,6 @@ abstract class DocumentIndex extends Base
         $importRouteParameters = [
             'group' => $group,
             'type' => config('type.' . $type . '.route.prefix'),
-            'route' => ($route) ? $route : 'invoices.import',
         ];
 
         return $importRouteParameters;
