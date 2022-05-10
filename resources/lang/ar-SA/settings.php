@@ -111,7 +111,7 @@ return [
         'templates' => [
             'subject'                   => 'الموضوع',
             'body'                      => 'الجسم',
-            'tags'                      => '<strong>الوسوم المتوفرة:<stonge/> tag_list:',
+            'tags'                      => '<strong>الوسوم المتوفرة:</strong> :tag_list',
             'invoice_new_customer'      => 'انشاء قالب فاتورة جديد (يُرسل الى العميل)',
             'invoice_remind_customer'   => 'قالب تذكير لفاتورة (تُرسل الى العميل)',
             'invoice_remind_admin'      => 'قالب تذكير لفاتورة (تُرسل الى المدير)',
