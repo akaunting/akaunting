@@ -1,5 +1,6 @@
-<html lang="{{ app()->getLocale() }}">
-    @include('partials.print.head')
+<html lang="{{ app()->getLocale() }}" dir="{{language_direction()}}">
+
+@include('partials.print.head')
 
     <body onload="window.print();">
         @stack('body_start')

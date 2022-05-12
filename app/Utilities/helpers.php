@@ -169,3 +169,30 @@ if (!function_exists('running_in_queue')) {
         return defined('APP_RUNNING_IN_QUEUE') ?? false;
     }
 }
+
+if (!function_exists('rtl_language')) {
+
+    function rtl_language(): bool {
+        switch (App()->getLocale()) {
+            case 'ar-SA':
+            case 'he-IL':
+                return true;
+            default:
+                return false;
+        }
+    }
+}
+
+if (!function_exists('language_direction')) {
+
+    function language_direction(): string
+    {
+        switch (App()->getLocale()) {
+            case 'ar-SA':
+            case 'he-IL':
+                return 'rtl';
+            default:
+                return 'ltr';
+        }
+    }
+}

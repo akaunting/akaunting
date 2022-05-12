@@ -1,5 +1,6 @@
-<html lang="{{ app()->getLocale() }}">
-
+<html lang="{{ app()->getLocale() }}"
+    {{language_direction()}}
+>
     @include('partials.auth.head')
 
     <body class="login-page">

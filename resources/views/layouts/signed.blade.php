@@ -1,5 +1,7 @@
-<html lang="{{ app()->getLocale() }}">
-    @include('partials.signed.head')
+<html lang="{{ app()->getLocale() }}" dir="{{language_direction()}}">
+
+
+@include('partials.signed.head')
 
     <body>
         @stack('body_start')

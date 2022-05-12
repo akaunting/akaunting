@@ -1,4 +1,4 @@
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" dir="{{language_direction()}}">
 
     @include('partials.modules.head')
 

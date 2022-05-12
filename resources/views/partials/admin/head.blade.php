@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="{{ asset('public/css/custom.css?v=' . version('short')) }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('public/css/element.css?v=' . version('short')) }}" type="text/css">
 
+    @if(rtl_language())
+        <link rel="stylesheet" href="{{ asset('public/css/_rtl.css?v=' . version('short')) }}" type="text/css">
+    @endif
+
     @stack('css')
 
     @stack('stylesheet')
