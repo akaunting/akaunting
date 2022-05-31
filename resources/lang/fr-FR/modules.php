@@ -9,6 +9,16 @@ return [
     'new'                   => 'Nouveau',
     'top_free'              => 'Top gratuit',
     'free'                  => 'GRATUIT',
+    'monthly'               => 'Mensuellement',
+    'yearly'                => 'Annuellement',
+    'yearly_pricing'        => 'Prix annuel',
+    'monthly_price'         => 'à partir de :price',
+    'per_month'             => 'par mois',
+    'billed_yearly'         => 'Facturé Annuellement',
+    'billed_monthly'        => 'Facturé Mensuellement',
+    'save_year'             => 'Vous économisez <strong>:price</strong> par an !',
+    'if_paid_year'          => 'Ou <strong>:price/mo</strong> si payé annuellement',
+    'information_monthly'   => 'Cette option n\'est valide que pour le <strong>Cloud Service</strong>',
     'install'               => 'Installation',
     'buy_now'               => 'Acheter maintenant',
     'get_api_key'           => '<a href=":url" target="_blank">Cliquez ici</a> pour obtenir votre clé API.
@@ -16,6 +26,7 @@ return [
     'no_apps'               => 'Il n’y a pas encore d\'application dans cette catégorie.',
     'become_developer'      => 'Vous êtes développeur? <a href=":url" target="_blank"> Ici </a>, vous pouvez apprendre à créer une application et à commencer à vendre dès aujourd\'hui!',
     'recommended_apps'      => 'Applications recommandées',
+    'can_not_install'       => 'Les abonnements mensuels ne sont disponibles que sur le service Cloud. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">En savoir plus.</a>',
 
     'about'                 => 'A propos',
 
@@ -28,7 +39,7 @@ return [
 
     'installed'             => ':module installé',
     'uninstalled'           => ':module désinstallé',
-    //'updated'               => ':module updated',
+    'updated_2'             => ':module mis à jour',
     'enabled'               => ':module activé',
     'disabled'              => ':module désactivé',
 
@@ -50,6 +61,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Vous devriez acheter/renouveler :module!',
         'download'          => 'Impossible de télécharger :module',
         'zip'               => 'Impossible de créer le fichier zip du :module
 ',
