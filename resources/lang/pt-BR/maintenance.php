@@ -6,6 +6,6 @@ return [
 
     'message' => 'Desculpe, estamos em manutenção. Por favor, tente novamente mais tarde!',
 
-    'read_only' => 'O modo somente leitura está ativado. É permitido visualizar, mas não altera nada!',
+    'read_only' => 'Modo somente leitura está ativado. Você pode visualizar, mas não pode alterar nada!',
 
 ];

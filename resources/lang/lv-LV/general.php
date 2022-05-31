@@ -2,7 +2,7 @@
 
 return [
 
-    'dashboards'            => 'Informācijas panelis/Informācijas paneļi',
+    'dashboards'            => 'Informācijas panelis',
     'items'                 => 'Preces|Preces',
     'incomes'               => 'Ienākumi|Ienākumi',
     'invoices'              => 'Rēķini|Rēķini',
