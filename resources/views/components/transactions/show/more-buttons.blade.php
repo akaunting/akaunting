@@ -36,7 +36,7 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id))
+        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring))
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
                     @if ($type == 'income' && $transaction->contact->exists)
