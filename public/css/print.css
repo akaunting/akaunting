@@ -712,6 +712,10 @@ html[dir='ltr'] .print-heading {
 html[dir='rtl'] .print-heading {
     text-align: right;
 }
+
+.custom-product-hunt {
+    display: none;
+}
 /*--Print --*/
 
 @media (max-width: 1600px) {
