@@ -11,11 +11,8 @@ use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\DuplicateContact;
 use App\Jobs\Common\UpdateContact;
-use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Document\Document;
 use App\Traits\Contacts;
-use App\Utilities\Date;
 
 class Vendors extends Controller
 {
