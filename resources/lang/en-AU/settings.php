@@ -44,7 +44,7 @@ return [
     ],
 
     'invoice' => [
-        'description'       => 'Customize invoice prefix, number, terms, footer etc',
+        'description'       => 'Customise invoice prefix, number, terms, footer etc',
         'prefix'            => 'Number Prefix',
         'digit'             => 'Number Digit',
         'next'              => 'Next Number',

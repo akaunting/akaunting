@@ -4,6 +4,7 @@ return [
 
     'bill_number'           => 'Numero fattura di acquisto',
     'bill_date'             => 'Data fattura di acquisto',
+    'bill_amount'           => 'Importo conto',
     'total_price'           => 'Prezzo Totale',
     'due_date'              => 'Data scadenza',
     'order_number'          => 'Ordine di acquisto numero',

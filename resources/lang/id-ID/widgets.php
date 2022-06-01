@@ -4,7 +4,7 @@ return [
 
     'currencies'                => 'Mata Uang',
     'total_income'              => 'Total Pendapatan',
-    'receivables'               => 'Pihutang',
+    'receivables'               => 'Piutang',
     'open_invoices'             => 'Membuka Faktur',
     'overdue_invoices'          => 'Faktur Jatuh Tempo',
     'total_expenses'            => 'Total Pengeluaran',
@@ -17,7 +17,7 @@ return [
     'cash_flow'                 => 'Arus Kas',
     'no_profit_loss'            => 'Tidak ada Rugi Laba',
     'income_by_category'        => 'Pendapatan menurut Kategori',
-    'expenses_by_category'      => 'Pengeluaran berdasarkan Kategori',
+    'expenses_by_category'      => 'Pengeluaran Berdasarkan Kategori',
     'account_balance'           => 'Saldo Rekening',
     'latest_income'             => 'Pendapatan Terbaru',
     'latest_expenses'           => 'Pengeluaran Terbaru',
