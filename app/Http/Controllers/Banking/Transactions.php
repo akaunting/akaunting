@@ -35,7 +35,7 @@ class Transactions extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('account', 'category', 'contact')->isNotRecurring()->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('account', 'category', 'contact')->isNotRecurring()->isNotSplit()->collect(['paid_at'=> 'desc']);
 
         $totals = [
             'income' => 0,

@@ -190,6 +190,16 @@ class Transaction extends Model
         return $query->where($this->qualifyColumn('type'), 'not like', '%-recurring');
     }
 
+    public function scopeIsSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'like', '%-split');
+    }
+
+    public function scopeIsNotSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'not like', '%-split');
+    }
+
     public function scopeIsTransfer(Builder $query): Builder
     {
         return $query->where('category_id', '=', Category::transfer());
