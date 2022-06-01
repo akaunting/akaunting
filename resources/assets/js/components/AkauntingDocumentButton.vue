@@ -32,7 +32,7 @@
                         @click="onItemSelected(item)"
                     >
                         <div class="w-full flex items-center justify-between">
-                            <span>{{ item.name }}</span>
+                            <span class="w-9/12">{{ item.name }}</span>
 
                             <money 
                                 :name="'item-id-' + item.id"
@@ -40,7 +40,25 @@
                                 v-bind="money"
                                 masked
                                 disabled
-                                class="text-right disabled-money text-gray"
+                                class="w-1/12 text-right disabled-money text-gray"
+                            ></money>
+                            -
+                            <money 
+                                :name="'item-id-' + item.id"
+                                :value="item.paid"
+                                v-bind="money"
+                                masked
+                                disabled
+                                class="w-1/12 text-right disabled-money text-gray"
+                            ></money>
+                            =
+                            <money 
+                                :name="'item-id-' + item.id"
+                                :value="item.open"
+                                v-bind="money"
+                                masked
+                                disabled
+                                class="w-1/12 text-right disabled-money text-gray"
                             ></money>
                         </div>
                     </div>
@@ -180,6 +198,8 @@ export default {
                         id: item.id,
                         name: item.document_number + ' | ' + item.contact_name + (item.notes ? ' | ' + item.notes : ''),
                         amount: item.amount,
+                        paid: item.paid,
+                        open: item.amount - item.paid,
                     });
                 }, this);
             }
