@@ -38,20 +38,31 @@ const app = new Vue({
     },
 
     methods: {
-        onConnect(transaction, currency, documents) {
-            this.connect.show = true;
+        onConnect(route) {
+            let dial_promise = Promise.resolve(window.axios.get(route));
 
-            this.connect.transaction = transaction;
+            dial_promise.then(response => {
+                this.connect.show = true;
 
-            this.connect.currency = {
-                decimal_mark: currency.decimal_mark,
-                precision: currency.precision,
-                symbol: currency.symbol,
-                symbol_first: currency.symbol_first,
-                thousands_separator: currency.thousands_separator,
-            };
+                this.connect.transaction = JSON.parse(response.data.transaction);
 
-            this.connect.documents = documents;
+                let currency = JSON.parse(response.data.currency);
+
+                this.connect.currency = {
+                    decimal_mark: currency.decimal_mark,
+                    precision: currency.precision,
+                    symbol: currency.symbol,
+                    symbol_first: currency.symbol_first,
+                    thousands_separator: currency.thousands_separator,
+                };
+    
+                this.connect.documents = JSON.parse(response.data.documents);
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
         },
 
         async onEmail(route) {

@@ -325,6 +325,45 @@ class Transactions extends Controller
         return $pdf->download($file_name);
     }
 
+    public function dial(Transaction $transaction)
+    {
+        $documents = collect([]);
+
+        if ($transaction->type == Transaction::INCOME_TYPE && $transaction->contact->exists) {
+            $builder = $transaction->contact
+                ->invoices();
+        }
+
+        if ($transaction->type == Transaction::INCOME_TYPE && ! $transaction->contact->exists) {
+            $builder = Document::invoice();
+        }
+
+        if ($transaction->type == Transaction::EXPENSE_TYPE && $transaction->contact->exists) {
+            $builder = $transaction->contact
+                ->bills();
+        }
+
+        if ($transaction->type == Transaction::EXPENSE_TYPE && ! $transaction->contact->exists) {
+            $builder = Document::bill();
+        }
+
+        if (isset($builder)) {
+            $documents = $builder->notPaid()
+                ->where('currency_code', $transaction->currency_code)
+                ->with(['media', 'totals', 'transactions'])
+                ->get()
+                ->toJson();
+        }
+
+        $data = [
+            'transaction' => $transaction->load(['account', 'category'])->toJson(),
+            'currency' => $transaction->currency->toJson(),
+            'documents' => $documents,
+        ];
+
+        return response()->json($data);
+    }
+
     public function connect(Transaction $transaction, TransactionConnect $request)
     {
         $total_items = count($request->data['items']);

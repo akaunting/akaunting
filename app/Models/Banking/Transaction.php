@@ -470,21 +470,9 @@ class Transaction extends Model
                     'permission' => 'create-banking-transactions',
                     'attributes' => [
                         'id' => 'index-transactions-more-actions-connect-' . $this->id,
+                        '@click' => 'onConnect(\'' . route('transactions.dial', $this->id) . '\')',
                     ],
                 ];
-
-                $transaction = $this->load('account')->toJson();
-                $currency = $this->currency->toJson();
-
-                if ($this->contact->exists) {
-                    $document = $this->contact->invoices()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
-
-                    $connect['attributes']['@click'] = 'onConnect()';
-                } else {
-                    $document = \App\Models\Document\Document::invoice()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
-
-                    $connect['attributes']['@click'] = 'onConnect()';
-                }
 
                 $actions[] = $connect;
 
