@@ -207,7 +207,7 @@ trait Import
 
     public function getCategoryIdFromName($row, $type)
     {
-        $category_id = Category::where('name', $row['category_name'])->pluck('id')->first();
+        $category_id = Category::withSubCategory()->where('name', $row['category_name'])->pluck('id')->first();
 
         if (!empty($category_id)) {
             return $category_id;

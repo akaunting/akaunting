@@ -1,42 +1,35 @@
-@extends('layouts.modules')
+<x-layouts.modules>
+    <x-slot name="title">
+        {{ trans('modules.documentation') }}
+    </x-slot>
 
-@section('title', trans_choice('general.modules', 2))
+    <x-slot name="buttons">
+        <x-link href="{{ route('apps.api-key.create') }}">
+            {{ trans('modules.api_key') }}
+        </x-link>
 
-@section('new_button')
-    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
-    <a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
-@endsection
+        <x-link href="{{ route('apps.my.index') }}">
+            {{ trans('modules.my_apps') }}
+        </x-link>
+    </x-slot>
 
-@section('content')
-    @include('partials.modules.bar')
+    <x-slot name="content">
+        <div>
+            <div class="app-documentation flex flex-col gap-4 py-4">
+                @if ($documentation)
+                    {!! $documentation->body !!}
+                @else
+                    <x-empty-data />
+                @endif
+            </div>
 
-    <div class="card">
-        <div class="card-body documentation-content">
-            @if ($documentation)
-                {!! $documentation->body !!}
-            @else
-                {{ trans('general.na') }}
-            @endif
-        </div>
-
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ url($back) }}" class="btn btn-white">{{ trans('modules.back') }}</a>
-                </div>
+            <div class="flex flex-end">
+                <x-link href="{{ url($back) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg bg-light-gray">
+                    {{ trans('modules.back') }}
+                </x-link>
             </div>
         </div>
-    </div>
-@endsection
+    </x-slot>
 
-@push('stylesheet')
-    <style>
-        .documentation-content img {
-            width: 100%;
-        }
-    </style>
-@endpush
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="modules" file="apps" />
+</x-layouts.modules>

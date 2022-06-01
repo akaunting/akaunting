@@ -102,6 +102,18 @@ class Currency extends Model
     }
 
     /**
+     * Scope currency by code.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $code
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCode($query, $code)
+    {
+        return $query->where($this->qualifyColumn('code'), $code);
+    }
+
+    /**
      * Get the current precision.
      *
      * @return string
@@ -172,15 +184,30 @@ class Currency extends Model
     }
 
     /**
-     * Scope currency by code.
+     * Get the line actions.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed $code
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return array
      */
-    public function scopeCode($query, $code)
+    public function getLineActionsAttribute()
     {
-        return $query->where($this->qualifyColumn('code'), $code);
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('currencies.edit', $this->id),
+            'permission' => 'update-settings-currencies',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'currencies.destroy',
+            'permission' => 'delete-settings-currencies',
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**

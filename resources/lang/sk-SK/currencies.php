@@ -8,7 +8,6 @@ return [
     'decimal_mark'          => 'Desatinná čiarka',
     'thousands_separator'   => 'Oddeľovač tisícov',
     'precision'             => 'Presnosť',
-    'conversion'            => 'Prepočet meny: :price (:currency_code) na :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbol',
         'position'          => 'Pozícia symbolu',

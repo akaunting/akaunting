@@ -11,16 +11,25 @@ class Companies extends BulkAction
 {
     public $model = Company::class;
 
+    public $text = 'general.companies';
+
+    public $path = [
+        'group' => 'common',
+        'type' => 'companies',
+    ];
+
     public $actions = [
-        'enable' => [
-            'name' => 'general.enable',
-            'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-common-companies',
+        'enable'    => [
+            'icon'          => 'check_circle',
+            'name'          => 'general.enable',
+            'message'       => 'bulk_actions.message.enable',
+            'permission'    => 'update-common-companies',
         ],
-        'disable' => [
-            'name' => 'general.disable',
-            'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-common-companies',
+        'disable'   => [
+            'icon'          => 'hide_source',
+            'name'          => 'general.disable',
+            'message'       => 'bulk_actions.message.disable',
+            'permission'    => 'update-common-companies',
         ],
     ];
 

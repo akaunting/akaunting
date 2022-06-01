@@ -20,7 +20,7 @@ trait Modules
             ]
         ];
 
-        if (!$response = static::getResponse('POST', 'token/check', $data)) {
+        if (! $response = static::getResponse('POST', 'token/check', $data)) {
             return false;
         }
 
@@ -36,7 +36,7 @@ trait Modules
 
         $items = Cache::get($key);
 
-        if (!empty($items)) {
+        if (! empty($items)) {
             return $items;
         }
 
@@ -55,13 +55,28 @@ trait Modules
         return $item;
     }
 
+    public function getModuleIsubscribe($alias)
+    {
+        if (! $response = static::getResponse('GET', 'apps/' . $alias . '/isubscribe')) {
+            return [];
+        }
+
+        $body = json_decode($response->getBody());
+
+        if (! is_object($body)) {
+            return [];
+        }
+
+        return $body;
+    }
+
     public function getModuleDocumentation($alias, $data = [])
     {
         $key = 'apps.' . $alias . '.docs.' . $this->getDataKeyOfModules($data);
 
         $documentation = Cache::get($key);
 
-        if (!empty($documentation)) {
+        if (! empty($documentation)) {
             return $documentation;
         }
 
@@ -78,7 +93,7 @@ trait Modules
 
         $releases = Cache::get($key);
 
-        if (!empty($releases)) {
+        if (! empty($releases)) {
             return $releases;
         }
 
@@ -95,7 +110,7 @@ trait Modules
 
         $reviews = Cache::get($key);
 
-        if (!empty($reviews)) {
+        if (! empty($reviews)) {
             return $reviews;
         }
 
@@ -106,13 +121,47 @@ trait Modules
         return $reviews;
     }
 
+    public function getModuleTestimonials($alias, $data = [])
+    {
+        $key = 'apps.' . $alias . '.testimonials.' . $this->getDataKeyOfModules($data);
+
+        $testimonials = Cache::get($key);
+
+        if (! empty($testimonials)) {
+            return $testimonials;
+        }
+
+        $testimonials = static::getResponseData('GET', 'apps/' . $alias . '/testimonials', $data);
+
+        Cache::put($key, $testimonials, Date::now()->addHour());
+
+        return $testimonials;
+    }
+
+    public function getBannersOfModules($data = [])
+    {
+        $key = 'apps.banners.' . $this->getDataKeyOfModules($data);
+
+        $banners = Cache::get($key);
+
+        if (! empty($banners)) {
+            return $banners;
+        }
+
+        $banners = static::getResponseData('GET', 'apps/banners');
+
+        Cache::put($key, $banners, Date::now()->addHour());
+
+        return $banners;
+    }
+
     public function getCategoriesOfModules($data = [])
     {
         $key = 'apps.categories.' . $this->getDataKeyOfModules($data);
 
         $categories = Cache::get($key);
 
-        if (!empty($categories)) {
+        if (! empty($categories)) {
             return $categories;
         }
 
@@ -129,7 +178,7 @@ trait Modules
 
         $category = Cache::get($key);
 
-        if (!empty($category)) {
+        if (! empty($category)) {
             return $category;
         }
 
@@ -146,7 +195,7 @@ trait Modules
 
         $vendors = Cache::get($key);
 
-        if (!empty($vendors)) {
+        if (! empty($vendors)) {
             return $vendors;
         }
 
@@ -163,7 +212,7 @@ trait Modules
 
         $vendor = Cache::get($key);
 
-        if (!empty($vendor)) {
+        if (! empty($vendor)) {
             return $vendor;
         }
 
@@ -190,11 +239,11 @@ trait Modules
         $installed = [];
 
         Module::all()->each(function($module) use (&$installed) {
-            if (!$this->moduleExists($module->alias)) {
+            if (! $this->moduleExists($module->alias)) {
                 return;
             }
 
-            if (!$result = $this->getModule($module->alias)) {
+            if (! $result = $this->getModule($module->alias)) {
                 return;
             }
 
@@ -212,7 +261,7 @@ trait Modules
 
         $pre_sale = Cache::get($key);
 
-        if (!empty($pre_sale)) {
+        if (! empty($pre_sale)) {
             return $pre_sale;
         }
 
@@ -229,7 +278,7 @@ trait Modules
 
         $paid = Cache::get($key);
 
-        if (!empty($paid)) {
+        if (! empty($paid)) {
             return $paid;
         }
 
@@ -246,7 +295,7 @@ trait Modules
 
         $new = Cache::get($key);
 
-        if (!empty($new)) {
+        if (! empty($new)) {
             return $new;
         }
 
@@ -263,7 +312,7 @@ trait Modules
 
         $free = Cache::get($key);
 
-        if (!empty($free)) {
+        if (! empty($free)) {
             return $free;
         }
 
@@ -280,7 +329,7 @@ trait Modules
 
         $featured = Cache::get($key);
 
-        if (!empty($featured)) {
+        if (! empty($featured)) {
             return $featured;
         }
 
@@ -291,16 +340,84 @@ trait Modules
         return $featured;
     }
 
+    public function getPopularModules($data = [])
+    {
+        $key = 'apps.popular.' . $this->getDataKeyOfModules($data);
+
+        $popular = Cache::get($key);
+
+        if (! empty($popular)) {
+            return $popular;
+        }
+
+        $popular = static::getResponseData('GET', 'apps/popular', $data);
+
+        Cache::put($key, $popular, Date::now()->addHour());
+
+        return $popular;
+    }
+
     public function getSearchModules($data = [])
     {
         return static::getResponseData('GET', 'apps/search', $data);
+    }
+
+    public function getTestimonialModules($data = [])
+    {
+        $key = 'apps.testimonials.' . $this->getDataKeyOfModules($data);
+
+        $testimonials = Cache::get($key);
+
+        if (! empty($testimonials)) {
+            return $testimonials;
+        }
+
+        $testimonials = static::getResponseData('GET', 'apps/testimonials', $data);
+
+        Cache::put($key, $testimonials, Date::now()->addHour());
+
+        return $testimonials;
+    }
+
+    public function getWidgetsOfModules($data = [])
+    {
+        $key = 'apps.widgets.' . $this->getDataKeyOfModules($data);
+
+        $widgets = Cache::get($key);
+
+        if (! empty($widgets)) {
+            return $widgets;
+        }
+
+        $widgets = static::getResponseData('GET', 'apps/widgets');
+
+        Cache::put($key, $widgets, Date::now()->addHour());
+
+        return $widgets;
+    }
+
+    public function getModulesByWidget($alias, $data = [])
+    {
+        $key = 'apps.widgets.' . $alias . '.' . $this->getDataKeyOfModules($data);
+
+        $widget = Cache::get($key);
+
+        if (! empty($widget)) {
+            return $widget;
+        }
+
+        $widget = static::getResponseData('GET', 'apps/widgets/' . $alias, $data);
+
+        Cache::put($key, $widget, Date::now()->addHour());
+
+        return $widget;
     }
 
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
 
-        if (!$response = static::getResponse('GET', 'core/version', $data)) {
+        if (! $response = static::getResponse('GET', 'core/version', $data)) {
             return [];
         }
 
@@ -309,7 +426,7 @@ trait Modules
 
     public function moduleExists($alias)
     {
-        if (!module($alias) instanceof \Akaunting\Module\Module) {
+        if (! module($alias) instanceof \Akaunting\Module\Module) {
             return false;
         }
 
@@ -340,13 +457,13 @@ trait Modules
 
         $data = Cache::get($key);
 
-        if (!empty($data)) {
+        if (! empty($data)) {
             return $data;
         }
 
         $data = [];
 
-        if (!$suggestions = static::getResponseData('GET', 'apps/suggestions')) {
+        if (! $suggestions = static::getResponseData('GET', 'apps/suggestions')) {
             return $data;
         }
 
@@ -365,18 +482,43 @@ trait Modules
 
         $data = Cache::get($key);
 
-        if (!empty($data)) {
+        if (! empty($data)) {
             return $data;
         }
 
         $data = [];
 
-        if (!$notifications = static::getResponseData('GET', 'apps/notifications')) {
+        if (! $notifications = static::getResponseData('GET', 'apps/notifications')) {
             return $data;
         }
 
         foreach ($notifications as $notification) {
             $data[$notification->path][] = $notification;
+        }
+
+        Cache::put($key, $data, Date::now()->addHour(6));
+
+        return $data;
+    }
+
+    public function loadTips()
+    {
+        $key = 'apps.tips';
+
+        $data = Cache::get($key);
+
+        if (! empty($data)) {
+            return $data;
+        }
+
+        $data = [];
+
+        if (! $tips = static::getResponseData('GET', 'apps/tips')) {
+            return $data;
+        }
+
+        foreach ($tips as $tip) {
+            $data[$tip->path][] = $tip;
         }
 
         Cache::put($key, $data, Date::now()->addHour(6));
@@ -394,7 +536,7 @@ trait Modules
             $data = $this->loadSuggestions();
         }
 
-        if (!empty($data) && array_key_exists($path, $data)) {
+        if (! empty($data) && array_key_exists($path, $data)) {
             return $data[$path];
         }
 
@@ -411,7 +553,24 @@ trait Modules
             $data = $this->loadNotifications();
         }
 
-        if (!empty($data) && array_key_exists($path, $data)) {
+        if (! empty($data) && array_key_exists($path, $data)) {
+            return (array) $data[$path];
+        }
+
+        return [];
+    }
+
+    public function getTips($path): array
+    {
+        $key = 'apps.tips';
+
+        $data = Cache::get($key);
+
+        if (empty($data)) {
+            $data = $this->loadTips();
+        }
+
+        if (! empty($data) && array_key_exists($path, $data)) {
             return (array) $data[$path];
         }
 

@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Nº de Recibo',
     'bill_date'             => 'Fecha Recibo',
-    'bill_amount'           => 'Monto de la factura',
     'total_price'           => 'Precio Total',
     'due_date'              => 'Fecha de vencimiento',
     'order_number'          => 'Número de pedido',
@@ -16,7 +15,7 @@ return [
     'discount'              => 'Descuento',
     'item_discount'         => 'Descuento de línea',
     'tax_total'             => 'Total Impuestos',
-    'total'                 => 'Total ',
+    'total'                 => 'Total',
 
     'item_name'             => 'Nombre del artículo | Nombres de artículo',
 
@@ -30,9 +29,9 @@ return [
     'histories'             => 'Historial',
     'payments'              => 'Pagos',
     'add_payment'           => 'Añadir pago',
-    'mark_paid'             => 'Marcar como paga',
+    'mark_paid'             => 'Marcar Como Pagada',
     'mark_received'         => 'Marcar como recibido',
-    'mark_cancelled'        => 'Marcar como cancelada',
+    'mark_cancelled'        => 'Marcar como Cancelado',
     'download_pdf'          => 'Descargar PDF',
     'send_mail'             => 'Enviar Email',
     'create_bill'           => 'Crear Recibo',
@@ -45,7 +44,7 @@ return [
         'status' => [
             'created'       => 'Creado el :date',
             'receive' => [
-                'draft'     => 'No recibido',
+                'draft'     => 'Sin enviar',
                 'received'  => 'Recibido el :date',
             ],
             'paid' => [

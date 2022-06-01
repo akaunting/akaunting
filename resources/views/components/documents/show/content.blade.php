@@ -1,157 +1,120 @@
-@stack('content_header_start')
-@if (!$hideHeader)
-    <x-documents.show.header
-        type="{{ $type }}"
-        :document="$document"
-        hide-header-status="{{ $hideHeaderStatus }}"
-        text-history-status="{{ $textHistoryStatus }}"
-        class-header-status="{{ $classHeaderStatus }}"
-        hide-header-contact="{{ $hideHeaderContact }}"
-        text-header-contact="{{ $textHeaderContact }}"
-        class-header-contact="{{ $classHeaderContact }}"
-        route-contact-show="{{ $routeContactShow }}"
-        hide-header-amount="{{ $hideHeaderAmount }}"
-        text-header-amount="{{ $textHeaderAmount }}"
-        class-header-amount="{{ $classHeaderAmount }}"
-        hide-header-due-at="{{ $hideHeaderDueAt }}"
-        text-header-due-at="{{ $textHeaderDueAt }}"
-        class-header-due-at="{{ $classHeaderDueAt }}"
-    />
-@endif
-@stack('content_header_end')
+<div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse space-y-12 lg:space-y-0">
+    <div class="w-full lg:w-5/12 space-y-12">
+        @stack('recurring_message_start')
 
-@stack('recurring_message_start')
-@if (!$hideRecurringMessage)
-    <x-documents.show.recurring-message
-        type="{{ $type }}"
-        :document="$document"
-        text-recurring-type="{{ $textRecurringType }}"
-     />
-@endif
-@stack('recurring_message_end')
+        @if (! $hideRecurringMessage)
+            @if (($recurring = $document->recurring) && ($next = $recurring->getNextRecurring()))
+                @php
+                    $recurring_message = trans('recurring.message', [
+                        'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
+                        'date' => $next->format(company_date_format())
+                    ]);
+                @endphp
 
-@stack('status_message_start')
-@if (!$hideStatusMessage)
-    <x-documents.show.status-message
-        type="{{ $type }}"
-        :document="$document"
-        text-status-message="{{ $textStatusMessage }}"
-    />
-@endif
-@stack('status_message_end')
+                <x-documents.show.message type="recurring" background-color="bg-blue-100" text-color="text-blue-600" message="{{ $recurring_message }}" />
+            @endif
 
-@stack('timeline_start')
-    @if (!$hideTimeline)
-        <x-documents.show.timeline
-            type="{{ $type }}"
-            :document="$document"
-            :hide-timeline-statuses="$hideTimelineStatuses"
-            hide-timeline-create="{{ $hideTimelineCreate }}"
-            text-timeline-create-title="{{ $textTimelineCreateTitle }}"
-            text-timeline-create-message="{{ $textTimelineCreateMessage }}"
-            hide-button-edit="{{ $hideButtonEdit }}"
-            permission-update="{{ $permissionUpdate }}"
-            route-button-edit="{{ $routeButtonEdit }}"
-            hide-timeline-sent="{{ $hideTimelineSent }}"
-            text-timeline-sent-title="{{ $textTimelineSentTitle }}"
-            text-timeline-sent-status-draft="{{ $textTimelineSentStatusDraft }}"
-            hide-button-sent="{{ $hideButtonSent }}"
-            route-button-sent="{{ $routeButtonSent }}"
-            text-timeline-sent-status-mark-sent="{{ $textTimelineSentStatusMarkSent }}"
-            hide-button-received="{{ $hideButtonReceived }}"
-            route-button-received="{{ $routeButtonReceived }}"
-            text-timeline-sent-status-received="{{ $textTimelineSentStatusReceived }}"
-            hide-button-email="{{ $hideButtonEmail }}"
-            route-button-email="{{ $routeButtonEmail }}"
-            text-timeline-send-status-mail="{{ $textTimelineSendStatusMail }}"
-            hide-button-share="{{ $hideButtonShare }}"
-            :signed-url="$signedUrl"
-            hide-timeline-paid="{{ $hideTimelinePaid }}"
-            text-timeline-get-paid-title="{{ $textTimelineGetPaidTitle }}"
-            text-timeline-get-paid-status-await="{{ $textTimelineGetPaidStatusAwait }}"
-            text-timeline-get-paid-status-partially-paid="{{ $textTimelineGetPaidStatusPartiallyPaid }}"
-            hide-button-paid="{{ $hideButtonPaid }}"
-            route-button-paid="{{ $routeButtonPaid }}"
-            text-timeline-get-paid-mark-paid="{{ $textTimelineGetPaidMarkPaid }}"
-            hide-button-add-payment="{{ $hideButtonAddPayment }}"
-            text-timeline-get-paid-add-payment="{{ $textTimelineGetPaidAddPayment }}"
-        />
-    @endif
-@stack('timeline_end')
+            @if (($parent = $document->parent))
+                @php
+                    $recurring_message = trans('recurring.message_parent', [
+                        'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
+                        'link' => '<a href="' . route(config('type.document.' . $document->paten->type . '.route.prefix', 'invoices') . '.show', $parent->id) . '"><u>' . $parent->id . '</u></a>'
+                    ]);
+                @endphp
 
-@stack('document_start')
-    <x-documents.show.document
-        type="{{ $type }}"
-        :document="$document"
-        document-template="{{ $documentTemplate }}"
-        logo="{{ $logo }}"
-        background-color="{{ $backgroundColor }}"
-        hide-footer="{{ $hideFooter }}"
-        hide-company-logo="{{ $hideCompanyLogo }}"
-        hide-company-details="{{ $hideCompanyDetails }}"
-        hide-company-name="{{ $hideCompanyName }}"
-        hide-company-address="{{ $hideCompanyAddress }}"
-        hide-company-tax-number="{{ $hideCompanyTaxNumber }}"
-        hide-company-phone="{{ $hideCompanyPhone }}"
-        hide-company-email="{{ $hideCompanyEmail }}"
-        hide-contact-info="{{ $hideContactInfo }}"
-        hide-contact-name="{{ $hideContactName }}"
-        hide-contact-address="{{ $hideContactAddress }}"
-        hide-contact-tax-number="{{ $hideContactTaxNumber }}"
-        hide-contact-phone="{{ $hideContactPhone }}"
-        hide-contact-email="{{ $hideContactEmail }}"
-        hide-order-number="{{ $hideOrderNumber }}"
-        hide-document-number="{{ $hideDocumentNumber }}"
-        hide-issued-at="{{ $hideIssuedAt }}"
-        hide-due-at="{{ $hideDueAt }}"
-        text-contact-info="{{ $textContactInfo }}"
-        text-issued-at="{{ $textIssuedAt }}"
-        text-document-number="{{ $textDocumentNumber }}"
-        text-due-at="{{ $textDueAt }}"
-        text-order-number="{{ $textOrderNumber }}"
-        text-document-title="{{ $textDocumentTitle }}"
-        text-document-subheading="{{ $textDocumentSubheading }}"
-        hide-items="{{ $hideItems }}"
-        hide-name="{{ $hideName }}"
-        hide-description="{{ $hideDescription }}"
-        hide-quantity="{{ $hideQuantity }}"
-        hide-price="{{ $hidePrice }}"
-        hide-discount="{{ $hideDiscount }}"
-        hide-amount="{{ $hideAmount }}"
-        hide-note="{{ $hideNote }}"
-        text-items="{{ $textItems }}"
-        text-quantity="{{ $textQuantity }}"
-        text-price="{{ $textPrice }}"
-        text-amount="{{ $textAmount }}"
-    />
-@stack('document_end')
+                <x-documents.show.message type="recurring" background-color="bg-blue-100" text-color="text-blue-600" message="{{ $recurring_message }}" />
+            @endif
+        @endif
 
-@stack('attachment_start')
-    @if (!$hideAttachment)
-        <x-documents.show.attachment
-            type="{{ $type }}"
-            :document="$document"
-            :attachment="$attachment"
-        />
-    @endif
-@stack('attachment_end')
+        @stack('recurring_message_end')
 
-@stack('row_footer_start')
-    @if (!$hideFooter)
-        <x-documents.show.footer
-            type="{{ $type }}"
-            :document="$document"
-            :histories="$histories"
-            :transactions="$transactions"
-            class-footer-histories="{{ $classFooterHistories }}"
-            hide-footer-histories="{{ $hideFooterHistories }}"
-            text-histories="{{ $textHistories }}"
-            text-history-status="{{ $textHistoryStatus }}"
-            hide-footer-transactions="{{ $hideFooterTransactions }}"
-            class-footer-transactions="{{ $classFooterTransactions }}"
-        />
-    @endif
-@stack('row_footer_end')
+        @stack('status_message_start')
 
-{{ Form::hidden('document_id', $document->id, ['id' => 'document_id']) }}
-{{ Form::hidden($type . '_id', $document->id, ['id' => $type . '_id']) }}
+        @if (! $hideStatusMessage)
+            @if ($document->status == 'draft')
+                <x-documents.show.message type="status" background-color="bg-red-100" text-color="text-red-600" message="{!! trans($textStatusMessage) !!}" />
+            @endif
+        @endif
+
+        @stack('status_message_end')
+
+        @stack('create_start')
+
+        @if (! $hideCreated)
+            <x-documents.show.create type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('create_end')
+
+        @stack('send_start')
+
+        @if (! $hideSend)
+            <x-documents.show.send type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('send_end')
+
+        @stack('receive_start')
+
+        @if (! $hideReceive)
+            <x-documents.show.receive type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('receive_end')
+
+        @stack('get_paid_start')
+
+        @if (! $hideGetPaid)
+            <x-documents.show.get-paid type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('get_paid_end')
+
+        @stack('make_paid_start')
+
+        @if (! $hideMakePayment)
+            <x-documents.show.make-payment type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('make_paid_end')
+
+        @stack('restore_start')
+
+        @if (! $hideRestore)
+            <x-documents.show.restore type="{{ $type }}" :document="$document" />
+        @endif
+
+        @stack('restore_end')
+
+        @stack('schedule_start')
+        @if (! $hideSchedule)
+            <x-documents.show.schedule type="{{ $type }}" :document="$document" />
+        @endif
+        @stack('schedule_end')
+
+        @stack('children_start')
+        @if (! $hideChildren)
+            <x-documents.show.children type="{{ $type }}" :document="$document" />
+        @endif
+        @stack('children_end')
+
+        @stack('attachment_start')
+
+        @if (! $hideAttachment)
+            <x-documents.show.attachment type="{{ $type }}" :document="$document" :attachment="$attachment" />
+        @endif
+
+        @stack('attachment_end')
+    </div>
+
+    <div class="w-full lg:w-7/12">
+        @stack('document_start')
+
+        <x-documents.show.template type="{{ $type }}" :document="$document" />
+
+        @stack('document_end')
+    </div>
+
+    <x-form.input.hidden name="document_id" :value="$document->id" />
+    <x-form.input.hidden name="{{ $type . '_id' }}" :value="$document->id" />
+</div>

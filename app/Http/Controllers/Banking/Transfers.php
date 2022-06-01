@@ -13,8 +13,6 @@ use App\Jobs\Banking\DeleteTransfer;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transfer;
 use App\Models\Setting\Currency;
-use App\Utilities\Modules;
-use Date;
 use Illuminate\Support\Str;
 
 class Transfers extends Controller
@@ -52,13 +50,9 @@ class Transfers extends Controller
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $payment_methods = Modules::getPaymentMethods();
-
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        $file_types = $this->prepeareFileTypes();
-
-        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency', 'file_types'));
+        return view('banking.transfers.create', compact('accounts', 'currency'));
     }
 
     /**
@@ -142,15 +136,11 @@ class Transfers extends Controller
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $payment_methods = Modules::getPaymentMethods();
+        $currency_code = ($transfer->expense_transaction->account) ? $transfer->expense_transaction->account->currency_code : setting('default.currency');
 
-        $account = $transfer->expense_transaction->account;
+        $currency = Currency::where('code', $currency_code)->first();
 
-        $currency = Currency::where('code', $account->currency_code)->first();
-
-        $file_types = $this->prepeareFileTypes();
-
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency', 'file_types'));
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'currency'));
     }
 
     /**
@@ -258,20 +248,5 @@ class Transfers extends Controller
         $file_name = trans_choice('general.transfers', 1) . '-' . Str::slug($transfer->id, '-', language()->getShortCode()) . '-' . time() . '.pdf';
 
         return $pdf->download($file_name);
-    }
-
-    protected function prepeareFileTypes()
-    {
-        $file_type_mimes = explode(',', config('filesystems.mimes'));
-
-        $file_types = [];
-
-        foreach ($file_type_mimes as $mime) {
-            $file_types[] = '.' . $mime;
-        }
-
-        $file_types = implode(',', $file_types);
-
-        return $file_types;
     }
 }

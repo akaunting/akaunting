@@ -1,47 +1,90 @@
-<div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-        @if (!$hideContact)
-        <div class="row">
-            <x-select-contact-card
-                type="{{ $contactType }}"
-                :contact="$contact"
-                :contacts="$contacts"
-                :search-route="$contactSearchRoute"
-                :create-route="$contactCreateRoute"
-                error="form.errors.get('contact_name')"
-                :text-add-contact="$textAddContact"
-                :text-create-new-contact="$textCreateNewContact"
-                :text-edit-contact="$textEditContact"
-                :text-contact-info="$textContactInfo"
-                :text-choose-different-contact="$textChooseDifferentContact"
-            />
-        </div>
-        @endif
+<div class="grid sm:grid-cols-7 sm:col-span-6 gap-x-8 gap-y-6 my-3.5">
+    <div class="sm:col-span-2 required">
+        <label for="contact" class="form-control-label">
+            {{ trans_choice($textContact, 1) }}
+        </label>
+
+        <x-documents.form.contact
+            type="{{ $typeContact }}"
+            :contact="$contact"
+            :contacts="$contacts"
+            :search-route="$searchContactRoute"
+            :create-route="$createContactRoute"
+            error="form.errors.get('contact_name')"
+            :text-add-contact="$textAddContact"
+            :text-create-new-contact="$textCreateNewContact"
+            :text-edit-contact="$textEditContact"
+            :text-contact-info="$textContactInfo"
+            :text-choose-different-contact="$textChooseDifferentContact"
+        />
     </div>
 
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-        <div class="row">
-            @if (!$hideIssuedAt)
-            {{ Form::dateGroup('issued_at', trans($textIssuedAt), 'calendar', ['id' => 'issued_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'change' => 'setDueMinDate'], $issuedAt) }}
-            @endif
+    <div class="sm:col-span-1"></div>
 
-            @if (!$hideDocumentNumber)
-            {{ Form::textGroup('document_number', trans($textDocumentNumber), 'file', ['required' => 'required'], $documentNumber) }}
-            @endif
+    <div class="sm:col-span-4 grid sm:grid-cols-4 gap-x-8 gap-y-6">
+        @stack('issue_start')
 
-            @if (!$hideDueAt)
-                @if ($type == 'invoice')
-                    {{ Form::dateGroup('due_at', trans($textDueAt), 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'period' => setting('invoice.payment_terms'), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'min-date' => 'form.issued_at', 'min-date-dynamic' => 'min_due_date', 'data-value-min' => true], $dueAt) }}
-                @else
-                    {{ Form::dateGroup('due_at', trans($textDueAt), 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'show-date-format' => company_date_format(), 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'min-date' => 'form.issued_at', 'min-date-dynamic' => 'min_due_date', 'data-value-min' => true], $dueAt) }}
-                @endif
-            @else
-            {{ Form::hidden('due_at', old('issued_at', $issuedAt), ['id' => 'due_at', 'v-model' => 'form.issued_at']) }}
-            @endif
+        @if (! $hideIssuedAt)
+            <x-form.group.date
+                name="issued_at"
+                label="{{ trans($textIssuedAt) }}"
+                icon="calendar_today"
+                value="{{ $issuedAt }}"
+                show-date-format="{{ company_date_format() }}"
+                date-format="Y-m-d"
+                autocomplete="off"
+                change="setDueMinDate"
+                form-group-class="sm:col-span-2"
+            />
+        @endif
 
-            @if (!$hideOrderNumber)
-            {{ Form::textGroup('order_number', trans($textOrderNumber), 'shopping-cart', [], $orderNumber) }}
-            @endif
-        </div>
+        @stack('document_number_start')
+
+        @if (! $hideDocumentNumber)
+            <x-form.group.text
+                name="document_number"
+                label="{{ trans($textDocumentNumber) }}"
+                value="{{ $documentNumber }}"
+                form-group-class="sm:col-span-2"
+            />
+        @endif
+
+        @stack('due_start')
+
+        @if (! $hideDueAt)
+            <x-form.group.date
+                name="due_at"
+                label="{{ trans($textDueAt) }}"
+                icon="calendar_today"
+                value="{{ $dueAt }}"
+                show-date-format="{{ company_date_format() }}"
+                date-format="Y-m-d"
+                autocomplete="off"
+                period="{{ $periodDueAt }}"
+                min-date="form.issued_at"
+                min-date-dynamic="min_due_date"
+                data-value-min
+                form-group-class="sm:col-span-2"
+            />
+        @else
+            <x-form.input.hidden
+                name="due_at"
+                :value="old('issued_at', $issuedAt)"
+                v-model="form.issued_at"
+                form-group-class="sm:col-span-2"
+            />
+        @endif
+
+        @stack('order_number_start')
+
+        @if (! $hideOrderNumber)
+            <x-form.group.text
+                name="order_number"
+                label="{{ trans($textOrderNumber) }}"
+                value="{{ $orderNumber }}"
+                form-group-class="sm:col-span-2"
+                not-required
+            />
+        @endif
     </div>
 </div>

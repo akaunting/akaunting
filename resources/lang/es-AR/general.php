@@ -190,7 +190,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Revisa la <a href=":url" target="_blank" class="text-success">documentación</a> para más detalles.',
+        'documentation' => 'Revisa la <a href=":url" target="_blank" class="text-green">documentación</a> para más detalles.',
         'items' => 'Los artículos pueden ser productos o servicios. Puede utilizar artículos al crear facturas para poblar los campos precio, impuestos, etc.',
         'invoices' => 'Las facturas pueden ser una vez o recurrentes. Puedes enviarlas a los clientes y empezar a aceptar pagos en línea.',
         'revenues' => 'El ingreso es una transacción de ingreso de pago. Puede ser un registro independiente (es decir, depósito) o adjunto a una factura.',

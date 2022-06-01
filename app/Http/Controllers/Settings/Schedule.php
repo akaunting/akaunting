@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Abstracts\Http\Controller;
+use App\Abstracts\Http\SettingController;
 
-class Schedule extends Controller
+class Schedule extends SettingController
 {
     public function edit()
     {

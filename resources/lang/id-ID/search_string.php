@@ -15,7 +15,6 @@ return [
         'reconciled'        => 'Terrekonsiliasi',
         'expense_account'   => 'Dari Rekening',
         'income_account'    => 'Ke Rekening',
-        'recurring'         => 'Berulang',
     ],
 
 ];

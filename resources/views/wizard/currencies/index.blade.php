@@ -1,7 +1,7 @@
-@extends('layouts.wizard')
+<x-layouts.wizard>
+    <x-slot name="title">
+        {{ trans('general.wizard') }}
+    </x-slot>
 
-@section('title', trans('general.wizard'))
-
-@section('content')
-   
-@endsection
+    <x-slot name="content"></x-slot>
+</x-layouts.wizard>

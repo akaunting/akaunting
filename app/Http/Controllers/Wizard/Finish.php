@@ -32,7 +32,7 @@ class Finish extends Controller
 
         $data = [
             'query' => [
-                'limit' => 4
+                'limit' => 6
             ]
         ];
 

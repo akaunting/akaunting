@@ -1,72 +1,29 @@
-@extends('layouts.modules')
+<x-layouts.modules>
+    <x-slot name="title">
+        {{ trans_choice('general.modules', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.modules', 2))
+    <x-slot name="buttons">
+        <x-link href="{{ route('apps.api-key.create') }}">
+            {{ trans('modules.api_key') }}
+        </x-link>
 
-@section('new_button')
-    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
-    <a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
-@endsection
+        <x-link href="{{ route('apps.my.index') }}">
+            {{ trans('modules.my_apps') }}
+        </x-link>
+    </x-slot>
 
-@section('content')
-    @include('partials.modules.bar')
+    <x-slot name="content">
+        <x-modules.banners />
 
-    @if ($pre_sale)
-        <h2>{{ trans('modules.pre_sale') }}</h2>
+        <x-modules.pre-sale />
 
-        <div class="row">
-            @if ($pre_sale->data)
-                @foreach ($pre_sale->data as $module)
-                    @include('partials.modules.pre_sale')
-                @endforeach
-            @else
-                @include('partials.modules.no_apps')
-            @endif
-        </div>
-    @endif
+        <x-modules.paid />
 
-    @if ($paid)
-        <h2>{{ trans('modules.top_paid') }}</h2>
+        <x-modules.nnew />
 
-        <div class="row">
-            @if ($paid->data)
-                @foreach ($paid->data as $module)
-                    @include('partials.modules.item')
-                @endforeach
-            @else
-                @include('partials.modules.no_apps')
-            @endif
-        </div>
-    @endif
+        <x-modules.free />
+    </x-slot>
 
-    @if ($new)
-        <h2>{{ trans('modules.new') }}</h2>
-
-        <div class="row">
-            @if ($new->data)
-                @foreach ($new->data as $module)
-                    @include('partials.modules.item')
-                @endforeach
-            @else
-                @include('partials.modules.no_apps')
-            @endif
-        </div>
-    @endif
-
-    @if ($free)
-        <h2>{{ trans('modules.top_free') }}</h2>
-
-        <div class="row">
-            @if ($free->data)
-                @foreach ($free->data as $module)
-                    @include('partials.modules.item')
-                @endforeach
-            @else
-                @include('partials.modules.no_apps')
-            @endif
-        </div>
-    @endif
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="modules" file="apps" />
+</x-layouts.modules>

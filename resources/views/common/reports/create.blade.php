@@ -1,42 +1,43 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('general.title.new', ['type' => trans_choice('general.reports', 1)]) }}</x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.reports', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="report" route="reports.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::open([
-            'id' => 'report',
-            'route' => 'reports.store',
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true,
-        ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                        <x-form.group.select name="class" label="{{ trans_choice('general.types', 1) }}" :options="$classes" change="onChangeClass" />
 
-                    {{ Form::selectGroup('class', trans_choice('general.types', 1), 'bars', $classes, null, ['required' => 'required', 'change' => 'onChangeClass']) }}
+                        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}
+                <x-form.section v-if="showPreferences">
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('reports.preferences', 2) }}" description="" />
+                    </x-slot>
 
-                    {{ Form::hidden('report', 'invalid', ['data-field' => 'settings']) }}
+                    <x-slot name="body">
+                        <component v-bind:is="report_fields" @change="onChangeReportFields"></component>
+                    </x-slot>
+                </x-form.section>
 
-                    <component v-bind:is="report_fields" @change="onChangeReportFields"></component>
-                </div>
-            </div>
+                <x-form.input.hidden name="report" value="invalid" data-field="settings" />
 
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('reports.index') }}
-                </div>
-            </div>
-        {!! Form::close() !!}
-    </div>
-@endsection
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="reports.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/common/reports.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="common" file="reports" />
+</x-layouts.admin>

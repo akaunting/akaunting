@@ -1,1 +1,1 @@
-<script src="{{ asset( $scriptFile . '?v=' . $version) }}"></script>
+<x-script :alias="$alias" :folder="$folder" :file="$file" />

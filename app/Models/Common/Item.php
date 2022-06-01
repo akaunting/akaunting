@@ -27,7 +27,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled', 'created_from', 'created_by'];
+    protected $fillable = ['company_id', 'type', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.
@@ -45,7 +45,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled'];
+    protected $sortable = ['name', 'category.name', 'sale_price', 'purchase_price', 'enabled'];
 
     /**
      * @var array
@@ -80,6 +80,11 @@ class Item extends Model
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);
+    }
+
+    public function scopeBilling($query, $billing)
+    {
+        return $query->where($billing . '_price', '=', null);
     }
 
     /**
@@ -147,6 +152,40 @@ class Item extends Model
         }
 
         return $this->getMedia('picture')->last();
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('items.edit', $this->id),
+            'permission' => 'update-common-items',
+        ];
+
+        $actions[] = [
+            'title' => trans('general.duplicate'),
+            'icon' => 'file_copy',
+            'url' => route('items.duplicate', $this->id),
+            'permission' => 'create-common-items',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'items.destroy',
+            'permission' => 'delete-common-items',
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**

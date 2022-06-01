@@ -1,51 +1,68 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]) }}"
+        icon="account_balance"
+        route="accounts.create"
+    ></x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::open([
-            'route' => 'accounts.store',
-            'id' => 'account',
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="account" route="accounts.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('accounts.form_description.general') }}" />
+                    </x-slot>
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                    <x-slot name="body">
+                        <x-form.group.radio
+                            name="type"
+                            label="{{ trans_choice('general.types', 1) }}"
+                            :options="[
+                                'bank' => trans_choice('accounts.banks', 1),
+                                'credit_card' => trans_choice('accounts.credit_cards', 1),
+                            ]"
+                            checked="bank"
+                            @input="onType($event)"
+                        />
 
-                    {{ Form::textGroup('number', trans('accounts.number'), 'pencil-alt') }}
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" form-group-class="sm:col-span-6" />
 
-                    {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'path' => route('modals.currencies.create'), 'field' => ['key' => 'code', 'value' => 'name'], 'change' => 'onChangeCurrency']) }}
+                        <x-form.group.text name="number" label="{{ trans('accounts.number') }}" form-group-class="sm:col-span-6" />
 
-                    {{ Form::moneyGroup('opening_balance', trans('accounts.opening_balance'), 'balance-scale', ['required' => 'required', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0) }}
+                        <x-form.group.currency />
 
-                    {{ Form::textGroup('bank_name', trans('accounts.bank_name'), 'university', []) }}
+                        <x-form.group.money name="opening_balance" label="{{ trans('accounts.opening_balance') }}" value="0" :currency="$currency" dynamicCurrency="currency" />
 
-                    {{ Form::textGroup('bank_phone', trans('accounts.bank_phone'), 'phone', []) }}
+                        <x-form.group.toggle name="default_account" label="{{ trans('accounts.default_account') }}" :value="false" show="form.type != 'credit_card'" />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::textareaGroup('bank_address', trans('accounts.bank_address')) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('accounts.banks', 1) }}" description="{{ trans('accounts.form_description.bank') }}" />
+                    </x-slot>
 
-                    {{ Form::radioGroup('default_account', trans('accounts.default_account'), false) }}
+                    <x-slot name="body">
+                        <x-form.group.text name="bank_name" label="{{ trans('accounts.bank_name') }}" not-required />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
-                </div>
-            </div>
+                        <x-form.group.text name="bank_phone" label="{{ trans('accounts.bank_phone') }}" not-required />
 
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('accounts.index') }}
-                </div>
-            </div>
-        {!! Form::close() !!}
-    </div>
-@endsection
+                        <x-form.group.textarea name="bank_address" label="{{ trans('accounts.bank_address') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/banking/accounts.js?v=' . version('short')) }}"></script>
-@endpush
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="accounts.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="banking" file="accounts" />
+</x-layouts.admin>

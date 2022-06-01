@@ -20,21 +20,21 @@
             :loading="loading"
         >
             <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty loading">
-                    {{ loadingText }}
+                <p class="el-select-dropdown__empty pt-2 pb-0 loading">
+                   <span class="material-icons form-spin text-lg animate-spin">data_usage</span>
                 </p>
             </div>
 
-            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
+            <div v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty pt-2 pb-0">
                     {{ noMatchingDataText }}
                 </p>
 
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
+                    <li class="el-select-dropdown__item el-select__footer bg-purple" disabled value="">
+                        <div class="w-full flex items-center" @click="onAddItem">
+                            <span class="material-icons text-xl text-purple">add</span>
+                            <span class="flex-1 font-bold text-purple">
                                 {{ addNew.text }}
                             </span>
                         </div>
@@ -45,10 +45,10 @@
             <div v-if="!loading && addNew.status && options.length == 0">
                 <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
+                    <li class="el-select-dropdown__item el-select__footer bg-purple">
+                        <div class="w-full flex items-center" @click="onAddItem">
+                            <span class="material-icons text-xl text-purple">add</span>
+                            <span class="flex-1 font-bold text-purple">
                                 {{ addNew.text }}
                             </span>
                         </div>
@@ -62,18 +62,18 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(option, index) in sortOptions"
+            <el-option v-if="!group" v-for="(option, index) in sortedOptions"
                 :key="option.key"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
+                <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'"><i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}</span>
                 <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
             </el-option>
 
             <el-option-group
                 v-if="group"
-                v-for="(group_options, group_index) in sortOptions"
+                v-for="(group_options, group_index) in sortedOptions"
                 :key="group_index"
                 :label="group_options.key">
                 <el-option
@@ -82,15 +82,15 @@
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
-                    <span class="float-left">{{ option.value }}</span>
+                    <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'"><i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer" :disabled="disabled" value="">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length > 0" class="el-select__footer bg-purple" :disabled="disabled" value="">
+                <div class="w-full flex items-center" @click="onAddItem">
+                    <span class="material-icons text-xl text-purple">add</span>
+                    <span class="flex-1 font-bold text-purple">
                         {{ addNew.text }}
                     </span>
                 </div>
@@ -100,10 +100,10 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[selected]">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
         <select :name="name"  :id="name" v-model="selected" class="d-none">
-            <option v-for="option in sortOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
+            <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
 
     </base-input>
@@ -120,21 +120,21 @@
             :loading="loading"
         >
             <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty loading">
-                    {{ loadingText }}
+                <p class="el-select-dropdown__empty pt-2 pb-0 loading">
+                    <span class="material-icons form-spin text-lg animate-spin">data_usage</span>
                 </p>
             </div>
 
-            <div v-if="!loading && addNew.status && options.length != 0 && sortOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
+            <div v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length == 0" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty pt-2 pb-0">
                     {{ noMatchingDataText }}
                 </p>
 
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer" disabled value="">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
+                    <li class="el-select-dropdown__item el-select__footer bg-purple" disabled value="">
+                        <div class="w-full flex items-center" @click="onAddItem">
+                           <span class="material-icons text-xl text-purple">add</span>
+                           <span class="flex-1 font-bold text-purple">
                                 {{ addNew.text }}
                             </span>
                         </div>
@@ -145,10 +145,10 @@
             <div v-if="!loading && addNew.status && options.length == 0">
                 <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
+                    <li class="el-select-dropdown__item el-select__footer bg-purple">
+                        <div class="w-full flex items-center" @click="onAddItem">
+                            <span class="material-icons text-xl text-purple">add</span>
+                            <span class="flex-1 font-bold text-purple">
                                 {{ addNew.text }}
                             </span>
                         </div>
@@ -162,18 +162,18 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(option, index) in sortOptions"
+            <el-option v-if="!group" v-for="(option, index) in sortedOptions"
                 :key="option.key"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
+                <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'"><i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}</span>
                 <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
             </el-option>
 
             <el-option-group
                 v-if="group"
-                v-for="(group_options, group_index) in sortOptions"
+                v-for="(group_options, group_index) in sortedOptions"
                 :key="group_index"
                 :label="group_options.key">
                 <el-option
@@ -182,15 +182,15 @@
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
-                    <span class="float-left">{{ option.value }}</span>
+                    <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'"><i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0 && sortOptions.length > 0" class="el-select__footer" disabled  value="">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
+            <el-option v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length > 0" class="el-select__footer bg-purple" disabled  value="">
+                <div class="w-full flex items-center" @click="onAddItem">
+                    <span class="material-icons text-xl text-purple">add</span>
+                    <span class="flex-1 font-bold text-purple">
                         {{ addNew.text }}
                     </span>
                 </div>
@@ -200,10 +200,10 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[selected]">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
         <select :name="name"  :id="name" v-model="selected" class="d-none">
-            <option v-for="option in sortOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
+            <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
     </span>
 </template>
@@ -216,7 +216,7 @@ import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
-import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
@@ -300,6 +300,12 @@ export default {
             description: "Option Sortable type (key|value)"
         },
 
+        sortOptions: {
+            type: Boolean,
+            default: true,
+            description: 'Sort options by the option_sortable prop, or sorting is made server-side',
+        },
+
         model: {
             type: [String, Number, Array, Object],
             default: '',
@@ -358,12 +364,6 @@ export default {
             description: "Selectbox collapse status"
         },
 
-        loadingText: {
-            type: String,
-            default: 'Loading...',
-            description: "Selectbox loading message"
-        },
-
         noDataText: {
             type: String,
             default: 'No Data',
@@ -403,29 +403,33 @@ export default {
             selected: this.model,
 
             form: {},
-            sort_options: [],
+            sorted_options: [],
             new_options: {},
             loading: false,
         }
     },
 
     created() {
-        this.setSortOptions();
+        this.setSortedOptions();
     },
 
     computed: {
-        sortOptions() {
-            if (this.group) {
-                this.sort_options.sort(this.sortBy("key"));
+        sortedOptions() {
+            if (!this.sortOptions) {
+                return this.sorted_options;
+            }
 
-                for (const [index, options] of Object.entries(this.sort_options)) {
+            if (this.group) {
+                this.sorted_options.sort(this.sortBy("key"));
+
+                for (const [index, options] of Object.entries(this.sorted_options)) {
                     options.value.sort(this.sortBy(this.option_sortable));
                 }
             } else {
-                this.sort_options.sort(this.sortBy(this.option_sortable));
+                this.sorted_options.sort(this.sortBy(this.option_sortable));
             }
 
-            return this.sort_options;
+            return this.sorted_options;
         },
     },
 
@@ -476,9 +480,9 @@ export default {
             }
         },
 
-        setSortOptions() {
-            // Reset sort_options 
-            this.sort_options = [];
+        setSortedOptions() {
+            // Reset sorted_options 
+            this.sorted_options = [];
 
             let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.options;
 
@@ -491,11 +495,12 @@ export default {
                         for (const [key, value] of Object.entries(options)) {
                             values.push({
                                 key: key,
-                                value: value
+                                value: value,
+                                level: 0
                             });
                         }
 
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: index,
                             value: values
                         });
@@ -503,16 +508,18 @@ export default {
                 } else {
                     created_options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
-                                value: option
+                                value: option,
+                                level: 0
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
-                                key: option.id,
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
                             });
                         }
                     }, this);
@@ -521,24 +528,27 @@ export default {
                 // Option set sort_option data
                 if (!Array.isArray(created_options)) {
                     for (const [key, value] of Object.entries(created_options)) {
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: key,
-                            value: value
+                            value: value,
+                            level: 0
                         });
                     }
                 } else {
                     created_options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
-                                value: option
+                                value: option,
+                                level: 0
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
-                                key: option.id,
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
                             });
                         }
                     }, this);
@@ -558,7 +568,7 @@ export default {
 
             // Option changed sort_option data
             if (this.group) {
-                this.sort_options.forEach(function (option_group, group_index) {
+                this.sorted_options.forEach(function (option_group, group_index) {
                     option_group.value.forEach(function (option, index) {
                         if (this.multiple) {
                             let indexs = [];
@@ -590,7 +600,7 @@ export default {
                     }, this);
                 }, this);
             } else {
-                this.sort_options.forEach(function (option, index) {
+                this.sorted_options.forEach(function (option, index) {
                     if (this.multiple) {
                         let indexs = [];
                         let values = [];
@@ -680,12 +690,12 @@ export default {
 
                     if (response.data.data) {
                         let data = response.data.data;
-                        //this.sort_options = [];
+                        //this.sorted_options = [];
 
                         data.forEach(function (option) {
                             let check = false;
 
-                            this.sort_options.forEach(function (sort_option) {
+                            this.sorted_options.forEach(function (sort_option) {
                                 if (sort_option.key == option.id) {
                                     check = true;
                                     return;
@@ -693,7 +703,7 @@ export default {
                             });
 
                             if (!check) {
-                                this.sort_options.push({
+                                this.sorted_options.push({
                                     key: option.id.toString(),
                                     value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                                 });
@@ -701,12 +711,12 @@ export default {
 
                         }, this);
 
-                        this.sort_options = this.sort_options.filter(item => {
+                        this.sorted_options = this.sorted_options.filter(item => {
                             return item.value.toLowerCase()
                                 .indexOf(query.toLowerCase()) > -1;
                         });
                     } else {
-                        this.sortOptions = [];
+                        this.sortedOptions = [];
                     }
                 })
                 .catch(e => {
@@ -715,7 +725,7 @@ export default {
                     // always executed
                 });
             } else {
-                this.setSortOptions();
+                this.setSortedOptions();
             }
         },
 
@@ -776,7 +786,7 @@ export default {
         },
 
         onModal(value) {
-            this.setSortOptions();
+            this.setSortedOptions();
 
             let add_new = this.add_new;
 
@@ -874,7 +884,7 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    this.sort_options.push({
+                    this.sorted_options.push({
                         key: response.data.data[this.add_new.field.key].toString(),
                         value: response.data.data[this.add_new.field.value],
                     });
@@ -898,7 +908,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove("modal-open");
+                    documentClasses.remove("overflow-hidden");
                 }
             })
             .catch(error => {
@@ -917,7 +927,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("modal-open");
+            documentClasses.remove("overflow-hidden");
         },
 
         addModal() {
@@ -1003,7 +1013,7 @@ export default {
         },
 
         dynamicOptions: function(options) {
-            this.sort_options = [];
+            this.sorted_options = [];
             this.selected = [];
 
             if (this.group) {
@@ -1015,11 +1025,12 @@ export default {
                         for (const [key, value] of Object.entries(_options)) {
                             values.push({
                                 key: key,
-                                value: value
+                                value: value,
+                                level: 0
                             });
                         }
 
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: index,
                             value: values
                         });
@@ -1027,16 +1038,18 @@ export default {
                 } else {
                     options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
-                                value: option
+                                value: option,
+                                level: 0
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
-                                key: option.id,
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
                             });
                         }
                     }, this);
@@ -1045,24 +1058,27 @@ export default {
                 // Option set sort_option data
                 if (!Array.isArray(options)) {
                     for (const [key, value] of Object.entries(options)) {
-                        this.sort_options.push({
+                        this.sorted_options.push({
                             key: key,
-                            value: value
+                            value: value,
+                            level: 0
                         });
                     }
                 } else {
                     options.forEach(function (option, index) {
                         if (typeof(option) == 'string') {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
                                 key: index.toString(),
-                                value: option
+                                value: option,
+                                level: 0
                             });
                         } else {
-                            this.sort_options.push({
+                            this.sorted_options.push({
                                 index: index,
-                                key: option.id,
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
                             });
                         }
                     }, this);
@@ -1072,57 +1088,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-    .form-group .modal {
-        z-index: 3050;
-    }
-
-    .el-select-dropdown__empty {
-        padding: 10px 0 0 !important;
-    }
-
-    .el-select-dropdown__empty.loading {
-        padding: 10px 0 !important;
-    }
-
-    .el-select__footer {
-        text-align: center !important;
-        border-top: 1px solid #dee2e6 !important;
-        padding: 0px !important;
-        cursor: pointer !important;
-        color: #3c3f72 !important;
-        font-weight: bold !important;
-        height: 38px !important;
-        line-height: 38px !important;
-        margin-top: 5px !important;
-        margin-bottom: -6px !important;
-        border-bottom-left-radius: 4px !important;
-        border-bottom-right-radius: 4px !important;
-    }
-
-    .el-select__footer.el-select-dropdown__item.hover {
-        background-color: inherit !important;
-    }
-
-    .el-select__footer.el-select-dropdown__item:hover, .el-select__footer.el-select-dropdown__item:focus {
-        background-color: #3c3f72 !important;
-        color: white !important;
-        border-top-color: #3c3f72;
-    }
-
-    .el-select__footer div span {
-        margin-left: 5px;
-    }
-
-    .badge-resize {
-        float: right;
-        margin-top: -32px;
-        margin-right: 35px;
-        position: relative;
-    }
-
-    .badge.badge-pill.badge-success {
-        border-radius: 0.375rem;
-    }
-</style>

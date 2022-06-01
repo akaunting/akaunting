@@ -1,27 +1,17 @@
-{!! Form::open([
-    'id' => 'setting',
-    'method' => 'PATCH',
-    'route' => 'settings.update',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'files' => true,
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('settings.company.name'), 'building', ['required' => 'required'], setting('company.name')) }}
+<x-form id="setting" method="PATCH" route="settings.company.update">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5d">
+        <x-form.group.text name="name" label="{{ trans('settings.company.name') }}" value="{{ setting('company.name') }}" />
 
-        {{ Form::textGroup('email', trans('settings.company.email'), 'envelope', ['required' => 'required'], setting('company.email')) }}
+        <x-form.group.text name="email" label="{{ trans('settings.company.email') }}" value="{{ setting('company.email') }}" />
 
-        {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], setting('company.tax_number')) }}
+        <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" value="{{ setting('company.tax_number') }}" not-required />
 
-        {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], setting('company.phone')) }}
+        <x-form.group.text name="phone" label="{{ trans('settings.company.phone') }}" value="{{ setting('company.phone') }}" not-required />
 
-        {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
+        <x-form.group.textarea name="address" label="{{ trans('settings.company.address') }}" :value="setting('company.address')" />
 
-        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('company.country'), []) }}
+        <x-form.group.country />
 
-        {!! Form::hidden('_prefix', 'company') !!}
+        <x-form.input.hidden name="_prefix" value="company" />
     </div>
-{!! Form::close() !!}
+</x-form>

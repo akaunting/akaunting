@@ -2,8 +2,8 @@
 
 return [
 
-    'can_login'             => 'Var pieteikties?',
-    'user_created'          => 'Lietotājs izveidots',
+    'can_login'             => 'Can Login?',
+    'user_created'          => 'Lietotājs, kas izveidojis',
 
     'error' => [
         'email'             => 'Lietotājs ar šādu e-pasta adresi jau eksistē.',

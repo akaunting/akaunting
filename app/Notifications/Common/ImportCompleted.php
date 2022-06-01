@@ -48,7 +48,7 @@ class ImportCompleted extends Notification implements ShouldQueue
         $dashboard_url = route('dashboard', ['company_id' => company_id()]);
 
         return (new MailMessage)
-            ->subject(trans('notifications.import.completed.subject'))
+            ->subject(trans('notifications.import.completed.title'))
             ->line(trans('notifications.import.completed.description'))
             ->action(trans_choice('general.dashboards', 1), $dashboard_url);
     }
@@ -62,6 +62,11 @@ class ImportCompleted extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'title' => trans('notifications.menu.import_completed.title'),
+            'description' => trans('notifications.menu.import_completed.description', [
+                'type'  => $this->translation,
+                'count' => $this->total_rows,
+            ]),
             'translation' => $this->translation,
             'total_rows' => $this->total_rows,
         ];

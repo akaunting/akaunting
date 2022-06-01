@@ -1,9 +1,9 @@
-@extends('layouts.print')
+<x-layouts.print>
+    <x-slot name="title">
+        {{ trans_choice('general.transfers', 1) }}
+    </x-slot>
 
-@section('title', trans_choice('general.transfers', 1))
-
-@section('content')
-    <x-transfers.template.ddefault
-        :transfer="$transfer"
-    />
-@endsection
+    <x-slot name="content">
+        <x-transfers.template.default :model="$transfer" />
+    </x-slot>
+</x-layouts.print>

@@ -4,50 +4,50 @@ namespace App\Http\Controllers\Api\Common;
 
 use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Common\Item as Request;
+use App\Http\Resources\Common\Item as Resource;
 use App\Jobs\Common\CreateItem;
 use App\Jobs\Common\DeleteItem;
 use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
-use App\Transformers\Common\Item as Transformer;
 
 class Items extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $items = Item::with('category', 'taxes')->collect();
 
-        return $this->response->paginator($items, new Transformer());
+        return Resource::collection($items);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int|string  $id
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
         $item = Item::with('category', 'taxes')->find($id);
 
-        return $this->item($item, new Transformer());
+        return new Resource($item);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $item = $this->dispatch(new CreateItem($request));
 
-        return $this->response->created(route('api.items.show', $item->id), $this->item($item, new Transformer()));
+        return $this->created(route('api.items.show', $item->id), new Resource($item));
     }
 
     /**
@@ -55,55 +55,55 @@ class Items extends ApiController
      *
      * @param  $item
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Item $item, Request $request)
     {
         $item = $this->dispatch(new UpdateItem($item, $request));
 
-        return $this->item($item->fresh(), new Transformer());
+        return new Resource($item->fresh());
     }
 
     /**
      * Enable the specified resource in storage.
      *
      * @param  Item  $item
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function enable(Item $item)
     {
         $item = $this->dispatch(new UpdateItem($item, request()->merge(['enabled' => 1])));
 
-        return $this->item($item->fresh(), new Transformer());
+        return new Resource($item->fresh());
     }
 
     /**
      * Disable the specified resource in storage.
      *
      * @param  Item  $item
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function disable(Item $item)
     {
         $item = $this->dispatch(new UpdateItem($item, request()->merge(['enabled' => 0])));
 
-        return $this->item($item->fresh(), new Transformer());
+        return new Resource($item->fresh());
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  Item  $item
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Item $item)
     {
         try {
             $this->dispatch(new DeleteItem($item));
 
-            return $this->response->noContent();
+            return $this->noContent();
         } catch(\Exception $e) {
-            $this->response->errorUnauthorized($e->getMessage());
+            $this->errorUnauthorized($e->getMessage());
         }
     }
 }

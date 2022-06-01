@@ -38,9 +38,11 @@ class Import extends Controller
             'role' => 'form',
             'class' => 'form-loading-button',
             'novalidate' => true,
+            'route' => '',
+            'url' => '',
         ];
 
-        if (!empty($route)) {
+        if (! empty($route)) {
             $form_params['route'] = $route;
         } else {
             $form_params['url'] = $path . '/import';

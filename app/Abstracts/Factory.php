@@ -5,6 +5,7 @@ namespace App\Abstracts;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Traits\Jobs;
+use Closure;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
@@ -28,16 +29,46 @@ abstract class Factory extends BaseFactory
 
         config(['mail.default' => 'array']);
 
-        $this->user = User::first();
-        $this->company = $this->user->companies()->first();
+        // TODO: this location was put to make US | for "gmail.co.uk" issue
+        $this->faker = \Faker\Factory::create();
 
-        company($this->company->id)->makeCurrent();
+        $this->setUser();
+
+        $this->setCompany();
+    }
+
+    public function getCompanyUsers(): array
+    {
+        return $this->company->users()->enabled()->get()->pluck('id')->toArray();
+    }
+
+    public function company(int $id): static
+    {
+        return $this->state([
+            'company_id' => $id,
+        ]);
+    }
+
+    public function setUser(): void
+    {
+        $this->user = User::first();
+    }
+
+    public function setCompany(): void
+    {
+        $company_id = $this->getRawAttribute('company_id');
+
+        $this->company = !empty($company_id) ? Company::find($company_id) : $this->user->companies()->first();
+
+        $this->company->makeCurrent();
 
         app('url')->defaults(['company_id' => company_id()]);
     }
 
-    public function getCompanyUsers()
+    public function getRawAttribute($key)
     {
-        return $this->company->users()->enabled()->get()->pluck('id')->toArray();
+        $raw = $this->state([])->getExpandedAttributes(null);
+
+        return $raw[$key] ?? null;
     }
 }

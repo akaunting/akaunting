@@ -28,7 +28,7 @@ class AddVendors extends Listener
         }
 
         $event->class->filters['vendors'] = $this->getVendors(true);
-        $event->class->filters['routes']['vendors'] = 'vendors.index';
+        $event->class->filters['routes']['vendors'] = ['vendors.index', 'search=enabled:1'];
     }
 
     /**

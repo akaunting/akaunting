@@ -1,53 +1,64 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('general.title.edit', ['type' => trans_choice('general.items', 1)]) }}</x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.items', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="item" method="PATCH" :route="['items.update', $item->id]" :model="$item">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('items.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($item, [
-            'id' => 'item',
-            'method' => 'PATCH',
-            'route' => ['items.update', $item->id],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.radio
+                            name="type"
+                            label="{{ trans_choice('general.types', 1) }}"
+                            :options="[
+                                'product' => trans_choice('general.products', 1),
+                                'service' => trans_choice('general.services', 1)
+                            ]"
+                            checked="{{ $item->type }}"
+                            @input="onType($event)"
+                        />
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'tag') }}
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                    {{ Form::multiSelectAddNewGroup('tax_ids', trans_choice('general.taxes', 1), 'percentage', $taxes, $item->tax_ids, ['path' => route('modals.taxes.create'), 'field' => ['key' => 'id', 'value' => 'title']], 'col-md-6 el-select-tags-pl-38') }}
+                        <x-form.group.category type="item" not-required />
 
-                    {{ Form::textareaGroup('description', trans('general.description')) }}
+                        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::textGroup('sale_price', trans('items.sales_price'), 'money-bill-wave') }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('items.billing') }}" description="{{ trans('items.form_description.billing') }}" />
+                    </x-slot>
 
-                    {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money-bill-wave-alt') }}
+                    <x-slot name="body">
+                        <x-form.group.checkbox name="sale_information" id="item-sale-information" :options="['sale' => trans('items.sale_information')]" @input="onInformation($event, 'sale')" form-group-class="sm:col-span-3" checkbox-class="sm:col-span-6" />
 
-                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $item->category_id, ['path' => route('modals.categories.create') . '?type=item', 'remote_action' => route('categories.index'). '?search=type:item enabled:1']) }}
+                        <x-form.group.checkbox name="purchase_information" id="item-purchase-information" :options="['sale' => trans('items.purchase_information')]" @input="onInformation($event, 'purchase')" form-group-class="sm:col-span-3" checkbox-class="sm:col-span-6" />
 
-                    {{ Form::fileGroup('picture', trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file'], $item->picture) }}
+                        <x-form.group.text name="sale_price" label="{{ trans('items.sale_price') }}" v-bind:disabled="sale_information" />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), $item->enabled) }}
-                </div>
-            </div>
+                        <x-form.group.text name="purchase_price" label="{{ trans('items.purchase_price') }}" v-bind:disabled="purchase_information" />
 
-            @can('update-common-items')
-                <div class="card-footer">
-                    <div class="row save-buttons">
-                        {{ Form::saveButtons('items.index') }}
-                    </div>
-                </div>
-            @endcan
+                        <x-form.group.select multiple add-new name="tax_ids" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="$item->tax_ids" not-required :path="route('modals.taxes.create')" :field="['key' => 'id', 'value' => 'title']" form-group-class="sm:col-span-3 el-select-tags-pl-38" />
+                    </x-slot>
+                </x-form.section>
 
-        {!! Form::close() !!}
-    </div>
-@endsection
+                <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/common/items.js?v=' . version('short')) }}"></script>
-@endpush
+                @can('update-common-items')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="items.index" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="common" file="items" />
+</x-layouts.admin>

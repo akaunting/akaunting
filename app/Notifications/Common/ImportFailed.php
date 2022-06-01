@@ -50,7 +50,7 @@ class ImportFailed extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $message = (new MailMessage)
-            ->subject(trans('notifications.import.failed.subject'))
+            ->subject(trans('notifications.import.failed.title'))
             ->line(trans('notifications.import.failed.description'));
 
         foreach ($this->errors as $error) {
@@ -69,6 +69,10 @@ class ImportFailed extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'title' => trans('notifications.menu.import_failed.title'),
+            'description' => trans('notifications.menu.import_failed.description', [
+                'issues' => $this->errors,
+            ]),
             'errors' => $this->errors,
         ];
     }

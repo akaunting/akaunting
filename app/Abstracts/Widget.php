@@ -2,8 +2,11 @@
 
 namespace App\Abstracts;
 
+use App\Models\Common\Report;
 use App\Traits\Charts;
 use App\Utilities\Date;
+use App\Utilities\Reports;
+use Illuminate\Support\Str;
 
 abstract class Widget
 {
@@ -14,11 +17,15 @@ abstract class Widget
     public $default_name = '';
 
     public $default_settings = [
-        'width' => 'col-md-4',
+        'width' => 'w-full lg:w-2/4 px-12 my-8',
     ];
 
+    public $description = '';
+
+    public $report_class = '';
+
     public $views = [
-        'header' => 'partials.widgets.standard_header',
+        'header' => 'components.widgets.header',
     ];
 
     public function __construct($model = null)
@@ -34,6 +41,47 @@ abstract class Widget
     public function getDefaultSettings()
     {
         return $this->default_settings;
+    }
+
+    public function getDescription()
+    {
+        return trans($this->description);
+    }
+
+    public function getReportUrl(): string
+    {
+        $empty_url = '';
+
+        if (empty($this->report_class)) {
+            return $empty_url;
+        }
+
+        if (Reports::isModule($this->report_class) && Reports::isModuleDisabled($this->report_class)) {
+            $alias = Reports::getModuleAlias($this->report_class);
+
+            return route('apps.app.show', [
+                'alias'         => $alias,
+                'utm_source'    => 'widget',
+                'utm_medium'    => 'app',
+                'utm_campaign'  => Str::snake(Str::camel($alias)),
+            ]);
+        }
+
+        if (! class_exists($this->report_class)) {
+            return $empty_url;
+        }
+
+        if (Reports::cannotRead($this->report_class)) {
+            return $empty_url;
+        }
+
+        $model = Report::where('class', $this->report_class)->first();
+
+        if (! $model instanceof Report) {
+            return route('reports.create');
+        }
+
+        return route('reports.show', $model->id);
     }
 
     public function getViews()

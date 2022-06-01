@@ -1,44 +1,35 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('general.title.edit', ['type' => trans_choice('general.dashboards', 1)]) }}</x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.dashboards', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="dashboard" method="PATCH" :route="['dashboards.update', $dashboard->id]" :model="$dashboard">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('dashboards.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($dashboard, [
-            'id' => 'dashboard',
-            'method' => 'PATCH',
-            'route' => ['dashboards.update', $dashboard->id],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true,
-        ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                        @can('read-auth-users')
+                            <x-form.group.checkbox name="users" label="{{ trans_choice('general.users', 2) }}" :options="$users" :checked="$dashboard->users()->pluck('id')->toArray()" />
+                        @endcan
+                    </x-slot>
+                </x-form.section>
 
-                    @can('read-auth-users')
-                        {{ Form::checkboxGroup('users', trans_choice('general.users', 2), $users, 'name') }}
-                    @endcan
+                <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), $dashboard->enabled) }}
-                </div>
-            </div>
+                @can('update-common-dashboards')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="dashboards.index" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-            @can('update-common-dashboards')
-                <div class="card-footer">
-                    <div class="row save-buttons">
-                        {{ Form::saveButtons('dashboards.index') }}
-                    </div>
-                </div>
-            @endcan
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/common/dashboards.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="common" file="dashboards" />
+</x-layouts.admin>

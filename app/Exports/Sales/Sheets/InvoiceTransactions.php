@@ -26,6 +26,7 @@ class InvoiceTransactions extends Export implements WithColumnFormatting
         $model->account_name = $model->account->name;
         $model->category_name = $model->category->name;
         $model->contact_email = $model->contact->email;
+        $model->transaction_number = $model->number;
 
         return parent::map($model);
     }
@@ -34,6 +35,7 @@ class InvoiceTransactions extends Export implements WithColumnFormatting
     {
         return [
             'invoice_number',
+            'transaction_number',
             'paid_at',
             'amount',
             'currency_code',

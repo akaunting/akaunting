@@ -16,8 +16,10 @@ class Tax extends FormRequest
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
             $id = is_numeric($this->tax) ? $this->tax : $this->tax->getAttribute('id');
+            $enabled = 'integer|boolean';
         } else {
             $id = null;
+            $enabled = 'nullable';
         }
 
         $company_id = (int) $this->request->get('company_id');
@@ -32,7 +34,7 @@ class Tax extends FormRequest
             'name' => 'required|string',
             'rate' => 'required|min:0|max:100',
             'type' => $type,
-            'enabled' => 'integer|boolean',
+            'enabled' => $enabled,
         ];
     }
 }

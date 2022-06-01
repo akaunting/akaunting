@@ -225,6 +225,47 @@ class Transfer extends Model
     }
 
     /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.show'),
+            'icon' => 'visibility',
+            'url' => route('transfers.show', $this->id),
+            'permission' => 'read-banking-transfers',
+        ];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('transfers.edit', $this->id),
+            'permission' => 'update-banking-transfers',
+        ];
+
+        $actions[] = [
+            'title' => trans('general.duplicate'),
+            'icon' => 'file_copy',
+            'url' => route('transfers.duplicate', $this->id),
+            'permission' => 'update-banking-transfers',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'transfers.destroy',
+            'permission' => 'delete-banking-transfers',
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

@@ -1,44 +1,23 @@
-@extends('layouts.modules')
+<x-layouts.modules>
+    <x-slot name="title">
+        {{ trans_choice('general.modules', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.modules', 2))
+    <x-slot name="buttons">
+        <x-link href="{{ route('apps.api-key.create') }}">
+            {{ trans('modules.api_key') }}
+        </x-link>
 
-@section('new_button')
-    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
-    <a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
-@endsection
+        <x-link href="{{ route('apps.my.index') }}">
+            {{ trans('modules.my_apps') }}
+        </x-link>
+    </x-slot>
 
-@section('content')
-    @include('partials.modules.bar')
+    <x-slot name="content">
+        <x-modules.purchased />
 
-    <h2>{{ trans('modules.my.purchased') }}</h2>
+        <x-modules.installed />
+    </x-slot>
 
-    <div class="row">
-        @if ($purchased)
-            @foreach ($purchased as $module)
-                @include('partials.modules.item')
-            @endforeach
-        @else
-            <div class="col-md-12">
-                @include('partials.modules.no_apps')
-            </div>
-        @endif
-    </div>
-
-    <h2>{{ trans('modules.my.installed') }}</h2>
-
-    <div class="row">
-        @if ($modules)
-            @foreach ($modules as $module)
-                @include('partials.modules.item')
-            @endforeach
-        @else
-            <div class="col-md-12">
-                @include('partials.modules.no_apps')
-            </div>
-        @endif
-    </div>
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="modules" file="apps" />
+</x-layouts.modules>

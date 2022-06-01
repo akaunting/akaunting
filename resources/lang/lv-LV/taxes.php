@@ -8,5 +8,4 @@ return [
     'inclusive'             => 'Ietverošas',
     'compound'              => 'Apvienotas',
     'fixed'                 => 'Fiksētas',
-    'withholding'           => 'Ieturēšana',
 ];

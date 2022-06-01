@@ -1,26 +1,18 @@
-{!! Form::open([
-    'id' => 'form-create-customer',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'route' => 'customers.store',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'font') }}
+<x-form id="form-create-customer" route="customers.store">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
+        <x-form.group.text name="email" label="{{ trans('general.email') }}" not-required />
 
-        {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
+        <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" not-required />
 
-        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency')) }}
+        <x-form.group.currency without-add-new />
 
-        {{ Form::textareaGroup('address', trans('general.address')) }}
+        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" />
 
-        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('company.country'), []) }}
+        <x-form.group.country />
 
-        {{ Form::hidden('type', 'customer') }}
-        {!! Form::hidden('enabled', '1', []) !!}
+        <x-form.input.hidden name="type" value="customer" />
+        <x-form.input.hidden name="enabled" value="1" />
     </div>
-{!! Form::close() !!}
+</x-form>

@@ -9,23 +9,12 @@ return [
     'new'                   => 'Nou',
     'top_free'              => 'Gratuïts més populars',
     'free'                  => 'GRATIS',
-    'monthly'               => 'Mensualment',
-    'yearly'                => 'Anualment',
-    'yearly_pricing'        => 'Preu anual',
-    'monthly_price'         => 'des de :price',
-    'per_month'             => 'al mes',
-    'billed_yearly'         => 'Facturat anualment',
-    'billed_monthly'        => 'Facturat mensualment',
-    'save_year'             => 'T\'estalvies <strong>:price</strong> a l\'any!',
-    'if_paid_year'          => 'O <strong>:price/mes</strong> si pagues anualment',
-    'information_monthly'   => 'Aquesta opció només està disponible per al <strong>Cloud Service</strong>',
     'install'               => 'Instal·la',
     'buy_now'               => 'Compra ara',
     'get_api_key'           => '<a href=":url" target="_blank">Prem aquí</a> per obtenir la teva clau de l\'API.',
     'no_apps'               => 'Encara no hi ha cap App dins d\'aquesta categoria.',
     'become_developer'      => 'Ets desenvolupador? <a href=":url" target="_blank">Aquí</a> podràs aprendre com crear una App i començar-la a vendre de seguida!',
     'recommended_apps'      => 'Apps recomanades',
-    'can_not_install'       => 'Les subscripcions mensuals estan disponibles només al Cloud Service. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Saber-ne més.</a>',
 
     'about'                 => 'Sobre',
 
@@ -60,7 +49,6 @@ return [
     ],
 
     'errors' => [
-        'purchase'          => 'Has de comprar o renovar :module!',
         'download'          => 'No s\'ha pogut descarregar :module',
         'zip'               => 'No s\'ha pogut comprimir :module',
         'unzip'             => 'No s\'ha pogut descomprimir :module',

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\Document;
 
 use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Banking\Transaction as Request;
+use App\Http\Resources\Banking\Transaction as Resource;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
-use App\Transformers\Banking\Transaction as Transformer;
 
 class DocumentTransactions extends ApiController
 {
@@ -28,13 +28,13 @@ class DocumentTransactions extends ApiController
      * Display a listing of the resource.
      *
      * @param  $document_id
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index($document_id)
     {
         $transactions = Transaction::documentId($document_id)->get();
 
-        return $this->response->collection($transactions, new Transformer());
+        return Resource::collection($transactions);
     }
 
     /**
@@ -42,13 +42,13 @@ class DocumentTransactions extends ApiController
      *
      * @param  $document_id
      * @param  $id
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($document_id, $id)
     {
         $transaction = Transaction::documentId($document_id)->find($id);
 
-        return $this->item($transaction, new Transformer());
+        return new Resource($transaction);
     }
 
     /**
@@ -56,7 +56,7 @@ class DocumentTransactions extends ApiController
      *
      * @param  $document_id
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store($document_id, Request $request)
     {
@@ -64,7 +64,7 @@ class DocumentTransactions extends ApiController
 
         $transaction = $this->dispatch(new CreateBankingDocumentTransaction($document, $request));
 
-        return $this->response->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), $this->item($transaction, new Transformer()));
+        return $this->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), new Resource($transaction));
     }
 
     /**
@@ -72,7 +72,7 @@ class DocumentTransactions extends ApiController
      *
      * @param  $document_id
      * @param  $id
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($document_id, $id)
     {
@@ -80,6 +80,6 @@ class DocumentTransactions extends ApiController
 
         $this->dispatch(new DeleteTransaction($transaction));
 
-        return $this->response->noContent();
+        return $this->noContent();
     }
 }

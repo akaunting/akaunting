@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
-use App\Jobs\Common\CreateContact;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Setting\CreateCurrency;
 use Illuminate\Support\Facades\File;
@@ -52,7 +50,7 @@ class PaymentTestCase extends FeatureTestCase
 
         $this->updateSetting();
 
-        $this->createCustomer();
+        $this->loginAsCustomer();
 
         $this->createInvoice();
 
@@ -140,20 +138,11 @@ class PaymentTestCase extends FeatureTestCase
         $this->invoice = $this->dispatch(new CreateDocument($this->getInvoiceRequest()));
     }
 
-    public function createCustomer()
+    public function loginAsCustomer()
     {
-        $password = $this->faker->password;
+        $this->customer = Contact::customer()->first();
 
-        $request = Contact::factory()->customer()->enabled()->raw() + [
-            'create_user' => 'true',
-            'locale' => 'en-GB',
-            'password' => $password,
-            'password_confirmation' => $password,
-        ];
-
-        $this->customer = $this->dispatch(new CreateContact($request));
-
-        $this->customer_user = User::where('email', $request['email'])->first();
+        $this->customer_user = $this->customer->user;
     }
 
     public function getInvoiceRequest()

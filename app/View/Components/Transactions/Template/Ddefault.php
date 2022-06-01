@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Transactions\Template;
 
-use App\Abstracts\View\Components\TransactionTemplate as Component;
+use App\Abstracts\View\Components\Transactions\Template as Component;
 
 class Ddefault extends Component
 {

@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Numer rachunku',
     'bill_date'             => 'Data rachunku',
-    'bill_amount'           => 'Kwota Faktury',
     'total_price'           => 'Całkowita cena',
     'due_date'              => 'Termin płatności',
     'order_number'          => 'Numer zamówienia',

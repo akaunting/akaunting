@@ -17,6 +17,10 @@ class Items extends Import
     {
         $row = parent::map($row);
 
+        $row['sale_information'] = isset($row['sale_price']) ?? false;
+
+        $row['purchase_information'] = isset($row['purchase_price']) ?? false;
+
         $row['category_id'] = $this->getCategoryId($row, 'item');
 
         return $row;

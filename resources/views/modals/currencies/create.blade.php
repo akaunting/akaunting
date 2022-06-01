@@ -1,21 +1,13 @@
-{!! Form::open([
-    'id' => 'form-create-currency',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'route' => 'modals.currencies.store',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'chart-bar') }}
+<x-form id="form-create-currency" route="modals.currencies.store">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes) }}
+        <x-form.group.select name="code" label="{{ trans('currencies.code') }}" :options="$codes" />
 
-        {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'onChangeRate', 'required' => 'required']) }}
+        <x-form.group.text name="rate" label="{{ trans('currencies.rate') }}" @input="onChangeRate" />
 
-        {!! Form::hidden('enabled', 1) !!}
-        {!! Form::hidden('symbol_first', 1) !!}
-        {!! Form::hidden('default_currency', 0) !!}
+        <x-form.input.hidden name="enabled" value="1" />
+        <x-form.input.hidden name="symbol_first" value="1" />
+        <x-form.input.hidden name="default_currency" value="0" />
     </div>
-{!! Form::close() !!}
+</x-form>

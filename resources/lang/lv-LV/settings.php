@@ -3,24 +3,18 @@
 return [
 
     'company' => [
-        'description'                => 'Nomainiet kompānijas nosaukumu, e-pastu, adresi, nodokļu maksātāja nr. u.c.',
-        'name'                       => 'Vārds',
-        'email'                      => 'E-pasts',
-        'phone'                      => 'Tālrunis',
-        'address'                    => 'Adrese',
-        'edit_your_business_address' => 'Rediģējiet uzņēmuma adresi',
-        'logo'                       => 'Logo',
+        'description'       => 'Nomainiet kompānijas nosaukumu, e-pastu, adresi, nodokļu maksātāja nr. u.c.',
+        'name'              => 'Vārds',
+        'email'             => 'E-pasts',
+        'phone'             => 'Tālrunis',
+        'address'           => 'Adrese',
+        'logo'              => 'Logo',
     ],
 
     'localisation' => [
         'description'       => 'Noteikt fiskālo gadu, laika zonu, datuma formātu un citas lokālās vienības',
         'financial_start'   => 'Finansiālā gada sākums',
         'timezone'          => 'Laika zona',
-        'financial_denote' => [
-            'title'         => 'Finanšu gada norāde',
-            'begins'        => 'Pēc gada, kurā tas sākas',
-            'ends'          => 'Līdz gadam, kad tas beidzas',
-        ],
         'date' => [
             'format'        => 'Datuma formāts',
             'separator'     => 'Datuma atdalītājs',
@@ -34,12 +28,6 @@ return [
             'title'         => 'Procentu (%) pozīcija',
             'before'        => 'Pirms skaitļa',
             'after'         => 'Pēc skaitļa',
-        ],
-        'discount_location' => [
-            'name'          => 'Atlaides atrašanās vieta',
-            'item'          => 'Uz līnijas',
-            'total'         => 'Kopumā',
-            'both'          => 'Gan uz līnijas, gan kopā',
         ],
     ],
 
@@ -68,27 +56,12 @@ return [
         'default'           => 'Noklusējuma',
         'classic'           => 'Klasisks',
         'modern'            => 'Moderns',
-        'hide'              => [
-            'item_name'         => 'Paslēpt vienuma nosaukumu',
-            'item_description'  => 'Paslēpt vienuma aprakstu',
-            'quantity'          => 'Paslēpt daudzumu',
-            'price'             => 'Paslēpt cenu',
-            'amount'            => 'Paslēpt summu',
-        ],
-    ],
-
-    'transfer' => [
-        'choose_template'   => 'Izvēlēties pārsūtīšanas veidni',
-        'second'            => 'Otrais',
-        'third'             => 'Trešais',
     ],
 
     'default' => [
         'description'       => 'Jūsu uzņēmuma noklusējuma konts, valūta un valoda',
         'list_limit'        => 'Ierakstu skaits lapā',
-        'use_gravatar'      => 'Izmantot Gravatar',
-        'income_category'   => 'Ieņēmumu kategorijas',
-        'expense_category'  => 'Izdevumu kategorijas',
+        'use_gravatar'      => 'Use Gravatar',
     ],
 
     'email' => [
@@ -111,7 +84,7 @@ return [
         'templates' => [
             'subject'                   => 'Nosaukums / Tēma',
             'body'                      => 'Galvenā daļa',
-            'tags'                      => '<strong>Pieejamās atzīmes:</strong> :tag_list',
+            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
             'invoice_new_customer'      => 'Jaunas pavadzīmes sagatave (nosūtīts klientam)',
             'invoice_remind_customer'   => 'Atgādinājums par pavadzīmi (nosūtīts klientam)',
             'invoice_remind_admin'      => 'Atgādinājums par pavadzīmi (nosūtīts administrātoram)',
@@ -121,7 +94,6 @@ return [
             'invoice_payment_admin'     => '"Maksājums saņemts" sagatave (nosūtīts administrātoram)',
             'bill_remind_admin'         => '"Atgādinājums par rēķinu" sagatave (nosūtīts administrātoram)',
             'bill_recur_admin'          => 'Atkārtota rēķina sagatave (nosūtīts administrātoram)',
-            'revenue_new_customer'      => 'Saņemto ieņēmumu veidne (nosūtīta debitoram)',
         ],
     ],
 

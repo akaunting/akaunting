@@ -2,12 +2,11 @@
 
 return [
 
-    'currencies'                => 'Valuutat',
-    'total_income'              => 'Kokonaistulot',
+    'total_income'              => 'Laskut yhteensä',
     'receivables'               => 'Myyntisaamiset',
     'open_invoices'             => 'Avoimet laskut',
     'overdue_invoices'          => 'Erääntyneet laskut',
-    'total_expenses'            => 'Kokonaismenot',
+    'total_expenses'            => 'Kulut yhteensä',
     'payables'                  => 'Ostovelat',
     'open_bills'                => 'Avoimet laskut',
     'overdue_bills'             => 'Erääntyneet ostolaskut',

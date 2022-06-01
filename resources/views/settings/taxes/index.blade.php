@@ -1,95 +1,110 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.tax_rates', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.tax_rates', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.tax_rates', 2) }}"
+        icon="percent"
+        route="tax_rates.index"
+    ></x-slot>
 
-@can('create-settings-taxes')
-    @section('new_button')
-        <a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endsection
-@endcan
+    <x-slot name="buttons">
+        @can('create-settings-taxes')
+            <x-link href="{{ route('taxes.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.taxes', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    @if ($taxes->count() || request()->get('search', false))
-        <div class="card">
-            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-                {!! Form::open([
-                    'method' => 'GET',
-                    'route' => 'taxes.index',
-                    'role' => 'form',
-                    'class' => 'mb-0'
-                ]) !!}
-                    <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Setting\Tax" />
-                    </div>
+    <x-slot name="moreButtons">
+        <x-dropdown id="dropdown-more-actions">
+            <x-slot name="trigger">
+                <span class="material-icons">more_horiz</span>
+            </x-slot>
 
-                    {{ Form::bulkActionRowGroup('general.taxes', $bulk_actions, ['group' => 'settings', 'type' => 'taxes']) }}
-                {!! Form::close() !!}
-            </div>
+            @can('create-settings-taxes')
+                <x-dropdown.link href="{{ route('import.create', ['settings', 'taxes']) }}">
+                    {{ trans('import.import') }}
+                </x-dropdown.link>
+            @endcan
 
-            <div class="table-responsive">
-                <table class="table table-flush table-hover">
-                    <thead class="thead-light">
-                        <tr class="row table-head-line">
-                            <th class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                            <th class="col-xs-4 col-sm-3 col-md-2 col-lg-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                            <th class="col-md-2 col-lg-2 d-none d-md-block">@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">@sortablelink('type', trans_choice('general.types', 1))</th>
-                            <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
-                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
-                        </tr>
-                    </thead>
+            <x-dropdown.link href="{{ route('taxes.export', request()->input()) }}">
+                {{ trans('general.export') }}
+            </x-dropdown.link>
+        </x-dropdown>
+    </x-slot>
 
-                    <tbody>
+    <x-slot name="content">
+        @if ($taxes->count() || request()->get('search', false))
+            <x-index.container>
+                <x-index.search
+                    search-string="App\Models\Setting\Tax"
+                    bulk-action="App\BulkActions\Settings\Taxes"
+                />
+
+                <x-table>
+                    <x-table.thead>
+                        <x-table.tr class="flex items-center px-1">
+                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-index.bulkaction.all />
+                            </x-table.th>
+
+                            <x-table.th class="w-5/12">
+                                <x-sortablelink column="name" title="{{ trans('general.name') }}" />
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12">
+                                <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
+                            </x-table.th>
+
+                            <x-table.th class="w-3/12">
+                                <x-sortablelink column="rate" title="{{ trans('taxes.rate_percent') }}" />
+                            </x-table.th>
+                        </x-table.tr>
+                    </x-table.thead>
+
+                    <x-table.tbody>
                         @foreach($taxes as $item)
-                            <tr class="row align-items-center border-top-1">
-                                <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
-                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
-                                </td>
-                                <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('taxes.edit', $item->id) }}">{{ $item->name }}</a></td>
-                                <td class="col-md-2 col-lg-2 d-none d-md-block">{{ $item->rate }}</td>
-                                <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $types[$item->type] }}</td>
-                                <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-                                    @if (user()->can('update-settings-taxes'))
-                                        {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
-                                    @else
-                                        @if ($item->enabled)
-                                            <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
-                                        @else
-                                            <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
-                                        @endif
-                                    @endif
-                                </td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
-                                    <div class="dropdown">
-                                        <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-h text-muted"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{ route('taxes.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @can('delete-settings-taxes')
-                                                <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'taxes.destroy', 'tax_rates') !!}
-                                            @endcan
+                            <x-table.tr href="{{ route('taxes.edit', $item->id) }}">
+                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                    <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                                </x-table.td>
+
+                                <x-table.td class="w-5/12 truncate">
+                                    <x-slot name="first" class="flex" override="class">
+                                        <div class="font-bold truncate">
+                                            {{ $item->name }}
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+
+                                        @if (! $item->enabled)
+                                            <x-index.disable text="{{ trans_choice('general.tax_rates', 1) }}" />
+                                        @endif
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 truncate">
+                                    {{ $types[$item->type] }}
+                                </x-table.td>
+
+                                <x-table.td class="w-3/12 relative">
+                                    {{ $item->rate }}
+                                </x-table.td>
+
+                                <x-table.td kind="action">
+                                    <x-table.actions :model="$item" />
+                                </x-table.td>
+                            </x-table.tr>
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    </x-table.tbody>
+                </x-table>
 
-            <div class="card-footer table-action">
-                <div class="row">
-                    @include('partials.admin.pagination', ['items' => $taxes])
-                </div>
-            </div>
-        </div>
-    @else
-        <x-empty-page group="settings" page="taxes" />
-    @endif
-@endsection
+                <x-pagination :items="$taxes" />
+            </x-index.container>
+        @else
+            <x-empty-page group="settings" page="taxes" />
+        @endif
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/taxes.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="taxes" />
+</x-layouts.admin>

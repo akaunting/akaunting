@@ -2,7 +2,7 @@
 
 return [
 
-    'sales_price'           => 'Giá bán',
+    'sale_price'           => 'Giá bán',
     'purchase_price'        => 'Giá Mua',
 
 ];

@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Transfers\Template;
 
-use App\Abstracts\View\Components\TransferTemplate as Component;
+use App\Abstracts\View\Components\Transfers\Template as Component;
 
 class Ddefault extends Component
 {

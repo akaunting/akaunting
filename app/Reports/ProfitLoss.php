@@ -13,15 +13,19 @@ class ProfitLoss extends Report
 
     public $category = 'general.accounting';
 
-    public $icon = 'fa fa-heart';
+    public $icon = 'favorite_border';
+
+    public $type = 'detail';
+
+    public $chart = false;
 
     public function setViews()
     {
         parent::setViews();
-        $this->views['content.header'] = 'reports.profit_loss.content.header';
-        $this->views['content.footer'] = 'reports.profit_loss.content.footer';
-        $this->views['table.header'] = 'reports.profit_loss.table.header';
-        $this->views['table.footer'] = 'reports.profit_loss.table.footer';
+        $this->views['detail.content.header'] = 'reports.profit_loss.content.header';
+        $this->views['detail.content.footer'] = 'reports.profit_loss.content.footer';
+        $this->views['detail.table.header'] = 'reports.profit_loss.table.header';
+        $this->views['detail.table.footer'] = 'reports.profit_loss.table.footer';
     }
 
     public function setTables()
@@ -37,50 +41,60 @@ class ProfitLoss extends Report
         $income_transactions = $this->applyFilters(Transaction::with('recurring')->income()->isNotTransfer(), ['date_field' => 'paid_at']);
         $expense_transactions = $this->applyFilters(Transaction::with('recurring')->expense()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        $basis = $this->getSearchStringValue('basis', $this->getSetting('basis'));
-
-        switch ($basis) {
+        switch ($this->getBasis()) {
             case 'cash':
-                // Revenues
-                $revenues = $income_transactions->get();
-                $this->setTotals($revenues, 'paid_at', true, $this->tables['income'], false);
+                // Incomes
+                $incomes = $income_transactions->get();
+                $this->setTotals($incomes, 'paid_at', false, 'income', false);
 
-                // Payments
-                $payments = $expense_transactions->get();
-                $this->setTotals($payments, 'paid_at', true, $this->tables['expense'], false);
+                // Expenses
+                $expenses = $expense_transactions->get();
+                $this->setTotals($expenses, 'paid_at', false, 'expense', false);
 
                 break;
             default:
                 // Invoices
                 $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'totals', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
                 Recurring::reflect($invoices, 'issued_at');
-                $this->setTotals($invoices, 'issued_at', true, $this->tables['income'], false);
+                $this->setTotals($invoices, 'issued_at', false, 'income', false);
 
-                // Revenues
-                $revenues = $income_transactions->isNotDocument()->get();
-                Recurring::reflect($revenues, 'paid_at');
-                $this->setTotals($revenues, 'paid_at', true, $this->tables['income'], false);
+                // Incomes
+                $incomes = $income_transactions->isNotDocument()->get();
+                Recurring::reflect($incomes, 'paid_at');
+                $this->setTotals($incomes, 'paid_at', false, 'income', false);
 
                 // Bills
                 $bills = $this->applyFilters(Document::bill()->with('recurring', 'totals', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
                 Recurring::reflect($bills, 'issued_at');
-                $this->setTotals($bills, 'issued_at', true, $this->tables['expense'], false);
+                $this->setTotals($bills, 'issued_at', false, 'expense', false);
 
-                // Payments
-                $payments = $expense_transactions->isNotDocument()->get();
-                Recurring::reflect($payments, 'paid_at');
-                $this->setTotals($payments, 'paid_at', true, $this->tables['expense'], false);
+                // Expenses
+                $expenses = $expense_transactions->isNotDocument()->get();
+                Recurring::reflect($expenses, 'paid_at');
+                $this->setTotals($expenses, 'paid_at', false, 'expense', false);
 
                 break;
         }
+
+        $this->setNetProfit();
     }
 
-    public function getFields()
+    public function setNetProfit()
     {
-        return [
-            $this->getGroupField(),
-            $this->getPeriodField(),
-            $this->getBasisField(),
-        ];
+        foreach ($this->footer_totals as $table => $dates) {
+            foreach ($dates as $date => $total) {
+                if (!isset($this->net_profit[$date])) {
+                    $this->net_profit[$date] = 0;
+                }
+
+                if ($table == 'income') {
+                    $this->net_profit[$date] += $total;
+
+                    continue;
+                }
+
+                $this->net_profit[$date] -= $total;
+            }
+        }
     }
 }

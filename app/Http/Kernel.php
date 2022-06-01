@@ -48,7 +48,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'api.auth',
+            'auth.basic.once',
             'auth.disabled',
             'throttle:api',
             'permission:read-api',
@@ -91,6 +91,7 @@ class Kernel extends HttpKernel
             'auth.disabled',
             'company.identify',
             'bindings',
+            'read.only',
             'permission:read-admin-panel',
         ],
 
@@ -103,6 +104,16 @@ class Kernel extends HttpKernel
             'read.only',
             'menu.portal',
             'permission:read-client-portal',
+        ],
+
+        'preview' => [
+            'web',
+            'auth',
+            'auth.disabled',
+            'company.identify',
+            'bindings',
+            'read.only',
+            'permission:read-admin-panel',
         ],
 
         'signed' => [
@@ -152,6 +163,7 @@ class Kernel extends HttpKernel
 
         // Akaunting
         'api.key' => \App\Http\Middleware\RedirectIfNoApiKey::class,
+        'auth.basic.once' => \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
         'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'company.identify' => \App\Http\Middleware\IdentifyCompany::class,

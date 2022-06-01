@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CoreV1 extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -465,6 +465,8 @@ class CoreV1 extends Migration
             $table->string('key');
             $table->text('value')->nullable();
 
+            $table->softDeletes();
+
             $table->index('company_id');
             $table->unique(['company_id', 'key']);
         });
@@ -514,9 +516,8 @@ class CoreV1 extends Migration
         Schema::create('user_companies', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('company_id')->unsigned();
-            $table->string('user_type');
 
-            $table->primary(['user_id', 'company_id', 'user_type']);
+            $table->primary(['user_id', 'company_id']);
         });
     }
 
@@ -527,44 +528,6 @@ class CoreV1 extends Migration
      */
     public function down()
     {
-        Schema::drop('accounts');
-        Schema::drop('bills');
-        Schema::drop('bill_histories');
-        Schema::drop('bill_items');
-        Schema::drop('bill_item_taxes');
-        Schema::drop('bill_totals');
-        Schema::drop('categories');
-        Schema::drop('companies');
-        Schema::drop('currencies');
-        Schema::drop('invoices');
-        Schema::drop('invoice_histories');
-        Schema::drop('invoice_items');
-        Schema::drop('invoice_item_taxes');
-        Schema::drop('invoice_totals');
-        Schema::drop('items');
-        Schema::drop('jobs');
-        Schema::drop('failed_jobs');
-        Schema::drop('mediables');
-        Schema::drop('media');
-        Schema::drop('modules');
-        Schema::drop('module_histories');
-        Schema::drop('notifications');
-        Schema::drop('password_resets');
-
-        // Cascade table first
-        Schema::drop('user_permissions');
-        Schema::drop('role_permissions');
-        Schema::drop('permissions');
-        Schema::drop('user_roles');
-        Schema::drop('roles');
-
-        Schema::drop('reconciliations');
-        Schema::drop('recurring');
-        Schema::drop('sessions');
-        Schema::drop('settings');
-        Schema::drop('taxes');
-        Schema::drop('transfers');
-        Schema::drop('users');
-        Schema::drop('user_companies');
+        //
     }
-}
+};

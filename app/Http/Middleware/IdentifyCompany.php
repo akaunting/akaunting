@@ -69,7 +69,7 @@ class IdentifyCompany
     {
         $company_id = $this->getCompanyIdFromQuery() ?: $this->getCompanyIdFromHeader();
 
-        return $company_id ?: optional($this->getFirstCompanyOfUser())->id;
+        return $company_id ?: $this->getFirstCompanyOfUser()?->id;
     }
 
     protected function getCompanyIdFromRoute()

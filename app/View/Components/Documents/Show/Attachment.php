@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Documents\Show;
 
-use App\Abstracts\View\Components\DocumentShow as Component;
+use App\Abstracts\View\Components\Documents\Show as Component;
 
 class Attachment extends Component
 {

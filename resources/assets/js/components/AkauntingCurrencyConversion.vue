@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex align-items-center justify-content-end mt-3">
+    <div class="flex items-center justify-end text-xs mt-3">
         <span>{{ texts[0] }}</span>
         <money v-bind="{
             decimal: this.currencySymbol.decimal_mark,
@@ -8,9 +8,9 @@
             suffix: (!this.currencySymbol.symbol_first) ? this.currencySymbol.symbol : '',
             precision: parseInt(this.currencySymbol.precision),
             masked: true
-        }" :value="price" disabled size="5" masked class="disabled-money text-right mr-2 js-conversion-input"></money>
+        }" :value="price" disabled size="5" masked class="disabled-money text-right mr-1 js-conversion-input text-xs px-1"></money>
         <span class="mr-2">{{ texts[1] }}</span>
-        <input name="currency_rate" v-model="rate" @input="onChange" class="form-control text-right mwpx-100 h-auto js-conversion-input" />
+        <input name="currency_rate" v-model="rate" @input="onChange" class="form-element w-16 h-10 text-right js-conversion-input" />
     </div>
 </template>
 

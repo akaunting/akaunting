@@ -3,9 +3,12 @@
 namespace App\Events\Document;
 
 use App\Abstracts\Event;
+use App\Traits\Transactions;
 
 class PaymentReceived extends Event
 {
+    use Transactions;
+
     public $document;
 
     public $request;
@@ -18,6 +21,11 @@ class PaymentReceived extends Event
     public function __construct($document, $request = [])
     {
         $this->document = $document;
+                
+        if (empty($request['number'])) {
+            $request['number'] = $this->getNextTransactionNumber();
+        }
+
         $this->request  = $request;
     }
 }

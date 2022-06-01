@@ -21,8 +21,11 @@ class Account extends Factory
      */
     public function definition()
     {
+        $types = ['bank', 'credit_card'];
+
         return [
             'company_id' => $this->company->id,
+            'type' => $this->faker->randomElement($types),
             'name' => $this->faker->text(15),
             'number' => (string) $this->faker->iban(),
             'currency_code' => $this->company->currencies()->enabled()->get()->random(1)->pluck('code')->first(),

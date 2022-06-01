@@ -15,6 +15,7 @@ class Dashboard extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'users' => 'required|array',
             //'enabled' => 'integer|boolean',
         ];
     }

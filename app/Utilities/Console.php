@@ -2,13 +2,8 @@
 
 namespace App\Utilities;
 
-use Exception;
 use Illuminate\Console\Application;
 use Illuminate\Support\Str;
-use Symfony\Component\Process\Exception\InvalidArgumentException;
-use Symfony\Component\Process\Exception\LogicException;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 use Throwable;
 
@@ -31,7 +26,7 @@ class Console
             if (static::isValidOutput($output)) {
                 return true;
             }
-        } catch (Exception | InvalidArgumentException | LogicException | ProcessFailedException | RuntimeException | Throwable $e) {
+        } catch (Throwable $e) {
             $output = $e->getMessage();
         }
 

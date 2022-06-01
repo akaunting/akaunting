@@ -4,7 +4,6 @@ return [
 
     'invoice_number'        => 'Laskun numero',
     'invoice_date'          => 'Laskun päivämäärä',
-    'invoice_amount'        => 'Laskun Määrä',
     'total_price'           => 'Hinta yhteensä',
     'due_date'              => 'Eräpäivä',
     'order_number'          => 'Tilausnumero',

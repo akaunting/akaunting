@@ -43,6 +43,33 @@ class Reconciliation extends Model
     }
 
     /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('reconciliations.edit', $this->id),
+            'permission' => 'update-banking-reconciliations',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'reconciliations.destroy',
+            'permission' => 'delete-banking-reconciliations',
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

@@ -1,44 +1,37 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.edit', ['type' => trans_choice('general.tax_rates', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.tax_rates', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="tax" method="PATCH" :route="['taxes.update', $tax->id]" :model="$tax">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('taxes.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($tax, [
-            'id' => 'tax',
-            'method' => 'PATCH',
-            'route' => ['taxes.update', $tax->id],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                        <x-form.group.text name="rate" label="{{ trans('taxes.rate_percent') }}" not-required @input="onChangeTaxRate" />
 
-                    {{ Form::textGroup('rate', trans('taxes.rate'), 'percent', ['@input' => 'onChangeTaxRate']) }}
+                        <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" :disabledOptions="$disable_options" />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $tax->type, ['disabledOptions' => $disable_options]) }}
+                <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), $tax->enabled) }}
-                </div>
-            </div>
+                @can('update-settings-taxes')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="taxes.index" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-            @can('update-settings-taxes')
-                <div class="card-footer">
-                    <div class="row save-buttons">
-                        {{ Form::saveButtons('taxes.index') }}
-                    </div>
-                </div>
-            @endcan
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/taxes.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="taxes" />
+</x-layouts.admin>

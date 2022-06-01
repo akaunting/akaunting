@@ -1,0 +1,5 @@
+xl:pt-6
+lg:mt-2
+ltr:-right-1.5
+rtl:-left-1.5
+lg:pl-24

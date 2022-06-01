@@ -21,8 +21,11 @@ class Item extends Factory
      */
     public function definition()
     {
+        $types = ['product', 'service'];
+
         return [
             'company_id' => $this->company->id,
+            'type' => $this->faker->randomElement($types),
             'name' => $this->faker->text(15),
             'description' => $this->faker->text(100),
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),

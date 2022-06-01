@@ -3,7 +3,7 @@
 return [
 
     'styles' => [
-        'argon' => \Akaunting\Menu\Presenters\Admin\Argon::class,
+        'tailwind' => \App\View\Presenters\Menu::class,
     ],
 
     'home_urls' => [

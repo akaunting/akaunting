@@ -11,10 +11,11 @@ use App\Models\Banking\Account;
 use App\Models\Banking\Transfer;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
+use App\Traits\Transactions;
 
 class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
 {
-    use Currencies;
+    use Currencies, Transactions;
 
     public function handle(): Transfer
     {
@@ -28,6 +29,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
             $expense_transaction = $this->dispatch(new CreateTransaction([
                 'company_id' => $this->request['company_id'],
                 'type' => 'expense',
+                'number' => $this->getNextTransactionNumber(),
                 'account_id' => $this->request->get('from_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $expense_currency_code,
@@ -51,6 +53,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
             $income_transaction = $this->dispatch(new CreateTransaction([
                 'company_id' => $this->request['company_id'],
                 'type' => 'income',
+                'number' => $this->getNextTransactionNumber(),
                 'account_id' => $this->request->get('to_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $income_currency_code,

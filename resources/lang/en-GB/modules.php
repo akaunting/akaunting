@@ -4,7 +4,21 @@ return [
 
     'api_key'               => 'API Key',
     'my_apps'               => 'My Apps',
+    'checkout'              => 'Checkout',
+    'documentation'         => 'Documentation',
+
+    'home'                  => 'Home',
+    'tiles'                 => 'List',
+    'item'                  => 'App Details',
     'pre_sale'              => 'Pre-Sale',
+    'no_apps'               => 'Check the most professional apps for your business and get them at the best price.',
+    'learn_more'            => 'Learn More',
+    'see_apps'              => 'See Apps',
+    'no_apps_marketing'     => 'Get your business done professionally',
+    'premium_banner'        => 'SWITCH TO PREMIUM TODAY',
+    'see_all'               => 'See all',
+    'see_all_type'          => 'See all :type',
+    'saving'                => 'You save :saved-price a year!',
     'top_paid'              => 'Top Paid',
     'new'                   => 'New',
     'top_free'              => 'Top Free',
@@ -21,11 +35,14 @@ return [
     'information_monthly'   => 'This option is valid only for <strong>Cloud Service</strong>',
     'install'               => 'Install',
     'buy_now'               => 'Buy Now',
-    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank" class="text-green">Click here</a> to get your API key.',
     'no_apps'               => 'There are no apps in this category, yet.',
     'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'Recommended Apps',
     'can_not_install'       => 'Monthly subscriptions are available only on Cloud service. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Learn more.</a>',
+    'apps_managing'         => 'Check the most trending apps and start managing your finances professionally today.',
+    'ready'                 => 'Ready',
+    'popular_this_week'     => 'Popular this week',
 
     'about'                 => 'About',
 
@@ -36,13 +53,22 @@ return [
     'view'                  => 'View',
     'back'                  => 'Back',
 
+    'use_app'               => 'Start using the app now',
+
+    'see_more'              => 'See More',
+
     'installed'             => ':module installed',
     'uninstalled'           => ':module uninstalled',
     'updated_2'             => ':module updated',
     'enabled'               => ':module enabled',
     'disabled'              => ':module disabled',
+    'per_month'             => 'per month',
+    'pre_sale_uninstall'    => 'Don t miss the discounted price for the pre-sale!',
+    'pre_sale_install'      => 'You will have the app with the end of pre-sale.',
 
     'tab' => [
+        'features'          => 'Features',
+        'screenshots'       => 'Screenshots',
         'installation'      => 'Installation',
         'faq'               => 'FAQ',
         'changelog'         => 'Changelog',

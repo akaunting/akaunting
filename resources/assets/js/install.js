@@ -17,6 +17,9 @@ import Language from './views/install/Language';
 import Database from './views/install/Database';
 import Settings from './views/install/Settings';
 
+import Swiper, { Navigation, Pagination, Autoplay } from 'swiper';
+Swiper.use([Navigation, Pagination, Autoplay]);
+
 var global_path = new URL(url).protocol + '//' + window.location.host;
 var base_path = url.replace(global_path, '');
 
@@ -68,5 +71,19 @@ const router = new VueRouter({
 new Vue({
     el    : '#app',
     render: h => h(Install),
-    router
+    router,
+    mounted() {
+        new Swiper(".swiper-container", {
+            loop: true,
+            speed: 1000,
+            allowTouchMove: true,
+            autoplay: {
+                delay: 3000,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    }
 });

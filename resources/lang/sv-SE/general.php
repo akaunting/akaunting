@@ -52,8 +52,6 @@ return [
     'sales'                 => 'Sälj|Försäljning',
     'purchases'             => 'Inköpning|Inköp',
     'notifications'         => 'Notifiering|Notifikationer',
-    'countries'             => 'Land|Länder',
-    'cities'                => 'Stad / Stadskärna / Städer',
 
     'welcome'               => 'Välkommen',
     'banking'               => 'Banktjänster',
@@ -166,8 +164,6 @@ return [
     'amount_due'            => 'Belopp att betala',
     'financial_year'        => 'Räkenskapsår',
     'created'               => 'Skapad',
-    'state'                 => 'Provins / delstat',
-    'zip_code'              => 'Postnummer / Postnummer',
 
     'card' => [
         'cards'                 => 'Kort| Kort',
@@ -223,7 +219,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Kolla in <a href=":url" target="_blank" class="text-success">dokumentationen</a> för mer information.',
+        'documentation' => 'Kolla in <a href=":url" target="_blank" class="text-green">dokumentationen</a> för mer information.',
         'items' => 'Objekt kan vara produkter eller tjänster. Du kan använda objekt när du skapar fakturor och räkningar för att få priset, skatt etc fälten fyllda.',
         'invoices' => 'Fakturor kan vara en gång eller återkommande. Du kan skicka dem till kunder och börja acceptera betalningar online.',
         'revenues' => 'Intäkter är en betald inkomsttransaktion. Det kan vara en oberoende bokföring (dvs. insättning) eller en faktura.',

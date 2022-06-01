@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Common;
 
 use App\Abstracts\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class Widget extends FormRequest
 {
@@ -18,6 +19,13 @@ class Widget extends FormRequest
             'name' => 'required|string',
             'class' => 'required',
             'sort' => 'integer',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'class.required' => trans('validation.required', ['attribute' => Str::lower(trans_choice('general.types', 1))]),
         ];
     }
 }

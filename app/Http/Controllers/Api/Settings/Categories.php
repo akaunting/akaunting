@@ -4,48 +4,48 @@ namespace App\Http\Controllers\Api\Settings;
 
 use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Category as Request;
+use App\Http\Resources\Setting\Category as Resource;
 use App\Jobs\Setting\CreateCategory;
 use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
-use App\Transformers\Setting\Category as Transformer;
 
 class Categories extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $categories = Category::collect();
+        $categories = Category::withSubCategory()->collect();
 
-        return $this->response->paginator($categories, new Transformer());
+        return Resource::collection($categories);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  Category  $category
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Category $category)
     {
-        return $this->item($category, new Transformer());
+        return new Resource($category);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $category = $this->dispatch(new CreateCategory($request));
 
-        return $this->response->created(route('api.categories.show', $category->id), $this->item($category, new Transformer()));
+        return $this->created(route('api.categories.show', $category->id), new Resource($category));
     }
 
     /**
@@ -53,16 +53,16 @@ class Categories extends ApiController
      *
      * @param  $category
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Category $category, Request $request)
     {
         try {
             $category = $this->dispatch(new UpdateCategory($category, $request));
 
-            return $this->item($category->fresh(), new Transformer());
+            return new Resource($category->fresh());
         } catch(\Exception $e) {
-            $this->response->errorUnauthorized($e->getMessage());
+            $this->errorUnauthorized($e->getMessage());
         }
     }
 
@@ -70,29 +70,29 @@ class Categories extends ApiController
      * Enable the specified resource in storage.
      *
      * @param  Category  $category
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function enable(Category $category)
     {
         $category = $this->dispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
 
-        return $this->item($category->fresh(), new Transformer());
+        return new Resource($category->fresh());
     }
 
     /**
      * Disable the specified resource in storage.
      *
      * @param  Category  $category
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function disable(Category $category)
     {
         try {
             $category = $this->dispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
 
-            return $this->item($category->fresh(), new Transformer());
+            return new Resource($category->fresh());
         } catch(\Exception $e) {
-            $this->response->errorUnauthorized($e->getMessage());
+            $this->errorUnauthorized($e->getMessage());
         }
     }
 
@@ -100,16 +100,16 @@ class Categories extends ApiController
      * Remove the specified resource from storage.
      *
      * @param  Category  $category
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
     {
         try {
             $this->dispatch(new DeleteCategory($category));
 
-            return $this->response->noContent();
+            return $this->noContent();
         } catch(\Exception $e) {
-            $this->response->errorUnauthorized($e->getMessage());
+            $this->errorUnauthorized($e->getMessage());
         }
     }
 }

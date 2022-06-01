@@ -7,11 +7,12 @@ import AkauntingContactCard from './../components/AkauntingContactCard';
 import AkauntingCompanyEdit from './../components/AkauntingCompanyEdit';
 import AkauntingEditItemColumns from './../components/AkauntingEditItemColumns';
 import AkauntingItemButton from './../components/AkauntingItemButton';
+import AkauntingDocumentButton from './../components/AkauntingDocumentButton';
 import AkauntingSearch from './../components/AkauntingSearch';
 import AkauntingModal from './../components/AkauntingModal';
 import AkauntingMoney from './../components/AkauntingMoney';
 import AkauntingModalAddNew from './../components/AkauntingModalAddNew';
-import AkauntingRadioGroup from './../components/forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './../components/AkauntingRadioGroup';
 import AkauntingSelect from './../components/AkauntingSelect';
 import AkauntingSelectRemote from './../components/AkauntingSelectRemote';
 import AkauntingDate from './../components/AkauntingDate';
@@ -19,6 +20,10 @@ import AkauntingRecurring from './../components/AkauntingRecurring';
 import AkauntingHtmlEditor from './../components/AkauntingHtmlEditor';
 import AkauntingCountdown from './../components/AkauntingCountdown';
 import AkauntingCurrencyConversion from './../components/AkauntingCurrencyConversion';
+import AkauntingConnectTransactions from './../components/AkauntingConnectTransactions';
+import AkauntingSwitch from './../components/AkauntingSwitch';
+import AkauntingSlider from './../components/AkauntingSlider';
+import AkauntingColor from './../components/AkauntingColor';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -27,6 +32,10 @@ import NProgressAxios from './../plugins/nprogress-axios';
 import { Select, Option, Steps, Step, Button, Link, Tooltip, ColorPicker } from 'element-ui';
 
 import Form from './../plugins/form';
+import Swiper, { Navigation, Pagination } from 'swiper';
+import GLightbox from 'glightbox';
+
+Swiper.use([Navigation, Pagination]);
 
 export default {
     components: {
@@ -35,6 +44,7 @@ export default {
         AkauntingCompanyEdit,
         AkauntingEditItemColumns,
         AkauntingItemButton,
+        AkauntingDocumentButton,
         AkauntingSearch,
         AkauntingRadioGroup,
         AkauntingSelect,
@@ -47,6 +57,10 @@ export default {
         AkauntingHtmlEditor,
         AkauntingCountdown,
         AkauntingCurrencyConversion,
+        AkauntingConnectTransactions,
+        AkauntingSwitch,
+        AkauntingSlider,
+        AkauntingColor,
         [Select.name]: Select,
         [Option.name]: Option,
         [Steps.name]: Steps,
@@ -71,6 +85,7 @@ export default {
                 "thousands_separator":",",
             },
             all_currencies: [],
+            content_loading: true
         }
     },
 
@@ -79,7 +94,31 @@ export default {
     },
 
     mounted() {
+        setTimeout(() => {
+            this.content_loading = false;
+        }, 1500);
+
         this.checkNotify();
+
+        GLightbox({
+            touchNavigation: true,
+            loop: false,
+            autoplayVideos: false,
+            selector: ".glightbox-video",
+            plyr: {
+                config: {
+                    ratio: '16:9', // or '4:3'
+                    muted: false,
+                    hideControls: true,
+                    youtube: {
+                        noCookie: true,
+                        rel: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3
+                    },
+                },
+            },
+        })
 
         if (aka_currency) {
             this.currency = aka_currency;
@@ -88,12 +127,32 @@ export default {
         if (typeof all_currencies !== 'undefined' && all_currencies) {
             this.all_currencies = all_currencies;
         }
+
+        GLightbox({
+            touchNavigation: true,
+            loop: false,
+            autoplayVideos: false,
+            selector: ".glightbox"
+        });
+
+        new Swiper(".swiper-container", {
+            loop: false,
+            slidesPerView: 2,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
     },
 
     methods: {
         // Check Default set notify > store / update action
         checkNotify: function () {
-            if (!flash_notification) {
+            if (! flash_notification) {
                 return false;
             }
 
@@ -108,7 +167,7 @@ export default {
                 this.$notify({
                     message: notify.message,
                     timeout: timeout,
-                    icon: 'fas fa-bell',
+                    icon: 'error_outline',
                     type
                 });
             });
@@ -130,40 +189,56 @@ export default {
         },
 
         // Bulk Action Select all
-        onSelectAll() {
+        onSelectAllBulkAction() {
             this.bulk_action.selectAll();
         },
 
-        // Bulk Action Select checked/ unchecked
-        onSelect() {
+        // Bulk Action Checkbox checked/ unchecked
+        onSelectBulkAction() {
             this.bulk_action.select();
         },
 
         // Bulk Action use selected Change
-        onChange(event) {
-            var result = this.bulk_action.change(event);
+        onChangeBulkAction(type) {
+            this.bulk_action.change(type);
+
+            if (this.bulk_action.message.length) {
+                this.bulk_action.modal=true;
+            } else {
+                this.onActionBulkAction();
+            }
         },
 
         // Bulk Action use selected Action
-        onAction() {
+        onActionBulkAction() {
             this.bulk_action.action();
         },
 
         // Bulk Action modal cancel
-        onCancel() {
+        onCancelBulkAction() {
             this.bulk_action.modal = false;
         },
 
         // Bulk Action Clear selected items
-        onClear() {
+        onClearBulkAction() {
             this.bulk_action.modal = false;
 
             this.bulk_action.clear();
         },
 
         // List Enabled column status changes
-        onStatus(item_id, event) {
+        onStatusBulkAction(item_id, event) {
             this.bulk_action.status(item_id, event, this.$notify);
+        },
+
+        onDeleteViaConfirmation(delete_id) {
+            let action = document.getElementById(delete_id).getAttribute('data-action');
+            let title = document.getElementById(delete_id).getAttribute('data-title');
+            let message = document.getElementById(delete_id).getAttribute('data-message');
+            let button_cancel = document.getElementById(delete_id).getAttribute('data-cancel');
+            let button_delete = document.getElementById(delete_id).getAttribute('data-delete');
+
+            this.confirmDelete(action, title, message, button_cancel, button_delete);
         },
 
         // Actions > Delete
@@ -222,7 +297,7 @@ export default {
 
         // Change bank account get money and currency rate
         onChangeAccount(account_id) {
-            if (!account_id) {
+            if (! account_id) {
                 return;
             }
 
@@ -230,7 +305,7 @@ export default {
                 params: {
                     account_id: account_id
                 }
-              })
+            })
             .then(response => {
                 this.currency = response.data;
 
@@ -243,31 +318,40 @@ export default {
 
         // Change currency get money
         onChangeCurrency(currency_code) {
-            if (!currency_code) {
+            if (! currency_code) {
                 return;
             }
 
-            if (!this.all_currencies.length) {
+            if (! this.all_currencies.length) {
                 let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
 
                 currency_promise.then(response => {
-                    if ( response.data.success) {
+                    if (response.data.success) {
                         this.all_currencies = response.data.data;
                     }
+
+                    this.all_currencies.forEach(function (currency, index) {
+                        if (currency_code == currency.code) {
+                            this.currency = currency;
+
+                            this.form.currency_code = currency.code;
+                            this.form.currency_rate = currency.rate;
+                        }
+                    }, this);
                 })
                 .catch(error => {
                     this.onChangeCurrency(currency_code);
                 });
+            } else {
+                this.all_currencies.forEach(function (currency, index) {
+                    if (currency_code == currency.code) {
+                        this.currency = currency;
+
+                        this.form.currency_code = currency.code;
+                        this.form.currency_rate = currency.rate;
+                    }
+                }, this);
             }
-
-            this.all_currencies.forEach(function (currency, index) {
-                if (currency_code == currency.code) {
-                    this.currency = currency;
-
-                    this.form.currency_code = currency.code;
-                    this.form.currency_rate = currency.rate;
-                }
-            }, this);
         },
 
         // Pages limit change
@@ -294,25 +378,24 @@ export default {
                         }
 
                         if (query_partials[0] == 'limit') {
-                            path += 'limit=' + event.target.value;
+                            path += 'limit=' + event.target.getAttribute("value");
                         } else {
                             path += query_partials[0] + '=' + query_partials[1];
                         }
                     });
 
                 } else {
-                    path = window.location.href + '&limit=' + event.target.value;
+                    path = window.location.href + '&limit=' + event.target.getAttribute("value");
                 }
             } else {
-                path = window.location.href + '?limit=' + event.target.value;
+                path = window.location.href + '?limit=' + event.target.getAttribute("value");
             }
 
             window.location.href = path;
         },
 
         // Dynamic component get path view and show it.
-        onDynamicComponent(path)
-        {
+        onDynamicComponent(path) {
             axios.get(path)
             .then(response => {
                 let html = response.data.html;
@@ -487,5 +570,92 @@ export default {
 
             this.onChangeCurrency(currency_code);
         },
+
+        onShareLink(url) {
+            let share = {
+                modal: false,
+                url: url,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let share_promise = Promise.resolve(window.axios.get(share.url));
+
+            share_promise.then(response => {
+                share.modal = true;
+                share.title = response.data.data.title;
+                share.success_message = response.data.data.success_message;
+                share.html = response.data.html;
+                share.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-share-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-md" :show="share.modal" @submit="onCopyLink" @cancel="onCancel" :buttons="share.buttons" :is_component=true :title="share.title" :message="share.html"></akaunting-modal-add-new></div>',
+
+                        components: {
+                            AkauntingModalAddNew,
+                        },
+
+                        data: function () {
+                            return {
+                                share: share,
+                                form: {},
+                            }
+                        },
+
+                        methods: {
+                            onCopyLink(event) {
+                                let type = 'success';
+                                let copyText = document.querySelector('#dynamic-share-component #hidden-share');
+                                copyText.select();
+                                document.execCommand("copy");
+
+                                this.$notify({
+                                    message: this.share.success_message,
+                                    timeout: 5000,
+                                    icon: 'error_outline',
+                                    type
+                                });
+
+                                this.onCancel();
+                            },
+
+                            onCancel() {
+                                this.share.modal = false;
+                                this.share.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove("modal-open");
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
+        onCopyLink() {
+            let copy_html = document.getElementById('share');
+            let copy_badge = document.querySelector('[data-copied]');
+
+            copy_html.select();
+            document.execCommand('copy');
+
+            copy_badge.classList.remove('hidden');
+            copy_badge.classList.add('flex');
+            copy_html.classList.add('hidden');
+
+            setTimeout(() => {
+                copy_badge.classList.add('hidden');
+                copy_badge.classList.remove('flex');
+                copy_html.classList.remove('hidden');
+            }, 800);
+        }
     }
 }

@@ -45,6 +45,6 @@ return [
     | Skip livewire paths
     |--------------------------------------------------------------------------
     */
-    'livewire'      => explode(',', env('READ_ONLY_LIVEWIRE', 'common.search')),
+    'livewire'      => explode(',', env('READ_ONLY_LIVEWIRE', 'menu.notifications,menu.settings,menu.neww')),
 
 ];

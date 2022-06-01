@@ -2,9 +2,9 @@
 
 namespace App\View\Components;
 
+use App\Abstracts\View\Component;
 use App\Traits\DateTime;
 use Illuminate\Support\Str;
-use Illuminate\View\Component;
 
 class SearchString extends Component
 {
@@ -89,11 +89,11 @@ class SearchString extends Component
             $column = $options['key'];
         }
 
-        if (isset($options['relationship']) && isset($options['foreign_key']) && !empty($options['foreign_key'])) {
+        if (isset($options['relationship']) && isset($options['foreign_key']) && ! empty($options['foreign_key'])) {
             $column .= '.' . $options['foreign_key'];
         }
 
-        if (isset($options['relationship']) && !isset($options['foreign_key'])) {
+        if (isset($options['relationship']) && ! isset($options['foreign_key'])) {
             $column .= '.id';
         }
 
@@ -108,7 +108,7 @@ class SearchString extends Component
             $column = str_replace('_code', '', $column);
         }
 
-        if (!empty($options['translation']) && !isset($options['boolean'])) {
+        if (! empty($options['translation']) && ! isset($options['boolean'])) {
             return $options['translation'];
         }
 

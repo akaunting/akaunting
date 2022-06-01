@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.edit', ['type' => trans_choice('general.invoices', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.invoices', 1)]))
+    <x-slot name="content">
+        <x-documents.form.content type="invoice" :document="$invoice" />
+    </x-slot>
 
-@section('content')
-    <x-documents.form.content type="invoice" :document="$invoice" />
-@endsection
-
-@push('scripts_start')
     <x-documents.script type="invoice" :items="$invoice->items()->get()" :document="$invoice" />
-@endpush
+</x-layouts.admin>

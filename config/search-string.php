@@ -94,7 +94,12 @@ return [
     App\Models\Banking\Transaction::class => [
         'columns' => [
             'id',
-            'type',
+            'type' => [
+                'values' => [
+                    'income' => 'general.incomes',
+                    'expense' => 'general.expenses',
+                ],
+            ],
             'account_id' => [
                 'route' => ['accounts.index', 'search=enabled:1'],
             ],
@@ -109,7 +114,7 @@ return [
             'payment_method',
             'reference',
             'category_id' => [
-                'route' => ['categories.index', 'search=enabled:1'],
+                'route' => ['categories.index', 'search=type:income,expense enabled:1']
             ],
             'parent_id',
             'recurring' => [
@@ -117,7 +122,7 @@ return [
                 'foreign_key' => '',
                 'relationship' => true,
                 'boolean' => true,
-            ]
+            ],
         ],
     ],
 
@@ -161,12 +166,50 @@ return [
             'category_id' => [
                 'route' => ['categories.index', 'search=type:item enabled:1']
             ],
-            'sales_price',
+            'sale_price',
             'purchase_price',
         ],
     ],
 
     App\Models\Common\Contact::class => [
+        'columns' => [
+            'id',
+            'type',
+            'name' => ['searchable' => true],
+            'email' => ['searchable' => true],
+            'tax_number' => ['searchable' => true],
+            'phone' => ['searchable' => true],
+            'address' => ['searchable' => true],
+            'website' => ['searchable' => true],
+            'currency_code' => [
+                'route' => ['currencies.index', 'search=enabled:1'],
+            ],
+            'reference',
+            'user_id',
+            'enabled' => ['boolean' => true],
+        ],
+    ],
+
+    'App\Models\Purchase\Vendor' => [
+        'columns' => [
+            'id',
+            'type',
+            'name' => ['searchable' => true],
+            'email' => ['searchable' => true],
+            'tax_number' => ['searchable' => true],
+            'phone' => ['searchable' => true],
+            'address' => ['searchable' => true],
+            'website' => ['searchable' => true],
+            'currency_code' => [
+                'route' => ['currencies.index', 'search=enabled:1'],
+            ],
+            'reference',
+            'user_id',
+            'enabled' => ['boolean' => true],
+        ],
+    ],
+
+    'App\Models\Sale\Customer' => [
         'columns' => [
             'id',
             'type',
@@ -208,14 +251,14 @@ return [
             'contact_phone' => ['searchable' => true],
             'contact_address' => ['searchable' => true],
             'category_id' => [
-                'route' => ['categories.index', 'search=enabled:1'],
+                'route' => ['categories.index', 'search=type:income,expense enabled:1']
             ],
             'parent_id',
             'recurring' => [
                 'key' => 'recurring',
                 'relationship' => true,
                 'boolean' => true,
-            ]
+            ],
         ],
     ],
 
@@ -256,42 +299,9 @@ return [
             'parent_id',
             'recurring' => [
                 'key' => 'recurring',
-                'foreign_key' => '',
                 'relationship' => true,
                 'boolean' => true,
-            ]
-        ],
-    ],
-
-    'App\Models\Purchase\Payment' => [
-        'columns' => [
-            'id',
-            'type',
-            'account_id' => [
-                'route' => ['accounts.index', 'search=enabled:1'],
             ],
-            'paid_at' => ['date' => true],
-            'amount',
-            'currency_code' => [
-                'route' => ['currencies.index', 'search=enabled:1'],
-            ],
-            'document_id',
-            'contact_id' => [
-                'route' => ['vendors.index', 'search=enabled:1'],
-            ],
-            'description' => ['searchable' => true],
-            'payment_method',
-            'reference',
-            'category_id' => [
-                'route' => ['categories.index', 'search=type:expense enabled:1']
-            ],
-            'parent_id',
-            'recurring' => [
-                'key' => 'recurring',
-                'foreign_key' => '',
-                'relationship' => true,
-                'boolean' => true,
-            ]
         ],
     ],
 
@@ -333,42 +343,9 @@ return [
             'parent_id',
             'recurring' => [
                 'key' => 'recurring',
-                'foreign_key' => '',
                 'relationship' => true,
                 'boolean' => true,
-            ]
-        ],
-    ],
-
-    'App\Models\Sale\Revenue' => [
-        'columns' => [
-            'id',
-            'type',
-            'account_id' => [
-                'route' => ['accounts.index', 'search=enabled:1'],
             ],
-            'paid_at' => ['date' => true],
-            'amount',
-            'currency_code' => [
-                'route' => ['currencies.index', 'search=enabled:1'],
-            ],
-            'document_id',
-            'contact_id' => [
-                'route' => ['customers.index', 'search=enabled:1'],
-            ],
-            'description' => ['searchable' => true],
-            'payment_method',
-            'reference',
-            'category_id' => [
-                'route' => ['categories.index', 'search=type:income enabled:1'],
-            ],
-            'parent_id',
-            'recurring' => [
-                'key' => 'recurring',
-                'foreign_key' => '',
-                'relationship' => true,
-                'boolean' => true,
-            ]
         ],
     ],
 
@@ -399,6 +376,14 @@ return [
             ],
             'decimal_mark',
             'thousands_separator',
+        ],
+    ],
+
+    App\Models\Setting\EmailTemplate::class => [
+        'columns' => [
+            'id',
+            'name' => ['searchable' => true],
+            'subject' => ['searchable' => true],
         ],
     ],
 

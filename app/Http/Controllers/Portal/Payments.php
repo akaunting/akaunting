@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
 use App\Models\Setting\Currency;
 use App\Http\Requests\Portal\PaymentShow as Request;
@@ -65,10 +66,10 @@ class Payments extends Controller
      */
     public function printPayment(Transaction $payment, Request $request)
     {
-        event(new \App\Events\Banking\TransactionPrinting($payment));
+        event(new TransactionPrinting($payment));
 
-        $revenue = $payment;
-        $view = view($payment->template_path, compact('revenue'));
+        $transaction = $payment;
+        $view = view('banking.transactions.print_default', compact('transaction'));
 
         return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
     }
@@ -82,12 +83,12 @@ class Payments extends Controller
      */
     public function pdfPayment(Transaction $payment, Request $request)
     {
-        event(new \App\Events\Banking\TransactionPrinting($payment));
+        event(new TransactionPrinting($payment));
 
         $currency_style = true;
 
-        $revenue = $payment;
-        $view = view($payment->template_path, compact('revenue', 'currency_style'))->render();
+        $transaction = $payment;
+        $view = view('banking.transactions.print_default', compact('transaction', 'currency_style'))->render();
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
@@ -98,6 +99,15 @@ class Payments extends Controller
         $file_name = $this->getTransactionFileName($payment);
 
         return $pdf->download($file_name);
+    }
+
+    public function preview(Transaction $payment)
+    {
+        if (empty($payment)) {
+            return redirect()->route('login');
+        }
+
+        return view('portal.payments.preview', compact('payment'));
     }
 
     public function signed(Transaction $payment)

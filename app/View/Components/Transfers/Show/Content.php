@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Transfers\Show;
 
-use App\Abstracts\View\Components\TransferShow as Component;
+use App\Abstracts\View\Components\Transfers\Show as Component;
 
 class Content extends Component
 {

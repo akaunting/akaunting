@@ -2,7 +2,7 @@
 
 return [
 
-    'sales_price'           => 'Eladási ár',
+    'sale_price'           => 'Eladási ár',
     'purchase_price'        => 'Beszerzési ár',
 
 ];

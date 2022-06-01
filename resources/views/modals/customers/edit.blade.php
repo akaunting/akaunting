@@ -1,29 +1,18 @@
+<x-form id="form-edit-customer" method="PATCH" :route="['customers.update', $customer->id]" :model="$customer">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-{!! Form::model($customer, [
-    'id' => 'form-edit-customer',
-    'method' => 'PATCH',
-    'route' => ['customers.update', $customer->id],
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'files' => true,
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'font') }}
+        <x-form.group.text name="email" label="{{ trans('general.email') }}" not-required />
 
-        {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
+        <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" not-required />
 
-        {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], $customer->tax_number) }}
+        <x-form.group.currency without-add-new />
 
-        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $customer->currency_code) }}
+        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" />
 
-        {{ Form::textareaGroup('address', trans('general.address'), null, $customer->address) }}
+        <x-form.group.country />
 
-        {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $customer->country, []) }}
-
-        {{ Form::hidden('type', 'customer') }}
-        {!! Form::hidden('enabled', '1', []) !!}
+        <x-form.input.hidden name="type" value="customer" />
+        <x-form.input.hidden name="enabled" value="1" />
     </div>
-{!! Form::close() !!}
+</x-form>

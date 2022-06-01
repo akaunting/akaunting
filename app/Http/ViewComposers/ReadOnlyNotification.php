@@ -12,6 +12,12 @@ class ReadOnlyNotification
             return;
         }
 
-        $view->getFactory()->startPush('content_content_start', view('partials.read-only'));
+        $notifications = $view->getData()['notifications'];
+
+        $notifications[] = view('components.read-only');
+
+        $view->with([
+            'notifications' => $notifications,
+        ]);
     }
 }

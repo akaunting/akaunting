@@ -1,53 +1,59 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans_choice('general.localisations', 1) }}</x-slot>
 
-@section('title', trans_choice('general.localisations', 1))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" route="settings.localisation.update">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.financial_year') }}" description="{{ trans('settings.localisation.form_description.fiscal') }}" />
+                    </x-slot>
 
-@section('content')
-    {!! Form::open([
-        'id' => 'setting',
-        'method' => 'PATCH',
-        'route' => 'settings.update',
-        '@submit.prevent' => 'onSubmit',
-        '@keydown' => 'form.errors.clear($event.target.name)',
-        'files' => true,
-        'role' => 'form',
-        'class' => 'form-loading-button',
-        'novalidate' => true,
-    ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.date name="financial_start" label="{{ trans('settings.localisation.financial_start') }}" icon="calendar_today" value="{{ setting('localisation.financial_start') }}" show-date-format="j F" date-format="d-m" autocomplete="off" hidden_year />
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off', 'hidden_year' => true], setting('localisation.financial_start')) }}
+                        <x-form.group.select name="financial_denote" label="{{ trans('settings.localisation.financial_denote.title') }}" :options="$financial_denote_options" :selected="setting('localisation.financial_denote')" not-required />
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::selectGroup('financial_denote', trans('settings.localisation.financial_denote.title'), 'calendar', $financial_denote_options, setting('localisation.financial_denote'), []) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('settings.localisation.preferred_date') }}" description="{{ trans('settings.localisation.form_description.date') }}" />
+                    </x-slot>
 
-                {{ Form::selectGroupGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, setting('localisation.timezone'), []) }}
+                    <x-slot name="body">
+                        <x-form.group.select name="date_format" label="{{ trans('settings.localisation.date.format') }}" :options="$date_formats" :selected="setting('localisation.date_format')" autocomplete="off" />
 
-                {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, setting('localisation.date_format'), ['autocomplete' => 'off']) }}
+                        <x-form.group.select name="date_separator" label="{{ trans('settings.localisation.date.separator') }}" :options="$date_separators" :selected="setting('localisation.date_separator')" />
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, setting('localisation.date_separator'), []) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.others', 1) }}" description="{{ trans('settings.localisation.form_description.other') }}" />
+                    </x-slot>
 
-                {{ Form::selectGroup('percent_position', trans('settings.localisation.percent.title'), 'percent', $percent_positions, setting('localisation.percent_position'), []) }}
+                    <x-slot name="body">
+                        <x-form.group.select group name="timezone" label="{{ trans('settings.localisation.timezone') }}" :options="$timezones" :selected="setting('localisation.timezone')" />
 
-                {{ Form::selectGroup('discount_location', trans('settings.localisation.discount_location.name'), 'percent', $discount_locations, setting('localisation.discount_location'), []) }}
-            </div>
-        </div>
+                        <x-form.group.select name="percent_position" label="{{ trans('settings.localisation.percent.title') }}" :options="$percent_positions" :selected="setting('localisation.percent_position')" not-required />
 
-        @can('update-settings-settings')
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('settings.index') }}
-                </div>
-            </div>
-        @endcan
-    </div>
+                        <x-form.group.select name="discount_location" label="{{ trans('settings.localisation.discount_location.name') }}" :options="$discount_locations" :selected="setting('localisation.discount_location')" not-required />
+                    </x-slot>
+                </x-form.section>
 
-    {!! Form::hidden('_prefix', 'localisation') !!}
+                @can('update-settings-localisation')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
 
-    {!! Form::close() !!}
-@endsection
+                <x-form.input.hidden name="_prefix" value="localisation" />
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

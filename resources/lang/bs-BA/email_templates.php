@@ -4,7 +4,7 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} faktura je kreirana',
-        'body'          => 'Poštovani, {customer_name}, <br/><br/> Za vas smo pripremili slijedeću fakturu: <strong>{invoice_number}</strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanje sa slijedeće veze: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br/> <br/> Slobodno nas kontaktirajte po bilo kojem pitanju. <br/> <br/> Srdačan pozdrav, <br/> {company_name}',
+        'body'          => 'Poštovani, {customer_name}, <br /> <br /> Za vas smo pripremili slijedeću fakturu: <strong>{invoice_number}</strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanje sa slijedeće veze: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br /> Slobodno nas kontaktirajte po bilo kojem pitanju. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -19,7 +19,7 @@ return [
 
     'invoice_recur_customer' => [
         'subject'       => '{invoice_number} ponavljajuća faktura je kreirana',
-        'body'          => 'Poštovani, {customer_name}, <br/> <br/> Za vas smo pripremili slijedeću fakturu: <strong> {invoice_number} </strong>. <br/> <br/> Možete vidjeti detalje računa i nastaviti s plaćanjem putem: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br/> Slobodno nas kontaktirajte po bilo kojem pitanju. <br/> <br/> Srdačan pozdrav, <br /> {company_name}',
+        'body'          => 'Poštovani, {customer_name}, <br /> <br /> Za vas smo pripremili slijedeću fakturu: <strong> {invoice_number} </strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanjem putem: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br /> Slobodno nas kontaktirajte po bilo kojem pitanju. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
     ],
 
     'invoice_recur_admin' => [

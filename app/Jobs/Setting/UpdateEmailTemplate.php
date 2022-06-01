@@ -4,7 +4,7 @@ namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\ShouldUpdate;
-use App\Models\Common\EmailTemplate;
+use App\Models\Setting\EmailTemplate;
 
 class UpdateEmailTemplate extends Job implements ShouldUpdate
 {

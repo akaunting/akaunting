@@ -15,7 +15,6 @@ return [
         'reconciled'        => 'Uzgodnione',
         'expense_account'   => 'Z rachunku',
         'income_account'    => 'Na rachunek',
-        'recurring'         => 'Cyklicznie',
     ],
 
 ];

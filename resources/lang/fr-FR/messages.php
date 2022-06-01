@@ -3,9 +3,9 @@
 return [
 
     'success' => [
-        'added'             => ':type ajouté !',
-        'updated'           => ':type mise à jour !',
-        'deleted'           => ':type supprimé !',
+        'added'             => ':type ajouté !',
+        'updated'           => ':type mise à jour !',
+        'deleted'           => ':type supprimé !',
         'duplicated'        => ':type dupliqué !',
         'imported'          => ':type importé !',
         'exported'          => ':type exporté !',
@@ -15,9 +15,9 @@ return [
 
     'error' => [
         'over_payment'      => 'Erreur: Le paiement n\'a pas été enregistré! Le total entré dépasse le total :amount',
-        'not_user_company'  => 'Erreur : Vous n’êtes pas autorisé à gérer cette société !',
+        'not_user_company'  => 'Erreur : Vous n’êtes pas autorisé à gérer cette société !',
         'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
-        'no_file'           => 'Erreur : Aucun fichier sélectionné !',
+        'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
         'change_type'       => 'Erreur: Impossible de changer le type car il est lié à :text !',
         'invalid_apikey'    => 'Erreur: La clé API saisie n\'est pas valide !',

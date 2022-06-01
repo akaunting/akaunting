@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Documents\Form;
 
-use App\Abstracts\View\Components\DocumentForm as Component;
+use App\Abstracts\View\Components\Documents\Form as Component;
 
 class Content extends Component
 {
@@ -15,7 +15,7 @@ class Content extends Component
     {
         $status = 'draft';
 
-        if (!empty($this->document)) {
+        if (! empty($this->document)) {
             $status = $this->document->status;
         }
 

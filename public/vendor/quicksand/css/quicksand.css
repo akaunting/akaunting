@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Light/Quicksand-Light.woff") format("woff"), url("../fonts/Light/Quicksand-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: "auto";
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Regular/Quicksand-Regular.woff") format("woff"), url("../fonts/Regular/Quicksand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: "auto";
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Medium/Quicksand-Medium.woff") format("woff"), url("../fonts/Medium/Quicksand-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: "auto";
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Semibold/Quicksand-SemiBold.woff") format("woff"), url("../fonts/Semibold/Quicksand-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: "auto";
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Bold/Quicksand-Bold.woff") format("woff"), url("../fonts/Bold/Quicksand-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: "auto";
+  font-style: normal;
+}

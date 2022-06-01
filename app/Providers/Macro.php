@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -27,7 +28,7 @@ class Macro extends ServiceProvider
     public function boot()
     {
         Request::macro('isApi', function () {
-            return $this->is(config('api.subtype') . '/*');
+            return $this->is(config('api.prefix') . '/*');
         });
 
         Request::macro('isNotApi', function () {
@@ -48,6 +49,14 @@ class Macro extends ServiceProvider
 
         Request::macro('isNotInstall', function () {
             return !$this->isInstall();
+        });
+
+        Request::macro('isPreview', function ($company_id) {
+            return $this->is($company_id . '/preview/*');
+        });
+
+        Request::macro('isNotPreview', function ($company_id) {
+            return !$this->isPreview($company_id);
         });
 
         Request::macro('isSigned', function ($company_id) {
@@ -108,6 +117,16 @@ class Macro extends ServiceProvider
             }
 
             return false;
+        });
+
+        Collection::macro('withChildren', function ($relation, $addChildren) {
+            $list = new Collection();
+
+            foreach ($this as $model) {
+                $addChildren($list, $model, $relation, 0, $addChildren);
+            }
+
+            return $list;
         });
     }
 }

@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Modals;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
-use App\Models\Banking\Account;
+use App\Jobs\Banking\UpdateBankingDocumentTransaction;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
+use App\Traits\Transactions;
+
 
 class DocumentTransactions extends Controller
 {
-    use Uploads;
+    use Uploads, Transactions;
 
     /**
      * Instantiate a new controller instance.
@@ -37,15 +39,11 @@ class DocumentTransactions extends Controller
      */
     public function create(Document $document)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
         $currency = Currency::where('code', $document->currency_code)->first();
 
-        $payment_methods = Modules::getPaymentMethods();
-
         $paid = $document->paid;
+
+        $number = $this->getNextTransactionNumber();
 
         // Get document Totals
         foreach ($document->totals as $document_total) {
@@ -56,11 +54,29 @@ class DocumentTransactions extends Controller
 
         $document->grand_total = money($total, $currency->code)->getAmount();
 
-        if (!empty($paid)) {
+        if (! empty($paid)) {
             $document->grand_total = round($document->total - $paid, $currency->precision);
         }
 
-        $html = view('modals.documents.payment', compact('document', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
+        $buttons = [
+            'cancel' => [
+                'text' => trans('general.cancel'),
+                'class' => 'btn-outline-secondary'
+            ],
+            'payment' => [
+                'text' => trans('invoices.accept_payments'),
+                'class' => 'long-texts',
+                'url' => route('apps.categories.show', 'payment-method')
+            ],
+            'confirm' => [
+                'text' => trans('general.save'),
+                'class' => 'disabled:bg-green-100'
+            ],
+        ];
+
+        $route = ['modals.documents.document.transactions.store', $document->id];
+
+        $html = view('modals.documents.payment', compact('document', 'route', 'currency', 'number'))->render();
 
         return response()->json([
             'success' => true,
@@ -69,21 +85,7 @@ class DocumentTransactions extends Controller
             'html' => $html,
             'data' => [
                 'title' => trans('general.title.new', ['type' => trans_choice('general.payments', 1)]),
-                'buttons' => [
-                    'cancel' => [
-                        'text' => trans('general.cancel'),
-                        'class' => 'btn-outline-secondary'
-                    ],
-                    'payment' => [
-                        'text' => trans('invoices.accept_payments'),
-                        'class' => 'long-texts',
-                        'url' => route('apps.categories.show', 'payment-method')
-                    ],
-                    'confirm' => [
-                        'text' => trans('general.save'),
-                        'class' => 'btn-success'
-                    ]
-                ]
+                'buttons' => $buttons,
             ]
         ]);
     }
@@ -101,9 +103,99 @@ class DocumentTransactions extends Controller
         $response = $this->ajaxDispatch(new CreateBankingDocumentTransaction($document, $request));
 
         if ($response['success']) {
-            $route = config('type.' . $document->type . '.route.prefix');
+            $route = config('type.document.' . $document->type . '.route.prefix');
 
-            if ($alias = config('type.' . $document->type . '.alias')) {
+            if ($alias = config('type.document.' . $document->type . '.alias')) {
+                $route = $alias . '.' . $route;
+            }
+
+            $response['redirect'] = route($route . '.show', $document->id);
+
+            $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = null;
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  Document  $document
+     *
+     * @return Response
+     */
+    public function edit(Document $document, Transaction $transaction)
+    {
+        $currency = Currency::where('code', $document->currency_code)->first();
+
+        $paid = $document->paid;
+
+        $number = $this->getNextTransactionNumber();
+
+        // Get document Totals
+        foreach ($document->totals as $document_total) {
+            $document->{$document_total->code} = $document_total->amount;
+        }
+
+        $total = money($document->total, $currency->code, true)->format();
+
+        $document->grand_total = money($total, $currency->code)->getAmount();
+
+        if (! empty($paid)) {
+            $document->grand_total = round($document->total - $paid, $currency->precision);
+        }
+
+        $buttons = [
+            'cancel' => [
+                'text' => trans('general.cancel'),
+                'class' => 'btn-outline-secondary'
+            ],
+            'payment' => [
+                'text' => trans('invoices.accept_payments'),
+                'class' => 'long-texts',
+                'url' => route('apps.categories.show', 'payment-method')
+            ],
+            'confirm' => [
+                'text' => trans('general.save'),
+                'class' => 'disabled:bg-green-100'
+            ],
+        ];
+
+        $route = ['modals.documents.document.transactions.update', $document->id, $transaction->id];
+
+        $html = view('modals.documents.payment', compact('document', 'transaction', 'route', 'currency', 'number'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => 'null',
+            'html' => $html,
+            'data' => [
+                'title' => trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]),
+                'buttons' => $buttons,
+            ]
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $item
+     * @param  $request
+     * @return Response
+     */
+    public function update(Document $document, Transaction $transaction, Request $request)
+    {
+        $response = $this->ajaxDispatch(new UpdateBankingDocumentTransaction($document, $transaction, $request));
+
+        if ($response['success']) {
+            $route = config('type.document.' . $document->type . '.route.prefix');
+
+            if ($alias = config('type.document.' . $document->type . '.alias')) {
                 $route = $alias . '.' . $route;
             }
 

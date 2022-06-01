@@ -25,7 +25,7 @@ abstract class FormRequest extends BaseFormRequest
      * @param  string  $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return Arr::has(
             $this->route() ? $this->all() + $this->route()->parameters() : $this->all(),

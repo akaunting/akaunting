@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Auth\UserCreated;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
@@ -66,6 +67,9 @@ class UpdateContact extends Job implements ShouldUpdate
         $user = User::create($data);
         $user->roles()->attach($customer_role);
         $user->companies()->attach($data['company_id']);
+        $this->request->merge(['companies' => array($data['company_id'])]);
+
+        event(new UserCreated($user, $this->request));
 
         $this->request['user_id'] = $user->id;
     }

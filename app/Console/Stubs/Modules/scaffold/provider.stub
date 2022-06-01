@@ -14,6 +14,7 @@ class $NAME$ extends Provider
      */
     public function register()
     {
+        //$this->loadConfig();
         $this->loadRoutes();
     }
 
@@ -28,7 +29,6 @@ class $NAME$ extends Provider
         $this->loadViewComponents();
         $this->loadTranslations();
         $this->loadMigrations();
-        //$this->loadConfig();
     }
 
     /**

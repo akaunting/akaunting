@@ -1,64 +1,75 @@
-@extends('layouts.portal')
+<x-layouts.portal>
+    <x-slot name="title">
+        {{ trans('general.title.edit', ['type' => trans('auth.profile')]) }}
+    </x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans('auth.profile')]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="portal" method="PATCH" :route="['portal.profile.update', $user->id]" :model="$user">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('auth.personal_information') }}" description="{{ trans('auth.form_description.personal') }}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($user, [
-            'id' => 'profile',
-            'method' => 'PATCH',
-            'route' => ['portal.profile.update', $user->id],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+                    <x-slot name="body">
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-4' : 'grid-rows-3' }}">
+                            <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        <div class="card-body">
-            <div class="row">
-                {{ Form::textGroup('name', trans('general.name'), 'user') }}
+                            <x-form.group.email name="email" label="{{ trans('general.email') }}" />
 
-                {{ Form::emailGroup('email', trans('general.email'), 'envelope') }}
+                            <x-form.group.text name="phone" label="{{ trans('general.phone') }}" value="{{ $user->contact->phone }}" not-required />
 
-                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], $user->contact->tax_number) }}
+                            <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3 {{ user()->id == $user->id ? '' : 'hidden' }}" input-group-class="pt-8" @input="onChangePassword($event)" />
 
-                {{ Form::textGroup('phone', trans('general.phone'), 'phone', [], $user->contact->phone) }}
+                            <x-form.group.password name="password" :label="trans('auth.password.new')" v-show="show_password" />
+                        </div>
 
-                {{ Form::textareaGroup('address', trans('general.address'), [], $user->contact->address) }}
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-4' : 'grid-rows-3' }}">
+                            @if (setting('default.use_gravatar', '0') == '1')
+                                <x-form.group.text name="fake_picture" label="{{ trans_choice('general.pictures', 1) }}" disabled placeholder="{{ trans('settings.default.use_gravatar') }}" form-group-class="sm:col-span-3 sm:row-span-3" />
+                            @else
+                                <x-form.group.file name="picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-3" />
+                            @endif
 
-                {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', [], $user->contact->city) }}
+                            <x-form.group.password name="current_password" :label="trans('auth.password.current')" v-show="show_password" />
 
-                {{ Form::textGroup('zip_code', trans('general.zip_code'), 'mail-bulk', [], $user->contact->zip_code) }}
+                            <x-form.group.password name="password_confirmation" :label="trans('auth.password.new_confirm')" v-show="show_password" />
+                        </div>
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::textGroup('state', trans('general.state'), 'city', [], $user->contact->state) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.preferences') }}" description="{!! trans('auth.form_description.preferences') !!}" />
+                    </x-slot>
 
-                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), $user->contact->country, []) }}
+                    <x-slot name="body">
+                        <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" value="{{ $user->contact->tax_number }}" not-required />
 
-                {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', []) }}
+                        <x-form.group.locale />
 
-                {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', []) }}
+                        <x-form.group.country :selected="$user->contact->country" />
 
-                {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), $user->locale) }}
+                        <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ $user->contact->city }}" not-required />
 
-                {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
-            </div>
-        </div>
+                        <x-form.group.text name="zip_code" label="{{ trans('general.zip_code') }}" value="{{ $user->contact->zip_code }}" not-required />
 
-        @canany(['update-portal-profile'])
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('portal.dashboard') }}
-                </div>
-            </div>
-        @endcanany
+                        <x-form.group.text name="state" label="{{ trans('general.state') }}" value="{{ $user->contact->state }}" not-required />
 
-        {!! Form::close() !!}
-    </div>
-@endsection
+                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" :value="$user->contact->address" />
+                    </x-slot>
+                </x-form.section>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/portal/profile.js?v=' . version('short')) }}"></script>
-@endpush
+                @canany(['update-portal-profile'])
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="portal.dashboard" />
+                    </x-slot>
+                </x-form.section>
+                @endcanany
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
+    <x-script folder="portal" file="apps" />
+</x-layouts.portal>

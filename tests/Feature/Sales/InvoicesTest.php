@@ -83,10 +83,12 @@ class InvoicesTest extends FeatureTestCase
         $this->assertDatabaseHas('documents', [
             'document_number' => $request['document_number']
         ]);
+
         $this->assertDatabaseHas('mediables', [
             'mediable_type' => Document::class,
             'tag'           => 'attachment',
         ]);
+
         $this->assertDatabaseHas('media', [
             'disk'           => 'uploads',
             'directory'      => '2021/05/15/1/invoices',
@@ -113,12 +115,13 @@ class InvoicesTest extends FeatureTestCase
         $request = $this->getRequest(true);
 
         $this->loginAs()
-            ->post(route('invoices.store'), $request)
+            ->post(route('recurring-invoices.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
 
         $this->assertDatabaseHas('documents', [
+            'type' => Document::INVOICE_RECURRING_TYPE,
             'document_number' => $request['document_number'],
         ]);
     }

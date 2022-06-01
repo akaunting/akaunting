@@ -62,11 +62,11 @@ class UpdateFailed extends Notification
      */
     public function toMail($notifiable)
     {
-        $subject = trans('notifications.update.mail.subject', [
+        $subject = trans('notifications.update.mail.title', [
             'domain' => request()->getHttpHost(),
         ]);
 
-        $message = trans('notifications.update.mail.message', [
+        $message = trans('notifications.update.mail.description', [
             'alias'             => $this->getAliasName(),
             'current_version'   => $this->event->old,
             'new_version'       => $this->event->new,
@@ -88,7 +88,7 @@ class UpdateFailed extends Notification
      */
     public function toSlack($notifiable)
     {
-        $message = trans('notifications.update.slack.message', [
+        $message = trans('notifications.update.slack.description', [
             'domain' => request()->getHttpHost(),
         ]);
 

@@ -1,10 +1,12 @@
-@extends('layouts.print')
+<x-layouts.print>
+    <x-slot name="title">
+        {{ trans_choice('general.invoices', 1) . ': ' . $invoice->document_number }}
+    </x-slot>
 
-@section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->document_number)
-
-@section('content')
-    <x-documents.template.modern
-        type="invoice"
-        :document="$invoice"
-    />
-@endsection
+    <x-slot name="content">
+        <x-documents.template.modern
+            type="invoice"
+            :document="$invoice"
+        />
+    </x-slot>
+</x-layouts.print>

@@ -2,7 +2,7 @@
 
 return [
 
-    'sales_price'           => 'מחיר מבצע',
+    'sale_price'           => 'מחיר מבצע',
     'purchase_price'        => 'מחיר רכישה',
 
 ];

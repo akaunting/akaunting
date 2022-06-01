@@ -3,9 +3,12 @@
 namespace App\Listeners\Document;
 
 use App\Events\Document\DocumentRecurring as Event;
+use App\Traits\Documents;
 
 class SendDocumentRecurringNotification
 {
+    use Documents;
+
     /**
      * Handle the event.
      *
@@ -15,21 +18,25 @@ class SendDocumentRecurringNotification
     public function handle(Event $event)
     {
         $document = $event->document;
-        $config = config('type.' . $document->type . '.notification');
+        $config = config('type.document.' . $document->type . '.notification');
 
         if (empty($config) || empty($config['class'])) {
+            return;
+        }
+
+        if ($document->parent?->recurring?->auto_send == false) {
             return;
         }
 
         $notification = $config['class'];
 
         // Notify the customer
-        if ($config['notify_contact'] && $document->contact && !empty($document->contact_email)) {
+        if ($this->canNotifyTheContactOfDocument($document)) {
             $document->contact->notify(new $notification($document, "{$document->type}_recur_customer"));
         }
 
         // Check if should notify users
-        if (!$config['notify_user']) {
+        if (! $config['notify_user']) {
             return;
         }
 

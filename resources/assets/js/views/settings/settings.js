@@ -25,12 +25,6 @@ const app = new Vue({
         Global
     ],
 
-    mounted() {
-        this.onChangeProtocol(this.form.protocol);
-
-        this.color = this.form.color;
-    },
-
     data: function () {
         return {
             form: new Form('setting'),
@@ -43,6 +37,8 @@ const app = new Vue({
                 smtpPassword:true,
                 smtpEncryption:true,
             },
+            tags: null,
+            template_title: '',
 
             invoice_form: new Form('template'),
             template: {
@@ -52,17 +48,9 @@ const app = new Vue({
                 html: '',
                 errors: new Error()
             },
-
-            color: '#55588b',
-            predefineColors: [
-                '#3c3f72',
-                '#55588b',
-                '#e5e5e5',
-                '#328aef',
-                '#efad32',
-                '#ef3232',
-                '#efef32'
-            ],
+            item_name_input: false,
+            price_name_input: false,
+            quantity_name_input: false
         }
     },
 
@@ -138,12 +126,39 @@ const app = new Vue({
             };
         },
 
-        onChangeColor() {
-            this.form.color = this.color;
+        onEditEmailTemplate(template_id) {
+            axios.get(url + '/settings/email-templates/get', {
+                params: {
+                    id: template_id
+                }
+            })
+            .then(response => {
+                this.template_title = response.data.data.title;
+                this.form.subject = response.data.data.subject;
+                this.form.body = response.data.data.body;
+                this.form.id = response.data.data.id;
+                this.tags = response.data.data.tags;
+            });
         },
 
-        onChangeColorInput() {
-            this.color = this.form.color;
+        settingsInvoice() {
+            if (this.form.item_name == 'custom') {
+                this.item_name_input = true;
+            } else {
+                this.item_name_input = false;
+            }
+
+            if (this.form.price_name == 'custom') {
+                this.price_name_input = true;
+            } else {
+                this.price_name_input = false;
+            }
+
+            if (this.form.quantity_name == 'custom') {
+                this.quantity_name_input = true;
+            } else {
+                this.quantity_name_input = false;
+            }
         }
     }
 });

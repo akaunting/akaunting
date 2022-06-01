@@ -78,7 +78,7 @@ return [
     'send'                  => 'Envoyer',
     'share'                 => 'Partager',
     'download'              => 'Télécharger',
-    'delete_confirm'        => 'Valider la suppression de :name :type ?',
+    'delete_confirm'        => 'Valider la suppression de :name :type ?',
     'name'                  => 'Nom',
     'email'                 => 'Email',
     'tax_number'            => 'Numéro de taxe',
@@ -109,7 +109,7 @@ return [
     'filter'                => 'Filtre',
     'help'                  => 'Aide',
     'all'                   => 'Tous',
-    'all_type'              => 'Tous :type',
+    'all_type'              => 'Tous :type',
     'upcoming'              => 'À venir',
     'created'               => 'Créés',
     'id'                    => 'Identifiant',
@@ -146,7 +146,7 @@ return [
     'sort'                  => 'Trier',
     'width'                 => 'Largeur',
     'month'                 => 'Mois',
-    'year'                  => 'Année ',
+    'year'                  => 'Année',
     'type_item_name'        => 'Nom article',
     'no_data'               => 'Aucune donnée',
     'no_matching_data'      => 'Aucune donnée correspondante',
@@ -161,7 +161,7 @@ return [
     ],
 
     'title' => [
-        'new'               => 'Nouveau :type',
+        'new'               => 'Nouveau :type',
         'edit'              => 'Modifier :type',
         'delete'            => 'Supprimer :type',
         'create'            => 'Créer :type',
@@ -172,7 +172,7 @@ return [
     ],
 
     'form' => [
-        'enter'             => 'Entrez :field',
+        'enter'             => 'Entrez :field',
         'select' => [
             'field'         => '- Selectionner :field -',
             'file'          => 'Selectionner un fichier',

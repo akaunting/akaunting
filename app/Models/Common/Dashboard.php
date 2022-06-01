@@ -115,6 +115,42 @@ class Dashboard extends Model
     }
 
     /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        if ($this->enabled) {
+            $actions[] = [
+                'title' => trans('general.switch'),
+                'icon' => 'settings_ethernet',
+                'url' => route('dashboards.switch', $this->id),
+                'permission' => 'read-common-dashboards',
+            ];
+        }
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('dashboards.edit', $this->id),
+            'permission' => 'update-common-dashboards',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'dashboards.destroy',
+            'permission' => 'delete-common-dashboards',
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

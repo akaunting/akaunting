@@ -168,7 +168,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Qo\'shimcha ma\'lumot olish uchun<a href=":url" target="_blank" class="text-success">hujjatlarni</a> tekshiring.',
+        'documentation' => 'Qo\'shimcha ma\'lumot olish uchun<a href=":url" target="_blank" class="text-green">hujjatlarni</a> tekshiring.',
         'items' => 'Mahsulotlar tovarlar yoki xizmatlar bo\'lishi mumkin. Hisob-fakturalar va hisoblarni yaratishda siz elementlardan narxlar, soliq va boshqalar maydon, qatorlarini to\'ldirishda foydalanishingiz mumkin.',
         'invoices' => 'Hisob-fakturalar bir martalik yoki takrorlanadigan bo\'lishi mumkin. Siz ularni mijozlarga yuborishingiz va onlayn to\'lovlarni qabul qilishni boshlashingiz mumkin.',
         'revenues' => 'Daromad - bu to\'langan foyda bitimi. Bu mustaqil yozuv bo\'lishi mumkin (ya\'ni depozit) yoki hisob qaydnomasiga qo\'shilishi mumkin.',

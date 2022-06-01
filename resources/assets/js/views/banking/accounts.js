@@ -31,4 +31,29 @@ const app = new Vue({
             bulk_action: new BulkAction('accounts'),
         }
     },
+
+    methods: {
+        onType(event) {
+            return;
+            let type = event.target.value;
+
+            switch(type) {
+                case 'credit_card':
+                    this.onCreditCard();
+                    break;
+                case 'bank':
+                default:
+                    this.onBank();
+                    break;
+            }
+        },
+
+        onCreditCard() {
+
+        },
+
+        onBank() {
+
+        },
+    }
 });

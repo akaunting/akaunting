@@ -99,7 +99,7 @@ class CustomersTest extends FeatureTestCase
 
         $customer = $this->dispatch(new CreateContact($request));
 
-        $request['email'] = $this->faker->safeEmail;
+        $request['email'] = $this->faker->freeEmail;
 
         $this->loginAs()
             ->patch(route('customers.update', $customer->id), $request)

@@ -84,7 +84,7 @@ class VendorsTest extends FeatureTestCase
 
         $vendor = $this->dispatch(new CreateContact($request));
 
-        $request['email'] = $this->faker->safeEmail;
+        $request['email'] = $this->faker->freeEmail;
 
         $this->loginAs()
             ->patch(route('vendors.update', $vendor->id), $request)

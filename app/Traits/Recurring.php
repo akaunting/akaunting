@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Common\Recurring as Model;
 use App\Utilities\Date;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
@@ -17,18 +18,25 @@ trait Recurring
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
         $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
-        $started_at = !empty($request['paid_at']) ? $request['paid_at'] : $request['issued_at'];
+        $started_at = !empty($request['recurring_started_at']) ? $request['recurring_started_at'] : Date::now();
+        $status = !empty($request['recurring_status']) ? $request['recurring_status'] : Model::ACTIVE_STATUS;
+        $limit_by = !empty($request['recurring_limit']) ? $request['recurring_limit'] : 'count';
+        $limit_count = isset($request['recurring_limit_count']) ? (int) $request['recurring_limit_count'] : 0;
+        $limit_date = !empty($request['recurring_limit_date']) ? $request['recurring_limit_date'] : null;
         $source = !empty($request['created_from']) ? $request['created_from'] : source_name();
         $owner = !empty($request['created_by']) ? $request['created_by'] : user_id();
 
         $this->recurring()->create([
-            'company_id' => $this->company_id,
-            'frequency' => $frequency,
-            'interval' => $interval,
-            'started_at' => $started_at,
-            'count' => (int) $request['recurring_count'],
-            'created_from' => $source,
-            'created_by' => $owner,
+            'company_id'    => $this->company_id,
+            'frequency'     => $frequency,
+            'interval'      => $interval,
+            'started_at'    => $started_at,
+            'status'        => $status,
+            'limit_by'      => $limit_by,
+            'limit_count'   => $limit_count,
+            'limit_date'    => $limit_date,
+            'created_from'  => $source,
+            'created_by'    => $owner,
         ]);
     }
 
@@ -36,23 +44,33 @@ trait Recurring
     {
         if (empty($request['recurring_frequency']) || ($request['recurring_frequency'] == 'no')) {
             $this->recurring()->delete();
+
             return;
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
         $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
-        $started_at = !empty($request['paid_at']) ? $request['paid_at'] : $request['issued_at'];
+        $started_at = !empty($request['recurring_started_at']) ? $request['recurring_started_at'] : Date::now();
+        $limit_by = !empty($request['recurring_limit']) ? $request['recurring_limit'] : 'count';
+        $limit_count = isset($request['recurring_limit_count']) ? (int) $request['recurring_limit_count'] : 0;
+        $limit_date = !empty($request['recurring_limit_date']) ? $request['recurring_limit_date'] : null;
 
         $recurring = $this->recurring();
         $model_exists = $recurring->count();
 
         $data = [
-            'company_id' => $this->company_id,
-            'frequency' => $frequency,
-            'interval' => $interval,
-            'started_at' => $started_at,
-            'count' => (int) $request['recurring_count'],
+            'company_id'    => $this->company_id,
+            'frequency'     => $frequency,
+            'interval'      => $interval,
+            'started_at'    => $started_at,
+            'limit_by'      => $limit_by,
+            'limit_count'   => $limit_count,
+            'limit_date'    => $limit_date,
         ];
+
+        if (! empty($request['recurring_status'])) {
+            $data['status'] = $request['recurring_status'];
+        }
 
         if ($model_exists) {
             $recurring->update($data);
@@ -61,13 +79,14 @@ trait Recurring
             $owner = !empty($request['created_by']) ? $request['created_by'] : user_id();
 
             $recurring->create(array_merge($data, [
-                'created_from' => $source,
-                'created_by' => $owner,
+                'status'        => Model::ACTIVE_STATUS,
+                'created_from'  => $source,
+                'created_by'    => $owner,
             ]));
         }
     }
 
-    public function getRecurringSchedule($set_until_date = true)
+    public function getRecurringSchedule()
     {
         $config = new ArrayTransformerConfig();
         $config->enableLastDayOfMonthFix();
@@ -76,10 +95,10 @@ trait Recurring
         $transformer = new ArrayTransformer();
         $transformer->setConfig($config);
 
-        return $transformer->transform($this->getRecurringRule($set_until_date));
+        return $transformer->transform($this->getRecurringRule());
     }
 
-    public function getRecurringRule($set_until_date = true)
+    public function getRecurringRule()
     {
         $rule = (new Rule())
             ->setStartDate($this->getRecurringRuleStartDate())
@@ -87,13 +106,11 @@ trait Recurring
             ->setFreq($this->getRecurringRuleFrequency())
             ->setInterval($this->getRecurringRuleInterval());
 
-        // 0 means infinite
-        if ($this->count != 0) {
-            $rule->setCount($this->getRecurringRuleCount());
-        }
-
-        if ($set_until_date) {
+        if ($this->limit_by == 'date') {
             $rule->setUntil($this->getRecurringRuleUntilDate());
+        } elseif ($this->limit_count != 0) {
+            // 0 means infinite
+            $rule->setCount($this->getRecurringRuleCount());
         }
 
         return $rule;
@@ -101,12 +118,27 @@ trait Recurring
 
     public function getRecurringRuleStartDate()
     {
-        return new \DateTime($this->started_at, new \DateTimeZone($this->getRecurringRuleTimeZone()));
+        return $this->getRecurringRuleDate($this->started_at);
     }
 
     public function getRecurringRuleUntilDate()
     {
-        return new \DateTime(Date::today()->toDateTimeString(), new \DateTimeZone($this->getRecurringRuleTimeZone()));
+        return $this->getRecurringRuleDate($this->limit_date);
+    }
+
+    public function getRecurringRuleTodayDate()
+    {
+        return $this->getRecurringRuleDate(Date::today()->toDateTimeString());
+    }
+
+    public function getRecurringRuleTomorrowDate()
+    {
+        return $this->getRecurringRuleDate(Date::tomorrow()->toDateTimeString());
+    }
+
+    public function getRecurringRuleDate($date)
+    {
+        return new \DateTime($date, new \DateTimeZone($this->getRecurringRuleTimeZone()));
     }
 
     public function getRecurringRuleTimeZone()
@@ -117,7 +149,7 @@ trait Recurring
     public function getRecurringRuleCount()
     {
         // Fix for humans
-        return $this->count + 1;
+        return $this->limit_count + 1;
     }
 
     public function getRecurringRuleFrequency()
@@ -153,7 +185,7 @@ trait Recurring
 
     public function getCurrentRecurring()
     {
-        if (!$schedule = $this->getRecurringSchedule()) {
+        if (! $schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
@@ -162,11 +194,11 @@ trait Recurring
 
     public function getNextRecurring()
     {
-        if (!$schedule = $this->getRecurringSchedule()) {
+        if (! $schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
-        if (!$next = $schedule->next()) {
+        if (! $next = $schedule->next()) {
             return false;
         }
 
@@ -175,7 +207,7 @@ trait Recurring
 
     public function getFirstRecurring()
     {
-        if (!$schedule = $this->getRecurringSchedule()) {
+        if (! $schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
@@ -184,7 +216,7 @@ trait Recurring
 
     public function getLastRecurring()
     {
-        if (!$schedule = $this->getRecurringSchedule()) {
+        if (! $schedule = $this->getRecurringSchedule()) {
             return false;
         }
 

@@ -9,23 +9,12 @@ return [
     'new'                   => 'Novo',
     'top_free'              => 'Najbolje besplatno',
     'free'                  => 'BESPLATNO',
-    'monthly'               => 'Mjesečno',
-    'yearly'                => 'Godišnje',
-    'yearly_pricing'        => 'Godišnje plaćanje',
-    'monthly_price'         => 'od :price',
-    'per_month'             => 'mjesečno',
-    'billed_yearly'         => 'Godišnja naplata',
-    'billed_monthly'        => 'Mjesečna naplata',
-    'save_year'             => 'Sačuvali ste <strong>:price</strong> godišnje!',
-    'if_paid_year'          => 'Ili <strong>:price/mjesečno</strong>ako platite godišnje',
-    'information_monthly'   => 'Ova opcija je dostupna samo u sklopu <strong>Cloud Servisa</strong>',
     'install'               => 'Instaliraj',
     'buy_now'               => 'Kupi odmah',
     'get_api_key'           => '<a href=":url" target="_blank"> Kliknite ovdje </a> da biste dobili svoj API ključ.',
     'no_apps'               => 'U ovoj kategoriji još nema aplikacija.',
     'become_developer'      => 'Jeste li programer? <a href=":url" target="_blank"> Ovdje </a> možete naučiti kako stvoriti aplikaciju i započeti s prodajom već danas!',
     'recommended_apps'      => 'Preporučene aplikacije',
-    'can_not_install'       => 'Mjesečna pretplata je dostupna samo na Cloud servisima. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Pročitaj više.</a>',
 
     'about'                 => 'O aplikaciji',
 
@@ -60,7 +49,6 @@ return [
     ],
 
     'errors' => [
-        'purchase'          => 'Trebali biste kupiti/obnoviti :module!',
         'download'          => 'Ne mogu preuzeti: modul',
         'zip'               => 'Ne može stvoriti: zip datoteku modula',
         'unzip'             => 'Ne mogu raspakirati: modul',

@@ -14,7 +14,7 @@ class Companies extends Controller
     {
         // Add CRUD permission check
         $this->middleware('permission:read-settings-company')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable');
+        $this->middleware('permission:update-settings-company')->only('update', 'enable', 'disable');
     }
 
     /**

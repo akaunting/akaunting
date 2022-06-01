@@ -1,89 +1,87 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('general.title.edit', ['type' => trans_choice('general.users', 1)]) }}</x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.users', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="user" method="PATCH" :route="[$route, $user->id]" :model="$user">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('auth.personal_information') }}" description="{{ trans('auth.form_description.personal') }}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($user, [
-            'id' => 'user',
-            'method' => 'PATCH',
-            'route' => ['users.update', $user->id],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+                    <x-slot name="body">
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-3' : 'grid-rows-2' }}">
+                            <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                            <x-form.group.email name="email" label="{{ trans('general.email') }}" />
 
-                    {{ Form::emailGroup('email', trans('general.email'), 'envelope') }}
+                            @if (user()->id == $user->id)
+                            <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3" @input="onChangePassword($event)" />
 
-                    {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', []) }}
+                            <x-form.group.password name="password" :label="trans('auth.password.new')" v-show="show_password" />
+                            @endif
+                        </div>
 
-                    {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', []) }}
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-3' : 'grid-rows-2' }}">
+                            @if (setting('default.use_gravatar', '0') == '1')
+                                <x-form.group.text name="fake_picture" label="{{ trans_choice('general.pictures', 1) }}" disabled placeholder="{{ trans('settings.default.use_gravatar') }}" form-group-class="sm:col-span-3 sm:row-span-2" />
+                            @else
+                                <x-form.group.file name="picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
+                            @endif
 
-                    {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), $user->locale) }}
+                            @if (user()->id == $user->id)
+                            <x-form.group.password name="current_password" :label="trans('auth.password.current')" v-show="show_password" />
 
-                    {{ Form::selectGroup('landing_page', trans('auth.landing_page'), 'sign-in-alt', $landing_pages, $user->landing_page) }}
+                            <x-form.group.password name="password_confirmation" :label="trans('auth.password.new_confirm')" v-show="show_password" />
+                            @endif
+                        </div>
+                    </x-slot>
+                </x-form.section>
 
-                    @if (setting('default.use_gravatar', '0') == '1')
-                        @stack('picture_input_start')
-                            <div class="form-group col-md-6 disabled">
-                                {!! Form::label('picture', trans_choice('general.pictures', 1), ['class' => 'control-label']) !!}
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-image"></i>
-                                        </span>
-                                    </div>
-                                    {!! Form::text('fake_picture', null, ['id' => 'fake_picture', 'class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => trans('settings.default.use_gravatar')]) !!}
-                                </div>
-                            </div>
-                        @stack('picture_input_end')
-                    @else
-                        {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
-                    @endif
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
+                    </x-slot>
 
-                    @can('read-common-companies')
-                        {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'disabled' => (in_array('customer', $user->roles()->pluck('name')->toArray())) ? 'true' : 'false', 'remote_action' => route('companies.index')]) }}
-                    @endcan
+                    <x-slot name="body">
+                        @can('read-common-companies')
+                            <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" selected-key="company_ids" :remote_action="route('companies.index')" form-group-class="sm:col-span-6" />
+                        @endcan
 
-                    @can('read-auth-roles')
-                        {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
-                    @endcan
+                        @role('admin|manager')
+                            <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" selected-key="roles.id" />
+                        @endrole
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), $user->enabled) }}
-                </div>
-            </div>
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.preferences') }}" description="{!! trans('auth.form_description.preferences') !!}" />
+                    </x-slot>
 
-            @canany(['update-auth-users', 'update-auth-profile'])
-                <div class="card-footer">
-                    <div class="row save-buttons">
+                    <x-slot name="body">
+                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" />
+
+                        <x-form.group.locale />
+                    </x-slot>
+                </x-form.section>
+
+                <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
+
+                @canany(['update-auth-users', 'update-auth-profile'])
+                <x-form.section>
+                    <x-slot name="foot">
                         @if (user()->can('read-auth-users'))
-                            {{ Form::saveButtons('users.index') }}
+                            <x-form.buttons cancel-route="users.index" />
                         @else
-                            {{ Form::saveButtons('dashboard') }}
+                            <x-form.buttons cancel-route="dashboard" />
                         @endif
-                    </div>
-                </div>
-            @endcanany
-        {!! Form::close() !!}
-    </div>
-@endsection
+                    </x-slot>
+                </x-form.section>
+                @endcanany
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-@push('stylesheet')
-    <style type="text/css">
-        .el-select .el-select__tags > span {
-            display: flex;
-            margin-bottom: -75px;
-        }
-    </style>
-@endpush
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/auth/users.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="auth" file="users" />
+</x-layouts.admin>

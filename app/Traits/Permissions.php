@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use App\Traits\SearchString;
+use App\Traits\Translations;
 use App\Utilities\Reports;
 use App\Utilities\Widgets;
 use Illuminate\Routing\Route;
@@ -13,7 +14,7 @@ use Illuminate\Support\Str;
 
 trait Permissions
 {
-    use SearchString;
+    use SearchString, Translations;
 
     public function getActionsMap()
     {
@@ -248,13 +249,37 @@ trait Permissions
 
     public function createRole($name, $display_name = null, $description = null)
     {
-        $display_name = $display_name ?? Str::title($name);
+        $alias = !empty($this->alias) ? $this->alias : $name;
+
+        if (empty($display_name)) {
+            $display_name = $this->findTranslation([
+                'auth.roles.' . Str::replace('-', '_', $name) . '.name',
+                $alias . '::permissions.roles.' . Str::replace('-', '_', $name) . '.name',
+                $alias . '::auth.roles.' . Str::replace('-', '_', $name) . '.name',
+            ]);
+
+            if (empty($display_name)) {
+                $display_name = Str::title(Str::replace('-', ' ', $name));
+            }
+        }
+
+        if (empty($description)) {
+            $description = $this->findTranslation([
+                'auth.roles.' . Str::replace('-', '_', $name) . '.description',
+                $alias . '::permissions.roles.' . Str::replace('-', '_', $name) . '.description',
+                $alias . '::auth.roles.' . Str::replace('-', '_', $name) . '.description',
+            ]);
+
+            if (empty($description)) {
+                $description = $display_name;
+            }
+        }
 
         return Role::firstOrCreate([
             'name' => $name,
         ], [
             'display_name' => $display_name,
-            'description' => $description ?? $display_name,
+            'description' => $description,
         ]);
     }
 
@@ -408,24 +433,24 @@ trait Permissions
         $table = request()->isApi() ? request()->segment(2) : '';
 
         // Find the proper controller for common API endpoints
-        if (in_array($table, ['contacts', 'documents', 'transactions'])) {
+        if (in_array($table, ['contacts', 'documents'])) {
             $controller = '';
 
             // Look for type in search variable like api/contacts?search=type:customer
             $type = $this->getSearchStringValue('type');
 
-            if (!empty($type)) {
-                $alias = config('type.' . $type . '.alias');
-                $group = config('type.' . $type . '.group');
-                $prefix = config('type.' . $type . '.permission.prefix');
+            if (! empty($type)) {
+                $alias = config('type.' . Str::singular($table) . '.' . $type . '.alias');
+                $group = config('type.' . Str::singular($table) . '.' . $type . '.group');
+                $prefix = config('type.' . Str::singular($table) . '.' . $type . '.permission.prefix');
 
                 // if use module set module alias
-                if (!empty($alias)) {
+                if (! empty($alias)) {
                     $controller .= $alias . '-';
                 }
 
                 // if controller in folder it must
-                if (!empty($group)) {
+                if (! empty($group)) {
                     $controller .= $group . '-';
                 }
 
@@ -449,7 +474,7 @@ trait Permissions
             }
 
             // Add folder
-            if (!in_array(strtolower($arr[1]), ['api', 'controllers'])) {
+            if (! in_array(strtolower($arr[1]), ['api', 'controllers'])) {
                 $controller .= Str::kebab($arr[1]) . '-';
             }
 

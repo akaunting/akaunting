@@ -12,6 +12,9 @@ use App\Models\Common\Recurring;
 use App\Models\Document\Document;
 use App\Utilities\Date;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RecurringCheck extends Command
 {
@@ -36,25 +39,40 @@ class RecurringCheck extends Command
      */
     public function handle()
     {
+        // Bind to container
+        app()->instance(static::class, $this);
+
         // Disable model cache
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all recurring
-        $recurring = Recurring::allCompanies()->with('company')->get();
+        $recurring = Recurring::with('company')
+                                /*->whereHas('recurable', function (Builder $query) {
+                                    $query->allCompanies();
+                                })*/
+                                ->active()
+                                ->allCompanies()
+                                ->cursor();
 
-        $this->info('Creating recurring records ' . $recurring->count());
+        //$this->info('Total recurring: ' . $recurring->count());
+
+        $today = Date::today();
 
         foreach ($recurring as $recur) {
             if (empty($recur->company)) {
+                $this->info('Missing company.');
+
+                $recur->delete();
+
                 continue;
             }
 
+            $this->info('Creating records for ' . $recur->id . ' recurring...');
+
             $company_name = !empty($recur->company->name) ? $recur->company->name : 'Missing Company Name : ' . $recur->company->id;
 
-            $this->info('Creating recurring records for ' . $company_name . ' company...');
-
             // Check if company is disabled
-            if (!$recur->company->enabled) {
+            if (! $recur->company->enabled) {
                 $this->info($company_name . ' company is disabled. Skipping...');
 
                 if (Date::parse($recur->company->updated_at)->format('Y-m-d') > Date::now()->subMonth(3)->format('Y-m-d')) {
@@ -75,7 +93,7 @@ class RecurringCheck extends Command
                 }
             }
 
-            if (!$has_active_users) {
+            if (! $has_active_users) {
                 $this->info('No active users for ' . $company_name . ' company. Skipping...');
 
                 $recur->delete();
@@ -85,31 +103,46 @@ class RecurringCheck extends Command
 
             company($recur->company_id)->makeCurrent();
 
-            $today = Date::today();
+            if (! $model = $recur->recurable) {
+                $this->info('Missing model.');
 
-            if (!$model = $recur->recurable) {
+                $recur->delete();
+
                 continue;
             }
 
-            $schedules = $recur->getRecurringSchedule();
-
             $children_count = $this->getChildrenCount($model);
+
+            $schedules = $recur->getRecurringSchedule();
             $schedule_count = $schedules->count();
 
             // All recurring created, including today
             if ($children_count > ($schedule_count - 1)) {
+                $this->info('All recurring created.');
+
+                $recur->update(['status' => Recurring::COMPLETE_STATUS]);
+
                 continue;
             }
 
             // Recur only today
             if ($children_count == ($schedule_count - 1)) {
+                $this->info('Recur only today.');
+
                 $this->recur($model, $recur->recurable_type, $today);
+
+                $recur->update(['status' => Recurring::COMPLETE_STATUS]);
 
                 continue;
             }
 
-            // Recur all schedules, previously failed
+            // Don't create records for the future
+            $schedules = $schedules->endsBefore($recur->getRecurringRuleTomorrowDate());
+
+            // Recur all schedules, including the previously failed ones
             foreach ($schedules as $schedule) {
+                $this->info('Recur all schedules.');
+
                 $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
 
                 $this->recur($model, $recur->recurable_type, $schedule_date);
@@ -117,13 +150,16 @@ class RecurringCheck extends Command
         }
 
         Company::forgetCurrent();
+
+        // Remove from container
+        app()->forgetInstance(static::class);
     }
 
     protected function recur($model, $type, $schedule_date)
     {
-        \DB::transaction(function () use ($model, $type, $schedule_date) {
-            /** @var Document $clone */
-            if (!$clone = $this->getClone($model, $schedule_date)) {
+        DB::transaction(function () use ($model, $type, $schedule_date) {
+            /** @var Document|Transaction $clone */
+            if (! $clone = $this->getClone($model, $schedule_date)) {
                 return;
             }
 
@@ -185,13 +221,12 @@ class RecurringCheck extends Command
 
         $clone = $model->duplicate();
 
-        $date_field = $this->getDateField($model);
-
         // Days between issued and due date
-        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$date_field));
+        $diff_days = Date::parse($model->due_at)->diffInDays(Date::parse($model->issued_at));
 
+        $clone->type = $this->getRealType($clone->type);
         $clone->parent_id = $model->id;
-        $clone->$date_field = $schedule_date->format('Y-m-d');
+        $clone->issued_at = $schedule_date->format('Y-m-d');
         $clone->due_at = $schedule_date->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->created_from = 'core::recurring';
         $clone->save();
@@ -213,6 +248,7 @@ class RecurringCheck extends Command
 
         $clone = $model->duplicate();
 
+        $clone->type = $this->getRealType($clone->type);
         $clone->parent_id = $model->id;
         $clone->paid_at = $schedule_date->format('Y-m-d');
         $clone->created_from = 'core::recurring';
@@ -230,9 +266,7 @@ class RecurringCheck extends Command
             return true;
         }
 
-        $table = $this->getTable($model);
-
-        $already_cloned = \DB::table($table)
+        $already_cloned = DB::table($model->getTable())
                                 ->where('parent_id', $model->id)
                                 ->whereDate($date_field, $schedule_date)
                                 ->value('id');
@@ -247,9 +281,7 @@ class RecurringCheck extends Command
 
     protected function getChildrenCount($model)
     {
-        $table = $this->getTable($model);
-
-        return \DB::table($table)
+        return DB::table($model->getTable())
             ->where('parent_id', $model->id)
             ->count();
     }
@@ -265,14 +297,8 @@ class RecurringCheck extends Command
         }
     }
 
-    protected function getTable($model)
+    public function getRealType(string $recurring_type): string
     {
-        if ($model instanceof Transaction) {
-            return 'transactions';
-        }
-
-        if ($model instanceof Document) {
-            return 'documents';
-        }
+        return Str::replace('-recurring', '', $recurring_type);
     }
 }

@@ -9,23 +9,12 @@ return [
     'new'                   => 'Nové',
     'top_free'              => 'Nejlepší bezplatné',
     'free'                  => 'ZDARMA',
-    'monthly'               => 'Měsíčně',
-    'yearly'                => 'Ročně',
-    'yearly_pricing'        => 'Roční cena',
-    'monthly_price'         => 'od :price',
-    'per_month'             => 'za měsíc',
-    'billed_yearly'         => 'Účtováno ročně',
-    'billed_monthly'        => 'Účtováno měsíčně',
-    'save_year'             => 'Ušetříte <strong>:price</strong> za rok!',
-    'if_paid_year'          => 'Nebo <strong>:price/mo</strong> pokud je placeno ročně',
-    'information_monthly'   => 'Tato možnost je platná pouze pro <strong>Cloudovou službu</strong>',
     'install'               => 'Instalovat',
     'buy_now'               => 'Koupit',
     'get_api_key'           => '<a href=":url" target="_blank">Klikněte zde</a> pro získání API klíče.',
     'no_apps'               => 'V této kategorii zatím nejsou žádné aplikace.',
     'become_developer'      => 'Jste vývojář/ka? <a href=":url" target="_blank">Zde</a> se dozvíte, jak vytvořit a hned začít prodávat vaší aplikaci!',
     'recommended_apps'      => 'Doporučené aplikace',
-    'can_not_install'       => 'Měsíční předplatné jsou k dispozici pouze pro Cloudovou službu. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Další informace</a>',
 
     'about'                 => 'O aplikaci',
 
@@ -38,7 +27,7 @@ return [
 
     'installed'             => ':module nainstalován',
     'uninstalled'           => ':module odinstalováno',
-    'updated_2'             => ':module aktualizován',
+    //'updated'               => ':module updated',
     'enabled'               => ':module povolen',
     'disabled'              => ':module zakázán',
 
@@ -60,7 +49,6 @@ return [
     ],
 
     'errors' => [
-        'purchase'          => 'Měli byste si zakoupit/obnovit :module!',
         'download'          => 'Nelze stáhnout :module',
         'zip'               => 'Není možné vytvořit zip soubor :module',
         'unzip'             => 'Nelze rozbalit: modul',

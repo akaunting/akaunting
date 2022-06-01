@@ -9,23 +9,12 @@ return [
     'new'                   => 'नया',
     'top_free'              => 'टॉप फ़्री',
     'free'                  => 'फ़्री',
-    'monthly'               => 'मासिक',
-    'yearly'                => 'वार्षिक',
-    'yearly_pricing'        => 'वार्षिक मूल्य निर्धारण',
-    'monthly_price'         => ' :price से',
-    'per_month'             => 'प्रति माह',
-    'billed_yearly'         => 'वार्षिक बिल किया गया',
-    'billed_monthly'        => 'मासिक बिल किया गया',
-    'save_year'             => 'आप सालाना <strong>:price</strong> बचाते हैं!',
-    'if_paid_year'          => 'या <strong>:price/mo</strong> अगर सालाना भुगतान किया जाता है',
-    'information_monthly'   => 'यह विकल्प केवल <strong>क्लाउड सेवा</strong> के लिए मान्य है',
     'install'               => 'इंस्टॉल करें',
     'buy_now'               => 'अभी खरीदें',
     'get_api_key'           => 'अपनी एपीआई कुंजी प्राप्त करने के लिए यहां <a href=":url" target="_blank">क्लिक</a> करें।',
     'no_apps'               => 'इस श्रेणी में अभी तक कोई एप्लिकेशन नहीं हैं।',
     'become_developer'      => 'क्या आप एक डेवलपर हैं? <a href=":url" target="_blank">यहां</a> आप सीख सकते हैं कि ऐप कैसे बनाएं और आज बेचना शुरू करें!',
     'recommended_apps'      => 'अनुशंसित ऐप्स',
-    'can_not_install'       => 'मासिक सदस्यता केवल क्लाउड सेवा पर उपलब्ध है। <a href="https://akaunting.com/upgrad-to-yearly" target="_blank">और जानें।</a>',
 
     'about'                 => 'के बारे में',
 
@@ -60,7 +49,6 @@ return [
     ],
 
     'errors' => [
-        'purchase'          => 'आपको :module! खरीदना/नवीनीकरण करना चाहिए !',
         'download'          => ':module डाउनलोड करने में सक्षम नहीं है।',
         'zip'               => ':module ज़िप फ़ाइल बनाने में सक्षम नहीं है।',
         'unzip'             => ':module अनज़िप करने में सक्षम नहीं है।',

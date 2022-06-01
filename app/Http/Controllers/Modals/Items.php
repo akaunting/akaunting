@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Jobs\Common\CreateItem;
-use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use Illuminate\Http\Request as IRequest;
@@ -30,13 +29,11 @@ class Items extends Controller
      */
     public function create(IRequest $request)
     {
-        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        $html = view('modals.items.create', compact('categories', 'taxes', 'currency'))->render();
+        $html = view('modals.items.create', compact('taxes', 'currency'))->render();
 
         return response()->json([
             'success' => true,

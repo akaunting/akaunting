@@ -10,9 +10,5 @@ return [
     'bank_phone'            => 'Teléfono del banco',
     'bank_address'          => 'Dirección del banco',
     'default_account'       => 'Cuenta predeterminada',
-    'incoming'              => 'Entrante',
-    'outgoing'              => 'Saliente',
-    'see_performance'       => 'Ver rendimiento',
-    'create_report'         => 'Si desea ver el rendimiento de la cuenta. Puede crear una instancia de reporte de ingresos vs. gastos.',
 
 ];

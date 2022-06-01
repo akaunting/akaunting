@@ -2,32 +2,45 @@
 
 namespace App\View\Components\Transfers;
 
-use Illuminate\View\Component;
+use App\Abstracts\View\Component;
+use App\Traits\ViewComponents;
 
 class Script extends Component
 {
-    /** @var string */
-    public $type;
+    use ViewComponents;
 
-    /** @var string */
-    public $scriptFile;
+    public const OBJECT_TYPE = 'transfer';
+    public const DEFAULT_TYPE = 'transfer';
+    public const DEFAULT_PLURAL_TYPE = 'transfers';
 
-    /** @var string */
-    public $version;
+    public $model;
 
     public $transfer;
+
+    /** @var string */
+    public $alias;
+
+    /** @var string */
+    public $folder;
+
+    /** @var string */
+    public $file;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $type = '', string $scriptFile = '', string $version = '', $transfer = false)
-    {
-        $this->type = $type;
-        $this->scriptFile = ($scriptFile) ? $scriptFile : 'public/js/banking/transfers.js';
-        $this->version = $this->getVersion($version);
-        $this->transfer = $transfer;
+    public function __construct(
+        $model = false, $transfer = false,
+        string $alias = '', string $folder = '', string $file = ''
+    ) {
+        $this->model = ! empty($model) ? $model : $transfer;
+        $this->transfer = ! empty($model) ? $model : $transfer;
+
+        $this->alias = $this->getAlias($type, $alias);
+        $this->folder = $this->getScriptFolder($type, $folder);
+        $this->file = $this->getScriptFile($type, $file);
     }
 
     /**
@@ -38,18 +51,5 @@ class Script extends Component
     public function render()
     {
         return view('components.transfers.script');
-    }
-
-    protected function getVersion($version)
-    {
-        if (!empty($version)) {
-            return $version;
-        }
-
-        if ($alias = config('type.' . $this->type . '.alias')) {
-            return module_version($alias);
-        }
-
-        return version('short');
     }
 }

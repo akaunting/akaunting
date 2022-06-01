@@ -15,32 +15,7 @@ class Event extends Provider
         'App\Events\Install\UpdateFinished' => [
             'App\Listeners\Update\CreateModuleUpdatedHistory',
             'App\Listeners\Module\UpdateExtraModules',
-            'App\Listeners\Update\V20\Version200',
-            'App\Listeners\Update\V20\Version203',
-            'App\Listeners\Update\V20\Version205',
-            'App\Listeners\Update\V20\Version207',
-            'App\Listeners\Update\V20\Version208',
-            'App\Listeners\Update\V20\Version209',
-            'App\Listeners\Update\V20\Version2014',
-            'App\Listeners\Update\V20\Version2017',
-            'App\Listeners\Update\V20\Version2020',
-            'App\Listeners\Update\V20\Version2023',
-            'App\Listeners\Update\V20\Version2024',
-            'App\Listeners\Update\V21\Version210',
-            'App\Listeners\Update\V21\Version213',
-            'App\Listeners\Update\V21\Version218',
-            'App\Listeners\Update\V21\Version219',
-            'App\Listeners\Update\V21\Version2112',
-            'App\Listeners\Update\V21\Version2114',
-            'App\Listeners\Update\V21\Version2116',
-            'App\Listeners\Update\V21\Version2117',
-            'App\Listeners\Update\V21\Version2118',
-            'App\Listeners\Update\V21\Version2124',
-            'App\Listeners\Update\V21\Version2125',
-            'App\Listeners\Update\V21\Version2126',
-            'App\Listeners\Update\V21\Version2127',
-            'App\Listeners\Update\V21\Version2133',
-            'App\Listeners\Update\V21\Version2134',
+            'App\Listeners\Update\V30\Version300',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
@@ -54,6 +29,12 @@ class Event extends Provider
         ],
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
+        ],
+        'App\Events\Auth\InvitationCreated' => [
+            'App\Listeners\Auth\SendUserInvitation',
+        ],
+        'App\Events\Auth\UserDeleted' => [
+            'App\Listeners\Auth\DeleteUserInvitation',
         ],
         'App\Events\Document\DocumentCreated' => [
             'App\Listeners\Document\CreateDocumentCreatedHistory',
@@ -84,15 +65,28 @@ class Event extends Provider
         ],
         'App\Events\Document\DocumentViewed' => [
             'App\Listeners\Document\MarkDocumentViewed',
+            'App\Listeners\Document\SendDocumentViewNotification',
         ],
         'App\Events\Install\UpdateFailed' => [
             'App\Listeners\Update\SendNotificationOnFailure',
         ],
+        'App\Events\Menu\NotificationsCreated' => [
+            'App\Listeners\Menu\ShowInNotifications',
+        ],
         'App\Events\Menu\AdminCreated' => [
-            'App\Listeners\Menu\AddAdminItems',
+            'App\Listeners\Menu\ShowInAdmin',
+        ],
+        'App\Events\Menu\ProfileCreated' => [
+            'App\Listeners\Menu\ShowInProfile',
+        ],
+        'App\Events\Menu\SettingsCreated' => [
+            'App\Listeners\Menu\ShowInSettings',
+        ],
+        'App\Events\Menu\NewwCreated' => [
+            'App\Listeners\Menu\ShowInNeww',
         ],
         'App\Events\Menu\PortalCreated' => [
-            'App\Listeners\Menu\AddPortalItems',
+            'App\Listeners\Menu\ShowInPortal',
         ],
         'App\Events\Module\Installed' => [
             'App\Listeners\Module\InstallExtraModules',
@@ -100,6 +94,9 @@ class Event extends Provider
         ],
         'App\Events\Module\Uninstalled' => [
             'App\Listeners\Module\FinishUninstallation',
+        ],
+        'App\Events\Banking\TransactionCreated' => [
+            'App\Listeners\Banking\IncreaseNextTransactionNumber',
         ],
     ];
 

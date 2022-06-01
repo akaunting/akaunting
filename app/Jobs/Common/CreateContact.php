@@ -6,8 +6,9 @@ use App\Abstracts\Job;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
-use App\Models\Auth\User;
+use App\Jobs\Auth\CreateUser;
 use App\Models\Auth\Role;
+use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
@@ -42,16 +43,17 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
             throw new \Exception($message);
         }
 
-        $data = $this->request->all();
-        $data['locale'] = setting('default.locale', 'en-GB');
-
         $customer_role = Role::all()->filter(function ($role) {
             return $role->hasPermission('read-client-portal');
-        })->first();
+        })->pluck('id')->toArray();
 
-        $user = User::create($data);
-        $user->roles()->attach($customer_role);
-        $user->companies()->attach($data['company_id']);
+        $this->request->merge([
+            'locale' => setting('default.locale', 'en-GB'),
+            'roles' => $customer_role,
+            'companies' => [$this->request->get('company_id')],
+        ]);
+
+        $user = $this->dispatch(new CreateUser($this->request));
 
         $this->request['user_id'] = $user->id;
     }

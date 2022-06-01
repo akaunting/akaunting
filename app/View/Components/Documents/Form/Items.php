@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Documents\Form;
 
-use App\Abstracts\View\Components\DocumentForm as Component;
+use App\Abstracts\View\Components\Documents\Form as Component;
 use App\Models\Setting\Tax;
 
 class Items extends Component

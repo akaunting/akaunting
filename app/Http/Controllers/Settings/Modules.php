@@ -72,7 +72,7 @@ class Modules extends Controller
             'error' => false,
             'message' => $message,
             'data' => null,
-            'redirect' => route('settings.index')//('settings/apps/' . $alias),
+            'redirect' => route('settings.module.edit', $alias)//('settings/apps/' . $alias),
         ];
 
         flash($message)->success();

@@ -1,17 +1,27 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ setting('invoice.title', trans_choice('general.invoices', 1)) . ': ' . $invoice->document_number }}
+    </x-slot>
 
-@section('title', setting('invoice.title', trans_choice('general.invoices', 1)) . ': ' . $invoice->document_number)
+    <x-slot name="status">
+        <x-show.status status="{{ $invoice->status }}" background-color="bg-{{ $invoice->status_label }}" text-color="text-text-{{ $invoice->status_label }}" />
+    </x-slot>
 
-@section('new_button')
-    <x-documents.show.top-buttons type="invoice" :document="$invoice" />
-@endsection
+    <x-slot name="buttons">
+        <x-documents.show.buttons type="invoice" :document="$invoice" />
+    </x-slot>
 
-@section('content')
-    <x-documents.show.content type="invoice" :document="$invoice" hide-button-received />
-@endsection
+    <x-slot name="moreButtons">
+        <x-documents.show.more-buttons type="invoice" :document="$invoice" />
+    </x-slot>
 
-@push('scripts_start')
-    <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
+    <x-slot name="content">
+        <x-documents.show.content type="invoice" :document="$invoice" hide-receive hide-make-payment hide-schedule hide-children />
+    </x-slot>
+
+    @push('stylesheet')
+        <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
+    @endpush
 
     <x-documents.script type="invoice" />
-@endpush
+</x-layouts.admin>

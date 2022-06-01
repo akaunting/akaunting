@@ -4,8 +4,10 @@ namespace App\Observers;
 
 use App\Abstracts\Observer;
 use App\Events\Document\TransactionsCounted;
+use App\Jobs\Banking\UpdateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Models\Banking\Transaction as Model;
+use App\Models\Document\Document;
 use App\Traits\Jobs;
 
 class Transaction extends Observer
@@ -20,53 +22,40 @@ class Transaction extends Observer
      */
     public function deleted(Model $transaction)
     {
-        if (empty($transaction->document_id)) {
-            return;
+        if (! empty($transaction->document_id)) {
+            $type = ($transaction->type == 'income') ? Document::INVOICE_TYPE : Document::BILL_TYPE;
+
+            $this->updateDocument($transaction, $type);
         }
 
-        $function = ($transaction->type == 'income') ? 'updateInvoice' : 'updateBill';
-
-        $this->$function($transaction);
+        if (! empty($transaction->split_id)) {
+            $this->updateTransaction($transaction);
+        }
     }
 
-    protected function updateInvoice($transaction)
+    protected function updateDocument($transaction, $type)
     {
-        $invoice = $transaction->invoice;
+        $document = $transaction->{$type};
 
-        if (empty($invoice)) {
+        if (empty($document)) {
             return;
         }
 
-        $invoice->transactions_count = $invoice->transactions->count();
-        event(new TransactionsCounted($invoice));
+        $document->transactions_count = $document->transactions->count();
 
-        $invoice->status = ($invoice->transactions_count > 0) ? 'partial' : 'sent';
+        event(new TransactionsCounted($document));
 
-        unset($invoice->transactions_count);
+        $document->status = ($type == Document::INVOICE_TYPE) ? 'sent' : 'received';
 
-        $invoice->save();
-
-        $this->dispatch(new CreateDocumentHistory($invoice, 0, $this->getDescription($transaction)));
-    }
-
-    protected function updateBill($transaction)
-    {
-        $bill = $transaction->bill;
-
-        if (empty($bill)) {
-            return;
+        if ($document->transactions_count > 0) {
+            $document->status = 'partial';
         }
 
-        $bill->transactions_count = $bill->transactions->count();
-        event(new TransactionsCounted($bill));
+        unset($document->transactions_count);
 
-        $bill->status = ($bill->transactions_count > 0) ? 'partial' : 'received';
+        $document->save();
 
-        unset($bill->transactions_count);
-
-        $bill->save();
-
-        $this->dispatch(new CreateDocumentHistory($bill, 0, $this->getDescription($transaction)));
+        $this->dispatch(new CreateDocumentHistory($document, 0, $this->getDescription($transaction)));
     }
 
     protected function getDescription($transaction)
@@ -74,5 +63,18 @@ class Transaction extends Observer
         $amount = money((double) $transaction->amount, (string) $transaction->currency_code, true)->format();
 
         return trans('messages.success.deleted', ['type' => $amount . ' ' . trans_choice('general.payments', 1)]);
+    }
+
+    protected function updateTransaction($transaction)
+    {
+        $splitted_transaction = Model::find($transaction->split_id);
+
+        if ($splitted_transaction->splits->count() == 0) {
+            $values = [
+                'type' => $transaction->type,
+            ];
+
+            $this->dispatch(new UpdateTransaction($splitted_transaction, $values));
+        }
     }
 }

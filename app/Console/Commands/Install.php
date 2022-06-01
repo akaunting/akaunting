@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Session;
 use App\Utilities\Installer;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class Install extends Command
 {
@@ -74,15 +75,17 @@ class Install extends Command
         Installer::createDefaultEnvFile();
 
         $this->line('Creating database tables');
-        if (!$this->createDatabaseTables()) {
+        if (! $this->createDatabaseTables()) {
             return self::CMD_ERROR;
         }
 
-        $this->line('Creating company');
-        Installer::createCompany($this->company_name, $this->company_email, $this->locale);
+        DB::transaction(function () {
+            $this->line('Creating company');
+            Installer::createCompany($this->company_name, $this->company_email, $this->locale);
 
-        $this->line('Creating admin');
-        Installer::createUser($this->admin_email, $this->admin_password, $this->locale);
+            $this->line('Creating admin');
+            Installer::createUser($this->admin_email, $this->admin_password, $this->locale);
+        });
 
         $this->line('Applying the final touches');
         Installer::finalTouches();

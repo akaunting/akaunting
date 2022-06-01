@@ -13,7 +13,7 @@ return [
     'current_email'         => 'E-pasta adrese',
     'reset'                 => 'Atiestatīt',
     'never'                 => 'nekad',
-    'landing_page'          => 'Galvenā lapa',
+    'landing_page'          => 'Landing Page',
 
     'password' => [
         'current'           => 'Parole',
@@ -24,13 +24,13 @@ return [
 
     'error' => [
         'self_delete'       => 'Kļūda: Nevar izdzēst sevi!',
-        'self_disable'      => 'Kļūda: nevar sevi atspējot!',
+        'self_disable'      => 'Error: Can not disable yourself!',
         'no_company'        => 'Kļūda: Jūsu kontam nav piesaistīts neviens uzņēmums. Sazinieties, lūdzu, ar sistēmas administratoru.',
     ],
 
     'failed'                => 'Lietotāja vārds un/vai parole ir nepareiza.',
-    'throttle'              => 'Pārāk daudz pieteikšanās mēģinājumu. Lūdzu, mēģiniet vēlreiz pēc :seconds sekundēm.',
     'disabled'              => 'Šis konts ir atiespējots. Lūdzu, sazinieties ar sistēmas administratoru.',
+    'throttle'              => 'Pārāk daudz pieteikšanās mēģinājumu. Lūdzu, mēģiniet vēlreiz pēc :seconds sekundēm.',
 
     'notification' => [
         'message_1'     => 'Jūs saņēmāt šo epastu, jo esam saņēmuši paroles atjaunošanas pieprasījumu Jūsu kontam.',

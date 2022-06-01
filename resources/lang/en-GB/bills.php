@@ -19,11 +19,13 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Item Name|Item Names',
+    'recurring_bills'       => 'Recurring Bill|Recurring Bills',
 
     'show_discount'         => ':discount% Discount',
     'add_discount'          => 'Add Discount',
     'discount_desc'         => 'of subtotal',
 
+    'payment_made'          => 'Payment Made',
     'payment_due'           => 'Payment Due',
     'amount_due'            => 'Amount Due',
     'paid'                  => 'Paid',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Create Bill',
     'receive_bill'          => 'Receive Bill',
     'make_payment'          => 'Make Payment',
+
+    'form_description' => [
+        'billing'           => 'Billing details appear in your bill. Bill Date is used in the dashboard and reports. Select the date you expect to pay as the Due Date.',
+    ],
 
     'messages' => [
         'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',

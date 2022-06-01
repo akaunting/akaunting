@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Ostuarve number',
     'bill_date'             => 'Ostuarve kuupäev',
-    'bill_amount'           => 'Arve summa',
     'total_price'           => 'Hind kokku',
     'due_date'              => 'Tähtaeg',
     'order_number'          => 'Tellimuse number',

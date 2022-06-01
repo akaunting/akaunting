@@ -9,23 +9,12 @@ return [
     'new'                   => 'Ny',
     'top_free'              => 'Top gratis',
     'free'                  => 'GRATIS',
-    'monthly'               => 'Månedlig',
-    'yearly'                => 'Årlig',
-    'yearly_pricing'        => 'Årlig pris',
-    'monthly_price'         => 'fra :price',
-    'per_month'             => 'pr. måned',
-    'billed_yearly'         => 'Faktureret årligt',
-    'billed_monthly'        => 'Faktureret månedligt',
-    'save_year'             => 'Du sparer <strong>:price</strong> pr. år!',
-    'if_paid_year'          => 'Eller <strong>:price/mo</strong> hvis betalt årligt',
-    'information_monthly'   => 'Denne mulighed er kun tilgængelig for <strong>Cloud Service</strong>',
     'install'               => 'Installer',
     'buy_now'               => 'Køb nu',
     'get_api_key'           => '<a href=":url" target="_blank">Klik her</a> for at få din API nøgle.',
     'no_apps'               => 'Der er ingen apps i denne kategori endnu.',
     'become_developer'      => 'Er du udvikler? <a href=":url" target="_blank">Her</a> kan du lære at udvikle en app og starte med at sælge i dag!',
     'recommended_apps'      => 'Anbefalede programmer',
-    'can_not_install'       => 'Månedlige abonnementer er kun tilgængelige på Cloud service. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Læs mere.</a>',
 
     'about'                 => 'Om',
 
@@ -60,7 +49,6 @@ return [
     ],
 
     'errors' => [
-        'purchase'          => 'Du bør købe/forny :module!',
         'download'          => 'Kan ikke hente :module',
         'zip'               => 'Kan ikke oprette :module zip filen',
         'unzip'             => 'Kan ikke udpakke zip filen :module',

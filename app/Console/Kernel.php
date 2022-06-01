@@ -29,7 +29,6 @@ class Kernel extends ConsoleKernel
 
         $schedule_time = config('app.schedule_time');
 
-        $schedule->command('report:cache')->everySixHours();
         $schedule->command('reminder:invoice')->dailyAt($schedule_time);
         $schedule->command('reminder:bill')->dailyAt($schedule_time);
         $schedule->command('recurring:check')->dailyAt($schedule_time);

@@ -2,9 +2,9 @@
 
 namespace App\Abstracts;
 
-use Monooso\Unobserve\CanMute;
+use Akaunting\MutableObserver\Traits\Mutable;
 
 abstract class Observer
 {
-    use CanMute;
+    use Mutable;
 }

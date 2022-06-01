@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Transactions\Show;
 
-use App\Abstracts\View\Components\TransactionShow as Component;
+use App\Abstracts\View\Components\Transactions\Show as Component;
 
 class Attachment extends Component
 {

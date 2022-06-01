@@ -11,5 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('Resources/assets/js/$ALIAS$.js', 'Resources/assets/js/$ALIAS$.min.js')
-    .sass('./../../resources/assets/sass/argon.scss', './../../public/css');
+mix.options({
+        terser: {
+            extractComments: false,
+        }
+    })
+    .js('Resources/assets/js/$ALIAS$.js', 'Resources/assets/js/$ALIAS$.min.js')
+    .vue();

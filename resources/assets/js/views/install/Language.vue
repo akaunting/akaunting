@@ -1,39 +1,23 @@
 <template>
-    <div class="card">
-        <div class="card-header wizard-header p-3">
-            <el-steps :active="active" finish-status="success" align-center>
-                <el-step title="Language"></el-step>
-                <el-step title="Database"></el-step>
-                <el-step title="Admin"></el-step>
-            </el-steps>
+    <div>
+        <InstallSteps :active_state="active"></InstallSteps>
+
+        <div class="form-group mb-0">
+            <select v-model="form.lang" name="lang" id="lang" size="13" class="w-full form-control-label">
+                <option v-for="(name, code) in languages" :value="code">
+                    {{ name }}
+                </option>
+            </select>
         </div>
 
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group mb-0">
-                        <select v-model="form.lang" name="lang" id="lang" size="13" class="col-xl-12 form-control-label">
-                            <option v-for="(name, code) in languages" :value="code">
-                                {{ name }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-footer">
-            <div class="row save-buttons">
-                <div class="col-md-12">
-                    <button type="submit" @click="onSubmit" :disabled="form.loading" id="next-button" class="btn btn-icon btn-success button-submit header-button-top">
-                        <div v-if="form.loading" class="aka-loader-frame">
-                            <div class="aka-loader"></div>
-                        </div>
-                         <span v-if="!form.loading" class="btn-inner--text">
-                            Next &nbsp;
-                        </span>
-                    </button>
-                </div>
+        <div class="relative__footer">
+            <div class="sm:col-span-6 flex items-center justify-end mt-3.5">
+                <button type="submit" @click="onSubmit" :disabled="form.loading" id="next-button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100">
+                    <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
+                    <span :class="[{'opacity-0': form.loading}]">
+                        Next
+                    </span>
+                </button>
             </div>
         </div>
     </div>
@@ -41,34 +25,36 @@
 
 <script>
     import axios from "axios";
-    import Form from './../../plugins/form';
-    import {Step, Steps} from 'element-ui';
+    import Form from "./../../plugins/form";
+    import { Step, Steps } from "element-ui";
+    import InstallSteps from "./Steps.vue";
 
-    var base_path = url.replace(window.location.origin, '');
+    var base_path = url.replace(window.location.origin, "");
 
     export default {
-        name: 'language',
+        name: "language",
 
         components: {
             [Step.name]: Step,
-            [Steps.name]: Steps
+            [Steps.name]: Steps,
+            InstallSteps,
         },
 
         mounted() {
-            axios.get(base_path + '/install/language/getLanguages')
-            .then(response => {
-                this.languages = response.data.languages;
-                this.form.lang = 'en-GB';
-            })
-            .catch(error => {
-            });
+            axios
+                .get(base_path + "/install/language/getLanguages")
+                .then((response) => {
+                    this.languages = response.data.languages;
+                    this.form.lang = "en-GB";
+                })
+                .catch((error) => {});
         },
         data() {
             return {
-                form: new Form('form-install'),
+                form: new Form("form-install"),
                 languages: [],
-                active: 0
-            }
+                active: 0,
+            };
         },
         methods: {
             // Form Submit
@@ -78,7 +64,13 @@
 
             next() {
                 if (this.active++ > 2);
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
+
+<style scoped>
+ select {
+     background-image: none;
+ }
+</style>

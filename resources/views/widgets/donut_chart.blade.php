@@ -1,11 +1,9 @@
-<div id="widget-{{ $class->model->id }}" class="{{ $class->model->settings->width }}">
-    <div class="card">
-        @include($class->views['header'])
+<div id="widget-{{ $class->model->id }}" class="{{ $class->model->settings->width }} my-8">
+    @include($class->views['header'], ['header_class' => ''])
 
-        <div class="card-body" id="widget-donut-{{ $class->model->id }}">
-            <div class="chart-donut">
-                {!! $chart->container() !!}
-            </div>
+    <div class="flex flex-col lg:flex-row mt-3" id="widget-donut-{{ $class->model->id }}">
+        <div class="w-full">
+            {!! $chart->container() !!}
         </div>
     </div>
 </div>

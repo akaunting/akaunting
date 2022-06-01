@@ -47,13 +47,4 @@ return [
         'body'          => 'Bonjour,<br /><br />Sur la base du plan de facturation planifié de {vendor_name} , la facture  <strong>{bill_number}</strong> a été automatiquement créée.<br /><br />Vous pouvez voir les détails de la facture à partir du lien suivant : <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Cordialement,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} paiement créé',
-        'body'          => 'Cher {customer_name},<br /><br />Nous avons préparé la facture suivante pour vous : <strong>{invoice_number}</strong>.<br /><br />Vous pouvez consulter les détails de la facture et procéder au paiement à partir du lien suivant : <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />N\'hésitez pas à nous contacter pour toute question.<br /><br />Cordialement,<br />{company_name}',
-    ],
-
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} paiement créé',
-        'body'          => 'Cher {customer_name},<br /><br />Nous avons préparé la facture suivante pour vous : <strong>{invoice_number}</strong>.<br /><br />Vous pouvez consulter les détails de la facture et procéder au paiement à partir du lien suivant : <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />N\'hésitez pas à nous contacter pour toute question.<br /><br />Cordialement,<br />{company_name}',
-    ],
 ];

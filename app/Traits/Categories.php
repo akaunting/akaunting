@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Setting\Category;
 use Illuminate\Support\Str;
 
 trait Categories
@@ -24,5 +25,10 @@ trait Categories
         }
 
         return $types;
+    }
+
+    public function getCategoryWithoutChildren($id)
+    {
+        return Category::getWithoutChildren()->find($id);;
     }
 }

@@ -6,14 +6,11 @@ use App\Abstracts\Http\Controller;
 use App\Exports\Common\Items as Export;
 use App\Http\Requests\Common\Item as Request;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Http\Requests\Common\TotalItem as TotalRequest;
 use App\Imports\Common\Items as Import;
 use App\Jobs\Common\CreateItem;
 use App\Jobs\Common\DeleteItem;
 use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
-use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Uploads;
 
@@ -28,7 +25,7 @@ class Items extends Controller
      */
     public function index()
     {
-        $items = Item::with('category', 'media')->collect();
+        $items = Item::with('category', 'media', 'taxes')->collect();
 
         return $this->response('common.items.index', compact('items'));
     }
@@ -50,11 +47,9 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        return view('common.items.create', compact('categories', 'taxes'));
+        return view('common.items.create', compact('taxes'));
     }
 
     /**
@@ -135,15 +130,9 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        if ($item->category && !$categories->has($item->category_id)) {
-            $categories->put($item->category->id, $item->category->name);
-        }
-
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        return view('common.items.edit', compact('item', 'categories', 'taxes'));
+        return view('common.items.edit', compact('item', 'taxes'));
     }
 
     /**

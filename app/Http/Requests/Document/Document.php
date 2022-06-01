@@ -23,7 +23,7 @@ class Document extends FormRequest
 
         $type = $this->request->get('type', Model::INVOICE_TYPE);
 
-        $type = config('type.' . $type . '.route.parameter');
+        $type = config('type.document.' . $type . '.route.parameter');
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
@@ -65,7 +65,7 @@ class Document extends FormRequest
             'recurring_interval' => 'exclude_unless:recurring_frequency,custom|gt:0',
         ];
 
-        $items = $this->request->get('items');
+        $items = $this->request->all('items');
 
         if ($items) {
             foreach ($items as $key => $item) {
@@ -76,6 +76,7 @@ class Document extends FormRequest
                 }
 
                 $rules['items.' . $key . '.quantity'] = 'required|max:' . $size;
+
                 $this->items_quantity_size[$key] = $size;
             }
         }

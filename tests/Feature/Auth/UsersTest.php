@@ -12,7 +12,7 @@ class UsersTest extends FeatureTestCase
     {
         $this->loginAs()
             ->get(route('users.index'))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSeeText(trans_choice('general.users', 2));
     }
 
@@ -20,8 +20,8 @@ class UsersTest extends FeatureTestCase
     {
         $this->loginAs()
             ->get(route('users.create'))
-            ->assertStatus(200)
-            ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.users', 1)]));
+            ->assertOk()
+            ->assertSeeText(trans('general.title.invite', ['type' => trans_choice('general.users', 1)]));
     }
 
     public function testItShouldCreateUser()
@@ -30,7 +30,7 @@ class UsersTest extends FeatureTestCase
 
         $this->loginAs()
             ->post(route('users.store'), $request)
-            ->assertStatus(200);
+            ->assertOk();
 
         $this->assertFlashLevel('success');
 
@@ -45,7 +45,7 @@ class UsersTest extends FeatureTestCase
 
         $this->loginAs()
             ->get(route('users.edit', $user->id))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSee($user->email);
     }
 
@@ -55,11 +55,11 @@ class UsersTest extends FeatureTestCase
 
         $user = $this->dispatch(new CreateUser($request));
 
-        $request['email'] = $this->faker->safeEmail;
+        $request['email'] = $this->faker->freeEmail;
 
         $this->loginAs()
             ->patch(route('users.update', $user->id), $request)
-            ->assertStatus(200)
+            ->assertOk()
 			->assertSee($request['email']);
 
         $this->assertFlashLevel('success');
@@ -75,7 +75,7 @@ class UsersTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('users.destroy', $user->id))
-            ->assertStatus(200);
+            ->assertOk();
 
         $this->assertFlashLevel('success');
 
@@ -85,7 +85,7 @@ class UsersTest extends FeatureTestCase
     public function testItShouldSeeLoginPage()
     {
         $this->get(route('login'))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSeeText(trans('auth.login_to'));
     }
 
@@ -96,7 +96,7 @@ class UsersTest extends FeatureTestCase
         $user = $this->dispatch(new CreateUser($request));
 
         $this->post(route('login'), ['email' => $user->email, 'password' => $user->password])
-            ->assertStatus(200);
+            ->assertOk();
 
         $this->isAuthenticated($user->user);
     }
@@ -108,7 +108,7 @@ class UsersTest extends FeatureTestCase
         $user = $this->dispatch(new CreateUser($request));
 
         $this->post(route('login'), ['email' => $user->email, 'password' => $this->faker->password()])
-            ->assertStatus(200);
+            ->assertOk();
 
         $this->assertGuest();
     }

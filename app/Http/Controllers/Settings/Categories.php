@@ -24,7 +24,7 @@ class Categories extends Controller
      */
     public function index()
     {
-        $categories = Category::collect();
+        $categories = Category::with('sub_categories')->collect();
 
         $transfer_id = Category::transfer();
 
@@ -52,7 +52,21 @@ class Categories extends Controller
     {
         $types = $this->getCategoryTypes();
 
-        return view('settings.categories.create', compact('types'));
+        $categories = [];
+
+        foreach (config('type.category') as $type => $config) {
+            $categories[$type] = [];
+        }
+
+        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
+            $categories[$category->type][] = [
+                'id' => $category->id,
+                'title' => $category->name,
+                'level' => $category->level,
+            ];
+        });
+
+        return view('settings.categories.create', compact('types', 'categories'));
     }
 
     /**
@@ -120,7 +134,25 @@ class Categories extends Controller
 
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled'));
+        $edited_category_id = $category->id;
+
+        $categories = [];
+
+        foreach (config('type.category') as $type => $config) {
+            $categories[$type] = [];
+        }
+
+        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories, $edited_category_id) {
+            if ($edited_category_id != $category->id) {
+                $categories[$category->type][] = [
+                    'id' => $category->id,
+                    'title' => $category->name,
+                    'level' => $category->level,
+                ];
+            }
+        });
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories'));
     }
 
     /**
@@ -131,8 +163,10 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function update(Category $category, Request $request)
+    public function update($category_id, Request $request)
     {
+        $category = $this->getCategoryWithoutChildren($category_id);
+
         $response = $this->ajaxDispatch(new UpdateCategory($category, $request));
 
         if ($response['success']) {
@@ -142,7 +176,7 @@ class Categories extends Controller
 
             flash($message)->success();
         } else {
-            $response['redirect'] = route('categories.edit', $category->id);
+            $response['redirect'] = route('categories.edit', $category_id);
 
             $message = $response['message'];
 
@@ -159,8 +193,10 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function enable(Category $category)
+    public function enable($category_id)
     {
+        $category = $this->getCategoryWithoutChildren($category_id);
+
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
@@ -177,8 +213,10 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function disable(Category $category)
+    public function disable($category_id)
     {
+        $category = $this->getCategoryWithoutChildren($category_id);
+
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {

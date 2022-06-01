@@ -1,18 +1,11 @@
-{!! Form::open([
-    'id' => 'form-create-tax',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'route' => 'taxes.store',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-        {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+<x-form id="form-create-tax" route="taxes.store">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {!! Form::hidden('type', 'normal') !!}
-        {!! Form::hidden('enabled', '1') !!}
+        <x-form.group.text name="rate" label="{{ trans('taxes.rate') }}" />
+
+        <x-form.input.hidden name="type" value="normal" />
+        <x-form.input.hidden name="enabled" value="1" />
     </div>
-{!! Form::close() !!}
+</x-form>

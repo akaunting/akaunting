@@ -2,7 +2,7 @@
 
 return [
 
-    'sales_price'           => 'ราคาขาย',
+    'sale_price'           => 'ราคาขาย',
     'purchase_price'        => 'ราคาซื้อ',
 
 ];

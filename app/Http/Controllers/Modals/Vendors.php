@@ -7,7 +7,6 @@ use App\Http\Requests\Common\Contact as Request;
 use App\Models\Common\Contact;
 use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\UpdateContact;
-use App\Models\Setting\Currency;
 
 class Vendors extends Controller
 {
@@ -30,17 +29,13 @@ class Vendors extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
         $contact_selector = false;
 
         if (request()->has('contact_selector')) {
             $contact_selector = request()->get('contact_selector');
         }
 
-        $rand = rand();
-
-        $html = view('modals.vendors.create', compact('currencies', 'contact_selector', 'rand'))->render();
+        $html = view('modals.vendors.create', compact('contact_selector'))->render();
 
         return response()->json([
             'success' => true,
@@ -79,17 +74,13 @@ class Vendors extends Controller
      */
     public function edit(Contact $vendor)
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
-
         $contact_selector = false;
 
         if (request()->has('contact_selector')) {
             $contact_selector = request()->get('contact_selector');
         }
 
-        $rand = rand();
-
-        $html = view('modals.vendors.edit', compact('vendor', 'currencies', 'contact_selector', 'rand'))->render();
+        $html = view('modals.vendors.edit', compact('vendor','contact_selector'))->render();
 
         return response()->json([
             'success' => true,
