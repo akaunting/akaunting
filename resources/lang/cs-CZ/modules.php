@@ -60,6 +60,7 @@ return [
     ],
 
     'errors' => [
+        'purchase'          => 'Měli byste si zakoupit/obnovit :module!',
         'download'          => 'Nelze stáhnout :module',
         'zip'               => 'Není možné vytvořit zip soubor :module',
         'unzip'             => 'Nelze rozbalit: modul',

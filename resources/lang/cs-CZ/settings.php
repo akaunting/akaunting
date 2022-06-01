@@ -8,12 +8,12 @@ return [
         'email'                      => 'E-mail',
         'phone'                      => 'Telefon',
         'address'                    => 'Adresa',
-        'edit_your_business_address' => 'Upravit adresu vaší firmy',
+        'edit_your_business_address' => 'Upravit adresu Vaší společnosti',
         'logo'                       => 'Logo',
     ],
 
     'localisation' => [
-        'description'       => 'Nastavit fiskální rok, časové pásmo, formát data a další lokální',
+        'description'       => 'Nastavit fiskální rok, časové pásmo, formát data a další nastavení lokalizace',
         'financial_start'   => 'Začátek rozpočtového roku',
         'timezone'          => 'Časové pásmo',
         'financial_denote' => [

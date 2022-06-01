@@ -10,8 +10,8 @@ return [
     'bank_phone'            => 'טלפון הבנק',
     'bank_address'          => 'כתובת הבנק',
     'default_account'       => 'חשבון ברירת מחדל',
-    'incoming'              => 'כניסה',
-    'outgoing'              => 'יציאה',
+    'incoming'              => 'נכנסות',
+    'outgoing'              => 'יוצאות',
     'see_performance'       => 'ביצועי חשבון',
     'create_report'         => 'אם אתה רוצה לראות את ביצועי החשבון, אתה יכול ליצור טופס של דוח הכנסות מול הוצאות.',
 

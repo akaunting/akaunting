@@ -4,28 +4,40 @@ return [
 
     'success' => [
         'added'             => ':type додадено!',
-        'updated'           => ':type надградено!',
+        'updated'           => ':type ажурирани!',
         'deleted'           => ':type избришано!',
         'duplicated'        => ':type дупликат!',
         'imported'          => ':type превземено!',
+        'import_queued'     => ':type Закажан е увоз! Ќе добиете е -пошта кога ќе заврши.',
+        'exported'          => ':type извезени!',
+        'export_queued'     => ':type Закажан е извоз на тековната страница! Ќе добиете е -пошта кога е подготвена за преземање.',
         'enabled'           => ':type овозможено!',
         'disabled'          => ':type оневозможено!',
+
+        'clear_all'         => 'пораки.пхп',
     ],
+
     'error' => [
-        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
+        'over_payment'      => 'Грешка: плаќањето не е додадено! Износот што го внесовте го надминува вкупниот:: износ',
         'not_user_company'  => 'Error: Немате дозвола да ја менаџирате оваа компанија!',
         'customer'          => 'Error: Корисникот не е додаден! :name веќе ја користи оваа е-маил адреса',
         'no_file'           => 'Грешка: Не е селектирај ниеден фајл!',
         'last_category'     => 'Error: Неможе да се избрише последната :type категорија!',
-        'invalid_apikey'     => 'Error: Внесениот токен е невалиден!',
+        'change_type'       => 'Грешка: Не можам да го сменам типот затоа што има',
+        'invalid_apikey'    => 'Error: Внесениот токен е невалиден!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
+
     'warning' => [
         'deleted'           => 'Предупредување: Немате дозвола да бришете <b>:name</b> затоа што има :text поврзаност.',
         'disabled'          => 'Предупредување: Немате дозвола да оневозможите  <b>:name</b>затоа што има :text поврзаност.
  
 ',
+        'reconciled_tran'   => 'Предупредување: Не ви е дозволено да менувате/бришете трансакција бидејќи е усогласена!',
+        'reconciled_doc'    => 'Предупредување: Не смеете да менувате/бришете :type затоа што тоа е подмирена трансакција!',
+        'disable_code'      => 'Предупредување: Немате дозвола да ја оневозможите или менувате валутата на <b>:name</b> бидејќи е :text поврзано.',
+        'payment_cancel'    => 'Предупредување: Го откажавте вашето неодамнешно плаќање: метод!',
     ],
 
 ];
