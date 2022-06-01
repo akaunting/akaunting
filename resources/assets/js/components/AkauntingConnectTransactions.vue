@@ -59,7 +59,7 @@
                                     </div>
                                 </template>
 
-                                <div class="relative sm:col-span-6 mt-3">
+                                <div class="relative sm:col-span-6 pt-3">
                                     <div style="table-layout: fixed;">
                                         <div class="overflow-x-visible overflow-y-hidden">
                                             <table class="w-full" id="items" style="table-layout: fixed">

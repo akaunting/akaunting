@@ -11,7 +11,7 @@
 
     <div class="flex flex-col py-2 justify-between align-bottom">
         <div class="flex items-baseline justify-between">
-            <h4 class="w-36 truncate">
+            <h4 class="w-32 truncate">
                 <a href="{{ route('apps.app.show', $module->slug) }}">
                     {{ $module->name }}
                 </a>
