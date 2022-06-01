@@ -2,7 +2,7 @@
     <span
         id="{{ $pinned ? 'reports-unpin-' . $reportId : 'reports-pin-' . $reportId }}"
         @class([
-            'text-purple text-lg transform rotate-45 cursor-pointer mx-2',
+            'text-black-400 text-lg transform rotate-45 cursor-pointer mx-2',
             'material-icons-outlined' => ($pinned) ? false : true,
             'material-icons' => (! $pinned) ? false : true,
         ])

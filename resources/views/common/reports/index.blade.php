@@ -36,10 +36,10 @@
                         <div class="flex justify-between sm:col-span-3 p-1 group">
                             <div class="lg:w-80">
                                 <a href="{{ route('reports.show', $report->id) }}" class="flex">
-                                    <span class="material-icons-outlined text-5xl transform transition-all hover:scale-125">
+                                    <span class="material-icons-outlined text-5xl transform transition-all hover:scale-125 text-black-400">
                                         {{ $icons[$report->id] }}
                                     </span>
-    
+
                                     <div class="ltr:ml-2 rtl:mr-2">
                                         <h2 class="mb-1">
                                             <span class="border-b border-transparent transition-all group-hover:border-black">
@@ -58,7 +58,7 @@
                                 @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
                                 <x-dropdown id="widget-{{ $category_id }}-{{ $report->id }}">
                                     <x-slot name="trigger" class="flex" override="class">
-                                        <span class="material-icons-outlined text-purple text-lg px-1 py-0.5 cursor-pointer hover:bg-gray-100 hover:rounded-lg hover:shadow-md">more_vert</span>
+                                        <span class="material-icons-outlined text-lg px-1 py-0.5 cursor-pointer hover:bg-gray-100 hover:rounded-lg hover:shadow-md">more_vert</span>
                                     </x-slot>
 
                                     @can('update-common-reports')
