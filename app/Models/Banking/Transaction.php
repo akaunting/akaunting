@@ -463,7 +463,7 @@ class Transaction extends Model
 
         try {
             if ($this->is_splittable && empty($this->document_id) && empty($this->recurring)) {
-                $conenct = [
+                $connect = [
                     'type' => 'button',
                     'title' => trans('general.connect'),
                     'icon' => 'sensors',
@@ -479,14 +479,14 @@ class Transaction extends Model
                 if ($this->contact->exists) {
                     $document = $this->contact->invoices()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
 
-                    $conenct['attributes']['@click'] = 'onConnect()';
+                    $connect['attributes']['@click'] = 'onConnect()';
                 } else {
                     $document = \App\Models\Document\Document::invoice()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
 
-                    $conenct['attributes']['@click'] = 'onConnect()';
+                    $connect['attributes']['@click'] = 'onConnect()';
                 }
 
-                $actions[] = $conenct;
+                $actions[] = $connect;
 
                 $actions[] = [
                     'type' => 'divider',
