@@ -31,7 +31,7 @@
                 <x-form.group.password
                     name="password"
                     label="{{ trans('auth.password.pass') }}"
-                    placeholder="********"
+                    placeholder="﹡﹡﹡﹡﹡﹡"
                     form-group-class="sm:col-span-6"
                     input-group-class="input-group-alternative"
                 />
@@ -39,7 +39,7 @@
                 <x-form.group.password
                     name="password_confirmation"
                     label="{{ trans('auth.password.pass_confirm') }}"
-                    placeholder="********"
+                    placeholder="﹡﹡﹡﹡﹡﹡"
                     form-group-class="sm:col-span-6"
                     input-group-class="input-group-alternative"
                 />
