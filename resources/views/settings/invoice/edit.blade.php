@@ -1,108 +1,143 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.invoices', 1) }}
+    </x-slot>
 
-@section('title', trans_choice('general.invoices', 1))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" route="settings.invoice.update">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('settings.invoice.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    {!! Form::open([
-        'id' => 'setting',
-        'method' => 'PATCH',
-        'route' => 'settings.update',
-        '@submit.prevent' => 'onSubmit',
-        '@keydown' => 'form.errors.clear($event.target.name)',
-        'files' => true,
-        'role' => 'form',
-        'class' => 'form-loading-button',
-        'novalidate' => true,
-    ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.text name="number_prefix" label="{{ trans('settings.invoice.prefix') }}"  value="{{ setting('invoice.number_prefix') }}" not-required />
 
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('number_prefix', trans('settings.invoice.prefix'), 'font', [], setting('invoice.number_prefix')) }}
+                        <x-form.group.text name="number_digit" label="{{ trans('settings.invoice.digit') }}"  value="{{ setting('invoice.number_digit') }}" not-required />
 
-                    {{ Form::textGroup('number_digit', trans('settings.invoice.digit'), 'text-width', [], setting('invoice.number_digit')) }}
+                        <x-form.group.text name="number_next" label="{{ trans('settings.invoice.next') }}" value="{{ setting('invoice.number_next') }}" not-required />
 
-                    {{ Form::textGroup('number_next', trans('settings.invoice.next'), 'chevron-right', [], setting('invoice.number_next')) }}
+                        <x-form.group.select name="payment_terms" label="{{ trans('settings.invoice.payment_terms') }}" :options="$payment_terms" :selected="setting('invoice.payment_terms')" not-required />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::selectGroup('payment_terms', trans('settings.invoice.payment_terms'), 'calendar', $payment_terms, setting('invoice.payment_terms'), []) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title=" {{ trans_choice('general.templates', 1) }}" description="{{ trans('settings.invoice.form_description.template') }}" />
+                    </x-slot>
 
-                    {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', [], setting('invoice.title')) }}
-
-                    {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', [], setting('invoice.subheading')) }}
-
-                    {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), 'sticky-note-o', setting('invoice.notes'), ['rows' => 3], 'col-md-6') }}
-
-                    {{ Form::textareaGroup('footer', trans('general.footer'), 'sticky-note-o', setting('invoice.footer'), ['rows' => 3], 'col-md-6') }}
-
-                    {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting('invoice.item_name'), [], 'item_name_input', setting('invoice.item_name_input')) }}
-
-                    {{ Form::radioGroup('hide_item_name', trans('settings.invoice.hide.item_name'), setting('invoice.hide_item_name')) }}
-
-                    {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, setting('invoice.price_name'), [], 'price_name_input', setting('invoice.price_name_input')) }}
-
-                    {{ Form::radioGroup('hide_price', trans('settings.invoice.hide.price'), setting('invoice.hide_price')) }}
-
-                    {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, setting('invoice.quantity_name'), [], 'quantity_name_input', setting('invoice.quantity_name_input')) }}
-
-                    {{ Form::radioGroup('hide_quantity', trans('settings.invoice.hide.quantity'), setting('invoice.hide_quantity')) }}
-
-                    {{ Form::radioGroup('hide_item_description', trans('settings.invoice.hide.item_description'), setting('invoice.hide_item_description')) }}
-
-                    {{ Form::radioGroup('hide_amount', trans('settings.invoice.hide.amount'), setting('invoice.hide_amount')) }}
-
-                    <div class="form-group col-md-6">
-                        {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}
-
-                        <div class="input-group">
-                            <button type="button" class="btn btn-block btn-outline-primary" @click="onTemplate">
-                                {{ trans('settings.invoice.choose_template') }}
-                            </button>
+                    <x-slot name="body">
+                        <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
+                            <label class="cursor-pointer">
+                                <div @click="form.template='default'">
+                                    <img src="{{ asset('public/img/invoice_templates/default.png') }}" class="h-60 my-3" alt="Default" />
+                                    <input type="radio" name="template" value="default" v-model="form._template">
+                                    {{ trans('settings.invoice.default') }}
+                                </div>
+                            </label>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            @can('update-settings-settings')
-                <div class="card-footer">
-                    <div class="row save-buttons">
-                        {{ Form::saveButtons('settings.index') }}
-                    </div>
-                </div>
-            @endcan
-        </div>
+                        <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
+                            <label class="cursor-pointer">
+                                <div @click="form.template='classic'">
+                                    <img src="{{ asset('public/img/invoice_templates/classic.png') }}" class="h-60 my-3" alt="Classic" />
+                                    <input type="radio" name="template" value="classic" v-model="form._template">
+                                    {{ trans('settings.invoice.classic') }}
+                                </div>
+                            </label>
+                        </div>
 
-        {!! Form::hidden('_prefix', 'invoice') !!}
+                        <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
+                            <label class="cursor-pointer">
+                                <div @click="form.template='modern'">
+                                    <img src="{{ asset('public/img/invoice_templates/modern.png') }}" class="h-60 my-3" alt="Modern" />
+                                    <input type="radio" name="template" value="modern" v-model="form._template">
+                                    {{ trans('settings.invoice.modern') }}
+                                </div>
+                            </label>
+                        </div>
 
-    {!! Form::close() !!}
-@endsection
+                        <x-form.group.color name="color" label="{{ trans('general.color') }}" />
+                    </x-slot>
+                </x-form.section>
 
-@push('content_content_end')
-    <akaunting-modal
-        :show="template.modal"
-        @cancel="template.modal = false"
-        :title="'{{ trans('settings.invoice.choose_template') }}'"
-        :message="template.html"
-        :button_cancel="'{{ trans('general.button.save') }}'"
-        :button_delete="'{{ trans('general.button.cancel') }}'">
-        <template #modal-body>
-            @include('modals.settings.invoice_template')
-        </template>
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.defaults', 2) }}" description="{{ trans('settings.invoice.form_description.default') }}" />
+                    </x-slot>
 
-        <template #card-footer>
-            <div class="float-right">
-                <button type="button" class="btn btn-outline-secondary" @click="closeTemplate">
-                    {{ trans('general.cancel') }}
-                </button>
+                    <x-slot name="body">
+                        <x-form.group.text name="title" label="{{ trans('settings.invoice.title') }}" value="{{ setting('invoice.title') }}" not-required />
 
-                <button :disabled="form.loading"  type="button" class="btn btn-success button-submit" @click="addTemplate">
-                    <span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span>
-                    <span :class="[{'ml-0': form.loading}]" class="btn-inner--text">{{ trans('general.confirm') }}</span>
-                </button>
-            </div>
-        </template>
-    </akaunting-modal>
-@endpush
+                        <x-form.group.text name="subheading" label="{{ trans('settings.invoice.subheading') }}" value="{{ setting('invoice.subheading') }}" not-required />
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
-@endpush
+                        <x-form.group.textarea name="notes" label="{{ trans_choice('general.notes', 2) }}" :value="setting('invoice.notes')" form-group-class="sm:col-span-3" not-required />
+
+                        <x-form.group.textarea name="footer" label="{{ trans('general.footer') }}" :value="setting('invoice.footer')" form-group-class="sm:col-span-3" not-required />
+                    </x-slot>
+                </x-form.section>
+
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('settings.invoice.column', 2) }}" description="{{ trans('settings.invoice.form_description.column') }}" />
+                    </x-slot>
+
+                    <x-slot name="body">
+                        <div class="grid col-span-6 grid-rows-3">
+                            <x-form.group.invoice-text
+                                name="item_name"
+                                label="{{ trans('settings.invoice.item_name') }}"
+                                :options="$item_names"
+                                :selected="setting('invoice.item_name')"
+                                change="settingsInvoice"
+                                input-name="item_name_input"
+                                :input-value="setting('invoice.item_name_input')"
+                                form-group-class="sm:col-span-6 sm:gap-0"
+                            />
+
+                            <x-form.group.invoice-text
+                                name="price_name"
+                                label="{{ trans('settings.invoice.price_name') }}"
+                                :options="$price_names"
+                                :selected="setting('invoice.price_name')"
+                                change="settingsInvoice"
+                                input-name="price_name_input"
+                                :input-value="setting('invoice.price_name_input')"
+                                form-group-class="sm:col-span-6 sm:gap-0"
+                            />
+
+                            <x-form.group.invoice-text
+                                name="quantity_name"
+                                label="{{ trans('settings.invoice.quantity_name') }}"
+                                :options="$quantity_names"
+                                :selected="setting('invoice.quantity_name')"
+                                change="settingsInvoice"
+                                input-name="quantity_name_input"
+                                :input-value="setting('invoice.quantity_name_input')"
+                                form-group-class="sm:col-span-6 sm:gap-0"
+                            />
+                        </div>
+
+                        <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="setting('invoice.hide_item_description')" not-required form-group-class="sm:col-span-6" />
+
+                        <x-form.group.toggle name="hide_amount" label="{{ trans('settings.invoice.hide.amount') }}" :value="setting('invoice.hide_amount')" not-required form-group-class="sm:col-span-6" />
+                    </x-slot>
+                </x-form.section>
+
+                @can('update-settings-invoice')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+
+                <x-form.input.hidden name="_template" :value="setting('invoice.template')" />
+                <x-form.input.hidden name="_prefix" value="invoice" />
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

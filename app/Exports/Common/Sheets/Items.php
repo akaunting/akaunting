@@ -23,6 +23,7 @@ class Items extends Export
     {
         return [
             'name',
+            'type',
             'description',
             'sale_price',
             'purchase_price',

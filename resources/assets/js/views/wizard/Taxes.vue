@@ -1,237 +1,165 @@
 <template>
-  <div>
-    <h1 class="text-white">{{ translations.taxes.title }}</h1>
-    <div class="card">
-      <div class="card-header wizard-header p-3">
-        <el-steps :active="active" finish-status="success" align-center>
-          <el-step :title="translations.company.title"></el-step>
-          <el-step :title="translations.currencies.title"></el-step>
-          <el-step :title="translations.taxes.title"></el-step>
-          <el-step :title="translations.finish.title"></el-step>
-        </el-steps>
-      </div>
-      <div class="card-body">
-        <div class="document-loading" v-if="pageLoad">
-          <div>
-            <i class="fas fa-spinner fa-pulse fa-7x"></i>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end mb-3">
-          <base-button
-            type="success"
-            native-type="button"
-            class="btn-sm"
-            @click="onAddItem()"
-            >{{ translations.taxes.add_new }}</base-button
-          >
-        </div>
-        <div class="row flex-column">
-          <form ref="form">
-            <table class="table table-flush table-hover" id="tbl-taxes">
-              <thead class="thead-light">
-                <tr class="row table-head-line">
-                  <th class="col-xs-4 col-sm-4 col-md-3">
-                    {{ translations.taxes.name }}
-                  </th>
-                  <th class="col-md-3 d-none d-md-block">
-                    {{ translations.taxes.rate }}
-                  </th>
-                  <th class="col-xs-4 col-sm-4 col-md-3">
-                    {{ translations.taxes.enabled }}
-                  </th>
-                  <th class="col-xs-4 col-sm-4 col-md-3 text-center">
-                    {{ translations.taxes.actions }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(item, index) in taxes"
-                  :key="index"
-                  class="row align-items-center border-top-1"
-                >
-                  <td class="col-xs-4 col-sm-4 col-md-3 tax-name">
-                    <a href="javascript:void(0);"> {{ item.name }} </a>
-                  </td>
-                  <td class="col-md-3 d-none d-md-block">{{ item.rate }}</td>
-                  <td class="col-xs-4 col-sm-4 col-md-3">
-                    <label class="custom-toggle d-inline-block" name="staus-1">
-                      <input
-                        type="checkbox"
-                        :checked="item.enabled"
-                        @input="onSwitchUpdate(item)"
-                      />
-                      <span
-                        class="custom-toggle-slider rounded-circle status-green"
-                        :data-label-on="translations.taxes.yes"
-                        :data-label-off="translations.taxes.no"
-                      >
-                      </span>
-                    </label>
-                  </td>
-                  <td class="col-xs-4 col-sm-4 col-md-3 text-center">
-                    <div class="dropdown">
-                      <a
-                        class="btn btn-neutral btn-sm text-light items-align-center py-2"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fa fa-ellipsis-h text-muted"></i>
-                      </a>
+    <div class="relative bg-body z-10 rounded-lg shadow-2xl p-10" style="height:675px;">
+        <WizardSteps :active_state="active"></WizardSteps>
 
-                      <div
-                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
-                      >
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          @click="onEditItem(item, index)"
-                        >
-                          {{ translations.taxes.edit }}
+        <div class="flex flex-col justify-between overflow-y-auto" style="height: calc(100% - 53px)">
+            <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
+                <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
+            </div>
+            
+            <div class="overflow-x-visible menu-scroll mt-1">
+                <form ref="form" class="py-2 align-middle inline-block min-w-full">
+                    <table id="tbl-taxes" v-if="taxes.length" class="min-w-full divide-y divide-gray-200">
+                        <thead class="thead-light">
+                            <tr class="flex items-center px-1">
+                                <th class="w-6/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
+                                    {{ translations.taxes.name }}
+                                </th>
+                                <th class="w-6/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-right rtl:text-left text-xs font-medium text-black tracking-wider">
+                                    {{ translations.taxes.rate }}
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody data-table-body>
+                            <tr v-for="(item, index) in taxes" :key="index" data-table-list class="relative flex items-center border-b hover:bg-gray-100 px-1 flex-wrap group">
+                                <td :class="current_tab == index ? 'hidden' : ''" class="w-6/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black">
+                                    {{ item.name }} 
+                                </td>
+                                <td :class="current_tab == index ? 'hidden' : ''" class="w-6/12 relative ltr:pr-6 rtl:pl-6 py-4 ltr:text-right rtl:text-left whitespace-nowrap text-sm font-medium text-black">
+                                    {{ item.rate }}
+
+                                    <div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover:flex">
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onEditItem(item, index)">
+                                            <span class="material-icons-outlined text-purple text-lg">edit</span>
+
+                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                                <span>{{ translations.taxes.edit }}</span>
+                                                <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
+                                            </div>
+                                        </button>
+
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onClickDelete(item)">
+                                            <span class="material-icons-outlined text-purple text-lg">delete</span>
+
+                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                                <span>{{ translations.taxes.delete }}</span>
+                                                <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td class="w-full p-0 current-tab" v-if="current_tab == index">
+                                    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 py-3">
+                                        <base-input name="name" data-name="name" :placeholder="translations.taxes.name"
+                                        form-classes="sm:col-span-2"
+                                        class="required"
+                                        v-model="model.name"
+                                        :error="onFailErrorGet('name')"
+                                        />
+
+                                        <div class="sm:col-span-2"></div>
+
+                                        <base-input name="rate" data-name="rate" :placeholder="translations.taxes.rate"
+                                        form-classes="sm:col-span-2"
+                                        class="required"
+                                        v-model="model.rate"
+                                        :error="onFailErrorGet('rate')"
+                                        />
+
+                                        <div class="flex justify-end items-center sm:col-span-6">
+                                            <base-button class="flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100 ltr:mr-2 rtl:ml-2" @click="onCancelItem()">
+                                                {{ translations.taxes.cancel }}
+                                            </base-button>
+
+                                            <base-button class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onEditForm(item)">
+                                                {{ translations.taxes.save }}
+                                            </base-button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="flex flex-col items-center">
+                        <div v-if="!taxes.length" class="flex flex-col items-center gap-y-2">
+                            <span class="text-dark">
+                                {{ translations.taxes.no_taxes }}
+                            </span>
+
+                            <span class="text-gray-700">
+                                {{ translations.taxes.create_task }}
+                            </span>
+                        </div>
+
+                        <div v-if="taxes.length" class="w-full border-b hover:bg-gray-100" style="height:53px;">
+                            <button type="button" class="w-full h-full flex items-center justify-center text-purple font-medium disabled:bg-gray-200" @click="onAddItem()">
+                                <span class="material-icons-outlined text-base font-bold ltr:mr-1 rtl:ml-1">add</span>
+                                    {{ translations.taxes.new_tax }}
+                            </button>
+                        </div>
+
+                       <button v-else type="button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 mt-3" @click="onAddItem()">
+                            {{ translations.taxes.new_tax }}
                         </button>
-                        <div class="dropdown-divider"></div>
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          @click="onClickDelete(item)"
-                        >
-                          {{ translations.taxes.delete }}
-                        </button>
-                      </div>
                     </div>
-                  </td>
-                  <td class="w-100 p-0 current-tab" v-if="current_tab == index">
-                    <div class="row pt-3 pb-3">
-                      <div
-                        class="form-container col-12 d-flex justify-content-between align-items-start"
-                      >
-                        <base-input
-                          :label="translations.taxes.name"
-                          name="name"
-                          data-name="name"
-                          :placeholder="translations.taxes.name"
-                          prepend-icon="fas fa-font"
-                          form-classes="col-md-4"
-                          class="required"
-                          v-model="model.name"
-                          :error="onFailErrorGet('name')"
+                    
+                    <div v-if="new_datas" class="grid sm:grid-cols-4 gap-x-8 gap-y-6 my-3.5 w-full">
+                        <base-input :label="translations.taxes.name" name="name" data-name="name" :placeholder="translations.taxes.name"
+                        class="sm:col-span-2 required"
+                        v-model="model.name"
+                        :error="onFailErrorGet('name')"
                         />
-                        <base-input
-                          :label="translations.taxes.rate"
-                          name="rate"
-                          data-name="rate"
-                          :placeholder="translations.taxes.rate"
-                          prepend-icon="fas fa-percentage"
-                          form-classes="col-md-4"
-                          class="required"
-                          v-model="model.rate"
-                          :error="onFailErrorGet('rate')"
+
+                        <base-input :label="translations.taxes.rate" name="rate" data-name="rate"
+                        :placeholder="translations.taxes.rate"
+                        class="sm:col-span-2 required"
+                        v-model="model.rate"
+                        :error="onFailErrorGet('rate')"
                         />
-                        <div class="mt-4 col-md-4 current-tab-btn">
-                          <base-button
-                            type="white"
-                            native-type="button"
-                            @click="onCancelItem()"
-                          >
-                            {{ translations.taxes.cancel }}</base-button
-                          >
-                          <base-button
-                            type="success"
-                            native-type="button"
-                            @click="onEditForm(item)"
-                            >{{ translations.taxes.save }}</base-button
-                          >
+
+                        <div class="flex items-center justify-end sm:col-span-4">
+                            <base-button class="flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100 ltr:mr-2 rtl:ml-2" @click="new_datas = false">
+                                {{ translations.taxes.cancel }}
+                            </base-button>
+
+                            <base-button :disabled="button_loading" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onSubmitForm()">
+                                <i v-if="button_loading" class="submit-spin absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto"></i> 
+                                <span :class="[{'opacity-0': button_loading}]">
+                                    {{ translations.taxes.save }}
+                                </span>
+                            </base-button>
                         </div>
-                      </div>
                     </div>
-                  </td>
-                </tr>
-                <tr v-if="new_datas">
-                  <td class="p-0">
-                    <div class="row pt-3 pb-3">
-                      <div
-                        class="form-container col-12 d-flex justify-content-between align-items-start"
-                      >
-                        <base-input
-                          :label="translations.taxes.name"
-                          name="name"
-                          data-name="name"
-                          :placeholder="translations.taxes.name"
-                          prepend-icon="fas fa-font"
-                          class="required"
-                          v-model="model.name"
-                          :error="onFailErrorGet('name')"
-                        />
-                        <base-input
-                          :label="translations.taxes.rate"
-                          name="rate"
-                          data-name="rate"
-                          :placeholder="translations.taxes.rate"
-                          prepend-icon="fas fa-percentage"
-                          class="required"
-                          v-model="model.rate"
-                          :error="onFailErrorGet('rate')"
-                        />
-                        <div>
-                          <div class="d-flex">
-                            <akaunting-radio-group
-                              name="enabled"
-                              :text="translations.taxes.enabled"
-                              :enable="translations.taxes.yes"
-                              :disable="translations.taxes.no"
-                              :value="model.enabled"
-                            >
-                            </akaunting-radio-group>
-                          </div>
-                        </div>
-                        <div class="mt-4">
-                          <base-button
-                            type="success"
-                            native-type="button"
-                            @click="onSubmitForm()"
-                            >{{ translations.taxes.save }}</base-button
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                </form>
+            </div>
+ 
+            <div class="flex items-center justify-center mt-5 gap-x-10">
+                <base-button class="w-1/2 flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="prev()">
+                    {{ translations.taxes.previous }}
+                </base-button>
+
+                <base-button class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="next()">
+                    {{ translations.taxes.next }}
+                </base-button>
+            </div>
         </div>
+
         <notifications></notifications>
+
         <form id="form-dynamic-component" method="POST" action="#"></form>
-        <component
-          v-bind:is="component"
-          @deleted="onDeleteCurrency($event)"
-        ></component>
-      </div>
-      <div class="card-footer">
-        <div class="row">
-          <div class="col-md-12 d-flex justify-content-between">
-            <base-button type="white" native-type="submit" @click="prev()">{{
-              translations.taxes.previous
-            }}</base-button>
-            <base-button type="white" native-type="submit" @click="next()">{{
-              translations.taxes.next
-            }}</base-button>
-          </div>
-        </div>
-      </div>
+
+        <component v-bind:is="component" @deleted="onDeleteCurrency($event)"></component>
     </div>
-  </div>
 </template>
 
 <script>
-import { Step, Steps } from "element-ui";
-import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
+import AkauntingRadioGroup from "./../../components/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
 import WizardAction from "./../../mixins/wizardAction";
+import WizardSteps from "./Steps.vue";
 
 export default {
     name: "Taxes",
@@ -239,9 +167,8 @@ export default {
     mixins: [MixinsGlobal, WizardAction],
 
     components: {
-        [Step.name]: Step,
-        [Steps.name]: Steps,
         AkauntingRadioGroup,
+        WizardSteps
     },
 
     props: {
@@ -262,16 +189,12 @@ export default {
         return {
             active: 2,
             bulk_action: new BulkAction(url + "/settings/taxes"),
+            add_taxes: true,
+            new_add_taxes: false
         };
     },
 
     methods: {
-        onSwitchUpdate(item) {
-            this.onStatus(item.id, event);
-
-            this.onStatusControl(this.taxes, item.id, event);
-        },
-
         onClickDelete(item) {
             this.confirmDelete(
                 `${
@@ -307,8 +230,19 @@ export default {
             );
         },
 
+        onNewTax() {
+            this.new_add_taxes = true;
+            this.add_taxes = false;
+        },
+
+        onCancelNewTax() {
+            this.new_add_taxes = false;
+            this.add_taxes = true;
+        },
+
         onSubmitForm() {
             this.onSubmitEvent("POST", url + "/wizard/taxes", "type", this.taxes);
+
         },
 
         prev() {
@@ -323,9 +257,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.current-tab-btn {
-  padding: 0 80px;
-}
-</style>

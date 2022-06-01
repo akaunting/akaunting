@@ -2,32 +2,46 @@
 
 namespace App\View\Components\Transactions;
 
-use Illuminate\View\Component;
+use App\Abstracts\View\Component;
+use App\Traits\ViewComponents;
 
 class Script extends Component
 {
+    use ViewComponents;
+
+    public const OBJECT_TYPE = 'transaction';
+    public const DEFAULT_TYPE = 'income';
+    public const DEFAULT_PLURAL_TYPE = 'incomes';
+
     /** @var string */
     public $type;
 
-    /** @var string */
-    public $scriptFile;
-
-    /** @var string */
-    public $version;
-
     public $transaction;
+
+    /** @var string */
+    public $alias;
+
+    /** @var string */
+    public $folder;
+
+    /** @var string */
+    public $file;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $type = '', string $scriptFile = '', string $version = '', $transaction = false)
-    {
+    public function __construct(
+        string $type = '', $transaction = false,
+        string $alias = '', string $folder = '', string $file = ''
+    ) {
         $this->type = $type;
-        $this->scriptFile = ($scriptFile) ? $scriptFile : 'public/js/banking/transactions.js';
-        $this->version = $this->getVersion($version);
         $this->transaction = $transaction;
+
+        $this->alias = $this->getAlias($type, $alias);
+        $this->folder = $this->getScriptFolder($type, $folder);
+        $this->file = $this->getScriptFile($type, $file);
     }
 
     /**
@@ -38,18 +52,5 @@ class Script extends Component
     public function render()
     {
         return view('components.transactions.script');
-    }
-
-    protected function getVersion($version)
-    {
-        if (!empty($version)) {
-            return $version;
-        }
-
-        if ($alias = config('type.' . $this->type . '.alias')) {
-            return module_version($alias);
-        }
-
-        return version('short');
     }
 }

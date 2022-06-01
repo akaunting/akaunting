@@ -7,7 +7,6 @@ use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Events\Document\PaidAmountCalculated;
 use App\Interfaces\Job\ShouldCreate;
-use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Traits\Currencies;
@@ -71,20 +70,6 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $this->request['category_id'] = isset($this->request['category_id']) ? $this->request['category_id'] : $this->model->category_id;
         $this->request['payment_method'] = isset($this->request['payment_method']) ? $this->request['payment_method'] : setting('default.payment_method');
         $this->request['notify'] = isset($this->request['notify']) ? $this->request['notify'] : 0;
-
-        if ($this->request['mark_paid'] && ($this->request['account_id'] == setting('default.account'))) {
-            $account = Account::find((int) $this->request['account_id']);
-
-            $code = $account->currency_code;
-            $rate = config('money.' . $account->currency_code . '.rate');
-
-            if ($account->currency_code != $this->model->currency_code) {
-                $this->request['currency_code'] = $code;
-                $this->request['currency_rate'] = $rate;
-
-                $this->request['amount'] = $this->convertBetween($this->request['amount'], $this->model->currency_code, $this->model->currency_rate, $code, $rate);
-            }
-        }
     }
 
     protected function checkAmount(): bool

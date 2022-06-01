@@ -47,6 +47,7 @@ class Profile extends Controller
 
         // Do not reset password if not entered/changed
         if (empty($request['password'])) {
+            unset($request['current_password']);
             unset($request['password']);
             unset($request['password_confirmation']);
         }

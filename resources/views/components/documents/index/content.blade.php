@@ -1,73 +1,110 @@
 @if ($hideEmptyPage || ($documents->count() || request()->get('search', false)))
-    <div class="card">
-        <x-documents.index.card-header
-            type="{{ $type }}"
-            hide-bulk-action="{{ $hideBulkAction }}"
-            :form-card-header-route="$formCardHeaderRoute"
-            hide-search-string="{{ $hideSearchString }}"
-            search-string-model="{{ $searchStringModel }}"
-            text-bulk-action="{{ $textBulkAction }}"
-            bulk-action-class="{{ $bulkActionClass }}"
-            :bulk-actions="$bulkActions"
-            :bulk-action-route-parameters="$bulkActionRouteParameters"
-        />
+    @if (! $hideSummary)
+    <x-index.summary :items="$summaryItems" />
+    @endif
 
-        <x-documents.index.card-body
-            type="{{ $type }}"
-            :documents="$documents"
-            hide-bulk-action="{{ $hideBulkAction }}"
-            class-bulk-action="{{ $classBulkAction }}"
-            hide-document-number="{{ $hideDocumentNumber }}"
-            text-document-number="{{ $textDocumentNumber }}"
-            class-document-number="{{ $classDocumentNumber }}"
-            hide-contact-name="{{ $hideContactName }}"
-            text-contact-name="{{ $textContactName }}"
-            class-contact-name="{{ $classContactName }}"
-            hide-amount="{{ $hideAmount }}"
-            class-amount="{{ $classAmount }}"
-            hide-issued-at="{{ $hideIssuedAt }}"
-            text-issued-at="{{ $textIssuedAt }}"
-            class-issued-at="{{ $classIssuedAt }}"
-            hide-due-at="{{ $hideDueAt }}"
-            class-due-at="{{ $classDueAt }}"
-            text-due-at="{{ $textDueAt }}"
-            hide-status="{{ $hideStatus }}"
-            class-status="{{ $classStatus }}"
-            hide-actions="{{ $hideActions }}"
-            class-actions="{{ $classActions }}"
-            text-document-status="{{ $textDocumentStatus }}"
-            hide-button-show="{{ $hideButtonShow }}"
-            route-button-show="{{ $routeButtonShow }}"
-            hide-button-edit="{{ $hideButtonEdit }}"
-            check-button-reconciled="{{ $checkButtonReconciled }}"
-            route-button-edit="{{ $routeButtonEdit }}"
-            check-button-cancelled="{{ $checkButtonCancelled }}"
-            hide-button-duplicate="{{ $hideButtonDuplicate }}"
-            permission-create="{{ $permissionCreate }}"
-            route-button-duplicate="{{ $routeButtonDuplicate }}"
-            hide-button-cancel="{{ $hideButtonCancel }}"
-            permission-update="{{ $permissionUpdate }}"
-            route-button-cancelled="{{ $routeButtonCancelled }}"
-            hide-button-delete="{{ $hideButtonDelete }}"
-            permission-delete="{{ $permissionDelete }}"
-            route-button-delete="{{ $routeButtonDelete }}"
-            text-modal-delete="{{ $textModalDelete }}"
-            value-modal-delete="{{ $valueModalDelete }}"
-        />
+    <x-index.container>
+        @if (! $withoutTabs)
+            <x-tabs active="{{ $tabActive }}">
+                <x-slot name="navs">
+                    @stack('document_nav_start')
 
-        <x-documents.index.card-footer
-            type="{{ $type }}"
-            :documents="$documents"
-        />
-    </div>
+                    @if ($tabActive == $type)
+                        <x-tabs.nav id="{{ $type }}" name="{{ trans_choice($textTabDocument, 2) }}" active />
+                    @else
+                        <x-tabs.nav-link id="{{ $type }}" name="{{ trans_choice($textTabDocument, 2) }}" href="{{ route($routeTabDocument) }}" />
+                    @endif
+
+                    @stack('document_nav_end')
+
+                    @if ($tabActive == 'recurring-templates')
+                        @if (! $hideRecurringTemplates)
+                            <x-tabs.nav id="recurring-templates" name="{{ trans_choice('general.recurring_templates', 2) }}" active />
+                        @endif
+                    @else
+                        @if (! $hideRecurringTemplates)
+                            <x-tabs.nav-link id="recurring-templates" name="{{ trans_choice('general.recurring_templates', 2) }}" href="{{ route($routeTabRecurring) }}" />
+                        @endif
+                    @endif
+
+                    @stack('recurring_nav_end')
+                </x-slot>
+
+                <x-slot name="content">
+                    @if ((! $hideSearchString) && (! $hideBulkAction))
+                    <x-index.search
+                        search-string="{{ $searchStringModel }}"
+                        bulk-action="{{ $bulkActionClass }}"
+                        route="{{ $searchRoute }}"
+                    />
+                    @elseif ((! $hideSearchString) && $hideBulkAction)
+                    <x-index.search
+                        search-string="{{ $searchStringModel }}"
+                        route="{{ $searchRoute }}"
+                    />
+                    @elseif ($hideSearchString && (! $hideBulkAction))
+                    <x-index.search
+                        bulk-action="{{ $bulkActionClass }}"
+                        route="{{ $searchRoute }}"
+                    />
+                    @endif
+
+                    @stack('document_tab_start')
+
+                    @if ($tabActive == $type)
+                        <x-tabs.tab id="{{ $type }}">
+                            <x-documents.index.document :type="$type" :documents="$documents" />
+                        </x-tabs.tab>
+                    @endif
+
+                    @stack('document_tab_end')
+
+                    @if ($tabActive == 'recurring-templates')
+                        @if (! $hideRecurringTemplates)
+                        <x-tabs.tab id="recurring-templates">
+                            <x-documents.index.recurring-templates :type="$type" :documents="$documents" />
+                        </x-tabs.tab>
+                        @endif
+                    @endif
+
+                    @stack('recurring_tab_end')
+                </x-slot>
+            </x-tabs>
+        @else
+            @if ((! $hideSearchString) && (! $hideBulkAction))
+            <x-index.search
+                search-string="{{ $searchStringModel }}"
+                bulk-action="{{ $bulkActionClass }}"
+                route="{{ $searchRoute }}"
+            />
+            @elseif ((! $hideSearchString) && $hideBulkAction)
+            <x-index.search
+                search-string="{{ $searchStringModel }}"
+                route="{{ $searchRoute }}"
+            />
+            @elseif ($hideSearchString && (! $hideBulkAction))
+            <x-index.search
+                bulk-action="{{ $bulkActionClass }}"
+                route="{{ $searchRoute }}"
+            />
+            @endif
+
+            @stack('document_start')
+
+            <x-documents.index.document :type="$type" :documents="$documents" />
+
+            @stack('document_end')
+        @endif
+    </x-index.container>
 @else
-    <x-documents.index.empty-page
-        type="{{ $type }}"
+    <x-empty-page
+        group="{{ $group }}"
+        page="{{ $page }}"
+        alias="{{ $alias }}"
+        :buttons="$emptyPageButtons"
         image-empty-page="{{ $imageEmptyPage }}"
         text-empty-page="{{ $textEmptyPage }}"
         url-docs-path="{{ $urlDocsPath }}"
-        create-route="{{ $createRoute }}"
         check-permission-create="{{ $checkPermissionCreate }}"
-        permission-create="{{ $permissionCreate }}"
     />
 @endif

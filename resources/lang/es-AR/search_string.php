@@ -10,12 +10,6 @@ return [
         'billed_at'         => 'Fecha de factura',
         'due_at'            => 'Fecha de vencimiento',
         'invoiced_at'       => 'Fecha de factura',
-        'issued_at'         => 'Fecha de emisión',
-        'symbol_first'      => 'Posición del símbolo',
-        'reconciled'        => 'Conciliado',
-        'expense_account'   => 'De cuenta',
-        'income_account'    => 'A cuenta',
-        'recurring'         => 'Recurrente',
     ],
 
 ];

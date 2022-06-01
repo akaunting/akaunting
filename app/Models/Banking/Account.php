@@ -4,8 +4,8 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Traits\Transactions;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Account extends Model
 {
@@ -25,7 +25,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled', 'created_from', 'created_by'];
+    protected $fillable = ['company_id', 'type', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled', 'created_from', 'created_by'];
 
     /**
      * The attributes that should be cast.
@@ -42,7 +42,7 @@ class Account extends Model
      *
      * @var array
      */
-    public $sortable = ['name', 'number', 'opening_balance', 'enabled'];
+    public $sortable = ['name', 'number', 'balance', 'bank_name', 'bank_phone'];
 
     public function currency()
     {
@@ -72,6 +72,21 @@ class Account extends Model
     public function scopeNumber($query, $number)
     {
         return $query->where('number', '=', $number);
+    }
+
+    /**
+     * Sort by balance
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function balanceSortable($query, $direction)
+    {
+        return $query//->join('transactions', 'transactions.account_id', '=', 'accounts.id')
+            ->orderBy('balance', $direction)
+            ->select(['accounts.*', 'accounts.opening_balance as balance']);
     }
 
     /**
@@ -127,6 +142,39 @@ class Account extends Model
         return $total;
     }
 
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.show'),
+            'icon' => 'visibility',
+            'url' => route('accounts.show', $this->id),
+            'permission' => 'read-banking-accounts',
+        ];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('accounts.edit', $this->id),
+            'permission' => 'update-banking-accounts',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'accounts.destroy',
+            'permission' => 'delete-banking-accounts',
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
 
     /**
      * Create a new factory instance for the model.

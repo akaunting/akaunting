@@ -85,14 +85,6 @@ trait Scopes
 
         $type = $request->get('type') ?: Str::singular((string) $request->segment(3));
 
-        if ($type == 'revenue') {
-            $type = 'income';
-        }
-
-        if ($type == 'payment') {
-            $type = 'expense';
-        }
-
         return $type;
     }
 }

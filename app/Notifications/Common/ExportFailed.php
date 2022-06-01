@@ -50,7 +50,7 @@ class ExportFailed extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(trans('notifications.export.failed.subject'))
+            ->subject(trans('notifications.export.failed.title'))
             ->line(trans('notifications.export.failed.description'))
             ->line($this->message);
     }
@@ -64,6 +64,10 @@ class ExportFailed extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'title' => trans('notifications.menu.export_failed.title'),
+            'description' => trans('notifications.menu.export_failed.description', [
+                'issues' => $this->message,
+            ]),
             'message' => $this->message,
         ];
     }

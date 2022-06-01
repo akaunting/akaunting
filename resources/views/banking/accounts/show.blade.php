@@ -1,281 +1,448 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ $account->name }}
+    </x-slot>
 
-@section('title', $account->name)
+    <x-slot name="status">
+        @if (! $account->enabled)
+            <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
+        @endif
 
-@section('new_button')
-    <div class="dropup header-drop-top">    
-        <button type="button" class="btn btn-white btn-sm" data-toggle="dropdown" aria-expanded="false">
-            <i class="fa fa-chevron-down"></i>&nbsp; {{ trans('general.more_actions') }}
-        </button>
+        @if (setting('default.account') == $account->id)
+            <x-index.default text="{{ trans('accounts.default_account') }}" />
+        @endif
+    </x-slot>
 
-        <div class="dropdown-menu" role="menu">
-            @stack('button_dropdown_start')
+    <x-slot name="favorite"
+        title="{{ $account->name }}"
+        icon="account_balance"
+        :route="['accounts.show', $account->id]"
+    ></x-slot>
 
-            @stack('duplicate_button_start')
-            @can('create-banking-accounts')
-                <a class="dropdown-item" href="{{ route('accounts.duplicate', $account->id) }}">
-                    {{ trans('general.duplicate') }}
-                </a>
+    <x-slot name="buttons">
+        @stack('create_button_start')
+
+        <x-dropdown id="dropdown-new-actions">
+            <x-slot name="trigger" class="flex items-center px-3 py-1.5 mb-3 sm:mb-0 bg-green hover:bg-green-700 rounded-xl text-white text-sm font-bold leading-6" override="class">
+                {{ trans('general.new_more') }}
+                <span class="material-icons ltr:ml-2 rtl:mr-2">expand_more</span>
+            </x-slot>
+
+            @stack('income_button_start')
+
+            @can('create-banking-transactions')
+            <x-dropdown.link href="{{ route('accounts.create-income', $account->id) }}">
+                {{ trans_choice('general.incomes', 1) }}
+            </x-dropdown.link>
             @endcan
-            @stack('duplicate_button_end')
 
-            <div class="dropdown-divider"></div>
+            @stack('expense_button_start')
 
-            @stack('revenue_button_start')
-            @can('create-sales-revenues')
-                <a class="dropdown-item" href="{{ route('accounts.create-revenue', $account->id) }}">
-                    {{ trans('general.add_income')}}
-                </a>
+            @can('create-banking-transactions')
+            <x-dropdown.link href="{{ route('accounts.create-expense', $account->id) }}">
+                {{ trans_choice('general.expenses', 1) }}
+            </x-dropdown.link>
             @endcan
-            @stack('revenue_button_end')
-
-            @stack('payment_button_start')
-            @can('create-purchases-payments')
-                <a class="dropdown-item" href="{{ route('accounts.create-payment', $account->id) }}">
-                    {{ trans('general.add_expense') }}
-                </a>
-            @endcan
-            @stack('payment_button_end')
 
             @stack('transfer_button_start')
+
             @can('create-banking-transfers')
-                <a class="dropdown-item" href="{{ route('accounts.create-transfer', $account->id) }}">
-                    {{ trans('general.add_transfer') }}
-                </a>
+            <x-dropdown.link href="{{ route('accounts.create-transfer', $account->id) }}">
+                {{ trans_choice('general.transfers', 1) }}
+            </x-dropdown.link>
             @endcan
+
             @stack('transfer_button_end')
+        </x-dropdown>
 
-            <div class="dropdown-divider"></div>
+        @stack('edit_button_start')
 
-            @stack('performance_button_start')
+        @can('update-banking-accounts')
+        <x-link href="{{ route('accounts.edit', $account->id) }}">
+            {{ trans('general.edit') }}
+        </x-link>
+        @endcan
+
+        @stack('edit_button_end')
+    </x-slot>
+
+    <x-slot name="moreButtons">
+        @stack('more_button_start')
+
+        <x-dropdown id="dropdown-more-actions">
+            <x-slot name="trigger">
+                <span class="material-icons">more_horiz</span>
+            </x-slot>
+
+            @stack('see_performance_button_start')
+
             @can('read-banking-accounts')
-                <a class="dropdown-item" href="{{ route('accounts.see-performance', $account->id) }}">
-                    {{ trans('accounts.see_performance') }}
-                </a>
+            <x-dropdown.link href="{{ route('accounts.see-performance', $account->id) }}">
+                {{ trans('accounts.see_performance') }}
+            </x-dropdown.link>
             @endcan
-            @stack('performance_button_end')
 
-            <div class="dropdown-divider"></div>
+            <x-dropdown.divider />
+
+            @stack('duplicate_button_start')
+
+            @can('create-banking-accounts')
+            <x-dropdown.link href="{{ route('accounts.duplicate', $account->id) }}">
+                {{ trans('general.duplicate') }}
+            </x-dropdown.link>
+            @endcan
+
+            <x-dropdown.divider />
 
             @stack('delete_button_start')
-            @can('delete-sales-customers')
-                {!! Form::deleteLink($account, 'accounts.destroy') !!}
+
+            @can('delete-banking-accounts')
+            <x-delete-link :model="$account" route="accounts.destroy" />
             @endcan
+
             @stack('delete_button_end')
+        </x-dropdown>
 
-            @stack('button_dropdown_end')
-        </div>
-        @stack('edit_button_start')
-            @can('update-sales-customers')
-                <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-white btn-sm">
-                    {{ trans('general.edit') }}
-                </a>
-            @endcan
-        @stack('edit_button_end')
-    </div>
-@endsection
+        @stack('more_button_end')
+    </x-slot>
 
-@section('content')
-    <div class="row">
-        <div class="col-xl-3">
-            <ul class="list-group mb-4">
-                @stack('account_number_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 font-weight-600">
-                    {{ trans_choice('general.accounts', 1) }} {{ trans_choice('accounts.number', 2) }}
-                    <small>{{ $account->number}}</small>
-                </li>
-                @stack('account_number_end')
+    <x-slot name="content">
+        <x-show.container>
+            <x-show.summary>
+                <x-show.summary.left>
+                </x-show.summary.left>
 
-                @stack('account_currency_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
-                    {{ trans_choice('general.currencies', 2) }}
-                    <small>{{ $account->currency->name}}</small>
-                </li>
-                @stack('account_currency_end')
+                <x-show.summary.right>
+                    @stack('summary_incoming_start')
+                    <x-slot name="first" amount="{{ money($account->income_balance, $account->currency_code, true) }}" title="{{ trans('accounts.incoming') }}"></x-slot>
+                    @stack('summary_incoming_end')
 
-                @stack('account_starting_balance_start')
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1 font-weight-600">
-                    {{ trans_choice('accounts.opening_balance', 2) }}
-                    <small>@money($account->opening_balance, $account->currency_code, true)</small>
-                </li>
-                @stack('account_starting_balance_end')
-            </ul>
+                    @stack('summary_outgoing_start')
+                    <x-slot name="second" amount="{{ money($account->expense_balance, $account->currency_code, true) }}" title="{{ trans('accounts.outgoing') }}"></x-slot>
+                    @stack('summary_outgoing_end')
 
-            <ul class="list-group mb-4">
-                @stack('bank_name_start')
-                <li class="list-group-item border-0">
-                    <div class="font-weight-600">{{ trans('accounts.bank_name') }}</div>
-                    <div><small>{{ $account->bank_name }}</small></div>
-                </li>
-                @stack('bank_name_end')
+                    @stack('summary_current_start')
+                    <x-slot name="third" amount="{{ money($account->balance, $account->currency_code, true) }}" title="{{ trans('accounts.current_balance') }}"></x-slot>
+                    @stack('summary_current_end')
+                </x-show.summary.right>
+            </x-show.summary>
 
-                @stack('account_phone_start')
-                <li class="list-group-item border-0 border-top-1">
-                    <div class="font-weight-600">{{ trans('accounts.bank_phone') }}</div>
-                    <div><small>{{ $account->bank_phone }}</small></div>
-                </li>
-                @stack('account_phone_end')
-
-                @stack('account_address_start')
-                <li class="list-group-item border-0 border-top-1">
-                    <div class="font-weight-600">{{ trans('accounts.bank_address') }}</div>
-                    <div><small>{{ $account->bank_address }}</small></div>
-                </li>
-                @stack('account_address_end')
-            </ul>
-        </div>
-
-        <div class="col-xl-9">
-            <div class="row mb--3">
-                @stack('account_incoming_card_start')
-                <div class="col-md-4">
-                    <div class="card bg-gradient-info border-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('accounts.incoming') }}</h5>
-                                    <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->income_balance, $account->currency_code, true)</span>
-                                </div>
-                            </div>
+            <x-show.content>
+                <x-show.content.left>
+                    @stack('account_number_start')
+                    <div class="flex flex-col text-sm mb-5">
+                        <div class="font-medium">
+                            {{ trans('accounts.number') }}
                         </div>
-                    </div>
-                </div>
-                @stack('account_incoming_card_end')
 
-                @stack('account_outgoing_card_start')
-                <div class="col-md-4">
-                    <div class="card bg-gradient-danger border-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('accounts.outgoing') }}</h5>
-                                    <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->expense_balance, $account->currency_code, true)</span>
-                                </div>
-                            </div>
+                        <span>{{ $account->number }}</span>
+                    </div>
+                    @stack('account_number_end')
+
+                    @stack('account_currency_start')
+                    <div class="flex flex-col text-sm mb-5">
+                        <div class="font-medium">
+                            {{ trans_choice('general.currencies', 2) }}
                         </div>
-                    </div>
-                </div>
-                @stack('account_outgoing_card_end')
 
-                @stack('account_balance_card_start')
-                <div class="col-md-4">
-                    <div class="card bg-gradient-success border-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.account_balance') }}</h5>
-                                    <div class="dropdown-divider"></div>
-                                    <span class="h2 font-weight-bold mb-0 text-white">@money($account->balance, $account->currency_code, true)</span>
-                                </div>
-                            </div>
+                        <span>
+                            {{ $account->currency->name }}
+                        </span>
+                    </div>
+                    @stack('account_currency_end')
+
+                    @stack('account_starting_balance_start')
+                    <div class="flex flex-col text-sm mb-5">
+                        <div class="font-medium">
+                            {{ trans_choice('accounts.opening_balance', 2) }}
                         </div>
+
+                        <span>
+                            <x-money :amount="$account->opening_balance" :currency="$account->currency_code" convert />
+                        </span>
                     </div>
-                </div>
-                @stack('account_balance_card_end')
-            </div>
+                    @stack('account_starting_balance_end')
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav-wrapper">
-                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                            @stack('account_transactions_tab_start')
-                            <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0 active" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="true">
-                                    {{ trans_choice('general.transactions', 2) }}
-                                </a>
-                            </li>
-                            @stack('account_transactions_tab_end')
+                    @stack('account_phone_start')
+                    @if ($account->bank_phone)
+                        <div class="flex flex-col text-sm mb-5">
+                            <div class="font-medium">
+                                {{ trans('accounts.bank_phone') }}
+                            </div>
 
-                            @stack('account_transfers_tab_start')
-                            <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="transfers-tab" data-toggle="tab" href="#transfers-content" role="tab" aria-controls="transfers-content" aria-selected="false">
-                                    {{ trans_choice('general.transfers', 2) }}
-                                </a>
-                            </li>
-                            @stack('account_transfers_tab_end')
-                        </ul>
-                    </div>
+                            <span>
+                                {{ $account->bank_phone }}
+                            </span>
+                        </div>
+                    @endif
+                    @stack('account_phone_end')
 
-                    <div class="card">
-                        <div class="tab-content" id="account-tab-content">
-                            @stack('account_transactions_content_start')
-                            <div class="tab-pane fade show active" id="transactions-content" role="tabpanel" aria-labelledby="transactions-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-flush table-hover" id="tbl-transactions">
-                                        <thead class="thead-light">
-                                            <tr class="row table-head-line">
-                                                <th class="col-sm-3">{{ trans_choice('general.date', 1) }}</th>
-                                                <th class="col-sm-3">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-3">{{ trans_choice('general.types', 1) }}</th>
-                                                <th class="col-sm-3">{{ trans_choice('general.categories', 1) }}</th>
-                                            </tr>
-                                        </thead>
+                    @stack('account_address_start')
+                    @if ($account->bank_address)
+                        <div class="flex flex-col text-sm mb-5">
+                            <div class="font-medium">
+                                {{ trans('accounts.bank_address') }}
+                            </div>
 
-                                        <tbody>
+                            <span>
+                                {{ $account->bank_address }}
+                            </span>
+                        </div>
+                    @endif
+                    @stack('account_address_end')
+                </x-show.content.left>
+
+                <x-show.content.right>
+                    <x-tabs active="transactions">
+                        <x-slot name="navs">
+                            @stack('transactions_nav_start')
+
+                            <x-tabs.nav
+                                id="transactions"
+                                name="{{ trans_choice('general.transactions', 2) }}"
+                                active
+                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
+                            />
+
+                            @stack('transfers_nav_start')
+
+                            <x-tabs.nav
+                                id="transfers"
+                                name="{{ trans_choice('general.transfers', 2) }}"
+                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
+                            />
+
+                            @stack('transfers_nav_end')
+                        </x-slot>
+
+                        <x-slot name="content">
+                            @stack('transactions_tab_start')
+
+                            <x-tabs.tab id="transactions">
+                                @if ($transactions->count())
+                                    <x-table>
+                                        <x-table.thead>
+                                            <x-table.tr class="flex items-center px-1">
+                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="number" title="{{ trans_choice('general.numbers', 1) }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-3/12 hidden sm:table-cell">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="category.name" title="{{ trans_choice('general.categories', 1) }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-4/12 sm:w-2/12">
+                                                    <x-sortablelink column="account.name" title="{{ trans_choice('general.accounts', 1) }}" />
+                                                </x-table.th>
+
+                                                <x-table.th class="w-2/12 hidden sm:table-cell">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="contact.name" title="{{ trans_choice('general.contacts', 1) }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="document.document_number" title="{{ trans_choice('general.documents', 1) }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-4/12 sm:w-2/12" kind="amount">
+                                                    <x-sortablelink column="amount" title="{{ trans('general.amount') }}" />
+                                                </x-table.th>
+                                            </x-table.tr>
+                                        </x-table.thead>
+
+                                        <x-table.tbody>
                                             @foreach($transactions as $item)
-                                                <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-sm-3"><a href="{{ route($item->route_name, $item->route_id) }}">@date($item->paid_at)</a></td>
-                                                    <td class="col-sm-3">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-3">{{ $item->type_title }}</td>
-                                                    <td class="col-sm-3">{{ $item->category->name }}</td>
-                                                </tr>
+                                                <x-table.tr href="{{ route('transactions.show', $item->id) }}">
+                                                    <x-table.td class="w-4/12 sm:w-3/12">
+                                                        <x-slot name="first" class="font-bold truncate" override="class">
+                                                            <x-date date="{{ $item->paid_at }}" />
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            {{ $item->number }}
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-3/12 hidden sm:table-cell">
+                                                        <x-slot name="first">
+                                                            {{ $item->type_title }}
+                                                        </x-slot>
+                                                        <x-slot name="second" class="flex items-center">
+                                                            <x-index.category :model="$item->category" />
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-4/12 sm:w-2/12">
+                                                        {{ $item->account->name }}
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-2/12 hidden sm:table-cell">
+                                                        <x-slot name="first">
+                                                            {{ $item->contact->name }}
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            @if ($item->document)
+                                                                <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                                    {{ $item->document->document_number }}
+                                                                </a>
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="relative w-4/12 sm:w-2/12" kind="amount">
+                                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                                    </x-table.td>
+
+                                                    <x-table.td kind="action">
+                                                        <x-table.actions :model="$item" />
+                                                    </x-table.td>
+                                                </x-table.tr>
                                             @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </x-table.tbody>
+                                    </x-table>
 
-                                <div class="card-footer py-4 table-action">
-                                    <div class="row">
-                                        @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
-                                    </div>
-                                </div>
-                            </div>
-                            @stack('account_transactions_content_end')
+                                    <x-pagination :items="$transactions" />
+                                @else
+                                    <x-show.no-records type="account" :model="$account" group="banking" page="transactions" />
+                                @endif
+                            </x-tabs.tab>
 
-                            @stack('account_transfers_content_start')
-                            <div class="tab-pane fade" id="transfers-content" role="tabpanel" aria-labelledby="transfers-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-flush table-hover" id="tbl-transfers">
-                                        <thead class="thead-light">
-                                            <tr class="row table-head-line">
-                                                <th class="col-sm-3">{{ trans('general.date') }}</th>
-                                                <th class="col-sm-3">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-3">{{ trans_choice('transfers.from_account', 1) }}</th>
-                                                <th class="col-sm-3">{{ trans_choice('transfers.to_account', 1) }}</th>
-                                            </tr>
-                                        </thead>
+                            @stack('transfers_tab_start')
 
-                                        <tbody>
+                            <x-tabs.tab id="transfers">
+                                @if ($transfers->count())
+                                    <x-table>
+                                        <x-table.thead>
+                                            <x-table.tr class="flex items-center px-1">
+                                                <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                                    <x-index.bulkaction.all />
+                                                </x-table.th>
+
+                                                <x-table.th class="w-3/12 hidden sm:table-cell">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="expense_transaction.reference" title="{{ trans('general.reference') }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="expense_transaction.name" title="{{ trans('transfers.from_account') }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="income_transaction.name" title="{{ trans('transfers.to_account') }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="expense_transaction.rate" title="{{ trans('transfers.from_rate') }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="income_transaction.rate" title="{{ trans('transfers.to_rate') }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+
+                                                <x-table.th class="w-4/12 sm:w-3/12" kind="amount">
+                                                    <x-slot name="first">
+                                                        <x-sortablelink column="expense_transaction.amount" title="{{ trans('transfers.from_amount') }}" />
+                                                    </x-slot>
+                                                    <x-slot name="second">
+                                                        <x-sortablelink column="income_transaction.amount" title="{{ trans('transfers.to_amount') }}" />
+                                                    </x-slot>
+                                                </x-table.th>
+                                            </x-table.tr>
+                                        </x-table.thead>
+
+                                        <x-table.tbody>
                                             @foreach($transfers as $item)
-                                                <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-sm-3"><a href="{{ route('transfers.show', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
-                                                    <td class="col-sm-3">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
-                                                    <td class="col-sm-3">{{ $item->expense_transaction->account->name }}</td>
-                                                    <td class="col-sm-3">{{ $item->income_transaction->account->name }}</td>
-                                                </tr>
+                                                @php
+                                                    $item->name = trans('transfers.messages.delete', [
+                                                        'from' => $item->expense_transaction->account->name,
+                                                        'to' => $item->income_transaction->account->name,
+                                                        'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)
+                                                    ]);
+                                                @endphp
+
+                                                <x-table.tr href="{{ route('transfers.show', $item->id) }}">
+                                                    <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                                        <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-3/12 truncate hidden sm:table-cell">
+                                                        <x-slot name="first" class="flex items-center font-bold" override="class">
+                                                            <x-date date="{{ $item->expense_transaction->paid_at }}" />
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            @if (! empty($item->reference))
+                                                                {{ $item->reference }}
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                                        <x-slot name="first">
+                                                            {{ $item->expense_transaction->account->name }}
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            {{ $item->income_transaction->account->name }}
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                                        <x-slot name="first">
+                                                            {{ $item->expense_transaction->currency_rate }}
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            {{ $item->income_transaction->currency_rate }}
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-4/12 sm:w-3/12" kind="amount">
+                                                        <x-slot name="first">
+                                                            <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            <x-money :amount="$item->income_transaction->amount" :currency="$item->income_transaction->currency_code" convert />
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td kind="action">
+                                                        <x-table.actions :model="$item" />
+                                                    </x-table.td>
+                                                </x-table.tr>
                                             @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </x-table.tbody>
+                                    </x-table>
 
-                                <div class="card-footer py-4 table-action">
-                                    <div class="row">
-                                        @include('partials.admin.pagination', ['items' => $transfers, 'type' => 'transfers'])
-                                    </div>
-                                </div>
-                            </div>
-                            @stack('account_transfers_content_end')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+                                    <x-pagination :items="$transfers" />
+                                @else
+                                    <x-show.no-records type="account" :model="$account" group="banking" page="transfers" />
+                                @endif
+                            </x-tabs.tab>
 
+                            @stack('transfers_tab_end')
+                        </x-slot>
+                    </x-tabs>
+                </x-show.content.right>
+            </x-show.content>
+        </x-show.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/banking/accounts.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="banking" file="accounts" />
+</x-layouts.admin>

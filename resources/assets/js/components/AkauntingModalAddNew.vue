@@ -1,45 +1,52 @@
 <template>
     <SlideYUpTransition :duration="animationDuration">
-        <div class="modal modal-add-new fade"
+        <div class="modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade items-center justify-center"
             @click.self="closeModal"
-            :class="[{'show d-block': show}, {'d-none': !show}]"
+            :class="[{'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
             v-show="show"
             tabindex="-1"
             role="dialog"
             :aria-hidden="!show">
-            <div class="modal-dialog" :class="modalDialogClass">
+            <div class="w-full my-10 m-auto flex flex-col" :class="modalDialogClass ? modalDialogClass : 'max-w-screen-sm'">
                 <slot name="modal-content">
                     <div class="modal-content">
-                        <div class="card-header pb-2">
-                            <slot name="card-header">
-                                <h4 class="float-left"> {{ title }} </h4>
-                                <button type="button" class="close" @click="onCancel" aria-hidden="true">&times;</button>
-                            </slot>
+                        <div class="p-5 bg-body rounded-tl-lg rounded-tr-lg">
+                            <div class="flex items-center justify-between border-b pb-5">
+                                <slot name="card-header">
+                                    <h4 class="text-base font-medium">
+                                        {{ title }}
+                                    </h4>
+
+                                    <button type="button" class="text-lg" @click="onCancel" aria-hidden="true">
+                                        <span class="rounded-md border-b-2 px-2 py-1 text-sm bg-gray-100">esc</span>
+                                    </button>
+                                </slot>
+                            </div>
                         </div>
 
                         <slot name="modal-body">
-                            <div class="modal-body pb-0" v-if="!is_component" v-html="message">
-                            </div>
-                            <div class="modal-body pb-0" v-else>
+                            <div class="py-1 px-5 bg-body" v-if="!is_component" v-html="message"></div>
+                            <div class="py-1 px-5 bg-body" v-else>
                                 <form id="form-create" method="POST" action="#"/>
 
                                 <component v-bind:is="component"></component>
                             </div>
                         </slot>
 
-                        <div class="card-footer border-top-0 pt-0">
+                        <div class="p-5 bg-body rounded-bl-lg rounded-br-lg border-gray-300">
                             <slot name="card-footer">
-                                <div class="float-right">
-                                    <button type="button" class="btn btn-outline-secondary" :class="buttons.cancel.class" @click="onCancel">
+                                <div class="flex items-center justify-end">
+                                    <button type="button" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" :class="buttons.cancel.class" @click="onCancel">
                                         {{ buttons.cancel.text }}
                                     </button>
 
-                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="btn btn-white" :class="buttons.payment.class">
+                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="px-3 py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6 ltr:mr-2 rtl:ml-2" :class="buttons.payment.class">
                                         {{ buttons.payment.text }}
                                     </a>
 
-                                    <button  :disabled="form.loading" type="button" class="btn button-submit" :class="buttons.confirm.class" @click="onSubmit">
-                                        <div class="aka-loader"></div><span>{{ buttons.confirm.text }}</span>
+                                    <button :disabled="form.loading" type="button" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg" :class="buttons.confirm.class" @click="onSubmit">
+                                        <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
+                                        <span :class="[{'opacity-0': form.loading}]">{{ buttons.confirm.text }}</span>
                                     </button>
                                 </div>
                             </slot>
@@ -57,7 +64,7 @@ import Vue from 'vue';
 import { SlideYUpTransition } from "vue2-transitions";
 import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
-import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingSelectRemote from './AkauntingSelectRemote';
 import AkauntingDate from './AkauntingDate';
@@ -83,7 +90,6 @@ export default {
 
     props: {
         show: Boolean,
-        modalDialogClass: '',
         is_component: Boolean,
 
         title: {
@@ -108,7 +114,7 @@ export default {
                     },
                     confirm: {
                         text: 'Save',
-                        class: 'btn-success',
+                        class: 'disabled:bg-green-100',
                     }
                 };
             },
@@ -119,7 +125,13 @@ export default {
             type: Number,
             default: 800,
             description: "Modal transition duration"
-        }
+        },
+
+       modalDialogClass: {
+            type: String,
+            default: '',
+            description: "Modal Body size Class"
+        },
     },
 
     data() {
@@ -142,7 +154,13 @@ export default {
     created: function () {
         let documentClasses = document.body.classList;
 
-        documentClasses.add("modal-open");
+        documentClasses.add("overflow-hidden");
+
+        if (this.modalDialogClass) {
+            let modal_size = this.modalDialogClass.replace('modal-', 'max-w-screen-');
+
+            this.modalDialogClass = modal_size;
+        }
     },
 
     mounted() {
@@ -255,6 +273,12 @@ export default {
                 })
             });
         }
+
+        window.addEventListener('keyup',(e) => {
+            if (e.key === 'Escape') {
+                this.onCancel();
+            }
+        });
     },
 
     methods: {
@@ -273,7 +297,7 @@ export default {
         onCancel() {
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("modal-open");
+            documentClasses.remove("overflow-hidden");
 
             this.$emit("cancel");
         }
@@ -284,21 +308,11 @@ export default {
             let documentClasses = document.body.classList;
 
             if (val) {
-                documentClasses.add("modal-open");
+                documentClasses.add("overflow-hidden");
             } else {
-                documentClasses.remove("modal-open");
+                documentClasses.remove("overflow-hidden");
             }
         }
     }
 }
 </script>
-
-<style>
-    .modal.show {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-md {
-        max-width: 650px;
-    }
-</style>

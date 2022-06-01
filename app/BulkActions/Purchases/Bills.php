@@ -15,46 +15,39 @@ class Bills extends BulkAction
 {
     public $model = Document::class;
 
-    public $actions = [
-        'paid' => [
-            'name' => 'bills.mark_paid',
-            'message' => 'bulk_actions.message.paid',
-            'permission' => 'update-purchases-bills',
-        ],
-        'received' => [
-            'name' => 'bills.mark_received',
-            'message' => 'bulk_actions.message.received',
-            'permission' => 'update-purchases-bills',
-        ],
-        'cancelled' => [
-            'name' => 'general.cancel',
-            'message' => 'bulk_actions.message.cancelled',
-            'permission' => 'update-purchases-bills',
-        ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-purchases-bills',
-        ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download',
-        ],
+    public $text = 'general.bills';
+
+    public $path = [
+        'group' => 'purchases',
+        'type' => 'bills',
     ];
 
-    public function paid($request)
-    {
-        $bills = $this->getSelectedRecords($request);
-
-        foreach ($bills as $bill) {
-            if ($bill->status == 'paid') {
-                continue;
-            }
-
-            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
-        }
-    }
+    public $actions = [
+        'received'  => [
+            'icon'          => 'send',
+            'name'          => 'bills.mark_received',
+            'message'       => 'bulk_actions.message.received',
+            'permission'    => 'update-purchases-bills',
+        ],
+        'cancelled' => [
+            'icon'          => 'cancel',
+            'name'          => 'general.cancel',
+            'message'       => 'bulk_actions.message.cancelled',
+            'permission'    => 'update-purchases-bills',
+        ],
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-purchases-bills',
+        ],
+        'export'    => [
+            'icon'          => 'file_download',
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
+        ],
+    ];
 
     public function received($request)
     {

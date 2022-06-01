@@ -1,45 +1,53 @@
 <template>
-    <div :id="'search-field-' + _uid" class="searh-field tags-input__wrapper js-search">
-        <div class="tags-group" v-for="(filter, index) in filtered" :index="index">
-            <span v-if="filter.option" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-option">
+    <div
+        :id="'search-field-' + _uid"
+        class="h-12 my-5 searh-field flex border-b transition-all js-search"
+        :class="input_focus ? 'border-gray-500' : 'border-gray-300'"
+    >
+        <div class="tags-group group items-center" style="display:contents;" v-for="(filter, index) in filtered" :index="index">
+            <span v-if="filter.option" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-option">
                 {{ filter.option }}
 
-                <i v-if="!filter.operator && !filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
+                <i v-if="!filter.operator && !filter.value" class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close" style="font-size: 16px;" @click="onFilterDelete(index)"></i>
             </span>
 
-            <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
-                <i v-if="filter.operator == '='" class="fas fa-equals"></i>
-                <i v-else-if="filter.operator == '><'" class="fas fa-arrows-alt-h"></i>
-                <i v-else class="fas fa-not-equal"></i>
+            <span v-if="filter.operator" class="flex items-center bg-purple-lighter text-black border-2 border-body border-l border-r border-t-0 border-b-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-operator" style="margin-left:0; margin-right:0;">
+                <span v-if="filter.operator == '='" class="material-icons text-2xl">drag_handle</span>
+                <span v-else-if="filter.operator == '><'" class="material-icons text-2xl transform rotate-90">height</span>
 
-                <i v-if="!filter.value" class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
+                <img v-else :src="equal_image" class="w-5 h-5 object-cover block" />
+
+                <i v-if="!filter.value" class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close " style="font-size: 16px;" @click="onFilterDelete(index)"></i>
             </span>
 
-            <span v-if="filter.value" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-value">
+            <span v-if="filter.value" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small  el-tag-value">
                 {{ filter.value }}
 
-                <i class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
+                <i class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close " style="font-size: 16px;" @click="onFilterDelete(index)"></i>
             </span>
         </div>
 
-        <div class="dropdown input-full">
+        <div class="relative w-full h-full flex">
             <input
-                v-if="!show_date"
-                type="text"
-                class="form-control"
-                :placeholder="placeholder"
-                :ref="'input-search-field-' + _uid"
-                v-model="search"
-                @focus="onInputFocus"
-                @input="onInput"
-                @keyup.enter="onInputConfirm"
+            v-if="!show_date"
+            type="text"
+            class="w-full bg-transparent text-black text-sm border-0 px-10 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
+            :class="[{'px-4' : !show_icon}]"
+            :placeholder="placeholder"
+            :ref="'input-search-field-' + _uid"
+            v-model="search"
+            @focus="onInputFocus"
+            @input="onInput"
+            @blur="onBlur"
+            @keyup.enter="onInputConfirm"
             />
 
             <flat-picker
                 v-else
                 @on-open="onInputFocus"
+                @blur="onBlur"
                 :config="dateConfig"
-                class="form-control datepicker"
+                class="w-full bg-transparent text-black text-sm border-0 px-10 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100 datepicker"
                 :placeholder="placeholder"
                 :ref="'input-search-date-field-' + _uid"
                 value=""
@@ -48,42 +56,53 @@
                 @keyup.enter="onInputConfirm"
             >
             </flat-picker>
+                <span class="material-icons absolute bottom-1 ltr:left-3 rtl:right-3 text-lg text-black" style="z-index:-1;">search</span>
 
-            <button type="button" class="btn btn-link clear" @click="onSearchAndFilterClear">
-                <i class="el-tag__close el-icon-close"></i>
+            <button type="button" class="absolute ltr:right-0 rtl:left-0 top-2 clear" v-if="show_close_icon" @click="onSearchAndFilterClear">
+                <span class="material-icons text-sm">close</span>
             </button>
 
-            <div :id="'search-field-option-' + _uid" class="dropdown-menu" :class="[{'show': visible.options}]">
-                <li ref="" class="dropdown-item" v-for="option in filteredOptions" :data-value="option.key">
-                    <button type="button" class="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
+            <div :id="'search-field-option-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.options}]">
+                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-for="option in filteredOptions" :data-value="option.key">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" data-btn="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
                 </li>
 
-                <li ref="" v-if="search" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onInputConfirm">{{ searchText }}</button>
-                </li>
-            </div>
-
-            <div :id="'search-field-operator-' + _uid" class="dropdown-menu operator" :class="[{'show': visible.operator}]">
-                <li ref="" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onOperatorSelected('=')"><i class="fas fa-equals"></i><span class="btn-helptext d-none">{{ operatorIsText }}</span></button>
-                </li>
-
-                <li ref="" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')"><i class="fas fa-not-equal"></i><span class="btn-helptext d-none">{{ operatorIsNotText }}</span></button>
-                </li>
-
-                <li v-if="range" ref="" class="dropdown-item">
-                    <button type="button" class="btn btn-link" @click="onOperatorSelected('><')"><i class="fas fa-arrows-alt-h"></i><span class="btn-helptext d-none">{{ operatorIsNotText }}</span></button>
+                <li ref="" v-if="search" class="p-2 hover:bg-lilac-900 dropdown-item">
+                    <button type="button" class="text-left" @click="onInputConfirm">{{ searchText }}</button>
                 </li>
             </div>
 
-            <div :id="'search-field-value-' + _uid" class="dropdown-menu" :class="[{'show': visible.values}]">
-                <li ref="" class="dropdown-item" v-for="(value) in filteredValues" :data-value="value.key">
-                    <button type="button" class="btn btn-link" @click="onValueSelected(value.key)">{{ value.value }}</button>
+            <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
+                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
+                        <span class="material-icons text-2xl transform">drag_handle</span>
+                        <span class="text-gray hidden">{{ operatorIsText }}
+                        </span>
+                    </button>
                 </li>
 
-                <li ref="" class="dropdown-item" v-if="!filteredValues.length">
-                    <button type="button" class="btn btn-link">{{ noMatchingDataText }}</button>
+                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('!=')">
+                        <img :src="equal_image" class="w-6 h-6 block m-auto" />
+                        <span class="text-gray hidden">{{ operatorIsNotText }}</span>
+                    </button>
+                </li>
+
+                <li v-if="range" ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('><')">
+                        <span class="material-icons text-2xl transform rotate-90">height</span>
+                        <span class="text-gray hidden">{{ operatorIsNotText }}</span>
+                    </button>
+                </li>
+            </div>
+
+            <div :id="'search-field-value-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.values}]">
+                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">{{ value.value }}</button>
+                </li>
+
+                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ noMatchingDataText }}</button>
                 </li>
             </div>
         </div>
@@ -149,7 +168,7 @@ export default {
         },
 
         dateConfig: null
-        
+
     },
 
     model: {
@@ -178,6 +197,10 @@ export default {
             values: [],
             current_value: null,
             show_date: false,
+            show_close_icon: false,
+            show_icon: true,
+            equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
+            input_focus: false
         };
     },
 
@@ -201,7 +224,11 @@ export default {
                 });
             }
 
-            //console.log('Focus :' + this.filter_last_step);
+            this.input_focus = true;
+        },
+
+        onBlur() {
+            this.input_focus = false;
         },
 
         onInputDateSelected(selectedDates, dateStr, instance) {
@@ -218,7 +245,7 @@ export default {
 
                 date = dates.join('-to-');
             }
-            
+
             this.selected_values.push({
                 key: date,
                 value: dateStr,
@@ -343,6 +370,7 @@ export default {
         },
 
         onOptionSelected(value) {
+            this.show_icon = false;
             this.current_value = value;
             this.range = false;
 
@@ -474,6 +502,7 @@ export default {
         },
 
         onValueSelected(value) {
+            this.show_close_icon = true;
             let select_value = false;
 
             for (let i = 0; i < this.values.length; i++) {
@@ -517,6 +546,8 @@ export default {
         },
 
         onFilterDelete(index) {
+            this.show_icon = true;
+            this.show_close_icon = false;
             this.filter_list.push(this.selected_options[index]);
 
             if (this.filter_last_step == 'options') {
@@ -567,7 +598,7 @@ export default {
         },
 
         closeIfClickedOutside(event) {
-            if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link') {
+            if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.getAttribute('data-btn') != 'btn btn-link') {
                 this.visible.options = false;
                 this.visible.operator = false;
                 this.visible.values = false;
@@ -591,8 +622,6 @@ export default {
             this.value = this.value.replace('>=', ':');
 
             let search_string = this.value.replace('not ', '').replace(' not ', ' ');
-
-            console.log(search_string);
 
             search_string = search_string.split(' ');
 
@@ -646,7 +675,7 @@ export default {
                                     value_assigned = true
                                 }
                             }, this);
-                            
+
                             if (!value_assigned && (cookie != undefined && cookie[_filter.key])) {
                                 this.selected_values.push(cookie[_filter.key]);
                             }
@@ -672,8 +701,6 @@ export default {
                     let filter_values = this.convertOption(_filter.values);
 
                     if (_filter.key == filter.option) {
-                        console.log('Filter YES');
-
                         option = _filter.value;
                         operator = filter.operator;
 
@@ -684,8 +711,6 @@ export default {
                         }, this);
 
                         this.selected_options.push(this.filter_list[i]);
-
-                        console.log(operator);
 
                         this.selected_operator.push({
                             key: operator,
@@ -779,23 +804,6 @@ export default {
 </script>
 
 <style>
-    .searh-field {
-        border: 1px solid #dee2e6;
-        border-radius: 0.25rem;
-    }
-
-    .searh-field .tags-group {
-        display: contents;
-    }
-
-    .searh-field .el-tag.el-tag--primary {
-        background: #f6f9fc;
-        background-color: #f6f9fc;
-        border-color: #f6f9fc;
-        color: #8898aa;
-        margin-top: 7px;
-    }
-
     .searh-field .tags-group:hover > span {
         background:#cbd4de;
         background-color: #cbd4de;
@@ -804,11 +812,21 @@ export default {
 
     .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
         color: #8898aa;
+        margin-top: -3px;
     }
 
-    .searh-field .el-tag-option {
-        border-radius: 0.25rem 0 0 0.25rem;
+    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close:hover {
+        background-color: transparent;
+    }
+
+    html[dir='ltr'] .searh-field .el-tag-option {
+        border-radius: 0.50rem 0 0 0.50rem;
         margin-left: 10px;
+    }
+
+    html[dir='rtl'] .searh-field .el-tag-option {
+        border-radius: 0.50rem;
+        margin-right: 10px;
     }
 
     .searh-field .el-tag-operator {
@@ -817,49 +835,22 @@ export default {
         margin-right: -1px;
     }
 
-    .searh-field .el-tag-value {
-        border-radius: 0 0.25rem 0.25rem 0;
+    html[dir='ltr'] .searh-field .el-tag-value {
+        border-radius: 0 0.50rem 0.50rem 0;
         margin-right: 10px;
+    }
+
+    html[dir='rtl'] .searh-field .el-tag-value {
+        border-radius: 0.50rem;
+        margin-left: 10px;
+    }
+
+    html[dir='rtl'] .searh-field .el-tag-operator {
+        border-radius: 0.50rem;
     }
 
     .searh-field .el-select.input-new-tag {
         width: 100%;
-    }
-
-    .searh-field .input-full {
-        width: 100%;
-    }
-
-    .searh-field .btn.btn-link {
-        width: inherit;
-        text-align: left;
-        display: flex;
-        margin: 0;
-        text-overflow: inherit;
-        text-align: left;
-        text-overflow: ellipsis;
-        padding: unset;
-        color: #212529;
-    }
-
-    .searh-field .btn.btn-link.clear {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 45px;
-        height: 45px;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        color: #adb5bd;
-        opacity: 1;
-    }
-
-    .searh-field .btn.btn-link.clear:hover {
-        color: #8898aa;
     }
 
     .searh-field .btn-helptext {
@@ -883,5 +874,31 @@ export default {
 
     .searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
         margin-right: inherit !important;
+    }
+
+    .dropdown-menu {
+        z-index: 1000;
+        display: none;
+        min-width: 10rem;
+    }
+
+    .dropdown-menu li {
+        margin-bottom: 5px;
+    }
+
+    .dropdown-menu.operator li {
+        margin-bottom: 5px;
+    }
+
+    .dropdown-menu li:last-child {
+        margin-bottom: 0;
+    }
+
+    .dropdown-menu > li > button {
+        width: 100%;
+    }
+
+    .dropdown-menu.show {
+        display: block;
     }
 </style>

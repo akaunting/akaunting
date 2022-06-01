@@ -28,7 +28,7 @@ class AddCustomers extends Listener
         }
 
         $event->class->filters['customers'] = $this->getCustomers(true);
-        $event->class->filters['routes']['customers'] = 'customers.index';
+        $event->class->filters['routes']['customers'] = ['customers.index', 'search=enabled:1'];
     }
 
     /**

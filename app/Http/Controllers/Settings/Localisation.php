@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Abstracts\Http\Controller;
+use App\Abstracts\Http\SettingController;
 use App\Traits\DateTime;
 
-class Localisation extends Controller
+class Localisation extends SettingController
 {
     use DateTime;
 

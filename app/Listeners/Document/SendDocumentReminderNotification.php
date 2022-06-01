@@ -3,9 +3,12 @@
 namespace App\Listeners\Document;
 
 use App\Events\Document\DocumentReminded as Event;
+use App\Traits\Documents;
 
 class SendDocumentReminderNotification
 {
+    use Documents;
+
     /**
      * Handle the event.
      *
@@ -18,13 +21,13 @@ class SendDocumentReminderNotification
         $notification = $event->notification;
 
         // Notify the customer
-        if ($document->contact && !empty($document->contact_email)) {
+        if ($this->canNotifyTheContactOfDocument($document)) {
             $document->contact->notify(new $notification($document, "{$document->type}_remind_customer"));
         }
 
         // Notify all users assigned to this company
         foreach ($document->company->users as $user) {
-            if (!$user->can('read-notifications')) {
+            if ($user->cannot('read-notifications')) {
                 continue;
             }
 

@@ -11,6 +11,8 @@ export default {
                 enabled: 1
             },
             error_field: {},
+            create_tax_text: true,
+            button_loading: false,
         }
     },
     methods: {
@@ -62,9 +64,11 @@ export default {
             this.$notify({
                 message: response.data.message,
                 timeout: timeout,
-                icon: "fas fa-bell",
+                icon: "error_outline",
                 type,
             });
+
+            this.button_loading = false;
 
             this.onDataChange();
         },
@@ -80,24 +84,17 @@ export default {
             this.$notify({
                 message: event.message,
                 timeout: timeout,
-                icon: "fas fa-bell",
+                icon: "",
                 type,
             });
 
             this.onDataChange();
         },
 
-        onStatusControl(status_form, status_item, event) {
-            status_form.forEach((status) => {
-                if (status.id == status_item) {
-                    status.enabled = event.target.checked;
-                }
-              });
-        },
-
         onSubmitEvent(form_method, form_url, plus_data, form_list, form_id) {
             const formData = new FormData(this.$refs["form"]);
             const data = {};
+            this.button_loading = true;
 
             for (let [key, val] of formData.entries()) {
                 Object.assign(data, {
@@ -154,7 +151,7 @@ export default {
               }, this);
 
               this.component = "";
-              document.body.classList.remove("modal-open");
+              document.body.classList.remove("overflow-hidden");
               this.onDeleteItemMessage(event);
         },
 
@@ -166,6 +163,7 @@ export default {
 
         onFailError(error) {
             this.error_field = error.response.data.errors;
+            this.button_loading = false;
         }
     }
 }

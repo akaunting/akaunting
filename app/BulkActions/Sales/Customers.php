@@ -10,26 +10,37 @@ class Customers extends BulkAction
 {
     public $model = Contact::class;
 
+    public $text = 'general.customers';
+
+    public $path = [
+        'group' => 'sales',
+        'type' => 'customers',
+    ];
+
     public $actions = [
-        'enable' => [
-            'name' => 'general.enable',
-            'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-sales-customers',
+        'enable'    => [
+            'icon'          => 'check_circle',
+            'name'          => 'general.enable',
+            'message'       => 'bulk_actions.message.enable',
+            'permission'    => 'update-sales-customers',
         ],
-        'disable' => [
-            'name' => 'general.disable',
-            'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-sales-customers',
+        'disable'   => [
+            'icon'          => 'hide_source',
+            'name'          => 'general.disable',
+            'message'       => 'bulk_actions.message.disable',
+            'permission'    => 'update-sales-customers',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-sales-customers',
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-sales-customers',
         ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download',
+        'export'    => [
+            'icon'          => 'file_download',
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
         ],
     ];
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Abstracts\Http\Controller;
+use App\Abstracts\Http\SettingController;
 
-class Company extends Controller
+class Company extends SettingController
 {
     public function edit()
     {

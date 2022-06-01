@@ -13,6 +13,9 @@ return [
         'export_queued'     => ':type export of the current page has been scheduled! You will receive an email when it is ready to download.',
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
+        'connected'         => ':type connected!',
+        'invited'           => ':type invited!',
+        'ended'             => ':type ended!',
 
         'clear_all'         => 'Great! You\'ve cleared all of your :type.',
     ],
@@ -27,6 +30,8 @@ return [
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Error: :message Column name: :column. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
+        'same_amount'       => 'Error: The total amount of split must be exactly the same as the :transaction total: :amount',
+        'over_match'        => 'Error: :type not connected! The amount you entered can not exceed the payment total: :amount',
     ],
 
     'warning' => [

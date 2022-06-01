@@ -18,26 +18,52 @@ abstract class BulkAction
     public $model = false;
 
     public $actions = [
-        'enable' => [
-            'name' => 'general.enable',
-            'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-common-items',
+        'enable'    => [
+            'name'          => 'general.enable',
+            'message'       => 'bulk_actions.message.enable',
+            'permission'    => 'update-common-items',
         ],
-        'disable' => [
-            'name' => 'general.disable',
-            'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-common-items',
+        'disable'   => [
+            'name'          => 'general.disable',
+            'message'       => 'bulk_actions.message.disable',
+            'permission'    => 'update-common-items',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-common-items',
+        'delete'    => [
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-common-items',
         ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download'
+        'export'    => [
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download'
         ],
+    ];
+
+    public $icons = [
+        'enable'        => 'check_circle',
+        'disable'       => 'hide_source',
+        'delete'        => 'delete',
+        'export'        => 'file_download',
+        'reconcile'     => 'published_with_changes',
+        'unreconcile'   => 'layers_clear',
+        'received'      => 'call_received',
+        'cancelled'     => 'cancel',
+        'sent'          => 'send',
+        'approved'      => 'approval',
+        'refused'       => 'do_not_disturb_on',
+        'issued'        => 'mark_email_read',
+        'confirmed'     => 'thumb_up_alt',
+    ];
+
+    public $messages = [
+        'general'   => 'bulk_actions.success.general',
+        'enable'    => 'messages.success.enabled',
+        'disable'   => 'messages.success.disabled',
+        'delete'    => 'messages.success.deleted',
+        'duplicate' => 'messages.success.duplicated',
+        'invite'    => 'messages.success.invited',
+        'end'       => 'messages.success.ended',
     ];
 
     public function getSelectedRecords($request, $relationships = null)

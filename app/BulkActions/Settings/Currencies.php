@@ -11,21 +11,31 @@ class Currencies extends BulkAction
 {
     public $model = Currency::class;
 
+    public $text = 'general.currencies';
+
+    public $path = [
+        'group' => 'settings',
+        'type' => 'currencies',
+    ];
+
     public $actions = [
-        'enable' => [
-            'name' => 'general.enable',
-            'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-settings-currencies',
+        'enable'    => [
+            'icon'          => 'check_circle',
+            'name'          => 'general.enable',
+            'message'       => 'bulk_actions.message.enable',
+            'permission'    => 'update-settings-currencies',
         ],
-        'disable' => [
-            'name' => 'general.disable',
-            'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-settings-currencies',
+        'disable'   => [
+            'icon'          => 'hide_source',
+            'name'          => 'general.disable',
+            'message'       => 'bulk_actions.message.disable',
+            'permission'    => 'update-settings-currencies',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-settings-currencies',
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-settings-currencies',
         ],
     ];
 

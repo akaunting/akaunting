@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Rēķina numurs',
     'bill_date'             => 'Rēķina datums',
-    'bill_amount'           => 'Rēķina summa',
     'total_price'           => 'Kopējā summa',
     'due_date'              => 'Apmaksas termiņš',
     'order_number'          => 'Pasūtījuma numurs',
@@ -12,17 +11,16 @@ return [
 
     'quantity'              => 'Daudzums',
     'price'                 => 'Cena',
-    'sub_total'             => 'Starpsumma',
+    'sub_total'             => 'Kopā',
     'discount'              => 'Atlaide',
-    'item_discount'         => 'Līnijas atlaide',
-    'tax_total'             => 'Nodokļu kopsumma',
+    'tax_total'             => 'Nodokļi kopā',
     'total'                 => 'Kopā',
 
     'item_name'             => 'Nosaukums|Nosaukumi',
 
-    'show_discount'         => 'Atlaide :atlaidet%',
+    'show_discount'         => 'Atlaide :discount%',
     'add_discount'          => 'Pievienot atlaidi',
-    'discount_desc'         => 'no starpsummas',
+    'discount_desc'         => 'no',
 
     'payment_due'           => 'Kavēts rēķins',
     'amount_due'            => 'Kavēts maksājums',
@@ -31,25 +29,35 @@ return [
     'payments'              => 'Maksājumi',
     'add_payment'           => 'Pievienot maksājumu',
     'mark_paid'             => 'Atzīmēt kā samaksātu',
-    'mark_received'         => 'Atzīmēt kā saņemtu',
-    'mark_cancelled'        => 'Atzīmēt kā atceltu',
+    'mark_received'         => 'Atzīmēt kā aņemtu',
     'download_pdf'          => 'Lejupielādēt PDF',
     'send_mail'             => 'Sūtīt e-pastu',
     'create_bill'           => 'Izrakstīt rēķinu',
     'receive_bill'          => 'Saņemt rēķinu',
     'make_payment'          => 'Veikt maksājumu',
 
+    'statuses' => [
+        'draft'             => 'Draft',
+        'received'          => 'Received',
+        'partial'           => 'Partial',
+        'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
+    ],
+
     'messages' => [
-        'draft'             => 'Šī ir rēķina <b>SAGATAVE</b> un tiks atspoguļota diagrammās pēc saņemšanas.',
+        'received'          => 'Rēķina saņemšana ir apstiprināta!',
+        'marked_paid'       => 'Rēķins atzīmēts kā samaksāts!',
+        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
 
         'status' => [
-            'created'       => 'Izveidots :datums',
+            'created'       => 'Izveidots: datums',
             'receive' => [
-                'draft'     => 'Nav saņemts',
+                'draft'     => 'Nav nosūtīts',
                 'received'  => 'Saņemts: datums',
             ],
             'paid' => [
-                'await'     => 'Gaida maksājumu',
+                'await'     => 'Gaidāmie maksājumi',
             ],
         ],
     ],

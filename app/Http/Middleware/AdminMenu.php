@@ -22,7 +22,7 @@ class AdminMenu
         }
 
         menu()->create('admin', function ($menu) {
-            $menu->style('argon');
+            $menu->style('tailwind');
 
             event(new AdminCreated($menu));
         });

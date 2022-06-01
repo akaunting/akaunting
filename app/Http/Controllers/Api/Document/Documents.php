@@ -4,31 +4,31 @@ namespace App\Http\Controllers\Api\Document;
 
 use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Document\Document as Request;
+use App\Http\Resources\Document\Document as Resource;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
-use App\Transformers\Document\Document as Transformer;
 
 class Documents extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $documents = Document::with('contact', 'histories', 'items', 'transactions')->collect(['issued_at'=> 'desc']);
 
-        return $this->response->paginator($documents, new Transformer());
+        return Resource::collection($documents);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  $id
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -39,7 +39,7 @@ class Documents extends ApiController
             $document = Document::where('document_number', $id)->first();
         }
 
-        return $this->item($document, new Transformer());
+        return new Resource($document);
     }
 
     /**
@@ -47,13 +47,13 @@ class Documents extends ApiController
      *
      * @param  $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $document = $this->dispatch(new CreateDocument($request));
 
-        return $this->response->created(route('api.documents.show', $document->id), $this->item($document, new Transformer()));
+        return $this->created(route('api.documents.show', $document->id), new Resource($document));
     }
 
     /**
@@ -62,13 +62,13 @@ class Documents extends ApiController
      * @param  $document
      * @param  $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Document $document, Request $request)
     {
         $document = $this->dispatch(new UpdateDocument($document, $request));
 
-        return $this->item($document->fresh(), new Transformer());
+        return new Resource($document->fresh());
     }
 
     /**
@@ -76,16 +76,16 @@ class Documents extends ApiController
      *
      * @param  Document $document
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Document $document)
     {
         try {
             $this->dispatch(new DeleteDocument($document));
 
-            return $this->response->noContent();
+            return $this->noContent();
         } catch(\Exception $e) {
-            $this->response->errorUnauthorized($e->getMessage());
+            $this->errorUnauthorized($e->getMessage());
         }
     }
 }

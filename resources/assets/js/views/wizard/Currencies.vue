@@ -1,312 +1,195 @@
 <template>
-  <div>
-    <h1 class="text-white">
-      {{ translations.currencies.title }}
-    </h1>
+    <div class="relative bg-body z-10 rounded-lg shadow-2xl p-10" style="height:675px;">
+        <WizardSteps :active_state="active"></WizardSteps>
 
-    <div class="card">
-      <div class="card-header wizard-header p-3">
-        <el-steps :active="active" finish-status="success" align-center>
-          <el-step :title="translations.company.title"></el-step>
-          <el-step :title="translations.currencies.title"></el-step>
-          <el-step :title="translations.taxes.title"></el-step>
-          <el-step :title="translations.finish.title"></el-step>
-        </el-steps>
-      </div>
+        <div class="flex flex-col justify-between overflow-y-auto" style="height: calc(100% - 53px)">
+            <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
+                <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
+            </div>
 
-      <div class="card-body">
-        <div class="document-loading" v-if="pageLoad">
-          <div>
-            <i class="fas fa-spinner fa-pulse fa-7x"></i>
-          </div>
-        </div>
+            <div class="overflow-x-visible menu-scroll mt-1">
+                <form ref="form" class="py-2 align-middle inline-block min-w-full">
+                    <table id="tbl-currencies" class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="flex items-center px-1">
+                                <th class="w-4/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-sm font-bold text-black tracking-wider">
+                                    {{ translations.currencies.name }}
+                                </th>
 
-        <div class="d-flex justify-content-end mb-3">
-          <base-button
-            type="success"
-            native-type="button"
-            class="btn-sm"
-            @click="onAddItem()"
-            >{{ translations.currencies.add_new }}</base-button
-          >
-        </div>
+                                <th class="w-4/12 ltr:pr-6 rtl:pl-6 py-3 text-center text-sm font-bold text-black tracking-wider">
+                                    {{ translations.currencies.code }}
+                                </th>
 
-        <div class="row flex-column">
-          <form ref="form">
-            <table class="table table-flush table-hover" id="tbl-currencies">
-              <thead class="thead-light">
-                <tr class="row table-head-line">
-                  <th class="col-xs-4 col-sm-4 col-md-3">
-                    {{ translations.currencies.name }}
-                  </th>
-                  <th class="col-md-3 d-none d-md-block">
-                    {{ translations.currencies.code }}
-                  </th>
-                  <th class="col-md-2 d-none d-md-block">
-                    {{ translations.currencies.rate }}
-                  </th>
-                  <th class="col-xs-4 col-sm-4 col-md-2">
-                    {{ translations.currencies.enabled }}
-                  </th>
-                  <th class="col-xs-4 col-sm-4 col-md-2 text-center">
-                    {{ translations.currencies.actions }}
-                  </th>
-                </tr>
-              </thead>
+                                <th class="w-4/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-right rtl:text-left text-sm font-bold text-black tracking-wider">
+                                    {{ translations.currencies.rate }}
+                                </th>
+                            </tr>
+                        </thead>
 
-              <tbody>
-                <tr
-                  v-for="(item, index) in currencies"
-                  :key="index"
-                  class="row align-items-center border-top-1"
-                >
-                  <td class="col-xs-4 col-sm-4 col-md-3">
-                    <a href="javascript:void(0);"> {{ item.name }} </a>
-                  </td>
-                  <td class="col-md-3 d-none d-md-block">{{ item.code }}</td>
-                  <td class="col-md-2 d-none d-md-block">{{ item.rate }}</td>
-                  <td class="col-xs-4 col-sm-4 col-md-2">
-                    <label class="custom-toggle d-inline-block" name="staus-1">
-                      <input
-                        type="checkbox"
-                        :checked="item.enabled"
-                        @input="onSwitchUpdate(item)"
-                      />
-                      <span
-                        class="custom-toggle-slider rounded-circle status-green"
-                        :data-label-on="translations.currencies.yes"
-                        :data-label-off="translations.currencies.no"
-                      >
-                      </span>
-                    </label>
-                  </td>
-                  <td class="col-xs-4 col-sm-4 col-md-2 text-center">
-                    <div class="dropdown">
-                      <a
-                        class="btn btn-neutral btn-sm text-light items-align-center py-2"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fa fa-ellipsis-h text-muted"></i>
-                      </a>
+                        <tbody data-table-body>
+                            <tr v-for="(item, index) in currencies" :key="index" data-table-list class="relative flex items-center border-b hover:bg-gray-100 px-1 flex-wrap group">
+                                <td :class="current_tab == index ? 'hidden' : ''" class="w-4/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black">
+                                    {{ item.name }} 
+                                </td>
+                                <td :class="current_tab == index ? 'hidden' : ''" class="w-4/12 ltr:pr-6 rtl:pl-6 py-4 text-center whitespace-nowrap text-sm font-medium text-black">
+                                    {{ item.code }} 
+                                </td>
+                                <td :class="current_tab == index ? 'hidden' : ''" class="w-4/12 relative ltr:pr-6 rtl:pl-6 py-4 ltr:text-right rtl:text-left whitespace-nowrap text-sm font-medium text-black">
+                                    {{ item.rate }}
 
-                      <div
-                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
-                      >
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          @click="onEditItem(item, index)"
-                        >
-                          {{ translations.currencies.edit }}
+                                    <div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover:flex">
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onEditItem(item, index)">
+                                            <span class="material-icons-outlined text-purple text-lg">edit</span>
+
+                                           <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                                <span>{{ translations.currencies.edit }}</span>
+                                                <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
+                                            </div>
+                                        </button>
+
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onClickDelete(item)">
+                                            <span class="material-icons-outlined text-purple text-lg">delete</span>
+
+                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                                <span>{{ translations.currencies.delete }}</span>
+                                                <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td class="w-full p-0 current-tab" v-if="current_tab == index">
+                                    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 py-3">
+                                        <base-input name="name" data-name="name"
+                                        form-classes="sm:col-span-2"
+                                        class="required"
+                                        v-model="model.name"
+                                        :error="onFailErrorGet('name')"
+                                        />
+
+                                        <base-input class="sm:col-span-2 required" :error="onFailErrorGet('code')">
+                                            <el-select name="code" v-model="model.select" @change="onChangeCodeItem(model.select)" filterable>
+                                                <el-option
+                                                v-for="option in currency_codes"
+                                                :key="option"
+                                                :label="option"
+                                                :value="option"
+                                                >
+                                                </el-option>
+                                            </el-select>
+                                        </base-input>
+
+                                        <base-input name="rate" data-name="rate" :placeholder="translations.currencies.rate"
+                                        form-classes="sm:col-span-2"
+                                        class="required"
+                                        v-model="model.rate"
+                                        :error="onFailErrorGet('rate')"
+                                        />
+
+                                        <div class="flex justify-end items-center sm:col-span-6">
+                                            <base-button class=" flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100 ltr:mr-2 rtl:ml-2" @click="onCancelItem()">
+                                                {{ translations.currencies.cancel }}
+                                            </base-button>
+
+                                            <base-button class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onEditForm(item)">
+                                                {{ translations.currencies.save }}
+                                            </base-button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="flex flex-col items-center">
+                        <div v-if="!currencies.length" class="flex flex-col items-center gap-y-2">
+                            <span class="text-dark">
+                                {{ translations.currencies.no_currency }}
+                            </span>
+
+                            <span class="text-gray-700">
+                                {{ translations.currencies.create_currency }}
+                            </span>
+                        </div>
+
+                        <div v-if="currencies.length" class="w-full border-b hover:bg-gray-100" style="height:53px;">
+                            <button type="button" class="w-full h-full flex items-center justify-center text-purple font-medium disabled:bg-gray-200" @click="onAddItem()">
+                                <span class="material-icons-outlined text-base font-bold ltr:mr-1 rtl:ml-1">add</span>
+                                <span class="border-b border-transparent transition-all">{{ translations.currencies.new_currency }}</span>
+                            </button>
+                        </div>
+
+                        <button v-else type="button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 mt-3" @click="onAddItem()">
+                            {{ translations.currencies.new_currency }}
                         </button>
-                        <div class="dropdown-divider"></div>
-                        <button
-                          type="button"
-                          class="dropdown-item"
-                          @click="onClickDelete(item)"
-                        >
-                          {{ translations.currencies.delete }}
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="w-100 p-0 current-tab" v-if="current_tab == index">
-                    <div class="row pt-3 pb-3">
-                      <div
-                        class="form-container col-12 d-flex justify-content-between align-items-start"
-                      >
-                        <base-input
-                          :label="translations.currencies.name"
-                          name="name"
-                          data-name="name"
-                          :placeholder="translations.currencies.name"
-                          prepend-icon="fas fa-font"
-                          form-classes="col-md-3"
-                          class="required"
-                          v-model="model.name"
-                          :error="onFailErrorGet('name')"
-                        />
-                        <base-input
-                          :label="translations.currencies.code"
-                          class="required"
-                          form-classes="col-md-3"
-                          :error="onFailErrorGet('code')"
-                        >
-                          <el-select
-                            name="code"
-                            v-model="model.select"
-                            @change="onChangeCodeItem(model.select)"
-                            filterable
-                          >
-                            <template slot="prefix">
-                              <span
-                                class="el-input__suffix-inner el-select-icon"
-                              >
-                                <i
-                                  :class="'select-icon-position el-input__icon fa fa-code'"
-                                ></i>
-                              </span>
-                            </template>
-                            <el-option
-                              v-for="option in currency_codes"
-                              :key="option"
-                              :label="option"
-                              :value="option"
-                            >
-                            </el-option> </el-select
-                        ></base-input>
-                        <base-input
-                          :label="translations.currencies.rate"
-                          name="rate"
-                          data-name="rate"
-                          :placeholder="translations.currencies.rate"
-                          prepend-icon="fas fa-percentage"
-                          form-classes="col-md-3"
-                          class="required"
-                          v-model="model.rate"
-                          :error="onFailErrorGet('rate')"
-                        />
-                        <div class="mt-4 col-md-3 current-tab-btn">
-                          <base-button
-                            type="white"
-                            native-type="button"
-                            @click="onCancelItem()"
-                          >
-                            {{ translations.currencies.cancel }}</base-button
-                          >
-                          <base-button
-                            type="success"
-                            native-type="button"
-                            @click="onEditForm(item)"
-                          >
-                            {{ translations.currencies.save }}</base-button
-                          >
+
+                        <div v-if="new_datas" class="grid sm:grid-cols-7 gap-x-8 gap-y-6 my-3.5 w-full">
+                            <base-input :label="translations.currencies.name" name="name" data-name="name" :placeholder="translations.currencies.name"
+                            class="sm:col-span-3 required"
+                            v-model="model.name"
+                            :error="onFailErrorGet('name')"
+                            />
+
+                            <base-input :label="translations.currencies.code" class="sm:col-span-2 required" :error="onFailErrorGet('code')">
+                                <el-select name="code" v-model="model.select" required="required" @change="onChangeCodeItem(model.select)"filterable>
+                                    <el-option
+                                    v-for="option in currency_codes"
+                                    :key="option"
+                                    :label="option"
+                                    :value="option"
+                                    >
+                                    </el-option>
+                                </el-select>
+                            </base-input>
+
+                            <base-input :label="translations.currencies.rate" name="rate" data-name="rate" :placeholder="translations.currencies.rate"
+                            class="sm:col-span-2 required"
+                            v-model="model.rate"
+                            :error="onFailErrorGet('rate')"
+                            />
+
+                            <div class="flex items-center justify-end sm:col-span-7">
+                                <base-button class=" flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100 ltr:mr-2 rtl:ml-2" @click="new_datas = false">
+                                    {{ translations.currencies.cancel }}
+                                </base-button>
+
+                                <base-button :disabled="button_loading" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onSubmitForm()">
+                                    <i v-if="button_loading" class="submit-spin absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto"></i> 
+                                    <span :class="[{'opacity-0': button_loading}]">
+                                        {{ translations.currencies.save }}
+                                    </span>
+                                </base-button>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </td>
-                </tr>
-                <tr v-if="new_datas">
-                  <td class="p-0">
-                    <div class="row pt-3 pb-3">
-                      <div
-                        class="form-container col-12 d-flex justify-content-between align-items-start"
-                      >
-                        <base-input
-                          :label="translations.currencies.name"
-                          name="name"
-                          data-name="name"
-                          :placeholder="translations.currencies.name"
-                          prepend-icon="fas fa-font"
-                          class="required"
-                          v-model="model.name"
-                          :error="onFailErrorGet('name')"
-                        />
-                        <base-input
-                          :label="translations.currencies.code"
-                          class="required"
-                          :error="onFailErrorGet('code')"
-                        >
-                          <el-select
-                            name="code"
-                            v-model="model.select"
-                            required="required"
-                            @change="onChangeCodeItem(model.select)"
-                            filterable
-                          >
-                            <template slot="prefix">
-                              <span
-                                class="el-input__suffix-inner el-select-icon"
-                              >
-                                <i
-                                  :class="'select-icon-position el-input__icon fa fa-code'"
-                                ></i>
-                              </span>
-                            </template>
-                            <el-option
-                              v-for="option in currency_codes"
-                              :key="option"
-                              :label="option"
-                              :value="option"
-                            >
-                            </el-option> </el-select
-                        ></base-input>
-                        <base-input
-                          :label="translations.currencies.rate"
-                          name="rate"
-                          data-name="rate"
-                          :placeholder="translations.currencies.rate"
-                          prepend-icon="fas fa-percentage"
-                          class="required"
-                          v-model="model.rate"
-                          :error="onFailErrorGet('rate')"
-                        />
-                        <div>
-                          <div class="d-flex">
-                            <akaunting-radio-group
-                              name="enabled"
-                              :text="translations.currencies.enabled"
-                              :enable="translations.currencies.yes"
-                              :disable="translations.currencies.no"
-                              :value="model.enabled"
-                            >
-                            </akaunting-radio-group>
-                          </div>
-                        </div>
-                        <div class="mt-4">
-                          <base-button
-                            type="success"
-                            native-type="button"
-                            @click="onSubmitForm()"
-                            >{{ translations.currencies.save }}</base-button
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                </form>
+            </div>
+
+            <div class="flex items-center justify-center mt-5 gap-x-10">
+            <base-button class="w-1/2  flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="prev()">
+                {{ translations.currencies.previous }}
+            </base-button>
+
+            <base-button class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="next()">
+                {{translations.currencies.next}}
+            </base-button>
+            </div>
         </div>
 
         <notifications></notifications>
 
         <form id="form-dynamic-component" method="POST" action="#"></form>
 
-        <component
-          v-bind:is="component"
-          @deleted="onDeleteCurrency($event)"
-        ></component>
-      </div>
-
-      <div class="card-footer">
-        <div class="row">
-          <div class="col-md-12 d-flex justify-content-between">
-            <base-button type="white" native-type="submit" @click="prev()">{{
-              translations.currencies.previous
-            }}</base-button>
-
-            <base-button type="white" native-type="submit" @click="next()">{{
-              translations.currencies.next
-            }}</base-button>
-          </div>
-        </div>
-      </div>
+        <component v-bind:is="component" @deleted="onDeleteCurrency($event)"></component>
     </div>
-  </div>
 </template>
 
 <script>
-import { Step, Steps, Select, Option } from "element-ui";
-import AkauntingRadioGroup from "./../../components/forms/AkauntingRadioGroup";
+import { Select, Option } from "element-ui";
+import AkauntingRadioGroup from "./../../components/AkauntingRadioGroup";
 import BulkAction from "./../../plugins/bulk-action";
 import MixinsGlobal from "./../../mixins/global";
 import WizardAction from "./../../mixins/wizardAction";
+import WizardSteps from "./Steps.vue";
 
 export default {
     name: "Currencies",
@@ -314,11 +197,10 @@ export default {
     mixins: [MixinsGlobal, WizardAction],
 
     components: {
-        [Step.name]: Step,
-        [Steps.name]: Steps,
         [Select.name]: Select,
         [Option.name]: Option,
         AkauntingRadioGroup,
+        WizardSteps
     },
 
     props: {
@@ -347,12 +229,6 @@ export default {
     },
 
     methods: {
-        onSwitchUpdate(item) {
-            this.onStatus(item.id, event);
-
-            this.onStatusControl(this.currencies, item.id, event);
-        },
-
         onClickDelete(item) {
             this.confirmDelete(
                 `${

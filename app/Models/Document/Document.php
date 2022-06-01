@@ -22,7 +22,9 @@ class Document extends Model
     use HasFactory, Documents, Cloneable, Currencies, DateTime, Media, Recurring;
 
     public const INVOICE_TYPE = 'invoice';
+    public const INVOICE_RECURRING_TYPE = 'invoice-recurring';
     public const BILL_TYPE = 'bill';
+    public const BILL_RECURRING_TYPE = 'bill-recurring';
 
     protected $table = 'documents';
 
@@ -94,6 +96,11 @@ class Document extends Model
         return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
     }
 
+    public function children()
+    {
+        return $this->hasMany('App\Models\Document\Document', 'parent_id');
+    }
+
     public function contact()
     {
         return $this->belongsTo('App\Models\Common\Contact')->withDefault(['name' => trans('general.na')]);
@@ -117,6 +124,19 @@ class Document extends Model
     public function histories()
     {
         return $this->hasMany('App\Models\Document\DocumentHistory', 'document_id');
+    }
+
+    public function last_history()
+    {
+        return $this->hasOne('App\Models\Document\DocumentHistory', 'document_id')->latest()->withDefault([
+            'description' => trans('messages.success.added', ['type' => $this->document_number]),
+            'created_at' => $this->created_at
+        ]);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Document\Document', 'parent_id');
     }
 
     public function payments()
@@ -144,54 +164,64 @@ class Document extends Model
         return $this->totals()->orderBy('sort_order');
     }
 
-    public function parent()
-    {
-        return $this->belongsTo('App\Models\Document\Document', 'parent_id');
-    }
-
-    public function scopeLatest(Builder $query)
+    public function scopeLatest(Builder $query): Builder
     {
         return $query->orderBy('issued_at', 'desc');
     }
 
-    public function scopeNumber(Builder $query, string $number)
+    public function scopeNumber(Builder $query, string $number): Builder
     {
         return $query->where('document_number', '=', $number);
     }
 
-    public function scopeDue($query, $date)
+    public function scopeDue(Builder $query, $date): Builder
     {
         return $query->whereDate('due_at', '=', $date);
     }
 
-    public function scopeAccrued($query)
+    public function scopeAccrued(Builder $query): Builder
     {
         return $query->whereNotIn('status', ['draft', 'cancelled']);
     }
 
-    public function scopePaid($query)
+    public function scopePaid(Builder $query): Builder
     {
         return $query->where('status', '=', 'paid');
     }
 
-    public function scopeNotPaid($query)
+    public function scopeNotPaid(Builder $query): Builder
     {
         return $query->where('status', '<>', 'paid');
     }
 
-    public function scopeType(Builder $query, string $type)
+    public function scopeFuture(Builder $query): Builder
+    {
+        return $query->whereIn('status', $this->getDocumentStatusesForFuture());
+    }
+
+    public function scopeType(Builder $query, string $type): Builder
     {
         return $query->where($this->qualifyColumn('type'), '=', $type);
     }
 
-    public function scopeInvoice(Builder $query)
+    public function scopeInvoice(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('type'), '=', self::INVOICE_TYPE);
     }
 
-    public function scopeBill(Builder $query)
+    public function scopeInvoiceRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', self::INVOICE_RECURRING_TYPE);
+    }
+
+    public function scopeBill(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('type'), '=', self::BILL_TYPE);
+    }
+
+    public function scopeBillRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', self::BILL_RECURRING_TYPE);
     }
 
     /**
@@ -202,8 +232,14 @@ class Document extends Model
      */
     public function onCloning($src, $child = null)
     {
+        if (app()->has(\App\Console\Commands\RecurringCheck::class)) {
+            $type = $this->getRealTypeOfRecurringDocument($src->type);
+        } else {
+            $type = $src->type;
+        }
+
         $this->status          = 'draft';
-        $this->document_number = $this->getNextDocumentNumber($src->type);
+        $this->document_number = $this->getNextDocumentNumber($type);
     }
 
     public function getSentAtAttribute(string $value = null)
@@ -354,29 +390,29 @@ class Document extends Model
      */
     public function getStatusLabelAttribute()
     {
-        switch ($this->status) {
-            case 'paid':
-                $label = 'success';
-                break;
-            case 'partial':
-                $label = 'info';
-                break;
-            case 'sent':
-            case 'received':
-                $label = 'danger';
-                break;
-            case 'viewed':
-                $label = 'warning';
-                break;
-            case 'cancelled':
-                $label = 'dark';
-                break;
-            default:
-                $label = 'primary';
-                break;
-        }
+        return match($this->status) {
+            'paid'      => 'status-success',
+            'partial'   => 'status-partial',
+            'sent'      => 'status-danger',
+            'received'  => 'status-danger',
+            'viewed'    => 'status-sent',
+            'cancelled' => 'status-canceled',
+            default     => 'status-draft',
+        };
+    }
 
-        return $label;
+    /**
+     * Get the recurring status label.
+     *
+     * @return string
+     */
+    public function getRecurringStatusLabelAttribute()
+    {
+        return match($this->recurring->status) {
+            'active'    => 'status-partial',
+            'ended'     => 'status-success',
+            default     => 'status-success',
+        };
     }
 
     /**
@@ -427,6 +463,167 @@ class Document extends Model
         }
 
         return implode(', ', $location);
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $group = config('type.document.' . $this->type . '.group');
+        $prefix = config('type.document.' . $this->type . '.route.prefix');
+        $permission_prefix = config('type.document.' . $this->type . '.permission.prefix');
+        $translation_prefix = config('type.document.' . $this->type . '.translation.prefix');
+
+        if (empty($prefix)) {
+            return $actions;
+        }
+
+        try {
+            $actions[] = [
+                'title' => trans('general.show'),
+                'icon' => 'visibility',
+                'url' => route($prefix . '.show', $this->id),
+                'permission' => 'read-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-more-actions-show-' . $this->id,
+                ],
+            ];
+        } catch (\Exception $e) {}
+
+        try {
+            if (! $this->reconciled) {
+                $actions[] = [
+                    'title' => trans('general.edit'),
+                    'icon' => 'edit',
+                    'url' => route($prefix . '.edit', $this->id),
+                    'permission' => 'update-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-edit-' . $this->id,
+                    ],
+                ];
+            }
+        } catch (\Exception $e) {}
+
+        try {
+            $actions[] = [
+                'title' => trans('general.duplicate'),
+                'icon' => 'file_copy',
+                'url' => route($prefix . '.duplicate', $this->id),
+                'permission' => 'create-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-more-actions-duplicate-' . $this->id,
+                ],
+            ];
+        } catch (\Exception $e) {}
+
+        try {
+            $actions[] = [
+                'title' => trans('general.print'),
+                'icon' => 'print',
+                'url' => route($prefix . '.print', $this->id),
+                'permission' => 'read-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-more-actions-print-' . $this->id,
+                    'target' => '_blank',
+                ],
+            ];
+        } catch (\Exception $e) {}
+
+        try {
+            $actions[] = [
+                'title' => trans('general.download_pdf'),
+                'icon' => 'pdf',
+                'url' => route($prefix . '.pdf', $this->id),
+                'permission' => 'read-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-more-actions-pdf-' . $this->id,
+                    'target' => '_blank',
+                ],
+            ];
+        } catch (\Exception $e) {}
+
+        if (!str_contains($this->type, 'recurring')) {
+            $actions[] = [
+                'type' => 'divider',
+            ];
+
+            try {
+                $actions[] = [
+                    'type' => 'button',
+                    'title' => trans('general.share_link'),
+                    'icon' => 'share',
+                    'url' => route('modals.'. $prefix . '.share.create', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-share-link-' . $this->id,
+                        '@click' => 'onShareLink("' . route('modals.'. $prefix . '.share.create', $this->id) . '")',
+                    ],
+                ];
+            } catch (\Exception $e) {}
+
+            try {
+                if ($this->type == 'invoice') {
+                    $actions[] = [
+                        'type' => 'button',
+                        'title' => trans('invoices.send_mail'),
+                        'icon' => 'email',
+                        'url' => route('modals.'. $prefix . '.emails.create', $this->id),
+                        'permission' => 'read-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            'id'        => 'index-more-actions-send-email-' . $this->id,
+                            '@click'    => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                        ],
+                    ];
+                }
+            } catch (\Exception $e) {}
+
+            $actions[] = [
+                'type' => 'divider',
+            ];
+
+            try {
+                $actions[] = [
+                    'title' => trans('general.cancel'),
+                    'icon' => 'cancel',
+                    'url' => route($prefix . '.cancelled', $this->id),
+                    'permission' => 'update-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-cancel-' . $this->id,
+                    ],
+                ];
+            } catch (\Exception $e) {}
+
+            $actions[] = [
+                'type' => 'divider',
+            ];
+
+            try {
+                $actions[] = [
+                    'type' => 'delete',
+                    'icon' => 'delete',
+                    'title' => $translation_prefix,
+                    'route' => $prefix . '.destroy',
+                    'permission' => 'delete-' . $group . '-' . $permission_prefix,
+                    'model' => $this,
+                ];
+            } catch (\Exception $e) {}
+        } else {
+            try {
+                $actions[] = [
+                    'title' => trans('general.end'),
+                    'icon' => 'block',
+                    'url' => route($prefix. '.end', $this->id),
+                    'permission' => 'update-' . $group . '-' . $permission_prefix,
+                ];
+            } catch (\Exception $e) {}
+        }
+
+        return $actions;
     }
 
     protected static function newFactory(): Factory

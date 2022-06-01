@@ -43,10 +43,8 @@ class Queue extends Provider
 
             $payload = $event->job->payload();
 
-            if (!array_key_exists('company_id', $payload)) {
-                $event->job->delete();
-
-                throw new \Exception('Missing company. Payload: ' . json_encode($payload));
+            if (! array_key_exists('company_id', $payload)) {
+                return;
             }
 
             $company = company($payload['company_id']);

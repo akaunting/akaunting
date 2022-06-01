@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Número de factura',
     'bill_date'             => 'Fecha de factura',
-    'bill_amount'           => 'Monto de la factura',
     'total_price'           => 'Precio total',
     'due_date'              => 'Fecha de vencimiento',
     'order_number'          => 'Número de pedido',
@@ -16,7 +15,7 @@ return [
     'discount'              => 'Descuento',
     'item_discount'         => 'Descuento de línea',
     'tax_total'             => 'Total de impuestos',
-    'total'                 => 'Total ',
+    'total'                 => 'Total',
 
     'item_name'             => 'Nombre del artículo | Nombres de artículo',
 

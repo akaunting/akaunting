@@ -84,7 +84,7 @@ abstract class Report
 
     public function getCategories($types, $limit = false)
     {
-        $model = Category::type($types)->orderBy('name');
+        $model = Category::withSubCategory()->type($types)->orderBy('name');
 
         if ($limit !== false) {
             $model->take(setting('default.select_limit'));
@@ -183,14 +183,69 @@ abstract class Report
 
     public function setRowNamesAndValues($event, $rows)
     {
+        $nodes = [];
+
         foreach ($event->class->dates as $date) {
-            foreach ($event->class->tables as $table) {
+            foreach ($event->class->tables as $table_key => $table_name) {
                 foreach ($rows as $id => $name) {
-                    $event->class->row_names[$table][$id] = $name;
-                    $event->class->row_values[$table][$id][$date] = 0;
+                    $event->class->row_names[$table_key][$id] = $name;
+                    $event->class->row_values[$table_key][$id][$date] = 0;
+
+                    $nodes[$id] = null;
                 }
             }
         }
+
+        $this->setTreeNodes($event, $nodes);
+    }
+
+    public function setTreeNodes($event, $nodes)
+    {
+        foreach ($event->class->tables as $table_key => $table_name) {
+            foreach ($nodes as $id => $node) {
+                $event->class->row_tree_nodes[$table_key][$id] = $node;
+            }
+        }
+    }
+
+    public function getCategoriesNodes($categories)
+    {
+        $nodes = [];
+
+        foreach ($categories as $id => $name) {
+            $category = Category::withSubCategory()->find($id);
+
+            if (!is_null($category->parent_id)) {
+                unset($categories[$id]);
+
+                continue;
+            }
+
+            $nodes[$id] = $this->getSubCategories($category);
+        }
+
+        return $nodes;
+    }
+
+    public function getSubCategories($category)
+    {
+        if ($category->sub_categories->count() == 0) {
+            return null;
+        }
+
+        $sub_categories = [];
+
+        foreach ($category->sub_categories as $sub_category) {
+            $sub_category->load('sub_categories');
+
+            $sub_categories[$sub_category->id] = $this->getSubCategories($sub_category);
+        }
+
+        if (!empty($sub_categories)) {
+            $sub_categories[$category->id] = null;
+        }
+
+        return $sub_categories;
     }
 
     public function getFormattedDate($event, $date)

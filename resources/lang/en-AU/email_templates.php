@@ -4,7 +4,7 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} invoice created',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -19,7 +19,7 @@ return [
 
     'invoice_recur_customer' => [
         'subject'       => '{invoice_number} recurring invoice created',
-        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring cycle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring circle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
@@ -29,7 +29,7 @@ return [
 
     'invoice_payment_customer' => [
         'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br />Amount: <strong>{transaction_total}</strong><br />Date: <strong>{transaction_paid_date}</strong><br />Invoice Number: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br />Amount: <strong>{transaction_total}</strong><br />Date: <strong>{transaction_paid_date}</strong><br />Invoice Number: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
@@ -49,7 +49,7 @@ return [
 
     'revenue_new_customer' => [
         'subject'       => '{revenue_date} payment created',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following payment. <br /><br />You can see the payment details from the following link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following payment. <br /><br />You can see the payment details from the following link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'payment_new_vendor' => [

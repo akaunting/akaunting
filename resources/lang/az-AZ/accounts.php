@@ -10,9 +10,5 @@ return [
     'bank_phone'            => 'Bank telefonu',
     'bank_address'          => 'Bank ünvanı',
     'default_account'       => 'İlkin hesab',
-    'incoming'              => 'Gələn',
-    'outgoing'              => 'Gedən',
-    'see_performance'       => 'Performansa bax',
-    'create_report'         => 'Hesab performansınıza baxmaq istəyirsinizsə, Gəlir - Xərclər hesabat nümunəsi hazırlaya bilərsiniz.',
 
 ];

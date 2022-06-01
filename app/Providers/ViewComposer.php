@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider as Provider;
-use View;
+use Illuminate\Support\Facades\View;
 
 class ViewComposer extends Provider
 {
@@ -14,46 +14,10 @@ class ViewComposer extends Provider
      */
     public function boot()
     {
-        // Suggestions
+        // Add Contact Type
         View::composer(
-            'partials.admin.header', 'App\Http\ViewComposers\Suggestions'
-        );
-
-        // Notifications
-        View::composer(
-            'partials.admin.content', 'App\Http\ViewComposers\Notifications'
-        );
-
-        // Add company info to menu
-        View::composer(
-            ['partials.admin.menu', 'partials.portal.menu'],
-            'App\Http\ViewComposers\Menu'
-        );
-
-        // Add notifications to header
-        View::composer(
-            ['partials.wizard.navbar', 'partials.admin.navbar', 'partials.portal.navbar'],
-            'App\Http\ViewComposers\Header'
-        );
-
-        // Add limits and bulk actions to index
-        View::composer(
-            '*.index', 'App\Http\ViewComposers\Index'
-        );
-
-        // Add limits to show
-        View::composer(
-            '*.show', 'App\Http\ViewComposers\Index'
-        );
-
-        // Add Modules
-        View::composer(
-            'modules.*', 'App\Http\ViewComposers\Modules'
-        );
-
-        // Add recurring
-        View::composer(
-            'partials.form.recurring', 'App\Http\ViewComposers\Recurring'
+            ['contacts.*'],
+            'App\Http\ViewComposers\ContactType'
         );
 
         // Add Document Type
@@ -62,13 +26,14 @@ class ViewComposer extends Provider
             'App\Http\ViewComposers\DocumentType'
         );
 
-        // Wizard
+        // Document Recurring Metadata
         View::composer(
-            'layouts.wizard', 'App\Http\ViewComposers\Wizard'
+            ['components.documents.form.metadata'],
+            'App\Http\ViewComposers\DocumentRecurring'
         );
 
         View::composer(
-            ['partials.admin.content'],
+            ['components.layouts.admin.notifications'],
             'App\Http\ViewComposers\ReadOnlyNotification'
         );
     }

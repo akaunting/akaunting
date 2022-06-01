@@ -8,7 +8,6 @@ return [
     'decimal_mark'          => 'סימן עשרוני',
     'thousands_separator'   => 'מפריד אלפים',
     'precision'             => 'דיוק',
-    'conversion'            => 'המרת מטבע: :price (:currency_code) ב- :currency_rate',
     'symbol' => [
         'symbol'            => 'סמל',
         'position'          => 'מיקום סמל',

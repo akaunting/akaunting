@@ -15,7 +15,7 @@ return [
     'discount'              => 'Descuento',
     'item_discount'         => 'Línea de descuento',
     'tax_total'             => 'Total de Impuestos',
-    'total'                 => 'Total ',
+    'total'                 => 'Total',
 
     'item_name'             => 'Nombre del producto/servicio | Nombres de los productos/servicos',
 

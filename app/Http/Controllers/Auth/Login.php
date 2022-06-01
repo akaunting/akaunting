@@ -36,7 +36,7 @@ class Login extends Controller
     public function store(Request $request)
     {
         // Attempt to login
-        if (!auth()->attempt($request->only('email', 'password'), $request->get('remember', false))) {
+        if (! auth()->attempt($request->only('email', 'password'), $request->get('remember', false))) {
             return response()->json([
                 'status' => null,
                 'success' => false,
@@ -51,7 +51,7 @@ class Login extends Controller
         $user = user();
 
         // Check if user is enabled
-        if (!$user->enabled) {
+        if (! $user->enabled) {
             $this->logout();
 
             return response()->json([
@@ -69,7 +69,7 @@ class Login extends Controller
         });
 
         // Logout if no company assigned
-        if (!$company) {
+        if (! $company) {
             $this->logout();
 
             return response()->json([
@@ -95,7 +95,7 @@ class Login extends Controller
                 'status' => null,
                 'success' => true,
                 'error' => false,
-                'message' => null,
+                'message' => trans('auth.login_redirect'),
                 'data' => null,
                 'redirect' => url($path),
             ]);
@@ -108,7 +108,7 @@ class Login extends Controller
             'status' => null,
             'success' => true,
             'error' => false,
-            'message' => null,
+            'message' => trans('auth.login_redirect'),
             'data' => null,
             'redirect' => redirect()->intended($url)->getTargetUrl(),
         ]);
@@ -128,6 +128,9 @@ class Login extends Controller
         // Session destroy is required if stored in database
         if (config('session.driver') == 'database') {
             $request = app('Illuminate\Http\Request');
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             $request->session()->getHandler()->destroy($request->session()->getId());
         }
     }

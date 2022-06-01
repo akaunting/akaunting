@@ -14,13 +14,11 @@ class Contact extends FormRequest
     public function rules()
     {
         $email = '';
-        $required = '';
         $logo = 'nullable';
 
         $type = $this->request->get('type', 'customer');
 
-        // @todo must put contact types under a specific array, see category
-        if (empty(config('type.' . $type))) {
+        if (empty(config('type.contact.' . $type))) {
             $type = null;
         }
 
@@ -35,12 +33,8 @@ class Contact extends FormRequest
             $id = null;
         }
 
-        if (($this->request->get('create_user', 'false') === 'true') && empty($this->request->get('user_id'))) {
-            $required = 'required|';
-        }
-
         if (!empty($this->request->get('email'))) {
-            $email .= 'email|unique:contacts,NULL,'
+            $email .= 'email:rfc,dns|unique:contacts,NULL,'
                       . $id . ',id'
                       . ',company_id,' . $company_id
                       . ',type,' . $type
@@ -61,7 +55,6 @@ class Contact extends FormRequest
             'email' => $email,
             'user_id' => 'integer|nullable',
             'currency_code' => 'required|string|currency',
-            'password' => $required . 'confirmed',
             'enabled' => 'integer|boolean',
             'logo' => $logo,
         ];

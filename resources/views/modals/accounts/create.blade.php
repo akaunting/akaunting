@@ -1,21 +1,30 @@
-{!! Form::open([
-    'id' => 'form-create-account',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'route' => 'accounts.store',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'font') }}
+<x-form id="form-create-account" route="accounts.store">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.radio
+            name="type"
+            label="{{ trans_choice('general.types', 1) }}"
+            :options="[
+                'bank' => trans_choice('accounts.banks', 1),
+                'credit_card' => trans_choice('accounts.credit_cards', 1),
+            ]"
+            checked="bank"
+        />
 
-        {{ Form::textGroup('number', trans('accounts.number'), 'pencil-alt') }}
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'change' => 'onChangeCurrency']) }}
+        <x-form.group.text name="number" label="{{ trans('accounts.number') }}" />
 
-        {{ Form::moneyGroup('opening_balance', trans('accounts.opening_balance'), 'balance-scale', ['required' => 'required', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00) }}
+        <x-form.group.currency without-add-new />
 
-        {!! Form::hidden('enabled', '1', []) !!}
+        <x-form.group.money
+            name="opening_balance"
+            label="{{ trans('accounts.opening_balance') }}"
+            value="0"
+            autofocus="autofocus"
+            :currency="$currency"
+            dynamicCurrency="currency"
+        />
+
+        <x-form.input.hidden name="enabled" value="1" />
     </div>
-{!! Form::close() !!}
+</x-form>

@@ -1,11 +1,19 @@
-@php $grand_total = array_sum($class->footer_totals[$table]); @endphp
+@php $grand_total = array_sum($class->footer_totals[$table_key]); @endphp
 
 <tfoot>
-    <tr class="row rp-border-top-1 font-size-unset px-3 mb-3">
-        <th class="{{ $class->column_name_width }} text-uppercase text-left">{{ trans('reports.net') }}</th>
-        @foreach($class->footer_totals[$table] as $total)
-            <th class="{{ $class->column_value_width }} text-right px-0">@money($total, setting('default.currency'), true)</th>
+    <tr>
+        <td class="{{ $class->column_name_width }} py-4 ltr:text-left rtl:text-right text-black-400 font-bold uppercase">
+            {{ trans('reports.net') }}
+        </td>
+
+        @foreach($class->footer_totals[$table_key] as $total)
+        <td class="{{ $class->column_value_width }} py-4 ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
+            <x-money :amount="$total" :currency="default_currency()" convert />
+        </td>
         @endforeach
-        <th class="{{ $class->column_name_width }} text-right pl-0 pr-4">@money($grand_total, setting('default.currency'), true)</th>
+
+        <td class="{{ $class->column_name_width }} py-4 ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
+            <x-money :amount="$grand_total" :currency="default_currency()" convert />
+        </td>
     </tr>
 </tfoot>

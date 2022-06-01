@@ -1,14 +1,13 @@
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
+* First we will load all of this project's JavaScript dependencies which
+* includes Vue and other libraries. It is a great starting point when
+* building robust, powerful web applications using Vue and Laravel.
+*/
 require('./../../bootstrap');
-
 import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
+import { addDays, format } from 'date-fns';
 import { setPromiseTimeout } from './../../plugins/functions';
 
 import Global from './../../mixins/global';
@@ -67,6 +66,9 @@ const app = new Vue({
             },
             dropdown_visible: true,
             dynamic_taxes: [],
+            show_discount: false,
+            show_discount_text: true,
+            delete_discount: false
         }
     },
 
@@ -77,7 +79,7 @@ const app = new Vue({
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
 
-        if (!this.edit.status) {
+        if (! this.edit.status) {
            this.dropdown_visible = false;
         }
 
@@ -87,18 +89,22 @@ const app = new Vue({
            let default_currency_symbol = null;
 
            for (let symbol of this.currencies) {
-               if(symbol.code == company_currency_code) {
+               if (symbol.code == company_currency_code) {
                    default_currency_symbol = symbol.symbol;
                }
            }
 
            this.currency_symbol.symbol = default_currency_symbol;
         };
+
+        if (document_app_env == 'production') {
+           this.onFormCapture();
+        }
     },
 
     methods: {
         onRefFocus(ref) {
-            let index = this.form.items.length - 1;  
+            let index = this.form.items.length - 1;
 
             this.$refs['items-' + index + '-'  + ref][0].focus();
         },
@@ -350,7 +356,7 @@ const app = new Vue({
             return amount_before_discount_and_tax;
         },
 
-        calculateTotalsTax(totals_taxes, id, name, type, price) {
+        calculateTotalsTax(totals_taxes, id, name, price) {
             let total_tax_index = totals_taxes.findIndex(total_tax => {
                 if (total_tax.id === id) {
                   return true;
@@ -380,7 +386,7 @@ const app = new Vue({
             let inputRef = `${itemType === 'newItem' ? 'name' : 'description'}`; // indication for which input to focus first
             let total = 1 * item.price;
             let item_taxes = [];
-            
+
             if (item.tax_ids) {
                 item.tax_ids.forEach(function (tax_id, index) {
                     if (this.taxes.includes(tax_id)) {
@@ -415,7 +421,7 @@ const app = new Vue({
                 description: item.description,
                 quantity: 1,
                 price: item.price,
-                add_tax: (document.getElementById('invoice-item-discount-rows') != null) ? false : true,
+                add_tax: false,
                 tax_ids: item_taxes,
                 add_discount: false,
                 discount: 0,
@@ -435,7 +441,7 @@ const app = new Vue({
         },
 
         onSelectedTax(item_index) {
-            if (!this.tax_id) {
+            if (! this.tax_id) {
                 return;
             }
 
@@ -525,6 +531,22 @@ const app = new Vue({
             this.items[item_index].add_tax = true;
         },
 
+        onAddDiscount() {
+            this.show_discount = !this.show_discount;
+
+            if (this.show_discount) {
+                this.show_discount_text = false;
+                this.delete_discount = true;
+            }
+        },
+
+        onRemoveDiscountArea() {
+            this.show_discount = false;
+            this.show_discount_text = true;
+            this.discount = false;
+            this.delete_discount = false;
+        },
+
         onDeleteTax(item_index, tax_index) {
             if (tax_index == '999') {
                 this.items[item_index].add_tax = false;
@@ -563,7 +585,7 @@ const app = new Vue({
 
                 this.component = Vue.component('add-new-component', (resolve, reject) => {
                     resolve({
-                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="modal-md" :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
 
                         mixins: [
                             Global
@@ -660,6 +682,181 @@ const app = new Vue({
             });
         },
 
+        async onEditPayment(transaction_id) {
+            let document_id = document.getElementById('document_id').value;
+
+            let payment = {
+                modal: false,
+                url: url + '/modals/documents/' + document_id + '/transactions/edit/' + transaction_id,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let payment_promise = Promise.resolve(window.axios.get(payment.url));
+
+            payment_promise.then(response => {
+                payment.modal = true;
+                payment.title = response.data.data.title;
+                payment.html = response.data.html;
+                payment.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+
+                        mixins: [
+                            Global
+                        ],
+
+                        data: function () {
+                            return {
+                                form:{},
+                                payment: payment,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.form = event;
+
+                                this.form.response = {};
+
+                                this.loading = true;
+
+                                let data = this.form.data();
+
+                                FormData.prototype.appendRecursive = function(data, wrapper = null) {
+                                    for(var name in data) {
+                                        if (wrapper) {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                                            } else {
+                                                this.append(wrapper + '[' + name + ']', data[name]);
+                                            }
+                                        } else {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], name);
+                                            } else {
+                                                this.append(name, data[name]);
+                                            }
+                                        }
+                                    }
+                                };
+
+                                let form_data = new FormData();
+                                form_data.appendRecursive(data);
+
+                                window.axios({
+                                    method: this.form.method,
+                                    url: this.form.action,
+                                    data: form_data,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                })
+                                .then(response => {
+                                    if (response.data.success) {
+                                        if (response.data.redirect) {
+                                            this.form.loading = true;
+
+                                            window.location.href = response.data.redirect;
+                                        }
+                                    }
+
+                                    if (response.data.error) {
+                                        this.form.loading = false;
+
+                                        this.form.response = response.data;
+                                    }
+                                })
+                                .catch(error => {
+                                    this.form.loading = false;
+
+                                    this.form.onFail(error);
+
+                                    this.method_show_html = error.message;
+                                });
+                            },
+
+                            onCancel() {
+                                this.payment.modal = false;
+                                this.payment.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove("modal-open");
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
+        async onEmail(route) {
+            let email = {
+                modal: false,
+                route: route,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let email_promise = Promise.resolve(window.axios.get(email.route));
+
+            email_promise.then(response => {
+                email.modal = true;
+                email.title = response.data.data.title;
+                email.html = response.data.html;
+                email.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-email-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="email.modal" @submit="onSubmit" @cancel="onCancel" :buttons="email.buttons" :title="email.title" :is_component=true :message="email.html"></akaunting-modal-add-new></div>',
+
+                        mixins: [
+                            Global
+                        ],
+
+                        data: function () {
+                            return {
+                                form:{},
+                                email: email,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.$emit('submit', event);
+                                event.submit();
+                            },
+
+                            onCancel() {
+                                this.email.modal = false;
+                                this.email.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove("modal-open");
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
         // Change currency get money
         onChangeCurrency(currency_code) {
             if (this.edit.status && this.edit.currency <= 2) {
@@ -710,7 +907,38 @@ const app = new Vue({
                     }
                 }
             }, 250);
-        }
+        },
+
+        onBeforeUnload() {
+            window.onbeforeunload = function() {
+                return 'Are you sure you want to leave this page';
+            };
+        },
+
+        onFormCapture() {
+           let form_html = document.querySelector('form');
+           
+           if (form_html && form_html.getAttribute('id') == 'document') {
+               form_html.querySelectorAll('input, textarea, select, ul, li, a, [type="button"]').forEach((element) => {
+                  element.addEventListener('click', () => {
+                      this.onBeforeUnload();
+                  });
+               });
+
+               form_html.querySelectorAll('[type="submit"]').forEach((submit) => {
+                   submit.addEventListener('click', () => {
+                        window.onbeforeunload = null;
+                   });
+               });
+           }
+        },
+
+        onChangeRecurringDate() {
+            let started_at = new Date(this.form.recurring_started_at);
+            let due_at = format(addDays(started_at, this.form.payment_terms), 'YYYY-MM-DD');
+
+            this.form.due_at = due_at;
+        },
     },
 
     created() {
@@ -764,7 +992,7 @@ const app = new Vue({
                     description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
                     price: (item.price).toFixed(2),
-                    add_tax: (!item_taxes.length && document.getElementById('invoice-item-discount-rows') != null) ? false : true,
+                    add_tax: false,
                     tax_ids: item_taxes,
                     add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
@@ -796,8 +1024,6 @@ const app = new Vue({
             }, this);
         }
 
-        this.page_loaded = true;
-
         if (typeof document_currencies !== 'undefined' && document_currencies) {
             this.currencies = document_currencies;
 
@@ -813,5 +1039,7 @@ const app = new Vue({
         if (typeof document_taxes !== 'undefined' && document_taxes) {
             this.dynamic_taxes = document_taxes;
         }
+
+        this.page_loaded = true;
     }
 });

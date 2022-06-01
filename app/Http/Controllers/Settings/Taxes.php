@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Settings\Taxes as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Setting\Tax as Request;
+use App\Imports\Settings\Taxes as Import;
 use App\Jobs\Setting\CreateTax;
 use App\Jobs\Setting\DeleteTax;
 use App\Jobs\Setting\UpdateTax;
@@ -11,7 +14,6 @@ use App\Models\Setting\Tax;
 
 class Taxes extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -89,6 +91,30 @@ class Taxes extends Controller
             $message = $response['message'];
 
             flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.taxes', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('taxes.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['settings', 'taxes']);
+
+            flash($response['message'])->error()->important();
         }
 
         return response()->json($response);
@@ -209,5 +235,15 @@ class Taxes extends Controller
         }
 
         return response()->json($response);
+    }
+    
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.taxes', 2));
     }
 }

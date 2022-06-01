@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\Auth\UserInvitation;
+
 trait Users
 {
     /**
@@ -102,8 +104,38 @@ trait Users
 
         $route_name = $user->isCustomer() ? 'portal.dashboard' : $user->landing_page;
 
-        $company_id = company_id() ?: optional($this->getFirstCompanyOfUser())->id;
+        $company_id = company_id() ?: $this->getFirstCompanyOfUser()?->id;
 
         return route($route_name, ['company_id' => $company_id]);
+    }
+
+    /**
+     * Checks if the given user has a pending invitation for the
+     * provided Company.
+     *
+     * @return bool
+     */
+    public function hasPendingInvitation($company_id = null)
+    {
+        $company_id = $company_id ?: company_id();
+
+        $invitation = UserInvitation::where('user_id', $this->id)->where('company_id', $company_id)->first();
+
+        return $invitation ? true : false;
+    }
+
+    /**
+     * Returns if the given user has a pending invitation for the
+     * provided Company.
+     *
+     * @return null|UserInvitation
+     */
+    public function getPendingInvitation($company_id = null)
+    {
+        $company_id = $company_id ?: company_id();
+
+        $invitation = UserInvitation::where('user_id', $this->id)->where('company_id', $company_id)->first();
+
+        return $invitation;
     }
 }

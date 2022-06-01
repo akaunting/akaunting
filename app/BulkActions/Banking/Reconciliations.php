@@ -10,21 +10,31 @@ class Reconciliations extends BulkAction
 {
     public $model = Reconciliation::class;
 
+    public $text = 'general.reconciliations';
+
+    public $path = [
+        'group' => 'banking',
+        'type' => 'reconciliations',
+    ];
+
     public $actions = [
-        'reconcile' => [
-            'name' => 'reconciliations.reconcile',
-            'message' => 'bulk_actions.message.reconcile',
-            'permission' => 'update-banking-reconciliations',
+        'reconcile'     => [
+            'icon'          => 'published_with_changes',
+            'name'          => 'reconciliations.reconcile',
+            'message'       => 'bulk_actions.message.reconcile',
+            'permission'    => 'update-banking-reconciliations',
         ],
-        'unreconcile' => [
-            'name' => 'reconciliations.unreconcile',
-            'message' => 'bulk_actions.message.unreconcile',
-            'permission' => 'update-banking-reconciliations',
+        'unreconcile'   => [
+            'icon'          => 'layers_clear',
+            'name'          => 'reconciliations.unreconcile',
+            'message'       => 'bulk_actions.message.unreconcile',
+            'permission'    => 'update-banking-reconciliations',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-banking-reconciliations',
+        'delete'        => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-banking-reconciliations',
         ],
     ];
 

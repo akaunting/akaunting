@@ -9,15 +9,23 @@ use App\Http\Requests\Common\Import as ImportRequest;
 use App\Imports\Sales\Customers as Import;
 use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\DeleteContact;
+use App\Jobs\Common\DuplicateContact;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
-use App\Models\Setting\Currency;
+use App\Traits\Contacts;
 use App\Utilities\Date;
 
 class Customers extends Controller
 {
+    use Contacts;
+
+    /**
+     * @var string
+     */
+    public $type = Contact::CUSTOMER_TYPE;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +33,7 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Contact::with('invoices.transactions')->customer()->collect();
+        $customers = Contact::customer()->with('invoices.transactions')->collect();
 
         return $this->response('sales.customers.index', compact('customers'));
     }
@@ -39,56 +47,7 @@ class Customers extends Controller
      */
     public function show(Contact $customer)
     {
-        $amounts = [
-            'paid' => 0,
-            'open' => 0,
-            'overdue' => 0,
-        ];
-
-        $counts = [];
-
-        // Handle invoices
-        $invoices = Document::invoice()->with('transactions')->where('contact_id', $customer->id)->get();
-
-        $counts['invoices'] = $invoices->count();
-
-        $today = Date::today()->toDateString();
-
-        foreach ($invoices as $item) {
-            // Already in transactions
-            if ($item->status == 'paid' || $item->status == 'cancelled') {
-                continue;
-            }
-
-            $transactions = 0;
-
-            foreach ($item->transactions as $transaction) {
-                $transactions += $transaction->getAmountConvertedToDefault();
-            }
-
-            // Check if it's open or overdue invoice
-            if ($item->due_at > $today) {
-                $amounts['open'] += $item->getAmountConvertedToDefault() - $transactions;
-            } else {
-                $amounts['overdue'] += $item->getAmountConvertedToDefault() - $transactions;
-            }
-        }
-
-        // Handle transactions
-        $transactions = Transaction::with('account', 'category')->where('contact_id', $customer->id)->income()->get();
-
-        $counts['transactions'] = $transactions->count();
-
-        // Prepare data
-        $transactions->each(function ($item) use (&$amounts) {
-            $amounts['paid'] += $item->getAmountConvertedToDefault();
-        });
-
-        $limit = (int) request('limit', setting('default.list_limit', '25'));
-        $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
-        $invoices = $this->paginate($invoices->sortByDesc('issued_at'), $limit);
-
-        return view('sales.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices'));
+        return view('sales.customers.show', compact('customer'));
     }
 
     /**
@@ -98,9 +57,7 @@ class Customers extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
-
-        return view('sales.customers.create', compact('currencies'));
+        return view('sales.customers.create');
     }
 
     /**
@@ -140,7 +97,7 @@ class Customers extends Controller
      */
     public function duplicate(Contact $customer)
     {
-        $clone = $customer->duplicate();
+        $clone = $this->dispatch(new DuplicateContact($customer));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.customers', 1)]);
 
@@ -182,9 +139,7 @@ class Customers extends Controller
      */
     public function edit(Contact $customer)
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
-
-        return view('sales.customers.edit', compact('customer', 'currencies'));
+        return view('sales.customers.edit', compact('customer'));
     }
 
     /**
@@ -295,10 +250,10 @@ class Customers extends Controller
         return redirect()->route('invoices.create')->withInput($data);
     }
 
-    public function createRevenue(Contact $customer)
+    public function createIncome(Contact $customer)
     {
         $data['contact'] = $customer;
 
-        return redirect()->route('revenues.create')->withInput($data);
+        return redirect()->route('transactions.create', ['type' => 'income'])->withInput($data);
     }
 }

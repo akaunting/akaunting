@@ -8,8 +8,8 @@ use App\Jobs\Common\DeleteDashboard;
 use App\Jobs\Common\DeleteReport;
 use App\Jobs\Setting\DeleteEmailTemplate;
 use App\Models\Common\Dashboard;
-use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
+use App\Models\Setting\EmailTemplate;
 use App\Traits\Jobs;
 use Throwable;
 

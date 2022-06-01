@@ -46,11 +46,11 @@ class Validation extends Provider
         Validator::extend('amount', function ($attribute, $value, $parameters, $validator) use (&$amount) {
             $status = false;
 
-            if ($value > 0) {
+            if ($value > 0 || in_array($value, $parameters)) {
                 $status = true;
             }
 
-            if (!preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $value)) {
+            if (! preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $value)) {
                 $status = false;
             }
 

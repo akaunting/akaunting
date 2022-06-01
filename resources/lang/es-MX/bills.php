@@ -2,12 +2,11 @@
 
 return [
 
-    'bill_number'           => 'Nº de Recibo',
-    'bill_date'             => 'Fecha Recibo',
-    'bill_amount'           => 'Total de la factura',
+    'bill_number'           => 'Número de Recibo',
+    'bill_date'             => 'Fecha del Recibo',
     'total_price'           => 'Precio Total',
-    'due_date'              => 'Fecha de vencimiento',
-    'order_number'          => 'Nº Pedido',
+    'due_date'              => 'Fecha de Vencimiento',
+    'order_number'          => 'Número de Orden',
     'bill_from'             => 'Factura de',
 
     'quantity'              => 'Cantidad',
@@ -16,7 +15,7 @@ return [
     'discount'              => 'Descuento',
     'item_discount'         => 'Línea de descuento',
     'tax_total'             => 'Total de Impuestos',
-    'total'                 => 'Total ',
+    'total'                 => 'Total',
 
     'item_name'             => 'Nombre del producto/servicio | Nombres de los productos/servicos',
 

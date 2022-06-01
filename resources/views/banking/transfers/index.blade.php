@@ -1,96 +1,162 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.transfers', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.transfers', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.transfers', 2) }}"
+        icon="sync_alt"
+        route="transfers.index"
+    ></x-slot>
 
-@section('new_button')
-    @can('create-banking-transfers')
-        <a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endcan
-    <a href="{{ route('import.create', ['banking', 'transfers']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    <a href="{{ route('transfers.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
-@endsection
+    <x-slot name="buttons">
+        @can('create-banking-transfers')
+            <x-link href="{{ route('transfers.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.transfers', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    @if ($transfers->count() || request()->get('search', false))
-        <div class="card">
-            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-                {!! Form::open([
-                    'method' => 'GET',
-                    'route' => 'transfers.index',
-                    'role' => 'form',
-                    'class' => 'mb-0'
-                ]) !!}
-                    <div class="align-items-center" v-if="!bulk_action.show">
-                        <x-search-string model="App\Models\Banking\Transfer" />
-                    </div>
+    <x-slot name="moreButtons">
+        <x-dropdown id="dropdown-more-actions">
+            <x-slot name="trigger">
+                <span class="material-icons">more_horiz</span>
+            </x-slot>
 
-                    {{ Form::bulkActionRowGroup('general.transfers', $bulk_actions, ['group' => 'banking', 'type' => 'transfers']) }}
-                {!! Form::close() !!}
-            </div>
+            @can('create-banking-transfers')
+                <x-dropdown.link href="{{ route('import.create', ['banking', 'transfers']) }}">
+                    {{ trans('import.import') }}
+                </x-dropdown.link>
+            @endcan
 
-            <div class="table-responsive">
-                <table class="table table-flush table-hover">
-                    <thead class="thead-light">
-                        <tr class="row table-head-line">
-                            <th class="col-sm-2 col-md-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                            <th class="col-md-2 d-none d-md-block">@sortablelink('expense_transaction.paid_at', trans('general.date'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                            <th class="col-sm-2 col-md-3 d-none d-sm-block">@sortablelink('expense_transaction.name', trans('transfers.from_account'))</th>
-                            <th class="col-xs-4 col-sm-4 col-md-2">@sortablelink('income_transaction.name', trans('transfers.to_account'))</th>
-                            <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('expense_transaction.amount', trans('general.amount'))</th>
-                            <th class="col-xs-4 col-sm-2 col-md-2 text-center">{{ trans('general.actions') }}</th>
-                        </tr>
-                    </thead>
+            <x-dropdown.link href="{{ route('transfers.export', request()->input()) }}">
+                {{ trans('general.export') }}
+            </x-dropdown.link>
+        </x-dropdown>
+    </x-slot>
 
-                    <tbody>
+    <x-slot name="content">
+        @if ($transfers->count() || request()->get('search', false))
+            <x-index.container>
+                <x-index.search
+                    search-string="App\Models\Banking\Transfer"
+                    bulk-action="App\BulkActions\Banking\Transfers"
+                />
+
+                <x-table>
+                    <x-table.thead>
+                        <x-table.tr class="flex items-center px-1">
+                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-index.bulkaction.all />
+                            </x-table.th>
+
+                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="expense_transaction.reference" title="{{ trans('general.reference') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.name" title="{{ trans('transfers.from_account') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.name" title="{{ trans('transfers.to_account') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.rate" title="{{ trans('transfers.from_rate') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.rate" title="{{ trans('transfers.to_rate') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12" kind="amount">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.amount" title="{{ trans('transfers.from_amount') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.amount" title="{{ trans('transfers.to_amount') }}" />
+                                </x-slot>
+                            </x-table.th>
+                        </x-table.tr>
+                    </x-table.thead>
+
+                    <x-table.tbody>
                         @foreach($transfers as $item)
                             @php
-                            $item->name = trans('transfers.messages.delete', [
-                                'from' => $item->expense_transaction->account->name,
-                                'to' => $item->income_transaction->account->name,
-                                'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)
-                            ]);
+                                $item->name = trans('transfers.messages.delete', [
+                                    'from' => $item->expense_transaction->account->name,
+                                    'to' => $item->income_transaction->account->name,
+                                    'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)
+                                ]);
                             @endphp
-                            <tr class="row align-items-center border-top-1">
-                                <td class="col-sm-2 col-md-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->expense_transaction->account->name) }}</td>
-                                <td class="col-md-2 d-none d-md-block"><a class="col-aka" href="{{ route('transfers.show', $item->id) }}">@date($item->expense_transaction->paid_at)</a></td>
-                                <td class="col-sm-2 col-md-3 d-none d-sm-block long-texts">{{ $item->expense_transaction->account->name }}</td>
-                                <td class="col-xs-4 col-sm-4 col-md-2 long-texts">{{ $item->income_transaction->account->name }}</td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 text-right long-texts">@money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)</td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 text-center">
-                                    <div class="dropdown">
-                                        <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-h text-muted"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{ route('transfers.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                            @can('update-banking-transfers')
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @endcan
-                                            @can('delete-banking-transfers')
-                                                <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'transfers.destroy') !!}
-                                            @endcan
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+
+                            <x-table.tr href="{{ route('transfers.show', $item->id) }}">
+                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                    <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
+                                </x-table.td>
+
+                                <x-table.td class="w-3/12 truncate hidden sm:table-cell">
+                                    <x-slot name="first" class="flex items-center font-bold" override="class">
+                                        <x-date date="{{ $item->expense_transaction->paid_at }}" />
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        @if (! empty($item->reference))
+                                            {{ $item->reference }}
+                                        @else
+                                            <x-empty-data />
+                                        @endif
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                    <x-slot name="first">
+                                        {{ $item->expense_transaction->account->name }}
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        {{ $item->income_transaction->account->name }}
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                    <x-slot name="first">
+                                        {{ $item->expense_transaction->currency_rate }}
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        {{ $item->income_transaction->currency_rate }}
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12" kind="amount">
+                                    <x-slot name="first">
+                                        <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        <x-money :amount="$item->income_transaction->amount" :currency="$item->income_transaction->currency_code" convert />
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td kind="action">
+                                    <x-table.actions :model="$item" />
+                                </x-table.td>
+                            </x-table.tr>
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    </x-table.tbody>
+                </x-table>
 
-            <div class="card-footer table-action">
-                <div class="row">
-                    @include('partials.admin.pagination', ['items' => $transfers])
-                </div>
-            </div>
-        </div>
-    @else
-        <x-empty-page group="banking" page="transfers" />
-    @endif
-@endsection
+                <x-pagination :items="$transfers" />
+            </x-index.container>
+        @else
+            <x-empty-page group="banking" page="transfers" />
+        @endif
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/banking/transfers.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="banking" file="transfers" />
+</x-layouts.admin>

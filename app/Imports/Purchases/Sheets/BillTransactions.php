@@ -26,6 +26,7 @@ class BillTransactions extends Import
         $row['category_id'] = $this->getCategoryId($row, 'expense');
         $row['contact_id'] = $this->getContactId($row, 'vendor');
         $row['document_id'] = $this->getDocumentId($row);
+        $row['number'] = $row['transaction_number'];
 
         return $row;
     }

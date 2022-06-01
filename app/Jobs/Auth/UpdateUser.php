@@ -3,10 +3,12 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
-use App\Interfaces\Job\ShouldUpdate;
 use App\Events\Auth\UserUpdated;
 use App\Events\Auth\UserUpdating;
+use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Auth\User;
+use App\Models\Common\Company;
+use Illuminate\Support\Facades\Artisan;
 
 class UpdateUser extends Job implements ShouldUpdate
 {
@@ -16,6 +18,7 @@ class UpdateUser extends Job implements ShouldUpdate
 
         // Do not reset password if not entered/changed
         if (empty($this->request['password'])) {
+            unset($this->request['current_password']);
             unset($this->request['password']);
             unset($this->request['password_confirmation']);
         }
@@ -38,7 +41,7 @@ class UpdateUser extends Job implements ShouldUpdate
 
             if ($this->request->has('companies')) {
                 if (app()->runningInConsole() || request()->isInstall()) {
-                    $this->model->companies()->sync($this->request->get('companies'));
+                    $sync = $this->model->companies()->sync($this->request->get('companies'));
                 } else {
                     $user = user();
 
@@ -47,13 +50,38 @@ class UpdateUser extends Job implements ShouldUpdate
                     });
 
                     if ($companies->isNotEmpty()) {
-                        $this->model->companies()->sync($companies->toArray());
+                        $sync = $this->model->companies()->sync($companies->toArray());
                     }
                 }
             }
 
             if ($this->model->contact) {
                 $this->model->contact->update($this->request->input());
+            }
+
+            if (isset($sync) && !empty($sync['attached'])) {
+                foreach ($sync['attached'] as $id) {
+                    $company = Company::find($id);
+
+                    Artisan::call('user:seed', [
+                        'user' => $this->model->id,
+                        'company' => $company->id,
+                    ]);
+
+                    $this->dispatch(new CreateInvitation($this->model, $company));
+                }
+            }
+
+            if (isset($sync) && !empty($sync['detached'])) {
+                foreach ($sync['detached'] as $id) {
+                    $company = Company::find($id);
+
+                    if ($this->model->hasPendingInvitation($company->id)) {
+                        $pending_invitation = $this->model->getPendingInvitation($company->id);
+
+                        $this->dispatch(new DeleteInvitation($pending_invitation));
+                    }
+                }
             }
         });
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as Provider;
+use Laravel\Sanctum\Sanctum;
 
 class App extends Provider
 {
@@ -23,6 +24,8 @@ class App extends Provider
         if (config('app.env') !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+
+        Sanctum::ignoreMigrations();
     }
 
     /**

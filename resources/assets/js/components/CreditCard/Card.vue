@@ -1,76 +1,58 @@
 <template>
-  <div class="card-item" :class="{ '-active' : isCardFlipped }">
-    <div class="card-item__side -front">
+  <div class="card-item relative w-2/4 lg:w-3/4 h-48 m-auto" :class="{ '-active' : isCardFlipped }">
+    <div class="card-item__side h-full rounded-lg shadow-lg overflow-hidden" style="transform: perspective(2000px) rotateY(0deg) rotateX(0deg) rotate(0deg);
+  transform-style: preserve-3d;
+  transition: all 0.8s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+  backface-visibility: hidden;">
       <div
-        class="card-item__focus"
-        :class="{'-active' : focusElementStyle }"
+        class="absolute w-full h-full left-0 right-0 top-0 rounded-sm overflow-hidden z-10 pointer-events-none opacity-0"
+        style="transition: all 0.35s cubic-bezier(0.71, 0.03, 0.56, 0.85);"
+        :class="{'opacity-100' : focusElementStyle }"
         :style="focusElementStyle"
         ref="focusElement"
       ></div>
-      <div class="card-item__cover">
+      <div class="absolute w-full h-full bg-black left-0 top-0 rounded-lg overflow-hidden" style="background-image: linear-gradient(147deg, #354fce 0%, #0c296b 74%);">
         <img
           v-if="currentCardBackground"
           :src="currentCardBackground"
-          class="card-item__bg"
+          class="w-full h-full block object-cover"
         />
       </div>
-      <div class="card-item__wrapper">
-        <div class="card-item__top">
+      <div class="relative h-full py-6 px-4 select-none">
+        <div class="flex items-start justify-between px-4">
           <img
             src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
-            class="card-item__chip"
+            class="w-12"
           />
-          <div class="card-item__type">
+          <div class="relative w-full h-12 flex flex-end">
             <transition name="slide-fade-up">
               <img
                 :src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + cardType + '.png'"
                 v-if="cardType"
                 :key="cardType"
                 alt
-                class="card-item__typeImg"
+                class="w-full h-full object-right-top	object-contain"
               />
             </transition>
           </div>
         </div>
-        <label :for="fields.cardNumber" class="card-item__number" :ref="fields.cardNumber">
-          <template>
-            <span v-for="(n, $index) in currentPlaceholder" :key="$index">
-              <transition name="slide-fade-up">
-                <div class="card-item__numberItem" v-if="getIsNumberMasked($index, n)">*</div>
-                <div
-                  class="card-item__numberItem"
-                  :class="{ '-active' : n.trim() === '' }"
-                  :key="currentPlaceholder"
-                  v-else-if="labels.cardNumber.length > $index"
-                >{{labels.cardNumber[$index]}}</div>
-                <div
-                  class="card-item__numberItem"
-                  :class="{ '-active' : n.trim() === '' }"
-                  v-else
-                  :key="currentPlaceholder + 1"
-                >{{n}}</div>
-              </transition>
-            </span>
-          </template>
-        </label>
-        <div class="card-item__content">
-          <label :for="fields.cardName" class="card-item__info" :ref="fields.cardName">
-            <div class="card-item__holder">Card Holder</div>
+        
+        <div class="flex items-start justify-between text-white">
+          <label :for="fields.cardName" class="p-2 block cursor-pointer text-white" :ref="fields.cardName">
             <transition name="slide-fade-up">
-              <div class="card-item__name" v-if="labels.cardName.length" key="1">
+              <div class="text-lg overflow-hidden" v-if="labels.cardName.length" key="1">
                 <transition-group name="slide-fade-right">
                   <span
-                    class="card-item__nameItem"
+                    class="text-lg overflow-hidden"
                     v-for="(n, $index) in labels.cardName.replace(/\s\s+/g, ' ')"
                     :key="$index + 1"
                   >{{n}}</span>
                 </transition-group>
               </div>
-              <div class="card-item__name" v-else key="2">Full Name</div>
+              <div class="text-lg overflow-hidden" v-else key="2">Full Name</div>
             </transition>
           </label>
-          <div class="card-item__date" ref="cardDate">
-            <label :for="fields.cardMonth" class="card-item__dateTitle">Expires</label>
+          <div class="flex flex-wrap shrink-0 text-lg p-2 cursor-pointer" ref="cardDate">
             <label :for="fields.cardMonth" class="card-item__dateItem">
               <transition name="slide-fade-up">
                 <span v-if="labels.cardMonth" :key="labels.cardMonth">{{labels.cardMonth}}</span>
@@ -86,27 +68,49 @@
             </label>
           </div>
         </div>
+
+        <label :for="fields.cardNumber" class="flex justify-around font-medium text-white text-lg p-3 cursor-pointer" :ref="fields.cardNumber">
+          <template>
+            <span v-for="(n, $index) in currentPlaceholder" :key="$index">
+              <transition name="slide-fade-up">
+                <div class="w-2" v-if="getIsNumberMasked($index, n)">*</div>
+                <div
+                  class="w-2"
+                  :class="{ '-active' : n.trim() === '' }"
+                  :key="currentPlaceholder"
+                  v-else-if="labels.cardNumber.length > $index"
+                >{{labels.cardNumber[$index]}}</div>
+                <div
+                  class="w-2"
+                  :class="{ '-active' : n.trim() === '' }"
+                  v-else
+                  :key="currentPlaceholder + 1"
+                >{{n}}</div>
+              </transition>
+            </span>
+          </template>
+        </label>
       </div>
     </div>
-    <div class="card-item__side -back">
-      <div class="card-item__cover">
+    <div class="card-item__side -back absolute top-0 left-0 w-full p-0 h-full">
+      <div class="absolute w-full h-full bg-black left-0 top-0 rounded-lg overflow-hidden" style="background-image: linear-gradient(147deg, #354fce 0%, #0c296b 74%);">
         <img
           v-if="currentCardBackground"
           :src="currentCardBackground"
-          class="card-item__bg"
+          class="w-full h-full block object-cover"
         />
       </div>
-      <div class="card-item__band"></div>
-      <div class="card-item__cvv">
-        <div class="card-item__cvvTitle">CVV</div>
-        <div class="card-item__cvvBand">
+      <div class="absolute w-full h-32 mt-12 bg-black"></div>
+      <div class="relative p-4 text-right">
+        <div class="pr-4 text-white mb-3">CVV</div>
+        <div class="h-12 flex items-center justify-end text-black rounded-sm shadow-lg bg-white text-right">
           <span v-for="(n, $index) in labels.cardCvv" :key="$index">*</span>
         </div>
-        <div class="card-item__type">
+        <div class="relative w-24 h-12 flex justify-end">
           <img
             :src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + cardType + '.png'"
             v-if="cardType"
-            class="card-item__typeImg"
+            class="w-full h-full object-right-top	object-contain"
           />
         </div>
       </div>
@@ -244,3 +248,33 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card-item.-active .card-item__side.-front {
+  transform: perspective(1000px) rotateY(180deg) rotateX(0deg) rotateZ(0deg);
+}
+.card-item.-active .card-item__side.-back {
+  transform: perspective(1000px) rotateY(0) rotateX(0deg) rotateZ(0deg);
+}
+
+.card-item__side {
+  border-radius: 15px;
+  overflow: hidden;
+  transform: perspective(2000px) rotateY(0deg) rotateX(0deg) rotate(0deg);
+  transform-style: preserve-3d;
+  transition: all 0.8s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+  backface-visibility: hidden;
+  height: 100%;
+}
+
+.card-item__side.-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: perspective(2000px) rotateY(-180deg) rotateX(0deg) rotate(0deg);
+  z-index: 2;
+  padding: 0;
+  height: 100%;
+}
+</style>

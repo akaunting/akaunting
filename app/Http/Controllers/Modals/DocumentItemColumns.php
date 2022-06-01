@@ -15,8 +15,8 @@ class DocumentItemColumns extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:read-settings-settings')->only('index', 'edit');
-        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable');
+        $this->middleware('permission:read-settings-invoice')->only('index', 'edit');
+        $this->middleware('permission:update-settings-invoice')->only('update', 'enable', 'disable');
     }
 
     /**
@@ -31,6 +31,7 @@ class DocumentItemColumns extends Controller
         $type = request()->get('type', 'invoice');
 
         $item_names = [
+            'hide' => trans('settings.invoice.hide.item_name'),
             'settings.invoice.item' => trans('settings.' . $type . '.item'),
             'settings.invoice.product' => trans('settings.' . $type . '.product'),
             'settings.invoice.service' =>  trans('settings.' . $type . '.service'),
@@ -38,12 +39,14 @@ class DocumentItemColumns extends Controller
         ];
 
         $price_names = [
+            'hide' => trans('settings.invoice.hide.price'),
             'settings.invoice.price' => trans('settings.' . $type . '.price'),
             'settings.invoice.rate' => trans('settings.' . $type . '.rate'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $quantity_names = [
+            'hide' => trans('settings.invoice.hide.quantity'),
             'settings.invoice.quantity' => trans('settings.' . $type . '.quantity'),
             'custom' => trans('settings.invoice.custom'),
         ];

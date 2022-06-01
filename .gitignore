@@ -85,7 +85,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-.env.example
 robots.txt
 _ide_helper.php
 _ide_helper_models.php
@@ -95,3 +94,4 @@ _ide_helper_models.php
 modules/*
 !modules/.gitkeep
 .laravelstatsrc
+.DS_Store

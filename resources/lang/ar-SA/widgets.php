@@ -2,7 +2,6 @@
 
 return [
 
-    'currencies'                => 'عملات',
     'total_income'              => 'إجمالي الدخل',
     'receivables'               => 'المستحقات',
     'open_invoices'             => 'الفواتير المفتوحة',

@@ -19,7 +19,7 @@ return [
         'customer'          => 'エラー: ユーザーが作成されませんでした。 :name はすでにこのメールアドレスを使用しています。',
         'no_file'           => 'エラー: ファイルが選択されていません!',
         'last_category'     => 'エラー: 削除できません最後 :type category!',
-        'change_type'       => 'エラー: タイプを変更できません 持っているから :text related!',
+        'change_type'       => 'エラー: タイプを変更できません 持っているから :text related!',
         'invalid_apikey'    => 'エラー: 入力されたAPIキーは無効です!',
         'import_column'     => 'エラー: : メッセージ シート名: :sheet. Line number: :line.',
         'import_sheet'      => 'エラー: シート名が無効です。サンプル ファイルを下さい。',

@@ -1,25 +1,17 @@
-{!! Form::open([
-    'route' => 'items.store',
-    'id' => 'item',
-    '@submit.prevent' => 'onSubmit',
-    '@keydown' => 'form.errors.clear($event.target.name)',
-    'role' => 'form',
-    'class' => 'form-loading-button',
-    'novalidate' => true
-]) !!}
-    <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'tag') }}
+<x-form id="item" route="items.store">
+    <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {{ Form::multiSelectGroup('tax_ids', trans_choice('general.taxes', 1), 'percentage', $taxes, (setting('default.tax')) ? [setting('default.tax')] : null) }}
+        <x-form.group.select multiple name="tax_ids" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="(setting('default.tax')) ? [setting('default.tax')] : null" not-required />
 
-        {{ Form::textareaGroup('description', trans('general.description')) }}
+        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
 
-        {{ Form::textGroup('sale_price', trans('items.sales_price'), 'money-bill-wave') }}
+        <x-form.group.text name="sale_price" label="{{ trans('items.sale_price') }}" />
 
-        {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money-bill-wave-alt') }}
+        <x-form.group.text name="purchase_price" label="{{ trans('items.purchase_price') }}" />
 
-        {{ Form::selectRemoteGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, null, ['remote_action' => route('categories.index'). '?search=type:item enabled:1']) }}
+        <x-form.group.category type="item" not-required without-add-new />
 
-        {!! Form::hidden('enabled', '1', []) !!}
+        <x-form.input.hidden name="enabled" value="1" />
     </div>
-{!! Form::close() !!}
+</x-form>

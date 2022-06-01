@@ -8,17 +8,18 @@
         {{label}}
       </label>
     </slot>
-    <div :class="[
+    <div class="relative" :class="[
        {'input-group input-group-merge': hasIcon},
        {'focused': focused},
        {'input-group-alternative': alternative},
        {'has-label': label || $slots.label},
+       {'prepend-input-icon': prependIcon},
        inputGroupClasses
        ]">
-      <div v-if="prependIcon || $slots.prepend" class="input-group-prepend">
+      <div v-if="prependIcon || $slots.prepend" class="input-group-prepend absolute left-2 bottom-3 text-light-gray">
         <span class="input-group-text">
           <slot name="prepend">
-            <i :class="prependIcon"></i>
+            <span class="material-icons w-4 h-5 text-sm">{{ prependIcon }}</span>
           </slot>
         </span>
       </div>
@@ -30,30 +31,30 @@
           v-bind="$attrs"
           :valid="!error"
           :required="required"
-          class="form-control"
+          class="form-element"
           :class="[{'is-valid': valid === true}, {'is-invalid': error}, inputClasses]">
       </slot>
-      <div v-if="appendIcon || $slots.append" class="input-group-append">
+      <div v-if="appendIcon || $slots.append" class="input-group-append absolute ltr:right-2 rtl:left-2 bottom-2 text-light-gray">
           <span class="input-group-text">
               <slot name="append">
-                  <i :class="appendIcon"></i>
+                <span class="material-icons w-4 h-5 text-sm">{{ appendIcon }}</span>
               </slot>
           </span>
       </div>
       <slot name="infoBlock"></slot>
       <slot name="error">
-        <div v-if="error" class="invalid-feedback d-block"
+        <div v-if="error" class="text-red text-sm mt-1 block"
             v-html="error">
         </div>
       </slot>
       <slot name="success">
-        <div class="valid-feedback" v-if="!error && valid">
+        <div class="text-green text-sm mt-1" v-if="!error && valid">
           {{successMessage}}
         </div>
       </slot>
     </div>
     <slot name="error">
-      <div v-if="footerError" class="invalid-feedback d-block"
+      <div v-if="footerError" class="text-red text-sm mt-1 block"
           v-html="footerError">
       </div>
     </slot>
@@ -181,5 +182,3 @@
     }
   };
 </script>
-<style>
-</style>

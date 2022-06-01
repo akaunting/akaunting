@@ -78,6 +78,14 @@ class Route extends Provider
             ], $attributes));
         });
 
+        Facade::macro('preview', function ($alias, $routes, $attributes = []) {
+            return Facade::module($alias, $routes, array_merge([
+                'middleware'    => 'preview',
+                'prefix'        => 'preview/' . $alias,
+                'as'            => 'preview.' . $alias . '.',
+            ], $attributes));
+        });
+
         Facade::macro('portal', function ($alias, $routes, $attributes = []) {
             return Facade::module($alias, $routes, array_merge([
                 'middleware'    => 'portal',
@@ -94,18 +102,14 @@ class Route extends Provider
             ], $attributes));
         });
 
-        Facade::macro('api', function ($alias, $routes, $attrs = []) {
-            $attributes = array_merge([
+        Facade::macro('api', function ($alias, $routes, $attributes = []) {
+            return Facade::module($alias, $routes, array_merge([
                 'namespace'     => 'Modules\\' . module($alias)->getStudlyName() . '\Http\Controllers\Api',
-                'prefix'        => $alias,
-                'as'            => 'api.' . $alias,
-            ], $attrs);
-
-            $api = app('Dingo\Api\Routing\Router');
-
-            return $api->version(config('api.version'), ['middleware' => ['api']], function($api) use ($attributes, $routes) {
-                $api->group($attributes, $routes);
-            });
+                'domain'        => config('api.domain'),
+                'middleware'    => config('api.middleware'),
+                'prefix'        => config('api.prefix') ? config('api.prefix') . '/' . $alias : $alias,
+                'as'            => 'api.' . $alias . '.',
+            ], $attributes));
         });
     }
 
@@ -129,6 +133,8 @@ class Route extends Provider
         $this->mapWizardRoutes();
 
         $this->mapAdminRoutes();
+
+        $this->mapPreviewRoutes();
 
         $this->mapPortalRoutes();
 
@@ -159,8 +165,10 @@ class Route extends Provider
      */
     protected function mapApiRoutes()
     {
-        Facade::prefix('api')
-            ->namespace($this->namespace)
+        Facade::prefix(config('api.prefix'))
+            ->domain(config('api.domain'))
+            ->middleware(config('api.middleware'))
+            ->namespace($this->namespace . '\Api')
             ->group(base_path('routes/api.php'));
     }
 
@@ -221,6 +229,20 @@ class Route extends Provider
             ->middleware('admin')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
+    }
+    /**
+     * Define the "preview" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapPreviewRoutes()
+    {
+        Facade::prefix('{company_id}/preview')
+            ->middleware('preview')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/preview.php'));
     }
 
     /**

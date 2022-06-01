@@ -2,6 +2,7 @@
 
 namespace App\Models\Common;
 
+use Akaunting\Sortable\Traits\Sortable;
 use App\Events\Common\CompanyForgettingCurrent;
 use App\Events\Common\CompanyForgotCurrent;
 use App\Events\Common\CompanyMadeCurrent;
@@ -14,15 +15,15 @@ use App\Traits\Sources;
 use App\Traits\Tenants;
 use App\Traits\Transactions;
 use App\Utilities\Overrider;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kyslik\ColumnSortable\Sortable;
 use Laratrust\Contracts\Ownable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent implements Ownable
 {
-    use Contacts, Media, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Transactions;
+    use Contacts, HasFactory, Media, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Transactions;
 
     protected $table = 'companies';
 
@@ -48,33 +49,21 @@ class Company extends Eloquent implements Ownable
      *
      * @var array
      */
-    public $sortable = ['name', 'domain', 'email', 'enabled', 'created_at'];
+    public $sortable = ['id', 'name', 'domain', 'email', 'enabled', 'created_at', 'tax_number', 'country', 'currency'];
 
     /**
-     * Create a new Eloquent model instance.
+     * Fill the model with an array of attributes.
      *
      * @param  array  $attributes
-     * @return void
+     * @return $this
+     *
+     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
      */
-    public function __construct(array $attributes = [])
+    public function fill(array $attributes)
     {
         $this->allAttributes = $attributes;
 
-        parent::__construct($attributes);
-    }
-
-    /**
-     * Update the model in the database.
-     *
-     * @param  array  $attributes
-     * @param  array  $options
-     * @return bool
-     */
-    public function update(array $attributes = [], array $options = [])
-    {
-        $this->allAttributes = $attributes;
-
-        return parent::update($attributes, $options);
+        return parent::fill($attributes);
     }
 
     public static function boot()
@@ -90,7 +79,7 @@ class Company extends Eloquent implements Ownable
                 $model->unsetCommonSettingsFromAttributes();
             });
         } catch(\Throwable $e) {
-            
+
         }
     }
 
@@ -176,7 +165,7 @@ class Company extends Eloquent implements Ownable
 
     public function email_templates()
     {
-        return $this->hasMany('App\Models\Common\EmailTemplate');
+        return $this->hasMany('App\Models\Setting\EmailTemplate');
     }
 
     public function expense_transactions()
@@ -298,7 +287,7 @@ class Company extends Eloquent implements Ownable
                 list($group, $key) = explode('.', $setting->getAttribute('key'));
 
                 // Load only general settings
-                if (!in_array($group, $groups)) {
+                if (! in_array($group, $groups)) {
                     continue;
                 }
 
@@ -315,8 +304,13 @@ class Company extends Eloquent implements Ownable
             if ($this->getAttribute('logo') == '') {
                 $this->setAttribute('logo', 'public/img/company.png');
             }
+
+            // Set default default company currency if empty
+            if ($this->getAttribute('currency') == '') {
+                $this->setAttribute('currency', config('setting.fallback.default.currency'));
+            }
         } catch(\Throwable $e) {
-            
+
         }
     }
 
@@ -334,7 +328,7 @@ class Company extends Eloquent implements Ownable
                 list($group, $key) = explode('.', $setting->getAttribute('key'));
 
                 // Load only general settings
-                if (!in_array($group, $groups)) {
+                if (! in_array($group, $groups)) {
                     continue;
                 }
 
@@ -343,7 +337,7 @@ class Company extends Eloquent implements Ownable
 
             $this->offsetUnset('logo');
         } catch(\Throwable $e) {
-            
+
         }
     }
 
@@ -431,6 +425,54 @@ class Company extends Eloquent implements Ownable
     }
 
     /**
+     * Sort by company tax number
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function taxNumberSortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'company.tax_number')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
+     * Sort by company country
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function countrySortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'company.country')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
+     * Sort by company currency
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function currencySortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'default.currency')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
      * Scope autocomplete.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -489,6 +531,42 @@ class Company extends Eloquent implements Ownable
         return implode(', ', $location);
     }
 
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        if ($this->enabled) {
+            $actions[] = [
+                'title' => trans('general.switch'),
+                'icon' => 'settings_ethernet',
+                'url' => route('companies.switch', $this->id),
+                'permission' => 'read-common-companies',
+            ];
+        }
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('companies.edit', $this->id),
+            'permission' => 'update-common-companies',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'companies.destroy',
+            'permission' => 'delete-common-companies',
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
+
     public function makeCurrent($force = false)
     {
         if (!$force && $this->isCurrent()) {
@@ -501,9 +579,6 @@ class Company extends Eloquent implements Ownable
 
         // Bind to container
         app()->instance(static::class, $this);
-
-        // Set session for backward compatibility @deprecated
-        //session(['company_id' => $this->id]);
 
         // Load settings
         setting()->setExtraColumns(['company_id' => $this->id]);
@@ -521,7 +596,7 @@ class Company extends Eloquent implements Ownable
 
     public function isCurrent()
     {
-        return optional(static::getCurrent())->id === $this->id;
+        return static::getCurrent()?->id === $this->id;
     }
 
     public function isNotCurrent()
@@ -550,9 +625,6 @@ class Company extends Eloquent implements Ownable
 
         // Remove from container
         app()->forgetInstance(static::class);
-
-        // Unset session for backward compatibility @deprecated
-        //session()->forget('company_id');
 
         // Remove settings
         setting()->forgetAll();
@@ -589,5 +661,15 @@ class Company extends Eloquent implements Ownable
         }
 
         return $this->created_by;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Company::new();
     }
 }

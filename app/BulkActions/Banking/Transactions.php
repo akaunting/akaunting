@@ -10,16 +10,25 @@ class Transactions extends BulkAction
 {
     public $model = Transaction::class;
 
+    public $text = 'general.transactions';
+
+    public $path = [
+        'group' => 'banking',
+        'type' => 'transactions',
+    ];
+
     public $actions = [
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-banking-transactions',
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-banking-transactions',
         ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download',
+        'export'    => [
+            'icon'          => 'file_download',
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
         ],
     ];
 

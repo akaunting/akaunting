@@ -3,76 +3,82 @@
 use Illuminate\Support\Facades\Route;
 
 /**
- * 'api' prefix applied to all routes
+ * 'api' middleware and prefix applied to all routes
  *
  * @see \App\Providers\Route::mapApiRoutes
  */
 
-$api = app('Dingo\Api\Routing\Router');
+Route::group(['as' => 'api.'], function () {
+    // Ping
+    Route::get('ping', 'Common\Ping@pong')->name('ping');
 
-$api->version('v3', ['middleware' => ['api']], function($api) {
-    $api->group(['as' => 'api', 'namespace' => 'App\Http\Controllers\Api'], function($api) {
-        // Companies
-        $api->get('companies/{company}/owner', 'Common\Companies@canAccess')->name('.companies.owner');
-        $api->get('companies/{company}/enable', 'Common\Companies@enable')->name('.companies.enable');
-        $api->get('companies/{company}/disable', 'Common\Companies@disable')->name('.companies.disable');
-        $api->resource('companies', 'Common\Companies', ['middleware' => ['dropzone']]);
+    // Users
+    Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
+    Route::get('users/{user}/disable', 'Auth\Users@disable')->name('users.disable');
+    Route::apiResource('users', 'Auth\Users');
 
-        // Dashboards
-        $api->get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('.dashboards.enable');
-        $api->get('dashboards/{dashboard}/disable', 'Common\Dashboards@disable')->name('.dashboards.disable');
-        $api->resource('dashboards', 'Common\Dashboards');
+    // Companies
+    Route::get('companies/{company}/owner', 'Common\Companies@canAccess')->name('companies.owner');
+    Route::get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
+    Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
+    Route::apiResource('companies', 'Common\Companies', ['middleware' => ['dropzone']]);
 
-        // Items
-        $api->get('items/{item}/enable', 'Common\Items@enable')->name('.items.enable');
-        $api->get('items/{item}/disable', 'Common\Items@disable')->name('.items.disable');
-        $api->resource('items', 'Common\Items', ['middleware' => ['dropzone']]);
+    // Dashboards
+    Route::get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('dashboards.enable');
+    Route::get('dashboards/{dashboard}/disable', 'Common\Dashboards@disable')->name('dashboards.disable');
+    Route::apiResource('dashboards', 'Common\Dashboards');
 
-        // Contacts
-        $api->get('contacts/{contact}/enable', 'Common\Contacts@enable')->name('.contacts.enable');
-        $api->get('contacts/{contact}/disable', 'Common\Contacts@disable')->name('.contacts.disable');
-        $api->resource('contacts', 'Common\Contacts');
+    // Items
+    Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
+    Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
+    Route::apiResource('items', 'Common\Items', ['middleware' => ['dropzone']]);
 
-        // Sales
-        $api->resource('documents', 'Document\Documents', ['middleware' => ['date.format', 'money', 'dropzone']]);
-        $api->resource('documents.transactions', 'Document\DocumentTransactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
-        $api->get('documents/{document}/received', 'Document\Documents@received')->name('.documents.received');
+    // Contacts
+    Route::get('contacts/{contact}/enable', 'Common\Contacts@enable')->name('contacts.enable');
+    Route::get('contacts/{contact}/disable', 'Common\Contacts@disable')->name('contacts.disable');
+    Route::apiResource('contacts', 'Common\Contacts');
 
-        // Banking
-        $api->get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('.accounts.enable');
-        $api->get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('.accounts.disable');
-        $api->resource('accounts', 'Banking\Accounts', ['middleware' => ['date.format', 'money', 'dropzone']]);
-        $api->resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['date.format', 'money', 'dropzone']]);
-        $api->resource('transactions', 'Banking\Transactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
-        $api->resource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money', 'dropzone']]);
+    // Documents
+    Route::get('documents/{document}/received', 'Document\Documents@received')->name('documents.received');
+    Route::apiResource('documents', 'Document\Documents', ['middleware' => ['date.format', 'money', 'dropzone']]);
+    Route::apiResource('documents.transactions', 'Document\DocumentTransactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-        // Reports
-        $api->resource('reports', 'Common\Reports');
+    // Accounts
+    Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
+    Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
+    Route::apiResource('accounts', 'Banking\Accounts', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-        // Translations
-        $api->get('translations/{locale}/all', 'Common\Translations@all')->name('.translations.all');
-        $api->get('translations/{locale}/{file}', 'Common\Translations@file')->name('.translations.file');
+    // Reconciliations
+    Route::apiResource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-        // Settings
-        $api->get('categories/{category}/enable', 'Settings\Categories@enable')->name('.categories.enable');
-        $api->get('categories/{category}/disable', 'Settings\Categories@disable')->name('.categories.disable');
-        $api->resource('categories', 'Settings\Categories');
-        $api->get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('.currencies.enable');
-        $api->get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('.currencies.disable');
-        $api->resource('currencies', 'Settings\Currencies');
-        $api->resource('settings', 'Settings\Settings');
-        $api->get('taxes/{tax}/enable', 'Settings\Taxes@enable')->name('.taxes.enable');
-        $api->get('taxes/{tax}/disable', 'Settings\Taxes@disable')->name('.taxes.disable');
-        $api->resource('taxes', 'Settings\Taxes');
+    // Transactions
+    Route::apiResource('transactions', 'Banking\Transactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-        // Common
-        $api->resource('ping', 'Common\Ping');
+    // Transfers
+    Route::apiResource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
-        // Auth
-        $api->resource('permissions', 'Auth\Permissions');
-        $api->resource('roles', 'Auth\Roles');
-        $api->get('users/{user}/enable', 'Auth\Users@enable')->name('.users.enable');
-        $api->get('users/{user}/disable', 'Auth\Users@disable')->name('.users.disable');
-        $api->resource('users', 'Auth\Users');
-    });
+    // Reports
+    Route::resource('reports', 'Common\Reports');
+
+    // Categories
+    Route::get('categories/{category}/enable', 'Settings\Categories@enable')->name('categories.enable');
+    Route::get('categories/{category}/disable', 'Settings\Categories@disable')->name('categories.disable');
+    Route::apiResource('categories', 'Settings\Categories');
+
+    // Currencies
+    Route::get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('currencies.enable');
+    Route::get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('currencies.disable');
+    Route::apiResource('currencies', 'Settings\Currencies');
+
+    // Taxes
+    Route::get('taxes/{tax}/enable', 'Settings\Taxes@enable')->name('taxes.enable');
+    Route::get('taxes/{tax}/disable', 'Settings\Taxes@disable')->name('taxes.disable');
+    Route::apiResource('taxes', 'Settings\Taxes');
+
+    // Settings
+    Route::apiResource('settings', 'Settings\Settings');
+
+    // Translations
+    Route::get('translations/{locale}/all', 'Common\Translations@all')->name('translations.all');
+    Route::get('translations/{locale}/{file}', 'Common\Translations@file')->name('translations.file');
 });

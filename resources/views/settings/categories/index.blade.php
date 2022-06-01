@@ -1,95 +1,122 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.categories', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.categories', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.categories', 2) }}"
+        icon="folder"
+        route="categories.index"
+    ></x-slot>
 
-@section('new_button')
-    @can('create-settings-categories')
-        <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-        <a href="{{ route('import.create', ['settings', 'categories']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endcan
-    <a href="{{ route('categories.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
-@endsection
+    <x-slot name="buttons">
+        @can('create-settings-categories')
+            <x-link href="{{ route('categories.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    <div class="card">
-        <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-            {!! Form::open([
-                'method' => 'GET',
-                'route' => 'categories.index',
-                'role' => 'form',
-                'class' => 'mb-0'
-            ]) !!}
-                <div class="align-items-center" v-if="!bulk_action.show">
-                    <x-search-string model="App\Models\Setting\Category" />
-                </div>
+    <x-slot name="moreButtons">
+        <x-dropdown id="dropdown-more-actions">
+            <x-slot name="trigger">
+                <span class="material-icons">more_horiz</span>
+            </x-slot>
 
-                {{ Form::bulkActionRowGroup('general.categories', $bulk_actions, ['group' => 'settings', 'type' => 'categories']) }}
-            {!! Form::close() !!}
-        </div>
+            @can('create-settings-categories')
+                <x-dropdown.link href="{{ route('import.create', ['settings', 'categories']) }}">
+                    {{ trans('import.import') }}
+                </x-dropdown.link>
+            @endcan
 
-        <div class="table-responsive">
-            <table class="table table-flush table-hover">
-                <thead class="thead-light">
-                    <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">@sortablelink('type', trans_choice('general.types', 1))</th>
-                        <th class="col-md-2  col-lg-2 d-none d-md-block">{{ trans('general.color') }}</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
+            <x-dropdown.link href="{{ route('categories.export', request()->input()) }}">
+                {{ trans('general.export') }}
+            </x-dropdown.link>
+        </x-dropdown>
+    </x-slot>
 
-                <tbody>
-                    @foreach($categories as $item)
-                        <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
-                                {{ Form::bulkActionGroup($item->id, $item->name) }}
-                            </td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('categories.edit',  $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $types[$item->type] ?? trans('general.na') }}</td>
-                            <td class="col-md-2  col-lg-2 d-none d-md-block"><i class="fa fa-2x fa-circle" style="color:{{ $item->color }};"></i></td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-                                @if (user()->can('update-settings-categories'))
-                                    {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
-                                @else
-                                    @if ($item->enabled)
-                                        <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
-                                    @else
-                                        <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
-                                    @endif
-                                @endif
-                            </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
-                                <div class="dropdown">
-                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h text-muted"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ route('categories.edit',  $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @if ($item->id != $transfer_id)
-                                            @can('delete-settings-categories')
-                                                <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'categories.destroy') !!}
-                                            @endcan
-                                        @endif
+    <x-slot name="content">
+        <x-index.container>
+            <x-index.search
+                search-string="App\Models\Setting\Category"
+                bulk-action="App\BulkActions\Settings\Categories"
+            />
+
+            <x-table>
+                <x-table.thead>
+                    <x-table.tr class="flex items-center px-1">
+                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-index.bulkaction.all />
+                        </x-table.th>
+
+                        <x-table.th class="w-5/12">
+                            <x-sortablelink column="name" title="{{ trans('general.name') }}" />
+                        </x-table.th>
+
+                        <x-table.th class="w-5/12">
+                            <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
+                        </x-table.th>
+
+                        <x-table.th class="w-2/12">
+                            {{ trans('general.color') }}
+                        </x-table.th>
+                    </x-table.tr>
+                </x-table.thead>
+
+                <x-table.tbody>
+                    @foreach($categories as $category)
+                        <x-table.tr href="{{ route('categories.edit', $category->id) }}" class="relative flex items-center border-b hover:bg-gray-100 px-1 group transition-all">
+                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-index.bulkaction.single id="{{ $category->id }}" name="{{ $category->name }}" />
+                            </x-table.td>
+
+                            <x-table.td class="w-5/12 truncate">
+                                @if ($category->sub_categories->count())
+                                    <div class="flex items-center font-bold">
+                                        {{ $category->name }}
+                                        <x-tooltip id="tooltip-category-{{ $category->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
+                                            <button
+                                                type="button"
+                                                class="w-4 h-4 flex items-center justify-center mx-2 leading-none align-text-top rounded-lg bg-gray-500 hover:bg-gray-700"
+                                                node="child-{{ $category->id }}"
+                                                onClick="toggleSub('child-{{ $category->id }}', event)"
+                                            >
+                                                <span class="material-icons transform transition-all text-lg leading-none align-middle text-white">navigate_next</span>
+                                            </button>
+                                        </x-tooltip>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                @else
+                                    <span class="font-bold">{{ $category->name }}</span>
+                                @endif
+                            </x-table.td>
+
+                            <x-table.td class="w-5/12 truncate">
+                                @if (! empty($types[$category->type]))
+                                    {{ $types[$category->type] }}
+                                @else
+                                    <x-empty-data />
+                                @endif
+                            </x-table.td>
+
+                            <x-table.td class="w-2/12 relative">
+                                <span class="material-icons" class="text-3xl" style="color:{{ $category->color }};">circle</span>
+                            </x-table.td>
+
+                            <x-table.td kind="action">
+                                <x-table.actions :model="$category" />
+                            </x-table.td>
+                        </x-table.tr>
+
+                        @foreach($category->sub_categories as $sub_category)
+                            @include('settings.categories.sub_category', ['parent_category' => $category, 'sub_category' => $sub_category, 'tree_level' => 1])
+                        @endforeach
                     @endforeach
-                </tbody>
-            </table>
-        </div>
+                </x-table.tbody>
+            </x-table>
 
-        <div class="card-footer table-action">
-            <div class="row">
-                @include('partials.admin.pagination', ['items' => $categories])
-            </div>
-        </div>
-    </div>
-@endsection
+            <x-pagination :items="$categories" />
+        </x-index.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/categories.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="categories" />
+</x-layouts.admin>

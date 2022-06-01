@@ -28,10 +28,6 @@ class AddLandingPages
                 'permission' => 'read-sales-invoices',
                 'translate'  => trans_choice('general.invoices', 2),
             ],
-            'revenues.index' => [
-                'permission' => 'read-sales-revenues',
-                'translate'  => trans_choice('general.revenues', 2),
-            ],
             'customers.index' => [
                 'permission' => 'read-sales-customers',
                 'translate'  => trans_choice('general.customers', 2),
@@ -39,10 +35,6 @@ class AddLandingPages
             'bills.index' => [
                 'permission' => 'read-purchases-bills',
                 'translate'  => trans_choice('general.bills', 2),
-            ],
-            'payments.index' => [
-                'permission' => 'read-purchases-payments',
-                'translate'  => trans_choice('general.payments', 2),
             ],
             'vendors.index' => [
                 'permission' => 'read-purchases-vendors',
@@ -67,10 +59,6 @@ class AddLandingPages
             'reports.index' => [
                 'permission' => 'read-common-reports',
                 'translate'  => trans_choice('general.reports', 2),
-            ],
-            'settings.index' => [
-                'permission' => 'read-settings-settings',
-                'translate'  => trans_choice('general.settings', 2),
             ],
             'categories.index' => [
                 'permission' => 'read-settings-categories',

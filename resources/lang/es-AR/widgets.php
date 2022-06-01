@@ -2,7 +2,6 @@
 
 return [
 
-    'currencies'                => 'Monedas',
     'total_income'              => 'Ingresos totales',
     'receivables'               => 'Cuentas por cobrar',
     'open_invoices'             => 'Facturas pendientes',

@@ -15,46 +15,39 @@ class Invoices extends BulkAction
 {
     public $model = Document::class;
 
-    public $actions = [
-        'paid' => [
-            'name' => 'invoices.mark_paid',
-            'message' => 'bulk_actions.message.paid',
-            'permission' => 'update-sales-invoices',
-        ],
-        'sent' => [
-            'name' => 'invoices.mark_sent',
-            'message' => 'bulk_actions.message.sent',
-            'permission' => 'update-sales-invoices',
-        ],
-        'cancelled' => [
-            'name' => 'general.cancel',
-            'message' => 'bulk_actions.message.cancelled',
-            'permission' => 'update-sales-invoices',
-        ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-sales-invoices',
-        ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download',
-        ],
+    public $text = 'general.invoices';
+
+    public $path = [
+        'group' => 'sales',
+        'type' => 'invoices',
     ];
 
-    public function paid($request)
-    {
-        $invoices = $this->getSelectedRecords($request);
-
-        foreach ($invoices as $invoice) {
-            if ($invoice->status == 'paid') {
-                continue;
-            }
-
-            event(new PaymentReceived($invoice, ['type' => 'income']));
-        }
-    }
+    public $actions = [
+        'sent'      => [
+            'icon'          => 'send',
+            'name'          => 'invoices.mark_sent',
+            'message'       => 'bulk_actions.message.sent',
+            'permission'    => 'update-sales-invoices',
+        ],
+        'cancelled' => [
+            'icon'          => 'cancel',
+            'name'          => 'general.cancel',
+            'message'       => 'bulk_actions.message.cancelled',
+            'permission'    => 'update-sales-invoices',
+        ],
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-sales-invoices',
+        ],
+        'export'    => [
+            'icon'          => 'file_download',
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
+        ],
+    ];
 
     public function sent($request)
     {

@@ -1,93 +1,118 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.accounts', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.accounts', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.accounts', 2) }}"
+        icon="account_balance"
+        route="accounts.index"
+    ></x-slot>
 
-@section('new_button')
-    @can('create-banking-accounts')
-        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endcan
-@endsection
+    <x-slot name="buttons">
+        @can('create-banking-accounts')
+            <x-link href="{{ route('accounts.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    <div class="card">
-        <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-            {!! Form::open([
-                'method' => 'GET',
-                'route' => 'accounts.index',
-                'role' => 'form',
-                'class' => 'mb-0'
-            ]) !!}
-                <div class="align-items-center" v-if="!bulk_action.show">
-                    <x-search-string model="App\Models\Banking\Account" />
-                </div>
+    <x-slot name="content">
+        <x-index.container>
+            <x-index.search
+                search-string="App\Models\Banking\Account"
+                bulk-action="App\BulkActions\Banking\Accounts"
+            />
 
-                {{ Form::bulkActionRowGroup('general.accounts', $bulk_actions, ['group' => 'banking', 'type' => 'accounts']) }}
-            {!! Form::close() !!}
-        </div>
+            <x-table>
+                <x-table.thead>
+                    <x-table.tr class="flex items-center px-1">
+                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-index.bulkaction.all />
+                        </x-table.th>
 
-        <div class="table-responsive">
-            <table class="table table-flush table-hover">
-                <thead class="thead-light">
-                    <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                        <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-3">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['rel' => 'nofollow'])</th>
-                        <th class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block text-left">@sortablelink('number', trans('accounts.number'))</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2 col-xl-4 d-none d-sm-block text-right">@sortablelink('opening_balance', trans('accounts.current_balance'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-1">@sortablelink('enabled', trans('general.enabled'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
+                        <x-table.th class="w-6/12 sm:w-5/12">
+                            <x-slot name="first">
+                                <x-sortablelink column="name" title="{{ trans('general.name') }}" />
+                            </x-slot>
+                            <x-slot name="second">
+                                <x-sortablelink column="number" title="{{ trans('accounts.number') }}" />
+                            </x-slot>
+                        </x-table.th>
 
-                <tbody>
+                        <x-table.th class="w-4/12 hidden sm:table-cell">
+                            <x-slot name="first">
+                                <x-sortablelink column="bank_name" title="{{ trans('accounts.bank_name') }}" />
+                            </x-slot>
+                            <x-slot name="second">
+                                <x-sortablelink column="bank_phone" title="{{ trans('general.phone') }}" />
+                            </x-slot>
+                        </x-table.th>
+
+                        <x-table.th class="w-6/12 sm:w-3/12" kind="amount">
+                            <x-sortablelink column="balance" title="{{ trans('accounts.current_balance') }}" />
+                        </x-table.th>
+                    </x-table.tr>
+                </x-table.thead>
+
+                <x-table.tbody>
                     @foreach($accounts as $item)
-                        <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
-                                {{ Form::bulkActionGroup($item->id, $item->name) }}
-                            </td>
-                            <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-3 long-texts"><a href="{{ route('accounts.show', $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block text-left">{{ $item->number }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 col-xl-4 d-none d-sm-block text-right">@money($item->balance, $item->currency_code, true)</td>
-                            <td class="col-xs-4 col-sm-2 col-md-1 col-lg-2 col-xl-1">
-                                @if (user()->can('update-banking-accounts'))
-                                    {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
-                                @else
-                                    @if ($item->enabled)
-                                        <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
-                                    @else
-                                        <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
-                                    @endif
-                                @endif
-                            </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
-                                <div class="dropdown">
-                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h text-muted"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        @can('update-banking-accounts')
-                                            <a class="dropdown-item" href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @endcan
-                                        @can('delete-banking-accounts')
-                                            <div class="dropdown-divider"></div>
-                                            {!! Form::deleteLink($item, 'accounts.destroy') !!}
-                                        @endcan
+                        <x-table.tr href="{{ route('accounts.show', $item->id) }}">
+                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                            </x-table.td>
+
+                            <x-table.td class="w-6/12 sm:w-5/12 truncate">
+                                <x-slot name="first" class="flex">
+                                    <div class="font-bold truncate">
+                                        {{ $item->name }}
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+
+                                    @if (! $item->enabled)
+                                        <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
+                                    @endif
+
+                                    @if (setting('default.account') == $item->id)
+                                        <x-index.default text="{{ trans('accounts.default_account') }}" />
+                                    @endif
+                                </x-slot>
+                                <x-slot name="second" class="font-normal truncate">
+                                    {{ $item->number }}
+                                </x-slot>
+                            </x-table.td>
+
+                            <x-table.td class="w-4/12 truncate hidden sm:table-cell">
+                                <x-slot name="first">
+                                    @if (! empty($item->bank_name))
+                                        {{ $item->bank_name }}
+                                    @else
+                                        <x-empty-data />
+                                    @endif
+                                </x-slot>
+                                <x-slot name="second">
+                                    @if (! empty($item->phone))
+                                        {{ $item->phone }}
+                                    @else
+                                        <x-empty-data />
+                                    @endif
+                                </x-slot>
+                            </x-table.td>
+
+                            <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
+                                <x-money :amount="$item->balance" :currency="$item->currency_code" convert />
+                            </x-table.td>
+
+                            <x-table.td kind="action">
+                                <x-table.actions :model="$item" />
+                            </x-table.td>
+                        </x-table.tr>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
+                </x-table.tbody>
+            </x-table>
 
-        <div class="card-footer table-action">
-            <div class="row">
-                @include('partials.admin.pagination', ['items' => $accounts])
-            </div>
-        </div>
-    </div>
-@endsection
+            <x-pagination :items="$accounts" />
+        </x-index.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/banking/accounts.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="banking" file="accounts" />
+</x-layouts.admin>

@@ -23,13 +23,13 @@ return [
     ],
 
     'error' => [
-        'self_delete'       => 'Erreur : Vous ne pouvez pas vous supprimer vous-même !',
-        'self_disable'      => 'Erreur : Vous ne pouvez pas vous désactiver vous-même !',
+        'self_delete'       => 'Erreur : Vous ne pouvez pas vous supprimer vous-même !',
+        'self_disable'      => 'Erreur : Vous ne pouvez pas vous désactiver vous-même !',
         'no_company'        => 'Erreur : Aucune entreprise associée à votre compte. Veuillez contacter votre administrateur système.',
     ],
 
     'failed'                => 'Ces identifiants ne correspondent pas à un utilisateur.',
-    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
+    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
     'disabled'              => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
 
     'notification' => [

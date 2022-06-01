@@ -14,19 +14,23 @@ class TaxSummary extends Report
 {
     use Currencies;
 
-    public $default_name = 'reports.summary.tax';
+    public $default_name = 'reports.tax_summary';
 
     public $category = 'general.accounting';
 
-    public $icon = 'fa fa-percent';
+    public $icon = 'percent';
+
+    public $type = 'detail';
+
+    public $chart = false;
 
     public function setViews()
     {
         parent::setViews();
-        $this->views['content.header'] = 'reports.tax_summary.content.header';
-        $this->views['content.footer'] = 'reports.tax_summary.content.footer';
-        $this->views['table.header'] = 'reports.tax_summary.table.header';
-        $this->views['table.footer'] = 'reports.tax_summary.table.footer';
+        $this->views['detail.content.header'] = 'reports.tax_summary.content.header';
+        $this->views['detail.content.footer'] = 'reports.tax_summary.content.footer';
+        $this->views['detail.table.header'] = 'reports.tax_summary.table.header';
+        $this->views['detail.table.footer'] = 'reports.tax_summary.table.footer';
     }
 
     public function setTables()
@@ -40,9 +44,7 @@ class TaxSummary extends Report
 
     public function setData()
     {
-        $basis = $this->getSearchStringValue('basis', $this->getSetting('basis'));
-
-        switch ($basis) {
+        switch ($this->getBasis()) {
             case 'cash':
                 // Invoice Payments
                 $invoices = $this->applyFilters(Transaction::with('recurring', 'invoice', 'invoice.totals')->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();

@@ -1,135 +1,80 @@
 <template>
     <div>
-        <h1 class="text-white">
-            {{ translations.company.title }}
-        </h1>
+        <div class="relative bg-body z-10 rounded-lg shadow-2xl p-10" style="height:675px;">
+            <WizardSteps :active_state="active"></WizardSteps>
 
-        <div class="card">
-            <div class="card-header wizard-header p-3">
-                <el-steps :active="active" finish-status="success" align-center>
-                    <el-step :title="translations.company.title"></el-step>
-                    <el-step :title="translations.currencies.title"></el-step>
-                    <el-step :title="translations.taxes.title"></el-step>
-                    <el-step :title="translations.finish.title"></el-step>
-                </el-steps>
-            </div>
-
-            <form ref="form" class="w-100 mb-0">
-                <div class="card-body">
-                    <div class="document-loading" v-if="pageLoad">
-                        <div>
-                            <i class="fas fa-spinner fa-pulse fa-7x"></i>
-                        </div>
+            <form ref="form" class="w-full">
+                <div class="relative">
+                    <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
+                        <span class="material-icons form-spin text-lg animate-spin text-9xl">data_usage</span>
                     </div>
 
-                    <div class="row mb-0">
-                        <div class="col-12 mb-4">
-                            <base-input
-                                :label="translations.company.api_key"
-                                name="api_key"
-                                data-name="api_key"
-                                :placeholder="translations.company.api_key"
-                                prepend-icon="fas fa-key"
-                                v-model="company.api_key"
-                            />
+                    <div class="flex flex-col justify-between">
+                        <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 menu-scroll gap-10">
+                            <div class="sm:col-span-6">
+                                <base-input :label="translations.company.api_key" name="api_key" data-name="api_key" :placeholder="translations.company.api_key" v-model="company.api_key"/>
 
-                            <p class="mb-0 mt--3">
-                                <small>
-                                    <div>
-                                        <a href="https://akaunting.com/dashboard" target="_blank">Click here</a>
-                                        to get your API key.
-                                    </div>
-                                </small>
-                            </p>
+                                <div class="mt-2">
+                                    <small>
+                                        <a href="https://akaunting.com/dashboard" class="text-green" target="_blank">Click here</a>
+                                            to get your API key.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <base-input type="text" :label="translations.company.tax_number" name="tax_number" data-name="tax_number" :placeholder="translations.company.tax_number" v-model="company.tax_number"/>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <akaunting-date :title="translations.company.financial_start" data-name="financial_start" :placeholder="translations.company.financial_start" icon="calendar_today"
+                                    :date-config="{
+                                    dateFormat: 'd-m',
+                                    allowInput: false,
+                                    altInput: true,
+                                    altFormat: 'j F'
+                                    }"
+                                    v-model="company.financial_start"
+                                ></akaunting-date>
+                            </div>
+
+                            <div class="sm:col-span-3 grid gap-10">
+                                <div class="sm:col-span-3">
+                                    <base-input :label="translations.company.address">
+                                        <textarea class="form-element" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
+                                    </base-input>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <base-input :label="translations.company.country">
+                                        <el-select v-model="company.country" filterable>
+                                            <el-option
+                                                v-for="(country, index) in sortedCountries"
+                                                :key="index"
+                                                :label="country.value"
+                                                :value="country.key"
+                                            >
+                                            </el-option>
+                                        </el-select>
+                                    </base-input>
+
+                                    <input name="country" type="hidden" class="d-none" v-model="company.country">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label class="form-control-label">{{  translations.company.logo }}</label>
+                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column w-2/5" style="height:12.2rem" preview-classes="single" :attachments="logo" :v-model="logo">
+                                </akaunting-dropzone-file-upload>
+                            </div>
                         </div>
 
-                        <div class="col-6">
-                            <base-input
-                                type="text"
-                                :label="translations.company.tax_number"
-                                name="tax_number"
-                                data-name="tax_number"
-                                :placeholder="translations.company.tax_number"
-                                prepend-icon="fas fa-percent"
-                                v-model="company.tax_number"
-                            />
-                        </div>
+                        <div class="flex items-center justify-center mt-5 gap-x-10">
+                            <base-button class="w-1/2  flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="next()">{{ translations.company.skip }}</base-button>
 
-                        <div class="col-6">
-                            <akaunting-date
-                            :title="translations.company.financial_start"
-                                data-name="financial_start"
-                                :placeholder="translations.company.financial_start"
-                                icon="fas fa-calendar"
-                                :date-config="{
-                                  dateFormat: 'd-m',
-                                  allowInput: false,
-                                  altInput: true,
-                                  altFormat: 'j F'
-                                }"
-                                v-model="real_date"
-                            ></akaunting-date>
-                        </div>
-
-                        <div class="col-12">
-                            <base-input :label="translations.company.address">
-                                <textarea
-                                    class="form-control"
-                                    name="address"
-                                    data-name="address"
-                                    rows="3"
-                                    :placeholder="translations.company.address"
-                                    v-model="company.address"
-                                ></textarea>
-                            </base-input>
-                        </div>
-
-                        <div class="col-6">
-                            <base-input :label="translations.company.country">
-                                <el-select v-model="company.country" filterable>
-                                    <template slot="prefix">
-                                        <span class="el-input__suffix-inner el-select-icon">
-                                            <i :class="'select-icon-position el-input__icon fas fa-globe-americas'"></i>
-                                        </span>
-                                    </template>
-                                    <el-option
-                                        v-for="(country, index) in sortedCountries"
-                                        :key="index"
-                                        :label="country.value"
-                                        :value="country.key"
-                                    >
-                                    </el-option>
-                                </el-select>
-                            </base-input>
-
-                            <input name="country" type="hidden" class="d-none" v-model="company.country"></input>
-                        </div>
-
-                        <div class="col-6 mb-0">
-                            <label class="form-control-label">{{  translations.company.logo }}</label>
-                            <akaunting-dropzone-file-upload
-                                ref="dropzoneWizard"
-                                class="form-file"
-                                preview-classes="single"
-                                :attachments="logo"
-                                :v-model="logo"
-                            >
-                            </akaunting-dropzone-file-upload>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <base-button
-                                id="button"
-                                type="success"
-                                native-type="button"
-                                @click="onEditSave()"
-                                >{{ translations.company.save }}</base-button>
-
-                            <base-button type="white" native-type="submit" @click="next()">{{ translations.company.skip }}</base-button>
+                            <base-button id="button" class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onEditSave()">
+                                {{ translations.company.save }}
+                            </base-button>
                         </div>
                     </div>
                 </div>
@@ -139,10 +84,11 @@
 </template>
 
 <script>
-import { Step, Steps, Select, Option } from "element-ui";
+import { Select, Option } from "element-ui";
 import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
 import AkauntingDate from "./../../components/AkauntingDate";
 import WizardAction from "./../../mixins/wizardAction";
+import WizardSteps from "./Steps.vue";
 
 export default {
     name: "Company",
@@ -150,12 +96,11 @@ export default {
     mixins: [WizardAction],
 
     components: {
-        [Step.name]: Step,
-        [Steps.name]: Steps,
         [Select.name]: Select,
         [Option.name]: Option,
         AkauntingDropzoneFileUpload,
         AkauntingDate,
+        WizardSteps
     },
 
     props: {
@@ -296,11 +241,8 @@ export default {
                         size: company.logo.size,
                         downloadPath: false,
                     }];
-
                     this.logo.push(logo_arr);
                 }
-
-                this.real_date = company.financial_start;
             }
         },
 
@@ -361,6 +303,8 @@ export default {
             });
 
             formData.appendRecursive(data_name);
+
+            this.company.financial_start = data_name.financial_start;
 
             window.axios({
                 method: "POST",

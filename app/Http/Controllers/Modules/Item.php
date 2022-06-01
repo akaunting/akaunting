@@ -276,9 +276,9 @@ class Item extends Controller
     public function uninstall($alias)
     {
         try {
-            $name = module($alias)->getName();
-
             $this->dispatch(new UninstallModule($alias, company_id()));
+
+            $name = module($alias)->getName();
 
             $message = trans('modules.uninstalled', ['module' => $name]);
 
@@ -295,9 +295,9 @@ class Item extends Controller
     public function enable($alias)
     {
         try {
-            $name = module($alias)->getName();
-
             $this->dispatch(new EnableModule($alias, company_id()));
+            
+            $name = module($alias)->getName();
 
             $message = trans('modules.enabled', ['module' => $name]);
 
@@ -314,9 +314,9 @@ class Item extends Controller
     public function disable($alias)
     {
         try {
-            $name = module($alias)->getName();
-
             $this->dispatch(new DisableModule($alias, company_id()));
+
+            $name = module($alias)->getName();
 
             $message = trans('modules.disabled', ['module' => $name]);
 
@@ -340,7 +340,7 @@ class Item extends Controller
 
         $releases = $this->getModuleReleases($alias, $data);
 
-        $html = view('partials.modules.releases', compact('releases'))->render();
+        $html = view('components.layouts.modules.releases', compact('releases'))->render();
 
         return response()->json([
             'success' => true,
@@ -361,7 +361,7 @@ class Item extends Controller
 
         $reviews = $this->getModuleReviews($alias, $data);
 
-        $html = view('partials.modules.reviews', compact('reviews'))->render();
+        $html = view('components.layouts.modules.reviews', compact('reviews'))->render();
 
         return response()->json([
             'success' => true,

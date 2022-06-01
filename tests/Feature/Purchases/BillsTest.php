@@ -83,10 +83,12 @@ class BillsTest extends FeatureTestCase
         $this->assertDatabaseHas('documents', [
             'document_number' => $request['document_number']
         ]);
+
         $this->assertDatabaseHas('mediables', [
             'mediable_type' => Document::class,
             'tag'           => 'attachment',
         ]);
+
         $this->assertDatabaseHas('media', [
             'disk'           => 'uploads',
             'directory'      => '2021/05/15/1/bills',
@@ -102,12 +104,13 @@ class BillsTest extends FeatureTestCase
         $request = $this->getRequest(true);
 
         $this->loginAs()
-            ->post(route('bills.store'), $request)
+            ->post(route('recurring-bills.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
 
         $this->assertDatabaseHas('documents', [
+            'type' => Document::BILL_RECURRING_TYPE,
             'document_number' => $request['document_number'],
         ]);
     }

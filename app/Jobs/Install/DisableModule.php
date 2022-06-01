@@ -39,6 +39,8 @@ class DisableModule extends Job
     {
         $this->authorize();
 
+        event(new \App\Events\Module\Disabling($this->alias, $this->company_id));
+
         $command = "module:disable {$this->alias} {$this->company_id} {$this->locale}";
 
         $result = Console::run($command);

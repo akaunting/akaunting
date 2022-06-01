@@ -1,63 +1,114 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ $module->getName() }}</x-slot>
 
-@section('title', $module->getName())
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" :route="['settings.module.update', $module->getAlias()]" :model="$setting">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{!! trans($module->getAlias() . '::general.description') !!}" />
+                    </x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::model($setting, [
-            'id' => 'module',
-            'method' => 'PATCH',
-            'route' => ['settings.module.update', $module->getAlias()],
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true,
-        ]) !!}
+                    <x-slot name="body">
+                        @foreach($module->get('settings') as $field)
+                            @php $type = $field['type']; @endphp
 
-            <div class="card-body">
-                <div class="row">
-                    @foreach($module->get('settings') as $field)
-                        @php $type = $field['type']; @endphp
+                            @switch($type)
+                                @case('textarea')
+                                @case('textareaGroup')
+                                    <x-form.group.textarea
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('select')
+                                @case('selectGroup')
+                                    <x-form.group.select
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :options="$field['values']"
+                                        :selected="setting($module->getAlias() . '.' . $field['name'], $field['selected'])"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('radio')
+                                @case('radioGroup')
+                                    <x-form.group.radio
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('checkbox')
+                                @case('checkboxGroup')
+                                    <x-form.group.checkbox
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('file')
+                                @case('fileGroup')
+                                    <x-form.group.file
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('date')
+                                @case('dateGroup')
+                                    <x-form.group.date
+                                        name="{{ $field['name'] }}"
+                                        label="{{ trans($field['title']) }}"
+                                        :value="Date::parse($setting[$field['name']] ?? now())->toDateString()"
+                                        :dynamic-attributes="$field['attributes']"
+                                    />
+                                    @break
+                                @case('account')
+                                @case('accountSelectGroup')
+                                    @php $account = setting($module->getAlias() . '.' . $field['name']); @endphp
 
-                        @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup') || ($type == 'numberGroup'))
-                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['attributes']) }}
-                        @elseif ($type == 'textareaGroup')
-                            {{ Form::$type($field['name'], trans($field['title'])) }}
-                        @elseif ($type == 'selectGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['values'], isset($setting[$field['name']]) ? $setting[$field['name']] : $field['selected'], $field['attributes']) }}
-                        @elseif ($type == 'radioGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), isset($setting[$field['name']]) ? $setting[$field['name']] : 1, trans($field['enable']), trans($field['disable']), $field['attributes']) }}
-                        @elseif ($type == 'checkboxGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), $field['items'], $field['value'], $field['id'], $field['selected'], $field['attributes']) }}
-                        @elseif ($type == 'fileGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), $field['attributes']) }}
-                        @elseif ($type == 'dateGroup')
-                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], array_merge(['id' => $field['name'], 'date-format' => 'Y-m-d', 'show-date-format' => company_date_format(), 'autocomplete' => 'off'], $field['attributes']), Date::parse($setting[$field['name']] ?? now())->toDateString()) }}
-                        @elseif ($type == 'accountSelectGroup')
-                            {{ Form::selectGroup($field['name'], trans_choice('general.accounts', 1), 'university', $accounts, setting($module->getAlias() . '.' . $field['name']), $field['attributes']) }}
-                        @elseif ($type == 'categorySelectGroup')
-                            {{ Form::selectGroup($field['name'], trans_choice('general.categories', 1), 'folder', $categories, setting($module->getAlias() . '.' . $field['name']), $field['attributes']) }}
-                        @endif
-                    @endforeach
+                                    <x-form.group.account
+                                        :selected="$account"
+                                        :dynamic-attributes="$field['attributes']"
+                                        without-add-new
+                                    />
+                                    @break
+                                @case('category')
+                                @case('categorySelectGroup')
+                                    @php $category = setting($module->getAlias() . '.' . $field['name']); @endphp
 
-                    {{ Form::hidden('module_alias', $module->getAlias(), ['id' => 'module_alias']) }}
-                </div>
-            </div>
+                                    <x-form.group.category
+                                        :value="$category"
+                                        :dynamic-attributes="$field['attributes']"
+                                        without-add-new
+                                    />
+                                    @break
+                                @default
+                                    @php
+                                        $type = str_replace('Group', '', $type);
+                                        $componentName = 'form.group.' . $type;
+                                    @endphp
 
-            @can('update-' . $module->getAlias() . '-settings')
-                <div class="card-footer">
-                    <div class="row save-buttons">
-                        {{ Form::saveButtons('settings.index') }}
-                    </div>
-                </div>
-            @endcan
+                                    <x-dynamic-component :component="$componentName" name="{{ $field['name'] }}" label="{{ trans($field['title']) }}" :dynamic-attributes="$field['attributes']" />
+                            @endswitch
+                        @endforeach
 
-        {!! Form::close() !!}
-    </div>
-@endsection
+                        <x-form.input.hidden name="module_alias" :value="$module->getAlias()" />
+                    </x-slot>
+                </x-form.section>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/modules.js?v=' . version('short')) }}"></script>
-@endpush
+                @can('update-' . $module->getAlias() . '-settings')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

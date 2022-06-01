@@ -11,7 +11,7 @@ use App\Jobs\Banking\UpdateReconciliation;
 use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
-use Date;
+use App\Utilities\Date;
 
 class Reconciliations extends Controller
 {
@@ -24,9 +24,7 @@ class Reconciliations extends Controller
     {
         $reconciliations = Reconciliation::with('account')->collect();
 
-        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
-
-        return $this->response('banking.reconciliations.index', compact('reconciliations', 'accounts'));
+        return $this->response('banking.reconciliations.index', compact('reconciliations'));
     }
 
     /**
@@ -46,8 +44,6 @@ class Reconciliations extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
-
         $account_id = request('account_id', setting('default.account'));
         $started_at = request('started_at', Date::now()->firstOfMonth()->toDateString());
         $ended_at = request('ended_at', Date::now()->endOfMonth()->toDateString());
@@ -60,7 +56,7 @@ class Reconciliations extends Controller
 
         $opening_balance = $this->getOpeningBalance($account, $started_at);
 
-        return view('banking.reconciliations.create', compact('accounts', 'account', 'currency', 'opening_balance', 'transactions'));
+        return view('banking.reconciliations.create', compact('account', 'currency', 'opening_balance', 'transactions'));
     }
 
     /**

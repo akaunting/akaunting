@@ -288,13 +288,13 @@ class Invoices extends Controller
      * @return Response
      */
     public function pdfInvoice(Document $invoice)
-    {   
+    {
         event(new \App\Events\Document\DocumentPrinting($invoice));
 
         $currency_style = true;
 
         $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
-        
+
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
@@ -305,29 +305,5 @@ class Invoices extends Controller
         $file_name = $this->getDocumentFileName($invoice);
 
         return $pdf->download($file_name);
-    }
-
-    /**
-     * Mark the invoice as paid.
-     *
-     * @param  Document $invoice
-     *
-     * @return Response
-     */
-    public function markPaid(Document $invoice)
-    {
-        try {
-            event(new \App\Events\Document\PaymentReceived($invoice, ['type' => 'income', 'mark_paid' => 'invoice']));
-
-            $message = trans('documents.messages.marked_paid', ['type' => trans_choice('general.invoices', 1)]);
-
-            flash($message)->success();
-        } catch(\Exception $e) {
-            $message = $e->getMessage();
-
-            flash($message)->error()->important();
-        }
-
-        return redirect()->back();
     }
 }

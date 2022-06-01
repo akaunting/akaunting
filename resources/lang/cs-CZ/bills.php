@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Číslo faktury',
     'bill_date'             => 'Datum faktury',
-    'bill_amount'           => 'Fakturační částka',
     'total_price'           => 'Celková cena',
     'due_date'              => 'Datum splatnosti',
     'order_number'          => 'Číslo objednávky',

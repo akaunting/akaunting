@@ -2,11 +2,16 @@
 
 namespace App\Traits;
 
-use App\Utilities\Chartjs;
-use Balping\JsonRaw\Raw;
+use Akaunting\Apexcharts\Charts as Apexcharts;
 
 trait Charts
 {
+    public $bar = [
+        'colors' => [],
+        'labels' => [],
+        'values' => [],
+    ];
+
     public $donut = [
         'colors' => [],
         'labels' => [],
@@ -31,7 +36,7 @@ trait Charts
         $this->addToDonut($color, $label, $amount);
     }
 
-    public function getDonutChart($name, $width = 0, $height = 160, $limit = 10)
+    public function getDonutChart($name, $width = '100%', $height = 300, $limit = 10)
     {
         // Show donut prorated if there is no value
         if (array_sum($this->donut['values']) == 0) {
@@ -49,216 +54,39 @@ trait Charts
             $labels[$id] = $this->donut['labels'][$id];
         }
 
-        $chart = new Chartjs();
+        $chart = new Apexcharts();
 
-        $chart->type('doughnut')
-            ->width($width)
-            ->height($height)
-            ->options($this->getDonutChartOptions($colors))
-            ->labels(array_values($labels));
-
-        $chart->dataset($name, 'doughnut', array_values($values))
-        ->backgroundColor(array_values($colors));
+        $chart->setType('donut')
+            ->setWidth($width)
+            ->setHeight($height)
+            ->setLabels(array_values($labels))
+            ->setColors(array_values($colors))
+            ->setDataset($name, 'donut', array_values($values));
 
         return $chart;
     }
 
-    public function getDonutChartOptions($colors)
+    public function addToBar($color, $label, $value)
     {
-        return [
-            'color' => array_values($colors),
-            'cutoutPercentage' => 80,
-            'legend' => [
-                'position' => 'right',
-            ],
-            'tooltips' => [
-                'backgroundColor' => '#000000',
-                'titleFontColor' => '#ffffff',
-                'bodyFontColor' => '#e5e5e5',
-                'bodySpacing' => 4,
-                'xPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest',
-            ],
-            'scales' => [
-                'yAxes' => [
-                    'display' => false,
-                ],
-                'xAxes' => [
-                    'display' => false,
-                ],
-            ],
-        ];
+        $this->bar['colors'][] = $color;
+        $this->bar['labels'][] = $label;
+        $this->bar['values'][] = (int) $value;
     }
 
-    public function getLineChartOptions($money_format = true)
+    public function getBarChart($name, $width = '100%', $height = 160)
     {
-        $decimal_mark = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.decimal_mark'));
-        $thousands_separator = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.thousands_separator'));
-        $symbol = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.symbol'));
-        $symbol_first = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.symbol_first'));
-        $precision = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.precision'));
+        $chart = new Apexcharts();
 
-        $options = [
-            'tooltips' => [
-                'backgroundColor' => '#000000',
-                'titleFontColor' => '#ffffff',
-                'bodyFontColor' => '#e5e5e5',
-                'bodySpacing' => 4,
-                'YrPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest',
-            ],
-            'responsive' => true,
-            'scales' => [
-                'yAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'beginAtZero' => true,
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                    ],
-                ]],
-                'xAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'suggestedMin' => 60,
-                        'suggestedMax' => 125,
-                        'padding' => 20,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.0)',
-                        'zeroLineColor' => 'transparent',
-                    ],
-                ]],
-            ],
-        ];
+        $chart->setType('bar')
+            ->setWidth($width)
+            ->setHeight($height)
+            ->setLabels(array_values($this->bar['labels']))
+            ->setColors($this->bar['colors']);
 
-        if ($money_format) {
-            // for Tooltip money format
-            $options['tooltips']['callbacks'] = [
-                    'label' => new Raw("function(tooltipItem, data) {
-                        const moneySettings = {
-                            decimal: '" . $decimal_mark . "',
-                            thousands: '". $thousands_separator . "',
-                            symbol: '" . $symbol . "',
-                            isPrefix: '" . $symbol_first . "',
-                            precision: '" . $precision . "',
-                        };
-
-                        const formattedCurrency = function (input, opt = moneySettings) {
-                             if (typeof input === 'number') {
-                                input = input.toFixed(fixed(opt.precision))
-                            }
-
-                            function fixed (precision) {
-                                return Math.max(0, Math.min(precision, 20));
-                            };
-
-                            function toStr(value) {
-                                return value ? value.toString() : '';
-                            };
-
-                            function numbersToCurrency(numbers, precision) {
-                                var exp = Math.pow(10, precision);
-                                var float = parseFloat(numbers) / exp;
-
-                                return float.toFixed(fixed(precision));
-                            };
-
-                            function joinIntegerAndDecimal (integer, decimal, separator) {
-                                return decimal ? integer + separator + decimal : integer;
-                            };
-
-                            if (typeof input === 'number') {
-                                input = input.toFixed(fixed(opt.precision));
-                            };
-
-                            var negative = input.indexOf('-') >= 0 ? '-' : '';
-                            var numbers = toStr(input).replace(/\D+/g, '') || '0';
-                            var currency = numbersToCurrency(numbers, opt.precision);
-                            var parts = toStr(currency).split('.');
-                            var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm,  ('$1' + opt.thousands));
-                            var decimal = parts[1];
-
-                            if (opt.isPrefix == 1) {
-                                return opt.symbol + negative + joinIntegerAndDecimal(integer, decimal, opt.decimal);
-                            }
-
-                            return negative + joinIntegerAndDecimal(integer, decimal, opt.decimal) + opt.symbol;
-                        };
-
-                        return formattedCurrency(tooltipItem.yLabel, moneySettings);
-                    }")
-                ];
-
-            // for Y variable money format
-            $options['scales']['yAxes'][0]['ticks']['callback'] = new Raw("function(value, index, values) {
-                            const moneySettings = {
-                                decimal: '" . $decimal_mark . "',
-                                thousands: '". $thousands_separator . "',
-                                symbol: '" . $symbol . "',
-                                isPrefix: '" . $symbol_first . "',
-                                precision: '" . $precision . "',
-                            };
-
-                            const formattedCurrency = function (input, opt = moneySettings) {
-                                if (typeof input === 'number') {
-                                    input = input.toFixed(fixed(opt.precision))
-                                }
-
-                                function fixed (precision) {
-                                    return Math.max(0, Math.min(precision, 20));
-                                };
-
-                                function toStr(value) {
-                                    return value ? value.toString() : '';
-                                };
-
-                                function numbersToCurrency(numbers, precision) {
-                                    var exp = Math.pow(10, precision);
-                                    var float = parseFloat(numbers) / exp;
-
-                                    return float.toFixed(fixed(precision));
-                                };
-
-                                function joinIntegerAndDecimal (integer, decimal, separator) {
-                                    return decimal ? integer + separator + decimal : integer;
-                                };
-
-                                if (typeof input === 'number') {
-                                    input = input.toFixed(fixed(opt.precision));
-                                };
-
-                                var negative = input.indexOf('-') >= 0 ? '-' : '';
-                                var numbers = toStr(input).replace(/\D+/g, '') || '0';
-                                var currency = numbersToCurrency(numbers, opt.precision);
-                                var parts = toStr(currency).split('.');
-                                var integer = parts[0].replace(/(\d)(?=(?:\d{3})+\b)/gm,  ('$1' + opt.thousands));
-                                var decimal = parts[1];
-
-                                if (opt.isPrefix == 1) {
-                                    return opt.symbol + negative + joinIntegerAndDecimal(integer, decimal, opt.decimal);
-                                } else {
-                                    return negative + joinIntegerAndDecimal(integer, decimal, opt.decimal) + opt.symbol;
-                                }
-                            };
-
-                            return formattedCurrency(value, moneySettings);
-                        }");
+        foreach ($this->bar['values'] as $key => $value) {
+            $chart->setDataset($this->bar['labels'][$key], 'bar', $value);
         }
 
-        return $options;
+        return $chart;
     }
 }

@@ -36,7 +36,7 @@ class Accounts extends Controller
     public function show(Account $account)
     {
         // Handle transactions
-        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
+        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->isNotRecurring()->collect('paid_at');
 
         $transfers = Transfer::with('expense_transaction', 'income_transaction')->get()->filter(function ($transfer) use($account) {
             if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
@@ -53,6 +53,7 @@ class Accounts extends Controller
 
         return view('banking.accounts.show', compact('account', 'transactions', 'transfers'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,11 +61,9 @@ class Accounts extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
-
         $currency = Currency::where('code', '=', setting('default.currency'))->first();
 
-        return view('banking.accounts.create', compact('currencies', 'currency'));
+        return view('banking.accounts.create', compact('currency'));
     }
 
     /**
@@ -122,13 +121,11 @@ class Accounts extends Controller
      */
     public function edit(Account $account)
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
-
         $account->default_account = ($account->id == setting('default.account')) ? 1 : 0;
 
         $currency = Currency::where('code', '=', $account->currency_code)->first();
 
-        return view('banking.accounts.edit', compact('account', 'currencies', 'currency'));
+        return view('banking.accounts.edit', compact('account', 'currency'));
     }
 
     /**
@@ -222,18 +219,18 @@ class Accounts extends Controller
         return response()->json($response);
     }
 
-    public function createRevenue(Account $account)
+    public function createIncome(Account $account)
     {
         $data['account_id'] = $account->id;
 
-        return redirect()->route('revenues.create')->withInput($data);
+        return redirect()->route('transactions.create', ['type' => 'income'])->withInput($data);
     }
 
-    public function createPayment(Account $account)
+    public function createExpense(Account $account)
     {
         $data['account_id'] = $account->id;
 
-        return redirect()->route('payments.create')->withInput($data);
+        return redirect()->route('transactions.create', ['type' => 'expense'])->withInput($data);
     }
 
     public function createTransfer(Account $account)

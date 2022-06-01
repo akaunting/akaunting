@@ -14,14 +14,7 @@ if (!function_exists('user')) {
      */
     function user()
     {
-        // Get user from api/web
-        if (request()->isApi()) {
-            $user = app('Dingo\Api\Auth\Auth')->user();
-        } else {
-            $user = auth()->user();
-        }
-
-        return $user;
+        return auth()->user();
     }
 }
 
@@ -33,7 +26,7 @@ if (!function_exists('user_id')) {
      */
     function user_id()
     {
-        return optional(user())->id;
+        return user()?->id;
     }
 }
 
@@ -113,7 +106,7 @@ if (!function_exists('company_id')) {
      */
     function company_id()
     {
-        return optional(company())->id;
+        return company()?->id;
     }
 }
 
@@ -158,6 +151,26 @@ if (!function_exists('cache_prefix')) {
     }
 }
 
+if (!function_exists('array_values_recursive')) {
+    /**
+     * Get array values recursively.
+     */
+    function array_values_recursive(array $array): array
+    {
+        $flat = [];
+
+        foreach($array as $value) {
+            if (is_array($value)) {
+                $flat = array_merge($flat, array_values_recursive($value));
+            } else {
+                $flat[] = $value;
+            }
+        }
+
+        return $flat;
+    }
+}
+
 if (!function_exists('running_in_queue')) {
     /**
      * Detect if application is running in queue.
@@ -167,5 +180,31 @@ if (!function_exists('running_in_queue')) {
     function running_in_queue()
     {
         return defined('APP_RUNNING_IN_QUEUE') ?? false;
+    }
+}
+
+if (!function_exists('simple_icons')) {
+    /**
+     * Get the simple icon content
+     *
+     * @return string
+     */
+    function simple_icons(string $name): string
+    {
+        $path = base_path('vendor/simple-icons/simple-icons/icons/' . $name . '.svg');
+
+        return file_get_contents($path);
+    }
+}
+
+if (!function_exists('default_currency')) {
+    /**
+     * Get the default currency code
+     *
+     * @return string
+     */
+    function default_currency(): string
+    {
+        return setting('default.currency');
     }
 }

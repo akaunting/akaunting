@@ -4,7 +4,7 @@ namespace App\Utilities;
 
 use App\Models\Document\Document;
 use App\Traits\DateTime;
-use Date;
+use App\Utilities\Date;
 
 class Recurring
 {
@@ -16,11 +16,11 @@ class Recurring
 
         foreach ($items as $key => $item) {
             // @todo cache recurrings
-            if (!$item->recurring || !empty($item->parent_id)) {
+            if (! $item->recurring || !empty($item->parent_id)) {
                 continue;
             }
 
-            foreach ($item->recurring->getRecurringSchedule(false) as $schedule) {
+            foreach ($item->recurring->getRecurringSchedule() as $schedule) {
                 $issued = Date::parse($item->$issued_date_field);
                 $start = $schedule->getStart();
                 $start_date = Date::parse($start->format('Y-m-d'));

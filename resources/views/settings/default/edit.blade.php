@@ -1,57 +1,61 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans_choice('general.defaults', 1) }}</x-slot>
 
-@section('title', trans_choice('general.defaults', 1))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" route="settings.default.update">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('settings.default.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    {!! Form::open([
-        'id' => 'setting',
-        'method' => 'PATCH',
-        'route' => 'settings.update',
-        '@submit.prevent' => 'onSubmit',
-        '@keydown' => 'form.errors.clear($event.target.name)',
-        'files' => true,
-        'role' => 'form',
-        'class' => 'form-loading-button',
-        'novalidate' => true,
-    ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.account name="account" not-required without-change :selected="setting('default.account')" />
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                {{ Form::selectGroup('account', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), []) }}
+                        <x-form.group.currency name="currency" not-required />
 
-                {{ Form::selectGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), []) }}
+                        <x-form.group.select name="tax" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="setting('default.tax')" not-required />
 
-                {{ Form::selectRemoteGroup('income_category', trans('settings.default.income_category'), 'folder', $sales_categories, setting('default.income_category'), ['remote_action' => route('categories.index'). '?search=type:income enabled:1']) }}
+                        <x-form.group.payment-method not-required />
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::selectRemoteGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), ['remote_action' => route('categories.index'). '?search=type:expense enabled:1']) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.categories', 1) }}" description="{{ trans('settings.default.form_description.category') }}" />
+                    </x-slot>
 
-                {{ Form::selectGroup('tax', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), []) }}
+                    <x-slot name="body">
+                        <x-form.group.select remote name="income_category" label="{{ trans('settings.default.income_category') }}" :options="$sales_categories" :selected="setting('default.income_category')" remote_action="{{ route('categories.index'). '?search=type:income enabled:1' }}" sort-options="false" />
 
-                {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('default.payment_method'), []) }}
+                        <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:expense enabled:1' }}" sort-options="false" />
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), setting('default.locale'), []) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.others', 1) }}" description="{{ trans('settings.default.form_description.other') }}" />
+                    </x-slot>
 
-                {{ Form::selectGroup('list_limit', trans('settings.default.list_limit'), 'columns', ['10' => '10', '25' => '25', '50' => '50', '100' => '100'], setting('default.list_limit'), []) }}
+                    <x-slot name="body">
+                        <x-form.group.locale not-required />
 
-                {{ Form::radioGroup('use_gravatar', trans('settings.default.use_gravatar'), setting('default.use_gravatar')) }}
-            </div>
-        </div>
+                        <x-form.group.select name="list_limit" label="{{ trans('settings.default.list_limit') }}" :options="['10' => '10', '25' => '25', '50' => '50', '100' => '100']" :selected="setting('default.list_limit')" not-required />
+                    </x-slot>
+                </x-form.section>
 
-        @can('update-settings-settings')
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('settings.index') }}
-                </div>
-            </div>
-        @endcan
-    </div>
+                @can('update-settings-defaults')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
 
-    {!! Form::hidden('_prefix', 'default') !!}
+                <x-form.input.hidden name="_prefix" value="default" />
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-    {!! Form::close() !!}
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

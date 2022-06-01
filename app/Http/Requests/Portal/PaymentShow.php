@@ -18,7 +18,7 @@ class PaymentShow extends FormRequest
         }
 
         // Allow admin to see signed invoice
-        if (user()->can('read-sales-revenues')) {
+        if (user()->can('read-banking-transactions')) {
             return true;
         }
 

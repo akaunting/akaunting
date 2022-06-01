@@ -31,7 +31,7 @@ class Reports
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class) || ($check_permission && !static::canRead($class))) {
+            if (! class_exists($class) || ($check_permission && static::cannotRead($class))) {
                 continue;
             }
 
@@ -47,7 +47,7 @@ class Reports
             $model = Report::where('class', $model)->first();
         }
 
-        if ((!$model instanceof Report) || !class_exists($model->class)) {
+        if ((! $model instanceof Report) || ! class_exists($model->class)) {
             return false;
         }
 
@@ -61,9 +61,19 @@ class Reports
         return (static::isModuleEnabled($class) && static::canRead($class));
     }
 
+    public static function cannotShow($class)
+    {
+        return ! static::canShow($class);
+    }
+
     public static function canRead($class)
     {
         return user()->can(static::getPermission($class));
+    }
+
+    public static function cannotRead($class)
+    {
+        return ! static::canRead($class);
     }
 
     public static function getPermission($class)
@@ -93,7 +103,7 @@ class Reports
 
     public static function isModuleEnabled($class)
     {
-        if (!$alias = static::getModuleAlias($class)) {
+        if (! $alias = static::getModuleAlias($class)) {
             return true;
         }
 
@@ -104,6 +114,11 @@ class Reports
         return false;
     }
 
+    public static function isModuleDisabled($class)
+    {
+        return ! static::isModuleEnabled($class);
+    }
+
     public static function isModule($class)
     {
         $arr = is_array($class) ? $class : explode('\\', $class);
@@ -111,9 +126,14 @@ class Reports
         return (strtolower($arr[0]) == 'modules');
     }
 
+    public static function isNotModule($class)
+    {
+        return ! static::isModule($class);
+    }
+
     public static function getModuleAlias($class)
     {
-        if (!static::isModule($class)) {
+        if (static::isNotModule($class)) {
             return false;
         }
 

@@ -1,53 +1,51 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}"
+        icon="paid"
+        route="currencies.create"
+    ></x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::open([
-            'route' => 'currencies.store',
-            'id' => 'currency',
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="currency" route="currencies.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('currencies.form_description.general') }}" />
+                    </x-slot>
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'chart-bar') }}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                    {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode']) }}
+                        <x-form.group.select name="code" label="{{ trans('currencies.code') }}" :options="$codes" change="onChangeCode" />
 
-                    {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'onChangeRate', 'required' => 'required']) }}
+                        <x-form.group.text name="rate" label="{{ trans('currencies.rate') }}" @input="onChangeRate" />
 
-                    {{ Form::selectGroup('precision', trans('currencies.precision'), 'dot-circle', $precisions, null, ['model' => 'form.precision']) }}
+                        <x-form.group.select name="precision" label="{{ trans('currencies.precision') }}" :options="$precisions" model="form.precision" />
 
-                    {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
+                        <x-form.group.text name="symbol" label="{{ trans('currencies.symbol.symbol') }}" />
 
-                    {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ["1" => trans('currencies.symbol.before'), "0" => trans('currencies.symbol.after')], null, ['model' => 'form.symbol_first']) }}
+                        <x-form.group.select name="symbol_first" label="{{ trans('currencies.symbol.position') }}" :options="['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]" not-required model="form.symbol_first" />
 
-                    {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'sign') }}
+                        <x-form.group.text name="decimal_mark" label="{{ trans('currencies.decimal_mark') }}" />
 
-                    {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'slash', []) }}
+                        <x-form.group.text name="thousands_separator" label="{{ trans('currencies.thousands_separator') }}" not-required />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
+                        <x-form.group.toggle name="default_currency" label="{{ trans('currencies.default') }}" :value="false" />
+                    </x-slot>
+                </x-form.section>
 
-                    {{ Form::radioGroup('default_currency', trans('currencies.default'), false) }}
-                </div>
-            </div>
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="currencies.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('currencies.index') }}
-                </div>
-            </div>
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/currencies.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="currencies" />
+</x-layouts.admin>

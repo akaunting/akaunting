@@ -1,105 +1,53 @@
 <template>
-    <div class="quill">
-        <div :id="toolbarId">
-            <div class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-link"></button>
-                <button class="ql-blockquote"></button>
-                <button type="button" class="ql-list" value="ordered"></button>
-                <button type="button" class="ql-list" value="bullet"></button>
-            </div>
-        </div>
-
-        <div :id="editorId" :name="name" class="" ref="editor">
-        </div>
+    <div>
+        <vue-editor :id="editorId" v-model="content" :editorToolbar="customToolbar" :disabled="disabled"></vue-editor>
     </div>
 </template>
 
 <script>
-import Quill from 'quill';
-
-//var Block = Quill.import('blots/block');
-//Block.tagName = 'div';
-//Quill.register(Block);
+import { VueEditor } from "vue2-editor";
 
 export default {
     name: 'akaunting-html-editor',
 
+    components: {
+        VueEditor
+    },
+
     props: {
-        name: String,
+        name: {
+            type: String,
+            default: '',
+            description: 'The name of the field',
+        },
         value: {
             type: String,
             default: ''
         },
-        theme: {
-            type: String,
-            default: 'snow'
+        model: {
+            type: [String, Number, Array, Object],
+            default: '',
+            description: "Selectbox selected model"
         },
-        readonly: {
+        disabled: {
             type: Boolean,
-            default: false
+            default: false,
+            description: "Selectbox disabled status"
         },
     },
 
     data () {
         return {
-            editor: null,
-            editorValue: this.value,
             content: null,
-            lastHtmlValue: '',
             editorId: null,
-            toolbarId: null
+            customToolbar: [
+                ["bold", "italic", "underline"],
+                [{ list: "ordered" }, { list: "bullet" }],
+            ],
         }
     },
 
     methods: {
-        initialize (Quill) {
-            let theme = this.theme;
-
-            this.editor = new Quill(`#${this.editorId}`, {
-                theme: theme,
-                modules: {
-                    toolbar: `#${this.toolbarId}`
-                },
-                readOnly: this.readonly
-            });
-
-            if (this.editorValue.length > 0) {
-                this.editorValue = this.editorValue.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
-
-                this.editor.pasteHTML(this.editorValue);
-            }
-
-            let editorRef = this.$refs.editor;
-            let node = editorRef.children[0];
-
-            this.editor.on('text-change', () => {
-                let html = node.innerHTML;
-
-                if (html === '<p><br></p>') {
-                    html = '';
-                } else {
-                    html = html.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
-                }
-
-                this.content = html;
-
-                this.$emit('input', this.content);
-            });
-        },
-
-        pasteHTML () {
-            if (!this.editor) {
-                return;
-            }
-
-            this.editorValue = this.editorValue.replace(new RegExp('<p><br></p>', 'g'), '<p>&nbsp;</p>');
-
-            this.editor.pasteHTML(this.editorValue);
-        },
-
         randomString() {
             let text = "";
             let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -113,26 +61,21 @@ export default {
     },
 
     async mounted () {
-        this.content = this.editorValue;
-
         this.editorId = this.randomString();
-        this.toolbarId = this.randomString();
 
-        this.$nextTick(() => {
-            this.initialize(Quill)
-        });
+        this.content = this.value;
     },
 
     watch: {
         value (newVal) {
             if (newVal !== this.content) {
-                this.pasteHTML(newVal);
+                this.content = newVal;
             }
         },
 
-        editorValue (newVal) {
+        model (newVal) {
             if (newVal !== this.content) {
-                this.pasteHTML(newVal);
+                this.content = newVal;
             }
         },
 

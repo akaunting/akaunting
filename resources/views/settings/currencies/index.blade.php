@@ -1,91 +1,100 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.currencies', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.currencies', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.currencies', 2) }}"
+        icon="paid"
+        route="currencies.index"
+    ></x-slot>
 
-@can('create-settings-currencies')
-    @section('new_button')
-        <a href="{{ route('currencies.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endsection
-@endcan
+    <x-slot name="buttons">
+        @can('create-settings-currencies')
+            <x-link href="{{ route('currencies.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    <div class="card">
-        <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-            {!! Form::open([
-                'method' => 'GET',
-                'route' => 'currencies.index',
-                'role' => 'form',
-                'class' => 'mb-0'
-            ]) !!}
-                <div class="align-items-center" v-if="!bulk_action.show">
-                    <x-search-string model="App\Models\Setting\Currency" />
-                </div>
+    <x-slot name="content">
+        <x-index.container>
+            <x-index.search
+                search-string="App\Models\Setting\Currency"
+                bulk-action="App\BulkActions\Settings\Currencies"
+            />
 
-                {{ Form::bulkActionRowGroup('general.currencies', $bulk_actions, ['group' => 'settings', 'type' => 'currencies']) }}
-            {!! Form::close() !!}
-        </div>
+            <x-table>
+                <x-table.thead>
+                    <x-table.tr class="flex items-center px-1">
+                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-index.bulkaction.all />
+                        </x-table.th>
 
-        <div class="table-responsive">
-            <table class="table table-flush table-hover">
-                <thead class="thead-light">
-                    <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-md-2 col-lg-2 d-none d-md-block">@sortablelink('code', trans('currencies.code'))</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">@sortablelink('rate', trans('currencies.rate'))</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
+                        <x-table.th class="w-6/12 sm:w-4/12">
+                            <x-sortablelink column="name" title="{{ trans('general.name') }}" />
+                        </x-table.th>
 
-                <tbody>
+                        <x-table.th class="w-6/12 sm:w-3/12">
+                            <x-sortablelink column="code" title="{{ trans('currencies.code') }}" />
+                        </x-table.th>
+
+                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                            {{ trans('currencies.symbol.symbol') }}
+                        </x-table.th>
+
+                        <x-table.th class="w-2/12">
+                            <x-sortablelink column="type" title="{{ trans('currencies.rate') }}" />
+                        </x-table.th>
+                    </x-table.tr>
+                </x-table.thead>
+
+                <x-table.tbody>
                     @foreach($currencies as $item)
-                        <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
-                                {{ Form::bulkActionGroup($item->id, $item->name) }}
-                            </td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('currencies.edit', $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-md-2  col-lg-2 d-none d-md-block">{{ $item->code }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 long-texts d-none d-sm-block">{{ $item->rate }}</td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-                                @if (user()->can('update-settings-currencies'))
-                                    {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
-                                @else
-                                    @if ($item->enabled)
-                                        <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
-                                    @else
-                                        <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
-                                    @endif
-                                @endif
-                            </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
-                                <div class="dropdown">
-                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h text-muted"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ route('currencies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @can('delete-settings-currencies')
-                                        <div class="dropdown-divider"></div>
-                                        {!! Form::deleteLink($item, 'currencies.destroy') !!}
-                                        @endcan
+                        <x-table.tr href="{{ route('currencies.edit', $item->id) }}">
+                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                            </x-table.td>
+
+                            <x-table.td class="w-6/12 sm:w-4/12">
+                                <x-slot name="first" class="flex" override="class">
+                                    <div class="font-bold truncate">
+                                        {{ $item->name }}
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+
+                                    @if (! $item->enabled)
+                                        <x-index.disable text="{{ trans_choice('general.currencies', 1) }}" />
+                                    @endif
+
+                                    @if ($item->code == setting("default.currency"))
+                                        <x-index.default text="{{ trans('currencies.default') }}" />
+                                    @endif
+                                </x-slot>
+                            </x-table.td>
+
+                            <x-table.td class="w-6/12 sm:w-3/12 truncate">
+                                {{ $item->code }}
+                            </x-table.td>
+
+                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                {{ $item->symbol }}
+                            </x-table.td>
+
+                            <x-table.td class="w-2/12 relative truncate">
+                                {{ $item->rate }}
+                            </x-table.td>
+
+                            <x-table.td kind="action">
+                                <x-table.actions :model="$item" />
+                            </x-table.td>
+                        </x-table.tr>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
+                </x-table.tbody>
+            </x-table>
 
-        <div class="card-footer table-action">
-            <div class="row">
-                @include('partials.admin.pagination', ['items' => $currencies])
-            </div>
-        </div>
-    </div>
-@endsection
+            <x-pagination :items="$currencies" />
+        </x-index.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/currencies.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="currencies" />
+</x-layouts.admin>

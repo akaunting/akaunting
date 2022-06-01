@@ -33,23 +33,23 @@ class Reports extends Seeder
             [
                 'company_id' => $company_id,
                 'class' => 'App\Reports\IncomeSummary',
-                'name' => trans('reports.summary.income'),
+                'name' => trans('reports.income_summary'),
                 'description' => trans('demo.reports.income'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
+                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual'],
             ],
             [
                 'company_id' => $company_id,
                 'class' => 'App\Reports\ExpenseSummary',
-                'name' => trans('reports.summary.expense'),
+                'name' => trans('reports.expense_summary'),
                 'description' => trans('demo.reports.expense'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
+                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual'],
             ],
             [
                 'company_id' => $company_id,
                 'class' => 'App\Reports\IncomeExpenseSummary',
-                'name' => trans('reports.summary.income_expense'),
+                'name' => trans('reports.income_expense_summary'),
                 'description' => trans('demo.reports.income_expense'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
+                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual'],
             ],
             [
                 'company_id' => $company_id,
@@ -61,7 +61,7 @@ class Reports extends Seeder
             [
                 'company_id' => $company_id,
                 'class' => 'App\Reports\TaxSummary',
-                'name' => trans('reports.summary.tax'),
+                'name' => trans('reports.tax_summary'),
                 'description' => trans('demo.reports.tax'),
                 'settings' => ['period' => 'quarterly', 'basis' => 'accrual'],
             ],

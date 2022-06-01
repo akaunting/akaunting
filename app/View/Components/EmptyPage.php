@@ -2,29 +2,41 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
+use App\Abstracts\View\Component;
+use App\Traits\Modules;
+use Illuminate\View\View;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class EmptyPage extends Component
 {
+    use Modules;
+
     /** @var string */
-    public $page;
+    public $alias;
 
     /** @var string */
     public $group;
 
     /** @var string */
+    public $page;
+
+    /** @var string */
+    public $title;
+
+    /** @var string */
+    public $description;
+
+    /** @var string */
+    public $docsCategory;
+
+    /** @var string */
+    public $image;
+
+    /** @var string */
     public $imageEmptyPage;
-
-    /** @var string */
-    public $textEmptyPage;
-
-    /** @var string */
-    public $textPage;
-
-    /** @var string */
-    public $urlDocsPath;
 
     /** @var bool */
     public $checkPermissionCreate;
@@ -32,8 +44,26 @@ class EmptyPage extends Component
     /** @var string */
     public $permissionCreate;
 
+    /** @var array */
+    public $buttons;
+
+    /** @var bool */
+    public $hideButtonCreate;
+
+    /** @var bool */
+    public $hideButtonImport;
+
     /** @var string */
-    public $routeCreate;
+    public $importRoute;
+
+    /** @var array */
+    public $importRouteParameters;
+
+    /** @var array */
+    public $suggestion;
+
+    /** @var array */
+    public $suggestions;
 
     /**
      * Create a new component instance.
@@ -41,18 +71,38 @@ class EmptyPage extends Component
      * @return void
      */
     public function __construct(
-        string $page, string $group = '', string $imageEmptyPage = '', string $textEmptyPage = '', string $textPage = '',
-        string $urlDocsPath = '', bool $checkPermissionCreate = true, string $permissionCreate  = '', string $routeCreate = ''
+        string $alias = '', string $group = '', string $page = '',
+        string $title = '', string $description = '', string $docsCategory = 'accounting',
+        string $image = '', string $imageEmptyPage = '',
+        bool $checkPermissionCreate = true, string $permissionCreate = '',
+        array $buttons = [], bool $hideButtonCreate = false, bool $hideButtonImport = false,
+        string $importRoute = '', array $importRouteParameters = []
     ) {
-        $this->page = $page;
+        if (empty($alias) && ! empty($group)) {
+            $alias = $group;
+        }
+
+        $this->alias = (module($alias) === null) ? 'core': $alias;
         $this->group = $group;
-        $this->imageEmptyPage = $this->getImageEmptyPage($page, $imageEmptyPage);
-        $this->textEmptyPage = $this->getTextEmptyPage($page, $textEmptyPage);
-        $this->textPage = $this->getTextPage($page, $textPage);
-        $this->urlDocsPath = $this->getUrlDocsPath($page, $group, $urlDocsPath);
+        $this->page = $page;
+        $this->docsCategory = $docsCategory;
+
+        $this->title = $this->getTitle($title);
+        $this->description = $this->getDescription($description);
+
+        $this->imageEmptyPage = $imageEmptyPage;
+        $this->image = $this->getImage($page, $image);
+
         $this->checkPermissionCreate = $checkPermissionCreate;
         $this->permissionCreate = $this->getPermissionCreate($page, $group, $permissionCreate);
-        $this->routeCreate = $this->getRouteCreate($page, $routeCreate);
+
+        $this->hideButtonCreate = $hideButtonCreate;
+        $this->hideButtonImport = $hideButtonImport;
+
+        $this->buttons = $this->getButtons($page, $group, $buttons);
+
+        $this->suggestions = $this->getSuggestionModules();
+        $this->suggestion = $this->getSuggestionModule();
     }
 
     /**
@@ -65,61 +115,111 @@ class EmptyPage extends Component
         return view('components.empty-page');
     }
 
-    protected function getImageEmptyPage($page, $imageEmptyPage)
+    protected function getTitle($title = null, $number = 2)
     {
-        if ($imageEmptyPage) {
-            return $imageEmptyPage;
+        if (! empty($title)) {
+            return $title;
         }
 
-        return 'public/img/empty_pages/' . $page . '.png';
+        switch ($this->alias) {
+            case 'core':
+                $text = 'general.' . $this->page;
+                break;
+            default:
+                $text = $this->alias . '::general.' . $this->page;
+        }
+
+        $title = trans_choice($text, $number);
+
+        if ($title == $text) {
+            $title = trans_choice(Str::replace('-', '_', $text), $number);
+        }
+
+        return $title;
     }
 
-    protected function getTextEmptyPage($page, $textEmptyPage)
+    protected function getDescription($description)
     {
-        if ($textEmptyPage) {
-            return $textEmptyPage;
+        if (! empty($description)) {
+            return $description;
         }
 
-        return 'general.empty.' . $page;
+        switch ($this->alias) {
+            case 'core':
+                $text = 'general.empty.' . $this->page;
+                break;
+            default:
+                $text = $this->alias . '::general.empty.' . $this->page;
+        }
+
+        $description = trans($text);
+
+        if ($description == $text) {
+            $description = trans(Str::replace('-', '_', $text));
+        }
+
+        $docs_url = $this->getDocsUrl();
+
+        if (! empty($docs_url)) {
+            $description .= ' ' . trans('general.empty.documentation', ['url' => $docs_url]);
+        }
+
+        return $description;
     }
 
-    protected function getTextPage($page, $textPage)
+    protected function getDocsUrl()
     {
-        if ($textPage) {
-            return $textPage;
+        switch ($this->alias) {
+            case 'core':
+                $docs_path = 'user-manual/';
+
+                if (! empty($this->group)) {
+                    $docs_path .= $this->group . '/';
+                }
+
+                $docs_path .= $this->page;
+                break;
+            default:
+                $docs_path = 'app-manual/' . $this->docsCategory . '/' . $this->alias;
         }
 
-        return 'general.' . $page;
+        return 'https://akaunting.com/docs/' . $docs_path;
     }
 
-    protected function getUrlDocsPath($page, $group, $urlDocsPath)
+    protected function getImage($page, $image)
     {
-        if ($urlDocsPath) {
-            return $urlDocsPath;
+        if (! empty($image)) {
+            return $image;
         }
 
-        $docs_path = $page;
-        
-        if (!empty($group)) {
-            $docs_path = $group . '/' . $page;
+        if (! empty($this->imageEmptyPage)) {
+            return asset($this->imageEmptyPage);
         }
 
-        return 'https://akaunting.com/docs/user-manual/' . $docs_path;
+        $path = 'public/img/empty_pages/' . $page . '.png';
+
+        if ($this->alias != 'core') {
+            $path = 'modules/' . Str::studly($this->alias) . '/Resources/assets/img/empty-' . $page . '.png';
+
+            if (! file_exists($path)) {
+                $path = 'public/img/empty_pages/default.png';
+            }
+        }
+
+        return asset($path);
     }
 
     protected function getPermissionCreate($page, $group, $permissionCreate)
     {
-        if ($permissionCreate) {
+        if (! empty($permissionCreate)) {
             return $permissionCreate;
         }
 
         $pages = [
             'reconciliations' => 'create-banking-reconciliations',
             'transfers' => 'create-banking-transfers',
-            'payments' => 'create-purchases-payments',
             'vendors' => 'create-purchases-vendors',
             'customers' => 'create-sales-customers',
-            'revenues' => 'create-sales-revenues',
             'taxes' => 'create-settings-taxes',
             'items' => 'create-common-items',
         ];
@@ -135,12 +235,121 @@ class EmptyPage extends Component
         return $permissionCreate;
     }
 
-    protected function getRouteCreate($page, $routeCreate)
+    protected function getButtons($page, $group, $buttons)
     {
-        if ($routeCreate) {
-            return $routeCreate;
+        if (! empty($buttons)) {
+            $suggestion = $this->getSuggestionModule();
+
+            if (! empty($suggestion)) {
+                return array_slice($buttons, 0, 2);
+            } else {
+                return array_slice($buttons, 0, 3);
+            }
         }
 
-        return $page . '.create';
+        if (! $this->hideButtonCreate) {
+            $buttons[] = $this->getCreateButton($page, $group);
+        }
+
+        if (! $this->hideButtonImport) {
+            $buttons[] = $this->getImportButton();
+        }
+
+        return $buttons;
+    }
+
+    protected function getCreateButton($page, $group)
+    {
+        try {
+            $route = route($group . '.' . $page . '.create');
+        } catch (\Exception $e) {
+            $route = route($page . '.create');
+        }
+
+        $title = $this->getTitle(null, 1);
+
+        return [
+            'url'           => $route,
+            'permission'    => $this->permissionCreate,
+            'text'          => trans('general.title.new', ['type' => $title]),
+            'description'   => trans('general.empty.actions.new', ['type' => strtolower($title)]),
+            'active_badge'  => true,
+        ];
+    }
+
+    protected function getImportButton()
+    {
+        $importRoute = $this->getImportRoute($this->importRoute);
+        $importRouteParameters = $this->getImportRouteParameters($this->importRouteParameters);
+
+        $title = $this->getTitle();
+
+        return [
+            'url'           => route($importRoute, $importRouteParameters),
+            'permission'    => $this->permissionCreate,
+            'text'          => trans('import.title', ['type' => $title]),
+            'description'   => trans('general.empty.actions.import', ['type' => strtolower($title)]),
+            'active_badge'  => false,
+        ];
+    }
+
+    protected function getImportRoute($importRoute)
+    {
+        if (! empty($importRoute)) {
+            return $importRoute;
+        }
+
+        $route = 'import.create';
+
+        return $route;
+    }
+
+    protected function getImportRouteParameters($importRouteParameters)
+    {
+        if (! empty($importRouteParameters)) {
+            return $importRouteParameters;
+        }
+
+        return array_slice(request()->segments(), -2, 2, true) ;
+    }
+
+    public function getSuggestionModule()
+    {
+        return ! empty($this->suggestions) ? Arr::random($this->suggestions) : false;
+    }
+
+    public function getSuggestionModules()
+    {
+        if ((! $user = user()) || $user->cannot('read-modules-home')) {
+            return [];
+        }
+
+        if (! $path = Route::current()->uri()) {
+            return [];
+        }
+
+        $path = str_replace('{company_id}/', '', $path);
+
+        if (! $suggestions = $this->getSuggestions($path)) {
+            return [];
+        }
+
+        $modules = [];
+
+        foreach ($suggestions->modules as $s_module) {
+            if ($this->moduleIsEnabled($s_module->alias)) {
+                continue;
+            }
+
+            $s_module->action_url = company_id() . '/' . $s_module->action_url;
+
+            $modules[] = $s_module;
+        }
+
+        if (empty($modules)) {
+            return [];
+        }
+
+        return $modules;
     }
 }

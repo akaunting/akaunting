@@ -37,8 +37,9 @@ export default class BulkAction {
             this.select_all = true;
         }
 
-        if (!this.count) {
+        if (! this.count) {
             this.show = false;
+
             this.hideSearchHTML();
         }
     }
@@ -49,7 +50,7 @@ export default class BulkAction {
         this.selected = [];
         this.hideSearchHTML();
 
-        if (!this.select_all) {
+        if (! this.select_all) {
             this.show = true;
 
             for (let input of document.querySelectorAll('[data-bulk-action]')) {
@@ -60,23 +61,23 @@ export default class BulkAction {
         this.count = this.selected.length;
     }
 
-    change(event) {
-        this.message = event.target.options[event.target.options.selectedIndex].dataset.message;
+    change(type) {
+        let action = document.getElementById('button-bulk-action-' + type);
+
+        this.value = type;
+
+        this.message = action.getAttribute('data-message');
 
         if (typeof(this.message) == "undefined") {
             this.message = '';
         }
 
-        this.path = document.getElementsByName("bulk_action_path")[0].getAttribute('value');
-
-        if (event.target.options[event.target.options.selectedIndex].dataset.path) {
-            this.path = event.target.options[event.target.options.selectedIndex].dataset.path;
-        }
+        this.path = action.getAttribute('data-path');
 
         this.type = '*';
 
-        if (event.target.options[event.target.options.selectedIndex].dataset.type) {
-            this.type = event.target.options[event.target.options.selectedIndex].dataset.type;
+        if (action.getAttribute('data-type')) {
+            this.type = action.getAttribute('data-type');
         }
 
         return this.message;
@@ -146,6 +147,7 @@ export default class BulkAction {
 
                     window.location.reload(false);
                 });
+
               break;
             default:
                 let type_promise = Promise.resolve(window.axios.post(this.path, {
@@ -177,12 +179,14 @@ export default class BulkAction {
         this.show = false;
         this.select_all = false;
         this.selected = [];
+
         this.hideSearchHTML();
     }
 
     hideSearchHTML() {
         setInterval(() => {
             const search_box_html = document.querySelector('.js-search-box-hidden');
+
             if (search_box_html) {
                 search_box_html.classList.add('d-none');
             }
@@ -191,14 +195,14 @@ export default class BulkAction {
 
     // Change enabled status
     status(item_id, event, notify) {
-        var item = event.target;
-        var status = (event.target.checked) ? 'enable' : 'disable';
+        let item = event.target;
+        let status = (event.target.checked) ? 'enable' : 'disable';
 
         window.axios.get(this.path + '/' + item_id + '/' + status)
         .then(response => {
-            var type = (response.data.success) ? 'success' : 'warning';
+            let type = (response.data.success) ? 'success' : 'warning';
 
-            if (!response.data.success) {
+            if (! response.data.success) {
                 if (item.checked) {
                     item.checked = false;
                 } else {

@@ -22,7 +22,7 @@ class PortalMenu
         }
 
         menu()->create('portal', function ($menu) {
-            $menu->style('argon');
+            $menu->style('tailwind');
 
             event(new PortalCreated($menu));
         });

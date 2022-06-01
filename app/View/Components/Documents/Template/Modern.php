@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Documents\Template;
 
-use App\Abstracts\View\Components\DocumentTemplate as Component;
+use App\Abstracts\View\Components\Documents\Template as Component;
 
 class Modern extends Component
 {

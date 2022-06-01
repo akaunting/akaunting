@@ -1,11 +1,12 @@
 <template>
-    <div class="item-columns-edit">
-        <i class="fas fa-pencil-alt"></i>&nbsp;
+    <div class="item-columns-edit group">
         <button 
             type="button"
-            class="btn-aka-link"
-            @click="onEditItemColumns">
-            {{ editColumn.text }}
+            class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100"
+            style="color: rgb(136, 152, 170);"
+            @click="onEditItemColumns"
+        >
+            <span class="material-icons-outlined w-full text-lg text-gray-300 group-hover:text-gray-500">edit</span>
         </button>
 
         <component v-bind:is="edit_html" @submit="onSubmit" @cancel="onCancel"></component>
@@ -164,7 +165,7 @@ export default {
 
         let documentClasses = document.body.classList;
 
-        documentClasses.remove("modal-open");
+        documentClasses.remove("overflow-hidden");
     },
   },
 };

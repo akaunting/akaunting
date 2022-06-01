@@ -216,7 +216,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Shikoni <a href=":url" target="_blank" class="text-success">dokumentacionin</a> për më shumë detaje.',
+        'documentation' => 'Shikoni <a href=":url" target="_blank" class="text-green">dokumentacionin</a> për më shumë detaje.',
         'items' => 'Artikujt mund të jenë produkte ose shërbime. Ju mund të përdorni artikujt kur krijoni fatura dhe fatura për të pasuruar fushat e çmimit, taksave etj.',
         'invoices' => 'Faturat mund të jenë një herë ose të përsëritura. Ju mund të dërgoni ato për klientët dhe të fillojnë të pranuar pagesa online.',
         'revenues' => 'Të ardhurat janë një transaksion me të ardhura të paguara. Mund të jetë një procesverbal i pavarur (d.m.th. depozitë) ose bashkangjitur një faturë.',

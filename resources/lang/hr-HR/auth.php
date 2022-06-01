@@ -24,7 +24,7 @@ return [
 
     'error' => [
         'self_delete'       => 'Pogreška: Nije moguće izbrisati sebe!',
-        'self_disable'      => 'Pogreška: Ne možete sebe onemogućiti!',
+        'self_disable'      => 'Pogreška: Ne možete se onemogućiti!',
         'no_company'        => 'Pogleška: Nema dodijeljene tvrtke za vaš račun. Obratite se administratoru sustava.',
     ],
 

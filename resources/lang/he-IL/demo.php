@@ -2,33 +2,15 @@
 
 return [
 
-    'accounts' => [
-        'cash'              => 'כסף מזומן',
-    ],
-
-    'categories' => [
-        'deposit'           => 'לְהַפְקִיד',
-        'sales'             => 'מכירות',
-    ],
-
-    'currencies' => [
-        'usd'               => 'דולר אמריקאי',
-        'eur'               => 'יורו',
-        'gbp'               => 'לירה שטרלינג (פאונד)',
-        'try'               => 'לירה טורקית',
-    ],
-
-    'offline_payments' => [
-        'cash'              => 'כסף מזומן',
-        'bank'              => 'העברה בנקאית',
-    ],
-
-    'reports' => [
-        'income'            => 'סיכום הכנסה חודשית לפי קטגוריות.',
-        'expense'           => 'סיכום הוצאות חודשיות לפי קטגוריות.',
-        'income_expense'    => 'הכנסות החודש לעומת הוצאות החודש לפי קטגוריות',
-        'tax'               => 'סיכום מס רבעוני. ',
-        'profit_loss'       => 'רווח והפסד רבעוניים לפי קטגוריות.',
-    ],
+    'accounts_cash'         => 'מזומנים',
+    'categories_deposit'    => 'פיקדון',
+    'categories_sales'      => 'מכירות',
+    'currencies_usd'        => 'דולר אמריקאי',
+    'currencies_eur'        => 'יורו',
+    'currencies_gbp'        => 'לירה שטרלינג',
+    'currencies_try'        => 'לירה טורקית',
+    'taxes_exempt'          => 'פטור ממס',
+    'taxes_normal'          => 'מס רגיל',
+    'taxes_sales'           => 'מיסים מכירות',
 
 ];

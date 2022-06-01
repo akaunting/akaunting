@@ -39,6 +39,8 @@ class UninstallModule extends Job
     {
         $this->authorize();
 
+        event(new \App\Events\Module\Uninstalling($this->alias, $this->company_id));
+
         $command = "module:uninstall {$this->alias} {$this->company_id} {$this->locale}";
 
         $result = Console::run($command);

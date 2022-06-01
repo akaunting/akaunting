@@ -43,4 +43,8 @@ return [
         'connection'        => 'Error: Could not connect to the database! Please, make sure the details are correct.',
     ],
 
+    'update' => [
+        'core'              => 'Akaunting new version is available! Please, update your installation.',
+        'module'            => ':module new version is available! Please, update your installation.',
+    ],
 ];

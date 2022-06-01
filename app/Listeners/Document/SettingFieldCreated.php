@@ -53,7 +53,7 @@ class SettingFieldCreated
             $company = Company::find($document->company_id);
 
             foreach ($files as $key => $value) {
-                // Upload attachment
+                // Upload attachment    
                 $media = $this->getMedia($value, 'settings');
 
                 $company->attachMedia($media, Str::snake($real_key));

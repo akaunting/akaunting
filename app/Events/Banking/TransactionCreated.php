@@ -3,6 +3,7 @@
 namespace App\Events\Banking;
 
 use App\Abstracts\Event;
+use App\Models\Banking\Transaction;
 
 class TransactionCreated extends Event
 {
@@ -13,7 +14,7 @@ class TransactionCreated extends Event
      *
      * @param $transaction
      */
-    public function __construct($transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction = $transaction;
     }

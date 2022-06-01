@@ -13,9 +13,7 @@ use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
-use App\Models\Setting\Currency;
 use App\Traits\Documents;
-use File;
 
 class Bills extends Controller
 {
@@ -281,30 +279,6 @@ class Bills extends Controller
         $file_name = $this->getDocumentFileName($bill);
 
         return $pdf->download($file_name);
-    }
-
-    /**
-     * Mark the bill as paid.
-     *
-     * @param  Document $bill
-     *
-     * @return Response
-     */
-    public function markPaid(Document $bill)
-    {
-        try {
-            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
-
-            $message = trans('documents.messages.marked_paid', ['type' => trans_choice('general.bills', 1)]);
-
-            flash($message)->success();
-        } catch(\Exception $e) {
-            $message = $e->getMessage();
-
-            flash($message)->error()->important();
-        }
-
-        return redirect()->back();
     }
 
     protected function prepareBill(Document $bill)

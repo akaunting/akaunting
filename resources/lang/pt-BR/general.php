@@ -52,8 +52,6 @@ return [
     'sales'                 => 'Venda|Vendas',
     'purchases'             => 'Compra|Compras',
     'notifications'         => 'Notificações',
-    'countries'             => 'País|Países',
-    'cities'                => 'Povoado / Cidade|Povoados / Cidades',
 
     'welcome'               => 'Bem-vindo',
     'banking'               => 'Banco',
@@ -73,9 +71,8 @@ return [
     'yearly'                => 'Anual',
     'add'                   => 'Adicionar',
     'add_new'               => 'Adicionar novo',
-    'add_income'            => 'Adicionar Receita',
+    'add_income'            => 'Adicionar Renda',
     'add_expense'           => 'Adicionar Despesa',
-    'add_transfer'          => 'Adicionar Transferência',
     'show'                  => 'Visualizar',
     'edit'                  => 'Editar',
     'delete'                => 'Excluir',
@@ -138,7 +135,7 @@ return [
     'created_date'          => 'Data da Criação',
     'period'                => 'Período',
     'frequency'             => 'Frequência',
-    'start'                 => 'Inicio',
+    'start'                 => 'Iniciar',
     'end'                   => 'Finalizar',
     'clear'                 => 'Limpar',
     'difference'            => 'Diferença',
@@ -166,8 +163,6 @@ return [
     'amount_due'            => 'Total devido',
     'financial_year'        => 'Ano Fiscal',
     'created'               => 'Criado',
-    'state'                 => 'Província / Estado',
-    'zip_code'              => 'Código Postal / CEP',
 
     'card' => [
         'cards'                 => 'Cartão|Cartões',

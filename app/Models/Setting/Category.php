@@ -3,13 +3,23 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Builders\Category as Builder;
 use App\Models\Document\Document;
+use App\Relations\HasMany\Category as HasMany;
+use App\Scopes\Category as Scope;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Category extends Model
 {
     use HasFactory, Transactions;
+
+    public const INCOME_TYPE = 'income';
+    public const EXPENSE_TYPE = 'expense';
+    public const ITEM_TYPE = 'item';
+    public const OTHER_TYPE = 'other';
 
     protected $table = 'categories';
 
@@ -18,7 +28,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'type', 'color', 'enabled', 'created_from', 'created_by'];
+    protected $fillable = ['company_id', 'name', 'type', 'color', 'enabled', 'created_from', 'created_by', 'parent_id'];
 
     /**
      * The attributes that should be cast.
@@ -35,6 +45,65 @@ class Category extends Model
      * @var array
      */
     public $sortable = ['name', 'type', 'enabled'];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new Scope);
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \App\Builders\Category
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new Builder($query);
+    }
+
+    /**
+     * Instantiate a new HasMany relationship.
+     *
+     * @param  EloquentBuilder  $query
+     * @param  EloquentModel  $parent
+     * @param  string  $foreignKey
+     * @param  string  $localKey
+     * @return HasMany
+     */
+    protected function newHasMany(EloquentBuilder $query, EloquentModel $parent, $foreignKey, $localKey)
+    {
+        return new HasMany($query, $parent, $foreignKey, $localKey);
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->resolveRouteBindingQuery($this, $value, $field)
+            ->withoutGlobalScope(Scope::class)
+            ->first();
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->withSubCategory();
+    }
+
+    public function sub_categories()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->withSubCategory()->with('categories')->orderBy('name');
+    }
 
     public function documents()
     {
@@ -145,6 +214,50 @@ class Category extends Model
     public function scopeTransfer($query)
     {
         return (int) $query->other()->pluck('id')->first();
+    }
+
+    /**
+     * Scope gets only parent categories.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithSubCategory($query)
+    {
+        return $query->withoutGlobalScope(new Scope);
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'create',
+            'url' => route('categories.edit', $this->id),
+            'permission' => 'update-settings-categories',
+        ];
+
+        $transfer_id = Category::transfer();
+
+        if ($this->id == $transfer_id) {
+            return $actions;
+        }
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'categories.destroy',
+            'permission' => 'delete-settings-categories',
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**

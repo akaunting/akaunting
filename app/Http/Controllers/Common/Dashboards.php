@@ -71,14 +71,16 @@ class Dashboards extends Controller
             return Widgets::canShow($widget->class);
         });
 
+        $user_dashboards = user()->dashboards()->enabled()->get();
+
         $date_picker_shortcuts = $this->getDatePickerShortcuts();
 
-        if (!request()->has('start_date')) {
+        if (! request()->has('start_date')) {
             request()->merge(['start_date' => $date_picker_shortcuts[trans('reports.this_year')]['start']]);
             request()->merge(['end_date' => $date_picker_shortcuts[trans('reports.this_year')]['end']]);
         }
 
-        return view('common.dashboards.show', compact('dashboard', 'widgets', 'date_picker_shortcuts'));
+        return view('common.dashboards.show', compact('dashboard', 'widgets', 'user_dashboards', 'date_picker_shortcuts'));
     }
 
     /**
@@ -88,7 +90,11 @@ class Dashboards extends Controller
      */
     public function create()
     {
-        $users = company()->users()->get()->sortBy('name');
+        $users = company()->users()->get()->reject(function ($user) {
+            if ($user->cannot('read-admin-panel')) {
+                return true;
+            }
+        })->sortBy('name');
 
         return view('common.dashboards.create', compact('users'));
     }
@@ -133,7 +139,11 @@ class Dashboards extends Controller
             return redirect()->route('dashboards.index');
         }
 
-        $users = company()->users()->get()->sortBy('name');
+        $users = company()->users()->get()->reject(function ($user) {
+            if ($user->cannot('read-admin-panel')) {
+                return true;
+            }
+        })->sortBy('name');
 
         return view('common.dashboards.edit', compact('dashboard', 'users'));
     }

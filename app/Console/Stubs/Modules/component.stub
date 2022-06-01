@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\View\Component;
+use App\Abstracts\View\Component;
 
 class $CLASS$ extends Component
 {

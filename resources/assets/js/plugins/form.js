@@ -122,7 +122,15 @@ export default class Form {
                                 this[form_element.getAttribute('data-field')][name] = form_element.value;
                             }
                         } else {
-                            this[form_element.getAttribute('data-field')][name] = [];
+                            if (form_element.dataset.type != undefined) {
+                                if (form_element.dataset.type == 'multiple') {
+                                    this[form_element.getAttribute('data-field')][name] = [];
+                                } else {
+                                    this[form_element.getAttribute('data-field')][name] = '';
+                                }
+                            } else {
+                                this[form_element.getAttribute('data-field')][name] = '';
+                            }
                         }
                     }
                 } else {
@@ -163,7 +171,16 @@ export default class Form {
                             this[name] = form_element.value;
                         }
                     } else {
-                        this[name] = [];
+                        
+                        if (form_element.dataset.type != undefined) {
+                            if (form_element.dataset.type == 'multiple') {
+                                this[name] = [];
+                            } else {
+                                this[name] = '';
+                            }
+                        } else {
+                            this[name] = '';
+                        }
                     }
                 }
             } else {

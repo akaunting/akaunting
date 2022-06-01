@@ -1,35 +1,35 @@
 <template>
-    <div class="document-add-info-content-info-business fs-exclude">
-        <div class="table-responsive">
-            <table class="table table-borderless p-0">
+    <div class="">
+        <div class="flex items-start">
+            <table>
                 <tbody>
                     <tr>
-                        <th class="text-right p-0">
-                            <strong class="text-strong">{{ company.name }}</strong>
+                        <th class="text-left p-0">
+                            <span class="font-medium text-left text-sm p-0">{{ company.name }}</span>
                         </th>
                     </tr>
                     <tr v-if="company.address">
-                        <th class="text-right p-0">
+                        <th class="font-normal text-sm text-left p-0">
                             {{ company.address }}
                         </th>
                     </tr>
                     <tr v-if="company.location">
-                        <th class="text-right p-0">
+                        <th class="font-normal text-sm text-left p-0">
                             {{ company.location }}
                         </th>
                     </tr>
                     <tr v-if="company.tax_number">
-                        <th class="text-right p-0">
+                        <th class="font-normal text-sm text-left p-0">
                             {{ taxNumberText }}: {{ company.tax_number }}
                         </th>
                     </tr>
                     <tr v-if="company.phone">
-                        <th class="text-right p-0">
+                        <th class="font-normal text-sm text-left p-0">
                             {{ company.phone }}
                         </th>
                     </tr>
                     <tr>
-                        <th class="text-right p-0">
+                        <th class="font-normal text-sm text-left p-0">
                             {{ company.email }}
                         </th>
                     </tr>
@@ -37,7 +37,11 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-link text-right" @click="onEditCompany">{{ buttonText }}</button>
+        <div class="absolute right-0 top-0 group">
+            <div class="w-6 h-7 flex items-center justify-center rounded-lg p-0 group-hover:bg-gray-100">
+                <span class="material-icons-outlined text-lg opacity-70 group-hover:text-gray-500 cursor-pointer" @click="onEditCompany">edit</span>
+            </div>
+        </div>
 
         <component v-bind:is="company_html" @submit="onSubmit" @cancel="onCancel"></component>
     </div>
@@ -51,7 +55,7 @@ import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
-import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 
@@ -74,11 +78,6 @@ export default {
     },
 
     props: {
-        buttonText: {
-            type: String,
-            default: 'Edit your business address ',
-            description: 'Input placeholder'
-        },
         taxNumberText: {
             type: String,
             default: 'Tax Number',
@@ -223,7 +222,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove("modal-open");
+                    documentClasses.remove("overflow-hidden");
                 }
             })
             .catch(error => {
@@ -240,7 +239,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("modal-open");
+            documentClasses.remove("overflow-hidden");
         },
     },
 };

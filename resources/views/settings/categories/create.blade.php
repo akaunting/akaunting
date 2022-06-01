@@ -1,54 +1,43 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.categories', 1)]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}"
+        icon="folder"
+        route="categories.create"
+    ></x-slot>
 
-@section('content')
-    <div class="card">
-        {!! Form::open([
-            'route' => 'categories.store',
-            'id' => 'category',
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
-        ]) !!}
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="category" route="categories.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('categories.form_description.general') }}" />
+                    </x-slot>
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, config('general.types')) }}
+                        <x-form.group.color name="color" label="{{ trans('general.color') }}" />
 
-                    @stack('color_input_start')
-                        <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
-                            {!! Form::label('color', trans('general.color'), ['class' => 'form-control-label']) !!}
-                            <div class="input-group input-group-merge" id="category-color-picker">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <el-color-picker v-model="color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
-                                    </span>
-                                </div>
-                                {!! Form::text('color', '#55588b', ['v-model' => 'form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
-                            </div>
-                            {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    @stack('color_input_end')
+                        <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" :selected="config('general.types')" change="updateParentCategories" />
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
-                </div>
-            </div>
+                        <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="[]" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" disabled="isParentCategoryDisabled" />
 
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('categories.index') }}
-                </div>
-            </div>
-        {!! Form::close() !!}
-    </div>
-@endsection
+                        <x-form.input.hidden name="categories" :value="json_encode($categories)" />
+                    </x-slot>
+                </x-form.section>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/categories.js?v=' . version('short')) }}"></script>
-@endpush
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="categories.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="settings" file="categories" />
+</x-layouts.admin>

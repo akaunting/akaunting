@@ -72,6 +72,10 @@ class Installer
             $requirements[] = trans('install.requirements.extension', ['extension' => 'FileInfo']);
         }
 
+        if (!extension_loaded('intl')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'Intl']);
+        }
+
         if (!extension_loaded('gd')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'GD']);
         }

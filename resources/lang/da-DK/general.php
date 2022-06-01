@@ -166,7 +166,7 @@ return [
     'amount_due'            => 'Forfaldent beløb',
     'financial_year'        => 'Regnskabsår',
     'created'               => 'Oprettet',
-    'state'                 => 'Region',
+    'state'                 => 'Region/Stat',
     'zip_code'              => 'Postnummer',
 
     'card' => [
@@ -224,7 +224,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Check <a href=":url" target="_blank" class="text-success">dokumentationen</a> for flere oplysninger.',
+        'documentation' => 'Check <a href=":url" target="_blank" class="text-green">dokumentationen</a> for flere oplysninger.',
         'items' => 'Enheder kan være produkter eller services. Du kan bruge enheder når du opretter faktura og regninger.',
         'invoices' => 'Faktura kan være engang eller gentagne. Du kan sende dem til kunder og begynde at modtage onlinebetaling.',
         'revenues' => 'Omsætning er en betalt indtægts-transaktion. Det kan være en uafhængig post (ei. deponering) eller tilføjet til en faktura.',

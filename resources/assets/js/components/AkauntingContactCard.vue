@@ -1,122 +1,110 @@
 <template>
-    <div :id="'select-contact-card-' + _uid" class="document-add-body-form-contact ml-3">
-        <div class="document-contact" :class="[{'fs-exclude': show.contact_selected}]">
-            <div class="document-contact-without-contact">
-                <div v-if="!show.contact_selected" class="document-contact-without-contact-box-contact-select fs-exclude">
-                    <div class="aka-select aka-select--medium is-open" tabindex="0">
-                        <div>
-                            <div class="aka-box aka-box--large" :class="[{'aka-error': error}]">
-                                <div class="aka-box-content">
-                                    <div class="document-contact-without-contact-box">
-                                        <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn" @click="onContactList">
-                                           <i class="far fa-user fa-2x"></i> &nbsp; <span class="text-add-contact"> {{ addContactText }} </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+    <div :id="'select-contact-card-' + _uid">
+        <div class="relative" :class="[{'fs-exclude': show.contact_selected}]">
+            <div v-if="!show.contact_selected">
+                <div class="aka-select aka-select--medium is-open" tabindex="0">
+                    <div class="w-full h-33 bg-white hover:bg-gray-100 rounded-lg border border-light-gray disabled:bg-gray-200 mt-1 text-purple font-medium" :class="[{'border-red': error}]">
+                        <div class="text-black h-full">
+                            <button type="button" class="w-full h-full flex flex-col items-center justify-center" @click="onContactList">
+                                <span class="material-icons-outlined text-7xl text-black-400">person_add</span>
+                                <span class="text-add-contact"> {{ addContactText }} </span>
+                            </button>
+                        </div>
+                    </div>
 
-                            <div v-if="error" class="invalid-feedback d-block mt--2 mb-2"
-                                v-html="error">
-                            </div>
+                    <div v-if="error" class="text-red text-sm mt-1 block mb-2"
+                        v-html="error">
+                    </div>
+
+                    <div class="absolute top-0 left-0 right-0 bg-white border rounded-lg" style="z-index: 999;" v-if="show.contact_list">
+                        <div class="relative">
+                            <span class="material-icons-round absolute left-4 top-3 text-lg">search</span>
+                            <input
+                                type="text"
+                                data-input="true"
+                                class="form-element px-10 border-t-0 border-l-0 border-r-0 border-gray-200 rounded-none"
+                                autocapitalize="default" autocorrect="ON"
+                                :placeholder="placeholder"
+                                :ref="'input-contact-field-' + _uid"
+                                v-model="search"
+                                @input="onInput"
+                                @keyup.enter="onInput"
+                            />
                         </div>
 
-                        <div class="aka-select-menu" v-if="show.contact_list">
-                            <div class="aka-select-search-container">
-                                <span class="aka-prefixed-input aka-prefixed-input--fluid">
-                                    <div class="input-group input-group-merge">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                        </div>
-
-                                        <input
-                                            type="text"
-                                            data-input="true"
-                                            class="form-control"
-                                            autocapitalize="default" autocorrect="ON"
-                                            :placeholder="placeholder"
-                                            :ref="'input-contact-field-' + _uid"
-                                            v-model="search"
-                                            @input="onInput"
-                                            @keyup.enter="onInput"
-                                        />
-                                    </div>
-                                </span>
+                        <ul class="form-element p-0 border-0 mt-0 cursor-pointer">
+                            <div class="hover:bg-gray-100 px-4 py-2" v-for="(contact, index) in sortContacts" :key="index" @click="onContactSeleted(index, contact.id)">
+                                <span>{{ contact.name }}</span>
                             </div>
 
-                            <ul class="aka-select-menu-options">
-                                <div class="aka-select-menu-option" v-for="(contact, index) in sortContacts" :key="index" @click="onContactSeleted(index, contact.id)">
-                                    <div>
-                                        <strong class="text-strong"><span>{{ contact.name }}</span></strong>
-                                    </div>
+                            <div class="hover:bg-gray-100 px-4 py-2" v-if="!sortContacts.length">
+                                <div>
+                                    <span v-if="!contacts.length && !search">{{ noDataText }}</span>
+
+                                    <span v-else>{{ noMatchingDataText }}</span>
                                 </div>
-
-                                <div class="aka-select-menu-option" v-if="!sortContacts.length">
-                                    <div>
-                                        <strong class="text-strong" v-if="!contacts.length && !search"><span>{{ noDataText }}</span></strong>
-
-                                        <strong class="text-strong" v-else><span>{{ noMatchingDataText }}</span></strong>
-                                    </div>
-                                </div>
-                            </ul>
-
-                            <div class="aka-select-footer" tabindex="0" @click="onContactCreate">
-                                <span>
-                                    <i class="fas fa-plus"></i> {{ createNewContactText }}
-                                </span>
                             </div>
+                        </ul>
+
+                        <div class="flex items-center justify-center h-11 text-center text-purple font-bold border border-l-0 border-r-0 border-b-0 rounded-bl-lg rounded-br-lg hover:bg-gray-100 cursor-pointer" tabindex="0" @click="onContactCreate">
+                            <span class="text-sm"> {{ createNewContactText }} </span>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div v-else class="document-contact-with-contact-bill-to">
-                    <div>
-                        <span class="aka-text aka-text--block-label">{{ contactInfoText }}</span>
-                    </div>
+            <div v-else class="document-contact-with-contact-bill-to">
+                <div>
+                    <span class="text-sm">{{ contactInfoText }}</span>
+                </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-borderless p-0">
-                            <tbody>
-                                <tr>
-                                    <th class="p-0" style="text-align:left;">
-                                        <strong class="d-block">{{ contact.name }}</strong>
-                                    </th>
-                                </tr>
-                                <tr v-if="contact.address">
-                                    <th class="p-0" style="text-align:left; white-space: normal;">
+                <div class="overflow-x-visible mt-0">
+                    <table class="table table-borderless p-0">
+                        <tbody>
+                            <tr>
+                                <th class="font-medium text-left text-sm p-0">
+                                    <span class="block">{{ contact.name }}</span>
+                                </th>
+                            </tr>
+                            <tr v-if="contact.address">
+                                <th class="font-normal text-xs text-left p-0">
+                                    <div class="w-60 truncate">
                                         {{ contact.address }}
-                                    </th>
-                                </tr>
-                                <tr v-if="contact.location">
-                                    <th class="p-0" style="text-align:left; white-space: normal;">
-                                        {{ contact.location }}
-                                    </th>
-                                </tr>
-                                <tr v-if="contact.tax_number">
-                                    <th class="p-0" style="text-align:left;">
-                                        {{ taxNumberText }}: {{ contact.tax_number }}
-                                    </th>
-                                </tr>
-                                <tr v-if="contact.phone">
-                                    <th class="p-0" style="text-align:left;">
-                                        {{ contact.phone }}
-                                    </th>
-                                </tr>
-                                <tr v-if="contact.email">
-                                    <th class="p-0" style="text-align:left;">
-                                        {{ contact.email }}
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr v-if="contact.location">
+                                <th class="font-normal text-xs text-left p-0">
+                                    {{ contact.location }}
+                                </th>
+                            </tr>
+                            <tr v-if="contact.tax_number">
+                                <th class="font-normal text-xs text-left p-0">
+                                    {{ taxNumberText }}: {{ contact.tax_number }}
+                                </th>
+                            </tr>
+                            <tr v-if="contact.phone">
+                                <th class="font-normal text-xs text-left p-0">
+                                    {{ contact.phone }} &nbsp;
+                                    <span v-if="contact.email">
+                                       - {{ contact.email }}
+                                    </span>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <button type="button" class="btn btn-link p-0" @click="onContactEdit">
-                        {{ editContactText.replace(':contact_name', contact.name).replace(':field', contact.name) }}
-                    </button>&nbsp;•&nbsp;
-                    <button type="button" class="btn btn-link p-0" @click="onContactList">
-                        {{ chooseDifferentContactText }}
+                <div class="absolute flex flex-col mt-2">
+                    <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactEdit">
+                        <span class="border-b border-transparent transition-all hover:border-purple">
+                            {{ editContactText.replace(':contact_name', contact.name).replace(':field', contact.name) }}
+                        </span>
+                    </button>
+                    <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactList">
+                        <span class="border-b border-transparent transition-all hover:border-purple">
+                            {{ chooseDifferentContactText }}
+                        </span>
                     </button>
                 </div>
             </div>
@@ -134,7 +122,7 @@ import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
-import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 
@@ -204,7 +192,7 @@ export default {
             description: 'List of Contacts'
         },
         contacts: {
-            type: Array,
+            type: [Array, Object],
             default: () => [],
             description: 'List of Contacts'
         },
@@ -539,7 +527,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove("modal-open");
+                    documentClasses.remove("overflow-hidden");
                 }
             })
             .catch(error => {
@@ -556,7 +544,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("modal-open");
+            documentClasses.remove("overflow-hidden");
         },
 
         closeIfClickedOutside(event) {
@@ -666,10 +654,3 @@ export default {
     },
 };
 </script>
-
-<style>
-    .aka-error, .aka-error:hover {
-        border-color: #ef3232 !important;
-        background-color: #fb634038;
-    }
-</style>

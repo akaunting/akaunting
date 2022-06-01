@@ -1,81 +1,62 @@
 <template>
-    <div :id="'select-item-button-' + _uid" class="product-select">
-        <div class="item-add-new">
-            <button type="button" class="btn btn-link w-100" @click="showItems">
-                <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
-            </button>
-        </div>
+    <div :id="'select-item-button-' + _uid" class="w-full border-b">
+        <button type="button" class="w-full h-10 flex items-center justify-center text-purple font-medium disabled:bg-gray-200 hover:bg-gray-100" @click="showItems">
+            <span class="material-icons-outlined text-base font-bold ltr:mr-1 rtl:ml-1">add</span>
+             {{ addItemText }}
+        </button>
  
-        <div class="aka-select aka-select--fluid" :class="[{'is-open': show.item_list}]" tabindex="-1">
-            <div class="aka-select-menu" v-if="show.item_list">
-                <div class="aka-select-search-container">
-                    <span class="aka-prefixed-input aka-prefixed-input--fluid">
-                        <div class="input-group input-group-merge">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
+        <div :class="[{'is-open': show.item_list}]" tabindex="-1">
+            <div class="-mt-10.5 left-0 right-0 bg-white border rounded-lg" v-if="show.item_list">
+               <div class="relative">
+                   <span class="material-icons-round absolute left-4 top-3 text-lg">search</span>
+                   <input 
+                       type="text"
+                       data-input="true"
+                       class="form-element px-10 border-t-0 border-l-0 border-r-0 border-gray-200 rounded-none"
+                       autocapitalize="default" 
+                       autocorrect="ON" 
+                       :placeholder="placeholder"
+                       v-model="search"
+                       @input="onInput"
+                       :ref="'input-item-field-' + _uid"
+                       @keydown.enter="inputEnterEvent"
+                   />
+               </div>
 
-                            <input 
-                                type="text"
-                                data-input="true"
-                                class="form-control"
-                                autocapitalize="default" 
-                                autocorrect="ON" 
-                                :placeholder="placeholder"
-                                v-model="search"
-                                @input="onInput"
-                                :ref="'input-item-field-' + _uid"
-                                @keydown.enter="inputEnterEvent"
-                            />
-                        </div>
-                    </span>
-                </div>
-
-                <ul class="aka-select-menu-options">
+                <ul class="form-element p-0 mt-0 border-0 cursor-pointer">
                     <div 
-                        class="aka-select-menu-option" 
+                        class="hover:bg-gray-100 px-4" 
                         v-for="(item, index) in sortedItems" 
                         :key="index" 
                         :class="isItemMatched ? 'highlightItem' : ''"
                         @click="onItemSelected(item)"
                     >
-                        <div class="item-select w-100">
-                            <div class="item-select-column item-select-info w-75">
-                                <b class="item-select-info-name"><span>{{ item.name }}</span></b>
-                            </div>
+                        <div class="w-full flex items-center justify-between">
+                            <span>{{ item.name }}</span>
 
-                            <div class="item-select-column item-select-price w-25">
-                                <money 
-                                    :name="'item-id-' + item.id"
-                                    :value="item.price"
-                                    v-bind="money"
-                                    masked
-                                    disabled
-                                    class="text-right disabled-money"
-                                ></money>
-                            </div>
+                            <money 
+                                :name="'item-id-' + item.id"
+                                :value="item.price"
+                                v-bind="money"
+                                masked
+                                disabled
+                                class="text-right disabled-money text-gray"
+                            ></money>
                         </div>
                     </div>
 
-                    <div class="aka-select-menu-option" v-if="!sortedItems.length">
-                        <div>
-                            <strong class="text-strong" v-if="!items.length && !search">
-                                <span>{{ noDataText }}</span>
-                            </strong>
+                    <div class="hover:bg-gray-100 text-center py-2 px-4" v-if="!sortedItems.length">
+                        <div class="text-center">
+                            <span v-if="!items.length && !search">{{ noDataText }}</span>
 
-                            <strong class="text-strong" v-else>
-                                <span>{{ noMatchingDataText }}</span>
-                            </strong>
+                            <span v-else>{{ noMatchingDataText }}</span>
                         </div>
                     </div>
                 </ul>
 
-                <div class="aka-select-footer" @click="onItemCreate">
-                    <span>
-                        <i class="fas fa-plus"></i> &nbsp; {{ createNewItemText }}
-                    </span>
+                <div class="flex items-center justify-center h-11 text-center text-purple font-bold border border-l-0 border-r-0 border-b-0 rounded-bl-lg rounded-br-lg hover:bg-gray-100 cursor-pointer" @click="onItemCreate">
+                     <span class="material-icons text-lg font-bold mr-1">add</span>
+                     {{ createNewItemText }}
                 </div>
             </div>
         </div>
@@ -91,7 +72,7 @@ import {Money} from 'v-money';
 import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
-import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
+import AkauntingRadioGroup from './AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 
@@ -149,7 +130,7 @@ export default {
         },
         addItemText: {
             type: String,
-            default: 'Add an item',
+            default: 'Add New Item',
             description: ""
         },
         createNewItemText: {
@@ -204,6 +185,7 @@ export default {
         return {
             item_list: [],
             selected_items: [],
+            changeBackground: true,
             search: '', // search column model
             show: {
                 item_selected: false,
@@ -361,6 +343,7 @@ export default {
             const indexeditem = { ...item, index: this.currentIndex };
 
             this.addItem(indexeditem, 'oldItem');
+            this.changeBackground = false;
         },
 
         addItem(item, itemType) {
@@ -390,7 +373,7 @@ export default {
                 price: 0,
                 tax_ids: [],
             };
-
+            
             this.newItems.push(item);
 
             this.addItem(item, 'newItem');
@@ -461,7 +444,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove("modal-open");
+                    documentClasses.remove("overflow-hidden");
                 }
             })
             .catch(error => {
@@ -480,7 +463,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("modal-open");
+            documentClasses.remove("overflow-hidden");
         },
 
         closeIfClickedOutside(event) {
@@ -524,7 +507,6 @@ export default {
         sortedItems() {
             return this.sortItems();
         },
-
         currentIndex() {
             return this.$root.form.items.length;
         },
@@ -560,6 +542,6 @@ export default {
 
 <style scoped>
     .highlightItem:first-child {
-        background-color: #F5F7FA;
+        background-color: #F5F7FA;    
     }
 </style>

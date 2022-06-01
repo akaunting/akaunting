@@ -12,7 +12,7 @@ class SampleData extends Command
      *
      * @var string
      */
-    protected $signature = 'sample-data:seed {--count=100 : total records for each item}';
+    protected $signature = 'sample-data:seed {--count=100 : total records for each item} {--company=1 : the company id}';
 
     /**
      * The console command description.

@@ -29,8 +29,32 @@ class PhpExecutableFinder
 
     public function getPhpPath()
     {
+		$php_path = getenv('APP_PHP_PATH');
+
+		if (! empty($php_path)) {
+			return $php_path;
+		}
+
         if ($this->isCpanel()) {
             return '/usr/local/bin/php';
+        }
+
+        if ($this->isPlesk()) {
+            $php_80 = '/opt/plesk/php/8.0/bin/php';
+            $php_81 = '/opt/plesk/php/8.1/bin/php';
+            $php_82 = '/opt/plesk/php/8.2/bin/php';
+
+            if (@is_executable($php_80)) {
+                return $php_80;
+            }
+
+            if (@is_executable($php_81)) {
+                return $php_81;
+            }
+
+            if (@is_executable($php_82)) {
+                return $php_82;
+            }
         }
 
         return 'php';

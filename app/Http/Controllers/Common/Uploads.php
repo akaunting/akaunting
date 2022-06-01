@@ -82,7 +82,7 @@ class Uploads extends Controller
 
         $file = $media;
 
-        $html = view('partials.media.file', compact('file', 'column_name', 'options'))->render();
+        $html = view('components.media.file', compact('file', 'column_name', 'options'))->render();
 
         return response()->json([
             'success' => true,

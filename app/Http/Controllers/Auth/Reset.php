@@ -90,7 +90,7 @@ class Reset extends Controller
         });
 
         // Logout if no company assigned
-        if (!$company) {
+        if (! $company) {
             $this->guard()->logout();
 
             return response()->json([

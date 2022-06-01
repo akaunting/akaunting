@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Documents\Index;
 
-use App\Abstracts\View\Components\DocumentIndex as Component;
+use App\Abstracts\View\Components\Documents\Index as Component;
 
 class Content extends Component
 {

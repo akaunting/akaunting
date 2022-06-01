@@ -1,31 +1,16 @@
 <template>
-    <div class="countdown">
-        <section class="flex text-6xl justify-center content-center">
-            <div class="days mr-2 relative">
-                {{ displayDays}}
-                <div class="label text-sm absolut bottom-0"> {{ textDays }} </div>
-            </div>
-
+    <div>
+        <section class="flex text-xl justify-center content-center">
+            <div class="days mr-2 relative"> {{ displayDays}} </div>
             <span class="leading-snug">:</span>
 
-            <div class="hours mx-2 relative">
-                {{ displayHours }}
-                <div class="label text-sm absolut bottom-0">{{ textHours }} </div>
-            </div>
-
+            <div class="hours mx-2 relative"> {{ displayHours }} </div>
             <span class="leading-snug">:</span>
 
-            <div class="minutes mx-2 relative">
-                {{ displayMinutes }}
-                <div class="label text-sm absolut bottom-0"> {{ textMinutes }} </div>
-            </div>
-
+            <div class="minutes mx-2 relative"> {{ displayMinutes }} </div>
             <span class="leading-snug">:</span>
 
-            <div class="seconds ml-2 relative">
-                {{ displaySeconds }}
-                <div class="label text-sm absolut bottom-0"> {{ textSeconds }} </div>
-            </div>
+            <div class="seconds ml-2 relative"> {{ displaySeconds }} </div>
         </section>
     </div>
 </template>
@@ -39,24 +24,6 @@ export default {
         textDays: {
             type: String,
             default: 'days',
-            description: "Modal header title"
-        },
-
-        textHours: {
-            type: String,
-            default: 'hours',
-            description: "Modal header title"
-        },
-
-        textMinutes: {
-            type: String,
-            default: 'minutes',
-            description: "Modal header title"
-        },
-
-        textSeconds: {
-            type: String,
-            default: 'seconds',
             description: "Modal header title"
         },
 
@@ -172,30 +139,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.countdown {
-    text-align: justify;
-}
-.relative {
-    position: relative;
-}
-.flex {
-    display: flex;
-}
-.justify-center {
-    justify-content: center;
-}
-.content-center {
-    align-content: center;
-}
-.seconds {
-    max-width: 60px;
-}
-.leading-snug {
-    line-height: 1.375;
-}
-.days, .hours, .minutes, .seconds {
-    text-align: center;
-}
-</style>

@@ -1,191 +1,227 @@
-@if (!$hideFromAccount && !$hideToAccount)
-    <table class="border-bottom-1" style="width: 100%;">
-        <tbody>
-            <tr>
-                @if (!$hideFromAccount)
-                    <td style="width: 50%; padding-bottom: 15px;" valign="top">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @if (!$hideFromAccountTitle)
-                                            <h2 class="mb-1" style="font-size: 16px;">
-                                                {{ trans($textFromAccountTitle) }}
-                                            </h2>
-                                        @endif
-
-                                        @if (!$hideFromAccountName)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->expense_transaction->account->name }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideFromAccountNumber)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ trans($textFromAccountNumber) }}: {{ $transfer->expense_transaction->account->number}}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideFromAccountBankName)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->expense_transaction->account->bank_name }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideFromAccountBankPhone)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->expense_transaction->account->bank_phone }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideFromAccountBankAddress)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->expense_transaction->account->bank_address }}
-                                            </p>
-                                        @endif
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                @endif
-
-                @if (!$hideToAccount)
-                    <td style="width: 50%; padding-bottom: 15px;" valign="top">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td style="text-align: right;">
-                                        @if (!$hideToAccountTitle)
-                                            <h2 class="mb-1" style="font-size: 16px;">
-                                                {{ trans($textToAccountTitle) }}
-                                            </h2>
-                                        @endif
-
-                                        @if (!$hideToAccountName)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->income_transaction->account->name }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideToAccountNumber)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ trans($textToAccountNumber) }}: {{ $transfer->income_transaction->account->number }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideToAccountBankName)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->income_transaction->account->bank_name }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideToAccountBankPhone)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->income_transaction->account->bank_phone }}
-                                            </p>
-                                        @endif
-
-                                        @if (!$hideToAccountBankAddress)
-                                            <p style="margin: 0px; padding: 0px; font-size: 14px;">
-                                                {{ $transfer->income_transaction->account->bank_address }}
-                                            </p>
-                                        @endif
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                @endif
-            </tr>
-        </tbody>
-    </table>
-@endif
-
-@if (!$hideDetails)
-    @if (!$hideDetailTitle)
-        <table>
-            <tr>
-                <td style="padding-bottom: 0; padding-top: 32px;">
-                    <h2 class="text-center text-uppercase" style="font-size: 16px;">
-                        {{ trans_choice($textDetailTitle, 2) }}
-                    </h2>
-                </td>
-            </tr>
-        </table>
-    @endif
-
-    <table>
+<table class="border-bottom-1" style="width: 100%;">
+    <tbody>
         <tr>
-            <td style="width: 70%; padding-top:0; padding-bottom:0;">
+            <td style="width: 50%; padding: 0 15px 15px 0;" valign="top">
                 <table>
-                    @if (!$hideDetailDate)
+                    <tbody>
                         <tr>
-                            <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
-                                {{ trans($textDetailDate) }}:
-                            </td>
+                            <td style="padding:0;">
+                                <h2 class="mb-1" style="font-size: 14px; font-weight:600; margin-bottom: 15px;">
+                                    {{ trans('transfers.from_account') }}
+                                </h2>
 
-                            <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                @date($transfer->expense_transaction->paid_at)
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.number') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->expense_transaction->account->name }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.number') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->expense_transaction->account->number}}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.bank_name') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->expense_transaction->account->bank_name }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('general.phone') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->expense_transaction->account->bank_phone }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('general.address') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->expense_transaction->account->bank_address }}
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
-                    @endif
-
-                    @if (!$hideDetailPaymentMethod)
-                        <tr>
-                            <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
-                                {{ trans_choice($textDetailPaymentMethod, 1) }}:
-                            </td>
-
-                            <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ !empty($payment_methods[$transfer->expense_transaction->payment_method]) ? $payment_methods[$transfer->expense_transaction->payment_method] : trans('general.na') }}
-                            </td>
-                        </tr>
-                    @endif
-
-                    @if (!$hideDetailReference)
-                        <tr>
-                            <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
-                                {{ trans($textDetailReference) }}:
-                            </td>
-
-                            <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $transfer->expense_transaction->reference }}
-                            </td>
-                        </tr>
-                    @endif
-
-                    @if (!$hideDetailDescription)
-                        <tr>
-                            <td style="width: 20%; padding-bottom:3px; font-size:14px; font-weight: bold;">
-                                {{ trans($textDetailDescription) }}
-                            </td>
-
-                            <td class="border-bottom-1" style="width:80%; padding-bottom:3px; font-size:14px;">
-                                {{ $transfer->expense_transaction->description }}
-                            </td>
-                        </tr>
-                    @endif
+                    </tbody>
                 </table>
             </td>
 
-            @if (!$hideDetailAmount)
-                <td style="width:30%; padding-top:32px; padding-left: 25px;" valign="top">
-                    <table>
+            <td style="width: 50%; padding: 0 0 15px 15px;" valign="top">
+                <table>
+                    <tbody>
                         <tr>
-                            <td style="background-color: #6da252; -webkit-print-color-adjust: exact; font-weight:bold !important; display:block;">
-                                <h5 class="text-muted mb-0 text-white" style="font-size: 20px; color:#ffffff; text-align:center; margin-top: 16px;">
-                                    {{ trans($textDetailAmount) }}:
-                                </h5>
+                            <td style="padding:0;">
+                                <h2 class="mb-1" style="font-size: 14px; font-weight:600; margin-bottom: 15px;">
+                                    {{ trans('transfers.to_account') }}
+                                </h2>
 
-                                <p class="font-weight-bold mb-0 text-white" style="font-size: 26px; color:#ffffff; text-align:center;">
-                                    @money($transfer->expense_transaction->amount, $transfer->expense_transaction->currency_code, true)
-                                </p>
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.number') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->income_transaction->account->name }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.number') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->income_transaction->account->number }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('accounts.bank_name') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->income_transaction->account->bank_name }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('general.phone') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->income_transaction->account->bank_phone }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                                            {{ trans('general.address') }}:
+                                        </td>
+
+                                        <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+                                            {{ $transfer->income_transaction->account->bank_address }}
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
-                    </table>
-                </td>
-            @endif
+                    </tbody>
+                </table>
+            </td>
         </tr>
-    </table>
-@endif
+    </tbody>
+</table>
+
+<table style="width: 100%; margin-top:15px;">
+    <tr>
+        <td style="padding:0 0 15px 0;">
+            <h2 class="text-left text-uppercase" style="font-size: 14px; font-weight:600;">
+                {{ trans_choice('transfers.details', 2) }}
+            </h2>
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
+            {{ trans('general.date') }}:
+        </td>
+
+        <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
+            <x-date date="{{ $transfer->expense_transaction->paid_at}}" />
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
+            {{ trans_choice('general.payment_methods', 1) }}:
+        </td>
+
+        <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
+            @if (! empty($payment_methods[$transfer->expense_transaction->payment_method]))
+                {!! $payment_methods[$transfer->expense_transaction->payment_method] !!}
+            @else
+                <x-empty-data />
+            @endif
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
+            {{ trans('general.reference') }}:
+        </td>
+
+        <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
+            {{ $transfer->expense_transaction->reference }}
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
+            {{ trans('general.description') }}
+        </td>
+
+        <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
+            {{ $transfer->expense_transaction->description }}
+        </td>
+    </tr>
+</table>
+
+<table style="text-align: right;">
+    <tr>
+        <td valign="center" style="width:80%; display:block; float:right;">
+            <table>
+                <tr>
+                    <td valign="center" style="width: 80%; padding:0; font-size: 14px; font-weight:600;">
+                        {{ trans('general.amount') }}:
+                    </td>
+
+                    <td valign="center" style="width: 20%; padding:0; font-size: 14px;">
+                        <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

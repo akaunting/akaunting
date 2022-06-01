@@ -2,11 +2,12 @@
 
 namespace App\Models\Auth;
 
-use App\Traits\Tenants;
+use Akaunting\Sortable\Traits\Sortable;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
 use App\Traits\Owners;
 use App\Traits\Sources;
+use App\Traits\Tenants;
 use App\Traits\Users;
 use App\Utilities\Date;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -14,7 +15,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Kyslik\ColumnSortable\Sortable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
@@ -65,11 +65,11 @@ class User extends Authenticatable implements HasLocalePreference
     {
         parent::boot();
 
-        static::retrieved(function($model) {
+        static::retrieved(function ($model) {
             $model->setCompanyIds();
         });
 
-        static::saving(function($model) {
+        static::saving(function ($model) {
             $model->unsetCompanyIds();
         });
     }
@@ -94,6 +94,10 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function getNameAttribute($value)
     {
+        if (empty($value)) {
+            return trans('general.na');
+        }
+
         return ucfirst($value);
     }
 
@@ -106,7 +110,7 @@ class User extends Authenticatable implements HasLocalePreference
         if (setting('default.use_gravatar', '0') == '1') {
             try {
                 // Check for gravatar
-                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
+                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))) . '?size=90&d=404';
 
                 $client = new \GuzzleHttp\Client(['verify' => false]);
 
@@ -142,14 +146,6 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
-     * Send reset link to user via email
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new Reset($token));
-    }
-
-    /**
      * Always capitalize the name when we save it to the database
      */
     public function setNameAttribute($value)
@@ -163,6 +159,14 @@ class User extends Authenticatable implements HasLocalePreference
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * Send reset link to user via email
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new Reset($token));
     }
 
     /**
@@ -292,6 +296,48 @@ class User extends Authenticatable implements HasLocalePreference
     public function preferredLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        if (user()->id == $this->id) {
+            return $actions;
+        }
+
+        if (! $this->hasPendingInvitation()) {
+            $actions[] = [
+                'title' => trans('general.edit'),
+                'icon' => 'edit',
+                'url' => route('users.edit', $this->id),
+                'permission' => 'update-auth-users',
+            ];
+        }
+
+        if ($this->hasPendingInvitation()) {
+            $actions[] = [
+                'title' => trans('general.resend') . ' ' . trans_choice('general.invitations', 1),
+                'icon' => 'replay',
+                'url' => route('users.invite', $this->id),
+                'permission' => 'update-auth-users',
+            ];
+        }
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'users.destroy',
+            'permission' => 'delete-auth-users',
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**

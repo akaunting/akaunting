@@ -1,0 +1,30 @@
+{
+    "ctrlKey": {
+        "Slash": "/common/reports",
+        "Backslash": "/"
+    },
+    "altKey": {
+        "Quote": "/sales/invoices/create",
+        "KeyB": "/purchases/bills/create",
+        "KeyR": "/sales/revenues/create",
+        "KeyP": "/purchases/payments/create",
+        "KeyC": "/sales/customers/create",
+        "KeyV": "/purchases/vendors/create",
+        "KeyN": "/common/items/create"
+    },
+    "char": {
+        "KeyP": "/print",
+        "KeyN": null,
+        "KeyC": null
+    },
+    "pages": {
+        "sales/invoices/": {
+            "KeyC":  null,
+            "KeyN": null
+        },
+        "purchases/bills/": {
+            "KeyC": "window.axios.get('http://software.test/1/modals/vendors/create')",
+            "KeyN": null
+        }
+    }
+} 

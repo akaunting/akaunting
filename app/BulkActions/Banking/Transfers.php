@@ -11,16 +11,25 @@ class Transfers extends BulkAction
 {
     public $model = Transfer::class;
 
+    public $text = 'general.transfers';
+
+    public $path = [
+        'group' => 'banking',
+        'type' => 'transfers',
+    ];
+
     public $actions = [
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.delete',
-            'permission' => 'delete-banking-transfers',
+        'delete'    => [
+            'icon'          => 'delete',
+            'name'          => 'general.delete',
+            'message'       => 'bulk_actions.message.delete',
+            'permission'    => 'delete-banking-transfers',
         ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-            'type' => 'download',
+        'export'    => [
+            'icon'          => 'file_download',
+            'name'          => 'general.export',
+            'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
         ],
     ];
 

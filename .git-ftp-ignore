@@ -1,0 +1,14 @@
+.gitignore
+.gitattributes
+.git-ftp-ignore
+.git-ftp-include
+.git-ftp-log
+.gitlab-ci.yml
+.ftpquota
+.git/*
+.github/*
+.public/js/*
+.vendor/*
+.node_modules/*
+
+composer.lock

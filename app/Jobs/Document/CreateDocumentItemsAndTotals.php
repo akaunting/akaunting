@@ -149,7 +149,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             'document_id' => $this->document->id,
             'code' => 'total',
             'name' => 'invoices.total',
-            'amount' =>  $this->request['amount'],
+            'amount' => $this->request['amount'],
             'sort_order' => $sort_order,
             'created_from' => $this->request['created_from'],
             'created_by' => $this->request['created_by'],
@@ -255,10 +255,12 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             $sub = (double) $item['price'] * (double) $item['quantity'];
 
             if (! empty($this->request['discount'])) {
-                if ($item['discount_type'] === 'percentage') {
-                    $sub -= ($sub * ($item['discount'] / 100));
-                } else {
-                    $sub -= $item['discount'];
+                if (isset($item['discount']) && isset($item['discount_type'])) {
+                    if ($item['discount_type'] === 'percentage') {
+                        $sub -= ($sub * ($item['discount'] / 100));
+                    } else {
+                        $sub -= $item['discount'];
+                    }
                 }
             }
 

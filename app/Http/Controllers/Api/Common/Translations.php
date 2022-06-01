@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Common;
 
 use App\Abstracts\Http\ApiController;
 use App\Models\Module\Module;
-use Dingo\Api\Http\Response;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -16,7 +15,7 @@ class Translations extends ApiController
      *
      * @param  string  $locale
      * @param  string  $file
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function file($locale, $file)
     {
@@ -34,7 +33,7 @@ class Translations extends ApiController
      * Display the specified resource.
      *
      * @param  string  $locale
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all($locale)
     {

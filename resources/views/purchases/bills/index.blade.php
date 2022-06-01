@@ -1,15 +1,25 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.bills', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.bills', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.bills', 2) }}"
+        icon="file_open"
+        route="bills.index"
+    ></x-slot>
 
-@section('new_button')
-    <x-documents.index.top-buttons type="bill" />
-@endsection
+    <x-slot name="buttons">
+        <x-documents.index.buttons type="bill" hide-accept-payment />
+    </x-slot>
 
-@section('content')
-    <x-documents.index.content type="bill" :documents="$bills" />
-@endsection
+    <x-slot name="moreButtons">
+        <x-documents.index.more-buttons type="bill" />
+    </x-slot>
 
-@push('scripts_start')
+    <x-slot name="content">
+        <x-documents.index.content type="bill" :documents="$bills" active-tab="bill" />
+    </x-slot>
+
     <x-documents.script type="bill" />
-@endpush
+</x-layouts.admin>

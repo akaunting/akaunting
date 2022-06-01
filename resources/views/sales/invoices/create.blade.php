@@ -1,11 +1,17 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => setting('invoice.title', trans_choice('general.invoices', 1))]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => setting('invoice.title', trans_choice('general.invoices', 1))]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => setting('invoice.title', trans_choice('general.invoices', 1))]) }}"
+        icon="description"
+        route="invoices.create"
+    ></x-slot>
 
-@section('content')
-    <x-documents.form.content type="invoice" />
-@endsection
+    <x-slot name="content">
+        <x-documents.form.content type="invoice" />
+    </x-slot>
 
-@push('scripts_start')
     <x-documents.script type="invoice" />
-@endpush
+</x-layouts.admin>

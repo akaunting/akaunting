@@ -110,7 +110,7 @@ const app = new Vue({
             if (data) {
                 this.update.total = parseInt((100 - ((this.update.steps.length / this.update.steps_total) * 100)).toFixed(0));
 
-                this.update.html = '<span class="text-default"><i class="fa fa-spinner fa-spin update-spin"></i> ' + data['text'] + '</span> </br>';
+                this.update.html = '<span class="text-default"><i class=""></i> ' + data['text'] + '</span> </br>';
 
                 let step_promise = Promise.resolve(axios.post(data.url, {
                     name: name,
@@ -123,7 +123,7 @@ const app = new Vue({
                 step_promise.then(response => {
                     if (response.data.error) {
                         this.update.status = 'exception';
-                        this.update.html = '<div class="text-danger"><i class="fa fa-times update-error"></i> ' + response.data.message + '</div>';
+                        this.update.html = '<div class="text-danger"><i class="submit-spin absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto"></i> ' + response.data.message + '</div>';
                     }
 
                     if (response.data.success) {

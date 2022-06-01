@@ -2,7 +2,8 @@
   <div
     @click="tryClose"
     data-notify="container"
-    class="alert alert-notify alert-dismissible"
+    class="alert alert-notify fixed flex items-center justify-between ltr:right-4 rtl:left-4 p-4 text-black font-bold rounded-lg z-30"
+    style="width: 500px;"
     :class="[
       { 'alert-with-icon': icon },
       verticalAlign,
@@ -13,16 +14,16 @@
     :style="customPosition"
     data-notify-position="top-center"
   >
+  <div class="flex items-center ltr:pr-3 rtl:pl-3">
     <template v-if="icon || $slots.icon">
       <slot name="icon">
-            <span class="alert-icon" data-notify="icon">
-              <i :class="icon"></i>
+            <span class="alert-icon flex items-center ltr:mr-2 rtl:ml-2" data-notify="icon">
+              <span class="material-icons text-2xl">{{ icon }}</span>
             </span>
       </slot>
     </template>
 
     <span class="alert-text">
-
       <span v-if="title" class="title">
         <b>{{ title }}<br/></b>
       </span>
@@ -32,10 +33,11 @@
         :component="component"
       ></content-render>
     </span>
+  </div>
 
     <slot name="dismiss-icon">
       <button type="button"
-              class="close"
+              class="close text-2xl"
               data-dismiss="alert"
               aria-label="Close"
               @click="close">
@@ -95,7 +97,7 @@
           ];
           return acceptedValues.indexOf(value) !== -1;
         },
-        description: 'Notification type of notification (default|info|primary|danger|warning|success)'
+        description: 'Notification type of notification (gray-300|blue-300|gray-300|red-300|orange-300|green-300)'
       },
       timeout: {
         type: Number,
@@ -131,7 +133,23 @@
     },
     data() {
       return {
-        elmHeight: 0
+        elmHeight: 0,
+        typeByClass: {
+          'default': 'black-100',
+          'info':    'blue-100',
+          'primary': 'black-100',
+          'danger':  'red-100',
+          'warning': 'orange-100',
+          'success': 'green-100',
+        },
+        textByClass: {
+          'default': 'black-600',
+          'info':    'blue-600',
+          'primary': 'black-600',
+          'danger':  'red-600',
+          'warning': 'orange-600',
+          'success': 'green-600',
+        }
       };
     },
     computed: {
@@ -139,7 +157,7 @@
         return this.icon && this.icon.length > 0;
       },
       alertType() {
-        return `alert-${this.type}`;
+        return `bg-${this.typeByClass[this.type]} text-${this.textByClass[this.type]}`;
       },
       customPosition() {
         let initialMargin = 20;
@@ -185,23 +203,3 @@
     }
   };
 </script>
-<style lang="scss">
-  .notifications .alert {
-    position: fixed;
-    z-index: 10000;
-
-    &[data-notify='container'] {
-      max-width: 500px;
-    }
-
-    &.center {
-      margin: 0 auto;
-    }
-    &.left {
-      left: 20px;
-    }
-    &.right {
-      right: 20px;
-    }
-  }
-</style>

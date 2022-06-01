@@ -27,6 +27,8 @@ class SampleData extends Seeder
         $count = (int) $this->command->option('count');
         $small_count = ($count <= 10) ? $count : 10;
 
+        $company = (int) $this->command->option('company');
+
         $this->command->info('Creating sample data...');
 
         $bar = $this->command->getOutput()->createProgressBar(7);
@@ -34,25 +36,25 @@ class SampleData extends Seeder
 
         $bar->start();
 
-        Contact::factory()->count($count)->create();
+        Contact::factory()->company($company)->count($count)->create();
         $bar->advance();
 
-        Category::factory()->count($count)->create();
+        Category::factory()->company($company)->count($count)->create();
         $bar->advance();
 
-        Tax::factory()->count($small_count)->enabled()->create();
+        Tax::factory()->company($company)->count($small_count)->enabled()->create();
         $bar->advance();
 
-        Item::factory()->count($count)->create();
+        Item::factory()->company($company)->count($count)->create();
         $bar->advance();
 
-        Account::factory()->count($small_count)->create();
+        Account::factory()->company($company)->count($small_count)->create();
         $bar->advance();
 
-        Document::factory()->bill()->count($count)->create();
+        Document::factory()->company($company)->bill()->count($count)->create();
         $bar->advance();
 
-        Document::factory()->invoice()->count($count)->create();
+        Document::factory()->company($company)->invoice()->count($count)->create();
         $bar->advance();
 
         $bar->finish();

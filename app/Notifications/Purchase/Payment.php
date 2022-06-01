@@ -3,9 +3,10 @@
 namespace App\Notifications\Purchase;
 
 use App\Abstracts\Notification;
-use App\Models\Common\EmailTemplate;
+use App\Models\Setting\EmailTemplate;
 use App\Traits\Transactions;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class Payment extends Notification
 {
@@ -21,7 +22,7 @@ class Payment extends Notification
     /**
      * The email template.
      *
-     * @var \App\Models\Common\EmailTemplate
+     * @var EmailTemplate
      */
     public $template;
 
@@ -78,6 +79,8 @@ class Payment extends Notification
     {
         return [
             'template_alias' => $this->template->alias,
+            'title' => trans('notifications.menu.' . $this->template->alias . '.title'),
+            'description' => trans('notifications.menu.' . $this->template->alias . '.description', $this->getTagsBinding()),
             'payment_id' => $this->payment->id,
             'vendor_name' => $this->payment->contact->name,
             'amount' => $this->payment->amount,

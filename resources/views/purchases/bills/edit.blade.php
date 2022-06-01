@@ -1,11 +1,19 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.edit', ['type' => trans_choice('general.bills', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.bills', 1)]))
+    <x-slot name="content">
+        <x-documents.form.content
+            type="bill"
+            :document="$bill"
+            hide-company
+            hide-footer
+            hide-edit-item-columns
+            hide-send-to
+            is-purchase-price
+        />
+    </x-slot>
 
-@section('content')
-    <x-documents.form.content type="bill" :document="$bill" hide-company hide-footer hide-edit-item-columns is-purchase-price />
-@endsection
-
-@push('scripts_start')
-    <x-documents.script type="bill" :items="$bill->items()->get()" />
-@endpush
+    <x-documents.script type="bill" :document="$bill" :items="$bill->items()->get()" />
+</x-layouts.admin>

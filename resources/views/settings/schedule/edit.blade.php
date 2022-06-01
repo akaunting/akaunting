@@ -1,54 +1,62 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('settings.scheduling.name') }}</x-slot>
 
-@section('title', trans('settings.scheduling.name'))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" route="settings.schedule.update">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.invoices', 1) }}" description="{{ trans('settings.scheduling.form_description.invoice') }}" />
+                    </x-slot>
 
-@section('content')
-    {!! Form::open([
-        'id' => 'setting',
-        'method' => 'PATCH',
-        'route' => 'settings.update',
-        '@submit.prevent' => 'onSubmit',
-        '@keydown' => 'form.errors.clear($event.target.name)',
-        'files' => true,
-        'role' => 'form',
-        'class' => 'form-loading-button',
-        'novalidate' => true,
-    ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.toggle name="send_invoice_reminder" label="{{ trans('settings.scheduling.send_invoice') }}" :value="setting('schedule.send_invoice_reminder')" not-required />
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                {{ Form::radioGroup('send_invoice_reminder', trans('settings.scheduling.send_invoice'), setting('schedule.send_invoice_reminder')) }}
+                        <x-form.group.text name="invoice_days" label="{{ trans('settings.scheduling.invoice_days') }}" value="{{ setting('schedule.invoice_days') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::textGroup('invoice_days', trans('settings.scheduling.invoice_days'), 'calendar', [], setting('schedule.invoice_days')) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.bills', 1) }}" description="{{ trans('settings.scheduling.form_description.bill') }}" />
+                    </x-slot>
 
-                {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill'), setting('schedule.send_bill_reminder')) }}
+                    <x-slot name="body">
+                        <x-form.group.toggle name="send_bill_reminder" label="{{ trans('settings.scheduling.send_bill') }}" :value="setting('schedule.send_bill_reminder')" not-required />
 
-                {{ Form::textGroup('bill_days', trans('settings.scheduling.bill_days'), 'calendar', [], setting('schedule.bill_days')) }}
+                        <x-form.group.text name="bill_days" label="{{ trans('settings.scheduling.bill_days') }}" value="{{ setting('schedule.bill_days') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-                <div class="col-sm-6">
-                    <label for="cron_command" class="form-control-label">{{ trans('settings.scheduling.cron_command') }}</label>
-                    <input type="text" class="form-control form-control-muted" value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
-                </div>
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('settings.scheduling.cron_command') }}" description="{{ trans('settings.scheduling.form_description.cron') }}" />
+                    </x-slot>
 
-                {{ Form::textGroup('time', trans('settings.scheduling.schedule_time'), 'clock', [], setting('schedule.time')) }}
-            </div>
-        </div>
+                    <x-slot name="body">
+                        <div class="sm:col-span-6">
+                            <label for="cron_command" class="form-control-label">
+                                {{ trans('settings.scheduling.command') }}
+                            </label>
+                            <input type="text" class="form-element form-element-muted" disabled value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
+                        </div>
 
-        @can('update-settings-settings')
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('settings.index') }}
-                </div>
-            </div>
-        @endcan
-    </div>
+                        <x-form.group.text name="time" label="{{ trans('settings.scheduling.schedule_time') }}" value="{{ setting('schedule.time') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-    {!! Form::hidden('_prefix', 'schedule') !!}
+                @can('update-settings-schedule')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
 
-    {!! Form::close() !!}
-@endsection
+                <x-form.input.hidden name="_prefix" value="schedule" />
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

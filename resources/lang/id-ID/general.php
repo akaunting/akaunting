@@ -52,8 +52,6 @@ return [
     'sales'                 => 'Penjualan|Penjualan',
     'purchases'             => 'Pembelian|Pembelian',
     'notifications'         => 'Notifikasi|Notifikasi',
-    'countries'             => 'Negara|Negara',
-    'cities'                => 'Kota|Kota',
 
     'welcome'               => 'Selamat datang',
     'banking'               => 'Perbankan',
@@ -166,8 +164,6 @@ return [
     'amount_due'            => 'Nilai jatuh tempo',
     'financial_year'        => 'Tahun Keuangan',
     'created'               => 'Dibuat',
-    'state'                 => 'Provinsi',
-    'zip_code'              => 'Kode Pos',
 
     'card' => [
         'cards'                 => 'Kartu|Kartu',

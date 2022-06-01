@@ -3,9 +3,12 @@
 namespace App\Notifications\Sale;
 
 use App\Abstracts\Notification;
-use App\Models\Common\EmailTemplate;
+use App\Models\Setting\EmailTemplate;
+use App\Models\Document\Document;
 use App\Traits\Documents;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class Invoice extends Notification
 {
@@ -21,7 +24,7 @@ class Invoice extends Notification
     /**
      * The email template.
      *
-     * @var \App\Models\Common\EmailTemplate
+     * @var EmailTemplate
      */
     public $template;
 
@@ -34,29 +37,29 @@ class Invoice extends Notification
 
     /**
      * Create a notification instance.
-     *
-     * @param  object  $invoice
-     * @param  object  $template_alias
-     * @param  object  $attach_pdf
      */
-    public function __construct($invoice = null, $template_alias = null, $attach_pdf = false)
+    public function __construct(Document $invoice = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [])
     {
         parent::__construct();
 
         $this->invoice = $invoice;
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
+        $this->custom_mail = $custom_mail;
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
-        $message = $this->initMessage();
+        if (!empty($this->custom_mail['to'])) {
+            $notifiable->email = $this->custom_mail['to'];
+        }
+
+        $message = $this->initMailMessage();
 
         // Attach the PDF file
         if ($this->attach_pdf) {
@@ -72,12 +75,13 @@ class Invoice extends Notification
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'template_alias' => $this->template->alias,
+            'title' => trans('notifications.menu.' . $this->template->alias . '.title'),
+            'description' => trans('notifications.menu.' . $this->template->alias . '.description', $this->getTagsBinding()),
             'invoice_id' => $this->invoice->id,
             'invoice_number' => $this->invoice->document_number,
             'customer_name' => $this->invoice->contact_name,
@@ -88,7 +92,7 @@ class Invoice extends Notification
         ];
     }
 
-    public function getTags()
+    public function getTags(): array
     {
         return [
             '{invoice_number}',
@@ -108,7 +112,7 @@ class Invoice extends Notification
         ];
     }
 
-    public function getTagsReplacement()
+    public function getTagsReplacement(): array
     {
         return [
             $this->invoice->document_number,

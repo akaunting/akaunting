@@ -1,5 +1,5 @@
 <template>
-    <div :id="'dropzone-' + _uid" class="dropzone mb-3 dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple']">
+    <div :id="'dropzone-' + _uid" class="dropzone dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple', singleWidthClasses ? 'w-full': 'w-37']">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
@@ -11,39 +11,40 @@
         <div v-if="preview == 'single'" class="dz-preview dz-preview-single" :class="previewClasses" ref="previewSingle">
             <div class="dz-preview-cover">
                 <img class="dz-preview-img" data-dz-thumbnail>
-                <i class="fas fa-file-image display-3 fa-2x mt-2 d-none" data-dz-thumbnail-image></i>
-                <i class="far fa-file-pdf display-3 fa-2x mt-2 d-none" data-dz-thumbnail-pdf></i>
-                <i class="far fa-file-word fa-2x mt-2 d-none" data-dz-thumbnail-word></i>
-                <i class="far fa-file-excel fa-2x mt-2 d-none" data-dz-thumbnail-excel></i>
-                <span class="mb-1 d-none" data-dz-name>...</span>
+                <span class="material-icons hidden" data-dz-thumbnail-image>crop_original</span>
+                <span class="material-icons-outlined avatar hidden">file_present</span>
+                <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-pdf>picture_as_pdf</span>
+                <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-word>content_paste</span>
+                <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-excel>table_chart</span>                
+                <span class="mb-1 text-sm ml-3 text-gray-500 hidden" data-dz-name>...</span>
             </div>
         </div>
 
         <ul v-else class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush" :class="previewClasses" ref="previewMultiple">
-            <li class="list-group-item px-0">
-                <div class="row align-items-center">
-                    <div class="col-auto">
+            <li class="list-group-item border-b py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
                         <div class="avatar">
                             <img class="avatar-img rounded" data-dz-thumbnail>
-                            <i class="fas fa-file-image display-3 d-none" data-dz-thumbnail-image></i>
-                            <i class="far fa-file-pdf display-3 d-none" data-dz-thumbnail-pdf></i>
-                            <i class="far fa-file-word d-none" data-dz-thumbnail-word></i>
-                            <i class="far fa-file-excel d-none" data-dz-thumbnail-excel></i>
+                            <span class="material-icons hidden" data-dz-thumbnail-image>crop_original</span>
+                            <span class="material-icons-outlined display-3 hidden" data-dz-thumbnail-pdf>picture_as_pdf</span>
+                            <span class="material-icons-outlined hidden" data-dz-thumbnail-word>content_paste</span>
+                            <span class="material-icons-outlined hidden" data-dz-thumbnail-excel>table_chart</span>  
+                        </div>
+
+                        <div class="col text-gray-500 ml-3">
+                            <h4 class="text-sm mb-1" data-dz-name>...</h4>
+
+                            <p class="text-xs text-muted mb-0" data-dz-size>...</p>
                         </div>
                     </div>
 
-                    <div class="col ml--3">
-                        <h4 class="mb-1" data-dz-name>...</h4>
-
-                        <p class="small text-muted mb-0" data-dz-size>...</p>
-                    </div>
-
-                    <div class="col-auto">
+                    <div class="gap-x-1">
                         <button data-dz-remove="true" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i>
+                            <span class="material-icons text-base text-red">delete</span>
                         </button>
-                        <a href="#" type="button" class="btn btn-sm btn-info text-white d-none" data-dz-download>
-                            <i class="fas fa-file-download"></i>
+                        <a href="#" type="button" class="btn btn-sm btn-info hidden" data-dz-download>
+                            <span class="material-icons-round text-base">download</span>
                         </a>
                     </div>
                 </div>
@@ -72,7 +73,7 @@ export default {
             description: 'Choose file text'
         },
         options: {
-            type: Object,
+            type: [Object, Array],
             default: () => ({})
         },
         value: [String, Object, Array, File],
@@ -86,6 +87,10 @@ export default {
             description: 'Multiple file Upload'
         },
         previewClasses: [String, Object, Array],
+        singleWidthClasses: {
+            type: [Boolean, String],
+            default: false
+        },
         preview: {
             type: String,
             default: function () {
@@ -146,17 +151,17 @@ export default {
                         if (file.type.indexOf("image") == -1) {
                             let ext = file.name.split('.').pop();
 
-                            file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("d-none");
-                            file.previewElement.querySelector("[data-dz-name]").classList.remove("d-none");
+                            file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("hidden");
+                            file.previewElement.querySelector("[data-dz-name]").classList.remove("hidden");
 
                             if (ext == "pdf") {
-                                file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("d-none");
+                                file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("hidden");
                             } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("d-none");
+                                file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("hidden");
                             } else if ((ext.indexOf("xls") != -1) || (ext.indexOf("xlsx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("d-none");
+                                file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("hidden");
                             } else {
-                                file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("d-none");
+                                file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("hidden");
                             }
                         }
                     }),
@@ -208,7 +213,7 @@ export default {
                             self.files.forEach(async (attachment) => {
                                 if (attachment.download) {
                                     attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
-                                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
+                                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("hidden");
                                 }
                             });
 
@@ -253,7 +258,7 @@ export default {
             this.files.forEach(async (attachment) => {
                 if (attachment.download) {
                     attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
-                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("d-none");
+                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("hidden");
                 }
         });
 
@@ -271,4 +276,7 @@ export default {
 </script>
 
 <style>
+    .avatar.hidden {
+        display: none;
+    }
 </style>

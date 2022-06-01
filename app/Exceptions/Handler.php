@@ -2,11 +2,16 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Http\Resource as ResourceException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -55,8 +60,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($request->isApi()) {
+            return $this->handleApiExceptions($request, $exception);
+        }
+
         if (config('app.debug') === false) {
-            return $this->handleExceptions($request, $exception);
+            return $this->handleWebExceptions($request, $exception);
         }
 
         return parent::render($request, $exception);
@@ -81,7 +90,7 @@ class Handler extends ExceptionHandler
             : redirect()->to($exception->redirectTo() ?? route('login'));
     }
 
-    private function handleExceptions($request, $exception)
+    protected function handleWebExceptions($request, $exception)
     {
         if ($exception instanceof NotFoundHttpException) {
             // ajax 404 json feedback
@@ -136,5 +145,143 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $exception);
+    }
+
+    protected function handleApiExceptions($request, $exception): Response
+    {
+        $replacements = $this->prepareApiReplacements($exception);
+
+        $response = config('api.error_format');
+
+        array_walk_recursive($response, function (&$value, $key) use ($replacements) {
+            if (Str::startsWith($value, ':') && isset($replacements[$value])) {
+                $value = $replacements[$value];
+            }
+        });
+
+        $response = $this->recursivelyRemoveEmptyApiReplacements($response);
+
+        return new Response($response, $this->getStatusCode($exception), $this->getHeaders($exception));
+    }
+
+    /**
+     * Prepare the replacements array by gathering the keys and values.
+     *
+     * @param Throwable $exception
+     *
+     * @return array
+     */
+    protected function prepareApiReplacements(Throwable $exception): array
+    {
+        $code = $this->getStatusCode($exception);
+
+        if (! $message = $exception->getMessage()) {
+            $message = sprintf('%d %s', $code, Response::$statusTexts[$code]);
+        }
+
+        $replacements = [
+            ':message' => $message,
+            ':status_code' => $code,
+        ];
+
+        if ($exception instanceof ResourceException && $exception->hasErrors()) {
+            $replacements[':errors'] = $exception->getErrors();
+        }
+
+        if ($exception instanceof ValidationException) {
+            $replacements[':errors'] = $exception->errors();
+            $replacements[':status_code'] = $exception->status;
+        }
+
+        if ($code = $exception->getCode()) {
+            $replacements[':code'] = $code;
+        }
+
+        if (config('api.debug')) {
+            $replacements[':debug'] = [
+                'line' => $exception->getLine(),
+                'file' => $exception->getFile(),
+                'class' => get_class($exception),
+                'trace' => explode("\n", $exception->getTraceAsString()),
+            ];
+
+            // Attach trace of previous exception, if exists
+            if (! is_null($exception->getPrevious())) {
+                $currentTrace = $replacements[':debug']['trace'];
+
+                $replacements[':debug']['trace'] = [
+                    'previous' => explode("\n", $exception->getPrevious()->getTraceAsString()),
+                    'current' => $currentTrace,
+                ];
+            }
+        }
+
+        return $replacements;
+    }
+
+    /**
+     * Recursively remove any empty replacement values in the response array.
+     *
+     * @param array $input
+     *
+     * @return array
+     */
+    protected function recursivelyRemoveEmptyApiReplacements(array $input)
+    {
+        foreach ($input as &$value) {
+            if (is_array($value)) {
+                $value = $this->recursivelyRemoveEmptyApiReplacements($value);
+            }
+        }
+
+        return array_filter($input, function ($value) {
+            if (is_string($value)) {
+                return ! Str::startsWith($value, ':');
+            }
+
+            return true;
+        });
+    }
+
+    /**
+     * Get the status code from the exception.
+     *
+     * @param Throwable $exception
+     *
+     * @return int
+     */
+    protected function getStatusCode(Throwable $exception): int
+    {
+        $code = null;
+
+        if ($exception instanceof ValidationException) {
+            $code = $exception->status;
+        } elseif ($exception instanceof HttpExceptionInterface) {
+            $code = $exception->getStatusCode();
+        } else {
+            // By default throw 500
+            $code = 500;
+        }
+
+        // Be extra defensive
+        if ($code < 100 || $code > 599) {
+            $code = 500;
+        }
+
+        return $code;
+    }
+
+    /**
+     * Get the headers from the exception.
+     *
+     * @param Throwable $exception
+     *
+     * @return array
+     */
+    protected function getHeaders(Throwable $exception): array
+    {
+        return ($exception instanceof HttpExceptionInterface)
+                ? $exception->getHeaders()
+                : [];
     }
 }

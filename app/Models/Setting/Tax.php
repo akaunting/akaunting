@@ -45,7 +45,7 @@ class Tax extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\Common\Item');
+        return $this->hasMany('App\Models\Common\ItemTax');
     }
 
     public function document_items()
@@ -134,6 +134,33 @@ class Tax extends Model
         $title .= ')';
 
         return $title;
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('taxes.edit', $this->id),
+            'permission' => 'update-settings-taxes',
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'taxes.destroy',
+            'permission' => 'delete-settings-taxes',
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**

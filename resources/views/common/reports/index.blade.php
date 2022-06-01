@@ -1,91 +1,90 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans_choice('general.reports', 2) }}</x-slot>
 
-@section('title', trans_choice('general.reports', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.reports', 2) }}"
+        icon="donut_small"
+        route="reports.index"
+    ></x-slot>
 
-@section('new_button')
-    @can('create-common-reports')
-        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endcan
-@endsection
+    <x-slot name="buttons">
+        @can('create-common-reports')
+            <x-link href="{{ route('reports.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.reports', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-    <div class="row mb-4">
-        @foreach($categories as $name => $reports)
-            <div class="col-md-12">
-                <h3>{{ $name }}</h3>
-            </div>
+    <x-slot name="content">
+        <livewire:report.pins :categories="$categories" />
 
-            @foreach($reports as $report)
-                <div class="col-md-4">
-                    <div class="card card-stats">
-                        @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
-                            <a class="btn btn-sm items-align-center py-2 mr-0 card-action-button shadow-none--hover" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-v text-primary"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                @can('update-common-reports')
-                                    <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
-                                @endcan
-
-                                @can('create-common-reports')
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
-                                @endcan
-
-                                @can('delete-common-reports')
-                                    <div class="dropdown-divider"></div>
-                                    {!! Form::deleteLink($report, 'reports.destroy') !!}
-                                @endcan
-                            </div>
-                        @endcanany
-
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <a href="{{ route('reports.show', $report->id) }}">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">{{ $report->name }}</h5>
-                                    </a>
-
-                                    <div class="d-flex align-items-center">
-                                        <a href="{{ route('reports.show', $report->id) }}">
-                                            <h2 class="font-weight-bold mb-0" v-if="reports_total[{{ $report->id }}]" v-html="reports_total[{{ $report->id }}]"></h2>
-                                            <h2 class="font-weight-bold mb-0" v-else>{{ $totals[$report->id] }}</h2>
-                                        </a>
-    
-                                        <button type="button" @click="onRefreshTotal('{{ $report->id }}')" class="btn btn-otline-primary btn-sm ml-2">
-                                            <i class="fas fa-redo"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="col-auto">
-                                    <a href="{{ route('reports.show', $report->id) }}">
-                                        <div class="icon icon-shape bg-orange text-white rounded-circle shadow">
-                                            <i class="{{ $icons[$report->id] }}"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <p class="mt-3 mb-0 text-sm">
-                                <a class="text-default" href="{{ route('reports.show', $report->id) }}">
-                                    <span class="pre">{{ $report->description }}</span>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
+        @foreach ($categories as $category)
+            @php $category_id = $loop->index; @endphp
+            <div
+                @class([
+                    'mb-14',
+                    'mt-4' => (! $loop->first) ? false : true,
+                    'mt-12' => ($loop->first) ? false : true,
+                ])
+            >
+                <div class="px-2">
+                    <x-form.section.head title="{!! $category['name'] !!}" description="{{ $category['description'] }}" />
                 </div>
-            @endforeach
 
+                <div class="grid sm:grid-cols-6 gap-12 my-3.5">
+                    @foreach($category['reports'] as $report)
+                        <div class="flex justify-between sm:col-span-3 p-1 group">
+                            <div class="lg:w-80">
+                                <a href="{{ route('reports.show', $report->id) }}" class="flex">
+                                    <span class="material-icons-outlined text-5xl transform transition-all hover:scale-125">
+                                        {{ $icons[$report->id] }}
+                                    </span>
+    
+                                    <div class="ltr:ml-2 rtl:mr-2">
+                                        <h2 class="mb-1">
+                                            <span class="border-b border-transparent transition-all group-hover:border-black">
+                                                {{ $report->name }}
+                                            </span>
+                                        </h2>
+
+                                        <span class="text-black-400 text-sm">{{ $report->description }}</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="flex items-start">
+                                <livewire:report.pin :categories="$categories" :report-id="$report->id" />
+
+                                @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
+                                <x-dropdown id="widget-{{ $category_id }}-{{ $report->id }}">
+                                    <x-slot name="trigger" class="flex" override="class">
+                                        <span class="material-icons-outlined text-purple text-lg px-1 py-0.5 cursor-pointer hover:bg-gray-100 hover:rounded-lg hover:shadow-md">more_vert</span>
+                                    </x-slot>
+
+                                    @can('update-common-reports')
+                                        <x-dropdown.link href="{{ route('reports.edit', $report->id) }}">
+                                            {{ trans('general.edit') }}
+                                        </x-dropdown.link>
+                                    @endcan
+
+                                    @can('create-common-reports')
+                                        <x-dropdown.link href="{{ route('reports.duplicate', $report->id) }}">
+                                            {{ trans('general.duplicate') }}
+                                        </x-dropdown.link>
+                                    @endcan
+
+                                    @can('delete-common-reports')
+                                        <x-delete-link :model="$report" route="reports.destroy" />
+                                    @endcan
+                                </x-dropdown>
+                                @endcanany
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         @endforeach
-    </div>
-@endsection
+    </x-slot>
 
-@push('scripts_start')
-    <script type="text/javascript">
-        var reports_total = {!! json_encode($totals) !!};
-    </script>
-
-    <script src="{{ asset('public/js/common/reports.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="common" file="reports" />
+</x-layouts.admin>

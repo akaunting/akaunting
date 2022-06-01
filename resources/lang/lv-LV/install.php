@@ -17,11 +17,10 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => ':iezīme ir jāiespējo!',
-        'disabled'          => ':iezīmee ir jāatspējo!',
-        'extension'         => ':paplašinājumi nepieciešams ielādēt!',
-        'directory'         => ':direktorijs direktorijai jābūt rakstīšanas tiesībām!',
-        'executable'        => 'PHP CLI izpildāmais fails nav definēts/nedarbojas vai tā versija nav :php_version vai augstāka! Lūdziet savam uzturētājuzņēmumam uzstatīt PHP_BINARY vai PHP_PATH vides mainīgo pareizi.',
+        'enabled'           => ':feature ir jāiespējo!',
+        'disabled'          => ':feature ir jāatspējo!',
+        'extension'         => ':extension nepieciešams ielādēt',
+        'directory'         => ':directory direktorijai jābūt rakstīšanas tiesībām!',
     ],
 
     'database' => [
@@ -39,7 +38,6 @@ return [
     ],
 
     'error' => [
-        'php_version'       => 'Kļūda: lūdziet uzturētājuzņēmumu izmantot PHP: php_version vai jaunāku versiju gan HTTP, gan CLI.',
         'connection'        => 'Kļūda: Nevar savienoties ar datubāzi. Lūdzu pārliecinies, ka dati ir pareizi.',
     ],
 

@@ -1,59 +1,61 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans_choice('general.companies', 1) }}</x-slot>
 
-@section('title', trans_choice('general.companies', 1))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="setting" method="PATCH" route="settings.company.update">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('settings.company.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    {!! Form::open([
-        'id' => 'setting',
-        'method' => 'PATCH',
-        'route' => 'settings.update',
-        '@submit.prevent' => 'onSubmit',
-        '@keydown' => 'form.errors.clear($event.target.name)',
-        'files' => true,
-        'role' => 'form',
-        'class' => 'form-loading-button',
-        'novalidate' => true
-    ]) !!}
+                    <x-slot name="body">
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 grid-rows-4">
+                            <x-form.group.text name="name" label="{{ trans('settings.company.name') }}" value="{{ setting('company.name') }}" />
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                {{ Form::textGroup('name', trans('settings.company.name'), 'building', ['required' => 'required'], setting('company.name')) }}
+                            <x-form.group.text name="email" label="{{ trans('settings.company.email') }}" value="{{ setting('company.email') }}" />
 
-                {{ Form::textGroup('email', trans('settings.company.email'), 'envelope', ['required' => 'required'], setting('company.email')) }}
+                            <x-form.group.text name="phone" label="{{ trans('settings.company.phone') }}" value="{{ setting('company.phone') }}" not-required />
 
-                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], setting('company.tax_number')) }}
+                            <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" value="{{ setting('company.tax_number') }}" not-required />
+                        </div>
 
-                {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], setting('company.phone')) }}
+                        <div class="sm:col-span-3">
+                            <x-form.group.file name="logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" not-required />
+                        </div>
+                    </x-slot>
+                </x-form.section>
 
-                {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.address') }}" description="{{ trans('settings.company.form_description.address') }}" />
+                    </x-slot>
 
-                {{ Form::textGroup('city', trans_choice('general.cities', 1), 'city', [], setting('company.city')) }}
+                    <x-slot name="body">
+                        <x-form.group.textarea name="address" label="{{ trans('settings.company.address') }}" :value="setting('company.address')" />
 
-                {{ Form::textGroup('zip_code', trans('general.zip_code'), 'mail-bulk', [], setting('company.zip_code')) }}
+                        <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ setting('company.city') }}" not-required />
 
-                {{ Form::textGroup('state', trans('general.state'), 'city', [], setting('company.state')) }}
+                        <x-form.group.text name="zip_code" label="{{ trans('general.zip_code') }}" value="{{ setting('company.zip_code') }}" not-required />
 
-                {{ Form::selectGroup('country', trans_choice('general.countries', 1), 'globe-americas', trans('countries'), setting('company.country'), []) }}
+                        <x-form.group.text name="state" label="{{ trans('general.state') }}" value="{{ setting('company.state') }}" not-required />
 
-                {{ Form::fileGroup('logo', trans('settings.company.logo'), 'file-image-o', [], setting('company.logo')) }}
-            </div>
-        </div>
+                        <x-form.group.country />
+                    </x-slot>
+                </x-form.section>
 
-        @can('update-settings-settings')
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('settings.index') }}
-                </div>
-            </div>
-        @endcan
-    </div>
+                @can('update-settings-company')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons :cancel="url()->previous()" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
 
-    {!! Form::hidden('_prefix', 'company') !!}
+                <x-form.input.hidden name="_prefix" value="company" />
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-    {!! Form::close() !!}
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="settings" file="settings" />
+</x-layouts.admin>

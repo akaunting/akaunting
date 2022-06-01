@@ -1,38 +1,35 @@
-@extends('layouts.modules')
+<x-layouts.modules>
+    <x-slot name="title">
+        {{ trans('modules.api_key') }}
+    </x-slot>
 
-@section('title', trans('modules.api_key'))
+    <x-slot name="buttons">
+        <x-link href="{{ route('apps.api-key.create') }}">
+            {{ trans('modules.api_key') }}
+        </x-link>
 
-@section('content')
-    <div class="card">
-        {!! Form::open([
-            'route' => 'apps.api-key.store',
-            'id' => 'form-app',
-            '@submit.prevent' => 'onSubmit',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button'
-        ]) !!}
+        <x-link href="{{ route('apps.my.index') }}">
+            {{ trans('modules.my_apps') }}
+        </x-link>
+    </x-slot>
 
-            <div class="card-body">
-                <div class="row">
-                    {{ Form::textGroup('api_key', trans('modules.api_key'), 'key', ['required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])], setting('apps.api_key', null), 'col-sm-12') }}
+    <x-slot name="content" without-bar>
+        <x-form id="form-app" route="apps.api-key.store">
+            <div class="w-1/2">
+                <div class="py-8 flex flex-col gap-2">
+                    <x-form.group.text name="api_key" placeholder="{{ trans('general.form.enter', ['field' => trans('modules.api_key')]) }}" value="{{ setting('apps.api_key', null) }}" />
 
-                    <div class="col-sm-12">
-                            <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
+                    <div class="text-xs">
+                        {!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}
                     </div>
                 </div>
-            </div>
 
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('apps.home.index') }}
+                <div>
+                    <x-form.buttons cancel-route="apps.home.index" without-cancel />
                 </div>
             </div>
+        </x-form>
+    </x-slot>
 
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('scripts_start')
-    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
-@endpush
+    <x-script folder="modules" file="apps" />
+</x-layouts.modules>

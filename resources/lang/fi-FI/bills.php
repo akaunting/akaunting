@@ -4,7 +4,6 @@ return [
 
     'bill_number'           => 'Laskunumero',
     'bill_date'             => 'Laskun päiväys',
-    'bill_amount'           => 'Laskun summa',
     'total_price'           => 'Kokonaishinta',
     'due_date'              => 'Eräpäivä',
     'order_number'          => 'Tilausnumero',

@@ -1,9 +1,13 @@
-@extends('layouts.install')
+<x-layouts.install>
+    <x-slot name="title">
+        {{ trans('install.steps.requirements') }}
+    </x-slot>
 
-@section('header', trans('install.steps.requirements'))
+    <x-slot name="content"></x-slot>
 
-@push('scripts_start')
+    @push('scripts_start')
     <script type="text/javascript">
         var flash_requirements = {!! ($requirements) ? json_encode($requirements) : '[]' !!};
     </script>
-@endpush
+    @endpush
+</x-layouts.install>

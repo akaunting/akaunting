@@ -28,7 +28,28 @@ const app = new Vue({
     data: function () {
         return {
             form: new Form('user'),
-            bulk_action: new BulkAction('users')
+            bulk_action: new BulkAction('users'),
+            show_password: false,
         }
+    },
+
+    mounted() {
+       this.form.password = '';
+    },
+
+    methods: {
+        onChangePassword(event) {
+            if (this.show_password == false) {
+                event.target.closest('.grid-rows-3').classList.replace('grid-rows-3', 'grid-rows-4');
+                event.target.closest('.grid-rows-4').nextElementSibling.classList.replace('grid-rows-3', 'grid-rows-4');
+
+                this.show_password = true;
+            } else {
+                event.target.closest('.grid-rows-4').classList.replace('grid-rows-4', 'grid-rows-3');
+                event.target.closest('.grid-rows-3').nextElementSibling.classList.replace('grid-rows-4', 'grid-rows-3');
+
+                this.show_password = false;
+            }
+        },
     }
 });

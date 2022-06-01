@@ -51,7 +51,7 @@ class ExportCompleted extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(trans('notifications.export.completed.subject'))
+            ->subject(trans('notifications.export.completed.title'))
             ->line(trans('notifications.export.completed.description'))
             ->action(trans('general.download'), $this->download_url);
     }
@@ -65,6 +65,11 @@ class ExportCompleted extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'title' => trans('notifications.menu.export_completed.title'),
+            'description' => trans('notifications.menu.export_completed.description', [
+                'type'  => $this->translation,
+                'url'   => $this->download_url,
+            ]),
             'translation' => $this->translation,
             'file_name' => $this->file_name,
             'download_url' => $this->download_url,
