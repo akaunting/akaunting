@@ -326,7 +326,7 @@ return [
             'translation' => [
                 'prefix'            => 'transactions', // this translation file name.
                 'new'               => 'general.recurring_incomes',
-                'transactions'      => 'general.expenses',
+                'transactions'      => 'general.incomes',
             ],
             'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
             'script' => [
@@ -377,7 +377,9 @@ return [
                 //'create'          => 'create-banking-transactions',
             ],
             'translation' => [
+                'prefix'            => 'transactions', // this translation file name.
                 'new'               => 'general.recurring_expenses',
+                'transactions'      => 'general.expenses',
             ],
             'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
             'script' => [

@@ -296,7 +296,7 @@
         <div class="row mt-4">
             <div class="col-100 text-left">
                 <div class="text">
-                    <strong>{!! nl2br($document->footer) !!}<strong>
+                    <strong>{!! nl2br($document->footer) !!}</strong>
                 </div>
             </div>
         </div>
