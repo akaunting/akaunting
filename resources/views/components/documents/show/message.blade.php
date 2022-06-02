@@ -10,7 +10,7 @@
             $textColor
         ])
     >
-        {!! $message !!}
+        {!! html_entity_decode($message) !!}
     </p>
 </div>
 

@@ -10,6 +10,7 @@ return [
     'get_started'           => 'Get started for free',
     'billing_address'       => 'Billing Address',
     'see_all_details'       => 'See all account details',
+    'all_payments'          => 'Login to view all payments',
     'received_date'         => 'Received Date',
 
     'last_payment'          => [
