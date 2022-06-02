@@ -19,6 +19,7 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
+        "ext-intl": "*",
         "ext-gd": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
