@@ -219,6 +219,7 @@ class DeleteLink extends Component
 
             $text = $this->text ? $this->text : $page;
             $name = addslashes($this->model->{$this->modelName});
+            $name = Str::replace(['\"', '"'], '&quot;', $name);
 
             $type = mb_strtolower($this->getModelTitle());
 
@@ -263,7 +264,7 @@ class DeleteLink extends Component
 
     protected function getCancelText($cancelText)
     {
-        if (!empty($cancelText)) {
+        if (! empty($cancelText)) {
             return $cancelText;
         }
 
@@ -272,7 +273,7 @@ class DeleteLink extends Component
 
     protected function getDeleteText($deleteText)
     {
-        if (!empty($deleteText)) {
+        if (! empty($deleteText)) {
             return $deleteText;
         }
 

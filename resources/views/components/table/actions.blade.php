@@ -101,8 +101,12 @@
                         @case('delete')
                             @php $divider = false; @endphp
 
-                            @php $title = $action['title'] ?? null; @endphp
-                            <x-delete-link :model="$action['model']" :route="$action['route']" :text="$title" />
+                            @php
+                                $title = $action['title'] ?? null;
+                                $modelId = ! empty($action['model-id']) ? $action['model-id'] : 'id';
+                                $modelName = ! empty($action['model-name']) ? $action['model-name'] : 'name';
+                            @endphp
+                            <x-delete-link :model="$action['model']" :route="$action['route']" :text="$title" :model-id="$modelId" :model-name="$modelName" />
                             @break
 
                         @case('divider')
