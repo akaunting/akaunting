@@ -1082,14 +1082,14 @@ abstract class Show extends Component
             return $textRecurringType;
         }
 
-        $default_key = config('type.' . $type . '.translation.prefix');
+        $default_key = config('type.transaction.' . $type . '.translation.transactions');
 
-        $translation = $this->getTextFromConfig($type, 'recurring_tye', $default_key);
+        $translation = $this->getTextFromConfig($type, 'recurring_type', $default_key);
 
         if (! empty($translation)) {
             return $translation;
         }
 
-        return 'general.revenues';
+        return 'general.incomes';
     }
 }

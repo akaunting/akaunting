@@ -26,7 +26,7 @@
             @if ($next = $transaction->recurring->getNextRecurring())
                 {{ trans('recurring.next_date', ['date' => $next->format(company_date_format())]) }}
                 <br>
-                @if (($transaction->recurring->limit_by == 'count'))
+                @if ($transaction->recurring->limit_by == 'count')
                     @if ($transaction->recurring->limit_count == 0)
                         {{ trans('recurring.ends_never') }}
                     @else
