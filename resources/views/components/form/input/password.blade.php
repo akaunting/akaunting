@@ -2,7 +2,7 @@
     name="{{ $name }}"
     id="{{ $id }}"
     @if ($value)
-    value="{{ $value }}"
+    value="{!! $value !!}"
     @endif
     placeholder="{{ $placeholder }}"
     @if ($disabled)

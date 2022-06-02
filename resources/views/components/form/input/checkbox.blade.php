@@ -3,7 +3,7 @@
     class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent"
     id="{{ ! empty($attributes[':id']) ? $attributes[':id'] : $id }}"
     @if ($value)
-    value="{{ $value }}"
+    value="{!! $value !!}"
     @endif
     @if (! empty($checked) && (string) $checked != 'n/a')
     checked="checked"

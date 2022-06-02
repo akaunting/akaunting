@@ -1,7 +1,7 @@
 <input type="text"
     name="{{ $name }}"
     id="{{ $id }}"
-    value="{{ $value }}"
+    value="{!! $value !!}"
     placeholder="{!! $placeholder !!}"
     @if ($disabled)
     disabled="disabled"
