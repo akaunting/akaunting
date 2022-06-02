@@ -3,8 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
-use App\Events\Auth\UserCreated;
 use App\Interfaces\Job\ShouldUpdate;
+use App\Jobs\Auth\CreateUser;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
 use App\Models\Common\Contact;
@@ -57,19 +57,17 @@ class UpdateContact extends Job implements ShouldUpdate
             throw new \Exception($message);
         }
 
-        $data = $this->request->all();
-        $data['locale'] = setting('default.locale', 'en-GB');
-
         $customer_role = Role::all()->filter(function ($role) {
             return $role->hasPermission('read-client-portal');
-        })->first();
+        })->pluck('id')->toArray();
 
-        $user = User::create($data);
-        $user->roles()->attach($customer_role);
-        $user->companies()->attach($data['company_id']);
-        $this->request->merge(['companies' => array($data['company_id'])]);
+        $this->request->merge([
+            'locale' => setting('default.locale', 'en-GB'),
+            'roles' => $customer_role,
+            'companies' => [$this->request->get('company_id')],
+        ]);
 
-        event(new UserCreated($user, $this->request));
+        $user = $this->dispatch(new CreateUser($this->request));
 
         $this->request['user_id'] = $user->id;
     }
