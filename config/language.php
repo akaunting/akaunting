@@ -192,7 +192,7 @@ return [
         ['short' => 'sr',       'long' => 'sr-CS',      'english' => 'Serbian (Latin)',     'native' => 'Српски језик',                 'direction' => 'ltr'],
         ['short' => 'sq',       'long' => 'sq-AL',      'english' => 'Albanian',            'native' => 'Shqip',                        'direction' => 'ltr'],
         ['short' => 'sk',       'long' => 'sk-SK',      'english' => 'Slovak',              'native' => 'Slovenčina',                   'direction' => 'ltr'],
-        ['short' => 'sl',       'long' => 'sl-SL',      'english' => 'Slovenian',           'native' => 'Slovenščina',                  'direction' => 'ltr'],
+        ['short' => 'sl',       'long' => 'sl-SI',      'english' => 'Slovenian',           'native' => 'Slovenščina',                  'direction' => 'ltr'],
         ['short' => 'sv',       'long' => 'sv-SE',      'english' => 'Swedish',             'native' => 'Svenska',                      'direction' => 'ltr'],
         ['short' => 'th',       'long' => 'th-TH',      'english' => 'Thai',                'native' => 'ไทย',                            'direction' => 'ltr'],
         ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe',                       'direction' => 'ltr'],
