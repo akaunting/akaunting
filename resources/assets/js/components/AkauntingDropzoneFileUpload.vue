@@ -25,7 +25,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <div class="avatar">
-                            <img class="avatar-img rounded" data-dz-thumbnail>
+                            <img class="avatar-img h-full rounded object-cover" data-dz-thumbnail>
                             <span class="material-icons hidden" data-dz-thumbnail-image>crop_original</span>
                             <span class="material-icons-outlined display-3 hidden" data-dz-thumbnail-pdf>picture_as_pdf</span>
                             <span class="material-icons-outlined hidden" data-dz-thumbnail-word>content_paste</span>
@@ -164,6 +164,8 @@ export default {
                                 file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("hidden");
                             }
                         }
+
+                        self.onMaxFilesReached(self);
                     }),
  
                     dropzone.on('removedfile', function (file) {
@@ -217,11 +219,7 @@ export default {
                                 }
                             });
 
-                            if (self.preview == 'single' && self.attachments.length == 1) {
-                                self.$nextTick(() => {
-                                    document.querySelector("#dropzone-" + self._uid).classList.add("dz-max-files-reached");
-                                });
-                            }
+                            self.onMaxFilesReached(self);
                         }, 100);
                     }
                 }
@@ -231,6 +229,14 @@ export default {
 
             preview.innerHTML = '';
         },
+
+        onMaxFilesReached(arg) {
+            if (arg.preview == 'single' || arg.attachments.length == 1) {
+                arg.$nextTick(() => {
+                    document.querySelector("#dropzone-" + arg._uid).classList.add("dz-max-files-reached");
+                });
+            }
+        }
     },
 
     async mounted() {
@@ -262,11 +268,7 @@ export default {
                 }
         });
 
-        if (this.preview == 'single' && attachments.length == 1) {
-            this.$nextTick(() => {
-                document.querySelector("#dropzone-" + this._uid).classList.add("dz-max-files-reached");
-            });
-        }
+            this.onMaxFilesReached(this);
           }
         }, this);
 
