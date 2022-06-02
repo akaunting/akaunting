@@ -11,8 +11,8 @@
                         <div class="flex">
                             <div>
                                 {!! trans('import.limitations', ['extensions' => strtoupper(config('excel.imports.extensions')),
-                                    'row_limit' => config('excel.imports.row_limit')
-                                ])
+                                        'row_limit' => config('excel.imports.row_limit')
+                                    ])
                                 !!}
                             </div>
                         </div>

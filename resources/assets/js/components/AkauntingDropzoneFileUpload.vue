@@ -15,7 +15,7 @@
                 <span class="material-icons-outlined avatar hidden">file_present</span>
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-pdf>picture_as_pdf</span>
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-word>content_paste</span>
-                <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-excel>table_chart</span>                
+                <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-excel>table_chart</span>
                 <span class="mb-1 text-sm ml-3 text-gray-500 hidden" data-dz-name>...</span>
             </div>
         </div>
@@ -242,38 +242,38 @@ export default {
     async mounted() {
         this.initDropzone();
     },
-    
+
     watch: {
-    attachments: function (attachments) {
-      attachments.forEach((attachment) => {
-          if(attachment.length != undefined) {
-              var mockFile = {
-                id: attachment[0].id,
-                name: attachment[0].name,
-                size: attachment[0].size,
-                type: attachment[0].type,
-                download: attachment[0].downloadPath,
-                dropzone: 'edit',
-            };
-            this.dropzone.emit("addedfile", mockFile);
-            this.dropzone.options.thumbnail.call(this.dropzone, mockFile, attachment[0].path);
+        attachments: function (attachments) {
+            attachments.forEach((attachment) => {
+                if (attachment.length != undefined) {
+                    var mockFile = {
+                        id: attachment[0].id,
+                        name: attachment[0].name,
+                        size: attachment[0].size,
+                        type: attachment[0].type,
+                        download: attachment[0].downloadPath,
+                        dropzone: 'edit',
+                    };
 
-            // Make sure that there is no progress bar, etc...
-            this.dropzone.emit("complete", mockFile);
+                    this.dropzone.emit("addedfile", mockFile);
+                    this.dropzone.options.thumbnail.call(this.dropzone, mockFile, attachment[0].path);
 
-            this.files.forEach(async (attachment) => {
-                if (attachment.download) {
-                    attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
-                    attachment.previewElement.querySelector("[data-dz-download]").classList.remove("hidden");
+                    // Make sure that there is no progress bar, etc...
+                    this.dropzone.emit("complete", mockFile);
+
+                    this.files.forEach(async (attachment) => {
+                        if (attachment.download) {
+                            attachment.previewElement.querySelector("[data-dz-download]").href = attachment.download;
+                            attachment.previewElement.querySelector("[data-dz-download]").classList.remove("hidden");
+                        }
+                    });
+
+                    this.onMaxFilesReached(this);
                 }
-        });
-
-            this.onMaxFilesReached(this);
-          }
-        }, this);
-
+            }, this);
+        },
     },
-  },
 }
 </script>
 
