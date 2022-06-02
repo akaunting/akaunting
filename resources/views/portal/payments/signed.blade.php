@@ -21,7 +21,7 @@
             @stack('button_dashboard_start')
             @if (! user())
                 <x-link href="{{ route('portal.dashboard') }}" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium leading-6">
-                    {{ trans('payments.all_payments') }}
+                    {{ trans('portal.all_payments') }}
                 </x-link>
             @endif
             @stack('button_dashboard_end')

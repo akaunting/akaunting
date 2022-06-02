@@ -41,7 +41,7 @@
 
     <x-table.tbody>
         @foreach($documents as $item)
-            <x-table.tr href="{{ route('recurring-transactions.show', $item->id) }}">
+            <x-table.tr href="{{ route($showRoute, $item->id) }}">
             @if (! $hideBulkAction)
                 <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
