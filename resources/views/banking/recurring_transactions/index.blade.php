@@ -39,6 +39,9 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr class="flex items-center px-1">
+                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                            <x-index.bulkaction.all />
+                                        </x-table.th>
 
                                         <x-table.th class="w-4/12 sm:w-3/12">
                                             <x-slot name="first">
