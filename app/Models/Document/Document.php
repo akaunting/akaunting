@@ -521,18 +521,20 @@ class Document extends Model
             ];
         } catch (\Exception $e) {}
 
-        try {
-            $actions[] = [
-                'title' => trans('general.print'),
-                'icon' => 'print',
-                'url' => route($prefix . '.print', $this->id),
-                'permission' => 'read-' . $group . '-' . $permission_prefix,
-                'attributes' => [
-                    'id' => 'index-more-actions-print-' . $this->id,
-                    'target' => '_blank',
-                ],
-            ];
-        } catch (\Exception $e) {}
+        if ($this->status != 'cancelled') {
+            try {
+                $actions[] = [
+                    'title' => trans('general.print'),
+                    'icon' => 'print',
+                    'url' => route($prefix . '.print', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-print-' . $this->id,
+                        'target' => '_blank',
+                    ],
+                ];
+            } catch (\Exception $e) {}
+        }
 
         try {
             $actions[] = [
@@ -547,60 +549,64 @@ class Document extends Model
             ];
         } catch (\Exception $e) {}
 
-        if (!str_contains($this->type, 'recurring')) {
-            $actions[] = [
-                'type' => 'divider',
-            ];
-
-            try {
+        if (! str_contains($this->type, 'recurring')) {
+            if ($this->status != 'cancelled') {
                 $actions[] = [
-                    'type' => 'button',
-                    'title' => trans('general.share_link'),
-                    'icon' => 'share',
-                    'url' => route('modals.'. $prefix . '.share.create', $this->id),
-                    'permission' => 'read-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-more-actions-share-link-' . $this->id,
-                        '@click' => 'onShareLink("' . route('modals.'. $prefix . '.share.create', $this->id) . '")',
-                    ],
+                    'type' => 'divider',
                 ];
-            } catch (\Exception $e) {}
 
-            try {
-                if ($this->type == 'invoice') {
+                try {
                     $actions[] = [
                         'type' => 'button',
-                        'title' => trans('invoices.send_mail'),
-                        'icon' => 'email',
-                        'url' => route('modals.'. $prefix . '.emails.create', $this->id),
+                        'title' => trans('general.share_link'),
+                        'icon' => 'share',
+                        'url' => route('modals.'. $prefix . '.share.create', $this->id),
                         'permission' => 'read-' . $group . '-' . $permission_prefix,
                         'attributes' => [
-                            'id'        => 'index-more-actions-send-email-' . $this->id,
-                            '@click'    => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                            'id' => 'index-more-actions-share-link-' . $this->id,
+                            '@click' => 'onShareLink("' . route('modals.'. $prefix . '.share.create', $this->id) . '")',
                         ],
                     ];
-                }
-            } catch (\Exception $e) {}
+                } catch (\Exception $e) {}
+
+                try {
+                    if ($this->type == 'invoice') {
+                        $actions[] = [
+                            'type' => 'button',
+                            'title' => trans('invoices.send_mail'),
+                            'icon' => 'email',
+                            'url' => route('modals.'. $prefix . '.emails.create', $this->id),
+                            'permission' => 'read-' . $group . '-' . $permission_prefix,
+                            'attributes' => [
+                                'id'        => 'index-more-actions-send-email-' . $this->id,
+                                '@click'    => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                            ],
+                        ];
+                    }
+                } catch (\Exception $e) {}
+            }
 
             $actions[] = [
                 'type' => 'divider',
             ];
 
-            try {
+            if ($this->status != 'cancelled') {
+                try {
+                    $actions[] = [
+                        'title' => trans('general.cancel'),
+                        'icon' => 'cancel',
+                        'url' => route($prefix . '.cancelled', $this->id),
+                        'permission' => 'update-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            'id' => 'index-more-actions-cancel-' . $this->id,
+                        ],
+                    ];
+                } catch (\Exception $e) {}
+
                 $actions[] = [
-                    'title' => trans('general.cancel'),
-                    'icon' => 'cancel',
-                    'url' => route($prefix . '.cancelled', $this->id),
-                    'permission' => 'update-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-more-actions-cancel-' . $this->id,
-                    ],
+                    'type' => 'divider',
                 ];
-            } catch (\Exception $e) {}
-
-            $actions[] = [
-                'type' => 'divider',
-            ];
+            }
 
             try {
                 $actions[] = [

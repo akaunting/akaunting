@@ -52,13 +52,13 @@
 
         @stack('button_pdf_end')
 
-        @if (! $hideDivider2)
-            <x-dropdown.divider />
-        @endif
-
-        @stack('share_button_start')
-
         @if (! in_array($document->status, $hideButtonStatuses))
+            @if (! $hideDivider2)
+                <x-dropdown.divider />
+            @endif
+
+            @stack('share_button_start')
+
             @if (! $hideShare)
                 @if ($document->status != 'cancelled')
                     <x-dropdown.button @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
