@@ -45,7 +45,7 @@ abstract class Factory extends BaseFactory
 
     public function company(int $id): static
     {
-        Cache::put('factory_company_id', $id, Date::now()->addHour(6));
+        Cache::put('state_company_id', $id, Date::now()->addHour(6));
 
         return $this->state([
             'company_id' => $id,
@@ -59,17 +59,13 @@ abstract class Factory extends BaseFactory
 
     public function setCompany(): void
     {
-        $id = Cache::get('factory_company_id');
+        $state_id = Cache::get('state_company_id');
 
-        if (! is_null($id)) {
-            $this->company = company($id);
-        } else {
-            $this->company = $this->user->companies()->first();
-        }
+        $this->company = ! is_null($state_id) ? company($state_id) : $this->user->companies()->first();
 
         $this->company->makeCurrent();
 
-        app('url')->defaults(['company_id' => company_id()]);
+        app('url')->defaults(['company_id' => $this->company->id]);
     }
 
     public function getRawAttribute($key)
