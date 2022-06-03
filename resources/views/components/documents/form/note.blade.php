@@ -2,7 +2,7 @@
     <x-form.group.textarea
         name="notes"
         label="{{ trans_choice('general.notes', 2) }}"
-        :value="$note"
+        :value="$notes"
         not-required
         class="form-element border-0 bg-transparent px-0 rounded-none resize-none"
         form-label-class="lg:text-lg"

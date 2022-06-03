@@ -204,7 +204,7 @@ abstract class Form extends Component
     /* -- Items End -- */
 
     /** @var string */
-    public $note;
+    public $notes;
     /* -- Main End -- */
 
     /* -- Recurring Start -- */
@@ -277,7 +277,7 @@ abstract class Form extends Component
         bool $hideDocumentNumber = false, string $textDocumentNumber = '', string $documentNumber = '', bool $hideOrderNumber = false, string $textOrderNumber = '', string $orderNumber = '',
         bool $hideEditItemColumns = false, bool $hideItems = false, bool $hideItemName = false, string $textItemName = '', bool $hideItemDescription = false, string $textItemDescription = '',
         bool $hideItemQuantity = false, string $textItemQuantity = '', bool $hideItemPrice = false, string $textItemPrice = '', bool $hideItemAmount = false, string $textItemAmount = '',
-        bool $hideDiscount = false, bool $isSalePrice = false, bool $isPurchasePrice = false, int $searchCharLimit = 0, string $note = '',
+        bool $hideDiscount = false, bool $isSalePrice = false, bool $isPurchasePrice = false, int $searchCharLimit = 0, string $notes = '',
         bool $showRecurring = false,
         bool $hideAdvanced = false, string $textSectionAdvancedTitle = '', string $textSectionAdvancedDescription = '',
         bool $hideFooter = false, string $classFooter = '', string $footer = '',
@@ -376,9 +376,9 @@ abstract class Form extends Component
         $this->searchCharLimit = $this->getSearchCharLimit($type, $searchCharLimit);
         /** Items End */
 
-        /** Note Start */
-        $this->note = $this->getNoteValue($note);
-        /** Note End */
+        /** Notes Start */
+        $this->notes = $this->getNotesValue($notes);
+        /** Notes End */
         /** Main End */
 
         /* -- Recurring Start -- */
@@ -1136,17 +1136,17 @@ abstract class Form extends Component
         return setting('invoice.item_search_char_limit', $searchCharLimit);
     }
 
-    protected function getNoteValue($note)
+    protected function getNotesValue($notes)
     {
-        if (! empty($note)) {
-            return $note;
+        if (! empty($notes)) {
+            return $notes;
         }
         
         if (! empty($this->document)) {
             return $this->document->notes;
         }
 
-        return setting($this->getSettingKey($this->type, 'note'));
+        return setting($this->getSettingKey($this->type, 'notes'));
     }
 
     protected function getTextSectionAdvancedTitle($type, $textSectionAdvancedTitle)
