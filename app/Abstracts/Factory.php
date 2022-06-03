@@ -5,9 +5,10 @@ namespace App\Abstracts;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Traits\Jobs;
-use Closure;
+use App\Utilities\Date;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Facades\Cache;
 
 abstract class Factory extends BaseFactory
 {
@@ -44,6 +45,8 @@ abstract class Factory extends BaseFactory
 
     public function company(int $id): static
     {
+        Cache::put('factory_company_id', $id, Date::now()->addHour(6));
+
         return $this->state([
             'company_id' => $id,
         ]);
@@ -56,7 +59,11 @@ abstract class Factory extends BaseFactory
 
     public function setCompany(): void
     {
-        $this->company = $this->user->companies()->first();
+        if (is_null(Cache::get('factory_company_id'))) {
+            $this->company = $this->user->companies()->first();
+        } else {
+            $this->company = company(Cache::get('factory_company_id'));
+        }
 
         $this->company->makeCurrent();
 
