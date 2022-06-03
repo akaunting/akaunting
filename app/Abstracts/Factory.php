@@ -56,9 +56,7 @@ abstract class Factory extends BaseFactory
 
     public function setCompany(): void
     {
-        $company_id = $this->getRawAttribute('company_id');
-
-        $this->company = !empty($company_id) ? Company::find($company_id) : $this->user->companies()->first();
+        $this->company = $this->user->companies()->first();
 
         $this->company->makeCurrent();
 
