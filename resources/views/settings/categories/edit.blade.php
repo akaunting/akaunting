@@ -26,7 +26,7 @@
 
                         <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="$categories[$category->type]" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" />
 
-                        <x-form.input.hidden name="categories" :value="json_encode($categories)" />
+                        <x-form.input.hidden name="categories" value="{{ json_encode($categories) }}" />
                         <x-form.input.hidden name="parent_category_id" :value="$category->parent_id" />
                     </x-slot>
                 </x-form.section>
