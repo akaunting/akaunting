@@ -124,15 +124,17 @@ class EmptyPage extends Component
         switch ($this->alias) {
             case 'core':
                 $text = 'general.' . $this->page;
+                $text2 = 'general.' . Str::replace('-', '_', $this->page);
                 break;
             default:
                 $text = $this->alias . '::general.' . $this->page;
+                $text2 = $this->alias . '::general.' . Str::replace('-', '_', $this->page);
         }
 
         $title = trans_choice($text, $number);
 
         if ($title == $text) {
-            $title = trans_choice(Str::replace('-', '_', $text), $number);
+            $title = trans_choice($text2, $number);
         }
 
         return $title;
@@ -147,15 +149,17 @@ class EmptyPage extends Component
         switch ($this->alias) {
             case 'core':
                 $text = 'general.empty.' . $this->page;
+                $text2 = 'general.empty.' . Str::replace('-', '_', $this->page);
                 break;
             default:
                 $text = $this->alias . '::general.empty.' . $this->page;
+                $text2 = $this->alias . '::general.empty.' . Str::replace('-', '_', $this->page);
         }
 
         $description = trans($text);
 
         if ($description == $text) {
-            $description = trans(Str::replace('-', '_', $text));
+            $description = trans($text2);
         }
 
         $docs_url = $this->getDocsUrl();
