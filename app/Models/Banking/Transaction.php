@@ -510,7 +510,7 @@ class Transaction extends Model
         try {
             $actions[] = [
                 'title' => trans('general.download_pdf'),
-                'icon' => 'pdf',
+                'icon' => 'picture_as_pdf',
                 'url' => route($prefix. '.pdf', $this->id),
                 'permission' => 'read-banking-transactions',
                 'attributes' => [
