@@ -1,11 +1,11 @@
 <akaunting-recurring
-    start-text="{!! trans('recurring.limit_date', ['type' => \Str::replace('-recurring', '', $type)]) !!}"
+    start-text="{!! trans('recurring.limit_date', ['type' => Str::replace('-recurring', '', $type)]) !!}"
     :date-range-text="{{ json_encode(trans('general.date_range')) }}"
     middleText="{!! trans('recurring.limit_middle') !!}"
-    endText="{{ Str::plural($type) }}"
+    end-text="{{ Str::plural(Str::replace('-recurring', '', $type)) }}"
 
     :frequencies="{{ json_encode($frequencies) }}"
-    frequency-text="{!! trans('recurring.frequency_type', ['type' => \Str::replace('-recurring', '', $type)]) !!}"
+    frequency-text="{!! trans('recurring.frequency_type', ['type' => Str::replace('-recurring', '', $type)]) !!}"
     frequency-every-text="{!! trans('recurring.every') !!}"
     frequency-value="{{ $frequency }}"
     :frequency-error="form.errors.get('recurring_frequency')"

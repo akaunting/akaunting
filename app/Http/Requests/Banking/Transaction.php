@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Banking;
 
 use App\Abstracts\Http\FormRequest;
+use App\Models\Banking\Transaction as Model;
 use App\Utilities\Date;
 
 class Transaction extends FormRequest
@@ -14,21 +15,27 @@ class Transaction extends FormRequest
      */
     public function rules()
     {
-        $attachment = 'nullable';
+        $type = $this->request->get('type', Model::INCOME_TYPE);
 
-        if ($this->files->get('attachment')) {
-            $attachment = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
-        }
+        $type = config('type.transaction.' . $type . '.route.parameter');
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->transaction->getAttribute('id');
+            $model = $this->isApi() ? 'document' : $type;
+
+            $id = is_numeric($this->$model) ? $this->$model : $this->{$model}->getAttribute('id');
         } else {
             $id = null;
         }
 
         // Get company id
         $company_id = (int) $this->request->get('company_id');
+
+        $attachment = 'nullable';
+
+        if ($this->files->get('attachment')) {
+            $attachment = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
 
         return [
             'type' => 'required|string',

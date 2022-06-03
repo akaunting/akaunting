@@ -89,14 +89,14 @@
                 </el-option>
             </el-select>
 
-            <input type="text" class="w-36 form-element ml-2" v-model="limitDate" v-if="limit == 'after'" @input="change">
+            <input type="text" class="w-20 form-element ml-2" v-model="limitCount" v-if="limit == 'after'" @input="change">
 
             <div class="pl-2 text-sm" v-if="limit == 'after'">
                 {{ endText }}
             </div>
 
             <el-date-picker
-                class="w-36  ml-2 recurring-invoice-data"
+                class="w-36 ml-2 recurring-invoice-data"
                 v-model="limitDate"
                 type="date"
                 align="right"
@@ -186,8 +186,8 @@ export default {
         },
 
         limitCountValue: {
-            type: [Number, String],	
-            default: 0,	
+            type: [Number, String],
+            default: 0,
             description: "Default reccuring limit"
         },
 
@@ -211,7 +211,7 @@ export default {
             customFrequency: '',
             started_at: '',
             limit: '',
-            limitCount: '',
+            limitCount: 0,
             limitDate: '',
             formatDate: 'dd MM YYYY',
         }
@@ -231,10 +231,10 @@ export default {
         this.limitDate = this.limitDateValue;
 
         if (this.limit == 'count') {
-            if (typeof this.limitDate == 'string') {
-                this.limit = 'never';
-            } else {
+            if (this.limitCount > 0) {
                 this.limit = 'after';
+            } else {
+                this.limit = 'never';
             }
         } else {
             this.limit = 'on';
@@ -258,10 +258,12 @@ export default {
                 case 'after':
                     this.$emit('limit', 'count');
                     this.$emit('limit_count', this.limitCount);
+                    this.$emit('limit_date', null);
                     break;
                 case 'on':
                     this.$emit('limit', 'date');
                     this.$emit('limit_date', this.limitDate);
+                    this.$emit('limit_count', 0);
                     break;
                 case 'never':
                 default:
