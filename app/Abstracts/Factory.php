@@ -59,10 +59,12 @@ abstract class Factory extends BaseFactory
 
     public function setCompany(): void
     {
-        if (is_null(Cache::get('factory_company_id'))) {
-            $this->company = $this->user->companies()->first();
+        $id = Cache::get('factory_company_id');
+
+        if (! is_null($id)) {
+            $this->company = company($id);
         } else {
-            $this->company = company(Cache::get('factory_company_id'));
+            $this->company = $this->user->companies()->first();
         }
 
         $this->company->makeCurrent();
