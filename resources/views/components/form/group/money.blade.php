@@ -39,7 +39,7 @@
         {{-- :error="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }}" --}}
 
         name="{{ $name }}"
-        title="{{ $label }}"
+        title="{!! $label !!}"
         :group_class="'{{ $formGroupClass }}'"
 
         @if (! empty($icon))

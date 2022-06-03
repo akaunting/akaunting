@@ -5,7 +5,7 @@
         :path="$path"
         :field="$field"
         name="{{ $name }}"
-        label="{{ trans_choice('general.currencies', 1) }}"
+        label="{!! trans_choice('general.currencies', 1) !!}"
         :options="$currencies"
         :selected="$selected"
         change="onChangeCurrency"
@@ -22,7 +22,7 @@
 @else
     <x-form.group.select
         name="{{ $name }}"
-        label="{{ trans_choice('general.currencies', 1) }}"
+        label="{!! trans_choice('general.currencies', 1) !!}"
         :options="$currencies"
         :selected="$selected"
         change="onChangeCurrency"

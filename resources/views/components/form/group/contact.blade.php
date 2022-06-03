@@ -8,7 +8,7 @@
 
         add-new
         name="{{ $name }}"
-        label="{{ $label }}"
+        label="{!! $label !!}"
         :options="$contacts"
         :selected="$selected"
 
@@ -28,7 +28,7 @@
 
         add-new
         name="{{ $name }}"
-        label="{{ $label }}"
+        label="{!! $label !!}"
         :options="$contacts"
         :selected="$selected"
 
@@ -48,7 +48,7 @@
 
         add-new
         name="{{ $name }}"
-        label="{{ $label }}"
+        label="{!! $label !!}"
         :options="$contacts"
         :selected="$selected"
 
@@ -65,7 +65,7 @@
     <x-form.group.select
         add-new
         name="{{ $name }}"
-        label="{{ $label }}"
+        label="{!! $label !!}"
         :options="$contacts"
         :selected="$selected"
 

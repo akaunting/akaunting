@@ -43,7 +43,7 @@
             <x-form.icon icon="{{ $icon }}" />
         @endif
 
-        title="{{ $label }}"
+        title="{!! $label !!}"
 
         @if (isset($attributes['placeholder']))
         placeholder="{{ $attributes['placeholder'] }}"

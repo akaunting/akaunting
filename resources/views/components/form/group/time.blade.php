@@ -35,7 +35,7 @@
         icon="{{ $icon }}"
         @endif
 
-        title="{{ $label }}"
+        title="{!! $label !!}"
 
         placeholder="{{ $placeholder }}"
 

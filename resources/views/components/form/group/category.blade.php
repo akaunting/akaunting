@@ -7,7 +7,7 @@
         path="{{ $path }}"
 
         name="{{ $name }}"
-        label="{{ trans_choice('general.categories', 1) }}"
+        label="{!! trans_choice('general.categories', 1) !!}"
         :options="$categories"
         :selected="$selected"
         sort-options="false"
@@ -27,7 +27,7 @@
         path="{{ $path }}"
 
         name="{{ $name }}"
-        label="{{ trans_choice('general.categories', 1) }}"
+        label="{!! trans_choice('general.categories', 1) !!}"
         :options="$categories"
         :selected="$selected"
         sort-options="false"
@@ -47,7 +47,7 @@
         remote_action="{{ $remoteAction }}"
 
         name="{{ $name }}"
-        label="{{ trans_choice('general.categories', 1) }}"
+        label="{!! trans_choice('general.categories', 1) !!}"
         :options="$categories"
         :selected="$selected"
         sort-options="false"
@@ -64,7 +64,7 @@
 @else
     <x-form.group.select
         name="{{ $name }}"
-        label="{{ trans_choice('general.categories', 1) }}"
+        label="{!! trans_choice('general.categories', 1) !!}"
         :options="$categories"
         :selected="$selected"
         sort-options="false"
