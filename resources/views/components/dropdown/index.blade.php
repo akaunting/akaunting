@@ -11,7 +11,15 @@
         {!! $trigger !!}
     </button>
 
-    <div id="{{ $id }}" class="absolute right-0 mt-3 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
+    <div
+        id="{{ $id }}"
+        class="absolute right-0 mt-3 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden"
+        @if ($attributes->has('style'))
+        style="{{ $attributes->get('style') }}"
+        @else
+        style="left: auto; min-width: 10rem;"
+        @endif
+    >
         @stack('button_dropdown_start')
 
         {{ $slot }}
