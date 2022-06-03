@@ -83,9 +83,13 @@
                                     {{ $item->email }}
                                 </x-table.td>
 
-                                <x-table.td class="relative w-4/12 sm:w-3/12" kind="right">
+                                <x-table.td
+                                    class="w-4/12 sm:w-3/12 ltr:pl-0 rtl:pr-0 ltr:text-right rtl:text-left py-4 whitespace-nowrap text-sm font-normal text-black space-x-2 truncate"
+                                    override="class"
+                                    kind="right"
+                                >
                                     @foreach($item->roles as $role)
-                                        <span class="bg-lilac-900 px-3 py-1 test-sm rounded-lg text-black ltr:ml-3 rtl:mr-3">
+                                        <span class="bg-lilac-900 px-2 py-0.5 test-xs rounded-lg text-black">
                                             {{ $role->display_name }}
                                         </span>
                                     @endforeach
