@@ -8,4 +8,16 @@
     @endcan
 @endif
 
-@stack('add_new_button_end')
+@stack('edit_button_start')
+
+@if (! $transaction->hasTransferRelation)
+    @if (! $hideButtonEdit)
+        @can($permissionUpdate)
+            <x-link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $type]) }}">
+                {{ trans('general.edit') }}
+            </x-link>
+        @endcan
+    @endif
+@endif
+
+@stack('edit_button_end')

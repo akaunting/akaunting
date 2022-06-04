@@ -6,20 +6,6 @@
             <span class="material-icons">more_horiz</span>
         </x-slot>
 
-        @stack('edit_button_start')
-
-        @if (! $transaction->hasTransferRelation)
-            @if (! $hideButtonEdit)
-                @can($permissionUpdate)
-                    <x-dropdown.link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $type]) }}">
-                        {{ trans('general.edit') }}
-                    </x-dropdown.link>
-                @endcan
-            @endif
-        @endif
-
-        @stack('edit_button_end')
-
         @stack('duplicate_button_start')
 
         @if (! $transaction->hasTransferRelation)
