@@ -5,6 +5,23 @@ return [
     'edit_columns'  => 'Editar colunas',
     'empty_items'   => 'Você não adicionou nenhum item.',
 
+    'invoice_detail'   => [
+        'marked'  => '<b> Você </b> marcou esta fatura como',
+        'services' => 'Serviços',
+        'another_item'  => 'Outro item',
+        'another_description'  => 'e outra descrição',
+        'more_item'  => '+:count mais itens',
+    ],
+
+    'grand_total'  => 'Total Geral',
+
+    'accept_payment_online' => 'Aceite Pagamentos Online',
+
+    'transaction' => 'Um pagamento para :amount foi feito usando :account.',
+
+    'billing'               => 'Cobrança',
+    'advanced'              => 'Avançado',
+
     'statuses' => [
         'draft'         => 'Rascunho',
         'sent'          => 'Enviado',
@@ -40,6 +57,15 @@ return [
         'not_invoiced'  => 'Não faturado',
         'confirmed'     => 'Confirmado',
         'not_confirmed' => 'Não confirmado',
+        'active'        => 'Ativo',
+        'ended'         => 'Finalizado',
+    ],
+
+    'form_description' => [
+        'companies'     => 'Altere o endereço, logotipo, e outras informações para sua empresa.',
+        'billing'       => 'Detalhes de faturamento aparecem no seu documento.',
+        'advanced'      => 'Selecione a categoria, adicione ou edite o rodapé e adicione anexos ao seu :type.',
+        'attachment'    => 'Baixar os arquivos anexados a esse :type',
     ],
 
     'messages' => [
@@ -51,4 +77,14 @@ return [
         'marked_cancelled'  => ':type marcado como cancelado!',
         'marked_received'   => ':type marcado como recebido!',
     ],
+
+    'recurring' => [
+        'auto_generated' => 'Gerado automaticamente',
+
+        'tooltip' => [
+            'document_date'     => 'A data :type será automaticamente atribuída com base no agendamento e frequência :type.',
+            'document_number'   => 'O número :type será automaticamente atribuído quando cada :type recorrente é gerado.',
+        ],
+    ],
+
 ];

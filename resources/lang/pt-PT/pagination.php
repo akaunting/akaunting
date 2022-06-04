@@ -6,5 +6,4 @@ return [
     'next'                  => 'Seguinte',
     'showing'               => ':first-:last de :total registos.',
     'page'                  => 'por página.',
-
 ];

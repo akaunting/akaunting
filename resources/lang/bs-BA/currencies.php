@@ -14,6 +14,14 @@ return [
         'position'          => 'Položaj simbola',
         'before'            => 'Prije iznosa',
         'after'             => 'Nakon iznosa',
-    ]
+    ],
+
+    'form_description' => [
+        'general'           => 'Zadana valuta se koristi na kontrolnoj tabli i izvještajima. Za ostale valute, kurs mora biti niži od 1 za slabije valute i veći od 1 za jače valute.',
+    ],
+
+    'no_currency'           => 'Nema valutu',
+    'create_currency'       => 'Kreirajte novu valutu i uredite bilo kada u podešavanjima.',
+    'new_currency'          => 'Nova valuta',
 
 ];

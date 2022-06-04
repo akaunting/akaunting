@@ -43,4 +43,8 @@ return [
         'connection'        => 'Napaka: Povezava s podatkovno bazo ni mogoča! Prosimo preverite ali so podatki pravilni.',
     ],
 
+    'update' => [
+        'core'              => 'Nova različica Akaunting je na voljo! Prosiomo posodobite vašo namestitev.',
+        'module'            => 'Nova različica Akaunting je na voljo! Prosiomo posodobite vašo namestitev.',
+    ],
 ];

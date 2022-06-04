@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Reconciled',
         'expense_account'   => 'From Account',
         'income_account'    => 'To Account',
+        'recurring'         => 'Recurring',
     ],
 
 ];

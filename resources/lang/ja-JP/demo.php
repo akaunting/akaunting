@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => '米ドル',
-        'eur'               => 'ユーロ',
-        'gbp'               => '英国ポンド',
-        'try'               => 'トルコのリラ',
     ],
 
     'offline_payments' => [

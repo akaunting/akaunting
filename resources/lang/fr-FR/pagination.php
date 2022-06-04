@@ -6,5 +6,4 @@ return [
     'next'                  => 'Suivant',
     'showing'               => ':first-:last sur :total enregistrements.',
     'page'                  => 'par page.',
-
 ];

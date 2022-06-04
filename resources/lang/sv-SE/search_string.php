@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Avstämd',
         'expense_account'   => 'Från konto',
         'income_account'    => 'Till konto',
+        'recurring'         => 'Återkommande',
     ],
 
 ];

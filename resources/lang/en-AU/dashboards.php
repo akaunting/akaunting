@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Error: Can not disable the last dashboard. Please, create a new one first!',
     ],
 
+    'form_description' => [
+        'general'               => 'Select the users you want have access to the new dashboard.',
+    ],
+
 ];

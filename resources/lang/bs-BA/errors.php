@@ -20,5 +20,4 @@ return [
         '500'       => 'Poradićemo na tome čim prije.',
         'record'    => 'Ne možemo pronaći podatak koju ste zatražili.',
     ],
-
 ];
