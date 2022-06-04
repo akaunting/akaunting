@@ -18,7 +18,7 @@
                 @php
                     $recurring_message = trans('recurring.message_parent', [
                         'type' => mb_strtolower(trans_choice($textRecurringType, 1)),
-                        'link' => '<a href="' . route(mb_strtolower(trans_choice($textRecurringType, 2)) . '.show', $parent->id) . '"><u>' . $parent->document_number . '</u></a>'
+                        'link' => '<a href="' . route($routeTransactionShow, $parent->id) . '"><u>' . $parent->number . '</u></a>'
                     ]);
                 @endphp
 

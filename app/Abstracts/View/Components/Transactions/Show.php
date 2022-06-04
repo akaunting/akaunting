@@ -276,6 +276,9 @@ abstract class Show extends Component
     /** @var string */
     public $routeDocumentShow;
 
+    /** @var string */
+    public $routeTransactionShow;
+
     /** @var bool */
     public $hideSchedule;
 
@@ -321,7 +324,7 @@ abstract class Show extends Component
         bool $hideContactPhone = false, bool $hideContactEmail = false,
         bool $hideRelated = false, bool $hideRelatedDocumentNumber = false, bool $hideRelatedContact = false, bool $hideRelatedDocumentDate = false, bool $hideRelatedDocumentAmount = false, bool $hideRelatedAmount = false,
         string $textRelatedTransansaction = '', string $textRelatedDocumentNumber = '', string $textRelatedContact = '', string $textRelatedDocumentDate = '', string $textRelatedDocumentAmount = '', string $textRelatedAmount = '',
-        string $routeDocumentShow = '', string $textButtonAddNew = '',
+        string $routeDocumentShow = '', string $routeTransactionShow = '', string $textButtonAddNew = '',
 
         bool $hideSchedule = false, bool $hideChildren = false, bool $hideAttachment = false, $attachment = [],
         array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false
@@ -442,6 +445,7 @@ abstract class Show extends Component
         $this->textRelatedAmount = $this->getTextRelatedAmount($type, $textRelatedAmount);
 
         $this->routeDocumentShow = $this->routeDocumentShow($type, $routeDocumentShow);
+        $this->routeTransactionShow = $this->routeTransactionShow($type, $routeTransactionShow);
 
         // Attachment data..
         $this->attachment = '';
@@ -1074,6 +1078,24 @@ abstract class Show extends Component
         }
 
         return 'invoices.show';
+    }
+
+    protected function routeTransactionShow($type, $routeTransactionShow)
+    {
+        if (! empty($routeTransactionShow)) {
+            return $routeTransactionShow;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = $this->getRouteFromConfig($type, 'show', $parameter);
+
+        if (! empty($route)) {
+            return $route;
+        }
+
+        return 'transactions.show';
     }
 
     protected function getTextRecurringType($type, $textRecurringType)
