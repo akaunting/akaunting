@@ -21,7 +21,7 @@ class Transaction extends FormRequest
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $model = $this->isApi() ? 'document' : $type;
+            $model = $this->isApi() ? 'transaction' : $type;
 
             $id = is_numeric($this->$model) ? $this->$model : $this->{$model}->getAttribute('id');
         } else {
