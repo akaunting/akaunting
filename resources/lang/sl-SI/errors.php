@@ -21,5 +21,4 @@ Ups! Prepovedan dostop',
         '500'       => 'To bomo popravili takoj.',
         'record'    => 'Iskani zapis ni bilo mogoče najti.',
     ],
-
 ];

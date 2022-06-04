@@ -6,5 +6,4 @@ return [
     'next'                  => 'Vijues',
     'showing'               => ':first-:last nga :total rekordet.',
     'page'                  => 'per faqe.',
-
 ];

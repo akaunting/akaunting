@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => 'აშშ დოლარი',
-        'eur'               => 'ევრო',
-        'gbp'               => 'ბრიტანული ფუნტი',
-        'try'               => 'თურქული ლირა',
     ],
 
     'offline_payments' => [

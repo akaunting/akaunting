@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Erro: não é possível desativar o último painel. Por favor, crie um novo primeiro!',
     ],
 
+    'form_description' => [
+        'general'               => 'Selecione os usuários que deseja que tenham acesso ao novo painel.',
+    ],
+
 ];

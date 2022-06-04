@@ -5,6 +5,23 @@ return [
     'edit_columns'  => 'Edit Columns',
     'empty_items'   => 'You have not added any items.',
 
+    'invoice_detail'   => [
+        'marked'  => '<b> You </b> marked this invoice as',
+        'services' => 'Services',
+        'another_item'  => 'Another Item',
+        'another_description'  => 'and another description',
+        'more_item'  => '+:count more item',
+    ],
+
+    'grand_total'  => 'Grand Total',
+
+    'accept_payment_online' => 'Accept Payments Online',
+
+    'transaction' => 'A payment for :amount was made using :account.',
+
+    'billing'               => 'Billing',
+    'advanced'              => 'Advanced',
+
     'statuses' => [
         'draft'         => 'Draft',
         'sent'          => 'Sent',
@@ -40,6 +57,15 @@ return [
         'not_invoiced'  => 'Not Invoiced',
         'confirmed'     => 'Confirmed',
         'not_confirmed' => 'Not Confirmed',
+        'active'        => 'Active',
+        'ended'         => 'Ended',
+    ],
+
+    'form_description' => [
+        'companies'     => 'Change the address, logo, and other information for your company.',
+        'billing'       => 'Billing details appears in your document.',
+        'advanced'      => 'Select the category, add or edit the footer, and add attachments to your :type.',
+        'attachment'    => 'Download the files attached to this :type',
     ],
 
     'messages' => [
@@ -51,4 +77,14 @@ return [
         'marked_cancelled'  => ':type marked as cancelled!',
         'marked_received'   => ':type marked as received!',
     ],
+
+    'recurring' => [
+        'auto_generated' => 'Auto-generated',
+
+        'tooltip' => [
+            'document_date'     => 'The :type date will be automatically assigned based on the :type schedule and frequency.',
+            'document_number'   => 'The :type number will be automatically assigned when each recurring :type is generated.',
+        ],
+    ],
+
 ];

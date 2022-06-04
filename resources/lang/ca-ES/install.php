@@ -43,4 +43,8 @@ return [
         'connection'        => 'Error: No és possible realitzar la connexió a la base de dades. Si us plau, revisa la configuració.',
     ],
 
+    'update' => [
+        'core'              => 'Hi ha una nova versió d\'Akaunting disponible. Si us plau, actualitza la teva instal·lació.',
+        'module'            => 'Nova versió del mòdul :module! Si us plau, actualitza la teva instal·lació.',
+    ],
 ];

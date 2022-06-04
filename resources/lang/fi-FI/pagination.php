@@ -6,5 +6,4 @@ return [
     'next'                  => 'Seuraava',
     'showing'               => ':first-:last :total :sta kirjauksesta.',
     'page'                  => 'per sivu.',
-
 ];

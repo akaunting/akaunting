@@ -13,6 +13,9 @@ return [
         'export_queued'     => 'S\'ha planificat l\'exportació de :type. Rebràs un correu quan estigui llesta per la descàrrega.',
         'enabled'           => 'S\'ha activat :type!',
         'disabled'          => 'S\'ha desactivat :type!',
+        'connected'         => ':type connectat!',
+        'invited'           => ':type convidat!',
+        'ended'             => ':type finalitzat!',
 
         'clear_all'         => 'Fet! Has esborrat tots els :type.',
     ],
@@ -27,6 +30,8 @@ return [
         'invalid_apikey'    => 'Error: La clau API proporcionada no és vàlida!',
         'import_column'     => 'Error: :message Nom de la pàgina: :sheet. Número de línia: :line.',
         'import_sheet'      => 'Error: Nom de pàgina no vàlid. Si us plau, comprova el fitxer de mostra.',
+        'same_amount'       => 'Error: l\'import total de la divisió ha de ser exactament el mateix que el total de :transaction: :amount',
+        'over_match'        => 'Error: :type no connectat! L\'import que heu introduït no pot superar el total del pagament: :amount',
     ],
 
     'warning' => [

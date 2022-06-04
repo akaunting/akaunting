@@ -4,7 +4,7 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} faktura je kreirana',
-        'body'          => 'Poštovani, {customer_name}, <br /> <br /> Za vas smo pripremili slijedeću fakturu: <strong>{invoice_number}</strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanje sa slijedeće veze: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br /> Slobodno nas kontaktirajte po bilo kojem pitanju. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
+        'body'          => 'Poštovani, {customer_name}, <br/><br/> Za vas smo pripremili slijedeću fakturu: <strong>{invoice_number}</strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanje sa slijedeće veze: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br/> <br/> Slobodno nas kontaktirajte po bilo kojem pitanju. <br/> <br/> Srdačan pozdrav, <br/> {company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -19,12 +19,17 @@ return [
 
     'invoice_recur_customer' => [
         'subject'       => '{invoice_number} ponavljajuća faktura je kreirana',
-        'body'          => 'Poštovani, {customer_name}, <br /> <br /> Za vas smo pripremili slijedeću fakturu: <strong> {invoice_number} </strong>. <br /> <br /> Možete vidjeti detalje računa i nastaviti s plaćanjem putem: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br /> Slobodno nas kontaktirajte po bilo kojem pitanju. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
+        'body'          => 'Poštovani, {customer_name}, <br/> <br/> Za vas smo pripremili slijedeću fakturu: <strong> {invoice_number} </strong>. <br/> <br/> Možete vidjeti detalje računa i nastaviti s plaćanjem putem: <a href="{invoice_guest_link}"> {invoice_number} </a>. <br /> <br/> Slobodno nas kontaktirajte po bilo kojem pitanju. <br/> <br/> Srdačan pozdrav, <br /> {company_name}',
     ],
 
     'invoice_recur_admin' => [
         'subject'       => '{invoice_number} faktura je kreirana',
         'body'          => 'Pozdrav, <br /> <br /> Na temelju {customer_name} pretplate, <strong> {invoice_number} </strong> faktura je automatski stvorena. <br /> <br /> Pojedinosti računa možete vidjeti poutem:  <a href="{invoice_admin_link}"> {invoice_number} </a>. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
+    ],
+
+    'invoice_view_admin' => [
+        'subject'       => 'Pregledana faktura: {invoice_number}',
+        'body'          => 'Zdravo,<br /><br />{customer_name} je pregledao fakturu <strong>{invoice_number}</strong>.<br /><br />Detalje fakture možete vidjeti na sljedećem linku: <a href ="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Srdačan pozdrav,<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
@@ -48,13 +53,13 @@ Slobodno nas kontaktirajte za svako pitanje.<br /><br />Lijep Pozdrav,<br />{com
         'body'          => 'Pozdrav, <br /><br /> Na temelju {vendor_name} ponavljajuće pretplate, <strong> {bill_number} </strong> račun je automatski kreiran. <br /> <br /> Pojedinosti računa možete vidjeti kliknuvši na slijedeću vezu: <a href="{bill_admin_link}"> {bill_number} </a>. <br /> <br /> Srdačan pozdrav, <br /> {company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} naplata je kreirana',
-        'body'          => 'Poštovani {customer_name},<br /><br />Spremili smo slijedeću uplatu. <br /><br />Možete pogledati detalje uplate na slijedećem linku: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Budite slobodni da nas kontaktirate za bilo kakva pitanja.<br /><br />Srdacan pozdrav,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'Vaš račun od {company_name}',
+        'body'          => 'Poštovani {contact_name},<br /><br />Hvala na uplati. <br /><br />Podatke o plaćanju možete vidjeti na sljedećem linku: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Slobodno nas kontaktirajte sa svim pitanjima.<br /><br />Srdačan pozdrav,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} uplata kreirana',
-        'body'          => 'Poštovani {vendor_name},<br /><br />Spremili smo slijedeću uplatu. <br /><br />Možete pogledati detalje uplate na slijedećem linku: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Budite slobodni da nas kontaktirate za bilo kakva pitanja.<br /><br />Srdacan pozdrav,<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => 'Plaćanje izvršio {company_name}',
+        'body'          => 'Poštovani {contact_name},<br /><br />Izvršili smo sljedeću uplatu. <br /><br />Podatke o plaćanju možete vidjeti na sljedećem linku: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Slobodno nas kontaktirajte sa svim pitanjima.<br /><br />Srdačan pozdrav,<br />{company_name}',
     ],
 ];

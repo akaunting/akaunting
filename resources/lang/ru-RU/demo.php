@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => 'Доллар США',
-        'eur'               => 'Евро',
-        'gbp'               => 'Британский Фунт',
-        'try'               => 'Турецкая Лира',
     ],
 
     'offline_payments' => [

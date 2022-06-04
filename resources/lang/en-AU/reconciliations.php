@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Cleared Amount',
     'deposit'               => 'Deposit',
     'withdrawal'            => 'Withdrawal',
+    'reconciled_amount'     => 'Reconciled',
+    'in_progress'           => 'In Progress',
+    'save_draft'            => 'Save as Draft',
+    'irreconcilable'        => 'Irreconcilable',
 
 ];

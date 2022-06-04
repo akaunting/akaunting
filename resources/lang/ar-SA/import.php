@@ -4,6 +4,7 @@ return [
 
     'import'                => 'استيراد',
     'title'                 => 'استيراد :type',
-    'message'               => 'أنواع الملفات المسموحة: XLS, XLSX. من فضلك قم <a target="_blank" href=":link"><strong>بتحميل</strong></a> ملفاً لرؤية مثال على ذلك.',
+    'limitations'           => 'أنواع الملفات المسموح بها: :extensions<br>الحد الأقصى المسموح به: :row_limit',
+    'sample_file'           => 'يمكنك <a target="_blank" href=":download_link"><strong>تنزيل</strong></a> ملف العينة وملء بياناتك.',
 
 ];

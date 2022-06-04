@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => 'JAV doleris',
-        'eur'               => 'Euras',
-        'gbp'               => 'Svarai sterlingai',
-        'try'               => 'Turkijos Lira',
     ],
 
     'offline_payments' => [

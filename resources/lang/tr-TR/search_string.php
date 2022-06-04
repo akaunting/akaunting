@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Mutabakat Yapıldı',
         'expense_account'   => 'Gönderen Hesap',
         'income_account'    => 'Alan Hesap',
+        'recurring'         => 'Tekrarlanan',
     ],
 
 ];

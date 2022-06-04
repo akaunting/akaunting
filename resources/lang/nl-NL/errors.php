@@ -20,5 +20,4 @@ return [
         '500'       => 'We gaan meteen opzoek naar een oplossing,',
         'record'    => 'We konden het record dat u zocht niet vinden.',
     ],
-
 ];

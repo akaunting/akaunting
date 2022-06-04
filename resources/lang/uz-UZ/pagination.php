@@ -6,5 +6,4 @@ return [
     'next'                  => 'Keyingi &raquo;',
     'showing'               => ': birinchi-: oxirgisi: jami yozuvlar.',
     'page'                  => 'sahifaga.',
-
 ];

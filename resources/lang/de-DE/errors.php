@@ -20,5 +20,4 @@ return [
         '500'       => 'Wir werden uns sofort darum kümmern, dieses Problem zu lösen',
         'record'    => 'Wir konnten den Datensatz nicht finden, nach dem Sie gesucht haben.',
     ],
-
 ];

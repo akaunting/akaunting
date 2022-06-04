@@ -43,4 +43,8 @@ return [
         'connection'        => 'Greška: Ne može se spojiti na bazu podataka! Provjerite da li su tačni unešeni podaci.',
     ],
 
+    'update' => [
+        'core'              => 'Akaunting nova verzija je dostupna! Molimo, ažurirajte svoju instalaciju.',
+        'module'            => ':module nova verzija je dostupna! Molimo, ažurirajte svoju instalaciju.',
+    ],
 ];

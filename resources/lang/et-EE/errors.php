@@ -20,5 +20,4 @@ return [
         '500'       => 'Tegeleme parandustöödega.',
         'record'    => 'Otsitavat kirjet ei leitud.',
     ],
-
 ];

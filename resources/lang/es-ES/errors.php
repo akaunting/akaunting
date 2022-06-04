@@ -20,5 +20,4 @@ return [
         '500'       => 'Trabajaremos para arreglarlo de inmediato.',
         'record'    => 'No pudimos encontrar el registro que estaba buscando.',
     ],
-
 ];
