@@ -133,7 +133,7 @@ class Transaction extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\Banking\Transaction', 'parent_id');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'parent_id')->isRecurring();
     }
 
     public function recurring()

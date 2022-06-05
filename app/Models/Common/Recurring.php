@@ -51,7 +51,7 @@ class Recurring extends Model
      */
     public function recurable()
     {
-        return $this->morphTo();
+        return $this->morphTo()->isRecurring();
     }
 
     public function scopeActive(Builder $query): Builder

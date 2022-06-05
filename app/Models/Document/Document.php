@@ -136,7 +136,7 @@ class Document extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\Document\Document', 'parent_id');
+        return $this->belongsTo('App\Models\Document\Document', 'parent_id')->isRecurring();
     }
 
     public function payments()
