@@ -643,8 +643,12 @@ class Document extends Model
     {
         $query = $this->where('id', $value);
 
-        if (request()->route()->hasParameter('recurring_invoice') || request()->route()->hasParameter('recurring_bill')) {
-            $query->isRecurring();
+        if (request()->route()->hasParameter('recurring_invoice')) {
+            $query->invoiceRecurring();
+        }
+
+        if (request()->route()->hasParameter('recurring_bill')) {
+            $query->billRecurring();
         }
 
         return $query->firstOrFail();
