@@ -36,7 +36,7 @@ return [
     'install'               => 'Instalēt',
     'buy_now'               => 'Pirkt tagad',
     'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
-    'no_apps'               => 'Šajā kategorijā programmu vēl nav.',
+    'no_apps'               => 'Pārbaudiet sava uzņēmuma profesionālākās lietotnes un iegūstiet tās par labāko cenu.',
     'become_developer'      => 'Vai jūs esat izstrādātājs? <a href=":url" target="_blank">Šeit</a> varat uzzināt, kā izveidot lietotni un sākt pārdot jau šodien!',
     'recommended_apps'      => 'Ieteicamās lietojumprogrammas',
     'can_not_install'       => 'Mēneša abonementi ir pieejami tikai mākoņpakalpojumā. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Uzziniet vairāk.</a>',

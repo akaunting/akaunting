@@ -36,7 +36,7 @@ return [
     'install'               => 'Instaliraj',
     'buy_now'               => 'Kupi odmah',
     'get_api_key'           => '<a href=":url" target="_blank"> Kliknite ovdje </a> da biste dobili svoj API ključ.',
-    'no_apps'               => 'U ovoj kategoriji još nema aplikacija.',
+    'no_apps'               => 'Provjerite najprofesionalnije aplikacije za vaše poslovanje i nabavite ih po najboljoj cijeni.',
     'become_developer'      => 'Jeste li programer? <a href=":url" target="_blank"> Ovdje </a> možete naučiti kako stvoriti aplikaciju i započeti s prodajom već danas!',
     'recommended_apps'      => 'Preporučene aplikacije',
     'can_not_install'       => 'Mjesečna pretplata je dostupna samo na Cloud servisima. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Pročitaj više.</a>',

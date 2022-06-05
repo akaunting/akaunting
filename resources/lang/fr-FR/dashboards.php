@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Erreur: vous ne pouvez pas désactiver le dernier tableau de bord. Merci d\'en créer un nouveau d\'abord!',
     ],
 
+    'form_description' => [
+        'general'               => 'Sélectionnez les utilisateurs que vous voulez avoir accès au nouveau tableau de bord.',
+    ],
+
 ];

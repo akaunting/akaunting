@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?|Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?',
     ],
 
+    'success' => [
+        'general'       => ':count enregistrement :type.',
+    ],
 ];

@@ -2,23 +2,33 @@
 
 return [
 
-    'currencies'                => 'Devises',
-    'total_income'              => 'Recettes totales',
     'receivables'               => 'A percevoir',
-    'open_invoices'             => 'Factures de vente en cours',
-    'overdue_invoices'          => 'Factures de vente échues',
-    'total_expenses'            => 'Dépenses totales',
     'payables'                  => 'A payer',
-    'open_bills'                => 'Factures d\'achat en cours',
-    'overdue_bills'             => 'Factures d\'achat échues',
-    'total_profit'              => 'Bénéfice total',
-    'open_profit'               => 'Bénéfice en cours',
-    'overdue_profit'            => 'Bénéfice échu',
     'cash_flow'                 => 'Trésorerie',
-    'no_profit_loss'            => 'Perte nette',
-    'income_by_category'        => 'Revenus par catégorie',
+    'profit_loss'               => 'Profit & Perte',
     'expenses_by_category'      => 'Dépenses par catégorie',
     'account_balance'           => 'Solde du compte',
-    'latest_income'             => 'Dernière recette',
-    'latest_expenses'           => 'Dernière dépense',
+    'bank_feeds'                => 'Connecter les comptes bancaires',
+    'currencies'                => 'Devises',
+
+    'view_report'               => 'Voir le rapport',
+    'total_unpaid_invoices'     => 'Total des factures impayées',
+    'total_unpaid_bills'        => 'Total des ventes impayées',
+
+    'description' => [
+        'receivables'           => 'Montant que vous avez encore à recevoir de vos clients',
+        'payables'              => 'Montant que vous avez encore à payer à vos fournisseurs',
+        'cash_flow'             => 'Encaissement entrant et sortant de votre entreprise',
+        'profit_loss'           => 'Revenus et dépenses y compris les ventes et les factures impayées',
+        'expenses_by_category'  => 'Les dépenses les plus élevées dans différentes catégories',
+        'account_balance'       => 'Solde actuel de vos comptes bancaires',
+        'bank_feeds'            => 'Importez automatiquement vos transactions vers Akaunting </br>en connectant vos comptes bancaires',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => '1-30 jours de retard',
+        'overdue_30_60'         => '30-60 jours de retard',
+        'overdue_60_90'         => '60-90 jours de retard',
+        'overdue_90_un'         => '>90 jours de retard',
+    ],
 ];

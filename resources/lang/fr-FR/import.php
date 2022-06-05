@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Importation',
     'title'                 => 'Importer :type',
-    'message'               => 'Types de fichier autorisés : XLS, XLSX. Veuillez <a target="_blank" href=":link"><strong>télécharger</strong></a> le modèle de fichier.',
+    'limitations'           => 'Types de fichiers autorisés: :extensions<br>Nombre maximum de lignes autorisées: :row_limit',
+    'sample_file'           => 'Vous pouvez <a target="_blank" href=":download_link"><strong>télécharger</strong></a> le fichier exemple et le remplir avec vos données.',
 
 ];

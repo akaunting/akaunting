@@ -43,4 +43,8 @@ return [
         'connection'        => 'Viga: Andmebaasiga ei saanud ühendust luua! Palun veenduge, et üksikasjad oleksid õiged.',
     ],
 
+    'update' => [
+        'core'              => 'Akauntingust on uus versioon! Palun uuenda enda installatsiooni.',
+        'module'            => ':module-st on uus versioon! Palun uuenda enda installatsiooni.',
+    ],
 ];
