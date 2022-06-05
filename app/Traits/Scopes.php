@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait Scopes
 {
@@ -16,13 +17,8 @@ trait Scopes
      */
     public function applyNotRecurringScope(Builder $builder, Model $model)
     {
-        // Skip if recurring is explicitly set
-        if ($this->scopeEquals($builder, 'type', 'like', '%-recurring')) {
-            return;
-        }
-
-        // Skip if scope is already applied
-        if ($this->scopeEquals($builder, 'type', 'not like', '%-recurring')) {
+        // Skip if recurring already in query
+        if ($this->scopeValueExists($builder, 'type', '-recurring')) {
             return;
         }
 
@@ -39,13 +35,8 @@ trait Scopes
      */
     public function applyNotSplitScope(Builder $builder, Model $model)
     {
-        // Skip if split is explicitly set
-        if ($this->scopeEquals($builder, 'type', 'like', '%-split')) {
-            return;
-        }
-
-        // Skip if scope is already applied
-        if ($this->scopeEquals($builder, 'type', 'not like', '%-split')) {
+        // Skip if split already in query
+        if ($this->scopeValueExists($builder, 'type', '-split')) {
             return;
         }
 
@@ -60,7 +51,7 @@ trait Scopes
      * @param  $column
      * @return boolean
      */
-    public function scopeExists($builder, $column)
+    public function scopeColumnExists($builder, $column)
     {
         $query = $builder->getQuery();
 
@@ -90,14 +81,15 @@ trait Scopes
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @param  $column
+     * @param  $value
      * @return boolean
      */
-    public function scopeEquals($builder, $column, $operator, $value)
+    public function scopeValueExists($builder, $column, $value)
     {
         $query = $builder->getQuery();
 
         foreach ((array) $query->wheres as $key => $where) {
-            if (empty($where) || empty($where['column']) || empty($where['operator']) || empty($where['value'])) {
+            if (empty($where) || empty($where['column']) || empty($where['value'])) {
                 continue;
             }
 
@@ -111,11 +103,7 @@ trait Scopes
                 continue;
             }
 
-            if ($where['operator'] != $operator) {
-                continue;
-            }
-
-            if ($where['value'] != $value) {
+            if (! Str::endsWith($where['value'], $value)) {
                 continue;
             }
 
@@ -123,5 +111,11 @@ trait Scopes
         }
 
         return false;
+    }
+
+    // @deprecated version 3.0.0
+    public function scopeExists($builder, $column)
+    {
+        return $this->scopeColumnExists($builder, $column);
     }
 }

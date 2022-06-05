@@ -632,6 +632,24 @@ class Document extends Model
         return $actions;
     }
 
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $query = $this->where('id', $value);
+
+        if (request()->route()->hasParameter('recurring_invoice') || request()->route()->hasParameter('recurring_bill')) {
+            $query->isRecurring();
+        }
+
+        return $query->firstOrFail();
+    }
+
     protected static function newFactory(): Factory
     {
         return DocumentFactory::new();

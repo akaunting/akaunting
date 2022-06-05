@@ -596,6 +596,24 @@ class Transaction extends Model
     }
 
     /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $query = $this->where('id', $value);
+
+        if (request()->route()->hasParameter('recurring_transaction')) {
+            $query->isRecurring();
+        }
+
+        return $query->firstOrFail();
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
