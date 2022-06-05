@@ -71,7 +71,7 @@ class Transactions extends Controller
      */
     public function show(Transaction $transaction)
     {
-        $title = ($transaction->type == 'income') ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
+        $title = $transaction->isIncome() ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
 
         return view('banking.transactions.show', compact('transaction', 'title'));
     }
@@ -331,30 +331,28 @@ class Transactions extends Controller
     {
         $documents = collect([]);
 
-        if ($transaction->type == Transaction::INCOME_TYPE && $transaction->contact->exists) {
-            $builder = $transaction->contact
-                ->invoices();
+        if ($transaction->isIncome() && $transaction->contact->exists) {
+            $builder = $transaction->contact->invoices();
         }
 
-        if ($transaction->type == Transaction::INCOME_TYPE && ! $transaction->contact->exists) {
+        if ($transaction->isIncome() && ! $transaction->contact->exists) {
             $builder = Document::invoice();
         }
 
-        if ($transaction->type == Transaction::EXPENSE_TYPE && $transaction->contact->exists) {
-            $builder = $transaction->contact
-                ->bills();
+        if ($transaction->isExpense() && $transaction->contact->exists) {
+            $builder = $transaction->contact->bills();
         }
 
-        if ($transaction->type == Transaction::EXPENSE_TYPE && ! $transaction->contact->exists) {
+        if ($transaction->isExpense() && ! $transaction->contact->exists) {
             $builder = Document::bill();
         }
 
         if (isset($builder)) {
             $documents = $builder->notPaid()
-                ->where('currency_code', $transaction->currency_code)
-                ->with(['media', 'totals', 'transactions'])
-                ->get()
-                ->toJson();
+                                ->where('currency_code', $transaction->currency_code)
+                                ->with(['media', 'totals', 'transactions'])
+                                ->get()
+                                ->toJson();
         }
 
         $data = [
