@@ -48,7 +48,9 @@ class Transactions extends Controller
                 return;
             }
 
-            $totals[$transaction->type] += $transaction->getAmountConvertedToDefault();
+            $type = $transaction->isIncome() ? 'income' : 'expense';
+
+            $totals[$type] += $transaction->getAmountConvertedToDefault();
         });
 
         $totals['profit'] = $totals['income'] - $totals['expense'];
