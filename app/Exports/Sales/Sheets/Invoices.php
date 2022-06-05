@@ -11,7 +11,7 @@ class Invoices extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        return Model::with('category')->invoice()->isNotRecurring()->collectForExport($this->ids, ['document_number' => 'desc']);
+        return Model::with('category')->invoice()->collectForExport($this->ids, ['document_number' => 'desc']);
     }
 
     public function map($model): array

@@ -11,7 +11,7 @@ class Transactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        return Model::with('account', 'category', 'contact', 'document')->isNotRecurring()->collectForExport($this->ids, ['paid_at' => 'desc']);
+        return Model::with('account', 'category', 'contact', 'document')->collectForExport($this->ids, ['paid_at' => 'desc']);
     }
 
     public function map($model): array
