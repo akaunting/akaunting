@@ -34,7 +34,9 @@ class Content extends Component
         $this->counts = [];
 
         // Handle documents
-        $this->documents = $this->contact->documents()->with('transactions')->get();
+        $docs = $this->contact->isCustomer() ? 'invoices' : 'bills';
+
+        $this->documents = $this->contact->$docs()->with('transactions')->get();
 
         $this->counts['documents'] = $this->documents->count();
 
