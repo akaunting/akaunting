@@ -50,7 +50,7 @@
             {{ $class->row_names[$table_key][$id] }}
             @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
             <button type="button" class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
-                <span class="material-icons transform transition-all text-lg leading-none">navigate_next</span>
+                <span class="material-icons transform rotate-90 transition-all text-lg leading-none">expand_more</span>
             </button>
             @endif
         </td>
