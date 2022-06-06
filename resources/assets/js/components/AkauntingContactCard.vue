@@ -532,8 +532,7 @@ export default {
             })
             .catch(error => {
                 this.form.loading = false;
-
-                console.log(error);
+                this.form.errors.record(error.response.data.errors);
             });
         },
 
