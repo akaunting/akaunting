@@ -26,7 +26,7 @@
             @stack('timeline_get_paid_body_button_payment_end')
         </div>
 
-        <div class="text-xs mt-1" style="margin-left: 0 !important;">
+        <div class="text-xs mt-4" style="margin-left: 0 !important;">
             <span class="font-medium">
                 {{ trans('bills.payment_made') }} :
             </span>
@@ -45,13 +45,17 @@
                         </br>
 
                         @if (! empty($transaction->contact) && $transaction->contact->email)
-                            <x-button id="button-email-send" class="text-purple" override="class" @click="onEmail('{{ route($transactionEmailRoute, $transaction->id) }}')">
-                                {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
+                            <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmail('{{ route($transactionEmailRoute, $transaction->id) }}')">
+                                <span class="border-b border-transparent transition-all hover:border-purple">
+                                    {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
+                                </span>
                             </x-button>
                         @else
                             <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
-                                <x-button class="text-purple" override="class" disabled="disabled">
-                                    {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
+                                <x-button class="text-purple mt-1" override="class" disabled="disabled">
+                                    <span class="border-b border-transparent transition-all hover:border-purple">
+                                        {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
+                                    </span>
                                 </x-button>
                             </x-tooltip>
                         @endif
@@ -61,10 +65,12 @@
                         <x-button
                             @click="onEditPayment('{{ $transaction->id }}')"
                             id="button-edit-payment"
-                            class="text-purple"
+                            class="text-purple mt-1"
                             override="class"
                         >
-                            {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
+                            <span class="border-b border-transparent transition-all hover:border-purple">
+                                {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
+                            </span>
                         </x-button>
 
                         <span> - </span>
@@ -82,8 +88,8 @@
                             :title="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
                             :message="$message"
                             :label="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
-                            class="text-purple"
-                            text-class="text-purple"
+                            class="text-purple mt-1"
+                            text-class="border-b border-transparent transition-all hover:border-purple"
                             override="class"
                         />
                     </div>
