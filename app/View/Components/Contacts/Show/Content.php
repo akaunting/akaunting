@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Contacts\Show;
 
+use App\Models\Common\Contact;
 use App\Utilities\Date;
 use App\Abstracts\View\Components\Contacts\Show as Component;
 use Illuminate\Database\Eloquent\Collection;
@@ -34,7 +35,12 @@ class Content extends Component
         $this->counts = [];
 
         // Handle documents
-        $this->documents = $this->contact->documents()->with('transactions')->get();
+        $documents = match ($this->type) {
+            Contact::VENDOR_TYPE => $this->contact->bills(),
+            default => $this->contact->invoices(),
+        };
+
+        $this->documents = $documents->with('transactions')->isNotRecurring()->get();
 
         $this->counts['documents'] = $this->documents->count();
 
