@@ -2,7 +2,7 @@
 
 <tfoot>
     <tr>
-        <td class="{{ $class->column_name_width }} py-4 ltr:text-left rtl:text-right text-black-400 font-bold uppercase">
+        <td class="{{ $class->column_name_width }} w-24 py-4 ltr:text-left rtl:text-right text-black-400 font-bold uppercase">
             {{ trans('reports.net') }}
         </td>
 

@@ -1,7 +1,7 @@
 <tr>
     @stack('name_td_start')
         @if (! $hideItems || (! $hideName && ! $hideDescription))
-            <td class="item text text-alignment-left">
+            <td class="item text text-alignment-left text-left">
                 @if (! $hideName)
                     {{ $item->name }} <br/>
                 @endif
@@ -22,13 +22,13 @@
 
     @stack('quantity_td_start')
         @if (! $hideQuantity)
-            <td class="quantity text text-alignment-right">{{ $item->quantity }}</td>
+            <td class="quantity text text-alignment-right text-right">{{ $item->quantity }}</td>
         @endif
     @stack('quantity_td_end')
 
     @stack('price_td_start')
         @if (! $hidePrice)
-            <td class="price text text-alignment-right">@money($item->price, $document->currency_code, true)</td>
+            <td class="price text text-alignment-right text-right">@money($item->price, $document->currency_code, true)</td>
         @endif
     @stack('price_td_end')
 
@@ -36,9 +36,9 @@
         @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
             @stack('discount_td_start')
                 @if ($item->discount_type === 'percentage')
-                    <td class="discount text text-alignment-right">{{ $item->discount }}</td>
+                    <td class="discount text text-alignment-right text-right">{{ $item->discount }}</td>
                 @else
-                    <td class="discount text text-alignment-right">@money($item->discount, $document->currency_code, true)</td>
+                    <td class="discount text text-alignment-right text-right">@money($item->discount, $document->currency_code, true)</td>
                 @endif
             @stack('discount_td_end')
         @endif
@@ -46,7 +46,7 @@
 
     @stack('total_td_start')
         @if (! $hideAmount)
-            <td class="total text text-alignment-right">@money($item->total, $document->currency_code, true)</td>
+            <td class="total text text-alignment-right text-right">@money($item->total, $document->currency_code, true)</td>
         @endif
     @stack('total_td_end')
 </tr>

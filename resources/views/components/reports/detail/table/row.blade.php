@@ -41,10 +41,10 @@
     @if ($row_total = array_sum($parent_row_values))
         @if (isset($parent_id))
             <tr class="collapse-sub" data-collapse="child-{{ $parent_id }}">
-                <td class="{{ $class->column_name_width }} py-top text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">
+                <td class="{{ $class->column_name_width }} w-24 py-top text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">
         @else
             <tr>
-                <td class="{{ $class->column_name_width }} py-top text-left text-black-400" title="{{ $class->row_names[$table_key][$id] }}">
+                <td class="{{ $class->column_name_width }} w-24 py-top text-left text-black-400" title="{{ $class->row_names[$table_key][$id] }}">
         @endif
 
             {{ $class->row_names[$table_key][$id] }}

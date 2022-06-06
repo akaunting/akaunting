@@ -183,7 +183,7 @@
 
     @if (! $hideContactInfo)
         <tr>
-            <td style="width: 60%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
+            <td style="margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                 <strong>{{ trans($textContactInfo) }}</strong><br>
             </td>
         </tr>
@@ -276,7 +276,7 @@
     <table class="table" cellspacing="0" cellpadding="0" style="padding:15px 0 0 0;">
         <thead style="color:#424242; font-size:12px;">
             <tr class="border-bottom-1">
-                <th class="item text-alignment-left" style="padding:5px 0;">
+                <th class="item text-alignment-left text-left" style="padding:5px 0;">
                     @if (!$hideRelatedDocumentNumber)
                         <span style="font-size: 13px;">{{ trans_choice($textRelatedDocumentNumber, 1) }}</span> <br />
                     @endif
@@ -294,7 +294,7 @@
                 @endif
 
 
-                <th class="price text-alignment-right" style="padding: 5px 0;">
+                <th class="price text-alignment-right text-right" style="padding: 5px 0;">
                     @if (!$hideRelatedDocumentAmount)
                         <span style="font-size: 13px;">{{ trans($textRelatedDocumentAmount) }}</span><br />
                     @endif
@@ -309,7 +309,7 @@
 
         <tbody>
             <tr>
-                <td class="item text-alignment-left" style="color:#424242; font-size:12px; padding-left:0;">
+                <td class="item text-alignment-left text-left" style="color:#424242; font-size:12px; padding-left:0;">
                     @if (!$hideRelatedDocumentNumber)
                         <a class="text-medium" style="border-bottom:1px solid;" href="{{ route($routeDocumentShow, $transaction->document->id) }}">
                             {{ $transaction->document->document_number }}
@@ -327,7 +327,7 @@
                 </td>
                 @endif
 
-                <td class="price text-alignment-right" style="color:#424242; font-size:12px; padding-right:0;">
+                <td class="price text-alignment-right text-right" style="color:#424242; font-size:12px; padding-right:0;">
                     @if (!$hideRelatedDocumentAmount)
                         @money($transaction->document->amount, $transaction->document->currency_code, true) <br />
                     @endif

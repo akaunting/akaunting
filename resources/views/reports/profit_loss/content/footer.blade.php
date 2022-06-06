@@ -2,7 +2,7 @@
     <table class="w-full rp-border-collapse">
         <tbody>
             <tr>
-                <td class="{{ $class->column_name_width }} ltr:text-left rtl:text-right text-black-400 uppercase font-bold">
+                <td class="{{ $class->column_name_width }} w-24 ltr:text-left rtl:text-right text-black-400 uppercase font-bold">
                     {{ trans('reports.net_profit') }}
                 </td>
 
