@@ -6977,9 +6977,6 @@ input[type="date"]::-webkit-inner-spin-button,
 .-mb-2{
   margin-bottom: -0.5rem;
 }
-.-ml-3{
-  margin-left: -0.75rem;
-}
 .box-border{
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -36434,16 +36431,16 @@ body{
   margin-right: 1rem;
 }
 
-[dir="ltr"] .ltr\:ml-3{
-  margin-left: 0.75rem;
-}
-
 [dir="ltr"] .ltr\:ml-2{
   margin-left: 0.5rem;
 }
 
 [dir="ltr"] .ltr\:mr-2{
   margin-right: 0.5rem;
+}
+
+[dir="ltr"] .ltr\:ml-3{
+  margin-left: 0.75rem;
 }
 
 [dir="ltr"] .ltr\:mr-3{
@@ -36480,6 +36477,10 @@ body{
 
 [dir="ltr"] .ltr\:pr-6{
   padding-right: 1.5rem;
+}
+
+[dir="ltr"] .ltr\:pl-0{
+  padding-left: 0px;
 }
 
 [dir="ltr"] .ltr\:pl-6{
@@ -36598,16 +36599,16 @@ body{
   margin-left: 1rem;
 }
 
-[dir="rtl"] .rtl\:mr-3{
-  margin-right: 0.75rem;
-}
-
 [dir="rtl"] .rtl\:mr-2{
   margin-right: 0.5rem;
 }
 
 [dir="rtl"] .rtl\:ml-2{
   margin-left: 0.5rem;
+}
+
+[dir="rtl"] .rtl\:mr-3{
+  margin-right: 0.75rem;
 }
 
 [dir="rtl"] .rtl\:ml-3{
@@ -36656,16 +36657,16 @@ body{
   padding-left: 1.5rem;
 }
 
+[dir="rtl"] .rtl\:pr-0{
+  padding-right: 0px;
+}
+
 [dir="rtl"] .rtl\:pr-6{
   padding-right: 1.5rem;
 }
 
 [dir="rtl"] .rtl\:pl-0{
   padding-left: 0px;
-}
-
-[dir="rtl"] .rtl\:pr-0{
-  padding-right: 0px;
 }
 
 [dir="rtl"] .rtl\:pr-3{

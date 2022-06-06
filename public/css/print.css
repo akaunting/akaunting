@@ -276,19 +276,19 @@ html[dir='rtl'] .border-radius-last {
 }
 
 html[dir='ltr'] .text-alignment-left {
-    text-align: left;
+    text-align: left !important;
 }
 
 html[dir='rtl'] .text-alignment-left {
-    text-align: right;
+    text-align: right !important;
 }
 
 html[dir='lte'] .text-alignment-right {
-    text-align: right;
+    text-align: right !important;
 }
 
 html[dir='rtl'] .text-alignment-right {
-    text-align: left;
+    text-align: left !important;
 }
 
 .text-right
