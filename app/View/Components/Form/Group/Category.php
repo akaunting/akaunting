@@ -37,6 +37,10 @@ class Category extends Form
             $this->categories->put($model->category->id, $model->category->name);
         }
 
+        if($model = $this->getParentData('model')) {
+            $this->selected = $model->category_id;
+        }
+
         if (empty($this->selected) && (in_array($type, ['income', 'expense']))) {
             $this->selected = setting('default.' . $type . '_category');
         }
