@@ -4,13 +4,15 @@
     </x-slot>
 
     <x-slot name="status">
-        @if (! $account->enabled)
-            <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
-        @endif
+        <div class="mt-3">
+            @if (! $account->enabled)
+                <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
+            @endif
 
-        @if (setting('default.account') == $account->id)
-            <x-index.default text="{{ trans('accounts.default_account') }}" />
-        @endif
+            @if (setting('default.account') == $account->id)
+                <x-index.default text="{{ trans('accounts.default_account') }}" />
+            @endif
+        </div>
     </x-slot>
 
     <x-slot name="favorite"
