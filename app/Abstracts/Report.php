@@ -270,6 +270,9 @@ abstract class Report
             case 'yearly':
                 $width = 'w-4/12 col-4';
                 break;
+            case 'monthly':
+                $width = 'col-1';
+                break;
         }
 
         if (empty($width)) {

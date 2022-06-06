@@ -283,7 +283,7 @@ html[dir='rtl'] .text-alignment-left {
     text-align: right !important;
 }
 
-html[dir='lte'] .text-alignment-right {
+html[dir='ltr'] .text-alignment-right {
     text-align: right !important;
 }
 
@@ -680,6 +680,10 @@ html[dir='rtl'] .text-alignment-right {
 }
 
 /*--Print--*/
+
+.col-1 {
+    width: 8.333333%;
+}
 
 .col-2 {
     width: 16.666667%;
