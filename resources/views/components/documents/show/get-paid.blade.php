@@ -27,7 +27,7 @@
 
             @if (! $hideAcceptPayment)
                 <x-link href="{{ route('apps.categories.show', [
-                        'alias' => 'payment-method', 
+                        'alias' => 'payment-method',
                         'utm_source' => $type,
                         'utm_medium' => 'app',
                         'utm_campaign' => trans('documents.accept_payment_online'),
@@ -86,7 +86,7 @@
                         >
                             <span class="border-b border-transparent transition-all hover:border-purple">
                                 {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
-                            <span class="border-b border-transparent transition-all hover:border-purple">
+                            </span>
                         </x-button>
 
                         <span> - </span>

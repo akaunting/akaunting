@@ -171,7 +171,7 @@
                                                     <td class="text-sm text-right border-b-0 p-0">
                                                         <div>
                                                             <money
-                                                                :name="'total_amount'"
+                                                                name="total_amount"
                                                                 :value="total_amount"
                                                                 v-bind="money"
                                                                 masked
@@ -229,7 +229,7 @@
                                                     <td class="text-right text-sm border-b-0 p-0">
                                                         <div>
                                                             <money
-                                                                :name="'difference_amount'"
+                                                                name="difference_amount"
                                                                 :value="difference_amount"
                                                                 v-bind="money"
                                                                 masked
@@ -255,7 +255,7 @@
                                     </button>
 
                                     <button type="button"
-                                        :disabled="this.difference_amount != 0 || (this.difference_amount == 0 && form.loading)"
+                                        :disabled="differenceAmount != 0 || (differenceAmount == 0 && form.loading)"
                                         class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg disabled:bg-green-100"
                                         @click="onConfirm"
                                     >
@@ -264,7 +264,7 @@
                                             class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"
                                         >
                                         </i>
-                                        <span :class="[{'opacity-0': this.difference_amount != 0}]">{{ translations.save }}</span>
+                                        <span :class="[{'opacity-0': differenceAmount != 0}]">{{ translations.save }}</span>
                                     </button>
                                 </div>
                             </slot>
@@ -320,7 +320,43 @@ export default {
             },
             transaction_amount: "",
             money: {},
+            totalAmount: 0,
+            differenceAmount: 0,
         };
+    },
+
+    created() {
+        this.totalAmount = this.total_amount;
+        this.differenceAmount = this.difference_amount;
+    },
+
+    computed: {
+        total_amount: function () {
+            let amount = 0;
+
+            this.form.items.forEach(function(item) {
+                amount += this.convertMoneyToFloat(item.amount);
+            }, this);
+
+            this.totalAmount = parseFloat(amount.toFixed(this.currency.precision));
+
+            return parseFloat(amount.toFixed(this.currency.precision));
+        },
+
+        difference_amount: function () {
+            if (! this.transaction_amount) {
+                this.differenceAmount = 0;
+
+                return 0;
+            }
+
+            let transaction_amount = this.convertMoneyToFloat(this.transaction_amount);
+            let amount = parseFloat((this.total_amount - transaction_amount).toFixed(this.currency.precision));
+
+            this.differenceAmount = amount;
+
+            return amount;
+        }
     },
 
     mounted() {
@@ -418,9 +454,11 @@ export default {
                 this.form.items = [];
             }
         },
+
         transaction: function (transaction) {
             this.transaction_amount = transaction.amount;
         },
+
         currency: function (currency) {
             this.money = {
                 decimal: currency.decimal_mark,
@@ -429,27 +467,6 @@ export default {
                 suffix: (!currency.symbol_first) ? currency.symbol : '',
                 precision: parseInt(currency.precision),
             };
-        }
-    },
-
-    computed: {
-        total_amount: function () {
-            let amount = 0;
-
-            this.form.items.forEach(function(item) {
-                amount += this.convertMoneyToFloat(item.amount);
-            }, this);
-
-            return parseFloat(amount.toFixed(this.currency.precision));
-        },
-        difference_amount: function () {
-            if (!this.transaction_amount) {
-                return 0;
-            }
-
-            let transaction_amount = this.convertMoneyToFloat(this.transaction_amount);
-
-            return parseFloat((this.total_amount - transaction_amount).toFixed(this.currency.precision));
         }
     },
 }
