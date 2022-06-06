@@ -1,9 +1,13 @@
-@foreach($class->tables as $table_key => $table_name)
-    @php $grand_total = array_sum($class->footer_totals[$table_key]); @endphp
+<x-layouts.print>
+    <x-slot name="title">
+        {{ $class->model->name }}
+    </x-slot>
 
-    <div class="w-full lg:w-6/12">
-        @include($class->views['summary.table.header'])
-        @include($class->views['summary.table.body'])
-        @include($class->views['summary.table.footer'])
-    </div>
-@endforeach
+    <x-slot name="content">
+        <h2>{{ $class->model->name }}</h2>
+
+        {{ setting('company.name') }}
+
+        @include($class->views[$class->type])
+    </x-slot>
+</x-layouts.print>
