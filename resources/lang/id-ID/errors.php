@@ -20,5 +20,4 @@ return [
         '500'       => 'Kami akan segera memperbaikinya.',
         'record'    => 'Kami tidak dapat menemukan catatan yang Anda cari.',
     ],
-
 ];

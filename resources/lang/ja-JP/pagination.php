@@ -6,5 +6,4 @@ return [
     'next'                  => '次',
     'showing'               => ':first-:last of :total records.',
     'page'                  => 'ページあたり',
-
 ];

@@ -19,11 +19,13 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Nome(s) do(s) Item(s)',
+    'recurring_bills'       => 'Pagamento recorrente|Pagamentos recorrentes',
 
     'show_discount'         => ':discount% desconto',
     'add_discount'          => 'Adicionar desconto',
     'discount_desc'         => 'subtotal',
 
+    'payment_made'          => 'Pagamento feito',
     'payment_due'           => 'Valor Devido',
     'amount_due'            => 'Total Devido',
     'paid'                  => 'Pago',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Criar fatura',
     'receive_bill'          => 'Receber fatura',
     'make_payment'          => 'Fazer pagamento',
+
+    'form_description' => [
+        'billing'           => 'Os detalhes de faturamento aparecem na sua conta. A Data da Emissão é usada no painel e nos relatórios. Selecione a data que espera pagar como Data de Vencimento.',
+    ],
 
     'messages' => [
         'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for recebida.',

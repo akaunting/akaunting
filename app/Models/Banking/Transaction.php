@@ -133,7 +133,7 @@ class Transaction extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\Banking\Transaction', 'parent_id');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'parent_id')->isRecurring();
     }
 
     public function recurring()
@@ -188,6 +188,16 @@ class Transaction extends Model
     public function scopeIsNotRecurring(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('type'), 'not like', '%-recurring');
+    }
+
+    public function scopeIsSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'like', '%-split');
+    }
+
+    public function scopeIsNotSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'not like', '%-split');
     }
 
     public function scopeIsTransfer(Builder $query): Builder
@@ -470,21 +480,9 @@ class Transaction extends Model
                     'permission' => 'create-banking-transactions',
                     'attributes' => [
                         'id' => 'index-transactions-more-actions-connect-' . $this->id,
+                        '@click' => 'onConnect(\'' . route('transactions.dial', $this->id) . '\')',
                     ],
                 ];
-
-                $transaction = $this->load('account')->toJson();
-                $currency = $this->currency->toJson();
-
-                if ($this->contact->exists) {
-                    $document = $this->contact->invoices()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
-
-                    $connect['attributes']['@click'] = 'onConnect()';
-                } else {
-                    $document = \App\Models\Document\Document::invoice()->notPaid()->where('currency_code', $this->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson();
-
-                    $connect['attributes']['@click'] = 'onConnect()';
-                }
 
                 $actions[] = $connect;
 
@@ -595,6 +593,24 @@ class Transaction extends Model
             'ended'     => 'status-success',
             default     => 'status-success',
         };
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $query = $this->where('id', $value);
+
+        if (request()->route()->hasParameter('recurring_transaction')) {
+            $query->isRecurring();
+        }
+
+        return $query->firstOrFail();
     }
 
     /**

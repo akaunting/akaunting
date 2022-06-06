@@ -6,5 +6,4 @@ return [
     'next'                  => 'Slеdеćе',
     'showing'               => ':first-:last od :total podataka.',
     'page'                  => 'po stranici.',
-
 ];

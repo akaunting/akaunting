@@ -19,11 +19,13 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Nom de l\'article|Nom dels articles',
+    'recurring_bills'       => 'Factura recurrent|Factures recurrents',
 
     'show_discount'         => ':discount% de descompte',
     'add_discount'          => 'Afegeix descompte',
     'discount_desc'         => 'del subtotal',
 
+    'payment_made'          => 'S\'ha fet el pagament',
     'payment_due'           => 'Data límit de pagament',
     'amount_due'            => 'Quantitat a pagar',
     'paid'                  => 'Pagada',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Creació de factura',
     'receive_bill'          => 'Recepció de factura',
     'make_payment'          => 'Pagament',
+
+    'form_description' => [
+        'billing'           => 'Les dades de facturació es mostren a la factura. La data de la factura s\'utilitza al tauler i als informes. Seleccioneu la data que espereu com a data de venciment.',
+    ],
 
     'messages' => [
         'draft'             => 'Això és un <b>ESBORRANT</b> de factura. Els canvis es veuran als gràfics un cop sigui marcada com a rebuda.',

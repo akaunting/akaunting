@@ -130,6 +130,7 @@ Route::group(['prefix' => 'banking'], function () {
     Route::get('transactions/{transaction}/print', 'Banking\Transactions@printTransaction')->name('transactions.print');
     Route::get('transactions/{transaction}/pdf', 'Banking\Transactions@pdfTransaction')->name('transactions.pdf');
     Route::get('transactions/{transaction}/duplicate', 'Banking\Transactions@duplicate')->name('transactions.duplicate');
+    Route::get('transactions/{transaction}/dial', 'Banking\Transactions@dial')->name('transactions.dial');
     Route::post('transactions/{transaction}/connect', 'Banking\Transactions@connect')->name('transactions.connect');
     Route::post('transactions/import', 'Banking\Transactions@import')->middleware('import')->name('transactions.import');
     Route::get('transactions/export', 'Banking\Transactions@export')->name('transactions.export');

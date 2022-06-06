@@ -20,5 +20,4 @@ return [
         '500'       => 'Bu sorunu gidermek için hemen işe başlıyoruz.',
         'record'    => 'Ulaşmaya çalıştığınız kaydı bulamadık.',
     ],
-
 ];

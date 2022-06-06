@@ -20,6 +20,6 @@ class Contact implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $this->applyTypeScope($builder, $model);
+        //
     }
 }

@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Jeste li sigurni da želite <b>nepodmiriti</b> odabrani zapis?|Jeste li sigurni da želite<b> nepodmiriti </b> odabrane zapise?',
     ],
 
+    'success' => [
+        'general'       => ':count record :type.',
+    ],
 ];

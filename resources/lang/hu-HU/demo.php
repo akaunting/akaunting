@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => 'USA dollár',
-        'eur'               => 'Euro',
-        'gbp'               => 'Angol font',
-        'try'               => 'Török líra',
     ],
 
     'offline_payments' => [

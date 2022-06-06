@@ -2,9 +2,8 @@
 
 return [
 
-    'previous'              => 'Previous',
-    'next'                  => 'Next',
-    'showing'               => ':first-:last of :total records.',
-    'page'                  => 'per page.',
-
+    'previous'              => 'Atpakaļ',
+    'next'                  => 'Nākamais',
+    'showing'               => ':pirmais-:pēdējais no :visiem ierakstiem',
+    'page'                  => 'uz lapu',
 ];

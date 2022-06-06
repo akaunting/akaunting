@@ -34,7 +34,7 @@ class Content extends Component
         $this->counts = [];
 
         // Handle documents
-        $this->documents = $this->contact->documents()->with('transactions')->isNotRecurring()->get();
+        $this->documents = $this->contact->documents()->with('transactions')->get();
 
         $this->counts['documents'] = $this->documents->count();
 
@@ -61,7 +61,7 @@ class Content extends Component
         }
 
         // Handle payments
-        $this->transactions = $this->contact->transactions()->with('account', 'category')->isNotRecurring()->get();
+        $this->transactions = $this->contact->transactions()->with('account', 'category')->get();
 
         $this->counts['transactions'] = $this->transactions->count();
 

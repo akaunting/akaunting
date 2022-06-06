@@ -6,5 +6,4 @@ return [
     'next'                  => 'Següent',
     'showing'               => '(:first-:last de :total)',
     'page'                  => 'per pàgina',
-
 ];

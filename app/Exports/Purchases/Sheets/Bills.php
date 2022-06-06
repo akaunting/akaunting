@@ -11,7 +11,7 @@ class Bills extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        return Model::with('category')->bill()->isNotRecurring()->collectForExport($this->ids, ['document_number' => 'desc']);
+        return Model::with('category')->bill()->collectForExport($this->ids, ['document_number' => 'desc']);
     }
 
     public function map($model): array

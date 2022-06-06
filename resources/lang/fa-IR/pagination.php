@@ -6,5 +6,4 @@ return [
     'next'                  => 'بعدی',
     'showing'               => ':first-:last از :total رکورد.',
     'page'                  => 'در صفحه.',
-
 ];

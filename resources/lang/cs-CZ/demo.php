@@ -13,9 +13,6 @@ return [
 
     'currencies' => [
         'usd'               => 'Americký dolar',
-        'eur'               => 'Euro',
-        'gbp'               => 'Britská libra',
-        'try'               => 'Turecká Lira',
     ],
 
     'offline_payments' => [

@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Under Maintenance',
+    'title' => 'Atrodas Apkopē',
 
-    'message' => 'Sorry, we\'re down for maintenance. Please, try again later!',
+    'message' => 'Atvainojiet, mums nepieciešama apkope. Lūdzu, vēlāk mēģiniet vēlreiz!',
 
-    'last-updated' => 'This message was last updated :timestamp.',
+    'read_only' => 'Ir iespējots tikai lasīšanas režīms. Apskatīt drīkst, bet neko mainīt nedrīkst!',
 
 ];

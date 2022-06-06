@@ -36,7 +36,7 @@ class Accounts extends Controller
     public function show(Account $account)
     {
         // Handle transactions
-        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->isNotRecurring()->collect('paid_at');
+        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
 
         $transfers = Transfer::with('expense_transaction', 'income_transaction')->get()->filter(function ($transfer) use($account) {
             if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {

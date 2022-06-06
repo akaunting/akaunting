@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Usaglašeno',
         'expense_account'   => 'Sa računa',
         'income_account'    => 'Na račun',
+        'recurring'         => 'Ponavljajuće',
     ],
 
 ];

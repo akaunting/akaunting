@@ -290,8 +290,8 @@ return [
             'group'                 => 'banking',
             'route' => [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'income', // sales/invoices/{parameter}/edit
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
+                //'create'          => 'transactions.create', // if you change route, you can write full path
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -316,8 +316,8 @@ return [
             'group'                 => 'banking',
             'route' => [
                 'prefix'            => 'recurring-transactions', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'recurring_transaction', // sales/invoices/{parameter}/edit
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'parameter'         => 'recurring_transaction', // banking/recurring-transactions/{parameter}/edit
+                //'create'          => 'transactions.create', // if you change route, you can write full path
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -344,8 +344,8 @@ return [
             'group'                 => 'banking',
             'route' => [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'expense', // sales/invoices/{parameter}/edit
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
+                //'create'          => 'transactions.create', // if you change route, you can write full path
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -369,8 +369,8 @@ return [
             'group'                 => 'banking',
             'route' => [
                 'prefix'            => 'recurring-transactions', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'recurring_transaction', // sales/invoices/{parameter}/edit
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'parameter'         => 'recurring_transaction', // banking/recurring-transactions/{parameter}/edit
+                //'create'          => 'transactions.create', // if you change route, you can write full path
             ],
             'permission' => [
                 'prefix'            => 'transactions',

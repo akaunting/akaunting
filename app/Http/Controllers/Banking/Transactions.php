@@ -35,7 +35,7 @@ class Transactions extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('account', 'category', 'contact')->isNotRecurring()->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
 
         $totals = [
             'income' => 0,
@@ -48,7 +48,9 @@ class Transactions extends Controller
                 return;
             }
 
-            $totals[$transaction->type] += $transaction->getAmountConvertedToDefault();
+            $type = $transaction->isIncome() ? 'income' : 'expense';
+
+            $totals[$type] += $transaction->getAmountConvertedToDefault();
         });
 
         $totals['profit'] = $totals['income'] - $totals['expense'];
@@ -69,7 +71,7 @@ class Transactions extends Controller
      */
     public function show(Transaction $transaction)
     {
-        $title = ($transaction->type == 'income') ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
+        $title = $transaction->isIncome() ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
 
         return view('banking.transactions.show', compact('transaction', 'title'));
     }
@@ -323,6 +325,43 @@ class Transactions extends Controller
         $file_name = $this->getTransactionFileName($transaction);
 
         return $pdf->download($file_name);
+    }
+
+    public function dial(Transaction $transaction)
+    {
+        $documents = collect([]);
+
+        if ($transaction->isIncome() && $transaction->contact->exists) {
+            $builder = $transaction->contact->invoices();
+        }
+
+        if ($transaction->isIncome() && ! $transaction->contact->exists) {
+            $builder = Document::invoice();
+        }
+
+        if ($transaction->isExpense() && $transaction->contact->exists) {
+            $builder = $transaction->contact->bills();
+        }
+
+        if ($transaction->isExpense() && ! $transaction->contact->exists) {
+            $builder = Document::bill();
+        }
+
+        if (isset($builder)) {
+            $documents = $builder->notPaid()
+                                ->where('currency_code', $transaction->currency_code)
+                                ->with(['media', 'totals', 'transactions'])
+                                ->get()
+                                ->toJson();
+        }
+
+        $data = [
+            'transaction' => $transaction->load(['account', 'category'])->toJson(),
+            'currency' => $transaction->currency->toJson(),
+            'documents' => $documents,
+        ];
+
+        return response()->json($data);
     }
 
     public function connect(Transaction $transaction, TransactionConnect $request)

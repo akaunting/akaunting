@@ -11,4 +11,12 @@ return [
         'disable_active'    => 'Error: Can not disable the active company. Please, switch to another first!',
     ],
 
+    'form_description' => [
+        'general'           => 'This information is visible in the records you create.',
+        'billing'           => 'The tax number appears in every invoice/bill. Dashboard and Reports are shown under the default currency.',
+        'address'           => 'The address will be used in the invoices, bills, and other records that you issue.',
+    ],
+
+    'skip_step'             => 'Skip this step',
+
 ];

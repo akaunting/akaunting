@@ -20,6 +20,8 @@ class Transaction implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $this->applyTypeScope($builder, $model);
+        $this->applyNotRecurringScope($builder, $model);
+
+        $this->applyNotSplitScope($builder, $model);
     }
 }

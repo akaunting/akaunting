@@ -6,5 +6,4 @@ return [
     'next'                  => 'Следующее &raquo;',
     'showing'               => ':first :last из :total записей.',
     'page'                  => 'на странице.',
-
 ];

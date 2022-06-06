@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'Instalēta versija',
     'latest_version'        => 'Pēdējā versija',
-    'update'                => 'Atjaunināt Akaunting uz :version versiju',
+    'update'                => 'Atjaunināt Akaunting uz :versija versiju',
     'changelog'             => 'Izmaiņas',
     'check'                 => 'Pārbaudīt',
     'new_core'              => 'Ir pieejama Akaunting atjaunināta versija.',

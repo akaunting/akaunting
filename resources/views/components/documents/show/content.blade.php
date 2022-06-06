@@ -14,7 +14,7 @@
                 <x-documents.show.message type="recurring" background-color="bg-blue-100" text-color="text-blue-600" message="{{ $recurring_message }}" />
             @endif
 
-            @if (($parent = $document->parent))
+            @if ($parent = $document->parent)
                 @php
                     $recurring_message = trans('recurring.message_parent', [
                         'type' => mb_strtolower(trans_choice($textRecurringType, 1)),

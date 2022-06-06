@@ -15,30 +15,33 @@ trait Scopes
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function applyTypeScope(Builder $builder, Model $model)
+    public function applyNotRecurringScope(Builder $builder, Model $model)
     {
-        // Getting type from request causes lots of issues
-        // @todo Try event/listener similar to Permissions trait
-        return;
-
-        // Skip if already exists
-        if ($this->scopeExists($builder, 'type')) {
+        // Skip if recurring already in query
+        if ($this->scopeValueExists($builder, 'type', '-recurring')) {
             return;
         }
 
-        // No request in console
-        if (app()->runningInConsole()) {
+        // Apply not recurring scope
+        $builder->isNotRecurring();
+    }
+
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return void
+     */
+    public function applyNotSplitScope(Builder $builder, Model $model)
+    {
+        // Skip if split already in query
+        if ($this->scopeValueExists($builder, 'type', '-split')) {
             return;
         }
 
-        $type = $this->getTypeFromRequest();
-
-        if (empty($type)) {
-            return;
-        }
-
-        // Apply type scope
-        $builder->where($model->getTable() . '.type', '=', $type);
+        // Apply not split scope
+        $builder->isNotSplit();
     }
 
     /**
@@ -48,7 +51,7 @@ trait Scopes
      * @param  $column
      * @return boolean
      */
-    public function scopeExists($builder, $column)
+    public function scopeColumnExists($builder, $column)
     {
         $query = $builder->getQuery();
 
@@ -73,18 +76,46 @@ trait Scopes
         return false;
     }
 
-    public function getTypeFromRequest()
+    /**
+     * Check if scope has the exact value.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  $column
+     * @param  $value
+     * @return boolean
+     */
+    public function scopeValueExists($builder, $column, $value)
     {
-        $type = '';
-        $request = request();
+        $query = $builder->getQuery();
 
-        // Skip type scope in dashboard and reports
-        if ($request->routeIs('dashboards.*') || $request->routeIs('reports.*')) {
-            return $type;
+        foreach ((array) $query->wheres as $key => $where) {
+            if (empty($where) || empty($where['column']) || empty($where['value'])) {
+                continue;
+            }
+
+            if (strstr($where['column'], '.')) {
+                $whr = explode('.', $where['column']);
+
+                $where['column'] = $whr[1];
+            }
+
+            if ($where['column'] != $column) {
+                continue;
+            }
+
+            if (! Str::endsWith($where['value'], $value)) {
+                continue;
+            }
+
+            return true;
         }
 
-        $type = $request->get('type') ?: Str::singular((string) $request->segment(3));
+        return false;
+    }
 
-        return $type;
+    // @deprecated version 3.0.0
+    public function scopeExists($builder, $column)
+    {
+        return $this->scopeColumnExists($builder, $column);
     }
 }

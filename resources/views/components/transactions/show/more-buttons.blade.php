@@ -6,20 +6,6 @@
             <span class="material-icons">more_horiz</span>
         </x-slot>
 
-        @stack('edit_button_start')
-
-        @if (! $transaction->hasTransferRelation)
-            @if (! $hideButtonEdit)
-                @can($permissionUpdate)
-                    <x-dropdown.link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $type]) }}">
-                        {{ trans('general.edit') }}
-                    </x-dropdown.link>
-                @endcan
-            @endif
-        @endif
-
-        @stack('edit_button_end')
-
         @stack('duplicate_button_start')
 
         @if (! $transaction->hasTransferRelation)
@@ -36,18 +22,16 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id))
+        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring))
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
-                    @if ($type == 'income' && $transaction->contact->exists)
-                        <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" title="{{ trans('general.connect') }}" @click="onConnect({{ $transaction->load('account')->toJson() }}, {{ $transaction->currency->toJson() }}, {{ $transaction->contact->invoices()->notPaid()->where('currency_code', $transaction->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson() }})"><span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span></button>
-                    @elseif ($type == 'income' && ! $transaction->contact->exists)
-                        <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" title="{{ trans('general.connect') }}" @click="onConnect({{ $transaction->load('account')->toJson() }}, {{ $transaction->currency->toJson() }}, {{ App\Models\Document\Document::invoice()->notPaid()->where('currency_code', $transaction->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson() }})"><span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span></button>
-                    @elseif ($type == 'expense' && $transaction->contact->exists)
-                        <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" title="{{ trans('general.connect') }}" @click="onConnect({{ $transaction->load('account')->toJson() }}, {{ $transaction->currency->toJson() }}, {{ $transaction->contact->bills()->notPaid()->where('currency_code', $transaction->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson() }})"><span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span></button>
-                    @elseif ($type == 'expense' && ! $transaction->contact->exists)
-                        <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" title="{{ trans('general.connect') }}" @click="onConnect({{ $transaction->load('account')->toJson() }}, {{ $transaction->currency->toJson() }}, {{ App\Models\Document\Document::bill()->notPaid()->where('currency_code', $transaction->currency_code)->with(['media', 'totals', 'transactions'])->get()->toJson() }})"><span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span></button>
-                    @endif
+                    <button
+                        type="button"
+                        class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
+                        title="{{ trans('general.connect') }}"
+                        @click="onConnect('{{ route('transactions.dial', $transaction->id) }}')">
+                        <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span>
+                    </button>
                 @endcan
             @endif
         @endif
