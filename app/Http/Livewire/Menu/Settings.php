@@ -37,6 +37,8 @@ class Settings extends Component
                 }
 
                 if ($this->availableInSearch($item)) {
+                    $this->settings[] = $item;
+
                     continue;
                 }
 
