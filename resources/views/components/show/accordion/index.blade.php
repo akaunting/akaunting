@@ -14,7 +14,7 @@
             x-ref="accordion_{{ $type }}"
             x-bind:class="{{ $type }} == 'open' ? 'h-auto ' : 'scale-y-0 h-0'"
         >
-            <div class="my-3 space-x-3 rtl:space-x-reverse">
+            <div class="my-3">
                 {!! $body !!}
             </div>
         </div>

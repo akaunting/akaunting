@@ -15,7 +15,7 @@ th, td
     padding: 10px 9px 10px 9px;
 }
 
-p {
+.print-template p {
     color: #424242;
     margin-bottom: 9px;
 }
