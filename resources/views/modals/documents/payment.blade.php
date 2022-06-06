@@ -16,21 +16,21 @@
                     >
                         {{ trans('general.general') }}
 
-                        <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('paid_at')||form.errors.has('amount')||form.errors.has('payment_method')||form.errors.has('account_id')"> 
+                        <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('paid_at')||form.errors.has('amount')||form.errors.has('payment_method')||form.errors.has('account_id')">
                             {{ trans('general.validation_error') }}
                         </span>
                     </li>
 
                     <li class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link col-span-3"
-                        id="tab-others"
-                        data-id="tab-others"
-                        data-tabs="others"
-                        x-on:click="active = 'others'"
-                        x-bind:class="active != 'others' ? '' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
+                        id="tab-other"
+                        data-id="tab-other"
+                        data-tabs="other"
+                        x-on:click="active = 'other'"
+                        x-bind:class="active != 'other' ? '' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
                     >
-                        {{ trans_choice('general.others', 2) }}
+                        {{ trans_choice('general.others', 1) }}
 
-                        <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('number')||form.errors.has('description')||form.errors.has('recurring')"> 
+                        <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('number')||form.errors.has('description')||form.errors.has('recurring')">
                             {{ trans('general.validation_error') }}
                         </span>
                     </li>
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div id="tab-others" data-tabs-content="others" x-show="active === 'others'">
+        <div id="tab-other" data-tabs-content="other" x-show="active === 'other'">
             <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
                 <x-form.group.textarea name="description" label="{{ trans('general.description') }}" rows="3" not-required form-group-class="col-span-6" />
 
