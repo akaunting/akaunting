@@ -16,13 +16,17 @@ class Account extends Form
     /** @var bool */
     public $hideCurrency;
 
+    /** @var string */
+    public $formGroupClass;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(bool $hideCurrency = false) {
+    public function __construct(bool $hideCurrency = false, string $formGroupClass = 'sm:col-span-3') {
         $this->hideCurrency = $hideCurrency;
+        $this->formGroupClass = $formGroupClass;
     }
 
     /**
