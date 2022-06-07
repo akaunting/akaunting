@@ -63,7 +63,7 @@
             </button>
 
             <div :id="'search-field-option-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.options}]">
-                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-for="option in filteredOptions" :data-value="option.key">
+                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-for="option in filteredOptions" :data-value="option.key">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" data-btn="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
                 </li>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
-                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
                         <span class="material-icons text-2xl transform">drag_handle</span>
                         <span class="text-gray hidden">{{ operatorIsText }}
@@ -81,14 +81,14 @@
                     </button>
                 </li>
 
-                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('!=')">
                         <img :src="equal_image" class="w-6 h-6 block m-auto" />
                         <span class="text-gray hidden">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
 
-                <li v-if="range" ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="range" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('><')">
                         <span class="material-icons text-2xl transform rotate-90">height</span>
                         <span class="text-gray hidden">{{ operatorIsNotText }}</span>
@@ -97,11 +97,11 @@
             </div>
 
             <div :id="'search-field-value-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.values}]">
-                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
+                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">{{ value.value }}</button>
                 </li>
 
-                <li ref="" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
+                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ noMatchingDataText }}</button>
                 </li>
             </div>
