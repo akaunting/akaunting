@@ -41,6 +41,9 @@ abstract class Show extends Component
     /* -- Main End -- */
 
     /* -- Buttons Start -- */
+    /** @var string */
+    public $textPage;
+
     /** @var bool */
     public $hideCreate;
 
@@ -58,6 +61,9 @@ abstract class Show extends Component
 
     /** @var string */
     public $editRoute;
+
+    /** @var string */
+    public $showRoute;
 
     /** @var bool */
     public $hideMoreActions;
@@ -318,8 +324,8 @@ abstract class Show extends Component
      */
     public function __construct(
         $type, $document, $transactions = [],
-        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
-        bool $hideCreate = false, string $createRoute = '', string $textCreate = '', bool $hideButtonStatuses = false, bool $hideEdit = false, string $editRoute = '',
+        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '', string $textPage = '',
+        bool $hideCreate = false, string $createRoute = '', string $textCreate = '', bool $hideButtonStatuses = false, bool $hideEdit = false, string $editRoute = '', string $showRoute = '',
         bool $hideMoreActions = false, bool $hideDuplicate = false, string $duplicateRoute = '', bool $hidePrint = false, bool $checkCancelled = true, string $printRoute = '',
         bool $hideShare = false, string $shareRoute = '', string $signedUrl = '', bool $hideEmail = false, string $emailRoute = '', string $textEmail = '', bool $hidePdf = false, string $pdfRoute = '',
         bool $hideCancel = false, string $cancelledRoute = '', bool $hideCustomize = false, string $permissionCustomize = '', string $customizeRoute = '',
@@ -356,6 +362,7 @@ abstract class Show extends Component
         /* -- Main End -- */
 
         /* -- Buttons Start -- */
+        $this->textPage = $this->getTextPage($type, $textPage);
         $this->hideCreate = $hideCreate;
         $this->createRoute = $this->getCreateRoute($type, $createRoute);
         $this->textCreate = $this->getTextCreate($type, $textCreate);
@@ -363,6 +370,7 @@ abstract class Show extends Component
         $this->hideButtonStatuses = $this->getHideButtonStatuses($type, $hideButtonStatuses);
         $this->hideEdit = $hideEdit;
         $this->editRoute = $this->getEditRoute($type, $editRoute);
+        $this->showRoute = $this->getShowRoute($type, $showRoute);
 
         $this->hideMoreActions = $hideMoreActions;
         $this->hideDuplicate = $hideDuplicate;

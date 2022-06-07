@@ -3,7 +3,7 @@
 @if (! $hideCreate)
     @can($permissionCreate)
         <x-link href="{{ route($createRoute) }}" kind="primary">
-            {{ trans($textCreate) }}
+            {{ trans('general.title.new', ['type' => trans_choice($textPage, 1)]) }}
         </x-link>
     @endcan
 @endif

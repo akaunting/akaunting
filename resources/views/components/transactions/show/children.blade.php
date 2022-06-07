@@ -20,11 +20,11 @@
         x-bind:class="children == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
     >
         @if ($transaction->children()->count())
-            @foreach ($transaction->children() as $child)
+            @foreach ($transaction->children()->get() as $child)
                 @php $url = '<a href="' . route('transactions.show', $child->id) . '" class="text-purple">' . $child->number . '</a>' @endphp
 
                 <div class="my-2">
-                    {{ trans('recurring.child', ['url' => $url, 'date' => company_date($child->paid_at)]) }}
+                    {!! trans('recurring.child', ['url' => $url, 'date' => company_date($child->paid_at)]) !!}
                 </div>
             @endforeach
         @else
