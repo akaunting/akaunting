@@ -81,7 +81,7 @@
                                                 node="child-{{ $category->id }}"
                                                 onClick="toggleSub('child-{{ $category->id }}', event)"
                                             >
-                                                <span class="material-icons transform transition-all text-lg leading-none align-middle text-white">navigate_next</span>
+                                                <span class="material-icons transform rotate-90 transition-all text-lg leading-none align-middle text-white">chevron_right</span>
                                             </button>
                                         </x-tooltip>
                                     </div>

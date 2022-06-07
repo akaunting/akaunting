@@ -24,6 +24,8 @@
             @include($class->views['filter'])
 
             @include($class->views[$class->type])
+
+            <x-loading.content />
         </div>
     </x-slot>
 
