@@ -70,7 +70,7 @@
                                     <x-sortablelink column="sale_price" title="{{ trans('items.sale_price') }}" />
                                 </x-slot>
                                 <x-slot name="second">
-                                    <x-sortablelink column="purchase_price" title="{{ trans('items.purchase_price') }}" />
+                                    <x-sortablelink column="purchase_price" title="{!! trans('items.purchase_price') !!}" />
                                 </x-slot>
                             </x-table.th>
                         </x-table.tr>
