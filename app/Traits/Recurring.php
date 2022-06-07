@@ -148,8 +148,7 @@ trait Recurring
 
     public function getRecurringRuleCount()
     {
-        // Fix for humans
-        return $this->limit_count + 1;
+        return $this->limit_count;
     }
 
     public function getRecurringRuleFrequency()
