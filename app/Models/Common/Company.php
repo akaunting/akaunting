@@ -70,7 +70,8 @@ class Company extends Eloquent implements Ownable
     {
         parent::boot();
 
-        try { // TODO will optimize..
+        try { 
+            // TODO will optimize..
             static::retrieved(function($model) {
                 $model->setCommonSettingsAsAttributes();
             });
@@ -336,6 +337,7 @@ class Company extends Eloquent implements Ownable
             }
 
             $this->offsetUnset('logo');
+            $this->offsetUnset('currency');
         } catch(\Throwable $e) {
 
         }
