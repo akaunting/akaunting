@@ -70,7 +70,13 @@ class Invoices extends Controller
         $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('invoices.show', $response['data']->id);
+            $paramaters = ['invoice' => $response['data']->id];
+
+            if ($request->has('senddocument')) {
+                $paramaters['senddocument'] = true;
+            }
+
+            $response['redirect'] = route('invoices.show', $paramaters);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
 
