@@ -1,8 +1,8 @@
 <template>
     <SlideYUpTransition :duration="animationDuration">
-        <div class="modal fade w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade items-center justify-center"
+        <div class="modal fade w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade justify-center"
             @click.self="closeModal"
-            :class="[{'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
+            :class="[modalPositionTop ? 'items-start' : 'items-center', {'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
             v-show="show"
             tabindex="-1"
             role="dialog"
@@ -102,6 +102,11 @@ export default {
             type: Number,
             default: 800,
             description: "Modal transition duration"
+        },
+        modalPositionTop: {
+            type: Boolean,
+            default: false,
+            description: "Modal Body position Class"
         },
     },
 

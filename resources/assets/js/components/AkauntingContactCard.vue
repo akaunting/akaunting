@@ -46,8 +46,9 @@
                             </div>
                         </ul>
 
-                        <div class="flex items-center justify-center h-11 text-center text-purple font-bold border border-l-0 border-r-0 border-b-0 rounded-bl-lg rounded-br-lg hover:bg-gray-100 cursor-pointer" tabindex="0" @click="onContactCreate">
-                            <span class="text-sm"> {{ createNewContactText }} </span>
+                        <div class="flex items-center justify-center h-11 text-sm text-center text-purple font-bold border border-l-0 border-r-0 border-b-0 rounded-bl-lg rounded-br-lg hover:bg-gray-100 cursor-pointer" tabindex="0" @click="onContactCreate">
+                            <span class="material-icons text-lg font-bold mr-1 mt-1">add</span>
+                            {{ createNewContactText }}
                         </div>
                     </div>
                 </div>
@@ -367,7 +368,7 @@ export default {
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
+                        template: '<div><akaunting-modal-add-new modal-dialog-class="max-w-md" modal-position-top :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
 
                         components: {
                             [Select.name]: Select,
@@ -426,7 +427,7 @@ export default {
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
+                        template: '<div><akaunting-modal-add-new modal-dialog-class="max-w-md" modal-position-top :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
 
                         components: {
                             [Select.name]: Select,

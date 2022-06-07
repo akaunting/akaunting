@@ -52,7 +52,7 @@
 
         <div id="tab-other" data-tabs-content="other" x-show="active === 'other'">
             <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
-                <x-form.group.textarea name="description" label="{{ trans('general.description') }}" rows="3" not-required form-group-class="col-span-6" />
+                <x-form.group.textarea name="description" label="{{ trans('general.description') }}" rows="2" not-required form-group-class="col-span-6" />
 
                 <x-form.group.text name="number" label="{{ trans_choice('general.numbers', 1) }}" value="{{ $number }}" form-group-class="col-span-6" />
 
