@@ -350,7 +350,7 @@
                                     :value="tax_id"
                                     :add-new="{{ json_encode([
                                         'status' => true,
-                                        'text' => trans('general.add_new'),
+                                        'text' => trans('general.title.new', ['type' => trans_choice('general.taxes', 1)]),
                                         'path' => route('modals.taxes.create'),
                                         'type' => 'modal',
                                         'field' => [
