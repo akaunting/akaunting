@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('reminder:invoice')->dailyAt($schedule_time);
         $schedule->command('reminder:bill')->dailyAt($schedule_time);
-        $schedule->command('recurring:check')->dailyAt($schedule_time);
+        $schedule->command('recurring:check')->dailyAt($schedule_time)->runInBackground();
         $schedule->command('storage-temp:clear')->dailyAt('17:00');
     }
 
