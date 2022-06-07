@@ -1,8 +1,8 @@
 <template>
     <SlideYUpTransition :duration="animationDuration">
-        <div class="modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade items-center justify-center"
+        <div class="modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade justify-center"
             @click.self="closeModal"
-            :class="[{'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
+            :class="[modalPositionTop ? 'items-start' : 'items-center', {'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
             v-show="show"
             tabindex="-1"
             role="dialog"
@@ -91,19 +91,16 @@ export default {
     props: {
         show: Boolean,
         is_component: Boolean,
-
         title: {
             type: String,
             default: '',
             description: "Modal header title"
         },
-
         message: {
             type: String,
             default: '',
             description: "Modal body message"
         },
-
         buttons: {
             type: Object,
             default: function () {
@@ -120,17 +117,20 @@ export default {
             },
             description: "Modal footer button"
         },
-
         animationDuration: {
             type: Number,
             default: 800,
             description: "Modal transition duration"
         },
-
-       modalDialogClass: {
+        modalDialogClass: {
             type: String,
             default: '',
             description: "Modal Body size Class"
+        },
+        modalPositionTop: {
+            type: Boolean,
+            default: false,
+            description: "Modal Body position Class"
         },
     },
 
