@@ -603,20 +603,18 @@ abstract class Form extends Component
             return $textCreateNewContact;
         }
 
-        /*
         $default_key = Str::plural(config('type.document.' . $type . '.contact_type'), 2);
 
         $translation = $this->getTextFromConfig($type, 'create_new_contact', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return [
-                'general.form.add_new',
+                'general.title.new',
                 $translation,
             ];
         }
-        */
 
-        return 'general.add_new';
+        return 'general.title.add';
     }
 
     protected function getTextEditContact($type, $textEditContact)

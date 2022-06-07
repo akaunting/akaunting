@@ -5,4 +5,5 @@
     :selected="setting('company.country')"
     not-required
     model="form.country"
+    form-group-class="{{ $formGroupClass }}"
 />
