@@ -159,6 +159,7 @@ export default {
             if(this.error_field[field_name]) {
                 return this.error_field[field_name][0];
             }
+            this.button_loading = false;
         },
 
         onFailError(error) {

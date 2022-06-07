@@ -72,8 +72,16 @@
                         <div class="flex items-center justify-center mt-5 gap-x-10">
                             <base-button class="w-1/2  flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="next()">{{ translations.company.skip }}</base-button>
 
-                            <base-button id="button" class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="onEditSave()">
-                                {{ translations.company.save }}
+                            <base-button
+                                id="button"
+                                :disabled="button_loading"
+                                class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
+                                @click="onEditSave()"
+                            >
+                                <i v-if="button_loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                                <span :class="[{'opacity-0': button_loading}]">
+                                    {{ translations.company.save }}
+                                </span>
                             </base-button>
                         </div>
                     </div>
