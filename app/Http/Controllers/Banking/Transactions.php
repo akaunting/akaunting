@@ -12,6 +12,7 @@ use App\Http\Requests\Common\Import as ImportRequest;
 use App\Imports\Banking\Transactions as Import;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Banking\DeleteTransaction;
+use App\Jobs\Banking\DuplicateTransaction;
 use App\Jobs\Banking\MatchBankingDocumentTransaction;
 use App\Jobs\Banking\SplitTransaction;
 use App\Jobs\Banking\UpdateTransaction;
@@ -139,7 +140,7 @@ class Transactions extends Controller
      */
     public function duplicate(Transaction $transaction)
     {
-        $clone = $transaction->duplicate();
+        $clone = $this->dispatch(new DuplicateTransaction($transaction));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.transactions', 1)]);
 

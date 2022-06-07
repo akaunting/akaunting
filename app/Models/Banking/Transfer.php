@@ -54,7 +54,7 @@ class Transfer extends Model
 
     public function expense_transaction()
     {
-        return $this->belongsTo('App\Models\Banking\Transaction', 'expense_transaction_id');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'expense_transaction_id')->withDefault(['name' => trans('general.na')]);
     }
 
     public function expense_account()
@@ -70,7 +70,7 @@ class Transfer extends Model
 
     public function income_transaction()
     {
-        return $this->belongsTo('App\Models\Banking\Transaction', 'income_transaction_id');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'income_transaction_id')->withDefault(['name' => trans('general.na')]);
     }
 
     public function income_account()

@@ -28,6 +28,8 @@ class Neww extends Component
 
             foreach($menu->getItems() as $item) {
                 if ($this->availableInSearch($item)) {
+                    $this->neww[] = $item;
+
                     continue;
                 }
 

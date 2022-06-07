@@ -18,7 +18,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $appends = ['balance'];
+    protected $appends = ['balance', 'title'];
 
     /**
      * Attributes that should be mass-assignable.
@@ -87,6 +87,20 @@ class Account extends Model
         return $query//->join('transactions', 'transactions.account_id', '=', 'accounts.id')
             ->orderBy('balance', $direction)
             ->select(['accounts.*', 'accounts.opening_balance as balance']);
+    }
+
+    /**
+     * Get the name with currency.
+     *
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        if ($this->currency->symbol) {
+            return $this->name . ' (' . $this->currency->symbol . ')';
+        }
+
+        return $this->name;
     }
 
     /**
