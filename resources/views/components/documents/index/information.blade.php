@@ -34,16 +34,14 @@
             </div>
 
             <div class="flex flex-col">
-                <div class="flex items-center">
-                    @php $history = $document->last_history; @endphp
-                    <span class="font-medium mr-2">
-                        {{ $history->description }}
-                    </span>
+                @php $history = $document->last_history; @endphp
+                <span class="w-72 font-medium mr-2 truncate">
+                    {{ $history->description }}
+                </span>
 
-                    <span class="flex items-center font-normal">
-                        {{ \Date::parse($history->created_at)->diffForHumans() }}
-                    </span>
-                </div>
+                <span class="flex items-center font-normal">
+                    {{ \Date::parse($history->created_at)->diffForHumans() }}
+                </span>
             </div>
         </li>
 

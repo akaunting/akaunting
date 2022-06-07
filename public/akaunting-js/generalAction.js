@@ -11,27 +11,29 @@ document.querySelectorAll("[data-table-list]").forEach((row) => {
 
 //redirect edit or show page for table row click
 document.querySelectorAll("[data-table-body]").forEach((table) => {
-  let rows = table.querySelectorAll("tr");
+    if (document.body.clientWidth >= 991) {
+        let rows = table.querySelectorAll("tr");
 
-  rows.forEach((row) => {
-      let row_href = row.getAttribute("href");
+        rows.forEach((row) => {
+            let row_href = row.getAttribute("href");
 
-      if (! row_href) {
-          return;
-      }
+            if (!row_href) {
+                return;
+            }
 
-      let td = row.getElementsByTagName("td");
-      let first_selector = row.querySelector('[data-bulkaction]') && row.querySelector('[data-bulkaction]') !== null ? 1 : 0;
+            let td = row.getElementsByTagName("td");
+            let first_selector = row.querySelector("[data-bulkaction]") && row.querySelector("[data-bulkaction]") !== null ? 1 : 0;
 
-      if (row_href) {
-        for (let i=first_selector; i<td.length-1; i++) {
-            let td_item = td[i];
-            td_item.addEventListener("click", () => {
-                window.location.href = row_href;
-            });
-        }
+            if (row_href) {
+                for (let i = first_selector; i < td.length - 1; i++) {
+                    let td_item = td[i];
+                    td_item.addEventListener("click", () => {
+                        window.location.href = row_href;
+                    });
+                }
+            }
+        });
     }
-  });
 });
 //redirect edit or show page for table row click
 
