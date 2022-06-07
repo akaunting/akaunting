@@ -36387,6 +36387,10 @@ body{
   right: 3rem;
 }
 
+[dir="ltr"] .ltr\:right-2{
+  right: 0.5rem;
+}
+
 [dir="ltr"] .ltr\:-right-2{
   right: -0.5rem;
 }
@@ -36417,10 +36421,6 @@ body{
 
 [dir="ltr"] .ltr\:-left-8{
   left: -2rem;
-}
-
-[dir="ltr"] .ltr\:right-2{
-  right: 0.5rem;
 }
 
 [dir="ltr"] .ltr\:right-4{
@@ -36547,6 +36547,10 @@ body{
   left: 3rem;
 }
 
+[dir="rtl"] .rtl\:left-2{
+  left: 0.5rem;
+}
+
 [dir="rtl"] .rtl\:-left-2{
   left: -0.5rem;
 }
@@ -36577,10 +36581,6 @@ body{
 
 [dir="rtl"] .rtl\:-right-8{
   right: -2rem;
-}
-
-[dir="rtl"] .rtl\:left-2{
-  left: 0.5rem;
 }
 
 [dir="rtl"] .rtl\:left-4{
