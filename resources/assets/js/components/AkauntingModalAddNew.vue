@@ -170,7 +170,11 @@ export default {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
                     template : '<div id="modal-add-new-form-' + form_prefix + '">' + this.message + '</div>',
-                    mixins: [Global],
+
+                    mixins: [
+                        Global
+                    ],
+
                     components: {
                         AkauntingRadioGroup,
                         AkauntingSelect,
@@ -184,6 +188,16 @@ export default {
 
                     created: function() {
                         this.form = new Form('form-create');
+
+                        // for override global currency variable..
+                        this.currency = {
+                            decimal: '.',
+                            thousands: ',',
+                            prefix: '$ ',
+                            suffix: '',
+                            precision: 2,
+                            masked: false /* doesn't work with directive */
+                        };
                     },
 
                     mounted() {
@@ -230,7 +244,7 @@ export default {
                         },
 
                         onChangeCode(code) {
-                            axios.get(url + '/settings/currencies/config', {
+                            window.axios.get(url + '/settings/currencies/config', {
                                 params: {
                                     code: code
                                 }
@@ -263,7 +277,7 @@ export default {
                                 this.currency.decimal = response.data.decimal_mark;
                                 this.currency.thousands = response.data.thousands_separator;
                                 this.currency.prefix = (response.data.symbol_first) ? response.data.symbol : '';
-                                this.currency.suffix = (!response.data.symbol_first) ? response.data.symbol : '';
+                                this.currency.suffix = (! response.data.symbol_first) ? response.data.symbol : '';
                                 this.currency.precision = parseInt(response.data.precision);
                             })
                             .catch(error => {

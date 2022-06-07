@@ -1,4 +1,4 @@
-@if (! $attributes->has('withoutAddNew'))
+@if (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new'))
     <x-form.group.select
         add-new
         :path="$path"

@@ -46,7 +46,7 @@
 
                 <x-form.group.payment-method form-group-class="col-span-6"/>
 
-                <x-form.group.account change="onChangePaymentAccount" form-group-class="col-span-6" />
+                <x-form.group.account change="onChangePaymentAccount" form-group-class="col-span-6" without-add-new />
             </div>
         </div>
 
