@@ -58,6 +58,15 @@ abstract class Notification extends BaseNotification implements ShouldQueue
         return $message;
     }
 
+    /**
+     * Initialise the array representation of the notification.
+     *
+     */
+    public function initArrayMessage(): void
+    {
+        app('url')->defaults(['company_id' => company_id()]);
+    }
+
     public function getSubject(): string
     {
         return !empty($this->custom_mail['subject'])

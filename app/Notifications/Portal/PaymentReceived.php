@@ -82,6 +82,8 @@ class PaymentReceived extends Notification
      */
     public function toArray($notifiable): array
     {
+        $this->initArrayMessage();
+
         return [
             'template_alias' => $this->template->alias,
             'title' => trans('notifications.menu.' . $this->template->alias . '.title'),
