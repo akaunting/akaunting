@@ -132,8 +132,8 @@ class Contact extends Component
 
     protected function getTextCreateNewContact($type, $textCreateNewContact)
     {
-        if (!empty($textCreateNewContact)) {
-            return $textCreateNewContact;
+        if (!empty($textCreateNewContact) && is_array($textCreateNewContact)) {
+            return trans($textCreateNewContact[0], ['type' => trans_choice($textCreateNewContact[1], 1)]);
         }
 
         switch ($type) {

@@ -14,7 +14,7 @@
     choose-different-contact-text="{{ is_array($textChooseDifferentContact) ? trans($textChooseDifferentContact[0], ['field' => Str::lower(trans_choice($textChooseDifferentContact[1], 1))]) : trans($textChooseDifferentContact) }}"
     :add-new="{{ json_encode([
         'status' => true,
-        'text' => trans('general.add_new'),
+        'text' => is_array($textCreateNewContact) ? trans($textCreateNewContact[0], ['field' => trans_choice($textCreateNewContact[1], 1)]) : trans($textCreateNewContact),
         'new_text' => trans('modules.new'),
         'buttons' => [
             'cancel' => [
