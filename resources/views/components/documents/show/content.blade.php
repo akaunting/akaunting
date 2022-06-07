@@ -115,6 +115,7 @@
         @stack('document_end')
     </div>
 
+    <x-form.input.hidden name="senddocument_route" id="senddocument_route" value="{{ route($emailRoute, $document->id) }}" />
     <x-form.input.hidden name="document_id" :value="$document->id" />
     <x-form.input.hidden name="{{ $type . '_id' }}" :value="$document->id" />
 </div>

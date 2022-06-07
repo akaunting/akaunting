@@ -8,7 +8,7 @@ import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
 import { addDays, format } from 'date-fns';
-import { setPromiseTimeout } from './../../plugins/functions';
+import { setPromiseTimeout, getQueryVariable } from './../../plugins/functions';
 
 import Global from './../../mixins/global';
 
@@ -939,6 +939,12 @@ const app = new Vue({
 
             this.form.due_at = due_at;
         },
+
+        onSubmitViaSendEmail() {
+            this.form['senddocument'] = true;
+
+            this.onSubmit();
+        },
     },
 
     created() {
@@ -1038,6 +1044,21 @@ const app = new Vue({
 
         if (typeof document_taxes !== 'undefined' && document_taxes) {
             this.dynamic_taxes = document_taxes;
+        }
+
+        if (getQueryVariable('senddocument')) {
+            // clear query string
+            let uri = window.location.toString();
+
+            if (uri.indexOf("?") > 0) {
+                let clean_uri = uri.substring(0, uri.indexOf("?"));
+
+                window.history.replaceState({}, document.title, clean_uri);
+            }
+
+            let email_route = document.getElementById('senddocument_route').value;
+
+            this.onEmail(email_route);
         }
 
         this.page_loaded = true;
