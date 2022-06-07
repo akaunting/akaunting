@@ -27,6 +27,11 @@ return [
         'body'          => 'Hola,<br /><br />En base al cobrament recurrent establert amb el client {customer_name}, s\'ha generat la factura <strong>{invoice_number}</strong> de manera automàtica.<br /><br />Pots veure els detalls de la factura accedint a l\'enllaç: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salutacions,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'S\'ha visualitzat la factura {invoice_number}',
+        'body'          => 'Hola,<br /><br />{customer_name} ha visualitzat la factura <strong>{invoice_number}</strong>.<br /><br />Pots veure els detalls de la factura seguin el següent enllaç: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salutacions,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'S\'ha rebut el cobrament de la factura {invoice_number}',
         'body'          => 'Benvolgut/da {customer_name},<br /><br />He rebut el teu pagament, gràcies. Pots veure els detalls del pagament a continuació:<br /><br />-------------------------------------------------<br />Quantitat: <strong>{transaction_total}</strong><br />Data: <strong>{transaction_paid_date}</strong><br />Número de factura: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Sempre pots veure els detalls de la factura accedint a l\'enllaç: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte.<br /><br />Atentament,<br />{company_name}',
@@ -47,13 +52,13 @@ return [
         'body'          => 'Hola,<br /><br />En base al pagament recurrent a {vendor_name}, s\'ha creat automàticament la factura de proveïdor <strong>{bill_number}</strong>.<br /><br />Pots veure els detalls de la factura seguint l\'enllaç: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Salutacions,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => 'S\'ha creat el pagament {revenue_date}',
-        'body'          => 'Benvolgut/da {customer_name},<br /><br />Hem preparat el pagament següent. <br /><br />Pots veure els detalls del pagament a l\'enllaç següent:  <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte.<br /><br />Salutacions,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'El teu rebut de {company_name}',
+        'body'          => 'Benvolgut/da {contact_name},<br /><br />Gràcies pel pagament. <br /><br />Pots veure els detalls del pagament seguint el següent enllaç:: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte.<br /><br />Salutacions,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => 'Pagament creat el {revenue_date}',
-        'body'          => 'Benvolgut/da {vendor_name},<br /><br />Hem preparat el següent pagament. <br /><br />Pots veure\'n els detalls accedint a l\'enllaç: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte..<br /><br />Salutacions,<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => 'Pagament fet per {company_name}',
+        'body'          => 'Benvolgut/da {contact_name},<br /><br />Hem fet el següent pagament. <br /><br />Pots veure els detalls del pagament seguint el següent enllaç: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />No dubtis a contactar amb nosaltres per qualsevol dubte.<br /><br />Salutacions,<br />{company_name}',
     ],
 ];

@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Quantitat esborrada',
     'deposit'               => 'Dipòsit',
     'withdrawal'            => 'Retirada',
+    'reconciled_amount'     => 'Conciliat',
+    'in_progress'           => 'En curs',
+    'save_draft'            => 'Desa com a esborrany',
+    'irreconcilable'        => 'No es pot conciliar',
 
 ];

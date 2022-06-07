@@ -2,23 +2,33 @@
 
 return [
 
-    'currencies'                => 'Monedes',
-    'total_income'              => 'Total d\'ingressos',
     'receivables'               => 'Pendent de cobrar',
-    'open_invoices'             => 'Factures no vençudes',
-    'overdue_invoices'          => 'Factures vençudes',
-    'total_expenses'            => 'Total de despeses',
     'payables'                  => 'Pendent de pagar',
-    'open_bills'                => 'Factures no vençudes',
-    'overdue_bills'             => 'Factures vençudes',
-    'total_profit'              => 'Balanç total',
-    'open_profit'               => 'Guanys no vençuts',
-    'overdue_profit'            => 'Guanys vençuts',
     'cash_flow'                 => 'Flux de caixa',
-    'no_profit_loss'            => 'Sense pèrdua de guanys',
-    'income_by_category'        => 'Ingressos per categoria',
+    'profit_loss'               => 'Guanys i pèrdues',
     'expenses_by_category'      => 'Despeses per categoria',
     'account_balance'           => 'Balanç',
-    'latest_income'             => 'Últims ingressos',
-    'latest_expenses'           => 'Últimes despeses',
+    'bank_feeds'                => 'Connecta comptes bancaris',
+    'currencies'                => 'Monedes',
+
+    'view_report'               => 'Visualitza l\'informe',
+    'total_unpaid_invoices'     => 'Total de factures pendents',
+    'total_unpaid_bills'        => 'Total de factures pendents',
+
+    'description' => [
+        'receivables'           => 'Import que encara no has rebut dels teus clients',
+        'payables'              => 'Import que encara has de pagar als teus proveïdors',
+        'cash_flow'             => 'Efectiu entrant i sortint del teu negoci',
+        'profit_loss'           => 'Ingressos i despeses incloses les factures de clients i proveïdors impagades',
+        'expenses_by_category'  => 'Principals despeses en vàries categories',
+        'account_balance'       => 'Saldo actual dels teus comptes bancaris',
+        'bank_feeds'            => 'Importa les teves transaccions a Akaunting automàticament </br>connectant els vostres comptes bancaris',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => '1-30 dies de venciment',
+        'overdue_30_60'         => '30-60 dies de venciment',
+        'overdue_60_90'         => '60-90 dies de venciment',
+        'overdue_90_un'         => '> 90 dies de venciment',
+    ],
 ];

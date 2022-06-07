@@ -31,7 +31,7 @@ return [
 
     'charts' => [
         'line'                      => 'Ligne',
-        'bar'                       => 'Pile',
+        'bar'                       => 'Barre',
         'pie'                       => 'Camembert',
     ],
 

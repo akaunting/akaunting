@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Estàs segur de voler <b>desfer la conciliació</b> del registre seleccionat?|Estàs segur de voler <b>desfer la conciliació</b> dels registres seleccionats?',
     ],
 
+    'success' => [
+        'general'       => ':count registre :type',
+    ],
 ];

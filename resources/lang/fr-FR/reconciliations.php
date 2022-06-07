@@ -4,10 +4,10 @@ return [
 
     'reconcile'             => 'Rapprocher',
     'unreconcile'           => 'Non rapprochable',
-    'reconciled'            => 'Réconcilié',
+    'reconciled'            => 'Rapproché',
     'opening_balance'       => 'Solde à l\'ouverture',
     'closing_balance'       => 'Solde de clôture',
-    'unreconciled'          => 'Non réconsilié',
+    'unreconciled'          => 'Non rapprochable',
     'transactions'          => 'Transactions',
     'start_date'            => 'Date de début',
     'end_date'              => 'Date de fin',

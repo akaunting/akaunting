@@ -6,7 +6,7 @@ return [
     'purchase_price'            => 'Prix d\'achat',
     'enter_item_description'    => 'Entrez la description de l\'article',
     'billing'                   => 'Facturation',
-    'sale_information'          => 'Informations de ventes',
+    'sale_information'          => 'Informations de vente',
     'purchase_information'      => 'Informations sur l\'achat',
 
     'form_description' => [
