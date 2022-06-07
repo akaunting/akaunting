@@ -5,6 +5,23 @@ return [
     'edit_columns'  => 'Edita les columnes',
     'empty_items'   => 'No has afegit cap element.',
 
+    'invoice_detail'   => [
+        'marked'  => '<b> Tu </b> has marcat aquesta factura com',
+        'services' => 'Serveis',
+        'another_item'  => 'Un altre article',
+        'another_description'  => 'i una altra descripció',
+        'more_item'  => '+:count més article(s)',
+    ],
+
+    'grand_total'  => 'Suma total',
+
+    'accept_payment_online' => 'Accepta pagaments en línia',
+
+    'transaction' => 'S\'ha efectuat un pagament de :amount utilitzant :account',
+
+    'billing'               => 'Facturació',
+    'advanced'              => 'Avançat',
+
     'statuses' => [
         'draft'         => 'Esborrany',
         'sent'          => 'Enviat',
@@ -40,6 +57,15 @@ return [
         'not_invoiced'  => 'No facturat',
         'confirmed'     => 'Confirmat',
         'not_confirmed' => 'No confirmat',
+        'active'        => 'Actiu',
+        'ended'         => 'Finalitzat',
+    ],
+
+    'form_description' => [
+        'companies'     => 'Canvia l\'adreça, el logotip i altra informació de la teva empresa.',
+        'billing'       => 'Els detalls de facturació apareixen al teu document.',
+        'advanced'      => 'Selecciona la categoria, afegeix o edita el peu de pàgina i afegeix adjunts al teu :type.',
+        'attachment'    => 'Descarrega els arxius enllaçats a aquest :type',
     ],
 
     'messages' => [
@@ -51,4 +77,14 @@ return [
         'marked_cancelled'  => 'S\'ha marcat :type com cancel·lat!',
         'marked_received'   => 'S\'ha marcat :type com rebut!',
     ],
+
+    'recurring' => [
+        'auto_generated' => 'Auto-generat',
+
+        'tooltip' => [
+            'document_date'     => 'La data de :type s\'assignarà automàticament en funció de la planificació i frequència de :type.',
+            'document_number'   => 'El número de :type s\'assignarà automàticament quan es generi cada :type recurrent',
+        ],
+    ],
+
 ];
