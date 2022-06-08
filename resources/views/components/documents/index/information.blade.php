@@ -53,15 +53,13 @@
                     </div>
 
                     <div class="w-full flex flex-col">
-                        <div class="flex items-center justify-between">
-                            <div class="w-60 font-medium truncate">
-                                {{ $document_item->name }}
-                            </div>
-
-                            <span class="font-normal">
-                                <x-money :amount="$document_item->price" :currency="$document->currency_code" convert />
-                            </span>
+                        <div class="w-60 font-medium truncate">
+                            {{ $document_item->name }}
                         </div>
+
+                        <span class="font-normal">
+                            <x-money :amount="$document_item->price" :currency="$document->currency_code" convert />
+                        </span>
 
                         <div class="w-40 font-normal text-sm truncate">
                             {{ $document_item->description }}
