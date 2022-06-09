@@ -46,7 +46,7 @@ return [
     'others'                => 'Autre|Autres',
     'contacts'              => 'Contact|Contacts',
     'documents'             => 'Document|Documents',
-    'reconciliations'       => 'Réconciliation|Réconciliations',
+    'reconciliations'       => 'Rapprochement|Rapprochements',
     'developers'            => 'Développeur|Développeurs',
     'schedules'             => 'Planification|Planifications',
     'groups'                => 'Groupe|Groupes',
@@ -224,6 +224,7 @@ return [
     'copied'                => 'Copié',
     'preview_mode'          => 'Mode Aperçu',
     'go_back'               => 'Revenir à :type',
+    'validation_error'      => 'Erreur de validation',
 
     'card' => [
         'cards'                 => 'Carte|Cartes',
@@ -298,8 +299,8 @@ return [
         'recurring_templates' => 'Le modèle récurrent est le revenu ou la dépense.',
 
         'actions' => [
-            'new' =>    'Entrez les détails et créez votre premier :type',
-            'import' => 'Importez votre :type existant en un seul clic',
+            'new' =>    'Entrez les détails et créez votre(vos) premier(s, ières) :type',
+            'import' => 'Importez votre(vos) :type existant(s) en un seul clic',
         ],
     ],
 

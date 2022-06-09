@@ -19,9 +19,9 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et plus',
+        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et autres paramètres locaux',
         'search_keywords'               => 'financier, année, début, désigne, heure, fuseau horaire, date, format, séparateur, réduction, pourcent',
-        'financial_start'               => 'Date de démarrage de la comptabilité',
+        'financial_start'               => 'Date de début d\'exercice financier',
         'timezone'                      => 'Fuseau horaire',
         'financial_denote' => [
             'title'                     => 'Année financière Indiquée',
