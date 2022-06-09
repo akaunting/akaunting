@@ -11,6 +11,9 @@ class Radio extends Form
     /** @var string */
     public $formGroupClass = 'sm:col-span-6';
 
+    /** @var string */
+    public $inputGroupClass = 'grid grid-cols-2 gap-3 sm:grid-cols-4';
+
     public $except = [
         
     ];
