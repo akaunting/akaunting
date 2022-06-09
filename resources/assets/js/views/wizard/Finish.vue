@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="w-3/4 lg:ltr:pl-8 lg:rtl:pr-8">
                                     <span class="font-medium">{{ item.name }}</span>
-                                    <div class="text-black-300 text-sm my-2" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"
+                                    <div class="text-black-300 text-sm my-2 line-clamp-3"
                                      v-html="item.description"></div>
                                 </div>
                             </a>
