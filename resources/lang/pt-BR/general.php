@@ -224,6 +224,7 @@ return [
     'copied'                => 'Copiado',
     'preview_mode'          => 'Modo de pré-visualização',
     'go_back'               => 'Voltar para :type',
+    'validation_error'      => 'Erro de validação',
 
     'card' => [
         'cards'                 => 'Cartão|Cartões',

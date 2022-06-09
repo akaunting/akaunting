@@ -224,6 +224,7 @@ return [
     'copied'                => 'Kopirano',
     'preview_mode'          => 'Pregled',
     'go_back'               => 'Povratak u :type',
+    'validation_error'      => 'Greška u validaciji',
 
     'card' => [
         'cards'                 => 'Kartica|Kartice',
