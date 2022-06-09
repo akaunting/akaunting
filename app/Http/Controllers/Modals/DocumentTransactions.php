@@ -66,7 +66,12 @@ class DocumentTransactions extends Controller
             'payment' => [
                 'text' => trans('invoices.accept_payments'),
                 'class' => 'long-texts',
-                'url' => route('apps.categories.show', 'payment-method')
+                'url' => route('apps.categories.show', [
+                    'alias' => 'payment-method',
+                    'utm_source' => $document->type . '_payment',
+                    'utm_medium' => 'app',
+                    'utm_campaign' => 'payment_method',
+                ])
             ],
             'confirm' => [
                 'text' => trans('general.save'),

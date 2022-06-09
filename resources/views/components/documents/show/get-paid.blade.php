@@ -30,7 +30,7 @@
                         'alias' => 'payment-method',
                         'utm_source' => $type,
                         'utm_medium' => 'app',
-                        'utm_campaign' => trans('documents.accept_payment_online'),
+                        'utm_campaign' => 'payment_method',
                     ]) }}"
                     override="class"
                     class="py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6"
