@@ -8,13 +8,14 @@
                 'credit_card' => trans_choice('accounts.credit_cards', 1),
             ]"
             checked="bank"
+            input-group-class="grid grid-cols-2 gap-2 sm:grid-cols-2"
         />
 
-        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
+        <x-form.group.text name="name" label="{{ trans('general.name') }}" form-group-class="col-span-6" />
 
-        <x-form.group.text name="number" label="{{ trans('accounts.number') }}" />
+        <x-form.group.text name="number" label="{{ trans('accounts.number') }}" form-group-class="col-span-6" />
 
-        <x-form.group.currency without-add-new />
+        <x-form.group.currency without-add-new form-group-class="col-span-6" />
 
         <x-form.group.money
             name="opening_balance"
@@ -23,6 +24,7 @@
             autofocus="autofocus"
             :currency="$currency"
             dynamicCurrency="currency"
+            form-group-class="col-span-6"
         />
 
         <x-form.input.hidden name="enabled" value="1" />
