@@ -6,14 +6,14 @@
 
 <!-- Add to homescreen for Chrome on Android -->
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="Akaunting">
-<link rel="icon" sizes="512x512" href="{{ asset('public/img/icons/icon-512x512.png') }}">
+<meta name="application-name" content="{{ config('app.name') }}">
+<link rel="icon" sizes="512x512" href="{{ asset('public/img/icons/akaunting-512x512.png') }}">
 
 <!-- Add to homescreen for Safari on iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
-<meta name="apple-mobile-web-app-title" content="Akaunting">
-<link rel="apple-touch-icon" href="{{ asset('public/img/icons/icon-512x512.png') }}">
+<meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
+<link rel="apple-touch-icon" href="{{ asset('public/img/icons/akaunting-512x512.png') }}">
 
 <link href="{{ asset('public/img/icons/splash-640x1136.png') }}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
 <link href="{{ asset('public/img/icons/splash-750x1334.png') }}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
@@ -27,7 +27,7 @@
 
 <!-- Tile for Win8 -->
 <meta name="msapplication-TileColor" content="#FFFFFF">
-<meta name="msapplication-TileImage" content="{{ asset('public/img/icons/icon-512x512.png') }}">
+<meta name="msapplication-TileImage" content="{{ asset('public/img/icons/akaunting-512x512.png') }}">
 
 <script type="text/javascript">
 
