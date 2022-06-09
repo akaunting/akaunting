@@ -52,7 +52,7 @@ class Contact extends Form
 
         $this->contacts = Model::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
 
-        if (!empty($model) && $model->customer && ! $this->contacts->has($model->contact_id)) {
+        if (! empty($model) && $model->customer && ! $this->contacts->has($model->contact_id)) {
             $this->contacts->put($model->customer->id, $model->customer->name);
         }
     }
@@ -69,7 +69,7 @@ class Contact extends Form
 
         $this->contacts = Model::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
 
-        if (!empty($model) && $model->vendor && ! $this->contacts->has($model->contact_id)) {
+        if (! empty($model) && $model->vendor && ! $this->contacts->has($model->contact_id)) {
             $this->contacts->put($model->vendor->id, $model->vendor->name);
         }
     }
