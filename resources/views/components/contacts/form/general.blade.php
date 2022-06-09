@@ -31,14 +31,15 @@
 
         <div class="sm:col-span-3">
             @if (! $hideCanLogin)
-                <div class="mt-5.5">
+                <div class="mt-9">
                     @if (empty($contact))
                         <x-tooltip id="tooltip-client_portal-text" placement="bottom" message="{{ trans('customers.can_login_description') }}">
                             <x-form.group.checkbox
                                 name="create_user"
                                 :options="['1' => trans('customers.can_login')]"
                                 @input="onCanLogin($event)"
-                                checkbox-class="sm:col-span-6" />
+                                checkbox-class="sm:col-span-6"
+                            />
                         </x-tooltip>
                     @else
                         @if ($contact->user_id)
