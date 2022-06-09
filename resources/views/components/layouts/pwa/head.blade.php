@@ -7,7 +7,6 @@
 <!-- Add to homescreen for Chrome on Android -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="application-name" content="Akaunting">
-<link rel="icon" sizes="512x512" href="{{ asset('public/img/icons/icon-512x512.png') }}">
 
 <!-- Add to homescreen for Safari on iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
