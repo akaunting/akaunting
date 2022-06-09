@@ -237,6 +237,9 @@ abstract class Report
             ->setColors(array_values($colors))
             ->setDataset($this->tables[$table_key], 'donut', array_values($values));
 
+        $chart->options['legend']['width'] = 160;
+        $chart->options['legend']['position'] = 'right';
+
         return $chart;
     }
 
