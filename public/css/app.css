@@ -46881,7 +46881,7 @@ input[type="date"]::-webkit-inner-spin-button,
     border-bottom-right-radius: 4px;
     cursor: pointer !important;
     margin-top: 8px;
-    margin-bottom: 0 !important;
+    margin-bottom: -8px !important;
 }
 
 .el-select__footer:hover {
@@ -46902,11 +46902,7 @@ input[type="date"]::-webkit-inner-spin-button,
 }
 
 .el-select-dropdown__list {
-    padding: 8px 0 0 0;
-}
-
-.el-select-dropdown__item:last-child {
-    margin-bottom: 8px;
+    padding: 8px 0 8px 0;
 }
 
 .el-select .el-select__tags {
@@ -48221,6 +48217,10 @@ body{
 
   .sm\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:grid-cols-3{
