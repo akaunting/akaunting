@@ -215,6 +215,10 @@ abstract class Form extends Component
             $label = $this->name;
         }
 
+        if ($this->type == 'select') {
+            return trans('general.form.select.field', ['field' => $label]);
+        }
+
         return trans('general.form.enter', ['field' => $label]);
     }
 

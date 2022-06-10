@@ -33,11 +33,7 @@
 
         title="{!! $label !!}"
 
-        @if (isset($attributes['placeholder']))
-        placeholder="{{ $attributes['placeholder'] }}"
-        @else
-        placeholder="{{ trans('general.form.select.field', ['field' => $label]) }}"
-        @endif
+        placeholder="{{ $placeholder }}"
 
         name="{{ $name }}"
 
