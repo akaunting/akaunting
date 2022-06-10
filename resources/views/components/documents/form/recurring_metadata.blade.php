@@ -32,7 +32,7 @@
 
             <x-tooltip id="tooltip-issued" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_date', ['type' => config('type.document.' . $type . '.setting.prefix', 'invoice')]) }}">
                 <div class="relative focused has-label">
-                    <x-form.input.text name="disabled_document_date" value="{{ trans('documents.recurring.auto_generated') }}" class="form-element" disabled />
+                    <x-form.input.text name="disabled_document_date" value="{{ trans('documents.recurring.auto_generated') }}" disabled />
                 </div>
             </x-tooltip>
 
@@ -68,7 +68,7 @@
 
             <x-tooltip id="tooltip-number" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_number', ['type' => config('type.document.' . $type . '.setting.prefix', 'invoice')]) }}">
                 <div class="relative focused has-label">
-                    <x-form.input.text name="disabled_document_number" value="{{ trans('documents.recurring.auto_generated') }}" class="form-element" disabled />
+                    <x-form.input.text name="disabled_document_number" value="{{ trans('documents.recurring.auto_generated') }}" disabled />
                 </div>
             </x-tooltip>
 

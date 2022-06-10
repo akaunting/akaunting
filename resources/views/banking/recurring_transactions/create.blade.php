@@ -26,7 +26,7 @@
 
                             <x-tooltip id="tooltip-paid" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_date', ['type' => Str::lower(trans_choice('general.transactions', 1))]) }}">
                                 <div class="relative focused has-label">
-                                    <x-form.input.text name="disabled_transaction_paid" value="{{ trans('documents.recurring.auto_generated') }}" class="form-element" disabled />
+                                    <x-form.input.text name="disabled_transaction_paid" value="{{ trans('documents.recurring.auto_generated') }}" disabled />
                                 </div>
                             </x-tooltip>
 
@@ -81,7 +81,7 @@
 
                             <x-tooltip id="tooltip-number" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_number', ['type' => Str::lower(trans_choice('general.transactions', 1))]) }}">
                                 <div class="relative focused has-label">
-                                    <x-form.input.text name="disabled_transaction_number" value="{{ trans('documents.recurring.auto_generated') }}" class="form-element" disabled />
+                                    <x-form.input.text name="disabled_transaction_number" value="{{ trans('documents.recurring.auto_generated') }}" disabled />
                                 </div>
                             </x-tooltip>
 

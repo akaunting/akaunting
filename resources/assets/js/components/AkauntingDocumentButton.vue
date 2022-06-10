@@ -14,7 +14,7 @@
                     <input 
                         type="text"
                         data-input="true"
-                        class="form-element px-10 border-t-0 border-l-0 border-r-0 border-gray-200 rounded-none"
+                        class="w-full text-sm px-10 py-2.5 mt-1rounded-none border border-gray-200 border-t-0 border-l-0 border-r-0 text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
                         autocapitalize="default" 
                         autocorrect="ON" 
                         :placeholder="placeholder"
@@ -24,7 +24,7 @@
                     />
                 </div>
 
-                <ul class="form-element p-0 mt-0 border-0 cursor-pointer">
+                <ul class="w-full text-sm p-0 mt-0 rounded-lg border-0 border-light-gray text-black placeholder-light-gray bg-white cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple">
                     <div 
                         class="hover:bg-gray-100 px-4" 
                         v-for="(item, index) in sortedItems" 
