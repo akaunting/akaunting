@@ -10,7 +10,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.account name="account" not-required without-change :selected="setting('default.account')" />
+                        <x-form.group.account name="account" not-required without-change />
 
                         <x-form.group.currency name="currency" not-required />
 

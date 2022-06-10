@@ -8,11 +8,12 @@ use App\Models\Banking\Transfer as Model;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
 use App\Traits\Jobs;
+use App\Traits\Transactions;
 use App\Utilities\Date;
 
 class Transfers extends Import
 {
-    use Currencies, Jobs;
+    use Currencies, Jobs, Transactions;
 
     public function model(array $row)
     {
@@ -51,6 +52,7 @@ class Transfers extends Import
     {
         $expense_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
+            'number' => $this->getNextTransactionNumber(),
             'type' => 'expense',
             'account_id' => $row['from_account_id'],
             'paid_at' => $row['transferred_at'],
@@ -85,6 +87,7 @@ class Transfers extends Import
 
         $income_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
+            'number' => $this->getNextTransactionNumber(),
             'type' => 'income',
             'account_id' => $row['to_account_id'],
             'paid_at' => $row['transferred_at'],

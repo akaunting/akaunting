@@ -8,18 +8,6 @@ class Country extends Form
 {
     public $type = 'country';
 
-    /** @var string */
-    public $formGroupClass;
-
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct(string $formGroupClass = 'sm:col-span-3') {
-        $this->formGroupClass = $formGroupClass;
-    }
-    
     /**
      * Get the view / contents that represent the component.
      *
