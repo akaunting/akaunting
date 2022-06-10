@@ -38,7 +38,7 @@
                                     <input
                                         type="text"
                                         :ref="'items-' + index + '-name'"
-                                        class="form-element mt-0"
+                                        class="w-full text-sm px-3 py-2.5 mt-0 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple mt-0"
                                         :name="'items.' + index + '.name'"
                                         autocomplete="off"
                                         required="required"
@@ -65,7 +65,7 @@
                         <td class="px-3 py-3 border-b-0 description">
                             @if (! $hideItemDescription)
                                 <textarea
-                                    class="form-element mt-1.5 resize-none"
+                                    class="w-full text-sm px-3 py-2.5 mt-1.5 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple resize-none"
                                     style="height:42px;"
                                     :ref="'items-' + index + '-description'"
                                     placeholder="{{ trans('items.enter_item_description') }}"
@@ -94,7 +94,7 @@
                                     type="number"
                                     min="0"
                                     :ref="'items-' + index + '-quantity'"
-                                    class="form-element mt-0 text-right input-number-disabled"
+                                    class="w-full text-sm px-3 py-2.5 mt-0 text-right rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple input-number-disabled"
                                     :name="'items.' + index + '.quantity'"
                                     autocomplete="off"
                                     required="required"
@@ -233,7 +233,7 @@
                                     <input type="number"
                                         min="0"
                                         placeholder="Discount"
-                                        class="form-element text-center mt-0"
+                                        class="w-full text-sm px-3 py-2.5 mt-0 text-center rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
                                         :name="'items.' + index + '.discount'"
                                         autocomplete="off"
                                         required="required"

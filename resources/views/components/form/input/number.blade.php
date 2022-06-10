@@ -1,6 +1,7 @@
 <input type="number"
     name="{{ $name }}"
     id="{{ $id }}"
+    class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
     @if ($value)
     value="{{ $value }}"
     @endif
