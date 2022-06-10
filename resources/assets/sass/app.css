@@ -309,7 +309,7 @@
     border-bottom-right-radius: 4px;
     cursor: pointer !important;
     margin-top: 8px;
-    margin-bottom: 0 !important;
+    margin-bottom: -8px !important;
 }
 
 .el-select__footer:hover {
@@ -330,11 +330,7 @@
 }
 
 .el-select-dropdown__list {
-    padding: 8px 0 0 0;
-}
-
-.el-select-dropdown__item:last-child {
-    margin-bottom: 8px;
+    padding: 8px 0 8px 0;
 }
 
 .el-select .el-select__tags {

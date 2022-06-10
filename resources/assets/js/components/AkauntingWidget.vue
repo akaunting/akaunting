@@ -157,7 +157,7 @@ export default {
             description: "Widget Dashboard Id"
         },
         widget_id: {
-            type: Number,
+            type: [Number, String],
             default: 0,
             description: "Edit Widget ID"
         },
