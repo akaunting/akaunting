@@ -452,6 +452,33 @@ html[dir='rtl'] .el-input__suffix {
   }
  /* element-ui */
 
+ /* apex-chart */
+    .apexcharts-donut-custom span.apexcharts-legend-text {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 1 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        height: 1rem !important;
+    }
+
+    .apexcharts-donut-custom .apexcharts-legend-series {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .apexcharts-donut-custom .apexcharts-legend {
+        padding: 0 !important;
+    }
+
+    .apexcharts-donut-custom .apexcharts-legend-marker {
+        width: 18px !important;
+    }
+
+    .apexcharts-donut-custom-report .apexcharts-legend-marker {
+        width: 12px !important;
+    }
+ /* apex-chart */
+
  /* collapse */
  .active-collapse {
     @apply opacity-100;
