@@ -203,8 +203,7 @@
                                 class="relative flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                 override="class"
                             >
-                                <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
-                                <span :class="[{'ml-0': form.loading}]">{{ trans('general.save') }}</span>
+                                <x-button-loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-1': reconcile}]" />
                             </x-button>
                             <div v-if="reconcile">
                                 <x-tooltip id="tooltip-reconcile" placement="top" message="{{ trans('reconciliations.irreconcilable') }}">
@@ -217,12 +216,7 @@
                                         data-loading-text="{{ trans('general.loading') }}"
                                     >
 
-                                    <i 
-                                        v-if="form.loading"
-                                        class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"
-                                    >
-                                    </i>
-                                    <span :class="[{'opacity-1': reconcile}]">{{ trans('reconciliations.reconcile') }}</span>
+                                        <x-button-loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                     </x-button>
                                 </x-tooltip>
                             </div>
@@ -236,12 +230,7 @@
                                     data-loading-text="{{ trans('general.loading') }}"
                                 >
 
-                                    <i 
-                                        v-if="form.loading"
-                                        class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"
-                                    >
-                                    </i>
-                                    <span :class="[{'opacity-1': reconcile}]">{{ trans('reconciliations.reconcile') }}</span>
+                                    <x-button-loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                 </x-button>
                             </div>
                         </div>

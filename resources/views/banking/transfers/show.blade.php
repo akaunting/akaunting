@@ -41,8 +41,7 @@
                     </button>
 
                     <button :disabled="form.loading"  type="button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="addTemplate">
-                        <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
-                        <span :class="[{'opacity-0': form.loading}]">{{ trans('general.confirm') }}</span>
+                        <x-button-loading v-if="form.loading" text="{{ trans('general.confirm') }}" text-hide="[{'opacity-0': form.loading}]" />
                     </button>
                 </div>
             </template>
