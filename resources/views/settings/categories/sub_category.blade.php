@@ -39,7 +39,7 @@
         </x-table.td>
 
         <x-table.td class="ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer w-2/12 relative">
-            <span class="material-icons" class="text-3xl" style="color:{{ $sub_category->color }};">circle</span>
+            <span class="material-icons text-3xl text-{{ $category->color }}" style="color:{{ $sub_category->color }};">circle</span>
         </x-table.td>
 
         <x-table.td kind="action">
