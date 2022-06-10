@@ -27,12 +27,25 @@ class Notifications extends Component
         return view('livewire.menu.notifications');
     }
 
-    public function markRead($notification_id)
+    public function markRead($type, $notification_id, $message = true)
     {
-        $notification = DatabaseNotification::find($notification_id);
-        $data = $notification->getAttribute('data');
+        switch ($type) {
+            case 'updates':
+                $this->markUpdateRead($notification_id);
+                break;
+            case 'new-apps':
+                $this->markNewAppRead($notification_id);
+                break;
+            default:
+                $notification = DatabaseNotification::find($notification_id);
+                $data = $notification->getAttribute('data');
 
-        $notification->markAsRead();
+                $notification->markAsRead();
+        }
+
+        if (! $message) {
+            return;
+        }
 
         $type = isset($data['file_name']) ?: trans('general.export');
 
@@ -44,16 +57,35 @@ class Notifications extends Component
 
     public function markReadAll()
     {
-        $notifications = user()->unreadNotifications;
+        $notifications = $this->getNotifications();
 
         foreach ($notifications as $notification) {
-            $notification->markAsRead();
+            $this->markRead($notification->type, $notification->id, false);
         }
 
         $this->dispatchBrowserEvent('mark-read-all', [
             'type' => 'notification',
             'message' => trans('notifications.messages.mark_read_all', ['type' => trans('general.export')]),
         ]);
+    }
+
+    public function markUpdateRead($notification_id)
+    {
+        //
+    }
+
+    public function markNewAppRead($notification_id)
+    {
+        $notifications = $this->getNotifications();
+
+        foreach ($notifications as $notification) {
+            if ($notification->id == $notification_id) {
+                setting()->set('notifications.' . $notification->notifiable_id . '.' . $notification->data['alias'], '1');
+
+                setting()->save();
+                break;
+            }
+        }
     }
 
     public function getNotifications(): array
