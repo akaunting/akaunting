@@ -51,12 +51,12 @@ class Account extends Model
 
     public function expense_transactions()
     {
-        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getIncomeTypes());
     }
 
     public function transactions()

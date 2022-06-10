@@ -98,7 +98,7 @@ class Transaction extends Model
 
     public function bill()
     {
-        return $this->belongsTo('App\Models\Document\Document', 'document_id');
+        return $this->belongsTo('App\Models\Document\Document', 'document_id')->withoutGlobalScope('App\Scopes\Document');
     }
 
     public function category()
@@ -123,12 +123,12 @@ class Transaction extends Model
 
     public function invoice()
     {
-        return $this->belongsTo('App\Models\Document\Document', 'document_id');
+        return $this->belongsTo('App\Models\Document\Document', 'document_id')->withoutGlobalScope('App\Scopes\Document');
     }
 
     public function document()
     {
-        return $this->belongsTo('App\Models\Document\Document', 'document_id');
+        return $this->belongsTo('App\Models\Document\Document', 'document_id')->withoutGlobalScope('App\Scopes\Document');
     }
 
     public function parent()

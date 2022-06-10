@@ -37,7 +37,7 @@ class Company implements Scope
         }
 
         // Skip if already exists
-        if ($this->scopeColumnExists($builder, 'company_id')) {
+        if ($this->scopeColumnExists($builder, '', 'company_id')) {
             return;
         }
 
