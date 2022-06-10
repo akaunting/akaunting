@@ -41,7 +41,7 @@
                             <div class="sm:col-span-3 grid gap-10">
                                 <div class="sm:col-span-3">
                                     <base-input :label="translations.company.address">
-                                        <textarea class="form-element" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
+                                        <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
                                     </base-input>
                                 </div>
 
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <label class="form-control-label">{{  translations.company.logo }}</label>
+                                <label class="text-black text-sm font-medium">{{  translations.company.logo }}</label>
                                 <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column w-2/5" style="height:12.2rem" preview-classes="single" :attachments="logo" :v-model="logo">
                                 </akaunting-dropzone-file-upload>
                             </div>

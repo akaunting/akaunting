@@ -3,7 +3,7 @@
         <InstallSteps :active_state="active"></InstallSteps>
 
         <div class="form-group mb-0">
-            <select v-model="form.lang" name="lang" id="lang" size="13" class="w-full form-control-label">
+            <select v-model="form.lang" name="lang" id="lang" size="13" class="w-full text-black text-sm font-medium">
                 <option v-for="(name, code) in languages" :value="code">
                     {{ name }}
                 </option>

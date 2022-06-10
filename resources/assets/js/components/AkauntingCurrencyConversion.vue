@@ -10,7 +10,7 @@
             masked: true
         }" :value="price" disabled size="5" masked class="disabled-money text-right mr-1 js-conversion-input text-xs px-1"></money>
         <span class="mr-2">{{ texts[1] }}</span>
-        <input name="currency_rate" v-model="rate" @input="onChange" class="form-element w-16 h-10 text-right js-conversion-input" />
+        <input name="currency_rate" v-model="rate" @input="onChange" class="text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple w-16 h-10 text-right js-conversion-input" />
     </div>
 </template>
 

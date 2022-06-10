@@ -19,7 +19,7 @@
             @on-open="focus"
             @on-close="blur"
             :config="dateConfig"
-            class="form-element datepicker"
+            class="datepicker w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
             v-model="real_model"
             @input="change"
             :readonly="readonly"

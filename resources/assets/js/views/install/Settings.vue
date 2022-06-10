@@ -3,41 +3,45 @@
         <InstallSteps :active_state="active"></InstallSteps>
 
         <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 mt-0">
-            <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('company_name')}]">
-                <label for="company_name" class="form-control-label">Company Name</label>
+            <div class="sm:col-span-6 required">
+                <label for="company_name" class="text-black text-sm font-medium">Company Name</label>
+                <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
                 <div class="input-group input-group-merge">
-                    <input class="form-element" data-name="company_name" @keydown="form.errors.clear('company_name')" v-model="form.company_name" required="required" name="company_name" type="text" id="company_name" />
+                    <input :class="[{'border-red': form.errors.get('company_name')}, {'border-light-gray': !form.errors.get('company_name')}]" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" data-name="company_name" @keydown="form.errors.clear('company_name')" v-model="form.company_name" required="required" name="company_name" type="text" id="company_name" />
                 </div>
 
                 <div class="text-red text-sm mt-1 block" v-if="form.errors.has('company_name')" v-html="form.errors.get('company_name')"></div>
             </div>
 
-            <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('company_email')}]">
-                <label for="company_email" class="form-control-label">Company Email</label>
+            <div class="sm:col-span-6 required">
+                <label for="company_email" class="text-black text-sm font-medium">Company Email</label>
+                <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
                 <div class="input-group input-group-merge">
-                    <input class="form-element" data-name="company_email" @keydown="form.errors.clear('company_email')" v-model="form.company_email" required="required" name="company_email" type="text" id="company_email" />
+                    <input :class="[{'border-red': form.errors.get('company_email')}, {'border-light-gray': !form.errors.get('company_email')}]" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" data-name="company_email" @keydown="form.errors.clear('company_email')" v-model="form.company_email" required="required" name="company_email" type="text" id="company_email" />
                 </div>
 
                 <div class="text-red text-sm mt-1 block" v-if="form.errors.has('company_email')" v-html="form.errors.get('company_email')"></div>
             </div>
 
-            <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('user_email')}]">
-                <label for="user_email" class="form-control-label">Admin Email</label>
+            <div class="sm:col-span-6 required">
+                <label for="user_email" class="text-black text-sm font-medium">Admin Email</label>
+                <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
                 <div class="input-group input-group-merge">
-                    <input class="form-element" data-name="user_email" @keydown="form.errors.clear('user_email')" v-model="form.user_email" required="required" name="user_email" type="text" id="user_email" />
+                    <input :class="[{'border-red': form.errors.get('user_email')}, {'border-light-gray': !form.errors.get('user_email')}]" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" data-name="user_email" @keydown="form.errors.clear('user_email')" v-model="form.user_email" required="required" name="user_email" type="text" id="user_email" />
                 </div>
 
                 <div class="text-red text-sm mt-1 block" v-if="form.errors.has('user_email')" v-html="form.errors.get('user_email')"></div>
             </div>
 
-            <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('user_password')}]">
-                <label for="user_password" class="form-control-label">Admin Password</label>
+            <div class="sm:col-span-6 required">
+                <label for="user_password" class="text-black text-sm font-medium">Admin Password</label>
+                <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
                 <div class="input-group input-group-merge">
-                    <input class="form-element" data-name="user_password" @keydown="form.errors.clear('user_password')" v-model="form.user_password" required="required" name="user_password" type="password" value="" id="user_password" />
+                    <input :class="[{'border-red': form.errors.get('user_password')}, {'border-light-gray': !form.errors.get('user_password')}]" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg borde text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" data-name="user_password" @keydown="form.errors.clear('user_password')" v-model="form.user_password" required="required" name="user_password" type="password" value="" id="user_password" />
                 </div>
 
                 <div class="text-red text-sm mt-1 block" v-if="form.errors.has('user_password')" v-html="form.errors.get('user_password')"></div>
