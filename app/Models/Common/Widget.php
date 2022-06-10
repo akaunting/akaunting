@@ -5,6 +5,7 @@ namespace App\Models\Common;
 use App\Abstracts\Model;
 use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Widget extends Model
 {
@@ -27,6 +28,20 @@ class Widget extends Model
     protected $casts = [
         'settings' => 'object',
     ];
+
+    /**
+     * Scope to only include widgets of a given alias.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $alias
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAlias($query, $alias)
+    {
+        $class = ($alias == 'core') ? 'App\\\\' : 'Modules\\\\' . Str::studly($alias) . '\\\\';
+
+        return $query->where('class', 'like', $class . '%');
+    }
 
     public function dashboard()
     {
