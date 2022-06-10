@@ -47136,14 +47136,6 @@ html[dir='rtl'] .el-input__suffix {
     .apexcharts-donut-custom .apexcharts-legend {
         padding: 0 !important;
     }
-
-    .apexcharts-donut-custom .apexcharts-legend-marker {
-        width: 18px !important;
-    }
-
-    .apexcharts-donut-custom-report .apexcharts-legend-marker {
-        width: 12px !important;
-    }
  /* apex-chart */
 
  /* collapse */
