@@ -4,7 +4,7 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} rēķins izveidots',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Cien.{customer_name},<br /><br />Mēs esam sagatavojuši jums šādu rēķinu: <strong>{invoice_number}</strong>.<br /><br />Varat skatīt rēķina informāciju un turpināt maksājumu, izmantojot šo saiti:<a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Ja jums ir kādi jautājumi, sazinieties ar mums.<br /><br />Labākie novēlējumi,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -33,7 +33,7 @@ return [
     ],
 
     'invoice_payment_customer' => [
-        'subject'       => 'Payment received for {invoice_number} invoice',
+        'subject'       => 'Saņemts maksājums par rēķinu {invoice_number}',
         'body'          => 'Cien. {customer_name}!<br /><br />Paldies par maksājumu! Tālāk atrodiet maksājuma informāciju:<br /><br />------------------------------------- -------------<br />Summa: <strong>{transaction_total}</strong><br />Datums: <strong>{transaction_paid_date}</strong><br />Rēķins Numurs: <strong>{invoice_number}</strong><br />----------------------------------- ---------------<br /><br />Jūs vienmēr varat skatīt detalizētu informāciju par rēķinu, izmantojot šo saiti: <a href="{invoice_guest_link}">{invoice_number}</ a>.<br /><br />Ja jums ir kādi jautājumi, sazinieties ar mums.<br /><br />Labākie vēlējumi,<br />{company_name}',
     ],
 
