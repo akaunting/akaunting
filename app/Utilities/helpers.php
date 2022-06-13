@@ -6,7 +6,7 @@ use App\Traits\Sources;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
 
-if (!function_exists('user')) {
+if (! function_exists('user')) {
     /**
      * Get the authenticated user.
      *
@@ -18,7 +18,7 @@ if (!function_exists('user')) {
     }
 }
 
-if (!function_exists('user_id')) {
+if (! function_exists('user_id')) {
     /**
      * Get id of current user.
      *
@@ -30,7 +30,7 @@ if (!function_exists('user_id')) {
     }
 }
 
-if (!function_exists('company_date_format')) {
+if (! function_exists('company_date_format')) {
     /**
      * Get the date format of company.
      *
@@ -46,7 +46,7 @@ if (!function_exists('company_date_format')) {
     }
 }
 
-if (!function_exists('company_date')) {
+if (! function_exists('company_date')) {
     /**
      * Format the given date based on company settings.
      *
@@ -58,7 +58,7 @@ if (!function_exists('company_date')) {
     }
 }
 
-if (!function_exists('show_widget')) {
+if (! function_exists('show_widget')) {
     /**
      * Show a widget.
      *
@@ -74,7 +74,7 @@ if (!function_exists('show_widget')) {
     }
 }
 
-if (!function_exists('company')) {
+if (! function_exists('company')) {
     /**
      * Get current/any company model.
      *
@@ -98,7 +98,7 @@ if (!function_exists('company')) {
     }
 }
 
-if (!function_exists('company_id')) {
+if (! function_exists('company_id')) {
     /**
      * Get id of current company.
      *
@@ -110,7 +110,7 @@ if (!function_exists('company_id')) {
     }
 }
 
-if (!function_exists('should_queue')) {
+if (! function_exists('should_queue')) {
     /**
      * Check if queue is enabled.
      *
@@ -121,7 +121,7 @@ if (!function_exists('should_queue')) {
     }
 }
 
-if (!function_exists('source_name')) {
+if (! function_exists('source_name')) {
     /**
      * Get the current source.
      *
@@ -139,7 +139,7 @@ if (!function_exists('source_name')) {
     }
 }
 
-if (!function_exists('cache_prefix')) {
+if (! function_exists('cache_prefix')) {
     /**
      * Cache system added company_id prefix.
      *
@@ -151,7 +151,7 @@ if (!function_exists('cache_prefix')) {
     }
 }
 
-if (!function_exists('array_values_recursive')) {
+if (! function_exists('array_values_recursive')) {
     /**
      * Get array values recursively.
      */
@@ -171,7 +171,7 @@ if (!function_exists('array_values_recursive')) {
     }
 }
 
-if (!function_exists('running_in_queue')) {
+if (! function_exists('running_in_queue')) {
     /**
      * Detect if application is running in queue.
      *
@@ -183,7 +183,7 @@ if (!function_exists('running_in_queue')) {
     }
 }
 
-if (!function_exists('simple_icons')) {
+if (! function_exists('simple_icons')) {
     /**
      * Get the simple icon content
      *
@@ -197,7 +197,7 @@ if (!function_exists('simple_icons')) {
     }
 }
 
-if (!function_exists('default_currency')) {
+if (! function_exists('default_currency')) {
     /**
      * Get the default currency code
      *
@@ -206,5 +206,55 @@ if (!function_exists('default_currency')) {
     function default_currency(): string
     {
         return setting('default.currency');
+    }
+}
+
+if (! function_exists('env_is_production')) {
+    /**
+     * Determine if the application is in the production environment
+     */
+    function env_is_production(): bool
+    {
+        return config('app.env') === 'production';
+    }
+}
+
+if (! function_exists('env_is_development')) {
+    /**
+     * Determine if the application is in the development environment
+     */
+    function env_is_development(): bool
+    {
+        return config('app.env') === 'development';
+    }
+}
+
+if (! function_exists('env_is_build')) {
+    /**
+     * Determine if the application is in the build environment
+     */
+    function env_is_build(): bool
+    {
+        return config('app.env') === 'build';
+    }
+}
+
+if (! function_exists('env_is_local')) {
+    /**
+     * Determine if the application is in the local environment
+     */
+    function env_is_local(): bool
+    {
+        return config('app.env') === 'local';
+    }
+}
+
+if (! function_exists('env_is_testing')) {
+    /**
+     * Determine if the application is in the testing environment
+     */
+    function env_is_testing(): bool
+    {
+        return config('app.env') === 'testing';
     }
 }
