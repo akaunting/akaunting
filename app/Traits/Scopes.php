@@ -8,17 +8,10 @@ use Illuminate\Support\Str;
 
 trait Scopes
 {
-    /**
-     * Apply the scope to a given Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return void
-     */
-    public function applyNotRecurringScope(Builder $builder, Model $model)
+    public function applyNotRecurringScope(Builder $builder, Model $model): void
     {
-        // Skip if recurring already in query
-        if ($this->scopeValueExists($builder, 'type', '-recurring')) {
+        // Skip if type already set
+        if ($this->scopeColumnExists($builder, $model->getTable(), 'type')) {
             return;
         }
 
@@ -26,17 +19,10 @@ trait Scopes
         $builder->isNotRecurring();
     }
 
-    /**
-     * Apply the scope to a given Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return void
-     */
-    public function applyNotSplitScope(Builder $builder, Model $model)
+    public function applyNotSplitScope(Builder $builder, Model $model): void
     {
-        // Skip if split already in query
-        if ($this->scopeValueExists($builder, 'type', '-split')) {
+        // Skip if type already set
+        if ($this->scopeColumnExists($builder, $model->getTable(), 'type')) {
             return;
         }
 
@@ -44,14 +30,7 @@ trait Scopes
         $builder->isNotSplit();
     }
 
-    /**
-     * Check if scope exists.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  $column
-     * @return boolean
-     */
-    public function scopeColumnExists($builder, $column)
+    public function scopeColumnExists(Builder $builder, string $table, string $column): bool
     {
         $query = $builder->getQuery();
 
@@ -63,7 +42,12 @@ trait Scopes
             if (strstr($where['column'], '.')) {
                 $whr = explode('.', $where['column']);
 
+                $where['table'] = $whr[0];
                 $where['column'] = $whr[1];
+            }
+
+            if (! empty($where['table']) && ! empty($table) && ($where['table'] != $table)) {
+                continue;
             }
 
             if ($where['column'] != $column) {
@@ -76,15 +60,7 @@ trait Scopes
         return false;
     }
 
-    /**
-     * Check if scope has the exact value.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  $column
-     * @param  $value
-     * @return boolean
-     */
-    public function scopeValueExists($builder, $column, $value)
+    public function scopeValueExists(Builder $builder, string $table, string $column, string $value): bool
     {
         $query = $builder->getQuery();
 
@@ -96,7 +72,12 @@ trait Scopes
             if (strstr($where['column'], '.')) {
                 $whr = explode('.', $where['column']);
 
+                $where['table'] = $whr[0];
                 $where['column'] = $whr[1];
+            }
+
+            if (! empty($where['table']) && ! empty($table) && ($where['table'] != $table)) {
+                continue;
             }
 
             if ($where['column'] != $column) {
@@ -114,8 +95,8 @@ trait Scopes
     }
 
     // @deprecated version 3.0.0
-    public function scopeExists($builder, $column)
+    public function scopeExists($builder, $column): bool
     {
-        return $this->scopeColumnExists($builder, $column);
+        return $this->scopeColumnExists($builder, '', $column);
     }
 }

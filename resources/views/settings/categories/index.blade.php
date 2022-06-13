@@ -99,7 +99,7 @@
                             </x-table.td>
 
                             <x-table.td class="w-2/12 relative">
-                                <span class="material-icons" class="text-3xl" style="color:{{ $category->color }};">circle</span>
+                                <span class="material-icons text-{{ $category->color }}" class="text-3xl" style="color:{{ $category->color }};">circle</span>
                             </x-table.td>
 
                             <x-table.td kind="action">

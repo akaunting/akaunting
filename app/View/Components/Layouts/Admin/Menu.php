@@ -3,7 +3,7 @@
 namespace App\View\Components\Layouts\Admin;
 
 use App\Abstracts\View\Component;
-use App\Utilities\Versions;
+use App\Events\Menu\NotificationsCreated;
 
 class Menu extends Component
 {
@@ -21,10 +21,7 @@ class Menu extends Component
     {
         $this->companies = $this->getCompanies();
 
-        $version_update = Versions::getUpdates();
-
-        $this->notification_count = user()->unreadNotifications->count();
-        $this->notification_count += count($version_update);
+        $this->notification_count = $this->getNotificationCount();
 
         return view('components.layouts.admin.menu');
     }
@@ -38,5 +35,17 @@ class Menu extends Component
         }
 
         return $companies;
+    }
+
+    public function getNotificationCount()
+    {
+        // Get nofitications
+        $notifications = new \stdClass();
+        $notifications->notifications = [];
+        $notifications->keyword = '';
+
+        event(new NotificationsCreated($notifications));
+
+        return $notifications->notifications->count();
     }
 }

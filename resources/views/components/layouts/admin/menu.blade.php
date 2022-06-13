@@ -63,15 +63,16 @@
                         'flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer js-menu-toggles',
                         'animate-vibrate' => $notification_count,
                     ])
-                    data-menu="notifications-menu">
+                    data-menu="notifications-menu"
+                >
                     <span id="menu-notification-icon" name="notifications" class="material-icons-outlined text-purple text-2xl">notifications</span>
-
-                    @if ($notification_count)
-                        <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
-                            {{ $notification_count }}
-                        </span>
-                    @endif
                 </button>
+
+                @if ($notification_count)
+                    <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
+                        {{ $notification_count }}
+                    </span>
+                @endif
             </x-tooltip>
             @endcan
 

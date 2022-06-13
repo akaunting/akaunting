@@ -27,7 +27,7 @@ class ExpensesByCategory extends Widget
 
         $chart = $this->getDonutChart(trans_choice('general.expenses', 2), '100%', 300, 6);
 
-        $chart->options['legend']['width'] = 210;
+        $chart->options['legend']['width'] = 160;
         $chart->options['legend']['position'] = 'right';
         
         return $this->view('widgets.donut_chart', [
