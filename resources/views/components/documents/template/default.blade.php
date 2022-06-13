@@ -12,8 +12,8 @@
     <div class="col-58">
         <div class="text">
             @stack('company_logo_start')
-            @if (!$hideCompanyLogo)
-                @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
+            @if (! $hideCompanyLogo)
+                @if (! empty($document->contact->logo) && ! empty($document->contact->logo->id))
                     <img class="d-logo w-image" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
                 @else
                     <img class="d-logo w-image" src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
@@ -31,19 +31,20 @@
                     {{ $textDocumentSubheading }}
                 </p>
             @endif
-            @if (!$hideCompanyDetails)
-                @if (!$hideCompanyName)
+
+            @if (! $hideCompanyDetails)
+                @if (! $hideCompanyName)
                     <p>{{ setting('company.name') }}</p>
                 @endif
 
-                @if (!$hideCompanyAddress)
+                @if (! $hideCompanyAddress)
                     <p>
                         {!! nl2br(setting('company.address')) !!}
                         {!! $document->company->location !!}
                     </p>
                 @endif
 
-                @if (!$hideCompanyTaxNumber)
+                @if (! $hideCompanyTaxNumber)
                     
                     @if (setting('company.tax_number'))
                         <p>
@@ -53,17 +54,15 @@
                     
                 @endif
 
-                @if (!$hideCompanyPhone)
-                   
+                @if (! $hideCompanyPhone)
                     @if (setting('company.phone'))
                         <p>
                             {{ setting('company.phone') }}
                         </p>
                     @endif
-                    
                 @endif
 
-                @if (!$hideCompanyEmail)
+                @if (! $hideCompanyEmail)
                     <p class="small-text">{{ setting('company.email') }}</p>
                 @endif
             @endif
@@ -80,13 +79,13 @@
             @endif
 
             @stack('name_input_start')
-                @if (!$hideContactName)
+                @if (! $hideContactName)
                     <p>{{ $document->contact_name }}</p>
                 @endif
             @stack('name_input_end')
 
             @stack('address_input_start')
-                @if (!$hideContactAddress)
+                @if (! $hideContactAddress)
                     <p>
                         {!! nl2br($document->contact_address) !!}
                         <br>
@@ -96,7 +95,7 @@
             @stack('address_input_end')
 
             @stack('tax_number_input_start')
-                @if (!$hideContactTaxNumber)
+                @if (! $hideContactTaxNumber)
                     @if ($document->contact_tax_number)
                         <p>
                             <span class="text-medium text-default">
@@ -109,7 +108,7 @@
             @stack('tax_number_input_end')
 
             @stack('phone_input_start')
-                @if (!$hideContactPhone)
+                @if (! $hideContactPhone)
                     @if ($document->contact_phone)
                         <p>
                             {{ $document->contact_phone }}
@@ -119,7 +118,7 @@
             @stack('phone_input_end')
 
             @stack('email_start')
-                @if (!$hideContactEmail)
+                @if (! $hideContactEmail)
                     <p class="small-text">
                         {{ $document->contact_email }}
                     </p>
@@ -131,48 +130,59 @@
     <div class="col-40">
         <div class="text p-index-right">
             @stack('document_number_input_start')
-                @if (!$hideDocumentNumber)
+                @if (! $hideDocumentNumber)
                     <p class="mb-0">
                         <span class="font-semibold spacing w-numbers">
                             {{ trans($textDocumentNumber) }}:
                         </span>
-                        <span class="float-right spacing">{{ $document->document_number }}</span>
+
+                        <span class="float-right spacing">
+                            {{ $document->document_number }}
+                        </span>
                     </p>
-                    
                 @endif
             @stack('document_number_input_end')
 
             @stack('order_number_input_start')
-                @if (!$hideOrderNumber)
+                @if (! $hideOrderNumber)
                     @if ($document->order_number)
                         <p class="mb-0">
                             <span class="font-semibold spacing w-numbers">
                                 {{ trans($textOrderNumber) }}:
                             </span>
-                            <span class="float-right spacing">{{ $document->order_number }}</span>
+
+                            <span class="float-right spacing">
+                                {{ $document->order_number }}
+                            </span>
                         </p>
                     @endif
                 @endif
             @stack('order_number_input_end')
 
             @stack('issued_at_input_start')
-                @if (!$hideIssuedAt)
+                @if (! $hideIssuedAt)
                     <p class="mb-0">
                         <span class="font-semibold spacing w-numbers">
                             {{ trans($textIssuedAt) }}:
                         </span>
-                        <span class="float-right spacing">@date($document->issued_at)</span>
+
+                        <span class="float-right spacing">
+                            @date($document->issued_at)
+                        </span>
                     </p>
                 @endif
             @stack('issued_at_input_end')
 
             @stack('due_at_input_start')
-                @if (!$hideDueAt)
+                @if (! $hideDueAt)
                     <p class="mb-0">
                         <span class="font-semibold spacing w-numbers">
                             {{ trans($textDueAt) }}:
                         </span>
-                        <span class="float-right spacing">@date($document->due_at)</span>
+
+                        <span class="float-right spacing">
+                            @date($document->due_at)
+                        </span>
                     </p>
                 @endif
             @stack('due_at_input_end')
@@ -180,7 +190,7 @@
     </div>
 </div>
 
-@if (!$hideItems)
+@if (! $hideItems)
     <div class="row">
         <div class="col-100">
             <div class="text extra-spacing">
@@ -188,38 +198,49 @@
                     <thead class="bg-{{ $backgroundColor }}" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                         <tr>
                             @stack('name_th_start')
-                                @if (!$hideItems || (!$hideName && !$hideDescription))
-                                    <th class="item text text-semibold text-alignment-left text-left text-white border-radius-first">{{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}</th>
+                                @if (! $hideItems || (! $hideName && ! $hideDescription))
+                                    <th class="item text text-semibold text-alignment-left text-left text-white border-radius-first">
+                                        {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
+                                    </th>
                                 @endif
                             @stack('name_th_end')
 
                             @stack('quantity_th_start')
-                                @if (!$hideQuantity)
-                                    <th class="quantity text text-semibold text-alignment-right text-right text-white">{{ trans($textQuantity) }}</th>
+                                @if (! $hideQuantity)
+                                    <th class="quantity text text-semibold text-alignment-right text-right text-white">
+                                        {{ trans($textQuantity) }}
+                                    </th>
                                 @endif
                             @stack('quantity_th_end')
 
                             @stack('price_th_start')
-                                @if (!$hidePrice)
-                                    <th class="price text text-semibold text-alignment-right text-right text-white">{{ trans($textPrice) }}</th>
+                                @if (! $hidePrice)
+                                    <th class="price text text-semibold text-alignment-right text-right text-white">
+                                        {{ trans($textPrice) }}
+                                    </th>
                                 @endif
                             @stack('price_th_end')
 
-                            @if (!$hideDiscount)
+                            @if (! $hideDiscount)
                                 @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                     @stack('discount_td_start')
-                                        <th class="discount text text-semibold text-alignment-right text-right text-white">{{ trans('invoices.discount') }}</th>
+                                        <th class="discount text text-semibold text-alignment-right text-right text-white">
+                                            {{ trans('invoices.discount') }}
+                                        </th>
                                     @stack('discount_td_end')
                                 @endif
                             @endif
 
                             @stack('total_th_start')
-                                @if (!$hideAmount)
-                                    <th class="total text text-semibold text-white text-alignment-right text-right border-radius-last">{{ trans($textAmount) }}</th>
+                                @if (! $hideAmount)
+                                    <th class="total text text-semibold text-white text-alignment-right text-right border-radius-last">
+                                        {{ trans($textAmount) }}
+                                    </th>
                                 @endif
                             @stack('total_th_end')
                         </tr>
                     </thead>
+
                     <tbody>
                         @if ($document->items->count())
                             @foreach($document->items as $item)
@@ -255,7 +276,10 @@
         <div class="text p-index-left">
             @stack('notes_input_start')
                 @if ($document->notes)
-                    <p class="text-semibold">{{ trans_choice('general.notes', 2) }}</p>
+                    <p class="text-semibold">
+                        {{ trans_choice('general.notes', 2) }}
+                    </p>
+
                     {!! nl2br($document->notes) !!}
                 @endif
             @stack('notes_input_end')
@@ -267,23 +291,39 @@
             @if ($total->code != 'total')
                 @stack($total->code . '_total_tr_start')
                 <div class="text border-bottom-1 py-1">
-                    <span class="float-left text-semibold">{{ trans($total->title) }}:</span>
-                    <span>@money($total->amount, $document->currency_code, true)</span>
+                    <span class="float-left text-semibold">
+                        {{ trans($total->title) }}:
+                    </span>
+
+                    <span>
+                        @money($total->amount, $document->currency_code, true)
+                    </span>
                 </div>
                 @stack($total->code . '_total_tr_end')
             @else
                 @if ($document->paid)
                     @stack('paid_total_tr_start')
                     <div class="text border-bottom-1 py-1">
-                        <span class="float-left text-semibold">{{ trans('invoices.paid') }}:</span>
-                        <span>- @money($document->paid, $document->currency_code, true)</span>
+                        <span class="float-left text-semibold">
+                            {{ trans('invoices.paid') }}:
+                        </span>
+
+                        <span>
+                            - @money($document->paid, $document->currency_code, true)
+                        </span>
                     </div>
                     @stack('paid_total_tr_end')
                 @endif
+
                 @stack('grand_total_tr_start')
                 <div class="text border-bottom-1 py-1">
-                    <span class="float-left text-semibold">{{ trans($total->name) }}:</span>
-                    <span>@money($document->amount_due, $document->currency_code, true)</span>
+                    <span class="float-left text-semibold">
+                        {{ trans($total->name) }}:
+                    </span>
+
+                    <span>
+                        @money($document->amount_due, $document->currency_code, true)
+                    </span>
                 </div>
                 @stack('grand_total_tr_end')
             @endif
@@ -291,12 +331,14 @@
     </div>
 </div>
 
-@if (!$hideFooter)
+@if (! $hideFooter)
     @if ($document->footer)
         <div class="row mt-4">
             <div class="col-100 text-left">
                 <div class="text">
-                    <strong>{!! nl2br($document->footer) !!}</strong>
+                    <strong>
+                        {!! nl2br($document->footer) !!}
+                    </strong>
                 </div>
             </div>
         </div>

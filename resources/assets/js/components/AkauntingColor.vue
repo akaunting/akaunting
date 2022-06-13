@@ -15,7 +15,7 @@
                 ref="dropdownMenu"
                 @click="openPalette"
                 :class="`bg-${color}`"
-                :style="{ backgroundColor: color }"
+                :style="this.color.includes('#') ? `backgroundColor: ${color}` : `backgroundColor: #${color}`"
             ></div>
 
             <transition name="fade">
@@ -115,8 +115,6 @@ export default {
         return {
             isOpen: false,
             color: 'green-500',
-            hexCode: null,
-
             colors: [
                 'gray',
                 'red',
@@ -174,13 +172,11 @@ export default {
         setColor(event) {
             this.isOpen = false;
             this.color = event.target.getAttribute('colorid');
-            this.hexCode = null;
+            this.$refs.dropdownMenu.style = '';
         },
 
         addColor() {
             let code = this.color;
-
-            this.hexCode = code.includes('#') ? code : '#' + code;
         },
 
         closeIfClickedOutside(event) {

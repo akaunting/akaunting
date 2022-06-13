@@ -4,7 +4,6 @@ return [
 
     'dashboards'            => 'Dashboard|Dashboards',
     'items'                 => 'Item|Items',
-    'incomes'               => 'Income|Incomes',
     'invoices'              => 'Invoice|Invoices',
     'recurring_invoices'    => 'Recurring Invoice|Recurring Invoices',
     'customers'             => 'Customer|Customers',

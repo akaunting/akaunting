@@ -29,7 +29,7 @@ class DocumentTotal extends Model
 
     public function document()
     {
-        return $this->belongsTo('App\Models\Document\Document');
+        return $this->belongsTo('App\Models\Document\Document')->withoutGlobalScope('App\Scopes\Document');
     }
 
     public function scopeType(Builder $query, string $type)

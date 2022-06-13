@@ -55,12 +55,12 @@ class Tax extends Model
 
     public function bill_items()
     {
-        return $this->document_items()->where('type', Document::BILL_TYPE);
+        return $this->document_items()->where('document_item_taxes.type', Document::BILL_TYPE);
     }
 
     public function invoice_items()
     {
-        return $this->document_items()->where('type', Document::INVOICE_TYPE);
+        return $this->document_items()->where('document_item_taxes.type', Document::INVOICE_TYPE);
     }
 
     public function scopeName($query, $name)

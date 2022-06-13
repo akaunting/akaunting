@@ -8,8 +8,8 @@
     @endif
 
     @if ($notifications)
-        <div class="flex justify-end mt-1">
-            <x-tooltip id="notification-all" placement="right" message="Mark as All Read">
+        <div class="flex justify-end mt-1 mb-3">
+            <x-tooltip id="notification-all" placement="top" message="Mark as All Read">
                 <button type="button" wire:click="markReadAll()">
                     <span id="menu-notification-read-all" class="material-icons text-lg text-purple">done_all</span>
                 </button>
@@ -30,9 +30,11 @@
                         </div>
 
                         @if ($notification->type != 'updates')
-                        <button type="button" wire:click="markRead('{{ $notification->id }}')">
-                            <span id="menu-notification-mark-read" class="material-icons text-lg text-purple">check_circle_outline</span>
-                        </button>
+                        <x-tooltip id="notification-{{ $notification->id }}" placement="top" message="Clear Notification">
+                            <button type="button" wire:click="markRead('{{ $notification->type }}', '{{ $notification->id }}')">
+                                <span id="menu-notification-mark-read" class="material-icons text-lg text-purple">check_circle_outline</span>
+                            </button>
+                        </x-tooltip>
                         @endif
                     </div>
 

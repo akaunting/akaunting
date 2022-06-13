@@ -65,7 +65,8 @@ class ShowInNotifications
             $new->notifiable_id = user()->id;
             $new->data = [
                 'title' => $new_app->name,
-                'description' => $new_app->alias,
+                'description' => '', // $new_app->message,
+                'alias' => $new_app->alias,
             ];
             $new->created_at = $new_app->started_at->date;
 

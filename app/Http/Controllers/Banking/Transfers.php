@@ -48,7 +48,7 @@ class Transfers extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', setting('default.currency'))->first();
 
@@ -134,7 +134,7 @@ class Transfers extends Controller
      */
     public function edit(Transfer $transfer)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency_code = ($transfer->expense_transaction->account) ? $transfer->expense_transaction->account->currency_code : setting('default.currency');
 

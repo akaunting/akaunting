@@ -18,7 +18,7 @@
             {!! $charts['bar']->container() !!}
         </div>
 
-        <div x-show="toggle === 'bar'">
+        <div class="apexcharts-donut-custom apexcharts-donut-custom-report" x-show="toggle === 'bar'">
             {!! $charts['donut']->container() !!}
         </div>
     </div>

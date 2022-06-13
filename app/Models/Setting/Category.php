@@ -112,22 +112,22 @@ class Category extends Model
 
     public function bills()
     {
-        return $this->documents()->where('type', Document::BILL_TYPE);
+        return $this->documents()->where('documents.type', Document::BILL_TYPE);
     }
 
     public function expense_transactions()
     {
-        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
     {
-        return $this->documents()->where('type', Document::INVOICE_TYPE);
+        return $this->documents()->where('documents.type', Document::INVOICE_TYPE);
     }
 
     public function items()

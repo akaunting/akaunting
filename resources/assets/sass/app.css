@@ -313,7 +313,7 @@
     border-bottom-right-radius: 4px;
     cursor: pointer !important;
     margin-top: 8px;
-    margin-bottom: 0 !important;
+    margin-bottom: -8px !important;
 }
 
 .el-select__footer:hover {
@@ -334,11 +334,7 @@
 }
 
 .el-select-dropdown__list {
-    padding: 8px 0 0 0;
-}
-
-.el-select-dropdown__item:last-child {
-    margin-bottom: 8px;
+    padding: 8px 0 8px 0;
 }
 
 .el-select .el-select__tags {
@@ -459,6 +455,25 @@ html[dir='rtl'] .el-input__suffix {
     }
   }
  /* element-ui */
+
+ /* apex-chart */
+    .apexcharts-donut-custom span.apexcharts-legend-text {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 1 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        height: 1rem !important;
+    }
+
+    .apexcharts-donut-custom .apexcharts-legend-series {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .apexcharts-donut-custom .apexcharts-legend {
+        padding: 0 !important;
+    }
+ /* apex-chart */
 
  /* collapse */
  .active-collapse {
