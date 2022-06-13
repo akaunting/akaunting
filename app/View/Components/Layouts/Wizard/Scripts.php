@@ -154,6 +154,7 @@ class Scripts extends Component
                 'reviews' => trans('modules.tab.reviews'),
                 'previous' => trans('companies.skip_step'),
                 'go_to_dashboard' => trans('general.go_to_dashboard'),
+                'create_first_invoice' => trans('general.create_first_invoice'),
                 'error_message' => trans('errors.title.500'),
             ]
         ];
