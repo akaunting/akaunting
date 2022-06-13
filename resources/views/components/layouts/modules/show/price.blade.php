@@ -18,10 +18,6 @@
                     {!! $module->yearly_per_monthly_price !!}
                 </span>
             @endif
-
-            <div class="text-center text-sm mt-3 mb--2">
-                <span style="height: 18px;display: block;"></span>
-            </div>
         </div>
 
         <div x-show="price_type == false">
@@ -38,12 +34,6 @@
                     {!! $module->monthly_price !!} 
                 </span>
             @endif
-
-            <div class="text-center text-sm mt-3 mb--2">
-                <span style="font-size: 12px;">
-                    <span class="text-danger">*</span> {!! trans('modules.information_monthly') !!}
-                </span>
-            </div>
         </div>
 
         {!! $module->price_suffix !!}
