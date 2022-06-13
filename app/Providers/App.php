@@ -21,7 +21,7 @@ class App extends Provider
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 
-        if (config('app.env') !== 'production') {
+        if (! env_is_production()) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
