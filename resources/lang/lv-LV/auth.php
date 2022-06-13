@@ -33,7 +33,7 @@ return [
         'current'           => 'Parole',
         'current_confirm'   => 'Paroles apstiprinājums',
         'new'               => 'Jauna parole',
-        'new_confirm'       => 'Paroles apstiprinājums',
+        'new_confirm'       => 'Jaunās paroles apstiprinājums',
     ],
 
     'error' => [

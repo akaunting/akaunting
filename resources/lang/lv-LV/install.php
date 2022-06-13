@@ -17,7 +17,7 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => ':iezīme ir jāiespējo!',
+        'enabled'           => ':feature ir jāiespējo!',
         'disabled'          => ':iezīmee ir jāatspējo!',
         'extension'         => ':paplašinājumi nepieciešams ielādēt!',
         'directory'         => ':direktorijs direktorijai jābūt rakstīšanas tiesībām!',

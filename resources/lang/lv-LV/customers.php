@@ -2,7 +2,7 @@
 
 return [
 
-    'can_login'                 => 'Can Login?',
+    'can_login'                 => 'Var pieteikties?',
     'can_login_description'     => 'Nosūtiet šim lietotājam uzaicinājumu pieteikties Klientu portālā.',
     'user_created'              => 'Lietotājs, kas izveidojis',
     'client_portal_description' => 'Klientu portāls ir vide, kurā varat koplietot darījumus un rēķinus ar saviem klientiem, kur viņi izseko savām attiecībām ar jūsu uzņēmumu un veic maksājumus, kā arī pieteikties, kad vien vēlas; ar savu paroli',

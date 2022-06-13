@@ -17,7 +17,7 @@ return [
 
     'accept_payment_online' => 'Pieņemt maksājumus tiešsaistē',
 
-    'transaction' => 'Maksājums par :summa tika veikts, izmantojot :kontu.',
+    'transaction' => 'Maksājums par :amount tika veikts, izmantojot :account',
 
     'billing'               => 'Norēķini',
     'advanced'              => 'Papildu',
@@ -73,7 +73,7 @@ return [
         'marked_as'         => ':veids atzīmēts kā :status!',
         'marked_sent'       => ':veids atzīmēts kā nosūtīts!',
         'marked_paid'       => ':veids atzīmēts kā samaksāts!',
-        'marked_viewed'     => ':veids atzīmēts kā skatīts!',
+        'marked_viewed'     => ':type atzīmēts kā skatīts!',
         'marked_cancelled'  => ':veids atzīmēts kā atcelts!',
         'marked_received'   => ':veids atzīmēts kā saņemts!',
     ],
