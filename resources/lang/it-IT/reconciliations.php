@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Importo cancellato',
     'deposit'               => 'Deposito',
     'withdrawal'            => 'Prelievo',
+    'reconciled_amount'     => 'Riconciliato',
+    'in_progress'           => 'In corso',
+    'save_draft'            => 'Salva come Bozza',
+    'irreconcilable'        => 'Inconciliabile',
 
 ];

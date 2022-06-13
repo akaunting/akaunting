@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="w-3/4 lg:ltr:pl-8 lg:rtl:pr-8">
                                     <span class="font-medium">{{ item.name }}</span>
-                                    <div class="text-black-300 text-sm my-2 line-clamp-3"
+                                    <div class="text-black-300 text-sm my-2 line-clamp-2 h-10"
                                      v-html="item.description"></div>
                                 </div>
                             </a>
@@ -40,13 +40,13 @@
                             {{ translations.finish.apps_managing }}
                         </div>
                         <div style="width:372px; height:372px;"></div>
-                        <img :src="image_src" class="absolute top-0 right-2 top-12" alt="" />
+                        <img :src="image_src" class="absolute top-0 right-2" alt="" />
                     </div>
-                    <base-button class="flex items-center justify-center text-base rounded-lg disabled:opacity-50 relative m-auto bottom-40 bg-white hover:bg-gray-100 text-purple rounded-md py-3 px-5 font-semibold btn-default" @click="finish()">
-                        {{ translations.finish.go_to_dashboard }}
+                    <base-button class="flex items-center justify-center text-base rounded-lg disabled:opacity-50 relative m-auto bottom-48 bg-white hover:bg-gray-100 text-purple rounded-md py-3 px-5 font-semibold btn-default" @click="finish()">
+                        {{ translations.finish.create_first_invoice }}
                     </base-button>
                 </div>
-                    
+
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@ export default {
         },
 
         finish() {
-            window.location.href = url;
+            window.location.href = url + "/sales/invoices/create";
         },
     },
 };

@@ -21,7 +21,7 @@ trait DateTime
         $default = 'd M Y';
 
         // Make sure it's installed
-        if (!config('app.installed') && (config('app.env') !== 'testing')) {
+        if (! config('app.installed') && ! env_is_testing()) {
             return $default;
         }
 

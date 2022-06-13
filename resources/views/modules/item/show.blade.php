@@ -105,6 +105,8 @@
                                 @endif
                             </div>
                         </div>
+
+                        <x-layouts.modules.show.information :module="$module" />
                     </div>
 
                     <div class="flex justify-around space-x-12 mt-5">
