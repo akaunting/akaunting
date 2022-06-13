@@ -179,24 +179,29 @@ class Document extends Model
         return $query->whereDate('due_at', '=', $date);
     }
 
+    public function scopeStatus(Builder $query, string $status): Builder
+    {
+        return $query->where($this->qualifyColumn('status'), '=', $status);
+    }
+
     public function scopeAccrued(Builder $query): Builder
     {
-        return $query->whereNotIn('status', ['draft', 'cancelled']);
+        return $query->whereNotIn($this->qualifyColumn('status'), ['draft', 'cancelled']);
     }
 
     public function scopePaid(Builder $query): Builder
     {
-        return $query->where('status', '=', 'paid');
+        return $query->where($this->qualifyColumn('status'), '=', 'paid');
     }
 
     public function scopeNotPaid(Builder $query): Builder
     {
-        return $query->where('status', '<>', 'paid');
+        return $query->where($this->qualifyColumn('status'), '<>', 'paid');
     }
 
     public function scopeFuture(Builder $query): Builder
     {
-        return $query->whereIn('status', $this->getDocumentStatusesForFuture());
+        return $query->whereIn($this->qualifyColumn('status'), $this->getDocumentStatusesForFuture());
     }
 
     public function scopeType(Builder $query, string $type): Builder
@@ -244,7 +249,7 @@ class Document extends Model
 
     public function getSentAtAttribute(string $value = null)
     {
-        $sent = $this->histories()->where('status', 'sent')->first();
+        $sent = $this->histories()->where($this->qualifyColumn('status'), 'sent')->first();
 
         return $sent->created_at ?? null;
     }
