@@ -1588,7 +1588,7 @@ input[type="date"]::-webkit-inner-spin-button,
     }
 
 .overflow-overlay {
-        overflow: overlay;
+        overflow-x: overlay;
     }
 
 .py-top {

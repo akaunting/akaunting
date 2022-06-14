@@ -7,9 +7,9 @@
     </x-layouts.auth.head>
 
     @mobile
-    <body class="g-sidenav-hidden bg-body overflow-overlay">
+    <body class="g-sidenav-hidden bg-body">
     @elsemobile
-    <body class="g-sidenav-show bg-body overflow-overlay">
+    <body class="g-sidenav-show bg-body">
     @endmobile
 
         @stack('body_start')
