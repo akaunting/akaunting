@@ -299,6 +299,9 @@ abstract class Show extends Component
     /** @var bool */
     public $hideRecurringMessage;
 
+    /** @var bool */
+    public $hideCreated;
+
     /**
      * Create a new component instance.
      *
@@ -327,7 +330,7 @@ abstract class Show extends Component
         string $routeDocumentShow = '', string $routeTransactionShow = '', string $textButtonAddNew = '',
 
         bool $hideSchedule = false, bool $hideChildren = false, bool $hideAttachment = false, $attachment = [],
-        array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false
+        array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false, bool $hideCreated = false
     ) {
         $this->type = $type;
         $this->transaction = $transaction;
@@ -461,6 +464,7 @@ abstract class Show extends Component
 
         $this->textRecurringType = $this->getTextRecurringType($type, $textRecurringType);
         $this->hideRecurringMessage = $hideRecurringMessage;
+        $this->hideCreated = $hideCreated;
     }
 
     protected function getTransactionTemplate($type, $transactionTemplate)
