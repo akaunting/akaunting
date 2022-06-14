@@ -82,12 +82,15 @@ const app = new Vue({
                 html: ''
             },
 
+            addToCartLoading: false,
             loadMoreLoading: false,
         }
     },
 
     methods: {
         addToCart(alias, subscription_type) {
+            this.addToCartLoading = true;
+
             let add_to_cart_promise = Promise.resolve(axios.get(url + '/apps/' + alias + '/' + subscription_type +'/add'));
 
             add_to_cart_promise.then(response => {
@@ -95,25 +98,15 @@ const app = new Vue({
                     this.$notify({
                         message: response.data.message,
                         timeout: 0,
-                        icon: "fas fa-bell",
+                        icon: "shopping_cart_checkout",
                         type: 'success'
                     });
                 }
 
-                if (response.data.error) {
-                    this.installation.status = 'exception';
-                    this.installation.html = '<div class="text-red">' + response.data.message + '</div>';
-                }
-
-                // Set steps
-                if (response.data.data) {
-                    this.installation.steps = response.data.data;
-                    this.installation.steps_total = this.installation.steps.length;
-
-                    this.next();
-                }
+                this.addToCartLoading = false;
             })
             .catch(error => {
+                this.addToCartLoading = false;
             });
         },
 
