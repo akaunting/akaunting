@@ -130,8 +130,6 @@
             <x-dropdown.link href="{{ route($endRoute, $document->id) }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>
-
-            <x-dropdown.divider />
         @endif
 
         @stack('end_button_end')

@@ -2,7 +2,7 @@
 
 @if (! $hideButtonAddNew)
     @can($permissionCreate)
-        <x-link href="{{ route($routeButtonAddNew, ['type' => $type]) }}"  kind="primary">
+        <x-link href="{{ route($routeButtonAddNew, ['type' => $type]) }}" kind="primary">
             {{ trans($textButtonAddNew) }}
         </x-link>
     @endcan

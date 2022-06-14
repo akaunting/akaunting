@@ -17,13 +17,14 @@
             :document="$recurring_invoice"
             hide-divider1
             hide-divider2
-            hide-divider3
+            hide-divider4
             hide-email
             hide-share
             hide-customize
             hide-print
             hide-pdf
             hide-cancel
+            hide-delete
         />
     </x-slot>
 

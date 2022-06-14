@@ -17,7 +17,6 @@
             :document="$recurring_bill"
             hide-divider1
             hide-divider2
-            hide-divider3
             hide-divider4
             hide-email
             hide-share
@@ -25,6 +24,7 @@
             hide-print
             hide-pdf
             hide-cancel
+            hide-delete
         />
     </x-slot>
 

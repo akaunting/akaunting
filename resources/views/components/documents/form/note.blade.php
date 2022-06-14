@@ -8,5 +8,6 @@
         form-label-class="lg:text-lg"
         form-group-class="border-b pb-2 mb-3.5"
         rows="1"
+        textarea-auto-height
     />
 </div>

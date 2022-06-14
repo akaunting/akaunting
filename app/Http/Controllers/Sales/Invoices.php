@@ -220,7 +220,7 @@ class Invoices extends Controller
      */
     public function markSent(Document $invoice)
     {
-        event(new \App\Events\Document\DocumentSent($invoice));
+        event(new \App\Events\Document\DocumentMarkedSent($invoice));
 
         $message = trans('documents.messages.marked_sent', ['type' => trans_choice('general.invoices', 1)]);
 

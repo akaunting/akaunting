@@ -189,7 +189,7 @@
     }
 
     .overflow-overlay {
-        overflow: overlay;
+        overflow-x: overlay;
     }
 
     .py-top {

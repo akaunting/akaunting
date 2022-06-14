@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="buttons">
-        <x-transactions.show.buttons type="{{ $recurring_transaction->type }}" :transaction="$recurring_transaction" />
+        <x-transactions.show.buttons type="{{ $recurring_transaction->type }}" :transaction="$recurring_transaction" hide-divider4 hide-button-delete />
     </x-slot>
 
     <x-slot name="moreButtons">
@@ -21,8 +21,8 @@
             hide-button-share
             hide-button-email
             hide-divider-2
-            hide-button-delete
             hide-divider-4
+            hide-button-delete
         />
     </x-slot>
 
