@@ -29,10 +29,12 @@
         @stack('recurring_message_end')
 
         @stack('row_create_start')
+        @if (! $hideCreated)
         <x-transactions.show.create
             type="{{ $type }}"
             :transaction="$transaction"
         />
+        @endif
         @stack('row_create_end')
 
         @stack('schedule_start')
