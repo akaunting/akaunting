@@ -59,12 +59,12 @@ th, td
     margin-bottom: 8px;
 }
 
-.mt-1
+.print-template .mt-1
 {
     margin-top: 8px;
 }
 
-.ml-1
+.print-template .ml-1
 {
     margin-left: 8px;
 }
@@ -74,67 +74,67 @@ th, td
     padding-left: 18px;
 }
 
-.mt-0
+.print-template .mt-0
 {
     margin-top: 0 !important;
 }
 
-.mt-1
+.print-template .mt-1
 {
     margin-top: 8px;
 }
 
-.mt-2
+.print-template .mt-2
 {
     margin-top: 16px;
 }
 
-.mt-3
+.print-template .mt-3
 {
     margin-top: 24px;
 }
 
-.mt-4
+.print-template .mt-4
 {
     margin-top: 32px;
 }
 
-.mt-5
+.print-template .mt-5
 {
     margin-top: 40px;
 }
 
-.mt-6
+.print-template .mt-6
 {
     margin-top: 48px;
 }
 
-.mt-7
+.print-template .mt-7
 {
     margin-top: 56px;
 }
 
-.mt-8
+.print-template .mt-8
 {
     margin-top: 64px;
 }
 
-.mt-9
+.print-template .mt-9
 {
     margin-top: 72px;
 }
 
-.pb-0
+.print-template .pb-0
 {
     padding-bottom: 0;
 }
 
-.pb-1
+.print-template .pb-1
 {
     padding-bottom: 8px;
 }
 
-.py-1
+.print-template .py-1
 {
     padding-bottom: 3px;
     padding-top: 3px;
@@ -158,47 +158,47 @@ th, td
     padding: 0 10px 0 10px;
 }
 
-.pt-2
+.print-template .pt-2
 {
     padding-top: 16px;
 }
 
-.pb-2
+.print-template .pb-2
 {
     padding-bottom: 16px;
 }
 
-.pl-3
+.print-template .pl-3
 {
     padding-left: 24px;
 }
 
-.pl-4
+.print-template .pl-4
 {
     padding-left: 32px;
 }
 
-.pl-5
+.print-template .pl-5
 {
     padding-left: 40px;
 }
 
-.pl-6
+.print-template .pl-6
 {
     padding-left: 48px;
 }
 
-.pl-7
+.print-template .pl-7
 {
     padding-left: 56px;
 }
 
-.pl-8
+.print-template .pl-8
 {
     padding-left: 64px;
 }
 
-.pl-9
+.print-template .pl-9
 {
     padding-left: 72px;
 }
@@ -383,7 +383,7 @@ html[dir='rtl'] .text-alignment-right {
 .lines
 {
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto;
     border-bottom: 1px solid #adadad;
 }
 
@@ -564,7 +564,7 @@ html[dir='rtl'] .text-alignment-right {
 .modern-lines
 {
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .modern-lines .item

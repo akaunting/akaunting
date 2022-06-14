@@ -1,4 +1,4 @@
-<div class="p-7 shadow-2xl rounded-2xl print-template">
+<div class="p-7 shadow-2xl rounded-2xl">
     @if ($transactionTemplate)
         @switch($transactionTemplate)
             @case('classic')
