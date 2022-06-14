@@ -17,7 +17,7 @@
             ::disabled="form.loading"
             override="class"
         >
-            <x-button-loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-0': form.loading}]" />
+            <x-button.loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-0': form.loading}]" />
         </x-button>
     </div>
 @stack('save_buttons_end')

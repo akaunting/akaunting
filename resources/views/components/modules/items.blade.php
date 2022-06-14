@@ -34,7 +34,7 @@
                     :disabled="loadMoreLoading"
                     class="w-48 m-auto relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 js-learn-more js-button-modal-submit"
                 >
-                    <x-button-loading v-if="loadMoreLoading" text="{{ trans('modules.see_more') }}" text-hide="[{'opacity-0': loadMoreLoading}]" />
+                    <x-button.loading v-if="loadMoreLoading" text="{{ trans('modules.see_more') }}" text-hide="[{'opacity-0': loadMoreLoading}]" />
                 </button>
 
                 <x-form.input.hidden name="see_more_path" value="{{ route('apps.load-more', ['type' => $type]) }}" />

@@ -203,7 +203,7 @@
                                 class="relative flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                 override="class"
                             >
-                                <x-button-loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-1': reconcile}]" />
+                                <x-button.loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-1': reconcile}]" />
                             </x-button>
                             <div v-if="reconcile">
                                 <x-tooltip id="tooltip-reconcile" placement="top" message="{{ trans('reconciliations.irreconcilable') }}">
@@ -216,7 +216,7 @@
                                         data-loading-text="{{ trans('general.loading') }}"
                                     >
 
-                                        <x-button-loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
+                                        <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                     </x-button>
                                 </x-tooltip>
                             </div>
@@ -230,7 +230,7 @@
                                     data-loading-text="{{ trans('general.loading') }}"
                                 >
 
-                                    <x-button-loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
+                                    <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                 </x-button>
                             </div>
                         </div>

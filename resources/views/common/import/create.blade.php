@@ -47,7 +47,7 @@
                             ::disabled="form.loading"
                             override="class"
                         >
-                            <x-button-loading v-if="form.loading" text="{{ trans('import.import') }}" text-hide="[{'opacity-0': form.loading}]" />
+                            <x-button.loading v-if="form.loading" text="{{ trans('import.import') }}" text-hide="[{'opacity-0': form.loading}]" />
                         </x-button>
                     </div>
                 </div>
