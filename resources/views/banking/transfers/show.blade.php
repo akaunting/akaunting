@@ -41,6 +41,7 @@
                     </button>
 
                     <button :disabled="form.loading"  type="button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" @click="addTemplate">
+                        <span>{{ trans('general.confirm') }}</span>
                         <x-button.loading v-if="form.loading" text="{{ trans('general.confirm') }}" text-hide="[{'opacity-0': form.loading}]" />
                     </button>
                 </div>

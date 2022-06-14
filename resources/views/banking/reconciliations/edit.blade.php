@@ -203,6 +203,7 @@
                                 class="relative flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                 override="class"
                             >
+                                <span>{{ trans('general.save') }}</span>
                                 <x-button.loading v-if="form.loading" text="{{ trans('general.save') }}" text-hide="[{'opacity-1': reconcile}]" />
                             </x-button>
                             <div v-if="reconcile">
@@ -215,7 +216,7 @@
                                         @click="onReconcileSubmit"
                                         data-loading-text="{{ trans('general.loading') }}"
                                     >
-
+                                        <span>{{ trans('reconciliations.reconcile') }}</span>
                                         <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                     </x-button>
                                 </x-tooltip>
@@ -229,7 +230,7 @@
                                     @click="onReconcileSubmit"
                                     data-loading-text="{{ trans('general.loading') }}"
                                 >
-
+                                    <span>{{ trans('reconciliations.reconcile') }}"</span>
                                     <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
                                 </x-button>
                             </div>

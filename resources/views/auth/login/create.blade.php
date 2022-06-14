@@ -70,6 +70,7 @@
                     override="class"
                     data-loading-text="{{ trans('general.loading') }}"
                 >
+                    <span>{{ trans('auth.login') }}</span>
                     <x-button.loading v-if="form.loading" text="{{ trans('auth.login') }}" text-hide="[{'opacity-0': form.loading}]" />
                 </x-button>
             </div>
