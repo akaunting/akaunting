@@ -65,7 +65,7 @@
                         <td class="px-3 py-3 border-b-0 description">
                             @if (! $hideItemDescription)
                                 <textarea
-                                    class="form-element mt-1.5 resize-none"
+                                    class="form-element mt-1.5"
                                     style="height:42px;"
                                     :ref="'items-' + index + '-description'"
                                     placeholder="{{ trans('items.enter_item_description') }}"
