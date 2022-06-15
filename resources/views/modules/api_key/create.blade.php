@@ -1,19 +1,9 @@
-<x-layouts.modules>
+<x-layouts.admin>
     <x-slot name="title">
         {{ trans('modules.api_key') }}
     </x-slot>
 
-    <x-slot name="buttons">
-        <x-link href="{{ route('apps.api-key.create') }}">
-            {{ trans('modules.api_key') }}
-        </x-link>
-
-        <x-link href="{{ route('apps.my.index') }}">
-            {{ trans('modules.my_apps') }}
-        </x-link>
-    </x-slot>
-
-    <x-slot name="content" without-bar>
+    <x-slot name="content">
         <x-form id="form-app" route="apps.api-key.store">
             <div class="w-1/2">
                 <div class="py-8 flex flex-col gap-2">
@@ -32,4 +22,4 @@
     </x-slot>
 
     <x-script folder="modules" file="apps" />
-</x-layouts.modules>
+</x-layouts.admin>
