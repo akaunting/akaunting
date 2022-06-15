@@ -167,7 +167,7 @@ return [
     ],
 
     'scheduling' => [
-        'name'                          => 'Ieplānotšana',
+        'name'                          => 'Plānošana',
         'description'                   => 'Automātiskie atgādinātāji un komandas atkārtojumu veikšanai',
         'search_keywords'               => 'automātisks, atgādinājums, atkārtots, cron, komanda',
         'send_invoice'                  => 'Sūtīt rēķinu atgādinājumus',
