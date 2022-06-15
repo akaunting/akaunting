@@ -5,6 +5,7 @@
         :class="[
             {'readonly': readonly},
             {'disabled': disabled},
+            {'no-arrow': noArrow},
             formClasses
         ]"
         :error="formError">
@@ -344,6 +345,12 @@ export default {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
+        },
+
+        noArrow: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox show arrow"
         },
 
         clearable: {
