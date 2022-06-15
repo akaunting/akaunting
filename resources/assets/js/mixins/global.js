@@ -627,7 +627,7 @@ export default {
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove("modal-open");
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                             },
                         }
                     })
