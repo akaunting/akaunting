@@ -37,7 +37,7 @@ class Button extends Component
      */
     public function render()
     {
-        return view('components.button');
+        return view('components.button.index');
     }
 
     protected function getOverride($override)

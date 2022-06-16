@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use Akaunting\Apexcharts\Charts as Apexcharts;
+use Akaunting\Apexcharts\Chart;
 
 trait Charts
 {
@@ -54,7 +54,7 @@ trait Charts
             $labels[$id] = $this->donut['labels'][$id];
         }
 
-        $chart = new Apexcharts();
+        $chart = new Chart();
 
         $chart->setType('donut')
             ->setWidth($width)
@@ -75,7 +75,7 @@ trait Charts
 
     public function getBarChart($name, $width = '100%', $height = 160)
     {
-        $chart = new Apexcharts();
+        $chart = new Chart();
 
         $chart->setType('bar')
             ->setWidth($width)

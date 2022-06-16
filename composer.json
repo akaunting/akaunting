@@ -27,7 +27,7 @@
         "ext-tokenizer": "*",
         "ext-xml": "*",
         "ext-zip": "*",
-        "akaunting/laravel-apexcharts": "^1.0",
+        "akaunting/laravel-apexcharts": "^2.0",
         "akaunting/laravel-firewall": "^1.2",
         "akaunting/laravel-language": "^1.0",
         "akaunting/laravel-menu": "^2.0",
