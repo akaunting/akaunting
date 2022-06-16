@@ -2,6 +2,7 @@
     <base-input :label="title" :name="name"
         :readonly="readonly"
         :disabled="disabled"
+        :not-required="notRequired"
         :class="[
             {'readonly': readonly},
             {'disabled': disabled},
@@ -103,6 +104,11 @@ export default {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
+        },
+
+        notRequired: {
+            type: Boolean,
+            default: false
         },
 
         small: {

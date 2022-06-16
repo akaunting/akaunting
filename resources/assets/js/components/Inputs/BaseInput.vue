@@ -6,7 +6,7 @@
     <slot name="label">
       <label v-if="label" :class="labelClasses">
         {{label}}
-        <span v-if="required" class="text-red ltr:ml-1 rtl:mr-1">*</span>
+        <span v-if="!notRequired" class="text-red ltr:ml-1 rtl:mr-1">*</span>
       </label>
     </slot>
     <div class="relative" :class="[

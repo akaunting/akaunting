@@ -9,8 +9,6 @@
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
                     <div class="form-group sm:col-span-3">
                         <base-input
-                            required
-                            class="required"
                             v-model="form.name"
                             :label="text.name"
                             :placeholder="placeholder.name"
@@ -22,8 +20,6 @@
 
                     <div class="form-group sm:col-span-3">
                         <base-input
-                            required
-                            class="required"
                             :error="form.errors.class[0]"
                             :label="text.type">
                             
@@ -41,7 +37,7 @@
                     </div>
 
                     <div class="form-group sm:col-span-3">
-                        <base-input :label="text.width">
+                        <base-input :label="text.width" not-required>
                             <el-select
                                 v-model="form.width" filterable
                                 :placeholder="placeholder.width">
@@ -56,6 +52,7 @@
 
                     <div class="form-group sm:col-span-3">
                         <base-input
+                            not-required
                             v-model="form.sort"
                             :label="text.sort"
                             :placeholder="placeholder.sort"

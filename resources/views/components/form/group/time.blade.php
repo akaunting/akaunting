@@ -15,6 +15,8 @@
 
         @if ($required)
         :required="{{ $required ? 'true' : 'false' }}"
+        @else
+        :not-required={{ $required ? 'false' : 'true' }}
         @endif
 
         @if ($readonly)

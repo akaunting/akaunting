@@ -12,6 +12,7 @@
         :appendIcon="icon"
         :readonly="readonly"
         :disabled="disabled"
+        :not-required="notRequired"
         @focus="focus"
         >
         <flat-picker slot-scope="{focus, blur}"
@@ -62,6 +63,11 @@ export default {
             type: Boolean,
             default: false,
             description: "Input readonly status"
+        },
+
+        notRequired: {
+            type: Boolean,
+            default: false
         },
 
         period: {
