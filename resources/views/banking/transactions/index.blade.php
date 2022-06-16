@@ -59,6 +59,7 @@
                 <x-slot name="third"
                     amount="{{ money($totals['profit'], setting('default.currency'), true) }}"
                     title="{{ trans_choice('general.profits', 1) }}"
+                    class="cursor-default"
                 ></x-slot>
             </x-index.summary>
 
