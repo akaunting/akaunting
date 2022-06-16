@@ -119,7 +119,7 @@ return [
             'hide_amount'               => env('SETTING_FALLBACK_INVOICE_HIDE_AMOUNT', false),
             'payment_terms'             => env('SETTING_FALLBACK_INVOICE_PAYMENT_TERMS', '0'),
             'template'                  => env('SETTING_FALLBACK_INVOICE_TEMPLATE', 'default'),
-            'color'                     => env('SETTING_FALLBACK_INVOICE_COLOR', '#55588b'),
+            'color'                     => env('SETTING_FALLBACK_INVOICE_COLOR', 'purple-500'),
             'logo_size_width'           => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_WIDTH', 128),
             'logo_size_height'          => env('SETTING_FALLBACK_INVOICE_LOGO_SIZE_HEIGHT', 128),
             'item_search_char_limit'    => env('SETTING_FALLBACK_INVOICE_ITEM_SEARCH_CHAR_LIMIT', 3),
@@ -138,7 +138,7 @@ return [
             'quantity_name'             => env('SETTING_FALLBACK_BILL_QUANTITY_NAME', 'settings.invoice.quantity'),
             'payment_terms'             => env('SETTING_FALLBACK_BILL_PAYMENT_TERMS', '0'),
             'template'                  => env('SETTING_FALLBACK_BILL_TEMPLATE', 'default'),
-            'color'                     => env('SETTING_FALLBACK_BILL_COLOR', '#55588b'),
+            'color'                     => env('SETTING_FALLBACK_BILL_COLOR', 'purple-500'),
             'item_search_char_limit'    => env('SETTING_FALLBACK_BILL_ITEM_SEARCH_CHAR_LIMIT', 3),
         ],
         'bill-recurring' => [

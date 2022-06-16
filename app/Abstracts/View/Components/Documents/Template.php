@@ -276,7 +276,7 @@ abstract class Template extends Component
 
         $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
 
-        return $backgroundColor;
+        return $this->convertClasstoHex($backgroundColor);
     }
 
     protected function getTextDocumentTitle($type, $textDocumentTitle)

@@ -3,11 +3,14 @@
 namespace App\Traits;
 
 use Throwable;
+use Illuminate\Support\Arr;
 
 trait Translations
 {
     public function findTranslation($keys, $number = 2)
     {
+        $keys = Arr::wrap($keys);
+
         try {
             foreach ($keys as $key) {
                 if (is_array($key)) {
