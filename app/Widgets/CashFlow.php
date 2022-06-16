@@ -2,7 +2,7 @@
 
 namespace App\Widgets;
 
-use Akaunting\Apexcharts\Charts as Apexcharts;
+use Akaunting\Apexcharts\Chart;
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
 use App\Traits\Currencies;
@@ -55,7 +55,7 @@ class CashFlow extends Widget
             ],
         ];
 
-        $chart = new Apexcharts();
+        $chart = new Chart();
 
         $chart->setType('line')
             ->setOptions($options)

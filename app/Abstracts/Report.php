@@ -2,7 +2,7 @@
 
 namespace App\Abstracts;
 
-use Akaunting\Apexcharts\Charts as Apexcharts;
+use Akaunting\Apexcharts\Chart;
 use App\Events\Report\DataLoaded;
 use App\Events\Report\DataLoading;
 use App\Events\Report\FilterApplying;
@@ -14,7 +14,6 @@ use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
 use App\Models\Setting\Category;
-use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 use App\Traits\Translations;
@@ -24,7 +23,7 @@ use Illuminate\Support\Str;
 
 abstract class Report
 {
-    use Charts, DateTime, SearchString, Translations;
+    use DateTime, SearchString, Translations;
 
     public $model;
 
@@ -176,7 +175,7 @@ abstract class Report
 
     public function getBarChart($table_key)
     {
-        $chart = new Apexcharts();
+        $chart = new Chart();
 
         if (empty($this->chart)) {
             return $chart;
@@ -194,7 +193,7 @@ abstract class Report
 
     public function getDonutChart($table_key)
     {
-        $chart = new Apexcharts();
+        $chart = new Chart();
 
         if (empty($this->chart)) {
             return $chart;
