@@ -291,11 +291,17 @@
                                                         <x-slot name="first">
                                                             {{ $item->contact->name }}
                                                         </x-slot>
-                                                        <x-slot name="second">
+                                                        <x-slot name="second" class="w-20 font-normal group">
                                                             @if ($item->document)
+                                                            <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
                                                                 <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
                                                                     {{ $item->document->document_number }}
                                                                 </a>
+
+                                                                <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
+
+                                                                <x-documents.index.information :document="$item->document" />
+                                                            </div>
                                                             @else
                                                                 <x-empty-data />
                                                             @endif
@@ -444,6 +450,16 @@
                 </x-show.content.right>
             </x-show.content>
         </x-show.container>
+
+        <akaunting-connect-transactions
+            :show="connect.show"
+            :transaction="connect.transaction"
+            :currency="connect.currency"
+            :documents="connect.documents"
+            :translations="{{ json_encode($transactions) }}"
+            modal-dialog-class="max-w-screen-lg"
+            v-on:close-modal="connect.show = false"
+        ></akaunting-connect-transactions>
     </x-slot>
 
     <x-script folder="banking" file="accounts" />
