@@ -265,7 +265,7 @@ const app = new Vue({
 
                         inclusive_tax_total += item.tax_ids[inclusive.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, inclusive.tax_type, item.tax_ids[inclusive.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, item.tax_ids[inclusive.tax_index].price);
                     }, this);
 
                     item.total = parseFloat(item.grand_total - inclusive_tax_total);
@@ -277,7 +277,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[fixed.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, fixed.tax_id, fixed.tax_name, fixed.tax_type, item.tax_ids[fixed.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, fixed.tax_id, fixed.tax_name, item.tax_ids[fixed.tax_index].price);
                     }, this);
                 }
 
@@ -293,7 +293,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[normal.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, normal.tax_id, normal.tax_name, normal.tax_type, item.tax_ids[normal.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, normal.tax_id, normal.tax_name, item.tax_ids[normal.tax_index].price);
                     }, this);
                 }
 
@@ -303,7 +303,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[withholding.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, withholding.tax_id, withholding.tax_name, withholding.tax_type, item.tax_ids[withholding.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, withholding.tax_id, withholding.tax_name, item.tax_ids[withholding.tax_index].price);
                     }, this);
                 }
 
@@ -313,7 +313,7 @@ const app = new Vue({
                     compounds.forEach(function(compound) {
                         item.tax_ids[compound.tax_index].price = (item.grand_total / 100) * compound.tax_rate;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, compound.tax_type, item.tax_ids[compound.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, item.tax_ids[compound.tax_index].price);
 
                         item.grand_total += item.tax_ids[compound.tax_index].price;
                     }, this);
