@@ -52,7 +52,7 @@
                                 </a>
                             </div>
 
-                            <div class="flex items-start ltr:space-x-4 rtl:space-x-reverse">
+                            <div class="flex items-start ltr:space-x-2 rtl:space-x-reverse">
                                 <livewire:report.pin :categories="$categories" :report-id="$report->id" />
 
                                 @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
