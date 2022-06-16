@@ -57,6 +57,9 @@ class Event extends Provider
             'App\Listeners\Document\CreateDocumentTransaction',
             'App\Listeners\Document\SendDocumentPaymentNotification',
         ],
+        'App\Events\Document\DocumentMarkedSent' => [
+            'App\Listeners\Document\MarkDocumentSent',
+        ],
         'App\Events\Document\DocumentSent' => [
             'App\Listeners\Document\MarkDocumentSent',
         ],

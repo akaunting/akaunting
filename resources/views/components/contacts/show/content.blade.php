@@ -215,12 +215,12 @@
                                                     {{ $item->contact_name }}
                                                 </x-slot>
 
-                                                <x-slot name="second" class="relative w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
+                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
                                                     <span class="border-black border-b border-dashed">
                                                         {{ $item->document_number }}
                                                     </span>
 
-                                                    <div class="w-full absolute h-10 -left-10 -mt-6"></div>
+                                                    <div class="w-28 absolute h-10 -left-10 -mt-6"></div>
 
                                                     <x-documents.index.information :document="$item" />
                                                 </x-slot>

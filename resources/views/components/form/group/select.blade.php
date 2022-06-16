@@ -121,6 +121,10 @@
         clearable
         @endif
 
+        @if (isset($attributes['no-arrow']))
+        :no-arrow="{{ $attributes['no-arrow'] }}"
+        @endif
+
         @if (isset($attributes['v-disabled']))
         :disabled="{{ $attributes['v-disabled'] }}"
         @endif
