@@ -41,8 +41,9 @@
                     override="class"
                     data-loading-text="{{ trans('general.loading') }}"
                 >
-                    <span>{{ trans('general.send') }}</span>
-                    <x-button.loading v-if="form.loading" text="{{ trans('general.send') }}" text-hide="[{'opacity-0': form.loading}]" />
+                    <x-button.loading>
+                        {{ trans('general.send') }}
+                    </x-button.loading>
                 </x-button>
             </div>
         </x-form>

@@ -21,8 +21,9 @@
             @click="onModuleLoadMore('reviews')"
             class="w-48 bg-green m-auto block whitespace-nowrap px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white text-center js-learn-more js-button-modal-submit hover:bg-green-700 disabled:bg-green-300"
         >
-            <span>{{ trans('modules.see_more') }}</span>
-            <x-button.loading v-if="loadMoreLoading" text="{{ trans('modules.see_more') }}" text-hide="[{'opacity-0': loadMoreLoading}]" />
+            <x-button.loading action="loadMoreLoading">
+                {{ trans('modules.see_more') }}
+            </x-button.loading>
         </button>
     </div>
 

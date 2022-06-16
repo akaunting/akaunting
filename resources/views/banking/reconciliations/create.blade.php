@@ -264,8 +264,9 @@
                                     class="flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                     override="class"
                                 >
-                                    <span>{{ trans('reconciliations.save_draft') }}</span>
-                                    <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.save_draft') }}" text-hide="[{'opacity-0': form.loading}]" />
+                                    <x-button.loading>
+                                        {{ trans('reconciliations.save_draft') }}
+                                    </x-button.loading>
                                 </x-button>
     
                                 <div v-if="reconcile">
@@ -278,8 +279,9 @@
                                           @click="onReconcileSubmit"
                                           data-loading-text="{{ trans('general.loading') }}"
                                         >
-                                            <span>{{ trans('reconciliations.reconcile') }}</span>
-                                            <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
+                                            <x-button.loading action="! reconcile">
+                                                {{ trans('reconciliations.reconcile') }}
+                                            </x-button.loading>
                                         </x-button>
                                     </x-tooltip>
                                 </div>
@@ -292,8 +294,9 @@
                                       @click="onReconcileSubmit"
                                       data-loading-text="{{ trans('general.loading') }}"
                                     >
-                                        <span>{{ trans('reconciliations.reconcile') }}</span>
-                                        <x-button.loading v-if="form.loading" text="{{ trans('reconciliations.reconcile') }}" text-hide="[{'opacity-1': reconcile}]" />
+                                        <x-button.loading action="! reconcile">
+                                            {{ trans('reconciliations.reconcile') }}
+                                        </x-button.loading>
                                     </x-button>
                                 </div>
                             </div>
