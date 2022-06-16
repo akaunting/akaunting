@@ -68,7 +68,13 @@ const app = new Vue({
             dynamic_taxes: [],
             show_discount: false,
             show_discount_text: true,
-            delete_discount: false
+            delete_discount: false,
+            regex_condition: [
+                '..',
+                '.,',
+                ',.',
+                ',,'
+            ],
         }
     },
 
@@ -488,11 +494,14 @@ const app = new Vue({
 
         onChangeDiscountType(type) {
             this.form.discount_type = type;
+
+            this.onAddTotalDiscount();
             this.onCalculateTotal();
         },
 
         onChangeLineDiscountType(item_index, type) {
             this.items[item_index].discount_type = type;
+
             this.onCalculateTotal();
         },
 
@@ -1062,5 +1071,27 @@ const app = new Vue({
         }
 
         this.page_loaded = true;
-    }
+    },
+
+    watch: {
+        'form.discount': function (newVal, oldVal) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
+                this.form.discount = oldVal;
+                this.form.discount = this.form.discount.replace(',', '.');
+
+                return;
+            }
+
+            for (let item of this.regex_condition) {
+                if (this.form.discount.includes(item)) {
+                    const removeLastChar  = newVal.length - 1;
+                    const inputShown = newVal.slice(0, removeLastChar);
+
+                    this.form.discount = inputShown;
+                }
+            }
+
+            this.form.discount = this.form.discount.replace(',', '.');
+        },
+    },
 });
