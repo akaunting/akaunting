@@ -27,7 +27,13 @@ class Favorites extends Component
 
             foreach ($favorites as $favorite) {
                 $favorite['active'] = false;
-                $favorite['url'] = $this->getUrl($favorite);
+
+                try {
+                    $favorite['url'] = $this->getUrl($favorite);
+                } catch (\Exception $e) {
+                    continue;
+                }
+
                 $favorite['id'] = $this->getId($favorite);
 
                 if ($this->isActive($favorite['url'])) {

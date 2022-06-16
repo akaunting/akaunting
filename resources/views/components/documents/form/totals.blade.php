@@ -106,7 +106,7 @@
                                         </button>
                                     </div>
 
-                                    <x-form.group.number name="pre_discount" id="pre-discount" form-group-class="-mt-1" v-model="form.discount" @input="onAddTotalDiscount" />
+                                    <x-form.group.text name="pre_discount" id="pre-discount" form-group-class="-mt-1" v-model="form.discount" @input="onAddTotalDiscount" />
                                 </div>
                             </td>
 

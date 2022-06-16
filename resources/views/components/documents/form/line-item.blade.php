@@ -65,7 +65,7 @@
                         <td class="px-3 py-3 border-b-0 description">
                             @if (! $hideItemDescription)
                                 <textarea
-                                    class="w-full text-sm px-3 py-2.5 mt-1.5 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple resize-none"
+                                    class="w-full text-sm px-3 py-2.5 mt-1.5 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
                                     style="height:42px;"
                                     :ref="'items-' + index + '-description'"
                                     placeholder="{{ trans('items.enter_item_description') }}"

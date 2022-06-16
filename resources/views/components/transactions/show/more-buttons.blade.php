@@ -29,7 +29,7 @@
                         type="button"
                         class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
                         title="{{ trans('general.connect') }}"
-                        @click="onConnect('{{ route('transactions.dial', $transaction->id) }}')">
+                        @click="onConnectTransactions('{{ route('transactions.dial', $transaction->id) }}')">
                         <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ trans('general.connect') }}</span>
                     </button>
                 @endcan

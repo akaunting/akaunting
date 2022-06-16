@@ -200,7 +200,15 @@ class DeleteButton extends Component
             $page = '';
 
             if (! empty($this->route)) {
-                $page = explode('.', $this->route)[0];
+                if (! is_array($this->route)) {
+                    $string = $this->route;
+                }
+                
+                if (is_array($this->route)) {
+                    $string = $this->route[0];
+                }
+
+                $page = explode('.', $string)[0];
             } elseif (! empty($this->url)) {
                 $page = explode('/', $this->url)[1];
             }

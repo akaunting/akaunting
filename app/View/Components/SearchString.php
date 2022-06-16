@@ -4,11 +4,12 @@ namespace App\View\Components;
 
 use App\Abstracts\View\Component;
 use App\Traits\DateTime;
+use App\Traits\Translations;
 use Illuminate\Support\Str;
 
 class SearchString extends Component
 {
-    use DateTime;
+    use DateTime, Translations;
 
     public $filters;
 
@@ -203,16 +204,16 @@ class SearchString extends Component
             $values = [
                 [
                     'key' => 0,
-                    'value' => empty($options['translation']) ? trans('general.no') : trans($options['translation'][0]),
+                    'value' => empty($options['translation']) ? trans('general.no') : $this->findTranslation($options['translation'][0], 1),
                 ],
                 [
                     'key' => 1,
-                    'value' => empty($options['translation']) ? trans('general.yes') : trans($options['translation'][1]),
+                    'value' => empty($options['translation']) ? trans('general.yes') : $this->findTranslation($options['translation'][1], 1),
                 ],
             ];
         } else if (isset($options['values'])) {
             foreach ($options['values'] as $key => $value) {
-                $values[$key] = trans($value);
+                $values[$key] = $this->findTranslation($value, 1);
             }
         } else if ($search = request()->get('search', false)) {
             $fields = explode(' ', $search);

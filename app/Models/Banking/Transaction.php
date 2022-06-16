@@ -480,7 +480,7 @@ class Transaction extends Model
                     'permission' => 'create-banking-transactions',
                     'attributes' => [
                         'id' => 'index-transactions-more-actions-connect-' . $this->id,
-                        '@click' => 'onConnect(\'' . route('transactions.dial', $this->id) . '\')',
+                        '@click' => 'onConnectTransactions(\'' . route('transactions.dial', $this->id) . '\')',
                     ],
                 ];
 
