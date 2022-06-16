@@ -1,4 +1,4 @@
-@props('action')
+@props(['action'])
 @php
     if (empty($action)) {
         $action = 'form.loading';

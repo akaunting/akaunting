@@ -68,7 +68,6 @@
                     ::disabled="form.loading"
                     class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 sm:col-span-6"
                     override="class"
-                    data-loading-text="{{ trans('general.loading') }}"
                 >
                     <x-button.loading>
                         {{ trans('auth.login') }}

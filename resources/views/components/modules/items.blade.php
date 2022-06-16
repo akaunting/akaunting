@@ -35,7 +35,7 @@
                     id="button-pre-load"
                     @click="onloadMore"
                     :disabled="loadMoreLoading"
-                    class="w-48 m-auto relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 js-learn-more js-button-modal-submit"
+                    class="relative w-48 m-auto flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 js-learn-more js-button-modal-submit"
                 >
                     <x-button.loading action="loadMoreLoading">
                         {{ trans('modules.see_more') }}
