@@ -25,4 +25,9 @@ return [
     'docs_link'             => 'https://akaunting.com/docs',
     'support_link'          => 'https://akaunting.com/support',
 
+    'favorite' => [
+        'added_favorite'    => 'पसंदीदा में जोड़ा',
+        'add_favorite'      => 'पसंदीदा में जोड़े',
+    ],
+
 ];

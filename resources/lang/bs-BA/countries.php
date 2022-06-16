@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'AF' => 'Afganistan',
     'AX' => 'Olandska ostrva',
     'AL' => 'Albanija',
@@ -119,6 +120,7 @@ return [
     'KZ' => 'Kazahstan',
     'KE' => 'Kenija',
     'KI' => 'Kiribati',
+    'XK' => 'Kosovo',
     'KW' => 'Kuvajt',
     'KG' => 'Kirgistan',
     'LA' => 'Laos',
@@ -250,4 +252,5 @@ return [
     'YE' => 'Jemen',
     'ZM' => 'Zambija',
     'ZW' => 'Zimbabve',
+
 ];
