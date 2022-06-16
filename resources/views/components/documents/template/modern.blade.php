@@ -207,7 +207,7 @@
             <div class="col-100">
                 <div class="text extra-spacing">
                     <table class="lines modern-lines">
-                        <thead class="bg-{{ $backgroundColor }}" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
+                        <thead style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                             <tr>
                                 @stack('name_th_start')
                                     @if (! $hideItems || (! $hideName && ! $hideDescription))
@@ -346,7 +346,7 @@
     @if (! $hideFooter)
         @if ($document->footer)
             <div class="row mt-7">
-                <div class="col-100 py-top p-modern bg-{{ $backgroundColor }}" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
+                <div class="col-100 py-top p-modern" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <div class="text pl-2">
                         <strong class="text-white">
                             {!! nl2br($document->footer) !!}
