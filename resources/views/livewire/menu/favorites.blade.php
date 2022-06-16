@@ -7,7 +7,7 @@
                 <span
                     id="{{ $favorite['id'] }}"
                     @class([
-                        'material-icons-outlined' => ! $favorite['active'],
+                        'material-icons-outlined transform transition-all hover:scale-125' => ! $favorite['active'],
                         'material-icons' => $favorite['active'],
                         'text-purple cursor-pointer',
                     ])
