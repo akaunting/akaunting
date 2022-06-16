@@ -7,7 +7,7 @@ return [
             'width' => '100%',
             'height' => 300,
             'toolbar' => [
-                'show' => false,
+                'show' => true,
             ],
             'stacked' => false,
             'zoom' => [
