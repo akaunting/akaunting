@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'स्पष्ट राशि',
     'deposit'               => 'जमा',
     'withdrawal'            => 'निकासी',
+    'reconciled_amount'     => 'मेल मिलाप',
+    'in_progress'           => 'प्रगति में',
+    'save_draft'            => 'ड्राफ्ट के रूप में सेव करें',
+    'irreconcilable'        => 'असंगत',
 
 ];
