@@ -60,7 +60,7 @@
             <tr>
                 <td style="width: 60%; padding: 15px 0 15px 0;">
                     <h2 style="font-size: 12px; font-weight:600;">
-                        {{ trans($textContentTitle) }}
+                        {{ $textContentTitle != trans_choice($textContentTitle, 1) ? trans_choice($textContentTitle, 1) : trans($textContentTitle) }}
                     </h2>
                 </td>
             </tr>
