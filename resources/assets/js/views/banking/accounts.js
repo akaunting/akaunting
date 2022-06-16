@@ -29,6 +29,11 @@ const app = new Vue({
         return {
             form: new Form('account'),
             bulk_action: new BulkAction('accounts'),
+            connect: {
+                show: false,
+                currency: {},
+                documents: [],
+            },
         }
     },
 
@@ -54,6 +59,33 @@ const app = new Vue({
 
         onBank() {
 
+        },
+
+        onConnect(route) {
+            let dial_promise = Promise.resolve(window.axios.get(route));
+
+            dial_promise.then(response => {
+                this.connect.show = true;
+
+                this.connect.transaction = JSON.parse(response.data.transaction);
+
+                let currency = JSON.parse(response.data.currency);
+
+                this.connect.currency = {
+                    decimal_mark: currency.decimal_mark,
+                    precision: currency.precision,
+                    symbol: currency.symbol,
+                    symbol_first: currency.symbol_first,
+                    thousands_separator: currency.thousands_separator,
+                };
+    
+                this.connect.documents = JSON.parse(response.data.documents);
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
         },
     }
 });
