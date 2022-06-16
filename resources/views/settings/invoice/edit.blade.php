@@ -58,7 +58,7 @@
                             </label>
                         </div>
 
-                        <x-form.group.color name="color" label="{{ trans('general.color') }}" />
+                        <x-form.group.color name="color" label="{{ trans('general.color') }}" :value="setting('invoice.color')" />
                     </x-slot>
                 </x-form.section>
 

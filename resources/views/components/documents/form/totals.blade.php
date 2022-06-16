@@ -106,7 +106,7 @@
                                         </button>
                                     </div>
 
-                                    <x-form.group.number name="pre_discount" id="pre-discount" form-group-class="-mt-1" v-model="form.discount" @input="onAddTotalDiscount" />
+                                    <x-form.group.text name="pre_discount" id="pre-discount" form-group-class="-mt-1" v-model="form.discount" @input="onAddTotalDiscount" />
                                 </div>
                             </td>
 
@@ -182,6 +182,13 @@
                                 selected="{{ $currency->code }}"
                                 change="onChangeCurrency"
                                 model="form.currency_code"
+                                add-new
+                                add-new-text="{!! trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) !!}"
+                                :path="route('modals.currencies.create')"
+                                :field="[
+                                    'key' => 'code',
+                                    'value' => 'name'
+                                ]"
                                 form-group-class="h-8 -mt-2"
                             />
 

@@ -29,42 +29,10 @@ const app = new Vue({
         return {
             form: new Form('transaction'),
             bulk_action: new BulkAction('transactions'),
-            connect: {
-                show: false,
-                currency: {},
-                documents: [],
-            },
         }
     },
 
     methods: {
-        onConnect(route) {
-            let dial_promise = Promise.resolve(window.axios.get(route));
-
-            dial_promise.then(response => {
-                this.connect.show = true;
-
-                this.connect.transaction = JSON.parse(response.data.transaction);
-
-                let currency = JSON.parse(response.data.currency);
-
-                this.connect.currency = {
-                    decimal_mark: currency.decimal_mark,
-                    precision: currency.precision,
-                    symbol: currency.symbol,
-                    symbol_first: currency.symbol_first,
-                    thousands_separator: currency.thousands_separator,
-                };
-    
-                this.connect.documents = JSON.parse(response.data.documents);
-            })
-            .catch(error => {
-            })
-            .finally(function () {
-                // always executed
-            });
-        },
-
         async onEmail(route) {
             let email = {
                 modal: false,
@@ -110,7 +78,7 @@ const app = new Vue({
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove("modal-open");
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                             },
                         }
                     })

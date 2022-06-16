@@ -59,6 +59,7 @@
                 <x-slot name="third"
                     amount="{{ money($totals['profit'], setting('default.currency'), true) }}"
                     title="{{ trans_choice('general.profits', 1) }}"
+                    class="cursor-default"
                 ></x-slot>
             </x-index.summary>
 
@@ -162,15 +163,18 @@
                                                 <x-slot name="first">
                                                     {{ $item->contact->name }}
                                                 </x-slot>
-                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
+                                                <x-slot name="second" class="w-20 font-normal group">
                                                     @if ($item->document)
-                                                        <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
-                                                            {{ $item->document->document_number }}
-                                                        </a>
+                                                        <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
+                                                            <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                                {{ $item->document->document_number }}
+                                                            </a>
 
-                                                        <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
+                                                            <div class="w-28 absolute h-10 -ml-12 -mt-6">
+                                                            </div>
 
-                                                        <x-documents.index.information :document="$item->document" />
+                                                            <x-documents.index.information :document="$item->document" />
+                                                        </div>
                                                     @else
                                                         <x-empty-data />
                                                     @endif

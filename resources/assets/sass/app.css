@@ -185,7 +185,7 @@
     }
 
     .overflow-overlay {
-        overflow: overlay;
+        overflow-x: overlay;
     }
 
     .py-top {
@@ -355,6 +355,10 @@
 
 .el-input.el-input--prefix.el-input--suffix .el-select__caret.el-input__icon.el-icon-:before {
     content: "\e6e1";
+}
+
+.no-arrow .el-select__caret {
+    display: none;
 }
 
 .el-input .el-icon-circle-close {

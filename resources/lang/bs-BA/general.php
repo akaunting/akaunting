@@ -4,7 +4,6 @@ return [
 
     'dashboards'            => 'Kontrolna ploča|Kontrolna ploče',
     'items'                 => 'Stavka|Stavke',
-    'incomes'               => 'Prihod|Prihodi',
     'invoices'              => 'Faktura|Fakture',
     'recurring_invoices'    => 'Ponavljajuća faktura|Ponavljajuće fakture',
     'customers'             => 'Kupac|Kupci',
@@ -70,6 +69,7 @@ return [
     'invitations'           => 'Pozivnica|Pozivnice',
     'attachments'           => 'Prilog|Prilozi',
     'histories'             => 'Istorija|Istorije',
+    'your_notifications'    => 'Vaše obavještenje|Vaša obavještenja',
 
     'welcome'               => 'Dobrodošli',
     'banking'               => 'Bankarstvo',
@@ -184,6 +184,7 @@ return [
     'no_matching_data'      => 'Nema podudaranja podataka',
     'clear_cache'           => 'Očisti cache',
     'go_to_dashboard'       => 'Idite na nadzornu ploču',
+    'create_first_invoice'  => 'Kreiraj prvu fakturu',
     'is'                    => 'je',
     'isnot'                 => 'nije',
     'recurring_and_more'    => 'Ponavlja se i više',
@@ -199,7 +200,6 @@ return [
     'email_send_me'         => 'Pošalji kopiju meni na email :email',
     'connect'               => 'Poveži',
     'assign'                => 'Dodijeliti',
-    'your_notifications'    => 'Vaše obavještenje|Vaša obavještenja',
     'new'                   => 'Novo',
     'new_more'              => 'Novo...',
     'number'                => 'Broj',

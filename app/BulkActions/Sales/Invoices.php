@@ -5,7 +5,7 @@ namespace App\BulkActions\Sales;
 use App\Abstracts\BulkAction;
 use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentCreated;
-use App\Events\Document\DocumentSent;
+use App\Events\Document\DocumentMarkedSent;
 use App\Events\Document\PaymentReceived;
 use App\Exports\Sales\Invoices as Export;
 use App\Jobs\Document\DeleteDocument;
@@ -58,7 +58,7 @@ class Invoices extends BulkAction
                 continue;
             }
 
-            event(new DocumentSent($invoice));
+            event(new DocumentMarkedSent($invoice));
         }
     }
 

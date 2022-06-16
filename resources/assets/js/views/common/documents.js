@@ -68,7 +68,13 @@ const app = new Vue({
             dynamic_taxes: [],
             show_discount: false,
             show_discount_text: true,
-            delete_discount: false
+            delete_discount: false,
+            regex_condition: [
+                '..',
+                '.,',
+                ',.',
+                ',,'
+            ],
         }
     },
 
@@ -259,7 +265,7 @@ const app = new Vue({
 
                         inclusive_tax_total += item.tax_ids[inclusive.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, inclusive.tax_type, item.tax_ids[inclusive.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, inclusive.tax_id, inclusive.tax_name, item.tax_ids[inclusive.tax_index].price);
                     }, this);
 
                     item.total = parseFloat(item.grand_total - inclusive_tax_total);
@@ -271,7 +277,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[fixed.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, fixed.tax_id, fixed.tax_name, fixed.tax_type, item.tax_ids[fixed.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, fixed.tax_id, fixed.tax_name, item.tax_ids[fixed.tax_index].price);
                     }, this);
                 }
 
@@ -287,7 +293,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[normal.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, normal.tax_id, normal.tax_name, normal.tax_type, item.tax_ids[normal.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, normal.tax_id, normal.tax_name, item.tax_ids[normal.tax_index].price);
                     }, this);
                 }
 
@@ -297,7 +303,7 @@ const app = new Vue({
 
                         total_tax_amount += item.tax_ids[withholding.tax_index].price;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, withholding.tax_id, withholding.tax_name, withholding.tax_type, item.tax_ids[withholding.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, withholding.tax_id, withholding.tax_name, item.tax_ids[withholding.tax_index].price);
                     }, this);
                 }
 
@@ -307,7 +313,7 @@ const app = new Vue({
                     compounds.forEach(function(compound) {
                         item.tax_ids[compound.tax_index].price = (item.grand_total / 100) * compound.tax_rate;
 
-                        totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, compound.tax_type, item.tax_ids[compound.tax_index].price);
+                        totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, item.tax_ids[compound.tax_index].price);
 
                         item.grand_total += item.tax_ids[compound.tax_index].price;
                     }, this);
@@ -488,11 +494,14 @@ const app = new Vue({
 
         onChangeDiscountType(type) {
             this.form.discount_type = type;
+
+            this.onAddTotalDiscount();
             this.onCalculateTotal();
         },
 
         onChangeLineDiscountType(item_index, type) {
             this.items[item_index].discount_type = type;
+
             this.onCalculateTotal();
         },
 
@@ -669,7 +678,7 @@ const app = new Vue({
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove("modal-open");
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                             },
                         }
                     })
@@ -787,7 +796,7 @@ const app = new Vue({
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove("modal-open");
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                             },
                         }
                     })
@@ -844,7 +853,7 @@ const app = new Vue({
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove("modal-open");
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                             },
                         }
                     })
@@ -1062,5 +1071,27 @@ const app = new Vue({
         }
 
         this.page_loaded = true;
-    }
+    },
+
+    watch: {
+        'form.discount': function (newVal, oldVal) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
+                this.form.discount = oldVal;
+                this.form.discount = this.form.discount.replace(',', '.');
+
+                return;
+            }
+
+            for (let item of this.regex_condition) {
+                if (this.form.discount.includes(item)) {
+                    const removeLastChar  = newVal.length - 1;
+                    const inputShown = newVal.slice(0, removeLastChar);
+
+                    this.form.discount = inputShown;
+                }
+            }
+
+            this.form.discount = this.form.discount.replace(',', '.');
+        },
+    },
 });

@@ -117,7 +117,7 @@
                                 <x-table.td class="w-3/12  sm:table-cell">
                                     @stack('document_number_td_inside_start')
 
-                                    <x-slot name="first" class="relative w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
+                                    <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
                                         <span class="border-black border-b border-dashed">
                                             {{ $item->document_number }}
                                         </span>

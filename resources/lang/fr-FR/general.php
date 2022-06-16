@@ -4,7 +4,6 @@ return [
 
     'dashboards'            => 'Tableau de bord|Tableaux de bord',
     'items'                 => 'Article|Articles',
-    'incomes'               => 'Revenu|Revenus',
     'invoices'              => 'Facture|Factures',
     'recurring_invoices'    => 'Factures récurrentes|Factures récurrentes',
     'customers'             => 'Client|Clients',
@@ -70,6 +69,7 @@ return [
     'invitations'           => 'Invitation|Invitations',
     'attachments'           => 'Pièce jointe|Pièces jointes',
     'histories'             => 'Historique|Historiques',
+    'your_notifications'    => 'Votre notification|Vos notifications',
 
     'welcome'               => 'Bienvenue',
     'banking'               => 'Banque',
@@ -184,6 +184,7 @@ return [
     'no_matching_data'      => 'Aucune donnée correspondante',
     'clear_cache'           => 'Vider le cache',
     'go_to_dashboard'       => 'Aller au tableau de bord',
+    'create_first_invoice'  => 'Créez votre première facture',
     'is'                    => 'est',
     'isnot'                 => 'n\'est pas',
     'recurring_and_more'    => 'Récurrents et plus..',
@@ -199,7 +200,6 @@ return [
     'email_send_me'         => 'Envoyez-moi une copie à :email',
     'connect'               => 'Connecter',
     'assign'                => 'Attribuer',
-    'your_notifications'    => 'Votre notification|Vos notifications',
     'new'                   => 'Nouveau',
     'new_more'              => 'Nouveau...',
     'number'                => 'Numéro',

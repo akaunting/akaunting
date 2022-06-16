@@ -5,6 +5,7 @@
         :class="[
             {'readonly': readonly},
             {'disabled': disabled},
+            {'no-arrow': noArrow},
             formClasses
         ]"
         :error="formError">
@@ -344,6 +345,12 @@ export default {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
+        },
+
+        noArrow: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox show arrow"
         },
 
         clearable: {
@@ -908,7 +915,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove("overflow-hidden");
+                    documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
                 }
             })
             .catch(error => {
@@ -927,7 +934,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove("overflow-hidden");
+            documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
         },
 
         addModal() {

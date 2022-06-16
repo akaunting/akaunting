@@ -65,7 +65,7 @@
                         <td class="px-3 py-3 border-b-0 description">
                             @if (! $hideItemDescription)
                                 <textarea
-                                    class="form-element mt-1.5 resize-none"
+                                    class="form-element mt-1.5"
                                     style="height:42px;"
                                     :ref="'items-' + index + '-description'"
                                     placeholder="{{ trans('items.enter_item_description') }}"
@@ -295,6 +295,27 @@
                                     :dynamic-options="dynamic_taxes"
                                     :disabled-options="form.items[index].tax_ids"
                                     :value="row_tax.id"
+                                    :add-new="{{ json_encode([
+                                        'status' => true,
+                                        'text' => trans('general.title.new', ['type' => trans_choice('general.taxes', 1)]),
+                                        'path' => route('modals.taxes.create'),
+                                        'type' => 'modal',
+                                        'field' => [
+                                            'key' => 'id',
+                                            'value' => 'title'
+                                        ],
+                                        'new_text' => trans('modules.new'),
+                                        'buttons' => [
+                                            'cancel' => [
+                                                'text' => trans('general.cancel'),
+                                                'class' => 'btn-outline-secondary'
+                                            ],
+                                            'confirm' => [
+                                                'text' => trans('general.save'),
+                                                'class' => 'disabled:bg-green-100'
+                                            ]
+                                        ]
+                                    ])}}"
                                     @interface="row_tax.id = $event"
                                     @change="onCalculateTotal()"
                                     @new="dynamic_taxes.push($event)"

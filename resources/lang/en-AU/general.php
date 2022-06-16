@@ -4,7 +4,6 @@ return [
 
     'dashboards'            => 'Dashboard|Dashboards',
     'items'                 => 'Item|Items',
-    'incomes'               => 'Income|Incomes',
     'invoices'              => 'Invoice|Invoices',
     'recurring_invoices'    => 'Recurring Invoice|Recurring Invoices',
     'customers'             => 'Customer|Customers',
@@ -70,6 +69,7 @@ return [
     'invitations'           => 'Invitation|Invitations',
     'attachments'           => 'Attachment|Attachments',
     'histories'             => 'History|Histories',
+    'your_notifications'    => 'Your notification|Your notifications',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',
@@ -184,6 +184,7 @@ return [
     'no_matching_data'      => 'No matching data',
     'clear_cache'           => 'Clear Cache',
     'go_to_dashboard'       => 'Go to dashboard',
+    'create_first_invoice'  => 'Create your first invoice',
     'is'                    => 'is',
     'isnot'                 => 'is not',
     'recurring_and_more'    => 'Recurring and more..',
@@ -199,7 +200,6 @@ return [
     'email_send_me'         => 'Send a copy to myself at :email',
     'connect'               => 'Connect',
     'assign'                => 'Assign',
-    'your_notifications'    => 'Your notification|Your notifications',
     'new'                   => 'New',
     'new_more'              => 'New ...',
     'number'                => 'Number',
