@@ -8,27 +8,28 @@
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-apexcharts.git",
-                "reference": "3b545508bec317c36a0cb83809de6e6cc8397832"
+                "reference": "5d584f362afc080c5506abe13ac7d6ac3865d68f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/3b545508bec317c36a0cb83809de6e6cc8397832",
-                "reference": "3b545508bec317c36a0cb83809de6e6cc8397832",
+                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/5d584f362afc080c5506abe13ac7d6ac3865d68f",
+                "reference": "5d584f362afc080c5506abe13ac7d6ac3865d68f",
                 "shasum": ""
             },
             "require": {
                 "balping/json-raw-encoder": "^1.0",
                 "ext-json": "*",
-                "illuminate/support": ">=8.0",
-                "php": ">=8.0"
+                "illuminate/support": "^8.67|^9.0",
+                "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": ">=6.0",
-                "phpunit/phpunit": ">=9.0"
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^6.23|^7.4",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -70,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-apexcharts/issues",
-                "source": "https://github.com/akaunting/laravel-apexcharts/tree/2.0.1"
+                "source": "https://github.com/akaunting/laravel-apexcharts/tree/2.0.2"
             },
-            "time": "2022-06-16T14:48:25+00:00"
+            "time": "2022-06-16T20:42:18+00:00"
         },
         {
             "name": "akaunting/laravel-debugbar-collector",
@@ -906,16 +907,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.225.5",
+            "version": "3.227.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "09b404c6b80b9c31be15fa245e647a2f9fb5e733"
+                "reference": "88d803113ade68604ec03c591d65e1e44406ab8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/09b404c6b80b9c31be15fa245e647a2f9fb5e733",
-                "reference": "09b404c6b80b9c31be15fa245e647a2f9fb5e733",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/88d803113ade68604ec03c591d65e1e44406ab8e",
+                "reference": "88d803113ade68604ec03c591d65e1e44406ab8e",
                 "shasum": ""
             },
             "require": {
@@ -923,9 +924,9 @@
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
-                "guzzlehttp/guzzle": "^5.3.3 || ^6.2.1 || ^7.0",
+                "guzzlehttp/guzzle": "^6.5.7 || ^7.4.4",
                 "guzzlehttp/promises": "^1.4.0",
-                "guzzlehttp/psr7": "^1.7.0 || ^2.1.1",
+                "guzzlehttp/psr7": "^1.8.5 || ^2.3",
                 "mtdowling/jmespath.php": "^2.6",
                 "php": ">=5.5"
             },
@@ -991,9 +992,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.225.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.227.0"
             },
-            "time": "2022-06-15T19:35:13+00:00"
+            "time": "2022-06-17T18:15:06+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -1843,16 +1844,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.3.6",
+            "version": "3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "9e7f76dd1cde81c62574fdffa5a9c655c847ad21"
+                "reference": "9f79d4650430b582f4598fe0954ef4d52fbc0a8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9e7f76dd1cde81c62574fdffa5a9c655c847ad21",
-                "reference": "9e7f76dd1cde81c62574fdffa5a9c655c847ad21",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9f79d4650430b582f4598fe0954ef4d52fbc0a8a",
+                "reference": "9f79d4650430b582f4598fe0954ef4d52fbc0a8a",
                 "shasum": ""
             },
             "require": {
@@ -1867,11 +1868,11 @@
             "require-dev": {
                 "doctrine/coding-standard": "9.0.0",
                 "jetbrains/phpstorm-stubs": "2022.1",
-                "phpstan/phpstan": "1.6.3",
+                "phpstan/phpstan": "1.7.13",
                 "phpstan/phpstan-strict-rules": "^1.2",
                 "phpunit/phpunit": "9.5.20",
                 "psalm/plugin-phpunit": "0.16.1",
-                "squizlabs/php_codesniffer": "3.6.2",
+                "squizlabs/php_codesniffer": "3.7.0",
                 "symfony/cache": "^5.2|^6.0",
                 "symfony/console": "^2.7|^3.0|^4.0|^5.0|^6.0",
                 "vimeo/psalm": "4.23.0"
@@ -1934,7 +1935,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.3.6"
+                "source": "https://github.com/doctrine/dbal/tree/3.3.7"
             },
             "funding": [
                 {
@@ -1950,7 +1951,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-02T17:21:01+00:00"
+            "time": "2022-06-13T21:43:03+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -13932,16 +13933,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "5409e699fc19f4d53e59427445b08f90593fda28"
+                "reference": "fe37a0eafe6ea040804255c70e9808af13314f87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/5409e699fc19f4d53e59427445b08f90593fda28",
-                "reference": "5409e699fc19f4d53e59427445b08f90593fda28",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/fe37a0eafe6ea040804255c70e9808af13314f87",
+                "reference": "fe37a0eafe6ea040804255c70e9808af13314f87",
                 "shasum": ""
             },
             "require": {
@@ -14018,7 +14019,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-15T13:55:18+00:00"
+            "time": "2022-06-17T06:28:57+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -14178,5 +14179,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
