@@ -32,6 +32,7 @@ class ShowInNotifications
 
             foreach ($updates as $key => $update) {
                 $prefix = ($key == 'core') ? 'core' : 'module';
+                $name = ($prefix == 'core') ? 'Akaunting' : module($key)->getName();
 
                 $new = new DatabaseNotification();
                 $new->id = $key;
@@ -39,8 +40,8 @@ class ShowInNotifications
                 $new->notifiable_type = "users";
                 $new->notifiable_id = user()->id;
                 $new->data = [
-                    'title' => $key . ' (v' . $update . ')',
-                    'description' => '<a href="' . route('updates.index') . '">' . trans('install.update.' . $prefix) . '</a>',
+                    'title' => $name . ' (v' . $update . ')',
+                    'description' => '<a href="' . route('updates.index') . '">' . trans('install.update.' . $prefix, ['module' => $name]) . '</a>',
                 ];
                 $new->created_at = \Carbon\Carbon::now();
 
