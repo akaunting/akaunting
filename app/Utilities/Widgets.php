@@ -36,7 +36,7 @@ class Widgets
 
             $m = module($module->alias);
 
-            if (! $m || empty($m->get('widgets'))) {
+            if (! $m || $m->disabled() || empty($m->get('widgets'))) {
                 return;
             }
 
@@ -45,12 +45,6 @@ class Widgets
 
         foreach ($list as $class) {
             if (! class_exists($class) || ($check_permission && ! static::canRead($class))) {
-                continue;
-            }
-
-            $alias = static::getModuleAlias($class); 
-
-            if (! empty($alias) && (new Widgets)->moduleIsDisabled($alias)) {
                 continue;
             }
 
@@ -71,7 +65,7 @@ class Widgets
 
             $model = Widget::where('dashboard_id', session('dashboard_id'))->where('class', $class_name)->first();
 
-            if ($model->alias != 'core' && (new Widgets)->moduleIsDisabled($model->alias)) {
+            if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
                 return false;
             }
 
@@ -92,7 +86,7 @@ class Widgets
                 return false;
             }
 
-            if ($model->alias != 'core' && (new Widgets)->moduleIsDisabled($model->alias)) {
+            if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
                 return false;
             }
 

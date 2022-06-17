@@ -26,7 +26,7 @@ class Reports
         Module::enabled()->each(function ($module) use (&$list) {
             $m = module($module->alias);
 
-            if (!$m || empty($m->get('reports'))) {
+            if (! $m || $m->disabled() || empty($m->get('reports'))) {
                 return;
             }
 
@@ -35,12 +35,6 @@ class Reports
 
         foreach ($list as $class) {
             if (! class_exists($class) || ($check_permission && static::cannotRead($class))) {
-                continue;
-            }
-
-            $alias = static::getModuleAlias($class);
-
-            if (! empty($alias) && (new Reports)->moduleIsDisabled($alias)) {
                 continue;
             }
 
@@ -60,7 +54,7 @@ class Reports
             return false;
         }
 
-        if ($model->alias != 'core' && (new Reports)->moduleIsDisabled($model->alias)) {
+        if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
             return false;
         }
 
