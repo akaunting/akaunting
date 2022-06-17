@@ -47997,32 +47997,18 @@ body{
   margin-left: 0.75rem;
 }
 
-<<<<<<< HEAD
-=======
 [dir="rtl"] .rtl\:mr-4{
   margin-right: 1rem;
 }
 
-[dir="rtl"] .rtl\:ml-1{
-  margin-left: 0.25rem;
-}
-
->>>>>>> 2378bf87bedadfd58c8b903ada561d6a7eb2a0c3
 [dir="rtl"] .rtl\:mr-1{
   margin-right: 0.25rem;
 }
 
-<<<<<<< HEAD
 [dir="rtl"] .rtl\:ml-1{
   margin-left: 0.25rem;
 }
 
-[dir="rtl"] .rtl\:mr-4{
-  margin-right: 1rem;
-}
-
-=======
->>>>>>> 2378bf87bedadfd58c8b903ada561d6a7eb2a0c3
 [dir="rtl"] .rtl\:-mr-7{
   margin-right: -1.75rem;
 }
