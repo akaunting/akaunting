@@ -5,7 +5,6 @@
         <label v-if="title" :for="name" class="text-black text-sm font-medium">
             {{ title }}
         </label>
-        <span v-if="required" class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
         <div class="relative" :class="group_class">
             <!-- <div class="input-group-prepend absolute left-2 bottom-3 text-light-gray">
@@ -26,7 +25,6 @@
         <label v-if="title" :for="name" class="text-black text-sm font-medium">
             {{ title }}
         </label>
-        <span v-if="required" class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
         <div v-if="icon" class="input-group input-group-merge" :class="group_class">
             <div v-if="icon" class="input-group-prepend">
