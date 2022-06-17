@@ -27,6 +27,11 @@ return [
         'body'          => 'नमस्ते,<br/><br/>{customer_name} के आवर्ती सर्कल के आधार पर, <strong>{invoice_number}</strong> चालान स्वचालित रूप से बनाया गया है।<br/><br/>आप निम्न लिंक से चालान का विवरण देख सकते हैं: <a href="{invoice_admin_link}">{invoice_number}</a>।<br/><br/>सादर,<br/>{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} चालान देखा गया',
+        'body'          => 'नमस्कार,<br /><br />{customer_name} ने <strong>{invoice_number}</strong> चालान देखा है।<br /><br />आप निम्न लिंक से चालान विवरण देख सकते हैं: <a href="{invoice_admin_link}">{invoice_number}</a>।<br /><br />सादर,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => '{invoice_number} चालान के लिए भुगतान प्राप्त हुआ',
         'body'          => 'प्रिय {customer_name},<br/><br/>भुगतान के लिए धन्यवाद।भुगतान का विवरण देखें:<br/><br/>-------------------------------------------------<br/><br/>राशि: <strong>{transaction_total}<br /></strong>तारीख: <strong>{transaction_paid_date}</strong><br/>चालान संख्या: <strong>{invoice_number}<br/><br/></strong>-------------------------------------------------<br/><br/>आप निम्न लिंक से कभी भी चालान का विवरण देख सकते हैं: <a href="{invoice_guest_link}">{invoice_number}</a>।<br/><br/>किसी भी प्रश्न के लिए हमसे संपर्क करने में संकोच न करें।<br/><br/>सादर,<br/>{company_name}',
@@ -47,13 +52,13 @@ return [
         'body'          => 'नमस्ते,<br/><br/>{vendor_name} के आवर्ती सर्कल के आधार पर, <strong>{bill_number}</strong> चालान स्वचालित रूप से बनाया गया है।<br/><br/>आप नीचे दिए गए लिंक से बिल का विवरण देख सकते हैं: <a href="{bill_admin_link}">{bill_number}</a>।<br/><br/>सादर,<br/>{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} भुगतान बनाया गया',
-        'body'          => 'प्रिय {customer_name},<br /><br />हमने निम्नलिखित भुगतान तैयार किया है।<br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं : <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />किसी भी प्रश्न के लिए हमसे बेझिझक संपर्क करें..<br /><br />सादर,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => '{company_name} से आपकी रसीद',
+        'body'          => 'प्रिय {contact_name},<br /><br />भुगतान के लिए धन्यवाद। <br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं: <a href="{payment_guest_link}">{payment_date}</a>।<br /><br />हमसे संपर्क करने में संकोच न करें किसी भी प्रश्न के साथ।<br /><br />सादर,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} भुगतान बनाया गया',
-        'body'          => 'प्रिय {{vendor_name}},<br /><br />हमने निम्नलिखित भुगतान तैयार किया है।<br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं : <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />किसी भी प्रश्न के लिए हमसे बेझिझक संपर्क करें..<br /><br />सादर,<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => '{company_name} द्वारा किया गया भुगतान',
+        'body'          => 'प्रिय {contact_name},<br /><br />हमने निम्नलिखित भुगतान कर दिया है। <br /><br />आप निम्न लिंक से भुगतान विवरण देख सकते हैं: <a href="{payment_guest_link}">{payment_date}</a>।<br /><br />हमसे संपर्क करने में संकोच न करें किसी भी प्रश्न के साथ।<br /><br />सादर,<br />{company_name}',
     ],
 ];

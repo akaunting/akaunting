@@ -40,7 +40,7 @@ return [
     'all_invoices'          => 'Faça login para ver todas as faturas',
     'create_invoice'        => 'Criar fatura',
     'send_invoice'          => 'Enviar fatura',
-    'get_paid'              => 'Pagar',
+    'get_paid'              => 'Quitar',
     'accept_payments'       => 'Aceitar Pagamentos Online',
     'payment_received'      => 'Pagamento recebido',
 
