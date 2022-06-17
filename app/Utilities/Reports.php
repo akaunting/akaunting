@@ -4,10 +4,13 @@ namespace App\Utilities;
 
 use App\Models\Common\Report;
 use App\Models\Module\Module;
+use App\Traits\Modules;
 use Illuminate\Support\Str;
 
 class Reports
 {
+    use Modules;
+
     public static function getClasses($check_permission = true)
     {
         $classes = [];
@@ -35,6 +38,12 @@ class Reports
                 continue;
             }
 
+            $alias = static::getModuleAlias($class);
+
+            if (! empty($alias) && (new Reports)->moduleIsDisabled($alias)) {
+                continue;
+            }
+
             $classes[$class] = static::getDefaultName($class);
         }
 
@@ -48,6 +57,10 @@ class Reports
         }
 
         if ((! $model instanceof Report) || ! class_exists($model->class)) {
+            return false;
+        }
+
+        if ($model->alias != 'core' && (new Reports)->moduleIsDisabled($model->alias)) {
             return false;
         }
 

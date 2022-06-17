@@ -439,6 +439,10 @@ trait Modules
             return false;
         }
 
+        if (module($alias)->disabled()) {
+            return false;
+        }
+
         if (! Module::alias($alias)->enabled()->first()) {
             return false;
         }
