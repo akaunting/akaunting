@@ -43,7 +43,7 @@
                                 <x-form.group.text name="subject" label="{{ trans('settings.email.templates.subject') }}" form-group-class="sm:col-span-6" />
 
                                 <div class="form-group sm:col-span-6 required" v-if='form.body != null'>
-                                    <x-form.label for="body" class="form-control-label">
+                                    <x-form.label for="body">
                                         {{ trans('settings.email.templates.body') }}
                                     </x-form.label>
 

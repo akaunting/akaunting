@@ -20,9 +20,9 @@
 
                     <x-slot name="body">
                         <div class="form-group form-group relative sm:col-span-3">
-                            <label class="form-control-label">
+                            <x-form.label>
                                 {{ trans('general.date') }}
-                            </label>
+                            </x-form.label>
 
                             <x-tooltip id="tooltip-paid" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_date', ['type' => Str::lower(trans_choice('general.transactions', 1))]) }}">
                                 <div class="relative focused has-label">
@@ -75,9 +75,9 @@
 
                     <x-slot name="body">
                         <div class="form-group form-group relative sm:col-span-3">
-                            <label class="form-control-label">
+                            <x-form.label>
                                 {{ trans_choice('general.numbers', 1) }}
-                            </label>
+                            </x-form.label>
 
                             <x-tooltip id="tooltip-number" placement="bottom" message="{{ trans('documents.recurring.tooltip.document_number', ['type' => Str::lower(trans_choice('general.transactions', 1))]) }}">
                                 <div class="relative focused has-label">

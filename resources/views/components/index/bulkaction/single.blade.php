@@ -15,7 +15,7 @@
         v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.selected' }}"
         @change="onSelectBulkAction"
     >
-    <label class="custom-control-label" for="bulk-action-{{ $id }}"></label>
+    <label for="bulk-action-{{ $id }}"></label>
 </div>
 
 @stack($name . '_input_end')
