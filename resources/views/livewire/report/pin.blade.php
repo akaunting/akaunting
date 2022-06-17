@@ -1,9 +1,9 @@
-<button class="ltr:mr-4 rtl:m-4" data-tooltip-target="{{ $reportId }}-pin" data-tooltip-placement="bottom">
+<button class="w-8 h-8 flex items-center justify-center px-2 py-2 rounded-xl text-purple text-sm font-medium leading-6" data-tooltip-target="{{ $reportId }}-pin" data-tooltip-placement="bottom">
     <span
         id="{{ $pinned ? 'reports-unpin-' . $reportId : 'reports-pin-' . $reportId }}"
         @class([
-            'text-black-400 text-lg transform rotate-45 cursor-pointer mx-2',
-            'material-icons-outlined' => ($pinned) ? false : true,
+            'text-lg transform rotate-45 transition-all',
+            'material-icons-outlined hover:scale-125' => ($pinned) ? false : true,
             'material-icons' => (! $pinned) ? false : true,
         ])
         wire:click="changeStatus('{{ $reportId }}')"

@@ -32,7 +32,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.textarea name="address" label="{{ trans('settings.company.address') }}" :value="setting('company.address')" />
+                        <x-form.group.textarea name="address" label="{{ trans('settings.company.address') }}" :value="setting('company.address')" not-required />
 
                         <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ setting('company.city') }}" not-required />
 

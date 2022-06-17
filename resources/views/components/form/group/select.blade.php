@@ -70,7 +70,7 @@
         @if (! empty($addNew))
         :add-new="{{ json_encode([
             'status' => true,
-            'text' => trans('general.title.new', ['type' => $label ?? '']),
+            'text' => isset($attributes['add-new-text']) ? $attributes['add-new-text'] : trans('general.title.new', ['type' => $label ?? '']),
             'path' => isset($attributes['path']) ? $attributes['path']: false,
             'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
             'field' => [

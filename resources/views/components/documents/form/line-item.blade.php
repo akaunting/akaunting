@@ -295,6 +295,27 @@
                                     :dynamic-options="dynamic_taxes"
                                     :disabled-options="form.items[index].tax_ids"
                                     :value="row_tax.id"
+                                    :add-new="{{ json_encode([
+                                        'status' => true,
+                                        'text' => trans('general.title.new', ['type' => trans_choice('general.taxes', 1)]),
+                                        'path' => route('modals.taxes.create'),
+                                        'type' => 'modal',
+                                        'field' => [
+                                            'key' => 'id',
+                                            'value' => 'title'
+                                        ],
+                                        'new_text' => trans('modules.new'),
+                                        'buttons' => [
+                                            'cancel' => [
+                                                'text' => trans('general.cancel'),
+                                                'class' => 'btn-outline-secondary'
+                                            ],
+                                            'confirm' => [
+                                                'text' => trans('general.save'),
+                                                'class' => 'disabled:bg-green-100'
+                                            ]
+                                        ]
+                                    ])}}"
                                     @interface="row_tax.id = $event"
                                     @change="onCalculateTotal()"
                                     @new="dynamic_taxes.push($event)"

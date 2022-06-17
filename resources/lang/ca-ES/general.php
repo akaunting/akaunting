@@ -4,7 +4,6 @@ return [
 
     'dashboards'            => 'Tauler|Taulers',
     'items'                 => 'Article|Articles',
-    'incomes'               => 'Ingrés|Ingressos',
     'invoices'              => 'Factura|Factures',
     'recurring_invoices'    => 'Factura recurrent|Factures recurrents',
     'customers'             => 'Client|Clients',
@@ -70,6 +69,7 @@ return [
     'invitations'           => 'Invitació|Invitacions',
     'attachments'           => 'Adjunt|Adjunts',
     'histories'             => 'Història|Històries',
+    'your_notifications'    => 'La teva notificació|Les teves notificacions',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
@@ -184,6 +184,7 @@ return [
     'no_matching_data'      => 'Cap dada coincident',
     'clear_cache'           => 'Neteja memòria cau',
     'go_to_dashboard'       => 'Vés al tauler de control',
+    'create_first_invoice'  => 'Crea la teva primera factura',
     'is'                    => 'és',
     'isnot'                 => 'no és',
     'recurring_and_more'    => 'Recurrent i més...',
@@ -199,7 +200,6 @@ return [
     'email_send_me'         => 'Envia\'m una còpia a mi mateix a :email',
     'connect'               => 'Connecta',
     'assign'                => 'Assigna',
-    'your_notifications'    => 'La teva notificació|Les teves notificacions',
     'new'                   => 'Nou',
     'new_more'              => 'Nou...',
     'number'                => 'Número',
