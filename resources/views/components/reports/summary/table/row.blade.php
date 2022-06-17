@@ -6,15 +6,25 @@
 
     @if ($row_total = array_sum($rows))
         @if (isset($parent_id))
-        <li class="collapse-sub" data-collapse="child-{{ $parent_id }}">
+        <li
+        @class([
+            'mt-1' => $is_print,
+            'collapse-sub' => !$is_print
+        ])
+            data-collapse="child-{{ $parent_id }}">
         @else
         <li>
         @endif
-            <div class="flex justify-between border-0 m-0 p-0">
+            <div
+                @class([
+                    'd-flex align-items-center justify-content-between' => $is_print,
+                    'flex justify-between border-0 m-0 p-0' => !$is_print
+                ])
+            >
                 @if (isset($parent_id))
-                <div class="flex items-center" style="padding-left: {{ $tree_level * 20 }}px;">
+                <div style="display:flex; align-items: center; padding-left: {{ $tree_level * 20 }}px;">
                 @else
-                <div class="flex items-center">
+                <div style="display:flex; align-items: center;">
                 @endif
                     <span>{{ $class->row_names[$table_key][$id] }}</span>
                 </div>
@@ -43,17 +53,24 @@
 
     @if ($row_total = array_sum($parent_row_values))
         @if (isset($parent_id))
-        <li class="collapse-sub" data-collapse="child-{{ $parent_id }}">
+        <li
+            @class([
+                'mt-1' => $is_print,
+                'collapse-sub' => !$is_print
+            ])
+            data-collapse="child-{{ $parent_id }}">
         @else
         <li>
         @endif
-            <div class="flex justify-between border-0 m-0 p-0">
-                <div class="flex items-center" style="padding-left: {{ $tree_level * 20 }}px;">
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display:flex; align-items: center; padding-left: {{ $tree_level * 20 }}px;">
                     <span>{{ $class->row_names[$table_key][$id] }}</span>
-                    @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
-                    <button type="button" class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
-                        <span class="material-icons transform rotate-90 transition-all text-lg leading-none">navigate_next</span>
-                    </button>
+                    @if (!$is_print)
+                        @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
+                            <button type="button"  class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
+                                <span class="material-icons transform rotate-90 transition-all text-lg leading-none">navigate_next</span>
+                            </button>
+                        @endif
                     @endif
                 </div>
                 <span>{{ $class->has_money ? money($row_total, setting('default.currency'), true) : $row_total }}</span>
@@ -64,9 +81,14 @@
     <!-- no categories part -->
     @php $rows = $class->row_values[$table_key][$id]; @endphp
     @if (($row_total = array_sum($rows)) && array_sum($parent_row_values) != array_sum($rows))
-    <li class="collapse-sub" data-collapse="child-{{ $id }}">
-        <div class="flex justify-between border-0 m-0 p-0">
-            <div class="flex items-center" style="padding-left: {{ ($tree_level + 1) * 20 }}px;">
+    <li
+        @class([
+            'mt-1' => $is_print,
+            'collapse-sub' => !$is_print
+        ])    
+        data-collapse="child-{{ $id }}">
+        <div style="display: flex; justify-content: space-between;">
+            <div style="display:flex; align-items: center; padding-left: {{ ($tree_level + 1) * 20 }}px;">
                 <span>{{ $class->row_names[$table_key][$id] }}</span>
             </div>
             <span>{{ $class->has_money ? money($row_total, setting('default.currency'), true) : $row_total }}</span>
