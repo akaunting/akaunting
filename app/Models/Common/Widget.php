@@ -54,6 +54,22 @@ class Widget extends Model
     }
 
     /**
+     * Get the alias based on class.
+     *
+     * @return string
+     */
+    public function getAliasAttribute()
+    {
+        if (Str::startsWith($this->class, 'App\\')) {
+            return 'core';
+        }
+
+        $arr = explode('\\', $this->class);
+
+        return Str::kebab($arr[1]);
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

@@ -4,10 +4,13 @@ namespace App\Utilities;
 
 use App\Models\Common\Report;
 use App\Models\Module\Module;
+use App\Traits\Modules;
 use Illuminate\Support\Str;
 
 class Reports
 {
+    use Modules;
+
     public static function getClasses($check_permission = true)
     {
         $classes = [];
@@ -23,7 +26,7 @@ class Reports
         Module::enabled()->each(function ($module) use (&$list) {
             $m = module($module->alias);
 
-            if (!$m || empty($m->get('reports'))) {
+            if (! $m || $m->disabled() || empty($m->get('reports'))) {
                 return;
             }
 
@@ -48,6 +51,10 @@ class Reports
         }
 
         if ((! $model instanceof Report) || ! class_exists($model->class)) {
+            return false;
+        }
+
+        if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
             return false;
         }
 

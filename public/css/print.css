@@ -546,6 +546,11 @@ html[dir='rtl'] .text-alignment-right {
 /*--Print Template Classic Finish--*/
 
 /*--Print Template Modern Start--*/
+.justify-content-between
+{
+    justify-content: space-between !important;
+}
+
 .align-items-center
 {
     align-items: center !important;

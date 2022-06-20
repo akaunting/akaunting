@@ -10,15 +10,15 @@ return [
 
     'minor'     =>  '0',
 
-    'patch'     =>  '1',
+    'patch'     =>  '2',
 
     'build'     =>  '',
 
     'status'    =>  'Stable',
 
-    'date'      =>  '11-June-2022',
+    'date'      =>  '18-June-2022',
 
-    'time'      =>  '10:00',
+    'time'      =>  '01:00',
 
     'zone'      =>  'GMT +3',
 

@@ -4,10 +4,13 @@ namespace App\Utilities;
 
 use App\Models\Common\Widget;
 use App\Models\Module\Module;
+use App\Traits\Modules;
 use Illuminate\Support\Str;
 
 class Widgets
 {
+    use Modules;
+
     public static $core_widgets = [
         'App\Widgets\Receivables',
         'App\Widgets\Payables',
@@ -27,13 +30,13 @@ class Widgets
         }
 
         Module::enabled()->each(function ($module) use (&$list, $alias) {
-            if (!in_array($alias, [$module->alias, 'all'])) {
+            if (! in_array($alias, [$module->alias, 'all'])) {
                 return;
             }
 
             $m = module($module->alias);
 
-            if (!$m || empty($m->get('widgets'))) {
+            if (! $m || $m->disabled() || empty($m->get('widgets'))) {
                 return;
             }
 
@@ -41,7 +44,7 @@ class Widgets
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class) || ($check_permission && !static::canRead($class))) {
+            if (! class_exists($class) || ($check_permission && ! static::canRead($class))) {
                 continue;
             }
 
@@ -62,7 +65,11 @@ class Widgets
 
             $model = Widget::where('dashboard_id', session('dashboard_id'))->where('class', $class_name)->first();
 
-            if (!$model instanceof Widget) {
+            if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
+                return false;
+            }
+
+            if (! $model instanceof Widget) {
                 $class = (new $class_name());
 
                 $model = new Widget();
@@ -79,6 +86,10 @@ class Widgets
                 return false;
             }
 
+            if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
+                return false;
+            }
+
             $class_name = $model->class;
         }
 
@@ -87,7 +98,7 @@ class Widgets
 
     public static function show($model, ...$arguments)
     {
-        if (!$class = static::getClassInstance($model)) {
+        if (! $class = static::getClassInstance($model)) {
             return '';
         }
 

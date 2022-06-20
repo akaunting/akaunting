@@ -35,6 +35,7 @@ return [
         ],
         'columns' => [
             'created_at' => 'date',
+            'updated_at' => 'date',
         ],
     ],
 
@@ -44,6 +45,8 @@ return [
             'name' => ['searchable' => true],
             'display_name' => ['searchable' => true],
             'description' => ['searchable' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -53,6 +56,8 @@ return [
             'name' => ['searchable' => true],
             'display_name' => ['searchable' => true],
             'description' => ['searchable' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -63,6 +68,8 @@ return [
             'email' => ['searchable' => true],
             'enabled' => ['boolean' => true],
             'last_logged_in_at' => ['date' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -77,6 +84,8 @@ return [
                 'route' => ['currencies.index', 'search=enabled:1'],
             ],
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -88,6 +97,8 @@ return [
             'reconciled' => ['boolean' => true],
             'started_at' => ['date' => true],
             'ended_at' => ['date' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -123,6 +134,8 @@ return [
                 'relationship' => true,
                 'boolean' => true,
             ],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -137,6 +150,7 @@ return [
                 'relationship' => true,
                 'route' => ['accounts.index', 'search=enabled:1'],
             ],
+            'created_at' => ['date' => true],
         ],
     ],
 
@@ -146,6 +160,8 @@ return [
             'domain' => ['searchable' => true],
             'settings.value' => ['searchable' => true],
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -154,6 +170,8 @@ return [
             'id',
             'name' => ['searchable' => true],
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -168,6 +186,8 @@ return [
             ],
             'sale_price',
             'purchase_price',
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -187,6 +207,8 @@ return [
             'reference',
             'user_id',
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -206,6 +228,8 @@ return [
             'reference',
             'user_id',
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -225,6 +249,8 @@ return [
             'reference',
             'user_id',
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -259,6 +285,8 @@ return [
                 'relationship' => true,
                 'boolean' => true,
             ],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -302,6 +330,8 @@ return [
                 'relationship' => true,
                 'boolean' => true,
             ],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -346,6 +376,8 @@ return [
                 'relationship' => true,
                 'boolean' => true,
             ],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -355,6 +387,8 @@ return [
             'name' => ['searchable' => true],
             'enabled' => ['boolean' => true],
             'type',
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -376,6 +410,8 @@ return [
             ],
             'decimal_mark',
             'thousands_separator',
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -384,6 +420,8 @@ return [
             'id',
             'name' => ['searchable' => true],
             'subject' => ['searchable' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
@@ -394,6 +432,8 @@ return [
             'type',
             'rate',
             'enabled' => ['boolean' => true],
+            'created_at' => ['date' => true],
+            'updated_at' => ['date' => true],
         ],
     ],
 
