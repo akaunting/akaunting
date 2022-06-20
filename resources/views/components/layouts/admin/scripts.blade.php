@@ -40,18 +40,19 @@
 
         //chevron active class action
         Array.from(detailsEL).forEach((el) => {
-            el.addEventListener("toggle", function(e) {
-                if (e.target.querySelector(".material-icons-outlined")) {
-                    e.target.querySelector(".material-icons").classList.toggle("rotate-180");
-                } else {
-                    if (e.target.querySelectorAll(".material-icons")[1]) {
-                        e.target.querySelectorAll(".material-icons")[1].classList.toggle("rotate-180");
+                el.addEventListener("toggle", function(e) {
+                    if (e.target.querySelector(".material-icons-outlined")) {
+                        e.target.querySelector(".material-icons").classList.toggle("rotate-180");
                     } else {
-                        e.target.querySelectorAll(".material-icons")[0].classList.toggle("rotate-180");
+                        if (e.target.querySelectorAll(".material-icons")[1]) {
+                            e.target.querySelectorAll(".material-icons")[1].classList.toggle("rotate-180");
+                        } else {
+                            e.target.querySelectorAll(".material-icons")[0].classList.toggle("rotate-180");
+                        }
                     }
-                }
-            })
-        });
+                })
+            }
+        );
 
         //container animation when left menu shrinking
         function contentTransitionLeft() {
@@ -104,12 +105,12 @@
             slideMenu();
         });
 
-
         //general left menu actions (show settings menu etc..)
         function toggleMenu(iconButton, event) {
             const menuRef = iconButton.getAttribute("data-menu");
             const icon = iconButton.children[0].getAttribute("name");
 
+            //if event target, profile
             if (iconButton.getAttribute("data-menu") === "profile-menu") {
                 if (iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].classList.remove("hidden");
@@ -120,6 +121,7 @@
                 }
             }
 
+            //remove active (cancel text) class form target icon
             menuButtons.forEach((button) => {
                 if (icon) {
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
@@ -130,6 +132,7 @@
             });
 
             menus.forEach((menu) => {
+                //add active (cancel text) class form target icon
                 if (menu.classList.contains(menuRef) && iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].textContent = "cancel";
                     iconButton.children[0].classList.add("active");
@@ -142,6 +145,7 @@
 
                     notificationCount("none");
 
+                //remove active (cancel text) class form target icon
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {
                     iconButton.children[0].textContent = icon;
                     iconButton.children[0].classList.remove("active");
@@ -153,12 +157,13 @@
                     menuClose.classList.add("hidden");
 
                     notificationCount("flex");
-
+                //left menu slide to left
                 } else {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     menu.classList.remove("ltr:left-14", "rtl:right-14");
                 }
 
+                //close icon click event
                 menuClose.addEventListener("click", function() {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     menu.classList.remove("ltr:left-14", "rtl:right-14");

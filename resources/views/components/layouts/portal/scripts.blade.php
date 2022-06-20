@@ -97,6 +97,7 @@
             const menuRef = iconButton.getAttribute("data-menu");
             const icon = iconButton.children[0].getAttribute("name");
 
+            //if event target, profile
             if (iconButton.getAttribute("data-menu") === "profile-menu") {
                 if (iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].classList.remove("hidden");
@@ -107,6 +108,7 @@
                 }
             }
 
+            //remove active (cancel text) class form target icon
             menuButtons.forEach((button) => {
                 if (icon) {
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
@@ -117,6 +119,7 @@
             });
 
             menus.forEach((menu) => {
+                //add active (cancel text) class form target icon
                 if (menu.classList.contains(menuRef) && iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].textContent = "cancel";
                     iconButton.children[0].classList.add("active");
@@ -127,6 +130,7 @@
                     toggleButton.classList.add("invisible");
                     menuClose.classList.remove("hidden");
 
+                //remove active (cancel text) class form target icon
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {
                     iconButton.children[0].textContent = icon;
                     iconButton.children[0].classList.remove("active");
@@ -136,11 +140,13 @@
                     mainContent.classList.remove("hidden");
                     toggleButton.classList.remove("invisible");
                     menuClose.classList.add("hidden");
+                //left menu slide to left
                 } else {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     menu.classList.remove("ltr:left-14", "rtl:right-14");
                 }
 
+                //close icon click event
                 menuClose.addEventListener("click", function() {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     iconButton.children[0].textContent = icon;
