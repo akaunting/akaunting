@@ -34,8 +34,6 @@ class DeleteCompany extends Job implements ShouldDelete
                 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
             ]);
 
-            $this->model->users()->detach();
-
             $this->model->delete();
         });
 
