@@ -18,6 +18,11 @@ class SearchString extends Component
     /** string */
     public $model;
 
+    public $skip_columns = [
+        'created_at',
+        'updated_at',
+    ];
+
     /**
      * Create a new component instance.
      *
@@ -47,7 +52,12 @@ class SearchString extends Component
 
                 foreach ($columns as $column => $options) {
                     // This column skip for filter
-                    if (!empty($options['searchable'])) {
+                    if (! empty($options['searchable'])) {
+                        continue;
+                    }
+
+                    // This column skip for filter
+                    if (in_array($column, $this->skip_columns)) {
                         continue;
                     }
 
