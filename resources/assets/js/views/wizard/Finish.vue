@@ -32,6 +32,11 @@
                             </a>
                         </div>
                     </div>
+                    <div class="lg:hidden">
+                        <base-button class="btn flex items-center justify-center text-base disabled:opacity-50 relative mt-5 mx-auto bg-green hover:bg-gray-100 text-white rounded-md py-3 px-5 font-semibold" @click="finish()">
+                            {{ translations.finish.create_first_invoice }}
+                        </base-button>
+                    </div>
                 </div>
 
                 <div class="relative w-1/2 right-0 ltr:pl-10 rtl:pr-10 mt-3 hidden lg:flex lg:flex-col">

@@ -37224,10 +37224,6 @@ body{
     padding-left: 6rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:pl-8{
-    padding-left: 2rem;
-  }
-
   [dir="rtl"] .lg\:rtl\:left-0{
     left: 0px;
   }
@@ -37242,10 +37238,6 @@ body{
 
   [dir="rtl"] .lg\:rtl\:pr-24{
     padding-right: 6rem;
-  }
-
-  [dir="rtl"] .lg\:rtl\:pr-8{
-    padding-right: 2rem;
   }
 }
 
