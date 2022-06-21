@@ -54,7 +54,7 @@ class Reports
             return false;
         }
 
-        if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
+        if (! empty($model) && ($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
             return false;
         }
 
