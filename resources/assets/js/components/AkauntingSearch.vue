@@ -385,11 +385,10 @@ export default {
         },
 
         onOptionSelected(value) {
-            this.show_icon = false;
             this.current_value = value;
             this.range = false;
 
-            this.onChangeSearchAndFilterText(this.selectPlaceholder);
+            this.onChangeSearchAndFilterText(this.selectPlaceholder, false);
             
             let option = false;
             let option_url = false;
@@ -522,7 +521,7 @@ export default {
             this.show_close_icon = true;
             let select_value = false;
 
-            this.onChangeSearchAndFilterText(this.enterPlaceholder);
+            this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
 
             for (let i = 0; i < this.values.length; i++) {
                 if (this.values[i].key == value) {
@@ -582,7 +581,7 @@ export default {
             this.show_date = false;
             
             if (this.filter_index == 0) {
-                this.onChangeSearchAndFilterText(this.defaultPlaceholder);
+                this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
             }
 
             this.filter_last_step = 'options';
@@ -597,8 +596,9 @@ export default {
             this.onInputConfirm();
         },
 
-        onChangeSearchAndFilterText(arg) {
+        onChangeSearchAndFilterText(arg, param) {
             this.dynamicPlaceholder = arg;
+            this.show_icon = param;
         },
 
         convertOption(options) {
@@ -770,7 +770,7 @@ export default {
 
     mounted() {
         if (this.filter_index > 0) {
-            this.onChangeSearchAndFilterText(this.enterPlaceholder);
+            this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
         }
     },
 
