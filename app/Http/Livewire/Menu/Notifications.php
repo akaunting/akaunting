@@ -91,7 +91,7 @@ class Notifications extends Component
     public function getNotifications(): array
     {
         $notifications = new \stdClass();
-        $notifications->notifications = [];
+        $notifications->notifications = collect();
         $notifications->keyword = $this->keyword;
 
         event(new NotificationsCreated($notifications));
