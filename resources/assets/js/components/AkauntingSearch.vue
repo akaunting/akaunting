@@ -388,9 +388,9 @@ export default {
             this.show_icon = false;
             this.current_value = value;
             this.range = false;
-            
-            this.dynamicPlaceholder = this.selectPlaceholder;
 
+            this.onChangeSearchAndFilterText(this.selectPlaceholder);
+            
             let option = false;
             let option_url = false;
 
@@ -522,7 +522,7 @@ export default {
             this.show_close_icon = true;
             let select_value = false;
 
-            this.dynamicPlaceholder = this.enterPlaceholder;
+            this.onChangeSearchAndFilterText(this.enterPlaceholder);
 
             for (let i = 0; i < this.values.length; i++) {
                 if (this.values[i].key == value) {
@@ -582,7 +582,7 @@ export default {
             this.show_date = false;
             
             if (this.filter_index == 0) {
-                this.dynamicPlaceholder = this.defaultPlaceholder;
+                this.onChangeSearchAndFilterText(this.defaultPlaceholder);
             }
 
             this.filter_last_step = 'options';
@@ -595,6 +595,10 @@ export default {
             Cookies.remove('search-string');
 
             this.onInputConfirm();
+        },
+
+        onChangeSearchAndFilterText(arg) {
+            this.dynamicPlaceholder = arg;
         },
 
         convertOption(options) {
@@ -765,6 +769,9 @@ export default {
     },
 
     mounted() {
+        if (this.filter_index > 0) {
+            this.onChangeSearchAndFilterText(this.enterPlaceholder);
+        }
     },
 
     computed: {
