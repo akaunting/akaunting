@@ -65,7 +65,7 @@ class Widgets
 
             $model = Widget::where('dashboard_id', session('dashboard_id'))->where('class', $class_name)->first();
 
-            if (($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
+            if (! empty($model) && ($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
                 return false;
             }
 

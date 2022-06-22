@@ -19,8 +19,6 @@ class DeleteDashboard extends Job implements ShouldDelete
         \DB::transaction(function () {
             $this->deleteRelationships($this->model, ['widgets']);
 
-            $this->model->users()->detach();
-
             $this->model->delete();
         });
 
