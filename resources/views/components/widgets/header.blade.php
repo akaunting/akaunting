@@ -7,7 +7,11 @@
 
         <div class="flex items-center">
             @if ($report = $class->getReportUrl())
-                <a href="{{ $report }}" class="text-purple text-sm mr-3 border-b border-transparent transition-all hover:border-purple hover:text-purple-700">{{ trans('widgets.view_report') }}</a>
+                <a href="{{ $report }}" class="text-purple text-sm mr-3">
+                    <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">    
+                        {{ trans('widgets.view_report') }}
+                    </span>
+                </a>
             @endif
 
             <x-dropdown id="dropdown-widget-{{ $class->model->id }}">

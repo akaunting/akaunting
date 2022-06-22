@@ -224,7 +224,8 @@ module.exports = {
           transitionProperty: {
             'height': 'height',
             'spacing': 'margin, padding',
-            'visible': 'visible, opacity'
+            'visible': 'visible, opacity',
+            'backgroundSize': 'background-size'
           }
         },
 
@@ -232,6 +233,15 @@ module.exports = {
         container: {
             center: true,
         },
+
+        backgroundSize: {
+          '0-2': '0 2px',
+          'full-2': '100% 2px'
+        },
+
+        backgroundPosition: {
+          '0-full': ' 0 100%'
+        }
     },
 
     variants: {
