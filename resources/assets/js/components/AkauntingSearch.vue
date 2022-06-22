@@ -31,9 +31,9 @@
             <input
             v-if="!show_date"
             type="text"
-            class="w-full bg-transparent text-black text-sm border-0 px-10 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
-            :class="[{'px-4' : !show_icon}]"
-            :placeholder="placeholder"
+            class="w-full bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
+            :class="!show_icon ? 'px-4' : 'px-10'"
+            :placeholder="dynamicPlaceholder"
             :ref="'input-search-field-' + _uid"
             v-model="search"
             @focus="onInputFocus"
@@ -47,8 +47,9 @@
                 @on-open="onInputFocus"
                 @blur="onBlur"
                 :config="dateConfig"
-                class="w-full bg-transparent text-black text-sm border-0 px-10 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100 datepicker"
-                :placeholder="placeholder"
+                class="w-full bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100 datepicker"
+                :class="!show_icon ? 'px-4' : 'px-10'"
+                :placeholder="dynamicPlaceholder"
                 :ref="'input-search-date-field-' + _uid"
                 value=""
                 @focus="onInputFocus"
@@ -56,7 +57,13 @@
                 @keyup.enter="onInputConfirm"
             >
             </flat-picker>
-                <span class="material-icons absolute bottom-1 ltr:left-3 rtl:right-3 text-lg text-black" style="z-index:-1;">search</span>
+                <span
+                    v-if="show_icon"
+                    class="material-icons absolute bottom-1 ltr:left-3 rtl:right-3 text-lg text-black"
+                    style="z-index:-1;"
+                >
+                    search
+                </span>
 
             <button type="button" class="absolute ltr:right-0 rtl:left-0 top-2 clear" v-if="show_close_icon" @click="onSearchAndFilterClear">
                 <span class="material-icons text-sm">close</span>
@@ -125,6 +132,12 @@ export default {
             type: String,
             default: 'Search or filter results...',
             description: 'Input placeholder'
+        },
+        selectPlaceholder: {
+            type: String,
+        },
+        enterPlaceholder: {
+            type: String,
         },
         searchText: {
             type: String,
@@ -200,7 +213,9 @@ export default {
             show_close_icon: false,
             show_icon: true,
             equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
-            input_focus: false
+            input_focus: false,
+            defaultPlaceholder: this.placeholder,
+            dynamicPlaceholder: this.placeholder,
         };
     },
 
@@ -370,10 +385,11 @@ export default {
         },
 
         onOptionSelected(value) {
-            this.show_icon = false;
             this.current_value = value;
             this.range = false;
 
+            this.onChangeSearchAndFilterText(this.selectPlaceholder, false);
+            
             let option = false;
             let option_url = false;
 
@@ -505,6 +521,8 @@ export default {
             this.show_close_icon = true;
             let select_value = false;
 
+            this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
+
             for (let i = 0; i < this.values.length; i++) {
                 if (this.values[i].key == value) {
                     select_value = this.values[i].value;
@@ -561,6 +579,10 @@ export default {
             this.selected_values.splice(index, 1);
 
             this.show_date = false;
+            
+            if (this.filter_index == 0) {
+                this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
+            }
 
             this.filter_last_step = 'options';
         },
@@ -572,6 +594,11 @@ export default {
             Cookies.remove('search-string');
 
             this.onInputConfirm();
+        },
+
+        onChangeSearchAndFilterText(arg, param) {
+            this.dynamicPlaceholder = arg;
+            this.show_icon = param;
         },
 
         convertOption(options) {
@@ -742,6 +769,9 @@ export default {
     },
 
     mounted() {
+        if (this.filter_index > 0) {
+            this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
+        }
     },
 
     computed: {
