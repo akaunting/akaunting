@@ -22,20 +22,20 @@
         <div class="relative flex items-center ltr:mr-4 rtl:ml-4" v-if="bulk_action.count">
             @foreach ($actions as $key => $action)
                 @if (! empty($action['icon']))
-                <div>
-                    <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
-                        <x-button @click="onChangeBulkAction('{{ $key }}')"
-                            id="button-bulk-action-{{ $key }}"
-                            class="relative w-8 h-8 flex items-center px-2 mr-2 rounded-lg hover:bg-gray-200"
-                            override="class"
-                            data-message="{{ ! empty($action['message']) ? trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) : '' }}"
-                            data-path="{{ (isset($path) && ! empty($path)) ? $path : '' }}"
-                            data-type="{{ (isset($action['type']) && ! empty($action['type'])) ? $action['type'] : '' }}"
-                        >
-                            <x-icon class="text-lg" :icon="$action['icon']" />
-                        </x-button>
-                    </x-tooltip>
-                </div>
+                    <div>
+                        <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
+                            <x-button @click="onChangeBulkAction('{{ $key }}')"
+                                id="button-bulk-action-{{ $key }}"
+                                class="relative w-8 h-8 flex items-center px-2 mr-2 rounded-lg hover:bg-gray-200"
+                                override="class"
+                                data-message="{{ ! empty($action['message']) ? trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) : '' }}"
+                                data-path="{{ (isset($path) && ! empty($path)) ? $path : '' }}"
+                                data-type="{{ (isset($action['type']) && ! empty($action['type'])) ? $action['type'] : '' }}"
+                            >
+                                <x-icon class="text-lg" :icon="$action['icon']" />
+                            </x-button>
+                        </x-tooltip>
+                    </div>
                 @else
                     <div>
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
