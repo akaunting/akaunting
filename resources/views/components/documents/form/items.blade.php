@@ -77,7 +77,7 @@
 
                         @stack('remove_th_start')
 
-                        <th class="border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                        <th class="border-t-0 border-r-0 border-b-0 align-bottom" style="width:24px; display:block;">
                             <div></div>
                         </th>
 

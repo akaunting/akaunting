@@ -31,12 +31,14 @@
         const menuBackground = document.querySelector(".js-menu-background");
         const menuClose = document.querySelector("[data-menu-close]");
 
+        //animation for notification icon
         if (document.querySelector('[data-menu="notifications-menu"]')) {
             setTimeout(function() {
                 document.querySelector('[data-menu="notifications-menu"]').classList.remove("animate-vibrate");
             }, 6000);
         }
 
+        //chevron active class action
         Array.from(detailsEL).forEach((el) => {
                 el.addEventListener("toggle", function(e) {
                     if(e.target.querySelector(".material-icons-outlined")) {
@@ -48,18 +50,21 @@
             }
         );
 
+        //container animation when left menu shrinking
         function contentTransitionLeft() {
             sectionContent.classList.add("xl:ltr:ml-0", "xl:rtl:mr-0");
             sectionContent.classList.remove("xl:ltr:ml-64", "xl:rtl:mr-64");
             toggleButton.querySelector("span").classList.add("ltr:-rotate-90", "rtl:rotate-90");
         }
 
+        //container animation when left menu unshrinking
         function contentTransitionRight() {
             sectionContent.classList.remove("xl:ltr:ml-0", "xl:rtl:mr-0");
             sectionContent.classList.add("xl:ltr:ml-64", "xl:rtl:mr-64");
             toggleButton.querySelector("span").classList.remove("ltr:-rotate-90", "rtl:rotate-90");
         }
 
+        //slide menu actions together responsive version
         function slideMenu() {
             if (document.body.clientWidth <= 1280) {
                 mobileMenuHidden();
@@ -87,10 +92,12 @@
             slideMenu();
         });
 
+        //general left menu actions (show settings menu etc..)
         function toggleMenu(iconButton, event) {
             const menuRef = iconButton.getAttribute("data-menu");
             const icon = iconButton.children[0].getAttribute("name");
 
+            //if event target, profile
             if (iconButton.getAttribute("data-menu") === "profile-menu") {
                 if (iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].classList.remove("hidden");
@@ -101,6 +108,7 @@
                 }
             }
 
+            //remove active (cancel text) class form target icon
             menuButtons.forEach((button) => {
                 if (icon) {
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
@@ -111,6 +119,7 @@
             });
 
             menus.forEach((menu) => {
+                //add active (cancel text) class form target icon
                 if (menu.classList.contains(menuRef) && iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].textContent = "cancel";
                     iconButton.children[0].classList.add("active");
@@ -121,6 +130,7 @@
                     toggleButton.classList.add("invisible");
                     menuClose.classList.remove("hidden");
 
+                //remove active (cancel text) class form target icon
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {
                     iconButton.children[0].textContent = icon;
                     iconButton.children[0].classList.remove("active");
@@ -130,11 +140,13 @@
                     mainContent.classList.remove("hidden");
                     toggleButton.classList.remove("invisible");
                     menuClose.classList.add("hidden");
+                //left menu slide to left
                 } else {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     menu.classList.remove("ltr:left-14", "rtl:right-14");
                 }
 
+                //close icon click event
                 menuClose.addEventListener("click", function() {
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     iconButton.children[0].textContent = icon;
@@ -147,6 +159,7 @@
         }
 
         if (document.body.clientWidth >= 1280) {
+            //if url have profile menu, profile menu show
             if (is_profile_menu == 1) {
                 let profile_menu_html = document.querySelector(".profile-menu");
                 let profile_icon_html = document.querySelector("[data-menu='profile-menu']");
@@ -164,6 +177,7 @@
             }
         }
 
+        //if mobile menu, menu is active
         function mobileMenuActive() {
             navbarMenu.classList.add("ltr:left-0", "rtl:right-0");
             navbarMenu.classList.remove("ltr:-left-80", "rtl:-right-80");
@@ -172,6 +186,7 @@
             menuBackground.classList.remove("invisible");
         }
 
+        //if mobile menu, menu is hidden
         function mobileMenuHidden() {
             navbarMenu.classList.remove("ltr:left-0", "rtl:right-0");
             navbarMenu.classList.add("ltr:-left-80", "rtl:-right:80");
