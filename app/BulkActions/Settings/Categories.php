@@ -39,6 +39,19 @@ class Categories extends BulkAction
         ],
     ];
 
+    public function getSelectedRecords($request, $relationships = null)
+    {
+        if (empty($relationships)) {
+            $model = $this->model::query();
+        } else {
+            $relationships = Arr::wrap($relationships);
+
+            $model = $this->model::with($relationships);
+        }
+
+        return $model->getWithoutChildren()->find($this->getSelectedInput($request));
+    }
+
     public function disable($request)
     {
         $categories = $this->getSelectedRecords($request);
