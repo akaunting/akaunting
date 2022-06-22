@@ -28,6 +28,10 @@
                     {{ $sub_category->name }}
                 </div>
             @endif
+
+            @if (! $sub_category->enabled)
+                <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+            @endif
         </x-table.td>
 
         <x-table.td class="w-5/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
