@@ -15,7 +15,7 @@
                                 <div class="mb-3">
                                     @foreach ($template as $item)
                                         <button class="text-xs truncate text-left" @click="onEditEmailTemplate({{ $item->id }}, $event)" >
-                                            <x-text.hover text="{{ trans($item->name) }}" />
+                                            <x-text.hover text="{{ trans($item->name) }}" color="to-purple" />
                                         </button>
                                     @endforeach
                                 </div>

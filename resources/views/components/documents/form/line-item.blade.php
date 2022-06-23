@@ -190,14 +190,14 @@
                                 @if (! $hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                     <div class="text-left border-0 p-0 mr-16" v-if="!row.add_discount">
                                         <button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)">
-                                            <x-text.hover text="{{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}" />
+                                            <x-text.hover text="{{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}" color="to-purple" />
                                         </button>
                                     </div>
                                 @endif
 
                                 <div class="text-right border-0 p-0 pr-4">
                                     <button type="button" class="text-xs text-purple" @click="onAddTax(index)">
-                                        <x-text.hover text="{{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}" />
+                                        <x-text.hover text="{{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}" color="to-purple" />
                                     </button>
                                 </div>
                             </div>

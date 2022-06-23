@@ -46,12 +46,12 @@
 
                         @if (! empty($transaction->contact) && $transaction->contact->email)
                             <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmail('{{ route($transactionEmailRoute, $transaction->id) }}')">
-                                <x-text.hover text="{{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}" />
+                                <x-text.hover text="{{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}" color="to-purple" />
                             </x-button>
                         @else
                             <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
                                 <x-button class="text-purple mt-1" override="class" disabled="disabled">
-                                    <x-text.hover text="{{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}" />
+                                    <x-text.hover text="{{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}" color="to-purple" />
                                 </x-button>
                             </x-tooltip>
                         @endif
@@ -64,7 +64,7 @@
                             class="text-purple mt-1"
                             override="class"
                         >
-                            <x-text.hover text="{{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}" />
+                            <x-text.hover text="{{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}" color="to-purple" />
                         </x-button>
 
                         <span> - </span>

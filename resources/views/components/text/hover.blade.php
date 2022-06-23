@@ -2,7 +2,7 @@
 
 @php
     if (empty($color)) {
-        $color = 'to-purple';
+        $color = 'to-black';
     }
 
     if (empty($groupHover)) {
