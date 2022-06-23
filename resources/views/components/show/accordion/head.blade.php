@@ -1,6 +1,6 @@
 <div>
     <h2 class="lg:text-lg font-medium text-black">
-        <x-text.hover text="{{ $title }}" color="to-black" />   
+        <x-text.hover text="{{ $title }}" color="to-black" group-hover />   
     </h2>
 
     @if (! empty($description))

@@ -3,7 +3,7 @@
 <div class="border-b pb-4" x-data="{ create : null }">
     <button class="relative w-full text-left group" x-on:click="create !== 1 ? create = 1 : create = null">
         <span class="font-medium">
-            <x-text.hover text="{{ trans('general.create') }}" color="to-black" />
+            <x-text.hover text="{{ trans('general.create') }}" color="to-black" group-hover />
         </span>
 
         <div class="text-black-400 text-sm">

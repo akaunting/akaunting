@@ -32,7 +32,7 @@
                 <div class="w-full lg:w-5/12 space-y-8">
                     <div class="border-b-2 border-gray-200 pb-1">
                         <div class="relative w-full text-left group">
-                            <x-text.hover text="{{ trans('portal.received_date') }}" color="to-black" />    
+                            <x-text.hover text="{{ trans('portal.received_date') }}" color="to-black" group-hover />    
                         </div>
 
                         <div class="relative overflow-hidden transition-all duration-700">
