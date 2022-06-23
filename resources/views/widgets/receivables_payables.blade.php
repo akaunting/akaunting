@@ -28,7 +28,7 @@
             </span>
 
             <button id="dashboard-widget-{{ strtolower(class_basename($class)) }}-overdue" type="button" class="flex items-center text-black-400 font-medium group" data-dropdown-toggle="widgets-list-{{ $class->model->id }}">
-                <span class="border-b border-transparent transition-all group-hover:border-black-400"> {{ $totals['overdue'] }} </span>
+                <x-text.hover text="{{ $totals['overdue'] }}" color="to-black-400" />    
 
                 <div class="relative flex">
                     <span class="material-icons-round cursor-pointer">arrow_drop_down</span>

@@ -22,8 +22,8 @@
         @if (! empty($button) && $button->isNotEmpty())
             {!! $button !!}
         @else
-            <a href="{!! $url !!}" class="border-b border-transparent transition-all hover:border-white">
-                {{ $textAction }}
+            <a href="{!! $url !!}">
+                <x-text.hover text="{{ $textAction }}" color="to-white" />  
             </a>
         @endif
     </div>

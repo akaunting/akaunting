@@ -93,7 +93,7 @@
     }
 
     table thead a {
-        @apply border-b border-transparent transition-all;
+        @apply bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-black transition-backgroundSize;
     }
 
     table thead a:hover {

@@ -5,8 +5,8 @@
         <div class="relative w-full text-left cursor-pointer group"
             x-on:click="attachment !== 1 ? attachment = 1 : attachment = null"
         >
-            <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
-                {{ trans_choice('general.attachments', 2) }}
+            <span class="font-medium">
+                <x-text.hover text="{{ trans_choice('general.attachments', 2) }}" color="to-black" />
             </span>
 
             <div class="text-black-400 text-sm">

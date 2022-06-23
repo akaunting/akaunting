@@ -56,8 +56,8 @@
         </div>
         
         <div class="ltr:mr-4 rtl:ml-4" v-if="bulk_action.count">
-            <button type="button" class="text-sm border-b border-transparent transition-all hover:border-black" @click="onClearBulkAction">
-                <span>{{ trans('general.clear') }}</span>
+            <button type="button" @click="onClearBulkAction">
+                <x-text.hover text="{{ trans('general.clear') }}" color="to-black" />
             </button>
         </div>
     </div>

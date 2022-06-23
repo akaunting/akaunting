@@ -14,8 +14,8 @@
                 {!! $item->description !!}
             </p>
 
-            <a href="{{ $item->action }}" class="font-light text-sm border-b border-transparent transition-all hover:border-black" target="_blank">
-                {{ $item->learn_more }}
+            <a href="{{ $item->action }}" class="font-light text-sm" target="_blank">
+                <x-text.hover text="{{ $item->learn_more }}" color="to-black" />    
             </a>
         </div>
 

@@ -35,9 +35,7 @@
                     override="class"
                     class="py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6"
                 >
-                    <span class="border-b border-transparent transition-all hover:border-black">
-                        {{ trans('documents.accept_payment_online') }}
-                    </span>
+                    <x-text.hover text="{{ trans('documents.accept_payment_online') }}" color="to-black" />
                 </x-link>
             @endif
         </div>

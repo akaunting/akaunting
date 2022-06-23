@@ -7,10 +7,9 @@
             ])
         >
             <span class="material-icons-outlined text-4xl transition-all text-black-400">{{ $icons[$report->id] }}</span>
+            
             <div class="h-10 font-medium text-sm mt-2">
-                <span class="border-b border-transparent transition-all group-hover:border-black">
-                    {{ $report->name }}
-                </span>
+                <x-text.hover text="{{ $report->name }}" color="to-black" />
             </div>
         </a>
     @endforeach

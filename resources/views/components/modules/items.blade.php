@@ -11,9 +11,7 @@
         @if ($attributes->has('route'))
             <div class="flex justify-center items-center group">
                 <a href="{{ route($attributes->get('route')) }}">
-                    <span class="border-b border-transparent transition-all group-hover:border-black">
-                        {{ trans('modules.see_all_type', ['type' => $attributes->get('title')]) }}
-                    </span>
+                    <x-text.hover text="{{ trans('modules.see_all_type', ['type' => $attributes->get('title')]) }}" color="to-black" />
                 </a>
 
                 <i class="material-icons text-sm ltr:ml-1 rtl:mr-1 transform transition-all group-hover:translate-x-1">arrow_forward</i>
