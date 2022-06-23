@@ -5,7 +5,7 @@
         x-on:click="create !== 1 ? create = 1 : create = null"
     >
         <span class="font-medium">
-            <x-text.hover text="{{ trans('general.create') }}" color="to-black" />
+            <x-text.hover text="{{ trans('general.create') }}"  />
         </span>
 
         <div class="text-black-400 text-sm">

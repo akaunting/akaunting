@@ -14,7 +14,7 @@
                     <div class="grid grid-cols-2 gap-2">
                         @foreach ($categories as $slug => $category)
                             <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 lg:pr-0 truncate bg-transparent" override="class">
-                                <x-text.hover text="{{ $category }}" color="to-black" />
+                                <x-text.hover text="{{ $category }}"  />
                             </x-link>
                         @endforeach
                     </div>

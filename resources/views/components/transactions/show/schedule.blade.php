@@ -8,7 +8,7 @@
         x-on:click="schedule !== 1 ? schedule = 1 : schedule = null"
     >
         <span class="font-medium">
-            <x-text.hover text="{{ trans_choice('general.schedules', 1) }}" color="to-black" group-hover />
+            <x-text.hover text="{{ trans_choice('general.schedules', 1) }}"  group-hover />
         </span>
 
         <div class="text-black-400 text-sm">

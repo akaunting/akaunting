@@ -15,7 +15,7 @@
             </p>
 
             <a href="{{ $item->action }}" class="font-light text-sm">
-                <x-text.hover text="{{ $item->learn_more }}" color="to-black" />
+                <x-text.hover text="{{ $item->learn_more }}"  />
             </a>
         </div>
 
