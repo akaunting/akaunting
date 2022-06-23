@@ -582,6 +582,8 @@ export default {
             
             if (this.filter_index == 0) {
                 this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
+            } else {
+                this.show_icon = false;
             }
 
             this.filter_last_step = 'options';
