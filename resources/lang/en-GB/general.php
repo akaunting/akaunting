@@ -286,7 +286,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-green border-b border-transparent transition-all hover:text-green-700 hover:border-green-700">documentation</a> for more details.',
+        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-green bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-green transition-backgroundSize">documentation</a> for more details.',
         'items' => 'Items can be products or services. You can use items when creating invoices and bills to have the price, tax etc fields populated.',
         'invoices' => 'Invoices can be one time or recurring. You can send them to customers and start accepting online payments.',
         'revenues' => 'Revenue is a paid income transaction. It can be an independent record (i.e. deposit) or attached to an invoice.',

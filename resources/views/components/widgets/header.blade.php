@@ -8,9 +8,7 @@
         <div class="flex items-center">
             @if ($report = $class->getReportUrl())
                 <a href="{{ $report }}" class="text-purple text-sm mr-3">
-                    <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">    
-                        {{ trans('widgets.view_report') }}
-                    </span>
+                    <x-text.hover text="{{ trans('widgets.view_report') }}" />
                 </a>
             @endif
 
