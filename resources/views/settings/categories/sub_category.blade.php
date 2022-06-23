@@ -28,18 +28,22 @@
                     {{ $sub_category->name }}
                 </div>
             @endif
+
+            @if (! $sub_category->enabled)
+                <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+            @endif
         </x-table.td>
 
         <x-table.td class="w-5/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
-            @if (! empty($types[$category->type]))
-                {{ $types[$category->type] }}
+            @if (! empty($types[$item->type]))
+                {{ $types[$item->type] }}
             @else
                 <x-empty-data />
             @endif
         </x-table.td>
 
         <x-table.td class="ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer w-2/12 relative">
-            <span class="material-icons text-3xl text-{{ $category->color }}" style="color:{{ $sub_category->color }};">circle</span>
+            <span class="material-icons text-3xl text-{{ $item->color }}" style="color:{{ $sub_category->color }};">circle</span>
         </x-table.td>
 
         <x-table.td kind="action">

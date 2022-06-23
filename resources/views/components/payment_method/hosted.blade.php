@@ -12,7 +12,7 @@
     textButton="{{ trans('general.confirm') }}"
     textCard="{{ trans_choice('general.card.cards', 2) }}"
     textNewCard="{{  trans('general.form.add_new', ['field' => trans_choice('general.card.cards', 1)]) }}"
-    textStoreCard="{{ trans('general.card.save') }} "
+    textStoreCard="{{ trans('general.card.save') }}"
     :store-card="{{ !empty($store_card) ? 'true' : 'false' }}"
     :cards="{{ !empty($cards) ? json_encode($cards) : json_encode([]) }}"
     :form-data="formData"
