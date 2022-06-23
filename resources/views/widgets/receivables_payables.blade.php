@@ -28,17 +28,24 @@
             </span>
 
             <button id="dashboard-widget-{{ strtolower(class_basename($class)) }}-overdue" type="button" class="flex items-center text-black-400 font-medium group" data-dropdown-toggle="widgets-list-{{ $class->model->id }}">
-                <span class="border-b border-transparent transition-all group-hover:border-black-400"> {{ $totals['overdue'] }} </span>
+                <span class="border-b border-transparent transition-all group-hover:border-black-400">
+                    {{ $totals['overdue'] }}
+                </span>
 
                 <div class="relative flex">
                     <span class="material-icons-round cursor-pointer">arrow_drop_down</span>
 
                     <div id="widgets-list-{{ $class->model->id }}" class="absolute right-0 mt-3 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
-                        @foreach($periods as $name => $amount)
+                        @foreach ($periods as $name => $amount)
                             <div id="dashboard-widget-{{ strtolower(class_basename($class)) }}-{{ str_replace('_', '-', $name) }}" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap cursor-auto">
                                 <div class="w-full h-full flex items-center justify-between rounded-md px-2 text-sm hover:bg-lilac-100">
-                                    <div class="font-normal text-sm">{{ trans('widgets.periods.' . $name) }}</div>
-                                    <div class="pl-12 text-sm">{{ $amount }}</div>
+                                    <div class="font-normal text-sm">
+                                        {{ trans('widgets.periods.' . $name) }}
+                                    </div>
+
+                                    <div class="pl-12 text-sm">
+                                        {{ $amount }}
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
