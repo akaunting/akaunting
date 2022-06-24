@@ -28906,6 +28906,15 @@ input[type="date"]::-webkit-inner-spin-button,
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
 }
+.bg-auto{
+  background-size: auto;
+}
+.bg-cover{
+  background-size: cover;
+}
+.bg-contain{
+  background-size: contain;
+}
 .bg-0-2{
   background-size: 0 2px;
 }
@@ -28933,6 +28942,33 @@ input[type="date"]::-webkit-inner-spin-button,
 .bg-clip-text{
   -webkit-background-clip: text;
           background-clip: text;
+}
+.bg-bottom{
+  background-position: bottom;
+}
+.bg-center{
+  background-position: center;
+}
+.bg-left{
+  background-position: left;
+}
+.bg-left-bottom{
+  background-position: left bottom;
+}
+.bg-left-top{
+  background-position: left top;
+}
+.bg-right{
+  background-position: right;
+}
+.bg-right-bottom{
+  background-position: right bottom;
+}
+.bg-right-top{
+  background-position: right top;
+}
+.bg-top{
+  background-position: top;
 }
 .bg-0-full{
   background-position:  0 100%;
