@@ -55,8 +55,8 @@ class CashFlow extends Widget
                 'position'          => 'top',
             ],
             'yaxis' => [
-                'labels'            => [
-                    'formatter' => $this->getFormatLabel(),
+                'labels' => [
+                    'formatter'     => $this->getFormatLabel(),
                 ],
             ],
         ];
