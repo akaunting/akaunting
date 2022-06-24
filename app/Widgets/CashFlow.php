@@ -56,7 +56,7 @@ class CashFlow extends Widget
             ],
             'yaxis' => [
                 'labels'            => [
-                    'formatter' => $this->getFormatLabel('percent'),
+                    'formatter' => $this->getFormatLabel(),
                 ],
             ],
         ];
