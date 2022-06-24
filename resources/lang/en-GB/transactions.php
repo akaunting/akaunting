@@ -15,7 +15,7 @@ return [
         'general'           => 'Here you can enter the general information of transaction such as date, amount, account, description, etc.',
         'assign_income'     => 'Select a category and customer to make your reports more detailed.',
         'assign_expense'    => 'Select a category and vendor to make your reports more detailed.',
-        'other'             => 'Enter a reference to keep the transaction linked to your records.',
+        'other'             => 'Enter a number and reference to keep the transaction linked to your records.',
     ],
 
     'slider' => [

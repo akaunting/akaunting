@@ -41,7 +41,7 @@ class Menu extends Component
     {
         // Get nofitications
         $notifications = new \stdClass();
-        $notifications->notifications = [];
+        $notifications->notifications = collect();
         $notifications->keyword = '';
 
         event(new NotificationsCreated($notifications));

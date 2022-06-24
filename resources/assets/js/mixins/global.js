@@ -24,6 +24,7 @@ import AkauntingConnectTransactions from './../components/AkauntingConnectTransa
 import AkauntingSwitch from './../components/AkauntingSwitch';
 import AkauntingSlider from './../components/AkauntingSlider';
 import AkauntingColor from './../components/AkauntingColor';
+import CardForm from './../components/CreditCard/CardForm';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -61,6 +62,7 @@ export default {
         AkauntingSwitch,
         AkauntingSlider,
         AkauntingColor,
+        CardForm,
         [Select.name]: Select,
         [Option.name]: Option,
         [Steps.name]: Steps,
@@ -90,6 +92,16 @@ export default {
                 show: false,
                 currency: {},
                 documents: [],
+            },
+
+            cardData: {
+                cardName: '',
+                cardNumber: '',
+                cardMonth: '',
+                cardYear: '',
+                cardCvv: '',
+                storeCard: false,
+                card_id: 0,
             },
         }
     },

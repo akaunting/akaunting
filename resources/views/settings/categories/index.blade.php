@@ -64,51 +64,58 @@
                 </x-table.thead>
 
                 <x-table.tbody>
-                    @foreach($categories as $category)
-                        <x-table.tr href="{{ route('categories.edit', $category->id) }}" class="relative flex items-center border-b hover:bg-gray-100 px-1 group transition-all">
+                    @foreach($categories as $item)
+                        <x-table.tr href="{{ route('categories.edit', $item->id) }}" class="relative flex items-center border-b hover:bg-gray-100 px-1 group transition-all">
                             <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
-                                <x-index.bulkaction.single id="{{ $category->id }}" name="{{ $category->name }}" />
+                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
                             <x-table.td class="w-5/12 truncate">
-                                @if ($category->sub_categories->count())
+                                @if ($item->sub_categories->count())
                                     <div class="flex items-center font-bold">
-                                        {{ $category->name }}
-                                        <x-tooltip id="tooltip-category-{{ $category->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
+                                        {{ $item->name }}
+
+                                        <x-tooltip id="tooltip-category-{{ $item->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
                                             <button
                                                 type="button"
                                                 class="w-4 h-4 flex items-center justify-center mx-2 leading-none align-text-top rounded-lg bg-gray-500 hover:bg-gray-700"
-                                                node="child-{{ $category->id }}"
-                                                onClick="toggleSub('child-{{ $category->id }}', event)"
+                                                node="child-{{ $item->id }}"
+                                                onClick="toggleSub('child-{{ $item->id }}', event)"
                                             >
                                                 <span class="material-icons transform rotate-90 transition-all text-lg leading-none align-middle text-white">chevron_right</span>
                                             </button>
                                         </x-tooltip>
                                     </div>
                                 @else
-                                    <span class="font-bold">{{ $category->name }}</span>
+                                    <span class="font-bold">
+                                        {{ $item->name }}
+                                    </span>
+                                @endif
+
+                                @if (! $item->enabled)
+                                    <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
                                 @endif
                             </x-table.td>
 
                             <x-table.td class="w-5/12 truncate">
-                                @if (! empty($types[$category->type]))
-                                    {{ $types[$category->type] }}
+                                @if (! empty($types[$item->type]))
+                                    {{ $types[$item->type] }}
                                 @else
                                     <x-empty-data />
                                 @endif
                             </x-table.td>
 
                             <x-table.td class="w-2/12 relative">
-                                <span class="material-icons text-{{ $category->color }}" class="text-3xl" style="color:{{ $category->color }};">circle</span>
+                                <span class="material-icons text-{{ $item->color }}" class="text-3xl" style="color:{{ $item->color }};">circle</span>
                             </x-table.td>
 
                             <x-table.td kind="action">
-                                <x-table.actions :model="$category" />
+                                <x-table.actions :model="$item" />
                             </x-table.td>
                         </x-table.tr>
 
-                        @foreach($category->sub_categories as $sub_category)
-                            @include('settings.categories.sub_category', ['parent_category' => $category, 'sub_category' => $sub_category, 'tree_level' => 1])
+                        @foreach($item->sub_categories as $sub_category)
+                            @include('settings.categories.sub_category', ['parent_category' => $item, 'sub_category' => $sub_category, 'tree_level' => 1])
                         @endforeach
                     @endforeach
                 </x-table.tbody>

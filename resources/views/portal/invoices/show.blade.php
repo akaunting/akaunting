@@ -24,33 +24,37 @@
                     <div class="tabs w-full" x-data="{ active: '{{ reset($payment_methods) }}' }">
                         <div role="tablist" class="flex flex-wrap gap-y-4">
                             @php $is_active = true; @endphp
-                            
+
                             <div class="swiper swiper-links">
                                 <div class="swiper-wrapper">
-                            @foreach ($payment_methods as $key => $name)
-                                @stack('invoice_{{ $key }}_tab_start')
-                                <div class="swiper-slide">
-                                    <div
-                                    x-on:click="active = '{{ $name }}'"
-                                    @click="onChangePaymentMethod('{{ $key }}')"
-                                    id="tabs-payment-method-{{ $key }}-tab"
-                                    x-bind:class="active != '{{ $name }}' ? '' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
-                                    class="text-sm text-black text-center pb-2 border-b cursor-pointer transition-all tabs-link"
-                                >
-                                    {{ $name }}
-                                </div>
-                                </div>
-                                @stack('invoice_{{ $key }}_tab_end')
+                                    @foreach ($payment_methods as $key => $name)
+                                        @stack('invoice_{{ $key }}_tab_start')
 
-                                @php $is_active = false; @endphp
-                            @endforeach
+                                        <div class="swiper-slide">
+                                            <div
+                                                x-on:click="active = '{{ $name }}'"
+                                                @click="onChangePaymentMethod('{{ $key }}')"
+                                                id="tabs-payment-method-{{ $key }}-tab"
+                                                x-bind:class="active != '{{ $name }}' ? '' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
+                                                class="text-sm text-black text-center pb-2 border-b cursor-pointer transition-all tabs-link"
+                                            >
+                                                {{ $name }}
+                                            </div>
+                                        </div>
+
+                                        @stack('invoice_{{ $key }}_tab_end')
+
+                                        @php $is_active = false; @endphp
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
+
                         @php $is_active = true; @endphp
 
                         @foreach ($payment_methods as $key => $name)
                             @stack('invoice_{{ $key }}_content_start')
+
                             <div
                                 x-bind:class="active != '{{ $name }}' ? 'hidden': 'block'"
                                 class="my-3"
@@ -58,6 +62,7 @@
                             >
                                 <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
                             </div>
+
                             @stack('invoice_{{ $key }}_content_end')
 
                             @php $is_active = false; @endphp

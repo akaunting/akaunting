@@ -59,6 +59,13 @@ class ShowInNotifications
                 continue;
             }
 
+            $app_url = route('apps.app.show', [
+                'alias'         => $new_app->alias,
+                'utm_source'    => 'notification',
+                'utm_medium'    => 'software',
+                'utm_campaign'  => str_replace('-', '', $new_app->alias),
+            ]);
+
             $new = new DatabaseNotification();
             $new->id = $key;
             $new->type = 'new-apps';
@@ -66,7 +73,7 @@ class ShowInNotifications
             $new->notifiable_id = user()->id;
             $new->data = [
                 'title' => $new_app->name,
-                'description' => '', // $new_app->message,
+                'description' => trans('notifications.new_apps', ['app' => $new_app->name, 'url' => $app_url]),
                 'alias' => $new_app->alias,
             ];
             $new->created_at = $new_app->started_at->date;
