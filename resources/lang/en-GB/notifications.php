@@ -6,9 +6,10 @@ return [
     'hello'               => 'Hello!',
     'salutation'          => 'Regards,<br> :company_name',
     'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
-    'mark_read'           => 'Mark Read',
-    'mark_read_all'       => 'Mark Read All',
+    'mark_read'           => 'Mark as Read',
+    'mark_read_all'       => 'Mark as All Read',
     'empty'               => 'Woohoo, notification zero!',
+    'new_apps'            => ':app is available. <a href=":url">Check it out now</a>!',
 
     'update' => [
 
