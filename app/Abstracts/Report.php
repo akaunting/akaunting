@@ -14,6 +14,7 @@ use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
 use App\Models\Setting\Category;
+use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 use App\Traits\Translations;
@@ -23,7 +24,7 @@ use Illuminate\Support\Str;
 
 abstract class Report
 {
-    use DateTime, SearchString, Translations;
+    use Charts, DateTime, SearchString, Translations;
 
     public $model;
 
@@ -60,9 +61,19 @@ abstract class Report
             'colors' => [
                 '#6da252',
             ],
+
+            'yaxis' => [
+                'labels' => [
+                    'formatter' => '',
+                ],
+            ],
         ],
         'donut' => [
-            //
+            'yaxis' => [
+                'labels' => [
+                    'formatter' => '',
+                ],
+            ],
         ],
     ];
 
@@ -100,6 +111,7 @@ abstract class Report
         $this->setRows();
         $this->loadData();
         $this->setColumnWidth();
+        $this->setChartLabelFormatter();
 
         $this->loaded = true;
     }
@@ -282,6 +294,12 @@ abstract class Report
         }
 
         $this->column_name_width = $this->column_value_width = $width;
+    }
+
+    public function setChartLabelFormatter()
+    {
+        $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getFormatLabel();
+        $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getFormatLabel('percent');
     }
 
     public function setYear()
