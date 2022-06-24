@@ -43,6 +43,9 @@ return [
     'apps_managing'         => 'Check the most trending apps and start managing your finances professionally today.',
     'ready'                 => 'Ready',
     'popular_this_week'     => 'Popular this week',
+    'install_cloud'         => 'Use on Cloud Service',
+    'get_cloud'             => 'Get Cloud Service',
+    'only_works_cloud'      => 'This app only works on <strong>Cloud Service</strong>.',
 
     'about'                 => 'About',
 

@@ -1,5 +1,3 @@
-
-
 <x-form>
     <div class="lg:absolute lg:ltr:right-0 lg:rtl:left-0 top-4" x-on:click="price_type = ! price_type">
         <div class="relative" x-model="price_type">

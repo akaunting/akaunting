@@ -41,7 +41,9 @@
                         <div class="flex justify-between">
                             <span>
                                 @foreach ($module->categories as $module_category)
-                                    <a href="{{ route('apps.categories.show', $module_category->slug) }}">{{ $module_category->name }}</a> </br>
+                                    <a href="{{ route('apps.categories.show', $module_category->slug) }}" class="text-sm">
+                                        {{ $module_category->name }}
+                                    </a>
                                 @endforeach
                             </span>
                         </div>
@@ -63,6 +65,7 @@
                                                 <i class="material-icons text-sm">star_border</i>
                                             @endfor
                                         </div>
+
                                         <p class="text-xs">
                                             @if ($module->total_review)
                                             ( {{ $module->total_review }} {{ trans('modules.tab.reviews') }} )
@@ -73,10 +76,16 @@
 
                                 <div class="flex flex-col gap-1">
                                     <div class="flex gap-4 items-baseline">
-                                        <h3 class="text-4xl font-semibold text-black">{{ $module->name }}</h3>   
+                                        <h3 class="text-4xl font-semibold text-black">
+                                            {{ $module->name }}
+                                        </h3>
 
                                         @if ($module->vendor_name)
-                                            <span class="text-sm"> by <a class="border-b border-dashed border-black transition-all hover:font-semibold" href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></span>
+                                            <span class="text-sm">
+                                                 by <a class="border-b border-dashed border-black transition-all hover:font-semibold" href="{{ route('apps.vendors.show', $module->vendor->slug) }}">
+                                                    {{ $module->vendor_name }}
+                                                </a>
+                                            </span>
                                         @endif
                                     </div>
 
