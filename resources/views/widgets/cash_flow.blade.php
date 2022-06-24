@@ -12,7 +12,9 @@
                     {{ $totals['incoming'] }}
                 </div>
 
-                <span class="text-green text-xs">{{ trans('general.incoming') }}</span>
+                <span class="text-green text-xs">
+                    {{ trans('general.incoming') }}
+                </span>
 
                 <span class="material-icons mt-2">remove</span>
             </div>
@@ -22,7 +24,9 @@
                     {{ $totals['outgoing'] }}
                 </div>
 
-                <span class="text-rose text-xs">{{ trans('general.outgoing') }}</span>
+                <span class="text-rose text-xs">
+                    {{ trans('general.outgoing') }}
+                </span>
 
                 <span class="material-icons mt-2">drag_handle</span>
             </div>

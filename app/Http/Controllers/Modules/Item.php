@@ -276,9 +276,9 @@ class Item extends Controller
     public function uninstall($alias)
     {
         try {
-            $this->dispatch(new UninstallModule($alias, company_id()));
-
             $name = module($alias)->getName();
+
+            $this->dispatch(new UninstallModule($alias, company_id()));
 
             $message = trans('modules.uninstalled', ['module' => $name]);
 
@@ -295,9 +295,9 @@ class Item extends Controller
     public function enable($alias)
     {
         try {
-            $this->dispatch(new EnableModule($alias, company_id()));
-            
             $name = module($alias)->getName();
+
+            $this->dispatch(new EnableModule($alias, company_id()));
 
             $message = trans('modules.enabled', ['module' => $name]);
 
@@ -314,9 +314,9 @@ class Item extends Controller
     public function disable($alias)
     {
         try {
-            $this->dispatch(new DisableModule($alias, company_id()));
-
             $name = module($alias)->getName();
+
+            $this->dispatch(new DisableModule($alias, company_id()));
 
             $message = trans('modules.disabled', ['module' => $name]);
 
