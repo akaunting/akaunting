@@ -15,7 +15,7 @@ return [
         'general'           => 'Ici, vous pouvez entrer les informations générales du journal manuel tels que la date, le numéro, la devise, la description, etc.',
         'assign_income'     => 'Sélectionnez une catégorie et un client pour rendre vos rapports plus détaillés.',
         'assign_expense'    => 'Sélectionnez une catégorie et un vendeur pour rendre vos rapports plus détaillés.',
-        'other'             => 'Entrez une référence pour conserver la transaction liée à vos dossiers.',
+        'other'             => 'Entrez un numéro et une référence pour conserver la transaction liée à vos dossiers.',
     ],
 
     'slider' => [
