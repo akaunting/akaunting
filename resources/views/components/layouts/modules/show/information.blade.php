@@ -1,5 +1,11 @@
 @props(['module'])
 
+@if (! empty($module->plan))
+    <div class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
+        <span class="text-sm text-red-700">
+            {!! trans('modules.only_premium_plan') !!}
+        </span>
+    </div>
 @if (in_array('onprime', $module->where_to_use))
     <div x-show="price_type == true" class="text-center text-sm mt-3 mb--2">
         <span style="height: 21px;display: block;"></span>

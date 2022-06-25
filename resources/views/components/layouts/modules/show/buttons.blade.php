@@ -1,6 +1,10 @@
 @props(['module', 'installed', 'enable'])
 
-@if (in_array('onprime', $module->where_to_use))
+@if (! empty($module->plan))
+    <a href="{{ $module->action_url }}" class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
+        {{ trans('modules.get_premium_cloud') }}
+    </a>
+@elseif (in_array('onprime', $module->where_to_use))
     @if ($installed)
         @can('delete-modules-item')
             <a href="{{ route('apps.app.uninstall', $module->slug) }}" class="bg-red text-white rounded-md text-sm text-center w-1/2 py-2 truncate">
