@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Tapez pour rechercher..',
         'search_and_filter' => 'Rechercher ou filtrer les résultats...',
+        'select_and_filter' => 'Sélectionnez l\'une des options disponibles ci-dessous',
+        'enter_and_filter'  => 'Appuyer sur entrée pour filtrer les résultats, ou définir un nouveau filtre',
         'contact_search'    => 'Tapez un nom de :type',
         'item_search'       => 'Tapez un nom d\'élément',
     ],

@@ -48,6 +48,12 @@ class ProfitLoss extends Widget
                     'radius'    => '12',
                 ],
             ],
+
+            'yaxis' => [
+                'labels'        => [
+                    'formatter' => $this->getFormatLabel(),
+                ],
+            ],
         ];
 
         $chart->setType('bar')

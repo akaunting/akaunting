@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Unesite pojam za pretragu',
         'search_and_filter' => 'Pretraga ili filtriranje pretrage.',
+        'select_and_filter' => 'Odaberite jednu od dostupnih opcija u nastavku',
+        'enter_and_filter'  => 'Pritisnite enter da filtrirate rezultate ili postavite novi filter',
         'contact_search'    => 'Unesite :type naziv',
         'item_search'       => 'Unesite naziv predmeta',
     ],

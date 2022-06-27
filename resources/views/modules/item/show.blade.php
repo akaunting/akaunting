@@ -42,7 +42,9 @@
                         <div class="flex justify-between">
                             <span>
                                 @foreach ($module->categories as $module_category)
-                                    <a href="{{ route('apps.categories.show', $module_category->slug) }}">{{ $module_category->name }}</a> </br>
+                                    <a href="{{ route('apps.categories.show', $module_category->slug) }}" class="text-sm">
+                                        {{ $module_category->name }}
+                                    </a>
                                 @endforeach
                             </span>
                         </div>

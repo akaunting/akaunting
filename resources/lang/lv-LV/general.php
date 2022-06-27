@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Ierakstiet, lai meklētu..',
         'search_and_filter' => 'Meklēšanas vai filtrēšanas rezultāti..',
+        'select_and_filter' => 'Tālāk atlasiet vienu no pieejamajām opcijām',
+        'enter_and_filter'  => 'Nospiediet Enter, lai filtrētu rezultātus, vai iestatiet jaunu filtru',
         'contact_search'    => 'Ierakstiet :type nosaukumu',
         'item_search'       => 'Ierakstiet vienuma nosaukumu',
     ],
