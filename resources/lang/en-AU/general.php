@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Type to search..',
         'search_and_filter' => 'Search or filter results..',
+        'select_and_filter' => 'Select one of the available options below',
+        'enter_and_filter'  => 'Hit enter to filter the results, or set a new filter',
         'contact_search'    => 'Type a :type name',
         'item_search'       => 'Type an item name',
     ],
