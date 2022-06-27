@@ -59,24 +59,26 @@
                                     @endif
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 sm:w-5/12 flex items-center">
-                                    @if (setting('default.use_gravatar', '0') == '1')
-                                        <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" title="{{ $item->name }}" alt="{{ $item->name }}">
-                                    @elseif (is_object($item->picture))
-                                        <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
-                                    @else
-                                        <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}"/>
-                                    @endif
+                                <x-table.td class="w-4/12 sm:w-5/12">
+                                    <x-slot name="second" class="flex items-center space-x-2" override="class">
+                                        @if (setting('default.use_gravatar', '0') == '1')
+                                            <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" title="{{ $item->name }}" alt="{{ $item->name }}">
+                                        @elseif (is_object($item->picture))
+                                            <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                        @else
+                                            <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}"/>
+                                        @endif
 
-                                    {{ !empty($item->name) ? $item->name : trans('general.na') }}
+                                        {{ !empty($item->name) ? $item->name : trans('general.na') }}
 
-                                    @if ($item->hasPendingInvitation())
-                                        <x-index.status status="pending" background-color="bg-status-danger" text-color="text-black" />
-                                    @endif
+                                        @if ($item->hasPendingInvitation())
+                                            <x-index.status status="pending" background-color="bg-status-danger" text-color="text-black" />
+                                        @endif
 
-                                    @if (! $item->enabled)
-                                        <x-index.disable text="{{ trans_choice('general.users', 1) }}" />
-                                    @endif
+                                        @if (! $item->enabled)
+                                            <x-index.disable text="{{ trans_choice('general.users', 1) }}" />
+                                        @endif
+                                    </x-slot>
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 hidden sm:table-cell">
