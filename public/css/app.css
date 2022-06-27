@@ -35773,6 +35773,12 @@ html[dir='rtl'] .el-input__suffix {
     text-overflow: unset;
 }
 
+.disabled-link{
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 450px;

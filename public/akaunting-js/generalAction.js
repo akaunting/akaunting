@@ -291,3 +291,14 @@ function OnInput() {
   this.style.height = (this.scrollHeight) + 'px';
 }
 //Auto Height for Textarea
+
+//Loading scenario for href links
+document.querySelectorAll('[data-link]').forEach((href) => {
+    href.addEventListener('click', function () {
+        this.classList.add('disabled-link');
+        this.querySelector('[data-link-loading]').classList.remove('hidden');
+        this.querySelector('[data-link-text]').classList.add('opacity-0');
+        this.querySelector('[data-link-text]').classList.remove('opacity-1');
+    });
+});
+//Loading scenario for href links
