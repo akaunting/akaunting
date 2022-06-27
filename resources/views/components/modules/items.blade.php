@@ -11,7 +11,9 @@
         @if ($attributes->has('route'))
             <div class="flex justify-center items-center group">
                 <a href="{{ route($attributes->get('route')) }}">
-                    <x-text.hover text="{{ trans('modules.see_all_type', ['type' => $attributes->get('title')]) }}"  group-hover />
+                    <x-link.hover  group-hover>
+                        {{ trans('modules.see_all_type', ['type' => $attributes->get('title')]) }}
+                    </x-link.hover>
                 </a>
 
                 <i class="material-icons text-sm ltr:ml-1 rtl:mr-1 transform transition-all group-hover:translate-x-1">arrow_forward</i>

@@ -23,7 +23,9 @@
             {!! $button !!}
         @else
             <a href="{!! $url !!}">
-                <x-text.hover text="{{ $textAction }}" color="to-white" />  
+                <x-link.hover color="to-white">  
+                    {{ $textAction }}
+                </x-link.hover>
             </a>
         @endif
     </div>

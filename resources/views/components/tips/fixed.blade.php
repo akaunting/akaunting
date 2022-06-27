@@ -15,7 +15,9 @@
             </p>
 
             <a href="{{ $item->action }}" class="font-light text-sm" target="_blank">
-                <x-text.hover text="{{ $item->learn_more }}"  />    
+                <x-link.hover>    
+                    {{ $item->learn_more }}
+                </x-link.hover>
             </a>
         </div>
 

@@ -14,7 +14,9 @@
                     <div class="grid grid-cols-2 gap-2">
                         @foreach ($categories as $slug => $category)
                             <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 lg:pr-0 truncate bg-transparent" override="class">
-                                <x-text.hover text="{{ $category }}"  />
+                                <x-link.hover>
+                                    {{ $category }}
+                                </x-link.hover>
                             </x-link>
                         @endforeach
                     </div>
@@ -78,19 +80,27 @@
 
         <div class="flex flex-row items-end lg:items-center mb-1 divide-x divide-black-400">
             <x-link href="{{ route('apps.home.index') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
-                <x-text.hover text="{{ trans('modules.home') }}" color="to-black-400" />
+                <x-link.hover color="to-black-400">
+                    {{ trans('modules.home') }}
+                </x-link.hover>
             </x-link>
 
             <x-link href="{{ route('apps.new') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
-                <x-text.hover text="{{ trans('modules.new') }}" color="to-black-400" />
+                <x-link.hover color="to-black-400">
+                    {{ trans('modules.new') }}
+                </x-link.hover>
             </x-link>
 
             <x-link href="{{ route('apps.paid') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
-                <x-text.hover text="{{ trans('modules.top_paid') }}" color="to-black-400" />
+                <x-link.hover color="to-black-400">
+                    {{ trans('modules.top_paid') }}
+                </x-link.hover>
             </x-link>
 
             <x-link href="{{ route('apps.free') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
-                <x-text.hover text="{{ trans('modules.top_free') }}" color="to-black-400" />
+                <x-link.hover color="to-black-400">
+                    {{ trans('modules.top_free') }}
+                </x-link.hover>
             </x-link>
         </div>
     </div>

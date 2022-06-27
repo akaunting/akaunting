@@ -3,7 +3,9 @@
         x-on:click="children !== 1 ? children = 1 : children = null"
     >
         <span class="font-medium">
-            <x-text.hover text="{{ trans_choice('general.transactions', 2) }}"  group-hover />
+            <x-link.hover  group-hover>
+                {{ trans_choice('general.transactions', 2) }}
+            </x-link.hover>
         </span>
 
         <div class="text-black-400 text-sm">

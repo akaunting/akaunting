@@ -9,7 +9,9 @@
                 <x-dropdown id="dashboard-list">
                     <x-slot name="trigger" class="flex items-center" override="class">
                         <span class="text-2xl xl:text-5xl text-black font-light truncate">
-                            <x-text.hover text="{{ $dashboard->name }}" color="to-black-700" />
+                            <x-link.hover color="to-black-700">
+                                {{ $dashboard->name }}
+                            </x-link.hover>
                         </span>
 
                         <svg class="w-5 h-5 mt-1 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

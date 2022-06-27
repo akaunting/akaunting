@@ -2,7 +2,9 @@
     <div class="border-b border-gray-200 pb-4" x-data="{ attachment : null }">
         <div class="relative w-full text-left cursor-pointer group" x-on:click="attachment !== 1 ? attachment = 1 : attachment = null">
             <span class="font-medium">
-                <x-text.hover text="{{ trans_choice('general.attachments', 2) }}"  group-hover />
+                <x-link.hover  group-hover>
+                    {{ trans_choice('general.attachments', 2) }}
+                </x-link.hover>
             </span>
 
             <div class="text-black-400 text-sm">
