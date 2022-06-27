@@ -50,8 +50,8 @@
                                 <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
                                     @if (user()->id != $item->id)
                                         <x-index.bulkaction.single
-                                            id="{{ $item->id }}" 
-                                            name="{{ $item->name }}" 
+                                            id="{{ $item->id }}"
+                                            name="{{ $item->name }}"
                                             :disabled="($item->hasPendingInvitation() || $item->multiplexed) ? true : false"
                                         />
                                     @else
@@ -60,7 +60,7 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 sm:w-5/12">
-                                    <x-slot name="second" class="flex items-center space-x-2" override="class">
+                                    <div class="flex items-center space-x-2">
                                         @if (setting('default.use_gravatar', '0') == '1')
                                             <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block" title="{{ $item->name }}" alt="{{ $item->name }}">
                                         @elseif (is_object($item->picture))
@@ -78,7 +78,7 @@
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.users', 1) }}" />
                                         @endif
-                                    </x-slot>
+                                    </div>
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 hidden sm:table-cell">
