@@ -11,7 +11,7 @@
         <div class="flex justify-end mt-1 mb-3">
             <x-tooltip id="notification-all" placement="top" message="{{ trans('notifications.mark_read_all') }}">
                 <button type="button" wire:click="markReadAll()">
-                    <span id="menu-notification-read-all" class="material-icons text-lg text-purple">done_all</span>
+                    <span id="menu-notification-read-all" class="material-icons text-lg text-purple hover:scale-125">done_all</span>
                 </button>
             </x-tooltip>
         </div>
@@ -35,7 +35,7 @@
                         @if ($notification->type != 'updates')
                             <x-tooltip id="notification-{{ $notification->id }}" placement="top" message="{{ trans('notifications.mark_read') }}">
                                 <button type="button" wire:click="markRead('{{ $notification->type }}', '{{ $notification->id }}')">
-                                    <span id="menu-notification-mark-read" class="material-icons text-lg text-purple">check_circle_outline</span>
+                                    <span id="menu-notification-mark-read" class="material-icons text-lg text-purple hover:scale-125">check_circle_outline</span>
                                 </button>
                             </x-tooltip>
                         @endif
