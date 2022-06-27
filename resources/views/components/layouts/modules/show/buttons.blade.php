@@ -1,7 +1,7 @@
 @props(['module', 'installed', 'enable'])
 
 @if (! empty($module->plan))
-    <a data-linkhref="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
+    <a href="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
         <x-link.loading>    
             {{ trans('modules.get_premium_cloud') }}
         </x-link.loading>
@@ -9,7 +9,7 @@
 @elseif (in_array('onprime', $module->where_to_use))
     @if ($installed)
         @can('delete-modules-item')
-            <a data-linkhref="{{ route('apps.app.uninstall', $module->slug) }}" class="relative bg-red text-white rounded-md text-sm text-center w-1/2 py-2 truncate">
+            <a href="{{ route('apps.app.uninstall', $module->slug) }}" class="relative bg-red text-white rounded-md text-sm text-center w-1/2 py-2 truncate">
                 <x-link.loading>    
                     {{ trans('modules.button.uninstall') }}
                 </x-link.loading>
@@ -18,13 +18,13 @@
 
         @can('update-modules-item')
             @if ($enable)
-                <a data-linkhref="{{ route('apps.app.disable', $module->slug) }}" class="relative bg-orange rounded-md text-white  w-1/2 text-center text-sm py-2 truncate">
+                <a href="{{ route('apps.app.disable', $module->slug) }}" class="relative bg-orange rounded-md text-white  w-1/2 text-center text-sm py-2 truncate">
                     <x-link.loading>    
                         {{ trans('modules.button.disable') }}
                     </x-link.loading>
                 </a>
             @else
-                <a data-linkhref="{{ route('apps.app.enable', $module->slug) }}" class="relative bg-green rounded-md text-white text-sm text-center w-1/2  py-2 truncate">
+                <a href="{{ route('apps.app.enable', $module->slug) }}" class="relative bg-green rounded-md text-white text-sm text-center w-1/2  py-2 truncate">
                     <x-link.loading>    
                         {{ trans('modules.button.enable') }}
                     </x-link.loading>
@@ -53,7 +53,7 @@
                     </button>
                 @endif
             @else
-                <a data-linkhref="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
+                <a href="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
                     <x-link.loading>    
                         {{ trans('modules.use_app') }}
                     </x-link.loading>
@@ -63,13 +63,13 @@
     @endif
 @else
     @if ($module->install)
-        <a data-linkhref="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
+        <a href="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
             <x-link.loading>
                 {{ trans('modules.install_cloud') }}
             </x-link.loading>
         </a>
     @else
-        <a data-linkhref="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
+        <a href="{{ $module->action_url }}" class="relative bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate" target="_blank">
             <x-link.loading>    
                 {{ trans('modules.get_cloud') }}
             </x-link.loading>
