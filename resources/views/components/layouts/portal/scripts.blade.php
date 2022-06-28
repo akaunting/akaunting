@@ -174,6 +174,13 @@
                     mainContent.classList.remove("hidden");
                     this.classList.add("hidden");
                     toggleButton.classList.remove("invisible");
+
+                    //for hidden menu, show close icon scenario
+                    if (sideBar.classList.contains("menu-list-hidden")) {
+                        sectionContent.classList.add("xl:ltr:ml-0", "xl:rtl:mr-0");
+                        sectionContent.classList.remove("xl:ltr:ml-64", "xl:rtl:mr-64");
+                    }
+                    //for hidden menu, show close icon scenario
                 });
             });
         }
