@@ -20,7 +20,7 @@
             <x-index.container>
                 <x-index.search
                     search-string="App\Models\Auth\User"
-                    bulk-action="App\BulkActions\Auth\User"
+                    bulk-action="App\BulkActions\Auth\Users"
                 />
 
                 <x-table>
