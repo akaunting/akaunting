@@ -311,14 +311,12 @@ class User extends Authenticatable implements HasLocalePreference
             return $actions;
         }
 
-        if (! $this->hasPendingInvitation()) {
-            $actions[] = [
-                'title' => trans('general.edit'),
-                'icon' => 'edit',
-                'url' => route('users.edit', $this->id),
-                'permission' => 'update-auth-users',
-            ];
-        }
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('users.edit', $this->id),
+            'permission' => 'update-auth-users',
+        ];
 
         if ($this->hasPendingInvitation()) {
             $actions[] = [

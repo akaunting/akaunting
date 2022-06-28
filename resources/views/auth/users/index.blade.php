@@ -48,15 +48,11 @@
                         @foreach($users as $item)
                             <x-table.tr href="{{ route('users.edit', $item->id) }}">
                                 <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
-                                    @if (user()->id != $item->id)
-                                        <x-index.bulkaction.single
-                                            id="{{ $item->id }}"
-                                            name="{{ $item->name }}"
-                                            :disabled="($item->hasPendingInvitation() || $item->multiplexed) ? true : false"
-                                        />
-                                    @else
-                                        <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" disabled />
-                                    @endif
+                                    <x-index.bulkaction.single
+                                        id="{{ $item->id }}"
+                                        name="{{ $item->name }}"
+                                        :disabled="($item->hasPendingInvitation() || user()->id == $item->id) ? true : false"
+                                    />
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 sm:w-5/12">
