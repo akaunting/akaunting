@@ -295,6 +295,7 @@ function OnInput() {
 //Loading scenario for href links
 document.querySelectorAll('[data-link-loading]').forEach((href) => {
     let target_link_html = href.parentElement;
+    target_link_html.classList.add('relative');
 
     target_link_html.addEventListener('click', function () {
         this.classList.add('disabled-link');
