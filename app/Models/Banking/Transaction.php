@@ -141,6 +141,19 @@ class Transaction extends Model
         return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
+    public function transfer()
+    {
+        if ($this->type == self::INCOME_TYPE) {
+            return $this->belongsTo('App\Models\Banking\Transfer', 'id', 'income_transaction_id');
+        }
+
+        if ($this->type == self::EXPENSE_TYPE) {
+            return $this->belongsTo('App\Models\Banking\Transfer', 'id', 'expense_transaction_id');
+        }
+
+        return null;
+    }
+
     public function splits()
     {
         return $this->hasMany('App\Models\Banking\Transaction', 'split_id');
