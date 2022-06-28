@@ -499,6 +499,14 @@ html[dir='rtl'] .el-input__suffix {
     @apply cursor-default pointer-events-none opacity-50;
 }
 
+[dir="ltr"] .ltr\:-right-57 {
+    right: -14.5rem;
+}
+
+[dir="rtl"] .rtl\:-right-59 {
+    right: 16.5rem;
+}
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 450px;

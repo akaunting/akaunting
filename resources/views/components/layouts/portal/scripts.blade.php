@@ -137,8 +137,18 @@
                     mainContent.classList.add("hidden");
                     toggleButton.classList.add("invisible");
                     menuClose.classList.remove("hidden");
-                    unHiddenSidebar();
-                    contentTransitionRight();
+                    
+                    //for hidden menu, show close icon scenario
+                    if (sideBar.classList.contains("menu-list-hidden")) {
+                        menuClose.classList.add("ltr:-right-57", "rtl:right-59");
+                        menuClose.classList.remove("ltr:-right-2", "rtl:right-12");
+                    } else {
+                        menuClose.classList.add("ltr:-right-2", "rtl:right-12");
+                    }
+                    
+                    sectionContent.classList.remove("xl:ltr:ml-0", "xl:rtl:mr-0");
+                    sectionContent.classList.add("xl:ltr:ml-64", "xl:rtl:mr-64");
+                     //for hidden menu, show close icon scenario
 
                 //remove active (cancel text) class form target icon
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {
