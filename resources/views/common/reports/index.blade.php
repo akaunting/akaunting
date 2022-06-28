@@ -42,9 +42,9 @@
 
                                     <div class="ltr:ml-2 rtl:mr-2">
                                         <h2 class="mb-1">
-                                            <span class="border-b border-transparent transition-all group-hover:border-black">
+                                            <x-link.hover group-hover>
                                                 {{ $report->name }}
-                                            </span>
+                                            </x-link.hover>
                                         </h2>
 
                                         <span class="text-black-400 text-sm">{{ $report->description }}</span>

@@ -1,8 +1,8 @@
 <div>
     <h2 class="lg:text-lg font-medium text-black">
-        <span class="border-b border-transparent transition-all group-hover:border-black">
+        <x-link.hover  group-hover>   
             {{ $title }}
-        </span>
+        </x-link.hover>
     </h2>
 
     @if (! empty($description))

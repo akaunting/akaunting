@@ -35,9 +35,9 @@
                     override="class"
                     class="py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6"
                 >
-                    <span class="border-b border-transparent transition-all hover:border-black">
+                    <x-link.hover>
                         {{ trans('documents.accept_payment_online') }}
-                    </span>
+                    </x-link.hover>
                 </x-link>
             @endif
         </div>
@@ -62,16 +62,16 @@
 
                         @if (! empty($transaction->contact) && $transaction->contact->email)
                             <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmail('{{ route($transactionEmailRoute, $transaction->id) }}')">
-                                <span class="border-b border-transparent transition-all hover:border-purple">
+                                <x-link.hover color="to-purple">
                                     {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
-                                </span>
+                                </x-link.hover>
                             </x-button>
                         @else
                             <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
                                 <x-button class="text-purple mt-1" override="class" disabled="disabled">
-                                    <span class="border-b border-transparent transition-all hover:border-purple">
+                                    <x-link.hover color="to-purple">
                                         {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
-                                    </span>
+                                    </x-link.hover>
                                 </x-button>
                             </x-tooltip>
                         @endif
@@ -84,9 +84,9 @@
                             class="text-purple mt-1"
                             override="class"
                         >
-                            <span class="border-b border-transparent transition-all hover:border-purple">
+                            <x-link.hover color="to-purple">
                                 {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
-                            </span>
+                            </x-link.hover>
                         </x-button>
 
                         <span> - </span>
@@ -105,7 +105,7 @@
                             :message="$message"
                             :label="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
                             class="text-purple mt-1"
-                            text-class="border-b border-transparent transition-all hover:border-purple"
+                            text-class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize"
                             override="class"
                         />
                     </div>

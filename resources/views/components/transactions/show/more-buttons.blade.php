@@ -8,7 +8,7 @@
 
         @stack('duplicate_button_start')
 
-        @if (! $transaction->hasTransferRelation)
+        @if (empty($transaction->document_id) && ! $transaction->hasTransferRelation)
             @if (! $hideButtonDuplicate)
                 @can($permissionCreate)
                     <x-dropdown.link href="{{ route($routeButtonDuplicate, [$transaction->id, 'type' => $type]) }}">
@@ -22,7 +22,7 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring))
+        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring) && ! $transaction->hasTransferRelation)
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
                     <button
@@ -38,7 +38,7 @@
 
         @stack('connect_button_end')
 
-        @if (! $hideDivider1)
+        @if (! $hideDivider1 && ! $transaction->hasTransferRelation)
             <x-dropdown.divider />
         @endif
 
@@ -62,7 +62,7 @@
 
         @stack('button_pdf_end')
 
-        @if (! $hideDivider2)
+        @if (! $hideDivider2 && ! $transaction->hasTransferRelation)
             <x-dropdown.divider />
         @endif
 
@@ -98,7 +98,7 @@
 
         @stack('email_button_end')
 
-        @if (! $hideDivider3)
+        @if (! $hideDivider3 && ! $transaction->hasTransferRelation)
             <x-dropdown.divider />
         @endif
 
@@ -112,7 +112,7 @@
 
         @stack('button_end_end')
 
-        @if (! $hideDivider4)
+        @if (! $hideDivider4 && ! $transaction->hasTransferRelation)
             <x-dropdown.divider />
         @endif
 

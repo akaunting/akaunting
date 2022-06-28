@@ -97,7 +97,7 @@
     }
 
     table thead a {
-        @apply border-b border-transparent transition-all;
+        @apply bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-black transition-backgroundSize;
     }
 
     table thead a:hover {
@@ -501,6 +501,14 @@ html[dir='rtl'] .el-input__suffix {
 
 .disabled-link {
     @apply cursor-default pointer-events-none opacity-50;
+}
+
+[dir="ltr"] .ltr\:-right-57 {
+    right: -14.5rem;
+}
+
+[dir="rtl"] .rtl\:-right-59 {
+    right: 16.5rem;
 }
 
 @media only screen and (max-width: 480px) {

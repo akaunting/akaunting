@@ -113,11 +113,13 @@ abstract class Model extends Eloquent implements Ownable
         return $query->paginate($limit);
     }
 
-    public function scopeUsingSearchString($query)
+    public function scopeUsingSearchString(Builder $query, string|null $string = null)
     {
         event(new SearchStringApplying($query));
 
-        $this->getSearchStringManager()->updateBuilder($query, request('search'));
+        $string = $string ?: request('search');
+
+        $this->getSearchStringManager()->updateBuilder($query, $string);
 
         event(new SearchStringApplied($query));
     }

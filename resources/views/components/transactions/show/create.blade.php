@@ -4,8 +4,10 @@
     <button class="relative w-full text-left group"
         x-on:click="create !== 1 ? create = 1 : create = null"
     >
-        <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
-            {{ trans('general.create') }}
+        <span class="font-medium">
+            <x-link.hover>
+                {{ trans('general.create') }}
+            </x-link.hover>
         </span>
 
         <div class="text-black-400 text-sm">

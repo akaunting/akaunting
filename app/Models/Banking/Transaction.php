@@ -444,7 +444,7 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if (! $this->reconciled) {
+            if (! $this->reconciled && ! $this->hasTransferRelation) {
                 $actions[] = [
                     'title' => trans('general.edit'),
                     'icon' => 'edit',
@@ -458,7 +458,7 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if (empty($this->document_id)) {
+            if (empty($this->document_id) && ! $this->hasTransferRelation) {
                 $actions[] = [
                     'title' => trans('general.duplicate'),
                     'icon' => 'file_copy',
@@ -472,7 +472,7 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if ($this->is_splittable && empty($this->document_id) && empty($this->recurring)) {
+            if ($this->is_splittable && empty($this->document_id) && empty($this->recurring) && ! $this->hasTransferRelation) {
                 $connect = [
                     'type' => 'button',
                     'title' => trans('general.connect'),
@@ -519,54 +519,56 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         if ($prefix != 'recurring-transactions') {
-            $actions[] = [
-                'type' => 'divider',
-            ];
-
-            try {
+            if (! $this->hasTransferRelation) {
                 $actions[] = [
-                    'type' => 'button',
-                    'title' => trans('general.share_link'),
-                    'icon' => 'share',
-                    'url' => route('modals.transactions.share.create', $this->id),
-                    'permission' => 'read-banking-transactions',
-                    'attributes' => [
-                        'id' => 'index-more-actions-share-' . $this->id,
-                        '@click' => 'onShareLink("' . route('modals.transactions.share.create', $this->id) . '")',
-                    ],
+                    'type' => 'divider',
                 ];
-            } catch (\Exception $e) {}
 
-            try {
-                $actions[] = [
-                    'type' => 'button',
-                    'title' => trans('invoices.send_mail'),
-                    'icon' => 'email',
-                    'url' => route('modals.transactions.emails.create', $this->id),
-                    'permission' => 'read-banking-transactions',
-                    'attributes' => [
-                        'id' => 'index-more-actions-send-email-' . $this->id,
-                        '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
-                    ],
-                ];
-            } catch (\Exception $e) {}
-
-            $actions[] = [
-                'type' => 'divider',
-            ];
-
-            try {
-                if (! $this->reconciled) {
+                try {
                     $actions[] = [
-                        'type' => 'delete',
-                        'icon' => 'delete',
-                        'text' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
-                        'route' => $prefix. '.destroy',
-                        'permission' => 'delete-banking-transactions',
-                        'model' => $this,
+                        'type' => 'button',
+                        'title' => trans('general.share_link'),
+                        'icon' => 'share',
+                        'url' => route('modals.transactions.share.create', $this->id),
+                        'permission' => 'read-banking-transactions',
+                        'attributes' => [
+                            'id' => 'index-more-actions-share-' . $this->id,
+                            '@click' => 'onShareLink("' . route('modals.transactions.share.create', $this->id) . '")',
+                        ],
                     ];
-                }
-            } catch (\Exception $e) {}
+                } catch (\Exception $e) {}
+
+                try {
+                    $actions[] = [
+                        'type' => 'button',
+                        'title' => trans('invoices.send_mail'),
+                        'icon' => 'email',
+                        'url' => route('modals.transactions.emails.create', $this->id),
+                        'permission' => 'read-banking-transactions',
+                        'attributes' => [
+                            'id' => 'index-more-actions-send-email-' . $this->id,
+                            '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
+                        ],
+                    ];
+                } catch (\Exception $e) {}
+
+                $actions[] = [
+                    'type' => 'divider',
+                ];
+
+                try {
+                    if (! $this->reconciled) {
+                        $actions[] = [
+                            'type' => 'delete',
+                            'icon' => 'delete',
+                            'text' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
+                            'route' => $prefix. '.destroy',
+                            'permission' => 'delete-banking-transactions',
+                            'model' => $this,
+                        ];
+                    }
+                } catch (\Exception $e) {}
+            }
         } else {
             try {
                 $actions[] = [

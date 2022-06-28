@@ -98,12 +98,12 @@
 
                 <div class="absolute flex flex-col mt-2">
                     <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactEdit">
-                        <span class="border-b border-transparent transition-all hover:border-purple">
+                        <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">
                             {{ editContactText.replace(':contact_name', contact.name).replace(':field', contact.name) }}
                         </span>
                     </button>
                     <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactList">
-                        <span class="border-b border-transparent transition-all hover:border-purple">
+                        <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">
                             {{ chooseDifferentContactText }}
                         </span>
                     </button>

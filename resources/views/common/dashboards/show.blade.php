@@ -8,8 +8,10 @@
             <div class="flex items-center relative cursor-pointer">
                 <x-dropdown id="dashboard-list">
                     <x-slot name="trigger" class="flex items-center" override="class">
-                        <span class="text-2xl xl:text-5xl text-black font-light truncate border-b border-transparent transition-all hover:text-black-700 hover:border-black">
-                            {{ $dashboard->name }}
+                        <span class="text-2xl xl:text-5xl text-black font-light truncate">
+                            <x-link.hover color="to-black-700">
+                                {{ $dashboard->name }}
+                            </x-link.hover>
                         </span>
 
                         <svg class="w-5 h-5 mt-1 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
