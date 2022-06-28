@@ -64,21 +64,29 @@
             toggleButton.querySelector("span").classList.remove("ltr:-rotate-90", "rtl:rotate-90");
         }
 
+        function hiddenSidebar() {
+            sideBar.classList.add("menu-list-hidden");
+            toggleButton.classList.add("ltr:left-12", "rtl:right-12");
+        }
+
+        function unHiddenSidebar() {
+            toggleButton.classList.remove("ltr:left-12", "rtl:right-12");
+            sideBar.classList.remove("menu-list-hidden");
+        }
+
         //slide menu actions together responsive version
         function slideMenu() {
             if (document.body.clientWidth <= 1280) {
                 mobileMenuHidden();
             } else {
                 if (sideBar.classList.contains("menu-list-hidden")) {
-                    toggleButton.classList.remove("ltr:left-12", "rtl:right-12");
-                    sideBar.classList.remove("menu-list-hidden");
+                    unHiddenSidebar();
 
                     if (document.body.clientWidth > "991") {
                         contentTransitionRight();
                     }
                 } else {
-                    sideBar.classList.add("menu-list-hidden");
-                    toggleButton.classList.add("ltr:left-12", "rtl:right-12");
+                    hiddenSidebar();
 
                     if (document.body.clientWidth > "991") {
                         contentTransitionLeft();
@@ -129,6 +137,8 @@
                     mainContent.classList.add("hidden");
                     toggleButton.classList.add("invisible");
                     menuClose.classList.remove("hidden");
+                    unHiddenSidebar();
+                    contentTransitionRight();
 
                 //remove active (cancel text) class form target icon
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {

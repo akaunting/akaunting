@@ -6,7 +6,7 @@
             {!! trans('modules.only_premium_plan') !!}
         </span>
     </div>
-@if (in_array('onprime', $module->where_to_use))
+@elseif (in_array('onprime', $module->where_to_use))
     <div x-show="price_type == true" class="text-center text-sm mt-3 mb--2">
         <span style="height: 21px;display: block;"></span>
     </div>

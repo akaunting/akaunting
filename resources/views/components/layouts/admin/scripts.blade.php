@@ -68,6 +68,16 @@
             toggleButton.querySelector("span").classList.remove("ltr:-rotate-90", "rtl:rotate-90");
         }
 
+        function hiddenSidebar() {
+            sideBar.classList.add("menu-list-hidden");
+            toggleButton.classList.add("ltr:left-12", "rtl:right-12");
+        }
+
+        function unHiddenSidebar() {
+            toggleButton.classList.remove("ltr:left-12", "rtl:right-12");
+            sideBar.classList.remove("menu-list-hidden");
+        }
+
         //if there are notifications, remove count badge
         function notificationCount(action) {
             let notification_count = document.querySelector('[data-notification-count]');
@@ -83,15 +93,13 @@
                 mobileMenuHidden();
             } else {
                 if (sideBar.classList.contains("menu-list-hidden")) {
-                    toggleButton.classList.remove("ltr:left-12", "rtl:right-12");
-                    sideBar.classList.remove("menu-list-hidden");
+                    unHiddenSidebar();
 
                     if (document.body.clientWidth > "991") {
                         contentTransitionRight();
                     }
                 } else {
-                    sideBar.classList.add("menu-list-hidden");
-                    toggleButton.classList.add("ltr:left-12", "rtl:right-12");
+                    hiddenSidebar();
 
                     if (document.body.clientWidth > "991") {
                         contentTransitionLeft();
@@ -142,6 +150,9 @@
                     mainContent.classList.add("hidden");
                     toggleButton.classList.add("invisible");
                     menuClose.classList.remove("hidden");
+                    
+                    unHiddenSidebar();
+                    contentTransitionRight();
 
                     notificationCount("none");
 
