@@ -495,6 +495,10 @@ html[dir='rtl'] .el-input__suffix {
     text-overflow: unset;
 }
 
+.disabled-link {
+    @apply cursor-default pointer-events-none opacity-50;
+}
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 450px;
