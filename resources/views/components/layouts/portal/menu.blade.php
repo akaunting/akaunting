@@ -84,9 +84,9 @@
 
                 <div class="flex ltr:ml-2 rtl:mr-2">
                     <span class="w-28 text-left block text-base truncate">
-                        <span class="border-b border-transparent transition-all hover:border-black">
+                        <x-link.hover>
                             {{ Str::limit(setting('company.name'), 22) }}
-                        </span>
+                        </x-link.hover>
                     </span>
 
                     @can('read-common-companies')

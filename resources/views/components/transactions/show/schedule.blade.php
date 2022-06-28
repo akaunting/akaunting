@@ -7,8 +7,10 @@
     <button class="relative w-full text-left cursor-pointer group"
         x-on:click="schedule !== 1 ? schedule = 1 : schedule = null"
     >
-        <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
-            {{ trans_choice('general.schedules', 1) }}
+        <span class="font-medium">
+            <x-link.hover  group-hover>
+                {{ trans_choice('general.schedules', 1) }}
+            </x-link.hover>
         </span>
 
         <div class="text-black-400 text-sm">

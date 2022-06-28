@@ -79,10 +79,10 @@
                             <td class="border-t-0 py-0"></td>
 
                             <td class="text-right border-t-0 border-r-0 border-b-0 align-middle py-0 pr-0">
-                                <div v-if="show_discount_text">
-                                    <span class="border-b border-transparent transition-all text-sm text-purple cursor-pointer hover:border-purple" v-if="!totals.discount_text" @click="onAddDiscount()">
+                                <div v-if="show_discount_text" v-if="!totals.discount_text" @click="onAddDiscount()">
+                                    <x-link.hover color="to-purple">
                                         {{ trans('invoices.add_discount') }}
-                                    </span>
+                                    </x-link.hover>
                                 </div>
 
                                 <span v-if="totals.discount_text" v-html="totals.discount_text"></span>

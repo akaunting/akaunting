@@ -106,7 +106,7 @@
                                     @foreach ($invoice->transactions as $transaction)
                                         <div class="my-2">
                                             <span>
-                                                <x-link href="{{ route('preview.payments.show', $transaction->id) }}" class="text-black border-b border-transparent transition-all hover:border-black" override="class">
+                                                <x-link href="{{ route('preview.payments.show', $transaction->id) }}" class="text-black bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-black transition-backgroundSize" override="class">
                                                     <x-date :date="$transaction->paid_at" />
                                                 </x-link>
                                                 - {!! trans('documents.transaction', [
