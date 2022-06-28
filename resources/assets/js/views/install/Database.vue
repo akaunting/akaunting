@@ -3,7 +3,7 @@
         <InstallSteps :active_state="active"></InstallSteps>
 
         <div class="card-body">
-            <div role="alert" class="alert alert-danger d-none" :class="(form.response.error) ? 'show' : ''" v-if="form.response.error" v-html="form.response.message"></div>
+            <div class="w-full bg-red-100 text-red-600 p-3 rounded-sm font-semibold text-xs" :class="(form.response.error) ? 'block' : 'hidden'" v-if="form.response.error" v-html="form.response.message"></div>
 
             <form>
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 mt-0">
