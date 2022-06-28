@@ -298,6 +298,7 @@ document.querySelectorAll('[data-link-loading]').forEach((href) => {
 
     target_link_html.addEventListener('click', function () {
         this.classList.add('disabled-link');
+
         this.querySelector('[data-link-spin]').classList.remove('hidden');
         this.querySelector('[data-link-text]').classList.add('opacity-0');
         this.querySelector('[data-link-text]').classList.remove('opacity-1');

@@ -35773,7 +35773,7 @@ html[dir='rtl'] .el-input__suffix {
     text-overflow: unset;
 }
 
-.disabled-link{
+.disabled-link {
   pointer-events: none;
   cursor: default;
   opacity: 0.5;
