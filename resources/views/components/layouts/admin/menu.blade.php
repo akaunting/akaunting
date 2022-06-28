@@ -222,7 +222,7 @@
         <span class="material-icons text-lg text-purple transform ltr:rotate-90 rtl:-rotate-90">expand_circle_down</span>
     </button>
 
-    <span data-menu-close id="menu-cancel" class="material-icons absolute ltr:-right-2 rtl:right-12 top-8 text-lg text-purple cursor-pointer z-10 hidden">cancel</span>
+    <span data-menu-close id="menu-cancel" class="material-icons absolute ltr:-right-2 rtl:right-12 transition-all top-8 text-lg text-purple cursor-pointer z-10 hidden">cancel</span>
 
     <div class="fixed w-full h-full invisible lg:hidden js-menu-background" style="background-color: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
 </div>
