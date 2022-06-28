@@ -13,7 +13,7 @@
                         <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-3' : 'grid-rows-2' }}">
                             <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                            <x-form.group.email name="email" label="{{ trans('general.email') }}" />
+                            <x-form.group.email name="email" label="{{ trans('general.email') }}" ::disabled="{{ $user->hasPendingInvitation() ? 'true' : 'false' }}" />
 
                             @if (user()->id == $user->id)
                             <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3" @input="onChangePassword($event)" />
