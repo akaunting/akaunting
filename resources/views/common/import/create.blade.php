@@ -29,7 +29,7 @@
                     <x-form.group.file name="import" dropzone-class="form-file" singleWidthClasses :options="['acceptedFiles' => '.xls,.xlsx']" form-group-class="mt-8" />
                 </div>
 
-                <div class="relative__footer mt-8">
+                <div class="mt-8">
                     <div class="sm:col-span-6 flex items-center justify-end">
                         @if (! empty($route))
                             <a href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg">
