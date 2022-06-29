@@ -10,9 +10,7 @@
                     <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('hostname')}]">
                         <label for="hostname" class="form-control-label">Hostname</label>
 
-                        <div class="input-group input-group-merge">
-                            <input class="form-element" data-name="hostname" data-value="localhost" @keydown="form.errors.clear('hostname')" v-model="form.hostname" required="required" name="hostname" type="text" value="localhost" id="hostname" />
-                        </div>
+                        <input class="form-element" data-name="hostname" data-value="localhost" @keydown="form.errors.clear('hostname')" v-model="form.hostname" required="required" name="hostname" type="text" value="localhost" id="hostname" />
 
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('hostname')" v-html="form.errors.get('hostname')"></div>
                     </div>
@@ -20,9 +18,7 @@
                     <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('username')}]">
                         <label for="username" class="form-control-label">Username</label>
 
-                        <div class="input-group input-group-merge">
-                            <input class="form-element" data-name="username" @keydown="form.errors.clear('username')" v-model="form.username" required="required" name="username" type="text" id="username" />
-                        </div>
+                        <input class="form-element" data-name="username" @keydown="form.errors.clear('username')" v-model="form.username" required="required" name="username" type="text" id="username" />
 
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('username')" v-html="form.errors.get('username')"></div>
                     </div>
@@ -30,9 +26,7 @@
                     <div class="sm:col-span-6" :class="[{'has-error': form.errors.get('password')}]">
                         <label for="password" class="form-control-label">Password</label>
 
-                        <div class="input-group input-group-merge">
-                            <input class="form-element" data-name="password" v-model="form.password" name="password" type="password" value="" id="password" />
-                        </div>
+                        <input class="form-element" data-name="password" v-model="form.password" name="password" type="password" value="" id="password" />
 
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('password')" v-html="form.errors.get('password')"></div>
                     </div>
@@ -40,9 +34,7 @@
                     <div class="sm:col-span-6 mb--2 required" :class="[{'has-error': form.errors.get('database')}]">
                         <label for="database" class="form-control-label">Database</label>
 
-                        <div class="input-group input-group-merge">
-                            <input class="form-element" data-name="database" @keydown="form.errors.clear('database')" v-model="form.database" required="required" name="database" type="text" id="database" />
-                        </div>
+                        <input class="form-element" data-name="database" @keydown="form.errors.clear('database')" v-model="form.database" required="required" name="database" type="text" id="database" />
 
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('database')" v-html="form.errors.get('database')"></div>
                     </div>

@@ -20,7 +20,7 @@
         :class="[{'has-error': error}, {'required': required}, {'readonly': readonly}, {'disabled': disabled}, col]">
         <label v-if="title" :for="name" class="form-control-label">{{ title }}</label>
 
-        <div v-if="icon" class="input-group input-group-merge" :class="group_class">
+        <div v-if="icon" :class="group_class">
             <div v-if="icon" class="input-group-prepend">
                 <span class="input-group-text">
                     <i :class="'fa fa-' + icon"></i>

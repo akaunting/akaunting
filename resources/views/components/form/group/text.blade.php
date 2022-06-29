@@ -30,7 +30,6 @@
         @endif
 
         <div @class([
-                'input-group input-group-merge',
                 $inputGroupClass,
             ])
         >
