@@ -58,6 +58,7 @@ class Version304 extends Listener
         $files = [
             'app/Events/Auth/InvitationCreated.php',
             'app/Listeners/Auth/SendUserInvitation.php',
+            'app/Listeners/Auth/DeleteUserInvitation.php',
         ];
 
         foreach ($files as $file) {

@@ -32,12 +32,6 @@ class Event extends Provider
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
         ],
-        'App\Events\Auth\InvitationCreated' => [
-            'App\Listeners\Auth\SendUserInvitation',
-        ],
-        'App\Events\Auth\UserDeleted' => [
-            'App\Listeners\Auth\DeleteUserInvitation',
-        ],
         'App\Events\Document\DocumentCreated' => [
             'App\Listeners\Document\CreateDocumentCreatedHistory',
             'App\Listeners\Document\IncreaseNextDocumentNumber',
