@@ -59,34 +59,31 @@
                 <x-pagination :items="$payments" />
             </x-index.container>
         @else
-            <x-empty-page
-                group="banking"
-                page="transactions"
-                hide-button-import
-                :buttons="[
-                    [
-                        'url' =>  route('transactions.create', ['type' => 'income']),
-                        'permission' => 'create-banking-transactions',
-                        'text' => trans('general.title.new', ['type' => trans_choice('general.incomes', 1)]),
-                        'description' => trans('general.empty.actions.new', ['type' => trans_choice('general.incomes', 1)]),
-                        'active_badge' => false
-                    ],
-                    [
-                        'url' => route('transactions.create', ['type' => 'expense']),
-                        'permission' => 'create-banking-transactions',
-                        'text' => trans('general.title.new', ['type' => trans_choice('general.expenses', 1)]),
-                        'description' => trans('general.empty.actions.new', ['type' => trans_choice('general.expenses', 1)]),
-                        'active_badge' => false
-                    ],
-                    [
-                        'url' => 'https://akaunting.com/premium-cloud',
-                        'permission' => 'create-banking-transactions',
-                        'text' => trans('import.title', ['type' => trans_choice('general.bank_transactions', 2)]),
-                        'description' => '',
-                        'active_badge' => false
-                    ]
-                ]"
-            />
+            <div class="flex">
+                <div class="w-full text-center">
+                    <div class="my-10">
+                        {{ trans('portal.create_your_invoice') }}
+                    </div>
+
+                    <div class="my-10">
+                        <a href="https://akaunting.com/lp/accounting-software?utm_source=payment_index&utm_medium=software&utm_campaign=plg" class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700">
+                            {{ trans('portal.get_started') }}
+                        </a>
+                    </div>
+
+                    <div class="my-10">
+                        <img src="https://assets.akaunting.com/software/portal/payment.gif" class="inline" alt="Get Started" />
+                    </div>
+                </div>
+            </div>
+
+            @push('css')
+                <style>
+                    .hide-empty-page {
+                        display: none;
+                    }
+                </style>
+            @endpush
         @endif
     </x-slot>
 

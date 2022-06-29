@@ -10,8 +10,6 @@
     @endif
 
     @if (! empty($foot) && $foot->isNotEmpty())
-    <div class="relative__footer">
         {!! $foot !!}
-    </div>
     @endif
 </div>

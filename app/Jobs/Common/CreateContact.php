@@ -43,13 +43,13 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
             throw new \Exception($message);
         }
 
-        $customer_role = Role::all()->filter(function ($role) {
+        $customer_role_id = Role::all()->filter(function ($role) {
             return $role->hasPermission('read-client-portal');
-        })->pluck('id')->toArray();
+        })->pluck('id')->first();
 
         $this->request->merge([
             'locale' => setting('default.locale', 'en-GB'),
-            'roles' => $customer_role,
+            'roles' => $customer_role_id,
             'companies' => [$this->request->get('company_id')],
         ]);
 
