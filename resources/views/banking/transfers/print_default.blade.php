@@ -4,6 +4,6 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-transfers.template.default :model="$transfer" />
+        <x-transfers.template.ddefault :model="$transfer" />
     </x-slot>
 </x-layouts.print>
