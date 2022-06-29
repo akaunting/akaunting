@@ -53,7 +53,7 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
             'companies' => [$this->request->get('company_id')],
         ]);
 
-        $user = $this->dispatch(new ($this->request));
+        $user = $this->dispatch(new CreateUser($this->request));
 
         $this->request['user_id'] = $user->id;
     }
