@@ -247,7 +247,7 @@
                         </div>
                     </div>
 
-                    <div class="relative__footer mt-6">
+                    <div class="mt-6">
                         @if ($transactions->count())
                             <div class="sm:col-span-6 flex items-center justify-end">
                                 <x-link
