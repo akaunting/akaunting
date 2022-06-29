@@ -71,7 +71,7 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
                 ]);
             }
 
-            if (! app()->runningInConsole() && ! request()->isInstall()) {
+            if ((! app()->runningInConsole() && ! request()->isInstall()) || app()->runningUnitTests()) {
                 $this->dispatch(new CreateInvitation($this->model));
             }
         });
