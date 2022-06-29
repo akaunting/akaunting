@@ -2,7 +2,7 @@
     <div>
         <InstallSteps :active_state="active"></InstallSteps>
 
-        <div class="form-group mb-0">
+        <div class="mb-0">
             <form>
                 <select v-model="form.lang" name="lang" id="lang" size="13" class="w-full form-control-label">
                     <option v-for="(name, code) in languages" :value="code">

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="! rowInput" class="form-group"
+    <div v-if="! rowInput"
         :class="[{'has-error': error}, {'required': required}, {'readonly': readonly}, {'disabled': disabled}, col]">
         <label v-if="title" :for="name" class="form-control-label">{{ title }}</label>
 

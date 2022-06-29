@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group" :class="[
+  <div :class="[
        {'has-error': error},
        formClasses
        ]">
