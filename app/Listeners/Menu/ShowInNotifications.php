@@ -62,8 +62,8 @@ class ShowInNotifications
             $app_url = route('apps.app.show', [
                 'alias'         => $new_app->alias,
                 'utm_source'    => 'notification',
-                'utm_medium'    => 'software',
-                'utm_campaign'  => str_replace('-', '', $new_app->alias),
+                'utm_medium'    => 'app',
+                'utm_campaign'  => str_replace('-', '_', $new_app->alias),
             ]);
 
             $new = new DatabaseNotification();

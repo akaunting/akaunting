@@ -158,7 +158,7 @@
                     </div>
 
                     <div class="my-10">
-                        <a href="https://akaunting.com/lp/accounting-software?utm_source=invoice_index&utm_medium=software&utm_campaign=plg" class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700">
+                        <a href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=invoice_index&utm_campaign=plg" class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700">
                             {{ trans('portal.get_started') }}
                         </a>
                     </div>
