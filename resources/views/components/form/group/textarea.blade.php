@@ -26,7 +26,7 @@
         @if (! $attributes->has('label') && ! empty($label->contents))
             {!! $label ?? '' !!}
         @elseif (! empty($label))
-            <x-form.label for="{{ $name }}" class="form-control-label">{!! $label !!}</x-form.label>
+            <x-form.label for="{{ $name }}" {{ $attributes->merge($custom_attributes) }}>{!! $label !!}</x-form.label>
         @endif
 
         @php
