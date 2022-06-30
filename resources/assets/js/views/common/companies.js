@@ -30,5 +30,22 @@ const app = new Vue({
             form: new Form('company'),
             bulk_action: new BulkAction('companies')
         }
+    },
+
+    methods: {
+        // Form Submit
+        onSubmit() {
+            this.form.loading = true;
+
+            if (this.form.country === "") {
+                this.form.errors.set('country', [country_validation_required_message]);
+
+                this.form.loading = false;
+
+                return;
+            }
+
+            this.form.submit();
+        },
     }
 });
