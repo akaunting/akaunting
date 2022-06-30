@@ -55,6 +55,15 @@
         @endif
         @stack('children_end')
 
+        @stack('transfer_start')
+        @if (! $hideTransfer)
+            <x-transactions.show.transfer
+                type="{{ $type }}"
+                :transaction="$transaction"
+            />
+        @endif
+        @stack('transfer_end')
+
         @stack('attachment_start')
         @if (! $hideAttachment)
             <x-transactions.show.attachment

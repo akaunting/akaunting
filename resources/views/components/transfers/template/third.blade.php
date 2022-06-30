@@ -18,7 +18,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->expense_transaction->account->name }}
+                                                {{ $transfer->expense_account->name }}
                                             </td>
                                         </tr>
                                     </table>
@@ -30,7 +30,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->expense_transaction->account->number}}
+                                                {{ $transfer->expense_account->number}}
                                             </td>
                                         </tr>
                                     </table>
@@ -42,7 +42,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->expense_transaction->account->bank_name }}
+                                                {{ $transfer->expense_account->bank_name }}
                                             </td>
                                         </tr>
                                     </table>
@@ -54,7 +54,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->expense_transaction->account->bank_phone }}
+                                                {{ $transfer->expense_account->bank_phone }}
                                             </td>
                                         </tr>
                                     </table>
@@ -66,7 +66,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->expense_transaction->account->bank_address }}
+                                                {{ $transfer->expense_account->bank_address }}
                                             </td>
                                         </tr>
                                     </table>
@@ -92,7 +92,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->income_transaction->account->name }}
+                                                {{ $transfer->income_account->name }}
                                             </td>
                                         </tr>
                                     </table>
@@ -104,7 +104,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->income_transaction->account->number }}
+                                                {{ $transfer->income_account->number }}
                                             </td>
                                         </tr>
                                     </table>
@@ -116,7 +116,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->income_transaction->account->bank_name }}
+                                                {{ $transfer->income_account->bank_name }}
                                             </td>
                                         </tr>
                                     </table>
@@ -128,7 +128,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->income_transaction->account->bank_phone }}
+                                                {{ $transfer->income_account->bank_phone }}
                                             </td>
                                         </tr>
                                     </table>
@@ -140,7 +140,7 @@
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
-                                                {{ $transfer->income_transaction->account->bank_address }}
+                                                {{ $transfer->income_account->bank_address }}
                                             </td>
                                         </tr>
                                     </table>

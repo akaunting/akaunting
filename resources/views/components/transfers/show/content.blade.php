@@ -2,6 +2,8 @@
     <div class="w-full lg:w-5/12 space-y-12">
         <x-transfers.show.create :model="$transfer" />
 
+        <x-transfers.show.transactions :model="$transfer" />
+
         <x-transfers.show.attachment :model="$transfer" />
     </div>
 
