@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col text-gray-500 ml-3">
-                            <h4 class="text-sm mb-1" data-dz-name>...</h4>
+                            <h4 class="w-56 lg:w-96 text-sm mb-1 truncate" data-dz-name>...</h4>
 
                             <p class="text-xs text-muted mb-0" data-dz-size>...</p>
                         </div>
