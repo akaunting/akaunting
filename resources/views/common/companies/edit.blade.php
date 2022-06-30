@@ -69,5 +69,11 @@
         </x-form.container>
     </x-slot>
 
+    @push('scripts_end')
+        <script type="text/javascript">
+            var country_validation_required_message = "{{ trans('validation.required', ['attribute' => trans_choice('general.countries', 1)]) }}";
+        </script>
+    @endpush
+
     <x-script folder="common" file="companies" />
 </x-layouts.admin>

@@ -44,7 +44,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" v-model="form.address" />
+                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" v-model="form.address" not-required />
 
                         <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ setting('company.city') }}" not-required />
 
@@ -64,6 +64,12 @@
             </x-form>
         </x-form.container>
     </x-slot>
+
+    @push('scripts_end')
+        <script type="text/javascript">
+            var country_validation_required_message = "{{ trans('validation.required', ['attribute' => trans_choice('general.countries', 1)]) }}";
+        </script>
+    @endpush
 
     <x-script folder="common" file="companies" />
 </x-layouts.admin>
