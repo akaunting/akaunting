@@ -8,27 +8,6 @@
 
 @layer base {
     /* form */
-    /* .form-element {
-        @apply w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
-    } */
-    
-    /* .has-error .form-element {
-        @apply border-red;
-    }
-
-    .prepend-input-icon .form-element {
-        @apply px-10;
-    } */
-    
-    /* .form-control-label {
-        @apply text-black text-sm font-medium;
-    } */
-
-    /* div.required > .form-control-label::after {
-        content: '*';
-        @apply text-red ml-1;
-    } */
-
     .has-error input, .has-error select, .has-error textarea {
         border: 1px solid #cc0000 !important;
     }
