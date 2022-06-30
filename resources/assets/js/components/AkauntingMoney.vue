@@ -4,6 +4,7 @@
 
         <label v-if="title" :for="name" class="text-black text-sm font-medium">
             {{ title }}
+            <span v-if="!notRequired" class="text-red ltr:ml-1 rtl:mr-1">*</span>
         </label>
 
         <div class="relative" :class="group_class">
@@ -144,6 +145,10 @@ export default {
             default: false,
             description: "Money result value"
         },
+        notRequired: {
+            type: Boolean,
+            default: false
+        }
     },
 
     data() {
