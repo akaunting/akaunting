@@ -48,7 +48,7 @@
 
                         <x-form.group.locale />
 
-                        <x-form.group.country :selected="$user->contact->country" />
+                        <x-form.group.country :selected="$user->contact->country" not-required />
 
                         <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ $user->contact->city }}" not-required />
 
