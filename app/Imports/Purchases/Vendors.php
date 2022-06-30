@@ -21,6 +21,7 @@ class Vendors extends Import
 
         $row['type'] = 'vendor';
         $row['country'] = !empty($country) ? $country : null;
+        $row['user_id'] = null;
 
         return $row;
     }

@@ -15,10 +15,10 @@ trait Cloud
         return request()->getHost() == $this->cloud_host;
     }
 
-    public function getCloudRolesPageUrl()
+    public function getCloudRolesPageUrl($location = 'user')
     {
         if (! $this->isCloud()) {
-            return 'https://akaunting.com/plans?utm_source=user_role&utm_medium=software&utm_campaign=plg';
+            return 'https://akaunting.com/apps/roles?utm_source=software&utm_medium=' . $location . '&utm_campaign=roles';
         }
 
         if ($this->moduleIsEnabled('roles')) {
@@ -26,20 +26,20 @@ trait Cloud
         }
 
         return route('cloud.plans.index', [
-            'utm_source'    => 'user',
+            'utm_source'    => $location,
             'utm_medium'    => 'app',
             'utm_campaign'  => 'roles',
         ]);
     }
 
-    public function getCloudBankFeedsUrl()
+    public function getCloudBankFeedsUrl($location = 'widget')
     {
         if (! $this->isCloud()) {
-            return 'https://akaunting.com/features/connect-your-bank?utm_source=bank_feeds_widget&utm_medium=software&utm_campaign=plg';
+            return 'https://akaunting.com/apps/bank-feeds?utm_source=software&utm_medium=' . $location . '&utm_campaign=bank_feeds';
         }
 
         return route('cloud.plans.index', [
-            'utm_source'    => 'widget',
+            'utm_source'    => $location,
             'utm_medium'    => 'app',
             'utm_campaign'  => 'bank_feeds',
         ]);

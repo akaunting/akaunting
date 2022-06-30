@@ -35,7 +35,6 @@ class Customers extends Export
             'currency_code',
             'reference',
             'enabled',
-            'user_id',
         ];
     }
 }
