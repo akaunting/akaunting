@@ -63,7 +63,7 @@ abstract class Widget
                 'alias'         => $alias,
                 'utm_source'    => 'widget',
                 'utm_medium'    => 'app',
-                'utm_campaign'  => Str::snake(Str::camel($alias)),
+                'utm_campaign'  => str_replace('-', '_', $alias),
             ]);
         }
 
