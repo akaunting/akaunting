@@ -9,6 +9,7 @@
 
 .ql-editor p {
   color: #424242;
+  display: inline;
 }
 
 .ql-toolbar {
@@ -24,13 +25,14 @@
   @apply text-sm text-light-gray;
   display: block;
   width: 100%;
-  padding: .625rem .75rem;
+  padding: 12px 9px !important;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid;
   border-top: unset;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+  font-size: 14px !important;
 }
 
 .ql-toolbar button:hover {
