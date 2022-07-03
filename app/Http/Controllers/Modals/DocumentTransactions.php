@@ -12,6 +12,7 @@ use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
 use App\Traits\Transactions;
+use Date;
 
 
 class DocumentTransactions extends Controller
@@ -58,6 +59,8 @@ class DocumentTransactions extends Controller
             $document->grand_total = round($document->total - $paid, $currency->precision);
         }
 
+        $document->paid_at = Date::now()->toDateString();
+
         $buttons = [
             'cancel' => [
                 'text' => trans('general.cancel'),
@@ -79,9 +82,11 @@ class DocumentTransactions extends Controller
             ],
         ];
 
+        $method = 'POST';
+
         $route = ['modals.documents.document.transactions.store', $document->id];
 
-        $html = view('modals.documents.payment', compact('document', 'route', 'currency', 'number'))->render();
+        $html = view('modals.documents.payment', compact('document', 'method', 'route', 'currency', 'number'))->render();
 
         return response()->json([
             'success' => true,
@@ -139,20 +144,11 @@ class DocumentTransactions extends Controller
 
         $paid = $document->paid;
 
-        $number = $this->getNextTransactionNumber();
+        $number = $transaction->number;
 
-        // Get document Totals
-        foreach ($document->totals as $document_total) {
-            $document->{$document_total->code} = $document_total->amount;
-        }
+        $document->grand_total = money($transaction->amount, $currency->code)->getAmount();
 
-        $total = money($document->total, $currency->code, true)->format();
-
-        $document->grand_total = money($total, $currency->code)->getAmount();
-
-        if (! empty($paid)) {
-            $document->grand_total = round($document->total - $paid, $currency->precision);
-        }
+        $document->paid_at = $transaction->paid_at;
 
         $buttons = [
             'cancel' => [
@@ -170,9 +166,11 @@ class DocumentTransactions extends Controller
             ],
         ];
 
+        $method = 'PATCH';
+
         $route = ['modals.documents.document.transactions.update', $document->id, $transaction->id];
 
-        $html = view('modals.documents.payment', compact('document', 'transaction', 'route', 'currency', 'number'))->render();
+        $html = view('modals.documents.payment', compact('document', 'transaction', 'method', 'route', 'currency', 'number'))->render();
 
         return response()->json([
             'success' => true,
