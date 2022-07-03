@@ -15,7 +15,7 @@ class GetPaid extends Component
      */
     public function render()
     {
-        $this->description = trans('general.amount_due') . ': ' . '<span class="font-medium">' . money($this->document->amount, $this->document->currency_code, true) . '</span>';
+        $this->description = trans('general.amount_due') . ': ' . '<span class="font-medium">' . money($this->document->amount_due, $this->document->currency_code, true) . '</span>';
 
         return view('components.documents.show.get-paid');
     }
