@@ -696,7 +696,7 @@ const app = new Vue({
 
             let payment = {
                 modal: false,
-                url: url + '/modals/documents/' + document_id + '/transactions/edit/' + transaction_id,
+                url: url + '/modals/documents/' + document_id + '/transactions/' + transaction_id + '/edit',
                 title: '',
                 html: '',
                 buttons:{}

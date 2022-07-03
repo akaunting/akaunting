@@ -1,4 +1,4 @@
-<x-form id="form-transaction" :route="$route" :model="!empty($transaction) ? $transaction : false">
+<x-form id="form-transaction" :method="$method" :route="$route" :model="!empty($transaction) ? $transaction : false">
     <div class="rounded-xl px-5 py-3 mb-5 bg-red-100" v-if="typeof form.response !== 'undefined' && form.response.error">
         <p class="text-sm mb-0 text-red-600" v-html="form.response.message"></p>
     </div>
@@ -40,7 +40,7 @@
 
         <div id="tab-general" data-tabs-content="general" x-show="active === 'general'">
             <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
-                <x-form.group.date name="paid_at" label="{{ trans('general.date') }}" icon="calendar_today" value="{{ Date::now()->toDateString() }}" show-date-format="{{ company_date_format() }}" date-format="Y-m-d" autocomplete="off" form-group-class="col-span-6" />
+                <x-form.group.date name="paid_at" label="{{ trans('general.date') }}" icon="calendar_today" value="{{ $document->paid_at }}" show-date-format="{{ company_date_format() }}" date-format="Y-m-d" autocomplete="off" form-group-class="col-span-6" />
 
                 <x-form.group.money name="amount" label="{{ trans('general.amount') }}" value="{{ $document->grand_total }}" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" form-group-class="col-span-6" />
 
