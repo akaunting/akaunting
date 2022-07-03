@@ -89,6 +89,11 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->belongsToMany('App\Models\Common\Dashboard', 'App\Models\Auth\UserDashboard');
     }
 
+    public function invitation()
+    {
+        return $this->hasOne('App\Models\Auth\UserInvitation', 'user_id', 'id');
+    }
+
     /**
      * Always capitalize the name when we retrieve it
      */
@@ -311,14 +316,12 @@ class User extends Authenticatable implements HasLocalePreference
             return $actions;
         }
 
-        if (! $this->hasPendingInvitation()) {
-            $actions[] = [
-                'title' => trans('general.edit'),
-                'icon' => 'edit',
-                'url' => route('users.edit', $this->id),
-                'permission' => 'update-auth-users',
-            ];
-        }
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('users.edit', $this->id),
+            'permission' => 'update-auth-users',
+        ];
 
         if ($this->hasPendingInvitation()) {
             $actions[] = [

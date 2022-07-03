@@ -3,9 +3,11 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
-use App\Events\Auth\InvitationCreated;
 use App\Models\Auth\UserInvitation;
+use App\Notifications\Auth\Invitation as Notification;
+use Exception;
 use Illuminate\Support\Str;
+use Symfony\Component\Mailer\Exception\TransportException;
 
 class CreateInvitation extends Job
 {
@@ -13,31 +15,29 @@ class CreateInvitation extends Job
 
     protected $user;
 
-    protected $company;
-
-    public function __construct($user, $company)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->company = $company;
     }
 
     public function handle(): UserInvitation
     {
         \DB::transaction(function () {
-            if ($this->user->hasPendingInvitation($this->company->id)) {
-                $pending_invitation = $this->user->getPendingInvitation($this->company->id);
-
-                $this->dispatch(new DeleteInvitation($pending_invitation));
-            }
-
             $this->invitation = UserInvitation::create([
                 'user_id' => $this->user->id,
-                'company_id' => $this->company->id,
                 'token' => (string) Str::uuid(),
             ]);
-        });
 
-        event(new InvitationCreated($this->invitation));
+            $notification = new Notification($this->invitation);
+
+            try {
+                $this->dispatch(new NotifyUser($this->user, $notification));
+            } catch (TransportException $e) {
+                $message = trans('errors.title.500');
+
+                throw new Exception($message);
+            }
+        });
 
         return $this->invitation;
     }

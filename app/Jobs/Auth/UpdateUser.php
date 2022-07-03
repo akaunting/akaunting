@@ -67,20 +67,6 @@ class UpdateUser extends Job implements ShouldUpdate
                         'user' => $this->model->id,
                         'company' => $company->id,
                     ]);
-
-                    $this->dispatch(new CreateInvitation($this->model, $company));
-                }
-            }
-
-            if (isset($sync) && !empty($sync['detached'])) {
-                foreach ($sync['detached'] as $id) {
-                    $company = Company::find($id);
-
-                    if ($this->model->hasPendingInvitation($company->id)) {
-                        $pending_invitation = $this->model->getPendingInvitation($company->id);
-
-                        $this->dispatch(new DeleteInvitation($pending_invitation));
-                    }
                 }
             }
         });

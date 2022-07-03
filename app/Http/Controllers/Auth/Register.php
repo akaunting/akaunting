@@ -46,6 +46,10 @@ class Register extends Controller
     {
         $invitation = UserInvitation::token($request->get('token'))->first();
 
+        if (!$invitation) {
+            abort(403);
+        }
+
         $user = $invitation->user;
 
         $this->dispatch(new DeleteInvitation($invitation));
