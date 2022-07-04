@@ -43,6 +43,11 @@ return [
     'apps_managing'         => 'Provjerite najpopularnije aplikacije i počnite profesionalno upravljati svojim financijama već danas.',
     'ready'                 => 'Spremni',
     'popular_this_week'     => 'Popularno ove sedmice',
+    'install_cloud'         => 'Koristite na Cloud servise',
+    'get_cloud'             => 'Preuzmite Cloud servise',
+    'get_premium_cloud'     => 'Preuzmite Premium Cloud',
+    'only_works_cloud'      => 'Ova aplikacija je radi samo u sklopu <strong>Cloud Servisa</strong>',
+    'only_premium_plan'     => 'Ova aplikacija je radi samo u sklopu <strong>Cloud Premium  Servisa</strong>',
 
     'about'                 => 'O aplikaciji',
 

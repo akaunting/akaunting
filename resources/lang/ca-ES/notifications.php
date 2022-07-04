@@ -9,6 +9,7 @@ return [
     'mark_read'           => 'Marca com a llegida',
     'mark_read_all'       => 'Marcades totes com llegides',
     'empty'               => 'Visca, cap notificació!',
+    'new_apps'            => ':app està disponible. <a href=":url">Comprova-ho</a>!',
 
     'update' => [
 

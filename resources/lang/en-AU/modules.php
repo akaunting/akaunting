@@ -43,6 +43,11 @@ return [
     'apps_managing'         => 'Resend',
     'ready'                 => 'Ready',
     'popular_this_week'     => 'Popular this week',
+    'install_cloud'         => 'Use on Cloud Service',
+    'get_cloud'             => 'Get Cloud Service',
+    'get_premium_cloud'     => 'Get Premium Cloud',
+    'only_works_cloud'      => 'This app only works on <strong>Cloud Service</strong>.',
+    'only_premium_plan'     => 'This app only works on <strong>Cloud Premium Service</strong>.',
 
     'about'                 => 'About',
 

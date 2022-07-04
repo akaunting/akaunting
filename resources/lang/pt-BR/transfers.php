@@ -25,6 +25,9 @@ return [
 
     'slider' => [
         'create'            => ':user criou essa transferência em :date',
+        'transactions'      => 'Na lista estão as transações que foram criadas automaticamente.',
+        'from_desc'         => 'Transação :number de :account',
+        'to_desc'           => 'Transação :number para :account',
     ],
 
 ];

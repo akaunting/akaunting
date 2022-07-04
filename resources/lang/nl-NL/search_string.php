@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Afgestemd',
         'expense_account'   => 'Van account',
         'income_account'    => 'Naar account',
+        'recurring'         => 'Terugkerend',
     ],
 
 ];

@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Escriu per cercar...',
         'search_and_filter' => 'Cerca o filtra resultats...',
+        'select_and_filter' => 'Selecciona una de les opcions següents:',
+        'enter_and_filter'  => 'Prem la tecla Enter per filtrar els resultats o definir un nou filtre',
         'contact_search'    => 'Escriu un nom per :field',
         'item_search'       => 'Escriu un nom d\'element',
     ],

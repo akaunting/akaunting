@@ -24,6 +24,8 @@ return [
         'create_recurring'  => ':user va crear aquesta plantilla recurrent el dia :date',
         'schedule'          => 'Repeteix cada :interval :frequency des de :date',
         'children'          => 'S\'han creat :count factures automàticament',
+        'transfer_headline' => 'Des de :from_account a :to_account',
+        'transfer_desc'     => 'Transferència creada el :date.',
     ],
 
     'share' => [

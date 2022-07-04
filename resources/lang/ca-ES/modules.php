@@ -43,6 +43,11 @@ return [
     'apps_managing'         => 'Comprova les aplicacions més actuals i comença a gestionar les finances de manera professional avui mateix.',
     'ready'                 => 'Llest',
     'popular_this_week'     => 'Popular aquesta setmana',
+    'install_cloud'         => 'Utilitza Serveis al Núvol',
+    'get_cloud'             => 'Serveis al Núvol',
+    'get_premium_cloud'     => 'Fes-te prèmium ara',
+    'only_works_cloud'      => 'Aquesta opció només està disponible per al <strong>Cloud Service</strong> (Servei al Núvol).',
+    'only_premium_plan'     => 'Aquesta opció només està disponible per al <strong>servei Prèmium</strong> (Cloud Premium Service).',
 
     'about'                 => 'Sobre',
 

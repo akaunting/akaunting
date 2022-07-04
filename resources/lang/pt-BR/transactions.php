@@ -24,6 +24,8 @@ return [
         'create_recurring'  => ':user criou esse modelo recorrente em :date',
         'schedule'          => 'Repetir a cada :interval :frequency a partir de :date',
         'children'          => ':count transações foram criadas automaticamente',
+        'transfer_headline' => 'De :from_account para :to_account',
+        'transfer_desc'     => 'Transferência criada em :date.',
     ],
 
     'share' => [
