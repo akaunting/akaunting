@@ -30,4 +30,7 @@ Biztosan <b> törli </b> a kiválasztott rekordot? | Biztosan <b> törli </b> a 
 Biztosan <b> törli </b> a kiválasztott rekordot? | Biztosan <b> törli </b> a kiválasztott rekordokat?',
     ],
 
+    'success' => [
+        'general'       => ':count rekord :type.',
+    ],
 ];

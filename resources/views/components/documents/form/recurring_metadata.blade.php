@@ -25,7 +25,7 @@
         @stack('issue_start')
 
         @if (! $hideIssuedAt)
-        <div class="form-group form-group relative sm:col-span-3">
+        <div class="relative sm:col-span-3">
             <x-form.label>
                 {{ trans($textIssuedAt) }}
             </x-form.label>
@@ -61,7 +61,7 @@
         @stack('document_number_start')
 
         @if (! $hideDocumentNumber)
-        <div class="form-group form-group relative sm:col-span-3">
+        <div class="relative sm:col-span-3">
             <x-form.label>
                 {{ trans($textDocumentNumber) }}
             </x-form.label>

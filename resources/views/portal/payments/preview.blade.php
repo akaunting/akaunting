@@ -24,9 +24,9 @@
             <div class="w-full lg:w-5/12 space-y-8">
                 <div class="border-b-2 border-gray-200 pb-1">
                     <div class="relative w-full text-left group">
-                        <x-link.hover  group-hover>  
+                        <x-button.hover group-hover>
                             {{ trans('portal.received_date') }}
-                        </x-link.hover>
+                        </x-button.hover>
                     </div>
 
                     <div class="relative overflow-hidden transition-all duration-700">

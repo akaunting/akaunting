@@ -19,7 +19,8 @@ return [
 
     'invoice_recur_customer' => [
         'subject'       => '{invoice_number} periodisks rēķins izveidots',
-        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring circle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Cien. {customer_name},<br /><br />Pamatojoties uz jūsu periodiskumu, esam jums sagatavojuši šādu rēķinu:
+ <strong>{invoice_number}</strong>.<br /><br />Varat skatīt rēķina informāciju un turpināt maksājumu no šādas saites: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Varat sazināties ar mums, uzdodot jebkādus jautājumus.<br /><br />Labākie vēlējumi,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
@@ -49,7 +50,7 @@ return [
 
     'bill_recur_admin' => [
         'subject'       => 'Izveidots periodiskais rēķins Nr.{bill_number} ',
-        'body'          => 'Hello,<br /><br />Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Hello,<br /><br />Pamatojoties uz {vendor_name} periodiskumu, <strong>{bill_number}</strong> rēķins bija automātiski izveidots.<br /><br />Jūs varat skatīt rēķina informāciju no sekojošas saites : <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'payment_received_customer' => [

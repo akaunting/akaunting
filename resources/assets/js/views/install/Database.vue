@@ -7,7 +7,7 @@
 
             <form>
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 mt-0">
-                    <div class="sm:col-span-6 form-group required" :class="[{'has-error': form.errors.get('hostname')}]">
+                    <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('hostname')}]">
                         <label for="hostname" class="text-black text-sm font-medium">Hostname</label>
                         <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
@@ -30,7 +30,7 @@
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('hostname')" v-html="form.errors.get('hostname')"></div>
                     </div>
 
-                    <div class="sm:col-span-6 form-group required">
+                    <div class="sm:col-span-6 required">
                         <label for="username" class="text-black text-sm font-medium">Username</label>
                         <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
@@ -43,7 +43,7 @@
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('username')" v-html="form.errors.get('username')"></div>
                     </div>
 
-                    <div class="sm:col-span-6 form-group">
+                    <div class="sm:col-span-6">
                         <label for="password" class="text-black text-sm font-medium">Password</label>
 
                         <div class="input-group input-group-merge">
@@ -55,7 +55,7 @@
                         <div class="text-red text-sm mt-1 block" v-if="form.errors.has('password')" v-html="form.errors.get('password')"></div>
                     </div>
 
-                    <div class="sm:col-span-6 form-group mb--2 required">
+                    <div class="sm:col-span-6 required">
                         <label for="database" class="text-black text-sm font-medium">Database</label>
                         <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 

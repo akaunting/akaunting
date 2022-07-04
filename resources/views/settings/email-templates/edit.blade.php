@@ -14,11 +14,11 @@
                             <div class="flex flex-col">
                                 <div class="mb-3">
                                     @foreach ($template as $item)
-                                        <button class="text-xs truncate text-left" @click="onEditEmailTemplate({{ $item->id }}, $event)" >
-                                            <x-link.hover color="to-purple">
+                                        <x-button class="text-xs truncate text-left" @click="onEditEmailTemplate({{ $item->id }}, $event)" override="class">
+                                            <x-button.hover color="to-purple">
                                                 {{ trans($item->name) }}
-                                            </x-link.hover>
-                                        </button>
+                                            </x-button.hover>
+                                        </x-button>
                                     @endforeach
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
                                 <x-form.group.text name="subject" label="{{ trans('settings.email.templates.subject') }}" form-group-class="sm:col-span-6" />
 
-                                <div class="form-group sm:col-span-6 required" v-if='form.body != null'>
+                                <div class="sm:col-span-6 required" v-if='form.body != null'>
                                     <x-form.label for="body">
                                         {{ trans('settings.email.templates.body') }}
                                     </x-form.label>
@@ -56,7 +56,7 @@
                                     ></akaunting-html-editor>
                                 </div>
 
-                                <div class="form-group sm:col-span-6 required" v-if='form.body == null'>
+                                <div class="sm:col-span-6 required" v-if='form.body == null'>
                                     <x-form.group.editor name="body" label="{{ trans('settings.email.templates.body') }}" value="{!! $template->body !!}" v-model='form.body' rows="5" />
                                 </div>
 

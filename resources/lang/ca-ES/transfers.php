@@ -25,6 +25,9 @@ return [
 
     'slider' => [
         'create'            => ':user ha creat aquesta transferència el :date',
+        'transactions'      => 'Aquesta llista mostra les últimes transaccions creades automàticament.',
+        'from_desc'         => ':number transaccions de :account',
+        'to_desc'           => ':number transaccions a :account',
     ],
 
 ];

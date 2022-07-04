@@ -12,7 +12,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <div class="form-group form-group relative sm:col-span-3">
+                        <div class="relative sm:col-span-3">
                             <x-form.label>
                                 {{ trans('general.date') }}
                             </x-form.label>
@@ -75,7 +75,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <div class="form-group form-group relative sm:col-span-3">
+                        <div class="relative sm:col-span-3">
                             <x-form.label>
                                 {{ trans_choice('general.numbers', 1) }}
                             </x-form.label>

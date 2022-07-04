@@ -2,7 +2,7 @@
 
     <akaunting-date
         @class([
-            'form-group relative',
+            'relative',
             $formGroupClass,
             'required' => $required,
             'readonly' => $readonly,

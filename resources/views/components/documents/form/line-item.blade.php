@@ -18,7 +18,7 @@
             <tbody>
                 <tr>
                     @stack('move_td_start')
-                    <td class="align-middle border-b-0 move flex items-center justify-center" style="width:24px; height:100px; color: #8898aa;">
+                    <td class="align-middle border-b-0 flex items-center justify-center" style="width:24px; height:100px; color: #8898aa;">
                         <span class="w-6 material-icons">list</span>
                     </td>
                     @stack('move_td_end')
@@ -147,7 +147,7 @@
 
                     @stack('total_td_start')
 
-                    <td class="px-3 py-3 text-right  border-b-0 total">
+                    <td class="px-3 py-3 text-right border-b-0 total">
                         @if (! $hideItemAmount)
                             <div>
                                 <x-form.input.money
@@ -171,7 +171,7 @@
                     @stack('delete_td_start')
 
                     <td class="text-right group">
-                        <button type="button" @click="onDeleteItem(index)" class="btn btn-link btn-delete w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
+                        <button type="button" @click="onDeleteItem(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                         </button>
                     </td>
@@ -189,20 +189,20 @@
                             <div class="absolute -top-6 left-3 flex items-center">
                                 @if (! $hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                     <div class="text-left border-0 p-0 mr-16" v-if="!row.add_discount">
-                                        <button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)">
-                                            <x-link.hover color="to-purple">
+                                        <x-button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)" override="class">
+                                            <x-button.hover color="to-purple">
                                                 {{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}
-                                            </x-link.hover>
-                                        </button>
+                                            </x-button.hover>
+                                        </x-button>
                                     </div>
                                 @endif
 
                                 <div class="text-right border-0 p-0 pr-4">
-                                    <button type="button" class="text-xs text-purple" @click="onAddTax(index)">
-                                        <x-link.hover color="to-purple">
+                                    <x-button type="button" class="text-xs text-purple" @click="onAddTax(index)" override="class">
+                                        <x-button.hover color="to-purple">
                                             {{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}
-                                        </x-link.hover>
-                                    </button>
+                                        </x-button.hover>
+                                    </x-button>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                         <div v-if="row.add_discount" class="flex items-center justify-between pb-3 ml-2">
                             @stack('discount_input_start')
 
-                            <div class="form-group mb-0 w-100" style="display: inline-block; position: relative;">
+                            <div class="mb-0" style="display: inline-block; position: relative;">
                                 <div class="flex items-center">
                                     <div class="w-16 flex items-center bg-gray-200 p-1 ltr:mr-2 rtl:ml-2 rounded-lg">
                                         <button type="button"
@@ -344,7 +344,7 @@
                                 </div>
 
                                 <div class="pl-2 group">
-                                    <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
+                                    <button type="button" @click="onDeleteTax(index, row_tax_index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                         <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                     </button>
                                 </div>
@@ -409,7 +409,7 @@
                                 </div>
 
                                 <div class="pl-2 group">
-                                    <button type="button" @click="onDeleteTax(index, 999)" class="btn btn-link btn-delete w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
+                                    <button type="button" @click="onDeleteTax(index, 999)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                         <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                     </button>
                                 </div>

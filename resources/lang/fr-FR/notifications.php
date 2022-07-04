@@ -9,6 +9,7 @@ return [
     'mark_read'           => 'Marquer comme lu',
     'mark_read_all'       => 'Tout marquer comme lu',
     'empty'               => 'Woohoo, aucune notification!',
+    'new_apps'            => ':app est disponible. <a href=":url">Vérifiez maintenant</a>!',
 
     'update' => [
 

@@ -9,7 +9,7 @@ return [
         'counter'           => '{0} Jums nav nevienas notifkācijas|{1} Jums ir :skaitīt notifikācija|[2,*] Jums ir :skaitīt notifikācijas',
         'new_apps'          => '{1} :skaitīt tiek publicēta jauna programma|[2,*] :skaitīt publicētas jaunas programmas',
         'overdue_invoices'  => '{1} :skaitīt kavēts rēķins|[2,*] :skaitīt kavēti rēķini',
-        'upcoming_bills'    => '{1} Drīzumā jāapmaksā :skaitīt rēķins |[2,*] Drīzūmā jāapmaksā :skaitīt rēķini',
+        'upcoming_bills'    => '{1} Drīzumā jāapmaksā :count rēķins |[2,*] Drīzūmā jāapmaksā :count rēķini',
         'view_all'          => 'Skatīt visus',
 
         'exports' => [

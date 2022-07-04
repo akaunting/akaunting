@@ -24,6 +24,8 @@ return [
         'create_recurring'  => ':user created this recurring template on :date',
         'schedule'          => 'Repeat every :interval :frequency since :date',
         'children'          => ':count transactions were created automatically',
+        'transfer_headline' => 'From :from_account to :to_account',
+        'transfer_desc'     => 'Transfer created on :date.',
     ],
 
     'share' => [

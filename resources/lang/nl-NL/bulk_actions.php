@@ -2,7 +2,7 @@
 
 return [
 
-    'bulk_actions'      => 'Meerdere Actie(s)',
+    'bulk_actions'      => 'Bulkactie|Bulkacties',
     'selected'          => 'geselecteerd',
     'no_action'         => 'Geen actie beschikbaar',
 
@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Weet u zeker dat u het geselecteerde record wilt <b>de-afstemmen</b>?|Weet u zeker dat u de geselecteerde records wilt <b>de-afstemmen</b>?',
     ],
 
+    'success' => [
+        'general'       => ':telrecord :type.',
+    ],
 ];

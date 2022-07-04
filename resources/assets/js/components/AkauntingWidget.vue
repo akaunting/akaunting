@@ -7,7 +7,7 @@
         <template #modal-body>
             <div class="py-1 px-5 bg-body">
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
-                    <div class="form-group sm:col-span-3">
+                    <div class="sm:col-span-3">
                         <base-input
                             v-model="form.name"
                             :label="text.name"
@@ -18,7 +18,7 @@
                         </base-input>
                     </div>
 
-                    <div class="form-group sm:col-span-3">
+                    <div class="sm:col-span-3">
                         <base-input
                             :error="form.errors.class[0]"
                             :label="text.type">
@@ -36,7 +36,7 @@
                         </base-input>
                     </div>
 
-                    <div class="form-group sm:col-span-3">
+                    <div class="sm:col-span-3">
                         <base-input :label="text.width" not-required>
                             <el-select
                                 v-model="form.width" filterable
@@ -50,7 +50,7 @@
                         </base-input>
                     </div>
 
-                    <div class="form-group sm:col-span-3">
+                    <div class="sm:col-span-3">
                         <base-input
                             not-required
                             v-model="form.sort"

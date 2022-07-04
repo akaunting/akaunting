@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
 
     <div
-        class="form-group sm:col-span-3 {{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+        class="sm:col-span-3 {{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
         :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]"
         @if (isset($attributes['show']))
         v-if="{{ $attributes['show'] }}"

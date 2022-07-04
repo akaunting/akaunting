@@ -5,10 +5,11 @@ return [
     'whoops'              => 'Klau!',
     'hello'               => 'Sveicināts!',
     'salutation'          => 'Sveicināti,<br>:uzņēmuma nosaukums',
-    'subcopy'             => 'Ja rodas problēmas, noklikšķinot uz ": tekstu" pogu, nokopējiet šo URL un ielīmējiet to savā web pārlūkprogrammā: [:url](:url)',
+    'subcopy'             => 'Ja rodas problēmas, noklikšķinot uz ":text" pogu, nokopējiet šo URL un ielīmējiet to savā web pārlūkprogrammā: [:url](:url)',
     'mark_read'           => 'Atzīmēt kā izlasītu',
     'mark_read_all'       => 'Atzīmēt visu kā izlasītu',
     'empty'               => 'Oho, nav jaunu paziņojumu!',
+    'new_apps'            => ':app ir pieejama. <a href=":url">Apskatiet to tūlīt</a>!',
 
     'update' => [
 
@@ -173,8 +174,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':veids ir izlasīts šis paziņojums!',
-        'mark_read_all'         => ':veids ir izlasīti visi paziņojumi!',
+        'mark_read'             => ':type ir izlasīts šis paziņojums!',
+        'mark_read_all'         => ':type ir izlasīti visi paziņojumi!',
 
     ],
 ];
