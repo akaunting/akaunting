@@ -9,6 +9,7 @@ return [
     'mark_read'           => 'Mark Read',
     'mark_read_all'       => 'Mark Read All',
     'empty'               => 'Woohoo, notification zero!',
+    'new_apps'            => ':app is available. <a href=":url">Check it out now</a>!',
 
     'update' => [
 

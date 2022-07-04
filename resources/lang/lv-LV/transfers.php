@@ -25,6 +25,9 @@ return [
 
     'slider' => [
         'create'            => ':user izveidoja šo pārskaitījumu :date',
+        'transactions'      => 'Šeit sarakstā ir transakcijas, kas tika izveidotas automātiski.',
+        'from_desc'         => ':number transakcijas no :account',
+        'to_desc'           => ':number transakcija uz :account',
     ],
 
 ];

@@ -44,4 +44,8 @@ Hiba: Kérje meg a tárhelyszolgáltatót, hogy a PHP: php_version vagy magasabb
         'connection'        => 'Hiba: Nem sikerült csatlakozni az adatbázishoz! Győződjön meg a beállítások helyességéről!',
     ],
 
+    'update' => [
+        'core'              => 'Új verzió érhető el az Akauntingból! Kérem frissítse a telepítést.',
+        'module'            => 'A :module-ból új verzió érthető el! Kérem frissítse a telepítést.',
+    ],
 ];

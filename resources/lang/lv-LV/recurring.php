@@ -2,7 +2,7 @@
 
 return [
 
-    'recurring'             => 'Atkārtojošs',
+    'recurring'             => 'Periodisks',
     'every'                 => 'Katru',
     'period'                => 'Periods',
     'times'                 => 'Skaits',

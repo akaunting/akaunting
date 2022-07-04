@@ -33,7 +33,7 @@ return [
     'confirmed' => ' :attribute apstiprinājums neatbilst.',
     'current_password' => 'Jūsu parole nav pareiza.',
     'date' => ' :attribute nav derīgs.',
-    'date_equals' => ' :attribute ir jābūt ar datumu kas vienāds :datums.',
+    'date_equals' => ' :attribute ir jābūt ar datumu kas vienāds :date.',
     'date_format' => ' :attribute neatbilst formātam :format.',
     'different' => ' :attribute un :other ir jābūt citiem.',
     'digits' => ' :attribute ir jābūt :digits ciparam.',

@@ -44,6 +44,11 @@ return [
     'apps_managing'         => 'Vérifiez les applications les plus populaires et commencez à gérer vos finances avec professionnalisme dès aujourd\'hui.',
     'ready'                 => 'Prêt',
     'popular_this_week'     => 'Populaire cette semaine',
+    'install_cloud'         => 'Utiliser sur le service Cloud',
+    'get_cloud'             => 'Obtenir le service Cloud',
+    'get_premium_cloud'     => 'Obtenez le Cloud Premium',
+    'only_works_cloud'      => 'Cette application ne fonctionne que sur le <strong>Service Cloud</strong>.',
+    'only_premium_plan'     => 'Cette application ne fonctionne que sur le <strong>Cloud Premium Service</strong>.',
 
     'about'                 => 'A propos',
 

@@ -65,13 +65,13 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => ':veids e-pasts nosūtīts veiksmīgi!',
-        'marked_as'             => ':veids atzīmēts kā :status!',
-        'marked_sent'           => ':veids atzīmēts kā nosūtīts!',
-        'marked_paid'           => ':veids atzīmēts kā samaksāts!',
+        'email_sent'            => ':type e-pasts nosūtīts veiksmīgi!',
+        'marked_as'             => ':type atzīmēts kā :status!',
+        'marked_sent'           => ':type atzīmēts kā nosūtīts!',
+        'marked_paid'           => ':type atzīmēts kā samaksāts!',
         'marked_viewed'         => ':type atzīmēts kā skatīts!',
-        'marked_cancelled'      => ':veids atzīmēts kā atcelts!',
-        'marked_received'       => ':veids atzīmēts kā saņemts!',
+        'marked_cancelled'      => ':type atzīmēts kā atcelts!',
+        'marked_received'       => ':type atzīmēts kā saņemts!',
     ],
 
     'recurring' => [

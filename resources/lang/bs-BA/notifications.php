@@ -9,6 +9,7 @@ return [
     'mark_read'           => 'Označi kao pročitano',
     'mark_read_all'       => 'Označi sve za pročitano',
     'empty'               => 'Vau, nula obaveštenja!',
+    'new_apps'            => ':app je dostupan. <a href=":url">Provjerite sada</a>!',
 
     'update' => [
 
