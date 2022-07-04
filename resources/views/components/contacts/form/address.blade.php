@@ -24,7 +24,7 @@
         @endif
 
         @if (! $hideCountry)
-            <x-form.group.country form-group-class="sm:col-span-3 el-select-tags-pl-38" />
+            <x-form.group.country form-group-class="sm:col-span-3 el-select-tags-pl-38" not-required />
         @endif
     </x-slot>
 </x-form.section>

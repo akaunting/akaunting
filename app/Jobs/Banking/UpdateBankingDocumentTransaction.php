@@ -3,7 +3,7 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
-use App\Jobs\Banking\CreateTransaction;
+use App\Jobs\Banking\UpdateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Events\Document\PaidAmountCalculated;
 use App\Interfaces\Job\ShouldUpdate;
@@ -21,7 +21,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         $this->model = $model;
         $this->transaction = $transaction;
 
-        parent::__construct($request);
+        $this->request = $this->getRequestInstance($request);
     }
 
     public function handle(): Transaction
@@ -31,7 +31,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         $this->checkAmount();
 
         \DB::transaction(function () {
-            $this->transaction = $this->dispatch(new CreateTransaction($this->request));
+            $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, $this->request));
 
             // Upload attachment
             if ($this->request->file('attachment')) {

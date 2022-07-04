@@ -2,7 +2,7 @@
 
 /**
  * @package     Akaunting
- * @copyright   2017-2021 Akaunting. All rights reserved.
+ * @copyright   2017-2022 Akaunting. All rights reserved.
  * @license     GNU GPL version 3; see LICENSE.txt
  * @link        https://akaunting.com
  */

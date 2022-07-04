@@ -72,7 +72,7 @@
 
                 <x-form.group.text name="state" label="{{ trans('general.state') }}" form-group-class="col-span-6" not-required />
 
-                <x-form.group.country form-group-class="col-span-6 el-select-tags-pl-38" />
+                <x-form.group.country form-group-class="col-span-6 el-select-tags-pl-38" not-required />
             </div>
         </div>
 
