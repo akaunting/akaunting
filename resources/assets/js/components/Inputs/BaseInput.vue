@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group" :class="[
+  <div :class="[
        {'has-error': error},
        formClasses
        ]">
@@ -9,7 +9,7 @@
       </label>
     </slot>
     <div class="relative" :class="[
-       {'input-group input-group-merge': hasIcon},
+       {'form-icon': hasIcon},
        {'focused': focused},
        {'input-group-alternative': alternative},
        {'has-label': label || $slots.label},

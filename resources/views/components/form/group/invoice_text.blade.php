@@ -18,7 +18,7 @@
 >
     <akaunting-select
         @class([
-            'form-group relative',
+            'relative',
             $formGroupClass,
             'required' => $required,
             'readonly' => $readonly,
