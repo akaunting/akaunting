@@ -4,7 +4,7 @@
 <akaunting-select
 @endif
     @class([
-        'form-group relative',
+        'relative',
         $formGroupClass,
         'required' => $required,
         'readonly' => $readonly,

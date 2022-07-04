@@ -7,9 +7,7 @@
                 <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('company_name')}]">
                     <label for="company_name" class="form-control-label">Company Name</label>
 
-                    <div class="input-group input-group-merge">
-                        <input class="form-element" data-name="company_name" @keydown="form.errors.clear('company_name')" v-model="form.company_name" required="required" name="company_name" type="text" id="company_name" />
-                    </div>
+                    <input class="form-element" data-name="company_name" @keydown="form.errors.clear('company_name')" v-model="form.company_name" required="required" name="company_name" type="text" id="company_name" />
 
                     <div class="text-red text-sm mt-1 block" v-if="form.errors.has('company_name')" v-html="form.errors.get('company_name')"></div>
                 </div>
@@ -17,9 +15,7 @@
                 <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('company_email')}]">
                     <label for="company_email" class="form-control-label">Company Email</label>
 
-                    <div class="input-group input-group-merge">
-                        <input class="form-element" data-name="company_email" @keydown="form.errors.clear('company_email')" v-model="form.company_email" required="required" name="company_email" type="text" id="company_email" />
-                    </div>
+                    <input class="form-element" data-name="company_email" @keydown="form.errors.clear('company_email')" v-model="form.company_email" required="required" name="company_email" type="text" id="company_email" />
 
                     <div class="text-red text-sm mt-1 block" v-if="form.errors.has('company_email')" v-html="form.errors.get('company_email')"></div>
                 </div>
@@ -27,9 +23,7 @@
                 <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('user_email')}]">
                     <label for="user_email" class="form-control-label">Admin Email</label>
 
-                    <div class="input-group input-group-merge">
-                        <input class="form-element" data-name="user_email" @keydown="form.errors.clear('user_email')" v-model="form.user_email" required="required" name="user_email" type="text" id="user_email" />
-                    </div>
+                    <input class="form-element" data-name="user_email" @keydown="form.errors.clear('user_email')" v-model="form.user_email" required="required" name="user_email" type="text" id="user_email" />
 
                     <div class="text-red text-sm mt-1 block" v-if="form.errors.has('user_email')" v-html="form.errors.get('user_email')"></div>
                 </div>
@@ -37,9 +31,7 @@
                 <div class="sm:col-span-6 required" :class="[{'has-error': form.errors.get('user_password')}]">
                     <label for="user_password" class="form-control-label">Admin Password</label>
 
-                    <div class="input-group input-group-merge">
-                        <input class="form-element" data-name="user_password" @keydown="form.errors.clear('user_password')" v-model="form.user_password" required="required" name="user_password" type="password" value="" id="user_password" />
-                    </div>
+                    <input class="form-element" data-name="user_password" @keydown="form.errors.clear('user_password')" v-model="form.user_password" required="required" name="user_password" type="password" value="" id="user_password" />
 
                     <div class="text-red text-sm mt-1 block" v-if="form.errors.has('user_password')" v-html="form.errors.get('user_password')"></div>
                 </div>

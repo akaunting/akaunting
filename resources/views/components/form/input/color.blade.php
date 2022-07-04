@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
     <akaunting-color
         @class([
-            'form-group relative',
+            'relative',
             $formGroupClass,
             'required' => $required,
             'readonly' => $readonly,
