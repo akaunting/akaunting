@@ -54,13 +54,13 @@
                 @endif
             @endforeach
         </div>
-        
+
         <div class="ltr:mr-4 rtl:ml-4" v-if="bulk_action.count">
-            <button type="button" @click="onClearBulkAction">
-                <x-link.hover>
+            <x-button @click="onClearBulkAction" class="bg-transparent" override="class">
+                <x-button.hover>
                     {{ trans('general.clear') }}
-                </x-link.hover>
-            </button>
+                </x-button.hover>
+            </x-button>
         </div>
     </div>
 

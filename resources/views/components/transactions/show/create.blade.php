@@ -5,9 +5,9 @@
         x-on:click="create !== 1 ? create = 1 : create = null"
     >
         <span class="font-medium">
-            <x-link.hover>
+            <x-button.hover>
                 {{ trans('general.create') }}
-            </x-link.hover>
+            </x-button.hover>
         </span>
 
         <div class="text-black-400 text-sm">

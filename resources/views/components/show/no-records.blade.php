@@ -8,7 +8,6 @@
         <img src="{{ $image }}" class="w-60 h-60 object-contain mt-10 m-auto" />
     </div>
 
-
     <div @class([
             'lg:w-3/5',
             $textColor,
@@ -22,11 +21,11 @@
         @if (! empty($button) && $button->isNotEmpty())
             {!! $button !!}
         @else
-            <a href="{!! $url !!}">
-                <x-link.hover color="to-white">  
+            <x-link href="{!! $url !!}" class="bg-transparent" override="class">
+                <x-link.hover color="to-white">
                     {{ $textAction }}
                 </x-link.hover>
-            </a>
+            </x-link>
         @endif
     </div>
 </div>

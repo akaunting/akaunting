@@ -6,9 +6,9 @@
             x-on:click="attachment !== 1 ? attachment = 1 : attachment = null"
         >
             <span class="font-medium">
-                <x-link.hover  group-hover>
+                <x-button.hover group-hover>
                     {{ trans_choice('general.attachments', 2) }}
-                </x-link.hover>
+                </x-button.hover>
             </span>
 
             <div class="text-black-400 text-sm">

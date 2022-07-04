@@ -189,20 +189,20 @@
                             <div class="absolute -top-6 left-3 flex items-center">
                                 @if (! $hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                     <div class="text-left border-0 p-0 mr-16" v-if="!row.add_discount">
-                                        <button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)">
-                                            <x-link.hover color="to-purple">
+                                        <x-button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)" override="class">
+                                            <x-button.hover color="to-purple">
                                                 {{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}
-                                            </x-link.hover>
-                                        </button>
+                                            </x-button.hover>
+                                        </x-button>
                                     </div>
                                 @endif
 
                                 <div class="text-right border-0 p-0 pr-4">
-                                    <button type="button" class="text-xs text-purple" @click="onAddTax(index)">
-                                        <x-link.hover color="to-purple">
+                                    <x-button type="button" class="text-xs text-purple" @click="onAddTax(index)" override="class">
+                                        <x-button.hover color="to-purple">
                                             {{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}
-                                        </x-link.hover>
-                                    </button>
+                                        </x-button.hover>
+                                    </x-button>
                                 </div>
                             </div>
                         </div>
