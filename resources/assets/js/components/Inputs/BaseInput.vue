@@ -9,7 +9,7 @@
       </label>
     </slot>
     <div class="relative" :class="[
-       {'input-group input-group-merge': hasIcon},
+       {'form-icon': hasIcon},
        {'focused': focused},
        {'input-group-alternative': alternative},
        {'has-label': label || $slots.label},

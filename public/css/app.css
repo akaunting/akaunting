@@ -47722,6 +47722,11 @@ body{
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.group:hover .group-hover\:border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(66 66 66 / var(--tw-border-opacity));
+}
+
 .group:hover .group-hover\:bg-gray-900{
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
