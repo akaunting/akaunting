@@ -306,3 +306,45 @@ document.querySelectorAll('[data-link-loading]').forEach((href) => {
     });
 });
 //Loading scenario for href links
+
+//Firefox show modal for icon set
+if (navigator.userAgent.search("Firefox") >= 0) {
+    let firefoxCookie = document.createElement('DIV'),
+    body = document.body;
+    firefoxCookie.innerHTML =
+    '<div tabindex="-1" role="dialog" data-cookie-modal class=" modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade justify-center items-start show flex flex-wrap modal-background">' +
+    '<div class="w-full my-10 m-auto flex flex-col max-w-md">' +
+    '   <div class="modal-content">' +
+    '        <div class="p-5 bg-body rounded-tl-lg rounded-tr-lg">' +
+    '           <div class="flex items-center justify-between border-b pb-5">' +
+    '           </div>' +
+    '       </div>' +
+    '       <div class="py-1 px-5 bg-body">' +
+    '           <span class="font-bold"> If your icons not appear please; </span> <br />' +
+    '           <span class="font-bold"> Please Allow pages to choose their own fonts, instead of your selections above <br/> </span>' +
+    '              <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span> ' +
+    '       </div>' +
+    '       <div class="p-5 bg-body rounded-bl-lg rounded-br-lg border-gray-300">' +
+    '           <div class="flex items-center justify-end">' +
+    '               <button type="button" onClick="delete_cookie()" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg disabled:bg-green-100">' +
+    '                   <span class="">OK</span>' +
+    '               </button>' +
+    '           </div>' +
+    '       </div>' +
+    '   </div>' +
+    '</div>' +
+    '</div>' +
+
+
+    body.appendChild(firefoxCookie);
+
+    function delete_cookie(){
+        document.cookie = 'firefoxCookieModal=true; expires=Thu, 1 Jan 2023 00:00:01 GMT;';
+        document.querySelector('[data-cookie-modal]').remove();
+    }
+
+    if (document.cookie.indexOf('firefoxCookieModal=true') !== -1) {
+        document.querySelector('[data-cookie-modal]').remove();
+    }
+}
+//Firefox show modal for icon set
