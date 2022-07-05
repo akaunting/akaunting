@@ -111,7 +111,7 @@
                         <x-layouts.modules.show.information :module="$module" />
                     </div>
 
-                    <div class="flex justify-around space-x-12 mt-5">
+                    <div class="flex justify-around mt-5">
                         <x-layouts.modules.show.buttons :module="$module" :installed="$installed" :enable="$enable" />
                     </div>
                 </div>
