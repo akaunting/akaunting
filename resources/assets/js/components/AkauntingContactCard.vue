@@ -22,7 +22,7 @@
                             <input
                                 type="text"
                                 data-input="true"
-                                class="form-element px-10 border-t-0 border-l-0 border-r-0 border-gray-200 rounded-none"
+                                class="w-full text-sm py-2.5 mt-1 border text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple px-10 border-t-0 border-l-0 border-r-0 border-gray-200 rounded-none"
                                 autocapitalize="default" autocorrect="ON"
                                 :placeholder="placeholder"
                                 :ref="'input-contact-field-' + _uid"
@@ -32,7 +32,7 @@
                             />
                         </div>
 
-                        <ul class="form-element p-0 border-0 mt-0 cursor-pointer">
+                        <ul class="w-full text-sm rounded-lg border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple p-0 border-0 mt-0 cursor-pointer">
                             <div class="hover:bg-gray-100 px-4 py-2" v-for="(contact, index) in sortContacts" :key="index" @click="onContactSeleted(index, contact.id)">
                                 <span>{{ contact.name }}</span>
                             </div>

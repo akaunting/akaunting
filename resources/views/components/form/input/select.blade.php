@@ -125,6 +125,10 @@
     :no-arrow="{{ $attributes['no-arrow'] }}"
     @endif
 
+    @if (!$required)
+    :not-required={{ $required ? 'false' : 'true' }}
+    @endif
+
     @if (isset($attributes['v-disabled']))
     :disabled="{{ $attributes['v-disabled'] }}"
     @endif

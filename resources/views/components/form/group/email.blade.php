@@ -26,7 +26,7 @@
         @if (! $attributes->has('label') && ! empty($label->contents))
             {!! $label ?? '' !!}
         @elseif (! empty($label))
-            <x-form.label for="{{ $name }}" class="form-control-label">{!! $label !!}</x-form.label>
+            <x-form.label for="{{ $name }}" {{ $attributes->merge($custom_attributes) }}>{!! $label !!}</x-form.label>
         @endif
 
         <div @class([
@@ -42,7 +42,6 @@
             <x-form.input.email
                 name="{{ $name }}"
                 id="{{ $id }}"
-                class="form-element"
                 value="{{ $value }}"
                 placeholder="{{ $placeholder }}"
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.' . $name : 'form.' . $name) }}"

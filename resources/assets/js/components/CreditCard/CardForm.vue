@@ -63,7 +63,7 @@
 
                 <div class="grid sm:grid-cols-8 gap-x-4 gap-y-6 my-3.5">
                     <div class="sm:col-span-8">
-                        <label for="cardName" class="form-control-label text-black text-sm font-medium">
+                        <label for="cardName" class="text-black text-sm font-medium">
                             {{ textCardName }}
                         </label>
 
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="sm:col-span-8">
-                        <label for="cardNumber" class="form-control-label text-black text-sm font-medium">
+                        <label for="cardNumber" class="text-black text-sm font-medium">
                             {{ textCardNumber }}
                         </label>
 
@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="cardMonth" class="form-control-label text-black text-sm font-medium">
+                        <label for="cardMonth" class="text-black text-sm font-medium">
                             {{ textExpirationDate }}
                         </label>
 
@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label for="cardCvv" class="form-control-label text-black text-sm font-medium">
+                        <label for="cardCvv" class="text-black text-sm font-medium">
                             {{ textCvv }}
                         </label>
 
@@ -168,7 +168,7 @@
                         <div class="flex items-center" v-if="storeCard">
                             <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent">
 
-                            <label :for="'store_card' + _uid" class="form-control-label ltr:ml-2 rtl:ml-2">
+                            <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:ml-2">
                                 <strong>{{ textStoreCard }}</strong>
                             </label>
                         </div>
@@ -200,7 +200,7 @@
 
             <div class="grid sm:grid-cols-8 gap-x-4 gap-y-6 my-3.5">
                 <div class="sm:col-span-8">
-                    <label for="cardName" class="form-control-label text-black text-sm font-medium">
+                    <label for="cardName" class="text-black text-sm font-medium">
                         {{ textCardName }}
                     </label>
 
@@ -220,7 +220,7 @@
                 </div>
 
                 <div class="sm:col-span-8">
-                    <label for="cardNumber" class="form-control-label text-black text-sm font-medium">
+                    <label for="cardNumber" class="text-black text-sm font-medium">
                         {{ textCardNumber }}
                     </label>
 
@@ -242,7 +242,7 @@
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label for="cardMonth" class="form-control-label text-black text-sm font-medium">
+                    <label for="cardMonth" class="text-black text-sm font-medium">
                         {{ textExpirationDate }}
                     </label>
 
@@ -283,7 +283,7 @@
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label for="cardCvv" class="form-control-label text-black text-sm font-medium">
+                    <label for="cardCvv" class="text-black text-sm font-medium">
                         {{ textCvv }}
                     </label>
 
@@ -307,7 +307,7 @@
                     <div class="flex items-center" v-if="storeCard">
                         <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent">
 
-                        <label :for="'store_card' + _uid" class="form-control-label ltr:ml-2 rtl:ml-2">
+                        <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:ml-2">
                             <strong>{{ textStoreCard }}</strong>
                         </label>
                     </div>

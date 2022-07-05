@@ -11,7 +11,7 @@
 
         @if (! $hideFooter)
             <div class="{{ $classFooter }}">
-                <x-form.group.textarea name="footer" label="{{ trans('general.footer') }}" :value="$footer" not-required rows="7" />
+                <x-form.group.textarea name="footer" label="{{ trans('general.footer') }}" class="h-full" :value="$footer" not-required rows="7" />
             </div>
         @endif
 

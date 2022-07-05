@@ -1,6 +1,6 @@
 <template>
-    <div :class="col">
-        <label :for="name" class="form-control-label">{{ text }}</label>
+    <div:class="col">
+        <label :for="name" class="text-black text-sm font-medium">{{ text }}</label>
 
         <div class="tab-pane tab-example-result fade show active" role="tabpanel" aria-labelledby="-component-tab">
             <div class="btn-group btn-group-toggle radio-yes-no" data-toggle="buttons" v-on:click="onClick">

@@ -54,7 +54,6 @@
                                     <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 py-3">
                                         <base-input name="name" data-name="name" :placeholder="translations.taxes.name"
                                         form-classes="sm:col-span-2"
-                                        class="required"
                                         v-model="model.name"
                                         :error="onFailErrorGet('name')"
                                         />
@@ -63,7 +62,6 @@
 
                                         <base-input name="rate" data-name="rate" :placeholder="translations.taxes.rate"
                                         form-classes="sm:col-span-2"
-                                        class="required"
                                         v-model="model.rate"
                                         :error="onFailErrorGet('rate')"
                                         />
@@ -115,14 +113,14 @@
                     
                     <div v-if="new_datas" class="grid sm:grid-cols-4 gap-x-8 gap-y-6 my-3.5 w-full">
                         <base-input :label="translations.taxes.name" name="name" data-name="name" :placeholder="translations.taxes.name"
-                        class="sm:col-span-2 required"
+                        class="sm:col-span-2"
                         v-model="model.name"
                         :error="onFailErrorGet('name')"
                         />
 
                         <base-input :label="translations.taxes.rate" name="rate" data-name="rate"
                         :placeholder="translations.taxes.rate"
-                        class="sm:col-span-2 required"
+                        class="sm:col-span-2"
                         v-model="model.rate"
                         :error="onFailErrorGet('rate')"
                         />

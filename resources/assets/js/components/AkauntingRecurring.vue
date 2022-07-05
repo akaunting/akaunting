@@ -18,7 +18,7 @@
                 {{ frequencyEveryText }}
             </div>
 
-            <input type="text" class="w-20 form-element" v-model="interval" @input="change" v-if="frequency == 'custom'">
+            <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="interval" @input="change" v-if="frequency == 'custom'">
 
             <el-select class="w-36 ml-2" v-model="customFrequency" @input="change" v-if="frequency == 'custom'">
                 <el-option
@@ -89,7 +89,7 @@
                 </el-option>
             </el-select>
 
-            <input type="text" class="w-20 form-element ml-2" v-model="limitCount" v-if="limit == 'after'" @input="change">
+            <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
 
             <div class="pl-2 text-sm" v-if="limit == 'after'">
                 {{ endText }}

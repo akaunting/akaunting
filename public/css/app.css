@@ -1276,7 +1276,11 @@ input[type=file]::file-selector-button:hover{
 
 /* form */
 
-.form-element{
+.has-error input, .has-error select, .has-error textarea {
+        border: 1px solid #cc0000 !important;
+    }
+
+.input-money{
   margin-top: 0.25rem;
   width: 100%;
   border-radius: 0.5rem;
@@ -1295,32 +1299,32 @@ input[type=file]::file-selector-button:hover{
   color: rgb(66 66 66 / var(--tw-text-opacity));
 }
 
-.form-element::-webkit-input-placeholder{
+.input-money::-webkit-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.form-element::-moz-placeholder{
+.input-money::-moz-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.form-element:-ms-input-placeholder{
+.input-money:-ms-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.form-element::-ms-input-placeholder{
+.input-money::-ms-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.form-element::placeholder{
+.input-money::placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.form-element:focus{
+.input-money:focus{
   --tw-border-opacity: 1;
   border-color: rgb(85 88 139 / var(--tw-border-opacity));
   outline: 2px solid transparent;
@@ -1328,7 +1332,7 @@ input[type=file]::file-selector-button:hover{
   --tw-ring-color: transparent;
 }
 
-.form-element:disabled{
+.input-money:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
@@ -1336,31 +1340,6 @@ input[type=file]::file-selector-button:hover{
 .disabled-money input, .disabled-money {
         background-color:transparent !important;
         border: none;
-    }
-
-.has-error .form-element{
-  --tw-border-opacity: 1;
-  border-color: rgb(204 0 0 / var(--tw-border-opacity));
-}
-
-.prepend-input-icon .form-element{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
-
-.form-control-label{
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(66 66 66 / var(--tw-text-opacity));
-}
-
-div.required > .form-control-label::after {
-        content: '*';
-        margin-left: 0.25rem;
-        --tw-text-opacity: 1;
-        color: rgb(204 0 0 / var(--tw-text-opacity));
     }
 
 [type="radio"]{
@@ -46751,6 +46730,7 @@ input[type="date"]::-webkit-inner-spin-button,
 
 .el-select .el-input .el-input__inner{
   margin-top: 0.25rem;
+  height: auto;
   width: 100%;
   border-radius: 0.5rem;
   border-width: 1px;
@@ -46806,18 +46786,7 @@ input[type="date"]::-webkit-inner-spin-button,
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.has-error .el-select .el-input .el-input__inner{
-  --tw-border-opacity: 1;
-  border-color: rgb(204 0 0 / var(--tw-border-opacity));
-}
-
-.prepend-input-icon .el-select .el-input .el-input__inner{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
-
-.el-select .el-input .el-input__inner{
-  height: auto;
+.el-select .el-input .el-input__inner {
     color:#595959 !important;
 }
 
@@ -47028,16 +46997,6 @@ input[type="date"]::-webkit-inner-spin-button,
 .el-date-editor input:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-.has-error .el-date-editor input{
-  --tw-border-opacity: 1;
-  border-color: rgb(204 0 0 / var(--tw-border-opacity));
-}
-
-.prepend-input-icon .el-date-editor input{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
 }
 
 .el-date-editor input {
@@ -47693,14 +47652,14 @@ body{
   background-color: rgb(238 238 243 / var(--tw-bg-opacity));
 }
 
-.disabled\:bg-gray-50:disabled{
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
 .disabled\:bg-gray-200:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.disabled\:bg-gray-50:disabled{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .disabled\:bg-green-300:disabled{
@@ -47842,12 +47801,12 @@ body{
   margin-right: 0.75rem;
 }
 
-[dir="ltr"] .ltr\:mr-1{
-  margin-right: 0.25rem;
-}
-
 [dir="ltr"] .ltr\:ml-1{
   margin-left: 0.25rem;
+}
+
+[dir="ltr"] .ltr\:mr-1{
+  margin-right: 0.25rem;
 }
 
 [dir="ltr"] .ltr\:ml-4{
@@ -48016,12 +47975,12 @@ body{
   margin-right: 1rem;
 }
 
-[dir="rtl"] .rtl\:ml-1{
-  margin-left: 0.25rem;
-}
-
 [dir="rtl"] .rtl\:mr-1{
   margin-right: 0.25rem;
+}
+
+[dir="rtl"] .rtl\:ml-1{
+  margin-left: 0.25rem;
 }
 
 [dir="rtl"] .rtl\:-mr-7{

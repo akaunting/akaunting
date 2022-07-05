@@ -7,7 +7,7 @@
         v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.select_all' }}"
         @click="onSelectAllBulkAction"
     />
-    <label class="custom-control-label" for="table-check-all"></label>
+    <label for="table-check-all"></label>
 </div>
 
 @stack('bulk_action_all_input_end')

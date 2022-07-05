@@ -6,6 +6,7 @@
     <slot name="label">
       <label v-if="label" :class="labelClasses">
         {{label}}
+        <span v-if="!notRequired" class="text-red ltr:ml-1 rtl:mr-1">*</span>
       </label>
     </slot>
     <div class="relative" :class="[
@@ -31,7 +32,7 @@
           v-bind="$attrs"
           :valid="!error"
           :required="required"
-          class="form-element"
+          class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
           :class="[{'is-valid': valid === true}, {'is-invalid': error}, inputClasses]">
       </slot>
       <div v-if="appendIcon || $slots.append" class="input-group-append absolute ltr:right-2 rtl:left-2 bottom-2 text-light-gray">
@@ -106,7 +107,7 @@
       labelClasses: {
         type: String,
         description: "Input label css classes",
-        default: "form-control-label"
+        default: "text-black text-sm font-medium"
       },
       inputClasses: {
         type: String,
@@ -132,6 +133,10 @@
       prependIcon: {
         type: String,
         description: "Prepend icon (left)"
+      },
+      notRequired: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

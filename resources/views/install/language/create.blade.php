@@ -5,7 +5,7 @@
 
     <x-slot name="content">
         <div class="mb-0">
-            <select name="lang" id="lang" size="14" class="w-full form-control-label">
+            <select name="lang" id="lang" size="14" class="w-full text-black text-sm font-medium">
                 @foreach (language()->allowed() as $code => $name)
                 <option value="{{ $code }}" @if ($code=='en-GB' ) {{ 'selected="selected"' }} @endif>{{ $name }}</option>
                 @endforeach

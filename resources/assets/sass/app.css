@@ -8,30 +8,17 @@
 
 @layer base {
     /* form */
-    .form-element {
+    .has-error input, .has-error select, .has-error textarea {
+        border: 1px solid #cc0000 !important;
+    }
+
+    .input-money {
         @apply w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
     }
 
     .disabled-money input, .disabled-money {
         background-color:transparent !important;
         border: none;
-    }
-    
-    .has-error .form-element {
-        @apply border-red;
-    }
-
-    .prepend-input-icon .form-element {
-        @apply px-10;
-    }
-    
-    .form-control-label {
-        @apply text-black text-sm font-medium;
-    }
-
-    div.required > .form-control-label::after {
-        content: '*';
-        @apply text-red ml-1;
     }
 
     [type="radio"] {
@@ -248,7 +235,7 @@
 }
 
 .el-select .el-input .el-input__inner {
-    @apply form-element h-auto;
+    @apply w-full h-auto text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
     color:#595959 !important;
 }
 
@@ -368,7 +355,7 @@
 }
 
 .el-date-editor input {
-    @apply form-element;
+    @apply w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
     color: #595959 !important;
 }
 

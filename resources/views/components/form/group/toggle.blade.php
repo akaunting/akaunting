@@ -7,7 +7,7 @@
         v-if="{{ $attributes['show'] }}"
         @endif
         >
-        <x-form.label for="{{ $name }}" class="form-control-label">{!! $label !!}</x-form.label>
+        <x-form.label for="{{ $name }}" {{ $attributes->merge($custom_attributes) }}>{!! $label !!}</x-form.label>
 
         <div class="flex items-center mt-1">
             @if (empty($attributes['disabled']))

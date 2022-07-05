@@ -62,12 +62,11 @@
                                     <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 py-3">
                                         <base-input name="name" data-name="name"
                                         form-classes="sm:col-span-2"
-                                        class="required"
                                         v-model="model.name"
                                         :error="onFailErrorGet('name')"
                                         />
 
-                                        <base-input class="sm:col-span-2 required" :error="onFailErrorGet('code')">
+                                        <base-input class="sm:col-span-2" :error="onFailErrorGet('code')">
                                             <el-select name="code" v-model="model.select" @change="onChangeCodeItem(model.select)" filterable>
                                                 <el-option
                                                 v-for="option in currency_codes"
@@ -81,7 +80,6 @@
 
                                         <base-input name="rate" data-name="rate" :placeholder="translations.currencies.rate"
                                         form-classes="sm:col-span-2"
-                                        class="required"
                                         v-model="model.rate"
                                         :error="onFailErrorGet('rate')"
                                         />
@@ -132,13 +130,13 @@
 
                         <div v-if="new_datas" class="grid sm:grid-cols-7 gap-x-8 gap-y-6 my-3.5 w-full">
                             <base-input :label="translations.currencies.name" name="name" data-name="name" :placeholder="translations.currencies.name"
-                            class="sm:col-span-3 required"
+                            class="sm:col-span-3"
                             v-model="model.name"
                             :error="onFailErrorGet('name')"
                             />
 
-                            <base-input :label="translations.currencies.code" class="sm:col-span-2 required" :error="onFailErrorGet('code')">
-                                <el-select name="code" v-model="model.select" required="required" @change="onChangeCodeItem(model.select)"filterable>
+                            <base-input :label="translations.currencies.code" class="sm:col-span-2" :error="onFailErrorGet('code')">
+                                <el-select name="code" v-model="model.select" @change="onChangeCodeItem(model.select)"filterable>
                                     <el-option
                                     v-for="option in currency_codes"
                                     :key="option"
@@ -150,7 +148,7 @@
                             </base-input>
 
                             <base-input :label="translations.currencies.rate" name="rate" data-name="rate" :placeholder="translations.currencies.rate"
-                            class="sm:col-span-2 required"
+                            class="sm:col-span-2"
                             v-model="model.rate"
                             :error="onFailErrorGet('rate')"
                             />

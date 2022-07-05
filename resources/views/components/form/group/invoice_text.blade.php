@@ -141,6 +141,10 @@
         :disabled="{{ $attributes['v-disabled'] }}"
         @endif
 
+        @if (!$required)
+        :not-required={{ $required ? 'false' : 'true' }}
+        @endif
+
         @if (isset($attributes['v-error-message']))
         :form-error="{{ $attributes['v-error-message'] }}"
         @else

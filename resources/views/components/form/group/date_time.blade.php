@@ -21,6 +21,10 @@
         :disabled="{{ $disabled }}"
         @endif
 
+        @if (!$required)
+        :not-required={{ $required ? 'false' : 'true' }}
+        @endif
+
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
         @else

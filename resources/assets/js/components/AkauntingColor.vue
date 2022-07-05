@@ -2,6 +2,7 @@
     <base-input :label="title" :name="name"
         :readonly="readonly"
         :disabled="disabled"
+        :not-required="notRequired"
         :class="[
             {'readonly': readonly},
             {'disabled': disabled},
@@ -9,7 +10,7 @@
         ]"
         :error="formError">
         <div class="flex justify-between relative mt-1">
-            <input type="text" @change="change" :name="name" :id="name" v-model="color" @keyup="addColor" class="form-element">
+            <input type="text" @change="change" :name="name" :id="name" v-model="color" @keyup="addColor" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple">
 
             <div class="absolute w-7 h-7 flex rounded-full my-auto bottom-2 right-2 cursor-pointer"
                 ref="dropdownMenu"
@@ -103,6 +104,11 @@ export default {
             type: Boolean,
             default: false,
             description: "Selectbox disabled status"
+        },
+
+        notRequired: {
+            type: Boolean,
+            default: false
         },
 
         small: {

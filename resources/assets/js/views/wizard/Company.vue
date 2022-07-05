@@ -12,7 +12,7 @@
                     <div class="flex flex-col justify-between">
                         <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 menu-scroll gap-10">
                             <div class="sm:col-span-6">
-                                <base-input :label="translations.company.api_key" name="api_key" data-name="api_key" :placeholder="translations.company.api_key" v-model="company.api_key"/>
+                                <base-input not-required :label="translations.company.api_key" name="api_key" data-name="api_key" :placeholder="translations.company.api_key" v-model="company.api_key"/>
 
                                 <div class="mt-2">
                                     <small>
@@ -23,11 +23,11 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <base-input type="text" :label="translations.company.tax_number" name="tax_number" data-name="tax_number" :placeholder="translations.company.tax_number" v-model="company.tax_number"/>
+                                <base-input not-required type="text" :label="translations.company.tax_number" name="tax_number" data-name="tax_number" :placeholder="translations.company.tax_number" v-model="company.tax_number"/>
                             </div>
 
                             <div class="sm:col-span-3">
-                                <akaunting-date :title="translations.company.financial_start" data-name="financial_start" :placeholder="translations.company.financial_start" icon="calendar_today"
+                                <akaunting-date not-required :title="translations.company.financial_start" data-name="financial_start" :placeholder="translations.company.financial_start" icon="calendar_today"
                                     :date-config="{
                                     dateFormat: 'd-m',
                                     allowInput: false,
@@ -40,13 +40,13 @@
 
                             <div class="sm:col-span-3 grid gap-10">
                                 <div class="sm:col-span-3">
-                                    <base-input :label="translations.company.address">
-                                        <textarea class="form-element" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
+                                    <base-input not-required :label="translations.company.address">
+                                        <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
                                     </base-input>
                                 </div>
 
                                 <div class="sm:col-span-3">
-                                    <base-input :label="translations.company.country">
+                                    <base-input not-required :label="translations.company.country">
                                         <el-select v-model="company.country" filterable>
                                             <el-option
                                                 v-for="(country, index) in sortedCountries"
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <label class="form-control-label">{{  translations.company.logo }}</label>
+                                <label class="text-black text-sm font-medium">{{  translations.company.logo }}</label>
                                 <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column w-2/5" style="height:12.2rem" preview-classes="single" :attachments="logo" :v-model="logo">
                                 </akaunting-dropzone-file-upload>
                             </div>

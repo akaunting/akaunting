@@ -35,10 +35,10 @@
 
                     <x-slot name="body">
                         <div class="sm:col-span-6">
-                            <label for="cron_command" class="form-control-label">
+                            <x-form.label for="cron_command">
                                 {{ trans('settings.scheduling.command') }}
-                            </label>
-                            <input type="text" class="form-element form-element-muted" disabled value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
+                            </x-form.label>
+                            <input type="text" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" disabled value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
                         </div>
 
                         <x-form.group.text name="time" label="{{ trans('settings.scheduling.schedule_time') }}" value="{{ setting('schedule.time') }}" not-required />
