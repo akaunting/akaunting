@@ -67,7 +67,7 @@ trait DateTime
             })
             ->groupBy(function ($item, $key) {
                 return Str::before($key, '/');
-            }, preserveKeys: true);;
+            }, preserveKeys: true);
     }
 
     public function getFinancialStart($year = null)
