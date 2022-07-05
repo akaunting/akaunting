@@ -1,5 +1,5 @@
 <template>
-    <div:class="col">
+    <div :class="col">
         <label :for="name" class="text-black text-sm font-medium">{{ text }}</label>
 
         <div class="tab-pane tab-example-result fade show active" role="tabpanel" aria-labelledby="-component-tab">
