@@ -1,7 +1,7 @@
 @props(['module', 'installed', 'enable'])
 
 @if (! empty($module->plan))
-    <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+    <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top" width="w-full">
         <x-link
             href="{{ $module->action_url }}"
             target="_blank"
@@ -83,7 +83,7 @@
     @endif
 @else
     @if ($module->install)
-        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top" width="w-full">
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"
@@ -94,7 +94,7 @@
             </x-link>
         </x-tooltip>
     @else
-        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top" width="w-full">
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"

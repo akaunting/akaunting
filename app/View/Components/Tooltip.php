@@ -25,6 +25,8 @@ class Tooltip extends Component
 
     public $whitespace;
 
+    public $width;
+
     /**
      * Create a new component instance.
      *
@@ -36,6 +38,7 @@ class Tooltip extends Component
         string $message = '',
         string $size = '',
         string $whitespace = '',
+        string $width = 'auto',
     ) {
         $this->id = $this->getId($id);
         $this->placement = $this->getPlacement($placement);
@@ -48,6 +51,7 @@ class Tooltip extends Component
         $this->message = $this->getMessage($message);
         $this->size =  $this->getSize($size);  
         $this->whitespace =  $this->getWhiteSpace($whitespace);  
+        $this->width = $width;
     }
 
     /**
