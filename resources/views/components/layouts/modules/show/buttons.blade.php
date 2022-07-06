@@ -1,14 +1,16 @@
 @props(['module', 'installed', 'enable'])
 
 @if (! empty($module->plan))
-    <x-link
-        href="{{ $module->action_url }}"
-        target="_blank"
-        class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
-        override="class"
-    >
-        {{ trans('modules.get_premium_cloud') }}
-    </x-link>
+    <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+        <x-link
+            href="{{ $module->action_url }}"
+            target="_blank"
+            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
+            override="class"
+        >
+            {{ trans('modules.switch_to_cloud') }}
+        </x-link>
+    </x-tooltip>
 @elseif (in_array('onprime', $module->where_to_use))
     @if ($installed)
         @can('delete-modules-item')
@@ -81,22 +83,26 @@
     @endif
 @else
     @if ($module->install)
-        <x-link
-            href="{{ $module->action_url }}"
-            target="_blank"
-            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
-            override="class"
-        >
-            {{ trans('modules.install_cloud') }}
-        </x-link>
+        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+            <x-link
+                href="{{ $module->action_url }}"
+                target="_blank"
+                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
+                override="class"
+            >
+                {{ trans('modules.switch_to_cloud') }}
+            </x-link>
+        </x-tooltip>
     @else
-        <x-link
-            href="{{ $module->action_url }}"
-            target="_blank"
-            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
-            override="class"
-        >
-            {{ trans('modules.get_cloud') }}
-        </x-link>
+        <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top">
+            <x-link
+                href="{{ $module->action_url }}"
+                target="_blank"
+                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
+                override="class"
+            >
+                {{ trans('modules.switch_to_cloud') }}
+            </x-link>
+        </x-tooltip>
     @endif
 @endif

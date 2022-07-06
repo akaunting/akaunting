@@ -46,8 +46,10 @@ return [
     'install_cloud'         => 'Use on Cloud Service',
     'get_cloud'             => 'Get Cloud Service',
     'get_premium_cloud'     => 'Get Premium Cloud',
-    'only_works_cloud'      => 'This app only works on <strong>Cloud Service</strong>.',
-    'only_premium_plan'     => 'This app only works on <strong>Cloud Premium Service</strong>.',
+    'switch_to_cloud'       => 'Switch to Cloud',
+    'hosted_on_akaunting'   => 'Hosted on akaunting.com',
+    'only_works_cloud'      => 'This app is available only on <strong>Cloud</strong>.',
+    'only_premium_plan'     => 'This app is available only on <strong>Premium Cloud</strong>.',
 
     'about'                 => 'About',
 

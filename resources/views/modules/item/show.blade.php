@@ -45,6 +45,9 @@
                                     <a href="{{ route('apps.categories.show', $module_category->slug) }}" class="text-sm">
                                         {{ $module_category->name }}
                                     </a>
+                                    @if (! $loop->last)
+                                    ,
+                                    @endif
                                 @endforeach
                             </span>
                         </div>
@@ -94,21 +97,33 @@
                             </div>
                         </div>
 
-                        <div class="text-sm truncate line-clamp-1">
-                            {!! $module->description !!}
-                        </div>
-
-                        <div class="relative flex flex-col lg:flex-row space-x-4 justify-between">
-                            <x-layouts.modules.show.price :module="$module" />
-
-                            <div class="flex w-1/2 lg:justify-center">
-                                @if ($module->price != '0.0000')
-                                    <x-layouts.modules.show.toggle />
-                                @endif
+                        @if (! in_array('onprime', $module->where_to_use))
+                            @if (! empty($module->cloud_information))
+                                {!! $module->cloud_information !!}
+                            @else
+                                <div class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
+                                    <span class="text-sm text-red-700">
+                                        {!! trans('modules.only_works_cloud') !!}
+                                    </span>
+                                </div>
+                            @endif
+                        @else
+                            <div class="text-sm truncate line-clamp-1">
+                                {!! $module->description !!}
                             </div>
-                        </div>
 
-                        <x-layouts.modules.show.information :module="$module" />
+                            <div class="relative flex flex-col lg:flex-row space-x-4 justify-between">
+                                <x-layouts.modules.show.price :module="$module" />
+
+                                <div class="flex w-1/2 lg:justify-center">
+                                    @if ($module->price != '0.0000')
+                                        <x-layouts.modules.show.toggle />
+                                    @endif
+                                </div>
+                            </div>
+
+                            <x-layouts.modules.show.information :module="$module" />
+                        @endif
                     </div>
 
                     <div class="flex justify-around mt-5">
