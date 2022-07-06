@@ -1,4 +1,11 @@
-<span class="relative" data-tooltip-target="{{ $id }}" data-tooltip-placement="{{ $placement }}">
+<span
+    @class([
+        'relative',
+        $width,
+    ])
+    data-tooltip-target="{{ $id }}"
+    data-tooltip-placement="{{ $placement }}"
+>
     {!! $slot !!}
 </span>
 
