@@ -4,13 +4,14 @@ namespace App\Models\Auth;
 
 use Akaunting\Sortable\Traits\Sortable;
 use App\Traits\Tenants;
+use Bkwld\Cloner\Cloneable;
 use Laratrust\Models\LaratrustRole;
 use Laratrust\Traits\LaratrustRoleTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Role extends LaratrustRole
 {
-    use LaratrustRoleTrait, SearchString, Sortable, Tenants;
+    use Cloneable, LaratrustRoleTrait, SearchString, Sortable, Tenants;
 
     protected $table = 'roles';
 
@@ -20,6 +21,13 @@ class Role extends LaratrustRole
      * @var array
      */
     protected $fillable = ['name', 'display_name', 'description', 'created_from', 'created_by'];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['permissions'];
 
     /**
      * Get the line actions.
