@@ -8,7 +8,7 @@
             </span>
 
             <div class="text-black-400 text-sm">
-                {{ trans_choice('transers.slider.attachments') }}
+                {{ trans('transers.slider.attachments') }}
             </div>
 
             <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="attachment === 1 ? 'rotate-180' : ''">expand_more</span>
@@ -18,9 +18,9 @@
              x-ref="container1"
              x-bind:class="attachment == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
          >
-                @foreach ($transfer->attachment as $file)
-                    <x-media.file :file="$file" />
-                @endforeach
+            @foreach ($transfer->attachment as $file)
+                <x-media.file :file="$file" />
+            @endforeach
         </div>
     </div>
 @endif
