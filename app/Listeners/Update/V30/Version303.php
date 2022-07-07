@@ -27,55 +27,55 @@ class Version303 extends Listener
             return;
         }
 
-        Log::channel('stderr')->info('Starting the Akaunting 3.0.3 update...');
+        Log::channel('stdout')->info('Starting the Akaunting 3.0.3 update...');
 
         $this->updateCompanies();
 
-        Log::channel('stderr')->info('Akaunting 3.0.3 update finished.');
+        Log::channel('stdout')->info('Akaunting 3.0.3 update finished.');
     }
 
     public function updateCompanies()
     {
-        Log::channel('stderr')->info('Updating companies...');
+        Log::channel('stdout')->info('Updating companies...');
 
         $company_id = company_id();
 
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
-            Log::channel('stderr')->info('Updating company:' . $company->id);
+            Log::channel('stdout')->info('Updating company:' . $company->id);
 
             $company->makeCurrent();
 
             $this->updateWidgets();
 
-            Log::channel('stderr')->info('Company updated:' . $company->id);
+            Log::channel('stdout')->info('Company updated:' . $company->id);
         }
 
         company($company_id)->makeCurrent();
 
-        Log::channel('stderr')->info('Companies updated.');
+        Log::channel('stdout')->info('Companies updated.');
     }
 
     public function updateWidgets()
     {
-        Log::channel('stderr')->info('Updating widgets...');
+        Log::channel('stdout')->info('Updating widgets...');
 
         $widgets = Widget::cursor();
 
         foreach ($widgets as $widget) {
-            Log::channel('stderr')->info('Updating widget:' . $widget->id);
+            Log::channel('stdout')->info('Updating widget:' . $widget->id);
 
             $widget_settings = $widget->settings;
 
             if (empty($widget_settings->width)) {
-                Log::channel('stderr')->info('Skip widget:' . $widget->id);
+                Log::channel('stdout')->info('Skip widget:' . $widget->id);
 
                 continue;
             }
 
             if (Str::contains($widget_settings->width, 'w-full')) {
-                Log::channel('stderr')->info('Already new classs widget:' . $widget->id);
+                Log::channel('stdout')->info('Already new classs widget:' . $widget->id);
 
                 continue;
             }
@@ -99,9 +99,9 @@ class Version303 extends Listener
 
             $widget->save();
 
-            Log::channel('stderr')->info('Widget updated:' . $widget->id);
+            Log::channel('stdout')->info('Widget updated:' . $widget->id);
         }
 
-        Log::channel('stderr')->info('Widgets updated.');
+        Log::channel('stdout')->info('Widgets updated.');
     }
 }

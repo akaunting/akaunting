@@ -28,7 +28,7 @@ class Version304 extends Listener
             return;
         }
 
-        Log::channel('stderr')->info('Starting the Akaunting 3.0.4 update...');
+        Log::channel('stdout')->info('Starting the Akaunting 3.0.4 update...');
 
         $this->updateDatabase();
 
@@ -36,49 +36,49 @@ class Version304 extends Listener
 
         $this->deleteOldFiles();
 
-        Log::channel('stderr')->info('Akaunting 3.0.4 update finished.');
+        Log::channel('stdout')->info('Akaunting 3.0.4 update finished.');
     }
 
     public function updateDatabase()
     {
-        Log::channel('stderr')->info('Updating database...');
+        Log::channel('stdout')->info('Updating database...');
 
         Artisan::call('migrate', ['--force' => true]);
 
-        Log::channel('stderr')->info('Database updated.');
+        Log::channel('stdout')->info('Database updated.');
     }
 
     public function updateCompanies()
     {
-        Log::channel('stderr')->info('Updating companies...');
+        Log::channel('stdout')->info('Updating companies...');
 
         $company_id = company_id();
 
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
-            Log::channel('stderr')->info('Updating company:' . $company->id);
+            Log::channel('stdout')->info('Updating company:' . $company->id);
 
             $company->makeCurrent();
 
             $this->updateEmailTemplates();
 
-            Log::channel('stderr')->info('Company updated:' . $company->id);
+            Log::channel('stdout')->info('Company updated:' . $company->id);
         }
 
         company($company_id)->makeCurrent();
 
-        Log::channel('stderr')->info('Companies updated.');
+        Log::channel('stdout')->info('Companies updated.');
     }
 
     public function updateEmailTemplates()
     {
-        Log::channel('stderr')->info('Updating Email Templates...');
+        Log::channel('stdout')->info('Updating Email Templates...');
 
         $email_templates = EmailTemplate::cursor();
 
         foreach ($email_templates as $email_template) {
-            Log::channel('stderr')->info('Updating email template:' . $email_template->id);
+            Log::channel('stdout')->info('Updating email template:' . $email_template->id);
 
             $body = preg_replace('%<p(.*?)>|</p>%s', '', $email_template->body);
 
@@ -86,15 +86,15 @@ class Version304 extends Listener
 
             $email_template->save();
 
-            Log::channel('stderr')->info('Email Template updated:' . $email_template->id);
+            Log::channel('stdout')->info('Email Template updated:' . $email_template->id);
         }
 
-        Log::channel('stderr')->info('Email Templates updated.');
+        Log::channel('stdout')->info('Email Templates updated.');
     }
 
     public function deleteOldFiles()
     {
-        Log::channel('stderr')->info('Deleting old files...');
+        Log::channel('stdout')->info('Deleting old files...');
 
         $files = [
             'app/Events/Auth/InvitationCreated.php',
@@ -106,6 +106,6 @@ class Version304 extends Listener
             File::delete(base_path($file));
         }
 
-        Log::channel('stderr')->info('Old files deleted.');
+        Log::channel('stdout')->info('Old files deleted.');
     }
 }
