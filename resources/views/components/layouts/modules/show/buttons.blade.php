@@ -5,7 +5,7 @@
         <x-link
             href="{{ $module->action_url }}"
             target="_blank"
-            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full px-3 py-2 truncate"
+            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
             override="class"
         >
             {{ trans('modules.switch_to_cloud') }}
@@ -87,7 +87,7 @@
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"
-                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full px-3 py-2 truncate"
+                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
                 override="class"
             >
                 {{ trans('modules.switch_to_cloud') }}
@@ -98,7 +98,7 @@
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"
-                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full px-3 py-2 truncate"
+                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
                 override="class"
             >
                 {{ trans('modules.switch_to_cloud') }}
