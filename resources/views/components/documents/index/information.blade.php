@@ -47,6 +47,10 @@
 
         @if ($document->items->count())
             @foreach ($document->items as $document_item)
+                @if ($loop->index > 1)
+                    @break
+                @endif
+
                 <li class="relative flex items-center text-sm mb-7">
                     <div class="flex flex-col items-center mr-2">
                         <span class="material-icons-outlined text-black-300">sell</span>
@@ -66,17 +70,13 @@
                         </div>
                     </div>
                 </li>
-
-                @if ($loop->index >= 2)
-                    @break
-                @endif
             @endforeach
         @endif
 
         @if ($document->items->count() > 2)
             <li class="ml-10 mb-10">
             @if (! $hideShow)
-                <a href="{{ route($showRoute, $document->id) }}" class="border-b">
+                <a href="{{ route($showDocumentRoute, $document->id) }}" class="border-b">
                     {{ trans('documents.invoice_detail.more_item', ['count' => $document->items->count() - 2]) }}
                 </a>
             @else

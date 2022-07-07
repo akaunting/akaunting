@@ -19,6 +19,8 @@ class Information extends Component
 
     public $showRoute;
 
+    public $showDocumentRoute;
+
     public $placement;
 
     /**
@@ -27,11 +29,12 @@ class Information extends Component
      * @return void
      */
     public function __construct(
-        $document, bool $hideShow = false, string $showRoute = '', string $placement = ''
+        $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = ''
     ) {
         $this->document = $document;
         $this->hideShow = $hideShow;
         $this->showRoute = $this->getShowRoute($document->contact->type, $showRoute);
+        $this->showDocumentRoute = $this->getShowRoute($document->type, $showDocumentRoute);
         $this->placement = (! empty($placement)) ? $placement : 'left';
     }
 
