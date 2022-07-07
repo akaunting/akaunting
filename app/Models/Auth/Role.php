@@ -80,4 +80,15 @@ class Role extends LaratrustRole
 
         return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @param  Document $src
+     * @param  boolean $child
+     */
+    public function onCloning($src, $child = null)
+    {
+        $this->name = $src->name . '-' . Role::max('id') + 1;
+    }
 }
