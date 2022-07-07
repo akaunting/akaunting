@@ -4,7 +4,7 @@
     <ul class="text-sm space-y-3 my-3">
         @foreach($accounts as $item)
             <li class="flex justify-between">
-                {{ $item->title }}
+                {{ $item->name }}
 
                 <span class="font-medium">
                     {{ $item->balance_formatted }}
