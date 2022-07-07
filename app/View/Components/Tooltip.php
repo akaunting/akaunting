@@ -70,7 +70,7 @@ class Tooltip extends Component
             return $id;
         }
 
-        return 'tooltip-' . Str::random(1920);
+        return 'tooltip-' . Str::random(19);
     }
 
     protected function getPlacement($placement)
