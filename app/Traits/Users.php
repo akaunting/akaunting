@@ -28,7 +28,7 @@ trait Users
         $user = user();
 
         if (empty($user)) {
-            return false;
+            return app()->runningInConsole() ? true : false;
         }
 
         $company = $user->withoutEvents(function () use ($user, $id) {
