@@ -226,11 +226,16 @@ export default {
                                 '#efad32',
                                 '#ef3232',
                                 '#efef32'
-                            ]
+                            ],
+                            min_date: false,
                         }
                     },
 
                     methods: {
+                        setMinDate(date) {
+                            this.min_date = date;
+                        },
+
                         onChangeColor() {
                             this.form.color = this.color;
                         },
