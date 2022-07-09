@@ -1,7 +1,7 @@
 <?php
 
 // Define minimum supported PHP version
-define('AKAUNTING_PHP', '7.3.0');
+define('AKAUNTING_PHP', '8.0.2');
 
 // Check PHP version
 if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
@@ -16,8 +16,6 @@ if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
     die(1);
 }
 
-define('LARAVEL_START', microtime(true));
-
 // Load composer for core
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -25,7 +23,7 @@ require __DIR__ . '/../vendor/autoload.php';
 foreach (glob(__DIR__ . '/../modules/*') as $folder) {
     $autoload = $folder . '/vendor/autoload.php';
 
-    if (!is_file($autoload)) {
+    if (! is_file($autoload)) {
         continue;
     }
 
