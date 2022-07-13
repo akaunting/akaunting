@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Banking\Transaction;
-use App\Notifications\Banking\Transaction as Notification;
+use App\Notifications\Portal\PaymentReceived as PaymentReceivedNotification;
+use App\Notifications\Banking\Transaction as TransactionNotification;
 use App\Jobs\Banking\SendTransactionAsCustomMail;
 use App\Http\Requests\Common\CustomMail as Request;
 
@@ -30,10 +31,22 @@ class TransactionEmails extends Controller
      * @return Response
      */
     public function create(Transaction $transaction)
-    {
+    {     
         $email_template = config('type.transaction.' . $transaction->type . '.email_template');
+   
+        if (request()->get('email_template')) {
+            $email_template = request()->get('email_template');
+        }
 
-        $notification = new Notification($transaction, $email_template, true);
+        switch ($email_template) {
+            case 'invoice_payment_customer':
+                $notification = new PaymentReceivedNotification($transaction->document, $transaction, $email_template, true);
+                break;
+            
+            default:
+                $notification = new TransactionNotification($transaction, $email_template, true);
+                break;
+        }
 
         $store_route = 'modals.transactions.emails.store';
 

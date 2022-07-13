@@ -818,7 +818,11 @@ const app = new Vue({
                 buttons:{}
             };
 
-            let email_promise = Promise.resolve(window.axios.get(email.route));
+            let email_promise = Promise.resolve(window.axios.get(email.route, {
+                params: {
+                    email_template: 'invoice_payment_customer'
+                }
+            }));
 
             email_promise.then(response => {
                 email.modal = true;
