@@ -20,7 +20,7 @@ class SendDocumentAsCustomMail extends Job
 
         $custom_mail = $this->request->only(['to', 'subject', 'body']);
 
-        if ($this->request->has('user_email')) {
+        if ($this->request->get('user_email', false)) {
             $custom_mail['cc'] = user()->email;
         }
 
