@@ -72,7 +72,7 @@ class Transaction extends Model
      *
      * @var array
      */
-    public $sortable = ['type', 'number', 'paid_at', 'amount','category.name', 'account.name', 'customer.name', 'invoice.document_number'];
+    public $sortable = ['type', 'number', 'paid_at', 'amount', 'category.name', 'account.name', 'customer.name', 'invoice.document_number'];
 
     /**
      * Clonable relationships.
@@ -552,17 +552,19 @@ class Transaction extends Model
                 } catch (\Exception $e) {}
 
                 try {
-                    $actions[] = [
-                        'type' => 'button',
-                        'title' => trans('invoices.send_mail'),
-                        'icon' => 'email',
-                        'url' => route('modals.transactions.emails.create', $this->id),
-                        'permission' => 'read-banking-transactions',
-                        'attributes' => [
-                            'id' => 'index-more-actions-send-email-' . $this->id,
-                            '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
-                        ],
-                    ];
+                    if (! empty($this->contact) && $this->contact->email) {
+                        $actions[] = [
+                            'type' => 'button',
+                            'title' => trans('invoices.send_mail'),
+                            'icon' => 'email',
+                            'url' => route('modals.transactions.emails.create', $this->id),
+                            'permission' => 'read-banking-transactions',
+                            'attributes' => [
+                                'id' => 'index-more-actions-send-email-' . $this->id,
+                                '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
+                            ],
+                        ];
+                    }
                 } catch (\Exception $e) {}
 
                 $actions[] = [

@@ -7,7 +7,7 @@
 
             <x-form.group.editor name="body" label="{{ trans('settings.email.templates.body') }}" :value="$notification->getBody()" rows="5" data-toggle="quill" form-group-class="sm:col-span-6 mb-0" />
 
-            <x-form.group.checkbox name="user_email" :options="['1' => trans('general.email_send_me', ['email' => user()->email])]" />
+            <x-form.group.checkbox name="user_email" :options="['1' => trans('general.email_send_me', ['email' => user()->email])]" checkbox-class="col-span-6" />
 
             <x-form.input.hidden name="transaction_id" :value="$transaction->id" />
         </x-slot>
