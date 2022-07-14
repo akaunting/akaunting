@@ -3,10 +3,12 @@
 
 /**
  * @package     Akaunting
- * @copyright   2017-2020 Akaunting. All rights reserved.
+ * @copyright   2017-2022 Akaunting. All rights reserved.
  * @license     GNU GPL version 3; see LICENSE.txt
  * @link        https://akaunting.com
  */
+
+define('LARAVEL_START', microtime(true));
 
 // Register the auto-loader
 require __DIR__ . '/bootstrap/autoload.php';
