@@ -44,7 +44,7 @@ abstract class Notification extends BaseNotification implements ShouldQueue
      */
     public function initMailMessage(): MailMessage
     {
-        app('url')->defaults(['company_id' => company_id()]);
+        //app('url')->defaults(['company_id' => company_id()]);
 
         $message = (new MailMessage)
             ->from(config('mail.from.address'), config('mail.from.name'))
@@ -64,7 +64,7 @@ abstract class Notification extends BaseNotification implements ShouldQueue
      */
     public function initArrayMessage(): void
     {
-        app('url')->defaults(['company_id' => company_id()]);
+        //app('url')->defaults(['company_id' => company_id()]);
     }
 
     public function getSubject(): string

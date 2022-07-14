@@ -26,9 +26,7 @@ class IdentifyCompany
     {
         $this->request = $request;
 
-        $company_id = $this->request->isApi()
-                        ? $this->getCompanyIdFromApi()
-                        : $this->getCompanyIdFromWeb();
+        $company_id = $this->getCompanyId();
 
         if (empty($company_id)) {
             abort(500, 'Missing company');
@@ -58,6 +56,19 @@ class IdentifyCompany
         }
 
         return $next($this->request);
+    }
+
+    protected function getCompanyId()
+    {
+        if ($company_id = company_id()) {
+            return $company_id;
+        }
+
+        if ($this->request->isApi()) {
+            return $this->getCompanyIdFromApi();
+        }
+
+        return $this->getCompanyIdFromWeb();
     }
 
     protected function getCompanyIdFromWeb()

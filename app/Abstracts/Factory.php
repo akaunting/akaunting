@@ -65,7 +65,7 @@ abstract class Factory extends BaseFactory
 
         $this->company->makeCurrent();
 
-        app('url')->defaults(['company_id' => $this->company->id]);
+        //app('url')->defaults(['company_id' => $this->company->id]);
     }
 
     public function getRawAttribute($key)
