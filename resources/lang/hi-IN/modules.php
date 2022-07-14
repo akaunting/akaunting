@@ -46,6 +46,8 @@ return [
     'install_cloud'         => 'क्लाउड सेवा पर उपयोग करें',
     'get_cloud'             => 'क्लाउड सेवा प्राप्त करें',
     'get_premium_cloud'     => 'प्रीमियम क्लाउड प्राप्त करें',
+    'switch_to_cloud'       => 'क्लाउड पर स्विच करें',
+    'hosted_on_akaunting'   => 'akaunting.com पर होस्ट किया गया',
     'only_works_cloud'      => 'यह ऐप केवल <strong>क्लाउड सेवा</strong> पर काम करता है।',
     'only_premium_plan'     => 'यह ऐप केवल <strong>क्लाउड प्रीमियम सेवा</strong> पर काम करता है।',
 
