@@ -43,4 +43,8 @@ return [
         'connection'        => 'Error: No se pudo conectar a la base de datos! Por favor, asegúrese de que los datos son correctos.',
     ],
 
+    'update' => [
+        'core'              => '¡La nueva versión de Akaunting está disponible! Por favor, actualiza tu instalación.',
+        'module'            => '¡nueva versión de :module está disponible! Por favor, actualice su instalación.',
+    ],
 ];

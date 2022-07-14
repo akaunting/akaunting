@@ -46,6 +46,8 @@ return [
     'install_cloud'         => 'Izmantojiet pakalpojumā Cloud Service',
     'get_cloud'             => 'Iegūstiet Cloud Service',
     'get_premium_cloud'     => 'Iegūstiet Premium Cloud',
+    'switch_to_cloud'       => 'Pārslēgties uz mākoni',
+    'hosted_on_akaunting'   => 'Izmitināts uz akaunting.com',
     'only_works_cloud'      => 'Šī lietotne darbojas tikai pakalpojumā <strong>Cloud Service</strong>.',
     'only_premium_plan'     => 'Šī lietotne darbojas tikai pakalpojumā <strong>Cloud Premium Service</strong>.',
 

@@ -3,7 +3,7 @@
 return [
 
     'domain'                => 'Dominio',
-    'logo'                  => 'Logo',
+    'logo'                  => 'Logotipo',
 
     'error' => [
         'not_user_company'  => 'Error: No tiene autorizado cambiar esta empresa!',

@@ -7,52 +7,52 @@ return [
     'bill_amount'           => 'Monto de la factura',
     'total_price'           => 'Precio Total',
     'due_date'              => 'Fecha de vencimiento',
-    'order_number'          => 'Número de pedido',
+    'order_number'          => 'Nº Pedido',
     'bill_from'             => 'Recibo de',
 
     'quantity'              => 'Cantidad',
     'price'                 => 'Precio',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Descuento',
-    'item_discount'         => 'Descuento de línea',
-    'tax_total'             => 'Total Impuestos',
+    'item_discount'         => 'Línea de Descuento',
+    'tax_total'             => 'Total de Impuestos',
     'total'                 => 'Total ',
 
-    'item_name'             => 'Nombre del artículo | Nombres de artículo',
-    'recurring_bills'       => 'Factura recurrente|Facturas recurrentes',
+    'item_name'             => 'Nombre del artículo | Artículos',
+    'recurring_bills'       => 'Cuenta recurrente|Cuentas recurrentes',
 
     'show_discount'         => ':discount% Descuento',
-    'add_discount'          => 'Agregar Descuento',
+    'add_discount'          => 'Añadir descuento',
     'discount_desc'         => 'de subtotal',
 
     'payment_made'          => 'Pago realizado',
-    'payment_due'           => 'Vencimiento de pago',
-    'amount_due'            => 'Importe Vencido',
+    'payment_due'           => 'Vencimiento del pago',
+    'amount_due'            => 'Saldo Pendiente',
     'paid'                  => 'Pagado',
     'histories'             => 'Historial',
     'payments'              => 'Pagos',
     'add_payment'           => 'Añadir pago',
-    'mark_paid'             => 'Marcar como paga',
+    'mark_paid'             => 'Marcar como pagada',
     'mark_received'         => 'Marcar como recibido',
     'mark_cancelled'        => 'Marcar como cancelada',
-    'download_pdf'          => 'Descargar PDF',
-    'send_mail'             => 'Enviar Email',
+    'download_pdf'          => 'Descargar en PDF',
+    'send_mail'             => 'Enviar correo electrónico',
     'create_bill'           => 'Crear Recibo',
-    'receive_bill'          => 'Recibir factura',
-    'make_payment'          => 'Pagar',
+    'receive_bill'          => 'Recibe Recibo',
+    'make_payment'          => 'Realizar el pago',
 
     'form_description' => [
         'billing'           => 'Los datos de facturación aparecen en tu factura. La fecha de factura se utiliza en el panel de control y en los informes. Seleccione la fecha en la que espera pagar como fecha de vencimiento.',
     ],
 
     'messages' => [
-        'draft'             => 'Este es un<b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
+        'draft'             => 'Este es un recibo <b>BORRADOR</b> y se reflejará en los gráficos luego de recibirse.',
 
         'status' => [
-            'created'       => 'Creado el :date',
+            'created'       => 'Creada el :Fecha',
             'receive' => [
                 'draft'     => 'No recibido',
-                'received'  => 'Recibido el :date',
+                'received'  => 'Recibido el :Fecha',
             ],
             'paid' => [
                 'await'     => 'Pendiente de pago',

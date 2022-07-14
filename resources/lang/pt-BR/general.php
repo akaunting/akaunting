@@ -206,7 +206,7 @@ return [
     'client_portal'         => 'Portal do Cliente',
     'issue_date'            => 'Data de emissão',
     'due_date'              => 'Data de vencimento',
-    'open'                  => 'Abrir',
+    'open'                  => 'Aberto',
     'invite'                => 'Convidar',
     'common'                => 'Comum',
     'api'                   => 'API',
@@ -270,6 +270,8 @@ return [
     'placeholder' => [
         'search'            => 'Digite para pesquisar...',
         'search_and_filter' => 'Pesquisar ou filtrar resultados...',
+        'select_and_filter' => 'Selecione uma das opções abaixo',
+        'enter_and_filter'  => 'Pressione enter para filtrar os resultados, ou definir um novo filtro',
         'contact_search'    => 'Digite um nome :type',
         'item_search'       => 'Digite um nome de item',
     ],

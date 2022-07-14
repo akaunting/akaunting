@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Monto',
     'deposit'               => 'Depósito',
     'withdrawal'            => 'Retiro',
+    'reconciled_amount'     => 'Reconciliado',
+    'in_progress'           => 'En progreso',
+    'save_draft'            => 'Guardar como borrador',
+    'irreconcilable'        => 'Irreconciliable',
 
 ];
