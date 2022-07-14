@@ -21,10 +21,8 @@ if (! function_exists('user')) {
 if (! function_exists('user_id')) {
     /**
      * Get id of current user.
-     *
-     * @return int
      */
-    function user_id()
+    function user_id(): int|null
     {
         return user()?->id;
     }
@@ -33,10 +31,8 @@ if (! function_exists('user_id')) {
 if (! function_exists('company_date_format')) {
     /**
      * Get the date format of company.
-     *
-     * @return string
      */
-    function company_date_format()
+    function company_date_format(): string
     {
         $date_time = new class() {
             use DateTime;
@@ -49,10 +45,8 @@ if (! function_exists('company_date_format')) {
 if (! function_exists('company_date')) {
     /**
      * Format the given date based on company settings.
-     *
-     * @return string
      */
-    function company_date($date)
+    function company_date($date): string
     {
         return Date::parse($date)->format(company_date_format());
     }
@@ -77,12 +71,8 @@ if (! function_exists('show_widget')) {
 if (! function_exists('company')) {
     /**
      * Get current/any company model.
-     *
-     * @param int|null $id
-     *
-     * @return Company|null
      */
-    function company($id = null)
+    function company(int|null $id = null): Company|null
     {
         $company = null;
 
@@ -101,10 +91,8 @@ if (! function_exists('company')) {
 if (! function_exists('company_id')) {
     /**
      * Get id of current company.
-     *
-     * @return int
      */
-    function company_id()
+    function company_id(): int|null
     {
         return company()?->id;
     }
@@ -113,10 +101,9 @@ if (! function_exists('company_id')) {
 if (! function_exists('should_queue')) {
     /**
      * Check if queue is enabled.
-     *
-     * @return bool
      */
-    function should_queue() {
+    function should_queue(): bool
+    {
         return config('queue.default') != 'sync';
     }
 }
@@ -124,12 +111,8 @@ if (! function_exists('should_queue')) {
 if (! function_exists('source_name')) {
     /**
      * Get the current source.
-     *
-     * @param string|null $alias
-     *
-     * @return string
      */
-    function source_name($alias = null)
+    function source_name(string|null $alias = null): string
     {
         $tmp = new class() {
             use Sources;
@@ -142,10 +125,8 @@ if (! function_exists('source_name')) {
 if (! function_exists('cache_prefix')) {
     /**
      * Cache system added company_id prefix.
-     *
-     * @return string
      */
-    function cache_prefix()
+    function cache_prefix(): string
     {
         return company_id() . '_';
     }
@@ -174,10 +155,8 @@ if (! function_exists('array_values_recursive')) {
 if (! function_exists('running_in_queue')) {
     /**
      * Detect if application is running in queue.
-     *
-     * @return bool
      */
-    function running_in_queue()
+    function running_in_queue(): bool
     {
         return defined('APP_RUNNING_IN_QUEUE') ?? false;
     }
@@ -186,8 +165,6 @@ if (! function_exists('running_in_queue')) {
 if (! function_exists('simple_icons')) {
     /**
      * Get the simple icon content
-     *
-     * @return string
      */
     function simple_icons(string $name): string
     {
@@ -200,8 +177,6 @@ if (! function_exists('simple_icons')) {
 if (! function_exists('default_currency')) {
     /**
      * Get the default currency code
-     *
-     * @return string
      */
     function default_currency(): string
     {
