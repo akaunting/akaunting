@@ -75,6 +75,7 @@ const app = new Vue({
                 ',.',
                 ',,'
             ],
+            email_template: false,
         }
     },
 
@@ -533,6 +534,7 @@ const app = new Vue({
         onDeleteDiscount(item_index) {
             this.items[item_index].add_discount = false;
             this.items[item_index].discount = 0;
+
             this.onCalculateTotal();
         },
 
@@ -818,11 +820,17 @@ const app = new Vue({
                 buttons:{}
             };
 
-            let email_promise = Promise.resolve(window.axios.get(email.route, {
-                params: {
-                    email_template: 'invoice_payment_customer'
-                }
-            }));
+            let email_promise = Promise.resolve(window.axios.get(email.route));
+
+            if (this.email_template) {
+                email_promise = Promise.resolve(window.axios.get(email.route, {
+                    params: {
+                        email_template: this.email_template
+                    }
+                }));
+            }
+
+            this.email_template = false;
 
             email_promise.then(response => {
                 email.modal = true;
@@ -868,6 +876,12 @@ const app = new Vue({
             .finally(function () {
                 // always executed
             });
+        },
+
+        onEmailViaTemplate(route, template) {
+            this.email_template = template;
+
+            this.onEmail(route);
         },
 
         // Change currency get money

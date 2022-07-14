@@ -126,6 +126,9 @@ return [
             'category_type'         => 'income',
             'transaction_type'      => 'income',
             'contact_type'          => 'customer', // use contact type
+            'transaction'           => [
+                'email_template'    => 'invoice_payment_customer', // use email template
+            ],
             'hide'                  => [], // for document items
             'class'                 => [],
             'notification' => [
@@ -219,6 +222,9 @@ return [
             'category_type'         => 'expense',
             'transaction_type'      => 'expense',
             'contact_type'          => 'vendor',
+            'transaction'           => [
+                'email_template'    => 'invoice_payment_customer', // use email template
+            ],
             'hide'                  => [],
             'notification' => [
                 'class'             => 'App\Notifications\Purchase\Bill',

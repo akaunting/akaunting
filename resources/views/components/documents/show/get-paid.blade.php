@@ -61,7 +61,7 @@
                         </br>
 
                         @if (! empty($transaction->contact) && $transaction->contact->email)
-                            <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmail('{{ route($transactionEmailRoute, $transaction->id) }}')">
+                            <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmailViaTemplate('{{ route($transactionEmailRoute, $transaction->id) }}', '{{ $transactionEmailTemplate }}')">
                                 <x-button.hover color="to-purple">
                                     {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
                                 </x-button.hover>

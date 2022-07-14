@@ -211,6 +211,9 @@ abstract class Show extends Component
     /** @var string */
     public $transactionEmailRoute;
 
+    /** @var string */
+    public $transactionEmailTemplate;
+
     /** @var bool */
     public $hideRestore;
 
@@ -337,7 +340,7 @@ abstract class Show extends Component
         bool $hideCreated = false, bool $hideSend = false, bool $hideMarkSent = false, string $markSentRoute = '', string $textMarkSent = '', 
         bool $hideReceive = false, bool $hideMarkReceived = false, string $markReceivedRoute = '', string $textMarkReceived = '', 
         bool $hideGetPaid = false,
-        bool $hideRestore = false, bool $hideAddPayment = false, bool $hideAcceptPayment = false, string $transactionEmailRoute = '',
+        bool $hideRestore = false, bool $hideAddPayment = false, bool $hideAcceptPayment = false, string $transactionEmailRoute = '', string $transactionEmailTemplate = '',
         bool $hideMakePayment = false,
         bool $hideSchedule = false, bool $hideChildren = false,
         bool $hideAttachment = false, $attachment = [],
@@ -438,6 +441,7 @@ abstract class Show extends Component
         $this->hideAcceptPayment = $hideAcceptPayment;
 
         $this->transactionEmailRoute = $this->getTransactionEmailRoute($type, $transactionEmailRoute);
+        $this->transactionEmailTemplate = $this->getTransactionEmailTemplate($type, $transactionEmailTemplate);
 
         $this->hideRestore = $this->getHideRestore($hideRestore);
 
@@ -873,6 +877,15 @@ abstract class Show extends Component
         }
 
         return 'modals.transactions.emails.create';
+    }
+
+    protected function getTransactionEmailTemplate($type, $transactionEmailTemplate)
+    {
+        if (! empty($transactionEmailTemplate)) {
+            return $transactionEmailTemplate;
+        }
+
+        return config('type.' . static::OBJECT_TYPE . '.' . $type . '.transaction.email_template', false);
     }
 
     protected function getHideRestore($hideRestore)
