@@ -3,7 +3,6 @@
 namespace App\Abstracts\Http;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
-use Illuminate\Support\Arr;
 
 abstract class FormRequest extends BaseFormRequest
 {
@@ -17,29 +16,5 @@ abstract class FormRequest extends BaseFormRequest
         $this->merge([
             'company_id' => company_id(),
         ]);
-    }
-
-    /**
-     * Determine if the given offset exists.
-     *
-     * @param  string  $offset
-     * @return bool
-     */
-    public function offsetExists($offset): bool
-    {
-        return Arr::has(
-            $this->route() ? $this->all() + $this->route()->parameters() : $this->all(),
-            $offset
-        );
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 }
