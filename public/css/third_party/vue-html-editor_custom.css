@@ -33,6 +33,7 @@
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   font-size: 14px !important;
+  height: auto !important;
 }
 
 .ql-toolbar button:hover {
