@@ -27,7 +27,7 @@
 
     <!-- Css -->
     <link rel="stylesheet" href="{{ asset('public/css/element.css?v=' . version('short')) }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/css/app.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}" type="text/css">
 
     @stack('css')
 
