@@ -38,13 +38,14 @@ class Transaction extends Notification
     /**
      * Create a notification instance.
      */
-    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false)
+    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [])
     {
         parent::__construct();
 
         $this->transaction = $transaction;
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
+        $this->custom_mail = $custom_mail;
     }
 
     /**
@@ -54,6 +55,10 @@ class Transaction extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
+        if (! empty($this->custom_mail['to'])) {
+            $notifiable->email = $this->custom_mail['to'];
+        }
+
         $message = $this->initMailMessage();
 
         // Attach the PDF file
