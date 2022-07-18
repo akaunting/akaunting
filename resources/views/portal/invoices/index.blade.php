@@ -117,12 +117,12 @@
                                 <x-table.td class="w-3/12  sm:table-cell">
                                     @stack('document_number_td_inside_start')
 
-                                    <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
+                                    <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
                                         <span class="border-black border-b border-dashed">
                                             {{ $item->document_number }}
                                         </span>
 
-                                        <div class="w-full absolute h-10 -left-10 -mt-6"></div>
+                                        <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
 
                                         <x-documents.index.information :document="$item" show-route="portal.invoices.show"/>
                                     </x-slot>
