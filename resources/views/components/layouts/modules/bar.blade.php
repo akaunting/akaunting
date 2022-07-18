@@ -73,6 +73,7 @@
                         value="{{ isset($keyword) ? $keyword : '' }}"
                         placeholder="{{ trans('general.search_placeholder') }}"
                         autocomplete="off"
+                        v-on:keyup="onLiveSearch($event)"
                     />
                 </div>
             </form>
@@ -103,5 +104,23 @@
                 </x-link.hover>
             </x-link>
         </div>
+    </div>
+
+    <div ref="liveSearchModal" v-if="live_search_modal" class="absolute w-full bg-white rounded-xl shadow-md p-4 top-20 z-10">
+        <ul class="grid sm:grid-cols-6 gap-8">
+            <li v-for="(item, index) in live_search_data" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
+                <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4">
+                    <img v-for="(file, indis) in item.files"
+                        :src="file.path_string"
+                        :alt="item.name"
+                        class="w-12 h-12 rounded-lg object-cover"
+                    />
+                    <div>
+                        <h6 class="font-bold" v-html="item.name"></h6>
+                        <span class="text-sm text-gray-500 line-clamp-3" v-html="item.description"></span>
+                    </div>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

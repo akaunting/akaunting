@@ -29,6 +29,10 @@ const app = new Vue({
         AkauntingSlider
     },
 
+    created() {
+        document.addEventListener('click', this.closeIfClickedOutside);
+    },
+
     mounted() {
         if (typeof app_slug !== 'undefined') {
             this.onReleases(1);
@@ -84,6 +88,9 @@ const app = new Vue({
 
             addToCartLoading: false,
             loadMoreLoading: false,
+            live_search_modal: false,
+            live_search_data: [],
+            route_url: url
         }
     },
 
@@ -288,5 +295,32 @@ const app = new Vue({
                 this.loadMoreLoading = false;
             });
         },
+
+        closeIfClickedOutside(event) {
+            let el = this.$refs.liveSearchModal;
+            let target = event.target;
+
+            if (el !== target && target.contains(el)) {
+                this.live_search_modal = false;
+            }
+        },
+
+        onLiveSearch(event) {
+            let target_length = event.target.value.length;
+
+            if (target_length > 2) {
+                window.axios.get(url + '/apps/paid')
+                .then(response => {
+                    this.live_search_data = response.data.data.data;
+                    this.live_search_modal = true;
+                })
+                .catch(error => {
+                    this.live_search_modal = false;
+                    console.log(error);
+                })
+            } else if (target_length == 0) {
+                this.live_search_modal = false;
+            }
+        }
     }
 });
