@@ -309,7 +309,7 @@ const app = new Vue({
             let target_length = event.target.value.length;
 
             if (target_length > 2) {
-                window.axios.get(url + '/apps/paid')
+                window.axios.get(url + '/apps/search?keyword=' + event.target.value)
                 .then(response => {
                     this.live_search_data = response.data.data.data;
                     this.live_search_modal = true;
