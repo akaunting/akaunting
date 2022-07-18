@@ -53,7 +53,7 @@ class BillTransactions extends Export implements WithColumnFormatting
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'C' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }
