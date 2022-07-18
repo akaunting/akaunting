@@ -10,9 +10,9 @@ use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
-use App\Utilities\Reports as Utility;
+use App\Utilities\Date;
+use App\Utilities\Reports;
 use App\Models\Setting\Currency;
-use Date;
 
 class Accounts extends Controller
 {
@@ -35,11 +35,10 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        // Handle transactions
-        $transactions = Transaction::with('account', 'category')->where('account_id', $account->id)->collect('paid_at');
+        $transactions = Transaction::with('category', 'contact', 'document')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
 
-        $transfers = Transfer::with('expense_transaction', 'income_transaction')->get()->filter(function ($transfer) use($account) {
-            if ($transfer->expense_account->id == $account->id || $transfer->income_account->id == $account->id) {
+        $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')->get()->filter(function ($transfer) use($account) {
+            if (($transfer->expense_transaction->account->id == $account->id) || ($transfer->income_transaction->account->id == $account->id)) {
                 return true;
             }
 
@@ -248,7 +247,7 @@ class Accounts extends Controller
             'account_id'    => $account->id,
         ];
 
-        $report = Utility::getClassInstance('App\Reports\IncomeExpenseSummary');
+        $report = Reports::getClassInstance('App\Reports\IncomeExpenseSummary');
 
         if (empty($report) || empty($report->model)) {
             $message = trans('accounts.create_report');

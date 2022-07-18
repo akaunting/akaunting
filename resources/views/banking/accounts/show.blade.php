@@ -225,7 +225,7 @@
                                     <x-table>
                                         <x-table.thead>
                                             <x-table.tr class="flex items-center px-1">
-                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                <x-table.th class="w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />
                                                     </x-slot>
@@ -243,11 +243,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-4/12 sm:w-2/12">
-                                                    <x-sortablelink column="account.name" title="{{ trans_choice('general.accounts', 1) }}" />
-                                                </x-table.th>
-
-                                                <x-table.th class="w-2/12 hidden sm:table-cell">
+                                                <x-table.th class="w-3/12 hidden sm:table-cell">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="contact.name" title="{{ trans_choice('general.contacts', 1) }}" />
                                                     </x-slot>
@@ -256,7 +252,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-4/12 sm:w-2/12" kind="amount">
+                                                <x-table.th class="w-3/12" kind="amount">
                                                     <x-sortablelink column="amount" title="{{ trans('general.amount') }}" />
                                                 </x-table.th>
                                             </x-table.tr>
@@ -265,7 +261,7 @@
                                         <x-table.tbody>
                                             @foreach($transactions as $item)
                                                 <x-table.tr href="{{ route('transactions.show', $item->id) }}">
-                                                    <x-table.td class="w-4/12 sm:w-3/12">
+                                                    <x-table.td class="w-3/12">
                                                         <x-slot name="first" class="font-bold truncate" override="class">
                                                             <x-date date="{{ $item->paid_at }}" />
                                                         </x-slot>
@@ -283,11 +279,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-4/12 sm:w-2/12">
-                                                        {{ $item->account->name }}
-                                                    </x-table.td>
-
-                                                    <x-table.td class="w-2/12 hidden sm:table-cell">
+                                                    <x-table.td class="w-3/12 hidden sm:table-cell">
                                                         <x-slot name="first">
                                                             {{ $item->contact->name }}
                                                         </x-slot>
@@ -308,7 +300,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="relative w-4/12 sm:w-2/12" kind="amount">
+                                                    <x-table.td class="w-3/12 relative" kind="amount">
                                                         <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                                                     </x-table.td>
 
@@ -333,10 +325,6 @@
                                     <x-table>
                                         <x-table.thead>
                                             <x-table.tr class="flex items-center px-1">
-                                                <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
-                                                    <x-index.bulkaction.all />
-                                                </x-table.th>
-
                                                 <x-table.th class="w-3/12 hidden sm:table-cell">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
@@ -346,7 +334,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                <x-table.th class="w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.name" title="{{ trans('transfers.from_account') }}" />
                                                     </x-slot>
@@ -355,7 +343,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-4/12 sm:w-3/12">
+                                                <x-table.th class="w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.rate" title="{{ trans('transfers.from_rate') }}" />
                                                     </x-slot>
@@ -364,7 +352,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-4/12 sm:w-3/12" kind="amount">
+                                                <x-table.th class="w-3/12" kind="amount">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.amount" title="{{ trans('transfers.from_amount') }}" />
                                                     </x-slot>
@@ -386,10 +374,6 @@
                                                 @endphp
 
                                                 <x-table.tr href="{{ route('transfers.show', $item->id) }}">
-                                                    <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
-                                                        <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
-                                                    </x-table.td>
-
                                                     <x-table.td class="w-3/12 truncate hidden sm:table-cell">
                                                         <x-slot name="first" class="flex items-center font-bold" override="class">
                                                             <x-date date="{{ $item->expense_transaction->paid_at }}" />
@@ -403,7 +387,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                                    <x-table.td class="w-3/12 truncate">
                                                         <x-slot name="first">
                                                             {{ $item->expense_transaction->account->name }}
                                                         </x-slot>
@@ -412,7 +396,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                                    <x-table.td class="w-3/12 truncate">
                                                         <x-slot name="first">
                                                             {{ $item->expense_transaction->currency_rate }}
                                                         </x-slot>
@@ -421,7 +405,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-4/12 sm:w-3/12" kind="amount">
+                                                    <x-table.td class="w-3/12" kind="amount">
                                                         <x-slot name="first">
                                                             <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
                                                         </x-slot>
