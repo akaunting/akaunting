@@ -28,6 +28,7 @@ class Bills extends Import
         $row['issued_at'] = $row['billed_at'];
         $row['category_id'] = $this->getCategoryId($row, 'expense');
         $row['contact_id'] = $this->getContactId($row, 'vendor');
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['type'] = Model::BILL_TYPE;
         $row['contact_country'] = !empty($country) ? $country : null;
 

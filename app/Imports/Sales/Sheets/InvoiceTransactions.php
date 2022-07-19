@@ -25,6 +25,7 @@ class InvoiceTransactions extends Import
         $row['account_id'] = $this->getAccountId($row);
         $row['category_id'] = $this->getCategoryId($row, 'income');
         $row['contact_id'] = $this->getContactId($row, 'customer');
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['document_id'] = $this->getDocumentId($row);
         $row['number'] = $row['transaction_number'];
 

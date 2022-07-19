@@ -21,6 +21,7 @@ class Customers extends Import
 
         $row['type'] = 'customer';
         $row['country'] = !empty($country) ? $country : null;
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['user_id'] = null;
 
         return $row;
