@@ -74,9 +74,8 @@ class Content extends Component
 
         $this->totals = $totals;
 
-        $limit = (int) request('limit', setting('default.list_limit', '25'));
-        $this->transactions = $this->paginate($this->transactions->sortByDesc('paid_at'), $limit);
-        $this->documents = $this->paginate($this->documents->sortByDesc('issued_at'), $limit);
+        $this->transactions = $this->paginate($this->transactions->sortByDesc('paid_at'));
+        $this->documents = $this->paginate($this->documents->sortByDesc('issued_at'));
 
         return view('components.contacts.show.content');
     }
@@ -91,7 +90,7 @@ class Content extends Component
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    public function paginate($items, $perPage = null, $page = null, $options = [])
     {
         $perPage = $perPage ?: (int) request('limit', setting('default.list_limit', '25'));
 
