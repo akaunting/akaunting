@@ -27,9 +27,11 @@ class Transfers extends Import
         $row['transferred_at'] = Date::parse($row['transferred_at'])->format('Y-m-d');
         $row['from_account_id'] = $this->getFromAccountId($row);
         $row['to_account_id'] = $this->getToAccountId($row);
+        $row['from_currency_code'] = $this->getFromCurrencyCode($row);
+        $row['to_currency_code'] = $this->getToCurrencyCode($row);
         $row['expense_transaction_id'] = $this->getExpenseTransactionId($row);
         $row['income_transaction_id'] = $this->getIncomeTransactionId($row);
-
+        
         return $row;
     }
 
@@ -123,5 +125,21 @@ class Transfers extends Import
         $row['currency_code'] = $row['to_currency_code'] ?? null;
 
         return $this->getAccountId($row);
+    }
+
+    private function getFromCurrencyCode($row)
+    {
+        $row['currency_code'] = $row['from_currency_code'] ?? null;
+        $row['currency_rate'] = $row['from_currency_rate'] ?? null;
+
+        return $this->getCurrencyCode($row);
+    }
+
+    private function getToCurrencyCode($row)
+    {
+        $row['currency_code'] = $row['to_currency_code'] ?? null;
+        $row['currency_rate'] = $row['to_currency_rate'] ?? null;
+
+        return $this->getCurrencyCode($row);
     }
 }

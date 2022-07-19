@@ -28,6 +28,7 @@ class Invoices extends Import
         $row['issued_at'] = $row['invoiced_at'];
         $row['category_id'] = $this->getCategoryId($row, 'income');
         $row['contact_id'] = $this->getContactId($row, 'customer');
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['type'] = Model::INVOICE_TYPE;
         $row['contact_country'] = !empty($country) ? $country : null;
 
