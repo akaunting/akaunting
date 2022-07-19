@@ -61,7 +61,7 @@
     </div>
 
     <div class="flex flex-col lg:flex-row w-full justify-between">
-        <div class="h-full relative">
+        <div class="w-8/12 h-full">
             <form method="GET" action="{{ url("/" . company_id()) }}/apps/search">
                 <div class="h-full flex items-center pl-2 gap-2">
                     <i class="material-icons text-light-gray">search</i>
@@ -76,10 +76,32 @@
                         v-on:keyup="onLiveSearch($event)"
                     />
                 </div>
+
+                <div ref="liveSearchModal" v-if="live_search_modal" class="absolute w-full left-0 right-0 bg-white rounded-xl shadow-md p-4 top-20 z-10">
+                    <ul class="grid sm:grid-cols-6 gap-8">
+                        <li v-for="(item, index) in live_search_data.slice(0,8)" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
+                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4">
+                                <img v-for="(file, indis) in item.files"
+                                    :src="file.path_string"
+                                    :alt="item.name"
+                                    class="w-16 h-12 rounded-lg object-cover"
+                                />
+                                <div>
+                                    <h6 class="font-bold" v-html="item.name"></h6>
+                                    <span class="text-sm text-gray-500 line-clamp-1" v-html="item.sort_desc ? item.sort_desc : item.description"></span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                <div v-if="live_search_data.length > 4" class="flex item-center justify-center mt-5">
+                    <x-button type="submit" kind="primary">{{ trans('modules.see_more') }}</x-button>
+                </div>
+            </div>
             </form>
         </div>
 
-        <div class="flex flex-row items-end lg:items-center mb-1 divide-x divide-black-400">
+        <div class="flex flex-row items-end lg:items-center mb-1 divide-x divide-black-400 mt-4 lg:mt-0">
             <x-link href="{{ route('apps.home.index') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
                 <x-link.hover color="to-black-400">
                     {{ trans('modules.home') }}
@@ -104,23 +126,5 @@
                 </x-link.hover>
             </x-link>
         </div>
-    </div>
-
-    <div ref="liveSearchModal" v-if="live_search_modal" class="absolute w-full bg-white rounded-xl shadow-md p-4 top-20 z-10">
-        <ul class="grid sm:grid-cols-6 gap-8">
-            <li v-for="(item, index) in live_search_data" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
-                <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4">
-                    <img v-for="(file, indis) in item.files"
-                        :src="file.path_string"
-                        :alt="item.name"
-                        class="w-12 h-12 rounded-lg object-cover"
-                    />
-                    <div>
-                        <h6 class="font-bold" v-html="item.name"></h6>
-                        <span class="text-sm text-gray-500 line-clamp-3" v-html="item.description"></span>
-                    </div>
-                </a>
-            </li>
-        </ul>
     </div>
 </div>
