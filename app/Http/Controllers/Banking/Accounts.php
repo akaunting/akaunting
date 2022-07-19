@@ -37,18 +37,10 @@ class Accounts extends Controller
     {
         $transactions = Transaction::with('category', 'contact', 'document')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
 
-        $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')->get()->filter(function ($transfer) use($account) {
-            if (($transfer->expense_transaction->account->id == $account->id) || ($transfer->income_transaction->account->id == $account->id)) {
-                return true;
-            }
-
-            return false;
-        })->sortByDesc(function ($transfer) {
-            return $transfer->expense_transaction->paid_at;
-        });
-
-        $limit = (int) request('limit', setting('default.list_limit', '25'));
-        $transfers = $this->paginate($transfers, $limit);
+        $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')
+                                ->whereHas('expense_transaction', fn ($query) => $query->where('account_id', $account->id))
+                                ->orWhereHas('income_transaction', fn ($query) => $query->where('account_id', $account->id))
+                                ->collect(['expense_transaction.paid_at' => 'desc']);
 
         return view('banking.accounts.show', compact('account', 'transactions', 'transfers'));
     }
