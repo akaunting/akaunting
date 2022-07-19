@@ -77,9 +77,9 @@
                     />
                 </div>
 
-                <div ref="liveSearchModal" v-if="live_search_modal" class="absolute w-full left-0 right-0 bg-white rounded-xl shadow-md p-4 top-20 z-10">
+                <div ref="liveSearchModal" v-if="live_search.modal" class="absolute w-full left-0 right-0 bg-white rounded-xl shadow-md p-4 top-20 z-10">
                     <ul class="grid sm:grid-cols-6 gap-8">
-                        <li v-for="(item, index) in live_search_data.slice(0,8)" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
+                        <li v-for="(item, index) in live_search.data.slice(0,8)" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
                             <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4">
                                 <img v-for="(file, indis) in item.files"
                                     :src="file.path_string"
@@ -92,9 +92,11 @@
                                 </div>
                             </a>
                         </li>
+
+                        <li v-if="live_search.not_found">{{ trans('modules.not_found') }}</li>
                     </ul>
 
-                <div v-if="live_search_data.length > 4" class="flex item-center justify-center mt-5">
+                <div v-if="live_search.data.length > 8" class="flex item-center justify-center mt-5">
                     <x-button type="submit" kind="primary">{{ trans('modules.see_more') }}</x-button>
                 </div>
             </div>

@@ -50,6 +50,7 @@ return [
     'hosted_on_akaunting'   => 'Hosted on akaunting.com',
     'only_works_cloud'      => 'This app is available only on <strong>Cloud</strong>.',
     'only_premium_plan'     => 'This app is available only on <strong>Premium Cloud</strong>.',
+    'not_found'             => 'App not found',
 
     'about'                 => 'About',
 

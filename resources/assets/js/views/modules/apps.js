@@ -88,8 +88,11 @@ const app = new Vue({
 
             addToCartLoading: false,
             loadMoreLoading: false,
-            live_search_modal: false,
-            live_search_data: [],
+            live_search: {
+                data: [],
+                modal: false,
+                not_found: false
+            },
             route_url: url
         }
     },
@@ -301,7 +304,7 @@ const app = new Vue({
             let target = event.target;
 
             if (el !== target && target.contains(el)) {
-                this.live_search_modal = false;
+                this.live_search.modal = false;
             }
         },
 
@@ -311,15 +314,17 @@ const app = new Vue({
             if (target_length > 2) {
                 window.axios.get(url + '/apps/search?keyword=' + event.target.value)
                 .then(response => {
-                    this.live_search_data = response.data.data.data;
-                    this.live_search_modal = true;
+                    this.live_search.data = response.data.data.data;
+                    this.live_search.modal = true;
+                    this.live_search.not_found = false;
                 })
                 .catch(error => {
-                    this.live_search_modal = false;
+                    this.live_search.not_found = true;
+                    this.live_search.data = [];
                     console.log(error);
                 })
             } else if (target_length == 0) {
-                this.live_search_modal = false;
+                this.live_search.modal = false;
             }
         }
     }
