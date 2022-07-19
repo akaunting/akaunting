@@ -37,7 +37,7 @@ abstract class Controller extends BaseController
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    public function paginate($items, $perPage = null, $page = null, $options = [])
     {
         $perPage = $perPage ?: (int) request('limit', setting('default.list_limit', '25'));
 
