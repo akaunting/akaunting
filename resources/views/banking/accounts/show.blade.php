@@ -116,15 +116,15 @@
 
                 <x-show.summary.right>
                     @stack('summary_incoming_start')
-                    <x-slot name="first" amount="{{ money($account->income_balance, $account->currency_code, true) }}" title="{{ trans('accounts.incoming') }}"></x-slot>
+                    <x-slot name="first" amount="{{ $summary_amounts['incoming_for_humans'] }}" title="{{ trans('accounts.incoming') }}" tooltip="{{ $summary_amounts['incoming_exact'] }}"></x-slot>
                     @stack('summary_incoming_end')
 
                     @stack('summary_outgoing_start')
-                    <x-slot name="second" amount="{{ money($account->expense_balance, $account->currency_code, true) }}" title="{{ trans('accounts.outgoing') }}"></x-slot>
+                    <x-slot name="second" amount="{{ $summary_amounts['outgoing_for_humans'] }}" title="{{ trans('accounts.outgoing') }}" tooltip="{{ $summary_amounts['outgoing_exact'] }}"></x-slot>
                     @stack('summary_outgoing_end')
 
                     @stack('summary_current_start')
-                    <x-slot name="third" amount="{{ money($account->balance, $account->currency_code, true) }}" title="{{ trans('accounts.current_balance') }}"></x-slot>
+                    <x-slot name="third" amount="{{ $summary_amounts['current_for_humans'] }}" title="{{ trans('accounts.current_balance') }}" tooltip="{{ $summary_amounts['current_exact'] }}"></x-slot>
                     @stack('summary_current_end')
                 </x-show.summary.right>
             </x-show.summary>

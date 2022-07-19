@@ -42,7 +42,20 @@ class Accounts extends Controller
                                 ->orWhereHas('income_transaction', fn ($query) => $query->where('account_id', $account->id))
                                 ->collect(['expense_transaction.paid_at' => 'desc']);
 
-        return view('banking.accounts.show', compact('account', 'transactions', 'transfers'));
+        $incoming_amount = money($account->income_balance, $account->currency_code, true);
+        $outgoing_amount = money($account->expense_balance, $account->currency_code, true);
+        $current_amount = money($account->balance, $account->currency_code, true);
+
+        $summary_amounts = [
+            'incoming_exact'        => $incoming_amount->format(),
+            'incoming_for_humans'   => $incoming_amount->formatForHumans(),
+            'outgoing_exact'        => $outgoing_amount->format(),
+            'outgoing_for_humans'   => $outgoing_amount->formatForHumans(),
+            'current_exact'         => $current_amount->format(),
+            'current_for_humans'    => $current_amount->formatForHumans(),
+        ];
+
+        return view('banking.accounts.show', compact('account', 'transactions', 'transfers', 'summary_amounts'));
     }
 
     /**
