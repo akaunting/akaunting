@@ -39,6 +39,10 @@ class Currencies extends ApiController
             $currency = Currency::where('code', $id)->first();
         }
 
+        if (! $currency instanceof Currency) {
+            return $this->errorInternal('No query results for model [' . Currency::class . '] ' . $id);
+        }
+
         return new Resource($currency);
     }
 

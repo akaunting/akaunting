@@ -34,6 +34,10 @@ class Items extends ApiController
     {
         $item = Item::with('category', 'taxes')->find($id);
 
+        if (! $item instanceof Item) {
+            return $this->errorInternal('No query results for model [' . Item::class . '] ' . $id);
+        }
+
         return new Resource($item);
     }
 

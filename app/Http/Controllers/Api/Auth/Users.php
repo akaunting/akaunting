@@ -40,6 +40,10 @@ class Users extends ApiController
             $user = User::with('companies', 'permissions', 'roles')->where('email', $id)->first();
         }
 
+        if (! $user instanceof User) {
+            return $this->errorInternal('No query results for model [' . User::class . '] ' . $id);
+        }
+
         return new Resource($user);
     }
 

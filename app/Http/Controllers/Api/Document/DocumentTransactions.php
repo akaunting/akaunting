@@ -48,6 +48,10 @@ class DocumentTransactions extends ApiController
     {
         $transaction = Transaction::documentId($document_id)->find($id);
 
+        if (! $transaction instanceof Transaction) {
+            return $this->errorInternal('No query results for model [' . Transaction::class . '] ' . $id);
+        }
+
         return new Resource($transaction);
     }
 

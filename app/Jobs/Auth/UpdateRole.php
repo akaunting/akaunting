@@ -20,6 +20,8 @@ class UpdateRole extends Job implements ShouldUpdate
             if ($this->request->has('permissions')) {
                 $this->model->permissions()->sync($this->request->get('permissions'));
             }
+
+            $this->model->flushCache();
         });
 
         event(new RoleUpdated($this->model, $this->request));
