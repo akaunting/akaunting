@@ -15,7 +15,7 @@ class UserRole extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'role_id', 'user_type'];
+    protected $fillable = ['user_id', 'role_id'];
 
     /**
      * Indicates if the model should be timestamped.
