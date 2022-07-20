@@ -2,15 +2,16 @@
 
 return [
 
-    'from_account'          => 'From',
+    'details'               => 'Detail|Details',
+
+    'from_account'          => 'From Account',
     'to_account'            => 'To Account',
     'from_rate'             => 'From Rate',
-    'from_account_rate'     => 'From Account Rate',
     'to_rate'               => 'To Rate',
+    'from_account_rate'     => 'From Account Rate',
     'to_account_rate'       => 'To Account Rate',
-    'from_amount'           => 'From',
+    'from_amount'           => 'From Amount',
     'to_amount'             => 'To Amount',
-    'details'               => 'Detail|Details',
     'issued_at'             => 'Issue Date',
     'rate'                  => 'Rate',
 
