@@ -23,9 +23,11 @@ class Transaction extends Model
     public const INCOME_TYPE = 'income';
     public const INCOME_SPLIT_TYPE = 'income-split';
     public const INCOME_RECURRING_TYPE = 'income-recurring';
+    public const INCOME_TRANSFER_TYPE = 'income-transfer'; // TODO - convert transfer from category to type
     public const EXPENSE_TYPE = 'expense';
     public const EXPENSE_SPLIT_TYPE = 'expense-split';
     public const EXPENSE_RECURRING_TYPE = 'expense-recurring';
+    public const EXPENSE_TRANSFER_TYPE = 'expense-transfer'; // TODO - convert transfer from category to type
 
     protected $table = 'transactions';
 

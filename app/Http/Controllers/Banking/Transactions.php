@@ -45,7 +45,7 @@ class Transactions extends Controller
         ];
 
         $transactions->each(function ($transaction) use (&$totals) {
-            if ($transaction->isNotIncome() && $transaction->isNotExpense()) {
+            if (($transaction->isNotIncome() && $transaction->isNotExpense()) || $transaction->isTransfer()) {
                 return;
             }
 

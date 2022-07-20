@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
+use App\Models\Setting\Category;
 use Illuminate\Support\Str;
 
 trait Transactions
@@ -42,6 +43,18 @@ trait Transactions
     public function isNotRecurringTransaction(): bool
     {
         return ! $this->isRecurring();
+    }
+
+    public function isTransfer(): bool
+    {
+        $category_id = $this->category_id ?? $this->transaction->category_id ?? $this->model->category_id ?? 0;
+
+        return $category_id == Category::transfer();
+    }
+
+    public function isNotTransfer(): bool
+    {
+        return ! $this->isTransfer();
     }
 
     public function getIncomeTypes($return = 'array')
