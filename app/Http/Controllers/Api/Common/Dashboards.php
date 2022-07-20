@@ -39,6 +39,10 @@ class Dashboards extends ApiController
         try {
             $dashboard = Dashboard::with('widgets')->find($id);
 
+            if (! $dashboard instanceof Dashboard) {
+                return $this->errorInternal('No query results for model [' . Dashboard::class . '] ' . $id);
+            }
+
             // Check if user can access dashboard
             $this->canAccess($dashboard);
 

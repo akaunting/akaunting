@@ -39,6 +39,10 @@ class Accounts extends ApiController
             $account = Account::where('number', $id)->first();
         }
 
+        if (! $account instanceof Account) {
+            return $this->errorInternal('No query results for model [' . Account::class . '] ' . $id);
+        }
+
         return new Resource($account);
     }
 

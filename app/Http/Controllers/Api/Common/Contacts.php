@@ -42,6 +42,11 @@ class Contacts extends ApiController
             $contact = Contact::where('email', $id)->first();
         }
 
+        if (! $contact instanceof Contact) {
+            //return $this->noContent();
+            return $this->errorInternal('No query results for model [' . Contact::class . '] ' . $id);
+        }
+
         return new Resource($contact);
     }
 

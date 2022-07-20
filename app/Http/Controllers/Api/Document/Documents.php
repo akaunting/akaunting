@@ -39,6 +39,10 @@ class Documents extends ApiController
             $document = Document::where('document_number', $id)->first();
         }
 
+        if (! $document instanceof Document) {
+            return $this->errorInternal('No query results for model [' . Document::class . '] ' . $id);
+        }
+
         return new Resource($document);
     }
 
