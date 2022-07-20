@@ -20,6 +20,7 @@ class Transactions extends Import
         $row['account_id'] = $this->getAccountId($row);
         $row['category_id'] = $this->getCategoryId($row);
         $row['contact_id'] = $this->getContactId($row);
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['document_id'] = $this->getDocumentId($row);
 
         return $row;
