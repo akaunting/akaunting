@@ -4,14 +4,13 @@ namespace App\Traits;
 
 use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
-use App\Models\Setting\Category;
 use Illuminate\Support\Str;
 
 trait Transactions
 {
     public function isIncome(): bool
     {
-        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? 'income';
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? Transaction::INCOME_TYPE;
 
         return in_array($type, $this->getIncomeTypes());
     }
@@ -23,7 +22,7 @@ trait Transactions
 
     public function isExpense(): bool
     {
-        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? 'expense';
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? Transaction::EXPENSE_TYPE;
 
         return in_array($type, $this->getExpenseTypes());
     }
@@ -35,7 +34,7 @@ trait Transactions
 
     public function isRecurringTransaction(): bool
     {
-        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? 'income';
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? Transaction::INCOME_TYPE;
 
         return Str::endsWith($type, '-recurring');
     }
@@ -47,44 +46,44 @@ trait Transactions
 
     public function isTransferTransaction(): bool
     {
-        $category_id = $this->category_id ?? $this->transaction->category_id ?? $this->model->category_id ?? 0;
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? Transaction::INCOME_TYPE;
 
-        return $category_id == Category::transfer();
+        return Str::endsWith($type, '-transfer');
     }
 
     public function isNotTransferTransaction(): bool
     {
-        return ! $this->isTransfer();
+        return ! $this->isTransferTransaction();
     }
 
-    public function getIncomeTypes($return = 'array')
+    public function getIncomeTypes(string $return = 'array'): string|array
     {
-        return $this->getTransactionTypes('income', $return);
+        return $this->getTransactionTypes(Transaction::INCOME_TYPE, $return);
     }
 
-    public function getExpenseTypes($return = 'array')
+    public function getExpenseTypes(string $return = 'array'): string|array
     {
-        return $this->getTransactionTypes('expense', $return);
+        return $this->getTransactionTypes(Transaction::EXPENSE_TYPE, $return);
     }
 
-    public function getTransactionTypes($index, $return = 'array')
+    public function getTransactionTypes(string $index, string $return = 'array'): string|array
     {
         $types = (string) setting('transaction.type.' . $index);
 
         return ($return == 'array') ? explode(',', $types) : $types;
     }
 
-    public function addIncomeType($new_type)
+    public function addIncomeType(string $new_type): void
     {
-        $this->addTransactionType($new_type, 'income');
+        $this->addTransactionType($new_type, Transaction::INCOME_TYPE);
     }
 
-    public function addExpenseType($new_type)
+    public function addExpenseType(string $new_type): void
     {
-        $this->addTransactionType($new_type, 'expense');
+        $this->addTransactionType($new_type, Transaction::EXPENSE_TYPE);
     }
 
-    public function addTransactionType($new_type, $index)
+    public function addTransactionType(string $new_type, string $index): void
     {
         $types = explode(',', setting('transaction.type.' . $index));
 
@@ -109,7 +108,7 @@ trait Transactions
         return Str::slug($transaction->id, $separator, language()->getShortCode());
     }
 
-    protected function getSettingKey($type, $setting_key)
+    protected function getSettingKey(string $type, string $setting_key): string
     {
         $key = '';
         $alias = config('type.transaction.' . $type . '.alias');
@@ -125,7 +124,7 @@ trait Transactions
         return $key;
     }
 
-    public function storeTransactionPdfAndGetPath($transaction)
+    public function storeTransactionPdfAndGetPath(Transaction $transaction): string
     {
         event(new TransactionPrinting($transaction));
 
@@ -145,7 +144,7 @@ trait Transactions
         return $pdf_path;
     }
 
-    public function getTranslationsForConnect($type = 'income')
+    public function getTranslationsForConnect(string $type = Transaction::INCOME_TYPE): array
     {
         $document_type = config('type.transaction.' . $type . '.document_type');
         $contact_type = config('type.transaction.' . $type . '.contact_type');
@@ -171,7 +170,7 @@ trait Transactions
         ];
     }
 
-    public function getTransactionFormRoutesOfType($type)
+    public function getTransactionFormRoutesOfType(string $type): array
     {
         return [
             'contact_index' => route(Str::plural(config('type.transaction.' . $type . '.contact_type')) . '.index'),
@@ -184,6 +183,11 @@ trait Transactions
     public function getRealTypeOfRecurringTransaction(string $recurring_type): string
     {
         return Str::replace('-recurring', '', $recurring_type);
+    }
+
+    public function getRealTypeOfTransferTransaction(string $transfer_type): string
+    {
+        return Str::replace('-transfer', '', $transfer_type);
     }
 
     public function getNextTransactionNumber($suffix = ''): string

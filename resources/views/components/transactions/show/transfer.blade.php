@@ -1,4 +1,4 @@
-@if ($transaction->hasTransferRelation)
+@if ($transaction->isTransferTransaction())
     @php
         $from_account = '<span class="font-medium">' . $transaction->transfer->expense_account->title . '</span>';
         $to_account = '<span class="font-medium">' . $transaction->transfer->income_account->title . '</span>';

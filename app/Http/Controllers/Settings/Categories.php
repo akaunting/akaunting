@@ -26,11 +26,9 @@ class Categories extends Controller
     {
         $categories = Category::with('sub_categories')->collect();
 
-        $transfer_id = Category::transfer();
-
         $types = $this->getCategoryTypes();
 
-        return $this->response('settings.categories.index', compact('categories', 'types', 'transfer_id'));
+        return $this->response('settings.categories.index', compact('categories', 'types'));
     }
 
     /**

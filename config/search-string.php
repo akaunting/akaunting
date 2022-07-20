@@ -109,6 +109,8 @@ return [
                 'values' => [
                     'income' => 'general.incomes',
                     'expense' => 'general.expenses',
+                    //'income-transfer' => 'general.income_transfers',
+                    //'expense-transfer' => 'general.expense_transfers',
                 ],
             ],
             'account_id' => [

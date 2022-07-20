@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Common\Contact;
+use App\Models\Banking\Transaction;
+
 return [
 
 	/*
@@ -166,8 +169,8 @@ return [
         ],
         'contact' => [
             'type' => [
-                'customer'              => env('SETTING_FALLBACK_CONTACT_TYPE_CUSTOMER', 'customer'),
-                'vendor'                => env('SETTING_FALLBACK_CONTACT_TYPE_VENDOR', 'vendor'),
+                'customer'              => env('SETTING_FALLBACK_CONTACT_TYPE_CUSTOMER', Contact::CUSTOMER_TYPE),
+                'vendor'                => env('SETTING_FALLBACK_CONTACT_TYPE_VENDOR', Contact::VENDOR_TYPE),
             ],
         ],
         'transaction' => [
@@ -175,8 +178,8 @@ return [
             'number_digit'              => env('SETTING_FALLBACK_TRANSACTION_NUMBER_DIGIT', '5'),
             'number_next'               => env('SETTING_FALLBACK_TRANSACTION_NUMBER_NEXT', '1'),
             'type' => [
-                'income'                => env('SETTING_FALLBACK_TRANSACTION_TYPE_INCOME', 'income'),
-                'expense'               => env('SETTING_FALLBACK_TRANSACTION_TYPE_EXPENSE', 'expense'),
+                'income'                => env('SETTING_FALLBACK_TRANSACTION_TYPE_INCOME', Transaction::INCOME_TYPE . ',' . Transaction::INCOME_TRANSFER_TYPE),
+                'expense'               => env('SETTING_FALLBACK_TRANSACTION_TYPE_EXPENSE', Transaction::EXPENSE_TYPE . ',' . Transaction::EXPENSE_TRANSFER_TYPE),
             ],
         ],
         'transaction-recurring' => [

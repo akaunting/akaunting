@@ -7,9 +7,12 @@ use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer as Model;
 use App\Models\Setting\Category;
+use App\Traits\Categories;
 
 class Transfer extends Factory
 {
+    use Categories;
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -40,19 +43,19 @@ class Transfer extends Factory
         $request = [
             'amount' => $this->faker->randomFloat(2, 1, 1000),
             'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d'),
-            'category_id' => Category::transfer(),
+            'category_id' => $this->getTransferCategoryId(),
             'description' => $this->faker->text(20),
             'reference' => $this->faker->text(20),
             'created_from' => 'core::factory',
         ];
 
         $expense_transaction = Transaction::factory()->create(array_merge($request, [
-            'type' => 'expense',
+            'type' => Transaction::EXPENSE_TRANSFER_TYPE,
             'account_id' => $expense_account->id,
         ]));
 
         $income_transaction = Transaction::factory()->create(array_merge($request, [
-            'type' => 'income',
+            'type' => Transaction::INCOME_TRANSFER_TYPE,
             'account_id' => $income_account->id,
         ]));
 

@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 trait Categories
 {
-    public function getCategoryTypes()
+    public function getCategoryTypes(): array
     {
         $types = [];
         $configs = config('type.category');
@@ -27,8 +27,20 @@ trait Categories
         return $types;
     }
 
-    public function getCategoryWithoutChildren($id)
+    public function getCategoryWithoutChildren(int $id): mixed
     {
-        return Category::getWithoutChildren()->find($id);;
+        return Category::getWithoutChildren()->find($id);
+    }
+
+    public function getTransferCategoryId(): mixed
+    {
+        return Category::other()->pluck('id')->first();
+    }
+
+    public function isTransferCategory(): bool
+    {
+        $id = $this->id ?? $this->category->id ?? $this->model->id ?? 0;
+
+        return $id == $this->getTransferCategoryId();
     }
 }
