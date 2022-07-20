@@ -45,14 +45,14 @@ trait Transactions
         return ! $this->isRecurring();
     }
 
-    public function isTransfer(): bool
+    public function isTransferTransaction(): bool
     {
         $category_id = $this->category_id ?? $this->transaction->category_id ?? $this->model->category_id ?? 0;
 
         return $category_id == Category::transfer();
     }
 
-    public function isNotTransfer(): bool
+    public function isNotTransferTransaction(): bool
     {
         return ! $this->isTransfer();
     }
