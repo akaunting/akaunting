@@ -75,12 +75,12 @@ trait Transactions
 
     public function addIncomeType(string $new_type): void
     {
-        $this->addTransactionType($new_type, Transaction::INCOME_TYPE);
+        $this->addTransactionType($new_type, 'income');
     }
 
     public function addExpenseType(string $new_type): void
     {
-        $this->addTransactionType($new_type, Transaction::EXPENSE_TYPE);
+        $this->addTransactionType($new_type, 'expense');
     }
 
     public function addTransactionType(string $new_type, string $index): void
