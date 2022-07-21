@@ -3,10 +3,13 @@
 namespace App\Traits;
 
 use Akaunting\Apexcharts\Chart;
+use App\Traits\Tailwind;
 use Balping\JsonRaw\Raw;
 
 trait Charts
 {
+    use Tailwind;
+
     public $bar = [
         'colors' => [],
         'labels' => [],
@@ -33,6 +36,8 @@ trait Charts
         if (!empty($description)) {
             $label .= ' - ' . $description;
         }
+
+        $color = $this->getHexCodeOfTailwindClass($color);
 
         $this->addToDonut($color, $label, $amount);
     }
@@ -69,6 +74,8 @@ trait Charts
 
     public function addToBar($color, $label, $value)
     {
+        $color = $this->getHexCodeOfTailwindClass($color);
+
         $this->bar['colors'][] = $color;
         $this->bar['labels'][] = $label;
         $this->bar['values'][] = (int) $value;

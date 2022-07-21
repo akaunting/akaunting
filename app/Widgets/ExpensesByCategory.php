@@ -15,7 +15,7 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
-        Category::withSubCategory()->with('expense_transactions')->expense()->each(function ($category) {
+        Category::with('expense_transactions')->expense()->each(function ($category) {
             $amount = 0;
 
             $this->applyFilters($category->expense_transactions)->each(function ($transaction) use (&$amount) {
@@ -29,7 +29,7 @@ class ExpensesByCategory extends Widget
 
         $chart->options['legend']['width'] = 160;
         $chart->options['legend']['position'] = 'right';
-        
+
         return $this->view('widgets.donut_chart', [
             'chart' => $chart,
         ]);

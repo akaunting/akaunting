@@ -17,6 +17,7 @@ use App\Models\Setting\Category;
 use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
+use App\Traits\Tailwind;
 use App\Traits\Translations;
 use App\Utilities\Date;
 use App\Utilities\Export as ExportHelper;
@@ -24,7 +25,7 @@ use Illuminate\Support\Str;
 
 abstract class Report
 {
-    use Charts, DateTime, SearchString, Translations;
+    use Charts, DateTime, SearchString, Tailwind, Translations;
 
     public $model;
 
@@ -235,7 +236,9 @@ abstract class Report
         foreach ($tmp_values as $id => $value) {
             $labels[$id] = $this->row_names[$table_key][$id];
 
-            $colors[$id] = ($group == 'category') ? Category::find($id)?->color : '#' . dechex(rand(0x000000, 0xFFFFFF));
+            $color = ($group == 'category') ? Category::withSubCategory()->find($id)?->color : '#' . dechex(rand(0x000000, 0xFFFFFF));
+
+            $colors[$id] = $this->getHexCodeOfTailwindClass($color);
 
             $values[$id] = round(($value * 100 / $total), 0);
         }

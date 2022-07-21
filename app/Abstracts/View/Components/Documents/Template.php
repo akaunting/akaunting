@@ -6,6 +6,7 @@ use App\Abstracts\View\Component;
 use App\Models\Common\Media;
 use App\Traits\DateTime;
 use App\Traits\Documents;
+use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
@@ -17,7 +18,7 @@ use Image;
 
 abstract class Template extends Component
 {
-    use DateTime, Documents, ViewComponents;
+    use DateTime, Documents, Tailwind, ViewComponents;
 
     public const OBJECT_TYPE = 'document';
     public const DEFAULT_TYPE = 'invoice';
@@ -276,7 +277,7 @@ abstract class Template extends Component
 
         $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
 
-        return $this->convertClasstoHex($backgroundColor);
+        return $this->getHexCodeOfTailwindClass($backgroundColor);
     }
 
     protected function getTextDocumentTitle($type, $textDocumentTitle)
