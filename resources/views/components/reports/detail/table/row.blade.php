@@ -6,7 +6,7 @@
 
     @if ($row_total = array_sum($rows))
         @if (isset($parent_id))
-            <tr class="collapse-sub" data-collapse="child-{{ $parent_id }}">
+            <tr class="collapse-sub collapse-sub-report" data-collapse="child-{{ $parent_id }}">
                 <td class="{{ $class->column_name_width }} py-top text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
         @else
             <tr>
@@ -40,19 +40,21 @@
 
     @if ($row_total = array_sum($parent_row_values))
         @if (isset($parent_id))
-            <tr class="collapse-sub" data-collapse="child-{{ $parent_id }}">
+            <tr class="collapse-sub collapse-sub-report" data-collapse="child-{{ $parent_id }}">
                 <td class="{{ $class->column_name_width }} w-24 py-top text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">
         @else
             <tr>
                 <td class="{{ $class->column_name_width }} w-24 py-top text-left text-black-400" title="{{ $class->row_names[$table_key][$id] }}">
         @endif
 
+        <div class="flex items-center">
             {{ $class->row_names[$table_key][$id] }}
             @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
-            <button type="button" class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
-                <span class="material-icons transform rotate-90 transition-all text-lg leading-none">expand_more</span>
-            </button>
+                <button type="button" class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
+                    <span class="material-icons transform rotate-90 transition-all text-lg leading-none mt-.05">expand_less</span>
+                </button>
             @endif
+        </div>
         </td>
         @foreach($parent_row_values as $row)
             <td class="{{ $class->column_value_width }} py-top ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row, default_currency(), true) : $row }}</td>
@@ -64,7 +66,7 @@
     <!-- no categories part -->
     @php $rows = $class->row_values[$table_key][$id]; @endphp
     @if (($row_total = array_sum($rows)) && array_sum($parent_row_values) != array_sum($rows))
-    <tr class="collapse-sub" data-collapse="child-{{ $id }}">
+    <tr class="collapse-sub collapse-sub-report" data-collapse="child-{{ $id }}">
         <td class="{{ $class->column_name_width }} py-top text-left text-black-400" style="padding-left: {{ ($tree_level + 1) * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
         @foreach($rows as $row)
             <td class="{{ $class->column_value_width }} py-top ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row, default_currency(), true) : $row }}</td>

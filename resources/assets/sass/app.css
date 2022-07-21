@@ -475,6 +475,10 @@ html[dir='rtl'] .el-input__suffix {
 .collapse-sub {
     @apply opacity-0 h-0 overflow-hidden;
 }
+
+.collapse-sub-report.collapse-sub {
+    @apply hidden;
+}
 /* collapse */
 
 .none-truncate {

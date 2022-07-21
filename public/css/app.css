@@ -47143,6 +47143,10 @@ html[dir='rtl'] .el-input__suffix {
         overflow: hidden;
         opacity: 0;
     }
+
+.collapse-sub-report.collapse-sub{
+  display: none;
+}
 /* collapse */
 
 .none-truncate {
@@ -48153,12 +48157,12 @@ body{
     width: 41.666667%;
   }
 
-  .sm\:w-2\/12{
-    width: 16.666667%;
-  }
-
   .sm\:w-4\/12{
     width: 33.333333%;
+  }
+
+  .sm\:w-2\/12{
+    width: 16.666667%;
   }
 
   .sm\:w-1\/12{
