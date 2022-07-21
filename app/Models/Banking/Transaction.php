@@ -105,7 +105,7 @@ class Transaction extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsTo('App\Models\Setting\Category')->withoutGlobalScope('App\Scopes\Category')->withDefault(['name' => trans('general.na')]);
     }
 
     public function children()
