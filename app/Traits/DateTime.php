@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Traits\SearchString;
 use Carbon\CarbonPeriod;
 use Date;
+use Lorisleiva\LaravelSearchString\SearchStringManager;
 
 trait DateTime
 {
@@ -41,6 +42,7 @@ trait DateTime
     public function scopeMonthsOfYear($query, $field)
     {
         $now = Date::now();
+
         $year = $this->getSearchStringValue('year', $now->year);
 
         $financial_start = $this->getFinancialStart($year);
@@ -54,7 +56,31 @@ trait DateTime
             $end = $financial_start->addYear(1)->subDays(1)->endOfDay()->format('Y-m-d H:i:s');
         }
 
-        return $query->whereBetween($field, [$start, $end]);
+        // Looking year or not year
+        $query_type = 'whereBetween';
+
+        if (request('search')) {
+            $search_string_manager = new SearchStringManager($query->getModel());
+            $parse = $search_string_manager->parse(request('search'));
+
+            if (! empty($parse->expressions)) {
+                foreach ($parse->expressions as $filter) {
+                    if (! $filter instanceof \Lorisleiva\LaravelSearchString\AST\NotSymbol) {
+                        continue;
+                    }
+
+                    if ($filter->expression->key != 'year') {
+                        continue;
+                    }
+
+                    $query_type = 'whereNotBetween';
+
+                    break;
+                }
+            }
+        }
+
+        return $query->{$query_type}($field, [$start, $end]);
     }
 
     public function getTimezones()
