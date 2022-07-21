@@ -388,10 +388,12 @@ export default {
 
         onOptionSelected(value) {
             this.current_value = value;
+            this.equal = true;
+            this.not_equal = true;
             this.range = false;
 
             this.onChangeSearchAndFilterText(this.selectPlaceholder, false);
-            
+
             let option = false;
             let option_url = false;
 
