@@ -22,7 +22,7 @@ class ExpensesByCategory extends Widget
                 $amount += $transaction->getAmountConvertedToDefault();
             });
 
-            $this->addMoneyToDonut($category->color, $amount, $category->name);
+            $this->addMoneyToDonut($category->colorHexCode, $amount, $category->name);
         });
 
         $chart = $this->getDonutChart(trans_choice('general.expenses', 2), '100%', 300, 6);
