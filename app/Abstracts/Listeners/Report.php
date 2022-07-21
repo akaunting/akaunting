@@ -132,9 +132,6 @@ abstract class Report
         $input = request('search');
 
         // Remove year as it's handled based on financial start
-        $search_not_year = 'not year:' . $this->getSearchStringValue('year', '', $input);
-        $input = str_replace($search_not_year, '', $input);
-
         $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);
         $input = str_replace($search_year, '', $input);
 

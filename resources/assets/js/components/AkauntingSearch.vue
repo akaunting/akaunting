@@ -15,7 +15,7 @@
                 <span v-if="filter.operator == '='" class="material-icons text-2xl">drag_handle</span>
                 <span v-else-if="filter.operator == '><'" class="material-icons text-2xl transform rotate-90">height</span>
 
-                <img v-else :src="equal_image" class="w-5 h-5 object-cover block" />
+                <img v-else :src="not_equal_image" class="w-5 h-5 object-cover block" />
 
                 <i v-if="!filter.value" class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close " style="font-size: 16px;" @click="onFilterDelete(index)"></i>
             </span>
@@ -80,7 +80,7 @@
             </div>
 
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
-                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
                         <span class="material-icons text-2xl transform">drag_handle</span>
                         <span class="text-gray hidden">{{ operatorIsText }}
@@ -88,9 +88,9 @@
                     </button>
                 </li>
 
-                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="not_equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('!=')">
-                        <img :src="equal_image" class="w-6 h-6 block m-auto" />
+                        <img :src="not_equal_image" class="w-6 h-6 block m-auto" />
                         <span class="text-gray hidden">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
@@ -202,6 +202,8 @@ export default {
                 values: false,
             },
 
+            equal: true,
+            not_equal: true,
             range: false,
             option_values: [],
             selected_options: [],
@@ -212,7 +214,7 @@ export default {
             show_date: false,
             show_close_icon: false,
             show_icon: true,
-            equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
+            not_equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
             input_focus: false,
             defaultPlaceholder: this.placeholder,
             dynamicPlaceholder: this.placeholder,
@@ -411,6 +413,12 @@ export default {
 
                     if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].type == 'date') {
                         this.range = true;
+                    }
+
+                    if (typeof this.filter_list[i].operators !== 'undefined' && Object.keys(this.filter_list[i].operators).length) {
+                        this.equal = (typeof this.filter_list[i].operators.equal) ? this.filter_list[i].operators.equal : this.equal;
+                        this.not_equal = (typeof this.filter_list[i].operators['not_equal']) ? this.filter_list[i].operators['not_equal'] : this.not_equal;
+                        this.range = (typeof this.filter_list[i].operators['range']) ? this.filter_list[i].operators['range'] : this.range;
                     }
 
                     this.selected_options.push(this.filter_list[i]);

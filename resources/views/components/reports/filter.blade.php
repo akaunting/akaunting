@@ -4,7 +4,7 @@
         $filtered = [];
 
         $skipped = [
-            'keys', 'names', 'types', 'routes', 'defaults'
+            'keys', 'names', 'types', 'routes', 'defaults', 'operators',
         ];
 
         foreach ($class->filters as $filter_name => $filter_values) {
@@ -58,31 +58,46 @@
                 $default_value = $class->filters['defaults'][$filter_name];
             }
 
+            $operators = [];
+
+            if (isset($class->filters['operators']) && !empty($class->filters['operators'][$filter_name])) {
+                $operators = $class->filters['operators'][$filter_name];
+            }
+
             if ($key == 'year') {
                 $default_value = \Date::now()->year;
+
+                $operators = [
+                    'equal'     => true,
+                    'not_equal' => false,
+                    'range'     => false,
+                ];
             }
 
             $filters[] = [
-                'key' => $key,
-                'value' => $value,
-                'type' => $type,
-                'url' => $url,
-                'values' => $filter_values,
+                'key'       => $key,
+                'value'     => $value,
+                'type'      => $type,
+                'url'       => $url,
+                'values'    => $filter_values,
+                'operators' => $operators,
             ];
 
-            if (!is_null($default_value)) {
+            if (! is_null($default_value)) {
                 $filtered[] = [
-                    'option' => $key,
-                    'operator' => '=',
-                    'value' => $default_value,
+                    'option'    => $key,
+                    'operator'  => '=',
+                    'value'     => $default_value,
+                    'operators' => $operators,
                 ];
             }
 
             if (old($key) || request()->get($key)) {
                 $filtered[] = [
-                    'option' => $key,
-                    'operator' => '=',
-                    'value' => old($key, request()->get($key)),
+                    'option'    => $key,
+                    'operator'  => '=',
+                    'value'     => old($key, request()->get($key)),
+                    'operators' => $operators,
                 ];
             }
         }
