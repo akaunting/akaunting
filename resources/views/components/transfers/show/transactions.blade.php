@@ -1,3 +1,9 @@
+@php
+    $link_class = 'to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize';
+    $expense_number = '<a href="' . route('transactions.show', $transfer->expense_transaction->id) . '" class="' . $link_class . '">' . $transfer->expense_transaction->number . '</a>';
+    $income_number = '<a href="' . route('transactions.show', $transfer->income_transaction->id) . '" class="' . $link_class . '">' . $transfer->income_transaction->number . '</a>';
+@endphp
+
 <div class="border-b pb-4" x-data="{ transactions : null }">
     <button class="relative w-full text-left group" x-on:click="transactions !== 1 ? transactions = 1 : transactions = null">
         <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
@@ -17,17 +23,11 @@
         x-bind:class="transactions === 1 ? 'h-auto' : 'scale-y-0 h-0'"
     >
         <div class="my-2">
-            @php
-                $number = '<a href="' . route('transactions.show', $transfer->expense_transaction->id) . '" class="text-purple">' . $transfer->expense_transaction->number . '</a>';
-            @endphp
-            {!! trans('transfers.slider.from_desc', ['number' => $number, 'account' => $transfer->expense_account->title]) !!}
+            {!! trans('transfers.slider.transactions_desc', ['number' => $expense_number, 'account' => $transfer->expense_account->title]) !!}
         </div>
 
         <div class="my-2">
-            @php
-                $number = '<a href="' . route('transactions.show', $transfer->income_transaction->id) . '" class="text-purple">' . $transfer->income_transaction->number . '</a>';
-            @endphp
-            {!! trans('transfers.slider.from_desc', ['number' => $number, 'account' => $transfer->income_account->title]) !!}
+            {!! trans('transfers.slider.transactions_desc', ['number' => $income_number, 'account' => $transfer->income_account->title]) !!}
         </div>
     </div>
 </div>
