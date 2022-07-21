@@ -8,7 +8,7 @@
 
         @stack('duplicate_button_start')
 
-        @if (empty($transaction->document_id) && ! $transaction->hasTransferRelation)
+        @if (empty($transaction->document_id) && $transaction->isNotTransferTransaction())
             @if (! $hideButtonDuplicate)
                 @can($permissionCreate)
                     <x-dropdown.link href="{{ route($routeButtonDuplicate, [$transaction->id, 'type' => $type]) }}">
@@ -22,7 +22,7 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring) && ! $transaction->hasTransferRelation)
+        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring) && $transaction->isNotTransferTransaction())
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
                     <button
@@ -38,7 +38,7 @@
 
         @stack('connect_button_end')
 
-        @if (! $hideDivider1 && ! $transaction->hasTransferRelation)
+        @if (! $hideDivider1 && $transaction->isNotTransferTransaction())
             <x-dropdown.divider />
         @endif
 
@@ -62,13 +62,13 @@
 
         @stack('button_pdf_end')
 
-        @if (! $hideDivider2 && ! $transaction->hasTransferRelation)
+        @if (! $hideDivider2 && $transaction->isNotTransferTransaction())
             <x-dropdown.divider />
         @endif
 
         @stack('share_button_start')
 
-        @if (! $transaction->hasTransferRelation)
+        @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonShare)
                 <x-dropdown.button @click="onShareLink('{{ route($shareRoute, $transaction->id) }}')">
                     {{ trans('general.share_link') }}
@@ -80,7 +80,7 @@
 
         @stack('email_button_start')
 
-        @if (! $transaction->hasTransferRelation)
+        @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonEmail)
                 @if (! empty($transaction->contact) && $transaction->contact->email)
                     <x-dropdown.button @click="onEmail('{{ route($routeButtonEmail, $transaction->id) }}')">
@@ -98,7 +98,7 @@
 
         @stack('email_button_end')
 
-        @if (! $hideDivider3 && ! $transaction->hasTransferRelation)
+        @if (! $hideDivider3 && $transaction->isNotTransferTransaction())
             <x-dropdown.divider />
         @endif
 
@@ -112,13 +112,13 @@
 
         @stack('button_end_end')
 
-        @if (! $hideDivider4 && ! $transaction->hasTransferRelation)
+        @if (! $hideDivider4 && $transaction->isNotTransferTransaction())
             <x-dropdown.divider />
         @endif
 
         @stack('delete_button_start')
 
-        @if (! $transaction->hasTransferRelation)
+        @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonDelete)
                 @can($permissionDelete)
                     @if ($checkButtonReconciled)

@@ -7,12 +7,12 @@ use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
-use App\Models\Setting\Category;
+use App\Traits\Categories;
 use App\Traits\Currencies;
 
 class UpdateTransfer extends Job implements ShouldUpdate
 {
-    use Currencies;
+    use Categories, Currencies;
 
     public function handle(): Transfer
     {
@@ -41,7 +41,7 @@ class UpdateTransfer extends Job implements ShouldUpdate
 
             $expense_transaction->update([
                 'company_id' => $this->request['company_id'],
-                'type' => 'expense',
+                'type' => Transaction::EXPENSE_TRANSFER_TYPE,
                 'account_id' => $this->request->get('from_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $expense_currency_code,
@@ -49,7 +49,7 @@ class UpdateTransfer extends Job implements ShouldUpdate
                 'amount' => $this->request->get('amount'),
                 'contact_id' => 0,
                 'description' => $this->request->get('description'),
-                'category_id' => Category::transfer(), // Transfer Category ID
+                'category_id' => $this->getTransferCategoryId(),
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
             ]);
@@ -63,7 +63,7 @@ class UpdateTransfer extends Job implements ShouldUpdate
 
             $income_transaction->update([
                 'company_id' => $this->request['company_id'],
-                'type' => 'income',
+                'type' => Transaction::INCOME_TRANSFER_TYPE,
                 'account_id' => $this->request->get('to_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $income_currency_code,
@@ -71,7 +71,7 @@ class UpdateTransfer extends Job implements ShouldUpdate
                 'amount' => $amount,
                 'contact_id' => 0,
                 'description' => $this->request->get('description'),
-                'category_id' => Category::transfer(), // Transfer Category ID
+                'category_id' => $this->getTransferCategoryId(),
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
             ]);

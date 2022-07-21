@@ -7,6 +7,7 @@ use App\Builders\Category as Builder;
 use App\Models\Document\Document;
 use App\Relations\HasMany\Category as HasMany;
 use App\Scopes\Category as Scope;
+use App\Traits\Categories;
 use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Category extends Model
 {
-    use HasFactory, Transactions;
+    use Categories, HasFactory, Transactions;
 
     public const INCOME_TYPE = 'income';
     public const EXPENSE_TYPE = 'expense';
@@ -206,17 +207,6 @@ class Category extends Model
     }
 
     /**
-     * Scope transfer category.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeTransfer($query)
-    {
-        return (int) $query->other()->pluck('id')->first();
-    }
-
-    /**
      * Scope gets only parent categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -243,9 +233,7 @@ class Category extends Model
             'permission' => 'update-settings-categories',
         ];
 
-        $transfer_id = Category::transfer();
-
-        if ($this->id == $transfer_id) {
+        if ($this->isTransferCategory()) {
             return $actions;
         }
 

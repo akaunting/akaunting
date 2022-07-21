@@ -4,8 +4,9 @@ namespace App\Imports\Banking;
 
 use App\Abstracts\Import;
 use App\Jobs\Banking\CreateTransaction;
+use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer as Model;
-use App\Models\Setting\Category;
+use App\Traits\Categories;
 use App\Traits\Currencies;
 use App\Traits\Jobs;
 use App\Traits\Transactions;
@@ -13,7 +14,7 @@ use App\Utilities\Date;
 
 class Transfers extends Import
 {
-    use Currencies, Jobs, Transactions;
+    use Categories, Currencies, Jobs, Transactions;
 
     public function model(array $row)
     {
@@ -31,7 +32,7 @@ class Transfers extends Import
         $row['to_currency_code'] = $this->getToCurrencyCode($row);
         $row['expense_transaction_id'] = $this->getExpenseTransactionId($row);
         $row['income_transaction_id'] = $this->getIncomeTransactionId($row);
-        
+
         return $row;
     }
 
@@ -55,7 +56,7 @@ class Transfers extends Import
         $expense_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
             'number' => $this->getNextTransactionNumber(),
-            'type' => 'expense',
+            'type' => Transaction::EXPENSE_TRANSFER_TYPE,
             'account_id' => $row['from_account_id'],
             'paid_at' => $row['transferred_at'],
             'currency_code' => $row['from_currency_code'],
@@ -63,7 +64,7 @@ class Transfers extends Import
             'amount' => $row['amount'],
             'contact_id' => 0,
             'description' => $row['description'],
-            'category_id' => Category::transfer(), // Transfer Category ID
+            'category_id' => $this->getTransferCategoryId(),
             'payment_method' => $row['payment_method'],
             'reference' => $row['reference'],
             'created_by' => $row['created_by'],
@@ -90,7 +91,7 @@ class Transfers extends Import
         $income_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
             'number' => $this->getNextTransactionNumber(),
-            'type' => 'income',
+            'type' => Transaction::INCOME_TRANSFER_TYPE,
             'account_id' => $row['to_account_id'],
             'paid_at' => $row['transferred_at'],
             'currency_code' => $row['to_currency_code'],
@@ -98,7 +99,7 @@ class Transfers extends Import
             'amount' => $amount,
             'contact_id' => 0,
             'description' => $row['description'],
-            'category_id' => Category::transfer(), // Transfer Category ID
+            'category_id' => $this->getTransferCategoryId(),
             'payment_method' => $row['payment_method'],
             'reference' => $row['reference'],
             'created_by' => $row['created_by'],
