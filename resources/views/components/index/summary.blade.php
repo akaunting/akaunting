@@ -22,6 +22,10 @@
             {!! $first !!}
         @elseif (! empty($first))
             <div class="w-1/2 sm:w-1/3 text-center">
+                @if ($first->attributes->has('tooltip'))
+                <x-tooltip id="tooltip-summary-first" placement="top" message="{!! $first->attributes->get('tooltip') !!}">
+                @endif
+
                 @if ($first->attributes->has('href'))
                 <a href="{{ $first->attributes->get('href') }}" class="group">
                 @endif
@@ -37,6 +41,10 @@
                 @if ($first->attributes->has('href'))
                 </a>
                 @endif
+
+                @if ($first->attributes->has('tooltip'))
+                </x-tooltip>
+                @endif
             </div>
 
             @if ($first->attributes->has('divider'))
@@ -50,6 +58,10 @@
             {!! $second !!}
         @elseif (! empty($second))
             <div class="w-1/2 sm:w-1/3 text-center">
+                @if ($second->attributes->has('tooltip'))
+                <x-tooltip id="tooltip-summary-second" placement="top" message="{!! $second->attributes->get('tooltip') !!}">
+                @endif
+
                 @if ($second->attributes->has('href'))
                 <a href="{{ $second->attributes->get('href') }}" class="group">
                 @endif
@@ -66,6 +78,10 @@
                 @if ($second->attributes->has('href'))
                 </a>
                 @endif
+
+                @if ($second->attributes->has('tooltip'))
+                </x-tooltip>
+                @endif
             </div>
 
             @if ($second->attributes->has('divider'))
@@ -79,6 +95,10 @@
             {!! $third !!}
         @elseif (! empty($third))
             <div class="w-1/2 sm:w-1/3 text-center">
+                @if ($third->attributes->has('tooltip'))
+                <x-tooltip id="tooltip-summary-third" placement="top" message="{!! $third->attributes->get('tooltip') !!}">
+                @endif
+
                 @if ($third->attributes->has('href'))
                 <a href="{{ $third->attributes->get('href') }}" class="group">
                 @endif
@@ -93,6 +113,10 @@
                     </span>
                 @if ($third->attributes->has('href'))
                 </a>
+                @endif
+
+                @if ($third->attributes->has('tooltip'))
+                </x-tooltip>
                 @endif
             </div>
         @endif
