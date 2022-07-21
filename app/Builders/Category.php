@@ -2,10 +2,10 @@
 
 namespace App\Builders;
 
-use GeneaLabs\LaravelModelCaching\CachedBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\Paginator;
 
-class Category extends CachedBuilder
+class Category extends Builder
 {
     /**
      * Execute the query as a "select" statement.

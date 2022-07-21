@@ -17,6 +17,10 @@ class Category implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        /*if (request()->expectsJson()) {
+            return;
+        }*/
+
         $builder->whereNull('parent_id');
     }
 }

@@ -24,7 +24,13 @@ class Categories extends Controller
      */
     public function index()
     {
-        $categories = Category::with('sub_categories')->collect();
+        $query = Category::with('sub_categories');
+
+        if (request()->expectsJson()) {
+            $query->withSubcategory();
+        }
+
+        $categories = $query->collect();
 
         $types = $this->getCategoryTypes();
 
