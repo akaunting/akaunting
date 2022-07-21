@@ -388,7 +388,14 @@ return [
             'id',
             'name' => ['searchable' => true],
             'enabled' => ['boolean' => true],
-            'type',
+            'type' => [
+                'values' => [
+                    'income' => 'general.incomes',
+                    'expense' => 'general.expenses',
+                    'item' => 'general.items',
+                    'other' => 'general.others',
+                ],
+            ],
             'created_at' => ['date' => true],
             'updated_at' => ['date' => true],
         ],
