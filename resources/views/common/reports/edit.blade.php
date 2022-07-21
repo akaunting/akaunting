@@ -39,6 +39,7 @@
                                         label="{{ $field['title'] }}"
                                         data-field="settings"
                                         :attributes="$field['attributes']"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -49,16 +50,18 @@
                                         label="{{ $field['title'] }}"
                                         data-field="settings"
                                         :attributes="$field['attributes']"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
                                 @case('password')
                                 @case('passwordGroup')
-                                    <x-form.group.email
+                                    <x-form.group.password
                                         name="{{ $field['name'] }}"
                                         label="{{ $field['title'] }}"
                                         data-field="settings"
                                         :attributes="$field['attributes']"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -69,6 +72,7 @@
                                         label="{{ $field['title'] }}"
                                         data-field="settings"
                                         :attributes="$field['attributes']"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -83,6 +87,7 @@
                                             'model' => 'form.settings'.'.'.$field['name'],
                                             'show-date-format' => company_date_format(),
                                         ], $field['attributes'])"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -92,9 +97,10 @@
                                         name="{{ $field['name'] }}"
                                         label="{{ $field['title'] }}"
                                         :options="$field['values']"
-                                        :selected="$field['selected']"
+                                        :selected="isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']} : $field['selected']"
                                         data-field="settings"
                                         :attributes="$field['attributes']"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -106,6 +112,7 @@
                                         :attributes="array_merge([
                                             'data-field' => 'settings'
                                         ], $field['attributes'])"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -117,6 +124,7 @@
                                         :attributes="array_merge([
                                             'data-field' => 'settings'
                                         ], $field['attributes'])"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                                     @break
 
@@ -127,6 +135,7 @@
                                         :attributes="array_merge([
                                             'data-field' => 'settings'
                                         ], $field['attributes'])"
+                                        :dynamic-attributes="$field['attributes']"
                                     />
                             @endswitch
                         @endforeach
