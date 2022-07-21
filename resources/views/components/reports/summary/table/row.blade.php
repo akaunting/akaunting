@@ -9,7 +9,7 @@
         <li
         @class([
             'mt-1' => $is_print,
-            'collapse-sub' => !$is_print
+            'collapse-sub collapse-sub-report' => !$is_print
         ])
             data-collapse="child-{{ $parent_id }}">
         @else
@@ -56,7 +56,7 @@
         <li
             @class([
                 'mt-1' => $is_print,
-                'collapse-sub' => !$is_print
+                'collapse-sub collapse-sub-report' => !$is_print
             ])
             data-collapse="child-{{ $parent_id }}">
         @else
@@ -84,8 +84,8 @@
     <li
         @class([
             'mt-1' => $is_print,
-            'collapse-sub' => !$is_print
-        ])    
+            'collapse-sub collapse-sub-report' => !$is_print
+        ])
         data-collapse="child-{{ $id }}">
         <div style="display: flex; justify-content: space-between;">
             <div style="display:flex; align-items: center; padding-left: {{ ($tree_level + 1) * 20 }}px;">
