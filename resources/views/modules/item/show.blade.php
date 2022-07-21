@@ -98,6 +98,10 @@
                         </div>
 
                         @if (! in_array('onprime', $module->where_to_use))
+                            <div class="text-sm truncate line-clamp-1">
+                                {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
+                            </div>
+
                             @if (! empty($module->cloud_information))
                                 {!! $module->cloud_information !!}
                             @else
@@ -109,7 +113,7 @@
                             @endif
                         @else
                             <div class="text-sm truncate line-clamp-1">
-                                {!! $module->description !!}
+                                {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
                             <div class="relative flex flex-col lg:flex-row space-x-4 justify-between">
@@ -165,7 +169,7 @@
 
                         @stack('installation_nav_start')
 
-                        @if ($module->installation)
+                        @if ($module->install && $module->installation)
                             <x-tabs.nav
                                 id="installation"
                                 name="{{ trans('modules.tab.installation') }}"
@@ -175,7 +179,7 @@
 
                         @stack('documentation_nav_start')
 
-                        @if ($module->documentation)
+                        @if ($module->install && $module->documentation)
                             <x-tabs.nav
                                 id="documentation"
                                 name="{{ trans('modules.documentation') }}"
@@ -195,7 +199,7 @@
 
                         @stack('changelog_nav_start')
 
-                        @if ($module->changelog)
+                        @if ($module->install && $module->changelog)
                             <x-tabs.nav
                                 id="changelog"
                                 name="{{ trans('modules.tab.changelog') }}"
@@ -230,7 +234,7 @@
 
                             @stack('installation_tab_start')
 
-                            @if ($module->installation)
+                            @if ($module->install && $module->installation)
                                 <x-tabs.tab id="installation">
                                     <x-layouts.modules.show.installation :module="$module" />
                                 </x-tabs.tab>
@@ -238,7 +242,7 @@
 
                             @stack('documentation_tab_start')
 
-                            @if ($module->documentation)
+                            @if ($module->install && $module->documentation)
                                 <x-tabs.tab id="documentation">
                                     <x-layouts.modules.show.documentation :module="$module" />
                                 </x-tabs.tab>
@@ -254,7 +258,7 @@
 
                             @stack('changelog_tab_start')
 
-                            @if ($module->changelog)
+                            @if ($module->install && $module->changelog)
                                 <x-tabs.tab id="changelog">
                                     <x-layouts.modules.show.releases :module="$module" />
                                 </x-tabs.tab>
