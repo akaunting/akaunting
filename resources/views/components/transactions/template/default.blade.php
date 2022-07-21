@@ -72,10 +72,10 @@
         @if (! $hideNumber)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans_choice($textNumber, 1) }}:
+                    {{ trans_choice($textNumber, 1) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     {{ $transaction->number }}
                 </td>
             </tr>
@@ -86,10 +86,10 @@
         @if (! $hidePaidAt)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans($textPaidAt) }}:
+                    {{ trans($textPaidAt) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     @date($transaction->paid_at)
                 </td>
             </tr>
@@ -100,10 +100,10 @@
         @if (! $hideAccount)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans_choice($textAccount, 1) }}:
+                    {{ trans_choice($textAccount, 1) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     {{ $transaction->account->name }}
                 </td>
             </tr>
@@ -114,10 +114,10 @@
         @if (! $hideCategory)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans_choice($textCategory, 1) }}:
+                    {{ trans_choice($textCategory, 1) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     {{ $transaction->category->name }}
                 </td>
             </tr>
@@ -128,10 +128,10 @@
         @if (! $hidePaymentMethods)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans_choice($textPaymentMethods, 1) }}:
+                    {{ trans_choice($textPaymentMethods, 1) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     {{ !empty($payment_methods[$transaction->payment_method]) ? $payment_methods[$transaction->payment_method] : trans('general.na') }}
                 </td>
             </tr>
@@ -142,10 +142,10 @@
         @if (! $hideReference)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans($textReference) }}:
+                    {{ trans($textReference) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     {{ $transaction->reference }}
                 </td>
             </tr>
@@ -156,10 +156,10 @@
         @if (! $hideDescription)
             <tr>
                 <td valign="top" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px; font-weight:600;">
-                    {{ trans($textDescription) }}:
+                    {{ trans($textDescription) }}
                 </td>
 
-                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                     <p style="font-size:12px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin: 0;">
                         {!! nl2br($transaction->description) !!}
                     </p>
@@ -196,7 +196,7 @@
                         {{ trans('general.name') }}
                     </td>
 
-                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         {{ $transaction->contact->name }}
                     </td>
                 </tr>
@@ -210,7 +210,7 @@
                         {{ trans('general.address') }}
                     </td>
 
-                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         {!! nl2br($transaction->contact->address) !!}
                     </td>
                 </tr>
@@ -224,7 +224,7 @@
                         {{ trans('general.tax_number') }}
                     </td>
 
-                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         @if ($transaction->contact->tax_number)
                             {{ trans('general.tax_number') }}: {{ $transaction->contact->tax_number }}
                         @endif
@@ -240,7 +240,7 @@
                         {{ trans('general.phone') }}
                     </td>
 
-                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         @if ($transaction->contact->phone)
                             {{ $transaction->contact->phone }}
                         @endif
@@ -256,7 +256,7 @@
                         {{ trans('general.email') }}
                     </td>
 
-                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding:  8px 0 0 0; font-size: 12px;">
+                    <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         {{ $transaction->contact->email }}
                     </td>
                 </tr>
@@ -369,7 +369,7 @@
                     <table>
                         <tr>
                             <td valign="center" style="width: 80%; padding:0; font-size: 14px; font-weight:600; color:#ffffff;">
-                                {{ trans($textAmount) }}:
+                                {{ trans($textAmount) }}
                             </td>
 
                             <td valign="center" style="width: 20%; padding:0; font-size: 14px; color:#ffffff;">

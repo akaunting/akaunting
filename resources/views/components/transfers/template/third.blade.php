@@ -14,7 +14,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.number') }}:
+                                                {{ trans('accounts.account_name') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -26,7 +26,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.number') }}:
+                                                {{ trans('accounts.number') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -38,7 +38,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.bank_name') }}:
+                                                {{ trans('accounts.bank_name') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -50,7 +50,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('general.phone') }}:
+                                                {{ trans('general.phone') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -62,7 +62,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('general.address') }}:
+                                                {{ trans('general.address') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -88,7 +88,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.number') }}:
+                                                {{ trans('accounts.number') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -100,7 +100,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.number') }}:
+                                                {{ trans('accounts.number') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -112,7 +112,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('accounts.bank_name') }}:
+                                                {{ trans('accounts.bank_name') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -124,7 +124,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('general.phone') }}:
+                                                {{ trans('general.phone') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -136,7 +136,7 @@
                                     <table>
                                         <tr>
                                             <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
-                                                {{ trans('general.address') }}:
+                                                {{ trans('general.address') }}
                                             </td>
 
                                             <td style="width:70%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
@@ -166,7 +166,7 @@
     <table>
         <tr>
             <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
-                {{ trans('general.date') }}:
+                {{ trans('general.date') }}
             </td>
 
             <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
@@ -176,7 +176,7 @@
 
         <tr>
             <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
-                {{ trans_choice('general.payment_methods', 1) }}:
+                {{ trans_choice('general.payment_methods', 1) }}
             </td>
 
             <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
@@ -190,7 +190,7 @@
 
         <tr>
             <td valign="top" style="width: 30%; margin: 0px; padding: 0; font-size: 12px; font-weight:600; line-height: 24px;">
-                {{ trans('general.reference') }}:
+                {{ trans('general.reference') }}
             </td>
 
             <td valign="top" style="width:70%; margin: 0px; padding: 0; font-size: 12px; border-bottom:1px solid; line-height: 24px;">
@@ -215,7 +215,7 @@
                 <table>
                     <tr>
                         <td valign="center" style="width: 80%; padding:0; font-size: 14px; font-weight:600;">
-                            {{ trans('general.amount') }}:
+                            {{ trans('general.amount') }}
                         </td>
 
                         <td valign="center" style="width: 20%; padding:0; font-size: 14px;">
