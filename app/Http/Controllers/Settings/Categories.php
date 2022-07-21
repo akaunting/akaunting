@@ -26,7 +26,7 @@ class Categories extends Controller
     {
         $query = Category::with('sub_categories');
 
-        if (request()->expectsJson()) {
+        if (request()->has('search')) {
             $query->withSubcategory();
         }
 

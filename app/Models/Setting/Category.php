@@ -8,6 +8,7 @@ use App\Models\Document\Document;
 use App\Relations\HasMany\Category as HasMany;
 use App\Scopes\Category as Scope;
 use App\Traits\Categories;
+use App\Traits\Tailwind;
 use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Category extends Model
 {
-    use Categories, HasFactory, Transactions;
+    use Categories, HasFactory, Tailwind, Transactions;
 
     public const INCOME_TYPE = 'income';
     public const EXPENSE_TYPE = 'expense';
@@ -215,6 +216,14 @@ class Category extends Model
     public function scopeWithSubCategory($query)
     {
         return $query->withoutGlobalScope(new Scope);
+    }
+
+    /**
+     * Get the hex code of the color.
+     */
+    public function getColorHexCodeAttribute(): string
+    {
+        return $this->getHexCodeOfTailwindClass($this->color);
     }
 
     /**

@@ -30,5 +30,10 @@ class AddBasis extends Listener
         $event->class->filters['basis'] = $this->getBasis();
         $event->class->filters['keys']['basis'] = 'basis';
         $event->class->filters['defaults']['basis'] = $event->class->getSetting('basis', 'accrual');
+        $event->class->filters['operators']['basis'] = [
+            'equal'     => true,
+            'not_equal' => false,
+            'rande'     => false,
+        ];
     }
 }
