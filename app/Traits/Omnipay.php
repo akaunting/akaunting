@@ -8,7 +8,7 @@ trait Omnipay
 
     public $factory;
 
-    public function authorize($invoice, $request, $extra_options = [])
+    public function authorize($invoice, $request, $extra_options = [], $reference = 'getTransactionReference')
     {
         $default_options = [
             'amount' => $invoice->amount,
@@ -36,9 +36,9 @@ trait Omnipay
         }
 
         if ($response->isSuccessful()) {
-            $this->setReference($invoice, $response->getTransactionReference());
+            $this->setReference($invoice, $response->$reference());
 
-            $options['transactionReference'] = $response->getTransactionReference();
+            $options[lcfirst(str_replace('get', '', $reference))] = $response->$reference();
 
             $response = $this->gateway->capture($options)->send();
 
@@ -46,7 +46,7 @@ trait Omnipay
         }
 
         if ($response->isRedirect()) {
-            $this->setReference($invoice, $response->getTransactionReference());
+            $this->setReference($invoice, $response->$reference());
 
             return response()->json([
                 'error' => false,
