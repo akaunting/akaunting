@@ -46,6 +46,8 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('reports/{report}/clear', 'Common\Reports@clear')->name('reports.clear');
     Route::get('reports/fields', 'Common\Reports@fields')->name('reports.fields');
     Route::resource('reports', 'Common\Reports');
+
+    Route::get('contacts/index', 'Common\Contacts@index')->name('contacts.index');
 });
 
 Route::group(['prefix' => 'auth'], function () {

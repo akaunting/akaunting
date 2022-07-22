@@ -122,7 +122,9 @@ return [
                 'route' => ['currencies.index', 'search=enabled:1'],
             ],
             'document_id',
-            'contact_id',
+            'contact_id' => [
+                'route' => 'contacts.index',
+            ],
             'description' => ['searchable' => true],
             'payment_method',
             'reference',
