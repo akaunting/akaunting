@@ -9,11 +9,11 @@
         <li
         @class([
             'mt-1' => $is_print,
-            'collapse-sub collapse-sub-report' => ! $is_print
+            'hover:bg-gray-100 collapse-sub collapse-sub-report' => ! $is_print
         ])
             data-collapse="child-{{ $parent_id }}">
         @else
-        <li>
+        <li class="hover:bg-gray-100">
         @endif
             <div
                 @class([
@@ -56,11 +56,11 @@
         <li
             @class([
                 'mt-1' => $is_print,
-                'collapse-sub collapse-sub-report' => ! $is_print
+                'hover:bg-gray-100 collapse-sub collapse-sub-report' => ! $is_print
             ])
             data-collapse="child-{{ $parent_id }}">
         @else
-        <li>
+        <li class="hover:bg-gray-100">
         @endif
             <div style="display: flex; justify-content: space-between;">
                 <div style="display:flex; align-items: center; padding-left: {{ $tree_level * 20 }}px;">
@@ -84,7 +84,7 @@
     <li
         @class([
             'mt-1' => $is_print,
-            'collapse-sub collapse-sub-report' => ! $is_print
+            'hover:bg-gray-100 collapse-sub collapse-sub-report' => ! $is_print
         ])
         data-collapse="child-{{ $id }}">
         <div style="display: flex; justify-content: space-between;">
