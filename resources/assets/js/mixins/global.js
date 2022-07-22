@@ -702,5 +702,54 @@ export default {
                 // always executed
             });
         },
+
+        onModalAddNew(url) {
+            let modal = {
+                modal: true,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            Promise.resolve(window.axios.get(url)).then(response => {
+                if (response.data.success) {
+                    modal.title = response.data.title;
+                    modal.html = response.data.html;
+                    modal.buttons = response.data.buttons;
+
+                    this.component = Vue.component('add-new-component', (resolve, reject) => {
+                        resolve({
+                            template: '<div id="dynamic-add-new-modal-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="modal.show" :buttons="modal.buttons" :title="modal.title" :message="modal.html" :is_component=true @submit="onSubmit" @cancel="onCancel"></akaunting-modal-add-new></div>',
+
+                            mixins: [
+                                Global
+                            ],
+
+                            data: function () {
+                                return {
+                                    form:{},
+                                    modal: modal,
+                                }
+                            },
+
+                            methods: {
+                                onSubmit(event) {
+                                    this.$emit('submit', event);
+                                    event.submit();
+                                },
+
+                                onCancel() {
+                                    this.modal.show = false;
+                                    this.modal.html = null;
+                                },
+                            }
+                        })
+                    })
+                }
+            })
+            .catch(e => {
+                this.errors.push(e);
+            })
+        },
     }
 }
