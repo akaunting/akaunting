@@ -114,8 +114,8 @@ class Document extends FormRequest
 
         $messages['company_logo.dimensions'] = trans('validation.custom.invalid_dimension', [
             'attribute'     => Str::lower(trans('settings.company.logo')),
-            'width'         => '1000',
-            'height'        => '1000',
+            'width'         => config('filesystems.max_width'),
+            'height'        => config('filesystems.max_height'),
         ]);
 
         return $messages;
