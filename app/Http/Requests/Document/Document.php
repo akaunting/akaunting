@@ -46,30 +46,30 @@ class Document extends FormRequest
         $company_id = (int) $this->request->get('company_id');
 
         $rules = [
-            'type' => 'required|string',
-            'document_number' => 'required|string|unique:documents,NULL,' . $id . ',id,type,' . $type . ',company_id,' . $company_id . ',deleted_at,NULL',
-            'status' => 'required|string',
-            'issued_at' => 'required|date_format:Y-m-d H:i:s|before_or_equal:due_at',
-            'due_at' => 'required|date_format:Y-m-d H:i:s|after_or_equal:issued_at',
-            'amount' => 'required',
-            'items.*.name' => 'required|string',
-            'items.*.price' => 'required|amount',
-            'currency_code' => 'required|string|currency',
-            'currency_rate' => 'required|gt:0',
-            'contact_id' => 'required|integer',
-            'contact_name' => 'required|string',
-            'category_id' => 'required|integer',
-            'company_logo' => $company_logo,
-            'attachment.*' => $attachment,
-            'recurring_count' => 'gte:0',
-            'recurring_interval' => 'exclude_unless:recurring_frequency,custom|gt:0',
+            'type'                  => 'required|string',
+            'document_number'       => 'required|string|unique:documents,NULL,' . $id . ',id,type,' . $type . ',company_id,' . $company_id . ',deleted_at,NULL',
+            'status'                => 'required|string',
+            'issued_at'             => 'required|date_format:Y-m-d H:i:s|before_or_equal:due_at',
+            'due_at'                => 'required|date_format:Y-m-d H:i:s|after_or_equal:issued_at',
+            'amount'                => 'required',
+            'items.*.name'          => 'required|string',
+            'items.*.price'         => 'required|amount',
+            'currency_code'         => 'required|string|currency',
+            'currency_rate'         => 'required|gt:0',
+            'contact_id'            => 'required|integer',
+            'contact_name'          => 'required|string',
+            'category_id'           => 'required|integer',
+            'company_logo'          => $company_logo,
+            'attachment.*'          => $attachment,
+            'recurring_count'       => 'gte:0',
+            'recurring_interval'    => 'exclude_unless:recurring_frequency,custom|gt:0',
         ];
 
         $items = $this->request->all('items');
 
         if ($items) {
             foreach ($items as $key => $item) {
-                $size = 5; 
+                $size = 5;
 
                 if (Str::contains($item['quantity'], ['.', ','])) {
                     $size = 7;
@@ -111,6 +111,12 @@ class Document extends FormRequest
                 $messages['items.' . $key . '.quantity.max'] = trans('validation.size', ['attribute' => Str::lower(trans('invoices.quantity')), 'size' => $quantity_size]);
             }
         }
+
+        $messages['company_logo.dimensions'] = trans('validation.custom.invalid_dimension', [
+            'attribute'     => Str::lower(trans('settings.company.logo')),
+            'width'         => '1000',
+            'height'        => '1000',
+        ]);
 
         return $messages;
     }

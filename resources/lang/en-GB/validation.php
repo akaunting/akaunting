@@ -141,6 +141,7 @@ return [
         'invalid_currency'      => 'The :attribute code is invalid.',
         'invalid_amount'        => 'The amount :attribute is invalid.',
         'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_dimension'     => 'The :attribute dimensions must be max :width x :height px.',
     ],
 
     /*

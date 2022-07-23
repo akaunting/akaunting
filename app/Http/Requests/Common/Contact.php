@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Common;
 
 use App\Abstracts\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class Contact extends FormRequest
 {
@@ -46,17 +47,32 @@ class Contact extends FormRequest
         }
 
         if ($this->files->get('logo')) {
-            $logo = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024 . '|dimensions:max_width=1000,max_height=1000';
+            $logo = 'mimes:' . config('filesystems.mimes')
+                    . '|between:0,' . config('filesystems.max_size') * 1024
+                    . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
         }
 
         return [
-            'type' => 'required|string',
-            'name' => 'required|string',
-            'email' => $email,
-            'user_id' => 'integer|nullable',
+            'type'          => 'required|string',
+            'name'          => 'required|string',
+            'email'         => $email,
+            'user_id'       => 'integer|nullable',
             'currency_code' => 'required|string|currency',
-            'enabled' => 'integer|boolean',
-            'logo' => $logo,
+            'enabled'       => 'integer|boolean',
+            'logo'          => $logo,
+        ];
+    }
+
+    public function messages()
+    {
+        $logo_dimensions = trans('validation.custom.invalid_dimension', [
+            'attribute'     => Str::lower(trans_choice('general.pictures', 1)),
+            'width'         => config('filesystems.max_width'),
+            'height'        => config('filesystems.max_height'),
+        ]);
+
+        return [
+            'logo.dimensions' => $logo_dimensions,
         ];
     }
 }
