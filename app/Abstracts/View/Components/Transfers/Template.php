@@ -4,6 +4,7 @@ namespace App\Abstracts\View\Components\Transfers;
 
 use App\Abstracts\View\Component;
 use App\Traits\ViewComponents;
+use App\Utilities\Modules;
 
 abstract class Template extends Component
 {
@@ -13,7 +14,9 @@ abstract class Template extends Component
 
     public $transfer;
 
-    public $template;
+    public array $payment_methods;
+
+    public string $template;
 
     /**
      * Create a new component instance.
@@ -21,10 +24,11 @@ abstract class Template extends Component
      * @return void
      */
     public function __construct(
-        $model = false, $transfer = false, string $template = ''
+        $model = false, $transfer = false, array $payment_methods = [], string $template = ''
     ) {
         $this->model = $model;
         $this->transfer = $this->getTransfer($model, $transfer);
+        $this->payment_methods = ($payment_methods) ?: Modules::getPaymentMethods('all');
         $this->template = ! empty($template) ? $template : setting('transfer.template');
 
         // Set Parent data
