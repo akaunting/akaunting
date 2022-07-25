@@ -667,6 +667,7 @@ const app = new Vue({
                                 })
                                 .catch(error => {
                                     this.form.loading = false;
+                                    
                                     this.form.onFail(error);
 
                                     this.method_show_html = error.message;
@@ -771,7 +772,6 @@ const app = new Vue({
                                     if (response.data.success) {
                                         if (response.data.redirect) {
                                             this.form.loading = true;
-                                            
                                             window.location.href = response.data.redirect;
                                         }
                                     }
