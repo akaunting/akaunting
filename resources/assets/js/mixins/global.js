@@ -703,6 +703,7 @@ export default {
             });
         },
 
+        // if you use modal dynamic form. This method ger url form and posr it.
         onModalAddNew(url) {
             let modal = {
                 show: true,
@@ -711,7 +712,8 @@ export default {
                 buttons:{}
             };
 
-            Promise.resolve(window.axios.get(url)).then(response => {
+            Promise.resolve(window.axios.get(url))
+            .then(response => {
                 if (response.data.success) {
                     modal.title = response.data.title;
                     modal.html = response.data.html;
@@ -721,9 +723,39 @@ export default {
                         resolve({
                             template: '<div id="dynamic-add-new-modal-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="modal.show" :buttons="modal.buttons" :title="modal.title" :message="modal.html" :is_component=true @submit="onSubmit" @cancel="onCancel"></akaunting-modal-add-new></div>',
 
-                            mixins: [
-                                Global
-                            ],
+                            components: {
+                                AkauntingDropzoneFileUpload,
+                                AkauntingContactCard,
+                                AkauntingCompanyEdit,
+                                AkauntingEditItemColumns,
+                                AkauntingItemButton,
+                                AkauntingDocumentButton,
+                                AkauntingSearch,
+                                AkauntingRadioGroup,
+                                AkauntingSelect,
+                                AkauntingSelectRemote,
+                                AkauntingMoney,
+                                AkauntingModal,
+                                AkauntingModalAddNew,
+                                AkauntingDate,
+                                AkauntingRecurring,
+                                AkauntingHtmlEditor,
+                                AkauntingCountdown,
+                                AkauntingCurrencyConversion,
+                                AkauntingConnectTransactions,
+                                AkauntingSwitch,
+                                AkauntingSlider,
+                                AkauntingColor,
+                                CardForm,
+                                [Select.name]: Select,
+                                [Option.name]: Option,
+                                [Steps.name]: Steps,
+                                [Step.name]: Step,
+                                [Button.name]: Button,
+                                [Link.name]: Link,
+                                [Tooltip.name]: Tooltip,
+                                [ColorPicker.name]: ColorPicker,
+                            },
 
                             data: function () {
                                 return {
