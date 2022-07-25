@@ -76,6 +76,7 @@ const app = new Vue({
                 ',,'
             ],
             email_template: false,
+            minor_form_loading: false
         }
     },
 
@@ -654,20 +655,19 @@ const app = new Vue({
                                     if (response.data.success) {
                                         if (response.data.redirect) {
                                             this.form.loading = true;
-
                                             window.location.href = response.data.redirect;
                                         }
                                     }
 
                                     if (response.data.error) {
                                         this.form.loading = false;
-
+                                        
                                         this.form.response = response.data;
                                     }
                                 })
                                 .catch(error => {
                                     this.form.loading = false;
-
+                                    
                                     this.form.onFail(error);
 
                                     this.method_show_html = error.message;
@@ -772,7 +772,6 @@ const app = new Vue({
                                     if (response.data.success) {
                                         if (response.data.redirect) {
                                             this.form.loading = true;
-
                                             window.location.href = response.data.redirect;
                                         }
                                     }
@@ -946,7 +945,7 @@ const app = new Vue({
            let form_html = document.querySelector('form');
            
            if (form_html && form_html.getAttribute('id') == 'document') {
-               form_html.querySelectorAll('input, textarea, select, ul, li, a, [type="button"]').forEach((element) => {
+               form_html.querySelectorAll('input, textarea, select, ul, li, a').forEach((element) => {
                   element.addEventListener('click', () => {
                       this.onBeforeUnload();
                   });
@@ -970,7 +969,18 @@ const app = new Vue({
         onSubmitViaSendEmail() {
             this.form['senddocument'] = true;
 
+            this.minor_form_loading = true;
+
             this.onSubmit();
+
+            this.form.loading = false;
+
+            setTimeout(() => {
+                if (Object.keys(this.form.errors.errors.length > 0)) {
+                    this.minor_form_loading = false;
+                    return;
+                }
+            }, 200);
         },
     },
 
@@ -1110,6 +1120,6 @@ const app = new Vue({
             }
 
             this.form.discount = this.form.discount.replace(',', '.');
-        },
+        }
     },
 });
