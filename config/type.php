@@ -41,6 +41,7 @@ return [
     // Contacts
     'contact' => [
         Contact::CUSTOMER_TYPE => [
+            'alias'                 => '', // core empty but module write own alias
             'group'                 => 'sales',
             'route' => [
                 'prefix'            => 'customers', // core use with group + prefix, module ex. estimates
@@ -69,6 +70,7 @@ return [
         ],
 
         Contact::VENDOR_TYPE => [
+            'alias'                 => '', // core empty but module write own alias
             'group'                 => 'purchases',
             'route' => [
                 'prefix'            => 'vendors', // core use with group + prefix, module ex. estimates

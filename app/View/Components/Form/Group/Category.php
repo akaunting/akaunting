@@ -22,8 +22,6 @@ class Category extends Form
      */
     public function render()
     {
-        $type = $this->type;
-
         if (empty($this->name)) {
             $this->name = 'category_id';
         }
@@ -31,18 +29,20 @@ class Category extends Form
         $this->path = route('modals.categories.create', ['type' => $this->type]);
         $this->remoteAction = route('categories.index', ['search' => 'type:' . $this->type . ' enabled:1']);
 
-        $this->categories = Model::type($type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        $this->categories = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
 
-        if (!empty($model) && $model->category && ! $this->categories->has($model->category_id)) {
-            $this->categories->put($model->category->id, $model->category->name);
-        }
+        $model = $this->getParentData('model');
 
-        if($model = $this->getParentData('model')) {
+        if (! empty($model)) {
             $this->selected = $model->category_id;
+
+            if (! $this->categories->has($model->category_id) && ($category = $model->category)) {
+                $this->categories->put($category->id, $category->name);
+            }
         }
 
-        if (empty($this->selected) && (in_array($type, ['income', 'expense']))) {
-            $this->selected = setting('default.' . $type . '_category');
+        if (empty($this->selected) && (in_array($this->type, [Model::INCOME_TYPE, Model::EXPENSE_TYPE]))) {
+            $this->selected = setting('default.' . $this->type . '_category');
         }
 
         return view('components.form.group.category');
