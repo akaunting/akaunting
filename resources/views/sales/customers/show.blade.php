@@ -3,7 +3,7 @@
         {{ $customer->name }}
     </x-slot>
 
-    <x-slot name="status">
+    <x-slot name="info">
         @if (! $customer->enabled)
             <x-index.disable text="{{ trans_choice('general.customers', 1) }}" />
         @endif

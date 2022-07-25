@@ -10,7 +10,13 @@
                     @yield('dashboard_action')
                 </h1>
 
-                {!! $status ?? '' !!}
+                @if (! empty($status))
+                <div class="ltr:ml-4 rtl:mr-4">
+                    {!! $status !!}
+                </div>
+                @endif
+
+                {!! $info ?? '' !!}
 
                 {!! $favorite ?? '' !!}
             </div>
