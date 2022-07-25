@@ -705,7 +705,7 @@ export default {
 
         onModalAddNew(url) {
             let modal = {
-                modal: true,
+                show: true,
                 title: '',
                 html: '',
                 buttons:{}
