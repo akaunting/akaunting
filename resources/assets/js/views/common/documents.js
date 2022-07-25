@@ -771,7 +771,7 @@ const app = new Vue({
                                     if (response.data.success) {
                                         if (response.data.redirect) {
                                             this.form.loading = true;
-                                            
+
                                             window.location.href = response.data.redirect;
                                         }
                                     }
