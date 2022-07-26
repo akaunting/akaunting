@@ -10,8 +10,10 @@
         ]"
         :error="formError">
 
-        <el-select v-model="selected" :placeholder="placeholder" filterable
+        <el-select v-model="selected" :placeholder="dynamicPlaceholder" filterable
             @change="change" @visible-change="visibleChange" @remove-tag="removeTag" @clear="clear" @blur="blur" @focus="focus"
+            :remote="remote"
+            :remote-method="serchableMethod"
             :clearable="clearable"
             :disabled="disabled"
             :multiple="multiple"
@@ -66,7 +68,7 @@
             </template>
 
             <el-option v-if="!group" v-for="(option, index) in sortedOptions"
-                :key="index"
+                :key="option.key"
                 :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
@@ -81,7 +83,7 @@
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option_index"
+                    :key="option.key"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
@@ -189,6 +191,8 @@ export default {
 
         dynamicOptions: null,
 
+        fullOptions: null,
+
         disabledOptions: {
             type: Array,
             default: function () {
@@ -283,10 +287,23 @@ export default {
             default: 'No Matchign Data',
             description: "Selectbox search option not found item message"
         },
+
+        searchable: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox searchable"
+        },
+
+        searchText: {
+            type: String,
+            default: '',
+            description: "Selectbox input search placeholder text"
+        },
     },
 
     data() {
         return {
+            dynamicPlaceholder: this.placeholder,
             add_new: {
                 text: this.addNew.text,
                 show: false,
@@ -301,18 +318,26 @@ export default {
 
             form: {},
             sorted_options: [],
+            full_options:[],
             new_options: {},
             loading: false,
+            remote: false,
         }
     },
 
     created() {
         this.setSortedOptions();
+
+        if (this.searchable) {
+            this.remote = true;
+
+            this.setFullOptions();
+        }
     },
 
     computed: {
         sortedOptions() {
-            if (!this.sortOptions) {
+            if (! this.sortOptions) {
                 return this.sorted_options
             }
 
@@ -344,7 +369,6 @@ export default {
             } catch (e) {
                 this.selected = this.model;
             }
-
         }
 
         if (this.multiple && !this.selected.length) {
@@ -453,6 +477,82 @@ export default {
             }
         },
 
+        setFullOptions() {
+            // Reset full_options 
+            this.full_options = [];
+
+            let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.fullOptions;
+
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [index, options] of Object.entries(created_options)) {
+                        let values = [];
+
+                        for (const [key, value] of Object.entries(options)) {
+                            values.push({
+                                key: key,
+                                value: value,
+                                level: 0
+                            });
+                        }
+
+                        this.full_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        if (typeof(option) == 'string') {
+                            this.full_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option,
+                                level: 0
+                            });
+                        } else {
+                            this.full_options.push({
+                                index: index,
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
+                            });
+                        }
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [key, value] of Object.entries(created_options)) {
+                        this.full_options.push({
+                            key: key,
+                            value: value,
+                            level: 0
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        if (typeof(option) == 'string') {
+                            this.full_options.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option,
+                                level: 0
+                            });
+                        } else {
+                            this.full_options.push({
+                                index: index,
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                level: (option.level) ? option.level : 0
+                            });
+                        }
+                    }, this);
+                }
+            }
+        },
+
         change() {
             // This controll added add new changed..
             if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
@@ -531,6 +631,30 @@ export default {
 
         visibleChange(event) {
             this.$emit('visible-change', event);
+
+            this.dynamicPlaceholder = this.placeholder;
+
+            if (event && this.searchText) {
+                this.dynamicPlaceholder = this.searchText;
+            }
+
+            if (this.searchable) {
+                let selected = this.selected;
+                this.sorted_options = [];
+
+                this.setSortedOptions();
+
+                for (const [key, value] of Object.entries(this.full_options)) {
+                    if (selected == value.key) {
+                        this.sorted_options.push({
+                            index: value.index,
+                            key: value.key,
+                            value: value.value,
+                            level: value.level
+                        });
+                    }
+                }
+            }
         },
 
         removeTag(event) {
@@ -723,6 +847,23 @@ export default {
 
         addModal() {
 
+        },
+
+        serchableMethod(query) {
+            if (query !== '') {
+                this.loading = true;
+
+                setTimeout(() => {
+                    this.loading = false;
+
+                    this.sorted_options = this.full_options.filter(item => {
+                        return item.value.toLowerCase()
+                            .indexOf(query.toLowerCase()) > -1;
+                    });
+                }, 200);
+            } else {
+                this.setSortedOptions();
+            }
         },
     },
 

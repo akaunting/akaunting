@@ -47,6 +47,24 @@
     :dynamic-options="{{ $attributes['dynamicOptions'] }}"
     @endif
 
+    @if (! empty($attributes['searchable']))
+    searchable
+    @elseif (! empty($searchable))
+    searchable
+    @endif
+
+    @if (isset($attributes['fullOptions']) || isset($attributes['full-options']))
+    :full-options="{{ json_encode(! empty($attributes['fullOptions']) ? $attributes['fullOptions'] : $attributes['full-options']) }}"
+    @else
+    :full-options="{{ json_encode($fullOptions) }}"
+    @endif
+
+    @if (isset($attributes['searchText']) || isset($attributes['search-text']))
+    search-text="{{ ! empty($attributes['searchText']) ? $attributes['searchText'] : $attributes['search-text'] }}"
+    @else
+    search-text="{{ $searchText }}"
+    @endif
+
     @if (empty($multiple))
         @if (isset($selected) || old($name))
         value="{{ old($name, $selected) }}"
