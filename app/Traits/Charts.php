@@ -28,7 +28,7 @@ trait Charts
 
     public function addMoneyToDonut($color, $amount, $description = '')
     {
-        $label = money($amount, setting('default.currency'), true)->format();
+        $label = money($amount, setting('default.currency'), true)->formatForHumans();
 
         if (!empty($description)) {
             $label .= ' - ' . $description;
