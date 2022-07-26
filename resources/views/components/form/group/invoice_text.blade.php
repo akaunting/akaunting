@@ -168,8 +168,8 @@
 
     @foreach ($options as $option)
         @if ($option->id == 'custom')
-            <div class="col-span-3 mt-5">
-                <x-form.group.text name="{{ $attributes['input-name'] }}" value="{{ $attributes['input-value'] }}" v-show="{{ $attributes['input-name'] }}" />
+            <div class="col-span-6 my-5" v-if="form.{{ $name }} == 'custom'">
+                <x-form.group.text name="{{ $attributes['input-name'] }}" value="{{ $attributes['input-value'] }}" />
             </div>
         @endif
     @endforeach
