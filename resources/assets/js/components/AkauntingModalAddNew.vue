@@ -228,6 +228,8 @@ export default {
                                 '#efef32'
                             ],
                             min_date: false,
+                            categoriesBasedTypes: null,
+                            isParentCategoryDisabled: true,
                         }
                     },
 
@@ -287,6 +289,28 @@ export default {
                             })
                             .catch(error => {
                             });
+                        },
+
+                        updateParentCategories(event) {
+                            if (event === '') {
+                                return;
+                            }
+
+                            if (typeof JSON.parse(this.form.categories)[event] === 'undefined') {
+                                this.categoriesBasedTypes = [];
+                                this.isParentCategoryDisabled = true;
+
+                                return;
+                            }
+
+                            if (this.form.parent_category_id) {
+                                this.form.parent_category_id = null;
+
+                                return;
+                            }
+
+                            this.categoriesBasedTypes = JSON.parse(this.form.categories)[event];
+                            this.isParentCategoryDisabled = false;
                         },
                     }
                 })

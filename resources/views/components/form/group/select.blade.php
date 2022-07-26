@@ -125,6 +125,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (! empty($attributes['focus']))
+        @focus="{{ $attributes['focus'] }}"
+        @endif
+
         @if (! empty($attributes['visible-change']))
         @visible-change="{{ $attributes['visible-change'] }}"
         @endif
