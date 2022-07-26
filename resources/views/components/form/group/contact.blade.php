@@ -6,7 +6,6 @@
         add-new
         path="{{ $path }}"
 
-        add-new
         name="{{ $name }}"
         label="{!! $label !!}"
         :options="$contacts"
@@ -26,7 +25,6 @@
         add-new
         path="{{ $path }}"
 
-        add-new
         name="{{ $name }}"
         label="{!! $label !!}"
         :options="$contacts"
