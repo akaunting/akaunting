@@ -3,7 +3,7 @@
         {{ $vendor->name }}
     </x-slot>
 
-    <x-slot name="status">
+    <x-slot name="info">
         @if (! $vendor->enabled)
             <x-index.disable text="{{ trans_choice('general.vendors', 1) }}" />
         @endif

@@ -121,9 +121,7 @@
                 @if (!$hideStatus)
                     <x-table.td class="{{ $classStatus }}">
                         @stack('status_td_inside_start')
-                        <span class="px-2.5 py-1 text-xs font-medium rounded-xl bg-{{ $item->status_label }} text-text-{{ $item->status_label }}">
-                            {{ trans($textDocumentStatus . $item->status) }}
-                        </span>
+                        <x-show.status status="{{ $item->status }}" background-color="bg-{{ $item->status_label }}" text-color="text-text-{{ $item->status_label }}" />
                         @stack('status_td_inside_end')
                     </x-table.td>
                 @endif
