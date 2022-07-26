@@ -31,7 +31,6 @@ class DocumentItemColumns extends Controller
         $type = request()->get('type', 'invoice');
 
         $item_names = [
-            'hide' => trans('settings.invoice.hide.item_name'),
             'settings.invoice.item' => trans('settings.' . $type . '.item'),
             'settings.invoice.product' => trans('settings.' . $type . '.product'),
             'settings.invoice.service' =>  trans('settings.' . $type . '.service'),
@@ -39,14 +38,12 @@ class DocumentItemColumns extends Controller
         ];
 
         $price_names = [
-            'hide' => trans('settings.invoice.hide.price'),
             'settings.invoice.price' => trans('settings.' . $type . '.price'),
             'settings.invoice.rate' => trans('settings.' . $type . '.rate'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $quantity_names = [
-            'hide' => trans('settings.invoice.hide.quantity'),
             'settings.invoice.quantity' => trans('settings.' . $type . '.quantity'),
             'custom' => trans('settings.invoice.custom'),
         ];

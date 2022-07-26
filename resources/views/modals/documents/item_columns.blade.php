@@ -30,9 +30,14 @@
             form-group-class="sm:col-span-6 sm:gap-0"
         />
 
+        <x-form.group.toggle name="hide_quantity" label="{{ trans('settings.invoice.hide.quantity') }}" :value="setting('invoice.hide_quantity')" not-required form-group-class="sm:col-span-6" />
+
+        <x-form.group.toggle name="hide_price" label="{{ trans('settings.invoice.hide.price') }}" :value="setting('invoice.hide_price')" not-required form-group-class="sm:col-span-6" />
+
+        <x-form.group.toggle name="hide_item_name" label="{{ trans('settings.invoice.hide.item_name') }}" :value="setting('invoice.hide_item_name')" not-required form-group-class="sm:col-span-6" />
+        
         <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="$hide_item_description" />
 
-        <x-form.group.toggle name="hide_quantity" label="{{ trans('settings.invoice.hide.quantity') }}" :value="$hide_quantity" />
         <x-form.group.toggle name="hide_amount" label="{{ trans('settings.invoice.hide.amount') }}" :value="$hide_amount" not-required form-group-class="sm:col-span-6" />
 
         <x-form.input.hidden name="type" :value="$type" />
