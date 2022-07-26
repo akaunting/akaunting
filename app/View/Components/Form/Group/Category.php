@@ -29,7 +29,7 @@ class Category extends Form
         $this->path = route('modals.categories.create', ['type' => $this->type]);
         $this->remoteAction = route('categories.index', ['search' => 'type:' . $this->type . ' enabled:1']);
 
-        $this->categories = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        $this->categories = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $model = $this->getParentData('model');
 
