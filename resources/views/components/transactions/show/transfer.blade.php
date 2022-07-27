@@ -1,10 +1,15 @@
 @if ($transaction->isTransferTransaction())
-    @php
-        $from_account = '<span class="font-medium">' . $transaction->transfer->expense_account->title . '</span>';
-        $to_account = '<span class="font-medium">' . $transaction->transfer->income_account->title . '</span>';
-    @endphp
+    @php $transfer = $transaction->transfer; @endphp
 
-    <div class="border-b pb-4" x-data="{ transfer : null }">
+    @if ($transfer)
+        @php
+            $from_account = '<span class="font-medium">' . $transfer->expense_account->title . '</span>';
+            $to_account = '<span class="font-medium">' . $transfer->income_account->title . '</span>';
+            $date = '<a href="' . route('transfers.show', $transfer->id) . '" class="text-purple">' . company_date($transaction->paid_at) . '</a>';
+        @endphp
+    @endif
+
+    <div class="border-b pb-4" x-data="{ transfer : 1 }">
         <button class="relative w-full text-left cursor-pointer group"
             x-on:click="transfer !== 1 ? transfer = 1 : transfer = null"
         >
@@ -12,9 +17,11 @@
                 {{ trans_choice('general.transfers', 1) }}
             </span>
 
-            <div class="text-black-400 text-sm">
-                {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}
-            </div>
+            @if ($transfer)
+                <div class="text-black-400 text-sm">
+                    {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}
+                </div>
+            @endif
 
             <span class="material-icons absolute right-0 top-0 transition-all transform"
                 x-bind:class="transfer === 1 ? 'rotate-180' : ''"
@@ -25,13 +32,19 @@
             x-ref="container1"
             x-bind:class="transfer === 1 ? 'h-auto' : 'scale-y-0 h-0'"
         >
-            @php
-                $date = '<a href="' . route('transfers.show', $transaction->transfer->id) . '" class="text-purple">' . company_date($transaction->paid_at) . '</a>';
-            @endphp
-
-            <div class="my-2">
-                {!! trans('transactions.slider.transfer_desc', ['date' => $date]) !!}
-            </div>
+            @if ($transfer)
+                <div class="my-2">
+                    {!! trans('transactions.slider.transfer_desc', ['date' => $date]) !!}
+                </div>
+            @else
+                <div class="mt-2">
+                    <div class="alert alert-notify p-4 text-black font-bold rounded-lg bg-orange-100 text-orange-600">
+                        <span class="alert-text">
+                            <span>{{ trans('messages.warning.missing_transfer') }}</span>
+                        </span>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endif
