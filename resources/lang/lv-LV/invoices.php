@@ -79,7 +79,7 @@ return [
     ],
 
     'sticky' => [
-        'description' => 'Jūsu priekšskatījums, kā jūsu klients redzēs jūsu rēķina tīmekļa versiju.',
+        'description'       => 'Jūsu priekšskatījums, kā jūsu klients redzēs jūsu rēķina tīmekļa versiju.',
     ],
 
 ];

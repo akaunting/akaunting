@@ -16,6 +16,8 @@ return [
     'vendors'               => 'विक्रेता|विक्रेताओं',
     'accounts'              => 'खाता|खाता',
     'transfers'             => 'स्थानांतरण|स्थानांतरण',
+    'income_transfers'      => 'आय स्थानांतरण|आय स्थानांतरण',
+    'expense_transfers'     => 'व्यय स्थानांतरण|व्यय स्थानांतरण',
     'transactions'          => 'लेन-देन|लेन-देन',
     'payments'              => 'भुगतान|भुगतान',
     'recurring_transactions'=> 'आवर्ती लेनदेन|आवर्ती लेनदेन',

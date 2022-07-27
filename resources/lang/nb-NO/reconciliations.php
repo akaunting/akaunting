@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Klarert beløp',
     'deposit'               => 'Innskudd',
     'withdrawal'            => 'Uttak',
+    'reconciled_amount'     => 'Avstemt',
+    'in_progress'           => 'Pågår',
+    'save_draft'            => 'Lagre som utkast',
+    'irreconcilable'        => 'Uforenlig',
 
 ];

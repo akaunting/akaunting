@@ -50,6 +50,7 @@ return [
     'hosted_on_akaunting'   => 'Allotjat a akaunting.com',
     'only_works_cloud'      => 'Aquesta opció només està disponible per al <strong>Cloud Service</strong> (Servei al Núvol).',
     'only_premium_plan'     => 'Aquesta opció només està disponible per al <strong>servei Prèmium</strong> (Cloud Premium Service).',
+    'not_found'             => 'No s\'ha trobat cap App',
 
     'about'                 => 'Sobre',
 

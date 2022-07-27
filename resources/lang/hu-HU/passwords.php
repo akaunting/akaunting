@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'A jelszónak legalább hat karakterből kell állnia és egyeznie kell a jelszó megerősítéssel.',
     'reset' => 'A jelszó visszaállítva!',
     'sent' => 'Jelszó-emlékeztető elküldve!',
     'throttled' => 'Kérem várjon, mielőtt újra próbálkozna.',

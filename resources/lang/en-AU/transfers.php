@@ -2,15 +2,16 @@
 
 return [
 
+    'details'               => 'Detail|Details',
+
     'from_account'          => 'From Account',
     'to_account'            => 'To Account',
     'from_rate'             => 'From Rate',
-    'from_account_rate'     => 'From Account Rate',
     'to_rate'               => 'To Rate',
+    'from_account_rate'     => 'From Account Rate',
     'to_account_rate'       => 'To Account Rate',
     'from_amount'           => 'From',
     'to_amount'             => 'To Amount',
-    'details'               => 'Detail|Details',
     'issued_at'             => 'Issue Date',
     'rate'                  => 'Rate',
 
@@ -26,8 +27,7 @@ return [
     'slider' => [
         'create'            => ':user created this transfer on :date',
         'transactions'      => 'In list here are the transactions that were created automatically.',
-        'from_desc'         => ':number transaction from :account',
-        'to_desc'           => ':number transaction to :account',
+        'transactions_desc' => ':number transaction for :account',
     ],
 
 ];

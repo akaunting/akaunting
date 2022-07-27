@@ -16,6 +16,8 @@ return [
     'vendors'               => 'Vendor|Vendors',
     'accounts'              => 'Account|Accounts',
     'transfers'             => 'Transfer|Transfers',
+    'income_transfers'      => 'Income Transfer|Income Transfers',
+    'expense_transfers'     => 'Expense Transfer|Expense Transfers',
     'transactions'          => 'Transaction|Transactions',
     'payments'              => 'Payment|Payments',
     'recurring_transactions'=> 'Recurring Transaction|Recurring Transactions',

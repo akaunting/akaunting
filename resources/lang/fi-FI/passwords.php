@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Salasanan on oltava vähintään kuusi merkkiä ja vastata vahvistuskenttää.',
     'reset' => 'Salasanasi on nyt nollattu!',
     'sent' => 'Olemme lähettäneet salasanan nollauslinkin sähköpostiin!',
     'throttled' => 'Odota ennen kuin yrität uudelleen.',

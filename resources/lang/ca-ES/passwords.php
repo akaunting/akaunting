@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Les contrasenyes han de tenir com a mínim sis caràcters i han de coincidir amb la confirmació.',
     'reset' => 'La contrasenya s\'ha restablert!',
     'sent' => 'T\'hem enviat un correu electrònic amb un enllaç per a reiniciar la teva contrasenya!',
     'throttled' => 'Si us plau, espera\'t una mica abans de tornar-ho a intentar.',

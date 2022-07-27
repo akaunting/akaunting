@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Heslo musí obsahovat alespoň 6 znaků a musí se shodovat s ověřením.',
     'reset' => 'Heslo bylo obnoveno!',
     'sent' => 'Zaslali jsme e-mail s odkazem na obnovení hesla!',
     'throttled' => 'Počkejte prosím před dalším pokusem.',

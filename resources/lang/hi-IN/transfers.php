@@ -2,15 +2,16 @@
 
 return [
 
+    'details'               => 'विवरण|विवरण',
+
     'from_account'          => 'खाते से',
     'to_account'            => 'खाते में',
     'from_rate'             => 'दर से',
-    'from_account_rate'     => 'खाता दर से',
     'to_rate'               => 'दर तक',
+    'from_account_rate'     => 'खाता दर से',
     'to_account_rate'       => 'खाता दर के लिए',
     'from_amount'           => 'से',
     'to_amount'             => 'राशि के लिए',
-    'details'               => 'विवरण|विवरण',
     'issued_at'             => 'जारी करने की नियत तारीख',
     'rate'                  => 'दर',
 
@@ -26,8 +27,7 @@ return [
     'slider' => [
         'create'            => ':user ने यह स्थानांतरण :date को बनाया',
         'transactions'      => 'यहां सूची में वे लेनदेन हैं जो स्वचालित रूप से बनाए गए थे।',
-        'from_desc'         => ':account से :number लेनदेन',
-        'to_desc'           => ':account तक :number लेनदेन',
+        'transactions_desc' => ' :account के लिए :number लेनदेन',
     ],
 
 ];

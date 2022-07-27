@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Les mots de passe doivent contenir au moins six caractères et correspondre à la confirmation.',
     'reset' => 'Le mot de passe principal a été réinitialisé !',
     'sent' => 'Nous avons envoyé par courrier électronique votre lien de réinitialisation de mot de passe !',
     'throttled' => 'Veuillez patienter avant de réessayer.',

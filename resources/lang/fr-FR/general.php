@@ -16,6 +16,8 @@ return [
     'vendors'               => 'Vendeur|Vendeurs',
     'accounts'              => 'Compte|Comptes',
     'transfers'             => 'Transfert|Transferts',
+    'income_transfers'      => 'Transfert de revenus|Transferts de revenus',
+    'expense_transfers'     => 'Transfert de dépense|Transferts de dépenses',
     'transactions'          => 'Transaction|Transactions',
     'payments'              => 'Paiement|Paiements',
     'recurring_transactions'=> 'Transaction récurrente|Transactions récurrentes',

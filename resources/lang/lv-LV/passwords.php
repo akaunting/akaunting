@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Parolei jābūt vismaz 6 zīmes garai.',
     'reset' => 'Jūsu parole ir atjaunota!',
     'sent' => 'Mēs jums uz e-pastu nosūtījām paroles atjaunošanas saiti!',
     'throttled' => 'Lūdzu, uzgaidiet, pirms mēģināt vēlreiz.',

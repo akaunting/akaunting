@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Şifreler en az altı karakter olmalı ve onay ile eşleşmelidir.',
     'reset' => 'Şifreniz sıfırlandı!',
     'sent' => 'Şifre sıfırlama bağlantınızı size e-posta ile gönderdik!',
     'throttled' => 'Lütfen yeniden denemeden önce bekleyin.',

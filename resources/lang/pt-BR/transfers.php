@@ -2,15 +2,16 @@
 
 return [
 
+    'details'               => 'Detalhe|Detalhes',
+
     'from_account'          => 'Da conta',
     'to_account'            => 'Para conta',
     'from_rate'             => 'Da taxa',
-    'from_account_rate'     => 'Da Taxa da Conta',
     'to_rate'               => 'Para taxa',
+    'from_account_rate'     => 'Da Taxa da Conta',
     'to_account_rate'       => 'Para Taxa da Conta',
     'from_amount'           => 'De',
     'to_amount'             => 'Para valor',
-    'details'               => 'Detalhe|Detalhes',
     'issued_at'             => 'Data emissão',
     'rate'                  => 'Taxa',
 
@@ -25,9 +26,8 @@ return [
 
     'slider' => [
         'create'            => ':user criou essa transferência em :date',
-        'transactions'      => 'Na lista estão as transações que foram criadas automaticamente.',
-        'from_desc'         => 'Transação :number de :account',
-        'to_desc'           => 'Transação :number para :account',
+        'transactions'      => 'Lista de transações relacionadas a esta transferência',
+        'transactions_desc' => 'Transação :number para :account',
     ],
 
 ];

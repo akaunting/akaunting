@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Adgangskoder skal være mindst 6 tegn og være ens.',
     'reset' => 'Din adgangskode er blevet nulstillet!',
     'sent' => 'Vi har sendt dig en e-mail med et link til at nulstille dit kodeord.',
     'throttled' => 'Venligst vent for du prøver igen.',
