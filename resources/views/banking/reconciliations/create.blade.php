@@ -51,7 +51,10 @@
                             :currency="$currency"
                         />
 
-                        <x-form.group.account form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input" />
+                        <x-form.group.account 
+                            form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input" 
+                            selected="{{ request('account_id', setting('default.account')) }}"
+                        />
 
                         <div class="flex items-end lg:justify-end xl:justify-start col-span-10 xl:col-span-2">
                             <x-button
@@ -167,11 +170,11 @@
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <tbody class="float-right">
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.opening_balance') }}:
                                             </th>
 
-                                            <td id="closing-balance" class="w-1/12 ltr:text-right rtl:text-left">
+                                            <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
                                                 <span class="w-auto pl-6 text-sm">
                                                     <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
                                                 </span>
@@ -179,11 +182,11 @@
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.closing_balance') }}:
                                             </th>
 
-                                            <td id="closing-balance" class="w-1/12 text-right">
+                                            <td id="closing-balance" class="w-3/12 text-right">
                                                 <x-form.input.money
                                                     name="closing_balance_total"
                                                     value="0"
@@ -199,11 +202,11 @@
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.cleared_amount') }}:
                                             </th>
 
-                                            <td id="cleared-amount" class="w-1/12 text-right">
+                                            <td id="cleared-amount" class="w-3/12 text-right">
                                                 <x-form.input.money
                                                     name="cleared_amount_total"
                                                     value="0"
@@ -219,13 +222,13 @@
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
                                                 <span class="px-2 py-1 rounded-xl" :class="difference">
                                                     {{ trans('general.difference') }}
                                                 </span>
                                             </th>
 
-                                            <td id="difference" class="w-1/12 ltr:pl-6 rtl:pr-0 text-right">
+                                            <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-0 text-right">
                                                 <div class="difference-money">
                                                     <x-form.input.money
                                                         name="difference_total"
