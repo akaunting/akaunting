@@ -20,6 +20,10 @@ class Buttons extends Component
 
     public $cancelText;
 
+    public $saveDisabled;
+
+    public $saveLoading;
+
     /**
      * Create a new component instance.
      *
@@ -27,7 +31,8 @@ class Buttons extends Component
      */
     public function __construct(
         $groupClass = '',
-        $cancel = '', $cancelRoute = '', $cancelUrl = '', $cancelClass = '', $cancelText = '', $withoutCancel = false
+        $cancel = '', $cancelRoute = '', $cancelUrl = '', $cancelClass = '', $cancelText = '', $withoutCancel = false,
+        $saveDisabled = '', $saveLoading = ''
     ) {
         $this->groupClass = $this->getGroupClass($groupClass);
 
@@ -35,6 +40,9 @@ class Buttons extends Component
         $this->cancelClass = $this->getCancelClass($cancelClass);
         $this->cancelText = $this->getCancelText($cancelText);
         $this->withoutCancel = $withoutCancel;
+
+        $this->saveDisabled = ! empty($saveDisabled) ? $saveDisabled : 'form.loading';
+        $this->saveLoading = ! empty($saveLoading) ? $saveLoading : 'form.loading';
     }
 
     /**
@@ -62,11 +70,11 @@ class Buttons extends Component
             return $cancel;
         }
 
-        if (!empty($route)) {
+        if (! empty($route)) {
             return $this->getRouteAction($route);
         }
 
-        if (!empty($url)) {
+        if (! empty($url)) {
             return $this->getUrlAction($url);
         }
 

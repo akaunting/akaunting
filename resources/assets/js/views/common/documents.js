@@ -76,6 +76,7 @@ const app = new Vue({
                 ',,'
             ],
             email_template: false,
+            send_to: false,
         }
     },
 
@@ -460,7 +461,6 @@ const app = new Vue({
         },
 
         onSelectedTax(item_index) {
-
             if (! this.tax_id) {
                 return;
             }
@@ -968,7 +968,6 @@ const app = new Vue({
 
                form_html.querySelectorAll('[type="submit"]').forEach((submit) => {
                    submit.addEventListener('click', () => {
-                        this.minor_form_loading = false;
                         window.onbeforeunload = null;
                    });
                });
@@ -983,33 +982,10 @@ const app = new Vue({
         },
 
         onSubmitViaSendEmail() {
-            let type_submit_icon = document.querySelector('[type="submit"]').querySelector('i');
-            let type_submit_span = document.querySelector('[type="submit"]').querySelector('span');
-
             this.form['senddocument'] = true;
-
-            this.minor_form_loading = true;
-
-            if (this.form.loading) {
-                type_submit_icon.classList.add('hidden');
-                type_submit_span.classList.add('opacity-100');
-            }
-
-            setTimeout(() => {
-                if (type_submit_icon && type_submit_span) {
-                    type_submit_icon.classList.remove('hidden');
-                    type_submit_span.classList.remove('opacity-100');
-                }
-            }, 5000);
+            this.send_to = true;
 
             this.onSubmit();
-
-            setTimeout(() => {
-                if (Object.keys(this.form.errors.errors.length > 0)) {
-                    this.minor_form_loading = false;
-                    return;
-                }
-            }, 200);
         },
     },
 
@@ -1149,6 +1125,12 @@ const app = new Vue({
             }
 
             this.form.discount = this.form.discount.replace(',', '.');
+        },
+
+        'form.loading': function (newVal, oldVal) {
+            if (! newVal) {
+                this.send_to = false;
+            }
         },
     },
 });

@@ -14,10 +14,10 @@
         <x-button
             type="submit"
             class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
-            ::disabled="form.loading"
+            ::disabled="{!! $saveDisabled !!}"
             override="class"
         >
-            <x-button.loading>
+            <x-button.loading action="{!! $saveLoading !!}">
                 {{ trans('general.save') }}
             </x-button.loading>
         </x-button>
