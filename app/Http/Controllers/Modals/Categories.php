@@ -31,18 +31,14 @@ class Categories extends Controller
     {
         $type = $request->get('type', 'item');
 
-        $categories = [];
+        $categories = collect();
 
-        foreach (config('type.category') as $type => $config) {
-            $categories[$type] = [];
-        }
-
-        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
-            $categories[$category->type][] = [
+        Category::type($type)->enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
+            $categories->push([
                 'id' => $category->id,
                 'title' => $category->name,
                 'level' => $category->level,
-            ];
+            ]);
         });
 
         $html = view('modals.categories.create', compact('type', 'categories'))->render();
