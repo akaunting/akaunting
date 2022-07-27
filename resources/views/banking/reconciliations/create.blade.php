@@ -51,7 +51,10 @@
                             :currency="$currency"
                         />
 
-                        <x-form.group.account form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input" />
+                        <x-form.group.account 
+                            form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input" 
+                            selected="{{ request('account_id', setting('default.account')) }}"
+                        />
 
                         <div class="flex items-end lg:justify-end xl:justify-start col-span-10 xl:col-span-2">
                             <x-button
@@ -167,11 +170,11 @@
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <tbody class="float-right">
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.opening_balance') }}:
                                             </th>
 
-                                            <td id="closing-balance" class="w-1/12 ltr:text-right rtl:text-left">
+                                            <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
                                                 <span class="w-auto pl-6 text-sm">
                                                     <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
                                                 </span>
@@ -179,11 +182,11 @@
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.closing_balance') }}:
                                             </th>
 
-                                            <td id="closing-balance" class="w-1/12 text-right">
+                                            <td id="closing-balance" class="w-3/12 text-right">
                                                 <x-form.input.money
                                                     name="closing_balance_total"
                                                     value="0"
@@ -192,18 +195,18 @@
                                                     v-model="totals.closing_balance"
                                                     :currency="$currency"
                                                     dynamicCurrency="currency"
-                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm js-conversion-input"
+                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
                                                     form-group-class="text-right disabled-money"
                                                 />
                                             </td>
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                                 {{ trans('reconciliations.cleared_amount') }}:
                                             </th>
 
-                                            <td id="cleared-amount" class="w-1/12 text-right">
+                                            <td id="cleared-amount" class="w-3/12 text-right">
                                                 <x-form.input.money
                                                     name="cleared_amount_total"
                                                     value="0"
@@ -212,20 +215,20 @@
                                                     v-model="totals.cleared_amount"
                                                     :currency="$currency"
                                                     dynamicCurrency="currency"
-                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm js-conversion-input"
+                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
                                                     form-group-class="text-right disabled-money"
                                                 />
                                             </td>
                                         </tr>
 
                                         <tr class="border-b">
-                                            <th class="w-11/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
+                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
                                                 <span class="px-2 py-1 rounded-xl" :class="difference">
                                                     {{ trans('general.difference') }}
                                                 </span>
                                             </th>
 
-                                            <td id="difference" class="w-1/12 ltr:pl-6 rtl:pr-0 text-right">
+                                            <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-0 text-right">
                                                 <div class="difference-money">
                                                     <x-form.input.money
                                                         name="difference_total"
@@ -235,7 +238,7 @@
                                                         v-model="totals.difference"
                                                         :currency="$currency"
                                                         dynamicCurrency="currency"
-                                                        money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm js-conversion-input"
+                                                        money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
                                                         form-group-class="text-right disabled-money"
                                                     />
                                                 </div>
@@ -264,37 +267,38 @@
                                     class="flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                     override="class"
                                 >
-                                    <x-button.loading>
+                                    <x-button.loading action="! reconcile && form.loading">
                                         {{ trans('reconciliations.save_draft') }}
                                     </x-button.loading>
                                 </x-button>
-    
-                                <div v-if="reconcile">
+
+                                <div v-if="! reconcile">
                                     <x-tooltip id="tooltip-reconcile" placement="top" message="{{ trans('reconciliations.irreconcilable') }}">
                                         <x-button
                                           type="button"
-                                          ::disabled="reconcile || form.loading"
-                                          class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue-300 hover:bg-blue-500 disabled:bg-blue-100"
+                                          ::disabled="! reconcile"
+                                          class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue hover:bg-blue-700 disabled:bg-blue-100"
                                           override="class"
                                           @click="onReconcileSubmit"
                                           data-loading-text="{{ trans('general.loading') }}"
                                         >
-                                            <x-button.loading action="! reconcile">
+                                            <x-button.loading action="reconcile && form.loading">
                                                 {{ trans('reconciliations.reconcile') }}
                                             </x-button.loading>
                                         </x-button>
                                     </x-tooltip>
                                 </div>
+
                                 <div v-else>
                                     <x-button
                                       type="button"
-                                      ::disabled="reconcile || form.loading"
-                                      class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue-300 hover:bg-blue-500 disabled:bg-blue-100"
+                                      ::disabled="! reconcile"
+                                      class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue hover:bg-blue-700 disabled:bg-blue-100"
                                       override="class"
                                       @click="onReconcileSubmit"
                                       data-loading-text="{{ trans('general.loading') }}"
                                     >
-                                        <x-button.loading action="! reconcile">
+                                        <x-button.loading action="reconcile && form.loading">
                                             {{ trans('reconciliations.reconcile') }}
                                         </x-button.loading>
                                     </x-button>

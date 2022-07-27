@@ -14,9 +14,21 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-modules.purchased />
+        @if (! empty($purchase) || ! empty($installed))
+            <x-modules.purchased />
 
-        <x-modules.installed />
+            <x-modules.installed />
+        @else
+            <div class="py-6 font-medium">
+                <div class="flex items-center justify-between mb-5 lg:mb-0">
+                    <h4 class="py-3 font-medium lg:text-2xl">
+                        {{ trans('modules.my_apps') }}
+                    </h4>
+                </div>
+
+                <x-modules.no-apps />
+            </div>
+        @endif
     </x-slot>
 
     <x-script folder="modules" file="apps" />

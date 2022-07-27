@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
-use App\Jobs\Setting\CreateCategory;
-use Illuminate\Http\Request as IRequest;
 use App\Http\Requests\Setting\Category as Request;
+use App\Jobs\Setting\CreateCategory;
+use App\Models\Setting\Category;
+use Illuminate\Http\Request as IRequest;
 
 class Categories extends Controller
 {
@@ -30,7 +31,17 @@ class Categories extends Controller
     {
         $type = $request->get('type', 'item');
 
-        $html = view('modals.categories.create', compact('type'))->render();
+        $categories = collect();
+
+        Category::type($type)->enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
+            $categories->push([
+                'id' => $category->id,
+                'title' => $category->name,
+                'level' => $category->level,
+            ]);
+        });
+
+        $html = view('modals.categories.create', compact('type', 'categories'))->render();
 
         return response()->json([
             'success' => true,

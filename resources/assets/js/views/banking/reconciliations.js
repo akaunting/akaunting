@@ -29,7 +29,7 @@ const app = new Vue({
         return {
             form: new Form('reconciliation'),
             bulk_action: new BulkAction('reconciliations'),
-            reconcile: true,
+            reconcile: false,
             difference: null,
             totals: {
                 closing_balance: 0,
@@ -48,8 +48,6 @@ const app = new Vue({
        if (this.form._method == 'PATCH') {
            this.onCalculate();
        }
-
-       this.currencyConversion();
     },
 
     methods:{
@@ -57,18 +55,6 @@ const app = new Vue({
             this.min_due_date = date;
         },
 
-        currencyConversion() {
-           setTimeout(() => {
-                if (document.querySelectorAll('.js-conversion-input')) {
-                    let currency_input = document.querySelectorAll('.js-conversion-input');
-
-                    for (let input of currency_input) {
-                        input.setAttribute('size', input.value.length);
-                    }
-                }
-            }, 250)
-        },
-        
         onReconcilition() {
             let form = document.getElementById('form-create-reconciliation');
 
@@ -78,7 +64,7 @@ const app = new Vue({
         },
 
         onCalculate() {
-            this.reconcile = true;
+            this.reconcile = false;
             this.difference = null;
 
             let transactions = this.form.transactions;
@@ -120,10 +106,10 @@ const app = new Vue({
 
             if (difference != 0) {
                 this.difference = 'bg-orange-300';
-                this.reconcile = true;
+                this.reconcile = false;
             } else {
                 this.difference = 'bg-green-100';
-                this.reconcile = false;
+                this.reconcile = true;
             }
 
             this.totals.cleared_amount = parseFloat(cleared_amount);

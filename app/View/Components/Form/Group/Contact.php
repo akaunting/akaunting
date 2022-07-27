@@ -35,7 +35,7 @@ class Contact extends Form
 
         $this->label = trans_choice('general.' . Str::plural($this->type), 1);
 
-        $this->contacts = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        $this->contacts = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $model = $this->getParentData('model');
 

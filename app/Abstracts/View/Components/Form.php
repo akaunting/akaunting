@@ -27,6 +27,9 @@ abstract class Form extends Component
     /** @var string */
     public $placeholder;
 
+    /** @var string */
+    public $searchText;
+
     /** @var array */
     public $options;
 
@@ -38,6 +41,9 @@ abstract class Form extends Component
 
     /** @var string */
     public $optionValue;
+
+    /** @var array */
+    public $fullOptions;
 
     /** @var string */
     public $checked;
@@ -65,6 +71,9 @@ abstract class Form extends Component
 
     /** @var bool */
     public $group;
+
+    /** @var bool */
+    public $searchable;
 
     /** @var bool */
     public $disabled;
@@ -99,10 +108,10 @@ abstract class Form extends Component
      * @return void
      */
     public function __construct(
-        string $name = '', string $type = 'text', string $label = '', string $id = null, $value = '', $valueKey = null, string $placeholder = '',
-        $options = [], $option = [], string $optionKey = 'id', string $optionValue = 'name', $checked = null, $checkedKey = null, $selected = null, $selectedKey = null, $rows = '3',
+        string $name = '', string $type = 'text', string $label = '', string $id = null, $value = '', $valueKey = null, string $placeholder = '', string $searchText = '',
+        $options = [], $option = [], string $optionKey = 'id', string $optionValue = 'name', $fullOptions = [], $checked = null, $checkedKey = null, $selected = null, $selectedKey = null, $rows = '3',
         $remote = false, $multiple = false, $addNew = false, $group = false,
-        bool $disabled = false, bool $readonly = false, bool $required = true, bool $notRequired = false,
+        bool $searchable = false, bool $disabled = false, bool $readonly = false, bool $required = true, bool $notRequired = false,
         string $formGroupClass = '', string $inputGroupClass = '',
         $dynamicAttributes = '',
         bool $hideCurrency = false
@@ -113,6 +122,7 @@ abstract class Form extends Component
         $this->id = $id ?? $name;
         $this->value = $this->getValue($value, $valueKey);
         $this->placeholder = $this->getPlaceholder($placeholder);
+        $this->searchText = $this->getSearchText($searchText);
         $this->rows = $rows;
 
         $this->remote = $remote;
@@ -120,6 +130,7 @@ abstract class Form extends Component
         $this->addNew = $addNew;
         $this->group = $group;
 
+        $this->searchable = $searchable;
         $this->disabled = $disabled;
         $this->readonly = $readonly;
         $this->required = $this->getRequired($required, $notRequired);
@@ -128,6 +139,7 @@ abstract class Form extends Component
         $this->option = $option;
         $this->optionKey = $optionKey;
         $this->optionValue = $optionValue;
+        $this->fullOptions = $this->getFullOptions($fullOptions, $options, $searchable);
         $this->checked = $this->getChecked($checked, $checkedKey);
         $this->selected = $this->getSelected($selected, $selectedKey);
 
@@ -222,6 +234,15 @@ abstract class Form extends Component
         return trans('general.form.enter', ['field' => $label]);
     }
 
+    protected function getSearchText($searchText)
+    {
+        if (! empty($searchText)) {
+            return $searchText;
+        }
+
+        return trans('general.search_placeholder');
+    }
+
     protected function getOptions($options)
     {
         if (! empty($options)) {
@@ -241,6 +262,21 @@ abstract class Form extends Component
 
                 $options = $o;
             }
+
+            return $options;
+        }
+
+        return [];
+    }
+
+    protected function getFullOptions($fullOptions, $options, $searchable)
+    {
+        if (! empty($fullOptions)) {
+            return $fullOptions;
+        }
+
+        if ($searchable && empty($fullOptions)) {
+            $this->options = $this->options->take(setting('default.select_limit'));
 
             return $options;
         }
