@@ -76,7 +76,6 @@ const app = new Vue({
                 ',,'
             ],
             email_template: false,
-            minor_form_loading: false
         }
     },
 
@@ -676,11 +675,13 @@ const app = new Vue({
 
                                     if (response.data.error) {
                                         this.form.loading = false;
+
                                         this.form.response = response.data;
                                     }
                                 })
                                 .catch(error => {
                                     this.form.loading = false;
+
                                     this.form.onFail(error);
 
                                     this.method_show_html = error.message;
@@ -959,7 +960,7 @@ const app = new Vue({
            let form_html = document.querySelector('form');
            
            if (form_html && form_html.getAttribute('id') == 'document') {
-               form_html.querySelectorAll('input, textarea, select, ul, li, a').forEach((element) => {
+               form_html.querySelectorAll('input, textarea, select, ul, li, a, [type="button"]').forEach((element) => {
                   element.addEventListener('click', () => {
                       this.onBeforeUnload();
                   });
@@ -1148,6 +1149,6 @@ const app = new Vue({
             }
 
             this.form.discount = this.form.discount.replace(',', '.');
-        }
+        },
     },
 });
