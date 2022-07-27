@@ -267,37 +267,38 @@
                                     class="flex items-center justify-center bg-transparent hover:bg-gray-200 px-3 py-1.5 text-base rounded-lg disabled:opacity-50"
                                     override="class"
                                 >
-                                    <x-button.loading>
+                                    <x-button.loading action="! reconcile && form.loading">
                                         {{ trans('reconciliations.save_draft') }}
                                     </x-button.loading>
                                 </x-button>
-    
-                                <div v-if="reconcile">
+
+                                <div v-if="! reconcile">
                                     <x-tooltip id="tooltip-reconcile" placement="top" message="{{ trans('reconciliations.irreconcilable') }}">
                                         <x-button
                                           type="button"
-                                          ::disabled="reconcile || form.loading"
-                                          class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue-300 hover:bg-blue-500 disabled:bg-blue-100"
+                                          ::disabled="! reconcile"
+                                          class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue hover:bg-blue-700 disabled:bg-blue-100"
                                           override="class"
                                           @click="onReconcileSubmit"
                                           data-loading-text="{{ trans('general.loading') }}"
                                         >
-                                            <x-button.loading action="! reconcile">
+                                            <x-button.loading action="reconcile && form.loading">
                                                 {{ trans('reconciliations.reconcile') }}
                                             </x-button.loading>
                                         </x-button>
                                     </x-tooltip>
                                 </div>
+
                                 <div v-else>
                                     <x-button
                                       type="button"
-                                      ::disabled="reconcile || form.loading"
-                                      class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue-300 hover:bg-blue-500 disabled:bg-blue-100"
+                                      ::disabled="! reconcile"
+                                      class="relative flex items-center justify-center px-3 py-1.5 ltr:ml-2 rtl:mr-2 text-white text-base rounded-lg bg-blue hover:bg-blue-700 disabled:bg-blue-100"
                                       override="class"
                                       @click="onReconcileSubmit"
                                       data-loading-text="{{ trans('general.loading') }}"
                                     >
-                                        <x-button.loading action="! reconcile">
+                                        <x-button.loading action="reconcile && form.loading">
                                             {{ trans('reconciliations.reconcile') }}
                                         </x-button.loading>
                                     </x-button>
