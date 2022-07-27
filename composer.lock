@@ -907,16 +907,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.14",
+            "version": "3.231.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165"
+                "reference": "ba379285d24b609a997bd8b40933d3e0a3826dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6b79b9c8204813d9674ffa7badcd567d7f608165",
-                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba379285d24b609a997bd8b40933d3e0a3826dfb",
+                "reference": "ba379285d24b609a997bd8b40933d3e0a3826dfb",
                 "shasum": ""
             },
             "require": {
@@ -993,9 +993,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.15"
             },
-            "time": "2022-07-26T18:20:14+00:00"
+            "time": "2022-07-27T18:59:36+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -6454,16 +6454,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.59.1",
+            "version": "2.60.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5"
+                "reference": "00a259ae02b003c563158b54fb6743252b638ea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
-                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/00a259ae02b003c563158b54fb6743252b638ea6",
+                "reference": "00a259ae02b003c563158b54fb6743252b638ea6",
                 "shasum": ""
             },
             "require": {
@@ -6552,7 +6552,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-29T21:43:55+00:00"
+            "time": "2022-07-27T15:57:48+00:00"
         },
         {
             "name": "nette/schema",
@@ -14214,5 +14214,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
