@@ -47,8 +47,11 @@ return [
     'install_cloud'         => 'Utiliser sur le service Cloud',
     'get_cloud'             => 'Obtenir le service Cloud',
     'get_premium_cloud'     => 'Obtenez le Cloud Premium',
+    'switch_to_cloud'       => 'Passer au Cloud',
+    'hosted_on_akaunting'   => 'Hébergé sur akaunting.com',
     'only_works_cloud'      => 'Cette application ne fonctionne que sur le <strong>Service Cloud</strong>.',
     'only_premium_plan'     => 'Cette application ne fonctionne que sur le <strong>Cloud Premium Service</strong>.',
+    'not_found'             => 'Aucune application trouvée',
 
     'about'                 => 'A propos',
 

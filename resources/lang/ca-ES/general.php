@@ -16,6 +16,8 @@ return [
     'vendors'               => 'Proveïdor|Proveïdors',
     'accounts'              => 'Compte|Comptes',
     'transfers'             => 'Transferència|Transferències',
+    'income_transfers'      => 'Transferència d\'ingrés|Transferències d\'ingrés',
+    'expense_transfers'     => 'Transferència de despesa|Transferències de despesa',
     'transactions'          => 'Transacció|Transaccions',
     'payments'              => 'Pagament|Pagaments',
     'recurring_transactions'=> 'Transacció recurrent|Transaccions recurrents',

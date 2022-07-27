@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Le password devono essere di almeno 6 caratteri e devono coincidere.',
     'reset' => 'La password è stata reimpostata!',
     'sent' => 'Promemoria della password inviato!',
     'throttled' => 'Per favore attendere prima di riprovare.',

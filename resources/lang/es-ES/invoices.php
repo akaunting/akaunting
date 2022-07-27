@@ -79,7 +79,7 @@ return [
     ],
 
     'sticky' => [
-        'description' => 'Está previsualizando cómo verá su cliente la versión web de su factura.',
+        'description'       => 'Está previsualizando cómo verá su cliente la versión web de su factura.',
     ],
 
 ];

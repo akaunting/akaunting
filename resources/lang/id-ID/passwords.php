@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Kata sandi harus minimal enam karakter dan cocok dengan konfirmasi.',
     'reset' => 'Kata sandi Anda sudah direset!',
     'sent' => 'Kami sudah mengirim email yang berisi tautan untuk mereset kata sandi Anda!',
     'throttled' => 'Silahkan tunggu sebelum mencoba lagi.',

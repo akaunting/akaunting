@@ -11,4 +11,12 @@ return [
         'disable_active'    => 'Kesalahan: Tidak dapat menonaktifkan perusahaan yang aktif. Silakan, beralih ke yang lain dulu!',
     ],
 
+    'form_description' => [
+        'general'           => 'Informasi ini terlihat dalam rekaman yang Anda buat.',
+        'billing'           => 'Nomor pajak muncul di setiap faktur/tagihan. Dasbor dan Laporan ditampilkan di bawah mata uang default.',
+        'address'           => 'Alamat tersebut akan digunakan dalam faktur, tagihan, dan catatan lain yang Anda keluarkan.',
+    ],
+
+    'skip_step'             => 'Lewati langkah ini',
+
 ];

@@ -16,6 +16,8 @@ return [
     'vendors'               => 'Dobavljač|Dobavljači',
     'accounts'              => 'Račun|Računi',
     'transfers'             => 'Prijenos|Prijenosi',
+    'income_transfers'      => 'Dolazni transfer|Dolazni transferi',
+    'expense_transfers'     => 'Odlazni transfer|Odlazni transferi',
     'transactions'          => 'Transakcija|Transakcije',
     'payments'              => 'Plaćanje|Plaćanja',
     'recurring_transactions'=> 'Ponavljajuća transakcija|Ponavljajuće transakcije',

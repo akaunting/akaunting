@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Passordet ble endret.',
-    'sent' => 'Vi har sendt deg en lenke på e-post, som du kan klikke på for å endre passord!',
-    'throttled' => 'Vennligst vent før du prøver igjen.',
-    'token' => 'Nullstillingskode for passord er ugyldig.',
-    'user' => "Vi finner ingen bruker med denne e-postadressen.",
+    'reset' => 'Nenosiri lako limefufuliwa upya!',
+    'sent' => 'Tumekutumia barua pepe ya fungo la kufufua nenosiri!',
+    'throttled' => 'Tafadhali kusubiri kabla inajaribu tena.',
+    'token' => 'Huu ufufuzi wa nenosiri si halali.',
+    'user' => "Hatupati mtumiaji wa hiyo anuani ya barua pepe.",
 
 ];

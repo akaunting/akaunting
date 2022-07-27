@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'Parollar ən azı altı simvoldan ibarət olmalı və təsdiqlə uyğun olmalıdır.',
     'reset' => 'Şifrəniz sıfırlandı!',
     'sent' => 'Şifrə sıfırlama linkinizi elektron poçtla göndərdik!',
     'throttled' => 'Yenidən sınamazdan əvvəl gözləyin.',

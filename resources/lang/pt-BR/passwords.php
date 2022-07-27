@@ -13,7 +13,6 @@ return [
     |
     */
 
-    'password' => 'A senha deve possuir no mínimo 6 caracteres e ser igual a confirmação.',
     'reset' => 'Sua senha foi redefinida!',
     'sent' => 'O link para redefinição de senha foi enviado para o seu e-mail!',
     'throttled' => 'Por favor, aguarde antes de tentar novamente.',

@@ -2,15 +2,16 @@
 
 return [
 
+    'details'               => 'Détail|Détails',
+
     'from_account'          => 'Du compte',
     'to_account'            => 'Vers le compte',
     'from_rate'             => 'À partir du taux',
-    'from_account_rate'     => 'À partir du taux du compte',
     'to_rate'               => 'Évaluer',
+    'from_account_rate'     => 'À partir du taux du compte',
     'to_account_rate'       => 'Au taux du compte',
     'from_amount'           => 'Du compte',
     'to_amount'             => 'Au montant',
-    'details'               => 'Détail|Détails',
     'issued_at'             => 'Date d\'émission',
     'rate'                  => 'Taux',
 
@@ -25,6 +26,8 @@ return [
 
     'slider' => [
         'create'            => ':user a créé ce transfert le :date',
+        'transactions'      => 'Liste des opérations liées à ce transfert',
+        'transactions_desc' => ':number transaction pour :account',
     ],
 
 ];

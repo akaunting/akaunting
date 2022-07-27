@@ -50,6 +50,7 @@ return [
     'hosted_on_akaunting'   => 'Hospedado em akaunting.com',
     'only_works_cloud'      => 'Este aplicativo está disponível apenas em <strong>Nuvem</strong>.',
     'only_premium_plan'     => 'Este aplicativo funciona apenas com o <strong>Serviço Premium na Nuvem</strong>.',
+    'not_found'             => 'Nenhum módulo encontrado',
 
     'about'                 => 'Sobre',
 

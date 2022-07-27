@@ -50,6 +50,7 @@ return [
     'hosted_on_akaunting'   => 'akaunting.com पर होस्ट किया गया',
     'only_works_cloud'      => 'यह ऐप केवल <strong>क्लाउड सेवा</strong> पर काम करता है।',
     'only_premium_plan'     => 'यह ऐप केवल <strong>क्लाउड प्रीमियम सेवा</strong> पर काम करता है।',
+    'not_found'             => 'कोई ऐप नहीं मिला',
 
     'about'                 => 'के बारे में',
 
