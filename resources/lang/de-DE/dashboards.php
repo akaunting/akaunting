@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Fehler: Das letzte Dashboard kann nicht deaktiviert werden. Bitte erstellen Sie zuerst ein neues Dashboard!',
     ],
 
+    'form_description' => [
+        'general'               => 'Wählen Sie die Benutzer aus, welche Zugriff auf das neue Dashboard erhalten sollen.',
+    ],
+
 ];

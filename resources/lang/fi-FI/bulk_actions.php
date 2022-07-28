@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Oletko varma, että haluat <b>peruuttaa<b> valitun tietueen <b>täsmäytyksen</b>?|Oletko varma, että haluat <b>peruuttaa<b> valittujen tietueiden <b>täsmäytyksen</b>?',
     ],
 
+    'success' => [
+        'general'       => ':määrätiedossa :tyyppi',
+    ],
 ];

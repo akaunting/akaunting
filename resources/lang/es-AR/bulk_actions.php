@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Are you sure you want to <b>unreconcile</b> selected record?|Are you sure you want to <b>unreconcile</b> selected records?',
     ],
 
+    'success' => [
+        'general'       => ':count registro :type.',
+    ],
 ];

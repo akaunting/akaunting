@@ -19,5 +19,7 @@ return [
         '404'       => 'Nous n\'avons pas trouvé la page que vous cherchiez.',
         '500'       => 'Nous allons travailler à corriger cela tout de suite.',
         'record'    => 'Nous n\'avons pas pu trouver l\'enregistrement que vous cherchiez.',
+        'amount'    => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
     ],
+
 ];
