@@ -960,7 +960,7 @@ const app = new Vue({
            let form_html = document.querySelector('form');
            
            if (form_html && form_html.getAttribute('id') == 'document') {
-               form_html.querySelectorAll('input, textarea, select, ul, li, a, [type="button"]').forEach((element) => {
+               form_html.querySelectorAll('input, textarea, select, ul, li, a').forEach((element) => {
                   element.addEventListener('click', () => {
                       this.onBeforeUnload();
                   });
@@ -971,6 +971,12 @@ const app = new Vue({
                         window.onbeforeunload = null;
                    });
                });
+
+               form_html.querySelectorAll('[type="button"]').forEach((button) => {
+                button.addEventListener('click', () => {
+                     window.onbeforeunload = null;
+                });
+            });
            }
         },
 
