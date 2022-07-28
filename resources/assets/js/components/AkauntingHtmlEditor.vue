@@ -43,6 +43,7 @@ export default {
             customToolbar: [
                 ["bold", "italic", "underline"],
                 [{ list: "ordered" }, { list: "bullet" }],
+                ["link"]
             ],
         }
     },
