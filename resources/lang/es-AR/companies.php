@@ -11,4 +11,12 @@ return [
         'disable_active'    => 'Error: No se puede desactivar la empresa activa. ¡Por favor, cambie a otra primero!',
     ],
 
+    'form_description' => [
+        'general'           => 'Esta información es visible en los registros que crea.',
+        'billing'           => 'El CUIT aparece en cada factura. El panel de informes y los reportes se muestran bajo la moneda predeterminada.',
+        'address'           => 'La dirección se utilizará en las facturas, cuentas y otros registros que emita.',
+    ],
+
+    'skip_step'             => 'Saltar este paso',
+
 ];

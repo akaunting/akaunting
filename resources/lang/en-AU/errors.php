@@ -19,5 +19,7 @@ return [
         '404'       => 'We could not find the page you were looking for.',
         '500'       => 'We will work on fixing that right away.',
         'record'    => 'We could not find the record you were looking for.',
+        'amount'    => 'This page contains invalid amounts! Please, contact the system administrator.',
     ],
+
 ];

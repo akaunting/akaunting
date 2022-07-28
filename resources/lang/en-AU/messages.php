@@ -41,6 +41,7 @@ return [
         'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
         'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
+        'missing_transfer'  => 'Warning: The transfer related to this transaction is missing. You should consider deleting this transaction.',
     ],
 
 ];

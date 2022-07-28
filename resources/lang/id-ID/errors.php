@@ -19,5 +19,7 @@ return [
         '404'       => 'Kami tidak dapat menemukan halaman yang Anda cari.',
         '500'       => 'Kami akan segera memperbaikinya.',
         'record'    => 'Kami tidak dapat menemukan catatan yang Anda cari.',
+        'amount'    => 'Halaman ini berisi jumlah yang tidak sah! Silakan hubungi administrator sistem.',
     ],
+
 ];

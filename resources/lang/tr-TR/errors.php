@@ -19,5 +19,7 @@ return [
         '404'       => 'Ulaşmaya çalıştığınız sayfayı bulamadık.',
         '500'       => 'Bu sorunu gidermek için hemen işe başlıyoruz.',
         'record'    => 'Ulaşmaya çalıştığınız kaydı bulamadık.',
+        'amount'    => 'Bu sayfa geçersiz tutarlar içeriyor! Lütfen sistem yöneticisine başvurun.',
     ],
+
 ];

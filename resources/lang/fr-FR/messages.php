@@ -41,6 +41,7 @@ return [
         'reconciled_doc'    => 'AVERTISSEMENT : Vous n\'êtes pas autorisé à changer/supprimer :type car il a réconcilié les transactions !',
         'disable_code'      => 'Attention : vous n’êtes pas autorisé à désactiver ou modifier la monnaie de <b>:name</b> car elle a un lien avec :text.',
         'payment_cancel'    => 'AVERTISSEMENT : Vous avez annulé votre paiement récent de :method !',
+        'missing_transfer'  => 'AVERTISSEMENT : Le transfert lié à cette transaction est manquant. Vous devriez envisager de supprimer cette transaction.',
     ],
 
 ];
