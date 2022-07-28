@@ -19,7 +19,7 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
         event(new UserCreating($this->request));
 
         \DB::transaction(function () {
-            if (! app()->runningInConsole() && ! request()->isInstall()) {
+            if (empty($this->request->get('password', false))) {
                 $this->request->merge(['password' => Str::random(40)]);
             }
 
@@ -71,7 +71,7 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
                 ]);
             }
 
-            if ((! app()->runningInConsole() && ! request()->isInstall()) || app()->runningUnitTests()) {
+            if ($this->shouldSendInvitation()) {
                 $this->dispatch(new CreateInvitation($this->model));
             }
         });
@@ -79,5 +79,18 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
         event(new UserCreated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    protected function shouldSendInvitation()
+    {
+        if (app()->runningInConsole()) {
+            return false;
+        }
+
+        if (request()->isInstall()) {
+            return false;
+        }
+
+        return true;
     }
 }
