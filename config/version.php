@@ -10,7 +10,7 @@ return [
 
     'minor'     =>  '0',
 
-    'patch'     =>  '4',
+    'patch'     =>  '5',
 
     'build'     =>  '',
 
@@ -18,7 +18,7 @@ return [
 
     'date'      =>  '15-July-2022',
 
-    'time'      =>  '14:00',
+    'time'      =>  '23:50',
 
     'zone'      =>  'GMT +3',
 
