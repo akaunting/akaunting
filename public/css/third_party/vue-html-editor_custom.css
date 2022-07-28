@@ -87,9 +87,9 @@
   border-right: 0.5rem solid transparent;
 }
 .ql-container .ql-tooltip:hover {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .ql-tooltip .ql-preview {
   width: 100%;
@@ -277,4 +277,12 @@
 
 .ql-snow .ql-tooltip a.ql-action::after {
     display: none;
+}
+
+.ql-snow .ql-tooltip input[type=text]::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.ql-snow .ql-hidden {
+  display: none !important;
 }

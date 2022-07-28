@@ -94,9 +94,9 @@
   border-right: 0.5rem solid transparent;
 }
 .ql-container .ql-tooltip:hover {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .ql-tooltip .ql-preview {
   width: 100%;
@@ -284,6 +284,14 @@
 
 .ql-snow .ql-tooltip a.ql-action::after {
     display: none;
+}
+
+.ql-snow .ql-tooltip input[type=text]::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.ql-snow .ql-hidden {
+  display: none !important;
 }
 .dropzone {
   position: relative;
@@ -47478,9 +47486,9 @@ body{
   background-color: rgb(85 88 139 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-blue-500:hover{
+.hover\:bg-blue-700:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(0 110 166 / var(--tw-bg-opacity));
+  background-color: rgb(0 83 125 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-purple-700:hover{
