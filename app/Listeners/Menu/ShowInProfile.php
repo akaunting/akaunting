@@ -33,7 +33,9 @@ class ShowInProfile
             $menu->route('users.index', $title, [], 20, ['icon' => 'people']);
         }
 
+        $is_portal = user()->isCustomer() ? 'portal.' : '';
+
         $title = trim(trans('auth.logout'));
-        $menu->route('logout', $title, [], 90, ['icon' => 'power_settings_new', 'class' => 'mt-5']);
+        $menu->route($is_portal . 'logout', $title, [], 90, ['icon' => 'power_settings_new', 'class' => 'mt-5']);
     }
 }
