@@ -66,13 +66,13 @@
                     data-menu="notifications-menu"
                 >
                     <span id="menu-notification-icon" name="notifications" class="material-icons-outlined text-purple text-2xl">notifications</span>
-                </button>
 
-                @if ($notification_count)
-                    <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
-                        {{ $notification_count }}
-                    </span>
-                @endif
+                    @if ($notification_count)
+                        <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
+                            {{ $notification_count }}
+                        </span>
+                    @endif
+                </button>
             </x-tooltip>
             @endcan
 
