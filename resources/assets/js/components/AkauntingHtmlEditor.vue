@@ -80,7 +80,7 @@ export default {
             }
         },
 
-        content (newVal) {            
+        content (newVal) {        
             // #337y1z3 This issue reason <p> tag broken email template
             newVal = newVal.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
 
