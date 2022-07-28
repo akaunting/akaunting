@@ -4,12 +4,13 @@ namespace App\Models\Document;
 
 use App\Abstracts\Model;
 use App\Traits\Currencies;
+use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Builder;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 class DocumentItemTax extends Model
 {
-    use Currencies, BelongsToThrough;
+    use Cloneable, Currencies, BelongsToThrough;
 
     protected $table = 'document_item_taxes';
 
@@ -52,5 +53,12 @@ class DocumentItemTax extends Model
     public function scopeBill(Builder $query)
     {
         return $query->where($this->qualifyColumn('type'), '=', Document::BILL_TYPE);
+    }
+
+    public function onCloned($src)
+    {
+        $document_item = DocumentItem::find($this->document_item_id);
+
+        $this->update(['document_id' => $document_item->document_id]);
     }
 }
