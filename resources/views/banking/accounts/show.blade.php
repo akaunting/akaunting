@@ -144,7 +144,7 @@
                     @stack('account_currency_start')
                     <div class="flex flex-col text-sm mb-5">
                         <div class="font-medium">
-                            {{ trans_choice('general.currencies', 2) }}
+                            {{ trans_choice('general.currencies', 1) }}
                         </div>
 
                         <span>
@@ -156,7 +156,7 @@
                     @stack('account_starting_balance_start')
                     <div class="flex flex-col text-sm mb-5">
                         <div class="font-medium">
-                            {{ trans_choice('accounts.opening_balance', 2) }}
+                            {{ trans('accounts.opening_balance') }}
                         </div>
 
                         <span>
