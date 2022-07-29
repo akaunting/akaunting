@@ -48,5 +48,10 @@ class ShowInNeww
         if ($this->canAccessMenuItem($title, 'create-purchases-vendors')) {
             $menu->route('vendors.create', $title, [], 60, ['icon' => 'engineering']);
         }
+
+        $title = trim(trans_choice('general.transfers', 1));
+        if ($this->canAccessMenuItem($title, 'create-banking-transfers')) {
+            $menu->route('transfers.create', $title, [], 70, ['icon' => 'swap_horiz']);
+        }
     }
 }
