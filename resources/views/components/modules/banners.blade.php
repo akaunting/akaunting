@@ -6,7 +6,7 @@
     <div class="w-full lg:h-48 px-6 bg-dark-blue rounded-lg flex flex-col lg:flex-row justify-between items-center my-8">
         <div class="w-full lg:w-1/2 flex flex-col self-end py-6">
             <div
-                class="w-96 h-28"
+                class="h-28"
                 x-data="{
                     text: '',
                     textArray : ['{{ trans('modules.premium_banner') }}'],
