@@ -51,13 +51,13 @@ class Version305 extends Listener
     {
         Log::channel('stdout')->info('Updating settings...');
 
-        DB::table('settings')->where('key', 'transaction.type.income')->get()->each(function ($setting) {
+        DB::table('settings')->where('key', 'transaction.type.income')->cursor()->each(function ($setting) {
             DB::table('settings')->where('id', $setting->id)->update([
                 'value' => $setting->value . ',' . Transaction::INCOME_TRANSFER_TYPE,
             ]);
         });
 
-        DB::table('settings')->where('key', 'transaction.type.expense')->get()->each(function ($setting) {
+        DB::table('settings')->where('key', 'transaction.type.expense')->cursor()->each(function ($setting) {
             DB::table('settings')->where('id', $setting->id)->update([
                 'value' => $setting->value . ',' . Transaction::EXPENSE_TRANSFER_TYPE,
             ]);
@@ -70,7 +70,7 @@ class Version305 extends Listener
     {
         Log::channel('stdout')->info('Updating transfers...');
 
-        DB::table('transfers')->get()->each(function ($transfer) {
+        DB::table('transfers')->cursor()->each(function ($transfer) {
             Log::channel('stdout')->info('Updating transfer: ' . $transfer->id);
 
             try {
