@@ -21,12 +21,12 @@ return [
     'income_expense'                => 'Income & Expense',
     'pin'                           => 'Pin your report',
 
-    'income_expense_description'    => 'Description for income and expense reports',
-    'accounting_description'        => 'Description for accounting reports',
+    'income_expense_description'    => 'Get an overview of your income and expenses.',
+    'accounting_description'        => 'Get a clear picture of how your business is doing.',
 
     'form_description' => [
         'general'                   => 'Here you can enter the general information of report such as name, type, description, etc.',
-        'preferences'               => 'Preferences helps you to customize your reports.  '
+        'preferences'               => 'Preferences helps you to customize your reports.'
     ],
 
     'charts' => [
