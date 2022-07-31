@@ -8,9 +8,22 @@
                 <h2 x-show="toggle === 'bar'">{{ trans('general.distribution') }}</h2>
             </div>
 
-            <div class="w-8 h-8 flex items-center justify-center px-2 py-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6 cursor-pointer" x-on:click="toggle === 'bar' ? toggle = 'donut' : toggle = 'bar'">
-                <span class="material-icons-outlined" x-bind:class="toggle === 'donut' ? 'block': 'hidden'" title="{{ trans('general.distribution') }}">donut_small</span>
-                <span class="material-icons" x-bind:class="toggle === 'bar' ? 'block': 'hidden'" title="{{ trans('general.timeline') }}">signal_cellular_alt</span>
+            <div class="flex items-center bg-gray-200 p-1 rounded-lg">
+                <button type="button"
+                    class="w-18 flex justify-center px-2"
+                    x-bind:class="toggle === 'donut' ? 'bg-white rounded-lg' : 'btn-outline-primary'"
+                    x-on:click="toggle = 'donut'"
+                >
+                    <span class="material-icons" title="{{ trans('general.timeline') }}">signal_cellular_alt</span>
+                </button>
+
+                <button type="button"
+                    class="w-18 flex justify-center px-2"
+                    x-bind:class="toggle === 'bar' ? 'bg-white rounded-lg' : 'btn-outline-primary'"
+                    x-on:click="toggle = 'bar'"
+                >
+                    <span class="material-icons-outlined" title="{{ trans('general.distribution') }}">donut_small</span>
+                </button>
             </div>
         </div>
 
