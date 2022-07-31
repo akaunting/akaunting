@@ -36,13 +36,17 @@ class Category extends Form
         if (! empty($model)) {
             $this->selected = $model->category_id;
 
-            if (! $this->categories->has($model->category_id) && ($category = $model->category)) {
-                $this->categories->put($category->id, $category->name);
-            }
+            $selected_category = $model->category;
         }
 
-        if (empty($this->selected) && (in_array($this->type, [Model::INCOME_TYPE, Model::EXPENSE_TYPE]))) {
+        if (empty($this->selected) && in_array($this->type, [Model::INCOME_TYPE, Model::EXPENSE_TYPE])) {
             $this->selected = setting('default.' . $this->type . '_category');
+
+            $selected_category = Model::find($this->selected);
+        }
+
+        if (! empty($selected_category) && ! $this->categories->has($selected_category->id)) {
+            $this->categories->put($selected_category->id, $selected_category->name);
         }
 
         return view('components.form.group.category');
