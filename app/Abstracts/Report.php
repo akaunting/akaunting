@@ -141,13 +141,15 @@ abstract class Report
 
     public function getCategoryDescription()
     {
-        if (!empty($this->category_description)) {
+        if (! empty($this->category_description)) {
             return trans($this->category_description);
         }
 
         return $this->findTranslation([
             $this->category . '_desc',
             $this->category . '_description',
+            str_replace('general.', 'reports.', $this->category) . '_desc',
+            str_replace('general.', 'reports.', $this->category) . '_description',
         ]);
     }
 
