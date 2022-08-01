@@ -287,7 +287,7 @@ abstract class Report
                 $width = 'w-4/12 col-4';
                 break;
             case 'monthly':
-                $width = 'col-1';
+                $width = 'col-1 w-20';
                 break;
         }
 
