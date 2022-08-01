@@ -436,6 +436,14 @@ html[dir='rtl'] .el-input__suffix {
     text-align: left;
 }
 
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+    right: 15px !important;
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+    background-color: transparent;
+}
+
 @media only screen and (max-width: 480px) {
     .el-range-editor.el-input__inner {
         width: 100%;
