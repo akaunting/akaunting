@@ -70,9 +70,7 @@ class ImportFailed extends Notification implements ShouldQueue
     {
         return [
             'title' => trans('notifications.menu.import_failed.title'),
-            'description' => trans('notifications.menu.import_failed.description', [
-                'issues' => $this->errors,
-            ]),
+            'description' => trans('notifications.menu.import_failed.description'),
             'errors' => $this->errors,
         ];
     }
