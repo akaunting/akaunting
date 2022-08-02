@@ -273,7 +273,7 @@
 }
 
 .el-select-dropdown__item .badge-success {
-    @apply absolute bg-green text-white px-2 py-1 ltr:right-4 rtl:left-4 rounded-md text-xs text-right m-0;
+    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs text-right m-0;
     width: auto;
 }
 
@@ -513,6 +513,11 @@ html[dir='rtl'] .el-input__suffix {
 
     .small-col {
         width: auto !important;
+    }
+
+    .information-content {
+        transform: unset !important;
+        margin-top: 70px !important;
     }
 }
 

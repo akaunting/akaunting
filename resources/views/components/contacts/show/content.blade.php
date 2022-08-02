@@ -162,7 +162,7 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr class="flex items-center px-1">
-                                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                                        <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="due_at" title="{{ trans('invoices.due_date') }}" />
                                             </x-slot>
@@ -176,7 +176,7 @@
                                             <x-sortablelink column="status" title="{{ trans_choice('general.statuses', 1) }}" />
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12 sm:table-cell'">
+                                        <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="contact_name" title="{{ trans_choice('general.customers', 1) }}" />
                                             </x-slot>
@@ -186,7 +186,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12" kind="amount">
+                                        <x-table.th class="w-4/12 lg:w-3/12" kind="amount">
                                             <x-sortablelink column="amount" title="{{ trans('general.amount') }}" />
                                         </x-table.th>
                                     </x-table.tr>
@@ -196,7 +196,7 @@
                                     @foreach($documents as $item)
                                         @php $paid = $item->paid; @endphp
                                         <x-table.tr href="{{ route(config('type.document.' . $item->type . '.route.prefix', 'invoices') . '.show', $item->id) }}">
-                                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                            <x-table.td class="w-4/12 lg:w-3/12">
                                                 <x-slot name="first" class="font-bold truncate" override="class">
                                                     {{ \Date::parse($item->due_at)->diffForHumans() }}
                                                 </x-slot>
@@ -210,7 +210,7 @@
                                                 <x-show.status status="{{ $item->status }}" background-color="bg-{{ $item->status_label }}" text-color="text-text-{{ $item->status_label }}" />
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 sm:table-cell">
+                                            <x-table.td class="w-4/12 lg:w-3/12">
                                                 <x-slot name="first">
                                                     {{ $item->contact_name }}
                                                 </x-slot>
@@ -226,7 +226,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 relative" kind="amount">
+                                            <x-table.td class="w-4/12 lg:w-3/12" kind="amount">
                                                 <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                                             </x-table.td>
 
@@ -251,7 +251,7 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr class="flex items-center px-1">
-                                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                                        <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />
                                             </x-slot>
@@ -260,7 +260,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12">
+                                        <x-table.th class="w-3/12 hidden sm:table-cell">
                                             <x-slot name="first">
                                                 <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
                                             </x-slot>
@@ -269,7 +269,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                                        <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="account.name" title="{{ trans_choice('general.accounts', 1) }}" />
                                             </x-slot>
@@ -278,7 +278,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12" kind="amount">
+                                        <x-table.th class="w-4/12 lg:w-3/12" kind="amount">
                                             <x-sortablelink column="amount" title="{{ trans('general.amount') }}" />
                                         </x-table.th>
                                     </x-table.tr>
@@ -287,7 +287,7 @@
                                 <x-table.tbody>
                                     @foreach($transactions as $item)
                                         <x-table.tr href="{{ route('transactions.show', $item->id) }}">
-                                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                            <x-table.td class="w-4/12 lg:w-3/12">
                                                 <x-slot name="first" class="font-bold truncate" override="class">
                                                     <x-date date="{{ $item->paid_at }}" />
                                                 </x-slot>
@@ -296,7 +296,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12">
+                                            <x-table.td class="w-3/12 hidden sm:table-cell">
                                                 <x-slot name="first">
                                                     {{ $item->type_title }}
                                                 </x-slot>
@@ -305,7 +305,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                            <x-table.td class="w-4/12 lg:w-3/12">
                                                 <x-slot name="first">
                                                     {{ $item->account->name }}
                                                 </x-slot>
@@ -320,7 +320,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 relative" kind="amount">
+                                            <x-table.td class="w-4/12 lg:w-3/12" kind="amount">
                                                 <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                                             </x-table.td>
 
