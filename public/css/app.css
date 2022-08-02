@@ -47865,10 +47865,6 @@ body{
   padding-right: 1.5rem;
 }
 
-[dir="ltr"] .ltr\:pl-0{
-  padding-left: 0px;
-}
-
 [dir="ltr"] .ltr\:pl-6{
   padding-left: 1.5rem;
 }
@@ -48039,16 +48035,16 @@ body{
   padding-left: 1.5rem;
 }
 
-[dir="rtl"] .rtl\:pr-0{
-  padding-right: 0px;
-}
-
 [dir="rtl"] .rtl\:pr-6{
   padding-right: 1.5rem;
 }
 
 [dir="rtl"] .rtl\:pl-0{
   padding-left: 0px;
+}
+
+[dir="rtl"] .rtl\:pr-0{
+  padding-right: 0px;
 }
 
 [dir="rtl"] .rtl\:pr-3{
