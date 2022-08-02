@@ -70,7 +70,7 @@
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
-                            <x-table.td class="w-5/12 truncate">
+                            <x-table.td class="w-5/12">
                                 @if ($item->sub_categories->count())
                                     <div class="flex items-center font-bold">
                                         {{ $item->name }}
@@ -97,7 +97,7 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-5/12 truncate">
+                            <x-table.td class="w-5/12">
                                 @if (! empty($types[$item->type]))
                                     {{ $types[$item->type] }}
                                 @else
@@ -105,7 +105,7 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 relative">
+                            <x-table.td class="w-2/12">
                                 <span class="material-icons text-{{ $item->color }}" class="text-3xl" style="color:{{ $item->color }};">circle</span>
                             </x-table.td>
 

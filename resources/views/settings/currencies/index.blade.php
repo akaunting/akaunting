@@ -72,7 +72,7 @@
                                 </x-slot>
                             </x-table.td>
 
-                            <x-table.td class="w-6/12 sm:w-3/12 truncate">
+                            <x-table.td class="w-6/12 sm:w-3/12">
                                 {{ $item->code }}
                             </x-table.td>
 
@@ -80,7 +80,7 @@
                                 {{ $item->symbol }}
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 relative truncate">
+                            <x-table.td class="w-2/12">
                                 {{ $item->rate }}
                             </x-table.td>
 

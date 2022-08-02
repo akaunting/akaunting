@@ -103,7 +103,7 @@
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 truncate hidden sm:table-cell">
+                                <x-table.td class="w-3/12 hidden sm:table-cell">
                                     <x-slot name="first" class="flex items-center font-bold" override="class">
                                         <x-date date="{{ $item->expense_transaction->paid_at }}" />
                                     </x-slot>
@@ -116,7 +116,7 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                <x-table.td class="w-4/12 sm:w-3/12">
                                     <x-slot name="first">
                                         {{ $item->expense_transaction->account->name }}
                                     </x-slot>
@@ -125,7 +125,7 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 sm:w-3/12 truncate">
+                                <x-table.td class="w-4/12 sm:w-3/12">
                                     <x-slot name="first">
                                         {{ $item->expense_transaction->currency_rate }}
                                     </x-slot>

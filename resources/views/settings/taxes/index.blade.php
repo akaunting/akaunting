@@ -71,7 +71,7 @@
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-5/12 truncate">
+                                <x-table.td class="w-5/12">
                                     <x-slot name="first" class="flex" override="class">
                                         <div class="font-bold truncate">
                                             {{ $item->name }}
@@ -83,11 +83,11 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 truncate">
+                                <x-table.td class="w-4/12">
                                     {{ $types[$item->type] }}
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 relative">
+                                <x-table.td class="w-3/12">
                                     {{ $item->rate }}
                                 </x-table.td>
 

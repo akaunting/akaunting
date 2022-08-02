@@ -75,11 +75,11 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 sm:w-1/12 font-bold truncate">
+                            <x-table.td class="w-2/12 sm:w-1/12">
                                 {{ $item->id }}
                             </x-table.td>
 
-                            <x-table.td class="w-8/12 sm:w-4/12 truncate">
+                            <x-table.td class="w-8/12 sm:w-4/12">
                                 <x-slot name="first" class="flex" override="class">
                                     <div class="font-medium truncate">
                                         {{ $item->name }}
@@ -98,7 +98,7 @@
                                 </x-slot>
                             </x-table.td>
 
-                            <x-table.td class="w-4/12 hidden sm:table-cell truncate">
+                            <x-table.td class="w-4/12 hidden sm:table-cell">
                                 <x-slot name="first">
                                     @if ($item->email)
                                         {{ $item->email }}

@@ -135,7 +135,7 @@
                         <x-table.td class="{{ $classNameAndTaxNumber }}">
                             @stack('name_td_start')
                             @if (! $hideName)
-                            <x-slot name="first" class="flex items-center font-medium">
+                            <x-slot name="first" class="flex items-center">
                                 @if ($showPicture)
                                     @if (is_object($item->picture))
                                         <img src="{{ Storage::url($item->picture->id) }}" class="absolute w-6 h-6 bottom-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
@@ -157,7 +157,7 @@
 
                             @stack('tax_number_td_start')
                             @if (! $hideTaxNumber)
-                            <x-slot name="second" class="w-32 font-normal truncate {{ $showPicture ? ' ltr:pl-8 rtl:pr-8' : '' }}">
+                            <x-slot name="second" class="w-32 {{ $showPicture ? ' ltr:pl-8 rtl:pr-8' : '' }}">
                                 {{ $item->tax_number }}
                             </x-slot>
                             @endif

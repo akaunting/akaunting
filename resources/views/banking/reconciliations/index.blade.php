@@ -86,7 +86,7 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-6/12 sm:w-3/12 truncate">
+                                <x-table.td class="w-6/12 sm:w-3/12">
                                     {{ $item->account->name }}
                                 </x-table.td>
 
