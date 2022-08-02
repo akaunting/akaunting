@@ -41,7 +41,7 @@
         "akaunting/module-offline-payments": "^3.0",
         "akaunting/module-paypal-standard": "^3.0",
         "barryvdh/laravel-debugbar": "^3.6",
-        "barryvdh/laravel-dompdf": "^1.0",
+        "barryvdh/laravel-dompdf": "^2.0",
         "barryvdh/laravel-ide-helper": "^2.9",
         "bkwld/cloner": "^3.10",
         "doctrine/dbal": "^3.1",
