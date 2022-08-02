@@ -21,12 +21,12 @@ return [
     'income_expense'                => 'Recettes & Dépenses',
     'pin'                           => 'Épingler votre rapport',
 
-    'income_expense_description'    => 'Description pour les rapports de revenus et de dépenses',
-    'accounting_description'        => 'Description des rapports comptables',
+    'income_expense_description'    => 'Obtenez un aperçu de vos revenus et dépenses.',
+    'accounting_description'        => 'Obtenez une image claire de la façon dont votre entreprise se déroule.',
 
     'form_description' => [
         'general'                   => 'Saisir ici les informations générales du rapport telles que le nom, le type, la description, etc.',
-        'preferences'               => 'Les préférences vous aident à personnaliser vos rapports.  '
+        'preferences'               => 'Les préférences vous aident à personnaliser vos rapports.'
     ],
 
     'charts' => [

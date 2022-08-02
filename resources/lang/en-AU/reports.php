@@ -26,7 +26,7 @@ return [
 
     'form_description' => [
         'general'                   => 'Here you can enter the general information of report such as name, type, description, etc.',
-        'preferences'               => 'Preferences helps you to customise your reports.  '
+        'preferences'               => 'Preferences helps you to customise your reports.'
     ],
 
     'charts' => [

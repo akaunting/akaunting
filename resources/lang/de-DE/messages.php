@@ -13,6 +13,9 @@ return [
         'export_queued'     => ':type Export ist geplant! Sie erhalten eine E-Mail, sobald dieser fertiggestellt ist.',
         'enabled'           => ':type aktiviert!',
         'disabled'          => ':type deaktiviert!',
+        'connected'         => ':type verbunden!',
+        'invited'           => ':type eingeladen!',
+        'ended'             => ':type beendet!',
 
         'clear_all'         => 'Großartig! Du hast all deinen :type gelöscht.',
     ],
@@ -27,6 +30,8 @@ return [
         'invalid_apikey'    => 'Fehler: Der eingegebene API-Schlüssel ist ungültig!',
         'import_column'     => 'Fehler: :message. Name des Blattes: :sheet. Zeilennummer: :line.',
         'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
+        'same_amount'       => 'Fehler: Der Gesamtbetrag der Aufteilung muss genau der gleiche sein wie :transaction total: :amount',
+        'over_match'        => 'Fehler: :type nicht verbunden! Der eingegebene Betrag darf die Summe der Zahlung nicht überschreiten: :amount',
     ],
 
     'warning' => [
@@ -36,6 +41,7 @@ return [
         'reconciled_doc'    => 'Warnung: Sie dürfen :type nicht ändern/löschen, da Transaktionen abgeglichen wurden!',
         'disable_code'      => 'Warnung: Sie dürfen die Währung von <b>:name</b> nicht deaktivieren oder verändern, da :text dazu in Bezug steht.',
         'payment_cancel'    => 'Warnung: Sie haben Ihre letzte Zahlung :method abgebrochen!',
+        'missing_transfer'  => 'Warnung: Die Überweisung, die mit dieser Transaktion zusammenhängt, fehlt. Sie sollten erwägen, diese Transaktion zu löschen.',
     ],
 
 ];
