@@ -203,7 +203,6 @@
                                 id="transactions"
                                 name="{{ trans_choice('general.transactions', 2) }}"
                                 active
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
 
                             @stack('transfers_nav_start')
@@ -211,7 +210,6 @@
                             <x-tabs.nav
                                 id="transfers"
                                 name="{{ trans_choice('general.transfers', 2) }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
 
                             @stack('transfers_nav_end')

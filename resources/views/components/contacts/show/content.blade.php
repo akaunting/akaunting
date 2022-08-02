@@ -140,7 +140,6 @@
                         id="documents"
                         name="{{ trans_choice($textDocument, 2) }}"
                         active
-                        class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                     />
 
                     @stack('transactions_nav_start')
@@ -148,7 +147,6 @@
                     <x-tabs.nav
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"
-                        class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                     />
 
                     @stack('transactions_nav_end')
