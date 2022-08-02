@@ -41,6 +41,7 @@ return [
         'reconciled_doc'    => 'Avís: No pots canviar/esborrar :type perquè conté transaccions conciliades!',
         'disable_code'      => 'Avís: No pots desactivar o canviar la moneda de <b>:name</b> perquè té :text relacionat.',
         'payment_cancel'    => 'Avís: Has cancel·lat el teu pagament recent :method!',
+        'missing_transfer'  => 'Avís: No es troba la transferència relativa a aquesta transacció. S\'hauria d\'esborrar la transacció.',
     ],
 
 ];
