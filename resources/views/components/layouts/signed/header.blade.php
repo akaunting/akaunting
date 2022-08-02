@@ -5,7 +5,9 @@
         <div class="w-full sm:w-6/12 items-center mb-3 sm:mb-0">
             <div class="flex items-center">
                 <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5">
-                    {!! $title !!}
+                    <x-page-title>
+                        {!! $title !!}
+                    </x-page-title>
 
                     @yield('dashboard_action')
                 </h1>
