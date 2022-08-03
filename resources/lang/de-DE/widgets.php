@@ -2,23 +2,33 @@
 
 return [
 
-    'currencies'                => 'Währungen',
-    'total_income'              => 'Total Einnahmen',
     'receivables'               => 'Forderungen',
-    'open_invoices'             => 'Offene Rechnungen (Einnahmen)',
-    'overdue_invoices'          => 'Überfällige Rechnungen (Einnahmen)',
-    'total_expenses'            => 'Ausgaben Gesamt',
     'payables'                  => 'Verbindlichkeiten',
-    'open_bills'                => 'Offene Rechnungen (Ausgaben)',
-    'overdue_bills'             => 'Überfällige Rechnungen (Ausgaben)',
-    'total_profit'              => 'Gewinn Gesamt',
-    'open_profit'               => 'Offener Gewinn',
-    'overdue_profit'            => 'Überfälliger Gewinn',
     'cash_flow'                 => 'Umlaufvermögen',
-    'no_profit_loss'            => 'Kein Gewinn-Verlust',
-    'income_by_category'        => 'Einnahmen nach Kategorie',
+    'profit_loss'               => 'Gewinn & Verlust',
     'expenses_by_category'      => 'Ausgaben nach Kategorie',
     'account_balance'           => 'Kontostand',
-    'latest_income'             => 'Neueste Einnahmen',
-    'latest_expenses'           => 'Letzte Ausgaben',
+    'bank_feeds'                => 'Bankkonten verbinden',
+    'currencies'                => 'Währungen',
+
+    'view_report'               => 'Bericht Anzeigen',
+    'total_unpaid_invoices'     => 'Gesamte unbezahlte Rechnungen (Debitoren)',
+    'total_unpaid_bills'        => 'Gesamte unbezahlte Rechnungen (Kreditoren)',
+
+    'description' => [
+        'receivables'           => 'Betrag, den Sie noch von Ihren Kunden erhalten müssen',
+        'payables'              => 'Betrag, den Sie noch an Ihren Kreditoren bezahlen müssen',
+        'cash_flow'             => 'Geld, das in Ihr Unternehmen ein- und ausgeht',
+        'profit_loss'           => 'Einnahmen und Ausgaben einschließlich unbezahlter Rechnungen',
+        'expenses_by_category'  => 'Top-Ausgaben in verschiedenen Kategorien',
+        'account_balance'       => 'Aktueller Kontostand Ihrer Bankkonten',
+        'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Akaunting </br>, indem Sie Ihre Bankkonten verbinden',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => '1-30 Tage verspätet',
+        'overdue_30_60'         => '30-60 Tage verspätet',
+        'overdue_60_90'         => '60-90 Tage verspätet',
+        'overdue_90_un'         => '> 90 Tage verspätet',
+    ],
 ];

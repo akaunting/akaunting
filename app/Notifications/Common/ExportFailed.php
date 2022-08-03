@@ -65,9 +65,7 @@ class ExportFailed extends Notification implements ShouldQueue
     {
         return [
             'title' => trans('notifications.menu.export_failed.title'),
-            'description' => trans('notifications.menu.export_failed.description', [
-                'issues' => $this->message,
-            ]),
+            'description' => trans('notifications.menu.export_failed.description'),
             'message' => $this->message,
         ];
     }

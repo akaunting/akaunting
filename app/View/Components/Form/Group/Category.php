@@ -33,7 +33,7 @@ class Category extends Form
 
         $model = $this->getParentData('model');
 
-        if (! empty($model)) {
+        if (! empty($model) && ! empty($model->category_id)) {
             $this->selected = $model->category_id;
 
             $selected_category = $model->category;
