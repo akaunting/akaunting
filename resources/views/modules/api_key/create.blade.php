@@ -5,7 +5,7 @@
 
     <x-slot name="content">
         <x-form id="form-app" route="apps.api-key.store">
-            <x-form.section spacing-horizontal="gap-y-2">
+            <x-form.section spacing-vertical="gap-y-2">
                 <x-slot name="body">
                     <x-form.group.text name="api_key" placeholder="{{ trans('general.form.enter', ['field' => trans('modules.api_key')]) }}" value="{{ setting('apps.api_key', null) }}" />
 

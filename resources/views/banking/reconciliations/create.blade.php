@@ -12,8 +12,8 @@
     <x-slot name="content">
         <div class="relative mt-4">
             <x-form id="form-create-reconciliation" method="get" route="reconciliations.create">
-                <div class=" mb-14">
-                    <div class="grid sm:grid-cols-10 gap-x-8 gap-y-6 my-3.5 mt-3.5 lg:mt-8">
+                <x-form.section column-number="sm:grid-cols-10">
+                    <x-slot name="body">
                         <x-form.group.date
                             name="started_at"
                             label="{{ trans('reconciliations.start_date') }}"
@@ -66,8 +66,8 @@
                                 {{ trans('reconciliations.transactions') }}
                             </x-button>
                         </div>
-                    </div>
-                </div>
+                    </x-slot>
+                </x-form.section>
             </x-form>
 
             <div id="reconciliations-table">

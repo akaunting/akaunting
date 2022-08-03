@@ -19,11 +19,11 @@ class Section extends Component
      * @return void
      */
     public function __construct(
-        string $spacingVertical = 'gap-x-8', string $spacingHorizontal = 'gap-y-6', string $columnNumber = 'sm:grid-cols-6',
+        string $spacingVertical = 'gap-y-6', string $spacingHorizontal = 'gap-x-8', string $columnNumber = 'sm:grid-cols-6',
     ) {
         $this->spacingVertical = $spacingVertical;
         $this->spacingHorizontal = $spacingHorizontal;
-        $columnNumber = $columnNumber;
+        $this->columnNumber = $columnNumber;
     }
 
     /**
