@@ -22,9 +22,9 @@
                         </span>
                     </div>
 
-                    <a href="{!! !empty($sticky->attributes->has('url')) ? $sticky->attributes->get('url') : route('dashboard') !!}" class="px-3 py-1.5 rounded-xl text-sm font-medium leading-6 bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100">
+                    <x-link href="{!! !empty($sticky->attributes->has('url')) ? $sticky->attributes->get('url') : route('dashboard') !!}" class="px-3 py-1.5 rounded-xl text-sm font-medium leading-6 bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100" override="class">
                         {{ trans('general.go_back', ['type' => company()->name]) }}
-                    </a>
+                    </x-link>
                 </div>
             </header>
 

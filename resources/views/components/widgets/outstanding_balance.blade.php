@@ -13,9 +13,9 @@
                 <x-money :amount="$contact->overdue" :currency="$contact->currency_code" convert />
             </span>
     
-            <a href="{{ route('portal.invoices.index') }}" class="px-2 py-1 my-3 rounded-lg text-xs leading-6 bg-green text-white hover:bg-green-700 disabled:bg-green-100">
+            <x-link href="{{ route('portal.invoices.index') }}" class="px-2 py-1 my-3 rounded-lg text-xs leading-6 bg-green text-white hover:bg-green-700 disabled:bg-green-100" override="class">
                 {{ trans('bills.make_payment') }}
-            </a>
+            </x-link>
         </div>
     @else
         <span class="text-xs">

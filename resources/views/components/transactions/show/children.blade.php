@@ -23,7 +23,7 @@
     >
         @if ($transaction->children()->count())
             @foreach ($transaction->children()->get() as $child)
-                @php $url = '<a href="' . route('transactions.show', $child->id) . '" class="text-purple">' . $child->number . '</a>' @endphp
+                @php $url = '<x-link href="' . route('transactions.show', $child->id) . '" class="text-purple" override="class">' . $child->number . '</x-link>' @endphp
 
                 <div class="my-2">
                     {!! trans('recurring.child', ['url' => $url, 'date' => company_date($child->paid_at)]) !!}

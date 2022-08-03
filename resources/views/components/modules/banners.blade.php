@@ -23,9 +23,9 @@
                 <h1 class="text-lg lg:text-7xl font-semibold text-white" x-text="text"></h1>
             </div>
 
-            <a href="https://akaunting.com/plans" class="text-white transition-all hover:underline">
+            <x-link href="https://akaunting.com/plans" class="text-white transition-all hover:underline" override="class">
                 {{ trans('modules.learn_more') }}
-            </a>
+            </x-link>
         </div>
 
         <div class="hidden lg:block">

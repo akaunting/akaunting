@@ -284,9 +284,9 @@
                                                         <x-slot name="second" class="w-20 font-normal group">
                                                             @if ($item->document)
                                                             <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
-                                                                <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                                <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                                                     {{ $item->document->document_number }}
-                                                                </a>
+                                                                </x-link>
 
                                                                 <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
 

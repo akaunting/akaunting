@@ -1,20 +1,20 @@
 <div>
     <div>
         @foreach ($module->files as $file)
-            <a href="{{ route('apps.app.show', $module->slug) }}">
+            <x-link href="{{ route('apps.app.show', $module->slug) }}" override="class">
                 @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
                     <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="rounded-md" />
                 @endif
-            </a>
+            </x-link>
         @endforeach
     </div>
 
     <div class="flex flex-col py-2 justify-between align-bottom">
         <div class="flex items-baseline justify-between">
             <h4 class="w-32 truncate">
-                <a href="{{ route('apps.app.show', $module->slug) }}">
+                <x-link href="{{ route('apps.app.show', $module->slug) }}" override="class">
                     {{ $module->name }}
-                </a>
+                </x-link>
             </h4>
 
             <div class="text-xs">

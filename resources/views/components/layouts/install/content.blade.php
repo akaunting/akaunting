@@ -18,9 +18,9 @@
         <div class="card-footer">
             <div class="float-right">
                 @if (Request::is('install/requirements'))
-                    <a href="{{ route('install.requirements') }}" class="btn btn-success">
+                    <x-link href="{{ route('install.requirements') }}" class="btn btn-success" override="class">
                         {{ trans('install.refresh') }}
-                    </a>
+                    </x-link>
                 @else
                     <x-button
                         type="submit"

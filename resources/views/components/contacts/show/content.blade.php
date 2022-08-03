@@ -309,9 +309,9 @@
                                                 </x-slot>
                                                 <x-slot name="second">
                                                     @if ($item->document)
-                                                        <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                        <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                                             {{ $item->document->document_number }}
-                                                        </a>
+                                                        </x-link>
                                                     @else
                                                         <x-empty-data />
                                                     @endif

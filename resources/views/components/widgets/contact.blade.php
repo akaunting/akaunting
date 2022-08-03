@@ -45,7 +45,7 @@
         @endif
     </div>
 
-    <a href="{{ route('portal.profile.edit', user()->id) }}" class="border-b text-sm hover:text-black">
+    <x-link href="{{ route('portal.profile.edit', user()->id) }}" class="border-b text-sm hover:text-black" override="class">
         {{ trans('portal.see_all_details') }}
-    </a>
+    </x-link>
 </div>

@@ -3,7 +3,7 @@
 
     @foreach ($favorites as $favorite)
         <x-tooltip id="{{ $favorite['title'] }}" placement="right" message="{{ $favorite['title'] }}">
-            <a href="{{ $favorite['url'] }}" class="w-8 h-8 flex items-center justify-center mb-2.5">
+            <x-link href="{{ $favorite['url'] }}" class="w-8 h-8 flex items-center justify-center mb-2.5" override="class">
                 <span
                     id="{{ $favorite['id'] }}"
                     @class([
@@ -14,7 +14,7 @@
                 >
                     {{ $favorite['icon'] }}
                 </span>
-            </a>
+            </x-link>
         </x-tooltip>
     @endforeach
 </div>

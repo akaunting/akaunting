@@ -11,13 +11,13 @@
 
     <x-slot name="buttons">
         @can('create-banking-transactions')
-            <x-link href="{{ route('transactions.create', ['type' => 'income']) }}" kind="primary">
+            <<x-link href="{{ route('transactions.create', ['type' => 'income']) }}" kind="primary">
                 {{ trans('general.title.new', ['type' => trans_choice('general.incomes', 1)]) }}
-            </x-link>
+            </<x-link>
 
-            <x-link href="{{ route('transactions.create', ['type' => 'expense']) }}" kind="primary">
+            <<x-link href="{{ route('transactions.create', ['type' => 'expense']) }}" kind="primary">
                 {{ trans('general.title.new', ['type' => trans_choice('general.expenses', 1)]) }}
-            </x-link>
+            </<x-link>
         @endcan
     </x-slot>
 
@@ -166,9 +166,9 @@
                                                 <x-slot name="second" class="w-20 font-normal group">
                                                     @if ($item->document)
                                                         <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
-                                                            <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                            <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                                                 {{ $item->document->document_number }}
-                                                            </a>
+                                                            </x-link>
 
                                                             <div class="w-28 absolute h-10 -ml-12 -mt-6">
                                                             </div>
