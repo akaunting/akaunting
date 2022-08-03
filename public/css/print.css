@@ -25,8 +25,12 @@ th, td
     margin-bottom: 9px;
 }
 
-.right-column {
+html[dir='ltr'] .right-column {
     text-align: right;
+}
+
+html[dir='rtl'] .right-column {
+    text-align: left;
 }
 
 .small-text {
@@ -239,14 +243,24 @@ html[dir='rtl'] .border-radius-last {
     border-radius: 10px 0px 0px 10px;
 }
 
-.float-left
+html[dir='ltr'] .float-left
 {
     float: left !important;
 }
 
-.float-right
+html[dir='rtl'] .float-left
 {
     float: right !important;
+}
+
+html[dir='ltr'] .float-right
+{
+    float: right !important;
+}
+
+html[dir='rtl'] .float-right
+{
+    float: left !important;
 }
 
 .font-size-unset
@@ -291,9 +305,14 @@ html[dir='rtl'] .text-alignment-right {
     text-align: left !important;
 }
 
-.text-right
+html[dir='ltr'] .text-right
 {
     text-align: right;
+}
+
+html[dir='rtl'] .text-right
+{
+    text-align: left;
 }
 
 .text-center

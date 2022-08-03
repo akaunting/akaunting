@@ -1,4 +1,4 @@
-<div>
+<div class="ltr:text-left rtl:text-right">
     <h2 class="lg:text-lg font-medium text-black">
         <x-button.hover group-hover>
             {{ $title }}
