@@ -1,7 +1,7 @@
 @php $created_date = '<span class="font-medium">' . company_date($transaction->created_at) . '</span>' @endphp
 
 <div class="border-b pb-4" x-data="{ create : null }">
-    <button class="relative w-full text-left group"
+    <button class="relative w-full ltr:text-left rtl:text-right group"
         x-on:click="create !== 1 ? create = 1 : create = null"
     >
         <span class="font-medium">
@@ -10,7 +10,7 @@
             </x-button.hover>
         </span>
 
-        <div class="text-black-400 text-sm">
+        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
             @if ($transaction->isRecurringTransaction())
                 {!! trans('transactions.slider.create_recurring', ['user' => $transaction->owner->name, 'date' => $created_date]) !!}
             @else
@@ -18,7 +18,7 @@
             @endif
         </div>
 
-        <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
+        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
     </button>
 
     <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"

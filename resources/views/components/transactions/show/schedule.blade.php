@@ -4,7 +4,7 @@
 @endphp
 
 <div class="border-b pb-4" x-data="{ schedule : null }">
-    <button class="relative w-full text-left cursor-pointer group"
+    <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
         x-on:click="schedule !== 1 ? schedule = 1 : schedule = null"
     >
         <span class="font-medium">
@@ -13,11 +13,11 @@
             </x-button.hover>
         </span>
 
-        <div class="text-black-400 text-sm">
+        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
             {!! trans('transactions.slider.schedule', ['frequency' => $frequency, 'interval' => $transaction->recurring->interval, 'date' => $started_date]) !!}
         </div>
 
-        <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="schedule === 1 ? 'rotate-180' : ''">expand_more</span>
+        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="schedule === 1 ? 'rotate-180' : ''">expand_more</span>
     </button>
 
     <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"

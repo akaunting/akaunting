@@ -2,7 +2,7 @@
     <div class="border-b border-gray-200 pb-4"
         x-data="{ attachment : null }"
     >
-        <div class="relative w-full text-left cursor-pointer group"
+        <div class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
             x-on:click="attachment !== 1 ? attachment = 1 : attachment = null"
         >
             <span class="font-medium">
@@ -11,11 +11,11 @@
                 </x-button.hover>
             </span>
 
-            <div class="text-black-400 text-sm">
+            <div class="text-black-400 text-sm flex gap-x-1 mt-1">
                 {{ trans('transactions.slider.attachments') }}
             </div>
 
-            <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="attachment === 1 ? 'rotate-180' : ''">expand_more</span>
+            <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="attachment === 1 ? 'rotate-180' : ''">expand_more</span>
         </div>
 
         <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"

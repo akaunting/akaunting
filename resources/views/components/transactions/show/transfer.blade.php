@@ -10,7 +10,7 @@
     @endif
 
     <div class="border-b pb-4" x-data="{ transfer : 1 }">
-        <button class="relative w-full text-left cursor-pointer group"
+        <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
             x-on:click="transfer !== 1 ? transfer = 1 : transfer = null"
         >
             <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
@@ -18,12 +18,12 @@
             </span>
 
             @if ($transfer)
-                <div class="text-black-400 text-sm">
+                <div class="text-black-400 text-sm flex gap-x-1 mt-1">
                     {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}
                 </div>
             @endif
 
-            <span class="material-icons absolute right-0 top-0 transition-all transform"
+            <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform"
                 x-bind:class="transfer === 1 ? 'rotate-180' : ''"
             >expand_more</span>
         </button>
@@ -38,7 +38,7 @@
                 </div>
             @else
                 <div class="mt-2">
-                    <div class="alert alert-notify p-4 text-black font-bold rounded-lg bg-orange-100 text-orange-600">
+                    <div class="alert alert-notify p-4 font-bold rounded-lg bg-orange-100 text-orange-600">
                         <span class="alert-text">
                             <span>{{ trans('messages.warning.missing_transfer') }}</span>
                         </span>
