@@ -19,11 +19,13 @@ return [
     'total'                 => 'Gesamt',
 
     'item_name'             => 'Artikel-Name|Artikel-Namen',
+    'recurring_bills'       => 'Wiederkehrende Rechnung|Wiederkehrende Rechnungen',
 
     'show_discount'         => ':discount% Rabatt',
     'add_discount'          => 'füge Rabatt hinzu',
     'discount_desc'         => 'der Zwischensumme',
 
+    'payment_made'          => 'Zahlung erfolgt',
     'payment_due'           => 'Fälligkeit der Zahlung',
     'amount_due'            => 'Fälliger Betrag',
     'paid'                  => 'Bezahlt',
@@ -38,6 +40,11 @@ return [
     'create_bill'           => 'Rechnung erstellen',
     'receive_bill'          => 'Rechnung erhalten',
     'make_payment'          => 'Zahlung vornehmen',
+
+    'form_description' => [
+        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.
+',
+    ],
 
     'messages' => [
         'draft'             => 'Dies ist eine Rechnungs-<b>Vorschau</b>. Die Rechnung erscheint in den Diagrammen nachdem sie als erhalten markiert wurde.',

@@ -20,12 +20,12 @@ return [
 
     'form_description' => [
         'general'           => 'Kreditkartentyp für negativen Eröffnungssaldo verwenden. Die Nummer ist wichtig, um Konten korrekt abzugleichen. Das Standardkonto zeichnet alle Transaktionen auf, wenn nicht anders ausgewählt.',
-        'bank'              => 'Sie können mehrere Bankkonten in mehr als einer Bank haben. Das Aufzeichnen von Informationen über Ihre Bank erleichtert die Übereinstimmung der Transaktionen innerhalb Ihrer Bank.',
+        'bank'              => 'Sie können mehrere Bankkonten bei mehr als einer Bank haben. Das Aufzeichnen von Informationen über Ihre Bank erleichtert die Übereinstimmung der Transaktionen innerhalb Ihrer Bank.',
     ],
 
     'no_records' => [
-        'transactions'      => 'Es gibt noch keine Transaktionen nach/von diesem Konto. Erstellen Sie jetzt eine neue.',
-        'transfers'         => 'Es gibt noch keine Überweisung nach/von diesem Konto. Erstellen Sie jetzt eine neue.',
+        'transactions'      => 'Es gibt noch keine Transaktionen auf diesem Konto. Erfassen Sie jetzt eine neue.',
+        'transfers'         => 'Es gibt noch keine Überweisung nach/von diesem Konto. Erfassen Sie jetzt eine neue.',
     ],
 
 ];
