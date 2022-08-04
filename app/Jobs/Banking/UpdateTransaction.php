@@ -45,5 +45,9 @@ class UpdateTransaction extends Job implements ShouldUpdate
 
             throw new \Exception($message);
         }
+
+        if ($this->model->isTransferTransaction()) {
+            throw new \Exception('Unauthorized');
+        }
     }
 }
