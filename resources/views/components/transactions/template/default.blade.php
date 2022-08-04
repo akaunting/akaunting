@@ -19,9 +19,9 @@
                 <td class="text" style="width: 80%; padding: 0 0 15px 0;">
                     @stack('company_details_start')
                     @if (! $hideCompanyName)
-                        <h2 class="text-semibold text">
+                        <span class="font-semibold text">
                             {{ setting('company.name') }}
-                        </h2>
+                        </span>
                     @endif
 
                     @if (! $hideCompanyAddress)
