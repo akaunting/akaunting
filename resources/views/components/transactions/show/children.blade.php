@@ -1,5 +1,5 @@
 <div class="border-b pb-4" x-data="{ children : null }">
-    <button class="relative w-full text-left cursor-pointer group"
+    <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
         x-on:click="children !== 1 ? children = 1 : children = null"
     >
         <span class="font-medium">
@@ -12,7 +12,7 @@
             {!! trans('transactions.slider.children', ['count' => $transaction->children()->count()]) !!}
         </div>
 
-        <span class="material-icons absolute right-0 top-0 transition-all transform"
+        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform"
             x-bind:class="children === 1 ? 'rotate-180' : ''"
         >expand_more</span>
     </button>

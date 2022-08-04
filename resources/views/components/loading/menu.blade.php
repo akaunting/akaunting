@@ -86,7 +86,7 @@
             setTimeout(() => {
                 loading_menu_html[0].remove();
                 menu_html.classList.remove('hidden');
-            }, 800);
+            }, timer);
 
             if (loading_html.length) {
                 setTimeout(() => {

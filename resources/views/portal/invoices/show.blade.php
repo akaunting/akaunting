@@ -25,7 +25,7 @@
                         <div role="tablist" class="flex flex-wrap gap-y-4">
                             @php $is_active = true; @endphp
 
-                            <div class="swiper swiper-links">
+                            <div class="swiper swiper-links w-full">
                                 <div class="swiper-wrapper">
                                     @foreach ($payment_methods as $key => $name)
                                         @stack('invoice_{{ $key }}_tab_start')

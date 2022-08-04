@@ -87,7 +87,6 @@ export default {
                 "thousands_separator":",",
             },
             all_currencies: [],
-            content_loading: true,
             connect: {
                 show: false,
                 currency: {},
@@ -111,10 +110,6 @@ export default {
     },
 
     mounted() {
-        setTimeout(() => {
-            this.content_loading = false;
-        }, 1500);
-
         this.checkNotify();
 
         GLightbox({
