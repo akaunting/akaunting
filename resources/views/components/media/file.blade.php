@@ -5,7 +5,7 @@
             @else
                 <span class="material-icons text-base">attach_file</span>
         @endif  
-        <div class="flex flex-col text-gray-500 ml-3 gap-y-1">
+        <div class="flex flex-col text-gray-500 ltr:ml-3 rtl:mr-3 gap-y-1">
             <span class="w-64 text-sm truncate">{{ $file->basename }}</span>
             <span class="text-xs mb-0">{{ $file->readableSize() }}</span>
         </div>

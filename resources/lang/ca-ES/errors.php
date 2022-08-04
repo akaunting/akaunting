@@ -19,5 +19,7 @@ return [
         '404'       => 'No hem pogut trobar la pàgina que estàs cercant.',
         '500'       => 'Mirarem de resoldre-ho de seguida.',
         'record'    => 'No hem pogut trobar el registre que estàs cercant.',
+        'amount'    => 'Aquesta pàgina conté preus incorrectes! Si us plau, consulta l\'administrador.',
     ],
+
 ];
