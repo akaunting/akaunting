@@ -43,4 +43,8 @@ return [
         'connection'        => 'Fehler: Es konnte keine Verbindung zur Datenbank hergestellt werden! Stellen Sie sicher, dass die Angaben korrekt sind.',
     ],
 
+    'update' => [
+        'core'              => 'Akaunting neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
+        'module'            => ':module neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
+    ],
 ];

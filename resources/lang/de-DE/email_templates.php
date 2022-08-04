@@ -27,6 +27,11 @@ return [
         'body'          => 'Hallo,<br /><br /> Basierend auf {customer_name} wiederkehrenden Kreis, <strong>{invoice_number}</strong> Rechnung wurde automatisch erstellt.<br /><br />Sie können die Rechnungsdaten unter folgendem Link sehen: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Beste Grüße,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'Rechnung {invoice_number} angesehen',
+        'body'          => 'Hallo,<br /><br />{customer_name} hat die Rechnung <strong>{invoice_number}</strong> angesehen.<br /><br />Sie können die Rechnungsdetails unter folgendem Link einsehen: <a href ="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Mit freundlichen Grüßen<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Zahlung für Rechnung {invoice_number} erhalten',
         'body'          => 'Hallo {customer_name},<br /><br />Vielen Dank für die Zahlung. Sie finden die Zahlungsinformationen unten:<br /><br />-------------------------------------------------<br /><br />Betrag: <strong>{transaction_total}<br /></strong>Datum: <strong>{transaction_paid_date}</strong><br />Rechnungsnummer: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Sie können die Rechnungsdetails immer unter folgendem Link sehen: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Zögern Sie nicht, uns für jede Frage zu kontaktieren.<br /><br />Beste Grüße,<br />{company_name}',
@@ -47,13 +52,13 @@ return [
         'body'          => 'Hallo,<br /><br /> Basierend auf {vendor_name} wiederkehrenden Kreis, <strong>{bill_number}</strong> Rechnung wurde automatisch erstellt.<br /><br />Sie können die Details der Rechnung unter folgendem Link sehen: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Beste Grüße,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} Zahlung erstellt',
-        'body'          => 'Hallo {customer_name},<br /><br />Wir haben die folgende Zahlung vorbereitet. <br /><br />Die Zahlungsdetails können Sie dem folgenden Link entnehmen: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Bei Fragen stehen wir Ihnen gerne zur Verfügung<br /><br />Mit freundlichen Grüßen<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'Deine Quittung von {company_name}',
+        'body'          => 'Hallo {contact_name},<br /><br />Vielen Dank für die Zahlung. <br /><br />Sie können die Zahlungsdetails unter folgendem Link einsehen: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Sie können uns gerne kontaktieren bei Fragen.<br /><br />Mit freundlichen Grüßen<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} Zahlung erstellt',
-        'body'          => 'Hallo {vendor_name},<br /><br />Wir haben die folgende Zahlung vorbereitet. <br /><br />Die Zahlungsdetails können Sie dem folgenden Link entnehmen: <a href="{payment_admin_link}">{payment_date}</a><br /><br />Bei Fragen stehen wir Ihnen gerne zur Verfügung<br /><br />Mit freundlichen Grüßen<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => 'Zahlung erfolgt durch {company_name}',
+        'body'          => 'Hallo {contact_name},<br /><br />wir haben die folgende Zahlung geleistet. <br /><br />Sie können die Zahlungsdetails unter folgendem Link einsehen: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Sie können uns gerne kontaktieren bei Fragen.<br /><br />Mit freundlichen Grüßen<br />{company_name}',
     ],
 ];
