@@ -68,9 +68,24 @@ html[dir='rtl'] .right-column {
     margin-top: 8px;
 }
 
-.print-template .ml-1
+html[dir='ltr'] .print-template .ml-1
 {
     margin-left: 8px;
+}
+
+html[dir='rtl'] .print-template .ml-1
+{
+    margin-right: 8px;
+}
+
+html[dir='ltr'] .print-template .ml-2
+{
+    margin-right: 16px;
+}
+
+html[dir='rtl'] .print-template .ml-2
+{
+    margin-left: 16px;
 }
 
 .pl-head

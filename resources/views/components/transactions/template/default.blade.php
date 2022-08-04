@@ -368,11 +368,8 @@
                 <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
                     <table>
                         <tr>
-                            <td valign="center" style="width: 80%; padding:0; font-size: 14px; font-weight:600; color:#ffffff;">
-                                {{ trans($textAmount) }}
-                            </td>
-
-                            <td valign="center" style="width: 20%; padding:0; font-size: 14px; color:#ffffff;">
+                            <td valign="center" style="font-size: 14px; color: #ffffff; padding: 0;">
+                                <span class="ml-2" style="font-weight: 600;">{{ trans($textAmount) }}</span>
                                 @money($transaction->amount, $transaction->currency_code, true)
                             </td>
                         </tr>
