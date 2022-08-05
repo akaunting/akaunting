@@ -57,7 +57,7 @@ trait Uploads
     {
         $medias = $model->$parameter;
 
-        if (!$medias) {
+        if (! $medias) {
             return;
         }
 
@@ -75,7 +75,7 @@ trait Uploads
             }
         }
 
-        foreach ((array)$medias as $media) {
+        foreach ((array) $medias as $media) {
             if (in_array($media->id, $already_uploaded)) {
                 continue;
             }
@@ -86,7 +86,7 @@ trait Uploads
 
     public function getMediaFolder($folder, $company_id = null)
     {
-        if (!$company_id) {
+        if (! $company_id) {
             $company_id = company_id();
         }
 
@@ -98,7 +98,7 @@ trait Uploads
 
     public function getMediaPathOnStorage($media)
     {
-        if (!is_object($media)) {
+        if (! is_object($media)) {
             return false;
         }
 
