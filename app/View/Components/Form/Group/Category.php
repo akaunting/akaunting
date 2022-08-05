@@ -33,6 +33,18 @@ class Category extends Form
 
         $model = $this->getParentData('model');
 
+        $category_id = old('category.id', old('category_id', null));
+
+        if (! empty($category_id)) {
+            $this->selected = $category_id;
+
+            if (! $this->categories->has($category_id)) {
+                $category = Model::find($category_id);
+
+                $this->categories->put($category->id, $category->name);
+            }
+        }
+
         if (! empty($model) && ! empty($model->category_id)) {
             $this->selected = $model->category_id;
 

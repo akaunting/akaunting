@@ -40,7 +40,7 @@ class Tax extends Form
         if (! empty($tax_id)) {
             $this->selected = $tax_id;
 
-            if ($this->taxes->has($tax_id)) {
+            if (! $this->taxes->has($tax_id)) {
                 $tax = Model::find($tax_id);
 
                 $this->taxes->put($tax->id, $tax->name);
