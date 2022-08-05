@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'AF' => 'Afghanistan',
     'AX' => 'Ålandinseln',
     'AL' => 'Albanien',
@@ -10,7 +11,7 @@ return [
     'AO' => 'Angola',
     'AI' => 'Anguilla',
     'AQ' => 'Antarktis',
-    'AG' => 'Antigua und Barbuda',
+    'AG' => 'Antigua & Barbuda',
     'AR' => 'Argentinien',
     'AM' => 'Armenien',
     'AW' => 'Aruba',
@@ -119,6 +120,7 @@ return [
     'KZ' => 'Kasachstan',
     'KE' => 'Kenia',
     'KI' => 'Kiribati',
+    'XK' => 'Kosovo',
     'KW' => 'Kuwait',
     'KG' => 'Kirgisistan',
     'LA' => 'Laos',
@@ -250,4 +252,5 @@ return [
     'YE' => 'Jemen',
     'ZM' => 'Sambia',
     'ZW' => 'Simbabwe',
+
 ];

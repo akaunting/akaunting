@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Ausgeglichener Betrag',
     'deposit'               => 'Einzahlung',
     'withdrawal'            => 'Auszahlung',
+    'reconciled_amount'     => 'Abgeglichen',
+    'in_progress'           => 'In Bearbeitung',
+    'save_draft'            => 'Als Entwurf speichern',
+    'irreconcilable'        => 'Nicht abgleichbar',
 
 ];

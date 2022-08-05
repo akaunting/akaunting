@@ -30,19 +30,31 @@
         <x-show.summary.right>
             @stack('summary_overdue_start')
             @if (! $hideOverdue)
-                <x-slot name="first" amount="{{ money($totals['overdue'], setting('default.currency'), true) }}" title="{{ trans('general.overdue') }}"></x-slot>
+                <x-slot name="first"
+                    amount="{{ $summary_amounts['overdue_for_humans'] }}"
+                    title="{{ trans('general.overdue') }}"
+                    tooltip="{{ $summary_amounts['overdue_exact'] }}"
+                ></x-slot>
             @endif
             @stack('summary_overdue_end')
 
             @stack('summary_open_start')
             @if (! $hideOpen)
-                <x-slot name="second" amount="{{ money($totals['open'], setting('default.currency'), true) }}" title="{{ trans('general.open') }}"></x-slot>
+                <x-slot name="second"
+                    amount="{{ $summary_amounts['open_for_humans'] }}"
+                    title="{{ trans('general.open') }}"
+                    tooltip="{{ $summary_amounts['open_exact'] }}"
+                ></x-slot>
             @endif
             @stack('summary_open_end')
 
             @stack('summary_paid_start')
             @if (! $hidePaid)
-                <x-slot name="third" amount="{{ money($totals['paid'], setting('default.currency'), true) }}" title="{{ trans('general.paid') }}"></x-slot>
+                <x-slot name="third"
+                    amount="{{ $summary_amounts['paid_for_humans'] }}"
+                    title="{{ trans('general.paid') }}"
+                    tooltip="{{ $summary_amounts['paid_exact'] }}"
+                ></x-slot>
             @endif
             @stack('summary_paid_end')
         </x-show.summary.right>

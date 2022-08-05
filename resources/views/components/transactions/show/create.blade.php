@@ -10,7 +10,7 @@
             </x-button.hover>
         </span>
 
-        <div class="text-black-400 text-sm">
+        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
             @if ($transaction->isRecurringTransaction())
                 {!! trans('transactions.slider.create_recurring', ['user' => $transaction->owner->name, 'date' => $created_date]) !!}
             @else

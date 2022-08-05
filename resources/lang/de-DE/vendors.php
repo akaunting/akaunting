@@ -9,8 +9,8 @@ return [
     ],
 
     'no_records' => [
-        'bills'             => 'Sie haben noch keine Rechnung von diesem Kreditor erhalten. Erstellen Sie jetzt eine neue Rechnung.',
-        'transactions'      => 'Es gibt noch keine Transaktionen zu diesem Kreditor. Erstellen Sie jetzt eine neue.',
+        'bills'             => 'Sie haben noch keine Rechnung von diesem Kreditor erhalten. Erfassen Sie jetzt eine neue Rechnung.',
+        'transactions'      => 'Es gibt noch keine Transaktionen zu diesem Kreditor. Erfassen Sie jetzt eine neue.',
     ],
 
 ];

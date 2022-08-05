@@ -8,7 +8,7 @@
             </x-button.hover>
         </span>
 
-        <div class="text-black-400 text-sm">
+        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
             {!! trans('transactions.slider.children', ['count' => $transaction->children()->count()]) !!}
         </div>
 

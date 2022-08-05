@@ -3,7 +3,7 @@
 namespace App\View\Components\Form\Group;
 
 use App\Abstracts\View\Components\Form;
-use App\Models\Setting\Currency as Model;
+use App\Models\Setting\Tax as Model;
 
 class Tax extends Form
 {
@@ -13,7 +13,7 @@ class Tax extends Form
 
     public $field;
 
-    public $currencies;
+    public $taxes;
 
     /**
      * Get the view / contents that represent the component.
@@ -23,20 +23,32 @@ class Tax extends Form
     public function render()
     {
         if (empty($this->name)) {
-            $this->name = 'currency_code';
+            $this->name = 'tax_id';
         }
 
-        $this->path = route('modals.currencies.create');
+        $this->path = route('modals.taxes.create');
 
         $this->field = [
-            'key' => 'code',
+            'key' => 'id',
             'value' => 'name'
         ];
 
-        $this->currencies = Model::enabled()->orderBy('name')->pluck('name', 'code');
+        $this->taxes = Model::enabled()->orderBy('name')->pluck('name', 'id');
+
+        $tax_id = old('tax.id', old('tax_id', null));
+
+        if (! empty($tax_id)) {
+            $this->selected = $tax_id;
+
+            if (! $this->taxes->has($tax_id)) {
+                $tax = Model::find($tax_id);
+
+                $this->taxes->put($tax->id, $tax->name);
+            }
+        }
 
         if (empty($this->selected)) {
-            $this->selected = setting('default.currency');
+            $this->selected = setting('default.tax');
         }
 
         return view('components.form.group.tax');
