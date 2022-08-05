@@ -5,7 +5,7 @@
         @foreach ($items as $item)
             <div @class(['w-1/2 sm:w-1/3 text-center'])>
                 @if (! empty($item['tooltip']))
-                    <x-tooltip id="tooltip-summary-first" placement="top" message="{!! $first->attributes->get('tooltip') !!}">
+                    <x-tooltip id="tooltip-summary-{{ $loop->index }}" placement="top" message="{!! $item['tooltip'] !!}">
                         <a href="{{ $item['href'] }}" class="group">
                             @php $text_color = (! empty($item['text_color'])) ? $item['text_color'] : 'text-purple group-hover:text-purple-700'; @endphp
                             <div @class(['relative text-xl sm:text-6xl', $text_color, 'mb-2'])>

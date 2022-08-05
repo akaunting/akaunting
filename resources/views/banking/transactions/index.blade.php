@@ -44,21 +44,24 @@
             <x-index.summary>
                 <x-slot name="first"
                     href="{{ route('transactions.index', ['search' => 'type:income']) }}"
-                    amount="{{ money($totals['income'], setting('default.currency'), true) }}"
+                    amount="{{ $summary_amounts['incoming_for_humans'] }}"
                     title="{{ trans_choice('general.incomes', 1) }}"
+                    tooltip="{{ $summary_amounts['incoming_exact'] }}"
                     divider="remove"
                 ></x-slot>
 
                 <x-slot name="second"
                     href="{{ route('transactions.index', ['search' => 'type:expense']) }}"
-                    amount="{{ money($totals['expense'], setting('default.currency'), true) }}"
+                    amount="{{ $summary_amounts['expense_for_humans'] }}"
                     title="{{ trans_choice('general.expenses', 2) }}"
+                    tooltip="{{ $summary_amounts['expense_exact'] }}"
                     divider="drag_handle"
                 ></x-slot>
 
                 <x-slot name="third"
-                    amount="{{ money($totals['profit'], setting('default.currency'), true) }}"
+                    amount="{{ $summary_amounts['profit_for_humans'] }}"
                     title="{{ trans_choice('general.profits', 1) }}"
+                    tooltip="{{ $summary_amounts['profit_exact'] }}"
                     class="cursor-default"
                 ></x-slot>
             </x-index.summary>
