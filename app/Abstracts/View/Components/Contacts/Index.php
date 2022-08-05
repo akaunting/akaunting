@@ -88,7 +88,7 @@ abstract class Index extends Component
     public $classBulkAction;
 
     /** @var bool */
-    public $showPicture;
+    public $showLogo;
 
     /** @var bool */
     public $hideName;
@@ -179,7 +179,7 @@ abstract class Index extends Component
         bool $hideEmptyPage = false, bool $hideSummary = false,  $summaryItems = [], bool $hideSearchString = false, bool $hideBulkAction = false,
         string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '',
         string $classBulkAction = '',
-        bool $showPicture = false, bool $hideName = false, bool $hideTaxNumber = false, string $classNameAndTaxNumber = '', string $textName = '', string $textTaxNumber = '',
+        bool $showLogo = false, bool $hideName = false, bool $hideTaxNumber = false, string $classNameAndTaxNumber = '', string $textName = '', string $textTaxNumber = '',
         bool $hideEmail = false, bool $hidePhone = false, string $classEmailAndPhone = '', string $textEmail = '', string $textPhone = '',
         bool $hideCountry = false, bool $hideCurrencyCode = false, string $classCountryAndCurrencyCode = '', string $textCountry = '', string $textCurrencyCode = '',
         bool $hideOpen = false, bool $hideOverdue = false, string $classOpenAndOverdue = '', string $textOpen = '', string $textOverdue = '',
@@ -229,7 +229,7 @@ abstract class Index extends Component
 
         $this->classBulkAction = $this->getClassBulkAction($type, $classBulkAction);
 
-        $this->showPicture = $showPicture;
+        $this->showLogo = $showLogo;
         $this->hideName = $hideName;
         $this->hideTaxNumber = $hideTaxNumber;
         $this->classNameAndTaxNumber = $this->getClassNameAndTaxNumber($type, $classNameAndTaxNumber);

@@ -64,7 +64,7 @@
             @endif
 
             @if (! $hideLogo)
-                <x-form.group.file name="logo" label="{{ trans_choice('general.pictures', 1) }}"  not-required />
+                <x-form.group.file name="logo" label="{{ trans_choice('general.pictures', 1) }}" not-required />
             @endif
         </div>
     </x-slot>
