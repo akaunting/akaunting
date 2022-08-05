@@ -3,7 +3,7 @@
 <div class="w-full lg:w-6/12 lg:ltr:pl-24 lg:rtl:pr-24">
     <div class="relative mb-10" x-data="{ toggle: 'donut' }">
         <div class="flex border-b pb-2">
-            <div class="w-full lg:w-11/12 text-xl text-left text-black-400">
+            <div class="w-full lg:w-11/12 ltr:text-xl rtl:text-right text-left text-black-400">
                 <h2 x-show="toggle === 'donut'">{{ trans('general.timeline') }}</h2>
                 <h2 x-show="toggle === 'bar'">{{ trans('general.distribution') }}</h2>
             </div>
