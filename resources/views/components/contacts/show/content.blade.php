@@ -111,29 +111,19 @@
                     <div class="flex flex-col text-sm mb-5">
                         <div class="flex items-center font-medium">
                             <div class="flex items-center cursor-default">
-                                <div data-tooltip-target="tooltip-client-describe" data-tooltip-placement="bottom">
+                                <x-tooltip id="tooltip-client-describe" placement="bottom" size="w-2/12" message="{{ trans('customers.client_portal_description') }}">
                                     {{ trans('general.client_portal') }}
-                                </div>
+                                </x-tooltip>
 
                                 @if ($contact->user)
-                                    <span data-tooltip-target="tooltip-client-permission" data-tooltip-placement="bottom" class="material-icons text-green text-base ltr:ml-1 rtl:mr-1">check</span>
+                                    <x-tooltip id="tooltip-client-permission" placement="bottom" message="{{ trans('customers.client_portal_text.can') }}">
+                                        <span class="material-icons text-green text-base ltr:ml-1 rtl:mr-1">check</span>
+                                    </x-tooltip>
                                 @else
-                                    <span data-tooltip-target="tooltip-client-permission" data-tooltip-placement="bottom" class="material-icons-round text-red text-sm ltr:ml-1 rtl:mr-1">hide_source</span>
+                                    <x-tooltip id="tooltip-client-permission" placement="bottom" message="{{ trans('customers.client_portal_text.cant') }}">
+                                        <span class="material-icons-round text-red text-sm ltr:ml-1 rtl:mr-1">hide_source</span>
+                                    </x-tooltip>
                                 @endif
-
-                                <div id="tooltip-client-describe" role="tooltip" class="w-2/12 inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-normal tooltip-content">
-                                    {{ trans('customers.client_portal_description') }}
-                                    <div class="absolute w-2 h-2 -top-1 -left-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-b-0 before:border-r-0" data-popper-arrow></div>
-                                </div>
-
-                                <div id="tooltip-client-permission" role="tooltip" class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content">
-                                    @if ($contact->user)
-                                        {{ trans('customers.client_portal_text.can') }}
-                                    @else
-                                        {{ trans('customers.client_portal_text.cant') }}
-                                    @endif
-                                    <div class="absolute w-2 h-2 -top-1 -left-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-b-0 before:border-r-0" data-popper-arrow></div>
-                                </div>
                             </div>
                         </div>
                     </div>
