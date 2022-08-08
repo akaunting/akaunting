@@ -84,7 +84,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <div class="grid col-span-6 grid-rows-3">
+                        <div class="grid col-span-6 gap-y-6 grid-rows-3">
                             <x-form.group.invoice-text
                                 name="item_name"
                                 label="{{ trans('settings.invoice.item_name') }}"
