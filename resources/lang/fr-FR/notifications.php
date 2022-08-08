@@ -75,7 +75,7 @@ return [
         'export_failed' => [
 
             'title'         => 'L\'exportation a échoué',
-            'description'   => 'Impossible de créer le fichier d\'export en raison du problème suivant : :issues',
+            'description'   => 'Impossible de créer le fichier d\'export en raison de plusieurs problèmes. Consultez votre e-mail pour plus de détails.',
 
         ],
 
@@ -83,6 +83,13 @@ return [
 
             'title'         => 'Importation terminée',
             'description'   => 'Vos données <strong>:type</strong> lignées <strong>:count</strong> ont été importées avec succès.',
+
+        ],
+
+        'import_failed' => [
+
+            'subject'       => 'Importation échouée',
+            'description'   => 'Impossible d\'importer le fichier en raison de plusieurs problèmes. Consultez votre e-mail pour plus de détails.',
 
         ],
 

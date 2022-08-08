@@ -40,11 +40,32 @@ abstract class Report
     {
         $now = Date::now();
 
+        $financial_start = setting('localisation.financial_start');
+        $setting = explode('-', $financial_start);
+        $financial_start_day = ! empty($setting[0]) ? $setting[0] : '01';
+
+        $format = ($financial_start == '01-01')
+                    ? $this->getYearlyDateFormat()
+                    : (($financial_start_day != '01') ? $this->getDailyDateFormat() : $this->getMonthlyDateFormat());
+
         $years = [];
 
         $y = $now->addYears(2);
+
         for ($i = 0; $i < 10; $i++) {
-            $years[$y->year] = $y->year;
+            $financial_year = $this->getFinancialYear($y->year);
+
+            if ($financial_start == '01-01') {
+                $title = $financial_year->getStartDate()->copy()->format($format);
+            } else {
+                $start = $financial_year->getStartDate()->copy()->format($format);
+                $end = $financial_year->getEndDate()->copy()->format($format);
+
+                $title = $start . ' - ' . $end;
+            }
+
+            $years[$y->year] = $title;
+
             $y->subYear();
         }
 

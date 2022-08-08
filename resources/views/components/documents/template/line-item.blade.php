@@ -9,7 +9,7 @@
                 @if (! $hideDescription)
                     @if (! empty($item->description))
                         <span class="small-text">
-                            {!! \Illuminate\Support\Str::limit($item->description, 500) !!}
+                            {!! \Illuminate\Support\Str::limit(nl2br($item->description), 500) !!}
                         </span>
                     @endif
                 @endif

@@ -867,8 +867,7 @@ export default {
     }
 
     html[dir='rtl'] .searh-field .el-tag-option {
-        border-radius: 0.50rem;
-        margin-right: 10px;
+        border-radius: 0 0.5rem 0.5rem 0;
     }
 
     .searh-field .el-tag-operator {
@@ -883,12 +882,12 @@ export default {
     }
 
     html[dir='rtl'] .searh-field .el-tag-value {
-        border-radius: 0.50rem;
+        border-radius: 0.5rem 0 0 0.5rem;
         margin-left: 10px;
     }
 
     html[dir='rtl'] .searh-field .el-tag-operator {
-        border-radius: 0.50rem;
+        border-radius: 0;
     }
 
     .searh-field .el-select.input-new-tag {

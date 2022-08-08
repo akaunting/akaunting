@@ -56,12 +56,25 @@ class Transactions extends Controller
 
         $totals['profit'] = $totals['income'] - $totals['expense'];
 
+        $incoming_amount = money($totals['income'], setting('default.currency'), true);
+        $expense_amount = money($totals['expense'], setting('default.currency'), true);
+        $profit_amount = money($totals['profit'], setting('default.currency'), true);
+
+        $summary_amounts = [
+            'incoming_exact'        => $incoming_amount->format(),
+            'incoming_for_humans'   => $incoming_amount->formatForHumans(),
+            'expense_exact'         => $expense_amount->format(),
+            'expense_for_humans'    => $expense_amount->formatForHumans(),
+            'profit_exact'          => $profit_amount->format(),
+            'profit_for_humans'     => $profit_amount->formatForHumans(),
+        ];
+
         $translations = $this->getTranslationsForConnect('income');
 
         return $this->response('banking.transactions.index', compact(
             'transactions',
             'translations',
-            'totals'
+            'summary_amounts'
         ));
     }
 

@@ -39,6 +39,18 @@ class Contact extends Form
 
         $model = $this->getParentData('model');
 
+        $contact_id = old('contact.id', old('contact_id', null));
+
+        if (! empty($contact_id)) {
+            $this->selected = $contact_id;
+
+            if (! $this->contacts->has($contact_id)) {
+                $contact = Model::find($contact_id);
+
+                $this->contacts->put($contact->id, $contact->name);
+            }
+        }
+
         if (! empty($model) && ! empty($model->contact_id)) {
             $this->selected = $model->contact_id;
 

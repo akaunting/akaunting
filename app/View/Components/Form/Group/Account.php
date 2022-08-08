@@ -28,6 +28,18 @@ class Account extends Form
 
         $this->accounts = $this->getAccounts();
 
+        $account_id = old('account.id', old('account_id', null));
+
+        if (! empty($account_id)) {
+            $this->selected = $account_id;
+
+            if (! $this->accounts->has($account_id)) {
+                $account = Model::find($account_id);
+
+                $this->accounts->put($account->id, $account->name);
+            }
+        }
+
         if (empty($this->selected) && empty($this->getParentData('model'))) {
             $this->selected = setting('default.account');
         }

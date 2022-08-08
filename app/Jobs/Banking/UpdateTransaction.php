@@ -24,7 +24,7 @@ class UpdateTransaction extends Job implements ShouldUpdate
 
                     $this->model->attachMedia($media, 'attachment');
                 }
-            } elseif (!$this->request->file('attachment') && $this->model->attachment) {
+            } elseif (! $this->request->file('attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 
@@ -44,6 +44,10 @@ class UpdateTransaction extends Job implements ShouldUpdate
             $message = trans('messages.warning.reconciled_tran');
 
             throw new \Exception($message);
+        }
+
+        if ($this->model->isTransferTransaction()) {
+            throw new \Exception('Unauthorized');
         }
     }
 }

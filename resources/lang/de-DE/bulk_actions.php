@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>nicht abgleichen</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>nicht abgleichen</b> möchten?',
     ],
 
+    'success' => [
+        'general'       => ':count Eintrag :type.',
+    ],
 ];

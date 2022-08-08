@@ -54,6 +54,22 @@ class Companies extends Controller
         $file_keys = ['company.logo'];
         $uploaded_file_keys = ['company.uploaded_logo'];
 
+        // Clear setting media
+        foreach ($file_keys as $file_key) {
+            $keys = explode('.', $file_key);
+
+            if (! setting($file_key, false)) {
+                continue;
+            }
+
+            $file_old_key = 'uploaded_' . $keys[1];
+            if (array_key_exists($file_old_key, $fields)) {
+                continue;
+            }
+
+            setting()->forget($file_key);
+        }
+
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
             if (in_array($key, $skip_keys)) {

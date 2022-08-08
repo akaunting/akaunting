@@ -20,14 +20,16 @@
             <x-index.summary>
                 <x-slot name="first"
                     href="{{ route('reconciliations.index', ['search' => 'reconciled:1']) }}"
-                    amount="{{ money($reconciliations->where('reconciled', 1)->sum('closing_balance'), setting('default.currency'), true) }}"
+                    amount="{{ $summary_amounts['amount_for_humans'] }}"
                     title="{{ trans('reconciliations.reconciled_amount') }}"
+                    tooltip="{{ $summary_amounts['amount_exact'] }}"
                 ></x-slot>
 
                 <x-slot name="second"
                     href="{{ route('reconciliations.index', ['search' => 'reconciled:0']) }}"
-                    amount="{{ money($reconciliations->where('reconciled', 0)->sum('closing_balance'), setting('default.currency'), true) }}"
+                    amount="{{ $summary_amounts['in_progress_for_humans'] }}"
                     title="{{ trans('reconciliations.in_progress') }}"
+                    tooltip="{{ $summary_amounts['in_progress_exact'] }}"
                 ></x-slot>
             </x-index.summary>
 

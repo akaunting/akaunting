@@ -17,6 +17,12 @@
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-word>content_paste</span>
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-excel>table_chart</span>
                 <span class="mb-1 text-sm ml-3 text-gray-500 hidden" data-dz-name>...</span>
+
+                <div class="gap-x-1 relative">
+                    <button data-dz-remove="true" class="absolute group right-0">
+                        <span class="material-icons text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -40,11 +46,11 @@
                     </div>
 
                     <div class="gap-x-1">
-                        <button data-dz-remove="true" class="btn btn-danger btn-sm">
-                            <span class="material-icons text-base text-red">delete</span>
+                        <button data-dz-remove="true" class="group">
+                            <span class="material-icons text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
                         </button>
-                        <a href="#" type="button" class="btn btn-sm btn-info hidden" data-dz-download>
-                            <span class="material-icons-round text-base">download</span>
+                        <a href="#" type="button" class="group hidden" data-dz-download>
+                            <span class="material-icons-round text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">download</span>
                         </a>
                     </div>
                 </div>

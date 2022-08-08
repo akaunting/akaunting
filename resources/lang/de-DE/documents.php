@@ -5,7 +5,7 @@ return [
     'edit_columns'              => 'Spalten bearbeiten',
     'empty_items'               => 'Sie haben keine Artikel hinzugefügt.',
     'grand_total'               => 'Gesamtbetrag',
-    'accept_payment_online'     => 'Online Zahlungen akzeptieren',
+    'accept_payment_online'     => 'Onlinezahlungen akzeptieren',
     'transaction'               => 'Eine Zahlung über :amount wurde mit :account getätigt.',
     'billing'                   => 'Abrechnung',
     'advanced'                  => 'Erweitert',

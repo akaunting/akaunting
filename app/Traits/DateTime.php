@@ -189,6 +189,13 @@ trait DateTime
         return $date_picker_shortcuts;
     }
 
+    public function getDailyDateFormat($year = null)
+    {
+        $format = 'd M Y';
+
+        return $format;
+    }
+
     public function getMonthlyDateFormat($year = null)
     {
         $format = 'M Y';

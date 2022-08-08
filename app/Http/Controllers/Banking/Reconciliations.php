@@ -24,7 +24,17 @@ class Reconciliations extends Controller
     {
         $reconciliations = Reconciliation::with('account')->collect();
 
-        return $this->response('banking.reconciliations.index', compact('reconciliations'));
+        $reconciled_amount = money($reconciliations->where('reconciled', 1)->sum('closing_balance'), setting('default.currency'), true);
+        $in_progress_amount = money($reconciliations->where('reconciled', 0)->sum('closing_balance'), setting('default.currency'), true);
+
+        $summary_amounts = [
+            'amount_exact'              => $reconciled_amount->format(),
+            'amount_for_humans'         => $reconciled_amount->formatForHumans(),
+            'in_progress_exact'         => $in_progress_amount->format(),
+            'in_progress_for_humans'    => $in_progress_amount->formatForHumans(),
+        ];
+
+        return $this->response('banking.reconciliations.index', compact('reconciliations', 'summary_amounts'));
     }
 
     /**
