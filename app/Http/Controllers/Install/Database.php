@@ -15,7 +15,9 @@ class Database extends Controller
      */
     public function create()
     {
-        return view('install.database.create');
+        $connection = config('database.default','mysql');
+
+        return view('install.database.create')->with(config("database.connections.$connection"));
     }
 
     /**
