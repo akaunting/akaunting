@@ -44,6 +44,26 @@ abstract class SettingController extends Controller
 
         $total_companies = Company::count();
 
+        // Clear setting media
+        foreach ($this->file_keys as $file_key) {
+            $keys = explode('.', $file_key);
+
+            if ($prefix != $keys[0]) {
+                continue;
+            }
+
+            if (! setting($file_key, false)) {
+                continue;
+            }
+
+            $file_old_key = 'uploaded_' . $keys[1];
+            if (array_key_exists($file_old_key, $fields)) {
+                continue;
+            }
+
+            setting()->forget($file_key);
+        }
+
         foreach ($fields as $key => $value) {
             $real_key = $prefix . '.' . $key;
 

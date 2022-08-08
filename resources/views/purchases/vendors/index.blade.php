@@ -16,7 +16,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-contacts.index.content type="vendor" :contacts="$vendors" show-picture />
+        <x-contacts.index.content type="vendor" :contacts="$vendors" show-logo />
     </x-slot>
 
     <x-contacts.script type="vendor" />

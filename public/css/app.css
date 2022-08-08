@@ -47909,6 +47909,11 @@ body{
   text-align: right;
 }
 
+[dir="ltr"] .ltr\:text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 [dir="rtl"] .rtl\:-left-1\.5{
   left: -0.375rem;
 }

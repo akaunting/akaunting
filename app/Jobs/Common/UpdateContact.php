@@ -28,6 +28,8 @@ class UpdateContact extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('logo'), Str::plural($this->model->type));
 
                 $this->model->attachMedia($media, 'logo');
+            } elseif (! $this->request->file('logo') && $this->model->logo) {
+                $this->deleteMediaModel($this->model, 'logo', $this->request);
             }
 
             $this->model->update($this->request->all());
