@@ -88,7 +88,7 @@
                         <div class="py-2 align-middle inline-block min-w-full">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead>
-                                    <tr class="flex items-center px-1">
+                                    <tr>
                                         <th scope="col" class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
                                             {{ trans('general.date') }}
                                         </th>

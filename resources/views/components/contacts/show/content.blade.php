@@ -171,7 +171,7 @@
                         @if ($documents->count())
                             <x-table>
                                 <x-table.thead>
-                                    <x-table.tr class="flex items-center px-1">
+                                    <x-table.tr>
                                         <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="due_at" title="{{ trans('invoices.due_date') }}" />
@@ -260,7 +260,7 @@
                         @if ($transactions->count())
                             <x-table>
                                 <x-table.thead>
-                                    <x-table.tr class="flex items-center px-1">
+                                    <x-table.tr>
                                         <x-table.th class="w-4/12 lg:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />

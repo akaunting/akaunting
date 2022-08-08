@@ -234,7 +234,7 @@
                                 @if ($transactions->count())
                                     <x-table>
                                         <x-table.thead>
-                                            <x-table.tr class="flex items-center px-1">
+                                            <x-table.tr>
                                                 <x-table.th class="w-6/12 lg:w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />
@@ -334,7 +334,7 @@
                                 @if ($transfers->count())
                                     <x-table>
                                         <x-table.thead>
-                                            <x-table.tr class="flex items-center px-1">
+                                            <x-table.tr>
                                                 <x-table.th class="w-3/12 hidden sm:table-cell">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />

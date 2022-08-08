@@ -55,7 +55,7 @@
         <x-index.container class="my-0" override="class">
             <x-table>
                 <x-table.thead>
-                    <x-table.tr class="flex items-center px-1">
+                    <x-table.tr>
                         <x-table.th class="w-3/12">
                             {{ trans('general.name') }}
                         </x-table.th>

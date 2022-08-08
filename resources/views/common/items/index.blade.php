@@ -43,8 +43,8 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
-                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                        <x-table.tr>
+                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                 <x-index.bulkaction.all />
                             </x-table.th>
 
@@ -57,11 +57,11 @@
                                 </x-slot>
                             </x-table.th>
 
-                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                            <x-table.th class="w-3/12" hidden-mobile>
                                 <x-sortablelink column="category.name" title="{{ trans_choice('general.categories', 1) }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-2/12 hidden sm:table-cell">
+                            <x-table.th class="w-2/12" hidden-mobile>
                                 {{ trans_choice('general.taxes', 2) }}
                             </x-table.th>
 
@@ -79,11 +79,11 @@
                     <x-table.tbody>
                         @foreach($items as $item)
                             <x-table.tr href="{{ route('items.edit', $item->id) }}">
-                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-6/12 sm:w-4/12 truncate">
+                                <x-table.td class="w-6/12 sm:w-4/12">
                                     <x-slot name="first" class="flex items-center font-bold" override="class">
                                         <div class="truncate">
                                             {{ $item->name }}
@@ -98,13 +98,13 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 truncate hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     <div class="flex items-center">
                                         <x-index.category :model="$item->category" />
                                     </div>
                                 </x-table.td>
 
-                                <x-table.td class="w-2/12 hidden sm:table-cell">
+                                <x-table.td class="w-2/12" hidden-mobile>
                                     @if ($item->taxes->count())
                                         @foreach($item->taxes as $tax)
                                             <span class="bg-lilac-900 px-3 py-1 text-sm rounded-lg text-black ltr:mr-3 rtl:ml-3">
@@ -116,7 +116,7 @@
                                     @endif
                                 </x-table.td>
 
-                                <x-table.td class="relative w-6/12 sm:w-3/12" kind="amount">
+                                <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
                                     <x-slot name="first">
                                         @if ($item->sale_price)
                                             <x-money :amount="$item->sale_price" :currency="setting('default.currency')" convert />

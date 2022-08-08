@@ -20,7 +20,7 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
+                        <x-table.tr>
                             <x-table.th class="w-2/12 hidden sm:table-cell">
                                 {{ trans('general.date') }}
                             </x-table.th>

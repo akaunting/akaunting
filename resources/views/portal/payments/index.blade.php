@@ -10,7 +10,7 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
+                        <x-table.tr>
                             <x-table.th override="class" class="p-0"></x-table.th>
 
                             <x-table.th class="w-4/12 sm:w-3/12">

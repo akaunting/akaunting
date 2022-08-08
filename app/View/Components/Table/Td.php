@@ -11,6 +11,7 @@ class Td extends Component
     public $override;
 
     public $kind;
+    public $hiddenMobile;
 
     /**
      * Create a new component instance.
@@ -18,11 +19,12 @@ class Td extends Component
      * @return void
      */
     public function __construct(
-        string $class = '', string $override = '', string $kind = ''
+        string $class = '', string $override = '', string $kind = '', bool $hiddenMobile = false,
     ) {
         $this->override = $this->getOverride($override);
 
         $this->kind = $kind;
+        $this->hiddenMobile = $hiddenMobile;
         $this->class = $this->getClass($class);
     }
 
@@ -45,6 +47,10 @@ class Td extends Component
     {
         if (in_array('class', $this->override)) {
             return $class;
+        }
+
+        if ($this->hiddenMobile) {
+            $class = $class . ' ' . 'hidden sm:table-cell';
         }
 
         $default = 'py-4 whitespace-nowrap text-sm font-normal text-black truncate';

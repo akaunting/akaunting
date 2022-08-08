@@ -24,7 +24,7 @@
 
         <x-table>
             <x-table.thead>
-                <x-table.tr class="flex items-center px-1">
+                <x-table.tr>
                     @if (! $hideBulkAction)
                     <x-table.th class="{{ $classBulkAction }}" override="class">
                         <x-index.bulkaction.all />
