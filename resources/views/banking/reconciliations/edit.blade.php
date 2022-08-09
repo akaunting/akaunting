@@ -21,11 +21,11 @@
                 <x-table>
                     <x-table.thead>
                         <x-table.tr>
-                            <x-table.th class="w-2/12 hidden sm:table-cell">
+                            <x-table.th class="w-2/12" hidden-mobile>
                                 {{ trans('general.date') }}
                             </x-table.th>
 
-                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                            <x-table.th class="w-3/12" hidden-mobile>
                                 {{ trans('general.description') }}
                             </x-table.th>
 
@@ -33,7 +33,7 @@
                                 {{ trans_choice('general.contacts', 1) }}
                             </x-table.th>
 
-                            <x-table.th class="w-2/12 hidden sm:table-cell">
+                            <x-table.th class="w-2/12" hidden-mobile>
                                 {{ trans('reconciliations.deposit') }}
                             </x-table.th>
 
@@ -50,11 +50,11 @@
                     <x-table.tbody>
                         @foreach($transactions as $item)
                             <x-table.tr>
-                                <x-table.td class="w-2/12 hidden sm:table-cell" kind="cursor-none">
+                                <x-table.td class="w-2/12" hidden-mobile kind="cursor-none">
                                     <x-date date="{{ $item->paid_at }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell" kind="cursor-none">
+                                <x-table.td class="w-3/12" hidden-mobile kind="cursor-none">
                                     {{ $item->description }}
                                 </x-table.td>
 

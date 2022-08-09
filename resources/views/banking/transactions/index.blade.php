@@ -92,7 +92,7 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr>
-                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                             <x-index.bulkaction.all />
                                         </x-table.th>
 
@@ -105,7 +105,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-2/12 hidden sm:table-cell">
+                                        <x-table.th class="w-2/12" hidden-mobile>
                                             <x-slot name="first">
                                                 <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
                                             </x-slot>
@@ -118,7 +118,7 @@
                                             <x-sortablelink column="account.name" title="{{ trans_choice('general.accounts', 1) }}" />
                                         </x-table.th>
 
-                                        <x-table.th class="w-2/12 hidden sm:table-cell">
+                                        <x-table.th class="w-2/12" hidden-mobile>
                                             <x-slot name="first">
                                                 <x-sortablelink column="contact.name" title="{{ trans_choice('general.contacts', 1) }}" />
                                             </x-slot>
@@ -136,7 +136,7 @@
                                 <x-table.tbody>
                                     @foreach($transactions as $item)
                                         <x-table.tr href="{{ route('transactions.show', $item->id) }}">
-                                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
                                             </x-table.td>
 
@@ -149,7 +149,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-2/12 hidden sm:table-cell">
+                                            <x-table.td class="w-2/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     {{ $item->type_title }}
                                                 </x-slot>
@@ -162,7 +162,7 @@
                                                 {{ $item->account->name }}
                                             </x-table.td>
 
-                                            <x-table.td class="w-2/12 hidden sm:table-cell">
+                                            <x-table.td class="w-2/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     {{ $item->contact->name }}
                                                 </x-slot>

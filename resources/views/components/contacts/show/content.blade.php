@@ -172,7 +172,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                                        <x-table.th class="w-3/12" hidden-mobile>
                                             <x-sortablelink column="status" title="{{ trans_choice('general.statuses', 1) }}" />
                                         </x-table.th>
 
@@ -206,7 +206,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                            <x-table.td class="w-3/12" hidden-mobile>
                                                 <x-show.status status="{{ $item->status }}" background-color="bg-{{ $item->status_label }}" text-color="text-text-{{ $item->status_label }}" />
                                             </x-table.td>
 
@@ -260,7 +260,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                                        <x-table.th class="w-3/12" hidden-mobile>
                                             <x-slot name="first">
                                                 <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
                                             </x-slot>
@@ -296,7 +296,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                                            <x-table.td class="w-3/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     {{ $item->type_title }}
                                                 </x-slot>

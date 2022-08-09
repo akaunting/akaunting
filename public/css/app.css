@@ -48626,12 +48626,12 @@ body{
     padding-left: 3rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:pl-24{
-    padding-left: 6rem;
-  }
-
   [dir="ltr"] .ltr\:lg\:pl-8{
     padding-left: 2rem;
+  }
+
+  [dir="ltr"] .lg\:ltr\:pl-24{
+    padding-left: 6rem;
   }
 
   [dir="rtl"] .lg\:rtl\:left-0{
@@ -48646,12 +48646,12 @@ body{
     padding-right: 3rem;
   }
 
-  [dir="rtl"] .lg\:rtl\:pr-24{
-    padding-right: 6rem;
-  }
-
   [dir="rtl"] .rtl\:lg\:pr-8{
     padding-right: 2rem;
+  }
+
+  [dir="rtl"] .lg\:rtl\:pr-24{
+    padding-right: 6rem;
   }
 }
 

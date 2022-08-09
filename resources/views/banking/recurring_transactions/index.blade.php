@@ -39,7 +39,7 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr>
-                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                             <x-index.bulkaction.all />
                                         </x-table.th>
 
@@ -52,7 +52,7 @@
                                             </x-slot>
                                         </x-table.th>
 
-                                        <x-table.th class="w-2/12 hidden sm:table-cell">
+                                        <x-table.th class="w-2/12" hidden-mobile>
                                             <x-slot name="first">
                                                 <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
                                             </x-slot>
@@ -65,7 +65,7 @@
                                             <x-sortablelink column="recurring.status" title="{{ trans_choice('general.statuses', 1) }}" />
                                         </x-table.th>
 
-                                        <x-table.th class="w-2/12 hidden sm:table-cell">
+                                        <x-table.th class="w-2/12" hidden-mobile>
                                             <x-slot name="first">
                                                 {{ trans('recurring.frequency') }}
                                             </x-slot>
@@ -83,7 +83,7 @@
                                 <x-table.tbody>
                                     @foreach($transactions as $item)
                                         <x-table.tr href="{{ route('recurring-transactions.show', $item->id) }}">
-                                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
                                             </x-table.td>
 
@@ -98,7 +98,7 @@
                                                 </x-slot>
                                             </x-table.td>
 
-                                            <x-table.td class="w-2/12 hidden sm:table-cell">
+                                            <x-table.td class="w-2/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     {{ $item->type_title }}
                                                 </x-slot>
@@ -111,7 +111,7 @@
                                                 <x-index.status status="{{ $item->recurring->status }}" background-color="bg-{{ $item->recurring_status_label }}" text-color="text-text-{{ $item->recurring_status_label }}" />
                                             </x-table.td>
 
-                                            <x-table.td class="w-2/12 hidden sm:table-cell">
+                                            <x-table.td class="w-2/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     {{ trans('recurring.' . $item->recurring->frequency) }}
                                                 </x-slot>

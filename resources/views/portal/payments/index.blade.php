@@ -21,7 +21,7 @@
                                 <x-sortablelink column="payment_method" title="{{ trans_choice('general.payment_methods', 1) }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-4/12 sm:w-3/12">
+                            <x-table.th class="w-4/12 sm:w-3/12" hidden-mobile>
                                 <x-sortablelink column="description" title="{{ trans('general.description') }}" />
                             </x-table.th>
 
@@ -44,7 +44,7 @@
                                     {{ $payment_methods[$item->payment_method] }}
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     {{ $item->description }}
                                 </x-table.td>
 

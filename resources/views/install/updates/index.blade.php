@@ -60,11 +60,11 @@
                             {{ trans('general.name') }}
                         </x-table.th>
 
-                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                        <x-table.th class="w-3/12" hidden-mobile>
                             {{ trans('updates.installed_version') }}
                         </x-table.th>
 
-                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                        <x-table.th class="w-3/12" hidden-mobile>
                             {{ trans('updates.latest_version') }}
                         </x-table.th>
 

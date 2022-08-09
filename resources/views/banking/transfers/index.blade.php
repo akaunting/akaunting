@@ -46,11 +46,11 @@
                 <x-table>
                     <x-table.thead>
                         <x-table.tr>
-                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                 <x-index.bulkaction.all />
                             </x-table.th>
 
-                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                            <x-table.th class="w-3/12" hidden-mobile>
                                 <x-slot name="first">
                                     <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
                                 </x-slot>
@@ -99,11 +99,11 @@
                             @endphp
 
                             <x-table.tr href="{{ route('transfers.show', $item->id) }}">
-                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     <x-slot name="first" class="flex items-center font-bold" override="class">
                                         <x-date date="{{ $item->expense_transaction->paid_at }}" />
                                     </x-slot>

@@ -144,7 +144,7 @@
                                     @endif
                                 @endif
 
-                                <div class="truncate {{ $showLogo ? ' ltr:pl-8 rtl:pr-8' : '' }}">
+                                <div class="truncate {{ $showLogo ? 'ltr:lg:pl-8 rtl:lg:pr-8' : '' }}">
                                     {{ $item->name }}
                                 </div>
 
