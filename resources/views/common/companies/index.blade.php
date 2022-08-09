@@ -27,7 +27,7 @@
             <x-table>
                 <x-table.thead>
                     <x-table.tr>
-                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
+                        <x-table.th kind="bulkaction">
                             <x-index.bulkaction.all />
                         </x-table.th>
 
@@ -67,7 +67,7 @@
                 <x-table.tbody>
                     @foreach($companies as $item)
                         <x-table.tr href="{{ route('companies.edit', $item->id) }}">
-                            <x-table.td class="ltr:pr-6 rtl:pl-6" hidden-mobile override="class">
+                            <x-table.td kind="bulkaction">
                                 @if ((company_id() != $item->id))
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                                 @else

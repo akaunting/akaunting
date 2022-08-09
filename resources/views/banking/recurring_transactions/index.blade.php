@@ -39,7 +39,7 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr>
-                                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
+                                        <x-table.th kind="bulkaction">
                                             <x-index.bulkaction.all />
                                         </x-table.th>
 
@@ -83,7 +83,7 @@
                                 <x-table.tbody>
                                     @foreach($transactions as $item)
                                         <x-table.tr href="{{ route('recurring-transactions.show', $item->id) }}">
-                                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
+                                            <x-table.td kind="bulkaction">
                                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
                                             </x-table.td>
 
