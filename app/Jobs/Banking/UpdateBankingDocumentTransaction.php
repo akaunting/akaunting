@@ -3,9 +3,11 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\DocumentTransactionUpdated;
+use App\Events\Banking\DocumentTransactionUpdating;
+use App\Events\Document\PaidAmountCalculated;
 use App\Jobs\Banking\UpdateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
-use App\Events\Document\PaidAmountCalculated;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
@@ -26,6 +28,8 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 
     public function handle(): Transaction
     {
+        event(new DocumentTransactionUpdating($this->model, $this->transaction, $this->request));
+
         $this->prepareRequest();
 
         $this->checkAmount();
@@ -44,6 +48,8 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 
             $this->createHistory();
         });
+
+        event(new DocumentTransactionUpdated($this->model, $this->transaction, $this->request));
 
         return $this->transaction;
     }
