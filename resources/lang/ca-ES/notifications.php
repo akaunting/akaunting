@@ -87,6 +87,13 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
         ],
 
+        'import_failed' => [
+
+            'subject'       => 'Ha fallat la importació',
+            'description'   => 'No s\'ha pogut importar l\'arxiu per vàries raons. Pots mirar el teu correu per tenir-ne més detalls.',
+
+        ],
+
         'new_apps' => [
 
             'title'         => 'Nova App',
