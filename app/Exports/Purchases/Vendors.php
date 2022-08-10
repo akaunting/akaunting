@@ -14,7 +14,13 @@ class Vendors extends Export
 
     public function map($model): array
     {
-        $model->country = ($model->country) ? trans('countries.' . $model->country) : null;
+        $country = null;
+
+        if ($model->country && array_key_exists($model->country, trans('countries'))) {
+            $country = trans('countries.' . $model->country);
+        }
+
+        $model->country = $country;
 
         return parent::map($model);
     }
