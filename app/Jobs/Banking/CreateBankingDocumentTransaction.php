@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\DocumentTransactionCreated;
+use App\Events\Banking\DocumentTransactionCreating;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Events\Document\PaidAmountCalculated;
@@ -27,6 +29,8 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
 
     public function handle(): Transaction
     {
+        event(new DocumentTransactionCreating($this->model, $this->request));
+
         $this->prepareRequest();
 
         $this->checkAmount();
@@ -45,6 +49,8 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
 
             $this->createHistory();
         });
+
+        event(new DocumentTransactionCreated($this->model, $this->transaction));
 
         return $this->transaction;
     }

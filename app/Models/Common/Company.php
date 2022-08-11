@@ -526,8 +526,10 @@ class Company extends Eloquent implements Ownable
             $location[] = setting('company.state');
         }
 
-        if (setting('company.country')) {
-            $location[] = trans('countries.' . setting('company.country'));
+        $country = setting('company.country');
+
+        if ($country && in_array($country, trans('countries'))) {
+            $location[] = trans('countries.' . $country);
         }
 
         return implode(', ', $location);

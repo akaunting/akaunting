@@ -412,10 +412,12 @@ return new class extends Migration
             $table->integer('role_id')->unsigned();
             $table->string('user_type');
 
+            $table->primary(['user_id', 'role_id', 'user_type']);
+        });
+
+        Schema::table('user_roles', function (Blueprint $table) {
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['user_id', 'role_id', 'user_type']);
         });
 
         // Reconciliations

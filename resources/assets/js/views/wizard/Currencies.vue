@@ -61,9 +61,9 @@
                                 <td class="w-full p-0 current-tab" v-if="current_tab == index">
                                     <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 py-3">
                                         <base-input name="name" data-name="name"
-                                        form-classes="sm:col-span-2"
-                                        v-model="model.name"
-                                        :error="onFailErrorGet('name')"
+                                            form-classes="sm:col-span-2"
+                                            v-model="model.name"
+                                            :error="onFailErrorGet('name')"
                                         />
 
                                         <base-input class="sm:col-span-2" :error="onFailErrorGet('code')">
@@ -79,9 +79,9 @@
                                         </base-input>
 
                                         <base-input name="rate" data-name="rate" :placeholder="translations.currencies.rate"
-                                        form-classes="sm:col-span-2"
-                                        v-model="model.rate"
-                                        :error="onFailErrorGet('rate')"
+                                            form-classes="sm:col-span-2"
+                                            v-model="model.rate"
+                                            :error="onFailErrorGet('rate')"
                                         />
 
                                         <div class="flex justify-end items-center sm:col-span-6">

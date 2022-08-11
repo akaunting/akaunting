@@ -16,10 +16,16 @@ class Invoices extends Export implements WithColumnFormatting
 
     public function map($model): array
     {
+        $country = null;
+
+        if ($model->contact_country && array_key_exists($model->contact_country, trans('countries'))) {
+            $country = trans('countries.' . $model->contact_country);
+        }
+
         $model->category_name = $model->category->name;
         $model->invoice_number = $model->document_number;
         $model->invoiced_at = $model->issued_at;
-        $model->contact_country = ($model->contact_country) ? trans('countries.' . $model->contact_country) : null;
+        $model->contact_country = $country;
 
         return parent::map($model);
     }
