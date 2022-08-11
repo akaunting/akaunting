@@ -23,7 +23,7 @@
                                         {{ $button['text'] }}
 
                                         @if (! empty($button['active_badge']))
-                                            <div class="absolute w-7 h-7 opacity-100 z-20 -top-1.5 -right-8">
+                                            <div class="absolute w-7 h-7 opacity-100 z-10 -top-1.5 -right-8">
                                                 <div class="absolute w-5 h-5 left-0 top-1 border border-gray-100 rounded-full animate-pulsate_transparent bg-white"></div>
                                                 <div class="absolute w-2 h-2 top-2.5 left-1.5 rounded-full bg-green-400"></div>
                                             </div>
