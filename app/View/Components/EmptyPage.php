@@ -82,6 +82,9 @@ class EmptyPage extends Component
             $alias = $group;
         }
 
+        // Remove 'portal.' to correctly detect the module name when called form Portal
+        $alias = preg_replace('/portal\./', '', $alias);
+
         $this->alias = (module($alias) === null) ? 'core': $alias;
         $this->group = $group;
         $this->page = $page;
