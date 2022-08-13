@@ -19,14 +19,14 @@ trait Charts
         'values' => [],
     ];
 
-    public function addToDonut($color, $label, $value)
+    public function addToDonutChart($color, $label, $value)
     {
         $this->donut['colors'][] = $color;
         $this->donut['labels'][] = $label;
         $this->donut['values'][] = (int) $value;
     }
 
-    public function addMoneyToDonut($color, $amount, $description = '')
+    public function addMoneyToDonutChart($color, $amount, $description = '')
     {
         $label = money($amount, setting('default.currency'), true)->formatForHumans();
 
@@ -34,7 +34,7 @@ trait Charts
             $label .= ' - ' . $description;
         }
 
-        $this->addToDonut($color, $label, $amount);
+        $this->addToDonutChart($color, $label, $amount);
     }
 
     public function getDonutChart($name, $width = '100%', $height = 300, $limit = 10)
@@ -69,7 +69,7 @@ trait Charts
         return $chart;
     }
 
-    public function addToBar($color, $label, $value)
+    public function addToBarChart($color, $label, $value)
     {
         $this->bar['colors'][] = $color;
         $this->bar['labels'][] = $label;
@@ -208,5 +208,23 @@ trait Charts
         }
 
         return $translations;
+    }
+
+    // @deprecated version 3.0.0
+    public function addToDonut($color, $label, $value)
+    {
+        $this->addToDonutChart($color, $label, $value);
+    }
+
+    // @deprecated version 3.0.0
+    public function addMoneyToDonut($color, $amount, $description = '')
+    {
+        $this->addMoneyToDonutChart($color, $amount, $description);
+    }
+
+    // @deprecated version 3.0.0
+    public function addToBar($color, $label, $value)
+    {
+        $this->addToBarChart($color, $label, $value);
     }
 }
