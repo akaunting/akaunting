@@ -58,6 +58,8 @@ class ProfitLoss extends Widget
 
         $chart->setType('bar')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors($colors)
             ->setDataset(trans_choice('general.incomes', 1), 'column', array_values($income))
