@@ -95,7 +95,7 @@ trait Charts
         return $chart;
     }
 
-    public function getFormatLabel($type = 'money', $position = null)
+    public function getChartLabelFormatter($type = 'money', $position = null)
     {
         $label = '';
         $decimal_mark = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.decimal_mark'));

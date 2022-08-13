@@ -51,7 +51,7 @@ class ProfitLoss extends Widget
 
             'yaxis' => [
                 'labels'        => [
-                    'formatter' => $this->getFormatLabel(),
+                    'formatter' => $this->getChartLabelFormatter(),
                 ],
             ],
         ];

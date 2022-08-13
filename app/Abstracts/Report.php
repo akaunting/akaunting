@@ -304,8 +304,8 @@ abstract class Report
 
     public function setChartLabelFormatter()
     {
-        $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getFormatLabel();
-        $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getFormatLabel('percent');
+        $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
+        $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
     }
 
     public function setYear()
