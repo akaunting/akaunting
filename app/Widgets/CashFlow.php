@@ -34,41 +34,21 @@ class CashFlow extends Widget
     {
         $this->setFilter();
 
-        $labels = $this->getLabels();
-
         $income = array_values($this->calculateTotals('income'));
         $expense = array_values($this->calculateTotals('expense'));
         $profit = array_values($this->calculateProfit($income, $expense));
 
-        $colors = $this->getColors();
-
-        $options = [
-            'chart' => [
-                'stacked'           => true,
-            ],
-            'plotOptions' => [
-                'bar' => [
-                    'columnWidth'   => '40%',
-                ],
-            ],
-            'legend' => [
-                'position'          => 'top',
-            ],
-            'yaxis' => [
-                'labels' => [
-                    'formatter'     => $this->getChartLabelFormatter(),
-                ],
-            ],
-        ];
-
         $chart = new Chart();
 
         $chart->setType('line')
-            ->setOptions($options)
             ->setDefaultLocale($this->getDefaultLocaleOfChart())
             ->setLocales($this->getLocaleTranslationOfChart())
-            ->setLabels(array_values($labels))
-            ->setColors($colors)
+            ->setStacked(true)
+            ->setBar(['columnWidth' => '40%'])
+            ->setLegendPosition('top')
+            ->setYaxisLabels(['formatter' => $this->getChartLabelFormatter()])
+            ->setLabels(array_values($this->getLabels()))
+            ->setColors($this->getColors())
             ->setDataset(trans('general.incoming'), 'column', $income)
             ->setDataset(trans('general.outgoing'), 'column', $expense)
             ->setDataset(trans_choice('general.profits', 1), 'line', $profit);
