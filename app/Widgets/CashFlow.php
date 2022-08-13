@@ -65,6 +65,8 @@ class CashFlow extends Widget
 
         $chart->setType('line')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors($colors)
             ->setDataset(trans('general.incoming'), 'column', $income)

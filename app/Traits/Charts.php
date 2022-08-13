@@ -60,6 +60,8 @@ trait Charts
         $chart->setType('donut')
             ->setWidth($width)
             ->setHeight($height)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors(array_values($colors))
             ->setDataset($name, 'donut', array_values($values));
@@ -81,6 +83,8 @@ trait Charts
         $chart->setType('bar')
             ->setWidth($width)
             ->setHeight($height)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($this->bar['labels']))
             ->setColors($this->bar['colors']);
 
@@ -164,5 +168,45 @@ trait Charts
         }
 
         return $label;
+    }
+
+    public function getDefaultLocaleOfChart(): string
+    {
+        $default = 'en';
+
+        $short = language()->getShortCode();
+        $long = language()->getLongCode();
+
+        $short_path = public_path('vendor/apexcharts/locales/' . $short . '.json');
+        $long_path = public_path('vendor/apexcharts/locales/' . $long . '.json');
+
+        if (is_file($short_path)) {
+            return $short;
+        }
+
+        if (is_file($long_path)) {
+            return $long;
+        }
+
+        return $default;
+    }
+
+    public function getLocaleTranslationOfChart(?string $locale = null): array
+    {
+        $translations = [];
+
+        $user_locale = $locale ?: $this->getDefaultLocaleOfChart();
+
+        $locales = ($user_locale == 'en') ? [$user_locale] : [$user_locale, 'en'];
+
+        foreach ($locales as $loc) {
+            $translations[] = json_decode(
+                file_get_contents(
+                    public_path('vendor/apexcharts/locales/' . $loc . '.json')
+                )
+            );
+        }
+
+        return $translations;
     }
 }

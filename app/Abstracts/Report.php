@@ -199,6 +199,8 @@ abstract class Report
 
         $chart->setType('bar')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($this->dates))
             ->setDataset($this->tables[$table_key], 'column', array_values($this->footer_totals[$table_key]));
 
@@ -246,6 +248,8 @@ abstract class Report
 
         $chart->setType('donut')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors(array_values($colors))
             ->setDataset($this->tables[$table_key], 'donut', array_values($values));
