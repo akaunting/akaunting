@@ -47763,11 +47763,6 @@ body{
   background-color: rgb(197 217 186 / var(--tw-bg-opacity));
 }
 
-.disabled\:bg-gray-300:disabled{
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-
 .disabled\:bg-gray-100:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
