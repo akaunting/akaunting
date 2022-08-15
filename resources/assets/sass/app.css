@@ -436,6 +436,11 @@ html[dir='rtl'] .el-input__suffix {
     text-align: left;
 }
 
+html[dir='rtl'] .el-scrollbar__wrap {
+    margin-left: -15px !important;
+    margin-right: unset !important;
+}
+
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     right: 15px !important;
 }

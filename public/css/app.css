@@ -47133,6 +47133,11 @@ html[dir='rtl'] .el-input__suffix {
     text-align: left;
 }
 
+html[dir='rtl'] .el-scrollbar__wrap {
+    margin-left: -15px !important;
+    margin-right: unset !important;
+}
+
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     right: 15px !important;
 }
@@ -47846,6 +47851,10 @@ body{
   right: 0.5rem;
 }
 
+[dir="ltr"] .ltr\:left-3{
+  left: 0.75rem;
+}
+
 [dir="ltr"] .ltr\:-right-2{
   right: -0.5rem;
 }
@@ -47860,10 +47869,6 @@ body{
 
 [dir="ltr"] .ltr\:left-0{
   left: 0px;
-}
-
-[dir="ltr"] .ltr\:left-3{
-  left: 0.75rem;
 }
 
 [dir="ltr"] .ltr\:left-8{
@@ -48017,6 +48022,10 @@ body{
   left: 0.5rem;
 }
 
+[dir="rtl"] .rtl\:right-3{
+  right: 0.75rem;
+}
+
 [dir="rtl"] .rtl\:-left-2{
   left: -0.5rem;
 }
@@ -48031,10 +48040,6 @@ body{
 
 [dir="rtl"] .rtl\:right-0{
   right: 0px;
-}
-
-[dir="rtl"] .rtl\:right-3{
-  right: 0.75rem;
 }
 
 [dir="rtl"] .rtl\:right-8{
