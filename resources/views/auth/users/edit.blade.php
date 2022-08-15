@@ -16,7 +16,7 @@
                             <x-form.group.email name="email" label="{{ trans('general.email') }}" ::disabled="{{ $user->hasPendingInvitation() ? 'true' : 'false' }}" />
 
                             @if (user()->id == $user->id)
-                            <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3" @input="onChangePassword($event)" />
+                            <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3" checkbox-class="sm:col-span-6" @input="onChangePassword($event)" />
 
                             <x-form.group.password name="password" :label="trans('auth.password.new')" v-show="show_password" />
                             @endif
