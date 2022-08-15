@@ -15,23 +15,28 @@
                         <h1 class="sm:col-span-6 text-black-300 mb-2">
                             {{ translations.finish.recommended_apps }}
                         </h1>
+
                         <div v-for="(item, index) in modules" :key="index" class="sm:col-span-6 mb-6">
                             <a :href="route_url + '/apps/' + item.slug" class="flex items-center">
                                 <div class="w-1/4">
                                     <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
-                                    :src="file.path_string"
-                                    :alt="item.name"
-                                    class="rounded-lg object-cover"
+                                        :src="file.path_string"
+                                        :alt="item.name"
+                                        class="rounded-lg object-cover"
                                     />
                                 </div>
+
                                 <div class="w-3/4 ltr:pl-8 rtl:pr-8">
-                                    <span class="font-medium">{{ item.name }}</span>
-                                    <div class="text-black-300 text-sm my-2 line-clamp-2 h-10"
-                                     v-html="item.description"></div>
+                                    <span class="font-medium">
+                                        {{ item.name }}
+                                    </span>
+
+                                    <div class="text-black-300 text-sm my-2 line-clamp-2 h-10" v-html="item.description"></div>
                                 </div>
                             </a>
                         </div>
                     </div>
+
                     <div class="lg:hidden">
                         <base-button class="btn flex items-center justify-center text-base disabled:opacity-50 relative mt-5 mx-auto bg-green hover:bg-gray-100 text-white rounded-md py-3 px-5 font-semibold" @click="finish()">
                             {{ translations.finish.create_first_invoice }}
@@ -44,14 +49,24 @@
                         <div class="w-48 text-white rtl:float-left rtl:text-left text-2xl font-semibold leading-9">
                             {{ translations.finish.apps_managing }}
                         </div>
+
                         <div style="width:372px; height:372px;"></div>
+
                         <img :src="image_src" class="absolute top-0 right-2" alt="" />
                     </div>
-                    <base-button class="flex items-center justify-center text-base rounded-lg disabled:opacity-50 relative m-auto bottom-48 bg-white hover:bg-gray-100 text-purple rounded-md py-3 px-5 font-semibold btn-default" @click="finish()">
-                        {{ translations.finish.create_first_invoice }}
+
+                    <base-button
+                        class="relative flex items-center justify-center text-base rounded-lg m-auto bottom-48 bg-white hover:bg-gray-100 text-purple py-3 px-5 font-semibold disabled:bg-gray-100 "
+                        :disabled="anchor_loading"
+                        @click="finish()"
+                    >
+                        <i v-if="anchor_loading" class="animate-submit_second delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-2.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit_second before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit_second before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                        
+                        <span :class="[{'opacity-0': anchor_loading}]">
+                            {{ translations.finish.create_first_invoice }}
+                        </span>
                     </base-button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -86,6 +101,7 @@ export default {
             active: 3,
             route_url: url,
             image_src: app_url + "/public/img/wizard-modules.png",
+            anchor_loading: false
         };
     },
 
@@ -117,15 +133,16 @@ export default {
 
         finish() {
             window.location.href = url + "/sales/invoices/create";
+            this.anchor_loading = true;
         },
     },
 };
 </script>
 
 <style scoped>
-@media only screen and (max-width: 991px) {
-  [modal-container] {
-    height: 100% !important;
-  }
-}
+    @media only screen and (max-width: 991px) {
+        [modal-container] {
+            height: 100% !important;
+        }
+    }
 </style>

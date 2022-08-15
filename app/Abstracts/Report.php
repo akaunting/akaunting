@@ -199,6 +199,8 @@ abstract class Report
 
         $chart->setType('bar')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($this->dates))
             ->setDataset($this->tables[$table_key], 'column', array_values($this->footer_totals[$table_key]));
 
@@ -246,6 +248,8 @@ abstract class Report
 
         $chart->setType('donut')
             ->setOptions($options)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors(array_values($colors))
             ->setDataset($this->tables[$table_key], 'donut', array_values($values));
@@ -300,8 +304,8 @@ abstract class Report
 
     public function setChartLabelFormatter()
     {
-        $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getFormatLabel();
-        $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getFormatLabel('percent');
+        $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
+        $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
     }
 
     public function setYear()

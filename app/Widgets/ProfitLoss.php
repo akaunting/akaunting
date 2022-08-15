@@ -31,37 +31,18 @@ class ProfitLoss extends Widget
     {
         $this->setFilter();
 
-        $labels = $this->getLabels();
-
-        $income = $this->getIncome();
-
-        $expense = $this->getExpense();
-
-        $colors = $this->getColors();
-
         $chart = new Chart();
 
-        $options = [
-            'legend' => [
-                'position'      => 'top',
-                'markers' => [
-                    'radius'    => '12',
-                ],
-            ],
-
-            'yaxis' => [
-                'labels'        => [
-                    'formatter' => $this->getFormatLabel(),
-                ],
-            ],
-        ];
-
         $chart->setType('bar')
-            ->setOptions($options)
-            ->setLabels(array_values($labels))
-            ->setColors($colors)
-            ->setDataset(trans_choice('general.incomes', 1), 'column', array_values($income))
-            ->setDataset(trans_choice('general.expenses', 1), 'column', array_values($expense));
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
+            ->setLegendPosition('top')
+            ->setLegendMarkers(['radius' => '12'])
+            ->setYaxisLabels(['formatter' => $this->getChartLabelFormatter()])
+            ->setLabels(array_values($this->getLabels()))
+            ->setColors($this->getColors())
+            ->setDataset(trans_choice('general.incomes', 1), 'column', array_values($this->getIncome()))
+            ->setDataset(trans_choice('general.expenses', 1), 'column', array_values($this->getExpense()));
 
         return $this->view('widgets.bar_chart', [
             'chart' => $chart,

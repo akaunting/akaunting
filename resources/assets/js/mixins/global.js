@@ -710,9 +710,9 @@ export default {
             Promise.resolve(window.axios.get(url))
             .then(response => {
                 if (response.data.success) {
-                    modal.title = response.data.title;
+                    modal.title = response.data.data.title;
                     modal.html = response.data.html;
-                    modal.buttons = response.data.buttons;
+                    modal.buttons = response.data.data.buttons;
 
                     this.component = Vue.component('add-new-component', (resolve, reject) => {
                         resolve({

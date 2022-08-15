@@ -45,6 +45,10 @@ class Company extends FormRequest
             $rules['api_key'] = 'string|check';
         }
 
+        if (setting('apps.api_key', false) && (setting('apps.api_key', false) != $this->request->get('api_key'))) {
+            $rules['api_key'] = 'string|check';
+        }
+
         return $rules;
     }
 
