@@ -211,6 +211,10 @@ module.exports = {
                 '0%': { boxShadow: '0 28px 0 -28px #ffffff' },
                 '100%': { boxShadow: '0 28px 0 #ffffff' },
               },
+              submit_second: {
+                '0%': { boxShadow: '0 28px 0 -28px #55588b' },
+                '100%': { boxShadow: '0 28px 0 #55588b' },
+              },
           },
 
           animation: {
@@ -218,7 +222,8 @@ module.exports = {
               pulsate_transparent: 'pulsate_transparent 1500ms ease infinite;',
               pulsate: 'pulsate 1500ms ease infinite;',
               spin: 'spin 1000ms infinite',
-              submit: 'submit 0.7s ease alternate infinite'
+              submit: 'submit 0.7s ease alternate infinite',
+              submit_second: 'submit_second 0.7s ease alternate infinite'
           },
 
           transitionProperty: {
