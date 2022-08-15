@@ -32,7 +32,12 @@ class ShowInNotifications
 
             foreach ($updates as $key => $update) {
                 $prefix = ($key == 'core') ? 'core' : 'module';
-                $name = ($prefix == 'core') ? 'Akaunting' : module($key)->getName();
+
+                if ($prefix == 'module' && ! module($key)) {
+                    continue;
+                }
+
+                $name = ($prefix == 'core') ? 'Akaunting' : module($key)?->getName();
 
                 $new = new DatabaseNotification();
                 $new->id = $key;
