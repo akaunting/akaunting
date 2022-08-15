@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:absolute w-12 hidden lg:flex items-center lg:ltr:right-0 lg:rtl:left-0 xl:-top-12 cursor-pointer">
+    <div class="relative lg:absolute w-12 flex items-center lg:ltr:right-0 lg:rtl:left-0 xl:-top-12 cursor-pointer">
         <input type="radio" :name="name" v-show="selected == '0'" @click="enabled = 1" value="1" id="enabled-1" v-model="selected" class="w-full h-full absolute right-0 z-20 opacity-0 cursor-pointer">
         <input type="radio" :name="name" v-show="selected == '1'" @click="enabled = 0" value="0" id="enabled-0" v-model="selected" class="w-full h-full absolute left-0 z-20 opacity-0 cursor-pointer">
 
