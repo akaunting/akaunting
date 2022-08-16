@@ -55,8 +55,16 @@
                         <img :src="image_src" class="absolute top-0 right-2" alt="" />
                     </div>
 
-                    <base-button class="flex items-center justify-center text-base rounded-lg disabled:opacity-50 relative m-auto bottom-48 bg-white hover:bg-gray-100 text-purple rounded-md py-3 px-5 font-semibold btn-default" @click="finish()">
-                        {{ translations.finish.create_first_invoice }}
+                    <base-button
+                        class="relative flex items-center justify-center text-base rounded-lg m-auto bottom-48 bg-white hover:bg-gray-100 text-purple py-3 px-5 font-semibold disabled:bg-gray-100 "
+                        :disabled="anchor_loading"
+                        @click="finish()"
+                    >
+                        <i v-if="anchor_loading" class="animate-submit_second delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-2.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit_second before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit_second before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                        
+                        <span :class="[{'opacity-0': anchor_loading}]">
+                            {{ translations.finish.create_first_invoice }}
+                        </span>
                     </base-button>
                 </div>
             </div>
@@ -93,6 +101,7 @@ export default {
             active: 3,
             route_url: url,
             image_src: app_url + "/public/img/wizard-modules.png",
+            anchor_loading: false
         };
     },
 
@@ -124,6 +133,7 @@ export default {
 
         finish() {
             window.location.href = url + "/sales/invoices/create";
+            this.anchor_loading = true;
         },
     },
 };
