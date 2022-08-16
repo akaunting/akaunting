@@ -5,7 +5,7 @@
     <div class="relative cursor-pointer" x-on:click="{{ $type }} !== 'open' ? {{ $type }} = 'open' : {{ $type }} = 'close'">
         {!! $head !!}
 
-        <x-icon filled class="absolute right-0 top-0 transition-all transform" :icon="$icon" x-bind:class="{{ $type }} === 'open' ? 'rotate-180' : ''" />
+        <x-icon filled class="absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" :icon="$icon" x-bind:class="{{ $type }} === 'open' ? 'rotate-180' : ''" />
     </div>
     @endif
 

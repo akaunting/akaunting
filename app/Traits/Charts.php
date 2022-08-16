@@ -19,14 +19,14 @@ trait Charts
         'values' => [],
     ];
 
-    public function addToDonut($color, $label, $value)
+    public function addToDonutChart($color, $label, $value)
     {
         $this->donut['colors'][] = $color;
         $this->donut['labels'][] = $label;
         $this->donut['values'][] = (int) $value;
     }
 
-    public function addMoneyToDonut($color, $amount, $description = '')
+    public function addMoneyToDonutChart($color, $amount, $description = '')
     {
         $label = money($amount, setting('default.currency'), true)->formatForHumans();
 
@@ -34,7 +34,7 @@ trait Charts
             $label .= ' - ' . $description;
         }
 
-        $this->addToDonut($color, $label, $amount);
+        $this->addToDonutChart($color, $label, $amount);
     }
 
     public function getDonutChart($name, $width = '100%', $height = 300, $limit = 10)
@@ -60,6 +60,8 @@ trait Charts
         $chart->setType('donut')
             ->setWidth($width)
             ->setHeight($height)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($labels))
             ->setColors(array_values($colors))
             ->setDataset($name, 'donut', array_values($values));
@@ -67,7 +69,7 @@ trait Charts
         return $chart;
     }
 
-    public function addToBar($color, $label, $value)
+    public function addToBarChart($color, $label, $value)
     {
         $this->bar['colors'][] = $color;
         $this->bar['labels'][] = $label;
@@ -81,6 +83,8 @@ trait Charts
         $chart->setType('bar')
             ->setWidth($width)
             ->setHeight($height)
+            ->setDefaultLocale($this->getDefaultLocaleOfChart())
+            ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($this->bar['labels']))
             ->setColors($this->bar['colors']);
 
@@ -91,7 +95,7 @@ trait Charts
         return $chart;
     }
 
-    public function getFormatLabel($type = 'money', $position = null)
+    public function getChartLabelFormatter($type = 'money', $position = null)
     {
         $label = '';
         $decimal_mark = str_replace("'", "\\'", config('money.' . setting('default.currency') . '.decimal_mark'));
@@ -164,5 +168,63 @@ trait Charts
         }
 
         return $label;
+    }
+
+    public function getDefaultLocaleOfChart(): string
+    {
+        $default = 'en';
+
+        $short = language()->getShortCode();
+        $long = language()->getLongCode();
+
+        $short_path = public_path('vendor/apexcharts/locales/' . $short . '.json');
+        $long_path = public_path('vendor/apexcharts/locales/' . $long . '.json');
+
+        if (is_file($short_path)) {
+            return $short;
+        }
+
+        if (is_file($long_path)) {
+            return $long;
+        }
+
+        return $default;
+    }
+
+    public function getLocaleTranslationOfChart(?string $locale = null): array
+    {
+        $translations = [];
+
+        $user_locale = $locale ?: $this->getDefaultLocaleOfChart();
+
+        $locales = ($user_locale == 'en') ? [$user_locale] : [$user_locale, 'en'];
+
+        foreach ($locales as $loc) {
+            $translations[] = json_decode(
+                file_get_contents(
+                    public_path('vendor/apexcharts/locales/' . $loc . '.json')
+                )
+            );
+        }
+
+        return $translations;
+    }
+
+    // @deprecated version 3.0.0
+    public function addToDonut($color, $label, $value)
+    {
+        $this->addToDonutChart($color, $label, $value);
+    }
+
+    // @deprecated version 3.0.0
+    public function addMoneyToDonut($color, $amount, $description = '')
+    {
+        $this->addMoneyToDonutChart($color, $amount, $description);
+    }
+
+    // @deprecated version 3.0.0
+    public function addToBar($color, $label, $value)
+    {
+        $this->addToBarChart($color, $label, $value);
     }
 }
