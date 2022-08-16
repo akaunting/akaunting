@@ -2,9 +2,9 @@
     <div class="w-full lg:w-1/2">
         <div class="border-b px-2 pb-3">
             <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5">
-                <x-page-title>
+                <x-title>
                     {!! $title !!}
-                </x-page-title>
+                </x-title>
             </h1>
 
             <p class="mt-6 text-sm">
