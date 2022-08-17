@@ -10,21 +10,39 @@
         @stack('body_start')
 
         <div class="bg-no-repeat bg-cover bg-center" style="background-image: url({{ asset('public/img/auth/login-bg.png') }});">
-            <div class="relative w-full lg:max-w-7xl flex items-center m-auto">
-                <x-layouts.auth.slider>
-                    {!! $slider ?? '' !!}
-                </x-layouts.auth.slider>
+            @if (! file_exists(public_path('public/js/install/install.min.js')))
+                <div class="relative w-full lg:max-w-7xl flex flex-col lg:flex-row items-center m-auto">
+                    <div class="md:w-6/12 h-screen hidden lg:flex flex-col items-center justify-center">
+                        <img src="{{ asset('public/img/empty_pages/transactions.png') }}" alt="" />                        
+                    </div>
 
-                <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">
-                    <div class="flex flex-col gap-4">
-                        <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Akaunting" />
+                    <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">
+                        <div class="flex flex-col gap-4">
+                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Akaunting" />
 
-                        <x-layouts.install.content :title="$title">
-                            {!! $content !!}
-                        </x-layouts.install.content>
+                            <div class="rounded-xl px-5 py-3 mb-5 bg-red-100 text-sm mb-0 text-red-600">
+                                {!! trans('install.requirements.npm') !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="relative w-full lg:max-w-7xl flex items-center m-auto">
+                    <x-layouts.auth.slider>
+                        {!! $slider ?? '' !!}
+                    </x-layouts.auth.slider>
+
+                    <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">
+                        <div class="flex flex-col gap-4">
+                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Akaunting" />
+
+                            <x-layouts.install.content :title="$title">
+                                {!! $content !!}
+                            </x-layouts.install.content>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
 
         @stack('body_end')
