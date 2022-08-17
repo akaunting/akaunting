@@ -1,12 +1,10 @@
 @props(['active'])
 
 <div x-data="{ active: '{{ $active }}' }">
-    <div {{ $attributes }}>
-        <div>
-            <ul class="flex items-center">
-                {!! $navs !!}
-            </ul>
-        </div>
+    <div>
+        <ul {{ ((! $attributes->has('override')) || ($attributes->has('override') && ! in_array('class', explode(',', $attributes->get('override'))))) ? $attributes->merge(['class' => 'flex items-center']) : $attributes }}>
+            {!! $navs !!}
+        </ul>
     </div>
 
     {!! $content !!}
