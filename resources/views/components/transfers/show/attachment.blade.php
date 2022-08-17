@@ -11,7 +11,7 @@
                 {{ trans('transers.slider.attachments') }}
             </div>
 
-            <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="attachment === 1 ? 'rotate-180' : ''">expand_more</span>
+            <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="attachment === 1 ? 'rotate-180' : ''">expand_more</span>
         </div>
 
         <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"

@@ -4,7 +4,7 @@
     </h2>
 
     @if (! empty($description))
-    <span class="text-sm font-light text-black flex gap-x-1 mt-1">
+    <span class="text-sm font-light text-black block gap-x-1 mt-1">
         {!! $description !!}
     </span>
     @endif

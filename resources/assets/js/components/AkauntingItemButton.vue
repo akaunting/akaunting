@@ -40,7 +40,7 @@
                                 v-bind="money"
                                 masked
                                 disabled
-                                class="text-right disabled-money text-gray"
+                                class="ltr:text-right rtl:text-left disabled-money text-gray"
                             ></money>
                         </div>
                     </div>

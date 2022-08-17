@@ -12,7 +12,7 @@
             {!! trans('transactions.slider.create', ['user' => $transfer->owner->name, 'date' => $created_date]) !!}
         </div>
 
-        <span class="material-icons absolute right-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
+        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
     </button>
 
     <div

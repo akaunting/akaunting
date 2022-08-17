@@ -30,7 +30,7 @@
         @endif
 
         <div @class([
-                'flex items-center justify-center grid sm:grid-cols-6',
+                'flex items-center justify-start lg:justify-center grid sm:grid-cols-6',
                 $inputGroupClass,
             ])
         >
