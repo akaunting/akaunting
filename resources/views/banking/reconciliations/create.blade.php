@@ -87,7 +87,7 @@
                     <x-table>
                         <x-table.thead>
                             <x-table.tr>
-                                <x-table.th class="w-2/12" hidden-mobile>
+                                <x-table.th class="w-6/12 lg:w-2/12">
                                     {{ trans('general.date') }}
                                 </x-table.th>
 
@@ -103,7 +103,7 @@
                                     {{ trans('reconciliations.deposit') }}
                                 </x-table.th>
 
-                                <x-table.th class="w-6/12 lg:w-2/12">
+                                <x-table.th class="w-6/12 lg:w-2/12" hidden-mobile>
                                     {{ trans('reconciliations.withdrawal') }}
                                 </x-table.th>
 
@@ -116,7 +116,7 @@
                         <x-table.tbody>
                         @foreach($transactions as $item)
                             <x-table.tr>
-                                <x-table.td class="w-2/12" hidden-mobile kind="cursor-none">
+                                <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
                                     <x-date date="{{ $item->paid_at }}" />
                                 </x-table.td>
 
@@ -129,19 +129,19 @@
                                 </x-table.td>
 
                                 @if ($item->isIncome())
-                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                    <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
                                         <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                                     </x-table.td>
 
-                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                    <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
                                         <x-empty-data />
                                     </x-table.td>
                                 @else
-                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                    <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
                                         <x-empty-data />
                                     </x-table.td>
 
-                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                    <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
                                         <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                                     </x-table.td>
                                 @endif
