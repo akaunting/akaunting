@@ -7,7 +7,7 @@
 
         <div class="flex items-center">
             @if ($report = $class->getReportUrl())
-                <x-link href="{{ $report }}" class="text-purple text-sm mr-3" override="class">
+                <x-link href="{{ $report }}" class="text-purple text-sm mr-3 text-right" override="class">
                     <x-link.hover color="to-purple">
                         {{ trans('widgets.view_report') }}
                     </x-link.hover>
