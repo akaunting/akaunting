@@ -84,171 +84,167 @@
                     <x-form.input.hidden name="ended_at" :value="request('ended_at')" />
                     <x-form.input.hidden name="reconcile" value="0" id="hidden-reconcile" />
 
-                    <div class="overflow-x-visible">
-                        <div class="py-2 align-middle inline-block min-w-full">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            {{ trans('general.date') }}
-                                        </th>
+                    <x-table>
+                        <x-table.thead>
+                            <x-table.tr>
+                                <x-table.th class="w-2/12" hidden-mobile>
+                                    {{ trans('general.date') }}
+                                </x-table.th>
 
-                                        <th scope="col" class="w-3/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            {{ trans('general.description') }}
-                                        </th>
+                                <x-table.th class="w-3/12" hidden-mobile>
+                                    {{ trans('general.description') }}
+                                </x-table.th>
 
-                                        <th scope="col" class="w-3/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            {{ trans_choice('general.contacts', 1) }}
-                                        </th>
+                                <x-table.th class="w-6/12 lg:w-3/12">
+                                    {{ trans_choice('general.contacts', 1) }}
+                                </x-table.th>
 
-                                        <th scope="col" class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            {{ trans('reconciliations.deposit') }}
-                                        </th>
+                                <x-table.th class="w-2/12" hidden-mobile>
+                                    {{ trans('reconciliations.deposit') }}
+                                </x-table.th>
 
-                                        <th scope="col" class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            {{ trans('reconciliations.withdrawal') }}
-                                        </th>
+                                <x-table.th class="w-6/12 lg:w-2/12">
+                                    {{ trans('reconciliations.withdrawal') }}
+                                </x-table.th>
 
-                                        <th scope="col" class="ltr:pl-6 rtl:pr-6 ltr:text-right rtl:text-left py-4 text-center text-sm font-medium">
-                                            {{ trans('general.clear') }}
-                                        </th>
-                                    </tr>
-                                </thead>
+                                <x-table.th kind="amount" class="none-truncate">
+                                    {{ trans('general.clear') }}
+                                </x-table.th>
+                            </x-table.tr>
+                        </x-table.thead>
 
-                                <tbody>
-                                    @foreach($transactions as $item)
-                                    <tr class="relative flex items-center border-b hover:bg-gray-100 px-1 group">
-                                        <td class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                            <x-date date="{{ $item->paid_at }}" />
-                                        </td>
+                        <x-table.tbody>
+                        @foreach($transactions as $item)
+                            <x-table.tr>
+                                <x-table.td class="w-2/12" hidden-mobile kind="cursor-none">
+                                    <x-date date="{{ $item->paid_at }}" />
+                                </x-table.td>
 
-                                        <td class="w-3/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider truncate">
-                                            {{ $item->description }}
-                                        </td>
+                                <x-table.td class="w-3/12" hidden-mobile kind="cursor-none">
+                                    {{ $item->description }}
+                                </x-table.td>
 
-                                        <td class="w-3/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider truncate">
-                                            {{ $item->contact->name }}
-                                        </td>
+                                <x-table.td class="w-6/12 lg:w-3/12" kind="cursor-none">
+                                    {{ $item->contact->name }}
+                                </x-table.td>
 
-                                        @if ($item->isIncome())
-                                            <td class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                                <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
-                                            </td>
+                                @if ($item->isIncome())
+                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                    </x-table.td>
 
-                                            <td class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                                <x-empty-data />
-                                            </td>
-                                        @else
-                                            <td class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                                <x-empty-data />
-                                            </td>
+                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                        <x-empty-data />
+                                    </x-table.td>
+                                @else
+                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                        <x-empty-data />
+                                    </x-table.td>
 
-                                            <td class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider">
-                                                <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
-                                            </td>
-                                        @endif
+                                    <x-table.td class="w-6/12 lg:w-2/12" kind="cursor-none">
+                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                    </x-table.td>
+                                @endif
 
-                                        <td class="ltr:pl-6 rtl:pr-6 py-4 text-center text-sm font-medium">
-                                            @php $type = $item->isIncome() ? 'income' : 'expense'; @endphp
+                                <x-table.td kind="amount" class="none-truncate">
+                                    @php $type = $item->isIncome() ? 'income' : 'expense'; @endphp
 
-                                            <x-form.input.checkbox name="{{ $type . '_' . $item->id }}"
-                                                label=""
-                                                id="transaction-{{ $item->id . '-'. $type }}"
-                                                :value="$item->amount_for_account"
-                                                :checked="$item->reconciled"
-                                                data-field="transactions"
-                                                v-model="form.transactions.{{ $type . '_' . $item->id }}"
-                                                @change="onCalculate"
+                                    <x-form.input.checkbox name="{{ $type . '_' . $item->id }}"
+                                        label=""
+                                        id="transaction-{{ $item->id . '-'. $type }}"
+                                        :value="$item->amount_for_account"
+                                        :checked="$item->reconciled"
+                                        data-field="transactions"
+                                        v-model="form.transactions.{{ $type . '_' . $item->id }}"
+                                        @change="onCalculate"
+                                    />
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                        </x-table.tbody>
+                    </x-table>
+
+                    @if ($transactions->count())
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <tbody class="float-right">
+                                <tr class="border-b">
+                                    <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                        {{ trans('reconciliations.opening_balance') }}:
+                                    </th>
+
+                                    <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
+                                        <span class="w-auto pl-6 text-sm">
+                                            <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                        {{ trans('reconciliations.closing_balance') }}:
+                                    </th>
+
+                                    <td id="closing-balance" class="w-3/12 text-right">
+                                        <x-form.input.money
+                                            name="closing_balance_total"
+                                            value="0"
+                                            disabled
+                                            row-input
+                                            v-model="totals.closing_balance"
+                                            :currency="$currency"
+                                            dynamicCurrency="currency"
+                                            money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            form-group-class="text-right disabled-money"
+                                        />
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
+                                        {{ trans('reconciliations.cleared_amount') }}:
+                                    </th>
+
+                                    <td id="cleared-amount" class="w-3/12 text-right">
+                                        <x-form.input.money
+                                            name="cleared_amount_total"
+                                            value="0"
+                                            disabled
+                                            row-input
+                                            v-model="totals.cleared_amount"
+                                            :currency="$currency"
+                                            dynamicCurrency="currency"
+                                            money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            form-group-class="text-right disabled-money"
+                                        />
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
+                                        <span class="px-2 py-1 rounded-xl" :class="difference">
+                                            {{ trans('general.difference') }}
+                                        </span>
+                                    </th>
+
+                                    <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-0 text-right">
+                                        <div class="difference-money">
+                                            <x-form.input.money
+                                                name="difference_total"
+                                                value="0"
+                                                disabled
+                                                row-input
+                                                v-model="totals.difference"
+                                                :currency="$currency"
+                                                dynamicCurrency="currency"
+                                                money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                                form-group-class="text-right disabled-money"
                                             />
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
-                            @if ($transactions->count())
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <tbody class="float-right">
-                                        <tr class="border-b">
-                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
-                                                {{ trans('reconciliations.opening_balance') }}:
-                                            </th>
-
-                                            <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
-                                                <span class="w-auto pl-6 text-sm">
-                                                    <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
-                                                </span>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="border-b">
-                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
-                                                {{ trans('reconciliations.closing_balance') }}:
-                                            </th>
-
-                                            <td id="closing-balance" class="w-3/12 text-right">
-                                                <x-form.input.money
-                                                    name="closing_balance_total"
-                                                    value="0"
-                                                    disabled
-                                                    row-input
-                                                    v-model="totals.closing_balance"
-                                                    :currency="$currency"
-                                                    dynamicCurrency="currency"
-                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                                    form-group-class="text-right disabled-money"
-                                                />
-                                            </td>
-                                        </tr>
-
-                                        <tr class="border-b">
-                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
-                                                {{ trans('reconciliations.cleared_amount') }}:
-                                            </th>
-
-                                            <td id="cleared-amount" class="w-3/12 text-right">
-                                                <x-form.input.money
-                                                    name="cleared_amount_total"
-                                                    value="0"
-                                                    disabled
-                                                    row-input
-                                                    v-model="totals.cleared_amount"
-                                                    :currency="$currency"
-                                                    dynamicCurrency="currency"
-                                                    money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                                    form-group-class="text-right disabled-money"
-                                                />
-                                            </td>
-                                        </tr>
-
-                                        <tr class="border-b">
-                                            <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black cursor-pointer">
-                                                <span class="px-2 py-1 rounded-xl" :class="difference">
-                                                    {{ trans('general.difference') }}
-                                                </span>
-                                            </th>
-
-                                            <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-0 text-right">
-                                                <div class="difference-money">
-                                                    <x-form.input.money
-                                                        name="difference_total"
-                                                        value="0"
-                                                        disabled
-                                                        row-input
-                                                        v-model="totals.difference"
-                                                        :currency="$currency"
-                                                        dynamicCurrency="currency"
-                                                        money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                                        form-group-class="text-right disabled-money"
-                                                    />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            @endif
-                        </div>
-                    </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endif
 
                     <div class="mt-6">
                         @if ($transactions->count())
