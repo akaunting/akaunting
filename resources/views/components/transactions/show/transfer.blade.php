@@ -5,7 +5,7 @@
         @php
             $from_account = '<span class="font-medium">' . $transfer->expense_account->title . '</span>';
             $to_account = '<span class="font-medium">' . $transfer->income_account->title . '</span>';
-            $date = '<x-link href="' . route('transfers.show', $transfer->id) . '" class="text-purple" override="class">' . company_date($transaction->paid_at) . '</x-link>';
+            $date = '<a href="' . route('transfers.show', $transfer->id) . '" class="text-purple" override="class">' . company_date($transaction->paid_at) . '</a>';
         @endphp
     @endif
 
