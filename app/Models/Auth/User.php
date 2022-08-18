@@ -176,7 +176,7 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new Reset($token));
+        $this->notify(new Reset($token, $this->email));
     }
 
     /**

@@ -19,9 +19,10 @@ class Reset extends Notification
      *
      * @param  string  $token
      */
-    public function __construct($token)
+    public function __construct($token, $email)
     {
         $this->token = $token;
+        $this->email = $email;
     }
 
     /**
@@ -45,7 +46,7 @@ class Reset extends Notification
     {
         return (new MailMessage)
             ->line(trans('auth.notification.message_1'))
-            ->action(trans('auth.notification.button'), route('reset', $this->token))
+            ->action(trans('auth.notification.button'), route('reset', ['token' => $this->token, 'email' => $this->email]))
             ->line(trans('auth.notification.message_2'));
     }
 }
