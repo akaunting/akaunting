@@ -3,27 +3,15 @@
     $frequency = Str::lower(trans('recurring.' . str_replace('ly', 's', $transaction->recurring->frequency)));
 @endphp
 
-<div class="border-b pb-4" x-data="{ schedule : null }">
-    <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
-        x-on:click="schedule !== 1 ? schedule = 1 : schedule = null"
-    >
-        <span class="font-medium">
-            <x-button.hover group-hover>
-                {{ trans_choice('general.schedules', 1) }}
-            </x-button.hover>
-        </span>
+<x-show.accordion type="schedule">
+    <x-slot name="head">
+        <x-show.accordion.head
+            title="{{ trans_choice('general.schedules', 1) }}"
+            description="{!! trans('transactions.slider.schedule', ['frequency' => $frequency, 'interval' => $transaction->recurring->interval, 'date' => $started_date]) !!}"
+        />
+    </x-slot>
 
-        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
-            {!! trans('transactions.slider.schedule', ['frequency' => $frequency, 'interval' => $transaction->recurring->interval, 'date' => $started_date]) !!}
-        </div>
-
-        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="schedule === 1 ? 'rotate-180' : ''">expand_more</span>
-    </button>
-
-    <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"
-        x-ref="container1"
-        x-bind:class="schedule == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
-    >
+    <x-slot name="body">
         <div class="flex my-3 space-x-2 rtl:space-x-reverse">
             @if ($next = $transaction->recurring->getNextRecurring())
                 {{ trans('recurring.next_date', ['date' => $next->format(company_date_format())]) }}
@@ -41,5 +29,5 @@
                 {{ trans('documents.statuses.ended') }}
             @endif
         </div>
-    </div>
-</div>
+    </x-slot>
+</x-show.accordion>

@@ -9,42 +9,33 @@
         @endphp
     @endif
 
-    <div class="border-b pb-4" x-data="{ transfer : 1 }">
-        <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
-            x-on:click="transfer !== 1 ? transfer = 1 : transfer = null"
-        >
-            <span class="font-medium border-b border-transparent transition-all group-hover:border-black">
-                {{ trans_choice('general.transfers', 1) }}
-            </span>
-
+    <x-show.accordion type="transfer" open>
+        <x-slot name="head">
+            <x-show.accordion.head
+                title="{{ trans_choice('general.transfers', 1) }}"
+            />
+            
             @if ($transfer)
                 <div class="text-black-400 text-sm flex gap-x-1 mt-1">
                     {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}
                 </div>
             @endif
+        </x-slot>
 
-            <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform"
-                x-bind:class="transfer === 1 ? 'rotate-180' : ''"
-            >expand_more</span>
-        </button>
-
-        <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"
-            x-ref="container1"
-            x-bind:class="transfer === 1 ? 'h-auto' : 'scale-y-0 h-0'"
-        >
+        <x-slot name="body">
             @if ($transfer)
-                <div class="my-2">
-                    {!! trans('transactions.slider.transfer_desc', ['date' => $date]) !!}
-                </div>
-            @else
-                <div class="mt-2">
-                    <div class="alert alert-notify p-4 font-bold rounded-lg bg-orange-100 text-orange-600">
-                        <span class="alert-text">
-                            <span>{{ trans('messages.warning.missing_transfer') }}</span>
-                        </span>
+                    <div class="my-2">
+                        {!! trans('transactions.slider.transfer_desc', ['date' => $date]) !!}
                     </div>
-                </div>
+                @else
+                    <div class="mt-2">
+                        <div class="alert alert-notify p-4 font-bold rounded-lg bg-orange-100 text-orange-600">
+                            <span class="alert-text">
+                                <span>{{ trans('messages.warning.missing_transfer') }}</span>
+                            </span>
+                        </div>
+                    </div>
             @endif
-        </div>
-    </div>
+        </x-slot>
+    </x-show.accordion>
 @endif

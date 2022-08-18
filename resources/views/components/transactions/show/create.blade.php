@@ -1,14 +1,10 @@
 @php $created_date = '<span class="font-medium">' . company_date($transaction->created_at) . '</span>' @endphp
 
-<div class="border-b pb-4" x-data="{ create : null }">
-    <button class="relative w-full ltr:text-left rtl:text-right group"
-        x-on:click="create !== 1 ? create = 1 : create = null"
-    >
-        <span class="font-medium">
-            <x-button.hover>
-                {{ trans('general.create') }}
-            </x-button.hover>
-        </span>
+<x-show.accordion type="create">
+    <x-slot name="head">
+        <x-show.accordion.head
+            title="{{ trans('general.create') }}"
+        />
 
         <div class="text-black-400 text-sm flex gap-x-1 mt-1">
             @if ($transaction->isRecurringTransaction())
@@ -17,14 +13,9 @@
                 {!! trans('transactions.slider.create', ['user' => $transaction->owner->name, 'date' => $created_date]) !!}
             @endif
         </div>
+    </x-slot>
 
-        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
-    </button>
-
-    <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"
-        x-ref="container1"
-        x-bind:class="create == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
-    >
+    <x-slot name="body">
         @if ($transaction->isNotTransferTransaction())
             <div class="flex my-3 space-x-2 rtl:space-x-reverse">
                 <x-link
@@ -36,5 +27,5 @@
                 </x-link>
             </div>
         @endif
-    </div>
-</div>
+    </x-slot>
+</x-show.accordion>
