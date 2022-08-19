@@ -30,8 +30,9 @@
 
                 <x-form.group.email
                     name="email"
+                    :value="$email"
+                    :disabled="! is_null($email) ? true : false"
                     label="{{ trans('general.email') }}"
-                    placeholder="{{ trans('general.email') }}"
                     form-group-class="sm:col-span-6"
                     input-group-class="input-group-alternative"
                 />
