@@ -47695,10 +47695,6 @@ body{
   border-color: rgb(85 88 139 / var(--tw-border-opacity));
 }
 
-.focus\:border-transparent:focus{
-  border-color: transparent;
-}
-
 .focus\:border-blue-300:focus{
   --tw-border-opacity: 1;
   border-color: rgb(153 197 219 / var(--tw-border-opacity));
