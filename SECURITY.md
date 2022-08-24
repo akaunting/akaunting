@@ -11,7 +11,8 @@ Feel free to report security issues based on the following chart.
 | 1.2.x   | :x:                |
 | 1.3.x   | :x:                |
 | 2.0.x   | :x:                |
-| 2.1.x   | :white_check_mark: |
+| 2.1.x   | :x: |
+| 3.0.x   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
