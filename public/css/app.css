@@ -411,8 +411,10 @@
     width: 45px;
 }
 
-
-
+.form-file [data-dz-remove] {
+  bottom: 7px;
+  z-index: 99;
+}
 /*
 ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
