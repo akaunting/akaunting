@@ -53,6 +53,9 @@ class EmptyPage extends Component
     /** @var bool */
     public $hideButtonImport;
 
+    /** @var bool */
+    public $hideDocsDescription;
+
     /** @var string */
     public $importRoute;
 
@@ -76,7 +79,7 @@ class EmptyPage extends Component
         string $image = '', string $imageEmptyPage = '',
         bool $checkPermissionCreate = true, string $permissionCreate = '',
         array $buttons = [], bool $hideButtonCreate = false, bool $hideButtonImport = false,
-        string $importRoute = '', array $importRouteParameters = []
+        bool $hideDocsDescription = false, string $importRoute = '', array $importRouteParameters = []
     ) {
         if (empty($alias) && ! empty($group)) {
             $alias = $group;
@@ -98,6 +101,7 @@ class EmptyPage extends Component
 
         $this->hideButtonCreate = $hideButtonCreate;
         $this->hideButtonImport = $hideButtonImport;
+        $this->hideDocsDescription = $hideDocsDescription;
 
         $this->buttons = $this->getButtons($page, $group, $buttons);
 
@@ -162,10 +166,12 @@ class EmptyPage extends Component
             $description = trans($text2);
         }
 
-        $docs_url = $this->getDocsUrl();
+        if ($this->hideDocsDescription) {
+            $docs_url = $this->getDocsUrl();
 
-        if (! empty($docs_url)) {
-            $description .= ' ' . trans('general.empty.documentation', ['url' => $docs_url]);
+            if (! empty($docs_url)) {
+                $description .= ' ' . trans('general.empty.documentation', ['url' => $docs_url]);
+            }
         }
 
         return $description;
