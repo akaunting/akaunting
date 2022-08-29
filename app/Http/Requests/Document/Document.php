@@ -69,10 +69,10 @@ class Document extends FormRequest
 
         if ($items) {
             foreach ($items as $key => $item) {
-                $size = 5;
+                $size = 10;
 
                 if (Str::contains($item['quantity'], ['.', ','])) {
-                    $size = 7;
+                    $size = 12;
                 }
 
                 $rules['items.' . $key . '.quantity'] = 'required|max:' . $size;
