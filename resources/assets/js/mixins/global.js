@@ -617,11 +617,12 @@ export default {
                         },
 
                         methods: {
-                            onCopyLink(event) {
+                            onCopyLink() {
                                 let type = 'success';
-                                let copyText = document.querySelector('#dynamic-share-component #hidden-share');
-                                copyText.select();
-                                document.execCommand("copy");
+                                let copy_html = document.getElementById('share');
+
+                                copy_html.select();
+                                document.execCommand('copy');
 
                                 this.$notify({
                                     message: this.share.success_message,
