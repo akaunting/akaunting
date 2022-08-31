@@ -1,13 +1,7 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
-    'public/img/icons/akaunting-72x72.png',
-    'public/img/icons/akaunting-96x96.png',
-    'public/img/icons/akaunting-128x128.png',
-    'public/img/icons/akaunting-144x144.png',
-    'public/img/icons/akaunting-152x152.png',
-    'public/img/icons/akaunting-192x192.png',
-    'public/img/icons/akaunting-384x384.png',
-    'public/img/icons/akaunting-512x512.png'
+    'public/img/pwa/akaunting-192x192.png',
+    'public/img/pwa/akaunting-512x512.png'
 ];
 
 /*
