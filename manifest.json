@@ -1,6 +1,11 @@
 {
     "name": "Akaunting",
     "short_name": "Akaunting",
+    "description": "Free invoicing and accounting software for small businesses and freelancers.",
+    "categories": [
+        "finance",
+        "business"
+    ],
     "start_url": ".?utm_source=pwa",
     "display": "standalone",
     "theme_color": "#FFFFFF",
@@ -58,6 +63,68 @@
             "src": "public/img/icons/akaunting-512x512.png",
             "type": "image/png",
             "sizes": "512x512"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "public/img/screenshots/dashboard.png",
+            "sizes": "1932x1394",
+            "type": "image/png"
+        },
+        {
+            "src": "public/img/screenshots/invoice.png",
+            "sizes": "2748x1986",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "New Invoice",
+            "short_name": "New Invoice",
+            "description": "Create a new invoice",
+            "url": "sales/invoices/create?utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/icons/akaunting-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Income",
+            "short_name": "New Income",
+            "description": "Create a new income",
+            "url": "banking/transactions/create?type=income&utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/icons/akaunting-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Bill",
+            "short_name": "New Bill",
+            "description": "Create a new bill",
+            "url": "purchases/bills/create?utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/icons/akaunting-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Expense",
+            "short_name": "New Expense",
+            "description": "Create a new expense",
+            "url": "banking/transactions/create?type=expense&utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/icons/akaunting-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
         }
     ]
 }
