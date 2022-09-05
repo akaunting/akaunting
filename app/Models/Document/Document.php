@@ -595,6 +595,26 @@ class Document extends Model
                 'type' => 'divider',
             ];
 
+            if ((empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
+                try {
+                    $actions[] = [
+                        'type' => 'button',
+                        'title' => trans('invoices.add_payment'),
+                        'icon' => 'payments',
+                        'url' => route('modals.documents.document.transactions.create', $this->id),
+                        'permission' => 'read-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            'id' => 'index-more-actions-payment-' . $this->id,
+                            '@click' => 'onPayment("' . $this->id . '")',
+                        ],
+                    ];
+                } catch (\Exception $e) {}
+
+                $actions[] = [
+                    'type' => 'divider',
+                ];
+            }
+
             if ($this->status != 'cancelled') {
                 try {
                     $actions[] = [

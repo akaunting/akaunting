@@ -113,13 +113,7 @@ class DocumentTransactions extends Controller
         $response = $this->ajaxDispatch(new CreateBankingDocumentTransaction($document, $request));
 
         if ($response['success']) {
-            $route = config('type.document.' . $document->type . '.route.prefix');
-
-            if ($alias = config('type.document.' . $document->type . '.alias')) {
-                $route = $alias . '.' . $route;
-            }
-
-            $response['redirect'] = route($route . '.show', $document->id);
+            $response['redirect'] = url()->previous();
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
