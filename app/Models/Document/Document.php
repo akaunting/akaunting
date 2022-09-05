@@ -489,18 +489,6 @@ class Document extends Model
         }
 
         try {
-            $actions[] = [
-                'title' => trans('general.show'),
-                'icon' => 'visibility',
-                'url' => route($prefix . '.show', $this->id),
-                'permission' => 'read-' . $group . '-' . $permission_prefix,
-                'attributes' => [
-                    'id' => 'index-more-actions-show-' . $this->id,
-                ],
-            ];
-        } catch (\Exception $e) {}
-
-        try {
             if (! $this->reconciled) {
                 $actions[] = [
                     'title' => trans('general.edit'),
@@ -526,7 +514,36 @@ class Document extends Model
             ];
         } catch (\Exception $e) {}
 
-        if ($this->status != 'cancelled') {
+        if ((empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
+            try {
+                $actions[] = [
+                    'type' => 'button',
+                    'title' => trans('invoices.add_payment'),
+                    'icon' => 'request_quote',
+                    'url' => route('modals.documents.document.transactions.create', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-payment-' . $this->id,
+                        '@click' => 'onPayment("' . $this->id . '")',
+                    ],
+                ];
+            } catch (\Exception $e) {}
+        } else {
+            try {
+                $actions[] = [
+                    'title' => trans('general.print'),
+                    'icon' => 'print',
+                    'url' => route($prefix . '.print', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-print-' . $this->id,
+                        'target' => '_blank',
+                    ],
+                ];
+            } catch (\Exception $e) {}
+        }
+
+        if (($actions[1]['icon'] != 'print') && ($actions[2]['icon'] != 'print')) {
             try {
                 $actions[] = [
                     'title' => trans('general.print'),
@@ -575,7 +592,7 @@ class Document extends Model
                 } catch (\Exception $e) {}
 
                 try {
-                    if (! empty($this->contact) && $this->contact->email && $this->type == 'invoice') {
+                    if (! empty($this->contact) && $this->contact->email && ($this->type == 'invoice')) {
                         $actions[] = [
                             'type' => 'button',
                             'title' => trans('invoices.send_mail'),
@@ -583,8 +600,8 @@ class Document extends Model
                             'url' => route('modals.'. $prefix . '.emails.create', $this->id),
                             'permission' => 'read-' . $group . '-' . $permission_prefix,
                             'attributes' => [
-                                'id'        => 'index-more-actions-send-email-' . $this->id,
-                                '@click'    => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                                'id' => 'index-more-actions-send-email-' . $this->id,
+                                '@click' => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
                             ],
                         ];
                     }
@@ -594,26 +611,6 @@ class Document extends Model
             $actions[] = [
                 'type' => 'divider',
             ];
-
-            if ((empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
-                try {
-                    $actions[] = [
-                        'type' => 'button',
-                        'title' => trans('invoices.add_payment'),
-                        'icon' => 'payments',
-                        'url' => route('modals.documents.document.transactions.create', $this->id),
-                        'permission' => 'read-' . $group . '-' . $permission_prefix,
-                        'attributes' => [
-                            'id' => 'index-more-actions-payment-' . $this->id,
-                            '@click' => 'onPayment("' . $this->id . '")',
-                        ],
-                    ];
-                } catch (\Exception $e) {}
-
-                $actions[] = [
-                    'type' => 'divider',
-                ];
-            }
 
             if ($this->status != 'cancelled') {
                 try {
