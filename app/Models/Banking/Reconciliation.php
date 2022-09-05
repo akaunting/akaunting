@@ -28,6 +28,7 @@ class Reconciliation extends Model
     protected $casts = [
         'closing_balance' => 'double',
         'reconciled' => 'boolean',
+        'transactions' => 'array',
     ];
 
     /**

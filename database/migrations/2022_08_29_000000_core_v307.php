@@ -18,9 +18,15 @@ return new class extends Migration
         if (! Type::hasType('double')) {
             Type::addType('double', FloatType::class);
         }
-        
+
+        // Document Items
         Schema::table('document_items', function(Blueprint $table) {
             $table->double('quantity', 12, 2)->change();
+        });
+
+        // Reconciliations
+        Schema::table('reconciliations', function (Blueprint $table) {
+            $table->text('transactions')->nullable()->after('closing_balance');
         });
     }
 

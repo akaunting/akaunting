@@ -15,6 +15,7 @@ class UpdateReconciliation extends Job implements ShouldUpdate
             $reconcile = (int) $this->request->get('reconcile');
             $transactions = $this->request->get('transactions');
 
+            $this->model->transactions = $transactions;
             $this->model->reconciled = $reconcile;
             $this->model->save();
 
