@@ -27,8 +27,9 @@ export default {
                 this.model.name = '';
                 this.model.rate = '';
                 this.model.select = '';
-                this.model.default = false;
-                this.model.default_currency = false;
+                this.model.default = 0;
+                this.model.default_currency = 0;
+                this.model.enabled = 1;
             }
         },
 
@@ -40,8 +41,9 @@ export default {
             if (this.model) {
                 this.model.name = item.name ? item.name : '';
                 this.model.rate = item.rate ? item.rate : '';
-                this.model.default = item.default ? item.default : false;
-                this.model.default_currency = item.default ? item.default : false;
+                this.model.enabled = 1;
+                this.model.default = item.default ? item.default : 0;
+                this.model.default_currency = item.default ? item.default : 0;
                 this.model.select = item.code ? item.code : '';
             }
         },
@@ -56,8 +58,8 @@ export default {
             this.model.name = '';
             this.model.rate = '';
             this.model.select = '';
-            this.model.default = false;
-            this.model.default_currency = false;
+            this.model.default = 0;
+            this.model.default_currency = 0;
             this.model.enabled = 1;
         },
 
@@ -110,15 +112,17 @@ export default {
                 });
             }
             
-            if(plus_data == 'type') {
+            if (plus_data == 'type') {
                 Object.assign(data, {
                     ['type']: 'normal',
                 });
             }
 
-            if (data.default_currency) {
+            if (data.default_currency == 1) {
                 data.rate = 1;
             }
+
+            data.enabled = 1;
 
             window.axios({
                     method: form_method,
@@ -126,23 +130,39 @@ export default {
                     data: data,
                 })
                 .then(response => {
-                    if(form_list.length != undefined) {
-                        if(form_method == 'POST') {
+                    if (form_list.length != undefined) {
+                        if (form_method == 'POST') {
+                            if (data.default_currency == 1) {
+                                form_list.forEach(item => {
+                                    item.default = 0;
+                                    item.default_currency = 0;
+                                });
+                            }
+
                             form_list.push({
                                 "id": response.data.data.id,
                                 "name": response.data.data.name,
                                 "code": response.data.data.code,
                                 "rate": response.data.data.rate,
-                                "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true'
+                                "enabled": response.data.data.enabled != undefined ? response.data.data.enabled : 'true',
+                                "default": response.data.data.default ? response.data.data.default : 0,
+                                "default_currency": response.data.data.default ? response.data.data.default : 0
                             });
                         }
     
                         if (form_method == 'PATCH') {
                             form_list.forEach(item => {
+                                if (data.default_currency == 1) {
+                                    item.default = 0;
+                                    item.default_currency = 0;
+                                }
+
                                 if (item.id == form_id) {
                                     item.name = response.data.data.name;
                                     item.code = response.data.data.code;
                                     item.rate = response.data.data.rate;
+                                    item.default = response.data.data.default ? response.data.data.default : 0;
+                                    item.default_currency = response.data.data.default ? response.data.data.default : 0;
                                 }
                             });
                         }
