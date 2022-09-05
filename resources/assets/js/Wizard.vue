@@ -25,7 +25,7 @@
             this.modules = wizard_modules;
 
             Object.keys(this.currency_codes).map((key) => {
-              return this.currency_codes[key];
+                return this.currency_codes[key];
             });
 
             this.page_loaded = false;
@@ -34,10 +34,10 @@
         data() {
             return {
                 translations: {
-                  company: {},
-                  currencies: {},
-                  taxes: {},
-                  finish: {},
+                    company: {},
+                    currencies: {},
+                    taxes: {},
+                    finish: {},
                 },
                 company: {},
                 countries: {},

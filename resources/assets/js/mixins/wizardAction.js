@@ -8,6 +8,7 @@ export default {
                 name: "",
                 rate: "",
                 select: "",
+                default_currency: 0,
                 enabled: 1
             },
             error_field: {},
@@ -15,6 +16,7 @@ export default {
             button_loading: false,
         }
     },
+
     methods: {
         onAddItem() {
             this.new_datas = true;
@@ -25,6 +27,8 @@ export default {
                 this.model.name = '';
                 this.model.rate = '';
                 this.model.select = '';
+                this.model.default = false;
+                this.model.default_currency = false;
             }
         },
 
@@ -36,6 +40,8 @@ export default {
             if (this.model) {
                 this.model.name = item.name ? item.name : '';
                 this.model.rate = item.rate ? item.rate : '';
+                this.model.default = item.default ? item.default : false;
+                this.model.default_currency = item.default ? item.default : false;
                 this.model.select = item.code ? item.code : '';
             }
         },
@@ -50,6 +56,8 @@ export default {
             this.model.name = '';
             this.model.rate = '';
             this.model.select = '';
+            this.model.default = false;
+            this.model.default_currency = false;
             this.model.enabled = 1;
         },
 
@@ -74,8 +82,8 @@ export default {
         },
 
         onDeleteItemMessage(event) {
-            let type = event.success ? 'success' : 'error';
-            let timeout = 1000;
+            let type = event.success ? 'success' : 'danger';
+            let timeout = 5000;
 
             if (event.important) {
                 timeout = 0;
@@ -84,7 +92,7 @@ export default {
             this.$notify({
                 message: event.message,
                 timeout: timeout,
-                icon: "",
+                icon: "error_outline",
                 type,
             });
 
@@ -108,6 +116,10 @@ export default {
                 });
             }
 
+            if (data.default_currency) {
+                data.rate = 1;
+            }
+
             window.axios({
                     method: form_method,
                     url: form_url,
@@ -125,7 +137,7 @@ export default {
                             });
                         }
     
-                        if(form_method == 'PATCH') {
+                        if (form_method == 'PATCH') {
                             form_list.forEach(item => {
                                 if (item.id == form_id) {
                                     item.name = response.data.data.name;
@@ -135,6 +147,7 @@ export default {
                             });
                         }
                     }
+
                     this.onSuccessMessage(response);
                 }, this)
                 .catch(error => {
@@ -145,20 +158,23 @@ export default {
         onEjetItem(event, form_list, event_id) {
             form_list.forEach(function (item, index) {
                 if (item.id == event_id) {
-                  form_list.splice(index, 1);
-                  return;
-                }
-              }, this);
+                    form_list.splice(index, 1);
 
-              this.component = "";
-              document.body.classList.remove("overflow-hidden");
-              this.onDeleteItemMessage(event);
+                    return;
+                }
+            }, this);
+
+            this.component = "";
+            document.body.classList.remove("overflow-hidden");
+
+            this.onDeleteItemMessage(event);
         },
 
         onFailErrorGet(field_name) {
-            if(this.error_field[field_name]) {
+            if (this.error_field[field_name]) {
                 return this.error_field[field_name][0];
             }
+
             this.button_loading = false;
         },
 
