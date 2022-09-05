@@ -21,14 +21,16 @@ class UpdateReconciliation extends Job implements ShouldUpdate
 
             if ($transactions) {
                 foreach ($transactions as $key => $value) {
-                    if (empty($value)) {
-                        continue;
+                    $transaction_reconcile = $reconcile;
+
+                    if (empty($value) || $value === 'false') {
+                        $transaction_reconcile = 0;
                     }
 
                     $t = explode('_', $key);
 
                     $transaction = Transaction::find($t[1]);
-                    $transaction->reconciled = $reconcile;
+                    $transaction->reconciled = $transaction_reconcile;
                     $transaction->save();
                 }
             }

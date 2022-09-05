@@ -90,7 +90,7 @@
                                             $checked = $item->reconciled;
 
                                             if (! $reconciliation->reconciled && array_key_exists($name, $reconciliation->transactions)) {
-                                                $checked = $reconciliation->transactions[$name];
+                                                $checked = (empty($reconciliation->transactions[$name]) || $reconciliation->transactions[$name] === 'false') ? 0 : 1;
                                             }
                                         @endphp
 
