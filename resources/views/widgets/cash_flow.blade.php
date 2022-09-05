@@ -9,7 +9,9 @@
         <div class="w-full lg:w-1/12 mt-11 space-y-2">
             <div class="flex flex-col items-center justify-between text-center">
                 <div class="flex justify-end lg:block text-lg">
-                    {{ $totals['incoming'] }}
+                    <x-tooltip id="tooltip-cashflow-incoming" placement="top" message="{{ $totals['incoming_exact'] }}">
+                        {{ $totals['incoming_for_humans'] }}
+                    </x-tooltip>
                 </div>
 
                 <span class="text-green text-xs">
@@ -21,7 +23,9 @@
 
             <div class="flex flex-col items-center justify-between">
                 <div class="flex justify-end lg:block text-lg">
-                    {{ $totals['outgoing'] }}
+                    <x-tooltip id="tooltip-cashflow-outgoing" placement="top" message="{{ $totals['outgoing_exact'] }}">
+                        {{ $totals['outgoing_for_humans'] }}
+                    </x-tooltip>
                 </div>
 
                 <span class="text-rose text-xs">
@@ -33,7 +37,9 @@
 
             <div class="flex flex-col items-center justify-between">
                 <div class="flex justify-end lg:block text-lg">
-                    {{ $totals['profit'] }}
+                    <x-tooltip id="tooltip-cashflow-profit" placement="top" message="{{ $totals['profit_exact'] }}">
+                        {{ $totals['profit_for_humans'] }}
+                    </x-tooltip>
                 </div>
 
                 <span class="text-purple text-xs">{{ trans_choice('general.profits', 1) }}</span>

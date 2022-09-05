@@ -56,14 +56,14 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 
     protected function prepareRequest(): void
     {
-        if (!isset($this->request['amount'])) {
+        if (! isset($this->request['amount'])) {
             $this->model->paid_amount = $this->model->paid;
             event(new PaidAmountCalculated($this->model));
 
             $this->request['amount'] = $this->model->amount - $this->model->paid_amount;
         }
 
-        $currency_code = !empty($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
+        $currency_code = ! empty($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
 
         $this->request['company_id'] = $this->model->company_id;
         $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
@@ -92,7 +92,8 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
             $amount = round($converted_amount, $precision);
         }
 
-        $this->model->paid_amount = $this->model->paid;
+        // if you edit transaction before remove transaction amount 
+        $this->model->paid_amount = ($this->model->paid - $this->transaction->amount);
         event(new PaidAmountCalculated($this->model));
 
         $total_amount = round($this->model->amount - $this->model->paid_amount, $precision);

@@ -204,7 +204,7 @@ class DocumentTransactions extends Controller
 
             $response['redirect'] = route($route . '.show', $document->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 
             flash($message)->success();
         } else {

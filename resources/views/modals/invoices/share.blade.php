@@ -5,14 +5,13 @@
         </div>
 
         <div class="my-3">
-            <x-form.input.text
+            <x-form.input.input
                 name="share"
                 value="{{ $signedUrl }}"
                 ref="clone"
                 @click="onCopyLink()"
                 style="appearance: none; background-color: whitesmoke; border: none; font-size: 16px;"
             />
-            <x-form.input.hidden name="hidden-share" value="{{ $signedUrl }}" />
 
             <div data-copied class="hidden h-10 items-center justify-center">
                 <span

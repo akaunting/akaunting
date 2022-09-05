@@ -617,11 +617,12 @@ export default {
                         },
 
                         methods: {
-                            onCopyLink(event) {
+                            onCopyLink() {
                                 let type = 'success';
-                                let copyText = document.querySelector('#dynamic-share-component #hidden-share');
-                                copyText.select();
-                                document.execCommand("copy");
+                                let copy_html = document.getElementById('share');
+
+                                copy_html.select();
+                                document.execCommand('copy');
 
                                 this.$notify({
                                     message: this.share.success_message,
@@ -716,7 +717,7 @@ export default {
 
                     this.component = Vue.component('add-new-component', (resolve, reject) => {
                         resolve({
-                            template: '<div id="dynamic-add-new-modal-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-lg" :show="modal.show" :buttons="modal.buttons" :title="modal.title" :message="modal.html" :is_component=true @submit="onSubmit" @cancel="onCancel"></akaunting-modal-add-new></div>',
+                            template: '<div id="dynamic-add-new-modal-component"><akaunting-modal-add-new modal-dialog-class="max-w-md" :show="modal.show" :buttons="modal.buttons" :title="modal.title" :message="modal.html" :is_component=true @submit="onSubmit" @cancel="onCancel"></akaunting-modal-add-new></div>',
 
                             components: {
                                 AkauntingDropzoneFileUpload,

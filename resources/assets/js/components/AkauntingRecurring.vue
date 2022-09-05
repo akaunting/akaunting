@@ -1,6 +1,6 @@
 <template>
     <div class="sm:col-span-6 space-y-8 sm:space-y-2">
-        <div class="flex items-center" :class="{ 'justify-between sm:justify-start': frequency == 'custom' }">
+        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-between sm:justify-start': frequency == 'custom' }">
             <div class="w-60 px-2 text-sm">
                 {{ frequencyText }}
             </div>
@@ -30,7 +30,7 @@
             </el-select>
         </div>
 
-        <div class="flex items-center" :class="{ 'justify-between sm:justify-start': limit !== 'never' }">
+        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-between sm:justify-start': limit !== 'never' }">
             <div class="w-60 px-2 text-sm">
                 {{ startText }}
             </div>

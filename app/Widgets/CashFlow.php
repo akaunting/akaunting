@@ -53,10 +53,17 @@ class CashFlow extends Widget
             ->setDataset(trans('general.outgoing'), 'column', $expense)
             ->setDataset(trans_choice('general.profits', 1), 'line', $profit);
 
+        $incoming_amount = money(array_sum($income), setting('default.currency'), true);
+        $outgoing_amount = money(abs(array_sum($expense)), setting('default.currency'), true);
+        $profit_amount = money(array_sum($profit), setting('default.currency'), true);
+
         $totals = [
-            'incoming'  => money(array_sum($income), setting('default.currency'), true),
-            'outgoing'  => money(abs(array_sum($expense)), setting('default.currency'), true),
-            'profit'    => money(array_sum($profit), setting('default.currency'), true),
+            'incoming_exact'        => $incoming_amount->format(),
+            'incoming_for_humans'   => $incoming_amount->formatForHumans(),
+            'outgoing_exact'        => $outgoing_amount->format(),
+            'outgoing_for_humans'   => $outgoing_amount->formatForHumans(),
+            'profit_exact'          => $profit_amount->format(),
+            'profit_for_humans'     => $profit_amount->formatForHumans(),
         ];
 
         return $this->view('widgets.cash_flow', [
