@@ -519,7 +519,7 @@ class Document extends Model
                 $actions[] = [
                     'type' => 'button',
                     'title' => trans('invoices.add_payment'),
-                    'icon' => 'request_quote',
+                    'icon' => 'paid',
                     'url' => route('modals.documents.document.transactions.create', $this->id),
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
