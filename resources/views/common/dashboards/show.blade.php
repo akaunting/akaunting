@@ -20,7 +20,7 @@
                     </x-slot>
 
                     @foreach ($user_dashboards as $user_dashboard)
-                        <x-dropdown.link href="{{ route('dashboards.switch', $user_dashboard->id) }}" id="show-dashboard-switch-{{ $class->model->id }}">
+                        <x-dropdown.link href="{{ route('dashboards.switch', $user_dashboard->id) }}" id="show-dashboard-switch-{{ $user_dashboard->id }}">
                             {{ $user_dashboard->name }}
                         </x-dropdown.link>
                     @endforeach
