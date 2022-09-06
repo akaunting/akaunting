@@ -6,7 +6,9 @@
             <div @class(['w-1/2 sm:w-1/3 text-center'])>
                 @if (! empty($item['tooltip']))
                     <x-tooltip id="tooltip-summary-{{ $loop->index }}" placement="top" message="{!! $item['tooltip'] !!}">
+                        @if (! empty($item['href']))
                         <a href="{{ $item['href'] }}" class="group">
+                        @endif
                             @php $text_color = (! empty($item['text_color'])) ? $item['text_color'] : 'text-purple group-hover:text-purple-700'; @endphp
                             <div @class(['relative text-xl sm:text-6xl', $text_color, 'mb-2'])>
                                 {!! $item['amount'] !!}
@@ -16,10 +18,14 @@
                             <span class="font-light mt-3">
                                 {!! $item['title'] !!}
                             </span>
+                        @if (! empty($item['href']))
                         </a>
+                        @endif
                     </x-tooltip>
                 @else
+                    @if (! empty($item['href']))
                     <a href="{{ $item['href'] }}" class="group">
+                    @endif
                         @php $text_color = (! empty($item['text_color'])) ? $item['text_color'] : 'text-purple group-hover:text-purple-700'; @endphp
                         <div @class(['relative text-xl sm:text-6xl', $text_color, 'mb-2'])>
                             {!! $item['amount'] !!}
@@ -29,7 +35,9 @@
                         <span class="font-light mt-3">
                             {!! $item['title'] !!}
                         </span>
+                    @if (! empty($item['href']))
                     </a>
+                    @endif
                 @endif
             </div>
         @endforeach
