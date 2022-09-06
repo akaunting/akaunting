@@ -13,7 +13,7 @@
         <div class="flex flex-wrap space-x-3 rtl:space-x-reverse">
             @if (! $hideEmail)
                 @if ($document->contact_email)
-                    <x-button id="button-email-send" kind="secondary" @click="onEmail('{{ route($emailRoute, $document->id) }}')">
+                    <x-button id="show-slider-actions-send-email-{{ $document->type }}" kind="secondary" @click="onEmail('{{ route($emailRoute, $document->id) }}')">
                         {{ trans($textEmail) }}
                     </x-button>
                 @else
@@ -28,7 +28,7 @@
             @if (! $hideMarkSent)
                 @can($permissionUpdate)
                     @if ($document->status == 'draft')
-                        <x-link href="{{ route($markSentRoute, $document->id) }}" @click="e => e.target.classList.add('disabled')">
+                        <x-link id="show-slider-actions-mark-sent-{{ $document->type }}" href="{{ route($markSentRoute, $document->id) }}" @click="e => e.target.classList.add('disabled')">
                             {{ trans($textMarkSent) }}
                         </x-link>
                     @else
@@ -41,7 +41,7 @@
 
             @if (! $hideShare)
                 @if ($document->status != 'cancelled')
-                    <x-button @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
+                    <x-button id="show-slider-actions-share-link-{{ $document->type }}" @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
                         {{ trans('general.share_link') }}
                     </x-button>
                 @endif

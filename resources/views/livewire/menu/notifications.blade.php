@@ -35,7 +35,7 @@
                         @if ($notification->type != 'updates')
                             <x-tooltip id="notification-{{ $notification->id }}" placement="top" message="{{ trans('notifications.mark_read') }}">
                                 <button type="button" wire:click="markRead('{{ $notification->type }}', '{{ $notification->id }}')">
-                                    <span id="menu-notification-mark-read" class="material-icons text-lg text-purple hover:scale-125">check_circle_outline</span>
+                                    <span id="menu-notification-read-one-{{ $notification->id }}" class="material-icons text-lg text-purple hover:scale-125">check_circle_outline</span>
                                 </button>
                             </x-tooltip>
                         @endif

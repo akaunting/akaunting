@@ -496,7 +496,7 @@ class Document extends Model
                     'url' => route($prefix . '.edit', $this->id),
                     'permission' => 'update-' . $group . '-' . $permission_prefix,
                     'attributes' => [
-                        'id' => 'index-more-actions-edit-' . $this->id,
+                        'id' => 'index-line-actions-edit-' . $this->type . '-' . $this->id,
                     ],
                 ];
             }
@@ -509,7 +509,7 @@ class Document extends Model
                 'url' => route($prefix . '.duplicate', $this->id),
                 'permission' => 'create-' . $group . '-' . $permission_prefix,
                 'attributes' => [
-                    'id' => 'index-more-actions-duplicate-' . $this->id,
+                    'id' => 'index-line-actions-duplicate-' . $this->type . '-' . $this->id,
                 ],
             ];
         } catch (\Exception $e) {}
@@ -523,7 +523,7 @@ class Document extends Model
                     'url' => route('modals.documents.document.transactions.create', $this->id),
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
-                        'id' => 'index-more-actions-payment-' . $this->id,
+                        'id' => 'index-line-actions-payment-' . $this->type . '-' . $this->id,
                         '@click' => 'onPayment("' . $this->id . '")',
                     ],
                 ];
@@ -536,7 +536,7 @@ class Document extends Model
                     'url' => route($prefix . '.print', $this->id),
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
-                        'id' => 'index-more-actions-print-' . $this->id,
+                        'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
                         'target' => '_blank',
                     ],
                 ];
@@ -551,7 +551,7 @@ class Document extends Model
                     'url' => route($prefix . '.print', $this->id),
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
-                        'id' => 'index-more-actions-print-' . $this->id,
+                        'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
                         'target' => '_blank',
                     ],
                 ];
@@ -565,7 +565,7 @@ class Document extends Model
                 'url' => route($prefix . '.pdf', $this->id),
                 'permission' => 'read-' . $group . '-' . $permission_prefix,
                 'attributes' => [
-                    'id' => 'index-more-actions-pdf-' . $this->id,
+                    'id' => 'index-line-actions-pdf-' . $this->type . '-'  . $this->id,
                     'target' => '_blank',
                 ],
             ];
@@ -585,7 +585,7 @@ class Document extends Model
                         'url' => route('modals.'. $prefix . '.share.create', $this->id),
                         'permission' => 'read-' . $group . '-' . $permission_prefix,
                         'attributes' => [
-                            'id' => 'index-more-actions-share-link-' . $this->id,
+                            'id' => 'index-line-actions-share-link-' . $this->type . '-'  . $this->id,
                             '@click' => 'onShareLink("' . route('modals.'. $prefix . '.share.create', $this->id) . '")',
                         ],
                     ];
@@ -600,7 +600,7 @@ class Document extends Model
                             'url' => route('modals.'. $prefix . '.emails.create', $this->id),
                             'permission' => 'read-' . $group . '-' . $permission_prefix,
                             'attributes' => [
-                                'id' => 'index-more-actions-send-email-' . $this->id,
+                                'id' => 'index-line-actions-send-email-' . $this->type . '-'  . $this->id,
                                 '@click' => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
                             ],
                         ];
@@ -620,7 +620,7 @@ class Document extends Model
                         'url' => route($prefix . '.cancelled', $this->id),
                         'permission' => 'update-' . $group . '-' . $permission_prefix,
                         'attributes' => [
-                            'id' => 'index-more-actions-cancel-' . $this->id,
+                            'id' => 'index-line-actions-cancel-' . $this->type . '-'  . $this->id,
                         ],
                     ];
                 } catch (\Exception $e) {}
@@ -637,6 +637,9 @@ class Document extends Model
                     'title' => $translation_prefix,
                     'route' => $prefix . '.destroy',
                     'permission' => 'delete-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-line-actions-delete-' . $this->type . '-' . $this->id,
+                    ],
                     'model' => $this,
                 ];
             } catch (\Exception $e) {}
@@ -647,6 +650,9 @@ class Document extends Model
                     'icon' => 'block',
                     'url' => route($prefix. '.end', $this->id),
                     'permission' => 'update-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-line-actions-end-' . $this->type . '-' . $this->id,
+                    ],
                 ];
             } catch (\Exception $e) {}
         }

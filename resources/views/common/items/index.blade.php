@@ -9,7 +9,7 @@
 
     <x-slot name="buttons">
         @can('create-common-items')
-            <x-link href="{{ route('items.create') }}" kind="primary">
+            <x-link href="{{ route('items.create') }}" kind="primary" id="index-more-actions-new-item">
                 {{ trans('general.title.new', ['type' => trans_choice('general.items', 1)]) }}
             </x-link>
         @endcan
@@ -22,12 +22,12 @@
             </x-slot>
 
             @can('create-common-items')
-                <x-dropdown.link href="{{ route('import.create', ['common', 'items']) }}">
+                <x-dropdown.link href="{{ route('import.create', ['common', 'items']) }}" id="index-more-actions-import-item">
                     {{ trans('import.import') }}
                 </x-dropdown.link>
             @endcan
 
-            <x-dropdown.link href="{{ route('items.export', request()->input()) }}">
+            <x-dropdown.link href="{{ route('items.export', request()->input()) }}" id="index-more-actions-export-item">
                 {{ trans('general.export') }}
             </x-dropdown.link>
         </x-dropdown>

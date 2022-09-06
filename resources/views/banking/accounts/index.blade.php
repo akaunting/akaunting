@@ -11,7 +11,7 @@
 
     <x-slot name="buttons">
         @can('create-banking-accounts')
-            <x-link href="{{ route('accounts.create') }}" kind="primary">
+            <x-link href="{{ route('accounts.create') }}" kind="primary" id="index-more-actions-new-account">
                 {{ trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]) }}
             </x-link>
         @endcan

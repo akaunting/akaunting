@@ -55,10 +55,10 @@
                             </div>
 
                             <div class="flex items-start ltr:space-x-2 rtl:space-x-reverse">
-                                <livewire:report.pin :categories="$categories" :report-id="$report->id" />
+                                <livewire:report.pin :categories="$categories" :report="$report" />
 
                                 @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
-                                <x-dropdown id="widget-{{ $category_id }}-{{ $report->id }}">
+                                <x-dropdown id="index-line-actions-report-{{ $category_id }}-{{ $report->id }}">
                                     <x-slot name="trigger" class="flex" override="class">
                                         <span class="w-8 h-8 flex items-center justify-center px-2 py-2 rtl:mr-4 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
                                             <span class="material-icons">more_vert</span>
@@ -66,13 +66,13 @@
                                     </x-slot>
 
                                     @can('update-common-reports')
-                                        <x-dropdown.link href="{{ route('reports.edit', $report->id) }}">
+                                        <x-dropdown.link href="{{ route('reports.edit', $report->id) }}" id="index-line-actions-edit-report-{{ $report->id }}">
                                             {{ trans('general.edit') }}
                                         </x-dropdown.link>
                                     @endcan
 
                                     @can('create-common-reports')
-                                        <x-dropdown.link href="{{ route('reports.duplicate', $report->id) }}">
+                                        <x-dropdown.link href="{{ route('reports.duplicate', $report->id) }}" id="index-line-actions-duplicate-report-{{ $report->id }}">
                                             {{ trans('general.duplicate') }}
                                         </x-dropdown.link>
                                     @endcan

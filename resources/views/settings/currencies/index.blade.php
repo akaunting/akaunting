@@ -11,7 +11,7 @@
 
     <x-slot name="buttons">
         @can('create-settings-currencies')
-            <x-link href="{{ route('currencies.create') }}" kind="primary">
+            <x-link href="{{ route('currencies.create') }}" kind="primary" id="index-more-actions-new-currency">
                 {{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}
             </x-link>
         @endcan

@@ -11,11 +11,11 @@
 
     <x-slot name="buttons">
         @can('create-banking-transactions')
-            <x-link href="{{ route('recurring-transactions.create', ['type' => 'income-recurring']) }}" kind="primary">
+            <x-link href="{{ route('recurring-transactions.create', ['type' => 'income-recurring']) }}" kind="primary" id="index-more-actions-new-income-recurring-transaction">
                 {{ trans('general.title.new', ['type' => trans_choice('general.recurring_incomes', 1)]) }}
             </x-link>
 
-            <x-link href="{{ route('recurring-transactions.create', ['type' => 'expense-recurring']) }}" kind="primary">
+            <x-link href="{{ route('recurring-transactions.create', ['type' => 'expense-recurring']) }}" kind="primary" id="index-more-actions-new-expense-recurring-transaction">
                 {{ trans('general.title.new', ['type' => trans_choice('general.recurring_expenses', 1)]) }}
             </x-link>
         @endcan

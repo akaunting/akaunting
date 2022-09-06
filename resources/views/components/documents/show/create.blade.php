@@ -11,7 +11,7 @@
 
     <x-slot name="body">
         <div class="flex">
-            <x-link href="{{ route($editRoute, $document->id) }}" @click="e => e.target.classList.add('disabled')">
+            <x-link href="{{ route($editRoute, $document->id) }}" id="show-slider-actions-edit-{{ $document->type }}" @click="e => e.target.classList.add('disabled')">
                 {{ trans('general.edit') }}
             </x-link>
         </div>

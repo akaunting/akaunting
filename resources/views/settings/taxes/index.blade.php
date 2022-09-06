@@ -11,7 +11,7 @@
 
     <x-slot name="buttons">
         @can('create-settings-taxes')
-            <x-link href="{{ route('taxes.create') }}" kind="primary">
+            <x-link href="{{ route('taxes.create') }}" kind="primary" id="index-more-actions-new-tax">
                 {{ trans('general.title.new', ['type' => trans_choice('general.taxes', 1)]) }}
             </x-link>
         @endcan
@@ -24,12 +24,12 @@
             </x-slot>
 
             @can('create-settings-taxes')
-                <x-dropdown.link href="{{ route('import.create', ['settings', 'taxes']) }}">
+                <x-dropdown.link href="{{ route('import.create', ['settings', 'taxes']) }}" id="index-more-actions-import-tax">
                     {{ trans('import.import') }}
                 </x-dropdown.link>
             @endcan
 
-            <x-dropdown.link href="{{ route('taxes.export', request()->input()) }}">
+            <x-dropdown.link href="{{ route('taxes.export', request()->input()) }}" id="index-more-actions-export-tax">
                 {{ trans('general.export') }}
             </x-dropdown.link>
         </x-dropdown>

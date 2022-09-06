@@ -11,7 +11,7 @@
 
     <x-slot name="buttons">
         @can('create-settings-categories')
-            <x-link href="{{ route('categories.create') }}" kind="primary">
+            <x-link href="{{ route('categories.create') }}" kind="primary" id="index-more-actions-new-category">
                 {{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}
             </x-link>
         @endcan
@@ -24,12 +24,12 @@
             </x-slot>
 
             @can('create-settings-categories')
-                <x-dropdown.link href="{{ route('import.create', ['settings', 'categories']) }}">
+                <x-dropdown.link href="{{ route('import.create', ['settings', 'categories']) }}" id="index-more-actions-import-category">
                     {{ trans('import.import') }}
                 </x-dropdown.link>
             @endcan
 
-            <x-dropdown.link href="{{ route('categories.export', request()->input()) }}">
+            <x-dropdown.link href="{{ route('categories.export', request()->input()) }}" id="index-more-actions-export-category">
                 {{ trans('general.export') }}
             </x-dropdown.link>
         </x-dropdown>

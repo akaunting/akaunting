@@ -1,7 +1,7 @@
 @stack('button_group_start')
 
 @if (! $hideMoreActions)
-    <x-dropdown id="dropdown-more-actions">
+    <x-dropdown id="show-more-actions-{{ $document->type }}">
         <x-slot name="trigger">
             <span class="material-icons">more_horiz</span>
         </x-slot>
@@ -12,7 +12,7 @@
 
         @if (! $hideDuplicate)
             @can($permissionCreate)
-                <x-dropdown.link href="{{ route($duplicateRoute, $document->id) }}">
+                <x-dropdown.link href="{{ route($duplicateRoute, $document->id) }}" id="show-more-actions-duplicate-{{ $document->type }}">
                     {{ trans('general.duplicate') }}
                 </x-dropdown.link>
             @endcan
@@ -27,17 +27,9 @@
         @stack('button_print_start')
 
         @if (! $hidePrint)
-            @if ($checkCancelled)
-                @if ($document->status != 'cancelled')
-                    <x-dropdown.link href="{{ route($printRoute, $document->id) }}" target="_blank">
-                        {{ trans('general.print') }}
-                    </x-dropdown.link>
-                @endif
-            @else
-                <x-dropdown.link href="{{ route($printRoute, $document->id) }}" target="_blank">
-                    {{ trans('general.print') }}
-                </x-dropdown.link>
-            @endif
+            <x-dropdown.link href="{{ route($printRoute, $document->id) }}" target="_blank" id="show-more-actions-print-{{ $document->type }}">
+                {{ trans('general.print') }}
+            </x-dropdown.link>
         @endif
 
         @stack('button_print_end')
@@ -45,7 +37,7 @@
         @stack('button_pdf_start')
 
         @if (! $hidePdf)
-            <x-dropdown.link href="{{ route($pdfRoute, $document->id) }}">
+            <x-dropdown.link href="{{ route($pdfRoute, $document->id) }}" id="show-more-actions-pdf-{{ $document->type }}">
                 {{ trans('general.download_pdf') }}
             </x-dropdown.link>
         @endif
@@ -61,7 +53,7 @@
 
             @if (! $hideShare)
                 @if ($document->status != 'cancelled')
-                    <x-dropdown.button @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
+                    <x-dropdown.button id="show-more-actions-share-link-{{ $document->type }}" @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
                         {{ trans('general.share_link') }}
                     </x-dropdown.button>
                 @endif
@@ -73,7 +65,7 @@
 
             @if (! $hideEmail)
                 @if ($document->contact_email)
-                    <x-dropdown.button @click="onEmail('{{ route($emailRoute, $document->id) }}')">
+                    <x-dropdown.button id="show-more-actions-send-email-{{ $document->type }}" @click="onEmail('{{ route($emailRoute, $document->id) }}')">
                         {{ trans($textEmail) }}
                     </x-dropdown.button>
                 @else
@@ -88,26 +80,6 @@
 
         @stack('share_button_end')
 
-        @stack('button_cancelled_start')
-
-        @if (! $hideCancel)
-            @can($permissionUpdate)
-                @if ($checkCancelled)
-                    @if ($document->status != 'cancelled')
-                        <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}">
-                            {{ trans('general.cancel') }}
-                        </x-dropdown.link>
-                    @endif
-                @else
-                    <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}">
-                        {{ trans('general.cancel') }}
-                    </x-dropdown.link>
-                @endif
-            @endcan
-        @endif
-
-        @stack('button_cancelled_end')
-
         @if (! $hideDivider3)
             <x-dropdown.divider />
         @endif
@@ -116,7 +88,7 @@
 
         @if (! $hideCustomize)
             @can($permissionCustomize)
-                <x-dropdown.link href="{{ route($customizeRoute) }}">
+                <x-dropdown.link href="{{ route($customizeRoute) }}" id="show-more-actions-customize-{{ $document->type }}">
                     {{ trans('general.customize') }}
                 </x-dropdown.link>
             @endcan
@@ -127,12 +99,34 @@
         @stack('end_button_start')
 
         @if (! $hideEnd && $document->recurring)
-            <x-dropdown.link href="{{ route($endRoute, $document->id) }}">
+            <x-dropdown.link href="{{ route($endRoute, $document->id) }}" id="show-more-actions-end-{{ $document->type }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>
         @endif
 
         @stack('end_button_end')
+
+        @stack('button_cancelled_start')
+
+        @if (! $hideCancel)
+            @can($permissionUpdate)
+                <x-dropdown.divider />
+
+                @if ($checkCancelled)
+                    @if ($document->status != 'cancelled')
+                        <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
+                            {{ trans('general.cancel') }}
+                        </x-dropdown.link>
+                    @endif
+                @else
+                    <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
+                        {{ trans('general.cancel') }}
+                    </x-dropdown.link>
+                @endif
+            @endcan
+        @endif
+
+        @stack('button_cancelled_end')
 
         @if (! $hideDivider4)
             <x-dropdown.divider />

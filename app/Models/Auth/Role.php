@@ -43,6 +43,9 @@ class Role extends LaratrustRole
             'icon' => 'edit',
             'url' => route('roles.roles.edit', $this->id),
             'permission' => 'update-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-role-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -50,6 +53,9 @@ class Role extends LaratrustRole
             'icon' => 'file_copy',
             'url' => route('roles.roles.duplicate', $this->id),
             'permission' => 'create-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-duplicate-role-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -57,6 +63,9 @@ class Role extends LaratrustRole
             'icon' => 'delete',
             'route' => 'roles.roles.destroy',
             'permission' => 'delete-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-role-' . $this->id,
+            ],
             'model' => $this,
         ];
 

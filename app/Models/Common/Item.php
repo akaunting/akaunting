@@ -174,6 +174,9 @@ class Item extends Model
             'icon' => 'edit',
             'url' => route('items.edit', $this->id),
             'permission' => 'update-common-items',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-item-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -181,6 +184,9 @@ class Item extends Model
             'icon' => 'file_copy',
             'url' => route('items.duplicate', $this->id),
             'permission' => 'create-common-items',
+            'attributes' => [
+                'id' => 'index-line-actions-duplicate-item-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -188,6 +194,9 @@ class Item extends Model
             'icon' => 'delete',
             'route' => 'items.destroy',
             'permission' => 'delete-common-items',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-item-' . $this->id,
+            ],
             'model' => $this,
         ];
 

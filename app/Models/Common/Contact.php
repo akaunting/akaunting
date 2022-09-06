@@ -291,6 +291,9 @@ class Contact extends Model
                 'icon' => 'visibility',
                 'url' => route($prefix . '.show', $this->id),
                 'permission' => 'read-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-line-actions-show-' . $this->type . '-' . $this->id,
+                ],
             ];
         } catch (\Exception $e) {}
 
@@ -300,6 +303,9 @@ class Contact extends Model
                 'icon' => 'edit',
                 'url' => route($prefix . '.edit', $this->id),
                 'permission' => 'update-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-line-actions-edit-' . $this->type . '-' . $this->id,
+                ],
             ];
         } catch (\Exception $e) {}
 
@@ -309,6 +315,9 @@ class Contact extends Model
                 'icon' => 'file_copy',
                 'url' => route($prefix . '.duplicate', $this->id),
                 'permission' => 'create-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-line-actions-duplicate-' . $this->type . '-' . $this->id,
+                ],
             ];
         } catch (\Exception $e) {}
 
@@ -319,6 +328,9 @@ class Contact extends Model
                 'title' => $translation_prefix,
                 'route' => $prefix . '.destroy',
                 'permission' => 'delete-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-line-actions-delete-' . $this->type . '-' . $this->id,
+                ],
                 'model' => $this,
             ];
         } catch (\Exception $e) {}

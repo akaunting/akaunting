@@ -25,7 +25,7 @@
                     <div>
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
-                                id="button-bulk-action-{{ $key }}"
+                                id="index-bulk-actions-{{ $key }}"
                                 class="relative w-8 h-8 flex items-center px-2 mr-2 rounded-lg hover:bg-gray-200"
                                 override="class"
                                 data-message="{{ ! empty($action['message']) ? trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) : '' }}"
@@ -40,7 +40,7 @@
                     <div>
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
-                                id="button-bulk-action-{{ $key }}"
+                                id="index-bulk-actions-{{ $key }}"
                                 class="w-8 h-8 flex items-center px-2 rounded-lg hover:bg-gray-200"
                                 override="class"
                                 data-message="{{ ! empty($action['message']) ? trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) : '' }}"
