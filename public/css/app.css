@@ -48200,10 +48200,6 @@ body{
     grid-column: span 8 / span 8;
   }
 
-  .sm\:col-span-7{
-    grid-column: span 7 / span 7;
-  }
-
   .sm\:col-span-12{
     grid-column: span 12 / span 12;
   }

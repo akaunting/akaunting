@@ -3,9 +3,9 @@
     <table style="width: 100%;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <h2 class="text-left" style="font-size: 14px; font-weight:600;">
+                <div class="text-left font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
-                </h2>
+                </div>
             </td>
         </tr>
     </table>
@@ -13,7 +13,7 @@
     <table>
         @stack('transferred_at_input_start')
         <tr>
-            <td valign="top" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; font-weight:600; border-bottom:1px solid #adadad;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; border-bottom:1px solid #adadad;">
                 {{ trans('general.date') }}
             </td>
 
@@ -25,7 +25,7 @@
 
         @stack('payment_method_input_start')
         <tr>
-            <td valign="top" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; font-weight:600; border-bottom:1px solid #adadad;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; border-bottom:1px solid #adadad;">
                 {{ trans_choice('general.payment_methods', 1) }}
             </td>
 
@@ -41,7 +41,7 @@
 
         @stack('reference_input_start')
         <tr>
-            <td valign="top" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; font-weight:600; border-bottom:1px solid #adadad;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; border-bottom:1px solid #adadad;">
                 {{ trans('general.reference') }}
             </td>
 
@@ -53,7 +53,7 @@
 
         @stack('description_input_start')
         <tr>
-            <td valign="top" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; font-weight:600; border-bottom:1px solid #adadad;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 0 8px 0; font-size: 12px; border-bottom:1px solid #adadad;">
                 {{ trans('general.description') }}
             </td>
 
@@ -71,14 +71,14 @@
             @stack('from_account_id_start')
             <tr>
                 <td class="border-bottom-1 border-top-1" style="width: 60%; padding: 15px 0 15px 0;">
-                    <h2 class="mb-1" style="font-size: 14px; font-weight:600; margin-bottom: 15px;">
+                    <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
                         {{ trans('transfers.from_account') }}
-                    </h2>
+                    </div>
 
                     <table>
                         @stack('from_account_name_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.account_name') }}
                             </td>
 
@@ -92,7 +92,7 @@
                     <table>
                         @stack('from_account_number_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.number') }}
                             </td>
 
@@ -107,7 +107,7 @@
                     <table>
                         @stack('from_account_bank_name_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.bank_name') }}
                             </td>
 
@@ -123,7 +123,7 @@
                     <table>
                         @stack('from_account_phone_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('general.phone') }}
                             </td>
 
@@ -139,7 +139,7 @@
                     <table>
                         @stack('from_account_address_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('general.address') }}
                             </td>
 
@@ -163,14 +163,14 @@
             @stack('to_account_id_start')
             <tr>
                 <td style="width: 60%; padding: 0 0 15px 0;">
-                    <h2 class="mb-1" style="font-size: 14px; font-weight:600; margin-bottom: 15px;">
+                    <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
                         {{ trans('transfers.to_account') }}
-                    </h2>
+                    </div>
 
                     <table>
                         @stack('to_account_name_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.number') }}
                             </td>
 
@@ -184,7 +184,7 @@
                     <table>
                         @stack('to_account_number_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.number') }}
                             </td>
 
@@ -199,7 +199,7 @@
                     <table>
                         @stack('to_account_bank_name_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('accounts.bank_name') }}
                             </td>
 
@@ -215,7 +215,7 @@
                     <table>
                         @stack('to_account_phone_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('general.phone') }}
                             </td>
 
@@ -231,7 +231,7 @@
                     <table>
                         @stack('to_account_address_input_start')
                         <tr>
-                            <td style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px; font-weight:600;">
+                            <td class="font-semibold" style="width:30%; margin: 0px; padding: 0 0 8px 0; font-size: 12px;">
                                 {{ trans('general.address') }}
                             </td>
 
@@ -257,11 +257,11 @@
                 <table>
                     @stack('amount_input_start')
                     <tr>
-                        <td valign="center" style="width: 80%; padding:0; font-size: 14px; font-weight:600;">
-                            {{ trans('general.amount') }}
-                        </td>
+                        <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
+                            <span class="ml-2">
+                                {{ trans('general.amount') }}
+                            </span>
 
-                        <td valign="center" style="width: 20%; padding:0; font-size: 14px;">
                             <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
                         </td>
                     </tr>
