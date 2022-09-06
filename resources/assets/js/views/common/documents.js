@@ -589,8 +589,10 @@ const app = new Vue({
             this.form.items[item_index][field_name] = this.items[item_index][field_name];
         },
 
-        async onPayment() {
-            let document_id = document.getElementById('document_id').value;
+        async onPayment(document_id) {
+            if (typeof  document_id == 'object') {
+                document_id = document.getElementById('document_id').value;
+            }
 
             let payment = {
                 modal: false,
