@@ -29,5 +29,5 @@
                 </x-link>
             </div>
         @endif
-    </x-slot>
+</div>
 </x-show.accordion>
