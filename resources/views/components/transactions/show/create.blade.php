@@ -1,7 +1,7 @@
 <x-show.accordion type="create">
     <x-slot name="head">
         @php
-            $created_date = '<span class="font-medium">' . company_date($transaction->created_at) . '</span>'
+            $created_date = '<span class="font-medium">' . company_date($transaction->created_at) . '</span>';
             $description = trans('transactions.slider.create', ['user' => $transaction->owner->name, 'date' => $created_date]);
 
             if ($transaction->isRecurringTransaction()) {
