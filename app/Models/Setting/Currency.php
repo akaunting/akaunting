@@ -197,6 +197,9 @@ class Currency extends Model
             'icon' => 'edit',
             'url' => route('currencies.edit', $this->id),
             'permission' => 'update-settings-currencies',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-currency-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -204,6 +207,9 @@ class Currency extends Model
             'icon' => 'delete',
             'route' => 'currencies.destroy',
             'permission' => 'delete-settings-currencies',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-currency-' . $this->id,
+            ],
             'model' => $this,
         ];
 

@@ -81,13 +81,22 @@
                                 @endif
 
                                 <x-table.td kind="amount" class="none-truncate">
-                                    @php $type = $item->isIncome() ? 'income' : 'expense'; @endphp
+                                    @php
+                                        $type = $item->isIncome() ? 'income' : 'expense';
+                                        $name = $type . '_' . $item->id;
+
+                                        $checked = $item->reconciled;
+
+                                        if (! $reconciliation->reconciled && array_key_exists($name, $reconciliation->transactions)) {
+                                            $checked = (empty($reconciliation->transactions[$name]) || $reconciliation->transactions[$name] === 'false') ? 0 : 1;
+                                        }
+                                    @endphp
 
                                     <x-form.input.checkbox name="{{ $type . '_' . $item->id }}"
                                         label=""
                                         id="transaction-{{ $item->id . '-'. $type }}"
                                         :value="$item->amount_for_account"
-                                        :checked="$item->reconciled"
+                                        :checked="$checked"
                                         data-field="transactions"
                                         v-model="form.transactions.{{ $type . '_' . $item->id }}"
                                         class="text-purple focus:outline-none focus:ring-purple focus:border-purple"

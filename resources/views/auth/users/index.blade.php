@@ -9,7 +9,7 @@
 
     <x-slot name="buttons">
         @can('create-auth-users')
-            <x-link href="{{ route('users.create') }}" kind="primary">
+            <x-link href="{{ route('users.create') }}" kind="primary" id="index-more-actions-invite-user">
                 {{ trans('general.title.invite', ['type' => trans_choice('general.users', 1)]) }}
             </x-link>
         @endcan

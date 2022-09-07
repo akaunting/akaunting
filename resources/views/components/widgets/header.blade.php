@@ -14,9 +14,9 @@
                 </x-link>
             @endif
 
-            <x-dropdown id="dropdown-widget-{{ $class->model->id }}">
+            <x-dropdown id="show-more-actions-widget-{{ $class->model->id }}">
                 <x-slot name="trigger" class="flex" override="class">
-                    <span id="dashboard-widget-more-actions" class="w-8 h-8 flex items-center justify-center px-2 py-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
+                    <span class="w-8 h-8 flex items-center justify-center px-2 py-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
                         <span class="material-icons">more_vert</span>
                     </span>
                 </x-slot>
@@ -24,7 +24,7 @@
                 @can('update-common-widgets')
                 <x-button
                     type="button"
-                    id="dashboard-edit-widget"
+                    id="show-more-actions-edit-widget-{{ $class->model->id }}"
                     class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
                     override="class"
                     title="{{ trans('general.edit') }}"

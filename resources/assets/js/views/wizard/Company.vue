@@ -119,271 +119,273 @@
                 </div>
             </form>
         </div>
-  </div>
+    </div>
 </template>
 
 <script>
-import { Select, Option } from "element-ui";
-import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
-import AkauntingDate from "./../../components/AkauntingDate";
-import WizardAction from "./../../mixins/wizardAction";
-import WizardSteps from "./Steps.vue";
+    import { Select, Option } from "element-ui";
+    import AkauntingDropzoneFileUpload from "./../../components/AkauntingDropzoneFileUpload";
+    import AkauntingDate from "./../../components/AkauntingDate";
+    import WizardAction from "./../../mixins/wizardAction";
+    import WizardSteps from "./Steps.vue";
 
-export default {
-    name: "Company",
+    export default {
+        name: "Company",
 
-    mixins: [WizardAction],
+        mixins: [
+            WizardAction
+        ],
 
-    components: {
-        [Select.name]: Select,
-        [Option.name]: Option,
-        AkauntingDropzoneFileUpload,
-        AkauntingDate,
-        WizardSteps
-    },
-
-    props: {
-        company: {
-            type: [Object, Array],
+        components: {
+            [Select.name]: Select,
+            [Option.name]: Option,
+            AkauntingDropzoneFileUpload,
+            AkauntingDate,
+            WizardSteps
         },
 
-        countries: {
-            type: [Object, Array],
-        },
-
-        translations: {
-            type: [Object, Array],
-        },
-
-        url: {
-            type: String,
-            default: "text",
-        },
-
-        pageLoad: {
-          type: [Boolean, String]
-        },
-
-        locale: {
-            type: String,
-        },
-
-        dateConfig: {
-            type: Object,
-            default: function () {
-                return {
-
-                };
+        props: {
+            company: {
+                type: [Object, Array],
             },
-            description: "FlatPckr date configuration"
+
+            countries: {
+                type: [Object, Array],
+            },
+
+            translations: {
+                type: [Object, Array],
+            },
+
+            url: {
+                type: String,
+                default: "text",
+            },
+
+            pageLoad: {
+                type: [Boolean, String]
+            },
+
+            locale: {
+                type: String,
+            },
+
+            dateConfig: {
+                type: Object,
+                default: function () {
+                    return {
+
+                    };
+                },
+                description: "FlatPckr date configuration"
+            },
         },
-    },
 
-    data() {
-        return {
-            active: 0,
-            logo: [],
-            real_date: "",
-            lang_data: '',
-            sorted_countries: [],
-            button_loading_company: false
-        };
-    },
-
-    created() {
-        if (document.documentElement.lang) {
-            let lang_split = document.documentElement.lang.split("-");
-
-            if (lang_split[0] !== 'en') {
-                const lang = require(`flatpickr/dist/l10n/${lang_split[0]}.js`).default[lang_split[0]];
-
-                this.dateConfig.locale = lang;
-            }
-        }
-
-        this.setSortedCountries();
-    },
-
-    computed: {
-        sortedCountries() {
-            this.sorted_countries.sort(this.sortBy('value'));
-
-            return this.sorted_countries;
+        data() {
+            return {
+                active: 0,
+                logo: [],
+                real_date: "",
+                lang_data: '',
+                sorted_countries: [],
+                button_loading_company: false
+            };
         },
-    },
 
-    mounted() {
-        let company_data = this.company;
+        created() {
+            if (document.documentElement.lang) {
+                let lang_split = document.documentElement.lang.split("-");
 
-        this.onDataWatch(company_data);
-    },
+                if (lang_split[0] !== 'en') {
+                    const lang = require(`flatpickr/dist/l10n/${lang_split[0]}.js`).default[lang_split[0]];
 
-    methods: {
-        sortBy(option) {
-            return (firstEl, secondEl) => {
-                let first_element = firstEl[option].toUpperCase(); // ignore upper and lowercase
-                let second_element = secondEl[option].toUpperCase(); // ignore upper and lowercase
-
-                if (first_element < second_element) {
-                    return -1;
+                    this.dateConfig.locale = lang;
                 }
-
-                if (first_element > second_element) {
-                    return 1;
-                }
-
-                // names must be equal
-                return 0;
             }
+
+            this.setSortedCountries();
         },
 
-        setSortedCountries() {
-            // Reset sorted_countries
-            this.sorted_countries = [];
+        computed: {
+            sortedCountries() {
+                this.sorted_countries.sort(this.sortBy('value'));
 
-            let created_options = this.countries;
+                return this.sorted_countries;
+            },
+        },
 
-            // Option set sort_option data
-            if (!Array.isArray(created_options)) {
-                for (const [key, value] of Object.entries(created_options)) {
-                    this.sorted_countries.push({
-                        key: key.toString(),
-                        value: value
+        mounted() {
+            let company_data = this.company;
+
+            this.onDataWatch(company_data);
+        },
+
+        methods: {
+            sortBy(option) {
+                return (firstEl, secondEl) => {
+                    let first_element = firstEl[option].toUpperCase(); // ignore upper and lowercase
+                    let second_element = secondEl[option].toUpperCase(); // ignore upper and lowercase
+
+                    if (first_element < second_element) {
+                        return -1;
+                    }
+
+                    if (first_element > second_element) {
+                        return 1;
+                    }
+
+                    // names must be equal
+                    return 0;
+                }
+            },
+
+            setSortedCountries() {
+                // Reset sorted_countries
+                this.sorted_countries = [];
+
+                let created_options = this.countries;
+
+                // Option set sort_option data
+                if (!Array.isArray(created_options)) {
+                    for (const [key, value] of Object.entries(created_options)) {
+                        this.sorted_countries.push({
+                            key: key.toString(),
+                            value: value
+                        });
+                    }
+                } else {
+                    created_options.forEach(function (option, index) {
+                        if (typeof(option) == 'string') {
+                            this.sorted_countries.push({
+                                index: index,
+                                key: index.toString(),
+                                value: option
+                            });
+                        } else {
+                            this.sorted_countries.push({
+                                index: index,
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                            });
+                        }
+                    }, this);
+                }
+            },
+
+            onDataWatch(company) {
+                if (Object.keys(company).length) {
+                    if (company.logo) {
+                        let logo_arr = [{
+                            id: company.logo.id,
+                            name: company.logo.filename + "." + company.logo.extension,
+                            path: company.logo.path,
+                            type: company.logo.mime_type,
+                            size: company.logo.size,
+                            downloadPath: false,
+                        }];
+
+                        this.logo.push(logo_arr);
+                    }
+                }
+            },
+
+            onEditSave(event) {
+                event.preventDefault();
+
+                this.button_loading_company = true;
+                
+                FormData.prototype.appendRecursive = function (data, wrapper = null) {
+                    for (var name in data) {
+                        if (name == "previewElement" || name == "previewTemplate") {
+                            continue;
+                        }
+
+                        if (wrapper) {
+                            if (
+                            (typeof data[name] == "object" || Array.isArray(data[name])) &&
+                            data[name] instanceof File != true &&
+                            data[name] instanceof Blob != true
+                            ) {
+                                this.appendRecursive(data[name], wrapper + "[" + name + "]");
+                            } else {
+                                this.append(wrapper + "[" + name + "]", data[name]);
+                            }
+                        } else {
+                            if (
+                            (typeof data[name] == "object" || Array.isArray(data[name])) &&
+                            data[name] instanceof File != true &&
+                            data[name] instanceof Blob != true
+                            ) {
+                                this.appendRecursive(data[name], name);
+                            } else {
+                                this.append(name, data[name]);
+                            }
+                        }
+                    }
+                };
+
+                const formData = new FormData(this.$refs["form"]);
+
+                let data_name = {};
+
+                for (let [key, val] of formData.entries()) {
+                    Object.assign(data_name, {
+                        [key]: val,
                     });
                 }
-            } else {
-                created_options.forEach(function (option, index) {
-                    if (typeof(option) == 'string') {
-                        this.sorted_countries.push({
-                            index: index,
-                            key: index.toString(),
-                            value: option
-                        });
-                    } else {
-                        this.sorted_countries.push({
-                            index: index,
-                            key: option.id.toString(),
-                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                        });
-                    }
-                }, this);
-            }
-        },
 
-        onDataWatch(company) {
-            if (Object.keys(company).length) {
-                if (company.logo) {
-                    let logo_arr = [{
-                        id: company.logo.id,
-                        name: company.logo.filename + "." + company.logo.extension,
-                        path: company.logo.path,
-                        type: company.logo.mime_type,
-                        size: company.logo.size,
-                        downloadPath: false,
-                    }];
+                let logo = '';
 
-                    this.logo.push(logo_arr);
+                if (this.$refs.dropzoneWizard.files[1]) {
+                    logo = this.$refs.dropzoneWizard.files[1];
+                } else if (this.$refs.dropzoneWizard.files[0]) {
+                    logo = this.$refs.dropzoneWizard.files[0];
                 }
-            }
-        },
 
-        onEditSave(event) {
-            event.preventDefault();
-
-            this.button_loading_company = true;
-            
-            FormData.prototype.appendRecursive = function (data, wrapper = null) {
-                for (var name in data) {
-                    if (name == "previewElement" || name == "previewTemplate") {
-                        continue;
-                    }
-
-                    if (wrapper) {
-                        if (
-                        (typeof data[name] == "object" || Array.isArray(data[name])) &&
-                        data[name] instanceof File != true &&
-                        data[name] instanceof Blob != true
-                        ) {
-                            this.appendRecursive(data[name], wrapper + "[" + name + "]");
-                        } else {
-                            this.append(wrapper + "[" + name + "]", data[name]);
-                        }
-                    } else {
-                        if (
-                        (typeof data[name] == "object" || Array.isArray(data[name])) &&
-                        data[name] instanceof File != true &&
-                        data[name] instanceof Blob != true
-                        ) {
-                            this.appendRecursive(data[name], name);
-                        } else {
-                            this.append(name, data[name]);
-                        }
-                    }
-                }
-            };
-
-            const formData = new FormData(this.$refs["form"]);
-
-            let data_name = {};
-
-            for (let [key, val] of formData.entries()) {
                 Object.assign(data_name, {
-                    [key]: val,
+                    ["logo"]: logo,
+                    ["_prefix"]: "company",
+                    ["_token"]: window.Laravel.csrfToken,
+                    ["_method"]: "POST",
                 });
-            }
 
-            let logo = '';
+                formData.appendRecursive(data_name);
 
-            if (this.$refs.dropzoneWizard.files[1]) {
-                logo = this.$refs.dropzoneWizard.files[1];
-            } else if (this.$refs.dropzoneWizard.files[0]) {
-                logo = this.$refs.dropzoneWizard.files[0];
-            }
+                this.company.financial_start = data_name.financial_start;
 
-            Object.assign(data_name, {
-                ["logo"]: logo,
-                ["_prefix"]: "company",
-                ["_token"]: window.Laravel.csrfToken,
-                ["_method"]: "POST",
-            });
+                window.axios({
+                    method: "POST",
+                    url: url + "/wizard/companies",
+                    data: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": window.Laravel.csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    this.onSuccessMessage(response);
 
-            formData.appendRecursive(data_name);
+                    this.$router.push("/wizard/currencies");
+                    this.button_loading_company = false;
+                }, this)
+                .catch((error) => {
+                    this.onFailError(error);
+                    this.button_loading_company = false;
+                }, this);
+            },
 
-            this.company.financial_start = data_name.financial_start;
-
-            window.axios({
-                method: "POST",
-                url: url + "/wizard/companies",
-                data: formData,
-                headers: {
-                    "X-CSRF-TOKEN": window.Laravel.csrfToken,
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                this.onSuccessMessage(response);
+            next() {
+                if (this.active++ > 2);
 
                 this.$router.push("/wizard/currencies");
-                this.button_loading_company = false;
-            }, this)
-            .catch((error) => {
-                this.onFailError(error);
-                this.button_loading_company = false;
-            }, this);
+            },
         },
 
-        next() {
-            if (this.active++ > 2);
-
-            this.$router.push("/wizard/currencies");
+        watch: {
+            company: function (company) {
+                this.onDataWatch(company);
+            },
         },
-    },
-
-    watch: {
-        company: function (company) {
-            this.onDataWatch(company);
-        },
-    },
-};
+    };
 </script>

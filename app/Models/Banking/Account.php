@@ -170,6 +170,9 @@ class Account extends Model
             'icon' => 'visibility',
             'url' => route('accounts.show', $this->id),
             'permission' => 'read-banking-accounts',
+            'attributes' => [
+                'id' => 'index-line-actions-show-account-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -177,6 +180,9 @@ class Account extends Model
             'icon' => 'edit',
             'url' => route('accounts.edit', $this->id),
             'permission' => 'update-banking-accounts',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-account-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -185,6 +191,9 @@ class Account extends Model
             'route' => 'accounts.destroy',
             'permission' => 'delete-banking-accounts',
             'model' => $this,
+            'attributes' => [
+                'id' => 'index-line-actions-delete-account-' . $this->id,
+            ],
         ];
 
         return $actions;

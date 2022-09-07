@@ -6,6 +6,8 @@ use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Http\Resources\Setting\Setting as Resource;
 use App\Models\Setting\Setting;
+use Laratrust\Middleware\LaratrustMiddleware;
+
 
 class Settings extends ApiController
 {
@@ -15,9 +17,10 @@ class Settings extends ApiController
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-settings')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-settings-settings')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable', 'destroy');
+        // We've added base 3 permission then get all setting thsi permissions
+        $this->middleware('permission:create-settings-company|create-settings-defaults|create-settings-localisation')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-settings-company|read-settings-defaults|read-settings-localisation')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-settings-company|update-settings-defaults|update-settings-localisation')->only('update', 'enable', 'disable', 'destroy');
     }
 
     /**

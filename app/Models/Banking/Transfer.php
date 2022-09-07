@@ -246,6 +246,9 @@ class Transfer extends Model
             'icon' => 'visibility',
             'url' => route('transfers.show', $this->id),
             'permission' => 'read-banking-transfers',
+            'attributes' => [
+                'id' => 'index-line-actions-show-transfer-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -253,6 +256,9 @@ class Transfer extends Model
             'icon' => 'edit',
             'url' => route('transfers.edit', $this->id),
             'permission' => 'update-banking-transfers',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-transfer-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -260,6 +266,9 @@ class Transfer extends Model
             'icon' => 'file_copy',
             'url' => route('transfers.duplicate', $this->id),
             'permission' => 'update-banking-transfers',
+            'attributes' => [
+                'id' => 'index-line-actions-duplicate-transfer-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -267,6 +276,9 @@ class Transfer extends Model
             'icon' => 'delete',
             'route' => 'transfers.destroy',
             'permission' => 'delete-banking-transfers',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-transfer-' . $this->id,
+            ],
             'model' => $this,
         ];
 

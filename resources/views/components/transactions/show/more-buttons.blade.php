@@ -1,7 +1,7 @@
 @stack('button_group_start')
 
 @if (! $hideButtonMoreActions)
-    <x-dropdown id="dropdown-more-actions">
+    <x-dropdown id="show-more-actions-{{ $transaction->type }}">
         <x-slot name="trigger">
             <span class="material-icons">more_horiz</span>
         </x-slot>
@@ -11,7 +11,7 @@
         @if (empty($transaction->document_id) && $transaction->isNotTransferTransaction())
             @if (! $hideButtonDuplicate)
                 @can($permissionCreate)
-                    <x-dropdown.link href="{{ route($routeButtonDuplicate, [$transaction->id, 'type' => $type]) }}">
+                    <x-dropdown.link href="{{ route($routeButtonDuplicate, [$transaction->id, 'type' => $type]) }}" id="show-more-actions-duplicate-{{ $transaction->type }}">
                         {{ trans('general.duplicate') }}
                     </x-dropdown.link>
                 @endcan
@@ -27,6 +27,7 @@
                 @can($permissionCreate)
                     <button
                         type="button"
+                        id="show-more-actions-connect-{{ $transaction->type }}"
                         class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
                         title="{{ trans('general.connect') }}"
                         @click="onConnectTransactions('{{ route('transactions.dial', $transaction->id) }}')">
@@ -38,14 +39,14 @@
 
         @stack('connect_button_end')
 
-        @if (! $hideDivider1 && $transaction->isNotTransferTransaction())
+        @if (! $hideDivider1 && $transaction->isNotDocumentTransaction() && $transaction->isNotTransferTransaction())
             <x-dropdown.divider />
         @endif
 
         @stack('button_print_start')
 
         @if (! $hideButtonPrint)
-            <x-dropdown.link href="{{ route($routeButtonPrint, $transaction->id) }}" target="_blank">
+            <x-dropdown.link href="{{ route($routeButtonPrint, $transaction->id) }}" target="_blank" id="show-more-actions-print-{{ $transaction->type }}">
                 {{ trans('general.print') }}
             </x-dropdown.link>
         @endif
@@ -55,7 +56,7 @@
         @stack('button_pdf_start')
 
         @if (! $hideButtonPdf)
-            <x-dropdown.link href="{{ route($routeButtonPdf, $transaction->id) }}" class="">
+            <x-dropdown.link href="{{ route($routeButtonPdf, $transaction->id) }}" class="" id="show-more-actions-pdf-{{ $transaction->type }}">
                 {{ trans('general.download_pdf') }}
             </x-dropdown.link>
         @endif
@@ -70,7 +71,7 @@
 
         @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonShare)
-                <x-dropdown.button @click="onShareLink('{{ route($shareRoute, $transaction->id) }}')">
+                <x-dropdown.button id="show-more-actions-share-link-{{ $transaction->type }}" @click="onShareLink('{{ route($shareRoute, $transaction->id) }}')">
                     {{ trans('general.share_link') }}
                 </x-dropdown.button>
             @endif
@@ -83,7 +84,7 @@
         @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonEmail)
                 @if (! empty($transaction->contact) && $transaction->contact->email)
-                    <x-dropdown.button @click="onEmail('{{ route($routeButtonEmail, $transaction->id) }}')">
+                    <x-dropdown.button id="show-more-actions-send-email-{{ $transaction->type }}" @click="onEmail('{{ route($routeButtonEmail, $transaction->id) }}')">
                         {{ trans('invoices.send_mail') }}
                     </x-dropdown.button>
                 @else
@@ -105,7 +106,7 @@
         @stack('button_end_start')
 
         @if (! $hideButtonEnd)
-            <x-dropdown.link href="{{ route($routeButtonEnd, $transaction->id) }}">
+            <x-dropdown.link href="{{ route($routeButtonEnd, $transaction->id) }}" id="show-more-actions-end-{{ $transaction->type }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>
         @endif

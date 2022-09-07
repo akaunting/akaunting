@@ -70,7 +70,7 @@ class Company extends Eloquent implements Ownable
     {
         parent::boot();
 
-        try { 
+        try {
             // TODO will optimize..
             static::retrieved(function($model) {
                 $model->setCommonSettingsAsAttributes();
@@ -550,6 +550,9 @@ class Company extends Eloquent implements Ownable
                 'icon' => 'settings_ethernet',
                 'url' => route('companies.switch', $this->id),
                 'permission' => 'read-common-companies',
+                'attributes' => [
+                    'id' => 'index-line-actions-switch-company-' . $this->id,
+                ],
             ];
         }
 
@@ -558,6 +561,9 @@ class Company extends Eloquent implements Ownable
             'icon' => 'edit',
             'url' => route('companies.edit', $this->id),
             'permission' => 'update-common-companies',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-company-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -565,6 +571,9 @@ class Company extends Eloquent implements Ownable
             'icon' => 'delete',
             'route' => 'companies.destroy',
             'permission' => 'delete-common-companies',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-company-' . $this->id,
+            ],
             'model' => $this,
         ];
 

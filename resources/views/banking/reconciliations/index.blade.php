@@ -9,7 +9,7 @@
 
     <x-slot name="buttons">
         @can('create-banking-reconciliations')
-            <x-link href="{{ route('reconciliations.create') }}" kind="primary">
+            <x-link href="{{ route('reconciliations.create') }}" kind="primary" id="index-more-actions-new-reconciliation">
                 {{ trans('general.title.new', ['type' => trans_choice('general.reconciliations', 1)]) }}
             </x-link>
         @endcan

@@ -48183,8 +48183,8 @@ body{
     grid-column: span 8 / span 8;
   }
 
-  .sm\:col-span-7{
-    grid-column: span 7 / span 7;
+  .sm\:col-span-12{
+    grid-column: span 12 / span 12;
   }
 
   .sm\:row-span-2{
@@ -48297,6 +48297,10 @@ body{
 
   .sm\:grid-cols-8{
     grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-12{
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   .sm\:flex-row{

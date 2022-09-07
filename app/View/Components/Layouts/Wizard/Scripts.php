@@ -103,6 +103,7 @@ class Scripts extends Component
                 'name' => trans('general.name'),
                 'code' => trans('currencies.code'),
                 'rate' => trans('currencies.rate'),
+                'default' => trans('currencies.default'),
                 'enabled' => trans('general.enabled'),
                 'actions' =>  trans('general.actions') ,
                 'yes' => trans('general.yes'),
@@ -162,7 +163,15 @@ class Scripts extends Component
 
     protected function getCurrencies()
     {
-        return Currency::all();
+        $currencies = collect();
+
+        Currency::all()->each(function ($currency) use (&$currencies) {
+            $currency->default = setting('default.currency') == $currency->code;
+
+            $currencies->push($currency);
+        });
+
+        return $currencies;
     }
 
     protected function getCurrencyCodes()

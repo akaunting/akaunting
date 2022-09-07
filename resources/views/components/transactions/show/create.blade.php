@@ -15,14 +15,16 @@
         </div>
     </x-slot>
 
-    <x-slot name="body">
+        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" x-bind:class="create === 1 ? 'rotate-180' : ''">expand_more</span>
+    </button>
+
+    <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"
+        x-ref="container1"
+        x-bind:class="create == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
+    >
         @if ($transaction->isNotTransferTransaction())
             <div class="flex my-3 space-x-2 rtl:space-x-reverse">
-                <x-link
-                    href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $transaction->type]) }}"
-                    class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-xl text-purple text-xs font-bold leading-6"
-                    override="class"
-                >
+                <x-link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $transaction->type]) }}" id="show-slider-actions-edit-{{ $transaction->type }}" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-xl text-purple text-xs font-bold leading-6">
                     {{ trans('general.edit') }}
                 </x-link>
             </div>

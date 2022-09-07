@@ -455,7 +455,7 @@ class Transaction extends Model
                 'url' => route($prefix. '.show', $this->id),
                 'permission' => 'read-banking-transactions',
                 'attributes' => [
-                    'id' => 'index-more-actions-show-' . $this->id,
+                    'id' => 'index-line-actions-show-' . $this->type . '-'  . $this->id,
                 ],
             ];
         } catch (\Exception $e) {}
@@ -468,7 +468,7 @@ class Transaction extends Model
                     'url' => route($prefix. '.edit', $this->id),
                     'permission' => 'update-banking-transactions',
                     'attributes' => [
-                        'id' => 'index-more-actions-edit-' . $this->id,
+                        'id' => 'index-line-actions-edit-' . $this->type . '-'  . $this->id,
                     ],
                 ];
             }
@@ -482,7 +482,7 @@ class Transaction extends Model
                     'url' => route($prefix. '.duplicate', $this->id),
                     'permission' => 'create-banking-transactions',
                     'attributes' => [
-                        'id' => 'index-more-actions-duplicate-' . $this->id,
+                        'id' => 'index-line-actions-duplicate-' . $this->type . '-'  . $this->id,
                     ],
                 ];
             }
@@ -496,7 +496,7 @@ class Transaction extends Model
                     'icon' => 'sensors',
                     'permission' => 'create-banking-transactions',
                     'attributes' => [
-                        'id' => 'index-transactions-more-actions-connect-' . $this->id,
+                        'id' => 'index-line-actions-connect-' . $this->type . '-'  . $this->id,
                         '@click' => 'onConnectTransactions(\'' . route('transactions.dial', $this->id) . '\')',
                     ],
                 ];
@@ -516,7 +516,7 @@ class Transaction extends Model
                 'url' => route($prefix. '.print', $this->id),
                 'permission' => 'read-banking-transactions',
                 'attributes' => [
-                    'id' => 'index-more-actions-print-' . $this->id,
+                    'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
                     'target' => '_blank',
                 ],
             ];
@@ -529,7 +529,7 @@ class Transaction extends Model
                 'url' => route($prefix. '.pdf', $this->id),
                 'permission' => 'read-banking-transactions',
                 'attributes' => [
-                    'id' => 'index-more-actions-pdf-' . $this->id,
+                    'id' => 'index-line-actions-pdf-' . $this->type . '-'  . $this->id,
                     'target' => '_blank',
                 ],
             ];
@@ -549,7 +549,7 @@ class Transaction extends Model
                         'url' => route('modals.transactions.share.create', $this->id),
                         'permission' => 'read-banking-transactions',
                         'attributes' => [
-                            'id' => 'index-more-actions-share-' . $this->id,
+                            'id' => 'index-line-actions-share-' . $this->type . '-'  . $this->id,
                             '@click' => 'onShareLink("' . route('modals.transactions.share.create', $this->id) . '")',
                         ],
                     ];
@@ -564,7 +564,7 @@ class Transaction extends Model
                             'url' => route('modals.transactions.emails.create', $this->id),
                             'permission' => 'read-banking-transactions',
                             'attributes' => [
-                                'id' => 'index-more-actions-send-email-' . $this->id,
+                                'id' => 'index-line-actions-send-email-' . $this->type . '-'  . $this->id,
                                 '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
                             ],
                         ];
@@ -583,6 +583,9 @@ class Transaction extends Model
                             'text' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
                             'route' => $prefix. '.destroy',
                             'permission' => 'delete-banking-transactions',
+                            'attributes' => [
+                                'id' => 'index-line-actions-delete-' . $this->type . '-'  . $this->id,
+                            ],
                             'model' => $this,
                         ];
                     }
@@ -595,6 +598,9 @@ class Transaction extends Model
                     'icon' => 'block',
                     'url' => route($prefix. '.end', $this->id),
                     'permission' => 'update-banking-transactions',
+                    'attributes' => [
+                        'id' => 'index-line-actions-end-' . $this->type . '-'  . $this->id,
+                    ],
                 ];
             } catch (\Exception $e) {}
         }

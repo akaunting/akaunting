@@ -397,7 +397,7 @@ abstract class Index extends Component
 
             $items[] = [
                 'title'     => $title,
-                'href'      => $href,
+                //'href'      => $href,
                 'amount'    => $amount,
                 'tooltip'   => $tooltip,
             ];

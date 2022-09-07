@@ -54,5 +54,13 @@ const app = new Vue({
             .catch(error => {
             });
         }
+    },
+
+    watch: {
+        'form.default_currency': function (newVal, oldVal) {
+            if (newVal == 1) {
+                this.form.rate = 1;
+            }
+        },
     }
 });

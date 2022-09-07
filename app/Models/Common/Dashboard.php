@@ -129,6 +129,9 @@ class Dashboard extends Model
                 'icon' => 'settings_ethernet',
                 'url' => route('dashboards.switch', $this->id),
                 'permission' => 'read-common-dashboards',
+                'attributes' => [
+                    'id' => 'index-line-actions-switch-dashboard-' . $this->id,
+                ],
             ];
         }
 
@@ -137,6 +140,9 @@ class Dashboard extends Model
             'icon' => 'edit',
             'url' => route('dashboards.edit', $this->id),
             'permission' => 'update-common-dashboards',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-dashboard-' . $this->id,
+            ],
         ];
 
         $actions[] = [
@@ -144,6 +150,9 @@ class Dashboard extends Model
             'icon' => 'delete',
             'route' => 'dashboards.destroy',
             'permission' => 'delete-common-dashboards',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-dashboard-' . $this->id,
+            ],
             'model' => $this,
         ];
 

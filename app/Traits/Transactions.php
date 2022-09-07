@@ -51,6 +51,18 @@ trait Transactions
         return Str::endsWith($type, '-transfer');
     }
 
+    public function isDocumentTransaction(): bool
+    {
+        $document_id = $this->document_id ?? $this->transaction->document_id ?? $this->model->document_id ?? null;
+
+        return ! empty($document_id);
+    }
+
+    public function isNotDocumentTransaction(): bool
+    {
+        return ! $this->isDocumentTransaction();
+    }
+
     public function isNotTransferTransaction(): bool
     {
         return ! $this->isTransferTransaction();

@@ -11,7 +11,7 @@
 
     <x-slot name="buttons">
         @can('create-common-companies')
-            <x-link href="{{ route('companies.create') }}" kind="primary">
+            <x-link href="{{ route('companies.create') }}" kind="primary" id="index-more-actions-new-company">
                 {{ trans('general.title.new', ['type' => trans_choice('general.companies', 1)]) }}
             </x-link>
         @endcan

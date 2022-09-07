@@ -14,7 +14,7 @@
                 @if(empty($document->transactions->count()) || (! empty($document->transactions->count()) && $document->paid != $document->amount))
                     <x-button
                         @click="onPayment"
-                        id="button-payment"
+                        id="show-slider-actions-payment-{{ $document->type }}"
                         class="px-3 py-1.5 mb-3 sm:mb-0 rounded-lg text-xs font-medium leading-6 bg-green hover:bg-green-700 text-white disabled:bg-green-100"
                         override="class"
                     >
@@ -45,7 +45,7 @@
                         </br>
 
                         @if (! empty($transaction->contact) && $transaction->contact->email)
-                            <x-button id="button-email-send" class="text-purple mt-1" override="class" @click="onEmailViaTemplate('{{ route($transactionEmailRoute, $transaction->id) }}', '{{ $transactionEmailTemplate }}')">
+                            <x-button id="show-slider-actions-transaction-send-email-{{ $document->type }}-{{ $transaction->id }}" class="text-purple mt-1" override="class" @click="onEmailViaTemplate('{{ route($transactionEmailRoute, $transaction->id) }}', '{{ $transactionEmailTemplate }}')">
                                 <x-button.hover color="to-purple">
                                     {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
                                 </x-button.hover>
@@ -64,7 +64,7 @@
 
                         <x-button
                             @click="onEditPayment('{{ $transaction->id }}')"
-                            id="button-edit-payment"
+                            id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
                             class="text-purple mt-1"
                             override="class"
                         >

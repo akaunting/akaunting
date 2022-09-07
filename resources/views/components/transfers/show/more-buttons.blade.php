@@ -8,7 +8,7 @@
     @stack('edit_button_start')
 
     @can('update-banking-transfers')
-        <x-dropdown.link href="{{ route('transfers.edit', $transfer->id) }}">
+        <x-dropdown.link href="{{ route('transfers.edit', $transfer->id) }}" id="show-more-actions-edit-transfer">
             {{ trans('general.edit') }}
         </x-dropdown.link>
     @endcan
@@ -16,7 +16,7 @@
     @stack('duplicate_button_start')
 
     @can('create-banking-transfers')
-        <x-dropdown.link href="{{ route('transfers.duplicate', $transfer->id) }}">
+        <x-dropdown.link href="{{ route('transfers.duplicate', $transfer->id) }}" id="show-more-actions-duplicate-transfer">
             {{ trans('general.duplicate') }}
         </x-dropdown.link>
     @endcan
@@ -27,7 +27,7 @@
 
     @stack('print_button_start')
 
-    <x-dropdown.link href="{{ route('transfers.print', $transfer->id) }}" target="_blank">
+    <x-dropdown.link href="{{ route('transfers.print', $transfer->id) }}" target="_blank" id="show-more-actions-print-transfer">
         {{ trans('general.print') }}
     </x-dropdown.link>
 
@@ -35,7 +35,7 @@
 
     @stack('pdf_button_start')
 
-    <x-dropdown.link href="{{ route('transfers.pdf', $transfer->id) }}">
+    <x-dropdown.link href="{{ route('transfers.pdf', $transfer->id) }}" id="show-more-actions-pdf-transfer">
         {{ trans('general.download_pdf') }}
     </x-dropdown.link>
 

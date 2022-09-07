@@ -24,7 +24,7 @@
     <x-slot name="buttons">
         @stack('create_button_start')
 
-        <x-dropdown id="dropdown-new-actions">
+        <x-dropdown id="show-new-actions-account">
             <x-slot name="trigger" class="flex items-center px-3 py-1.5 mb-3 sm:mb-0 bg-green hover:bg-green-700 rounded-xl text-white text-sm font-bold leading-6" override="class">
                 {{ trans('general.new_more') }}
                 <span class="material-icons ltr:ml-2 rtl:mr-2">expand_more</span>
@@ -33,7 +33,7 @@
             @stack('income_button_start')
 
             @can('create-banking-transactions')
-            <x-dropdown.link href="{{ route('accounts.create-income', $account->id) }}">
+            <x-dropdown.link href="{{ route('accounts.create-income', $account->id) }}" id="show-more-actions-new-income-account">
                 {{ trans_choice('general.incomes', 1) }}
             </x-dropdown.link>
             @endcan
@@ -41,7 +41,7 @@
             @stack('expense_button_start')
 
             @can('create-banking-transactions')
-            <x-dropdown.link href="{{ route('accounts.create-expense', $account->id) }}">
+            <x-dropdown.link href="{{ route('accounts.create-expense', $account->id) }}" id="show-more-actions-new-expense-account">
                 {{ trans_choice('general.expenses', 1) }}
             </x-dropdown.link>
             @endcan
@@ -49,7 +49,7 @@
             @stack('transfer_button_start')
 
             @can('create-banking-transfers')
-            <x-dropdown.link href="{{ route('accounts.create-transfer', $account->id) }}">
+            <x-dropdown.link href="{{ route('accounts.create-transfer', $account->id) }}" id="show-more-actions-new-transfer-account">
                 {{ trans_choice('general.transfers', 1) }}
             </x-dropdown.link>
             @endcan
@@ -60,7 +60,7 @@
         @stack('edit_button_start')
 
         @can('update-banking-accounts')
-        <x-link href="{{ route('accounts.edit', $account->id) }}">
+        <x-link href="{{ route('accounts.edit', $account->id) }}" id="show-more-actions-edit-account">
             {{ trans('general.edit') }}
         </x-link>
         @endcan
@@ -71,7 +71,7 @@
     <x-slot name="moreButtons">
         @stack('more_button_start')
 
-        <x-dropdown id="dropdown-more-actions">
+        <x-dropdown id="show-more-actions-account">
             <x-slot name="trigger">
                 <span class="material-icons">more_horiz</span>
             </x-slot>
@@ -79,7 +79,7 @@
             @stack('see_performance_button_start')
 
             @can('read-banking-accounts')
-            <x-dropdown.link href="{{ route('accounts.see-performance', $account->id) }}">
+            <x-dropdown.link href="{{ route('accounts.see-performance', $account->id) }}" id="show-more-actions-performance-account">
                 {{ trans('accounts.see_performance') }}
             </x-dropdown.link>
             @endcan
@@ -89,7 +89,7 @@
             @stack('duplicate_button_start')
 
             @can('create-banking-accounts')
-            <x-dropdown.link href="{{ route('accounts.duplicate', $account->id) }}">
+            <x-dropdown.link href="{{ route('accounts.duplicate', $account->id) }}" id="show-more-actions-duplicate-account">
                 {{ trans('general.duplicate') }}
             </x-dropdown.link>
             @endcan

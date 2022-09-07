@@ -13,7 +13,7 @@ class Pin extends Component
 
     public $pinned = false;
 
-    public $reportId = null;
+    public $report;
 
     public function render(): View
     {
@@ -38,7 +38,7 @@ class Pin extends Component
                         continue;
                     }
 
-                    if (in_array($this->reportId, $pins)) {
+                    if (in_array($this->report->id, $pins)) {
                         $this->pinned = true;
 
                         break;
