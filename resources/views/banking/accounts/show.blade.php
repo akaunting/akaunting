@@ -215,7 +215,6 @@
                                 id="transactions"
                                 name="{{ trans_choice('general.transactions', 2) }}"
                                 active
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
 
                             @stack('transfers_nav_start')
@@ -223,7 +222,6 @@
                             <x-tabs.nav
                                 id="transfers"
                                 name="{{ trans_choice('general.transfers', 2) }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
 
                             @stack('transfers_nav_end')
@@ -236,7 +234,7 @@
                                 @if ($transactions->count())
                                     <x-table>
                                         <x-table.thead>
-                                            <x-table.tr class="flex items-center px-1">
+                                            <x-table.tr>
                                                 <x-table.th class="w-6/12 lg:w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="paid_at" title="{{ trans('general.date') }}" />
@@ -246,7 +244,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-3/12 hidden sm:table-cell">
+                                                <x-table.th class="w-3/12" hidden-mobile>
                                                     <x-slot name="first">
                                                         <x-sortablelink column="type" title="{{ trans_choice('general.types', 1) }}" />
                                                     </x-slot>
@@ -255,7 +253,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-3/12 hidden sm:table-cell">
+                                                <x-table.th class="w-3/12" hidden-mobile>
                                                     <x-slot name="first">
                                                         <x-sortablelink column="contact.name" title="{{ trans_choice('general.contacts', 1) }}" />
                                                     </x-slot>
@@ -282,7 +280,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-3/12 hidden sm:table-cell">
+                                                    <x-table.td class="w-3/12" hidden-mobile>
                                                         <x-slot name="first">
                                                             {{ $item->type_title }}
                                                         </x-slot>
@@ -291,16 +289,16 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-3/12 hidden sm:table-cell">
+                                                    <x-table.td class="w-3/12" hidden-mobile>
                                                         <x-slot name="first">
                                                             {{ $item->contact->name }}
                                                         </x-slot>
                                                         <x-slot name="second" class="w-20 font-normal group">
                                                             @if ($item->document)
                                                             <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
-                                                                <a href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed">
+                                                                <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                                                     {{ $item->document->document_number }}
-                                                                </a>
+                                                                </x-link>
 
                                                                 <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
 
@@ -336,8 +334,8 @@
                                 @if ($transfers->count())
                                     <x-table>
                                         <x-table.thead>
-                                            <x-table.tr class="flex items-center px-1">
-                                                <x-table.th class="w-3/12 hidden sm:table-cell">
+                                            <x-table.tr>
+                                                <x-table.th class="w-3/12" hidden-mobile>
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
                                                     </x-slot>
@@ -386,7 +384,7 @@
                                                 @endphp
 
                                                 <x-table.tr href="{{ route('transfers.show', $item->id) }}">
-                                                    <x-table.td class="w-3/12 truncate hidden sm:table-cell">
+                                                    <x-table.td class="w-3/12" hidden-mobile>
                                                         <x-slot name="first" class="flex items-center font-bold" override="class">
                                                             <x-date date="{{ $item->expense_transaction->paid_at }}" />
                                                         </x-slot>

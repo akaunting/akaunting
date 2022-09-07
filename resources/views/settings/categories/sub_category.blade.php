@@ -1,6 +1,6 @@
 @if ($sub_category->sub_categories)
     <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ route('categories.edit', $sub_category->id) }}">
-        <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+        <x-table.td kind="bulkaction">
             <x-index.bulkaction.single id="{{ $sub_category->id }}" name="{{ $sub_category->name }}" />
         </x-table.td>
 

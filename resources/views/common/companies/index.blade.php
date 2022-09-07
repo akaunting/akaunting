@@ -26,8 +26,8 @@
 
             <x-table>
                 <x-table.thead>
-                    <x-table.tr class="flex items-center px-1">
-                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                    <x-table.tr>
+                        <x-table.th kind="bulkaction">
                             <x-index.bulkaction.all />
                         </x-table.th>
 
@@ -44,7 +44,7 @@
                             </x-slot>
                         </x-table.th>
 
-                        <x-table.th class="w-4/12 hidden sm:table-cell">
+                        <x-table.th class="w-4/12" hidden-mobile>
                             <x-slot name="first">
                                 <x-sortablelink column="email" title="{{ trans('general.email') }}" />
                             </x-slot>
@@ -67,7 +67,7 @@
                 <x-table.tbody>
                     @foreach($companies as $item)
                         <x-table.tr href="{{ route('companies.edit', $item->id) }}">
-                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-table.td kind="bulkaction">
                                 @if ((company_id() != $item->id))
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                                 @else
@@ -75,11 +75,11 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 sm:w-1/12 font-bold truncate">
+                            <x-table.td class="w-2/12 sm:w-1/12">
                                 {{ $item->id }}
                             </x-table.td>
 
-                            <x-table.td class="w-8/12 sm:w-4/12 truncate">
+                            <x-table.td class="w-8/12 sm:w-4/12">
                                 <x-slot name="first" class="flex" override="class">
                                     <div class="font-medium truncate">
                                         {{ $item->name }}
@@ -98,7 +98,7 @@
                                 </x-slot>
                             </x-table.td>
 
-                            <x-table.td class="w-4/12 hidden sm:table-cell truncate">
+                            <x-table.td class="w-4/12" hidden-mobile>
                                 <x-slot name="first">
                                     @if ($item->email)
                                         {{ $item->email }}

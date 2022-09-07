@@ -10,11 +10,11 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
+                        <x-table.tr>
                             <x-table.th override="class" class="p-0"></x-table.th>
                             @stack('issued_at_th_start')
 
-                            <x-table.th class="w-4/12 hidden sm:table-cell">
+                            <x-table.th class="w-4/12" hidden-mobile>
                                 @stack('due_at_th_inside_start')
 
                                 <x-slot name="first">
@@ -36,7 +36,7 @@
 
                             @stack('status_th_start')
 
-                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                            <x-table.th class="w-3/12" hidden-mobile>
                                 @stack('status_th_inside_start')
 
                                 <x-sortablelink column="status" title="{{ trans_choice('general.statuses', 1) }}" />
@@ -79,7 +79,7 @@
                                 <x-table.td kind="action"></x-table.td>
                                 @stack('issued_at_td_start')
 
-                                <x-table.td class="w-4/12 hidden sm:table-cell">
+                                <x-table.td class="w-4/12" hidden-mobile>
                                     @stack('due_at_td_inside_start')
 
                                     <x-slot name="first" class="font-bold truncate" override="class">
@@ -101,7 +101,7 @@
 
                                 @stack('status_td_start')
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     @stack('status_td_inside_start')
 
                                     <x-index.status status="{{ $item->status }}" background-color="bg-{{ $item->status_label }}" text-color="text-text-{{ $item->status_label }}" />
@@ -158,9 +158,13 @@
                     </div>
 
                     <div class="my-10">
-                        <a href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=invoice_index&utm_campaign=plg" class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700">
+                        <x-link
+                            href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=invoice_index&utm_campaign=plg"
+                            class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700"
+                            override="class"
+                        >
                             {{ trans('portal.get_started') }}
-                        </a>
+                        </x-link>
                     </div>
 
                     <div class="my-10">

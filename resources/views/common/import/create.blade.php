@@ -32,13 +32,13 @@
                 <div class="mt-8">
                     <div class="sm:col-span-6 flex items-center justify-end">
                         @if (! empty($route))
-                            <a href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg">
+                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" override="class">
                                 {{ trans('general.cancel') }}
-                            </a>
+                            </x-link>
                         @else
-                            <a href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:ml-2 rtl:mr-2">
+                            <x-link href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:ml-2 rtl:mr-2" override="class">
                                 {{ trans('general.cancel') }}
-                            </a>
+                            </x-link>
                         @endif
 
                         <x-button

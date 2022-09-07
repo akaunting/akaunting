@@ -18,7 +18,7 @@
                 @can ($button['permission'])
                 @endif
                     <li class="border-b p-2 hover:bg-gray-100">
-                        <a href="{{ $button['url']}}" class="flex items-center justify-between text-xs">
+                        <x-link href="{{ $button['url']}}" class="flex items-center justify-between text-xs" override="class">
                             <div class="truncate">
                                 <div class="flex items-center">
                                     <h2 class="relative">
@@ -37,7 +37,7 @@
                             </div>
 
                             <span class="material-icons text-gray-500 transform rtl:rotate-180">chevron_right</span>
-                        </a>
+                        </x-link>
                     </li>
                 @if ($checkPermissionCreate)
                 @endcan
@@ -46,7 +46,7 @@
 
             @if (! empty($suggestion))
                 <li class="border-b p-2  hover:bg-gray-100">
-                    <a href="{{ url($suggestion->action_url) . '?' . http_build_query((array) $suggestion->action_parameters) }}" class="flex items-center justify-between text-xs">
+                    <x-link href="{{ url($suggestion->action_url) . '?' . http_build_query((array) $suggestion->action_parameters) }}" class="flex items-center justify-between text-xs" override="class">
                         <div class="truncate">
                             <h2>
                                 {{ $suggestion->name }}
@@ -58,7 +58,7 @@
                         </div>
 
                         <span class="material-icons text-gray-500">chevron_right</span>
-                    </a>
+                    </x-link>
                 </li>
             @endif
         </ul>

@@ -41,12 +41,12 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
-                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                        <x-table.tr>
+                            <x-table.th kind="bulkaction">
                                 <x-index.bulkaction.all />
                             </x-table.th>
 
-                            <x-table.th class="w-3/12 hidden sm:table-cell">
+                            <x-table.th class="w-3/12" hidden-mobile>
                                 <x-sortablelink column="created_at" title="{{ trans('general.created_date') }}" />
                             </x-table.th>
 
@@ -54,7 +54,7 @@
                                 <x-sortablelink column="account_id" title="{{ trans_choice('general.accounts', 1) }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-2/12 hidden sm:table-cell">
+                            <x-table.th class="w-2/12" hidden-mobile>
                                 {{ trans('general.period') }}
                             </x-table.th>
 
@@ -72,11 +72,11 @@
                     <x-table.tbody>
                         @foreach($reconciliations as $item)
                             <x-table.tr href="{{ route('reconciliations.edit', $item->id) }}">
-                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-table.td kind="bulkaction">
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->account->name }}" />
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     <x-slot name="first" class="flex" override="class">
                                         <div class="font-bold truncate">
                                             <x-date date="{{ $item->created_at }}" />
@@ -88,11 +88,11 @@
                                     </x-slot>
                                 </x-table.td>
 
-                                <x-table.td class="w-6/12 sm:w-3/12 truncate">
+                                <x-table.td class="w-6/12 sm:w-3/12">
                                     {{ $item->account->name }}
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     <x-slot name="first">
                                         <x-date date="{{ $item->started_at }}" />
                                     </x-slot>

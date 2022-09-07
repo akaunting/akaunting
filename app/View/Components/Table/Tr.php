@@ -45,6 +45,10 @@ class Tr extends Component
             return 'relative flex items-center px-1 group border-b hover:bg-gray-100';
         }
 
+        else if (array_key_exists('App\View\Components\Table\Thead', $values)) {
+            return 'flex items-center px-1';
+        }
+
         return '';
     }
 }

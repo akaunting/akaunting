@@ -41,9 +41,9 @@
                         <div class="flex justify-between">
                             <span>
                                 @foreach ($module->categories as $module_category)
-                                    <a href="{{ route('apps.categories.show', $module_category->slug) }}" class="text-sm">
+                                    <x-link href="{{ route('apps.categories.show', $module_category->slug) }}" class="text-sm" override="class">
                                         {{ $module_category->name }}
-                                    </a>
+                                    </x-link>
                                 @endforeach
                             </span>
                         </div>

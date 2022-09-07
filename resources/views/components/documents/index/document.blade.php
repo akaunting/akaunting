@@ -1,6 +1,6 @@
 <x-table>
     <x-table.thead>
-        <x-table.tr class="flex items-center px-1">
+        <x-table.tr>
             @if (! $hideBulkAction)
             <x-table.th class="{{ $classBulkAction }}" override="class">
                 <x-index.bulkaction.all />
@@ -96,7 +96,7 @@
                 <x-table.td class="{{ $classDueAtAndIssueAt }}">
                     @stack('due_at_td_start')
                     @if (! $hideDueAt)
-                    <x-slot name="first" class="font-bold truncate" override="class">
+                    <x-slot name="first" class="font-bold" override="class">
                         @stack('due_at_td_inside_start')
                         <x-date :date="$item->due_at" function="diffForHumans" />
                         @stack('due_at_td_inside_end')
@@ -142,7 +142,7 @@
 
                     @stack('document_number_td_start')
                     @if (! $hideDocumentNumber)
-                    <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
+                    <x-slot name="second" class="w-20 group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
                         @stack('document_number_td_inside_start')
                         <span class="border-black border-b border-dashed">
                             {{ $item->document_number }}

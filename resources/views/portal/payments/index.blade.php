@@ -10,7 +10,7 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
+                        <x-table.tr>
                             <x-table.th override="class" class="p-0"></x-table.th>
 
                             <x-table.th class="w-4/12 sm:w-3/12">
@@ -21,7 +21,7 @@
                                 <x-sortablelink column="payment_method" title="{{ trans_choice('general.payment_methods', 1) }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-4/12 sm:w-3/12">
+                            <x-table.th class="w-4/12 sm:w-3/12" hidden-mobile>
                                 <x-sortablelink column="description" title="{{ trans('general.description') }}" />
                             </x-table.th>
 
@@ -44,7 +44,7 @@
                                     {{ $payment_methods[$item->payment_method] }}
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12 hidden sm:table-cell">
+                                <x-table.td class="w-3/12" hidden-mobile>
                                     {{ $item->description }}
                                 </x-table.td>
 
@@ -66,9 +66,13 @@
                     </div>
 
                     <div class="my-10">
-                        <a href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=payment_index&utm_campaign=plg" class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700">
+                        <x-link
+                            href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=payment_index&utm_campaign=plg"
+                            class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700"
+                            override="class"
+                        >
                             {{ trans('portal.get_started') }}
-                        </a>
+                        </x-link>
                     </div>
 
                     <div class="my-10">

@@ -44,8 +44,8 @@
 
             <x-table>
                 <x-table.thead>
-                    <x-table.tr class="flex items-center px-1">
-                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                    <x-table.tr>
+                        <x-table.th kind="bulkaction">
                             <x-index.bulkaction.all />
                         </x-table.th>
 
@@ -66,11 +66,11 @@
                 <x-table.tbody>
                     @foreach($categories as $item)
                         <x-table.tr href="{{ route('categories.edit', $item->id) }}" class="relative flex items-center border-b hover:bg-gray-100 px-1 group transition-all">
-                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-table.td kind="bulkaction">
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
-                            <x-table.td class="w-5/12 truncate">
+                            <x-table.td class="w-5/12">
                                 @if ($item->sub_categories->count())
                                     <div class="flex items-center font-bold">
                                         {{ $item->name }}
@@ -97,7 +97,7 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-5/12 truncate">
+                            <x-table.td class="w-5/12">
                                 @if (! empty($types[$item->type]))
                                     {{ $types[$item->type] }}
                                 @else
@@ -105,7 +105,7 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 relative">
+                            <x-table.td class="w-2/12">
                                 <span class="material-icons text-{{ $item->color }}" class="text-3xl" style="color:{{ $item->color }};">circle</span>
                             </x-table.td>
 

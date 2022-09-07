@@ -11,9 +11,9 @@
 
             <span class="w-64 block mb-3 text-black-400 text-xs">{!! trans('widgets.description.bank_feeds') !!}</span>
 
-            <a href="{{ $learn_more_url }}" target="_blank" class="font-light text-xs border-b transition-all hover:font-medium">
+            <x-link href="{{ $learn_more_url }}" target="_blank" class="font-light text-xs border-b transition-all hover:font-medium" override="class">
                 {{ trans('modules.learn_more') }}
-            </a>
+            </x-link>
         </div>
 
         <div class="relative flex justify-end -mt-28">

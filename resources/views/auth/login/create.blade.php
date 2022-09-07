@@ -57,9 +57,9 @@
                     @stack('remember_input_end')
 
                     @stack('forgotten-password-start')
-                    <a href="{{ route('forgot') }}" class="text-black-400 hover:text-black-700 text-sm">
+                    <x-link href="{{ route('forgot') }}" class="text-black-400 hover:text-black-700 text-sm" override="class">
                         {{ trans('auth.forgot_password') }}
-                    </a>
+                    </x-link>
                     @stack('forgotten-password-end')
                 </div>
 

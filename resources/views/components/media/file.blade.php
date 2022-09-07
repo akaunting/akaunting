@@ -19,9 +19,9 @@
 
     <div class="flex flex-row lg:flex-col gap-x-1">
         @can('delete-common-uploads')
-            <a href="javascript:void();" id="remove-{{ $column_name }}" @click="onDeleteFile('{{ $file->id }}', '{{ route('uploads.destroy', $file->id) }}', '{{ trans('general.title.delete', ['type' => $column_name]) }}', '{{ trans('general.delete_confirm', ['name' => $file->basename, 'type' => $column_name]) }} ', '{{ trans('general.cancel') }}', '{{ trans('general.delete') }}')" type="button" class="group">
+            <x-link href="javascript:void();" id="remove-{{ $column_name }}" @click="onDeleteFile('{{ $file->id }}', '{{ route('uploads.destroy', $file->id) }}', '{{ trans('general.title.delete', ['type' => $column_name]) }}', '{{ trans('general.delete_confirm', ['name' => $file->basename, 'type' => $column_name]) }} ', '{{ trans('general.cancel') }}', '{{ trans('general.delete') }}')" type="button" class="group" override="class">
                 <span class="material-icons text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
-            </a>
+            </x-link>
 
             @if ($options)
                 <input type="hidden" name="page_{{ $file->id}}" id="file-page-{{ $file->id}}" value="{{ $options['page'] }}" />
@@ -30,8 +30,8 @@
             @endif  
         @endcan
 
-        <a href="{{ route('uploads.download', $file->id) }}" type="button" class="group">
+        <x-link href="{{ route('uploads.download', $file->id) }}" type="button" class="group" override="class">
             <span class="material-icons text-base text-purple px-1.5 py-1 rounded-lg group-hover:bg-gray-100">download</span>
-        </a>
+        </x-link>
     </div>
 </div>

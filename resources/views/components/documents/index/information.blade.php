@@ -17,9 +17,9 @@
                 </div>
 
                 @if (! $hideShow)
-                    <a href="{{ route($showRoute, $document->contact_id) }}" class="font-medium border-b border-black">
+                    <x-link href="{{ route($showRoute, $document->contact_id) }}" class="font-medium border-b border-black" override="class">
                         {{ $document->contact_name }}
-                    </a>
+                    </x-link>
                 @else
                     <div class="font-medium border-b border-black">
                         {{ $document->contact_name }}
@@ -76,9 +76,9 @@
         @if ($document->items->count() > 2)
             <li class="ml-10 mb-10">
             @if (! $hideShow)
-                <a href="{{ route($showDocumentRoute, $document->id) }}" class="border-b">
+                <x-link href="{{ route($showDocumentRoute, $document->id) }}" class="border-b" override="class">
                     {{ trans('documents.invoice_detail.more_item', ['count' => $document->items->count() - 2]) }}
-                </a>
+                </x-link>
             @else
                 <div class="border-b">
                     {{ trans('documents.invoice_detail.more_item', ['count' => $document->items->count() - 2]) }}

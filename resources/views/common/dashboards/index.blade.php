@@ -18,8 +18,8 @@
 
             <x-table>
                 <x-table.thead>
-                    <x-table.tr class="flex items-center px-1">
-                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell"  override="class">
+                    <x-table.tr>
+                        <x-table.th kind="bulkaction">
                             <x-index.bulkaction.all />
                         </x-table.th>
 
@@ -27,7 +27,7 @@
                             <x-sortablelink column="name" title="{{ trans('general.name') }}" />
                         </x-table.th>
 
-                        <x-table.th class="w-7/12 hidden sm:table-cell" kind="right">
+                        <x-table.th class="w-7/12" hidden-mobile kind="right">
                             {{ trans_choice('general.users', 1) }}
                         </x-table.th>
                     </x-table.tr>
@@ -36,11 +36,11 @@
                 <x-table.tbody>
                     @foreach($dashboards as $item)
                         <x-table.tr href="{{ route('dashboards.edit', $item->id) }}">
-                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-table.td kind="bulkaction">
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
-                            <x-table.td class="w-5/12 p-0 whitespace-nowrap text-sm font-medium text-black">
+                            <x-table.td class="w-5/12">
                                 {{ $item->name }}
 
                                 @if (! $item->enabled)
@@ -48,7 +48,7 @@
                                 @endif
                             </x-table.td>
 
-                            <x-table.td class="w-7/12" kind="right">
+                            <x-table.td class="w-7/12" hidden-mobile kind="right">
                                 @if ($item->users)
                                     @foreach($item->users as $user)
                                         <span class="bg-lilac-900 px-3 py-1 text-sm rounded-lg text-black ltr:ml-3 rtl:mr-3">

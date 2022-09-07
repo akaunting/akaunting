@@ -24,7 +24,7 @@
 
         <x-table>
             <x-table.thead>
-                <x-table.tr class="flex items-center px-1">
+                <x-table.tr>
                     @if (! $hideBulkAction)
                     <x-table.th class="{{ $classBulkAction }}" override="class">
                         <x-index.bulkaction.all />
@@ -135,7 +135,7 @@
                         <x-table.td class="{{ $classNameAndTaxNumber }}">
                             @stack('name_td_start')
                             @if (! $hideName)
-                            <x-slot name="first" class="flex items-center font-medium">
+                            <x-slot name="first" class="flex items-center">
                                 @if ($showLogo)
                                     @if (is_object($item->logo))
                                         <img src="{{ Storage::url($item->logo->id) }}" class="absolute w-6 h-6 bottom-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
@@ -144,7 +144,7 @@
                                     @endif
                                 @endif
 
-                                <div class="truncate {{ $showLogo ? ' ltr:pl-8 rtl:pr-8' : '' }}">
+                                <div class="truncate {{ $showLogo ? 'ltr:lg:pl-8 rtl:lg:pr-8' : '' }}">
                                     {{ $item->name }}
                                 </div>
 
@@ -157,7 +157,7 @@
 
                             @stack('tax_number_td_start')
                             @if (! $hideTaxNumber)
-                            <x-slot name="second" class="w-32 font-normal truncate {{ $showLogo ? ' ltr:pl-8 rtl:pr-8' : '' }}">
+                            <x-slot name="second" class="w-32 {{ $showLogo ? ' ltr:pl-8 rtl:pr-8' : '' }}">
                                 {{ $item->tax_number }}
                             </x-slot>
                             @endif

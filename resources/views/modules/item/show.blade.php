@@ -146,14 +146,12 @@
                                 id="features"
                                 name="{{ trans('modules.tab.features') }}"
                                 active
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @else
                             <x-tabs.nav
                                 id="description"
                                 name="{{ trans('general.description') }}"
                                 active
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 
@@ -163,7 +161,6 @@
                             <x-tabs.nav
                                 id="reviews"
                                 name="{{ trans('modules.tab.reviews') }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 
@@ -173,7 +170,6 @@
                             <x-tabs.nav
                                 id="installation"
                                 name="{{ trans('modules.tab.installation') }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 
@@ -183,7 +179,6 @@
                             <x-tabs.nav
                                 id="documentation"
                                 name="{{ trans('modules.documentation') }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 
@@ -193,7 +188,6 @@
                             <x-tabs.nav
                                 id="screenshots"
                                 name="{{ trans('modules.tab.screenshots') }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 
@@ -203,7 +197,6 @@
                             <x-tabs.nav
                                 id="changelog"
                                 name="{{ trans('modules.tab.changelog') }}"
-                                class="relative px-8 text-sm text-black text-center pb-2 cursor-pointer transition-all border-b tabs-link"
                             />
                         @endif
 

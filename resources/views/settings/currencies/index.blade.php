@@ -26,8 +26,8 @@
 
             <x-table>
                 <x-table.thead>
-                    <x-table.tr class="flex items-center px-1">
-                        <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                    <x-table.tr>
+                        <x-table.th kind="bulkaction">
                             <x-index.bulkaction.all />
                         </x-table.th>
 
@@ -39,7 +39,7 @@
                             <x-sortablelink column="code" title="{{ trans('currencies.code') }}" />
                         </x-table.th>
 
-                        <x-table.th class="w-3/12 hidden sm:table-cell">
+                        <x-table.th class="w-3/12" hidden-mobile>
                             {{ trans('currencies.symbol.symbol') }}
                         </x-table.th>
 
@@ -52,7 +52,7 @@
                 <x-table.tbody>
                     @foreach($currencies as $item)
                         <x-table.tr href="{{ route('currencies.edit', $item->id) }}">
-                            <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                            <x-table.td kind="bulkaction">
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
@@ -72,15 +72,15 @@
                                 </x-slot>
                             </x-table.td>
 
-                            <x-table.td class="w-6/12 sm:w-3/12 truncate">
+                            <x-table.td class="w-6/12 sm:w-3/12">
                                 {{ $item->code }}
                             </x-table.td>
 
-                            <x-table.td class="w-3/12 hidden sm:table-cell">
+                            <x-table.td class="w-3/12" hidden-mobile>
                                 {{ $item->symbol }}
                             </x-table.td>
 
-                            <x-table.td class="w-2/12 relative truncate">
+                            <x-table.td class="w-2/12">
                                 {{ $item->rate }}
                             </x-table.td>
 

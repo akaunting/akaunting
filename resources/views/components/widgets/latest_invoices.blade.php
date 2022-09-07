@@ -11,9 +11,9 @@
         @endforeach
 
         @if ($invoices->count() > 2)
-        <a href="{{ route('portal.invoices.index') }}" class="underline hover:text-black-700">
+        <x-link href="{{ route('portal.invoices.index') }}" class="underline hover:text-black-700" override="class">
             {{ trans('modules.see_all_type', ['type' => trans_choice('general.invoices', 2)]) }}
-        </a>
+        </x-link>
         @endif
     @else
         <span class="text-xs">

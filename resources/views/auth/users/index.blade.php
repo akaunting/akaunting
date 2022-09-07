@@ -25,8 +25,8 @@
 
                 <x-table>
                     <x-table.thead>
-                        <x-table.tr class="flex items-center px-1">
-                            <x-table.th class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                        <x-table.tr>
+                            <x-table.th kind="bulkaction">
                                 <x-index.bulkaction.all />
                             </x-table.th>
 
@@ -34,7 +34,7 @@
                                 <x-sortablelink column="name" title="{{ trans('general.name') }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-4/12">
+                            <x-table.th class="w-4/12" hidden-mobile>
                                 <x-sortablelink column="email" title="{{ trans('general.email') }}" />
                             </x-table.th>
 
@@ -47,7 +47,7 @@
                     <x-table.tbody>
                         @foreach($users as $item)
                             <x-table.tr href="{{ route('users.edit', $item->id) }}">
-                                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" override="class">
+                                <x-table.td kind="bulkaction">
                                     <x-index.bulkaction.single
                                         id="{{ $item->id }}"
                                         name="{{ $item->name }}"
@@ -77,20 +77,18 @@
                                     </div>
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 hidden sm:table-cell">
+                                <x-table.td class="w-4/12" hidden-mobile>
                                     {{ $item->email }}
                                 </x-table.td>
 
-                                <x-table.td
-                                    class="w-4/12 sm:w-3/12 ltr:pl-0 rtl:pr-0 ltr:text-right rtl:text-left py-4 whitespace-nowrap text-sm font-normal text-black space-x-2 truncate"
-                                    override="class"
-                                    kind="right"
-                                >
-                                    @foreach($item->roles as $role)
-                                        <span class="bg-lilac-900 px-2 py-0.5 test-xs rounded-lg text-black">
-                                            {{ $role->display_name }}
-                                        </span>
-                                    @endforeach
+                                <x-table.td kind="right">
+                                    <div class="space-x-2">
+                                        @foreach($item->roles as $role)
+                                            <span class="bg-lilac-900 px-2 py-0.5 test-xs rounded-lg text-black">
+                                                {{ $role->display_name }}
+                                            </span>
+                                        @endforeach
+                                    </div>
                                 </x-table.td>
 
                                 <x-table.td kind="action">

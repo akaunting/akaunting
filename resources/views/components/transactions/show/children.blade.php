@@ -1,29 +1,15 @@
-<div class="border-b pb-4" x-data="{ children : null }">
-    <button class="relative w-full ltr:text-left rtl:text-right cursor-pointer group"
-        x-on:click="children !== 1 ? children = 1 : children = null"
-    >
-        <span class="font-medium">
-            <x-button.hover group-hover>
-                {{ trans_choice('general.transactions', 2) }}
-            </x-button.hover>
-        </span>
+<x-show.accordion type="children">
+    <x-slot name="head">
+        <x-show.accordion.head
+            title="{{ trans_choice('general.transactions', 2) }}"
+            description="{!! trans('transactions.slider.children', ['count' => $transaction->children()->count()]) !!}"
+        />
+    </x-slot>
 
-        <div class="text-black-400 text-sm flex gap-x-1 mt-1">
-            {!! trans('transactions.slider.children', ['count' => $transaction->children()->count()]) !!}
-        </div>
-
-        <span class="material-icons absolute ltr:right-0 rtl:left-0 top-0 transition-all transform"
-            x-bind:class="children === 1 ? 'rotate-180' : ''"
-        >expand_more</span>
-    </button>
-
-    <div class="overflow-hidden transition-transform origin-top-left ease-linear duration-100"
-        x-ref="container1"
-        x-bind:class="children == 1 ? 'h-auto ' : 'scale-y-0 h-0'"
-    >
+    <x-slot name="body">
         @if ($transaction->children()->count())
             @foreach ($transaction->children()->get() as $child)
-                @php $url = '<a href="' . route('transactions.show', $child->id) . '" class="text-purple">' . $child->number . '</a>' @endphp
+                @php $url = '<a href="' . route('transactions.show', $child->id) . '" class="text-purple" override="class">' . $child->number . '</a>' @endphp
 
                 <div class="my-2">
                     {!! trans('recurring.child', ['url' => $url, 'date' => company_date($child->paid_at)]) !!}
@@ -32,5 +18,5 @@
         @else
             {{ trans('general.none') }}
         @endif
-    </div>
-</div>
+    </x-slot>
+</x-show.accordion>

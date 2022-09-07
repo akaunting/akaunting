@@ -11,9 +11,9 @@
                 {{ trans('modules.no_apps') }}
             </p>
 
-            <a href="{{ route('apps.home.index') }}" class="px-3 py-1 bg-green rounded-md text-white">
+            <x-link href="{{ route('apps.home.index') }}" class="px-3 py-1 bg-green rounded-md text-white" override="class">
                 {{ trans('modules.see_all') }}
-            </a>
+            </x-link>
         </div>
     </div>
 
