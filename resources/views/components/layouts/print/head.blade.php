@@ -20,7 +20,7 @@
     <!-- Css -->
     <link rel="stylesheet" href="{{ asset('public/css/print.css') }}" type="text/css">
 
-    @if (isset($currency_style) && $currency_style && in_array(app()->getLocale(), ['zh-CN', 'ja-JP', 'zh-TW']))
+    @if (isset($currency_style) && $currency_style || in_array(app()->getLocale(), ['zh-CN', 'ja-JP', 'zh-TW']))
     <style type="text/css">
         @font-face {
             font-family: 'Firefly Sung';
