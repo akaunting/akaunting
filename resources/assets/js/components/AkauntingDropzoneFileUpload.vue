@@ -54,6 +54,8 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="text-red text-sm mt-1 block" data-dz-errormessage></div>
             </li>
         </ul>
     </div>

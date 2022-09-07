@@ -31,6 +31,8 @@ class File extends Form
             $this->options = $options;
         }
 
+        $this->options['maxFilesize'] = config('filesystems.max_size');
+
         return view('components.form.group.file');
     }
 }
