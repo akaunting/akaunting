@@ -4,7 +4,7 @@
         $first_attributes = $first->attributes;
 
         if ((! $first->attributes->has('override')) || ($first->attributes->has('override') && ! in_array('class', explode(',', $first->attributes->get('override'))))) {
-            $first_attributes = $first->attributes->merge(['class' => 'font-medium truncate']);
+            $first_attributes = $first->attributes->merge(['class' => 'font-bold truncate']);
         }
     @endphp
     <div {{ $first_attributes }}>

@@ -36,7 +36,7 @@
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @else
-                            <x-link href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:ml-2 rtl:mr-2" override="class">
+                            <x-link href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:mr-2 rtl:ml-2" override="class">
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @endif
