@@ -5,7 +5,7 @@
         </div>
 
         <div class="my-3">
-            <x-form.input.input
+            <x-form.input.text
                 name="share"
                 value="{{ $signedUrl }}"
                 ref="clone"
