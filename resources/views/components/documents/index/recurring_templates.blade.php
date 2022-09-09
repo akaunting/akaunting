@@ -33,7 +33,7 @@
                 </x-slot>
             </x-table.th>
 
-            <x-table.th class="w-4/12 sm:w-2/12 text-right pl-6 pr-0">
+            <x-table.th class="w-4/12 sm:w-2/12" kind="amount">
                 <x-sortablelink column="amount" title="{{ trans('general.amount') }}" />
             </x-table.th>
         </x-table.tr>
@@ -43,13 +43,13 @@
         @foreach($documents as $item)
             <x-table.tr href="{{ route($showRoute, $item->id) }}">
             @if (! $hideBulkAction)
-                <x-table.td class="ltr:pr-6 rtl:pl-6 hidden sm:table-cell" hidden-mobile override="class">
+                <x-table.td class="ltr:pr-6 rtl:pl-6" hidden-mobile override="class">
                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
                 </x-table.td>
             @endif
 
                 <x-table.td class="w-4/12 sm:w-3/12">
-                    <x-slot name="first">
+                    <x-slot name="first" class="font-bold">
                         <x-date date="{{ $item->recurring->started_at }}" />
                     </x-slot>
                     <x-slot name="second">
@@ -86,7 +86,7 @@
                     </x-slot>
                 </x-table.td>
 
-                <x-table.td class="relative w-4/12 sm:w-2/12 text-right pl-6 pr-0">
+                <x-table.td class="w-4/12 sm:w-2/12" kind="amount">
                     <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
                 </x-table.td>
 
