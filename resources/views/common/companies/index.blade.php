@@ -81,7 +81,7 @@
 
                             <x-table.td class="w-8/12 sm:w-4/12">
                                 <x-slot name="first" class="flex" override="class">
-                                    <div class="font-medium truncate">
+                                    <div class="font-bold truncate">
                                         {{ $item->name }}
                                     </div>
 

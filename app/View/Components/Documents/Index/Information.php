@@ -23,19 +23,22 @@ class Information extends Component
 
     public $placement;
 
+    public $id;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct(
-        $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = ''
+        $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = '', string $id = ''
     ) {
         $this->document = $document;
         $this->hideShow = $hideShow;
         $this->showRoute = $this->getShowRoute($document->contact->type, $showRoute);
         $this->showDocumentRoute = $this->getShowRoute($document->type, $showDocumentRoute);
         $this->placement = (! empty($placement)) ? $placement : 'left';
+        $this->id = (! empty($id)) ? $id : 'tooltip-information-' . $document->id;
     }
 
     /**
