@@ -47211,6 +47211,16 @@ html[dir='rtl'] .el-scrollbar__wrap {
   opacity: 0.5;
 }
 
+/* template table border radius control */
+html[dir="rtl"] .lines-radius-border thead td:first-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir="rtl"] .lines-radius-border thead td:last-child {
+    border-radius: 10px 0px 0px 10px;
+}
+/* template table border radius control */
+
 [dir="ltr"] .ltr\:-right-57 {
     right: -14.5rem;
 }
@@ -47943,6 +47953,22 @@ body{
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+[dir="ltr"] .ltr\:rounded-tl-lg{
+  border-top-left-radius: 0.5rem;
+}
+
+[dir="ltr"] .ltr\:rounded-bl-lg{
+  border-bottom-left-radius: 0.5rem;
+}
+
+[dir="ltr"] .ltr\:rounded-tr-lg{
+  border-top-right-radius: 0.5rem;
+}
+
+[dir="ltr"] .ltr\:rounded-br-lg{
+  border-bottom-right-radius: 0.5rem;
+}
+
 [dir="ltr"] .ltr\:pr-6{
   padding-right: 1.5rem;
 }
@@ -48120,6 +48146,22 @@ body{
 
 [dir="rtl"] .rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .rtl\:rounded-tr-lg{
+  border-top-right-radius: 0.5rem;
+}
+
+[dir="rtl"] .rtl\:rounded-br-lg{
+  border-bottom-right-radius: 0.5rem;
+}
+
+[dir="rtl"] .rtl\:rounded-tl-lg{
+  border-top-left-radius: 0.5rem;
+}
+
+[dir="rtl"] .rtl\:rounded-bl-lg{
+  border-bottom-left-radius: 0.5rem;
 }
 
 [dir="rtl"] .rtl\:pl-6{

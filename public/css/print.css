@@ -242,7 +242,7 @@ html[dir='rtl'] .print-template .ml-2
     border-radius: 0.25rem
 }
 
-html[dir='ltr'] .border-radius-first {
+/* html[dir='ltr'] .border-radius-first {
     border-radius: 10px 0px 0px 10px;
 }
 
@@ -256,7 +256,17 @@ html[dir='ltr'] .border-radius-last {
 
 html[dir='rtl'] .border-radius-last {
     border-radius: 10px 0px 0px 10px;
+} */
+
+/* template table border radius control */
+html[dir="ltr"] .lines-radius-border thead td:first-child {
+    border-radius: 10px 0px 0px 10px;
 }
+
+html[dir="ltr"] .lines-radius-border thead td:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+/* template table border radius control */
 
 html[dir='ltr'] .float-left
 {
@@ -371,10 +381,24 @@ html[dir='rtl'] .text-right
     vertical-align: top;
 }
 
+.col-55
+{
+    display: inline-block;
+    width: 55%;
+    vertical-align: top;
+}
+
 .col-50
 {
     display: inline-block;
     width: 50%;
+    vertical-align: top;
+}
+
+.col-45
+{
+    display: inline-block;
+    width: 45%;
     vertical-align: top;
 }
 
