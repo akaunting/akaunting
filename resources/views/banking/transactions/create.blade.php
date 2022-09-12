@@ -7,7 +7,7 @@
     <x-slot name="favorite"
         title="{{ trans('general.title.new', ['type' => trans_choice('general.' . Str::plural($type), 1)]) }}"
         icon="{{ $fav_icon }}"
-        url="route('transactions.create', ['type' => $type]) }}"
+        url="{{ route('transactions.create', ['type' => $type]) }}"
     ></x-slot>
 
     <x-slot name="content">
