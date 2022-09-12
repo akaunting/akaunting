@@ -195,12 +195,12 @@
         <div class="row">
             <div class="col-100">
                 <div class="text extra-spacing">
-                    <table class="lines">
+                    <table class="lines lines-radius-border">
                         <thead style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                             <tr>
                                 @stack('name_th_start')
                                     @if (! $hideItems || (! $hideName && ! $hideDescription))
-                                        <td class="item text font-semibold text-alignment-left text-left text-white border-radius-first">
+                                        <td class="item text font-semibold text-alignment-left text-left text-white">
                                             <span>
                                                 {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
                                             </span>
@@ -242,7 +242,7 @@
 
                                 @stack('total_th_start')
                                     @if (! $hideAmount)
-                                        <td class="total text font-semibold text-white text-alignment-right text-right border-radius-last">
+                                        <td class="total text font-semibold text-white text-alignment-right text-right">
                                             <span>
                                                 {{ trans($textAmount) }}
                                             </span>

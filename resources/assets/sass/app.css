@@ -503,6 +503,16 @@ html[dir='rtl'] .el-scrollbar__wrap {
     @apply cursor-default pointer-events-none opacity-50;
 }
 
+/* template table border radius control */
+html[dir="rtl"] .lines-radius-border thead td:first-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir="rtl"] .lines-radius-border thead td:last-child {
+    border-radius: 10px 0px 0px 10px;
+}
+/* template table border radius control */
+
 [dir="ltr"] .ltr\:-right-57 {
     right: -14.5rem;
 }
