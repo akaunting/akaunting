@@ -381,24 +381,10 @@ html[dir='rtl'] .text-right
     vertical-align: top;
 }
 
-.col-55
-{
-    display: inline-block;
-    width: 55%;
-    vertical-align: top;
-}
-
 .col-50
 {
     display: inline-block;
     width: 50%;
-    vertical-align: top;
-}
-
-.col-45
-{
-    display: inline-block;
-    width: 45%;
     vertical-align: top;
 }
 
