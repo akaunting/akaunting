@@ -19,7 +19,7 @@
             </x-dropdown.link>
 
             <x-dropdown.link href="{{ route('transactions.create', ['type' => 'expense']) }}" kind="primary">
-                    {{ trans('general.title.new', ['type' => trans_choice('general.expenses', 1)]) }}
+                {{ trans('general.title.new', ['type' => trans_choice('general.expenses', 1)]) }}
             </x-dropdown.link>
         </x-dropdown>
     @endcan
@@ -36,7 +36,7 @@
             data-menu="profile-menu"
         >
             <span id="menu-profile-icon-cancel" name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl hidden">
-                 account_circle
+                account_circle
             </span>
 
             @if (setting('default.use_gravatar', '0') == '1')
