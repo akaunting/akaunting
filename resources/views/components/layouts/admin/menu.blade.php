@@ -131,7 +131,7 @@
             @can('read-common-companies')
                 <div id="dropdown-menu-company" class="absolute right-0 mt-3 pt-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
                     @foreach($companies as $com)
-                        <x-link href="{{ route('companies.switch', $com->id) }}" id="$com->id" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
+                        <x-link href="{{ route('companies.switch', $com->id) }}" id="menu-company-{{ $com->id }}" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
                             <div class="w-full h-full flex items-center rounded-md px-2 hover:bg-lilac-100">
                                 <span class="material-icons-outlined text-purple text-xl">business</span>
                                 <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate">{{ Str::limit($com->name, 18) }}</span>
