@@ -3,6 +3,7 @@
     class="{{ $class }}"
     @click="onDeleteViaConfirmation('delete-{{ $modelTable }}-{{ $id }}')"
     override="class"
+    {{ $attributes }}
 >
     <span class="{{ $textClass }}">
         @if ($slot->isNotEmpty())

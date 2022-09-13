@@ -13,6 +13,8 @@ class Information extends Component
     public const DEFAULT_TYPE = 'customer';
     public const DEFAULT_PLURAL_TYPE = 'customers';
 
+    public $id;
+
     public $document;
 
     public $hideShow;
@@ -23,22 +25,20 @@ class Information extends Component
 
     public $placement;
 
-    public $id;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct(
-        $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = '', string $id = ''
+        string $id = '', $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = ''
     ) {
+        $this->id = (! empty($id)) ? $id : 'tooltip-information-' . $document->id;
         $this->document = $document;
         $this->hideShow = $hideShow;
         $this->showRoute = $this->getShowRoute($document->contact->type, $showRoute);
         $this->showDocumentRoute = $this->getShowRoute($document->type, $showDocumentRoute);
         $this->placement = (! empty($placement)) ? $placement : 'left';
-        $this->id = (! empty($id)) ? $id : 'tooltip-information-' . $document->id;
     }
 
     /**

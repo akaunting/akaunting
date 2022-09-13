@@ -42,7 +42,7 @@ class Actions extends Component
 
         $actions = [];
 
-        if ($this->model && !empty($this->model->line_actions)) {
+        if ($this->model && ! empty($this->model->line_actions)) {
             $actions = $this->model->line_actions;
         }
 

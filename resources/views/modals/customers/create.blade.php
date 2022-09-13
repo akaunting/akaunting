@@ -30,9 +30,11 @@
             <x-tabs.tab id="general">
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
                     <x-form.group.text name="name" label="{{ trans('general.name') }}" form-group-class="col-span-6" /> 
+
                     <x-form.group.text name="email" label="{{ trans('general.email') }}" form-group-class="col-span-6" not-required />
 
                     <x-form.group.text name="phone" label="{{ trans('general.phone') }}" form-group-class="col-span-6" not-required />  
+
                     <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" form-group-class="col-span-6" not-required />
 
                     <x-form.group.currency without-add-new form-group-class="col-span-6" :add-new-text="trans_choice('general.currencies', 1)" />
@@ -44,8 +46,11 @@
                     <x-form.group.textarea name="address" label="{{ trans('general.address') }}" form-group-class="col-span-6" rows=2 not-required />
 
                     <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" form-group-class="col-span-6" not-required />    
+
                     <x-form.group.text name="zip_code" label="{{ trans('general.zip_code') }}" form-group-class="col-span-6" not-required />    
+
                     <x-form.group.text name="state" label="{{ trans('general.state') }}" form-group-class="col-span-6" not-required />  
+
                     <x-form.group.country form-group-class="col-span-6 el-select-tags-pl-38" not-required />
                 </div>
             </x-tabs.tab>  
@@ -53,8 +58,11 @@
             <x-tabs.tab id="other">
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
                     <x-form.group.text name="website" label="{{ trans('general.website') }}" form-group-class="col-span-6" not-required />  
+
                     <x-form.group.text name="reference" label="{{ trans('general.reference') }}" form-group-class="col-span-6" not-required />  
+
                     <x-form.input.hidden name="type" value="customer" />
+
                     <x-form.input.hidden name="enabled" value="1" />
                 </div>
             </x-tabs.tab>

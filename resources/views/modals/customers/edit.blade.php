@@ -62,6 +62,7 @@
                     <x-form.group.text name="reference" label="{{ trans('general.reference') }}" form-group-class="col-span-6" not-required />
 
                     <x-form.input.hidden name="type" value="customer" />
+
                     <x-form.input.hidden name="enabled" value="1" />
                 </div>
             </x-tabs.tab>

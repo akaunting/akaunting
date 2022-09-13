@@ -3,6 +3,7 @@
     class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions"
     @click="onDeleteViaConfirmation('delete-{{ $modelTable }}-{{ $id }}')"
     override="class"
+    {{ $attributes }}
 >
     @if ($slot->isNotEmpty())
         {!! $slot !!}
