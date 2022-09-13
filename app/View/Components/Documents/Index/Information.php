@@ -31,14 +31,14 @@ class Information extends Component
      * @return void
      */
     public function __construct(
-        string $id = '', $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = ''
+        $document, bool $hideShow = false, string $showRoute = '', string $showDocumentRoute = '', string $placement = '', string $id = ''
     ) {
-        $this->id = (! empty($id)) ? $id : 'tooltip-information-' . $document->id;
         $this->document = $document;
         $this->hideShow = $hideShow;
         $this->showRoute = $this->getShowRoute($document->contact->type, $showRoute);
         $this->showDocumentRoute = $this->getShowRoute($document->type, $showDocumentRoute);
         $this->placement = (! empty($placement)) ? $placement : 'left';
+        $this->id = (! empty($id)) ? $id : 'tooltip-information-' . $document->id;
     }
 
     /**
