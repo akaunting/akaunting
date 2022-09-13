@@ -36,7 +36,23 @@
         @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
             @stack('discount_td_start')
                 @if ($item->discount_type === 'percentage')
-                    <td class="discount text text-alignment-right text-right">{{ $item->discount }}</td>
+                    <td class="discount text text-alignment-right text-right">
+                        @php
+                            $text_discount = '';
+
+                            if (setting('localisation.percent_position') == 'before') {
+                                $text_discount .= '%';
+                            }
+
+                            $text_discount .= $item->discount;
+
+                            if (setting('localisation.percent_position') == 'after') {
+                                $text_discount .= '%';
+                            }
+                        @endphp
+
+                        {{ $text_discount }}
+                    </td>
                 @else
                     <td class="discount text text-alignment-right text-right">@money($item->discount, $document->currency_code, true)</td>
                 @endif

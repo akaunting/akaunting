@@ -45,13 +45,16 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         }
 
         // Apply total discount to amount
+        /*
+        // Disabled this block because broken line item amount..
         if (!empty($this->request['global_discount'])) {
             if ($this->request['global_discount_type'] === 'percentage') {
-                $item_discounted_amount -= $item_discounted_amount * ($this->request['global_discount'] / 100);
+                //$item_discounted_amount -= $item_discounted_amount * ($this->request['global_discount'] / 100);
             } else {
-                $item_discounted_amount -= $this->request['global_discount'];
+                //$item_discounted_amount -= $this->request['global_discount'];
             }
         }
+        */
 
         $tax_amount = 0;
         $item_tax_total = 0;
