@@ -25,6 +25,7 @@ return [
     'throttles' => [
         'api' => env('APP_THROTTLES_API', '60'),
         'import' => env('APP_THROTTLES_IMPORT', '1'),
+        'email' => env('APP_THROTTLES_EMAIL', '1'),
     ],
 
     /*
