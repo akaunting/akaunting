@@ -33,7 +33,7 @@
                                                 <div class="swiper-slide">
                                                     <x-tabs.nav
                                                         id="{{ $name }}"
-                                                        @click="onChangePaymentMethodSigned('{{ $key }}')"
+                                                        @click="onChangePaymentMethod('{{ $key }}')"
                                                     >
                                                         <div class="w-24 truncate">
                                                             {{ $name }}
