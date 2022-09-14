@@ -260,11 +260,11 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     ]);
 
     Route::get('invoices/{invoice}/emails/create', 'Modals\InvoiceEmails@create')->name('invoices.emails.create');
-    Route::post('invoices/{invoice}/emails', 'Modals\InvoiceEmails@store')->middleware('email')->name('invoices.emails.store');
+    Route::post('invoices/{invoice}/emails', 'Modals\InvoiceEmails@store')->name('invoices.emails.store');
     Route::get('invoices/{invoice}/share/create', 'Modals\InvoiceShare@create')->name('invoices.share.create');
 
     Route::get('transactions/{transaction}/emails/create', 'Modals\TransactionEmails@create')->name('transactions.emails.create');
-    Route::post('transactions/{transaction}/emails', 'Modals\TransactionEmails@store')->middleware('email')->name('transactions.emails.store');
+    Route::post('transactions/{transaction}/emails', 'Modals\TransactionEmails@store')->name('transactions.emails.store');
     Route::get('transactions/{transaction}/share/create', 'Modals\TransactionShare@create')->name('transactions.share.create');
 
     Route::resource('taxes', 'Modals\Taxes');

@@ -8,9 +8,13 @@ use App\Notifications\Portal\PaymentReceived as PaymentReceivedNotification;
 use App\Notifications\Banking\Transaction as TransactionNotification;
 use App\Jobs\Banking\SendTransactionAsCustomMail;
 use App\Http\Requests\Common\CustomMail as Request;
+use Illuminate\Http\JsonResponse;
+use App\Traits\Emails;
 
 class TransactionEmails extends Controller
 {
+    use Emails;
+
     /**
      * Instantiate a new controller instance.
      */
@@ -23,17 +27,10 @@ class TransactionEmails extends Controller
         $this->middleware('permission:delete-banking-transactions')->only('destroy');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  Transaction  $transaction
-     *
-     * @return Response
-     */
-    public function create(Transaction $transaction)
-    {     
+    public function create(Transaction $transaction): JsonResponse
+    {
         $email_template = config('type.transaction.' . $transaction->type . '.email_template');
-   
+
         if (request()->get('email_template')) {
             $email_template = request()->get('email_template');
         }
@@ -42,7 +39,7 @@ class TransactionEmails extends Controller
             case 'invoice_payment_customer':
                 $notification = new PaymentReceivedNotification($transaction->document, $transaction, $email_template, true);
                 break;
-            
+
             default:
                 $notification = new TransactionNotification($transaction, $email_template, true);
                 break;
@@ -73,20 +70,13 @@ class TransactionEmails extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $transaction = Transaction::find($request->get('transaction_id'));
 
         $email_template = config('type.transaction.' . $transaction->type . '.email_template');
 
-        $response = $this->ajaxDispatch(new SendTransactionAsCustomMail($request, $email_template));
+        $response = $this->sendEmail(new SendTransactionAsCustomMail($request, $email_template));
 
         if ($response['success']) {
             $route = config('type.transaction.' . $transaction->type . '.route.prefix');
