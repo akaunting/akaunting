@@ -139,6 +139,8 @@
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
                         button.children[0].textContent = button.children[0].getAttribute("name");
                         button.children[0].classList.remove("active"); // inactive icon
+                        let split_id = iconButton.children[0].id.split("-cancel");
+                        button.children[0].id = split_id[0];
                     }
                 }
             });
@@ -148,6 +150,7 @@
                 if (menu.classList.contains(menuRef) && iconButton.children[0].textContent != "cancel") {
                     iconButton.children[0].textContent = "cancel";
                     iconButton.children[0].classList.add("active");
+                    iconButton.children[0].id += "-cancel";
 
                     menu.classList.remove("ltr:-left-80", "rtl:-right-80");
                     menu.classList.add("ltr:left-14", "rtl:right-14");
@@ -176,6 +179,9 @@
                 } else if (menu.classList.contains(menuRef) && iconButton.children[0].textContent == "cancel") {
                     iconButton.children[0].textContent = icon;
                     iconButton.children[0].classList.remove("active");
+
+                    let split_id = iconButton.children[0].id.split("-cancel");
+                    iconButton.children[0].id = split_id[0];
 
                     menu.classList.add("ltr:-left-80", "rtl:-right-80");
                     menu.classList.remove("ltr:left-14", "rtl:right-14");
@@ -242,6 +248,7 @@
 
                 settings_icon_html.children[0].textContent = "cancel";
                 settings_icon_html.children[0].classList.add("active");
+                settings_icon_html.children[0].id += "-cancel";
 
                 toggleButton.classList.add("invisible");
             }
