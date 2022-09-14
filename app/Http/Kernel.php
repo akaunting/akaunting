@@ -134,6 +134,10 @@ class Kernel extends HttpKernel
         'import' => [
             'throttle:import',
         ],
+
+        'email' => [
+            'throttle:email',
+        ],
     ];
 
     /**

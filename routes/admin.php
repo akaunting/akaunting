@@ -259,9 +259,13 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
         'middleware' => ['date.format', 'money', 'dropzone']
     ]);
 
-    Route::resource('transactions/{transaction}/emails', 'Modals\TransactionEmails', ['names' => 'transactions.emails']);
-    Route::resource('transactions/{transaction}/share', 'Modals\TransactionShare', ['names' => 'transactions.share']);
-    Route::resource('invoices/{invoice}/emails', 'Modals\InvoiceEmails', ['names' => 'invoices.emails']);
-    Route::resource('invoices/{invoice}/share', 'Modals\InvoiceShare', ['names' => 'invoices.share']);
+    Route::get('invoices/{invoice}/emails/create', 'Modals\InvoiceEmails@create')->name('invoices.emails.create');
+    Route::post('invoices/{invoice}/emails', 'Modals\InvoiceEmails@store')->name('invoices.emails.store');
+    Route::get('invoices/{invoice}/share/create', 'Modals\InvoiceShare@create')->name('invoices.share.create');
+
+    Route::get('transactions/{transaction}/emails/create', 'Modals\TransactionEmails@create')->name('transactions.emails.create');
+    Route::post('transactions/{transaction}/emails', 'Modals\TransactionEmails@store')->name('transactions.emails.store');
+    Route::get('transactions/{transaction}/share/create', 'Modals\TransactionShare@create')->name('transactions.share.create');
+
     Route::resource('taxes', 'Modals\Taxes');
 });

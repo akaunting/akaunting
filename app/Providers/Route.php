@@ -289,5 +289,12 @@ class Route extends Provider
         RateLimiter::for('import', function (Request $request) {
             return Limit::perMinute(config('app.throttles.import'));
         });
+
+        RateLimiter::for('email', function (Request $request) {
+            return [
+                Limit::perDay(config('app.throttles.email.month'), 30),
+                Limit::perMinute(config('app.throttles.email.minute')),
+            ];
+        });
     }
 }
