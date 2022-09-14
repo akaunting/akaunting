@@ -139,7 +139,8 @@
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
                         button.children[0].textContent = button.children[0].getAttribute("name");
                         button.children[0].classList.remove("active"); // inactive icon
-                        let split_id = iconButton.children[0].id.split("-cancel");
+                        
+                        let split_id = button.children[0].id.split("-cancel");
                         button.children[0].id = split_id[0];
                     }
                 }
