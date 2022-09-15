@@ -17,7 +17,15 @@ lg:ltr:ml-72
 lg:rtl:mr-72
 lg:space-x-8
 lg:text-4xl
+lg:top-7
 ltr:border-l-8
 rtl:border-r-8
 lg:max-w-lg
 sm:max-w-4xl
+hover:bg-emerald-400
+hover:bg-amber-400
+hover:bg-white
+hover:border-emerald-400
+hover:border-amber-400
+hover:text-emerald-400
+hover:text-amber-400
