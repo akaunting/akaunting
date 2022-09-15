@@ -168,7 +168,10 @@ module.exports = {
                 'dark-blue': '#15284B',
                 'lighter-gray': '#F2F2F5',
                 'purple-lighter': '#F2F4FC',
-                'modal-background': 'rgba(0, 0, 0, 0.3)'
+                'modal-background': 'rgba(0, 0, 0, 0.3)',
+                'black-medium': '#424242',
+                'red-light': '#FF6B6B',
+                'default': '#6ea152',
           },
 
           spacing: {
@@ -181,6 +184,7 @@ module.exports = {
               '33':    '8.5rem',
               '37':    '9.25rem',
               '46':    '46.875rem',
+              '98':    '27.8rem',
           },
 
           margin: {
