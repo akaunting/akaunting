@@ -141,6 +141,22 @@ module.exports = {
                   '800': '#9f1239',
                   '900': '#881337'
                 },
+                'silver': {
+                  DEFAULT: '#F0F1F3',
+                  '700': '#475569'
+                },
+                'pastel_green': {
+                  DEFAULT: '#E0F1E3',
+                  '700': '#678D72'
+                },
+                'peach_orange': {
+                  DEFAULT: '#FCF2D9',
+                  '700': '#B78939'
+                },
+                'wisteria': {
+                  DEFAULT: '#E5E4FA',
+                  '700': '#65638C'
+                },
                 'status': {
                   'success': '#F1F6EE',
                   'danger':  '#fae6e6',
