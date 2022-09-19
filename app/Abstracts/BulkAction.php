@@ -44,6 +44,7 @@ abstract class BulkAction
         'enable'        => 'check_circle',
         'disable'       => 'hide_source',
         'delete'        => 'delete',
+        'duplicate'     => 'file_copy',
         'export'        => 'file_download',
         'reconcile'     => 'published_with_changes',
         'unreconcile'   => 'layers_clear',
