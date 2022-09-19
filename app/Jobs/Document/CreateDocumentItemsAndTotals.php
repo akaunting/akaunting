@@ -227,17 +227,6 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
             $discount_amount_total += $discount_amount;
 
-            // Calculate global discount total
-            if (! empty($item['global_discount'])) {
-                if ($item['global_discount_type'] === 'percentage') {
-                    $global_discount_amount = $document_item->total * ($item['global_discount'] / 100);
-                } else {
-                    $global_discount_amount = $item['global_discount'];
-                }
-
-                $actual_total -= $global_discount_amount;
-            }
-
             if (! $document_item->item_taxes) {
                 continue;
             }

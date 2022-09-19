@@ -45,16 +45,13 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         }
 
         // Apply total discount to amount
-        /*
-        // Disabled this block because broken line item amount..
-        if (!empty($this->request['global_discount'])) {
+        if (! empty($this->request['global_discount'])) {
             if ($this->request['global_discount_type'] === 'percentage') {
-                //$item_discounted_amount -= $item_discounted_amount * ($this->request['global_discount'] / 100);
+                $item_discounted_amount -= $item_discounted_amount * ($this->request['global_discount'] / 100);
             } else {
-                //$item_discounted_amount -= $this->request['global_discount'];
+                $item_discounted_amount -= $this->request['global_discount'];
             }
         }
-        */
 
         $tax_amount = 0;
         $item_tax_total = 0;
@@ -155,12 +152,12 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $this->request['document_id'] = $this->document->id;
         $this->request['item_id'] = $item_id;
         $this->request['name'] = Str::limit($this->request['name'], 180, '');
-        $this->request['description'] = !empty($this->request['description']) ? $this->request['description'] : '';
+        $this->request['description'] = ! empty($this->request['description']) ? $this->request['description'] : '';
         $this->request['quantity'] = (double) $this->request['quantity'];
         $this->request['price'] = round($this->request['price'], $precision);
         $this->request['tax'] = round($item_tax_total, $precision);
-        $this->request['discount_type'] = ! empty($this->request['discount_type']) ? $this->request['discount_type'] : null;
-        $this->request['discount_rate'] = !empty($this->request['discount']) ? $this->request['discount'] : 0;
+        $this->request['discount_type'] = ! empty($this->request['discount_type']) ? $this->request['discount_type'] : 'percent';
+        $this->request['discount_rate'] = ! empty($this->request['discount']) ? $this->request['discount'] : 0;
         $this->request['total'] = round($actual_price_item, $precision);
         $this->request['created_from'] = $this->request['created_from'];
         $this->request['created_by'] = $this->request['created_by'];
