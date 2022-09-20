@@ -2,7 +2,7 @@
 
 <x-dropdown id="dropdown-actions">
     <x-slot name="trigger">
-        <span class="material-icons">more_horiz</span>
+        <span class="material-icons pointer-events-none">more_horiz</span>
     </x-slot>
 
     @stack('edit_button_start')

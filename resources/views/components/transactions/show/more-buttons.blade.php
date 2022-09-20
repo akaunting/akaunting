@@ -3,7 +3,7 @@
 @if (! $hideButtonMoreActions)
     <x-dropdown id="show-more-actions-{{ $transaction->type }}">
         <x-slot name="trigger">
-            <span class="material-icons">more_horiz</span>
+            <span class="material-icons pointer-events-none">more_horiz</span>
         </x-slot>
 
         @stack('duplicate_button_start')
