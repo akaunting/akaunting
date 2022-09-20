@@ -20,7 +20,7 @@
     <x-slot name="moreButtons">
         <x-dropdown id="dropdown-more-actions">
             <x-slot name="trigger">
-                <span class="material-icons">more_horiz</span>
+                <span class="material-icons pointer-events-auto">more_horiz</span>
             </x-slot>
 
             @can('create-settings-taxes')

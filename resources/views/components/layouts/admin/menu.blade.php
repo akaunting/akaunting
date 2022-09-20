@@ -11,7 +11,7 @@
     @can('create-banking-transactions')
         <x-dropdown id="dropdown-mobile-actions">
             <x-slot name="trigger">
-                <span class="material-icons">more_horiz</span>
+                <span class="material-icons pointer-events-none">more_horiz</span>
             </x-slot>
 
             <x-dropdown.link href="{{ route('transactions.create', ['type' => 'income']) }}">
@@ -35,7 +35,7 @@
             class="flex flex-col items-center justify-center mb-5 cursor-pointer menu-button"
             data-menu="profile-menu"
         >
-            <span id="menu-profile-icon-cancel" name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl hidden">
+            <span id="menu-profile-icon-cancel" name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl hidden pointer-events-none">
                 account_circle
             </span>
 
@@ -44,7 +44,7 @@
             @elseif (is_object(user()->picture))
                 <img src="{{ Storage::url(user()->picture->id) }}" class="w-8 h-8 m-auto rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
             @else
-                <span id="menu-profile-icon" name="account_circle" class="material-icons-outlined text-purple w-8 h-8 flex items-center justify-center text-center text-2xl" alt="{{ user()->name }}" title="{{ user()->name }}">
+                <span id="menu-profile-icon" name="account_circle" class="material-icons-outlined text-purple w-8 h-8 flex items-center justify-center text-center text-2xl pointer-events-none" alt="{{ user()->name }}" title="{{ user()->name }}">
                     account_circle
                 </span>
             @endif
@@ -65,7 +65,7 @@
                     ])
                     data-menu="notifications-menu"
                 >
-                    <span id="menu-notification-icon" name="notifications" class="material-icons-outlined text-purple text-2xl">notifications</span>
+                    <span id="menu-notification-icon" name="notifications" class="material-icons-outlined text-purple text-2xl pointer-events-none">notifications</span>
 
                     @if ($notification_count)
                         <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
@@ -78,25 +78,25 @@
 
             <x-tooltip id="tooltip-search" placement="right" message="{{ trans('general.search') }}">
                 <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer">
-                    <span id="menu-search-icon" name="search" class="material-icons-outlined text-purple text-2xl">search</span>
+                    <span id="menu-search-icon" name="search" class="material-icons-outlined text-purple text-2xl pointer-events-none">search</span>
                 </button>
             </x-tooltip>
 
             <x-tooltip id="tooltip-new" placement="right" message="{{ trans('general.new') }}">
                 <button type="button" class="add-item menu-button flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-new-menu">
-                    <span id="menu-neww-icon" name="add_circle_outline" class="material-icons-outlined text-purple text-2xl">add_circle_outline</span>
+                    <span id="menu-neww-icon" name="add_circle_outline" class="material-icons-outlined text-purple text-2xl pointer-events-none">add_circle_outline</span>
                 </button>
             </x-tooltip>
 
             <x-tooltip id="tooltip-settings" placement="right" message="{{ trans_choice('general.settings', 2) }}">
                 <button type="button" class="settings-item menu-button flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings-menu">
-                    <span id="menu-settings-icon" name="settings" class="material-icons-outlined text-purple text-2xl">settings</span>
+                    <span id="menu-settings-icon" name="settings" class="material-icons-outlined text-purple text-2xl pointer-events-none">settings</span>
                 </button>
             </x-tooltip>
 
             <x-tooltip id="tooltip-support" placement="right" message="{{ trans('general.help') }}">
                 <x-link href="{{ url(trans('header.support_link')) }}" target="_blank" class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" override="class">
-                    <span id="menu-support-icon" class="material-icons-outlined text-purple text-2xl">support</span>
+                    <span id="menu-support-icon" class="material-icons-outlined text-purple text-2xl pointer-events-none">support</span>
                 </x-link>
             </x-tooltip>
         </div>
@@ -165,7 +165,7 @@
             @elseif (is_object(user()->picture))
                 <img src="{{ Storage::url(user()->picture->id) }}" class="w-8 h-8 rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
             @else
-                <span name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl" alt="{{ user()->name }}" title="{{ user()->name }}">account_circle</span>
+                <span name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none" alt="{{ user()->name }}" title="{{ user()->name }}">account_circle</span>
             @endif
 
             @stack('navbar_profile_welcome')
@@ -183,7 +183,7 @@
     @can('read-notifications')
     <div class="notifications-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
         <div class="flex items-center mb-3">
-            <span name="notifications" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl">notifications</span>
+            <span name="notifications" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">notifications</span>
 
             <div class="text-black ltr:ml-1 rtl:mr-1">
                 {{ trans_choice('general.your_notifications', 2) }}
@@ -196,7 +196,7 @@
 
     <div class="settings-menu user-menu menu-list fixed h-full overflow-y-unset ltr:-left-80 rtl:-right-80">
         <div class="flex items-center mb-3">
-            <span name="settings" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl">settings</span>
+            <span name="settings" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">settings</span>
 
             <div class="text-black ltr:ml-1 rtl:mr-1">
                 {{ trans_choice('general.settings', 2) }}
@@ -208,7 +208,7 @@
 
     <div class="add-new-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
         <div class="flex items-center mb-3">
-            <span name="add_circle_outline" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl">add_circle_outline</span>
+            <span name="add_circle_outline" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">add_circle_outline</span>
 
             <div class="text-black ltr:ml-1 rtl:mr-1">
                 {{ trans('general.new_more') }}
@@ -219,10 +219,10 @@
     </div>
 
     <button type="button" class="toggle-button absolute ltr:-right-2 rtl:-left-2 top-8 cursor-pointer transition-opacity ease-in-out z-50">
-        <span class="material-icons text-lg text-purple transform ltr:rotate-90 rtl:-rotate-90">expand_circle_down</span>
+        <span class="material-icons text-lg text-purple transform ltr:rotate-90 rtl:-rotate-90 pointer-events-none">expand_circle_down</span>
     </button>
 
-    <span data-menu-close id="menu-cancel" class="material-icons absolute ltr:-right-2 rtl:right-12 transition-all top-8 text-lg text-purple cursor-pointer z-10 hidden">cancel</span>
+    <span data-menu-close id="menu-cancel" class="material-icons absolute ltr:-right-2 rtl:right-12 transition-all top-8 text-lg text-purple cursor-pointer z-10 hidden pointer-events-none">cancel</span>
 
     <div class="fixed w-full h-full invisible lg:hidden js-menu-background" style="background-color: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
 </div>

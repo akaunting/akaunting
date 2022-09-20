@@ -34,11 +34,11 @@ class Menu extends Presenter
      */
     public function getMenuWithoutDropdownWrapper($item)
     {
-        return '<li class="group relative pb-2.5">
-                    <a id="' . $this->getId($item) . '" class="' . $this->getClass($item) . '" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>
+        return '<li class="group relative pb-2.5 text-sm">
+                    <a id="' . $this->getId($item) . '" class="' . $this->getClass($item) . ''. $this->getActiveState($item) . '" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>
                         ' . $this->getIcon($item) . '
-                        <span class="text-sm ltr:ml-2 rtl:mr-2' . $this->getActiveState($item) . '">' . $item->title . '</span>
-                        <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                        ' . $item->title . '
+                        <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
                     </a>
                 </li>'
                 . PHP_EOL;
@@ -104,9 +104,9 @@ class Menu extends Presenter
         return '
         <details ' . $this->getActiveStateOnChild($item) . '>
             <summary class="block" href="#navbar-' . $id . '">
-                <div class="relative pb-2.5 flex items-center cursor-pointer text-purple">
+                <div class="relative pb-2.5 flex items-center cursor-pointer text-purple text-sm">
                     ' . $this->getIcon($item) . '
-                    <span class="text-sm ltr:ml-2 rtl:mr-2">' . $item->title . '</span>
+                    ' . $item->title . '
                     ' . $this->getChevron($item) . '
                 </div>
             </summary>
@@ -132,10 +132,10 @@ class Menu extends Presenter
 
         return '<details class="relative">
                     <summary class="' . $this->getClass($item). '" href="#navbar-' . $id . '" aria-controls="navbar-' . $id . '">
-                        <div class="pb-2.5 flex items-center cursor-pointer text-purple">
+                        <div class="pb-2.5 flex items-center cursor-pointer text-purple text-sm '. $this->getActiveState($item) .'">
                             ' . $this->getIcon($item) . '
-                            <span class="text-sm ltr:ml-2 rtl:mr-2'. $this->getActiveState($item) .'">' . $item->title . '</span>
-                            <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                            ' . $item->title . '
+                            <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
                             ' . $this->getChevron($item) . '
                         </div>
                     </summary>
@@ -226,7 +226,7 @@ class Menu extends Presenter
             $icon_content = '<span class="material-icons' . $state . ' text-purple text-2xl">' . $item->icon . '</span>';
         }
 
-        return '<div class="w-8 h-8 flex items-center justify-center">
+        return '<div class="w-8 h-8 flex items-center justify-center ltr:mr-2 rtl:ml-2 pointer-events-none">
                     ' . $icon_content . '
                 </div>' . PHP_EOL;
     }

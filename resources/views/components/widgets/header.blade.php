@@ -17,7 +17,7 @@
             <x-dropdown id="show-more-actions-widget-{{ $class->model->id }}">
                 <x-slot name="trigger" class="flex" override="class">
                     <span class="w-8 h-8 flex items-center justify-center px-2 py-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
-                        <span class="material-icons">more_vert</span>
+                        <span class="material-icons pointer-events-none">more_vert</span>
                     </span>
                 </x-slot>
 

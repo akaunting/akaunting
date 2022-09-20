@@ -20,7 +20,7 @@
         @switch($type)
             @case('button')
                 <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group" {!! $action['attributes'] ?? null !!}>
-                    <span class="material-icons-outlined text-purple text-lg">
+                    <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                         {{ $action['icon'] }}
                     </span>
 
@@ -43,7 +43,7 @@
 
             @default
                 <a href="{{ $action['url'] }}" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions" {!! $action['attributes'] ?? null !!}>
-                    <span class="material-icons-outlined text-purple text-lg">
+                    <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                         {{ $action['icon'] }}
                     </span>
 
