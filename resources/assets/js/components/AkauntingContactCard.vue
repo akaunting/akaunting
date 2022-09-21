@@ -26,9 +26,9 @@
                                 autocapitalize="default" autocorrect="ON"
                                 :placeholder="placeholder"
                                 :ref="'input-contact-field-' + _uid"
-                                v-model="search"
-                                @input="onInput"
-                                @keyup.enter="onInput"
+                                :value="search"
+                                @input="onInput($event)"
+                                @keyup.enter="onInput($event)"
                             />
                         </div>
 
@@ -304,7 +304,9 @@ export default {
             });
         },
 
-        onInput() {
+        onInput(event) {
+            this.search = event.target.value;
+
             window.axios.get(this.searchRoute + '?search="' + this.search + '" enabled:1 limit:10')
             .then(response => {
                 this.contact_list = [];
