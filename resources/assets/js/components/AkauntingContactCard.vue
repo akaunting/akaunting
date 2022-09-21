@@ -6,8 +6,8 @@
                     <div class="w-full h-33 bg-white hover:bg-gray-100 rounded-lg border border-light-gray disabled:bg-gray-200 mt-1 text-purple font-medium" :class="[{'border-red': error}]">
                         <div class="text-black h-full">
                             <button type="button" class="w-full h-full flex flex-col items-center justify-center" @click="onContactList">
-                                <span class="material-icons-outlined text-7xl text-black-400">person_add</span>
-                                <span class="text-add-contact"> {{ addContactText }} </span>
+                                <span class="material-icons-outlined text-7xl text-black-400 pointer-events-none">person_add</span>
+                                <span class="text-add-contact pointer-events-none"> {{ addContactText }} </span>
                             </button>
                         </div>
                     </div>
