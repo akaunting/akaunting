@@ -108,19 +108,19 @@
                     </x-slot>
 
                     @can('create-common-widgets')
-                        <x-button
-                            type="button"
-                            id="show-more-actions-add-widget"
-                            class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
-                            override="class"
-                            title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
-                            @click="onCreateWidget()"
-                        >
-                            <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                        <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                            <x-button
+                                type="button"
+                                id="show-more-actions-add-widget"
+                                class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100"
+                                override="class"
+                                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
+                                @click="onCreateWidget()"
+                            >
                                 {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
-                            </span>
-                        </x-button>
-
+                            </x-button>
+                        </div>
+                        
                         <x-dropdown.divider />
                     @endcan
 

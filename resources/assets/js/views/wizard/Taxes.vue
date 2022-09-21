@@ -101,7 +101,7 @@
 
                         <div v-if="taxes.length" class="w-full border-b hover:bg-gray-100" style="height:53px;">
                             <button type="button" class="w-full h-full flex items-center justify-center text-purple font-medium disabled:bg-gray-200" @click="onAddItem()">
-                                <span class="material-icons-outlined text-base font-bold ltr:mr-1 rtl:ml-1">add</span>
+                                <span class="material-icons-outlined text-base font-bold ltr:mr-1 rtl:ml-1 pointer-events-none">add</span>
                                     {{ translations.taxes.new_tax }}
                             </button>
                         </div>
