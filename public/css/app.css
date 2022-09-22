@@ -47838,6 +47838,10 @@ body{
   right: -0.25rem;
 }
 
+[dir="ltr"] .ltr\:-right-8{
+  right: -2rem;
+}
+
 [dir="ltr"] .ltr\:right-0{
   right: 0px;
 }
@@ -47876,10 +47880,6 @@ body{
 
 [dir="ltr"] .ltr\:left-8{
   left: 2rem;
-}
-
-[dir="ltr"] .ltr\:-right-8{
-  right: -2rem;
 }
 
 [dir="ltr"] .ltr\:-left-8{
@@ -47944,12 +47944,6 @@ body{
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-[dir="ltr"] .ltr\:space-x-4 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 [dir="ltr"] .ltr\:rounded-tl-lg{
   border-top-left-radius: 0.5rem;
 }
@@ -47964,6 +47958,10 @@ body{
 
 [dir="ltr"] .ltr\:rounded-br-lg{
   border-bottom-right-radius: 0.5rem;
+}
+
+[dir="ltr"] .ltr\:pl-0{
+  padding-left: 0px;
 }
 
 [dir="ltr"] .ltr\:pr-6{
@@ -48006,10 +48004,6 @@ body{
   padding-right: 2.5rem;
 }
 
-[dir="ltr"] .ltr\:pl-0{
-  padding-left: 0px;
-}
-
 [dir="ltr"] .ltr\:text-left{
   text-align: left;
 }
@@ -48029,6 +48023,10 @@ body{
 
 [dir="rtl"] .rtl\:-left-1{
   left: -0.25rem;
+}
+
+[dir="rtl"] .rtl\:-left-8{
+  left: -2rem;
 }
 
 [dir="rtl"] .rtl\:left-0{
@@ -48069,10 +48067,6 @@ body{
 
 [dir="rtl"] .rtl\:right-8{
   right: 2rem;
-}
-
-[dir="rtl"] .rtl\:-left-8{
-  left: -2rem;
 }
 
 [dir="rtl"] .rtl\:-right-8{
@@ -48161,16 +48155,16 @@ body{
   border-bottom-left-radius: 0.5rem;
 }
 
+[dir="rtl"] .rtl\:pr-0{
+  padding-right: 0px;
+}
+
 [dir="rtl"] .rtl\:pl-6{
   padding-left: 1.5rem;
 }
 
 [dir="rtl"] .rtl\:pl-0{
   padding-left: 0px;
-}
-
-[dir="rtl"] .rtl\:pr-0{
-  padding-right: 0px;
 }
 
 [dir="rtl"] .rtl\:pr-3{
@@ -48756,6 +48750,10 @@ body{
     right: 0px;
   }
 
+  [dir="ltr"] .ltr\:lg\:pl-6{
+    padding-left: 1.5rem;
+  }
+
   [dir="ltr"] .lg\:ltr\:pr-12{
     padding-right: 3rem;
   }
@@ -48772,12 +48770,12 @@ body{
     padding-left: 6rem;
   }
 
-  [dir="ltr"] .ltr\:lg\:pl-6{
-    padding-left: 1.5rem;
-  }
-
   [dir="rtl"] .lg\:rtl\:left-0{
     left: 0px;
+  }
+
+  [dir="rtl"] .rtl\:lg\:pr-6{
+    padding-right: 1.5rem;
   }
 
   [dir="rtl"] .lg\:rtl\:pl-12{
@@ -48794,10 +48792,6 @@ body{
 
   [dir="rtl"] .lg\:rtl\:pr-24{
     padding-right: 6rem;
-  }
-
-  [dir="rtl"] .rtl\:lg\:pr-6{
-    padding-right: 1.5rem;
   }
 }
 
