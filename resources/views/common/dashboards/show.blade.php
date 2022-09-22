@@ -103,24 +103,24 @@
                 <x-dropdown id="show-more-actions-dashboard">
                     <x-slot name="trigger" class="flex" override="class">
                         <span class="w-8 h-8 flex items-center justify-center px-2 py-2 ltr:ml-2 rtl:mr-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
-                            <span class="material-icons">more_vert</span>
+                            <span class="material-icons pointer-events-none">more_vert</span>
                         </span>
                     </x-slot>
 
                     @can('create-common-widgets')
-                        <x-button
-                            type="button"
-                            id="show-more-actions-add-widget"
-                            class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
-                            override="class"
-                            title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
-                            @click="onCreateWidget()"
-                        >
-                            <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                        <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                            <x-button
+                                type="button"
+                                id="show-more-actions-add-widget"
+                                class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100"
+                                override="class"
+                                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
+                                @click="onCreateWidget()"
+                            >
                                 {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
-                            </span>
-                        </x-button>
-
+                            </x-button>
+                        </div>
+                        
                         <x-dropdown.divider />
                     @endcan
 

@@ -2,7 +2,7 @@
 
 <x-dropdown id="dropdown-actions">
     <x-slot name="trigger">
-        <span class="material-icons">more_horiz</span>
+        <span class="material-icons pointer-events-none">more_horiz</span>
     </x-slot>
 
     @stack('edit_button_start')
@@ -45,11 +45,11 @@
 
     @stack('choose_button_start')
 
-    <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" @click="onTemplate">
-        <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+    <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+        <button type="button" @click="onTemplate" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
             {{ trans('general.form.choose', ['field' => trans_choice('general.templates', 1)]) }}
-        </span>
-    </button>
+        </button>
+    </div>
 
     @stack('choose_button_end')
 

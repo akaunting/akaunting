@@ -62,7 +62,7 @@ export default class BulkAction {
     }
 
     change(type) {
-        let action = document.getElementById('button-bulk-action-' + type);
+        let action = document.getElementById('index-bulk-actions-' + type);
 
         this.value = type;
 

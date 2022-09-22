@@ -20,7 +20,7 @@
         @switch($type)
             @case('button')
                 <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group" {!! $action['attributes'] ?? null !!}>
-                    <span class="material-icons-outlined text-purple text-lg">
+                    <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                         {{ $action['icon'] }}
                     </span>
 
@@ -43,7 +43,7 @@
 
             @default
                 <a href="{{ $action['url'] }}" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions" {!! $action['attributes'] ?? null !!}>
-                    <span class="material-icons-outlined text-purple text-lg">
+                    <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                         {{ $action['icon'] }}
                     </span>
 
@@ -91,11 +91,11 @@
                         @case('button')
                             @php $divider = false; @endphp
 
-                            <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" {!! $action['attributes'] ?? null !!}>
-                                <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                            <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" {!! $action['attributes'] ?? null !!}>
+                                <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
                                     {{ $action['title'] }}
-                                </span>
-                            </button>
+                                </button>
+                            </div>
                             @break
 
                         @case('delete')
@@ -121,11 +121,11 @@
                         @default
                             @php $divider = false; @endphp
 
-                            <a href="{{ $action['url'] }}" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" {!! $action['attributes'] ?? null !!}>
-                                <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                            <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" {!! $action['attributes'] ?? null !!}>
+                                <a href="{{ $action['url'] }}" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
                                     {{ $action['title'] }}
-                                </span>
-                            </a>
+                                </a>
+                            </div>
                     @endswitch
                 @endforeach
             </div>

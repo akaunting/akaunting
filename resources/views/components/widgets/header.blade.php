@@ -17,23 +17,23 @@
             <x-dropdown id="show-more-actions-widget-{{ $class->model->id }}">
                 <x-slot name="trigger" class="flex" override="class">
                     <span class="w-8 h-8 flex items-center justify-center px-2 py-2 hover:bg-gray-100 rounded-xl text-purple text-sm font-medium leading-6">
-                        <span class="material-icons">more_vert</span>
+                        <span class="material-icons pointer-events-none">more_vert</span>
                     </span>
                 </x-slot>
 
                 @can('update-common-widgets')
-                <x-button
-                    type="button"
-                    id="show-more-actions-edit-widget-{{ $class->model->id }}"
-                    class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
-                    override="class"
-                    title="{{ trans('general.edit') }}"
-                    @click="onEditWidget('{{ $class->model->id }}')"
-                >
-                    <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
+                    <x-button
+                        type="button"
+                        id="show-more-actions-edit-widget-{{ $class->model->id }}"
+                        class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100"
+                        override="class"
+                        title="{{ trans('general.edit') }}"
+                        @click="onEditWidget('{{ $class->model->id }}')"
+                    >
                         {{ trans('general.edit') }}
-                    </span>
-                </x-button>
+                    </x-button>
+                </div>
                 @endcan
 
                 @can('delete-common-widgets')

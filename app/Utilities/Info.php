@@ -4,8 +4,10 @@ namespace App\Utilities;
 
 use App\Models\Auth\User;
 use App\Models\Common\Company;
+use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Composer\InstalledVersions;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Info
 {
@@ -13,8 +15,11 @@ class Info
     {
         return array_merge(static::versions(), [
             'api_key' => setting('apps.api_key'),
+            'ip' => static::ip(),
             'companies' => Company::count(),
             'users' => User::count(),
+            'invoices' => Document::invoice()->count(),
+            'customers' => Contact::customer()->count(),
             'php_extensions' => static::phpExtensions(),
         ]);
     }
@@ -23,10 +28,12 @@ class Info
     {
         return [
             'akaunting' => version('short'),
-            'laravel' => app()->version(),
+            'laravel' => InstalledVersions::getPrettyVersion('laravel/framework'),
             'php' => static::phpVersion(),
             'mysql' => static::mysqlVersion(),
+            'guzzle' => InstalledVersions::getPrettyVersion('guzzlehttp/guzzle'),
             'livewire' => InstalledVersions::getPrettyVersion('livewire/livewire'),
+            'omnipay' => InstalledVersions::getPrettyVersion('league/omnipay'),
         ];
     }
 
@@ -53,5 +60,12 @@ class Info
         }
 
         return 'N/A';
+    }
+
+    public static function ip()
+    {
+        return request()->header('CF_CONNECTING_IP')
+                ? request()->header('CF_CONNECTING_IP')
+                : request()->ip();
     }
 }
