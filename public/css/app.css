@@ -47944,6 +47944,12 @@ body{
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+[dir="ltr"] .ltr\:space-x-4 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 [dir="ltr"] .ltr\:rounded-tl-lg{
   border-top-left-radius: 0.5rem;
 }
@@ -47998,6 +48004,10 @@ body{
 
 [dir="ltr"] .ltr\:pr-10{
   padding-right: 2.5rem;
+}
+
+[dir="ltr"] .ltr\:pl-0{
+  padding-left: 0px;
 }
 
 [dir="ltr"] .ltr\:text-left{
@@ -48430,6 +48440,11 @@ body{
     grid-column: span 5 / span 5;
   }
 
+  .lg\:my-12{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
   .lg\:my-0{
     margin-top: 0px;
     margin-bottom: 0px;
@@ -48437,6 +48452,10 @@ body{
 
   .lg\:mt-2{
     margin-top: 0.5rem;
+  }
+
+  .lg\:mt-4{
+    margin-top: 1rem;
   }
 
   .lg\:mt-60{
@@ -48688,6 +48707,10 @@ body{
     padding-left: 6rem;
   }
 
+  .lg\:pl-6{
+    padding-left: 1.5rem;
+  }
+
   .lg\:pl-12{
     padding-left: 3rem;
   }
@@ -48749,6 +48772,10 @@ body{
     padding-left: 6rem;
   }
 
+  [dir="ltr"] .ltr\:lg\:pl-6{
+    padding-left: 1.5rem;
+  }
+
   [dir="rtl"] .lg\:rtl\:left-0{
     left: 0px;
   }
@@ -48767,6 +48794,10 @@ body{
 
   [dir="rtl"] .lg\:rtl\:pr-24{
     padding-right: 6rem;
+  }
+
+  [dir="rtl"] .rtl\:lg\:pr-6{
+    padding-right: 1.5rem;
   }
 }
 
