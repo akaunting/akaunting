@@ -12,22 +12,17 @@
         ref="focusElement"
       ></div>
       <div class="absolute w-full h-full bg-black left-0 top-0 rounded-lg overflow-hidden" style="background-image: linear-gradient(147deg, #354fce 0%, #0c296b 74%);">
-        <img
-          v-if="currentCardBackground"
-          :src="currentCardBackground"
-          class="w-full h-full block object-cover"
-        />
       </div>
       <div class="relative h-full py-6 px-4 select-none">
         <div class="flex items-start justify-between px-4">
           <img
-            src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
+            :src="chip_src"
             class="w-12"
           />
           <div class="relative w-full h-12 flex flex-end">
             <transition name="slide-fade-up">
               <img
-                :src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + cardType + '.png'"
+                :src="card_type_src + cardType + '.png'"
                 v-if="cardType"
                 :key="cardType"
                 alt
@@ -94,11 +89,6 @@
     </div>
     <div class="card-item__side -back absolute top-0 left-0 w-full p-0 h-full">
       <div class="absolute w-full h-full bg-black left-0 top-0 rounded-lg overflow-hidden" style="background-image: linear-gradient(147deg, #354fce 0%, #0c296b 74%);">
-        <img
-          v-if="currentCardBackground"
-          :src="currentCardBackground"
-          class="w-full h-full block object-cover"
-        />
       </div>
       <div class="absolute w-full h-32 mt-12 bg-black"></div>
       <div class="relative p-4 text-right">
@@ -108,9 +98,9 @@
         </div>
         <div class="relative w-24 h-12 flex justify-end">
           <img
-            :src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + cardType + '.png'"
+            :src="card_type_src + cardType + '.png'"
             v-if="cardType"
-            class="w-full h-full object-right-top	object-contain"
+            class="w-full h-full object-right-top object-contain"
           />
         </div>
       </div>
@@ -140,7 +130,9 @@ export default {
       amexCardPlaceholder: '#### ###### #####',
       dinersCardPlaceholder: '#### ###### ####',
       defaultCardPlaceholder: '#### #### #### ####',
-      currentPlaceholder: ''
+      currentPlaceholder: '',
+      chip_src: app_url + '/public/img/credit_card/chip.png',
+      card_type_src: app_url + '/public/img/credit_card/',
     }
   },
   watch: {
