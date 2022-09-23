@@ -46744,6 +46744,16 @@ input[type="date"]::-webkit-inner-spin-button,
     width: 1px;
 }
 
+.menu__submenu details.relative:before{
+  position: absolute;
+  left: -1rem;
+  height: 100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+    content: '';
+    width: 1px;
+}
+
 .menu__submenu li:last-child::before {
     height: 20px;
 }

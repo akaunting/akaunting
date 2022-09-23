@@ -220,6 +220,12 @@
     width: 1px;
 }
 
+.menu__submenu details.relative:before {
+    @apply h-full absolute bg-gray-200 -left-4;
+    content: '';
+    width: 1px;
+}
+
 .menu__submenu li:last-child::before {
     height: 20px;
 }
