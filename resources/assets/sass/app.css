@@ -542,6 +542,12 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     }
 }
 
+@media only screen and (min-width: 480px) {
+    .large-overflow-unset {
+        overflow-x: unset;
+    }
+}
+
 #nprogress .bar {
     background: #A6A8C9 !important;
     height: 5px !important;
