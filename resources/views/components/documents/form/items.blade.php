@@ -1,4 +1,4 @@
-<div class="relative sm:col-span-6">
+<div class="relative sm:col-span-6 overflow-x-scroll large-overflow-unset">
     <div style="table-layout: fixed;">
         <div class="overflow-x-visible overflow-y-hidden">
             <table class="small-table-width" id="items">
