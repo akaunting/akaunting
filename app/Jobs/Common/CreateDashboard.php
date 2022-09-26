@@ -135,6 +135,8 @@ class CreateDashboard extends Job implements HasOwner, HasSource, ShouldCreate
                     'name' => $name,
                     'sort' => $sort,
                     'settings' => (new $class())->getDefaultSettings(),
+                    'created_from' => $this->model->created_from,
+                    'created_by' => $this->model->created_by,
                 ]));
             }
 

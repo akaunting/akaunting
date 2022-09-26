@@ -221,7 +221,7 @@
                             </span>
 
                             <span class="float-right spacing">
-                                @money($total->amount - $document->paid, $document->currency_code, true)
+                                <x-money :amount="$total->amount - $document->paid" :currency="$document->currency_code" convert />
                             </span>
                         </p>
                     @endif
@@ -338,7 +338,7 @@
                         </strong>
 
                         <span>
-                            @money($total->amount, $document->currency_code, true)
+                            <x-money :amount="$total->amount" :currency="$document->currency_code" convert />
                         </span>
                     </div>
                     @stack($total->code . '_total_tr_end')
@@ -351,7 +351,7 @@
                             </span>
 
                             <span>
-                                - @money($document->paid, $document->currency_code, true)
+                                - <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
                             </span>
                         </div>
                         @stack('paid_total_tr_end')
@@ -364,7 +364,7 @@
                         </span>
 
                         <span>
-                            @money($document->amount_due, $document->currency_code, true)
+                            <x-money :amount="$document->amount_due" :currency="$document->currency_code" convert />
                         </span>
                     </div>
                     @stack('grand_total_tr_end')

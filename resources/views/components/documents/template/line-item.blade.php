@@ -22,13 +22,17 @@
 
     @stack('quantity_td_start')
         @if (! $hideQuantity)
-            <td class="quantity text text-alignment-right text-right">{{ $item->quantity }}</td>
+            <td class="quantity text text-alignment-right text-right">
+                {{ $item->quantity }}
+            </td>
         @endif
     @stack('quantity_td_end')
 
     @stack('price_td_start')
         @if (! $hidePrice)
-            <td class="price text text-alignment-right text-right">@money($item->price, $document->currency_code, true)</td>
+            <td class="price text text-alignment-right text-right">
+                <x-money :amount="$item->price" :currency="$document->currency_code" convert />
+            </td>
         @endif
     @stack('price_td_end')
 
@@ -54,7 +58,9 @@
                         {{ $text_discount }}
                     </td>
                 @else
-                    <td class="discount text text-alignment-right text-right">@money($item->discount, $document->currency_code, true)</td>
+                    <td class="discount text text-alignment-right text-right">
+                        <x-money :amount="$item->discount" :currency="$document->currency_code" convert />
+                    </td>
                 @endif
             @stack('discount_td_end')
         @endif
@@ -62,7 +68,9 @@
 
     @stack('total_td_start')
         @if (! $hideAmount)
-            <td class="total text text-alignment-right text-right">@money($item->total, $document->currency_code, true)</td>
+            <td class="total text text-alignment-right text-right">
+                <x-money :amount="$item->total" :currency="$document->currency_code" convert />
+            </td>
         @endif
     @stack('total_td_end')
 </tr>

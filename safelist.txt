@@ -3,12 +3,13 @@ lg:mt-2
 ltr:-right-1.5
 rtl:-left-1.5
 lg:pl-24
+lg:my-12
+lg:mt-4
+lg:pl-6
 lg:text-6xl
 lg:h-6
 lg:text-xl
 lg:grid-cols-2
-ltr:pr-20
-rtl:pl-20
 lg:grid-cols-3
 lg:my-16
 lg:h-98
@@ -20,6 +21,8 @@ lg:text-4xl
 lg:top-7
 ltr:border-l-8
 rtl:border-r-8
+ltr:pr-20
+rtl:pl-20
 lg:max-w-lg
 sm:max-w-4xl
 hover:bg-silver-700
@@ -32,3 +35,9 @@ hover:border-pastel_green-700
 hover:text-silver-700
 hover:text-peach_orange-700
 hover:text-pastel_green-700
+ltr:pl-0
+rtl:pr-0
+ltr:lg:pl-6
+rtl:lg:pr-6
+ltr:-right-8
+rtl:-left-8
