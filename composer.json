@@ -71,7 +71,10 @@
         "simple-icons/simple-icons": "^6.0",
         "simshaun/recurr": "^5.0",
         "staudenmeir/belongs-to-through": "^2.12",
-        "staudenmeir/eloquent-has-many-deep": "^1.15"
+        "staudenmeir/eloquent-has-many-deep": "^1.15",
+        "symfony/mailgun-mailer": "^6.0",
+        "symfony/postmark-mailer": "^6.0",
+        "symfony/sendgrid-mailer": "^6.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.5",
