@@ -72,6 +72,7 @@
         "simshaun/recurr": "^5.0",
         "staudenmeir/belongs-to-through": "^2.12",
         "staudenmeir/eloquent-has-many-deep": "^1.15",
+        "symfony/http-client": "^6.0",
         "symfony/mailgun-mailer": "^6.0",
         "symfony/postmark-mailer": "^6.0",
         "symfony/sendgrid-mailer": "^6.0"
