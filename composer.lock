@@ -907,16 +907,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.236.0",
+            "version": "3.236.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "bff1f1ade00c758ea27f498baee1fa16901e5bfd"
+                "reference": "1e8d1abe7582968df16a2e7a87c5dcc51d0dfd1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bff1f1ade00c758ea27f498baee1fa16901e5bfd",
-                "reference": "bff1f1ade00c758ea27f498baee1fa16901e5bfd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1e8d1abe7582968df16a2e7a87c5dcc51d0dfd1b",
+                "reference": "1e8d1abe7582968df16a2e7a87c5dcc51d0dfd1b",
                 "shasum": ""
             },
             "require": {
@@ -995,9 +995,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.236.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.236.1"
             },
-            "time": "2022-09-26T18:13:07+00:00"
+            "time": "2022-09-27T18:19:10+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -4481,16 +4481,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.31.0",
+            "version": "v9.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "75013d4fffe3b24748d313fbbea53206351214f7"
+                "reference": "aae3b59f82434176546c9dd10804adda16da5278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/75013d4fffe3b24748d313fbbea53206351214f7",
-                "reference": "75013d4fffe3b24748d313fbbea53206351214f7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/aae3b59f82434176546c9dd10804adda16da5278",
+                "reference": "aae3b59f82434176546c9dd10804adda16da5278",
                 "shasum": ""
             },
             "require": {
@@ -4663,7 +4663,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-09-20T13:32:50+00:00"
+            "time": "2022-09-27T13:32:56+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -5723,16 +5723,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.41",
+            "version": "3.1.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
-                "reference": "f7a1c3159fab8b4069a67c30e71810b358a2797e"
+                "reference": "b3938c9a4cf70d01173612fe35e64f31ca830132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/f7a1c3159fab8b4069a67c30e71810b358a2797e",
-                "reference": "f7a1c3159fab8b4069a67c30e71810b358a2797e",
+                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/b3938c9a4cf70d01173612fe35e64f31ca830132",
+                "reference": "b3938c9a4cf70d01173612fe35e64f31ca830132",
                 "shasum": ""
             },
             "require": {
@@ -5786,7 +5786,7 @@
             ],
             "support": {
                 "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
-                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.41"
+                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.42"
             },
             "funding": [
                 {
@@ -5798,7 +5798,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-09-26T14:55:28+00:00"
+            "time": "2022-09-28T11:25:11+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
