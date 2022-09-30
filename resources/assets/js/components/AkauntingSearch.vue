@@ -82,30 +82,33 @@
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
                 <li v-if="equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
-                        <span class="material-icons text-2xl transform">drag_handle</span>
-                        <span class="text-gray hidden">{{ operatorIsText }}
+                        <span class="material-icons text-2xl transform pointer-events-none">drag_handle</span>
+                        <span class="text-gray hidden pointer-events-none">{{ operatorIsText }}
                         </span>
                     </button>
                 </li>
 
                 <li v-if="not_equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('!=')">
-                        <img :src="not_equal_image" class="w-6 h-6 block m-auto" />
-                        <span class="text-gray hidden">{{ operatorIsNotText }}</span>
+                        <img :src="not_equal_image" class="w-6 h-6 block m-auto pointer-events-none" />
+                        <span class="text-gray hidden pointer-events-none">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
 
                 <li v-if="range" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('><')">
-                        <span class="material-icons text-2xl transform rotate-90">height</span>
-                        <span class="text-gray hidden">{{ operatorIsNotText }}</span>
+                        <span class="material-icons text-2xl transform rotate-90 pointer-events-none">height</span>
+                        <span class="text-gray hidden pointer-events-none">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
             </div>
 
             <div :id="'search-field-value-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.values}]">
                 <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
-                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">{{ value.value }}</button>
+                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">
+                        <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
+                        {{ value.value }}
+                    </button>
                 </li>
 
                 <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
@@ -462,7 +465,8 @@ export default {
                     data.forEach(function (item) {
                         this.values.push({
                             key: (item.code) ? item.code : item.id,
-                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name
+                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            level: (item.level) ? item.level : null,
                         });
                     }, this);
 
@@ -813,7 +817,6 @@ export default {
             this.values.sort(function (a, b) {
                 var nameA = a.value.toUpperCase(); // ignore upper and lowercase
                 var nameB = b.value.toUpperCase(); // ignore upper and lowercase
-
                 if (nameA < nameB) {
                     return -1;
                 }
@@ -821,7 +824,6 @@ export default {
                 if (nameA > nameB) {
                     return 1;
                 }
-
                 // names must be equal
                 return 0;
             });
