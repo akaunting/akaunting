@@ -28,7 +28,7 @@
     </div>
 
     @stack('pagination_end')
-@else
+@elseif (! count($reviews->data))
     <div class="flex">
         <small>{{ trans('general.no_records') }}</small>
     </div>
