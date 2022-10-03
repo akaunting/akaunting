@@ -48,6 +48,9 @@
             value="{!! $value !!}"
             placeholder="{{ $placeholder }}"
             rows="{{ $rows }}"
+            @if (isset($attributes['v-disabled']) || isset($attributes['v-bind:disabled']))
+            :disabled="isset($attributes['v-disabled']) ? $attributes['v-disabled'] : $attributes['v-bind:disabled']"
+            @endif
             {{ $attributes->merge($custom_attributes) }}
         />
 
