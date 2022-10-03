@@ -25,6 +25,10 @@ th, td
     margin-bottom: 9px;
 }
 
+.print-report-padding {
+    padding-left: 25px;
+}
+
 html[dir='ltr'] .right-column {
     text-align: right;
 }
@@ -61,6 +65,10 @@ html[dir='rtl'] .right-column {
 .mb-1
 {
     margin-bottom: 8px;
+}
+
+.margin-bottom-12 {
+    margin: 12px 0;
 }
 
 .print-template .mt-1
