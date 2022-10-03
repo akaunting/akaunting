@@ -1,14 +1,6 @@
 xl:pt-6
 lg:mt-2
-ltr:-right-1.5
-rtl:-left-1.5
 lg:pl-24
 lg:my-12
 lg:mt-4
 lg:pl-6
-ltr:pl-0
-rtl:pr-0
-ltr:lg:pl-6
-rtl:lg:pr-6
-ltr:-right-8
-rtl:-left-8
