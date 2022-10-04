@@ -67,8 +67,8 @@ html[dir='rtl'] .right-column {
     margin-bottom: 8px;
 }
 
-.margin-bottom-12 {
-    margin: 12px 0;
+.margin-bottom-spacing {
+    margin: 24px 0;
 }
 
 .print-template .mt-1
@@ -348,6 +348,10 @@ html[dir='rtl'] .text-right
     text-align: left;
 }
 
+.text-alignment-center {
+    text-align: center;
+}
+
 .text-center
 {
     text-align: center;
@@ -422,6 +426,30 @@ html[dir='rtl'] .text-right
     display: inline-block;
     width: 100%;
     vertical-align: top;
+}
+
+.col-w-2 {
+    width: 16.6666666667%;
+}
+
+.col-w-4 {
+    width: 33.3333333333%;
+}
+
+.col-w-6 {
+    width: 50%;
+}
+
+.col-w-8 {
+    width: 66.6666666667%;
+}
+
+.col-w-10 {
+    width: 83.3333333333%;
+}
+
+.col-w-12 {
+    width: 50%;
 }
 
 .w-image {
