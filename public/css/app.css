@@ -48282,14 +48282,6 @@ body{
   left: -2rem;
 }
 
-[dir="ltr"] .ltr\:-right-12{
-  right: -3rem;
-}
-
-[dir="ltr"] .ltr\:-right-56{
-  right: -14rem;
-}
-
 [dir="ltr"] .ltr\:m-0{
   margin: 0px;
 }
