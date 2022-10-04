@@ -20,8 +20,24 @@ module.exports = {
 
     safelist: [
       {
-        pattern: /.*/,
+        pattern: /./,
       },
+      {
+        pattern: /^p-/,
+        variants: ['ltr', 'rtl'],
+      },
+      {
+        pattern: /^m-/,
+        variants: ['ltr', 'rtl'],
+      },
+      {
+        pattern: /^left-/,
+        variants: ['ltr', 'rtl'],
+      },
+      {
+        pattern: /^right-/,
+        variants: ['ltr', 'rtl'],
+      }
     ],
    
     darkMode: 'class', // or 'media' or 'class',
