@@ -41,6 +41,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
                 'category_id' => $this->getTransferCategoryId(),
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
+                'created_from' => $this->request->get('created_from'),
                 'created_by' => $this->request->get('created_by'),
             ]));
 
@@ -65,6 +66,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
                 'category_id' => $this->getTransferCategoryId(),
                 'payment_method' => $this->request->get('payment_method'),
                 'reference' => $this->request->get('reference'),
+                'created_from' => $this->request->get('created_from'),
                 'created_by' => $this->request->get('created_by'),
             ]));
 
@@ -72,6 +74,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
                 'company_id' => $this->request['company_id'],
                 'expense_transaction_id' => $expense_transaction->id,
                 'income_transaction_id' => $income_transaction->id,
+                'created_from' => $this->request->get('created_from'),
                 'created_by' => $this->request->get('created_by'),
             ]);
 

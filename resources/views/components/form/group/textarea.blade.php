@@ -48,6 +48,7 @@
             value="{!! $value !!}"
             placeholder="{{ $placeholder }}"
             rows="{{ $rows }}"
+            :disabled="$disabled"
             {{ $attributes->merge($custom_attributes) }}
         />
 
