@@ -291,7 +291,7 @@ abstract class Form extends Component
         $this->document = $this->model;
         $this->currencies = $this->getCurrencies($currencies);
         $this->currency = $this->getCurrency($document, $currency, $currency_code);
-        $this->currency_code = ! empty($this->currency) ? $this->currency->code : setting('default.currency');
+        $this->currency_code = ! empty($this->currency) ? $this->currency->code : default_currency();
         $this->taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         /* -- Content Start -- */
@@ -438,7 +438,7 @@ abstract class Form extends Component
         }
 
         if (empty($currency)) {
-            $currency = Currency::where('code', setting('default.currency'))->first();
+            $currency = Currency::where('code', default_currency())->first();
         }
 
         return $currency;
@@ -1139,7 +1139,7 @@ abstract class Form extends Component
         if (! empty($notes)) {
             return $notes;
         }
-        
+
         if (! empty($this->document)) {
             return $this->document->notes;
         }

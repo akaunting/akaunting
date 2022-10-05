@@ -392,8 +392,8 @@ abstract class Index extends Component
         foreach ($totals as $key => $total) {
             $title = ($key == 'overdue') ? trans('general.overdue') : trans('documents.statuses.' . $key);
             $href = route($route, ['search' => 'status:' . $key]);
-            $amount = money($total, setting('default.currency'), true)->formatForHumans();
-            $tooltip = money($total, setting('default.currency'), true)->format();
+            $amount = money($total, default_currency(), true)->formatForHumans();
+            $tooltip = money($total, default_currency(), true)->format();
 
             $items[] = [
                 'title'     => $title,

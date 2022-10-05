@@ -31,7 +31,7 @@ class Items extends Controller
     {
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $currency = Currency::where('code', setting('default.currency'))->first();
+        $currency = Currency::where('code', default_currency())->first();
 
         $html = view('modals.items.create', compact('taxes', 'currency'))->render();
 

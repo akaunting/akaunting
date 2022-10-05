@@ -28,7 +28,7 @@
 
                         <x-form.group.text name="thousands_separator" label="{{ trans('currencies.thousands_separator') }}" not-required />
 
-                        <x-form.group.toggle name="default_currency" label="{{ trans('currencies.default') }}" :value="$currency->default_currency" :disabled="(setting('default.currency') == $currency->code)" />
+                        <x-form.group.toggle name="default_currency" label="{{ trans('currencies.default') }}" :value="$currency->default_currency" :disabled="(default_currency() == $currency->code)" />
                     </x-slot>
                 </x-form.section>
 

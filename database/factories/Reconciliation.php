@@ -28,7 +28,7 @@ class Reconciliation extends Factory
         return [
             'company_id' => $this->company->id,
             'account_id' => '1',
-            'currency_code' => setting('default.currency'),
+            'currency_code' => default_currency(),
             'opening_balance' => '0',
             'closing_balance' => '10',
             'started_at' => $started_at,

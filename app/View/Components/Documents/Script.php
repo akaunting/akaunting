@@ -50,7 +50,7 @@ class Script extends Component
         $this->document = $document;
         $this->items = $items;
         $this->currencies = $this->getCurrencies($currencies);
-        $this->currency_code = ($document) ? $document->currency_code : setting('default.currency');
+        $this->currency_code = ($document) ? $document->currency_code : default_currency();
         $this->taxes = $this->getTaxes($taxes);
 
         $this->alias = $this->getAlias($type, $alias);

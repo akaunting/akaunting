@@ -48,7 +48,7 @@ class Currency extends Form
         }
 
         if (empty($this->selected) && empty($this->getParentData('model'))) {
-            $this->selected = setting('default.currency');
+            $this->selected = default_currency();
         }
 
         return view('components.form.group.currency');

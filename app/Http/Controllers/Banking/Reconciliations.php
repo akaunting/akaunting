@@ -24,8 +24,8 @@ class Reconciliations extends Controller
     {
         $reconciliations = Reconciliation::with('account')->collect();
 
-        $reconciled_amount = money($reconciliations->where('reconciled', 1)->sum('closing_balance'), setting('default.currency'), true);
-        $in_progress_amount = money($reconciliations->where('reconciled', 0)->sum('closing_balance'), setting('default.currency'), true);
+        $reconciled_amount = money($reconciliations->where('reconciled', 1)->sum('closing_balance'), default_currency(), true);
+        $in_progress_amount = money($reconciliations->where('reconciled', 0)->sum('closing_balance'), default_currency(), true);
 
         $summary_amounts = [
             'amount_exact'              => $reconciled_amount->format(),

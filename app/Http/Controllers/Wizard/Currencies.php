@@ -91,7 +91,7 @@ class Currencies extends Controller
     {
         $response = $this->ajaxDispatch(new UpdateCurrency($currency, $request));
 
-        $currency->default = setting('default.currency') == $currency->code;
+        $currency->default = default_currency() == $currency->code;
 
         if ($response['success']) {
             $message = trans('messages.success.updated', ['type' => $currency->name]);
