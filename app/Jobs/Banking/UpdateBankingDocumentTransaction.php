@@ -66,7 +66,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         $currency_code = ! empty($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
 
         $this->request['company_id'] = $this->model->company_id;
-        $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
+        $this->request['currency_code'] = $currency_code;
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->toDateTimeString();
         $this->request['currency_rate'] = config('money.' . $currency_code . '.rate');
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
