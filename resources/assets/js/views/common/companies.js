@@ -47,5 +47,41 @@ const app = new Vue({
 
             this.form.submit();
         },
+
+        // Change currency get money
+        onChangeCurrency(currency_code) {
+            if (! currency_code) {
+                return;
+            }
+
+            if (! this.all_currencies.length) {
+                let currency_promise = Promise.resolve(window.axios.get((url + '/settings/currencies')));
+
+                currency_promise.then(response => {
+                    if (response.data.success) {
+                        this.all_currencies = response.data.data;
+                    }
+
+                    this.all_currencies.forEach(function (currency, index) {
+                        if (currency_code == currency.code) {
+                            this.currency = currency;
+
+                            this.form.currency = currency.code;
+                        }
+                    }, this);
+                })
+                .catch(error => {
+                    this.onChangeCurrency(currency_code);
+                });
+            } else {
+                this.all_currencies.forEach(function (currency, index) {
+                    if (currency_code == currency.code) {
+                        this.currency = currency;
+
+                        this.form.currency = currency.code;
+                    }
+                }, this);
+            }
+        },
     }
 });
