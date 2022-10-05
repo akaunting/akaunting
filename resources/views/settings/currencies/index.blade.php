@@ -66,7 +66,7 @@
                                         <x-index.disable text="{{ trans_choice('general.currencies', 1) }}" />
                                     @endif
 
-                                    @if ($item->code == setting("default.currency"))
+                                    @if ($item->code == default_currency())
                                         <x-index.default text="{{ trans('currencies.default') }}" />
                                     @endif
                                 </x-slot>
