@@ -48282,6 +48282,10 @@ body{
   left: -2rem;
 }
 
+[dir="ltr"] .ltr\:-right-1\.5{
+  right: -0.375rem;
+}
+
 [dir="ltr"] .ltr\:m-0{
   margin: 0px;
 }
@@ -49199,6 +49203,10 @@ body{
 
 [dir="rtl"] .rtl\:-right-8{
   right: -2rem;
+}
+
+[dir="rtl"] .rtl\:-left-1\.5{
+  left: -0.375rem;
 }
 
 [dir="rtl"] .rtl\:float-left{
