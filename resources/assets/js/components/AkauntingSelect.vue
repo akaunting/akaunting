@@ -897,10 +897,10 @@ export default {
                                 }
                             }
                         });
+                    }
 
-                        if (is_string) {
-                            this.selected = pre_value;
-                        }
+                    if (is_string) {
+                        this.selected = pre_value;
                     }
                 }
             }
@@ -1030,14 +1030,16 @@ export default {
                     if (this.multiple) {                        
                         let selected = this.selected;                        
                         this.selected = [];
-
-                        selected.forEach(function (select, index)  {
-                            if (this.sorted_options.find(option => option.key == select)) {  
-                                this.selected.push(select);
-                            } else {
-                                this.selected = [];
-                            }
-                        }, this);
+                        
+                        if (selected !== undefined) {
+                            selected.forEach(function (select, index)  {
+                                if (this.sorted_options.find(option => option.key == select)) {  
+                                    this.selected.push(select);
+                                } else {
+                                    this.selected = [];
+                                }
+                            }, this);
+                        }
                     } else {
                         if (! options.find(option => option == this.selected)) {
                             this.selected = [];
