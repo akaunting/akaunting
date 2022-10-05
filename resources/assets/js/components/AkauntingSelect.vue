@@ -887,7 +887,7 @@ export default {
                     let is_string = false;
                     let pre_value = [];
 
-                    if (selected !== undefined) {
+                    if (selected !== undefined && selected.length) {
                         selected.forEach(item => {
                             if (typeof item != 'string') {
                                 is_string = true;
