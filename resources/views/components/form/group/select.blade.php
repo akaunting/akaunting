@@ -65,6 +65,12 @@
         search-text="{{ $searchText }}"
         @endif
 
+        @if (! empty($attributes['selected-control']))
+        selected-control
+        @elseif (! empty($selectedControl))
+        selected-control
+        @endif
+
         @if (empty($multiple))
             @if (isset($selected) || old($name))
             value="{{ old($name, $selected) }}"

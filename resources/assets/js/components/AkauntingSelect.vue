@@ -299,6 +299,11 @@ export default {
             default: '',
             description: "Selectbox input search placeholder text"
         },
+
+        selectedControl: {
+            type: [Boolean, String],
+            default: false,
+        },
     },
 
     data() {
@@ -882,18 +887,20 @@ export default {
                     let is_string = false;
                     let pre_value = [];
 
-                    selected.forEach(item => {
-                        if (typeof item != 'string') {
-                            is_string = true;
+                    if (selected !== undefined) {
+                        selected.forEach(item => {
+                            if (typeof item != 'string') {
+                                is_string = true;
 
-                            if (item != '') {
-                                pre_value.push(item.toString());
+                                if (item != '') {
+                                    pre_value.push(item.toString());
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    if (is_string) {
-                        this.selected = pre_value;
+                        if (is_string) {
+                            this.selected = pre_value;
+                        }
                     }
                 }
             }
@@ -949,7 +956,6 @@ export default {
 
         dynamicOptions: function(options) {
             this.sorted_options = [];
-            this.selected = '';
 
             if (this.group) {
                 // Option set sort_option data
@@ -1017,6 +1023,32 @@ export default {
                             });
                         }
                     }, this);
+                }
+
+
+                if (this.selectedControl) {
+                    if (this.multiple) {                        
+                        let selected = this.selected;                        
+                        this.selected = [];
+
+                        selected.forEach(function (select, index)  {
+                            if (this.sorted_options.find(option => option.key == select)) {  
+                                this.selected.push(select);
+                            } else {
+                                this.selected = [];
+                            }
+                        }, this);
+                    } else {
+                        if (! options.find(option => option == this.selected)) {
+                            this.selected = [];
+                        }
+                    }
+                } else {
+                    if (this.multiple) {
+                        this.selected = [];
+                    } else {
+                        this.selected = '';
+                    }                    
                 }
             }
         },
