@@ -166,7 +166,7 @@ class Scripts extends Component
         $currencies = collect();
 
         Currency::all()->each(function ($currency) use (&$currencies) {
-            $currency->default = setting('default.currency') == $currency->code;
+            $currency->default = default_currency() == $currency->code;
 
             $currencies->push($currency);
         });

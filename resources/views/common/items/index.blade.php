@@ -119,14 +119,14 @@
                                 <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
                                     <x-slot name="first">
                                         @if ($item->sale_price)
-                                            <x-money :amount="$item->sale_price" :currency="setting('default.currency')" convert />
+                                            <x-money :amount="$item->sale_price" :currency="default_currency()" convert />
                                         @else
                                             <x-empty-data />
                                         @endif
                                     </x-slot>
                                     <x-slot name="second">
                                         @if ($item->purchase_price)
-                                            <x-money :amount="$item->purchase_price" :currency="setting('default.currency')" convert />
+                                            <x-money :amount="$item->purchase_price" :currency="default_currency()" convert />
                                         @else
                                             <x-empty-data />
                                         @endif

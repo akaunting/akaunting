@@ -42,7 +42,7 @@ class DeleteCurrency extends Job implements ShouldDelete
 
         $relationships = $this->countRelationships($this->model, $rels);
 
-        if ($this->model->code == setting('default.currency')) {
+        if ($this->model->code == default_currency()) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
         }
 

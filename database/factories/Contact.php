@@ -38,7 +38,7 @@ class Contact extends Factory
             'address' => $this->faker->address,
             'country' => $this->faker->randomElement($countries),
             'website' => 'https://akaunting.com',
-            'currency_code' => setting('default.currency'),
+            'currency_code' => default_currency(),
             'reference' => $this->faker->text(5),
             'enabled' => $this->faker->boolean ? 1 : 0,
             'created_from' => 'core::factory',

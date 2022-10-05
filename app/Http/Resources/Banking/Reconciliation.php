@@ -22,7 +22,7 @@ class Reconciliation extends JsonResource
             'started_at' => $this->started_at->toIso8601String(),
             'ended_at' => $this->ended_at->toIso8601String(),
             'closing_balance' => $this->closing_balance,
-            'closing_balance_formatted' => money($this->closing_balance, setting('default.currency'), true)->format(),
+            'closing_balance_formatted' => money($this->closing_balance, default_currency(), true)->format(),
             'reconciled' => $this->reconciled,
             'created_from' => $this->created_from,
             'created_by' => $this->created_by,

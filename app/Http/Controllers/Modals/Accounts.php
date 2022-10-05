@@ -28,7 +28,7 @@ class Accounts extends Controller
      */
     public function create()
     {
-        $currency = Currency::where('code', '=', setting('default.currency'))->first();
+        $currency = Currency::where('code', '=', default_currency())->first();
 
         $html = view('modals.accounts.create', compact('currency'))->render();
 

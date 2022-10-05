@@ -23,7 +23,7 @@ class Money
             return $next($request);
         }
 
-        $currency_code = setting('default.currency');
+        $currency_code = default_currency();
 
         if ($request->get('currency_code')) {
             $currency_code = $request->get('currency_code');

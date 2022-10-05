@@ -195,7 +195,7 @@ class ProfitLoss extends Widget
             $totals[$i] += $item->getAmountConvertedToDefault();
         }
 
-        $precision = config('money.' . setting('default.currency') . '.precision');
+        $precision = config('money.' . default_currency() . '.precision');
 
         foreach ($totals as $key => $value) {
             $totals[$key] = round($value, $precision);

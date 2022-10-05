@@ -72,9 +72,9 @@ class Content extends Component
             $totals['paid'] += $item->getAmountConvertedToDefault();
         });
 
-        $open_amount = money($totals['open'], setting('default.currency'), true);
-        $overdue_amount = money($totals['overdue'], setting('default.currency'), true);
-        $paid_amount = money($totals['paid'], setting('default.currency'), true);
+        $open_amount = money($totals['open'], default_currency(), true);
+        $overdue_amount = money($totals['overdue'], default_currency(), true);
+        $paid_amount = money($totals['paid'], default_currency(), true);
 
         $summary_amounts = [
             'open_exact'            => $open_amount->format(),

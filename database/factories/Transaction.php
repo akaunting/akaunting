@@ -44,7 +44,7 @@ class Transaction extends Factory
             'account_id' => setting('default.account'),
             'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
-            'currency_code' => setting('default.currency'),
+            'currency_code' => default_currency(),
             'currency_rate' => '1.0',
             'description' => $this->faker->text(5),
             'category_id' => $this->company->categories()->$category_type()->get()->random(1)->pluck('id')->first(),

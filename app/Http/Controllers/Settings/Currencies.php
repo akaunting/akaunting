@@ -122,7 +122,7 @@ class Currencies extends Controller
         }
 
         // Set default currency
-        $currency->default_currency = ($currency->code == setting('default.currency')) ? 1 : 0;
+        $currency->default_currency = ($currency->code == default_currency()) ? 1 : 0;
 
         $precisions = (object) [
             '0' => '0',
