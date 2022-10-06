@@ -107,7 +107,7 @@
 
         <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
-        <select :name="name"  :id="name" v-model="selected" class="d-none">
+        <select :name="name" :id="name" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
     </base-input>
@@ -355,7 +355,6 @@ export default {
             } else {
                 this.sorted_options.sort(this.sortBy(this.option_sortable));
             }
-
             return this.sorted_options;
         },
     },
@@ -959,7 +958,7 @@ export default {
 
             if (this.group) {
                 // Option set sort_option data
-                if (!Array.isArray(options)) {
+                if (! Array.isArray(options)) {
                     for (const [index, _options] of Object.entries(options)) {
                         let values = [];
 
@@ -997,7 +996,7 @@ export default {
                 }
             } else {
                 // Option set sort_option data
-                if (!Array.isArray(options)) {
+                if (! Array.isArray(options)) {
                     for (const [key, value] of Object.entries(options)) {
                         this.sorted_options.push({
                             key: key.toString(),
@@ -1025,31 +1024,26 @@ export default {
                     }, this);
                 }
 
-
                 if (this.selectedControl) {
                     if (this.multiple) {                        
-                        let selected = this.selected;                        
+                        let selected = this.selected;                    
                         this.selected = [];
-                        
-                        if (selected !== undefined) {
-                            selected.forEach(function (select, index)  {
-                                if (this.sorted_options.find(option => option.key == select)) {  
-                                    this.selected.push(select);
-                                } else {
-                                    this.selected = [];
-                                }
-                            }, this);
-                        }
+
+                        selected.forEach(function (select, index)  {
+                            if (this.sorted_options.find(option => option.key == select)) { 
+                                this.selected.push(select);
+                            }
+                        }, this);
                     } else {
                         if (! options.find(option => option == this.selected)) {
-                            this.selected = [];
+                            this.selected = null;
                         }
                     }
                 } else {
                     if (this.multiple) {
                         this.selected = [];
                     } else {
-                        this.selected = '';
+                        this.selected = null;
                     }                    
                 }
             }
