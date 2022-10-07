@@ -4,6 +4,8 @@ lg:pl-24
 lg:my-12
 lg:mt-4
 lg:pl-6
+ltr:-right-1.5
+rtl:-left-1.5
 sm:max-w-4xl
 hover:bg-silver-700
 hover:bg-peach_orange-700

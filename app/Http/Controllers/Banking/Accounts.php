@@ -65,7 +65,7 @@ class Accounts extends Controller
      */
     public function create()
     {
-        $currency = Currency::where('code', '=', setting('default.currency'))->first();
+        $currency = Currency::where('code', '=', default_currency())->first();
 
         return view('banking.accounts.create', compact('currency'));
     }
@@ -279,7 +279,7 @@ class Accounts extends Controller
             return response()->json([]);
         }
 
-        $currency_code = setting('default.currency');
+        $currency_code = default_currency();
 
         if (isset($account->currency_code)) {
             $currencies = Currency::enabled()->pluck('name', 'code')->toArray();

@@ -49715,12 +49715,16 @@ body{
   left: 100%;
 }
 
-[dir="ltr"] .ltr\:-left-80{
-  left: -20rem;
+[dir="ltr"] .ltr\:-right-1\.5{
+  right: -0.375rem;
 }
 
 [dir="ltr"] .ltr\:-right-1{
   right: -0.25rem;
+}
+
+[dir="ltr"] .ltr\:-left-80{
+  left: -20rem;
 }
 
 [dir="ltr"] .ltr\:-right-2{
@@ -50650,12 +50654,16 @@ body{
   left: 100%;
 }
 
-[dir="rtl"] .rtl\:-right-80{
-  right: -20rem;
+[dir="rtl"] .rtl\:-left-1\.5{
+  left: -0.375rem;
 }
 
 [dir="rtl"] .rtl\:-left-1{
   left: -0.25rem;
+}
+
+[dir="rtl"] .rtl\:-right-80{
+  right: -20rem;
 }
 
 [dir="rtl"] .rtl\:-left-2{

@@ -44,7 +44,7 @@ class Document extends AbstractFactory
             'company_id' => $this->company->id,
             'issued_at' => $issued_at,
             'due_at' => $due_at,
-            'currency_code' => setting('default.currency'),
+            'currency_code' => default_currency(),
             'currency_rate' => '1',
             'notes' => $this->faker->text(5),
             'amount' => '0',
@@ -247,7 +247,7 @@ class Document extends AbstractFactory
                 'tax_ids' => [$tax->id],
                 'quantity' => '1',
                 'price' => $amount,
-                'currency' => setting('default.currency'),
+                'currency' => default_currency(),
             ],
         ];
 

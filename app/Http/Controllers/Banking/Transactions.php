@@ -56,9 +56,9 @@ class Transactions extends Controller
 
         $totals['profit'] = $totals['income'] - $totals['expense'];
 
-        $incoming_amount = money($totals['income'], setting('default.currency'), true);
-        $expense_amount = money($totals['expense'], setting('default.currency'), true);
-        $profit_amount = money($totals['profit'], setting('default.currency'), true);
+        $incoming_amount = money($totals['income'], default_currency(), true);
+        $expense_amount = money($totals['expense'], default_currency(), true);
+        $profit_amount = money($totals['profit'], default_currency(), true);
 
         $summary_amounts = [
             'incoming_exact'        => $incoming_amount->format(),

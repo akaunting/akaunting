@@ -70,7 +70,7 @@ class Account extends Factory
     public function default_currency()
     {
         return $this->state([
-            'currency_code' => setting('default.currency'),
+            'currency_code' => default_currency(),
         ]);
     }
 }

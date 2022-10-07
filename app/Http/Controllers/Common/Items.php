@@ -242,7 +242,7 @@ class Items extends Controller
         $currency_code = request('currency_code');
 
         if (empty($currency_code) || (strtolower($currency_code)  == 'null')) {
-            $currency_code = setting('default.currency');
+            $currency_code = default_currency();
         }
 
         $autocomplete = Item::autocomplete([

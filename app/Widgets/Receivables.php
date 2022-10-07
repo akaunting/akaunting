@@ -52,7 +52,7 @@ class Receivables extends Widget
         });
 
         foreach ($periods as $period_name => $period_amount) {
-            $periods[$period_name] = money($period_amount, setting('default.currency'), true);
+            $periods[$period_name] = money($period_amount, default_currency(), true);
         }
 
         $has_progress = !empty($open) || !empty($overdue);
@@ -61,9 +61,9 @@ class Receivables extends Widget
         $grand = $open + $overdue;
 
         $totals = [
-            'grand'     => money($grand, setting('default.currency'), true),
-            'open'      => money($open, setting('default.currency'), true),
-            'overdue'   => money($overdue, setting('default.currency'), true),
+            'grand'     => money($grand, default_currency(), true),
+            'open'      => money($open, default_currency(), true),
+            'overdue'   => money($overdue, default_currency(), true),
         ];
 
         $grand_total_text = trans('widgets.total_unpaid_invoices');

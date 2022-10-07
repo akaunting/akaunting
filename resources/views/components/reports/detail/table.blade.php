@@ -1,4 +1,4 @@
-<div class="overflow-x-visible mb-8 margin-bottom-12">
+<div class="overflow-x-visible mb-8 margin-bottom-spacing">
     <table class="w-full rp-border-collapse">
         @include($class->views['detail.table.header'])
         @include($class->views['detail.table.body'])

@@ -44,7 +44,7 @@ class Script extends Component
         $this->type = $type;
         $this->contact = $contact;
         $this->currencies = $this->getCurrencies($currencies);
-        $this->currency_code = ($contact) ? $contact->currency_code : setting('default.currency');
+        $this->currency_code = ($contact) ? $contact->currency_code : default_currency();
 
         $this->alias = $this->getAlias($type, $alias);
         $this->folder = $this->getScriptFolder($type, $folder);

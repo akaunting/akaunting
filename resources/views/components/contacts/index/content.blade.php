@@ -221,7 +221,7 @@
                             @if (! $hideOpen)
                             <x-slot name="first">
                                 @if ($item->open)
-                                    <x-money :amount="$item->open" :currency="setting('default.currency')" convert />
+                                    <x-money :amount="$item->open" :currency="default_currency()" convert />
                                 @else
                                     <x-empty-data />
                                 @endif
@@ -233,7 +233,7 @@
                             @if (! $hideOverdue)
                             <x-slot name="second">
                                 @if ($item->overdue)
-                                    <x-money :amount="$item->overdue" :currency="setting('default.currency')" convert />
+                                    <x-money :amount="$item->overdue" :currency="default_currency()" convert />
                                 @else
                                     <x-empty-data />
                                 @endif

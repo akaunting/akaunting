@@ -28,7 +28,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
 
     public function handle(): DocumentItem
     {
-        $item_id = !empty($this->request['item_id']) ? $this->request['item_id'] : 0;
+        $item_id = ! empty($this->request['item_id']) ? $this->request['item_id'] : 0;
         $precision = config('money.' . $this->document->currency_code . '.precision');
 
         $item_amount = (double) $this->request['price'] * (double) $this->request['quantity'];
@@ -36,7 +36,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $item_discounted_amount = $item_amount;
 
         // Apply line discount to amount
-        if (!empty($this->request['discount'])) {
+        if (! empty($this->request['discount'])) {
             if ($this->request['discount_type'] === 'percentage') {
                 $item_discounted_amount -= ($item_amount * ($this->request['discount'] / 100));
             } else {

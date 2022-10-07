@@ -63,7 +63,7 @@
                         {{ trans('modules.free') }}
                     </span>
                 @else
-                    @if (!empty($module->is_discount))
+                    @if (! empty($module->is_discount))
                         {!! trans('modules.monthly_price', ['price' => '<del class="text-danger">' . $module->yearly_per_monthly_price . '</del> ' . $module->yearly_per_monthly_special_price]) !!}
                     @else
                         {!! trans('modules.monthly_price', ['price' => $module->yearly_per_monthly_price]) !!}
