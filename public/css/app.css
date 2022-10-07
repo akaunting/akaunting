@@ -49922,6 +49922,10 @@ body{
     right: 6rem;
   }
 
+  .lg\:top-2{
+    top: 0.5rem;
+  }
+
   .lg\:col-span-5{
     grid-column: span 5 / span 5;
   }
@@ -49996,6 +50000,14 @@ body{
 
   .lg\:h-4{
     height: 1rem;
+  }
+
+  .lg\:h-12{
+    height: 3rem;
+  }
+
+  .lg\:h-auto{
+    height: auto;
   }
 
   .lg\:w-1\/2{
@@ -50084,6 +50096,10 @@ body{
 
   .lg\:w-3\/4{
     width: 75%;
+  }
+
+  .lg\:w-auto{
+    width: auto;
   }
 
   .lg\:max-w-7xl{
