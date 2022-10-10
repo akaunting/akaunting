@@ -479,6 +479,10 @@ export default class Form {
             this.loading = true;
 
             window.location.href = response.data.redirect;
+
+            if (window.location.hash !== undefined) {
+                location.reload();
+            }
         }
 
         this.response = response.data;
