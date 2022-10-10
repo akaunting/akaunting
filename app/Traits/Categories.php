@@ -43,4 +43,19 @@ trait Categories
 
         return $id == $this->getTransferCategoryId();
     }
+
+    public function getChildrenCategoryIds($category)
+    {
+        $ids = [];
+
+        foreach ($category->sub_categories as $sub_category) {
+            $ids[] = $sub_category->id;
+
+            if ($sub_category->sub_categories) {
+                $ids = array_merge($ids, $this->getChildrenCategoryIds($sub_category));
+            }
+        }
+
+        return $ids;
+    }
 }

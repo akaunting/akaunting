@@ -146,14 +146,31 @@ class Categories extends Controller
             $categories[$type] = [];
         }
 
-        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories, $edited_category_id) {
-            if ($edited_category_id != $category->id) {
-                $categories[$category->type][] = [
-                    'id' => $category->id,
-                    'title' => $category->name,
-                    'level' => $category->level,
-                ];
+        $skip_categories = [];
+        $skip_categories[] = $edited_category_id;
+
+        foreach ($category->sub_categories as $sub_category) {
+            $skip_categories[] = $sub_category->id;
+
+            if ($sub_category->sub_categories) {
+                $skips = $this->getChildrenCategoryIds($sub_category);
+
+                foreach ($skips as $skip) {
+                    $skip_categories[] = $skip;
+                }
             }
+        }
+
+        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories, &$skip_categories) {
+            if (in_array($category->id, $skip_categories)) {
+                return;
+            }
+
+            $categories[$category->type][] = [
+                'id' => $category->id,
+                'title' => $category->name,
+                'level' => $category->level,
+            ];
         });
 
         return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories'));
@@ -167,10 +184,8 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function update($category_id, Request $request)
+    public function update(Category $category, Request $request)
     {
-        $category = $this->getCategoryWithoutChildren($category_id);
-
         $response = $this->ajaxDispatch(new UpdateCategory($category, $request));
 
         if ($response['success']) {
@@ -197,10 +212,8 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function enable($category_id)
+    public function enable(Category $category)
     {
-        $category = $this->getCategoryWithoutChildren($category_id);
-
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
@@ -217,10 +230,8 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function disable($category_id)
+    public function disable(Category $category)
     {
-        $category = $this->getCategoryWithoutChildren($category_id);
-
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
