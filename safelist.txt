@@ -9,14 +9,14 @@ rtl:-left-1.5
 sm:max-w-4xl
 hover:bg-silver-700
 hover:bg-peach_orange-700
-hover:bg-pastel_green-700
+hover:bg-wisteria-700
 hover:bg-white
 hover:border-silver-700
 hover:border-peach_orange-700
-hover:border-pastel_green-700
+hover:border-wisteria-700
 hover:text-silver-700
 hover:text-peach_orange-700
-hover:text-pastel_green-700
+hover:text-wisteria-700
 lg:text-6xl
 lg:h-6
 lg:text-xl
@@ -31,3 +31,8 @@ lg:space-x-8
 lg:text-4xl
 lg:top-7
 lg:max-w-lg
+lg:h-full
+lg:w-18
+ltr:-right-10
+rtl:-left-10
+lg:overflow-x-hidden
