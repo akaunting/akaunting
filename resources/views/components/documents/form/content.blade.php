@@ -4,7 +4,7 @@
         id="{{ $formId }}"
         :route="$formRoute"
         method="{{ $formMethod }}"
-        :model="$contact"
+        :model="$document"
     >
         @if (! $hideCompany)
             <x-documents.form.company :type="$type" />
