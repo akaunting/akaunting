@@ -50034,10 +50034,6 @@ body{
     width: 20rem;
   }
 
-  .lg\:w-9{
-    width: 2.25rem;
-  }
-
   .lg\:w-8\/12{
     width: 66.666667%;
   }
@@ -50104,6 +50100,10 @@ body{
 
   .lg\:w-3\/4{
     width: 75%;
+  }
+
+  .lg\:w-9{
+    width: 2.25rem;
   }
 
   .lg\:max-w-7xl{
