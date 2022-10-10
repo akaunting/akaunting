@@ -3,7 +3,7 @@
         @if ($trigger->attributes->has('override') && in_array('class', explode(',', $trigger->attributes->get('override'))))
         class="{{ $trigger->attributes->get('class') }}"
         @else
-        class="w-9 h-9 flex items-center justify-center px-2 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-purple text-sm font-medium leading-6" 
+        class="w-full lg:w-9 h-9 flex items-center justify-center px-2 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-purple text-sm font-medium leading-6" 
         @endif
         data-dropdown-toggle="{{ $id }}"
         {{  $trigger->attributes }}
