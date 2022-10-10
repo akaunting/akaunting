@@ -104,7 +104,7 @@
 
         <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
-        <select :name="name"  :id="name" v-model="selected" class="d-none">
+        <select :name="name"  :id="name" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
 
@@ -1089,6 +1089,31 @@ export default {
         },
     },
 
+    dynamicOptionsValue(options) {
+        if (this.dynamicOptionsValueCheck) {
+            if (this.multiple) {
+                let selected = this.selected;
+                this.selected = [];
+
+                selected.forEach(function (select, index) {
+                    if (this.sorted_options.find((option) => option.key == select)) {
+                        this.selected.push(select);
+                    }
+                }, this);
+            } else {
+                if (!options.find((option) => option == this.selected)) {
+                    this.selected = null;
+                }
+            }
+        } else {
+            if (this.multiple) {
+                this.selected = [];
+            } else {
+                this.selected = null;
+            }
+        }
+    },
+
     watch: {
         selected: function (selected) {
             if (!this.multiple) {
@@ -1237,6 +1262,8 @@ export default {
                         }
                     }, this);
                 }
+
+                this.dynamicOptionsValue(options);
             }
         },
     },

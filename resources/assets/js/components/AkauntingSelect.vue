@@ -107,7 +107,7 @@
 
         <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
 
-        <select :name="name"  :id="name" v-model="selected" class="d-none">
+        <select :name="name" :id="name" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
     </base-input>
@@ -299,6 +299,11 @@ export default {
             default: '',
             description: "Selectbox input search placeholder text"
         },
+
+        dynamicOptionsValueCheck: {
+            type: [Boolean, String],
+            default: false,
+        },
     },
 
     data() {
@@ -350,7 +355,6 @@ export default {
             } else {
                 this.sorted_options.sort(this.sortBy(this.option_sortable));
             }
-
             return this.sorted_options;
         },
     },
@@ -865,6 +869,31 @@ export default {
                 this.setSortedOptions();
             }
         },
+
+        dynamicOptionsValue(options) {
+            if (this.dynamicOptionsValueCheck) {
+                if (this.multiple) {
+                    let selected = this.selected;
+                    this.selected = [];
+
+                    selected.forEach(function (select, index) {
+                        if (this.sorted_options.find((option) => option.key == select)) {
+                            this.selected.push(select);
+                        }
+                    }, this);
+                } else {
+                    if (!options.find((option) => option == this.selected)) {
+                        this.selected = null;
+                    }
+                }
+            } else {
+                if (this.multiple) {
+                    this.selected = [];
+                } else {
+                    this.selected = null;
+                }
+            }
+        }
     },
 
     watch: {
@@ -882,15 +911,17 @@ export default {
                     let is_string = false;
                     let pre_value = [];
 
-                    selected.forEach(item => {
-                        if (typeof item != 'string') {
-                            is_string = true;
+                    if (selected !== undefined && selected.length) {
+                        selected.forEach(item => {
+                            if (typeof item != 'string') {
+                                is_string = true;
 
-                            if (item != '') {
-                                pre_value.push(item.toString());
+                                if (item != '') {
+                                    pre_value.push(item.toString());
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
 
                     if (is_string) {
                         this.selected = pre_value;
@@ -949,11 +980,10 @@ export default {
 
         dynamicOptions: function(options) {
             this.sorted_options = [];
-            this.selected = '';
 
             if (this.group) {
                 // Option set sort_option data
-                if (!Array.isArray(options)) {
+                if (! Array.isArray(options)) {
                     for (const [index, _options] of Object.entries(options)) {
                         let values = [];
 
@@ -991,7 +1021,7 @@ export default {
                 }
             } else {
                 // Option set sort_option data
-                if (!Array.isArray(options)) {
+                if (! Array.isArray(options)) {
                     for (const [key, value] of Object.entries(options)) {
                         this.sorted_options.push({
                             key: key.toString(),
@@ -1018,6 +1048,8 @@ export default {
                         }
                     }, this);
                 }
+
+                this.dynamicOptionsValue(options);
             }
         },
     },
