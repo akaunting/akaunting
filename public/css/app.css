@@ -50090,16 +50090,16 @@ body{
     width: 24rem;
   }
 
+  .lg\:w-auto{
+    width: auto;
+  }
+
   .lg\:w-2\/4{
     width: 50%;
   }
 
   .lg\:w-3\/4{
     width: 75%;
-  }
-
-  .lg\:w-auto{
-    width: auto;
   }
 
   .lg\:max-w-7xl{
