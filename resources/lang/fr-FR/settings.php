@@ -4,7 +4,7 @@ return [
 
     'company' => [
         'description'                   => 'Changer le nom de la société, l\'email, l\'adresse, le numéro de taxe, etc',
-        'search_keywords'               => 'société, nom, courriel, téléphone, adresse, pays, numéro de taxe, logo, ville, ville, état, province, code postal',
+        'search_keywords'               => 'société, nom, courriel, téléphone, adresse, pays, numéro SIRET, logo, ville, ville, état, province, code postal',
         'name'                          => 'Nom',
         'email'                         => 'Email',
         'phone'                         => 'Téléphone',
@@ -59,7 +59,7 @@ return [
 
     'invoice' => [
         'description'                   => 'Personnaliser le préfixe de la facture, le numéro , les termes, le pied de page, etc',
-        'search_keywords'               => 'personnaliser, facture, numéro, préfixe, chiffre, suivant, logo, nom, prix, quantité, modèle, titre, sous-en-tête, pied de page, note, masquer, couleurs, paiement, termes, colonne',
+        'search_keywords'               => 'personnaliser, facture, numéro, préfixe, chiffre, suivant, logo, nom, prix, quantité, modèle, titre, sous-en-tête, pied de page, note, masquer, couleurs, paiement, conditions, colonne',
         'prefix'                        => 'Préfixe de numérotation',
         'digit'                         => 'Nombre de chiffres',
         'next'                          => 'Numéro suivant',
@@ -162,7 +162,7 @@ return [
             'bill_remind_admin'         => 'Modèle de rappel de facture (envoyé à l\'administrateur)',
             'bill_recur_admin'          => 'Modèle de facture récurrente (envoyé à l\'administrateur)',
             'payment_received_customer' => 'Modèle de reçu de paiement (envoyé au client)',
-            'payment_made_vendor'       => 'Modèle de paiement effectué (envoyé au vendeur)',
+            'payment_made_vendor'       => 'Modèle de paiement effectué (envoyé au fournisseur)',
         ],
     ],
 

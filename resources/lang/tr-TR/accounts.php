@@ -13,8 +13,8 @@ return [
     'default_account'       => 'Varsayılan Hesap',
     'incoming'              => 'Gelen',
     'outgoing'              => 'Giden',
-    'see_performance'       => 'Performansı Gör',
-    'create_report'         => 'Hesap performansını görmek istiyorsanız.  Gelir - Gider raporu örneği oluşturabilirsiniz.',
+    'see_performance'       => 'Performansı Görüntüle',
+    'create_report'         => 'Hesap performansını görmek istiyorsanız, gelir - gider raporu örneği oluşturabilirsiniz.',
     'banks'                 => 'Banka|Bankalar',
     'credit_cards'          => 'Kredi Kartı|Kredi Kartları',
 
@@ -25,7 +25,7 @@ return [
 
     'no_records' => [
         'transactions'      => 'Bu hesapta henüz bir işlem bulunmamaktadır. Şimdi yeni bir tane oluşturun.',
-        'transfers'         => 'Henüz bu hesaba/hesaptan havale yapılmamıştır. Şimdi yeni bir tane oluşturun.',
+        'transfers'         => 'Henüz bu hesaba/hesaptan havale/eft yapılmamıştır. Şimdi yeni bir tane oluşturun.',
     ],
 
 ];

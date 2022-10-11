@@ -41,6 +41,7 @@ return [
         'reconciled_doc'    => 'Aviso: Você não tem permissão para alterar/excluir :type, porque as transações estão reconciliadas!',
         'disable_code'      => 'Aviso: você não tem permissão para desativar ou alterar a moeda de <b>:name</b> porque possui :text relacionado.',
         'payment_cancel'    => 'Aviso: Você cancelou recentemente o método de pagamento :method!',
+        'missing_transfer'  => 'Aviso: A transferência relacionada a esta transação está faltando. Considere a exclusão desta transação.',
     ],
 
 ];

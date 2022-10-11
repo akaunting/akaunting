@@ -86,6 +86,13 @@ return [
 
         ],
 
+        'import_failed' => [
+
+            'subject'       => 'Importēšana neizdevās',
+            'description'   => 'Nevar importēt failu vairāku problēmu dēļ. Sīkāku informāciju skatiet savā e-pastā.',
+
+        ],
+
         'new_apps' => [
 
             'title'         => 'Jauna lietotne',

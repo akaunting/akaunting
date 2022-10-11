@@ -289,16 +289,16 @@ return [
 
     'empty' => [
         'documentation' => 'Consultez la <a href=":url" target="_blank">documentation</a> pour plus de détails.',
-        'items' => 'Les articles peuvent être des produits ou des services. Vous pouvez utiliser des articles lors de la création de factures d\'achat ou de vente pour avoir le prix, la TVA etc remplis.',
+        'items' => 'Les articles peuvent être des produits ou des services. Vous pouvez utiliser ces articles lors de la création de factures d\'achat ou de vente pour remplir automatiquement le prix, la TVA, etc.',
         'invoices' => 'Les factures de vente peuvent être ponctuelles ou récurrentes. Vous pouvez les envoyer aux clients et commencer à accepter les paiements en ligne.',
         'revenues' => 'Un recette est une entrée d\'argent. Elle peut être un enregistrement indépendant (dépôt par ex.) ou rattachée à une facture.',
         'customers' => 'Les clients sont requis si vous voulez créer des factures. Ils peuvent également se connecter au Portail Client et voir leur solde.',
         'bills' => 'Les factures d\'achat peuvent être ponctuelles ou récurrentes. Elles indiquent ce que vous devez à vos fournisseurs pour les produits ou services que vous achetez.',
-        'payments' => 'Un paiement est un transaction de dépense. Il peut s\'agir d\'un enregistrement indépendant (ex. facture de restaurant) ou rattaché à une facture d\'achat.',
-        'vendors' => 'Les fournisseurs sont requis si vous voulez créer des factures d\'achat. Vous pouvez voir le solde que vous devez et filtrer les rapports par fournisseur.',
+        'payments' => 'Un paiement est un transaction de dépense. Il peut s\'agir d\'un enregistrement indépendant (ex. facture de restaurant) ou être rattaché à une facture d\'achat.',
+        'vendors' => 'Il est nécessaire d\'ajouter des fournisseurs pour pouvoir créer des factures d\'achat. Vous pouvez voir les montants dûs et filtrer les rapports fournisseur par fournisseur.',
         'transfers' => 'Les transferts vous permettent de transférer de l\'argent d\'un compte à un autre, qu\'ils utilisent la même devise ou non.',
         'transactions' => 'Les transactions vous permettent de créer des enregistrements de vos revenus ou dépenses. Les paiements de factures/factures sont également listés ici.',
-        'taxes' => 'La TVA est ajoutée aux factures d\'achat et de vente. Cette taxe est réglementaire.',
+        'taxes' => 'Les taxes sont ajoutées aux factures d\'achat et de vente. Ces taxes obligatoires ont un impact sur votre bilan financier.',
         'reconciliations' => 'Le rapprochement bancaire est un processus destiné à s\'assurer que les données bancaires de votre entreprise sont également correctes.',
         'recurring_templates' => 'Le modèle récurrent est le revenu ou la dépense.',
 

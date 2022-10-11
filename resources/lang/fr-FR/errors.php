@@ -3,15 +3,15 @@
 return [
 
     'title' => [
-        '403'       => 'Oups! Accès interdit',
+        '403'       => 'Oups ! Accès interdit',
         '404'       => 'Oups ! Page introuvable',
         '500'       => 'Oups ! Quelque chose s\'est mal passé',
     ],
 
     'header' => [
         '403'       => '403 Interdit',
-        '404'       => '404 introuvable',
-        '500'       => 'Erreur de serveur interne 500',
+        '404'       => '404 Introuvable',
+        '500'       => '500 Erreur interne du serveur',
     ],
 
     'message' => [
