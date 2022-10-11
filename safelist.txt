@@ -34,6 +34,14 @@ lg:top-7
 lg:max-w-lg
 lg:h-full
 lg:w-18
+lg:overflow-x-hidden
 ltr:-right-10
 rtl:-left-10
-lg:overflow-x-hidden
+ltr:rounded-tl-md
+ltr:rounded-bl-md
+rtl:rounded-tr-md
+rtl:rounded-br-md
+ltr:rounded-tr-md
+ltr:rounded-br-md
+rtl:rounded-tl-md
+rtl:rounded-bl-md
