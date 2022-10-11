@@ -51,11 +51,11 @@ return [
         'status' => [
             'created'       => 'Créée le :date',
             'receive' => [
-                'draft'     => 'Pas envoyée',
+                'draft'     => 'Non reçue',
                 'received'  => 'Reçue le :date',
             ],
             'paid' => [
-                'await'     => 'Paiement attendu',
+                'await'     => 'Paiement en attente',
             ],
         ],
     ],

@@ -50,6 +50,7 @@ return [
     'hosted_on_akaunting'   => 'Izmitināts uz akaunting.com',
     'only_works_cloud'      => 'Šī lietotne darbojas tikai pakalpojumā <strong>Cloud Service</strong>.',
     'only_premium_plan'     => 'Šī lietotne darbojas tikai pakalpojumā <strong>Cloud Premium Service</strong>.',
+    'not_found'             => 'Nav atrasta lietotne',
 
     'about'                 => 'Par',
 

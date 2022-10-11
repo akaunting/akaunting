@@ -13,7 +13,7 @@ return [
         'logo'                          => 'Logo',
 
         'form_description' => [
-            'general'                   => 'Esta informação está visível nos registros que você criar.',
+            'general'                   => 'Essa informação está visível nos registros que criar.',
             'address'                   => 'O endereço será usado nas faturas, contas e outros registros que solicitar.',
         ],
     ],

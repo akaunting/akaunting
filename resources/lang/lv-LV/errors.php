@@ -19,5 +19,7 @@ return [
         '404'       => 'Mēs nevarējām atrast jūsu meklēto lapu.',
         '500'       => 'Mēs nekavējoties strādāsim pie tā novēršanas.',
         'record'    => 'Mēs nevarējām atrast meklējamo ierakstu.',
+        'amount'    => 'Šajā lapā ir norādītas nederīgas summas! Lūdzu, sazinieties ar sistēmas administratoru.',
     ],
+
 ];

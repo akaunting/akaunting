@@ -28,6 +28,7 @@ return [
         'create'            => ':user a créé ce transfert le :date',
         'transactions'      => 'Liste des opérations liées à ce transfert',
         'transactions_desc' => ':number transaction pour :account',
+        'attachments'       => 'Télécharger les fichiers attachés à cette transaction',
     ],
 
 ];
