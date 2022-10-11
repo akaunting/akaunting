@@ -51804,10 +51804,6 @@ body{
     height: 1rem;
   }
 
-<<<<<<< HEAD
-  .lg\:w-18{
-    width: 4.5rem;
-=======
   .lg\:h-12{
     height: 3rem;
   }
@@ -51818,7 +51814,10 @@ body{
 
   .lg\:w-9{
     width: 2.25rem;
->>>>>>> e8693a3c924c3442b8be7a2ad7bdf8525ed982d4
+  }
+
+  .lg\:w-18{
+    width: 4.5rem;
   }
 
   .lg\:w-1\/2{
