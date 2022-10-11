@@ -540,11 +540,23 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 
 @media only screen and (max-width: 480px) {
     .small-table-width {
-        width: 450px;
+        width: 550px;
     }
 
     .small-col {
         width: auto !important;
+    }
+
+    .description-col {
+        width: 180px !important
+    }
+
+    .amount-col {
+        width: 70px !important;
+    }
+
+    .name-col {
+        width: 6rem !important
     }
 
     .information-content {
