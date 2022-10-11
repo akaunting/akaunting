@@ -47162,6 +47162,18 @@ html[dir='rtl'] .el-scrollbar__wrap {
     .el-range-editor.el-input__inner {
         width: 100%;
     }
+    /* apex-chart cash-flow */
+    .apex-chart-cash-flow .apexcharts-legend {
+        width: 24rem !important;
+        -ms-flex-pack: distribute !important;
+            justify-content: space-around !important;
+        padding: 0;
+    }
+
+    .apex-chart-cash-flow  .apexcharts-toolbar {
+        top: 45px !important;
+    }
+    /* apex-chart cash-flow */
   }
  /* element-ui */
 
@@ -49918,6 +49930,14 @@ body{
     position: absolute;
   }
 
+  .lg\:relative{
+    position: relative;
+  }
+
+  .lg\:right-0{
+    right: 0px;
+  }
+
   .lg\:right-24{
     right: 6rem;
   }
@@ -49946,6 +49966,10 @@ body{
 
   .lg\:mt-4{
     margin-top: 1rem;
+  }
+
+  .lg\:mt-11{
+    margin-top: 2.75rem;
   }
 
   .lg\:mt-60{
@@ -50156,6 +50180,11 @@ body{
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+  }
+
+  .lg\:justify-around{
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
   }
 
   .lg\:gap-16{
