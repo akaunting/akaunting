@@ -14,7 +14,7 @@
                 @endphp
 
                 <div class="my-2">
-                    {!! trans('recurring.child', ['url' => $url, 'date' => company_date($child->due_at)]) !!}
+                    {!! trans('recurring.child', ['url' => $url, 'date' => company_date($child->created_at)]) !!}
                 </div>
             @endforeach
         @else

@@ -30,7 +30,6 @@ const app = new Vue({
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
             categoriesBasedTypes: null,
-            isParentCategoryDisabled: true,
         }
     },
 
@@ -42,7 +41,6 @@ const app = new Vue({
 
             if (typeof JSON.parse(this.form.categories)[event] === 'undefined') {
                 this.categoriesBasedTypes = [];
-                this.isParentCategoryDisabled = true;
 
                 return;
             }
@@ -54,7 +52,6 @@ const app = new Vue({
             }
 
             this.categoriesBasedTypes = JSON.parse(this.form.categories)[event];
-            this.isParentCategoryDisabled = false;
         }
     }
 });

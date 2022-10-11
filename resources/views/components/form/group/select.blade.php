@@ -65,6 +65,12 @@
         search-text="{{ $searchText }}"
         @endif
 
+        @if (! empty($attributes['force-dynamic-option-value']))
+        force-dynamic-option-value
+        @elseif (! empty($forceDynamicOptionValue))
+        force-dynamic-option-value
+        @endif
+
         @if (empty($multiple))
             @if (isset($selected) || old($name))
             value="{{ old($name, $selected) }}"

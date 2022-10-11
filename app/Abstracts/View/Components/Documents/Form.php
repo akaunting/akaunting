@@ -425,15 +425,15 @@ abstract class Form extends Component
 
     protected function getCurrency($document, $currency, $currency_code)
     {
-        if (!empty($currency)) {
+        if (! empty($currency)) {
             return $currency;
         }
 
-        if (!empty($currency_code)) {
+        if (! empty($currency_code)) {
             $currency = Currency::where('code', $currency_code)->first();
         }
 
-        if (empty($currency) && !empty($document)) {
+        if (empty($currency) && ! empty($document)) {
             $currency = Currency::where('code', $document->currency_code)->first();
         }
 

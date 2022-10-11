@@ -94,6 +94,7 @@ class Category extends Model
     {
         return $this->resolveRouteBindingQuery($this, $value, $field)
             ->withoutGlobalScope(Scope::class)
+            ->getWithoutChildren()
             ->first();
     }
 
