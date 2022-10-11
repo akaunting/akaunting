@@ -22,6 +22,7 @@ return [
         'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory directory needs to be writable!',
         'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'npm'               => '<b>Missing JavaScript files!</b> <br><br><span>You should run <em class="underline">npm install</em> and <em class="underline">npm run dev</em> commands.</span>', 
     ],
 
     'database' => [

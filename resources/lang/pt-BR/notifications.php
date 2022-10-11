@@ -86,6 +86,13 @@ return [
 
         ],
 
+        'import_failed' => [
+
+            'subject'       => 'Importação falhou',
+            'description'   => 'Não foi possível importar o arquivo devido a vários problemas. Confira seu e-mail para os detalhes.',
+
+        ],
+
         'new_apps' => [
 
             'title'         => 'Novo app',

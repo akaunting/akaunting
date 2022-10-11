@@ -54,7 +54,7 @@ return [
 
     'payment_received_customer' => [
         'subject'       => 'Votre reçu de {company_name}',
-        'body'          => 'Cher {contact_name},<br /><br />Merci pour le paiement. <br /><br />Vous pouvez voir les détails du paiement à partir du lien suivant : <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />N\'hésitez pas à nous contacter pour toute question.<br /><br />Cordialement,<br />{company_name}',
+        'body'          => 'Cher {contact_name},<br /><br />Merci pour votre règlement. <br /><br />Les détails du paiement réalisé sont accessibles au lien suivant : <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />N\'hésitez pas à nous contacter pour toute question.<br /><br />Cordialement,<br />{company_name}',
     ],
 
     'payment_made_vendor' => [

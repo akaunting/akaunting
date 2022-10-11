@@ -22,6 +22,7 @@ return [
         'extension'         => ':extension एक्सटेंशन को स्थापित करने और लोड करने की आवश्यकता है!',
         'directory'         => ':directory फ़ोल्डर को लिखने योग्य होना चाहिए!',
         'executable'        => 'अगर  PHP CLI एक्सेक्यूटबल फाइल परिभाषित नहीं है अथवा काम नहीं कर रही है अथवा उसका संस्करण php_version के समान या उससे अधिक नहीं है! तो कृपया, अपनी होस्टिंग कंपनी को PHP_BINARY या PHP_PATH ये एनवायरनमेंट वेरिएबल सही ढंग से सेट करने के लिए कहें।',
+        'npm'               => '<b>जावास्क्रिप्ट फ़ाइलें अनुपलब्ध !</b> <br><br><span> आपको <em class="underline">npm install</em> और <em class="underline">npm run dev</em> आदेश(कमांड) चलाना चाहिए।.</span>', 
     ],
 
     'database' => [

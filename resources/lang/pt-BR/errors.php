@@ -19,5 +19,7 @@ return [
         '404'       => 'Não conseguimos encontrar a página que você está procurando.',
         '500'       => 'Nós vamos trabalhar para consertar isso o mais rápido possível.',
         'record'    => 'Não conseguimos encontrar a página que você está procurando.',
+        'amount'    => 'Esta página contém valores inválidos! Por favor, entre em contato com o administrador do sistema.',
     ],
+
 ];

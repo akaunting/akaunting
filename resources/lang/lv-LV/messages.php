@@ -41,6 +41,7 @@ return [
         'reconciled_doc'    => 'Brīdinājums. Jums nav atļauts mainīt/dzēst :type, jo tam ir saskaņotas transakcijas!',
         'disable_code'      => 'Brīdinājums. Jums nav atļauts atspējot vai mainīt šādu valūtu  <b>:nosaukums</b>, jo tam ir saistīts :teksts.',
         'payment_cancel'    => 'Brīdinājums. Jūs atcēlāt savu neseno :metode maksājumu!',
+        'missing_transfer'  => 'Brīdinājums! Trūkst ar šo darījumu saistītā pārskaitījuma. Jums vajadzētu apsvērt šī darījuma dzēšanu.',
     ],
 
 ];

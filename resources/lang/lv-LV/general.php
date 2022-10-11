@@ -16,6 +16,8 @@ return [
     'vendors'               => 'Piegādātāji|Piegādātāji',
     'accounts'              => 'Konts|Konti',
     'transfers'             => 'Pārvedums|Pārvedumi',
+    'income_transfers'      => 'Ienākuma pārskaitījums|Ienākumu pārskaitījumi',
+    'expense_transfers'     => 'Izdevumu pārskaitījums|Izdevumu pārskaitījumi',
     'transactions'          => 'Transakcija|Transakcijas',
     'payments'              => 'Maksājumi|Maksājumi',
     'recurring_transactions'=> 'Atkārtots darījums|Atkārtoti darījumi',

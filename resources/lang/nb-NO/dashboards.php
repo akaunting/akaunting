@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Feil: Du kan ikke deaktivere forrige kontrollpanel. Du må opprette et nytt først!',
     ],
 
+    'form_description' => [
+        'general'               => 'Velg brukerne du vil at skal ha tilgang til det nye kontrollpanelet.',
+    ],
+
 ];
