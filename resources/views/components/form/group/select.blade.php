@@ -65,10 +65,10 @@
         search-text="{{ $searchText }}"
         @endif
 
-        @if (! empty($attributes['dynamic-options-value-check']))
-        dynamic-options-value-check
-        @elseif (! empty($dynamicOptionsValueCheck))
-        dynamic-options-value-check
+        @if (! empty($attributes['force-dynamic-option-value']))
+        force-dynamic-option-value
+        @elseif (! empty($forceDynamicOptionValue))
+        force-dynamic-option-value
         @endif
 
         @if (empty($multiple))

@@ -300,7 +300,7 @@ export default {
             description: "Selectbox input search placeholder text"
         },
 
-        dynamicOptionsValueCheck: {
+        forceDynamicOptionValue: {
             type: [Boolean, String],
             default: false,
         },
@@ -871,25 +871,27 @@ export default {
         },
 
         dynamicOptionsValue(options) {
-            if (this.dynamicOptionsValueCheck) {
+            if (! this.forceDynamicOptionValue) {
                 if (this.multiple) {
-                    let selected = this.selected;
                     this.selected = [];
-
-                    selected.forEach(function (select, index) {
-                        if (this.sorted_options.find((option) => option.key == select)) {
-                            this.selected.push(select);
-                        }
-                    }, this);
                 } else {
-                    if (!options.find((option) => option == this.selected)) {
-                        this.selected = null;
-                    }
+                    this.selected = null;
                 }
+
+                return;
+            }
+
+            if (this.multiple) {
+                let selected = this.selected;
+                this.selected = [];
+
+                selected.forEach(function (select, index) {
+                    if (this.sorted_options.find((option) => option.key == select)) {
+                        this.selected.push(select);
+                    }
+                }, this);
             } else {
-                if (this.multiple) {
-                    this.selected = [];
-                } else {
+                if (! options.find((option) => option == this.selected)) {
                     this.selected = null;
                 }
             }
