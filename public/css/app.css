@@ -50010,6 +50010,10 @@ body{
     height: auto;
   }
 
+  .lg\:w-9{
+    width: 2.25rem;
+  }
+
   .lg\:w-1\/2{
     width: 50%;
   }
@@ -50100,10 +50104,6 @@ body{
 
   .lg\:w-3\/4{
     width: 75%;
-  }
-
-  .lg\:w-9{
-    width: 2.25rem;
   }
 
   .lg\:max-w-7xl{
