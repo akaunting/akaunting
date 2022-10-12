@@ -479,7 +479,7 @@ export default class Form {
             this.loading = true;
 
             // Empty hash because /sale/customer/1#transaction redirect to sale/invoice/create.
-            windows.location.hash = '';
+            window.location.hash = '';
 
             window.location.href = response.data.redirect;
 
