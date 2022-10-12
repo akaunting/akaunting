@@ -51717,6 +51717,10 @@ body{
     width: 50%;
   }
 
+  .md\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .md\:flex-row{
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -52220,6 +52224,10 @@ body{
     margin-top: 2.25rem;
   }
 
+  .xl\:ml-18{
+    margin-left: 4.5rem;
+  }
+
   .xl\:hidden{
     display: none;
   }
@@ -52234,6 +52242,10 @@ body{
 
   .xl\:w-6{
     width: 1.5rem;
+  }
+
+  .xl\:w-8\/12{
+    width: 66.666667%;
   }
 
   .xl\:grid-cols-4{

@@ -35,7 +35,9 @@ lg:max-w-lg
 lg:h-full
 lg:w-18
 lg:overflow-x-hidden
-xl:grid-cols-4 
+xl:grid-cols-4
+md:grid-cols-2
+xl:w-8/12
 ltr:-right-10
 rtl:-left-10
 ltr:rounded-tl-md
