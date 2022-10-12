@@ -12,7 +12,7 @@ return [
     'currencies'                => 'Devises',
 
     'view_report'               => 'Voir le rapport',
-    'total_unpaid_invoices'     => 'Montant des factures impayées',
+    'total_unpaid_invoices'     => 'Montant total des factures impayées',
     'total_unpaid_bills'        => 'Montant des achats impayés',
 
     'description' => [
