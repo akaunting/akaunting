@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Error: Cuenta actual!',
         'self_disable'      => 'error: deshabilitado',
+        'unassigned'        => 'Error: Can not unassigned company! The :company company must be assigned at least one user.',
         'no_company'        => 'Error: No hay compañías asignadas a su cuenta. Por favor contacte al administrador del sistema.',
     ],
 

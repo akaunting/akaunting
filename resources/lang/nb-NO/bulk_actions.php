@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Er du sikker på at du vil <b>angre avstemming</b> for valgte oppføring?|Er du sikker på at du vil <b>angre avstemming</b> for valgte oppføringer?',
     ],
 
+    'success' => [
+        'general'       => ':count oppføring :type.',
+    ],
 ];

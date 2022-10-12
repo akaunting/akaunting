@@ -459,6 +459,17 @@ html[dir='rtl'] .el-scrollbar__wrap {
     .el-range-editor.el-input__inner {
         width: 100%;
     }
+    /* apex-chart cash-flow */
+    .apex-chart-cash-flow .apexcharts-legend {
+        width: 24rem !important;
+        justify-content: space-around !important;
+        padding: 0;
+    }
+
+    .apex-chart-cash-flow  .apexcharts-toolbar {
+        top: 45px !important;
+    }
+    /* apex-chart cash-flow */
   }
  /* element-ui */
 
@@ -541,11 +552,23 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 
 @media only screen and (max-width: 480px) {
     .small-table-width {
-        width: 450px;
+        width: 550px;
     }
 
     .small-col {
         width: auto !important;
+    }
+
+    .description-col {
+        width: 180px !important
+    }
+
+    .amount-col {
+        width: 70px !important;
+    }
+
+    .name-col {
+        width: 6rem !important
     }
 
     .information-content {

@@ -28,6 +28,7 @@ return [
         'create'            => ':user ha creat aquesta transferència el :date',
         'transactions'      => 'Aquesta llista mostra les últimes transaccions creades automàticament.',
         'transactions_desc' => 'transacció :number del compte :account',
+        'attachments'       => 'Descarrega els arxius enllaçats a aquesta transacció',
     ],
 
 ];

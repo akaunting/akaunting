@@ -8,7 +8,7 @@ return [
     'decimal_mark'          => 'Séparateur de décimale',
     'thousands_separator'   => 'Séparateur de milliers',
     'precision'             => 'Nombre de décimales',
-    'conversion'            => 'Conversion de devise: :price (:currency_code) à :currency_rate',
+    'conversion'            => 'Conversion de devise : :price (:currency_code) à :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbole',
         'position'          => 'Position du symbole',
@@ -21,7 +21,7 @@ return [
     ],
 
     'no_currency'           => 'Aucune devise',
-    'create_currency'       => 'Créez une nouvelle devise et modifiez à tout moment à partir des paramètres.',
+    'create_currency'       => 'Créez une nouvelle devise et modifiez-la à tout moment à partir des paramètres.',
     'new_currency'          => 'Nouvelle devise',
 
 ];

@@ -173,7 +173,7 @@ return [
         'bill_recur_admin' => [
 
             'title'         => 'Nouvelle facture récurrente',
-            'description'   => 'La facture <strong>:bill_number</strong> est créée par <strong>:vendor_name</strong> sur la base du cylce récurrent. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'La facture <strong>:bill_number</strong> est créée par <strong>:vendor_name</strong> sur la base du plan de facturation planifié. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 

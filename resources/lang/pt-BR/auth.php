@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Erro: não pode se excluir!',
         'self_disable'      => 'Erro: Você não pode desativar você mesmo!',
+        'unassigned'        => 'Erro: não pode deixar de ser atribuído empresa! A :company deve ser atribuída pelo menos um usuário.',
         'no_company'        => 'Erro: Nenhuma empresa atribuída à sua conta. Por favor, entre em contato com o administrador do sistema.',
     ],
 

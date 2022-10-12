@@ -7,7 +7,7 @@ return [
     ],
 
     'categories' => [
-        'deposit'           => 'לְהַפְקִיד',
+        'deposit'           => 'הפקדה',
         'sales'             => 'מכירות',
     ],
 

@@ -8,10 +8,10 @@
             <colgroup>
                 <col class="small-col" style="width: 24px;">
                 <col class="small-col" style="width: 20%;">
-                <col class="small-col" style="width: 30%;">
+                <col class="small-col description-col" style="width: 30%;">
                 <col class="small-col" style="width: 12%;">
                 <col class="small-col" style="width: 15%;">
-                <col class="small-col" style="width: 20%;">
+                <col class="small-col amount-col" style="width: 20%;">
                 <col class="small-col" style="width: 24px;">
             </colgroup>
 
@@ -30,7 +30,9 @@
 
                         <td class="px-3 py-3 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right align-middle border-b-0 name">
                             @if (! $hideItemName)
-                                <span class="flex items-center text-sm" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
+                                <span class="flex items-center text-sm" tabindex="0" v-if="row.item_id">
+                                    <div v-html="row.name" class="w-20 lg:w-auto truncate"></div>
+                                </span>
 
                                 <div v-else>
                                     @stack('name_input_start')

@@ -9,7 +9,7 @@ return [
 
     'invoice_remind_customer' => [
         'subject'       => '{invoice_number} aviso de fatura vencida',
-        'body'          => 'Caro {customer_name},<br /><br />Este é um aviso de fatura em atraso <strong>{invoice_number}</strong>.<br /><br />O total da fatura é {invoice_total} e venceu em <strong>{invoice_due_date}</strong>.<br /><br />Você pode ver os detalhes da fatura e prosseguir com o pagamento a partir do seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Caro {customer_name},<br /><br />Este é um aviso de fatura em atraso <strong>{invoice_number}</strong>.<br /><br />O total da fatura é {invoice_total} e venceu em <strong>{invoice_due_date}</strong>.<br /><br />É possível ver os detalhes da fatura e prosseguir com o pagamento a partir do seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
@@ -24,7 +24,7 @@ return [
 
     'invoice_recur_admin' => [
         'subject'       => 'Fatura recorrente {invoice_number} criada',
-        'body'          => 'Olá,<br /><br /> Baseado no círculo recorrente de {customer_name}, a fatura <strong>{invoice_number}</strong> foi criada automaticamente.<br /><br />Você pode ver os detalhes da fatura a partir do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Olá,<br /><br /> Baseado no círculo recorrente de {customer_name}, a fatura <strong>{invoice_number}</strong> foi criada automaticamente.<br /><br />É possível ver os detalhes da fatura a partir do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_view_admin' => [
@@ -39,17 +39,17 @@ return [
 
     'invoice_payment_admin' => [
         'subject'       => 'Pagamento recebido para fatura {invoice_number}',
-        'body'          => 'Olá,<br /><br />{customer_name} registrou um pagamento para a fatura <strong>{invoice_number}</strong>.<br /><br />Você pode ver os detalhes da fatura no seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Olá,<br /><br />{customer_name} registrou um pagamento para a fatura <strong>{invoice_number}</strong>.<br /><br />É possível ver os detalhes da fatura no seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
         'subject'       => 'Notificação lembrete de cobrança {bill_number}',
-        'body'          => 'Olá,<br /><br /> Este é um lembrete de vencimento da fatura <strong>{bill_number}</strong> de {vendor_name}.<br /><br />O total da fatura é {bill_total} e vence em <strong>{bill_due_date} </strong>.<br /><br />Você poderá visualizar os detalhes da fatura no seguinte link: <a href="{bill_admin_link}"> {bill_number} </a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Olá,<br /><br /> Este é um lembrete de vencimento da fatura <strong>{bill_number}</strong> de {vendor_name}.<br /><br />O total da fatura é {bill_total} e vence em <strong>{bill_due_date} </strong>.<br /><br />É possível visualizar os detalhes da fatura no seguinte link: <a href="{bill_admin_link}"> {bill_number} </a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
         'subject'       => 'Fatura recorrente {bill_number} criada',
-        'body'          => 'Olá,<br /><br /> Baseado no círculo recorrente de {vendor_name}, a fatura <strong>{bill_number}</strong> foi criada automaticamente.<br /><br />Você pode ver os detalhes da fatura a partir do seguinte link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Olá,<br /><br /> Baseado no círculo recorrente de {vendor_name}, a fatura <strong>{bill_number}</strong> foi criada automaticamente.<br /><br />É possível ver os detalhes da fatura a partir do seguinte link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'payment_received_customer' => [

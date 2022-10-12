@@ -9,6 +9,7 @@ return [
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',
     'bill_to'               => 'Rechnung an',
+    'cancel_date'           => 'Datum abbrechen',
 
     'quantity'              => 'Menge',
     'price'                 => 'Preis',
@@ -19,6 +20,7 @@ return [
     'total'                 => 'Gesamt',
 
     'item_name'             => 'Artikelname|Artikelnamen',
+    'recurring_invoices'    => 'Wiederkehrende Rechnung|Wiederkehrende Rechnungen',
 
     'show_discount'         => ':discount% Rabatt',
     'add_discount'          => 'Rabatt hinzufügen',
@@ -40,6 +42,12 @@ return [
     'send_invoice'          => 'Rechnung senden',
     'get_paid'              => 'Zahlung erhalten',
     'accept_payments'       => 'Onlinezahlungen akzeptieren',
+    'payment_received'      => 'Zahlung erhalten',
+
+    'form_description' => [
+        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.
+',
+    ],
 
     'messages' => [
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
@@ -56,6 +64,23 @@ return [
                 'await'     => 'Zahlung erwartet',
             ],
         ],
+    ],
+
+    'slider' => [
+        'create'            => ':user hat diese Rechnung am :date erstellt',
+        'create_recurring'  => ':user hat diese wiederkehrende Vorlage am :date erstellt',
+        'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
+        'children'          => ':count Rechnungen wurden automatisch erstellt',
+    ],
+
+    'share' => [
+        'show_link'         => 'Ihr Kunde kann die Rechnung unter diesem Link ansehen',
+        'copy_link'         => 'Kopieren Sie den Link und teilen Sie ihn mit Ihrem Kunden.',
+        'success_message'   => 'Link in die Zwischenablage kopiert!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Sie sehen wie Ihr Kunde die Web-Version Ihrer Rechnung sehen wird.',
     ],
 
 ];
