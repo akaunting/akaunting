@@ -478,9 +478,12 @@ export default class Form {
         if (response.data.redirect) {
             this.loading = true;
 
+            // Empty hash because /sale/customer/1#transaction redirect to sale/invoice/create.
+            windows.location.hash = '';
+
             window.location.href = response.data.redirect;
 
-            if (window.location.hash !== undefined) {
+            if (typeof window.location.hash != "undefined" && window.location.hash.length) {
                 location.reload();
             }
         }
