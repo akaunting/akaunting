@@ -89,7 +89,7 @@ class UpdateUser extends Job implements ShouldUpdate
         }
 
         // Can't unassigned company, The company must be assigned at least one user.
-        $companies = $this->request->get('companies');
+        $companies = (array) $this->request->get('companies', []);
         $user_companies = $this->model->companies()->pluck('id')->toArray();
 
         $company_diff = array_diff($user_companies, $companies);
