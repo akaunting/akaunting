@@ -30,6 +30,14 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                     td_item.addEventListener("click", () => {
                         window.location.href = row_href;
                     });
+
+                    // added target blank for click mouse middle button
+                    td_item.addEventListener('mousedown', (event) => {
+                        if (event.button == 1 || event.buttons == 4) {
+                            window.open(row_href, "_blank");
+                        }
+                     });
+                     // added target blank for click mouse middle button
                 }
             }
         });
