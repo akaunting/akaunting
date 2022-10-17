@@ -10036,8 +10036,8 @@ input[type="date"]::-webkit-inner-spin-button,
   }
 }
 .animate-marquee{
-  -webkit-animation: marquee 15s linear infinite;
-          animation: marquee 15s linear infinite;
+  -webkit-animation: marquee 5s linear infinite;
+          animation: marquee 5s linear infinite;
 }
 .cursor-auto{
   cursor: auto;

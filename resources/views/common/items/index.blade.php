@@ -85,8 +85,10 @@
 
                                 <x-table.td class="w-6/12 sm:w-4/12">
                                     <x-slot name="first" class="flex items-center font-bold" override="class">
-                                        <div class="w-48 overflow-x-hidden truncate" data-truncate>
-                                            {{ $item->name }}
+                                        <div class="w-48 flex truncate" data-truncate-parent>
+                                            <div class="w-48 truncate" data-truncate>
+                                                {{ $item->name }}
+                                            </div>
                                         </div>
 
                                         @if (! $item->enabled)

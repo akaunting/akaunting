@@ -358,6 +358,7 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 }
 //Firefox show modal for icon set
 
+//margue animation for truncated text
 document.querySelectorAll('[data-truncate]').forEach((truncate) => {
     let truncateText = truncate.textContent.split(" ").join("");
 
@@ -376,6 +377,14 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
         if (truncateText.length > 20) {
             truncate.style.animationPlayState = 'paused';
             truncate.classList.add('truncate');
+            truncate.classList.remove('animate-marquee');
         }
     });
+
+    if (document.body.clientWidth <= 991) {
+        if (truncate.parentElement.getAttribute('data-truncate-parent')) {
+            truncate.parentElement.remove();
+        }
+    }
 });
+//margue animation for truncated text

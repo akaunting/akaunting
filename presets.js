@@ -244,7 +244,7 @@ module.exports = {
               spin: 'spin 1000ms infinite',
               submit: 'submit 0.7s ease alternate infinite',
               submit_second: 'submit_second 0.7s ease alternate infinite',
-              marquee: 'marquee 15s linear infinite'
+              marquee: 'marquee 5s linear infinite'
           },
 
           transitionProperty: {
