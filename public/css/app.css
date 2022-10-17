@@ -50055,6 +50055,10 @@ body{
     width: 2.25rem;
   }
 
+  .lg\:w-96{
+    width: 24rem;
+  }
+
   .lg\:w-1\/2{
     width: 50%;
   }
@@ -50133,10 +50137,6 @@ body{
 
   .lg\:w-4{
     width: 1rem;
-  }
-
-  .lg\:w-96{
-    width: 24rem;
   }
 
   .lg\:w-2\/4{

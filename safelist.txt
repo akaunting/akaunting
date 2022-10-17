@@ -7,6 +7,7 @@ lg:pl-6
 lg:w-9
 lg:mt-11
 lg:-mx-12
+lg:w-96
 lg:px-3
 lg:px-4
 lg:px-6
