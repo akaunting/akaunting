@@ -362,8 +362,12 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 document.querySelectorAll('[data-truncate]').forEach((truncate) => {
     let truncateText = truncate.textContent.split(" ").join("");
 
+    if (truncateText.length > 30) {
+        truncate.classList.add('truncate');
+    }
+    
     truncate.addEventListener('mouseover', function () {
-        if (truncateText.length > 20) {
+        if (truncateText.length > 30) {
             truncate.style.animationPlayState = 'running';
             truncate.classList.add('animate-marquee');
 
@@ -374,17 +378,11 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
     });
 
     truncate.addEventListener('mouseout', function () {
-        if (truncateText.length > 20) {
+        if (truncateText.length > 30) {
             truncate.style.animationPlayState = 'paused';
             truncate.classList.add('truncate');
             truncate.classList.remove('animate-marquee');
         }
     });
-
-    if (document.body.clientWidth <= 991) {
-        if (truncate.parentElement.getAttribute('data-truncate-parent')) {
-            truncate.parentElement.remove();
-        }
-    }
 });
 //margue animation for truncated text
