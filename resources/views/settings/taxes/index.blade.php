@@ -73,9 +73,9 @@
 
                                 <x-table.td class="w-5/12">
                                     <x-slot name="first" class="flex" override="class">
-                                        <div class="font-bold truncate">
+                                        <span class="font-bold">
                                             {{ $item->name }}
-                                        </div>
+                                        </span>
 
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.tax_rates', 1) }}" />
