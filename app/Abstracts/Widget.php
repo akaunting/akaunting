@@ -17,7 +17,7 @@ abstract class Widget
     public $default_name = '';
 
     public $default_settings = [
-        'width' => 'w-full lg:w-2/4 px-12 my-8',
+        'width' => 'w-full lg:w-2/4 lg:px-12 my-8',
     ];
 
     public $description = '';

@@ -1,7 +1,7 @@
 @if (! empty($module))
     {!! $module !!}
 @else
-    <div class="relative w-full lg:w-1/2 my-8 px-12">
+    <div class="relative w-full lg:w-1/2 my-8 lg:px-12">
         <div class="relative pb-2 my-4 lg:my-0 z-10">
             <div class="flex justify-between font-medium mb-2">
                 <h2 class="text-black">
