@@ -1,4 +1,4 @@
-<div class="flex lg:block truncate">
+<div data-truncate-parent class="flex lg:block truncate">
     <div
     @class([ $width ])
     data-truncate

@@ -385,4 +385,11 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
         }
     });
 });
+
+//disable/enable icons ejected from data-truncate
+document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
+    defaultText.parentElement.parentElement.parentElement.appendChild(defaultText);
+});
+//disable/enable icons ejected from data-truncate
+
 //margue animation for truncated text
