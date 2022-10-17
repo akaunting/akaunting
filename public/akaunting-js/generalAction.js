@@ -357,3 +357,25 @@ if (navigator.userAgent.search("Firefox") >= 0) {
     }
 }
 //Firefox show modal for icon set
+
+document.querySelectorAll('[data-truncate]').forEach((truncate) => {
+    let truncateText = truncate.textContent.split(" ").join("");
+
+    truncate.addEventListener('mouseover', function () {
+        if (truncateText.length > 20) {
+            truncate.style.animationPlayState = 'running';
+            truncate.classList.add('animate-marquee');
+
+            if (truncate.classList.contains('truncate')) {
+                truncate.classList.remove('truncate');
+            }
+        }
+    });
+
+    truncate.addEventListener('mouseout', function () {
+        if (truncateText.length > 20) {
+            truncate.style.animationPlayState = 'paused';
+            truncate.classList.add('truncate');
+        }
+    });
+});

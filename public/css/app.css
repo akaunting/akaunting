@@ -10011,6 +10011,34 @@ input[type="date"]::-webkit-inner-spin-button,
   -webkit-animation: submit_second 0.7s ease alternate infinite;
           animation: submit_second 0.7s ease alternate infinite;
 }
+@-webkit-keyframes marquee{
+
+  0%{
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+
+  100%{
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+@keyframes marquee{
+
+  0%{
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+
+  100%{
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+.animate-marquee{
+  -webkit-animation: marquee 15s linear infinite;
+          animation: marquee 15s linear infinite;
+}
 .cursor-auto{
   cursor: auto;
 }
