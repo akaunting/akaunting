@@ -16,7 +16,7 @@
             />
             
             @if ($transfer)
-                <div class="text-black-400 text-sm flex gap-x-1 mt-1">
+                <div class="text-black-400 text-sm space-y-3 mt-1">
                     {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}
                 </div>
             @endif
