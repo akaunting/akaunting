@@ -360,7 +360,7 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 
 //margue animation for truncated text
 document.querySelectorAll('[data-truncate]').forEach((truncate) => {
-    let truncateText = truncate.textContent.split(" ").join("");
+    let truncateText = truncate.innerText.split(" ").join("");
 
     if (truncateText.length > 30) {
         truncate.classList.add('truncate');

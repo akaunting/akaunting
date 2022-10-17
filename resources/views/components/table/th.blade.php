@@ -8,7 +8,9 @@
         }
     @endphp
     <div {{ $first_attributes }}>
-        {!! $first !!}
+        <x-marguee-text>
+            {!! $first !!}
+        </x-marguee-text>
     </div>
     @endif
 
@@ -21,9 +23,13 @@
         }
     @endphp
     <div {{ $second_attributes }}>
-        {!! $second !!}
+        <x-marguee-text>
+            {!! $second !!}
+        </x-marguee-text>
     </div>
     @endif
 
-    {{ $slot }}
+    <x-marguee-text>
+        {{ $slot }}
+    </x-marguee-text>
 </th>
