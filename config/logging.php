@@ -128,6 +128,16 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'bugsnag' => [
+            'driver' => 'bugsnag',
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
+        'sentry' => [
+            'driver' => 'sentry',
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
     ],
 
 ];
