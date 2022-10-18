@@ -359,7 +359,7 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 //Firefox show modal for icon set
 
 //margue animation for truncated text
-document.querySelectorAll('[data-truncate]').forEach((truncate) => {
+function marqueeAnimation(truncate) {
     if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.clientWidth) {        
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
@@ -379,6 +379,10 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
         truncate.classList.add('truncate');
         truncate.parentElement.classList.add('truncate');
     }
+}
+
+document.querySelectorAll('[data-truncate]').forEach((truncate) => {
+    marqueeAnimation(truncate);
 });
 
 //disable/enable icons ejected from data-truncate

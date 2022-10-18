@@ -1,4 +1,4 @@
-<td data-truncate-table class="{{ $class }}" {{ $attributes }}>
+<td class="{{ $class }}" {{ $attributes }}>
     @if (!empty($first))
     @php
         $first_attributes = $first->attributes;

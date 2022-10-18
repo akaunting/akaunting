@@ -153,7 +153,7 @@
                                                 <x-slot name="first">
                                                     {{ $item->type_title }}
                                                 </x-slot>
-                                                <x-slot name="second">
+                                                <x-slot name="second" class="flex items-center">
                                                     <div class="flex items-center">
                                                         <x-index.category :model="$item->category" />
                                                     </div>

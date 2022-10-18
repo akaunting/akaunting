@@ -78,9 +78,9 @@
 
                                 <x-table.td class="w-3/12" hidden-mobile>
                                     <x-slot name="first" class="flex" override="class">
-                                        <span class="font-bold">
+                                        <div class="font-bold truncate">
                                             <x-date date="{{ $item->created_at }}" />
-                                        </span>
+                                        </div>
 
                                         @if (! $item->reconciled)
                                             <x-index.disable text="{{ trans('reconciliations.in_progress') }}" />
