@@ -91,7 +91,7 @@
                                             <x-index.disable text="{{ trans_choice('general.items', 1) }}" />
                                         @endif
                                     </x-slot>
-                                    <x-slot name="second" class="font-normal truncate" override="class">
+                                    <x-slot name="second" class="font-normal" override="class">
                                         {{ $item->description }}
                                     </x-slot>
                                 </x-table.td>

@@ -1,4 +1,4 @@
-<td class="{{ $class }}" {{ $attributes }}>
+<td data-truncate-table class="{{ $class }}" {{ $attributes }}>
     @if (!empty($first))
     @php
         $first_attributes = $first->attributes;
@@ -32,7 +32,7 @@
         </div>
     </div>
     @endif
-    
+
     <div>
         <span data-truncate>
             {{ $slot }}

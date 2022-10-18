@@ -8,7 +8,11 @@
         }
     @endphp
     <div {{ $first_attributes }}>
-        {!! $first !!}
+        <div>
+            <span data-truncate>
+                {!! $first !!}
+            </span>
+        </div>
     </div>
     @endif
 
@@ -21,9 +25,17 @@
         }
     @endphp
     <div {{ $second_attributes }}>
-        {!! $second !!}
+        <div>
+            <span data-truncate>
+                {!! $second !!}
+            </span>
+        </div>
     </div>
     @endif
 
-    {{ $slot }}
+    <div>
+        <span data-truncate>
+            {{ $slot }}
+        </span>
+    </div>
 </th>
