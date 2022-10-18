@@ -8,9 +8,11 @@
         }
     @endphp
     <div {{ $first_attributes }}>
-        <x-marguee-text>
-            {!! $first !!}
-        </x-marguee-text>
+        <div>
+            <span data-truncate>
+                {!! $first !!}
+            </span>
+        </div>
     </div>
     @endif
 
@@ -23,13 +25,17 @@
         }
     @endphp
     <div {{ $second_attributes }}>
-        <x-marguee-text>
-            {!! $second !!}
-        </x-marguee-text>
+        <div>
+            <span data-truncate>
+                {!! $second !!}
+            </span>
+        </div>
     </div>
     @endif
-
-    <x-marguee-text>
-        {{ $slot }}
-    </x-marguee-text>
+    
+    <div>
+        <span data-truncate>
+            {{ $slot }}
+        </span>
+    </div>
 </td>

@@ -84,7 +84,7 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-6/12 sm:w-4/12">
-                                    <x-slot name="first" class="flex items-center font-bold" override="class">
+                                    <x-slot name="first" class="font-bold" override="class">
                                         {{ $item->name }}
                                         
                                         @if (! $item->enabled)

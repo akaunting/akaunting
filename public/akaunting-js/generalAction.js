@@ -99,7 +99,7 @@ function expandSub(key, event) {
 //collapse accordion
 
 // run dropdown and tooltip functions for Virtual DOM
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {    
     const triggers = [
         { event: "mouseover", checker: isHoverable },
         { event: "mouseout", checker: isHoverable },
@@ -361,25 +361,26 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 //margue animation for truncated text
 document.querySelectorAll('[data-truncate]').forEach((truncate) => {
     let truncateText = truncate.innerText.split(" ").join("");
+
+    if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.clientWidth) {        
+        truncate.addEventListener('mouseover', function () {
+            truncate.parentElement.style.animationPlayState = 'running';
+            truncate.parentElement.classList.add('animate-marquee');
     
-    truncate.addEventListener('mouseover', function () {
-        if (truncateText.length > 30) {
-            truncate.style.animationPlayState = 'running';
-            truncate.classList.add('animate-marquee');
+            // if (truncate.parentElement.classList.contains('truncate')) {
+            //     truncate.parentElement.classList.remove('truncate');
+            // }
+        });
+    
+        truncate.addEventListener('mouseout', function () {
+            truncate.parentElement.style.animationPlayState = 'paused';
+            truncate.parentElement.classList.remove('animate-marquee');
+            truncate.parentElement.classList.add('truncate');
+        });
 
-            if (truncate.classList.contains('truncate')) {
-                truncate.classList.remove('truncate');
-            }
-        }
-    });
-
-    truncate.addEventListener('mouseout', function () {
-        if (truncateText.length > 30) {
-            truncate.style.animationPlayState = 'paused';
-            truncate.classList.add('truncate');
-            truncate.classList.remove('animate-marquee');
-        }
-    });
+        truncate.classList.add('truncate');
+        truncate.parentElement.classList.add('truncate');
+    }
 });
 
 //disable/enable icons ejected from data-truncate
