@@ -488,6 +488,20 @@ class Document extends Model
             return $actions;
         }
 
+        if (app('mobile-detect')->isMobile()) {
+            try {
+                $actions[] = [
+                    'title' => trans('general.show'),
+                    'icon' => 'visibility',
+                    'url' => route($prefix . '.show', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-show-' . $this->id,
+                    ],
+                ];
+            } catch (\Exception $e) {}
+        }
+
         try {
             if (! $this->reconciled) {
                 $actions[] = [
