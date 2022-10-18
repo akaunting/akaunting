@@ -49,6 +49,40 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Register the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            if (config('logging.default') == 'sentry') {
+                app('sentry')->configureScope(function ($scope) {
+                    $scope->setTag('company_id', (string) company_id());
+                    $scope->setTag('locale', (string) app()->getLocale());
+                    $scope->setTag('timezone', (string) config('app.timezone'));
+                });
+
+                //define('SENTRY_RELEASE', version('short'));
+            }
+
+            if (config('logging.default') == 'bugsnag') {
+                app('bugsnag')->registerCallback(function ($report) {
+                    $report->setMetaData([
+                        'akaunting' => [
+                            'company_id' => (string) company_id(),
+                            'locale' => (string) app()->getLocale(),
+                            'timezone' => (string) config('app.timezone'),
+                        ]
+                    ]);
+                });
+
+                app('bugsnag')->setAppVersion(version('short'));
+            }
+        });
+    }
+
+    /**
      * Report or log an exception.
      *
      * @param  \Throwable  $exception
