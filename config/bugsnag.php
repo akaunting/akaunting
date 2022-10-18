@@ -349,4 +349,16 @@ return [
     */
 
     'feature_flags' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Before send
+    |--------------------------------------------------------------------------
+    |
+    | An array of callback class and method.
+    |
+    */
+
+    'before_send' => [env('BUGSNAG_BEFORE_SEND_CLASS', 'App\\Exceptions\\Trackers\\Bugsnag'), 'beforeSend'],
+
 ];
