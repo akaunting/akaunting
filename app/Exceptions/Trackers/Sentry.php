@@ -17,6 +17,7 @@ class Sentry
             'company_id' => (string) company_id(),
             'locale' => (string) app()->getLocale(),
             'timezone' => (string) config('app.timezone'),
+            'app_type' => (string) static::getAppType(),
         ]);
 
         return $event;
@@ -24,14 +25,14 @@ class Sentry
 
     public static function tracesSampler(SamplingContext $context): float
     {
-        if (static::filterAgent()) {
+        if (static::shouldFilterAgent()) {
             return 0.0;
         }
 
         return config('sentry.traces_sample_rate');
     }
 
-    public static function filterAgent(): bool
+    public static function shouldFilterAgent(): bool
     {
         $user_agent = request()->userAgent();
 
@@ -46,5 +47,24 @@ class Sentry
         }
 
         return false;
+    }
+
+    public static function getAppType()
+    {
+        $hostname = gethostname();
+
+        if (Str::contains($hostname, '-queue-')) {
+            $app_type = 'queue';
+        } elseif (Str::contains($hostname, '-cron-')) {
+            $app_type = 'cron';
+        } elseif (request()->isApi()) {
+            $app_type = 'api';
+        } elseif (app()->runningInConsole()) {
+            $app_type = 'console';
+        } else {
+            $app_type = 'ui';
+        }
+
+        return $app_type;
     }
 }
