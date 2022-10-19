@@ -16,8 +16,14 @@ class Bugsnag
                     'company_id' => (string) company_id(),
                     'locale' => (string) app()->getLocale(),
                     'timezone' => (string) config('app.timezone'),
+                    'route_name' => (string) static::getRouteName(),
                 ]
             ]);
         });
+    }
+
+    public static function getRouteName(): ?string
+    {
+        return request()->route()?->getName();
     }
 }
