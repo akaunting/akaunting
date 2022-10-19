@@ -76,9 +76,6 @@
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" data-btn="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
                 </li>
 
-                <!-- <li ref="" v-if="search" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
-                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onInputConfirm">{{ searchText }}</button>
-                </li> -->
             </div>
 
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
