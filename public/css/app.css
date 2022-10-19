@@ -50031,6 +50031,10 @@ body{
     height: 16rem;
   }
 
+  .lg\:h-auto{
+    height: auto;
+  }
+
   .lg\:h-48{
     height: 12rem;
   }
@@ -50045,10 +50049,6 @@ body{
 
   .lg\:h-12{
     height: 3rem;
-  }
-
-  .lg\:h-auto{
-    height: auto;
   }
 
   .lg\:w-9{
