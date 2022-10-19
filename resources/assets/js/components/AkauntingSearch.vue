@@ -76,6 +76,9 @@
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" data-btn="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
                 </li>
 
+                <li ref="" v-if="search" class="p-2 hover:bg-lilac-900 dropdown-item">
+                    <button type="button" class="text-left" @click="onInputConfirm">{{ searchText }}</button>
+                </li>
             </div>
 
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
@@ -578,7 +581,7 @@ export default {
 
         onFilterDelete(index) {
             this.show_icon = true;
-            this.show_close_icon = false;
+
             this.filter_list.push(this.selected_options[index]);
 
             if (this.filter_last_step == 'options') {
@@ -595,8 +598,10 @@ export default {
             
             if (this.filter_index == 0) {
                 this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
+                this.show_close_icon = false;
             } else {
                 this.show_icon = false;
+                this.show_close_icon = true;
             }
 
             this.filter_last_step = 'options';
@@ -786,6 +791,10 @@ export default {
     mounted() {
         if (this.filter_index > 0) {
             this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
+        }
+
+        if (this.selected_values.length > 0) {
+            this.show_close_icon = true;
         }
     },
 
