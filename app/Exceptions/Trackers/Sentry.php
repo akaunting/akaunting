@@ -18,6 +18,7 @@ class Sentry
             'locale' => (string) app()->getLocale(),
             'timezone' => (string) config('app.timezone'),
             'app_type' => (string) static::getAppType(),
+            'route_name' => (string) static::getRouteName(),
         ]);
 
         return $event;
@@ -66,5 +67,10 @@ class Sentry
         }
 
         return $app_type;
+    }
+
+    public static function getRouteName(): ?string
+    {
+        return request()->route()->getName();
     }
 }
