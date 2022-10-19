@@ -360,6 +360,12 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 
 //margue animation for truncated text
 function marqueeAnimation(truncate) {
+    if (truncate.closest('[data-disable-truncate]') !== null) {
+        truncate.parentElement.classList.add('truncate');
+        return;
+    }
+    // offsetwidth = width of the text, clientWidth = width of parent text (div)
+    // because some index page has icons, we use two time parent element
     if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.clientWidth) {        
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
@@ -385,7 +391,7 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
     marqueeAnimation(truncate);
 });
 
-//disable/enable icons ejected from data-truncate
+//disable/enable icons ejected from data-truncate, HTML of icons ejected from parent element (data-truncate)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
     defaultText.parentElement.parentElement.parentElement.appendChild(defaultText);
 });
