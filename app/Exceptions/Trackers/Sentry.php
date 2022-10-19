@@ -49,7 +49,7 @@ class Sentry
         return false;
     }
 
-    public static function getAppType()
+    public static function getAppType(): string
     {
         $hostname = gethostname();
 
