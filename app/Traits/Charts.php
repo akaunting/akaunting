@@ -106,6 +106,11 @@ trait Charts
         $percent_position = $position ?: setting('localisation.percent_position');
 
         switch ($type) {
+            case 'integer':
+                $label = new Raw("function(value) {
+                    return value
+                }");
+                break;
             case 'percent':
                 $label = new Raw("function(value) {
                     " . ($percent_position == 'right' ? "return value + '%';" : "return '%' + value;") . "
