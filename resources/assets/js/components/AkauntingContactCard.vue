@@ -552,10 +552,6 @@ export default {
                 document.removeEventListener('click', this.closeIfClickedOutside);
             }
         },
-
-        // closeIfClickedOutside() {
-        //     this.show.contact_list = false;
-        // }
     },
 
     created() {
