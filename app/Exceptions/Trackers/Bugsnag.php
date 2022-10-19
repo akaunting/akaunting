@@ -24,6 +24,6 @@ class Bugsnag
 
     public static function getRouteName(): ?string
     {
-        return request()->route()->getName();
+        return request()->route()?->getName();
     }
 }
