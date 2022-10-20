@@ -586,6 +586,104 @@ export default {
             this.onChangeCurrency(currency_code);
         },
 
+        async onSendEmail(route) {
+            let email = {
+                modal: false,
+                route: route,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let email_promise = Promise.resolve(window.axios.get(email.route));
+
+            if (this.email_template) {
+                email_promise = Promise.resolve(window.axios.get(email.route, {
+                    params: {
+                        email_template: this.email_template
+                    }
+                }));
+            }
+
+            this.email_template = false;
+
+            email_promise.then(response => {
+                email.modal = true;
+                email.title = response.data.data.title;
+                email.html = response.data.html;
+                email.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-email-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-md" :show="email.modal" @submit="onSubmit" @cancel="onCancel" :buttons="email.buttons" :title="email.title" :is_component=true :message="email.html"></akaunting-modal-add-new></div>',
+
+                        components: {
+                            AkauntingDropzoneFileUpload,
+                            AkauntingContactCard,
+                            AkauntingCompanyEdit,
+                            AkauntingEditItemColumns,
+                            AkauntingItemButton,
+                            AkauntingDocumentButton,
+                            AkauntingSearch,
+                            AkauntingRadioGroup,
+                            AkauntingSelect,
+                            AkauntingSelectRemote,
+                            AkauntingMoney,
+                            AkauntingModal,
+                            AkauntingModalAddNew,
+                            AkauntingDate,
+                            AkauntingRecurring,
+                            AkauntingHtmlEditor,
+                            AkauntingCountdown,
+                            AkauntingCurrencyConversion,
+                            AkauntingConnectTransactions,
+                            AkauntingSwitch,
+                            AkauntingSlider,
+                            AkauntingColor,
+                            CardForm,
+                            [Select.name]: Select,
+                            [Option.name]: Option,
+                            [Steps.name]: Steps,
+                            [Step.name]: Step,
+                            [Button.name]: Button,
+                            [Link.name]: Link,
+                            [Tooltip.name]: Tooltip,
+                            [ColorPicker.name]: ColorPicker,
+                        },
+
+                        data: function () {
+                            return {
+                                form:{},
+                                email: email,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.$emit('submit', event);
+
+                                event.submit();
+                            },
+
+                            onCancel() {
+                                this.email.modal = false;
+                                this.email.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
         onShareLink(url) {
             let share = {
                 modal: false,

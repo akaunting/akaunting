@@ -33,62 +33,6 @@ const app = new Vue({
     },
 
     methods: {
-        async onEmail(route) {
-            let email = {
-                modal: false,
-                route: route,
-                title: '',
-                html: '',
-                buttons:{}
-            };
-
-            let email_promise = Promise.resolve(window.axios.get(email.route));
-
-            email_promise.then(response => {
-                email.modal = true;
-                email.title = response.data.data.title;
-                email.html = response.data.html;
-                email.buttons = response.data.data.buttons;
-
-                this.component = Vue.component('add-new-component', (resolve, reject) => {
-                    resolve({
-                        template: '<div id="dynamic-email-component"><akaunting-modal-add-new modal-dialog-class="max-w-md" :show="email.modal" @submit="onSubmit" @cancel="onCancel" :buttons="email.buttons" :title="email.title" :is_component=true :message="email.html"></akaunting-modal-add-new></div>',
-
-                        mixins: [
-                            Global
-                        ],
-
-                        data: function () {
-                            return {
-                                form:{},
-                                email: email,
-                            }
-                        },
-
-                        methods: {
-                            onSubmit(event) {
-                                this.$emit('submit', event);
-
-                                event.submit();
-                            },
-
-                            onCancel() {
-                                this.email.modal = false;
-                                this.email.html = null;
-
-                                let documentClasses = document.body.classList;
-
-                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
-                            },
-                        }
-                    })
-                });
-            })
-            .catch(error => {
-            })
-            .finally(function () {
-                // always executed
-            });
-        },
+        //
     },
 });

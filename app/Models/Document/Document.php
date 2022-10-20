@@ -615,7 +615,7 @@ class Document extends Model
                             'permission' => 'read-' . $group . '-' . $permission_prefix,
                             'attributes' => [
                                 'id' => 'index-line-actions-send-email-' . $this->type . '-'  . $this->id,
-                                '@click' => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                                '@click' => 'onSendEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
                             ],
                         ];
                     }
