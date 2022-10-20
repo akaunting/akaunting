@@ -538,7 +538,7 @@ class Document extends Model
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
                         'id' => 'index-line-actions-payment-' . $this->type . '-' . $this->id,
-                        '@click' => 'onPayment("' . $this->id . '")',
+                        '@click' => 'onAddPayment("' . route('modals.documents.document.transactions.create', $this->id) . '")',
                     ],
                 ];
             } catch (\Exception $e) {}

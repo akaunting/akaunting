@@ -586,19 +586,311 @@ export default {
             this.onChangeCurrency(currency_code);
         },
 
-        async onSendEmail(route) {
-            let email = {
+        async onAddPayment(url) {
+            let payment = {
                 modal: false,
-                route: route,
+                url: url,
                 title: '',
                 html: '',
                 buttons:{}
             };
 
-            let email_promise = Promise.resolve(window.axios.get(email.route));
+            let payment_promise = Promise.resolve(window.axios.get(payment.url));
+
+            payment_promise.then(response => {
+                payment.modal = true;
+                payment.title = response.data.data.title;
+                payment.html = response.data.html;
+                payment.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="max-w-md" modal-position-top :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+
+                        components: {
+                            AkauntingDropzoneFileUpload,
+                            AkauntingContactCard,
+                            AkauntingCompanyEdit,
+                            AkauntingEditItemColumns,
+                            AkauntingItemButton,
+                            AkauntingDocumentButton,
+                            AkauntingSearch,
+                            AkauntingRadioGroup,
+                            AkauntingSelect,
+                            AkauntingSelectRemote,
+                            AkauntingMoney,
+                            AkauntingModal,
+                            AkauntingModalAddNew,
+                            AkauntingDate,
+                            AkauntingRecurring,
+                            AkauntingHtmlEditor,
+                            AkauntingCountdown,
+                            AkauntingCurrencyConversion,
+                            AkauntingConnectTransactions,
+                            AkauntingSwitch,
+                            AkauntingSlider,
+                            AkauntingColor,
+                            CardForm,
+                            [Select.name]: Select,
+                            [Option.name]: Option,
+                            [Steps.name]: Steps,
+                            [Step.name]: Step,
+                            [Button.name]: Button,
+                            [Link.name]: Link,
+                            [Tooltip.name]: Tooltip,
+                            [ColorPicker.name]: ColorPicker,
+                        },
+
+                        data: function () {
+                            return {
+                                form:{},
+                                payment: payment,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.form = event;
+
+                                this.form.response = {};
+
+                                this.loading = true;
+
+                                let data = this.form.data();
+
+                                FormData.prototype.appendRecursive = function(data, wrapper = null) {
+                                    for(var name in data) {
+                                        if (wrapper) {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                                            } else {
+                                                this.append(wrapper + '[' + name + ']', data[name]);
+                                            }
+                                        } else {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], name);
+                                            } else {
+                                                this.append(name, data[name]);
+                                            }
+                                        }
+                                    }
+                                };
+
+                                let form_data = new FormData();
+                                form_data.appendRecursive(data);
+
+                                window.axios({
+                                    method: this.form.method,
+                                    url: this.form.action,
+                                    data: form_data,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                })
+                                .then(response => {
+                                    if (response.data.success) {
+                                        if (response.data.redirect) {
+                                            this.form.loading = true;
+
+                                            window.location.href = response.data.redirect;
+                                        }
+                                    }
+
+                                    if (response.data.error) {
+                                        this.form.loading = false;
+
+                                        this.form.response = response.data;
+                                    }
+                                })
+                                .catch(error => {
+                                    this.form.loading = false;
+
+                                    this.form.onFail(error);
+
+                                    this.method_show_html = error.message;
+                                });
+                            },
+
+                            onCancel() {
+                                this.payment.modal = false;
+                                this.payment.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
+        async onEditPayment(url) {
+            let payment = {
+                modal: false,
+                url: url,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let payment_promise = Promise.resolve(window.axios.get(payment.url));
+
+            payment_promise.then(response => {
+                payment.modal = true;
+                payment.title = response.data.data.title;
+                payment.html = response.data.html;
+                payment.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="max-w-md" modal-position-top :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+
+                        components: {
+                            AkauntingDropzoneFileUpload,
+                            AkauntingContactCard,
+                            AkauntingCompanyEdit,
+                            AkauntingEditItemColumns,
+                            AkauntingItemButton,
+                            AkauntingDocumentButton,
+                            AkauntingSearch,
+                            AkauntingRadioGroup,
+                            AkauntingSelect,
+                            AkauntingSelectRemote,
+                            AkauntingMoney,
+                            AkauntingModal,
+                            AkauntingModalAddNew,
+                            AkauntingDate,
+                            AkauntingRecurring,
+                            AkauntingHtmlEditor,
+                            AkauntingCountdown,
+                            AkauntingCurrencyConversion,
+                            AkauntingConnectTransactions,
+                            AkauntingSwitch,
+                            AkauntingSlider,
+                            AkauntingColor,
+                            CardForm,
+                            [Select.name]: Select,
+                            [Option.name]: Option,
+                            [Steps.name]: Steps,
+                            [Step.name]: Step,
+                            [Button.name]: Button,
+                            [Link.name]: Link,
+                            [Tooltip.name]: Tooltip,
+                            [ColorPicker.name]: ColorPicker,
+                        },
+
+                        data: function () {
+                            return {
+                                form:{},
+                                payment: payment,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.form = event;
+
+                                this.form.response = {};
+
+                                this.loading = true;
+
+                                let data = this.form.data();
+
+                                FormData.prototype.appendRecursive = function(data, wrapper = null) {
+                                    for(var name in data) {
+                                        if (wrapper) {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                                            } else {
+                                                this.append(wrapper + '[' + name + ']', data[name]);
+                                            }
+                                        } else {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], name);
+                                            } else {
+                                                this.append(name, data[name]);
+                                            }
+                                        }
+                                    }
+                                };
+
+                                let form_data = new FormData();
+                                form_data.appendRecursive(data);
+
+                                window.axios({
+                                    method: this.form.method,
+                                    url: this.form.action,
+                                    data: form_data,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                })
+                                .then(response => {
+                                    if (response.data.success) {
+                                        if (response.data.redirect) {
+                                            this.form.loading = true;
+
+                                            window.location.href = response.data.redirect;
+                                        }
+                                    }
+
+                                    if (response.data.error) {
+                                        this.form.loading = false;
+
+                                        this.form.response = response.data;
+                                    }
+                                })
+                                .catch(error => {
+                                    this.form.loading = false;
+
+                                    this.form.onFail(error);
+
+                                    this.method_show_html = error.message;
+                                });
+                            },
+
+                            onCancel() {
+                                this.payment.modal = false;
+                                this.payment.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                            },
+                        }
+                    })
+                });
+            })
+            .catch(error => {
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
+
+        async onSendEmail(url) {
+            let email = {
+                modal: false,
+                url: url,
+                title: '',
+                html: '',
+                buttons:{}
+            };
+
+            let email_promise = Promise.resolve(window.axios.get(email.url));
 
             if (this.email_template) {
-                email_promise = Promise.resolve(window.axios.get(email.route, {
+                email_promise = Promise.resolve(window.axios.get(email.url, {
                     params: {
                         email_template: this.email_template
                     }

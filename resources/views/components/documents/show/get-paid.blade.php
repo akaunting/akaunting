@@ -13,7 +13,7 @@
             @if (! $hideAddPayment)
                 @if (empty($document->transactions->count()) || (! empty($document->transactions->count()) && $document->paid != $document->amount))
                     <x-button
-                        @click="onPayment"
+                        @click="onAddPayment('{{ route('modals.documents.document.transactions.create', $document->id) }}')"
                         id="show-slider-actions-payment-{{ $document->type }}"
                         class="px-3 py-1.5 mb-3 sm:mb-0 rounded-lg text-xs font-medium leading-6 bg-green hover:bg-green-700 text-white disabled:bg-green-100"
                         override="class"
@@ -80,7 +80,7 @@
                         <span> - </span>
 
                         <x-button
-                            @click="onEditPayment('{{ $transaction->id }}')"
+                            @click="onEditPayment('{{ route('modals.documents.document.transactions.edit', ['document' => $document->id, 'transaction' => $transaction->id]) }}')"
                             id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
                             class="text-purple mt-1"
                             override="class"
