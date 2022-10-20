@@ -50,7 +50,7 @@ const app = new Vue({
        }
     },
 
-    methods:{
+    methods: {
         setDueMinDate(date) {
             this.min_due_date = date;
         },
