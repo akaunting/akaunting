@@ -1094,7 +1094,7 @@ export default {
             if (this.multiple) {
                 this.selected = [];
             } else {
-                this.selected = null;
+                this.selected = '';
             }
 
             return;
@@ -1111,7 +1111,7 @@ export default {
             }, this);
         } else {
             if (! options.find((option) => option == this.selected)) {
-                this.selected = null;
+                this.selected = '';
             }
         }
     },

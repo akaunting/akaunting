@@ -229,6 +229,9 @@ export default {
         // Bulk Action modal cancel
         onCancelBulkAction() {
             this.bulk_action.modal = false;
+
+            let documentClasses = document.body.classList;
+            documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
         },
 
         // Bulk Action Clear selected items
