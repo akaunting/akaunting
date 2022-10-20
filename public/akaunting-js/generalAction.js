@@ -366,7 +366,7 @@ function marqueeAnimation(truncate) {
     }
     // offsetwidth = width of the text, clientWidth = width of parent text (div)
     // because some index page has icons, we use two time parent element
-    if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.clientWidth) {        
+    if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {        
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
             truncate.parentElement.classList.add('animate-marquee');
@@ -384,6 +384,7 @@ function marqueeAnimation(truncate) {
 
         truncate.classList.add('truncate');
         truncate.parentElement.classList.add('truncate');
+        truncate.parentElement.parentElement.classList.add('overflow-x-hidden');
     }
 }
 
@@ -393,7 +394,7 @@ document.querySelectorAll('[data-truncate]').forEach((truncate) => {
 
 //disable/enable icons ejected from data-truncate, HTML of icons ejected from parent element (data-truncate)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
-    defaultText.parentElement.parentElement.parentElement.appendChild(defaultText);
+    defaultText.parentElement.parentElement.parentElement.parentElement.appendChild(defaultText);
 });
 //disable/enable icons ejected from data-truncate
 

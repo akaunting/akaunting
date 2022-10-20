@@ -9,9 +9,11 @@
     @endphp
     <div {{ $first_attributes }}>
         <div>
-            <span data-truncate>
-                {!! $first !!}
-            </span>
+            <div>
+                <span data-truncate>
+                    {!! $first !!}
+                </span>
+            </div>
         </div>
     </div>
     @endif
@@ -26,16 +28,20 @@
     @endphp
     <div {{ $second_attributes }}>
         <div>
-            <span data-truncate>
-                {!! $second !!}
-            </span>
+            <div>
+                <span data-truncate>
+                    {!! $second !!}
+                </span>
+            </div>
         </div>
     </div>
     @endif
 
     <div>
-        <span data-truncate>
-            {{ $slot }}
-        </span>
+        <div>
+            <span data-truncate>
+                {{ $slot }}
+            </span>
+        </div>
     </div>
 </th>
