@@ -195,7 +195,7 @@ class Categories extends Controller
 
             flash($message)->success();
         } else {
-            $response['redirect'] = route('categories.edit', $category_id);
+            $response['redirect'] = route('categories.edit', $category->id);
 
             $message = $response['message'];
 
