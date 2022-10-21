@@ -383,7 +383,15 @@ function marqueeAnimation(truncate) {
         });
 
         truncate.classList.add('truncate');
-        truncate.parentElement.classList.add('truncate');
+        
+        // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
+        let animate_element = document.createElement('div');
+        animate_element.classList.add('truncate');
+        truncate.parentElement.append(animate_element);
+        animate_element.append(truncate);
+        // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
+
+        //there is overflow class for the animation does not overflow the width
         truncate.parentElement.parentElement.classList.add('overflow-x-hidden');
     }
 }
@@ -394,7 +402,15 @@ document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
 
 //disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
-    defaultText.parentElement.parentElement.parentElement.parentElement.appendChild(defaultText);
+    let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
+
+    if (icon_parents_element.classList.contains('flex')) {
+        icon_parents_element.appendChild(defaultText);
+    } else {
+        icon_parents_element.parentElement.appendChild(defaultText);
+    }
+
+    // defaultText.parentElement.parentElement.parentElement.parentElement.appendChild(defaultText);
 });
 //disable/enable icons ejected from data-truncate-marquee
 

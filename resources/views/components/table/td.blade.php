@@ -8,15 +8,12 @@
         }
     @endphp
     <div {{ $first_attributes }}>
-        <!-- first div for restrict of width. With javascript will add (overflow-x-hidden) class name -->
+        <!--so that the animation does not overflow the width. With javascript will add (overflow-x-hidden) class name-->
         <div>
-            <!-- There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons. With javascript will add (truncate) class nam -->
-            <div>
-                <!-- this tag use for calculate width of text and parent element -->
-                <span data-truncate-marquee>
-                    {!! $first !!}
-                </span>
-            </div>
+            <!-- this tag use for calculate width of text and parent element -->
+            <span data-truncate-marquee>
+                {!! $first !!}
+            </span>
         </div>
     </div>
     @endif
@@ -31,20 +28,17 @@
     @endphp
     <div {{ $second_attributes }}>
         <div>
-            <div>
-                <span data-truncate-marquee>
-                    {!! $second !!}
-                </span>
-            </div>
+            <span data-truncate-marquee>
+                {!! $second !!}
+            </span>
         </div>
+        
     </div>
     @endif
 
     <div>
-        <div>
-            <span data-truncate-marquee>
-                {{ $slot }}
-            </span>
-        </div>
+        <span data-truncate-marquee>
+            {{ $slot }}
+        </span>
     </div>
 </td>
