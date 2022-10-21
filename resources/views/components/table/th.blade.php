@@ -13,7 +13,7 @@
             <!-- There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons -->
             <div>
                 <!-- this tag use for calculate width of text and parent element -->
-                <span data-truncate>
+                <span data-truncate-marquee>
                     {!! $first !!}
                 </span>
             </div>
@@ -32,7 +32,7 @@
     <div {{ $second_attributes }}>
         <div>
             <div>
-                <span data-truncate>
+                <span data-truncate-marquee>
                     {!! $second !!}
                 </span>
             </div>
@@ -42,7 +42,7 @@
 
     <div>
         <div>
-            <span data-truncate>
+            <span data-truncate-marquee>
                 {{ $slot }}
             </span>
         </div>

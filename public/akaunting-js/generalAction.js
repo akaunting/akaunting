@@ -360,7 +360,7 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 
 //margue animation for truncated text
 function marqueeAnimation(truncate) {
-    if (truncate.closest('[data-disable-truncate]') !== null) {
+    if (truncate.closest('[data-disable-marquee]') !== null) {
         truncate.parentElement.classList.add('truncate');
         return;
     }
@@ -388,14 +388,14 @@ function marqueeAnimation(truncate) {
     }
 }
 
-document.querySelectorAll('[data-truncate]').forEach((truncate) => {
+document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
     marqueeAnimation(truncate);
 });
 
-//disable/enable icons ejected from data-truncate, HTML of icons ejected from parent element (data-truncate)
+//disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
     defaultText.parentElement.parentElement.parentElement.parentElement.appendChild(defaultText);
 });
-//disable/enable icons ejected from data-truncate
+//disable/enable icons ejected from data-truncate-marquee
 
 //margue animation for truncated text
