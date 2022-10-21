@@ -17,7 +17,7 @@
         </div>
 
         <div class="relative flex justify-end -mt-28">
-            <img src="https://assets.akaunting.com/software/admin/bank-feeds.png" alt="Bank Feeds" />
+            <img src="https://assets.akaunting.com/software/admin/bank-feeds.png" class="rtl:-scale-x-100" alt="Bank Feeds" />
         </div>
     </div>
 @endif

@@ -3,10 +3,10 @@
         <div class="overflow-y-hidden py-6">
             <table id="totals" class="float-right">
                 <colgroup>
-                    <col style="width: 47.5%;">
-                    <col style="width: 30%;">
-                    <col style="width: 18%;">
-                    <col style="width: 50px;">
+                    <col class="small-col" style="width: 47.5%;">
+                    <col class="small-col" style="width: 30%;">
+                    <col class="small-col" style="width: 18%;">
+                    <col class="small-col" style="width: 50px;">
                 </colgroup>
 
                 <tbody id="invoice-total-rows">
