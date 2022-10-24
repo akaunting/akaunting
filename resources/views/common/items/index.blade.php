@@ -84,16 +84,14 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-6/12 sm:w-4/12">
-                                    <x-slot name="first" class="flex items-center font-bold" override="class">
-                                        <div class="truncate">
-                                            {{ $item->name }}
-                                        </div>
-
+                                    <x-slot name="first" class="font-bold" override="class">
+                                        {{ $item->name }}
+                                        
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.items', 1) }}" />
                                         @endif
                                     </x-slot>
-                                    <x-slot name="second" class="font-normal truncate" override="class">
+                                    <x-slot name="second" class="font-normal" override="class">
                                         {{ $item->description }}
                                     </x-slot>
                                 </x-table.td>

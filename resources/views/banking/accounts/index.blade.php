@@ -64,9 +64,7 @@
 
                             <x-table.td class="w-6/12 sm:w-5/12">
                                 <x-slot name="first" class="flex font-bold">
-                                    <div class="truncate">
-                                        {{ $item->name }}
-                                    </div>
+                                    {{ $item->name }}
 
                                     @if (! $item->enabled)
                                         <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
