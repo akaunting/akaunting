@@ -392,6 +392,19 @@ function marqueeAnimation(truncate) {
         });
 
         truncate.classList.add('truncate');
+
+        // if truncate has truncate class, text marquee animate doesn't pretty work
+        if (truncate.querySelector('.truncate') !== null && truncate.querySelector('.truncate').classList.contains('truncate')) {
+            let old_element = truncate.querySelector('.truncate');
+            let parent = old_element.parentNode;
+            
+            let new_element = document.createElement('span');
+            new_element.innerHTML = old_element.innerHTML;
+            new_element.classList = old_element.classList;
+
+            parent.replaceChild(new_element, old_element);
+        }
+        // if truncate has truncate class, text marquee animate doesn't pretty work
         
         // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
         let animate_element = document.createElement('div');
