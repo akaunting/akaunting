@@ -231,6 +231,14 @@ module.exports = {
                 '0%': { boxShadow: '0 28px 0 -28px #55588b' },
                 '100%': { boxShadow: '0 28px 0 #55588b' },
               },
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              marquee_long: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-350%)' },
+              }
           },
 
           animation: {
@@ -239,7 +247,9 @@ module.exports = {
               pulsate: 'pulsate 1500ms ease infinite;',
               spin: 'spin 1000ms infinite',
               submit: 'submit 0.7s ease alternate infinite',
-              submit_second: 'submit_second 0.7s ease alternate infinite'
+              submit_second: 'submit_second 0.7s ease alternate infinite',
+              marquee: 'marquee 9s linear infinite',
+              marquee_long: 'marquee_long 14s linear infinite'
           },
 
           transitionProperty: {

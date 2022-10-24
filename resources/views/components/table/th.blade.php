@@ -8,7 +8,13 @@
         }
     @endphp
     <div {{ $first_attributes }}>
-        {!! $first !!}
+        <!--so that the animation does not overflow the width. With javascript will add (overflow-x-hidden) class name-->
+        <div>
+            <!-- this tag use for calculate width of text and parent element -->
+            <span data-truncate-marquee>
+                {!! $first !!}
+            </span>
+        </div>
     </div>
     @endif
 
@@ -21,9 +27,17 @@
         }
     @endphp
     <div {{ $second_attributes }}>
-        {!! $second !!}
+        <div>
+            <span data-truncate-marquee>
+                {!! $second !!}
+            </span>
+        </div>
     </div>
     @endif
 
-    {{ $slot }}
+    <div>
+        <span data-truncate-marquee>
+            {{ $slot }}
+        </span>
+    </div>
 </th>

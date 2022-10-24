@@ -16,3 +16,4 @@ lg:right-0
 lg:justify-around
 ltr:-right-1.5
 rtl:-left-1.5
+rtl:-scale-x-100
