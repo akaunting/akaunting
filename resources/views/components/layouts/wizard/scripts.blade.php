@@ -10,7 +10,6 @@
         var wizard_countries = {!! json_encode(trans('countries')) !!};
         var wizard_currencies = {!! json_encode($currencies) !!};
         var wizard_currency_codes = {!! json_encode($currency_codes) !!};
-        var wizard_taxes = {!! json_encode($taxes) !!};
         var wizard_modules = {!! json_encode($modules) !!};
     </script>
 
