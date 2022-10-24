@@ -61,7 +61,7 @@ class Companies extends Controller
         $response = $this->ajaxDispatch(new CreateCompany($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('companies.index');
+            $response['redirect'] = route('companies.switch', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
 
