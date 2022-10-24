@@ -234,6 +234,10 @@ module.exports = {
               marquee: {
                 '0%': { transform: 'translateX(0%)' },
                 '100%': { transform: 'translateX(-100%)' },
+              },
+              marquee_long: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-350%)' },
               }
           },
 
@@ -244,7 +248,8 @@ module.exports = {
               spin: 'spin 1000ms infinite',
               submit: 'submit 0.7s ease alternate infinite',
               submit_second: 'submit_second 0.7s ease alternate infinite',
-              marquee: 'marquee 9s linear infinite'
+              marquee: 'marquee 9s linear infinite',
+              marquee_long: 'marquee_long 14s linear infinite'
           },
 
           transitionProperty: {

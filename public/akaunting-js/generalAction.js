@@ -370,7 +370,14 @@ function marqueeAnimation(truncate) {
     if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {        
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
-            truncate.parentElement.classList.add('animate-marquee');
+
+            if (truncate.offsetWidth > 400 && truncate.parentElement.clientWidth < 150) {
+                truncate.parentElement.classList.remove('animate-marquee');
+                truncate.parentElement.classList.add('animate-marquee_long');
+            } else {
+                truncate.parentElement.classList.remove('animate-marquee_long');
+                truncate.parentElement.classList.add('animate-marquee');
+            }
     
             if (truncate.parentElement.classList.contains('truncate')) {
                 truncate.parentElement.classList.remove('truncate');
@@ -380,6 +387,7 @@ function marqueeAnimation(truncate) {
         truncate.addEventListener('mouseout', function () {
             truncate.parentElement.style.animationPlayState = 'paused';
             truncate.parentElement.classList.remove('animate-marquee');
+            truncate.parentElement.classList.remove('animate-marquee_long');
             truncate.parentElement.classList.add('truncate');
         });
 
