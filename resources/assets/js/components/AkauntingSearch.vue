@@ -303,8 +303,8 @@ export default {
 
         onInput(evt) {
             this.search = evt.target.value;
-
-            let option_url = this.selected_options[this.filter_index].url;
+            
+            let option_url = this.selected_options.length > 0 ? this.selected_options[this.filter_index].url : '';
 
             if (this.search) {
                 if (option_url.indexOf('?') === -1) {
@@ -581,7 +581,7 @@ export default {
 
         onFilterDelete(index) {
             this.show_icon = true;
-            this.show_close_icon = false;
+
             this.filter_list.push(this.selected_options[index]);
 
             if (this.filter_last_step == 'options') {
@@ -598,8 +598,10 @@ export default {
             
             if (this.filter_index == 0) {
                 this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
+                this.show_close_icon = false;
             } else {
                 this.show_icon = false;
+                this.show_close_icon = true;
             }
 
             this.filter_last_step = 'options';
@@ -789,6 +791,10 @@ export default {
     mounted() {
         if (this.filter_index > 0) {
             this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
+        }
+
+        if (this.selected_values.length > 0) {
+            this.show_close_icon = true;
         }
     },
 

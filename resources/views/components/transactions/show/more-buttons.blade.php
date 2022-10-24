@@ -86,7 +86,7 @@
         @if ($transaction->isNotTransferTransaction())
             @if (! $hideButtonEmail)
                 @if (! empty($transaction->contact) && $transaction->contact->email)
-                    <x-dropdown.button id="show-more-actions-send-email-{{ $transaction->type }}" @click="onEmail('{{ route($routeButtonEmail, $transaction->id) }}')">
+                    <x-dropdown.button id="show-more-actions-send-email-{{ $transaction->type }}" @click="onSendEmail('{{ route($routeButtonEmail, $transaction->id) }}')">
                         {{ trans('invoices.send_mail') }}
                     </x-dropdown.button>
                 @else

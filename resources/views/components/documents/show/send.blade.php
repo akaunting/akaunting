@@ -13,7 +13,7 @@
         <div class="flex flex-wrap space-x-3 rtl:space-x-reverse">
             @if (! $hideEmail)
                 @if ($document->contact_email)
-                    <x-button id="show-slider-actions-send-email-{{ $document->type }}" kind="secondary" @click="onEmail('{{ route($emailRoute, $document->id) }}')">
+                    <x-button id="show-slider-actions-send-email-{{ $document->type }}" kind="secondary" @click="onSendEmail('{{ route($emailRoute, $document->id) }}')">
                         {{ trans($textEmail) }}
                     </x-button>
                 @else

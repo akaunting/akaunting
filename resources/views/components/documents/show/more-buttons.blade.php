@@ -65,7 +65,7 @@
 
             @if (! $hideEmail)
                 @if ($document->contact_email)
-                    <x-dropdown.button id="show-more-actions-send-email-{{ $document->type }}" @click="onEmail('{{ route($emailRoute, $document->id) }}')">
+                    <x-dropdown.button id="show-more-actions-send-email-{{ $document->type }}" @click="onSendEmail('{{ route($emailRoute, $document->id) }}')">
                         {{ trans($textEmail) }}
                     </x-dropdown.button>
                 @else

@@ -49,6 +49,20 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Register the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            if (config('logging.default') == 'bugsnag') {
+                call_user_func(config('bugsnag.before_send'), $e);
+            }
+        });
+    }
+
+    /**
      * Report or log an exception.
      *
      * @param  \Throwable  $exception

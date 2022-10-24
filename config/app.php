@@ -180,6 +180,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*

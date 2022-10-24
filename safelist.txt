@@ -6,11 +6,17 @@ lg:mt-4
 lg:pl-6
 lg:w-9
 lg:mt-11
+lg:-mx-12
+lg:w-96
+lg:px-3
+lg:px-4
+lg:px-6
 lg:relative
 lg:right-0
 lg:justify-around
 ltr:-right-1.5
 rtl:-left-1.5
+rtl:-scale-x-100
 sm:max-w-4xl
 hover:bg-silver-700
 hover:bg-peach_orange-700

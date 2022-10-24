@@ -488,6 +488,20 @@ class Document extends Model
             return $actions;
         }
 
+        if (app('mobile-detect')->isMobile()) {
+            try {
+                $actions[] = [
+                    'title' => trans('general.show'),
+                    'icon' => 'visibility',
+                    'url' => route($prefix . '.show', $this->id),
+                    'permission' => 'read-' . $group . '-' . $permission_prefix,
+                    'attributes' => [
+                        'id' => 'index-more-actions-show-' . $this->id,
+                    ],
+                ];
+            } catch (\Exception $e) {}
+        }
+
         try {
             if (! $this->reconciled) {
                 $actions[] = [
@@ -524,7 +538,7 @@ class Document extends Model
                     'permission' => 'read-' . $group . '-' . $permission_prefix,
                     'attributes' => [
                         'id' => 'index-line-actions-payment-' . $this->type . '-' . $this->id,
-                        '@click' => 'onPayment("' . $this->id . '")',
+                        '@click' => 'onAddPayment("' . route('modals.documents.document.transactions.create', $this->id) . '")',
                     ],
                 ];
             } catch (\Exception $e) {}
@@ -601,7 +615,7 @@ class Document extends Model
                             'permission' => 'read-' . $group . '-' . $permission_prefix,
                             'attributes' => [
                                 'id' => 'index-line-actions-send-email-' . $this->type . '-'  . $this->id,
-                                '@click' => 'onEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
+                                '@click' => 'onSendEmail("' . route('modals.'. $prefix . '.emails.create', $this->id) . '")',
                             ],
                         ];
                     }

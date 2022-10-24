@@ -51260,6 +51260,12 @@ body{
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+[dir="rtl"] .rtl\:-scale-x-100{
+  --tw-scale-x: -1;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 [dir="rtl"] .rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 1;
 }
@@ -51788,9 +51794,15 @@ body{
     margin-bottom: 3rem;
   }
 
+<<<<<<< HEAD
   .lg\:my-16{
     margin-top: 4rem;
     margin-bottom: 4rem;
+=======
+  .lg\:-mx-12{
+    margin-left: -3rem;
+    margin-right: -3rem;
+>>>>>>> d1b81891f887f0ababe1c40221defa5b69162795
   }
 
   .lg\:my-0{
@@ -51864,6 +51876,10 @@ body{
     height: 16rem;
   }
 
+  .lg\:h-auto{
+    height: auto;
+  }
+
   .lg\:h-48{
     height: 12rem;
   }
@@ -51880,16 +51896,17 @@ body{
     height: 3rem;
   }
 
-  .lg\:h-auto{
-    height: auto;
-  }
-
   .lg\:w-9{
     width: 2.25rem;
   }
 
+<<<<<<< HEAD
   .lg\:w-18{
     width: 4.5rem;
+=======
+  .lg\:w-96{
+    width: 24rem;
+>>>>>>> d1b81891f887f0ababe1c40221defa5b69162795
   }
 
   .lg\:w-1\/2{
@@ -51970,10 +51987,6 @@ body{
 
   .lg\:w-4{
     width: 1rem;
-  }
-
-  .lg\:w-96{
-    width: 24rem;
   }
 
   .lg\:w-2\/4{
@@ -52099,6 +52112,26 @@ body{
     border-right-width: 1px;
   }
 
+  .lg\:px-3{
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .lg\:px-4{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .lg\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .lg\:px-12{
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
   .lg\:px-24{
     padding-left: 6rem;
     padding-right: 6rem;
@@ -52107,11 +52140,6 @@ body{
   .lg\:py-0{
     padding-top: 0px;
     padding-bottom: 0px;
-  }
-
-  .lg\:px-12{
-    padding-left: 3rem;
-    padding-right: 3rem;
   }
 
   .lg\:pl-24{

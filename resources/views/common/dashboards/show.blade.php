@@ -179,7 +179,7 @@
     @endsection
 
     <x-slot name="content">
-        <div class="dashboard flex flex-wrap -mx-12">
+        <div class="dashboard flex flex-wrap lg:-mx-12">
             @foreach($widgets as $widget)
                 @widget($widget)
             @endforeach

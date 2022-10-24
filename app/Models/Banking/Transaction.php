@@ -565,7 +565,7 @@ class Transaction extends Model
                             'permission' => 'read-banking-transactions',
                             'attributes' => [
                                 'id' => 'index-line-actions-send-email-' . $this->type . '-'  . $this->id,
-                                '@click' => 'onEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
+                                '@click' => 'onSendEmail("' . route('modals.transactions.emails.create', $this->id) . '")',
                             ],
                         ];
                     }

@@ -150,7 +150,7 @@ abstract class Report
 
     public function applySearchStringFilter($event)
     {
-        $input = request('search');
+        $input = request('search', '');
 
         // Remove year as it's handled based on financial start
         $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);

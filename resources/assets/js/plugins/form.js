@@ -493,7 +493,9 @@ export default class Form {
 
     // Form fields check validation issue
     onFail(error) {
-        this.errors.record(error.response.data.errors);
+        if (typeof this.errors != "undefined") {
+            this.errors.record(error.response.data.errors);
+        }
 
         this.loading = false;
     }

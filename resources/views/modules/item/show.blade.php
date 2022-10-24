@@ -15,7 +15,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col space-y-16 py-4">
-            <div class="flex flex-col lg:flex-row w-full space-x-16 space-y-0">
+            <div class="flex flex-col lg:flex-row w-full space-x-16 rtl:space-x-reverse space-y-0">
                 <div class="w-full lg:w-7/12 flex flex-col space-x-2 banner">
                     @foreach ($module->files as $file)
                         @if ($loop->first)
