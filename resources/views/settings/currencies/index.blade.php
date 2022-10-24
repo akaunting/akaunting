@@ -57,10 +57,10 @@
                             </x-table.td>
 
                             <x-table.td class="w-6/12 sm:w-4/12">
-                                <x-slot name="first" class="flex" override="class">
-                                    <div class="font-bold truncate">
+                                <x-slot name="first" class="flex font-bold" override="class">
+                                    <span class="font-bold truncate">
                                         {{ $item->name }}
-                                    </div>
+                                    </span>
 
                                     @if (! $item->enabled)
                                         <x-index.disable text="{{ trans_choice('general.currencies', 1) }}" />
