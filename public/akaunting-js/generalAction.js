@@ -360,8 +360,9 @@ if (navigator.userAgent.search("Firefox") >= 0) {
 
 //margue animation for truncated text
 function marqueeAnimation(truncate) {
-    if (truncate.closest('[data-disable-marquee]') !== null) {
+    if (truncate.closest('[disable-marquee]') !== null) {
         truncate.parentElement.classList.add('truncate');
+        truncate.closest('[disable-marquee]').setAttribute('disable-marquee', 'data-disable-marquee');
         return;
     }
     // offsetwidth = width of the text, clientWidth = width of parent text (div)
