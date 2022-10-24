@@ -51794,15 +51794,14 @@ body{
     margin-bottom: 3rem;
   }
 
-<<<<<<< HEAD
-  .lg\:my-16{
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-=======
   .lg\:-mx-12{
     margin-left: -3rem;
     margin-right: -3rem;
->>>>>>> d1b81891f887f0ababe1c40221defa5b69162795
+  }
+
+  .lg\:my-16{
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 
   .lg\:my-0{
@@ -51900,13 +51899,12 @@ body{
     width: 2.25rem;
   }
 
-<<<<<<< HEAD
-  .lg\:w-18{
-    width: 4.5rem;
-=======
   .lg\:w-96{
     width: 24rem;
->>>>>>> d1b81891f887f0ababe1c40221defa5b69162795
+  }
+
+  .lg\:w-18{
+    width: 4.5rem;
   }
 
   .lg\:w-1\/2{
