@@ -128,7 +128,7 @@ export default {
         prev() {
             if (this.active-- > 2);
 
-            this.$router.push("/wizard/taxes");
+            this.$router.push("/wizard/currencies");
         },
 
         finish() {
