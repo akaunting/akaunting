@@ -842,7 +842,8 @@ export default {
                             if (!check) {
                                 this.sorted_options.push({
                                     key: option.id.toString(),
-                                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
+                                    level: (option.parent_id) ? 1 : 0 // 0: parent, 1: child. Level data get 0 via backend. This control will refactor.
                                 });
                             }
 
