@@ -56,6 +56,10 @@ abstract class Report
 
     public $loaded = false;
 
+    public $bar_formatter_type = 'money';
+
+    public $donut_formatter_type = 'percent';
+
     public $chart = [
         'bar' => [
             'colors' => [
@@ -310,12 +314,12 @@ abstract class Report
                     continue;
                 }
 
-                $this->chart[$table_key]['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
-                $this->chart[$table_key]['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
+                $this->chart[$table_key]['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->bar_formatter_type);
+                $this->chart[$table_key]['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->donut_formatter_type);
             }
         } else {
-            $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
-            $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
+            $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->bar_formatter_type);
+            $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->donut_formatter_type);
         }
     }
 
