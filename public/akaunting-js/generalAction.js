@@ -367,7 +367,8 @@ function marqueeAnimation(truncate) {
     }
     // offsetwidth = width of the text, clientWidth = width of parent text (div)
     // because some index page has icons, we use two time parent element
-    if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {        
+
+    if (truncate.children.length < 1 && truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {   
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
 
