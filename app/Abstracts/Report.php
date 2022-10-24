@@ -162,27 +162,6 @@ abstract class Report
         return $this->icon;
     }
 
-    public function getGrandTotal()
-    {
-        if (!$this->loaded) {
-            $this->load();
-        }
-
-        if (!empty($this->footer_totals)) {
-            $sum = 0;
-
-            foreach ($this->footer_totals as $total) {
-                $sum += is_array($total) ? array_sum($total) : $total;
-            }
-
-            $total = $this->has_money ? money($sum, default_currency(), true)->format() : $sum;
-        } else {
-            $total = trans('general.na');
-        }
-
-        return $total;
-    }
-
     public function getCharts($table_key)
     {
         return [
