@@ -1618,6 +1618,36 @@ input[type="date"]::-webkit-inner-spin-button,
         height: 4rem;
     }
 
+/* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
+
+.dashboard .px-12{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media (min-width: 1024px){
+
+  .dashboard .px-12{
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.dashboard .px-6{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media (min-width: 1024px){
+
+  .dashboard .px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
+
 *, ::before, ::after{
   --tw-translate-x: 0;
   --tw-translate-y: 0;
@@ -49999,425 +50029,449 @@ body{
 }
 
 @media (min-width: 1024px){
+    .dashboard .lg\:px-12{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+    @media (min-width: 1024px){
 
-  .lg\:absolute{
+    .dashboard .lg\:px-12{
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+    .dashboard .lg\:px-6{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+    @media (min-width: 1024px){
+
+    .dashboard .lg\:px-6{
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+    .lg\:absolute{
     position: absolute;
   }
 
-  .lg\:relative{
+    .lg\:relative{
     position: relative;
   }
 
-  .lg\:right-0{
+    .lg\:right-0{
     right: 0px;
   }
 
-  .lg\:right-24{
+    .lg\:right-24{
     right: 6rem;
   }
 
-  .lg\:top-2{
+    .lg\:top-2{
     top: 0.5rem;
   }
 
-  .lg\:col-span-5{
+    .lg\:col-span-5{
     grid-column: span 5 / span 5;
   }
 
-  .lg\:my-12{
+    .lg\:my-12{
     margin-top: 3rem;
     margin-bottom: 3rem;
   }
 
-  .lg\:-mx-12{
+    .lg\:-mx-12{
     margin-left: -3rem;
     margin-right: -3rem;
   }
 
-  .lg\:my-0{
+    .lg\:my-0{
     margin-top: 0px;
     margin-bottom: 0px;
   }
 
-  .lg\:mt-2{
+    .lg\:mt-2{
     margin-top: 0.5rem;
   }
 
-  .lg\:mt-4{
+    .lg\:mt-4{
     margin-top: 1rem;
   }
 
-  .lg\:mt-11{
+    .lg\:mt-11{
     margin-top: 2.75rem;
   }
 
-  .lg\:mt-60{
+    .lg\:mt-60{
     margin-top: 15rem;
   }
 
-  .lg\:mt-8{
+    .lg\:mt-8{
     margin-top: 2rem;
   }
 
-  .lg\:mt-0{
+    .lg\:mt-0{
     margin-top: 0px;
   }
 
-  .lg\:-mt-16{
+    .lg\:-mt-16{
     margin-top: -4rem;
   }
 
-  .lg\:mb-0{
+    .lg\:mb-0{
     margin-bottom: 0px;
   }
 
-  .lg\:mt-20{
+    .lg\:mt-20{
     margin-top: 5rem;
   }
 
-  .lg\:block{
+    .lg\:block{
     display: block;
   }
 
-  .lg\:flex{
+    .lg\:flex{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
 
-  .lg\:hidden{
+    .lg\:hidden{
     display: none;
   }
 
-  .lg\:h-64{
+    .lg\:h-64{
     height: 16rem;
   }
 
-  .lg\:h-auto{
+    .lg\:h-auto{
     height: auto;
   }
 
-  .lg\:h-48{
+    .lg\:h-48{
     height: 12rem;
   }
 
-  .lg\:h-60{
+    .lg\:h-60{
     height: 15rem;
   }
 
-  .lg\:h-4{
+    .lg\:h-4{
     height: 1rem;
   }
 
-  .lg\:h-12{
+    .lg\:h-12{
     height: 3rem;
   }
 
-  .lg\:w-9{
+    .lg\:w-9{
     width: 2.25rem;
   }
 
-  .lg\:w-96{
+    .lg\:w-96{
     width: 24rem;
   }
 
-  .lg\:w-1\/2{
+    .lg\:w-1\/2{
     width: 50%;
   }
 
-  .lg\:w-11\/12{
+    .lg\:w-11\/12{
     width: 91.666667%;
   }
 
-  .lg\:w-1\/12{
+    .lg\:w-1\/12{
     width: 8.333333%;
   }
 
-  .lg\:w-3\/12{
+    .lg\:w-3\/12{
     width: 25%;
   }
 
-  .lg\:w-2\/12{
+    .lg\:w-2\/12{
     width: 16.666667%;
   }
 
-  .lg\:w-80{
+    .lg\:w-80{
     width: 20rem;
   }
 
-  .lg\:w-8\/12{
+    .lg\:w-8\/12{
     width: 66.666667%;
   }
 
-  .lg\:w-46{
+    .lg\:w-46{
     width: 46.875rem;
   }
 
-  .lg\:w-4\/5{
+    .lg\:w-4\/5{
     width: 80%;
   }
 
-  .lg\:w-3\/5{
+    .lg\:w-3\/5{
     width: 60%;
   }
 
-  .lg\:w-7\/12{
+    .lg\:w-7\/12{
     width: 58.333333%;
   }
 
-  .lg\:w-5\/12{
+    .lg\:w-5\/12{
     width: 41.666667%;
   }
 
-  .lg\:w-full{
+    .lg\:w-full{
     width: 100%;
   }
 
-  .lg\:w-1\/3{
+    .lg\:w-1\/3{
     width: 33.333333%;
   }
 
-  .lg\:w-2\/3{
+    .lg\:w-2\/3{
     width: 66.666667%;
   }
 
-  .lg\:w-auto{
+    .lg\:w-auto{
     width: auto;
   }
 
-  .lg\:w-1\/4{
+    .lg\:w-1\/4{
     width: 25%;
   }
 
-  .lg\:w-6\/12{
+    .lg\:w-6\/12{
     width: 50%;
   }
 
-  .lg\:w-4\/12{
+    .lg\:w-4\/12{
     width: 33.333333%;
   }
 
-  .lg\:w-4{
+    .lg\:w-4{
     width: 1rem;
   }
 
-  .lg\:w-2\/4{
+    .lg\:w-2\/4{
     width: 50%;
   }
 
-  .lg\:w-3\/4{
+    .lg\:w-3\/4{
     width: 75%;
   }
 
-  .lg\:max-w-7xl{
+    .lg\:max-w-7xl{
     max-width: 80rem;
   }
 
-  .lg\:max-w-6xl{
+    .lg\:max-w-6xl{
     max-width: 72rem;
   }
 
-  .lg\:flex-row{
+    .lg\:flex-row{
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
   }
 
-  .lg\:flex-row-reverse{
+    .lg\:flex-row-reverse{
     -webkit-box-orient: horizontal;
     -webkit-box-direction: reverse;
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
   }
 
-  .lg\:flex-col{
+    .lg\:flex-col{
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
 
-  .lg\:flex-nowrap{
+    .lg\:flex-nowrap{
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
   }
 
-  .lg\:items-center{
+    .lg\:items-center{
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
 
-  .lg\:justify-end{
+    .lg\:justify-end{
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
   }
 
-  .lg\:justify-center{
+    .lg\:justify-center{
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
   }
 
-  .lg\:justify-around{
+    .lg\:justify-around{
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
 
-  .lg\:gap-16{
+    .lg\:gap-16{
     gap: 4rem;
   }
 
-  .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
+    .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
-  .lg\:space-x-24 > :not([hidden]) ~ :not([hidden]){
+    .lg\:space-x-24 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(6rem * var(--tw-space-x-reverse));
     margin-left: calc(6rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .lg\:divide-y-0 > :not([hidden]) ~ :not([hidden]){
+    .lg\:divide-y-0 > :not([hidden]) ~ :not([hidden]){
     --tw-divide-y-reverse: 0;
     border-top-width: calc(0px * calc(1 - var(--tw-divide-y-reverse)));
     border-bottom-width: calc(0px * var(--tw-divide-y-reverse));
   }
 
-  .lg\:divide-x > :not([hidden]) ~ :not([hidden]){
+    .lg\:divide-x > :not([hidden]) ~ :not([hidden]){
     --tw-divide-x-reverse: 0;
     border-right-width: calc(1px * var(--tw-divide-x-reverse));
     border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
-  .lg\:overflow-visible{
+    .lg\:overflow-visible{
     overflow: visible;
   }
 
-  .lg\:border-r{
+    .lg\:border-r{
     border-right-width: 1px;
   }
 
-  .lg\:px-3{
+    .lg\:px-3{
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
 
-  .lg\:px-4{
+    .lg\:px-4{
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  .lg\:px-6{
+    .lg\:px-6{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 
-  .lg\:px-12{
+    .lg\:px-12{
     padding-left: 3rem;
     padding-right: 3rem;
   }
 
-  .lg\:px-24{
+    .lg\:px-24{
     padding-left: 6rem;
     padding-right: 6rem;
   }
 
-  .lg\:py-0{
+    .lg\:py-0{
     padding-top: 0px;
     padding-bottom: 0px;
   }
 
-  .lg\:pl-24{
+    .lg\:pl-24{
     padding-left: 6rem;
   }
 
-  .lg\:pl-6{
+    .lg\:pl-6{
     padding-left: 1.5rem;
   }
 
-  .lg\:pl-12{
+    .lg\:pl-12{
     padding-left: 3rem;
   }
 
-  .lg\:pt-0{
+    .lg\:pt-0{
     padding-top: 0px;
   }
 
-  .lg\:pl-8{
+    .lg\:pl-8{
     padding-left: 2rem;
   }
 
-  .lg\:pr-0{
+    .lg\:pr-0{
     padding-right: 0px;
   }
 
-  .lg\:text-8xl{
+    .lg\:text-8xl{
     font-size: 3rem;
     line-height: 3.25rem;
   }
 
-  .lg\:text-7xl{
+    .lg\:text-7xl{
     font-size: 2.75rem;
     line-height: 3rem;
   }
 
-  .lg\:text-2xl{
+    .lg\:text-2xl{
     font-size: 1.375rem;
     line-height: 1.5rem;
   }
 
-  .lg\:text-5xl{
+    .lg\:text-5xl{
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
 
-  .lg\:text-lg{
+    .lg\:text-lg{
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:right-0{
+    [dir="ltr"] .lg\:ltr\:right-0{
     right: 0px;
   }
 
-  [dir="ltr"] .lg\:ltr\:pr-12{
+    [dir="ltr"] .lg\:ltr\:pr-12{
     padding-right: 3rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:pl-12{
+    [dir="ltr"] .lg\:ltr\:pl-12{
     padding-left: 3rem;
   }
 
-  [dir="ltr"] .ltr\:lg\:pl-8{
+    [dir="ltr"] .ltr\:lg\:pl-8{
     padding-left: 2rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:pl-24{
+    [dir="ltr"] .lg\:ltr\:pl-24{
     padding-left: 6rem;
   }
 
-  [dir="rtl"] .lg\:rtl\:left-0{
+    [dir="rtl"] .lg\:rtl\:left-0{
     left: 0px;
   }
 
-  [dir="rtl"] .lg\:rtl\:pl-12{
+    [dir="rtl"] .lg\:rtl\:pl-12{
     padding-left: 3rem;
   }
 
-  [dir="rtl"] .lg\:rtl\:pr-12{
+    [dir="rtl"] .lg\:rtl\:pr-12{
     padding-right: 3rem;
   }
 
-  [dir="rtl"] .rtl\:lg\:pr-8{
+    [dir="rtl"] .rtl\:lg\:pr-8{
     padding-right: 2rem;
   }
 
-  [dir="rtl"] .lg\:rtl\:pr-24{
+    [dir="rtl"] .lg\:rtl\:pr-24{
     padding-right: 6rem;
   }
 }
