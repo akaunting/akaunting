@@ -99,7 +99,7 @@ function expandSub(key, event) {
 //collapse accordion
 
 // run dropdown and tooltip functions for Virtual DOM
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {    
     const triggers = [
         { event: "mouseover", checker: isHoverable },
         { event: "mouseout", checker: isHoverable },
@@ -357,3 +357,83 @@ if (navigator.userAgent.search("Firefox") >= 0) {
     }
 }
 //Firefox show modal for icon set
+
+//margue animation for truncated text
+function marqueeAnimation(truncate) {
+    if (truncate.closest('[disable-marquee]') !== null) {
+        truncate.parentElement.classList.add('truncate');
+        truncate.closest('[disable-marquee]').setAttribute('disable-marquee', 'data-disable-marquee');
+        return;
+    }
+    // offsetwidth = width of the text, clientWidth = width of parent text (div)
+    // because some index page has icons, we use two time parent element
+    if (truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {        
+        truncate.addEventListener('mouseover', function () {
+            truncate.parentElement.style.animationPlayState = 'running';
+
+            if (truncate.offsetWidth > 400 && truncate.parentElement.clientWidth < 150) {
+                truncate.parentElement.classList.remove('animate-marquee');
+                truncate.parentElement.classList.add('animate-marquee_long');
+            } else {
+                truncate.parentElement.classList.remove('animate-marquee_long');
+                truncate.parentElement.classList.add('animate-marquee');
+            }
+    
+            if (truncate.parentElement.classList.contains('truncate')) {
+                truncate.parentElement.classList.remove('truncate');
+            }
+        });
+    
+        truncate.addEventListener('mouseout', function () {
+            truncate.parentElement.style.animationPlayState = 'paused';
+            truncate.parentElement.classList.remove('animate-marquee');
+            truncate.parentElement.classList.remove('animate-marquee_long');
+            truncate.parentElement.classList.add('truncate');
+        });
+
+        truncate.classList.add('truncate');
+
+        // if truncate has truncate class, text marquee animate doesn't pretty work
+        if (truncate.querySelector('.truncate') !== null && truncate.querySelector('.truncate').classList.contains('truncate')) {
+            let old_element = truncate.querySelector('.truncate');
+            let parent = old_element.parentNode;
+            
+            let new_element = document.createElement('span');
+            new_element.innerHTML = old_element.innerHTML;
+            new_element.classList = old_element.classList;
+
+            parent.replaceChild(new_element, old_element);
+        }
+        // if truncate has truncate class, text marquee animate doesn't pretty work
+        
+        // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
+        let animate_element = document.createElement('div');
+        animate_element.classList.add('truncate');
+        truncate.parentElement.append(animate_element);
+        animate_element.append(truncate);
+        // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
+
+        //there is overflow class for the animation does not overflow the width
+        truncate.parentElement.parentElement.classList.add('overflow-x-hidden');
+    }
+}
+
+document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
+    marqueeAnimation(truncate);
+});
+
+//disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
+document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
+    let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
+
+    if (icon_parents_element.classList.contains('flex')) {
+        icon_parents_element.appendChild(defaultText);
+    } else {
+        icon_parents_element.parentElement.appendChild(defaultText);
+    }
+
+    // defaultText.parentElement.parentElement.parentElement.parentElement.appendChild(defaultText);
+});
+//disable/enable icons ejected from data-truncate-marquee
+
+//margue animation for truncated text
