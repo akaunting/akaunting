@@ -82,13 +82,18 @@
 
                                 <x-table.td kind="amount" class="none-truncate">
                                     @php
+                                        $reconciliation_transactions = [];
                                         $type = $item->isIncome() ? 'income' : 'expense';
                                         $name = $type . '_' . $item->id;
 
                                         $checked = $item->reconciled;
 
-                                        if (! $reconciliation->reconciled && array_key_exists($name, $reconciliation->transactions)) {
-                                            $checked = (empty($reconciliation->transactions[$name]) || $reconciliation->transactions[$name] === 'false') ? 0 : 1;
+                                        if (! empty($reconciliation->transactions)) {
+                                            $reconciliation_transactions = $reconciliation->transactions;
+                                        }
+
+                                        if (! $reconciliation->reconciled && array_key_exists($name, $reconciliation_transactions)) {
+                                            $checked = (empty($reconciliation_transactions[$name]) || $reconciliation_transactions[$name] === 'false') ? 0 : 1;
                                         }
                                     @endphp
 
