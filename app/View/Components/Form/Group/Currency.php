@@ -35,6 +35,10 @@ class Currency extends Form
 
         $this->currencies = Model::enabled()->orderBy('name')->pluck('name', 'code');
 
+        if (! empty($this->options)) {
+            $this->currencies = $this->options;
+        }
+
         $currency_id = old('currency.id', old('currency_id', null));
 
         if (! empty($currency_id)) {

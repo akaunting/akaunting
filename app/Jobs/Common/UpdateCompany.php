@@ -7,7 +7,10 @@ use App\Events\Common\CompanyUpdated;
 use App\Events\Common\CompanyUpdating;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Company;
+use App\Models\Setting\Currency;
 use App\Traits\Users;
+use Akaunting\Money\Currency as MoneyCurrency;
+use OutOfBoundsException;
 
 class UpdateCompany extends Job implements ShouldUpdate
 {
@@ -86,6 +89,8 @@ class UpdateCompany extends Job implements ShouldUpdate
             }
 
             setting()->save();
+
+            $this->updateCurrency();
         });
 
         event(new CompanyUpdated($this->model, $this->request));
@@ -114,6 +119,39 @@ class UpdateCompany extends Job implements ShouldUpdate
             $message = trans('companies.error.not_user_company');
 
             throw new \Exception($message);
+        }
+    }
+
+    protected function updateCurrency()
+    {
+        $currency_code = $this->request->get('currency');
+
+        if (empty($currency_code)) {
+            return;
+        }
+
+        $currency = Currency::where('company_id', $this->model->id)
+                            ->where('code', $currency_code)
+                            ->first();
+
+        if ($currency) {
+            $currency->rate = '1';
+            $currency->enabled = '1';
+
+            $currency->save();
+        } else {
+            try {
+                $data = (new MoneyCurrency($currency_code))->toArray()[$currency_code];
+                $data['rate'] = '1';
+                $data['enabled'] = '1';
+                $data['company_id'] = $this->model->id;
+                $data['code'] = $currency_code;
+                $data['created_from'] = 'core::ui';
+                $data['created_by'] = user_id();
+
+                $currency = Currency::create($data);
+            } catch (OutOfBoundsException $e) {
+            }
         }
     }
 }
