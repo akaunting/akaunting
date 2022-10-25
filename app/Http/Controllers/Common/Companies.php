@@ -50,7 +50,7 @@ class Companies extends Controller
         $currencies = [];
 
         foreach ($money_currencies as $key => $item) {
-            $currencies[$key] = $item['name'];
+            $currencies[$key] = $key . ' - ' . $item['name'];
         }
 
         return view('common.companies.create', compact('currencies'));
@@ -106,7 +106,7 @@ class Companies extends Controller
         $currencies = [];
 
         foreach ($money_currencies as $key => $item) {
-            $currencies[$key] = $item['name'];
+            $currencies[$key] = $key . ' - ' . $item['name'];
         }
 
         return view('common.companies.edit', compact('company', 'currencies'));
