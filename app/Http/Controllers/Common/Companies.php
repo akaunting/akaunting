@@ -10,6 +10,7 @@ use App\Jobs\Common\UpdateCompany;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
 use App\Traits\Users;
+use Akaunting\Money\Currency as MoneyCurrency;
 
 class Companies extends Controller
 {
@@ -44,7 +45,15 @@ class Companies extends Controller
      */
     public function create()
     {
-        return view('common.companies.create');
+        $money_currencies = MoneyCurrency::getCurrencies();
+
+        $currencies = [];
+
+        foreach ($money_currencies as $key => $item) {
+            $currencies[$key] = $key . ' - ' . $item['name'];
+        }
+
+        return view('common.companies.create', compact('currencies'));
     }
 
     /**
@@ -92,7 +101,15 @@ class Companies extends Controller
             return redirect()->route('companies.index');
         }
 
-        return view('common.companies.edit', compact('company'));
+        $money_currencies = MoneyCurrency::getCurrencies();
+
+        $currencies = [];
+
+        foreach ($money_currencies as $key => $item) {
+            $currencies[$key] = $key . ' - ' . $item['name'];
+        }
+
+        return view('common.companies.edit', compact('company', 'currencies'));
     }
 
     /**

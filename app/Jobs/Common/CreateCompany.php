@@ -8,8 +8,12 @@ use App\Events\Common\CompanyCreating;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
+use App\Models\Banking\Account;
 use App\Models\Common\Company;
+use App\Models\Setting\Currency;
+use Akaunting\Money\Currency as MoneyCurrency;
 use Illuminate\Support\Facades\Artisan;
+use OutOfBoundsException;
 
 class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
 {
@@ -25,6 +29,8 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
             $this->model->makeCurrent();
 
             $this->callSeeds();
+
+            $this->updateCurrency();
 
             $this->updateSettings();
         });
@@ -98,5 +104,43 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
         }
 
         setting()->save();
+    }
+
+    protected function updateCurrency()
+    {
+        $currency_code = $this->request->get('currency');
+
+        if ($currency_code == 'USD') {
+            return;
+        }
+
+        $currency = Currency::where('company_id', $this->model->id)
+                            ->where('code', $currency_code)
+                            ->first();
+
+        if ($currency) {
+            $currency->rate = '1';
+            $currency->enabled = '1';
+
+            $currency->save();
+        } else {
+            try {
+                $data = (new MoneyCurrency($currency_code))->toArray()[$currency_code];
+                $data['rate'] = '1';
+                $data['enabled'] = '1';
+                $data['company_id'] = $this->model->id;
+                $data['code'] = $currency_code;
+                $data['created_from'] = 'core::ui';
+                $data['created_by'] = user_id();
+
+                $currency = Currency::create($data);
+            } catch (OutOfBoundsException $e) {
+            }
+        }
+
+        $account = Account::where('company_id', $this->model->id)->first();
+
+        $account->currency_code = $currency_code;
+        $account->save();
     }
 }

@@ -16,7 +16,7 @@
 
                         <x-form.group.email name="email" label="{{ trans('general.email') }}" />
 
-                        <x-form.group.currency name="currency" />
+                        <x-form.group.currency name="currency" :options="$currencies" without-add-new />
 
                         <x-form.group.country />
                     </x-slot>
