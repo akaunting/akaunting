@@ -438,9 +438,3 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
 //disable/enable icons ejected from data-truncate-marquee
 
 //margue animation for truncated text
-
-//disable autocomplete for all form elements
-document.querySelectorAll('input, textarea, select, textarea').forEach((element) => {
-    element.setAttribute('autocomplete', 'off');
-});
-//disable autocomplete for all form elements

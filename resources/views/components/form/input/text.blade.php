@@ -13,6 +13,5 @@
     @if ($readonly)
     readonly="readonly"
     @endif
-    autocomplete="off"
     {{ $attributes->except(['placeholder', 'disabled', 'required', 'readonly', 'v-error', 'v-error-message']) }}
 />

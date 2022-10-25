@@ -22,6 +22,5 @@
     @if ($readonly)
     readonly="readonly"
     @endif
-    autocomplete="off"
     {{ $attributes->except(['rows', 'placeholder', 'disabled', 'required', 'readonly']) }}
 >{!! $value !!}</textarea>
