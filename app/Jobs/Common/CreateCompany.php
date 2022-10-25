@@ -29,11 +29,11 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
             $this->updateSettings();
         });
 
-        event(new CompanyCreated($this->model));
-
-        if (!empty($current_company_id)) {
+        if (! empty($current_company_id)) {
             company($current_company_id)->makeCurrent();
         }
+
+        event(new CompanyCreated($this->model, $this->request));
 
         return $this->model;
     }
