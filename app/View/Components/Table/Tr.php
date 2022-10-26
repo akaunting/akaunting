@@ -42,7 +42,7 @@ class Tr extends Component
         $values = $self->getValue();
 
         if (array_key_exists('App\View\Components\Table\Tbody', $values)) {
-            return 'relative flex items-center px-1 group border-b hover:bg-gray-100';
+            return 'relative flex items-center px-1 group/actions border-b hover:bg-gray-100 active-collapse';
         }
 
         else if (array_key_exists('App\View\Components\Table\Thead', $values)) {

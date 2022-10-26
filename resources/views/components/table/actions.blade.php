@@ -3,7 +3,7 @@
     $more_actions = [];
 @endphp
 
-<div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover:flex">
+<div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover/actions:flex">
     @foreach ($actions as $action)
         @if (! empty($action['permission']))
             @can($action['permission'])
@@ -19,12 +19,12 @@
 
         @switch($type)
             @case('button')
-                <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group" {!! $action['attributes'] ?? null !!}>
+                <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions" {!! $action['attributes'] ?? null !!}>
                     <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                         {{ $action['icon'] }}
                     </span>
 
-                    <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                    <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 -top-10 -left-2 tooltip-content" data-tooltip-placement="top">
                         <span>{{ $action['title'] }}</span>
                         <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                     </div>
@@ -47,7 +47,7 @@
                         {{ $action['icon'] }}
                     </span>
 
-                    <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                    <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 -top-10 -left-2 tooltip-content" data-tooltip-placement="top">
                         <span>{{ $action['title'] }}</span>
                         <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                     </div>
