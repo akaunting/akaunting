@@ -6,37 +6,16 @@
 @tailwind utilities;
 
 
-@layer base {
-    /* form */
-    .has-error input, .has-error select, .has-error textarea {
-        border: 1px solid #cc0000 !important;
-    }
-
-    .input-money {
-        @apply w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
-    }
-
-    .disabled-money input, .disabled-money {
-        background-color:transparent !important;
-        border: none;
-    }
-
-    [type="radio"] {
-        @apply text-purple focus:outline-none focus:ring-purple focus:border-purple;
-    }
-    
+@layer container {
     .container {
         @apply px-4 lg:px-0;
     }
+}
 
+@layer utilities { 
     .max-h-0 {
         max-height: 0;
     }
-
-    .h-0 {
-        height: auto;
-    }
-    /* form */
 
     /* index */
     .index-actions:hover .tooltip-content {
@@ -95,7 +74,30 @@
     .tabs-link:hover::before {
        @apply opacity-100 visible;
     }
+     /* index */
+}
 
+@layer base {
+    /* form */
+    .has-error input, .has-error select, .has-error textarea {
+        border: 1px solid #cc0000 !important;
+    }
+
+    .input-money {
+        @apply w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
+    }
+
+    .disabled-money input, .disabled-money {
+        background-color:transparent !important;
+        border: none;
+    }
+
+    [type="radio"] {
+        @apply text-purple focus:outline-none focus:ring-purple focus:border-purple;
+    }
+    /* form */
+
+    /* index */
     .active-tabs {
         border-color: transparent !important;
     }
@@ -212,6 +214,12 @@
         @apply px-0 lg:pl-6 lg:pr-6;
     }
     /* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
+
+    /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
+    button, input, optgroup, select, textarea {
+        @apply font-normal;
+    }
+    /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
 }
 
 /* menu */
