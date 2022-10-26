@@ -203,6 +203,15 @@
         overflow: hidden; 
         height: 4rem;
     }
+    /* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
+    .dashboard .px-12 {
+        @apply px-0 lg:pl-12 lg:pr-12;
+    }
+
+    .dashboard .px-6 {
+        @apply px-0 lg:pl-6 lg:pr-6;
+    }
+    /* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
 }
 
 /* menu */

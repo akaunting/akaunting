@@ -29,19 +29,6 @@
                 </li>
 
                 <li class="w-1/4">
-                    <span class="px-3 flex flex-col">
-                        <span 
-                            :class="[{'bg-purple': active_state > 2}, {'bg-purple': active_state == 2}]"
-                            class="w-full h-1 bg-gray-300 rounded-xl text-transparent"
-                        >Text</span>
-
-                        <span :class="[{'font-bold': active_state == 2}, {'font-bold': active_state > 2}]" class="text-sm font-normal mt-2">
-                            {{ translations.taxes.title }}
-                        </span>
-                    </span>
-                </li>
-
-                <li class="w-1/4">
                     <span class="pl-6 flex flex-col">
                         <span
                             :class="[{'bg-purple': active_state == 3}]"
@@ -79,7 +66,6 @@
                 translations: {
                     company: {},
                     currencies: {},
-                    taxes: {},
                     finish: {},
                 },
             };

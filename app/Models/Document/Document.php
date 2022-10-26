@@ -542,35 +542,20 @@ class Document extends Model
                     ],
                 ];
             } catch (\Exception $e) {}
-        } else {
-            try {
-                $actions[] = [
-                    'title' => trans('general.print'),
-                    'icon' => 'print',
-                    'url' => route($prefix . '.print', $this->id),
-                    'permission' => 'read-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
-                        'target' => '_blank',
-                    ],
-                ];
-            } catch (\Exception $e) {}
         }
 
-        if (($actions[1]['icon'] != 'print') && ($actions[2]['icon'] != 'print')) {
-            try {
-                $actions[] = [
-                    'title' => trans('general.print'),
-                    'icon' => 'print',
-                    'url' => route($prefix . '.print', $this->id),
-                    'permission' => 'read-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
-                        'target' => '_blank',
-                    ],
-                ];
-            } catch (\Exception $e) {}
-        }
+        try {
+            $actions[] = [
+                'title' => trans('general.print'),
+                'icon' => 'print',
+                'url' => route($prefix . '.print', $this->id),
+                'permission' => 'read-' . $group . '-' . $permission_prefix,
+                'attributes' => [
+                    'id' => 'index-line-actions-print-' . $this->type . '-'  . $this->id,
+                    'target' => '_blank',
+                ],
+            ];
+        } catch (\Exception $e) {}
 
         try {
             $actions[] = [

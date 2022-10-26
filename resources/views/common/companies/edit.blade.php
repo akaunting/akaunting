@@ -10,47 +10,11 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 grid-rows-3">
-                            <x-form.group.text name="name" label="{{ trans('general.name') }}" />
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                            <x-form.group.email name="email" label="{{ trans('general.email') }}" />
+                        <x-form.group.email name="email" label="{{ trans('general.email') }}" />
 
-                            <x-form.group.text name="phone" label="{{ trans('settings.company.phone') }}" not-required />
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <x-form.group.file name="logo" label="{{ trans('companies.logo') }}" :value="$company->company_logo" not-required />
-                        </div>
-                    </x-slot>
-                </x-form.section>
-
-                <x-form.section>
-                    <x-slot name="head">
-                        <x-form.section.head title="{{ trans('items.billing') }}" description="{{ trans('companies.form_description.billing') }}" />
-                    </x-slot>
-
-                    <x-slot name="body">
-                        <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" not-required />
-
-                        <x-form.group.currency name="currency" selected="{{ ! empty($company->currency) ? $company->currency : config('setting.fallback.default.currency') }}" />
-
-                        <x-form.group.locale not-required />
-                    </x-slot>
-                </x-form.section>
-
-                <x-form.section>
-                    <x-slot name="head">
-                        <x-form.section.head title="{{ trans('general.address') }}" description="{{ trans('companies.form_description.address') }}" />
-                    </x-slot>
-
-                    <x-slot name="body">
-                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" not-required  v-model="form.address" />
-
-                        <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" not-required />
-
-                        <x-form.group.text name="zip_code" label="{{ trans('general.zip_code') }}" not-required />
-
-                        <x-form.group.text name="state" label="{{ trans('general.state') }}" not-required />
+                        <x-form.group.currency name="currency" :options="$currencies" selected="{{ ! empty($company->currency) ? $company->currency : config('setting.fallback.default.currency') }}" without-add-new />
 
                         <x-form.group.country />
                     </x-slot>

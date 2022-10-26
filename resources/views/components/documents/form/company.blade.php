@@ -1,4 +1,4 @@
-<x-form.accordion type="company">
+<x-form.accordion type="company" :open="(! $hideLogo && empty(setting('company.logo')))">
     <x-slot name="head">
         <x-form.accordion.head
             title="{{ trans_choice($textSectionCompaniesTitle, 1) }}"

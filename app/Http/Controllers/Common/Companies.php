@@ -10,6 +10,7 @@ use App\Jobs\Common\UpdateCompany;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
 use App\Traits\Users;
+use Akaunting\Money\Currency as MoneyCurrency;
 
 class Companies extends Controller
 {
@@ -44,7 +45,15 @@ class Companies extends Controller
      */
     public function create()
     {
-        return view('common.companies.create');
+        $money_currencies = MoneyCurrency::getCurrencies();
+
+        $currencies = [];
+
+        foreach ($money_currencies as $key => $item) {
+            $currencies[$key] = $key . ' - ' . $item['name'];
+        }
+
+        return view('common.companies.create', compact('currencies'));
     }
 
     /**
@@ -61,7 +70,7 @@ class Companies extends Controller
         $response = $this->ajaxDispatch(new CreateCompany($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('companies.index');
+            $response['redirect'] = route('companies.switch', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
 
@@ -92,7 +101,15 @@ class Companies extends Controller
             return redirect()->route('companies.index');
         }
 
-        return view('common.companies.edit', compact('company'));
+        $money_currencies = MoneyCurrency::getCurrencies();
+
+        $currencies = [];
+
+        foreach ($money_currencies as $key => $item) {
+            $currencies[$key] = $key . ' - ' . $item['name'];
+        }
+
+        return view('common.companies.edit', compact('company', 'currencies'));
     }
 
     /**

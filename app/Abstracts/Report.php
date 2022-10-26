@@ -56,6 +56,10 @@ abstract class Report
 
     public $loaded = false;
 
+    public $bar_formatter_type = 'money';
+
+    public $donut_formatter_type = 'percent';
+
     public $chart = [
         'bar' => [
             'colors' => [
@@ -156,27 +160,6 @@ abstract class Report
     public function getIcon()
     {
         return $this->icon;
-    }
-
-    public function getGrandTotal()
-    {
-        if (!$this->loaded) {
-            $this->load();
-        }
-
-        if (!empty($this->footer_totals)) {
-            $sum = 0;
-
-            foreach ($this->footer_totals as $total) {
-                $sum += is_array($total) ? array_sum($total) : $total;
-            }
-
-            $total = $this->has_money ? money($sum, default_currency(), true)->format() : $sum;
-        } else {
-            $total = trans('general.na');
-        }
-
-        return $total;
     }
 
     public function getCharts($table_key)
@@ -310,12 +293,12 @@ abstract class Report
                     continue;
                 }
 
-                $this->chart[$table_key]['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
-                $this->chart[$table_key]['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
+                $this->chart[$table_key]['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->bar_formatter_type);
+                $this->chart[$table_key]['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->donut_formatter_type);
             }
         } else {
-            $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter();
-            $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter('percent');
+            $this->chart['bar']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->bar_formatter_type);
+            $this->chart['donut']['yaxis']['labels']['formatter'] = $this->getChartLabelFormatter($this->donut_formatter_type);
         }
     }
 

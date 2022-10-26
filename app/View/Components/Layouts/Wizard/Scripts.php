@@ -6,7 +6,6 @@ use Akaunting\Money\Currency as MoneyCurrency;
 use App\Abstracts\View\Component;
 use App\Models\Common\Media;
 use App\Models\Setting\Currency;
-use App\Models\Setting\Tax;
 use App\Traits\Modules;
 
 class Scripts extends Component
@@ -20,8 +19,6 @@ class Scripts extends Component
     public $currencies;
 
     public $currency_codes;
-
-    public $taxes;
 
     public $modules;
 
@@ -40,8 +37,6 @@ class Scripts extends Component
 
         // Prepare codes
         $this->currency_codes = $this->getCurrencyCodes();
-
-        $this->taxes = $this->getTaxes();
 
         $this->modules = $this->getFeaturedModules([
             'query' => [
@@ -122,29 +117,6 @@ class Scripts extends Component
                 'cancel' => trans('general.cancel'),
             ],
 
-            'taxes' => [
-                'title' => trans_choice('general.taxes', 2),
-                'add_new' =>  trans('general.add_new'),
-                'no_taxes' => trans('taxes.no_taxes'),
-                'create_task' => trans('taxes.create_task'),
-                'new_tax' => trans('taxes.new_tax'),
-                'name' => trans('general.name'),
-                'rate_percent' => trans('taxes.rate_percent'),
-                'enabled' => trans('general.enabled'),
-                'actions' => trans('general.actions'),
-                'yes' => trans('general.yes'),
-                'no' => trans('general.no'),
-                'edit' => trans('general.edit'),
-                'delete' => trans('general.delete'),
-                'name' => trans('general.name'),
-                'rate' => trans('currencies.rate'),
-                'enabled' => trans('general.enabled'),
-                'save' => trans('general.save'),
-                'previous' => trans('pagination.previous'),
-                'next' => trans('pagination.next'),
-                'cancel' => trans('general.cancel'),
-            ],
-
             'finish' => [
                 'title' => trans('modules.ready'),
                 'recommended_apps' => trans('modules.recommended_apps'),
@@ -184,10 +156,5 @@ class Scripts extends Component
         }
 
         return $codes;
-    }
-
-    protected function getTaxes()
-    {
-        return Tax::all();
     }
 }
