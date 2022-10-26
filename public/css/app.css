@@ -51883,15 +51883,11 @@ body{
     right: 0px;
   }
 
-<<<<<<< HEAD
-  .lg\:top-7{
+    .lg\:top-7{
     top: 1.75rem;
   }
 
-  .lg\:right-24{
-=======
     .lg\:right-24{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     right: 6rem;
   }
 
@@ -51913,16 +51909,12 @@ body{
     margin-right: -3rem;
   }
 
-<<<<<<< HEAD
-  .lg\:my-16{
+    .lg\:my-16{
     margin-top: 4rem;
     margin-bottom: 4rem;
   }
 
-  .lg\:my-0{
-=======
     .lg\:my-0{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -51977,23 +51969,19 @@ body{
     display: none;
   }
 
-<<<<<<< HEAD
-  .lg\:h-6{
+    .lg\:h-6{
     height: 1.5rem;
   }
 
-  .lg\:h-98{
+    .lg\:h-98{
     height: 27.8rem;
   }
 
-  .lg\:h-full{
+    .lg\:h-full{
     height: 100%;
   }
 
-  .lg\:h-64{
-=======
     .lg\:h-64{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     height: 16rem;
   }
 
@@ -52025,15 +52013,11 @@ body{
     width: 24rem;
   }
 
-<<<<<<< HEAD
-  .lg\:w-18{
+    .lg\:w-18{
     width: 4.5rem;
   }
 
-  .lg\:w-1\/2{
-=======
     .lg\:w-1\/2{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     width: 50%;
   }
 
@@ -52121,15 +52105,11 @@ body{
     width: 75%;
   }
 
-<<<<<<< HEAD
-  .lg\:max-w-lg{
+    .lg\:max-w-lg{
     max-width: 32rem;
   }
 
-  .lg\:max-w-7xl{
-=======
     .lg\:max-w-7xl{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     max-width: 80rem;
   }
 
@@ -52137,19 +52117,15 @@ body{
     max-width: 72rem;
   }
 
-<<<<<<< HEAD
-  .lg\:grid-cols-2{
+    .lg\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-3{
+    .lg\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .lg\:flex-row{
-=======
     .lg\:flex-row{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -52202,17 +52178,13 @@ body{
     gap: 4rem;
   }
 
-<<<<<<< HEAD
-  .lg\:space-x-8 > :not([hidden]) ~ :not([hidden]){
+    .lg\:space-x-8 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(2rem * var(--tw-space-x-reverse));
     margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
-=======
     .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
@@ -52240,15 +52212,11 @@ body{
     overflow: visible;
   }
 
-<<<<<<< HEAD
-  .lg\:overflow-x-hidden{
+    .lg\:overflow-x-hidden{
     overflow-x: hidden;
   }
 
-  .lg\:border-r{
-=======
     .lg\:border-r{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     border-right-width: 1px;
   }
 
@@ -52306,26 +52274,22 @@ body{
     padding-right: 0px;
   }
 
-<<<<<<< HEAD
-  .lg\:text-6xl{
+    .lg\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
   }
 
-  .lg\:text-xl{
+    .lg\:text-xl{
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
 
-  .lg\:text-4xl{
+    .lg\:text-4xl{
     font-size: 1.75rem;
     line-height: 2rem;
   }
 
-  .lg\:text-8xl{
-=======
     .lg\:text-8xl{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     font-size: 3rem;
     line-height: 3.25rem;
   }
@@ -52350,27 +52314,19 @@ body{
     line-height: 1.75rem;
   }
 
-<<<<<<< HEAD
-  .lg\:leading-4{
+    .lg\:leading-4{
     line-height: 1rem;
   }
 
-  [dir="ltr"] .lg\:ltr\:right-0{
-    right: 0px;
-  }
-
-  [dir="ltr"] .lg\:ltr\:ml-72{
-    margin-left: 18rem;
-  }
-
-  [dir="ltr"] .lg\:ltr\:pr-12{
-=======
     [dir="ltr"] .lg\:ltr\:right-0{
     right: 0px;
   }
 
+    [dir="ltr"] .lg\:ltr\:ml-72{
+    margin-left: 18rem;
+  }
+
     [dir="ltr"] .lg\:ltr\:pr-12{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     padding-right: 3rem;
   }
 
@@ -52390,15 +52346,11 @@ body{
     left: 0px;
   }
 
-<<<<<<< HEAD
-  [dir="rtl"] .lg\:rtl\:mr-72{
+    [dir="rtl"] .lg\:rtl\:mr-72{
     margin-right: 18rem;
   }
 
-  [dir="rtl"] .lg\:rtl\:pl-12{
-=======
     [dir="rtl"] .lg\:rtl\:pl-12{
->>>>>>> a4ea448ef90c7eafacea3700bc7c83bdbb963165
     padding-left: 3rem;
   }
 
