@@ -61,7 +61,7 @@
                                 ></akaunting-date>
                             </div>
 
-                            <div class="sm:col-span-3 grid gap-10">
+                            <div class="sm:col-span-3 grid gap-y-4">
                                 <div class="sm:col-span-3">
                                     <base-input not-required :label="translations.company.address" :error="onFailErrorGet('address')">
                                         <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
@@ -90,7 +90,7 @@
                                     {{  translations.company.logo }}
                                 </label>
 
-                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column w-2/5" style="height:12.2rem" preview-classes="single" :attachments="logo" :v-model="logo">
+                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column" style="height: 10.8rem;" preview-classes="single" :attachments="logo" :v-model="logo">
                                 </akaunting-dropzone-file-upload>
 
                                 <div v-if="onFailErrorGet('logo')" class="text-red text-sm mt-1 block" v-html="onFailErrorGet('logo')"></div>
