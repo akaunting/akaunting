@@ -7332,9 +7332,6 @@ button, input, optgroup, select, textarea{
 .w-1\/3{
   width: 33.333333%;
 }
-.w-2\/5{
-  width: 40%;
-}
 .w-1\/4{
   width: 25%;
 }
@@ -50918,15 +50915,7 @@ body{
     width: 66.666667%;
   }
 
-<<<<<<< HEAD
-  .lg\:w-auto{
-    width: auto;
-  }
-
   .lg\:w-1\/4{
-=======
-    .lg\:w-1\/4{
->>>>>>> 5e6189ea01b66add0ae279090a240066f32f90b3
     width: 25%;
   }
 
@@ -50942,15 +50931,11 @@ body{
     width: 1rem;
   }
 
-<<<<<<< HEAD
-  .lg\:w-2\/4{
-=======
-    .lg\:w-auto{
+  .lg\:w-auto{
     width: auto;
   }
 
-    .lg\:w-2\/4{
->>>>>>> 5e6189ea01b66add0ae279090a240066f32f90b3
+  .lg\:w-2\/4{
     width: 50%;
   }
 
