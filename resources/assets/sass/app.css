@@ -17,39 +17,10 @@
         max-height: 0;
     }
 
-    /* index */ 
-    html[dir='ltr'] .index-actions:first-child {
-        @apply rounded-tl-lg rounded-bl-lg border-r-0;
+    /* index */
+    .index-actions {
+        @apply ltr:[&:nth-child(2)]:border-l ltr:[&:nth-child(3)]:border-l-0 rtl:[&:nth-child(2)]:border-r rtl:[&:nth-child(3)]:border-r-0 ltr:[&:first-child]:rounded-tl-lg ltr:[&:first-child]:rounded-bl-lg ltr:[&:first-child]:border-r-0 rtl:[&:first-child]:rounded-tr-lg rtl:[&:first-child]:rounded-br-lg rtl:[&:first-child]:border-l-0 ltr:[&:last-child]:rounded-tr-lg ltr:[&:last-child]:rounded-br-lg ltr:[&:last-child]:border-l-0 rtl:[&:last-child]:rounded-tl-lg rtl:[&:last-child]:rounded-bl-lg rtl:[&:last-child]:border-r-0;
     }
-
-    html[dir='rtl'] .index-actions:first-child {
-        @apply rounded-tr-lg rounded-br-lg border-l-0;
-    }
-    
-    html[dir='ltr'] .index-actions:last-child {
-        @apply rounded-tr-lg rounded-br-lg border-l-0;
-    }
-
-    html[dir='rtl'] .index-actions:last-child {
-        @apply rounded-tl-lg rounded-bl-lg border-r-0;
-    }
-
-    html[dir='ltr'] .index-actions:nth-child(2) {
-        @apply border-l;
-    }
-
-    html[dir='rtl'] .index-actions:nth-child(2) {
-        @apply border-r;
-    }
-
-    html[dir='ltr'] .index-actions:nth-child(3) {
-        @apply border-l-0;
-    }
-
-    html[dir='rtl'] .index-actions:nth-child(3) {
-        @apply border-r-0;
-    }
-
     [data-dropdown-actions] {
         transform: unset !important;
     }
