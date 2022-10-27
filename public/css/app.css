@@ -1290,6 +1290,10 @@ input[type=file]::file-selector-button:hover{
         border: 1px solid #cc0000 !important;
     }
 
+.has-error .el-select__tags input {
+        border: transparent !important;
+    }
+
 .input-money{
   margin-top: 0.25rem;
   width: 100%;
