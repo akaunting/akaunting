@@ -90,7 +90,7 @@
                                     {{  translations.company.logo }}
                                 </label>
 
-                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column" style="height: 10.8rem;" preview-classes="single" :attachments="logo" :v-model="logo">
+                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column" style="width: 10.8rem; height: 10.8rem;" preview-classes="single" :attachments="logo" :v-model="logo">
                                 </akaunting-dropzone-file-upload>
 
                                 <div v-if="onFailErrorGet('logo')" class="text-red text-sm mt-1 block" v-html="onFailErrorGet('logo')"></div>
