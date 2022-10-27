@@ -17,11 +17,7 @@
         max-height: 0;
     }
 
-    /* index */
-    .index-actions:hover .tooltip-content {
-        @apply opacity-100 visible;
-    }
-      
+    /* index */ 
     html[dir='ltr'] .index-actions:first-child {
         @apply rounded-tl-lg rounded-bl-lg border-r-0;
     }

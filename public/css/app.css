@@ -47367,10 +47367,6 @@ button, input, optgroup, select, textarea{
         max-height: 0;
     }
 /* index */
-.index-actions:hover .tooltip-content{
-  visibility: visible;
-  opacity: 1;
-}
 html[dir='ltr'] .index-actions:first-child{
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -48603,7 +48599,11 @@ body{
   opacity: 0.5;
 }
 
-.group:hover .group-hover\:flex{
+.group\/tooltip:hover .group-hover\/tooltip\:visible{
+  visibility: visible;
+}
+
+.group\/actions:hover .group-hover\/actions\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48645,6 +48645,10 @@ body{
 }
 
 .group:hover .group-hover\:opacity-100{
+  opacity: 1;
+}
+
+.group\/tooltip:hover .group-hover\/tooltip\:opacity-100{
   opacity: 1;
 }
 
