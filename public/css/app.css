@@ -48603,12 +48603,6 @@ body{
   opacity: 0.5;
 }
 
-.group\/actions:hover .group-hover\/actions\:flex{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .group:hover .group-hover\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
@@ -48652,26 +48646,6 @@ body{
 
 .group:hover .group-hover\:opacity-100{
   opacity: 1;
-}
-
-.data-\[menu-list-hidden\]\:w-0[data-menu-list-hidden]{
-  width: 0px;
-}
-
-.data-\[menu-list-hidden\]\:p-0[data-menu-list-hidden]{
-  padding: 0px;
-}
-
-.data-\[menu-list-hidden\]\:opacity-0[data-menu-list-hidden]{
-  opacity: 0;
-}
-
-.data-\[menu-list-hidden\=true\]\:opacity-0[data-menu-list-hidden=true]{
-  opacity: 0;
-}
-
-.data-\[menu-list-hidden\=\"true\"\]\:opacity-0[data-menu-list-hidden="true"]{
-  opacity: 0;
 }
 
 [dir="ltr"] .ltr\:right-0{
@@ -50955,10 +50929,6 @@ body{
 
   .lg\:w-3\/4{
     width: 75%;
-  }
-
-  .lg\:w-56{
-    width: 14rem;
   }
 
   .lg\:max-w-7xl{

@@ -3,7 +3,7 @@
     $more_actions = [];
 @endphp
 
-<div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover/actions:flex">
+<div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover:flex">
     @foreach ($actions as $action)
         @if (! empty($action['permission']))
             @can($action['permission'])
