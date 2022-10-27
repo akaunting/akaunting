@@ -48093,6 +48093,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     padding: 4px 15px;
 }
 
+/* document body selected */
+::-moz-selection { 
+    background: #55588B;
+    color: #FFFFFF;
+}
+::selection { 
+    background: #55588B;
+    color: #FFFFFF;
+}
+/* document body selected */
+
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -50907,11 +50918,15 @@ body{
     width: 66.666667%;
   }
 
+<<<<<<< HEAD
   .lg\:w-auto{
     width: auto;
   }
 
   .lg\:w-1\/4{
+=======
+    .lg\:w-1\/4{
+>>>>>>> 5e6189ea01b66add0ae279090a240066f32f90b3
     width: 25%;
   }
 
@@ -50927,7 +50942,15 @@ body{
     width: 1rem;
   }
 
+<<<<<<< HEAD
   .lg\:w-2\/4{
+=======
+    .lg\:w-auto{
+    width: auto;
+  }
+
+    .lg\:w-2\/4{
+>>>>>>> 5e6189ea01b66add0ae279090a240066f32f90b3
     width: 50%;
   }
 
@@ -51018,6 +51041,12 @@ body{
 
     .lg\:gap-16{
     gap: 4rem;
+  }
+
+    .lg\:space-x-16 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(4rem * var(--tw-space-x-reverse));
+    margin-left: calc(4rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
     .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){

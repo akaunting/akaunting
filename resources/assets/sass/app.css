@@ -583,6 +583,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     padding: 4px 15px;
 }
 
+/* document body selected */
+::-moz-selection { 
+    background: #55588B;
+    color: #FFFFFF;
+}
+::selection { 
+    background: #55588B;
+    color: #FFFFFF;
+}
+/* document body selected */
+
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;

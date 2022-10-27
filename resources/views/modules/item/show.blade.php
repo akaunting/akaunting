@@ -15,7 +15,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col space-y-16 py-4">
-            <div class="flex flex-col lg:flex-row w-full space-x-16 rtl:space-x-reverse space-y-0">
+            <div class="flex flex-col lg:flex-row w-full lg:space-x-16 rtl:space-x-reverse space-y-0">
                 <div class="w-full lg:w-7/12 flex flex-col space-x-2 banner">
                     @foreach ($module->files as $file)
                         @if ($loop->first)
@@ -116,7 +116,7 @@
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
-                            <div class="relative flex flex-col lg:flex-row space-x-4 justify-between">
+                            <div class="relative flex items-center space-x-4 justify-between">
                                 <x-layouts.modules.show.price :module="$module" />
 
                                 <div class="flex w-1/2 lg:justify-center">
