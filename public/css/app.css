@@ -50246,10 +50246,6 @@ body{
     width: 66.666667%;
   }
 
-    .lg\:w-auto{
-    width: auto;
-  }
-
     .lg\:w-1\/4{
     width: 25%;
   }
@@ -50264,6 +50260,10 @@ body{
 
     .lg\:w-4{
     width: 1rem;
+  }
+
+    .lg\:w-auto{
+    width: auto;
   }
 
     .lg\:w-2\/4{
@@ -50333,6 +50333,12 @@ body{
 
     .lg\:gap-16{
     gap: 4rem;
+  }
+
+    .lg\:space-x-16 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(4rem * var(--tw-space-x-reverse));
+    margin-left: calc(4rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
     .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
