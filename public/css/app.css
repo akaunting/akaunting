@@ -1289,6 +1289,10 @@ input[type=file]::file-selector-button:hover{
         border: 1px solid #cc0000 !important;
     }
 
+.has-error .el-select__tags input {
+        border: transparent !important;
+    }
+
 .input-money{
   margin-top: 0.25rem;
   width: 100%;
@@ -47876,9 +47880,14 @@ html[dir='rtl'] .el-picker-panel__sidebar {
     right: unset !important;
 }
 
-.flatpickr-day.selected {
-    background-color: #55588B !important;
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+    background: #55588B !important;
     border-color: #55588B !important;
+}
+
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    -webkit-box-shadow: -10px 0 0 #888aae !important;
+    box-shadow: -10px 0 0 #888aae !important;
 }
 
 .el-date-editor .el-range-input::-webkit-input-placeholder {
