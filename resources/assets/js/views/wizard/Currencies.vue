@@ -27,7 +27,7 @@
                         </thead>
 
                         <tbody data-table-body>
-                            <tr v-for="(item, index) in currencies" :key="index" data-table-list class="relative flex items-center border-b hover:bg-gray-100 px-1 flex-wrap group">
+                            <tr v-for="(item, index) in currencies" :key="index" data-table-list class="relative flex items-center border-b hover:bg-gray-100 px-1 flex-wrap group/actions">
                                 <td :class="current_tab == index ? 'hidden' : ''" class="w-4/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black">
                                     {{ item.name }}
 
@@ -37,7 +37,7 @@
                                         </span>
 
                                         <div id="wizard-currency-default" role="tooltip"
-                                            class="inline-block absolute z-20 py-1 px-2 text-sm font-medium rounded-lg bg-white text-gray-900 w-auto border border-gray-200 shadow-sm tooltip-content whitespace-normal opacity-0 invisible"
+                                            class="inline-block absolute z-20 py-1 px-2 text-sm font-medium rounded-lg bg-white text-gray-900 w-auto border border-gray-200 shadow-sm whitespace-normal opacity-0 invisible"
                                         >
                                             {{ translations.currencies.default }}
                                             <div 
@@ -56,20 +56,20 @@
                                 <td :class="current_tab == index ? 'hidden' : ''" class="w-4/12 relative ltr:pr-6 rtl:pl-6 py-4 ltr:text-right rtl:text-left whitespace-nowrap text-sm font-medium text-black">
                                     {{ item.rate }}
 
-                                    <div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover:flex">
-                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onEditItem(item, index)">
+                                    <div class="absolute ltr:right-12 rtl:left-12 -top-4 hidden items-center group-hover/actions:flex">
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer group/tooltip index-actions" @click="onEditItem(item, index)">
                                             <span class="material-icons-outlined text-purple text-lg">edit</span>
 
-                                           <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                           <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 -left-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
                                                 <span>{{ translations.currencies.edit }}</span>
                                                 <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                                             </div>
                                         </button>
 
-                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions " @click="onClickDelete(item)">
+                                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer group/tooltip index-actions" @click="onClickDelete(item)">
                                             <span class="material-icons-outlined text-purple text-lg">delete</span>
 
-                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap tooltip-content -top-10 -left-2" data-tooltip-placement="top">
+                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 -left-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
                                                 <span>{{ translations.currencies.delete }}</span>
                                                 <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                                             </div>

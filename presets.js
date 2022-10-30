@@ -20,7 +20,7 @@ module.exports = {
 
     safelist: [
       {
-        pattern: /./,
+        pattern: /^[^/&]*$/,
       },
       {
         pattern: /^p-/,

@@ -6,6 +6,44 @@
 @tailwind utilities;
 
 
+@layer container {
+    .container {
+        @apply px-4 lg:px-0;
+    }
+}
+
+@layer utilities { 
+    .max-h-0 {
+        max-height: 0;
+    }
+
+    /* index */
+    .index-actions {
+        @apply ltr:[&:nth-child(2)]:border-l ltr:[&:nth-child(3)]:border-l-0 rtl:[&:nth-child(2)]:border-r rtl:[&:nth-child(3)]:border-r-0 ltr:[&:first-child]:rounded-tl-lg ltr:[&:first-child]:rounded-bl-lg ltr:[&:first-child]:border-r-0 rtl:[&:first-child]:rounded-tr-lg rtl:[&:first-child]:rounded-br-lg rtl:[&:first-child]:border-l-0 ltr:[&:last-child]:rounded-tr-lg ltr:[&:last-child]:rounded-br-lg ltr:[&:last-child]:border-l-0 rtl:[&:last-child]:rounded-tl-lg rtl:[&:last-child]:rounded-bl-lg rtl:[&:last-child]:border-r-0;
+    }
+    [data-dropdown-actions] {
+        transform: unset !important;
+    }
+
+    table thead a {
+        @apply bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-black transition-backgroundSize;
+    }
+
+    table thead a:hover {
+        @apply border-black;
+    }
+
+    .tabs-link::before {
+        content: '';
+        @apply w-full h-0.5 absolute left-0 right-0 bottom-0 bg-purple rounded-tl-md rounded-tr-md opacity-0 invisible transition-all;
+    }
+    
+    .tabs-link:hover::before {
+       @apply opacity-100 visible;
+    }
+     /* index */
+}
+
 @layer base {
     /* form */
     .has-error input, .has-error select, .has-error textarea {
@@ -28,78 +66,9 @@
     [type="radio"] {
         @apply text-purple focus:outline-none focus:ring-purple focus:border-purple;
     }
-    
-    .container {
-        @apply px-4 lg:px-0;
-    }
-
-    .max-h-0 {
-        max-height: 0;
-    }
-
-    .h-0 {
-        height: auto;
-    }
     /* form */
 
     /* index */
-    .index-actions:hover .tooltip-content {
-        @apply opacity-100 visible;
-    }
-      
-    html[dir='ltr'] .index-actions:first-child {
-        @apply rounded-tl-lg rounded-bl-lg border-r-0;
-    }
-
-    html[dir='rtl'] .index-actions:first-child {
-        @apply rounded-tr-lg rounded-br-lg border-l-0;
-    }
-    
-    html[dir='ltr'] .index-actions:last-child {
-        @apply rounded-tr-lg rounded-br-lg border-l-0;
-    }
-
-    html[dir='rtl'] .index-actions:last-child {
-        @apply rounded-tl-lg rounded-bl-lg border-r-0;
-    }
-
-    html[dir='ltr'] .index-actions:nth-child(2) {
-        @apply border-l;
-    }
-
-    html[dir='rtl'] .index-actions:nth-child(2) {
-        @apply border-r;
-    }
-
-    html[dir='ltr'] .index-actions:nth-child(3) {
-        @apply border-l-0;
-    }
-
-    html[dir='rtl'] .index-actions:nth-child(3) {
-        @apply border-r-0;
-    }
-
-    [data-dropdown-actions] {
-        transform: unset !important;
-    }
-
-    table thead a {
-        @apply bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-black transition-backgroundSize;
-    }
-
-    table thead a:hover {
-        @apply border-black;
-    }
-
-    .tabs-link::before {
-        content: '';
-        @apply w-full h-0.5 absolute left-0 right-0 bottom-0 bg-purple rounded-tl-md rounded-tr-md opacity-0 invisible transition-all;
-    }
-    
-    .tabs-link:hover::before {
-       @apply opacity-100 visible;
-    }
-
     .active-tabs {
         border-color: transparent !important;
     }
@@ -216,6 +185,12 @@
         @apply px-0 lg:pl-6 lg:pr-6;
     }
     /* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
+
+    /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
+    button, input, optgroup, select, textarea {
+        @apply font-normal;
+    }
+    /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
 }
 
 /* menu */

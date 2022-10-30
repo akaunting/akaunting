@@ -20,7 +20,7 @@
         $size,
         'border',
         $borderColor,
-        'shadow-sm opacity-0 tooltip-content',
+        'shadow-sm opacity-0',
         $whitespace
     ])
 >
