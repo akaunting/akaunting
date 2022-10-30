@@ -51,6 +51,23 @@ trait Transactions
         return Str::endsWith($type, '-transfer');
     }
 
+    public function isNotTransferTransaction(): bool
+    {
+        return ! $this->isTransferTransaction();
+    }
+
+    public function isSplitTransaction(): bool
+    {
+        $type = $this->type ?? $this->transaction->type ?? $this->model->type ?? Transaction::INCOME_TYPE;
+
+        return Str::endsWith($type, '-split');
+    }
+
+    public function isNotSplitTransaction(): bool
+    {
+        return ! $this->isSplitTransaction();
+    }
+
     public function isDocumentTransaction(): bool
     {
         $document_id = $this->document_id ?? $this->transaction->document_id ?? $this->model->document_id ?? null;
@@ -61,11 +78,6 @@ trait Transactions
     public function isNotDocumentTransaction(): bool
     {
         return ! $this->isDocumentTransaction();
-    }
-
-    public function isNotTransferTransaction(): bool
-    {
-        return ! $this->isTransferTransaction();
     }
 
     public function getIncomeTypes(string $return = 'array'): string|array
@@ -200,6 +212,11 @@ trait Transactions
     public function getRealTypeOfTransferTransaction(string $transfer_type): string
     {
         return Str::replace('-transfer', '', $transfer_type);
+    }
+
+    public function getRealTypeOfSplitTransaction(string $transfer_type): string
+    {
+        return Str::replace('-split', '', $transfer_type);
     }
 
     public function getNextTransactionNumber($suffix = ''): string

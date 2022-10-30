@@ -364,6 +364,7 @@ class Transaction extends Model
     {
         $type = $this->getRealTypeOfRecurringTransaction($this->type);
         $type = $this->getRealTypeOfTransferTransaction($type);
+        $type = $this->getRealTypeOfSplitTransaction($type);
 
         $type = str_replace('-', '_', $type);
 
