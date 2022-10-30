@@ -204,6 +204,15 @@ trait Transactions
         ];
     }
 
+    public function getRealTypeTransaction(string $type): string
+    {
+        $type = $this->getRealTypeOfRecurringTransaction($type);
+        $type = $this->getRealTypeOfTransferTransaction($type);
+        $type = $this->getRealTypeOfSplitTransaction($type);
+
+        return $type;
+    }
+
     public function getRealTypeOfRecurringTransaction(string $recurring_type): string
     {
         return Str::replace('-recurring', '', $recurring_type);
