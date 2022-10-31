@@ -50831,6 +50831,15 @@ body{
 
 @media (min-width: 640px){
 
+  .sm\:inset-y-1\/2{
+    top: 50%;
+    bottom: 50%;
+  }
+
+  .sm\:-right-1{
+    right: -0.25rem;
+  }
+
   .sm\:col-span-6{
     grid-column: span 6 / span 6;
   }
@@ -50887,12 +50896,12 @@ body{
     margin-top: 0.5rem;
   }
 
-  .sm\:mt-0{
-    margin-top: 0px;
-  }
-
   .sm\:mb-5{
     margin-bottom: 1.25rem;
+  }
+
+  .sm\:mt-0{
+    margin-top: 0px;
   }
 
   .sm\:ml-8{
@@ -50947,6 +50956,18 @@ body{
 
   .sm\:w-1\/3{
     width: 33.333333%;
+  }
+
+  .sm\:w-60{
+    width: 15rem;
+  }
+
+  .sm\:w-auto{
+    width: auto;
+  }
+
+  .sm\:w-96{
+    width: 24rem;
   }
 
   .sm\:flex-1{
@@ -51028,6 +51049,12 @@ body{
     margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
+  .sm\:space-y-8 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+  }
+
   .sm\:divide-x-2 > :not([hidden]) ~ :not([hidden]){
     --tw-divide-x-reverse: 0;
     border-right-width: calc(2px * var(--tw-divide-x-reverse));
@@ -51037,6 +51064,11 @@ body{
   .sm\:px-0{
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .sm\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .sm\:text-6xl{
@@ -51340,6 +51372,12 @@ body{
     }
   }
 
+    .lg\:items-start{
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+
     .lg\:items-center{
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -51433,6 +51471,11 @@ body{
     .lg\:py-0{
     padding-top: 0px;
     padding-bottom: 0px;
+  }
+
+    .lg\:px-0{
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
     .lg\:pl-24{
