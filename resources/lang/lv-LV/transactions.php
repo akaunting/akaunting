@@ -24,7 +24,7 @@ return [
         'create_recurring'  => ':user izveidoja šo periodisko veidni :date',
         'schedule'          => 'Atkārtojiet katru :interval :frequency kopš :date',
         'children'          => ':count transakcijas tika izveidotas automātiski',
-        'transfer_headline' => 'No :from_account uz :to_account',
+        'transfer_headline' => '<div> <span class="font-bold"> No: </span> :from_account </div> <div> <span class="font-bold"> uz: </span> :to_account </div>',
         'transfer_desc'     => 'Pārskaitījums izveidots :date.',
     ],
 

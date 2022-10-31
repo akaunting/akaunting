@@ -8,7 +8,7 @@ return [
 
     'categories' => [
         'deposit'           => 'Депозит',
-        'sales'             => 'Продажби',
+        'sales'             => 'Приходи',
     ],
 
     'currencies' => [
