@@ -3,7 +3,7 @@
 return [
 
     'account_name'          => 'Hesap İsmi',
-    'account_balance'       => 'Hesap Bakiyesi',
+    'account_balance'       => 'Hesap bakiyesi',
     'number'                => 'Numara',
     'opening_balance'       => 'Açılış Bakiyesi',
     'current_balance'       => 'Mevcut Bakiye',

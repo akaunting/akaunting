@@ -10,7 +10,7 @@ return [
 
     'header' => [
         '403'       => '403 Interzis',
-        '404'       => '404 Pagina nu a fost gasita',
+        '404'       => '404 Pagina nu a fost găsită',
         '500'       => '500 Eroare internă de server',
     ],
 
@@ -19,5 +19,7 @@ return [
         '404'       => 'Nu am putut găsi pagina pe care o căutați.',
         '500'       => 'Vom lucra la remedierea acestui lucru imediat.',
         'record'    => 'Nu am putut găsi înregistrarea pe care o căutați.',
+        'amount'    => 'Această pagină conține sume nevalide! Vă rugăm să contactați administratorul de sistem.',
     ],
+
 ];

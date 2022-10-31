@@ -293,7 +293,7 @@ return [
         'invoices' => 'Faturas podem ser únicas ou recorrentes. Você pode enviá-las para clientes e começar a aceitar pagamentos on-line.',
         'revenues' => 'Receita é uma transação de renda paga. Ela pode ser um registro independente (ex: depósito) ou anexada a uma fatura.',
         'customers' => 'Os clientes são necessários se você quiser criar faturas. Eles também podem fazer login no Portal do Cliente e ver seu saldo.',
-        'bills' => 'Faturas podem ser únicas ou recorrentes. Elas indicam o que você deve aos seus fornecedores pelos produtos ou serviços que você compra.',
+        'bills' => 'As contas podem ser únicas ou recorrentes. Elas indicam o que é devido aos seus fornecedores pelos produtos ou serviços comprados.',
         'payments' => 'Pagamento é uma transação de despesa paga. Pode ser um registro independente (ex: receita alimentar) ou ligado a uma fatura.',
         'vendors' => 'Fornecedores são necessários se você quiser criar faturas. Você pode ver o saldo que deve e filtrar relatórios pelo fornecedor.',
         'transfers' => 'As transferências permitem que você mova dinheiro de uma conta para outra, caso elas usem ou não a mesma moeda.',

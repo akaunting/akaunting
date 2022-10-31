@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Kesalahan: Tidak dapat menghapus akun sendiri!',
         'self_disable'      => 'Kesalahan: Tidak dapat menonaktifkan akun sendiri!',
+        'unassigned'        => 'Error: Tidak dapat membatalkan penetapan perusahaan! :company harus di tugaskan kepada minimal satu pengguna.',
         'no_company'        => 'Kesalahan: Tidak ada perusahaan yang ditunjuk ke akun Anda. Silakan hubungi administrator sistem.',
     ],
 
