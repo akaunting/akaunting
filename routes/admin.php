@@ -62,7 +62,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::resource('users', 'Auth\Users', ['middleware' => ['dropzone']]);
 
     Route::get('profile/{user}/edit', 'Auth\Users@edit')->name('profile.edit');
-    Route::patch('profile/{user}', 'Auth\Users@update')->name('profile.update');
+    Route::patch('profile/{user}', 'Auth\Users@update')->middleware('dropzone')->name('profile.update');
 });
 
 Route::group(['prefix' => 'sales'], function () {
