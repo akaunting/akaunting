@@ -7404,17 +7404,17 @@ button, input, optgroup, select, textarea{
   width: -moz-fit-content;
   width: fit-content;
 }
-.w-5\/12{
-  width: 41.666667%;
+.w-8\/12{
+  width: 66.666667%;
 }
 .w-4\/12{
   width: 33.333333%;
 }
-.w-3\/12{
-  width: 25%;
-}
 .w-6\/12{
   width: 50%;
+}
+.w-3\/12{
+  width: 25%;
 }
 .w-2\/12{
   width: 16.666667%;
@@ -7422,11 +7422,11 @@ button, input, optgroup, select, textarea{
 .w-9\/12{
   width: 75%;
 }
-.w-8\/12{
-  width: 66.666667%;
-}
 .w-7\/12{
   width: 58.333333%;
+}
+.w-5\/12{
+  width: 41.666667%;
 }
 .w-1\/2{
   width: 50%;
@@ -50883,16 +50883,20 @@ body{
     margin-top: -6rem;
   }
 
-  .sm\:mt-10{
-    margin-top: 2.5rem;
-  }
-
   .sm\:mt-2{
     margin-top: 0.5rem;
   }
 
   .sm\:mt-0{
     margin-top: 0px;
+  }
+
+  .sm\:mb-5{
+    margin-bottom: 1.25rem;
+  }
+
+  .sm\:ml-8{
+    margin-left: 2rem;
   }
 
   .sm\:block{
@@ -50921,12 +50925,12 @@ body{
     width: 50%;
   }
 
-  .sm\:w-3\/12{
-    width: 25%;
-  }
-
   .sm\:w-5\/12{
     width: 41.666667%;
+  }
+
+  .sm\:w-3\/12{
+    width: 25%;
   }
 
   .sm\:w-4\/12{
@@ -51030,9 +51034,9 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
-  .sm\:px-8{
-    padding-left: 2rem;
-    padding-right: 2rem;
+  .sm\:px-0{
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .sm\:text-6xl{
