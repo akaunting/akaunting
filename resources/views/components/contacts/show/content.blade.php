@@ -134,7 +134,7 @@
 
         @if (! $hideBottomRight)
         <x-show.content.right>
-            <x-tabs active="documents">
+            <x-tabs id="" slides="3" active="documents">
                 <x-slot name="navs">
                     @stack('documents_nav_start')
 
@@ -146,6 +146,34 @@
 
                     @stack('transactions_nav_start')
 
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
+                    <x-tabs.nav
+                        id="transactions"
+                        name="{{ trans_choice('general.transactions', 2) }}"
+                    />
                     <x-tabs.nav
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"

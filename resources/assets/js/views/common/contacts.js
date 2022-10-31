@@ -37,6 +37,25 @@ const app = new Vue({
 
     mounted() {
         this.form.create_user = false;
+
+        //swiper slider for long tabs items
+        for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
+            item.id = index;
+
+            new Swiper(".swiper-tabs-container", {
+                loop: false,
+                slidesPerView: Number(item.getAttribute('data-swiper')),
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        }
+        //swiper slider for long tabs items
     },
 
     methods:{

@@ -1,7 +1,7 @@
 @props(['id', 'name', 'href', 'active'])
 
 <li 
-    class="relative px-8 text-sm text-center pb-2 cursor-pointer transition-all border-b tabs-link"
+    class="swiper-slide relative px-8 text-sm text-center pb-2 cursor-pointer transition-all border-b tabs-link"
     id="tab-{{ $id }}"
     data-id="tab-{{ $id }}"
     data-tabs="{{ $id }}"
