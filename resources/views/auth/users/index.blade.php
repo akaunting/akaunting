@@ -30,7 +30,7 @@
                                 <x-index.bulkaction.all />
                             </x-table.th>
 
-                            <x-table.th class="w-5/12">
+                            <x-table.th class="w-8/12 sm:w-5/12">
                                 <x-sortablelink column="name" title="{{ trans('general.name') }}" />
                             </x-table.th>
 
@@ -38,7 +38,7 @@
                                 <x-sortablelink column="email" title="{{ trans('general.email') }}" />
                             </x-table.th>
 
-                            <x-table.th class="w-4/12 sm:w-3/12" kind="right">
+                            <x-table.th class="w-4/12" kind="right">
                                 {{ trans_choice('general.roles', 1) }}
                             </x-table.th>
                         </x-table.tr>
@@ -55,7 +55,7 @@
                                     />
                                 </x-table.td>
 
-                                <x-table.td class="w-4/12 sm:w-5/12">
+                                <x-table.td class="w-8/12 sm:w-5/12">
                                     <div class="flex items-center space-x-2">
                                         @if (setting('default.use_gravatar', '0') == '1')
                                             <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" title="{{ $item->name }}" alt="{{ $item->name }}">
@@ -81,7 +81,7 @@
                                     {{ $item->email }}
                                 </x-table.td>
 
-                                <x-table.td class="w-3/12" kind="right">
+                                <x-table.td class="w-4/12" kind="right">
                                     <div class="space-x-2">
                                         @foreach($item->roles as $role)
                                             <span class="bg-lilac-900 px-2 py-0.5 test-xs rounded-lg text-black">
