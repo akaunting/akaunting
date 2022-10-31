@@ -26,7 +26,7 @@
                             @if (setting('default.use_gravatar', '0') == '1')
                                 <x-form.group.text name="fake_picture" label="{{ trans_choice('general.pictures', 1) }}" disabled placeholder="{{ trans('settings.default.use_gravatar') }}" form-group-class="sm:col-span-3 sm:row-span-2" />
                             @else
-                                <x-form.group.file name="picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
+                                <x-form.group.file name="picture" :value="$user->picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
                             @endif
 
                             @if (user()->id == $user->id)
