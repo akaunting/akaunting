@@ -134,8 +134,10 @@ class Permissions extends Seeder
             'accountant' => [
                 'admin-panel' => 'r',
                 'api' => 'r',
+                'auth-profile' => 'r,u',
                 'common-dashboards' => 'r',
                 'common-items' => 'r',
+                'common-reports' => 'r',
                 'purchases-bills' => 'r',
                 'purchases-vendors' => 'r',
                 'sales-customers' => 'r',
@@ -153,6 +155,14 @@ class Permissions extends Seeder
                 'modules-item' => 'r',
                 'modules-my' => 'r',
                 'modules-tiles' => 'r',
+                'widgets-account-balance' => 'r',
+                'widgets-bank-feeds' => 'r',
+                'widgets-cash-flow' => 'r',
+                'widgets-currencies' => 'r',
+                'widgets-expenses-by-category' => 'r',
+                'widgets-payables' => 'r',
+                'widgets-profit-loss' => 'r',
+                'widgets-receivables' => 'r',
             ],
         ];
 
