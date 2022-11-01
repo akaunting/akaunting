@@ -72,6 +72,10 @@ class Suggestions extends Component
             return [];
         }
 
+        if (count($modules) < 3) {
+            return $modules;
+        }
+
         return Arr::random($modules, 2);
     }
 }
