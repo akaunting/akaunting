@@ -113,8 +113,8 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldExportVendors()
     {
-        $count = 5;
-        Contact::factory()->vendor()->count($count)->create();
+        Contact::factory()->vendor()->count(5)->create();
+        $count = Contact::vendor()->count();
 
         \Excel::fake();
 

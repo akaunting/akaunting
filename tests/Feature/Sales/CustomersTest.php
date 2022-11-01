@@ -135,7 +135,7 @@ class CustomersTest extends FeatureTestCase
     public function testItShouldExportCustomers()
     {
         Contact::factory()->customer()->count(5)->create();
-        $count = Contact::count();
+        $count = Contact::customer()->count();
 
         \Excel::fake();
 
