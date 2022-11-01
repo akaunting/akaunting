@@ -5,6 +5,7 @@ namespace App\View\Components;
 use App\Abstracts\View\Component;
 use App\Traits\Modules;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class Suggestions extends Component
@@ -71,6 +72,6 @@ class Suggestions extends Component
             return [];
         }
 
-        return $modules;
+        return Arr::random($modules, 2);
     }
 }
