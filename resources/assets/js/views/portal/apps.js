@@ -68,7 +68,7 @@ const app = new Vue({
         }
         
 
-        if (document.querySelector('[data-tabs-swiper]').childElementCount) {
+        if (document.querySelector('[data-tabs-swiper]').childElementCount > 2) {
 
             document.querySelectorAll('[data-tabs-slide]').forEach((item) => {
                 item.classList.add('swiper-slide');
@@ -96,7 +96,7 @@ const app = new Vue({
 
         new Swiper(".swiper-links", {
             loop: false,
-            slidesPerView: 1,
+            slidesPerView: 3,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true
