@@ -193,24 +193,28 @@
     /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
 
     /* changelog modal styling for update center */
+    .change-log-modal .badge {
+        @apply px-3 py-2 rounded-3xl text-xs font-medium bg-green text-white;
+    }
+
     .change-log-modal h2 {
-        @apply text-2xl font-bold text-black mb-3;
+        @apply text-2xl font-bold text-purple mb-2;
     }
 
     .change-log-modal h3 {
-        @apply text-lg font-bold text-black mb-3;
+        @apply text-lg font-bold text-purple mb-2;
     }
 
     .change-log-modal ul {
-        @apply list-disc list-inside mb-3;
+        @apply list-disc list-inside mb-2;
     }
 
     .change-log-modal li {
-        @apply text-base text-black;
+        @apply text-base text-purple;
     }
 
     .change-log-modal a {
-        @apply text-purple underline;
+        @apply text-green underline;
     }
     /* changelog modal styling for update center */
 }
