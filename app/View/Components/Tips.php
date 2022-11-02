@@ -52,6 +52,10 @@ class Tips extends Component
                 $view = 'components.tips.relative';
         }
 
+        if ($this->tips->count() > 1) {
+            $view = 'components.tips.relative';
+        }
+
         return view($view);
     }
 
@@ -71,6 +75,10 @@ class Tips extends Component
             return;
         }
 
+        $rows = collect();
+
+        shuffle($tips);
+
         foreach ($tips as $tip) {
             if ($tip->position != $this->position) {
                 continue;
@@ -84,7 +92,13 @@ class Tips extends Component
                 $tip->action = Str::replace('{company_id}', company_id(), $tip->action);
             }
 
-            $this->tips->push($tip);
+            $rows->push($tip);
+        }
+
+        if ($rows->count()) {
+            $row = $rows->shuffle()->first();
+
+            $this->tips->push($row);
         }
     }
 }
