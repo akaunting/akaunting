@@ -51134,6 +51134,14 @@ body{
     top: 0.5rem;
   }
 
+  .lg\:bottom-2\.5{
+    bottom: 0.625rem;
+  }
+
+  .lg\:bottom-2{
+    bottom: 0.5rem;
+  }
+
   .lg\:col-span-5{
     grid-column: span 5 / span 5;
   }
@@ -51225,6 +51233,10 @@ body{
 
   .lg\:h-12{
     height: 3rem;
+  }
+
+  .lg\:h-28{
+    height: 7rem;
   }
 
   .lg\:w-9{
@@ -51540,6 +51552,10 @@ body{
     right: 0px;
   }
 
+    [dir="ltr"] .ltr\:lg\:right-0{
+    right: 0px;
+  }
+
     [dir="ltr"] .lg\:ltr\:pr-12{
     padding-right: 3rem;
   }
@@ -51557,6 +51573,10 @@ body{
   }
 
     [dir="rtl"] .lg\:rtl\:left-0{
+    left: 0px;
+  }
+
+    [dir="rtl"] .rtl\:lg\:left-0{
     left: 0px;
   }
 
