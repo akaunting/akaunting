@@ -109,7 +109,7 @@
         </x-index.container>
 
         <akaunting-modal v-if="changelog.show"
-            modal-dialog-class="max-w-screen-2xl"
+            modal-dialog-class="max-w-screen-xl change-log-modal"
             :show="changelog.show"
             :title="'{{ trans('updates.changelog') }}'"
             @cancel="changelog.show = false"

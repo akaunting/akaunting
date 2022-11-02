@@ -191,6 +191,28 @@
         @apply font-normal;
     }
     /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
+
+    /* changelog modal styling for update center */
+    .change-log-modal h2 {
+        @apply text-2xl font-bold text-black mb-3;
+    }
+
+    .change-log-modal h3 {
+        @apply text-lg font-bold text-black mb-3;
+    }
+
+    .change-log-modal ul {
+        @apply list-disc list-inside mb-3;
+    }
+
+    .change-log-modal li {
+        @apply text-base text-black;
+    }
+
+    .change-log-modal a {
+        @apply text-purple underline;
+    }
+    /* changelog modal styling for update center */
 }
 
 /* menu */
