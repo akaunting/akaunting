@@ -3092,10 +3092,6 @@ button, input, optgroup, select, textarea{
   top: -100%;
   bottom: -100%;
 }
-.inset-y-1\/2{
-  top: 50%;
-  bottom: 50%;
-}
 .top-0{
   top: 0px;
 }
@@ -48223,10 +48219,18 @@ html[dir='rtl'] .el-scrollbar__wrap {
     }
     /* apex-chart cash-flow */
     .apex-chart-cash-flow .apexcharts-legend {
-        width: 24rem !important;
+        width: 100% !important;
         -ms-flex-pack: distribute !important;
             justify-content: space-around !important;
         padding: 0;
+        -ms-flex-wrap: nowrap !important;
+            flex-wrap: nowrap !important;
+    }
+
+    .apex-chart-cash-flow .apexcharts-legend-series {
+        width: 8rem;
+        text-align: center;
+        margin: 0 !important;
     }
 
     .apex-chart-cash-flow  .apexcharts-toolbar {
@@ -48340,6 +48344,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 @media only screen and (min-width: 480px) {
     .large-overflow-unset {
         overflow-x: unset;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .dashboard-picker .el-picker-panel__body {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+
+    .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
+        width: 100% !important;
     }
 }
 
@@ -50958,16 +50973,16 @@ body{
     width: 33.333333%;
   }
 
+  .sm\:w-96{
+    width: 24rem;
+  }
+
   .sm\:w-60{
     width: 15rem;
   }
 
   .sm\:w-auto{
     width: auto;
-  }
-
-  .sm\:w-96{
-    width: 24rem;
   }
 
   .sm\:flex-1{
@@ -51047,12 +51062,6 @@ body{
     --tw-space-x-reverse: 0;
     margin-right: calc(0.5rem * var(--tw-space-x-reverse));
     margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .sm\:space-y-8 > :not([hidden]) ~ :not([hidden]){
-    --tw-space-y-reverse: 0;
-    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(2rem * var(--tw-space-y-reverse));
   }
 
   .sm\:divide-x-2 > :not([hidden]) ~ :not([hidden]){
@@ -51468,14 +51477,14 @@ body{
     padding-right: 6rem;
   }
 
-    .lg\:py-0{
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-
     .lg\:px-0{
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+    .lg\:py-0{
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 
     .lg\:pl-24{
