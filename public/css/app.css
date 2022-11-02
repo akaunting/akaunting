@@ -1533,26 +1533,41 @@ button, input, optgroup, select, textarea{
 
 /* changelog modal styling for update center */
 
+.change-log-modal .badge{
+  border-radius: 1.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(110 161 82 / var(--tw-bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .change-log-modal h2{
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: 1.375rem;
   line-height: 1.5rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(66 66 66 / var(--tw-text-opacity));
+  color: rgb(85 88 139 / var(--tw-text-opacity));
 }
 
 .change-log-modal h3{
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(66 66 66 / var(--tw-text-opacity));
+  color: rgb(85 88 139 / var(--tw-text-opacity));
 }
 
 .change-log-modal ul{
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   list-style-position: inside;
   list-style-type: disc;
 }
@@ -1561,12 +1576,12 @@ button, input, optgroup, select, textarea{
   font-size: 1rem;
   line-height: 1.5rem;
   --tw-text-opacity: 1;
-  color: rgb(66 66 66 / var(--tw-text-opacity));
+  color: rgb(85 88 139 / var(--tw-text-opacity));
 }
 
 .change-log-modal a{
   --tw-text-opacity: 1;
-  color: rgb(85 88 139 / var(--tw-text-opacity));
+  color: rgb(110 161 82 / var(--tw-text-opacity));
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }
