@@ -1,5 +1,5 @@
-<div class="overflow-x-visible my-8">
-    <table class="w-full">
+<div class="overflow-x-scroll large-overflow-unset my-8">
+    <table class="small-table-width rp-border-collapse">
         <thead>
             <tr>
                 <th class="{{ $class->column_name_width }} w-24 print-alignment">&nbsp;</th>
