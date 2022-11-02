@@ -20,11 +20,13 @@ return [
 
     'item_name'             => 'Articol|Articole
 Nume articol|Nume articole',
+    'recurring_bills'       => 'Factură recurentă|Facturi recurente',
 
     'show_discount'         => ':discount% Reducere',
     'add_discount'          => 'Adauga Reducere',
     'discount_desc'         => 'din subtotal',
 
+    'payment_made'          => 'Plată efectuată',
     'payment_due'           => 'De plată',
     'amount_due'            => 'Suma de plata',
     'paid'                  => 'Plătit',
@@ -39,6 +41,10 @@ Nume articol|Nume articole',
     'create_bill'           => 'Creați factură',
     'receive_bill'          => 'Primește factura',
     'make_payment'          => 'Plătește',
+
+    'form_description' => [
+        'billing'           => 'Detaliile de facturare apar în factura ta. Data facturii este utilizată în tabloul de bord și rapoarte. Selectează data la care te aștepți să plătești ca dată scadentă.',
+    ],
 
     'messages' => [
         'draft'             => 'Acesta este o <b>CIORNĂ</b> și va putea fi vizualizată la grafice după ce este primită.',

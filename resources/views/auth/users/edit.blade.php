@@ -26,7 +26,7 @@
                             @if (setting('default.use_gravatar', '0') == '1')
                                 <x-form.group.text name="fake_picture" label="{{ trans_choice('general.pictures', 1) }}" disabled placeholder="{{ trans('settings.default.use_gravatar') }}" form-group-class="sm:col-span-3 sm:row-span-2" />
                             @else
-                                <x-form.group.file name="picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
+                                <x-form.group.file name="picture" :value="$user->picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
                             @endif
 
                             @if (user()->id == $user->id)
@@ -38,21 +38,23 @@
                     </x-slot>
                 </x-form.section>
 
-                <x-form.section>
-                    <x-slot name="head">
-                        <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
-                    </x-slot>
+                @if (user()->can('read-common-companies') || user()->hasRole(['admin', 'manager']))
+                    <x-form.section>
+                        <x-slot name="head">
+                            <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
+                        </x-slot>
 
-                    <x-slot name="body">
-                        @can('read-common-companies')
-                            <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" selected-key="company_ids" :remote_action="route('companies.index')" form-group-class="sm:col-span-6" />
-                        @endcan
+                        <x-slot name="body">
+                            @can('read-common-companies')
+                                <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" selected-key="company_ids" :remote_action="route('companies.index')" form-group-class="sm:col-span-6" />
+                            @endcan
 
-                        @role('admin|manager')
-                            <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" selected-key="roles.id" />
-                        @endrole
-                    </x-slot>
-                </x-form.section>
+                            @role('admin|manager')
+                                <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" selected-key="roles.id" />
+                            @endrole
+                        </x-slot>
+                    </x-form.section>
+                @endif
 
                 <x-form.section>
                     <x-slot name="head">
@@ -69,15 +71,15 @@
                 <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
 
                 @canany(['update-auth-users', 'update-auth-profile'])
-                <x-form.section>
-                    <x-slot name="foot">
-                        @if (user()->can('read-auth-users'))
-                            <x-form.buttons cancel-route="users.index" />
-                        @else
-                            <x-form.buttons cancel-route="dashboard" />
-                        @endif
-                    </x-slot>
-                </x-form.section>
+                    <x-form.section>
+                        <x-slot name="foot">
+                            @if (user()->can('read-auth-users'))
+                                <x-form.buttons cancel-route="users.index" />
+                            @else
+                                <x-form.buttons cancel-route="dashboard" />
+                            @endif
+                        </x-slot>
+                    </x-form.section>
                 @endcanany
             </x-form>
         </x-form.container>

@@ -369,8 +369,8 @@ abstract class Index extends Component
             $buttons[] = [
                 'permission'    => $this->permissionCreate,
                 'url'           => route($this->importRoute, $this->importRouteParameters),
-                'text'          => trans('import.title', ['type' => trans_choice($this->textPage ?? 'general.' . $prefix, 1)]),
-                'description'   => trans('general.empty.actions.import', ['type' => strtolower(trans_choice($this->textPage ?? 'general.' . $prefix, 1))]),
+                'text'          => trans('import.title', ['type' => trans_choice($this->textPage ?? 'general.' . $prefix, 2)]),
+                'description'   => trans('general.empty.actions.import', ['type' => strtolower(trans_choice($this->textPage ?? 'general.' . $prefix, 2))]),
             ];
         }
 

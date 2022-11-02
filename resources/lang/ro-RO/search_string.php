@@ -15,6 +15,7 @@ return [
         'reconciled'        => 'Reconciliere',
         'expense_account'   => 'Din contul',
         'income_account'    => 'În contul',
+        'recurring'         => 'Recurente',
     ],
 
 ];

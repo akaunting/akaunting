@@ -9,12 +9,12 @@ return [
 
     'invoice_remind_customer' => [
         'subject'       => '{invoice_number} notificare factură restantă',
-        'body'          => 'Stimate {customer_name},<br /><br />Aceasta este o notificare de întârziere pentru factura <strong>{invoice_number}</strong>. <br /><br />Totalul facturii este {invoice_total} și a fost scavent în <strong>{invoice_due_date}</strong>.<br /><br />Puteți vedea detaliile facturii și continua plata accesând următorul link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Toate cele bune,<br />{company_name}',
+        'body'          => 'Stimate {customer_name},<br /><br />Aceasta este o notificare de întârziere pentru factura <strong>{invoice_number}</strong>. <br /><br />Totalul facturii este {invoice_total} și a fost scadentă în <strong>{invoice_due_date}</strong>.<br /><br />Puteți vedea detaliile facturii și să continuați către plată accesând următorul link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Toate cele bune,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => ' notificare factură restantă cu numărul {invoice_number}',
-        'body'          => 'Bună,<br /><br />{customer_name} a primit o notificare de întârziere pentru factura <strong>{invoice_number}</strong>. <br /><br />Totalul facturii este {invoice_total} și a fost scadentă în <strong>{invoice_due_date}</strong>.<br /><br />Puteţi vedea detaliile facturii la următorul link: <a href="{invoice_admin_link}">{invoice_number}</a><br /><br />Toate cele bune,<br />{company_name}',
+        'subject'       => ' notificare pentru factura restantă cu numărul {invoice_number}',
+        'body'          => 'Bună,<br /><br />{customer_name} a primit o notificare de întârziere pentru factura <strong>{invoice_number}</strong>. <br /><br />Totalul facturii este de {invoice_total} și a fost scadentă în <strong>{invoice_due_date}</strong>.<br /><br />Puteţi vedea detaliile facturii la următorul link: <a href="{invoice_admin_link}">{invoice_number}</a><br /><br />Toate cele bune,<br />{company_name}',
     ],
 
     'invoice_recur_customer' => [
@@ -25,6 +25,11 @@ return [
     'invoice_recur_admin' => [
         'subject'       => 'factura recurentă cu numărul {invoice_number} a fost creată',
         'body'          => 'Salut,<br /><br />Conform recurenței pentru care a optat {customer_name}, factura <strong>{invoice_number}</strong> a fost creată automat.<br /><br />Puteți vedea detaliile facturii la următorul link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Toate cele bune,<br />{company_name}',
+    ],
+
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} factură vizualizată',
+        'body'          => 'Bună ziua,<br /><br />{customer_name} a vizualizat factura <strong>{invoice_number}</strong>.<br /><br />Poți vedea detaliile facturii la următorul link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Cu stimă,<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
@@ -47,4 +52,13 @@ return [
         'body'          => 'Salut,<br /><br />Conform recurenței pentru care a optat {vendor_name}, factura <strong>{bill_number}</strong> a fost creată automat.<br /><br />Poți vedea detaliile facturii la următorul link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Toate cele bune,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'Chitanța ta de la {company_name}',
+        'body'          => 'Dragă {contact_name},<br /><br />Vă mulțumim pentru plată. <br /><br />Puteți vedea detaliile plății la următorul link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Nu ezitați să ne contactați pentru orice întrebări.<br /><br />Toate cele bune,<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Plată efectuată de {company_name}',
+        'body'          => 'Dragă {contact_name},<br /><br />Am efectuat următoarea plată. <br /><br />Puteți vedea detaliile plății de la următorul link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Nu ezitați să ne contactați pentru orice întrebări.<br /><br />Toate cele bune,<br />{company_name}',
+    ],
 ];
