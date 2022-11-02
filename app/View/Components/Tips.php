@@ -57,17 +57,17 @@ class Tips extends Component
 
     protected function setTips($tips)
     {
-        if (!empty($tips)) {
+        if (! empty($tips)) {
             $this->tips = $tips;
         }
 
-        if (!$path = Route::current()->uri()) {
+        if (! $path = Route::current()->uri()) {
             return;
         }
 
         $path = Str::replace('{company_id}/', '', $path);
 
-        if (!$tips = $this->getTips($path)) {
+        if (! $tips = $this->getTips($path)) {
             return;
         }
 
@@ -76,8 +76,12 @@ class Tips extends Component
                 continue;
             }
 
-            if (!empty($tip->alias) && $this->moduleIsEnabled($tip->alias)) {
+            if (! empty($tip->alias) && $this->moduleIsEnabled($tip->alias)) {
                 continue;
+            }
+
+            if (Str::contains($tip->action, '{company_id}')) {
+                $tip->action = Str::replace('{company_id}', company_id(), $tip->action);
             }
 
             $this->tips->push($tip);
