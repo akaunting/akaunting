@@ -66,10 +66,37 @@ const app = new Vue({
         if (typeof this.form.password !== 'undefined') {
             this.form.password = '';
         }
+        
+
+        if (document.querySelector('[data-tabs-swiper]').childElementCount) {
+
+            document.querySelectorAll('[data-tabs-slide]').forEach((item) => {
+                item.classList.add('swiper-slide');
+            });
+
+            document.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
+
+            let html = `
+            <div class="swiper-wrapper">
+                ${document.querySelector('[data-tabs-swiper]').innerHTML}
+            </div>
+
+            <div class="swiper-button-next top-3 right-0">
+                <span class="material-icons">chevron_right</span>
+            </div>
+
+            <div class="swiper-button-prev top-3 left-0">
+                <span class="material-icons">chevron_left</span>
+            </div>
+            `; 
+
+            document.querySelector('[data-tabs-swiper]').innerHTML = html; 
+        }
+
 
         new Swiper(".swiper-links", {
             loop: false,
-            slidesPerView: 3,
+            slidesPerView: 1,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true

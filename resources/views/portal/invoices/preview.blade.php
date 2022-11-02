@@ -28,33 +28,23 @@
                             @php $is_active = true; @endphp
 
                             <x-slot name="navs">
-                                <div class="swiper swiper-links w-full">
-                                    <div class="swiper-wrapper">
-                                        @foreach ($payment_methods as $key => $name)
-                                            @stack('invoice_{{ $key }}_tab_start')
-                                            <div class="swiper-slide">
+                                <div data-tabs-swiper class="w-full flex">
+                                    @foreach ($payment_methods as $key => $name)
+                                        @stack('invoice_{{ $key }}_tab_start')
+                                            <div data-tabs-slide>
                                                 <x-tabs.nav
                                                     id="{{ $name }}"
                                                     @click="onChangePaymentMethodSigned('{{ $key }}')"
                                                 >
-                                                    <div class="w-24 truncate">
+                                                    <div>
                                                         {{ $name }}
                                                     </div>
                                                 </x-tabs.nav>
                                             </div>
-                                            @stack('invoice_{{ $key }}_tab_end')
+                                        @stack('invoice_{{ $key }}_tab_end')
 
-                                            @php $is_active = false; @endphp
-                                        @endforeach
-                                    </div>
-
-                                    <div class="swiper-button-next top-3 right-0">
-                                        <span class="material-icons">chevron_right</span>
-                                    </div>
-
-                                    <div class="swiper-button-prev top-3 left-0">
-                                        <span class="material-icons">chevron_left</span>
-                                    </div>
+                                        @php $is_active = false; @endphp
+                                    @endforeach
                                 </div>
                             </x-slot>
                         </div>

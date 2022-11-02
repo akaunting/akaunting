@@ -50876,6 +50876,10 @@ body{
     width: 8.333333%;
   }
 
+  .lg\:w-auto{
+    width: auto;
+  }
+
   .lg\:w-3\/12{
     width: 25%;
   }
@@ -50938,10 +50942,6 @@ body{
 
   .lg\:w-4{
     width: 1rem;
-  }
-
-  .lg\:w-auto{
-    width: auto;
   }
 
   .lg\:w-2\/4{
