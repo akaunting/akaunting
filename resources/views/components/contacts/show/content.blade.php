@@ -151,33 +151,26 @@
                         name="{{ trans_choice('general.transactions', 2) }}"
                     />
                     <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
+                        id="first"
+                    >
+                    First
+                    </x-tabs.nav>
+
                     <x-tabs.nav
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"
                     />
                     <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
+                        id="first"
+                    >
+                    First
+                    </x-tabs.nav>
+
                     <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
-                    <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
-                    <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
-                    <x-tabs.nav
-                        id="transactions"
-                        name="{{ trans_choice('general.transactions', 2) }}"
-                    />
+                        id="second"
+                    >
+                    Second
+                    </x-tabs.nav>
 
                     @stack('transactions_nav_end')
                 </x-slot>
