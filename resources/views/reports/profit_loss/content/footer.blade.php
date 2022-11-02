@@ -1,5 +1,5 @@
-<div class="overflow-x-scroll large-overflow-unset mb-8">
-    <table class="w-full small-table-width  rp-border-collapse">
+<div class="overflow-x-visible mb-8">
+    <table class="w-full rp-border-collapse">
         <tbody>
             <tr>
                 <td class="{{ $class->column_name_width }} w-24 ltr:text-left rtl:text-right text-black-400 uppercase font-bold">
