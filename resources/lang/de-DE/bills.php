@@ -19,7 +19,7 @@ return [
     'total'                 => 'Gesamt',
 
     'item_name'             => 'Artikel-Name|Artikel-Namen',
-    'recurring_bills'       => 'Wiederkehrende Rechnung|Wiederkehrende Rechnungen',
+    'recurring_bills'       => 'Wiederkehrende Rechnung(-en)',
 
     'show_discount'         => ':discount% Rabatt',
     'add_discount'          => 'füge Rabatt hinzu',

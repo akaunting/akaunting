@@ -18,6 +18,10 @@ class PaymentMethod extends Form
      */
     public function render()
     {
+        if (empty($this->name)) {
+            $this->name = 'payment_method';
+        }
+
         $this->payment_methods = Modules::getPaymentMethods();
 
         if (empty($this->selected) && empty($this->getParentData('model'))) {

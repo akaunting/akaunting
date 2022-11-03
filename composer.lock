@@ -907,16 +907,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.240.5",
+            "version": "3.240.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7fb4c933795c5908fe5e2cb32913eed608901195"
+                "reference": "72a4381a59f42720b033865d265aa64c3190cc13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7fb4c933795c5908fe5e2cb32913eed608901195",
-                "reference": "7fb4c933795c5908fe5e2cb32913eed608901195",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/72a4381a59f42720b033865d265aa64c3190cc13",
+                "reference": "72a4381a59f42720b033865d265aa64c3190cc13",
                 "shasum": ""
             },
             "require": {
@@ -995,9 +995,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.8"
             },
-            "time": "2022-10-28T18:17:24+00:00"
+            "time": "2022-11-02T18:44:20+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -1302,23 +1302,23 @@
         },
         {
             "name": "barryvdh/reflection-docblock",
-            "version": "v2.0.6",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/ReflectionDocBlock.git",
-                "reference": "6b69015d83d3daf9004a71a89f26e27d27ef6a16"
+                "reference": "bf44b757feb8ba1734659029357646466ded673e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/ReflectionDocBlock/zipball/6b69015d83d3daf9004a71a89f26e27d27ef6a16",
-                "reference": "6b69015d83d3daf9004a71a89f26e27d27ef6a16",
+                "url": "https://api.github.com/repos/barryvdh/ReflectionDocBlock/zipball/bf44b757feb8ba1734659029357646466ded673e",
+                "reference": "bf44b757feb8ba1734659029357646466ded673e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0,<4.5"
+                "phpunit/phpunit": "^8.5.14|^9"
             },
             "suggest": {
                 "dflydev/markdown": "~1.0",
@@ -1348,9 +1348,9 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/barryvdh/ReflectionDocBlock/tree/v2.0.6"
+                "source": "https://github.com/barryvdh/ReflectionDocBlock/tree/v2.1.0"
             },
-            "time": "2018-12-13T10:34:14+00:00"
+            "time": "2022-10-31T15:35:43+00:00"
         },
         {
             "name": "bkwld/cloner",
@@ -4858,16 +4858,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.37.0",
+            "version": "v9.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0c9675abf6d966e834b2ebeca3319f524e07a330"
+                "reference": "abf198e443e06696af3f356b44de67c0fa516107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0c9675abf6d966e834b2ebeca3319f524e07a330",
-                "reference": "0c9675abf6d966e834b2ebeca3319f524e07a330",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/abf198e443e06696af3f356b44de67c0fa516107",
+                "reference": "abf198e443e06696af3f356b44de67c0fa516107",
                 "shasum": ""
             },
             "require": {
@@ -5040,7 +5040,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-10-25T15:43:46+00:00"
+            "time": "2022-11-01T14:05:55+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -13247,16 +13247,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.14.5",
+            "version": "2.14.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc"
+                "reference": "f7948baaa0330277c729714910336383286305da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
-                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f7948baaa0330277c729714910336383286305da",
+                "reference": "f7948baaa0330277c729714910336383286305da",
                 "shasum": ""
             },
             "require": {
@@ -13306,7 +13306,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.5"
+                "source": "https://github.com/filp/whoops/tree/2.14.6"
             },
             "funding": [
                 {
@@ -13314,7 +13314,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-07T12:00:00+00:00"
+            "time": "2022-11-02T16:23:29+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
