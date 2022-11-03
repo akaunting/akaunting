@@ -93,7 +93,7 @@
 
                             <br>
 
-                            {{ $document->document_number }}
+                            <p class="classic-invoice"> {{ $document->document_number }} </p>
                         </div>
                     @endif
                     @stack('invoice_number_input_end')

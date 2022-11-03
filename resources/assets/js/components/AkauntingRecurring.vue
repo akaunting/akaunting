@@ -1,7 +1,7 @@
 <template>
-    <div class="sm:col-span-6 space-y-8 sm:space-y-2">
-        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-between sm:justify-start': frequency == 'custom' }">
-            <div class="w-60 px-2 text-sm">
+    <div class="sm:col-span-6 space-y-6 sm:space-y-2">
+        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0" :class="{ 'justify-start': frequency == 'custom' }">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
                 {{ frequencyText }}
             </div>
 
@@ -14,7 +14,7 @@
                 </el-option>
             </el-select>
 
-            <div class="w-20 px-2 text-sm text-center" v-if="frequency == 'custom'">
+            <div class="w-20 sm:w-auto px-2 text-sm text-center" v-if="frequency == 'custom'">
                 {{ frequencyEveryText }}
             </div>
 
@@ -30,8 +30,8 @@
             </el-select>
         </div>
 
-        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-between sm:justify-start': limit !== 'never' }">
-            <div class="w-60 px-2 text-sm">
+        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-start': limit !== 'never' }">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
                 {{ startText }}
             </div>
 

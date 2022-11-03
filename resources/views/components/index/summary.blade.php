@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center text-black mt-5 sm:mt-10 mb-10">
+<div class="flex items-center justify-center text-black mt-10 mb-10">
     @if (! empty($slot) && $slot->isNotEmpty())
         {!! $slot !!}
     @elseif (! empty($items))

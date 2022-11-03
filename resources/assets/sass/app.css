@@ -480,9 +480,16 @@ html[dir='rtl'] .el-scrollbar__wrap {
     }
     /* apex-chart cash-flow */
     .apex-chart-cash-flow .apexcharts-legend {
-        width: 24rem !important;
+        width: 100% !important;
         justify-content: space-around !important;
         padding: 0;
+        flex-wrap: nowrap !important;
+    }
+
+    .apex-chart-cash-flow .apexcharts-legend-series {
+        width: 8rem;
+        text-align: center;
+        margin: 0 !important;
     }
 
     .apex-chart-cash-flow  .apexcharts-toolbar {
@@ -587,6 +594,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 @media only screen and (min-width: 480px) {
     .large-overflow-unset {
         overflow-x: unset;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .dashboard-picker .el-picker-panel__body {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+
+    .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
+        width: 100% !important;
     }
 }
 
