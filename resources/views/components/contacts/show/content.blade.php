@@ -150,6 +150,7 @@
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"
                     />
+                    
                     @stack('transactions_nav_end')
                 </x-slot>
 
