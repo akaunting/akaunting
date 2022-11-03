@@ -5,7 +5,7 @@
         <x-link
             href="{{ $module->action_url }}"
             target="_blank"
-            class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
+            class="bg-green rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate hover:bg-green-700"
             override="class"
         >
             {{ trans('modules.switch_to_cloud') }}
@@ -16,7 +16,7 @@
         @can('delete-modules-item')
             <x-link
                 href="{{ route('apps.app.uninstall', $module->slug) }}"
-                class="bg-red rounded-md text-white text-sm text-center w-1/2 py-2 truncate"
+                class="bg-red rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-red-700"
                 override="class"
             >
                 <x-link.loading>
@@ -29,7 +29,7 @@
             @if ($enable)
                 <x-link
                     href="{{ route('apps.app.disable', $module->slug) }}"
-                    class="bg-orange rounded-md text-white text-sm text-center w-1/2 py-2 truncate"
+                    class="bg-orange rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-orange-700"
                     override="class"
                 >
                     <x-link.loading>
@@ -39,7 +39,7 @@
             @else
                 <x-link
                     href="{{ route('apps.app.enable', $module->slug) }}"
-                    class="bg-green rounded-md text-white text-sm text-center w-1/2 py-2 truncate"
+                    class="bg-green rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                     override="class"
                 >
                     <x-link.loading>
@@ -60,7 +60,7 @@
                 @else
                     <button type="button"
                         @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{!! str_replace("'", "\'", $module->name) !!}', '{{ $module->version }}')"
-                        class="bg-green hover:bg-green-700 disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate"
+                        class="bg-green disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                         id="install-module"
                         :disabled="installation.show"
                     >
@@ -73,7 +73,7 @@
                 <x-link
                     href="{{ $module->action_url }}"
                     target="_blank"
-                    class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full py-2 truncate"
+                    class="bg-green rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                     override="class"
                 >
                     {{ trans('modules.use_app') }}
@@ -87,7 +87,7 @@
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"
-                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
+                class="bg-green rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate hover:bg-green-700"
                 override="class"
             >
                 {{ trans('modules.switch_to_cloud') }}
@@ -98,7 +98,7 @@
             <x-link
                 href="{{ $module->action_url }}"
                 target="_blank"
-                class="bg-green hover:bg-green-700 rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate"
+                class="bg-green rounded-md text-white text-sm text-center w-full flex items-center justify-center px-3 py-2 truncate hover:bg-green-700"
                 override="class"
             >
                 {{ trans('modules.switch_to_cloud') }}
