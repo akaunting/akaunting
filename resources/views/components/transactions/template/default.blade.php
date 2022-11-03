@@ -265,6 +265,7 @@
         @endif
 
         @stack('amount_input_start')
+        {{-- The reason for adding the amount part here is because the amount style is broken in the view. --}}
         @stack('amount_input_end')
 
         <tr>
