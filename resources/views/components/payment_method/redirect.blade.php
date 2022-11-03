@@ -1,15 +1,11 @@
 <div>
-    <div class="hidden">
-        @if (!empty($setting['name']))
-            <h2>{{ $setting['name'] }}</h2>
-        @endif
-
-        @if (!empty($setting['description']))
-            <div>{{ $setting['description'] }}</div>
-        @endif
-    </div>
+    @if (!empty($setting['name']))
+        <h2>{{ $setting['name'] }}</h2>
+    @endif  
+    @if (!empty($setting['description']))
+        <div>{{ $setting['description'] }}</div>
+    @endif
     <br>
-
     <div class="buttons">
         <div class="pull-right">
             <x-form id="redirect-form" :url="$confirm_url">
