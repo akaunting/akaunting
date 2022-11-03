@@ -10,9 +10,9 @@
                 {{ $item->title }}
             </h2>
 
-            <p class="text-sm mb-2">
+            <div class="text-sm mb-2">
                 {!! $item->description !!}
-            </p>
+            </div>
 
             <x-link href="{{ $item->action }}" class="font-light text-sm" override="class" target="_blank">
                 <x-link.hover>

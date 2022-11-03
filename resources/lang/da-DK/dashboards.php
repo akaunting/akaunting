@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Fejl: Kan ikke deaktivere det sidste skrivebord. Venligst, opret et nyt først!',
     ],
 
+    'form_description' => [
+        'general'               => 'Vælg de brugere du vil have, skal have adgang til det nye skrivebord.',
+    ],
+
 ];

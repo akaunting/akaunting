@@ -27,6 +27,11 @@ return [
         'body'          => 'Здравейте,<br /><br /> За клиент {customer_name} има зададено циклично издаване на фактури, като автоматично беше генериран документ с номер <strong>{invoice_number}</strong>.<br /><br />Може да разгледате детайлите на фактурата на следния линк: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />С уважение,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'Фактура {invoice_number} е прегледана',
+        'body'          => 'Здравейте,<br /><br />{customer_name} прегледа фактурата <strong>{invoice_number}</strong>.<br /><br />Можете да видите подробностите за фактурата от следната връзка: <a href ="{invoice_admin_link}">{invoice_number}</a>.<br /><br />С най-добри пожелания,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Получено плащане по фактура {invoice_number}',
         'body'          => 'Уважаеми {customer_name},<br /><br />Благодарим Ви за направеното плащане. Детайли за плащането:<br /><br />-------------------------------------------------<br /><br />Сума: <strong>{transaction_total}<br /></strong>Дата: <strong>{transaction_paid_date}</strong><br />Фактура: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Винаги можете да разгледате детайлите по фактурата на следния линк: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Свържете се с нас при възникнали въпроси.<br /><br />С уважение,<br />{company_name}',
@@ -47,4 +52,13 @@ return [
         'body'          => 'Здравейте,<br /><br />За клиент {vendor_name} има зададено циклично издаване на фактури, като автомотично беше генериран документ с номер <strong>{bill_number}</strong>.<br /><br />Може да разгледате детайли по докумнта тук: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />С уважение,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'Вашата разписка от {company_name}',
+        'body'          => 'Уважаеми {contact_name},<br /><br />Благодарим Ви за плащането. <br /><br />Можете да видите подробностите за плащането от следната връзка: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Чувствайте се свободни да се свържете с нас с всякакви въпроси.<br /><br />С най-добри пожелания,<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Плащане, извършено от {company_name}',
+        'body'          => 'Уважаеми {contact_name},<br /><br />Направихме следното плащане. <br /><br />Можете да видите подробностите за плащането от следната връзка: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Чувствайте се свободни да се свържете с нас с всякакви въпроси.<br /><br />С най-добри пожелания,<br />{company_name}',
+    ],
 ];

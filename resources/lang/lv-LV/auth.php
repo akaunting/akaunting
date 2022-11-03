@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Kļūda: Nevar izdzēst sevi!',
         'self_disable'      => 'Kļūda: nevar sevi atspējot!',
+        'unassigned'        => 'Kļūda: nevar atcelt uzņēmuma piešķiršanu! Uzņēmumam :company ir jāpiešķir vismaz viens lietotājs.',
         'no_company'        => 'Kļūda: Jūsu kontam nav piesaistīts neviens uzņēmums. Sazinieties, lūdzu, ar sistēmas administratoru.',
     ],
 
