@@ -2,9 +2,11 @@
     <div class="row">
         <div class="col-100">
             <div class="text text-dark">
+                @stack('title_input_start')
                 <h3>
                     {{ $textDocumentTitle }}
                 </h3>
+                @stack('title_input_end')
             </div>
         </div>
     </div>
@@ -12,7 +14,7 @@
     <div class="row">
         <div class="col-58">
             <div class="text">
-                @stack('company_logo_start')
+                @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
                         <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
@@ -20,7 +22,7 @@
                         <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
                 @endif
-                @stack('company_logo_end')
+                @stack('company_logo_input_end')
             </div>
         </div>
 
@@ -28,9 +30,11 @@
             <div class="text right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
+                    @stack('subheading_input_start')
                     <p class="text-normal font-semibold">
                         {{ $textDocumentSubheading }}
                     </p>
+                    @stack('subheading_input_end')
                 @endif
 
                 @if (! $hideCompanyDetails)
@@ -84,7 +88,7 @@
         <div class="col-33">
             <div class="invoice-classic-frame ml-1 mt-1" style="border: 1px solid {{ $backgroundColor }}">
                 <div class="invoice-classic-inline-frame text-center" style="border: 1px solid {{ $backgroundColor }}">
-                    @stack('invoice_number_input_start')
+                    @stack('document_number_input_start')
                     @if (! $hideDocumentNumber)
                         <div class="text small-text font-semibold mt-classic">
                             <span>
@@ -93,10 +97,10 @@
 
                             <br>
 
-                            <p class="classic-invoice"> {{ $document->document_number }} </p>
+                            {{ $document->document_number }}
                         </div>
                     @endif
-                    @stack('invoice_number_input_end')
+                    @stack('document_number_input_end')
                 </div>
             </div>
         </div>
@@ -157,7 +161,7 @@
                     @endif
                 @stack('phone_input_end')
 
-                @stack('email_start')
+                @stack('email_input_start')
                     @if (! $hideContactEmail)
                         <p class="small-text">
                             {{ $document->contact_email }}
@@ -375,6 +379,7 @@
 
     @if (! $hideFooter)
         @if ($document->footer)
+        @stack('footer_input_start')
             <div class="row mt-1">
                 <div class="col-100">
                     <div class="text company">
@@ -384,6 +389,7 @@
                     </div>
                 </div>
             </div>
+        @stack('footer_input_start')
         @endif
     @endif
 </div>

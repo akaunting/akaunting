@@ -2,9 +2,11 @@
     <div class="row">
         <div class="col-100">
             <div class="text text-dark">
+                @stack('title_input_start')
                 <h3>
                     {{ $textDocumentTitle }}
                 </h3>
+                @stack('title_input_end')
             </div>
         </div>
     </div>
@@ -12,7 +14,7 @@
     <div class="row border-bottom-1">
         <div class="col-58">
             <div class="text">
-                @stack('company_logo_start')
+                @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (! empty($document->contact->logo) && ! empty($document->contact->logo->id))
                         <img class="d-logo w-image" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
@@ -20,7 +22,7 @@
                         <img class="d-logo w-image" src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
                     @endif
                 @endif
-                @stack('company_logo_end')
+                @stack('company_logo_input_end')
             </div>
         </div>
 
@@ -344,6 +346,7 @@
 
     @if (! $hideFooter)
         @if ($document->footer)
+        @stack('footer_input_start')
             <div class="row mt-4">
                 <div class="col-100 text-left">
                     <div class="text">
@@ -353,6 +356,7 @@
                     </div>
                 </div>
             </div>
+        @stack('footer_input_end')
         @endif
     @endif
 </div>
