@@ -7,13 +7,13 @@ use App\Events\Install\UpdateFinished as Event;
 use App\Traits\Permissions;
 use Illuminate\Support\Facades\Log;
 
-class Version308 extends Listener
+class Version309 extends Listener
 {
     use Permissions;
 
     const ALIAS = 'core';
 
-    const VERSION = '3.0.8';
+    const VERSION = '3.0.9';
 
     /**
      * Handle the event.
@@ -27,7 +27,7 @@ class Version308 extends Listener
             return;
         }
 
-        Log::channel('stdout')->info('Updating to 3.0.8 version...');
+        Log::channel('stdout')->info('Updating to 3.0.9 version...');
 
         $this->updatePermissions();
 
