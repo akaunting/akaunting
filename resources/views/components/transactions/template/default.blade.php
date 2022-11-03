@@ -264,6 +264,9 @@
             @stack('email_input_end')
         @endif
 
+        @stack('amount_input_start')
+        @stack('amount_input_end')
+
         <tr>
             <td></td>
         </tr>

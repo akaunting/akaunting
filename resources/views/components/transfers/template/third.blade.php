@@ -6,7 +6,7 @@
                     @stack('from_account_start')
                     <table>
                         <tbody>
-                            @stack('from_account_id_start')
+                            @stack('from_account_id_input_start')
                             <tr>
                                 <td style="padding:0;">
                                     <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
@@ -90,7 +90,7 @@
                                     @endif
                                 </td>
                             </tr>
-                            @stack('from_account_id_end')
+                            @stack('from_account_id_input_end')
                         </tbody>
                     </table>
                     @stack('from_account_end')
@@ -100,7 +100,7 @@
                     @stack('to_account_start')
                     <table>
                         <tbody>
-                            @stack('to_account_id_start')
+                            @stack('to_account_id_input_start')
                             <tr>
                                 <td style="padding:0;">
                                     <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
@@ -184,7 +184,7 @@
                                     @endif
                                 </td>
                             </tr>
-                            @stack('to_account_id_end')
+                            @stack('to_account_id_input_end')
                         </tbody>
                     </table>
                     @stack('to_account_end')
@@ -257,19 +257,19 @@
         </tr>
         @stack('description_input_end')
 
+        @stack('amount_input_start')
+        @stack('amount_input_end')
+
         <tr>
             <td></td>
         </tr>
     </table>
     @stack('details_end')
 
-    @stack('amount_start')
     <table style="text-align: right;">
-        @stack('amount_table_start')
         <tr>
             <td valign="center" style="width:80%; display:block; float:right;">
                 <table>
-                    @stack('amount_input_start')
                     <tr>
                         <td valign="center" class="font-semibold" style="width: 80%; padding:0; font-size: 14px;">
                             <span class="ml-2">
@@ -279,11 +279,8 @@
                             <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
                         </td>
                     </tr>
-                    @stack('amount_input_end')
                 </table>
             </td>
         </tr>
-        @stack('amount_table_end')
     </table>
-    @stack('amount_end')
 </div>
