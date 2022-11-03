@@ -217,6 +217,10 @@
         @apply text-green underline;
     }
     /* changelog modal styling for update center */
+
+    #button-monthly {
+        margin-left: unset !important;
+    }
 }
 
 /* menu */

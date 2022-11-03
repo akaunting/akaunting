@@ -1588,6 +1588,10 @@ button, input, optgroup, select, textarea{
 
 /* changelog modal styling for update center */
 
+#button-monthly {
+        margin-left: unset !important;
+    }
+
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -48797,6 +48801,11 @@ body{
   background-color: rgb(153 0 0 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-orange-700:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(184 119 8 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-lilac-900:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(220 226 249 / var(--tw-bg-opacity));
@@ -48965,13 +48974,13 @@ body{
   visibility: visible;
 }
 
-.group\/actions:hover .group-hover\/actions\:flex{
+.group:hover .group-hover\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.group:hover .group-hover\:flex{
+.group\/actions:hover .group-hover\/actions\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
