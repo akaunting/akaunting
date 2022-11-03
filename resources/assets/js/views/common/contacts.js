@@ -43,8 +43,15 @@ const app = new Vue({
             item.id = index;
 
             if (document.querySelector('[data-tabs-swiper-wrapper]').childElementCount > 2) {
-                document.querySelectorAll('[data-tabs-slide]').forEach((item) => {
+                let initial_slide = 0;
+                let hash_split = window.location.hash.split('#')[1];
+
+                document.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
                     item.classList.add('swiper-slide');
+
+                    if (item.getAttribute('data-tabs') == hash_split) {
+                        initial_slide = index;
+                    }
                 });
 
                 document.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
@@ -64,22 +71,21 @@ const app = new Vue({
                     `; 
 
                 document.querySelector('[data-tabs-swiper]').innerHTML = html; 
+
+                let swiper = new Swiper(".swiper-tabs-container", {
+                    loop: false,
+                    slidesPerView: Number(item.getAttribute('data-swiper')),
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    initialSlide: initial_slide,
+                });
             }
-
-            // console.log(swiper.activeIndex);
-
-            new Swiper(".swiper-tabs-container", {
-                loop: false,
-                slidesPerView: Number(item.getAttribute('data-swiper')),
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
         }
         //swiper slider for long tabs items
     },
