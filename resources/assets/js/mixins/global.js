@@ -159,6 +159,57 @@ export default {
                 prevEl: ".swiper-button-prev",
             },
         });
+
+        //swiper slider for long tabs items
+        for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
+            item.id = index;
+
+            if (document.querySelector('[data-tabs-swiper-wrapper]').childElementCount > 2) {
+                let initial_slide = 0;
+                let hash_split = window.location.hash.split('#')[1];
+
+                document.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
+                    item.classList.add('swiper-slide');
+
+                    if (item.getAttribute('data-tabs') == hash_split) {
+                        initial_slide = index;
+                    }
+                });
+
+                document.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
+                document.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
+
+                let html = `
+                    <div class="swiper-tabs-container">
+                        ${document.querySelector('[data-tabs-swiper]').innerHTML}
+                    </div>
+
+                    <div class="swiper-button-next bg-purple text-white flex items-center justify-center right-0">
+                        <span class="material-icons">chevron_right</span>
+                    </div>
+                    <div class="swiper-button-prev bg-purple text-white flex items-center justify-center left-0">
+                        <span class="material-icons">chevron_left</span>
+                    </div>
+                    `; 
+
+                document.querySelector('[data-tabs-swiper]').innerHTML = html; 
+
+                new Swiper(".swiper-tabs-container", {
+                    loop: false,
+                    slidesPerView: Number(item.getAttribute('data-swiper')),
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    initialSlide: initial_slide,
+                });
+            }
+        }
+        //swiper slider for long tabs items
     },
 
     methods: {

@@ -1,4 +1,4 @@
-@props(['active', 'id'])
+@props(['active'])
 
 @php
     if (! empty($attributes['slides'])) {
