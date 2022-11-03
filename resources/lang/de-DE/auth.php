@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Fehler: Sie können sich nicht selbst löschen!',
         'self_disable'      => 'Fehler: Sie können Ihr Profil nicht selbst löschen!',
+        'unassigned'        => 'Fehler: Die Firma :company muss mindestens einem Benutzer zugeordnet sein.',
         'no_company'        => 'Fehler: Ihrem Konto wurde kein Unternehmen zugewiesen. Bitte kontaktieren Sie den Systemadministrator.',
     ],
 

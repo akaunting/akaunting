@@ -29,6 +29,11 @@ return [
         'body'          => 'Hej,<br /><br />Baseret på den tilbagevendende faktura til {customer_name} er fakturanr. <strong>{invoice_number}</strong> automatisk blevet genereret.<br /><br />Du kan se fakturaoplysningerne på følgende link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br / ><br />Med venlig hilsen<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'Faktura {invoice_number} set',
+        'body'          => 'Hej,<br /><br />{customer_name} har set faktura <strong>{invoice_number}</strong>.<br /><br />Du kan se fakturaoplysninger fra følgende link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Venlig hilsen,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Betaling for faktura nr. {invoice_number} er modtaget',
         'body'          => 'Kære {customer_name},<br /><br />Tak for din betaling. Find betalingsdetaljerne herunder:<br /><br />-------------------------------------------------<br /><br />Antal: <strong>{transaction_total}<br /></strong>Dato: <strong>{transaction_paid_date}</strong><br />Fakturanummer: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Du kan altid se betalingsdetaljerne på dette link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Har du spørgsmål, er du velkommen til at kontakte os.<br /><br />Med venlig hilsen,<br />{company_name}',
@@ -49,13 +54,13 @@ return [
         'body'          => 'Hej,<br /><br /> Baseret på {vendor_name}\'s tilbagevendende betaling, er faktura nummer <strong>{bill_number}</strong> automatisk genereret.<br /><br />Du kan se fakturadetaljerne på dette link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Med venlig hilsen,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} betaling oprettet',
-        'body'          => 'Kære {customer_name},<br /><br />Vi har forberedt følgende betaling. <br /><br />Du kan se betalingsdetaljerne på følgende link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Du er velkommen til at kontakte os, hvis du har spørgsmål til betalingen.<br /><br />Venlig hilsen,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'Din kvittering fra {company_name}',
+        'body'          => 'Kære {contact_name},<br /><br />Tak for betalingen. <br /><br />Du kan se betalingsoplysningerne fra følgende link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Du er velkommen til at kontakte os med spørgsmål.<br /><br />Med venlig hilsen,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} betaling oprettet',
+    'payment_made_vendor' => [
+        'subject'       => 'Betaling foretaget af {company_name}',
         'body'          => 'Kære {vendor_name},<br /><br />Vi har forberedt følgende betaling. <br /><br />Du kan se betalingsdetaljerne på følgende link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Du er velkommen til at kontakte os, hvis du har spørgsmål.<br /><br />Venlig hilsen,<br />{company_name}
 ',
     ],

@@ -6,7 +6,7 @@ return [
     'payment_made'          => 'Zahlung erfolgt',
     'paid_by'               => 'Bezahlt von',
     'paid_to'               => 'Bezahlt am',
-    'related_invoice'       => 'Zugehörige Rechnung (Einnahme)',
+    'related_invoice'       => 'Zugehörige Rechnung',
     'related_bill'          => 'Zugehörige Rechnung (Ausgabe)',
     'recurring_income'      => 'Wiederkehrende Einnahmen',
     'recurring_expense'     => 'Wiederkehrende Ausgaben',
@@ -24,6 +24,8 @@ return [
         'create_recurring'  => ':user hat diese wiederkehrende Transaktion am :date erstellt',
         'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
         'children'          => ':count Transaktionen wurden automatisch erstellt',
+        'transfer_headline' => 'Von :from_account an :to_account',
+        'transfer_desc'     => 'Am :date erstellte Überweisung',
     ],
 
     'share' => [

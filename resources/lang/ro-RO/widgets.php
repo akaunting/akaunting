@@ -5,7 +5,7 @@ return [
     'receivables'               => 'Creanțe',
     'payables'                  => 'Sume datorate',
     'cash_flow'                 => 'Fluxul de numerar',
-    'profit_loss'               => 'Profit & Pierderi',
+    'profit_loss'               => 'Profit și Pierderi',
     'expenses_by_category'      => 'Cheltuieli pe categorii',
     'account_balance'           => 'Soldul contului',
     'bank_feeds'                => 'Conectează conturile bancare',

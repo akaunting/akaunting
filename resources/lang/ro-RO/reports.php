@@ -9,7 +9,7 @@ return [
     'this_quarter'                  => 'Trimistrul acesta',
     'previous_quarter'              => 'Trimestrul anterior',
     'last_12_months'                => 'Ultimele 12 luni',
-    'profit_loss'                   => 'Profit & Pierdere',
+    'profit_loss'                   => 'Profit și Pierderi',
     'income_summary'                => 'Rezumat Venituri',
     'expense_summary'               => 'Rezumat Cheltuieli',
     'income_expense_summary'        => 'Venituri vs. Cheltuieli',
