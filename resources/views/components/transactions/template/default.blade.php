@@ -5,13 +5,13 @@
             <tr>
                 @if (! $hideCompanyLogo)
                 <td style="width:20%; padding: 0 0 15px 0;" valign="top">
-                    @stack('company_logo_start')
+                    @stack('company_logo_input_start')
                     @if (!empty($transaction->contact->logo) && !empty($transaction->contact->logo->id))
                         <img src="{{ Storage::url($transaction->contact->logo->id) }}" height="70" width="70" alt="{{ $transaction->contact_name }}" />
                     @else
                         <img src="{{ $logo }}" height="70" width="70" alt="{{ setting('company.name') }}" />
                     @endif
-                    @stack('company_logo_end')
+                    @stack('company_logo_input_end')
                 </td>
                 @endif
 

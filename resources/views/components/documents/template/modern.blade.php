@@ -2,9 +2,11 @@
     <div class="row">
         <div class="col-100">
             <div class="text text-dark">
+                @stack('title_input_start')
                 <h3>
                     {{ $textDocumentTitle }}
                 </h3>
+                @stack('title_input_end')
             </div>
         </div>
     </div>
@@ -12,7 +14,7 @@
     <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }}" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
         <div class="col-58">
             <div class="text p-modern">
-                @stack('company_logo_start')
+                @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (! empty($document->contact->logo) && ! empty($document->contact->logo->id))
                         <img class="w-image radius-circle" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
@@ -20,7 +22,7 @@
                         <img class="w-image radius-circle" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
                 @endif
-                @stack('company_logo_end')
+                @stack('company_logo_input_end')
             </div>
         </div>
 
@@ -157,7 +159,7 @@
                     @endif
                 @stack('order_number_input_end')
 
-                @stack('invoice_number_input_start')
+                @stack('document_number_input_start')
                     @if (! $hideDocumentNumber)
                         <p class="mb-0">
                             <span class="font-semibold spacing">
@@ -169,7 +171,7 @@
                             </span>
                         </p>
                     @endif
-                @stack('invoice_number_input_end')
+                @stack('document_number_input_end')
 
                 @stack('issued_at_input_start')
                     @if (! $hideIssuedAt)
@@ -345,6 +347,7 @@
 
     @if (! $hideFooter)
         @if ($document->footer)
+        @stack('footer_input_start')
             <div class="row mt-7">
                 <div class="col-100 py-top p-modern" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <div class="text pl-2">
@@ -354,6 +357,7 @@
                     </div>
                 </div>
             </div>
+        @stack('footer_input_end')
         @endif
     @endif
 </div>
