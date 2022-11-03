@@ -68,7 +68,7 @@
     @stack('from_account_start')
     <table style="width: 100%; margin-top:35px;">
         <tbody>
-            @stack('from_account_id_start')
+            @stack('from_account_id_input_start')
             <tr>
                 <td class="border-bottom-1 border-top-1" style="width: 60%; padding: 15px 0 15px 0;">
                     <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
@@ -152,7 +152,7 @@
                     @endif
                 </td>
             </tr>
-            @stack('from_account_id_end')
+            @stack('from_account_id_input_end')
         </tbody>
     </table>
     @stack('from_account_end')
@@ -160,7 +160,7 @@
     @stack('to_account_start')
     <table style="width: 100%; margin-top:15px;">
         <tbody>
-            @stack('to_account_id_start')
+            @stack('to_account_id_input_start')
             <tr>
                 <td style="width: 60%; padding: 0 0 15px 0;">
                     <div class="mb-1 font-semibold" style="font-size: 14px; margin-bottom: 15px;">
@@ -242,20 +242,21 @@
                         @stack('to_account_address_input_end')
                     </table>
                     @endif
+
+                    @stack('amount_input_start')
+                    {{-- The reason for adding the amount part here is because the amount style is broken in the view. --}}
+                    @stack('amount_input_end')
                 </td>
             </tr>
-            @stack('to_account_id_end')
+            @stack('to_account_id_input_end')
         </tbody>
     </table>
     @stack('to_account_end')
 
-    @stack('amount_start')
     <table style="text-align: right;">
-        @stack('amount_table_start')
         <tr>
             <td valign="center" style="width:80%; display:block; float:right;">
                 <table>
-                    @stack('amount_input_start')
                     <tr>
                         <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
                             <span class="ml-2">
@@ -265,11 +266,8 @@
                             <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
                         </td>
                     </tr>
-                    @stack('amount_input_end')
                 </table>
             </td>
         </tr>
-        @stack('amount_table_end')
     </table>
-    @stack('amount_end')
 </div>
