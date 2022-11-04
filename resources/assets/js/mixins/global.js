@@ -162,13 +162,11 @@ export default {
 
         //swiper slider for long tabs items
         for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
-            item.id = index;
-
-            if (document.querySelector('[data-tabs-swiper-wrapper]').childElementCount > 2) {
+            if (item.querySelector('[data-tabs-swiper-wrapper]').childElementCount > 2) {
                 let initial_slide = 0;
                 let hash_split = window.location.hash.split('#')[1];
 
-                document.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
+                item.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
                     item.classList.add('swiper-slide');
 
                     if (item.getAttribute('data-tabs') == hash_split) {
@@ -176,12 +174,12 @@ export default {
                     }
                 });
 
-                document.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
-                document.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
+                item.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
+                item.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
 
                 let html = `
                     <div class="swiper-tabs-container">
-                        ${document.querySelector('[data-tabs-swiper]').innerHTML}
+                        ${item.querySelector('[data-tabs-swiper]').innerHTML}
                     </div>
 
                     <div class="swiper-button-next bg-purple text-white flex items-center justify-center right-0">
@@ -192,7 +190,7 @@ export default {
                     </div>
                     `; 
 
-                document.querySelector('[data-tabs-swiper]').innerHTML = html; 
+                item.querySelector('[data-tabs-swiper]').innerHTML = html; 
 
                 new Swiper(".swiper-tabs-container", {
                     loop: false,
