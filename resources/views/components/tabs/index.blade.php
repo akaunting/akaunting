@@ -3,9 +3,7 @@
 @php
     if (! empty($attributes['slides'])) {
         $slides = $attributes['slides'];
-    }
-
-    if (empty($attributes['slides'])) {
+    } else {
         $slides = '2';
     }
 @endphp

@@ -205,6 +205,14 @@ export default {
                     },
                     initialSlide: initial_slide,
                 });
+            } else {
+                item.removeAttribute('data-swiper');
+                item.querySelector('[data-tabs-swiper]').removeAttribute('data-tabs-swiper');
+                item.querySelector('[data-tabs-swiper-wrapper]').removeAttribute('data-tabs-swiper-wrapper');
+
+                item.querySelectorAll('[data-tabs-slide]').forEach((slide) => {
+                    slide.removeAttribute('data-tabs-slide');
+                });
             }
         }
         //swiper slider for long tabs items
