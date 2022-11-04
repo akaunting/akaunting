@@ -10,18 +10,27 @@
                 {{ $item->title }}
             </h2>
 
-            <div class="text-sm mb-2">
-                {!! $item->description !!}
-            </div>
+            <div
+                @class([
+                    'float-right' => $item->align == 'right',
+                    'float-left' => $item->align == 'left',
+                ])
 
-            <x-link href="{{ $item->action }}" class="font-light text-sm" override="class" target="_blank">
-                <x-link.hover>
-                    {{ $item->learn_more }}
-                </x-link.hover>
-            </x-link>
+                style="width: 200px;"
+            >
+                <div class="text-sm mb-2">
+                    {!! $item->description !!}
+                </div>
+
+                <x-link href="{{ $item->action }}" class="font-light text-sm" override="class" target="_blank">
+                    <x-link.hover>
+                        {{ $item->learn_more }}
+                    </x-link.hover>
+                </x-link>
+            </div>
         </div>
 
-        <div class="absolute ltr:right-0 rtl:left-0 -top-4">
+        <div class="absolute ltr:right-0 rtl:left-0">
             <img src="{{ $item->thumb }}" alt="{{ $item->title }}" />
         </div>
     </div>

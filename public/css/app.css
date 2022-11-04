@@ -1588,6 +1588,10 @@ button, input, optgroup, select, textarea{
 
 /* changelog modal styling for update center */
 
+#button-monthly {
+        margin-left: unset !important;
+    }
+
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -2051,6 +2055,12 @@ button, input, optgroup, select, textarea{
   bottom: 24rem;
   left: 24rem;
 }
+.inset-500{
+  top: 500px;
+  right: 500px;
+  bottom: 500px;
+  left: 500px;
+}
 .inset-auto{
   top: auto;
   right: auto;
@@ -2327,6 +2337,12 @@ button, input, optgroup, select, textarea{
   bottom: -24rem;
   left: -24rem;
 }
+.-inset-500{
+  top: -500px;
+  right: -500px;
+  bottom: -500px;
+  left: -500px;
+}
 .-inset-px{
   top: -1px;
   right: -1px;
@@ -2529,6 +2545,10 @@ button, input, optgroup, select, textarea{
   left: 24rem;
   right: 24rem;
 }
+.inset-x-500{
+  left: 500px;
+  right: 500px;
+}
 .inset-x-auto{
   left: auto;
   right: auto;
@@ -2713,6 +2733,10 @@ button, input, optgroup, select, textarea{
   left: -24rem;
   right: -24rem;
 }
+.-inset-x-500{
+  left: -500px;
+  right: -500px;
+}
 .-inset-x-px{
   left: -1px;
   right: -1px;
@@ -2892,6 +2916,10 @@ button, input, optgroup, select, textarea{
 .inset-y-96{
   top: 24rem;
   bottom: 24rem;
+}
+.inset-y-500{
+  top: 500px;
+  bottom: 500px;
 }
 .inset-y-auto{
   top: auto;
@@ -3077,6 +3105,10 @@ button, input, optgroup, select, textarea{
   top: -24rem;
   bottom: -24rem;
 }
+.-inset-y-500{
+  top: -500px;
+  bottom: -500px;
+}
 .-inset-y-px{
   top: -1px;
   bottom: -1px;
@@ -3120,10 +3152,6 @@ button, input, optgroup, select, textarea{
 .-inset-y-full{
   top: -100%;
   bottom: -100%;
-}
-.inset-y-1\/2{
-  top: 50%;
-  bottom: 50%;
 }
 .top-0{
   top: 0px;
@@ -3226,6 +3254,9 @@ button, input, optgroup, select, textarea{
 }
 .top-96{
   top: 24rem;
+}
+.top-500{
+  top: 500px;
 }
 .top-auto{
   top: auto;
@@ -3365,6 +3396,9 @@ button, input, optgroup, select, textarea{
 .-top-96{
   top: -24rem;
 }
+.-top-500{
+  top: -500px;
+}
 .-top-px{
   top: -1px;
 }
@@ -3499,6 +3533,9 @@ button, input, optgroup, select, textarea{
 }
 .right-96{
   right: 24rem;
+}
+.right-500{
+  right: 500px;
 }
 .right-auto{
   right: auto;
@@ -3656,6 +3693,9 @@ button, input, optgroup, select, textarea{
 .-right-96{
   right: -24rem;
 }
+.-right-500{
+  right: -500px;
+}
 .-right-px{
   right: -1px;
 }
@@ -3790,6 +3830,9 @@ button, input, optgroup, select, textarea{
 }
 .bottom-96{
   bottom: 24rem;
+}
+.bottom-500{
+  bottom: 500px;
 }
 .bottom-auto{
   bottom: auto;
@@ -3929,6 +3972,9 @@ button, input, optgroup, select, textarea{
 .-bottom-96{
   bottom: -24rem;
 }
+.-bottom-500{
+  bottom: -500px;
+}
 .-bottom-px{
   bottom: -1px;
 }
@@ -4063,6 +4109,9 @@ button, input, optgroup, select, textarea{
 }
 .left-96{
   left: 24rem;
+}
+.left-500{
+  left: 500px;
 }
 .left-auto{
   left: auto;
@@ -4219,6 +4268,9 @@ button, input, optgroup, select, textarea{
 }
 .-left-96{
   left: -24rem;
+}
+.-left-500{
+  left: -500px;
 }
 .-left-px{
   left: -1px;
@@ -4775,6 +4827,9 @@ button, input, optgroup, select, textarea{
 .m-96{
   margin: 24rem;
 }
+.m-500{
+  margin: 500px;
+}
 .m-auto{
   margin: auto;
 }
@@ -4912,6 +4967,9 @@ button, input, optgroup, select, textarea{
 }
 .-m-96{
   margin: -24rem;
+}
+.-m-500{
+  margin: -500px;
 }
 .-m-px{
   margin: -1px;
@@ -5081,6 +5139,10 @@ button, input, optgroup, select, textarea{
 .mx-96{
   margin-left: 24rem;
   margin-right: 24rem;
+}
+.mx-500{
+  margin-left: 500px;
+  margin-right: 500px;
 }
 .mx-auto{
   margin-left: auto;
@@ -5266,6 +5328,10 @@ button, input, optgroup, select, textarea{
   margin-left: -24rem;
   margin-right: -24rem;
 }
+.-mx-500{
+  margin-left: -500px;
+  margin-right: -500px;
+}
 .-mx-px{
   margin-left: -1px;
   margin-right: -1px;
@@ -5445,6 +5511,10 @@ button, input, optgroup, select, textarea{
 .my-96{
   margin-top: 24rem;
   margin-bottom: 24rem;
+}
+.my-500{
+  margin-top: 500px;
+  margin-bottom: 500px;
 }
 .my-auto{
   margin-top: auto;
@@ -5630,6 +5700,10 @@ button, input, optgroup, select, textarea{
   margin-top: -24rem;
   margin-bottom: -24rem;
 }
+.-my-500{
+  margin-top: -500px;
+  margin-bottom: -500px;
+}
 .-my-px{
   margin-top: -1px;
   margin-bottom: -1px;
@@ -5776,6 +5850,9 @@ button, input, optgroup, select, textarea{
 .mt-96{
   margin-top: 24rem;
 }
+.mt-500{
+  margin-top: 500px;
+}
 .mt-auto{
   margin-top: auto;
 }
@@ -5914,6 +5991,9 @@ button, input, optgroup, select, textarea{
 .-mt-96{
   margin-top: -24rem;
 }
+.-mt-500{
+  margin-top: -500px;
+}
 .-mt-px{
   margin-top: -1px;
 }
@@ -6048,6 +6128,9 @@ button, input, optgroup, select, textarea{
 }
 .mr-96{
   margin-right: 24rem;
+}
+.mr-500{
+  margin-right: 500px;
 }
 .mr-auto{
   margin-right: auto;
@@ -6187,6 +6270,9 @@ button, input, optgroup, select, textarea{
 .-mr-96{
   margin-right: -24rem;
 }
+.-mr-500{
+  margin-right: -500px;
+}
 .-mr-px{
   margin-right: -1px;
 }
@@ -6321,6 +6407,9 @@ button, input, optgroup, select, textarea{
 }
 .mb-96{
   margin-bottom: 24rem;
+}
+.mb-500{
+  margin-bottom: 500px;
 }
 .mb-auto{
   margin-bottom: auto;
@@ -6460,6 +6549,9 @@ button, input, optgroup, select, textarea{
 .-mb-96{
   margin-bottom: -24rem;
 }
+.-mb-500{
+  margin-bottom: -500px;
+}
 .-mb-px{
   margin-bottom: -1px;
 }
@@ -6594,6 +6686,9 @@ button, input, optgroup, select, textarea{
 }
 .ml-96{
   margin-left: 24rem;
+}
+.ml-500{
+  margin-left: 500px;
 }
 .ml-auto{
   margin-left: auto;
@@ -6732,6 +6827,9 @@ button, input, optgroup, select, textarea{
 }
 .-ml-96{
   margin-left: -24rem;
+}
+.-ml-500{
+  margin-left: -500px;
 }
 .-ml-px{
   margin-left: -1px;
@@ -6964,6 +7062,9 @@ button, input, optgroup, select, textarea{
 .h-96{
   height: 24rem;
 }
+.h-500{
+  height: 500px;
+}
 .h-auto{
   height: auto;
 }
@@ -7122,6 +7223,9 @@ button, input, optgroup, select, textarea{
 }
 .max-h-96{
   max-height: 24rem;
+}
+.max-h-500{
+  max-height: 500px;
 }
 .max-h-px{
   max-height: 1px;
@@ -7300,6 +7404,9 @@ button, input, optgroup, select, textarea{
 .w-96{
   width: 24rem;
 }
+.w-500{
+  width: 500px;
+}
 .w-auto{
   width: auto;
 }
@@ -7354,17 +7461,17 @@ button, input, optgroup, select, textarea{
   width: -moz-fit-content;
   width: fit-content;
 }
-.w-5\/12{
-  width: 41.666667%;
+.w-8\/12{
+  width: 66.666667%;
 }
 .w-4\/12{
   width: 33.333333%;
 }
-.w-3\/12{
-  width: 25%;
-}
 .w-6\/12{
   width: 50%;
+}
+.w-3\/12{
+  width: 25%;
 }
 .w-2\/12{
   width: 16.666667%;
@@ -7372,11 +7479,11 @@ button, input, optgroup, select, textarea{
 .w-9\/12{
   width: 75%;
 }
-.w-8\/12{
-  width: 66.666667%;
-}
 .w-7\/12{
   width: 58.333333%;
+}
+.w-5\/12{
+  width: 41.666667%;
 }
 .w-1\/2{
   width: 50%;
@@ -7687,6 +7794,10 @@ button, input, optgroup, select, textarea{
   -ms-flex-preferred-size: 24rem;
       flex-basis: 24rem;
 }
+.basis-500{
+  -ms-flex-preferred-size: 500px;
+      flex-basis: 500px;
+}
 .basis-auto{
   -ms-flex-preferred-size: auto;
       flex-basis: auto;
@@ -7917,6 +8028,11 @@ button, input, optgroup, select, textarea{
   --tw-border-spacing-y: 24rem;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
 }
+.border-spacing-500{
+  --tw-border-spacing-x: 500px;
+  --tw-border-spacing-y: 500px;
+  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
 .border-spacing-px{
   --tw-border-spacing-x: 1px;
   --tw-border-spacing-y: 1px;
@@ -8103,6 +8219,10 @@ button, input, optgroup, select, textarea{
   --tw-border-spacing-x: 24rem;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
 }
+.border-spacing-x-500{
+  --tw-border-spacing-x: 500px;
+  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
 .border-spacing-x-px{
   --tw-border-spacing-x: 1px;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
@@ -8277,6 +8397,10 @@ button, input, optgroup, select, textarea{
 }
 .border-spacing-y-96{
   --tw-border-spacing-y: 24rem;
+  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
+.border-spacing-y-500{
+  --tw-border-spacing-y: 500px;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
 }
 .border-spacing-y-px{
@@ -8525,6 +8649,11 @@ button, input, optgroup, select, textarea{
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.translate-x-500{
+  --tw-translate-x: 500px;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .translate-x-px{
   --tw-translate-x: 1px;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -8747,6 +8876,11 @@ button, input, optgroup, select, textarea{
 }
 .-translate-x-96{
   --tw-translate-x: -24rem;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-x-500{
+  --tw-translate-x: -500px;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -8975,6 +9109,11 @@ button, input, optgroup, select, textarea{
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.translate-y-500{
+  --tw-translate-y: 500px;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .translate-y-px{
   --tw-translate-y: 1px;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -9197,6 +9336,11 @@ button, input, optgroup, select, textarea{
 }
 .-translate-y-96{
   --tw-translate-y: -24rem;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-500{
+  --tw-translate-y: -500px;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -10494,6 +10638,9 @@ button, input, optgroup, select, textarea{
 .scroll-m-96{
   scroll-margin: 24rem;
 }
+.scroll-m-500{
+  scroll-margin: 500px;
+}
 .scroll-m-px{
   scroll-margin: 1px;
 }
@@ -10625,6 +10772,9 @@ button, input, optgroup, select, textarea{
 }
 .-scroll-m-96{
   scroll-margin: -24rem;
+}
+.-scroll-m-500{
+  scroll-margin: -500px;
 }
 .-scroll-m-px{
   scroll-margin: -1px;
@@ -10791,6 +10941,10 @@ button, input, optgroup, select, textarea{
 .scroll-mx-96{
   scroll-margin-left: 24rem;
   scroll-margin-right: 24rem;
+}
+.scroll-mx-500{
+  scroll-margin-left: 500px;
+  scroll-margin-right: 500px;
 }
 .scroll-mx-px{
   scroll-margin-left: 1px;
@@ -10968,6 +11122,10 @@ button, input, optgroup, select, textarea{
   scroll-margin-left: -24rem;
   scroll-margin-right: -24rem;
 }
+.-scroll-mx-500{
+  scroll-margin-left: -500px;
+  scroll-margin-right: -500px;
+}
 .-scroll-mx-px{
   scroll-margin-left: -1px;
   scroll-margin-right: -1px;
@@ -11143,6 +11301,10 @@ button, input, optgroup, select, textarea{
 .scroll-my-96{
   scroll-margin-top: 24rem;
   scroll-margin-bottom: 24rem;
+}
+.scroll-my-500{
+  scroll-margin-top: 500px;
+  scroll-margin-bottom: 500px;
 }
 .scroll-my-px{
   scroll-margin-top: 1px;
@@ -11320,6 +11482,10 @@ button, input, optgroup, select, textarea{
   scroll-margin-top: -24rem;
   scroll-margin-bottom: -24rem;
 }
+.-scroll-my-500{
+  scroll-margin-top: -500px;
+  scroll-margin-bottom: -500px;
+}
 .-scroll-my-px{
   scroll-margin-top: -1px;
   scroll-margin-bottom: -1px;
@@ -11462,6 +11628,9 @@ button, input, optgroup, select, textarea{
 .scroll-mt-96{
   scroll-margin-top: 24rem;
 }
+.scroll-mt-500{
+  scroll-margin-top: 500px;
+}
 .scroll-mt-px{
   scroll-margin-top: 1px;
 }
@@ -11593,6 +11762,9 @@ button, input, optgroup, select, textarea{
 }
 .-scroll-mt-96{
   scroll-margin-top: -24rem;
+}
+.-scroll-mt-500{
+  scroll-margin-top: -500px;
 }
 .-scroll-mt-px{
   scroll-margin-top: -1px;
@@ -11726,6 +11898,9 @@ button, input, optgroup, select, textarea{
 .scroll-mr-96{
   scroll-margin-right: 24rem;
 }
+.scroll-mr-500{
+  scroll-margin-right: 500px;
+}
 .scroll-mr-px{
   scroll-margin-right: 1px;
 }
@@ -11857,6 +12032,9 @@ button, input, optgroup, select, textarea{
 }
 .-scroll-mr-96{
   scroll-margin-right: -24rem;
+}
+.-scroll-mr-500{
+  scroll-margin-right: -500px;
 }
 .-scroll-mr-px{
   scroll-margin-right: -1px;
@@ -11990,6 +12168,9 @@ button, input, optgroup, select, textarea{
 .scroll-mb-96{
   scroll-margin-bottom: 24rem;
 }
+.scroll-mb-500{
+  scroll-margin-bottom: 500px;
+}
 .scroll-mb-px{
   scroll-margin-bottom: 1px;
 }
@@ -12121,6 +12302,9 @@ button, input, optgroup, select, textarea{
 }
 .-scroll-mb-96{
   scroll-margin-bottom: -24rem;
+}
+.-scroll-mb-500{
+  scroll-margin-bottom: -500px;
 }
 .-scroll-mb-px{
   scroll-margin-bottom: -1px;
@@ -12254,6 +12438,9 @@ button, input, optgroup, select, textarea{
 .scroll-ml-96{
   scroll-margin-left: 24rem;
 }
+.scroll-ml-500{
+  scroll-margin-left: 500px;
+}
 .scroll-ml-px{
   scroll-margin-left: 1px;
 }
@@ -12386,6 +12573,9 @@ button, input, optgroup, select, textarea{
 .-scroll-ml-96{
   scroll-margin-left: -24rem;
 }
+.-scroll-ml-500{
+  scroll-margin-left: -500px;
+}
 .-scroll-ml-px{
   scroll-margin-left: -1px;
 }
@@ -12517,6 +12707,9 @@ button, input, optgroup, select, textarea{
 }
 .scroll-p-96{
   scroll-padding: 24rem;
+}
+.scroll-p-500{
+  scroll-padding: 500px;
 }
 .scroll-p-px{
   scroll-padding: 1px;
@@ -12683,6 +12876,10 @@ button, input, optgroup, select, textarea{
 .scroll-px-96{
   scroll-padding-left: 24rem;
   scroll-padding-right: 24rem;
+}
+.scroll-px-500{
+  scroll-padding-left: 500px;
+  scroll-padding-right: 500px;
 }
 .scroll-px-px{
   scroll-padding-left: 1px;
@@ -12860,6 +13057,10 @@ button, input, optgroup, select, textarea{
   scroll-padding-top: 24rem;
   scroll-padding-bottom: 24rem;
 }
+.scroll-py-500{
+  scroll-padding-top: 500px;
+  scroll-padding-bottom: 500px;
+}
 .scroll-py-px{
   scroll-padding-top: 1px;
   scroll-padding-bottom: 1px;
@@ -13002,6 +13203,9 @@ button, input, optgroup, select, textarea{
 .scroll-pt-96{
   scroll-padding-top: 24rem;
 }
+.scroll-pt-500{
+  scroll-padding-top: 500px;
+}
 .scroll-pt-px{
   scroll-padding-top: 1px;
 }
@@ -13133,6 +13337,9 @@ button, input, optgroup, select, textarea{
 }
 .scroll-pr-96{
   scroll-padding-right: 24rem;
+}
+.scroll-pr-500{
+  scroll-padding-right: 500px;
 }
 .scroll-pr-px{
   scroll-padding-right: 1px;
@@ -13266,6 +13473,9 @@ button, input, optgroup, select, textarea{
 .scroll-pb-96{
   scroll-padding-bottom: 24rem;
 }
+.scroll-pb-500{
+  scroll-padding-bottom: 500px;
+}
 .scroll-pb-px{
   scroll-padding-bottom: 1px;
 }
@@ -13397,6 +13607,9 @@ button, input, optgroup, select, textarea{
 }
 .scroll-pl-96{
   scroll-padding-left: 24rem;
+}
+.scroll-pl-500{
+  scroll-padding-left: 500px;
 }
 .scroll-pl-px{
   scroll-padding-left: 1px;
@@ -14050,6 +14263,9 @@ button, input, optgroup, select, textarea{
 .gap-96{
   gap: 24rem;
 }
+.gap-500{
+  gap: 500px;
+}
 .gap-px{
   gap: 1px;
 }
@@ -14250,6 +14466,11 @@ button, input, optgroup, select, textarea{
      -moz-column-gap: 24rem;
           column-gap: 24rem;
 }
+.gap-x-500{
+  -webkit-column-gap: 500px;
+     -moz-column-gap: 500px;
+          column-gap: 500px;
+}
 .gap-x-px{
   -webkit-column-gap: 1px;
      -moz-column-gap: 1px;
@@ -14401,6 +14622,9 @@ button, input, optgroup, select, textarea{
 }
 .gap-y-96{
   row-gap: 24rem;
+}
+.gap-y-500{
+  row-gap: 500px;
 }
 .gap-y-px{
   row-gap: 1px;
@@ -14601,6 +14825,11 @@ button, input, optgroup, select, textarea{
   --tw-space-x-reverse: 0;
   margin-right: calc(24rem * var(--tw-space-x-reverse));
   margin-left: calc(24rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-500 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(500px * var(--tw-space-x-reverse));
+  margin-left: calc(500px * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-x-px > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
@@ -14822,6 +15051,11 @@ button, input, optgroup, select, textarea{
   margin-right: calc(-24rem * var(--tw-space-x-reverse));
   margin-left: calc(-24rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.-space-x-500 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(-500px * var(--tw-space-x-reverse));
+  margin-left: calc(-500px * calc(1 - var(--tw-space-x-reverse)));
+}
 .-space-x-px > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
   margin-right: calc(-1px * var(--tw-space-x-reverse));
@@ -15042,6 +15276,11 @@ button, input, optgroup, select, textarea{
   margin-top: calc(24rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(24rem * var(--tw-space-y-reverse));
 }
+.space-y-500 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(500px * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(500px * var(--tw-space-y-reverse));
+}
 .space-y-px > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1px * calc(1 - var(--tw-space-y-reverse)));
@@ -15261,6 +15500,11 @@ button, input, optgroup, select, textarea{
   --tw-space-y-reverse: 0;
   margin-top: calc(-24rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(-24rem * var(--tw-space-y-reverse));
+}
+.-space-y-500 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(-500px * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(-500px * var(--tw-space-y-reverse));
 }
 .-space-y-px > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
@@ -31515,6 +31759,9 @@ button, input, optgroup, select, textarea{
 .p-96{
   padding: 24rem;
 }
+.p-500{
+  padding: 500px;
+}
 .p-px{
   padding: 1px;
 }
@@ -31680,6 +31927,10 @@ button, input, optgroup, select, textarea{
 .px-96{
   padding-left: 24rem;
   padding-right: 24rem;
+}
+.px-500{
+  padding-left: 500px;
+  padding-right: 500px;
 }
 .px-px{
   padding-left: 1px;
@@ -31857,6 +32108,10 @@ button, input, optgroup, select, textarea{
   padding-top: 24rem;
   padding-bottom: 24rem;
 }
+.py-500{
+  padding-top: 500px;
+  padding-bottom: 500px;
+}
 .py-px{
   padding-top: 1px;
   padding-bottom: 1px;
@@ -31999,6 +32254,9 @@ button, input, optgroup, select, textarea{
 .pt-96{
   padding-top: 24rem;
 }
+.pt-500{
+  padding-top: 500px;
+}
 .pt-px{
   padding-top: 1px;
 }
@@ -32130,6 +32388,9 @@ button, input, optgroup, select, textarea{
 }
 .pr-96{
   padding-right: 24rem;
+}
+.pr-500{
+  padding-right: 500px;
 }
 .pr-px{
   padding-right: 1px;
@@ -32263,6 +32524,9 @@ button, input, optgroup, select, textarea{
 .pb-96{
   padding-bottom: 24rem;
 }
+.pb-500{
+  padding-bottom: 500px;
+}
 .pb-px{
   padding-bottom: 1px;
 }
@@ -32394,6 +32658,9 @@ button, input, optgroup, select, textarea{
 }
 .pl-96{
   padding-left: 24rem;
+}
+.pl-500{
+  padding-left: 500px;
 }
 .pl-px{
   padding-left: 1px;
@@ -32545,6 +32812,9 @@ button, input, optgroup, select, textarea{
 .indent-96{
   text-indent: 24rem;
 }
+.indent-500{
+  text-indent: 500px;
+}
 .indent-px{
   text-indent: 1px;
 }
@@ -32676,6 +32946,9 @@ button, input, optgroup, select, textarea{
 }
 .-indent-96{
   text-indent: -24rem;
+}
+.-indent-500{
+  text-indent: -500px;
 }
 .-indent-px{
   text-indent: -1px;
@@ -48007,10 +48280,18 @@ html[dir='rtl'] .el-scrollbar__wrap {
     }
     /* apex-chart cash-flow */
     .apex-chart-cash-flow .apexcharts-legend {
-        width: 24rem !important;
+        width: 100% !important;
         -ms-flex-pack: distribute !important;
             justify-content: space-around !important;
         padding: 0;
+        -ms-flex-wrap: nowrap !important;
+            flex-wrap: nowrap !important;
+    }
+
+    .apex-chart-cash-flow .apexcharts-legend-series {
+        width: 8rem;
+        text-align: center;
+        margin: 0 !important;
     }
 
     .apex-chart-cash-flow  .apexcharts-toolbar {
@@ -48124,6 +48405,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 @media only screen and (min-width: 480px) {
     .large-overflow-unset {
         overflow-x: unset;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .dashboard-picker .el-picker-panel__body {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+
+    .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
+        width: 100% !important;
     }
 }
 
@@ -48509,6 +48801,11 @@ body{
   background-color: rgb(153 0 0 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-orange-700:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(184 119 8 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-lilac-900:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(220 226 249 / var(--tw-bg-opacity));
@@ -48677,13 +48974,13 @@ body{
   visibility: visible;
 }
 
-.group\/actions:hover .group-hover\/actions\:flex{
+.group:hover .group-hover\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.group:hover .group-hover\:flex{
+.group\/actions:hover .group-hover\/actions\:flex{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48866,6 +49163,10 @@ body{
 
 [dir="ltr"] .ltr\:right-96{
   right: 24rem;
+}
+
+[dir="ltr"] .ltr\:right-500{
+  right: 500px;
 }
 
 [dir="ltr"] .ltr\:right-auto{
@@ -49074,6 +49375,10 @@ body{
 
 [dir="ltr"] .ltr\:left-96{
   left: 24rem;
+}
+
+[dir="ltr"] .ltr\:left-500{
+  left: 500px;
 }
 
 [dir="ltr"] .ltr\:left-auto{
@@ -49306,6 +49611,10 @@ body{
 
 [dir="ltr"] .ltr\:m-96{
   margin: 24rem;
+}
+
+[dir="ltr"] .ltr\:m-500{
+  margin: 500px;
 }
 
 [dir="ltr"] .ltr\:m-auto{
@@ -49562,6 +49871,10 @@ body{
   padding: 24rem;
 }
 
+[dir="ltr"] .ltr\:p-500{
+  padding: 500px;
+}
+
 [dir="ltr"] .ltr\:p-px{
   padding: 1px;
 }
@@ -49791,6 +50104,10 @@ body{
   right: 24rem;
 }
 
+[dir="rtl"] .rtl\:right-500{
+  right: 500px;
+}
+
 [dir="rtl"] .rtl\:right-auto{
   right: auto;
 }
@@ -49997,6 +50314,10 @@ body{
 
 [dir="rtl"] .rtl\:left-96{
   left: 24rem;
+}
+
+[dir="rtl"] .rtl\:left-500{
+  left: 500px;
 }
 
 [dir="rtl"] .rtl\:left-auto{
@@ -50233,6 +50554,10 @@ body{
 
 [dir="rtl"] .rtl\:m-96{
   margin: 24rem;
+}
+
+[dir="rtl"] .rtl\:m-500{
+  margin: 500px;
 }
 
 [dir="rtl"] .rtl\:m-auto{
@@ -50499,6 +50824,10 @@ body{
   padding: 24rem;
 }
 
+[dir="rtl"] .rtl\:p-500{
+  padding: 500px;
+}
+
 [dir="rtl"] .rtl\:p-px{
   padding: 1px;
 }
@@ -50589,6 +50918,15 @@ body{
 
 @media (min-width: 640px){
 
+  .sm\:inset-y-1\/2{
+    top: 50%;
+    bottom: 50%;
+  }
+
+  .sm\:-right-1{
+    right: -0.25rem;
+  }
+
   .sm\:col-span-6{
     grid-column: span 6 / span 6;
   }
@@ -50625,6 +50963,10 @@ body{
     grid-row: span 3 / span 3;
   }
 
+  .sm\:float-right{
+    float: right;
+  }
+
   .sm\:mt-12{
     margin-top: 3rem;
   }
@@ -50637,16 +50979,20 @@ body{
     margin-top: -6rem;
   }
 
-  .sm\:mt-10{
-    margin-top: 2.5rem;
-  }
-
   .sm\:mt-2{
     margin-top: 0.5rem;
   }
 
+  .sm\:mb-5{
+    margin-bottom: 1.25rem;
+  }
+
   .sm\:mt-0{
     margin-top: 0px;
+  }
+
+  .sm\:ml-8{
+    margin-left: 2rem;
   }
 
   .sm\:block{
@@ -50667,16 +51013,20 @@ body{
     display: none;
   }
 
+  .sm\:w-500{
+    width: 500px;
+  }
+
   .sm\:w-6\/12{
     width: 50%;
   }
 
-  .sm\:w-3\/12{
-    width: 25%;
-  }
-
   .sm\:w-5\/12{
     width: 41.666667%;
+  }
+
+  .sm\:w-3\/12{
+    width: 25%;
   }
 
   .sm\:w-4\/12{
@@ -50693,6 +51043,18 @@ body{
 
   .sm\:w-1\/3{
     width: 33.333333%;
+  }
+
+  .sm\:w-96{
+    width: 24rem;
+  }
+
+  .sm\:w-60{
+    width: 15rem;
+  }
+
+  .sm\:w-auto{
+    width: auto;
   }
 
   .sm\:flex-1{
@@ -50780,9 +51142,27 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
+  .sm\:px-0{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .sm\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   .sm\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
+  }
+
+  [dir="ltr"] .sm\:ltr\:right-4{
+    right: 1rem;
+  }
+
+  [dir="rtl"] .sm\:rtl\:left-4{
+    left: 1rem;
   }
 
   [dir="rtl"] .sm\:rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]){
@@ -50820,6 +51200,14 @@ body{
 
   .lg\:right-24{
     right: 6rem;
+  }
+
+  .lg\:bottom-2\.5{
+    bottom: 0.625rem;
+  }
+
+  .lg\:bottom-2{
+    bottom: 0.5rem;
   }
 
   .lg\:top-2{
@@ -50905,6 +51293,10 @@ body{
 
   .lg\:h-48{
     height: 12rem;
+  }
+
+  .lg\:h-28{
+    height: 7rem;
   }
 
   .lg\:h-60{
@@ -51073,6 +51465,12 @@ body{
     }
   }
 
+    .lg\:items-start{
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+
     .lg\:items-center{
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -51163,6 +51561,11 @@ body{
     padding-right: 6rem;
   }
 
+    .lg\:px-0{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
     .lg\:py-0{
     padding-top: 0px;
     padding-bottom: 0px;
@@ -51217,6 +51620,10 @@ body{
     line-height: 1.75rem;
   }
 
+    [dir="ltr"] .ltr\:lg\:right-0{
+    right: 0px;
+  }
+
     [dir="ltr"] .lg\:ltr\:right-0{
     right: 0px;
   }
@@ -51235,6 +51642,10 @@ body{
 
     [dir="ltr"] .lg\:ltr\:pl-24{
     padding-left: 6rem;
+  }
+
+    [dir="rtl"] .rtl\:lg\:left-0{
+    left: 0px;
   }
 
     [dir="rtl"] .lg\:rtl\:left-0{

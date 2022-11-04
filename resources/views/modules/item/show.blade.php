@@ -98,7 +98,7 @@
                         </div>
 
                         @if (! in_array('onprime', $module->where_to_use))
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
@@ -112,7 +112,7 @@
                                 </div>
                             @endif
                         @else
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 

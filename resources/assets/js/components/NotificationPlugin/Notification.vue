@@ -2,8 +2,7 @@
   <div
     @click="tryClose"
     data-notify="container"
-    class="alert alert-notify fixed flex items-center justify-between ltr:right-4 rtl:left-4 p-4 text-black font-bold rounded-lg z-30"
-    style="width: 500px;"
+    class="alert alert-notify fixed w-full sm:w-500 flex items-center justify-between ltr:right-0 rtl:left-0 sm:ltr:right-4 sm:rtl:left-4 p-4 text-black font-bold rounded-lg z-30"
     :class="[
       { 'alert-with-icon': icon },
       verticalAlign,

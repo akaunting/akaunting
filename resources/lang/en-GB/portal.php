@@ -12,6 +12,7 @@ return [
     'see_all_details'       => 'See all account details',
     'all_payments'          => 'Login to view all payments',
     'received_date'         => 'Received Date',
+    'redirect_description'  => 'You will be redirected to the :name website to make the payment.',
 
     'last_payment'          => [
         'title'             => 'Last Payment Made',
