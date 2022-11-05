@@ -54,6 +54,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', 'Auth\Login@destroy')->name('logout');
 
     Route::get('users/autocomplete', 'Auth\Users@autocomplete')->name('users.autocomplete');
+    Route::get('users/landingpages', 'Auth\Users@landingPages')->name('users.landingpages');
     Route::get('users/{user}/read-bills', 'Auth\Users@readUpcomingBills')->name('users.read.bills');
     Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices')->name('users.read.invoices');
     Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');

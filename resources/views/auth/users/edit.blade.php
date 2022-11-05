@@ -50,7 +50,7 @@
                             @endcan
 
                             @role('admin|manager')
-                                <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" selected-key="roles.id" />
+                                <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" change="onChangeRole" selected-key="roles.id" />
                             @endrole
                         </x-slot>
                     </x-form.section>
@@ -62,7 +62,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" />
+                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" dynamicOptions="landing_pages" />
 
                         <x-form.group.locale />
                     </x-slot>

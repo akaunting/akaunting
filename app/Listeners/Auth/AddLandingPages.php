@@ -15,6 +15,8 @@ class AddLandingPages
     public function handle(Event $event)
     {
         $user = user();
+        $role = ! empty($event->user->role) ? $event->user->role : false; 
+
         $routes = [
             'dashboard' => [
                 'permission' => 'read-common-dashboards',
@@ -79,7 +81,9 @@ class AddLandingPages
         ];
 
         foreach($routes as $key => $route) {
-            if (!$user->can($route['permission'])) {
+            if ($role && ! $role->hasPermission($route['permission'])) {
+                continue;
+            } else if (! $user->can($route['permission'])) {
                 continue;
             }
 
