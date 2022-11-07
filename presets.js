@@ -267,6 +267,10 @@ module.exports = {
   
           backgroundPosition: {
             '0-full': ' 0 100%'
+          },
+
+          minHeight: {
+            '500': '500px',
           }
         },
 
