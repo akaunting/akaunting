@@ -51016,6 +51016,10 @@ body{
     display: none;
   }
 
+  .sm\:min-h-500{
+    min-height: 500px;
+  }
+
   .sm\:w-500{
     width: 500px;
   }
@@ -51594,6 +51598,10 @@ body{
 
     .lg\:pl-6{
     padding-left: 1.5rem;
+  }
+
+    .lg\:pr-12{
+    padding-right: 3rem;
   }
 
     .lg\:pl-12{
