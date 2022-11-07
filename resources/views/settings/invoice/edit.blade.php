@@ -102,7 +102,7 @@
                                 change="settingsInvoice"
                                 input-name="item_name_input"
                                 :input-value="setting('invoice.item_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="sm:col-span-6"
                             />
 
                             <x-form.group.invoice-text
@@ -113,7 +113,7 @@
                                 change="settingsInvoice"
                                 input-name="price_name_input"
                                 :input-value="setting('invoice.price_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="col-span-3 sm:col-span-6"
                             />
 
                             <x-form.group.invoice-text
@@ -124,7 +124,7 @@
                                 change="settingsInvoice"
                                 input-name="quantity_name_input"
                                 :input-value="setting('invoice.quantity_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="sm:col-span-6"
                             />
                         </div>
 
