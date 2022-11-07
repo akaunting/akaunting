@@ -22,6 +22,7 @@ return [
         'extension'         => 'Extensia :extension trebuie sa fie instalata si incarcata!',
         'directory'         => 'directorul :directory trebuie să permita scrierea!',
         'executable'        => 'Fișierul executabil PHP CLI nu este definit/funcțional sau versiunea sa nu este :php_version ori mai mare! Vă rugăm cereți companiei dumneavoastră de găzduire să seteze corect variabila de mediu PHP_BINAR sau PHP_PATH.',
+        'npm'               => '<b>Fișierele JavaScript lipsesc !</b> <br><br><span>Ar trebui să rulezi <em class="underline">npm install</em> și <em class="underline">npm run dev</em> commands.</span>', 
     ],
 
     'database' => [
@@ -43,4 +44,8 @@ return [
         'connection'        => 'Eroare: Nu s-a putut conecta la baza de date! Te rugam sa te asiguri ca detaliile sunt corecte.',
     ],
 
+    'update' => [
+        'core'              => 'Este disponibilă o nouă versiune! Te rog să actualizezi instalarea.',
+        'module'            => ':o nouă versiune a modulului este disponibilă! Te rog să actualizezi instalarea.',
+    ],
 ];

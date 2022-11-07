@@ -98,7 +98,7 @@
                         </div>
 
                         @if (! in_array('onprime', $module->where_to_use))
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
@@ -112,7 +112,7 @@
                                 </div>
                             @endif
                         @else
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
@@ -137,7 +137,7 @@
             </div>
 
             <div class="tabs w-full">
-                <x-tabs class="flex border-b -mb-1 space-x-2 overflow-x-scroll lg:overflow-visible" active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}">
+                <x-tabs class="flex items-center overflow-x-scroll lg:overflow-visible" active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}">
                     <x-slot name="navs">
                         @stack('features_nav_start')
 

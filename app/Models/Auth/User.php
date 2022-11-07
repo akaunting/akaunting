@@ -134,7 +134,7 @@ class User extends Authenticatable implements HasLocalePreference
 
         if (!empty($value)) {
             return $value;
-        } elseif (!$this->hasMedia('picture')) {
+        } elseif (! $this->hasMedia('picture')) {
             return false;
         }
 

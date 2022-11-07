@@ -2,15 +2,16 @@
 
 return [
 
+    'details'               => 'Detaļa|Detaļas',
+
     'from_account'          => 'No konta',
     'to_account'            => 'Uz kontu',
     'from_rate'             => 'No likmes',
-    'from_account_rate'     => 'No konta likmes',
     'to_rate'               => 'Uz likmi',
+    'from_account_rate'     => 'No konta likmes',
     'to_account_rate'       => 'Uz konta likmi',
     'from_amount'           => 'No',
     'to_amount'             => 'Uz summu',
-    'details'               => 'Detaļa|Detaļas',
     'issued_at'             => 'Izdošanas datums',
     'rate'                  => 'Likme',
 
@@ -26,8 +27,8 @@ return [
     'slider' => [
         'create'            => ':user izveidoja šo pārskaitījumu :date',
         'transactions'      => 'Šeit sarakstā ir transakcijas, kas tika izveidotas automātiski.',
-        'from_desc'         => ':number transakcijas no :account',
-        'to_desc'           => ':number transakcija uz :account',
+        'transactions_desc' => ':number transakcijas :account',
+        'attachments'       => 'Lejupielādējiet pārsūtīšanai pievienotos failus',
     ],
 
 ];

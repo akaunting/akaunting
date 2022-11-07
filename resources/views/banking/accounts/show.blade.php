@@ -25,7 +25,7 @@
         @stack('create_button_start')
 
         <x-dropdown id="show-new-actions-account">
-            <x-slot name="trigger" class="flex items-center px-3 py-1.5 mb-3 sm:mb-0 bg-green hover:bg-green-700 rounded-xl text-white text-sm font-bold leading-6" override="class">
+            <x-slot name="trigger" class="w-full flex items-center justify-between sm:justify-start px-3 py-1.5 mb-3 sm:mb-0 bg-green hover:bg-green-700 rounded-xl text-white text-sm font-bold leading-6" override="class">
                 {{ trans('general.new_more') }}
                 <span class="material-icons ltr:ml-2 rtl:mr-2">expand_more</span>
             </x-slot>
@@ -344,7 +344,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-3/12">
+                                                <x-table.th class="w-6/12 sm:w-3/12">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.name" title="{{ trans('transfers.from_account') }}" />
                                                     </x-slot>
@@ -353,7 +353,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-3/12">
+                                                <x-table.th class="w-4/12 sm:w-3/12" hidden-mobile>
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.rate" title="{{ trans('transfers.from_rate') }}" />
                                                     </x-slot>
@@ -362,7 +362,7 @@
                                                     </x-slot>
                                                 </x-table.th>
 
-                                                <x-table.th class="w-3/12" kind="amount">
+                                                <x-table.th class="w-6/12 sm:w-3/12" kind="amount">
                                                     <x-slot name="first">
                                                         <x-sortablelink column="expense_transaction.amount" title="{{ trans('transfers.from_amount') }}" />
                                                     </x-slot>
@@ -397,7 +397,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-3/12 truncate">
+                                                    <x-table.td class="w-6/12 sm:w-3/12 truncate">
                                                         <x-slot name="first">
                                                             {{ $item->expense_transaction->account->name }}
                                                         </x-slot>
@@ -406,7 +406,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-3/12 truncate">
+                                                    <x-table.td class="w-4/12 sm:w-3/12 truncate" hidden-mobile>
                                                         <x-slot name="first">
                                                             {{ $item->expense_transaction->currency_rate }}
                                                         </x-slot>
@@ -415,7 +415,7 @@
                                                         </x-slot>
                                                     </x-table.td>
 
-                                                    <x-table.td class="w-3/12" kind="amount">
+                                                    <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
                                                         <x-slot name="first">
                                                             <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
                                                         </x-slot>

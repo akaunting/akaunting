@@ -30,7 +30,7 @@
                             </x-table.td>
 
                             <x-table.td kind="right" class="w-6/12" kind="cursor-none">
-                                <x-slot name="first" class="text-right" override="class">
+                                <x-slot name="first" class="flex justify-end" override="class">
                                     <x-link href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="px-3 py-1.5 rounded-xl text-sm font-medium leading-6 ltr:mr-2 rtl:ml-2 bg-green text-white hover:bg-green-700 disabled:bg-green-100" override="class">
                                         {{ trans('updates.update', ['version' => $core]) }}
                                     </x-link>
@@ -109,7 +109,7 @@
         </x-index.container>
 
         <akaunting-modal v-if="changelog.show"
-            modal-dialog-class="max-w-screen-2xl"
+            modal-dialog-class="max-w-screen-xl change-log-modal"
             :show="changelog.show"
             :title="'{{ trans('updates.changelog') }}'"
             @cancel="changelog.show = false"

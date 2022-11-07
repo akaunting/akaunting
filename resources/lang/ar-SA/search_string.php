@@ -12,7 +12,7 @@ return [
         'invoiced_at'       => 'تاريخ الفاتورة',
         'issued_at'         => 'تاريخ الإصدار',
         'symbol_first'      => 'موضع الرمز',
-        'reconciled'        => 'التسوية',
+        'reconciled'        => 'تمت التسوية',
         'expense_account'   => 'من حساب',
         'income_account'    => 'إلى حساب',
         'recurring'         => 'متكرر',

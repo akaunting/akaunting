@@ -44,27 +44,29 @@
                 @endif
             @endforeach
 
-            @if (! empty($suggestion))
-                <li class="border-b p-2  hover:bg-gray-100">
-                    <x-link href="{{ url($suggestion->action_url) . '?' . http_build_query((array) $suggestion->action_parameters) }}" class="flex items-center justify-between text-xs" override="class">
-                        <div class="truncate">
-                            <h2>
-                                {{ $suggestion->name }}
-                            </h2>
+            @if (! empty($suggestions))
+                @foreach ($suggestions as $suggestion) 
+                    <li class="border-b p-2  hover:bg-gray-100">
+                        <x-link href="{{ url($suggestion->action_url) . '?' . http_build_query((array) $suggestion->action_parameters) }}" class="flex items-center justify-between text-xs" override="class">
+                            <div class="truncate">
+                                <h2>
+                                    {{ $suggestion->name }}
+                                </h2>
 
-                            <div class="h-4 overflow-hidden text-black-400 truncate">
-                                {{ $suggestion->description ?? '' }}
+                                <div class="h-4 overflow-hidden text-black-400 truncate">
+                                    {{ $suggestion->description ?? '' }}
+                                </div>
                             </div>
-                        </div>
 
-                        <span class="material-icons text-gray-500">chevron_right</span>
-                    </x-link>
-                </li>
+                            <span class="material-icons text-gray-500">chevron_right</span>
+                        </x-link>
+                    </li>
+                @endforeach
             @endif
         </ul>
     </div>
 
-    <div class="w-full lg:w-1/2 flex justify-end lg:mt-60">
+    <div class="w-full lg:w-1/2 flex justify-end mt-8 lg:mt-60">
         <img src="{{ $image }}" alt="{{ $title }}" />
     </div>
 </div>
