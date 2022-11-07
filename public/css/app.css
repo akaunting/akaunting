@@ -7281,6 +7281,9 @@ button, input, optgroup, select, textarea{
 .min-h-0{
   min-height: 0px;
 }
+.min-h-500{
+  min-height: 500px;
+}
 .min-h-full{
   min-height: 100%;
 }
