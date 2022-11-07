@@ -159,6 +159,65 @@ export default {
                 prevEl: ".swiper-button-prev",
             },
         });
+
+        //swiper slider for long tabs items
+        for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
+            if (item.getAttribute('data-is-slider') == true) {
+                if (item.querySelector('[data-tabs-swiper-wrapper]').childElementCount > 3) {
+                    let initial_slide = 0;
+                    let hash_split = window.location.hash.split('#')[1];
+    
+                    item.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
+                        item.classList.add('swiper-slide');
+    
+                        if (item.getAttribute('data-tabs') == hash_split) {
+                            initial_slide = index;
+                        }
+                    });
+    
+                    item.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
+                    item.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
+    
+                    let html = `
+                        <div class="swiper-tabs-container">
+                            ${item.querySelector('[data-tabs-swiper]').innerHTML}
+                        </div>
+    
+                        <div class="swiper-button-next bg-purple text-white flex items-center justify-center right-0">
+                            <span class="material-icons">chevron_right</span>
+                        </div>
+                        <div class="swiper-button-prev bg-purple text-white flex items-center justify-center left-0">
+                            <span class="material-icons">chevron_left</span>
+                        </div>
+                        `; 
+    
+                    item.querySelector('[data-tabs-swiper]').innerHTML = html; 
+    
+                    new Swiper(".swiper-tabs-container", {
+                        loop: false,
+                        slidesPerView: Number(item.getAttribute('data-swiper')),
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true
+                        },
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                        initialSlide: initial_slide,
+                    });
+                } else {
+                    item.removeAttribute('data-swiper');
+                    item.querySelector('[data-tabs-swiper]').removeAttribute('data-tabs-swiper');
+                    item.querySelector('[data-tabs-swiper-wrapper]').removeAttribute('data-tabs-swiper-wrapper');
+    
+                    item.querySelectorAll('[data-tabs-slide]').forEach((slide) => {
+                        slide.removeAttribute('data-tabs-slide');
+                    });
+                }
+            }
+        }
+        //swiper slider for long tabs items
     },
 
     methods: {
