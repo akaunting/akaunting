@@ -11,7 +11,7 @@ class File extends Form
     public $formGroupClass = 'sm:col-span-3';
 
     public $custom_attributes = [
-        'dropzone-class' => 'form-file dropzone-column w-1/2 h-32.5',
+        'dropzone-class' => 'form-file dropzone-column sm:w-1/2 h-32.5',
     ];
 
     /**

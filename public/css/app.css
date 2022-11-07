@@ -51017,6 +51017,10 @@ body{
     width: 500px;
   }
 
+  .sm\:w-1\/2{
+    width: 50%;
+  }
+
   .sm\:w-6\/12{
     width: 50%;
   }
@@ -51047,6 +51051,10 @@ body{
 
   .sm\:w-96{
     width: 24rem;
+  }
+
+  .sm\:w-37{
+    width: 9.25rem;
   }
 
   .sm\:w-60{
@@ -51492,6 +51500,10 @@ body{
     .lg\:justify-around{
     -ms-flex-pack: distribute;
         justify-content: space-around;
+  }
+
+    .lg\:gap-8{
+    gap: 2rem;
   }
 
     .lg\:gap-16{
