@@ -27,6 +27,12 @@ class EmptyPage extends Component
     public $title;
 
     /** @var string */
+    public $createButtonTitle;
+
+    /** @var string */
+    public $importButtonTitle;
+
+    /** @var string */
     public $description;
 
     /** @var string */
@@ -75,9 +81,9 @@ class EmptyPage extends Component
      */
     public function __construct(
         string $alias = '', string $group = '', string $page = '',
-        string $title = '', string $description = '', string $docsCategory = 'accounting',
-        string $image = '', string $imageEmptyPage = '',
-        bool $checkPermissionCreate = true, string $permissionCreate = '',
+        string $title = '', string $createButtonTitle = '', string $importButtonTitle = '', 
+        string $description = '', string $docsCategory = 'accounting', string $image = '', 
+        string $imageEmptyPage = '', bool $checkPermissionCreate = true, string $permissionCreate = '',
         array $buttons = [], bool $hideButtonCreate = false, bool $hideButtonImport = false,
         bool $hideDocsDescription = false, string $importRoute = '', array $importRouteParameters = []
     ) {
@@ -91,6 +97,9 @@ class EmptyPage extends Component
         $this->docsCategory = $docsCategory;
 
         $this->title = $this->getTitle($title);
+        $this->createButtonTitle = $createButtonTitle;
+        $this->importButtonTitle = $importButtonTitle;
+
         $this->description = $this->getDescription($description);
 
         $this->imageEmptyPage = $imageEmptyPage;
@@ -276,7 +285,11 @@ class EmptyPage extends Component
             $route = route($page . '.create');
         }
 
-        $title = $this->getTitle(null, 1);
+        $title = $this->createButtonTitle;
+
+        if (! $title) {
+            $title = $this->getTitle(null, 1);
+        }
 
         return [
             'url'           => $route,
@@ -292,7 +305,11 @@ class EmptyPage extends Component
         $importRoute = $this->getImportRoute($this->importRoute);
         $importRouteParameters = $this->getImportRouteParameters($this->importRouteParameters);
 
-        $title = $this->getTitle();
+        $title = $this->importButtonTitle;
+
+        if (! $title) {
+            $title = $this->getTitle();
+        }
 
         return [
             'url'           => route($importRoute, $importRouteParameters),
