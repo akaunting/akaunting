@@ -15,7 +15,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col space-y-16 py-4">
-            <div class="flex flex-col lg:flex-row w-full space-x-16 rtl:space-x-reverse space-y-0">
+            <div class="flex flex-col lg:flex-row w-full lg:space-x-16 rtl:space-x-reverse space-y-0">
                 <div class="w-full lg:w-7/12 flex flex-col space-x-2 banner">
                     @foreach ($module->files as $file)
                         @if ($loop->first)
@@ -98,7 +98,7 @@
                         </div>
 
                         @if (! in_array('onprime', $module->where_to_use))
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
@@ -112,11 +112,11 @@
                                 </div>
                             @endif
                         @else
-                            <div class="text-sm truncate line-clamp-1">
+                            <div class="text-sm line-clamp-1">
                                 {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                             </div>
 
-                            <div class="relative flex flex-col lg:flex-row space-x-4 justify-between">
+                            <div class="relative flex items-center space-x-4 justify-between">
                                 <x-layouts.modules.show.price :module="$module" />
 
                                 <div class="flex w-1/2 lg:justify-center">
@@ -137,7 +137,7 @@
             </div>
 
             <div class="tabs w-full">
-                <x-tabs class="flex border-b -mb-1 space-x-2 overflow-x-scroll lg:overflow-visible" active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}">
+                <x-tabs class="flex items-center overflow-x-scroll lg:overflow-visible" active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}">
                     <x-slot name="navs">
                         @stack('features_nav_start')
 

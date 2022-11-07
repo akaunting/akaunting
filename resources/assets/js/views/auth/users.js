@@ -30,6 +30,7 @@ const app = new Vue({
             form: new Form('user'),
             bulk_action: new BulkAction('users'),
             show_password: false,
+            landing_pages: null,
         }
     },
 
@@ -50,6 +51,26 @@ const app = new Vue({
 
                 this.show_password = false;
             }
+        },
+
+        onChangeRole(role_id) {
+            if (! role_id) {
+                return;
+            }
+
+            let role_promise = Promise.resolve(window.axios.get(url + '/auth/users/landingpages', {
+                params: {
+                    role_id: role_id
+                }
+            }));
+
+            role_promise.then(response => {
+                if (response.data.success) {
+                    this.landing_pages = response.data.data;
+                }
+            })
+            .catch(error => {
+            });
         },
     }
 });

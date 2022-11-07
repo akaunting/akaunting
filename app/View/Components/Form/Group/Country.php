@@ -15,6 +15,14 @@ class Country extends Form
      */
     public function render()
     {
+        if (empty($this->name)) {
+            $this->name = 'country';
+        }
+
+        if (empty($this->selected) && empty($this->getParentData('model'))) {
+            $this->selected = setting('company.country');
+        }
+
         return view('components.form.group.country');
     }
 }

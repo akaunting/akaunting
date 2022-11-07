@@ -231,13 +231,6 @@
                         'description' => trans('general.empty.actions.new', ['type' => trans_choice('general.expenses', 1)]),
                         'active_badge' => false
                     ],
-                    [
-                        'url' => 'https://akaunting.com/premium-cloud',
-                        'permission' => 'create-banking-transactions',
-                        'text' => trans('import.title', ['type' => trans_choice('general.bank_transactions', 2)]),
-                        'description' => '',
-                        'active_badge' => false
-                    ]
                 ]"
             />
         @endif

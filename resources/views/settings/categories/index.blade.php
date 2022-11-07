@@ -65,7 +65,7 @@
 
                 <x-table.tbody>
                     @foreach($categories as $item)
-                        <x-table.tr href="{{ route('categories.edit', $item->id) }}" class="relative flex items-center border-b hover:bg-gray-100 px-1 group transition-all">
+                        <x-table.tr href="{{ route('categories.edit', $item->id) }}">
                             <x-table.td kind="bulkaction">
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>

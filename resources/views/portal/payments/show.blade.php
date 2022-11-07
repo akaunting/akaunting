@@ -9,7 +9,7 @@
             {{ trans('general.download') }}
         </x-link>
         @stack('button_pdf_end')
-        
+
         @stack('button_print_start')
         <x-link href="{{ route('portal.payments.print', $payment->id) }}" target="_blank" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm font-medium leading-6">
             {{ trans('general.print') }}
@@ -36,17 +36,17 @@
 
                 <!--Status partials-->
                 @if ($payment->document)
-                <div class="border-b-2 border-gray-200 pb-1">
-                    <div class="relative w-full ltr:text-left rtl:text-right">
-                        <span class="font-medium">
-                            {{ trans('portal.payments') }}
+                    <div class="border-b-2 border-gray-200 pb-1">
+                        <div class="relative w-full ltr:text-left rtl:text-right">
+                            <span class="font-medium">
+                                {{ trans('portal.payments') }}
+                            </span>
+                        </div>
+
+                        <span class="text-sm">
+                            {{ trans('portal.payment_detail.description', ['date' => date($payment->paid_at), 'amount' => money($payment->amount, $payment->currency_code, true)]) }}
                         </span>
                     </div>
-
-                    <span class="text-sm">
-                        {{ trans('portal.payment_detail.description', ['date' => date($payment->paid_at), 'amount' => money($payment->amount, $payment->currency_code, true)]) }}
-                    </span>
-                </div>
                 @endif
             </div>
 
@@ -56,6 +56,7 @@
                     :transaction="$payment"
                     transaction-template="{{ setting('payment.template', 'default') }}"
                     hide-payment-methods
+                    route-document-show="portal.invoices.show"
                 />
             </div>
         </div>

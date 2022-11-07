@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Изчистена Сума',
     'deposit'               => 'Депозит',
     'withdrawal'            => 'Теглене',
+    'reconciled_amount'     => 'Оспорен',
+    'in_progress'           => 'В процес на изпълнение',
+    'save_draft'            => 'Запази като чернова',
+    'irreconcilable'        => 'Не подлежи на оспорване',
 
 ];

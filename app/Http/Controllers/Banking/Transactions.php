@@ -86,8 +86,9 @@ class Transactions extends Controller
     public function show(Transaction $transaction)
     {
         $title = $transaction->isIncome() ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
+        $real_type = $this->getRealTypeTransaction($transaction->type);
 
-        return view('banking.transactions.show', compact('transaction', 'title'));
+        return view('banking.transactions.show', compact('transaction', 'title', 'real_type'));
     }
 
     /**
@@ -98,6 +99,7 @@ class Transactions extends Controller
     public function create()
     {
         $type = request()->get('type', 'income');
+        $real_type = $this->getRealTypeTransaction($type);
 
         $number = $this->getNextTransactionNumber();
 
@@ -109,6 +111,7 @@ class Transactions extends Controller
 
         return view('banking.transactions.create', compact(
             'type',
+            'real_type',
             'number',
             'contact_type',
             'account_currency_code',

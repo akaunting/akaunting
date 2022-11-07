@@ -1,13 +1,13 @@
 <x-layouts.admin>
     <x-slot name="title">
-        {{ trans('general.title.new', ['type' => trans_choice('general.' . Str::plural($type), 1)]) }}
+        {{ trans('general.title.new', ['type' => trans_choice('general.' . Str::plural($real_type), 1)]) }}
     </x-slot>
 
-    @php $fav_icon = ($type == 'income') ? 'request_quote' : 'paid'; @endphp
+    @php $fav_icon = ($real_type == 'income') ? 'request_quote' : 'paid'; @endphp
     <x-slot name="favorite"
-        title="{{ trans('general.title.new', ['type' => trans_choice('general.' . Str::plural($type), 1)]) }}"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.' . Str::plural($real_type), 1)]) }}"
         icon="{{ $fav_icon }}"
-        url="{{ route('transactions.create', ['type' => $type]) }}"
+        url="{{ route('transactions.create', ['type' => $real_type]) }}"
     ></x-slot>
 
     <x-slot name="content">
@@ -36,13 +36,13 @@
 
                 <x-form.section>
                     <x-slot name="head">
-                        <x-form.section.head title="{{ trans('general.assign') }}" description="{{ trans('transactions.form_description.assign_' . $type) }}" />
+                        <x-form.section.head title="{{ trans('general.assign') }}" description="{{ trans('transactions.form_description.assign_' . $real_type) }}" />
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.category type="{{ $type }}" :selected="setting('default.' . $type . '_category')" />
+                        <x-form.group.category type="{{ $real_type }}" :selected="setting('default.' . $real_type . '_category')" />
 
-                        <x-form.group.contact type="{{ config('type.transaction.' . $type . '.contact_type') }}" not-required />
+                        <x-form.group.contact type="{{ config('type.transaction.' . $real_type . '.contact_type') }}" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -66,7 +66,7 @@
                     </x-slot>
                 </x-form.section>
 
-                <x-form.input.hidden name="type" :value="$type" />
+                <x-form.input.hidden name="type" :value="$real_type" />
             </x-form>
         </x-form.container>
     </x-slot>

@@ -37,7 +37,7 @@
         "popper.js": "^1.16.1",
         "swiper": "^7.3.1",
         "tailwind": "^4.0.0",
-        "tailwindcss": "^3.0.23",
+        "tailwindcss": "^3.2.1",
         "v-money": "^0.8.1",
         "vee-validate": "^2.2.15",
         "vue": "^2.6.10",

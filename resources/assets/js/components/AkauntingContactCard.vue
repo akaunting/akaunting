@@ -520,8 +520,27 @@ export default {
                     this.add_new.html = '';
                     this.add_new_html = null;
 
+                    this.contact_list.push({
+                        key: contact.id,
+                        value: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
+                        type: (contact.type) ? contact.type : 'customer',
+                        id: contact.id,
+                        name: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
+                        email: (contact.email) ? contact.email : '',
+                        tax_number: (contact.tax_number) ? contact.tax_number : '',
+                        currency_code: (contact.currency_code) ? contact.currency_code : '',
+                        phone: (contact.phone) ? contact.phone : '',
+                        website: (contact.website) ? contact.website : '',
+                        address: (contact.address) ? contact.address : '',
+                        city: (contact.city) ? contact.city : '',
+                        zip_code: (contact.zip_code) ? contact.zip_code : '',
+                        state: (contact.state) ? contact.state : '',
+                        country: (contact.country) ? contact.country : '',
+                        location: (contact.location) ? contact.location : '',
+                        reference: (contact.reference) ? contact.reference : ''
+                    });
+                    
                     this.$emit('new', contact);
-
                     this.$emit('change', this.contact);
 
                     let documentClasses = document.body.classList;

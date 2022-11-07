@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Sumă reconciliată',
     'deposit'               => 'Depozit',
     'withdrawal'            => 'Retragere',
+    'reconciled_amount'     => 'Reconciliat',
+    'in_progress'           => 'În desfășurare',
+    'save_draft'            => 'Salvează ca ciornă',
+    'irreconcilable'        => 'ireconciliabil',
 
 ];

@@ -54,6 +54,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', 'Auth\Login@destroy')->name('logout');
 
     Route::get('users/autocomplete', 'Auth\Users@autocomplete')->name('users.autocomplete');
+    Route::get('users/landingpages', 'Auth\Users@landingPages')->name('users.landingpages');
     Route::get('users/{user}/read-bills', 'Auth\Users@readUpcomingBills')->name('users.read.bills');
     Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices')->name('users.read.invoices');
     Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
@@ -62,7 +63,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::resource('users', 'Auth\Users', ['middleware' => ['dropzone']]);
 
     Route::get('profile/{user}/edit', 'Auth\Users@edit')->name('profile.edit');
-    Route::patch('profile/{user}', 'Auth\Users@update')->name('profile.update');
+    Route::patch('profile/{user}', 'Auth\Users@update')->middleware('dropzone')->name('profile.update');
 });
 
 Route::group(['prefix' => 'sales'], function () {
@@ -147,11 +148,11 @@ Route::group(['prefix' => 'banking'], function () {
     Route::get('transfers/{transfer}/duplicate', 'Banking\Transfers@duplicate')->name('transfers.duplicate');
     Route::post('transfers/import', 'Banking\Transfers@import')->middleware('import')->name('transfers.import');
     Route::get('transfers/export', 'Banking\Transfers@export')->name('transfers.export');
-    Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money']]);
+    Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::post('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
     Route::patch('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
-    Route::resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['date.format', 'money']]);
+    Route::resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['date.format', 'money', 'dropzone']]);
 });
 
 Route::group(['prefix' => 'settings'], function () {

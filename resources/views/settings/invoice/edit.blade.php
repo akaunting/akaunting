@@ -30,30 +30,39 @@
                     <x-slot name="body">
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
-                                <div @click="form.template='default'">
+                                <div @click="form.template='default'" class="flex flex-col items-center">
                                     <img src="{{ asset('public/img/invoice_templates/default.png') }}" class="h-60 my-3" alt="Default" />
-                                    <input type="radio" name="template" value="default" v-model="form._template">
-                                    {{ trans('settings.invoice.default') }}
+
+                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                        <input type="radio" name="template" value="default" v-model="form._template">
+                                        <span> {{ trans('settings.invoice.default') }} </span>
+                                    </div>
                                 </div>
                             </label>
                         </div>
 
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
-                                <div @click="form.template='classic'">
+                                <div @click="form.template='classic'" class="flex flex-col items-center">
                                     <img src="{{ asset('public/img/invoice_templates/classic.png') }}" class="h-60 my-3" alt="Classic" />
-                                    <input type="radio" name="template" value="classic" v-model="form._template">
-                                    {{ trans('settings.invoice.classic') }}
+
+                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                        <input type="radio" name="template" value="classic" v-model="form._template">
+                                        <span> {{ trans('settings.invoice.classic') }} </span>
+                                    </div>
                                 </div>
                             </label>
                         </div>
 
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
-                                <div @click="form.template='modern'">
+                                <div @click="form.template='modern'" class="flex flex-col items-center">
                                     <img src="{{ asset('public/img/invoice_templates/modern.png') }}" class="h-60 my-3" alt="Modern" />
-                                    <input type="radio" name="template" value="modern" v-model="form._template">
-                                    {{ trans('settings.invoice.modern') }}
+
+                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                        <input type="radio" name="template" value="modern" v-model="form._template">
+                                        <span> {{ trans('settings.invoice.modern') }} </span>
+                                    </div>
                                 </div>
                             </label>
                         </div>
@@ -93,7 +102,7 @@
                                 change="settingsInvoice"
                                 input-name="item_name_input"
                                 :input-value="setting('invoice.item_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="sm:col-span-6"
                             />
 
                             <x-form.group.invoice-text
@@ -104,7 +113,7 @@
                                 change="settingsInvoice"
                                 input-name="price_name_input"
                                 :input-value="setting('invoice.price_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="col-span-3 sm:col-span-6"
                             />
 
                             <x-form.group.invoice-text
@@ -115,7 +124,7 @@
                                 change="settingsInvoice"
                                 input-name="quantity_name_input"
                                 :input-value="setting('invoice.quantity_name_input')"
-                                form-group-class="sm:col-span-6 sm:gap-0"
+                                form-group-class="sm:col-span-6"
                             />
                         </div>
 

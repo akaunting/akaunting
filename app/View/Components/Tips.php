@@ -52,35 +52,53 @@ class Tips extends Component
                 $view = 'components.tips.relative';
         }
 
+        if ($this->tips->count() > 1) {
+            $view = 'components.tips.relative';
+        }
+
         return view($view);
     }
 
     protected function setTips($tips)
     {
-        if (!empty($tips)) {
+        if (! empty($tips)) {
             $this->tips = $tips;
         }
 
-        if (!$path = Route::current()->uri()) {
+        if (! $path = Route::current()->uri()) {
             return;
         }
 
         $path = Str::replace('{company_id}/', '', $path);
 
-        if (!$tips = $this->getTips($path)) {
+        if (! $tips = $this->getTips($path)) {
             return;
         }
+
+        $rows = collect();
+
+        shuffle($tips);
 
         foreach ($tips as $tip) {
             if ($tip->position != $this->position) {
                 continue;
             }
 
-            if (!empty($tip->alias) && $this->moduleIsEnabled($tip->alias)) {
+            if (! empty($tip->alias) && $this->moduleIsEnabled($tip->alias)) {
                 continue;
             }
 
-            $this->tips->push($tip);
+            if (Str::contains($tip->action, '{company_id}')) {
+                $tip->action = Str::replace('{company_id}', company_id(), $tip->action);
+            }
+
+            $rows->push($tip);
+        }
+
+        if ($rows->count()) {
+            $row = $rows->shuffle()->first();
+
+            $this->tips->push($row);
         }
     }
 }

@@ -50,7 +50,7 @@ const app = new Vue({
             },
             item_name_input: false,
             price_name_input: false,
-            quantity_name_input: false
+            quantity_name_input: false,
         }
     },
 
@@ -141,24 +141,41 @@ const app = new Vue({
             });
         },
 
+        onSmallWidthColumn(item) {
+            this.$refs[item].$el.classList.remove('sm:col-span-6');
+            this.$refs[item].$el.classList.add('sm:col-span-3');
+        },
+
+        onFullWidthColumn(item) {
+            this.$refs[item].$el.classList.add('sm:col-span-6');
+            this.$refs[item].$el.classList.remove('sm:col-span-3');
+        },
+
         settingsInvoice() {
             if (this.form.item_name == 'custom') {
                 this.item_name_input = true;
+                this.onSmallWidthColumn("item_name");
             } else {
                 this.item_name_input = false;
+                this.onFullWidthColumn("item_name");
             }
 
             if (this.form.price_name == 'custom') {
                 this.price_name_input = true;
+                this.onSmallWidthColumn("price_name");
             } else {
                 this.price_name_input = false;
+                this.onFullWidthColumn("price_name");
             }
 
             if (this.form.quantity_name == 'custom') {
                 this.quantity_name_input = true;
+                this.onSmallWidthColumn("quantity_name");
             } else {
                 this.quantity_name_input = false;
+                this.onFullWidthColumn("quantity_name");
             }
+            
         },
 
         // Change currency get money

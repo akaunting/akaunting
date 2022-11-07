@@ -5,7 +5,7 @@
     </div>
     @endif
 
-    <div class="flex flex-col text-black text-sm font-medium ml-8">
+    <div class="flex flex-col text-black text-sm font-medium ml-2 sm:ml-8">
         {!! $slot !!}
     </div>
 </div>

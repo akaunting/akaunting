@@ -30,9 +30,13 @@ class UpdateUser extends Job implements ShouldUpdate
 
             // Upload picture
             if ($this->request->file('picture')) {
+                $this->deleteMediaModel($this->model, 'picture', $this->request);
+
                 $media = $this->getMedia($this->request->file('picture'), 'users');
 
                 $this->model->attachMedia($media, 'picture');
+            } elseif (! $this->request->file('picture') && $this->model->picture) {
+                $this->deleteMediaModel($this->model, 'picture', $this->request);
             }
 
             if ($this->request->has('roles')) {

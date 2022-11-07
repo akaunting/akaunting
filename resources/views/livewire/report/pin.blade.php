@@ -13,12 +13,12 @@
     </span>
 
     @if ($pinned)
-        <div id="{{ $report->id }}-pin" role="tooltip" class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 tooltip-content">
+        <div id="{{ $report->id }}-pin" role="tooltip" class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0">
             {{ trans('reports.pin_text.unpin_report') }}
             <div class="absolute w-2 h-2 -top-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-b-0 before:border-r-0" data-popper-arrow></div>
         </div>
      @else
-        <div id="{{ $report->id }}-pin" role="tooltip" class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0 tooltip-content">
+        <div id="{{ $report->id }}-pin" role="tooltip" class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm whitespace-nowrap opacity-0">
             {{ trans('reports.pin_text.pin_report') }}
             <div class="absolute w-2 h-2 -top-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-b-0 before:border-r-0" data-popper-arrow></div>
         </div>

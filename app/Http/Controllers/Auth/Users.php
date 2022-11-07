@@ -119,6 +119,7 @@ class Users extends Controller
         }
 
         $u = new \stdClass();
+        $u->role = $user->roles()->first();
         $u->landing_pages = [];
 
         event(new LandingPageShowing($u));
@@ -353,5 +354,36 @@ class Users extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Process request for reinviting the specified resource.
+     *
+     * @param  Role  $role
+     *
+     * @return Response
+     */
+    public function landingPages(BaseRequest $request)
+    {
+        $role = false;
+
+        if ($request->has('role_id')) {
+            $role = Role::find($request->get('role_id'));
+        }
+
+        $u = new \stdClass();
+        $u->role = $role;
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $landing_pages,
+            'message' => 'Get role by landing pages..',
+        ]);
     }
 }
