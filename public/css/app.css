@@ -51017,10 +51017,6 @@ body{
     width: 500px;
   }
 
-  .sm\:w-1\/2{
-    width: 50%;
-  }
-
   .sm\:w-6\/12{
     width: 50%;
   }
@@ -51287,6 +51283,12 @@ body{
     display: flex;
   }
 
+  .lg\:inline-flex{
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
+
   .lg\:hidden{
     display: none;
   }
@@ -51502,12 +51504,12 @@ body{
         justify-content: space-around;
   }
 
-    .lg\:gap-8{
-    gap: 2rem;
-  }
-
     .lg\:gap-16{
     gap: 4rem;
+  }
+
+    .lg\:gap-8{
+    gap: 2rem;
   }
 
     .lg\:space-x-16 > :not([hidden]) ~ :not([hidden]){

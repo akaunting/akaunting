@@ -15,6 +15,8 @@ lg:relative
 lg:right-0
 lg:justify-around
 lg:space-x-16
+lg:inline-flex
+lg:space-y-0
 sm:ltr:right-4
 sm:rtl:left-4
 sm:w-500
