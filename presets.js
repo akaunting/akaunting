@@ -37,25 +37,7 @@ module.exports = {
       {
         pattern: /^right-/,
         variants: ['ltr', 'rtl'],
-      },
-      {
-        pattern: /^w/,
-      },
-      {
-        pattern: /^h/,
-      },
-      {
-        pattern: /^inset/,
-      },
-      {
-        pattern: /^top/,
-      },
-      {
-        pattern: /^bottom/,
-      },
-      {
-        pattern: /^translate/,
-      },
+      }
     ],
    
     darkMode: 'class', // or 'media' or 'class',
