@@ -14,7 +14,7 @@ trait Uploads
     {
         $path = '';
 
-        if (!$file || !$file->isValid()) {
+        if (! $file || ! $file->isValid()) {
             return $path;
         }
 
@@ -38,7 +38,7 @@ trait Uploads
     {
         $path = '';
 
-        if (!$disk) {
+        if (! $disk) {
             $disk = config('mediable.default_disk');
         }
 
@@ -61,10 +61,18 @@ trait Uploads
             return;
         }
 
+        $multiple = true;
+
+        if ($medias instanceof \App\Models\Common\Media) {
+            $multiple = false;
+
+            $medias = [$medias];
+        }
+
         $already_uploaded = [];
 
         if ($request && isset($request['uploaded_' . $parameter])) {
-            $uploaded = $request['uploaded_' . $parameter];
+            $uploaded = ($multiple) ? $request['uploaded_' . $parameter] : [$request['uploaded_' . $parameter]];
 
             if (count($medias) == count($uploaded)) {
                 return;

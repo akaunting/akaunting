@@ -11,8 +11,8 @@
 
         <div class="flex flex-col h-screen">
             <header class="py-5 bg-purple-lighter text-purple text-center">
-                <div class="w-full lg:max-w-6xl m-auto flex flex-col lg:flex-row items-center justify-between">
-                    <div class="flex flex-col items-start">
+                <div class="w-full lg:max-w-6xl m-auto flex flex-col lg:flex-row items-center justify-between px-4 lg:px-0">
+                    <div class="flex flex-col items-center lg:items-start">
                         <span class="font-medium uppercase">
                             {{ trans('general.preview_mode') }}
                         </span>
@@ -22,7 +22,7 @@
                         </span>
                     </div>
 
-                    <x-link href="{!! !empty($sticky->attributes->has('url')) ? $sticky->attributes->get('url') : route('dashboard') !!}" class="px-3 py-1.5 rounded-xl text-sm font-medium leading-6 bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100" override="class">
+                    <x-link href="{!! !empty($sticky->attributes->has('url')) ? $sticky->attributes->get('url') : route('dashboard') !!}" class="px-3 py-1.5 mt-5 lg:mt-0 rounded-xl text-sm font-medium leading-6 bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100" override="class">
                         {{ trans('general.go_back', ['type' => company()->name]) }}
                     </x-link>
                 </div>

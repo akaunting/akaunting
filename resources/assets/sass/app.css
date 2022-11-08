@@ -191,6 +191,36 @@
         @apply font-normal;
     }
     /* after the upgrade tailwind 3.2.1, this tags font-weight changed. Added this block for now */
+
+    /* changelog modal styling for update center */
+    .change-log-modal .badge {
+        @apply px-3 py-2 rounded-3xl text-xs font-medium bg-green text-white;
+    }
+
+    .change-log-modal h2 {
+        @apply text-2xl font-bold text-purple mb-2;
+    }
+
+    .change-log-modal h3 {
+        @apply text-lg font-bold text-purple mb-2;
+    }
+
+    .change-log-modal ul {
+        @apply list-disc list-inside mb-2;
+    }
+
+    .change-log-modal li {
+        @apply text-base text-purple;
+    }
+
+    .change-log-modal a {
+        @apply text-green underline;
+    }
+    /* changelog modal styling for update center */
+
+    #button-monthly {
+        margin-left: unset !important;
+    }
 }
 
 /* menu */
@@ -454,9 +484,16 @@ html[dir='rtl'] .el-scrollbar__wrap {
     }
     /* apex-chart cash-flow */
     .apex-chart-cash-flow .apexcharts-legend {
-        width: 24rem !important;
+        width: 100% !important;
         justify-content: space-around !important;
         padding: 0;
+        flex-wrap: nowrap !important;
+    }
+
+    .apex-chart-cash-flow .apexcharts-legend-series {
+        width: 8rem;
+        text-align: center;
+        margin: 0 !important;
     }
 
     .apex-chart-cash-flow  .apexcharts-toolbar {
@@ -561,6 +598,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 @media only screen and (min-width: 480px) {
     .large-overflow-unset {
         overflow-x: unset;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .dashboard-picker .el-picker-panel__body {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+
+    .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
+        width: 100% !important;
     }
 }
 

@@ -162,7 +162,7 @@ export default {
 
         //swiper slider for long tabs items
         for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
-            if (item.querySelector('[data-tabs-swiper-wrapper]').clientWidth > item.clientWidth) {
+            if (item.clientWidth < item.querySelector('[data-tabs-swiper-wrapper]').clientWidth) {
                 let initial_slide = 0;
                 let hash_split = window.location.hash.split('#')[1];
     
@@ -192,16 +192,16 @@ export default {
     
                 item.querySelector('[data-tabs-swiper]').innerHTML = html; 
     
-                new Swiper(".swiper-tabs-container", {
+                new Swiper('.swiper-tabs-container', {
                     loop: false,
                     slidesPerView: Number(item.getAttribute('data-swiper')),
                     pagination: {
-                        el: ".swiper-pagination",
+                        el: '.swiper-pagination',
                         clickable: true
                     },
                     navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
                     },
                     initialSlide: initial_slide,
                 });

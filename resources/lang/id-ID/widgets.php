@@ -2,23 +2,33 @@
 
 return [
 
-    'currencies'                => 'Mata Uang',
-    'total_income'              => 'Total Pendapatan',
-    'receivables'               => 'Pihutang',
-    'open_invoices'             => 'Membuka Faktur',
-    'overdue_invoices'          => 'Faktur Jatuh Tempo',
-    'total_expenses'            => 'Total Pengeluaran',
+    'receivables'               => 'Piutang',
     'payables'                  => 'Hutang',
-    'open_bills'                => 'Tagihan Terbuka',
-    'overdue_bills'             => 'Tagihan Terlambat',
-    'total_profit'              => 'Total Keuntungan',
-    'open_profit'               => 'Membuka Keuntungan',
-    'overdue_profit'            => 'Keuntungan Jatuh tempo',
     'cash_flow'                 => 'Arus Kas',
-    'no_profit_loss'            => 'Tidak ada Rugi Laba',
-    'income_by_category'        => 'Pendapatan menurut Kategori',
-    'expenses_by_category'      => 'Pengeluaran berdasarkan Kategori',
+    'profit_loss'               => 'Laba & Rugi',
+    'expenses_by_category'      => 'Pengeluaran Berdasarkan Kategori',
     'account_balance'           => 'Saldo Rekening',
-    'latest_income'             => 'Pendapatan Terbaru',
-    'latest_expenses'           => 'Pengeluaran Terbaru',
+    'bank_feeds'                => 'Hubungkan Rekening Bank',
+    'currencies'                => 'Mata Uang',
+
+    'view_report'               => 'Lihat Laporan',
+    'total_unpaid_invoices'     => 'Total faktur belum dibayar',
+    'total_unpaid_bills'        => 'Total tagihan belum dibayar',
+
+    'description' => [
+        'receivables'           => 'Jumlah yang diterima dari pelanggan',
+        'payables'              => 'Jumlah yang belum dibayarkan ke penyedia',
+        'cash_flow'             => 'Uang masuk dan keluar dari bisnis Anda',
+        'profit_loss'           => 'Pendapatan dan pengeluaran termasuk faktur dan tagihan belum dibayar',
+        'expenses_by_category'  => 'Pengeluaran terbesar di berbagai kategori',
+        'account_balance'       => 'Saldo rekening bank Anda',
+        'bank_feeds'            => 'Impor transaksi Anda ke Akaunting secara otomatis</br>dengan menghubungkan rekening bank Anda',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => 'Terlambat 1-30 hari',
+        'overdue_30_60'         => 'Terlambat 30-60 hari',
+        'overdue_60_90'         => 'Terlambat 60-90 hari',
+        'overdue_90_un'         => 'Terlambat 90 hari lebih',
+    ],
 ];

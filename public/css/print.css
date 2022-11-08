@@ -379,48 +379,6 @@ html[dir='rtl'] .text-right
 /*--General Finish--*/
 
 /*--Print Template Default Start--*/
-.col-60
-{
-    display: inline-block;
-    width: 60%;
-    vertical-align: top;
-}
-
-.col-58
-{
-    display: inline-block;
-    width: 58%;
-    vertical-align: top;
-}
-
-.col-50
-{
-    display: inline-block;
-    width: 50%;
-    vertical-align: top;
-}
-
-.col-42
-{
-    display: inline-block;
-    width: 42%;
-    vertical-align: top;
-}
-
-.col-40
-{
-    display: inline-block;
-    width: 40%;
-    vertical-align: top;
-}
-
-.col-16
-{
-    display: inline-block;
-    max-width: 16%;
-    vertical-align: top;
-}
-
 .col-100
 {
     display: inline-block;
@@ -805,7 +763,77 @@ html[dir='rtl'] .print-heading {
 .custom-product-hunt {
     display: none;
 }
+
+.classic-invoice {
+    margin-top: 10px;
+}
+
+.col-60
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.col-50
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.col-40
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+.col-58
+{
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+}
+.col-42
+{
+    display: inline-block;
+    width: 42%;
+    vertical-align: top;
+}
+.col-16
+{
+    display: inline-block;
+    max-width: 16%;
+    vertical-align: top;
+}
 /*--Print --*/
+
+@media (min-width: 991px) {
+    .col-60
+    {
+        display: inline-block;
+        width: 60%;
+        vertical-align: top;
+    }
+    
+    .col-50
+    {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+    }
+    
+    .col-40
+    {
+        display: inline-block;
+        width: 40%;
+        vertical-align: top;
+    }
+
+    .classic-invoice {
+        margin-top: unset;
+    }
+}
 
 @media (max-width: 1600px) {
     .p-index-right {

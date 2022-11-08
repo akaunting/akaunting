@@ -189,6 +189,7 @@ module.exports = {
 
           spacing: {
               'modal': '610px',
+              '500':   '500px',
               '5.5':   '1.30rem', 
               '9.5':   '2.45rem',
               '12.5':  '3.2rem',

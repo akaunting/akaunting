@@ -19,5 +19,7 @@ return [
         '404'       => 'Vi kunne ikke finde siden du kikkede efter.',
         '500'       => 'Vi vil arbejde på at fixe dette straks.',
         'record'    => 'Vi kunne ikke finde det, du ledte efter.',
+        'amount'    => 'Denne side indeholder ugyldige beløb! Kontakt venligst systemadministratoren.',
     ],
+
 ];

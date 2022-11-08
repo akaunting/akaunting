@@ -66,7 +66,7 @@
         <x-show.content.left>
             @stack('customer_address_start')
             @if (! $hideAddress)
-            <div class="flex flex-col text-sm mb-5">
+            <div class="flex flex-col text-sm sm:mb-5">
                 <div class="font-medium">{{ trans('general.address') }}</div>
                 <span>{{ $contact->address }}<br>{{ $contact->location }}</span>
             </div>
@@ -76,7 +76,7 @@
             @stack('customer_tax_number_start')
             @if (! $hideTaxNumber)
             @if ($contact->tax_number)
-                <div class="flex flex-col text-sm mb-5">
+                <div class="flex flex-col text-sm sm:mb-5">
                     <div class="font-medium">{{ trans('general.tax_number') }}</div>
                     <span>{{ $contact->tax_number }}</span>
                 </div>
@@ -87,7 +87,7 @@
             @stack('customer_website_start')
             @if (! $hideWebsite)
             @if ($contact->website)
-                <div class="flex flex-col text-sm mb-5">
+                <div class="flex flex-col text-sm sm:mb-5">
                     <div class="font-medium">{{ trans('general.website') }}</div>
                     <span>{{ $contact->website }}</span>
                 </div>
@@ -98,7 +98,7 @@
             @stack('customer_reference_start')
             @if (! $hideReference)
             @if ($contact->reference)
-                <div class="flex flex-col text-sm mb-5">
+                <div class="flex flex-col text-sm sm:mb-5">
                     <div class="font-medium">{{ trans('general.reference') }}</div>
                     <span>{{ $contact->reference }}</span>
                 </div>
@@ -108,7 +108,7 @@
 
             @stack('customer_client_portal_start')
                 @if (! $hideUser)
-                    <div class="flex flex-col text-sm mb-5">
+                    <div class="flex flex-col text-sm sm:mb-5">
                         <div class="flex items-center font-medium">
                             <div class="flex items-center cursor-default">
                                 <x-tooltip id="tooltip-client-describe" placement="bottom" size="w-2/12" message="{{ trans('customers.client_portal_description') }}">
