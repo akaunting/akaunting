@@ -38,6 +38,26 @@ import GLightbox from 'glightbox';
 
 Swiper.use([Navigation, Pagination]);
 
+//sentry integration
+import * as Sentry from "@sentry/vue";
+import { BrowserTracing } from "@sentry/tracing";
+
+Sentry.init({
+    Vue,
+    dsn: "",
+    logErrors: true,
+    integrations: [
+        new BrowserTracing({
+            tracingOrigins: [],
+        }),
+    ],
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+});
+//sentry integration
+
 export default {
     components: {
         AkauntingDropzoneFileUpload,
