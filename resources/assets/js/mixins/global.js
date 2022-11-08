@@ -44,7 +44,7 @@ import { BrowserTracing } from "@sentry/tracing";
 
 Sentry.init({
     Vue,
-    dsn: "https://9ffc5a5f104d4087911f60714e8bdbe9@o4503982427078656.ingest.sentry.io/4503999793594368",
+    dsn: "",
     logErrors: true,
     integrations: [
         new BrowserTracing({
