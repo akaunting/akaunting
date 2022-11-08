@@ -568,6 +568,18 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     right: 16.5rem;
 }
 
+/* plans page accordion */
+.active-accordion .js-accordions-text {
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+  }
+  
+  .active-accordion i {
+    transform: rotate(180deg);
+  }
+  /* plans page accordion */
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 550px;
