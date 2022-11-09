@@ -19,6 +19,8 @@
         "@fullcalendar/timegrid": "^5.11.0",
         "@fullcalendar/vue": "^5.11.0",
         "@popperjs/core": "^2.11.0",
+        "@sentry/tracing": "^7.17.4",
+        "@sentry/vue": "^7.17.4",
         "@tailwindcss/forms": "^0.4.0",
         "@themesberg/flowbite": "^1.2.0",
         "axios": "^0.21",
