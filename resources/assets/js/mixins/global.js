@@ -44,7 +44,7 @@ import { BrowserTracing } from "@sentry/tracing";
 
 Sentry.init({
     Vue,
-    dsn: "",
+    dsn: sentry_dsn,
     logErrors: true,
     integrations: [
         new BrowserTracing({
