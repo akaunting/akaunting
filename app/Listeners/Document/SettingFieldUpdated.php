@@ -32,7 +32,7 @@ class SettingFieldUpdated
         $fields = $request->get('setting', []);
 
         // remove company logo
-        if (! in_array('company_logo', $fields)) {
+        if (Arr::exists($fields, 'company_logo') && ! Arr::has($fields['company_logo'], 'dropzone')) {
             setting()->forget('company.logo');
         }
 
