@@ -38,6 +38,8 @@ import GLightbox from 'glightbox';
 
 Swiper.use([Navigation, Pagination]);
 
+var BreakException = {};
+
 export default {
     components: {
         AkauntingDropzoneFileUpload,
@@ -165,15 +167,28 @@ export default {
             if (item.clientWidth < item.querySelector('[data-tabs-swiper-wrapper]').clientWidth) {
                 let initial_slide = 0;
                 let hash_split = window.location.hash.split('#')[1];
+                let loop = 0;
+                let slides_view;
+
+                try {
+                    item.querySelectorAll('[data-tabs-slide]').forEach((slide, index, arr) => {
+                        loop += slide.clientWidth;
     
-                item.querySelectorAll('[data-tabs-slide]').forEach((item, index) => {
-                    item.classList.add('swiper-slide');
+                        slide.classList.add('swiper-slide');
+        
+                        if (slide.getAttribute('data-tabs') == hash_split) {
+                            initial_slide = index;
+                        }
     
-                    if (item.getAttribute('data-tabs') == hash_split) {
-                        initial_slide = index;
-                    }
-                });
-    
+                        if (loop > item.clientWidth) {
+                            slides_view = index;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+                
                 item.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
                 item.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
     
@@ -190,11 +205,11 @@ export default {
                     </div>
                     `; 
     
-                item.querySelector('[data-tabs-swiper]').innerHTML = html; 
-    
+                item.querySelector('[data-tabs-swiper]').innerHTML = html;
+
                 new Swiper('.swiper-tabs-container', {
                     loop: false,
-                    slidesPerView: Number(item.getAttribute('data-swiper')),
+                    slidesPerView: Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view,
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true
