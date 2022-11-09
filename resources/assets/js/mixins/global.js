@@ -42,20 +42,25 @@ Swiper.use([Navigation, Pagination]);
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
-Sentry.init({
-    Vue,
-    dsn: "https://9ffc5a5f104d4087911f60714e8bdbe9@o4503982427078656.ingest.sentry.io/4503999793594368",
-    logErrors: true,
-    integrations: [
-        new BrowserTracing({
-            tracingOrigins: [],
-        }),
-    ],
-    // Set tracesSampleRate to 1.0 to capture 100%
-    // of transactions for performance monitoring.
-    // We recommend adjusting this value in production
-    tracesSampleRate: 1.0,
-});
+if (sentry_dsn && sentry_dsn != '' && sentry_dsn != undefined) {
+    Sentry.init({
+        Vue,
+        dsn: sentry_dsn,
+        logErrors: true,
+        integrations: [
+            new BrowserTracing({
+                tracingOrigins: [],
+            }),
+        ],
+        // Set tracesSampleRate to 1.0 to capture 100%
+        // of transactions for performance monitoring.
+        // We recommend adjusting this value in production
+        tracesSampleRate: 1.0,
+    });
+
+    Sentry.setUser(sentry_user[0]);
+    Sentry.setTag("sentry_tag", "here");
+}
 //sentry integration
 
 export default {

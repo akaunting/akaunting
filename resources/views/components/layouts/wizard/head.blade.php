@@ -37,6 +37,7 @@
         var url = '{{ url("/" . company_id()) }}';
         var app_url = '{{ config("app.url") }}';
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
+        var sentry_dsn = "https://9ffc5a5f104d4087911f60714e8bdbe9@o4503982427078656.ingest.sentry.io/4503999793594368";
     //--></script>
 
     @stack('js')
