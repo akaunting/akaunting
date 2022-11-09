@@ -54047,6 +54047,18 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 }
 /* template table border radius control */
 
+/* responsive for role mobile */
+.scroll-div-mobile {
+    width: 700px;
+}
+
+@media only screen and (min-width: 991px) {
+    .scroll-div-mobile {
+        width: 100%;
+    }
+}
+/* responsive for role mobile */
+
 [dir="ltr"] .ltr\:-right-57 {
     right: -14.5rem;
 }
