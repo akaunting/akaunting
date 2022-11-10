@@ -207,8 +207,9 @@ export default {
     
                 item.querySelector('[data-tabs-swiper]').innerHTML = html;
                 slides_view = Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view;
-                
-                new Swiper('.swiper-tabs-container', {
+                item.setAttribute('data-swiper', slides_view);
+                                
+                new Swiper(item.querySelector('.swiper-tabs-container'), {
                     loop: true,
                     slidesPerView: slides_view,
                     pagination: {
