@@ -933,6 +933,10 @@ export default {
         },
 
         value: function (selected) {
+            if (Array.isArray(selected) && Array.isArray(this.selected)) {
+                return this.selected.some(item => selected.includes(item))
+            }
+
             if (!this.multiple) {
                 this.selected = selected.toString();
             } else {
