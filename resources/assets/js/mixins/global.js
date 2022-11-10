@@ -197,10 +197,10 @@ export default {
                         ${item.querySelector('[data-tabs-swiper]').innerHTML}
                     </div>
     
-                    <div class="swiper-button-next bg-transparent text-white flex items-center justify-center right-0">
+                    <div class="swiper-button-next bg-body text-white flex items-center justify-center right-0">
                         <span class="material-icons text-purple text-4xl">chevron_right</span>
                     </div>
-                    <div class="swiper-button-prev bg-transparent text-white flex items-center justify-center left-0">
+                    <div class="swiper-button-prev bg-body text-white flex items-center justify-center left-0">
                         <span class="material-icons text-purple text-4xl">chevron_left</span>
                     </div>
                     `; 
@@ -209,7 +209,7 @@ export default {
                 slides_view = Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view;
                 
                 new Swiper('.swiper-tabs-container', {
-                    loop: false,
+                    loop: true,
                     slidesPerView: slides_view,
                     pagination: {
                         el: '.swiper-pagination',
