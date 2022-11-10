@@ -28,7 +28,12 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                 for (let i = first_selector; i < td.length - 1; i++) {
                     let td_item = td[i];
 
-                    td_item.addEventListener("click", () => {
+                    td_item.addEventListener("click", (event) => {
+                        // click disabled when preview dialog is open
+                        if (event.target.closest('[data-tooltip-target]')) {
+                            return;
+                        }
+                        // click disabled when preview dialog is open
                         window.location.href = row_href;
                     });
 

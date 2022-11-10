@@ -57052,6 +57052,11 @@ body{
     line-height: 2.75rem;
   }
 
+  .sm\:text-purple{
+    --tw-text-opacity: 1;
+    color: rgb(85 88 139 / var(--tw-text-opacity));
+  }
+
   [dir="ltr"] .sm\:ltr\:right-4{
     right: 1rem;
   }
