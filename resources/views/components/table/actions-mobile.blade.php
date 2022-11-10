@@ -14,7 +14,7 @@
 
 <div
     data-mobile-actions-modal
-    class="modal w-full h-full fixed top-0 left-0 right-0 justify-center items-center flex-wrap overflow-y-auto overflow-hidden z-50 hidden modal-background"
+    class="modal w-full h-full fixed flex top-0 left-0 right-0 justify-center items-center flex-wrap overflow-y-auto overflow-hidden z-50 opacity-0 invisible modal-background transition-opacity"
 >
     <div class="w-full my-10 m-auto flex flex-col px-2 sm:px-0 max-w-md">
         <div class="p-2 bg-body rounded-lg">

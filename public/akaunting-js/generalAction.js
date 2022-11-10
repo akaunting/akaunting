@@ -52,12 +52,12 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
     if (document.body.clientWidth <= 768) {
         table.querySelectorAll('[data-table-list]').forEach((actions) => {
             actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
-                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show', 'flex');
-                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('hidden');
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
       
                 this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
-                    this.classList.add('hidden');
-                    this.classList.remove('show', 'flex');
+                    this.classList.add('opacity-0', 'invisible');
+                    this.classList.remove('show');
                 });
             });
         });
