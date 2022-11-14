@@ -447,7 +447,7 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
         let title_truncate = first.querySelector('[data-title-truncate]');
 
         if (title_truncate !== null) {
-            if (first.clientWidth < title_truncate.clientWidth) {
+            if (first.clientWidth < title_truncate.clientWidth && second.clientHeight > 0) {
                 // added specific width styling for truncate text
                 title_truncate.style.width = first.clientWidth + 'px';
                 let subtract = title_truncate.clientWidth - 40;
