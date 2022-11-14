@@ -34,9 +34,13 @@
                 @switch($type)
                     @case('button')
                         <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                            <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                            <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                <span class="material-icons-outlined text-purple text-lg mr-2 pointer-events-none">
+                                    {{ $action['icon'] }}
+                                </span>
+
                                 {{ $action['title'] }}
-                            </span>
+                            </div>
                         </button>
                         @break
 
@@ -52,9 +56,13 @@
 
                     @default
                         <a href="{{ $action['url'] }}" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                            <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">    
+                            <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                <span class="material-icons-outlined text-purple text-lg mr-2 pointer-events-none">
+                                    {{ $action['icon'] }}
+                                </span>
+
                                 {{ $action['title'] }}
-                            </span>
+                            </div>
                         </a>
                 @endswitch
 
@@ -92,9 +100,13 @@
                             @php $divider = false; @endphp
 
                             <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                                <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                    <span class="material-icons-outlined text-purple text-lg mr-2 pointer-events-none">
+                                        {{ $action['icon'] }}
+                                    </span>
+
                                     {{ $action['title'] }}
-                                </span>
+                                </div>
                             </button>
                             @break
 
@@ -122,9 +134,13 @@
                             @php $divider = false; @endphp
 
                             <a href="{{ $action['url'] }}" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                                <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                    <span class="material-icons-outlined text-purple text-lg mr-2 pointer-events-none">
+                                        {{ $action['icon'] }}
+                                    </span>
+
                                     {{ $action['title'] }}
-                                </span>
+                                </div>
                             </a>
                     @endswitch
                 @endforeach
