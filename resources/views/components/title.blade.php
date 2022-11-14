@@ -4,12 +4,8 @@
     $slot_is_string = strval(strlen($slot));
 @endphp
 
-@if ($slot_is_string >= $textSize && ! $slot_isHtml)
-<div class="overflow-x-hidden">
-    <div data-title-truncate class="truncate">
+<div>
+    <div data-title-truncate>
         {!! $slot !!}
     </div>
 </div>
-@else 
-    {!! $slot !!}
-@endif

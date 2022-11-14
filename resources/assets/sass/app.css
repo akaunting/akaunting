@@ -605,6 +605,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
   }
   /* plans page accordion */
 
+  /* hidden scroll-bar */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  /* hidden scroll-bar */
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 550px;

@@ -441,38 +441,43 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
 
 //margue animation for truncated text
 
+// set with for page header
 document.querySelectorAll('[data-page-title-first]').forEach((first) => {
     document.querySelectorAll('[data-page-title-second]').forEach((second) => {
         let title_truncate = first.querySelector('[data-title-truncate]');
-        
-        if (title_truncate !== null) {
-            if (title_truncate.clientWidth > first.clientWidth) {
-                title_truncate.style.width = first.clientWidth + 'px';
-                let subtract = title_truncate.clientWidth - 40;
-                title_truncate.style.width = subtract + 'px';
-            }
 
-            if (second.clientHeight > 44) {
-                first.classList.add('w-full', 'sm:w-6/12');
-            } else {
-                first.classList.remove('sm:w-6/12');
-            }
+        if (first.clientWidth < title_truncate.clientWidth) {
+            // added specific width styling for truncate text
+            title_truncate.style.width = first.clientWidth + 'px';
+            let subtract = title_truncate.clientWidth - 40;
+            title_truncate.style.width = subtract + 'px';
+            title_truncate.classList.add('truncate');
+            // added specific width styling for truncate text
 
-            if (title_truncate.clientWidth > first.clientWidth) { 
-                let marquee = first.querySelector('[data-title-truncate]');
+            // added specific width styling into the parent title element for truncate text
+            first.classList.add('w-full', 'sm:w-6/12');
+            // added specific width styling into the parent title element for truncate text
 
-                marquee.addEventListener('mouseover', function () {
-                    marquee.classList.add('animate-marquee');
-                    marquee.classList.remove('truncate');
-                    marquee.style.animationPlayState = 'running';
-                });
+            title_truncate.parentNode.classList.add('overflow-x-hidden', 'hide-scroll-bar');
     
-                marquee.addEventListener('mouseout', function () {
-                    marquee.style.animationPlayState = 'paused';
-                    marquee.classList.remove('animate-marquee');
-                    marquee.classList.add('truncate');
-                });
-            }
+            // added truncate animation for truncated text
+            title_truncate.addEventListener('mouseover', function () {
+                this.classList.add('animate-marquee');
+                this.classList.remove('truncate');
+                this.style.animationPlayState = 'running';
+            });
+    
+            title_truncate.addEventListener('mouseout', function () {
+                this.style.animationPlayState = 'paused';
+                this.classList.remove('animate-marquee');
+                this.classList.add('truncate');
+            });
+            // added truncate animation for truncated text
         }
+
+        // remove width class name for extend the right side
+        first.classList.remove('w-full', 'sm:w-6/12');
+        // remove width class name for extend the right side
     });
 });
+// set with for page header
