@@ -440,3 +440,39 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
 //disable/enable icons ejected from data-truncate-marquee
 
 //margue animation for truncated text
+
+document.querySelectorAll('[data-page-title-first]').forEach((first) => {
+    document.querySelectorAll('[data-page-title-second]').forEach((second) => {
+        let title_truncate = first.querySelector('[data-title-truncate]');
+        
+        if (title_truncate !== null) {
+            if (title_truncate.clientWidth > first.clientWidth) {
+                title_truncate.style.width = first.clientWidth + 'px';
+                let subtract = title_truncate.clientWidth - 40;
+                title_truncate.style.width = subtract + 'px';
+            }
+
+            if (second.clientHeight > 44) {
+                first.classList.add('w-full', 'sm:w-6/12');
+            } else {
+                first.classList.remove('sm:w-6/12');
+            }
+
+            if (title_truncate.clientWidth > first.clientWidth) { 
+                let marquee = first.querySelector('[data-title-truncate]');
+
+                marquee.addEventListener('mouseover', function () {
+                    marquee.classList.add('animate-marquee');
+                    marquee.classList.remove('truncate');
+                    marquee.style.animationPlayState = 'running';
+                });
+    
+                marquee.addEventListener('mouseout', function () {
+                    marquee.style.animationPlayState = 'paused';
+                    marquee.classList.remove('animate-marquee');
+                    marquee.classList.add('truncate');
+                });
+            }
+        }
+    });
+});

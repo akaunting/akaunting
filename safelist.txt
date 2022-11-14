@@ -18,6 +18,7 @@ sm:min-h-500
 sm:max-w-4xl
 md:grid-cols-2
 lg:mt-2
+lg:mt-4
 lg:pl-24
 lg:my-12
 lg:mt-4
