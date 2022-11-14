@@ -1399,7 +1399,7 @@ input[type=file]::file-selector-button:hover{
         background-color: #DCE2F9;
     }
 
-.menu-list a svg {
+.menu-list ul svg {
         width: 22px;
         height: 24px;
         fill: none;
@@ -54058,6 +54058,14 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     }
 }
 /* responsive for role mobile */
+
+/* full-width for mobile. Some component use inline styling for width */
+@media only screen and (max-width: 991px) {
+    .full-width-mobile {
+        width: 100% !important;
+    }
+ }
+ /* full-width for mobile. Some component use inline styling for width */
 
 [dir="ltr"] .ltr\:-right-57 {
     right: -14.5rem;

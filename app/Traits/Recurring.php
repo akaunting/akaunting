@@ -188,7 +188,11 @@ trait Recurring
             return false;
         }
 
-        return $schedule->current()->getStart();
+        if (! $current = $schedule->current()) {
+            return false;
+        }
+
+        return $current->getStart();
     }
 
     public function getNextRecurring()
@@ -210,7 +214,11 @@ trait Recurring
             return false;
         }
 
-        return $schedule->first()->getStart();
+        if (! $first = $schedule->first()) {
+            return false;
+        }
+
+        return $first->getStart();
     }
 
     public function getLastRecurring()
@@ -219,6 +227,10 @@ trait Recurring
             return false;
         }
 
-        return $schedule->last()->getStart();
+        if (! $last = $schedule->last()) {
+            return false;
+        }
+
+        return $last->getStart();
     }
 }
