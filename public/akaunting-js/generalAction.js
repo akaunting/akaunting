@@ -368,7 +368,7 @@ function marqueeAnimation(truncate) {
     // offsetwidth = width of the text, clientWidth = width of parent text (div)
     // because some index page has icons, we use two time parent element
 
-    if (truncate.children.length < 1 && truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {   
+    if (truncate.children.length < 1 && truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
 
@@ -429,6 +429,7 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
     
     if (icon_parents_element.classList.contains('flex')) {
         icon_parents_element.appendChild(defaultText);
+        icon_parents_element.classList.remove('truncate');
     } else {
         if (icon_parents_element.classList.contains('overflow-x-hidden')) {
             icon_parents_element.parentElement.appendChild(defaultText);
