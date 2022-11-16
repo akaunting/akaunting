@@ -46,6 +46,19 @@
     .tabs-link:hover::before {
        @apply opacity-100 visible;
     }
+
+    .notifications-menu ul li a {
+        border-bottom: 1px solid;
+    }
+      
+    .avatar-attachment {
+        @apply text-white inline-flex items-center justify-center;
+        background-color: #adb5bd;
+        border-radius: .375rem;
+        font-size: 1rem;
+        height: 45px;
+        width: 45px;
+    }
      /* index */
 }
 

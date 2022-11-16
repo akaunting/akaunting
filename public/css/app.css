@@ -53470,6 +53470,27 @@ table thead a:hover{
   visibility: visible;
   opacity: 1;
 }
+.notifications-menu ul li a {
+        border-bottom: 1px solid;
+    }
+.avatar-attachment{
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+        background-color: #adb5bd;
+        border-radius: .375rem;
+        font-size: 1rem;
+        height: 45px;
+        width: 45px;
+}
 /* index */
 
 
