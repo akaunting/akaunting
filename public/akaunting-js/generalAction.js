@@ -11,7 +11,7 @@ document.querySelectorAll("[data-table-list]").forEach((row) => {
 
 //redirect edit or show page for table row click
 document.querySelectorAll("[data-table-body]").forEach((table) => {
-    if (document.body.clientWidth >= 991) {
+    if (document.body.clientWidth < 768 || document.body.clientWidth > 1200) {
         let rows = table.querySelectorAll("tr");
 
         rows.forEach((row) => {
@@ -27,7 +27,13 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
             if (row_href) {
                 for (let i = first_selector; i < td.length - 1; i++) {
                     let td_item = td[i];
-                    td_item.addEventListener("click", () => {
+
+                    td_item.addEventListener("click", (event) => {
+                        // click disabled when preview dialog is open
+                        if (event.target.closest('[data-tooltip-target]')) {
+                            return;
+                        }
+                        // click disabled when preview dialog is open
                         window.location.href = row_href;
                     });
 
@@ -40,6 +46,20 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                      // added target blank for click mouse middle button
                 }
             }
+        });
+    }
+
+    if (document.body.clientWidth <= 768) {
+        table.querySelectorAll('[data-table-list]').forEach((actions) => {
+            actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
+      
+                this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
+                    this.classList.add('opacity-0', 'invisible');
+                    this.classList.remove('show');
+                });
+            });
         });
     }
 });
