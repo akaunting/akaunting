@@ -282,7 +282,7 @@ class DeleteLink extends Component
 
     protected function getClass($class)
     {
-        $default_class = 'w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap';
+        $default_class = 'w-full flex items-center text-red sm:text-purple px-2 h-9 leading-9 whitespace-nowrap';
 
         $explode = explode(',', $this->override);
 

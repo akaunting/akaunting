@@ -53411,6 +53411,9 @@ button, input, optgroup, select, textarea{
   border-bottom-left-radius: 0.5rem;
   border-right-width: 0px;
 }
+.suggestion-buttons > a:first-child, .suggestion-buttons > button:first-child{
+  margin-top: 0.5rem;
+}
 [data-dropdown-actions] {
         -webkit-transform: unset !important;
                 transform: unset !important;
@@ -54088,6 +54091,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
   }
   /* plans page accordion */
 
+  /* hidden scroll-bar */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  /* hidden scroll-bar */
+
 @media only screen and (max-width: 480px) {
     .small-table-width {
         width: 550px;
@@ -54501,14 +54515,14 @@ body{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-gray-100:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-lilac-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(245 247 250 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-200:hover{
@@ -57027,6 +57041,12 @@ body{
     gap: 0px;
   }
 
+  .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
   .sm\:space-y-2 > :not([hidden]) ~ :not([hidden]){
     --tw-space-y-reverse: 0;
     margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -57045,6 +57065,10 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
+  .sm\:p-7{
+    padding: 1.75rem;
+  }
+
   .sm\:px-0{
     padding-left: 0px;
     padding-right: 0px;
@@ -57058,6 +57082,11 @@ body{
   .sm\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
+  }
+
+  .sm\:text-purple{
+    --tw-text-opacity: 1;
+    color: rgb(85 88 139 / var(--tw-text-opacity));
   }
 
   [dir="ltr"] .sm\:ltr\:right-4{

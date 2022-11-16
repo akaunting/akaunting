@@ -21,6 +21,11 @@
     .index-actions {
         @apply ltr:[&:nth-child(2)]:border-l ltr:[&:nth-child(3)]:border-l-0 rtl:[&:nth-child(2)]:border-r rtl:[&:nth-child(3)]:border-r-0 ltr:[&:first-child]:rounded-tl-lg ltr:[&:first-child]:rounded-bl-lg ltr:[&:first-child]:border-r-0 rtl:[&:first-child]:rounded-tr-lg rtl:[&:first-child]:rounded-br-lg rtl:[&:first-child]:border-l-0 ltr:[&:last-child]:rounded-tr-lg ltr:[&:last-child]:rounded-br-lg ltr:[&:last-child]:border-l-0 rtl:[&:last-child]:rounded-tl-lg rtl:[&:last-child]:rounded-bl-lg rtl:[&:last-child]:border-r-0;
     }
+
+    .suggestion-buttons > a:first-child, .suggestion-buttons > button:first-child {
+        @apply mt-2;
+    }
+
     [data-dropdown-actions] {
         transform: unset !important;
     }
@@ -599,6 +604,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     transform: rotate(180deg);
   }
   /* plans page accordion */
+
+  /* hidden scroll-bar */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  /* hidden scroll-bar */
 
 @media only screen and (max-width: 480px) {
     .small-table-width {

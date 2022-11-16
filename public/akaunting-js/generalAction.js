@@ -11,7 +11,7 @@ document.querySelectorAll("[data-table-list]").forEach((row) => {
 
 //redirect edit or show page for table row click
 document.querySelectorAll("[data-table-body]").forEach((table) => {
-    if (document.body.clientWidth >= 991) {
+    if (document.body.clientWidth < 768 || document.body.clientWidth > 1200) {
         let rows = table.querySelectorAll("tr");
 
         rows.forEach((row) => {
@@ -27,7 +27,13 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
             if (row_href) {
                 for (let i = first_selector; i < td.length - 1; i++) {
                     let td_item = td[i];
-                    td_item.addEventListener("click", () => {
+
+                    td_item.addEventListener("click", (event) => {
+                        // click disabled when preview dialog is open
+                        if (event.target.closest('[data-tooltip-target]')) {
+                            return;
+                        }
+                        // click disabled when preview dialog is open
                         window.location.href = row_href;
                     });
 
@@ -40,6 +46,20 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                      // added target blank for click mouse middle button
                 }
             }
+        });
+    }
+
+    if (document.body.clientWidth <= 768) {
+        table.querySelectorAll('[data-table-list]').forEach((actions) => {
+            actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
+                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
+      
+                this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
+                    this.classList.add('opacity-0', 'invisible');
+                    this.classList.remove('show');
+                });
+            });
         });
     }
 });
@@ -441,3 +461,46 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
 //disable/enable icons ejected from data-truncate-marquee
 
 //margue animation for truncated text
+
+// set with for page header
+document.querySelectorAll('[data-page-title-first]').forEach((first) => {
+    document.querySelectorAll('[data-page-title-second]').forEach((second) => {
+        let title_truncate = first.querySelector('[data-title-truncate]');
+
+        if (title_truncate !== null) {
+            if (first.clientWidth < title_truncate.clientWidth && second.clientHeight > 0) {
+                // added specific width styling for truncate text
+                title_truncate.style.width = first.clientWidth + 'px';
+                let subtract = title_truncate.clientWidth - 40;
+                title_truncate.style.width = subtract + 'px';
+                title_truncate.classList.add('truncate');
+                // added specific width styling for truncate text
+    
+                // added specific width styling into the parent title element for truncate text
+                first.classList.add('w-full', 'sm:w-6/12');
+                // added specific width styling into the parent title element for truncate text
+    
+                title_truncate.parentNode.classList.add('overflow-x-hidden', 'hide-scroll-bar');
+        
+                // added truncate animation for truncated text
+                title_truncate.addEventListener('mouseover', function () {
+                    this.classList.add('animate-marquee');
+                    this.classList.remove('truncate');
+                    this.style.animationPlayState = 'running';
+                });
+        
+                title_truncate.addEventListener('mouseout', function () {
+                    this.style.animationPlayState = 'paused';
+                    this.classList.remove('animate-marquee');
+                    this.classList.add('truncate');
+                });
+                // added truncate animation for truncated text
+            }
+        }
+
+        // remove width class name for extend the right side
+        first.classList.remove('w-full', 'sm:w-6/12');
+        // remove width class name for extend the right side
+    });
+});
+// set with for page header
