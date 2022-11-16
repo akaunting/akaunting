@@ -1,10 +1,10 @@
 @stack('header_start')
 
-<div id="header" class="xl:pt-6">
-    <div class="flex flex-col sm:flex-row flex-wrap items-start justify-between hide-empty-page">
-        <div class="w-full sm:w-6/12 items-center mb-3 sm:mb-0">
+<div id="header" class="xl:pt-6 -mt-2">
+    <div class="flex flex-col sm:flex-row items-start justify-between sm:space-x-4 hide-empty-page">
+        <div data-page-title-first class="w-full sm:w-6/12 items-center mb-3 sm:mb-0">
             <div class="flex items-center">
-                <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5">
+                <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5 mt-2 whitespace-nowrap">
                     <x-title>
                         {!! $title !!}
                     </x-title>
@@ -24,20 +24,18 @@
             </div>
         </div>
 
-        <div class="w-full sm:w-6/12">
-            <div class="flex flex-wrap flex-col sm:flex-row sm:items-center justify-end sm:space-x-2 sm:rtl:space-x-reverse">
-                @stack('header_button_start')
+        <div data-page-title-second class="w-full flex flex-wrap flex-col sm:flex-row sm:items-center justify-end sm:space-x-2 sm:rtl:space-x-reverse space-y-2 suggestion-buttons">
+            @stack('header_button_start')
 
-                {!! $buttons !!}
+            {!! $buttons !!}
 
-                @stack('header_button_end')
+            @stack('header_button_end')
 
-                <x-suggestions />
+            <x-suggestions />
 
-                @stack('header_suggestion_end')
+            @stack('header_suggestion_end')
 
-                {!! $moreButtons !!}
-            </div>
+            {!! $moreButtons !!}
         </div>
     </div>
 </div>

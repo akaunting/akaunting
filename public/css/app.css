@@ -53411,6 +53411,9 @@ button, input, optgroup, select, textarea{
   border-bottom-left-radius: 0.5rem;
   border-right-width: 0px;
 }
+.suggestion-buttons > a:first-child, .suggestion-buttons > button:first-child{
+  margin-top: 0.5rem;
+}
 [data-dropdown-actions] {
         -webkit-transform: unset !important;
                 transform: unset !important;
@@ -54087,6 +54090,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
             transform: rotate(180deg);
   }
   /* plans page accordion */
+
+  /* hidden scroll-bar */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  /* hidden scroll-bar */
 
 @media only screen and (max-width: 480px) {
     .small-table-width {
@@ -57025,6 +57039,12 @@ body{
 
   .sm\:gap-0{
     gap: 0px;
+  }
+
+  .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
   .sm\:space-y-2 > :not([hidden]) ~ :not([hidden]){
