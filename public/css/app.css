@@ -57065,6 +57065,10 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
+  .sm\:p-7{
+    padding: 1.75rem;
+  }
+
   .sm\:px-0{
     padding-left: 0px;
     padding-right: 0px;
