@@ -17,6 +17,7 @@ sm:w-500
 sm:min-h-500
 sm:max-w-4xl
 sm:space-x-4
+sm:text-purple
 md:grid-cols-2
 lg:mt-2
 lg:mt-4
