@@ -159,7 +159,7 @@
 
                     <div class="my-10">
                         <x-link
-                            href="https://akaunting.com/lp/accounting-software?utm_source=software&utm_medium=invoice_index&utm_campaign=plg"
+                            href="https://akaunting.com/accounting-software?utm_source=software&utm_medium=invoice_index&utm_campaign=plg"
                             class="bg-purple text-white px-3 py-1.5 mb-3 sm:mb-0 rounded-xl text-sm font-medium leading-6 hover:bg-purple-700"
                             override="class"
                         >

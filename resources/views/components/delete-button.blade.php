@@ -1,10 +1,26 @@
-<x-button
+@mobile
+<button
+    type="button"
+    class="rw-full flex items-center text-red sm:text-purple px-2 h-9 leading-9"
+    @click="onDeleteViaConfirmation('delete-{{ $modelTable }}-{{ $id }}')"
+    override="class"
+    {{ $attributes }}
+>
+
+    @if ($slot->isNotEmpty())
+        {!! $slot !!}
+    @else
+        <span class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{!! $label !!}</span>
+    @endif
+@else
+<button
     type="button"
     class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer group/tooltip index-actions"
     @click="onDeleteViaConfirmation('delete-{{ $modelTable }}-{{ $id }}')"
     override="class"
     {{ $attributes }}
 >
+
     @if ($slot->isNotEmpty())
         {!! $slot !!}
     @else
@@ -14,6 +30,7 @@
             <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
         </div>
     @endif
+@endmobile
 
     <x-form.input.hidden
         name="delete-{{ $modelTable }}-{{ $id }}"
@@ -25,4 +42,4 @@
         data-cancel="{!! $cancelText !!}"
         data-delete="{!! $deleteText !!}"
     />
-</x-button>
+</button>

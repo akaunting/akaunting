@@ -63,6 +63,8 @@ if (sentry_dsn && sentry_dsn != '' && sentry_dsn != undefined) {
 }
 //sentry integration
 
+var BreakException = {};
+
 export default {
     components: {
         AkauntingDropzoneFileUpload,
@@ -184,6 +186,78 @@ export default {
                 prevEl: ".swiper-button-prev",
             },
         });
+
+        //swiper slider for long tabs items
+        for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
+            if (item.clientWidth < item.querySelector('[data-tabs-swiper-wrapper]').clientWidth) {
+                let initial_slide = 0;
+                let hash_split = window.location.hash.split('#')[1];
+                let loop = 0;
+                let slides_view;
+
+                try {
+                    item.querySelectorAll('[data-tabs-slide]').forEach((slide, index, arr) => {
+                        loop += slide.clientWidth;
+    
+                        slide.classList.add('swiper-slide');
+        
+                        if (slide.getAttribute('data-tabs') == hash_split) {
+                            initial_slide = index;
+                        }
+    
+                        if (loop > item.clientWidth) {
+                            slides_view = index;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
+                
+                item.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
+                item.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
+    
+                let html = `
+                    <div class="swiper-tabs-container">
+                        ${item.querySelector('[data-tabs-swiper]').innerHTML}
+                    </div>
+    
+                    <div class="swiper-button-next bg-body text-white flex items-center justify-center right-0">
+                        <span class="material-icons text-purple text-4xl">chevron_right</span>
+                    </div>
+                    <div class="swiper-button-prev bg-body text-white flex items-center justify-center left-0">
+                        <span class="material-icons text-purple text-4xl">chevron_left</span>
+                    </div>
+                    `; 
+    
+                item.querySelector('[data-tabs-swiper]').innerHTML = html;
+                slides_view = Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view;
+                item.setAttribute('data-swiper', slides_view);
+                                
+                new Swiper(item.querySelector('.swiper-tabs-container'), {
+                    loop: true,
+                    slidesPerView: slides_view,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    initialSlide: initial_slide,
+                });
+            } else {
+                item.removeAttribute('data-swiper');
+                item.querySelector('[data-tabs-swiper]').removeAttribute('data-tabs-swiper');
+                item.querySelector('[data-tabs-swiper-wrapper]').removeAttribute('data-tabs-swiper-wrapper');
+    
+                item.querySelectorAll('[data-tabs-slide]').forEach((slide) => {
+                    slide.removeAttribute('data-tabs-slide');
+                });
+            }
+        }
+        //swiper slider for long tabs items
     },
 
     methods: {

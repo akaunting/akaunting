@@ -91,7 +91,7 @@ abstract class Notification extends BaseNotification implements ShouldQueue
 
     public function getFooter()
     {
-        $url = 'https://akaunting.com/lp/accounting-software?utm_source=email&utm_medium=footer&utm_campaign=plg&utm_content=' . $this->template->alias;
+        $url = 'https://akaunting.com/accounting-software?utm_source=email&utm_medium=footer&utm_campaign=plg&utm_content=' . $this->template->alias;
 
         $get_started = '<a href="' . $url . '" style="color: #676ba2; text-decoration: none;">' . trans('footer.get_started') . '</a>';
 

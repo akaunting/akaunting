@@ -767,69 +767,63 @@ html[dir='rtl'] .print-heading {
 .classic-invoice {
     margin-top: 10px;
 }
+/*--Print --*/
 
-.col-60
-{
+.col-60 {
     display: inline-block;
-    width: 100%;
+    width: 60%;
     vertical-align: top;
 }
 
-.col-50
-{
+.col-50 {
     display: inline-block;
-    width: 100%;
+    width: 50%;
     vertical-align: top;
 }
 
-.col-40
-{
+.col-40 {
     display: inline-block;
-    width: 100%;
+    width: 40%;
     vertical-align: top;
 }
-.col-58
-{
+
+.col-58{
     display: inline-block;
     width: 58%;
     vertical-align: top;
 }
-.col-42
-{
+
+.col-42 {
     display: inline-block;
     width: 42%;
     vertical-align: top;
 }
-.col-16
-{
+
+.col-16 {
     display: inline-block;
     max-width: 16%;
     vertical-align: top;
 }
-/*--Print --*/
 
-@media (min-width: 991px) {
-    .col-60
-    {
-        display: inline-block;
-        width: 60%;
-        vertical-align: top;
-    }
-    
-    .col-50
-    {
+@media (max-width: 480px) {
+    .col-60 {
         display: inline-block;
         width: 50%;
         vertical-align: top;
     }
-    
-    .col-40
-    {
+
+    .col-40 {
         display: inline-block;
-        width: 40%;
+        width: 50%;
         vertical-align: top;
     }
 
+    .mt-classic {
+        margin-top: -1px;
+    }
+}
+
+@media (min-width: 991px) {
     .classic-invoice {
         margin-top: unset;
     }

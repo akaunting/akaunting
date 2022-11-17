@@ -1399,7 +1399,7 @@ input[type=file]::file-selector-button:hover{
         background-color: #DCE2F9;
     }
 
-.menu-list a svg {
+.menu-list ul svg {
         width: 22px;
         height: 24px;
         fill: none;
@@ -53411,6 +53411,9 @@ button, input, optgroup, select, textarea{
   border-bottom-left-radius: 0.5rem;
   border-right-width: 0px;
 }
+.suggestion-buttons > a:first-child, .suggestion-buttons > button:first-child{
+  margin-top: 0.5rem;
+}
 [data-dropdown-actions] {
         -webkit-transform: unset !important;
                 transform: unset !important;
@@ -53466,6 +53469,27 @@ table thead a:hover{
 .tabs-link:hover::before{
   visibility: visible;
   opacity: 1;
+}
+.notifications-menu ul li a {
+        border-bottom: 1px solid;
+    }
+.avatar-attachment{
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+        background-color: #adb5bd;
+        border-radius: .375rem;
+        font-size: 1rem;
+        height: 45px;
+        width: 45px;
 }
 /* index */
 
@@ -54059,6 +54083,14 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 }
 /* responsive for role mobile */
 
+/* full-width for mobile. Some component use inline styling for width */
+@media only screen and (max-width: 991px) {
+    .full-width-mobile {
+        width: 100% !important;
+    }
+ }
+ /* full-width for mobile. Some component use inline styling for width */
+
 [dir="ltr"] .ltr\:-right-57 {
     right: -14.5rem;
 }
@@ -54079,6 +54111,17 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
             transform: rotate(180deg);
   }
   /* plans page accordion */
+
+  /* hidden scroll-bar */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  /* hidden scroll-bar */
 
 @media only screen and (max-width: 480px) {
     .small-table-width {
@@ -54493,14 +54536,14 @@ body{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-gray-100:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-lilac-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(245 247 250 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-200:hover{
@@ -57019,6 +57062,12 @@ body{
     gap: 0px;
   }
 
+  .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
   .sm\:space-y-2 > :not([hidden]) ~ :not([hidden]){
     --tw-space-y-reverse: 0;
     margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -57037,6 +57086,10 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
+  .sm\:p-7{
+    padding: 1.75rem;
+  }
+
   .sm\:px-0{
     padding-left: 0px;
     padding-right: 0px;
@@ -57050,6 +57103,11 @@ body{
   .sm\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
+  }
+
+  .sm\:text-purple{
+    --tw-text-opacity: 1;
+    color: rgb(85 88 139 / var(--tw-text-opacity));
   }
 
   [dir="ltr"] .sm\:ltr\:right-4{

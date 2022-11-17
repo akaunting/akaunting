@@ -1,4 +1,4 @@
-<div class="p-7 shadow-2xl rounded-2xl">
+<div class="p-3 sm:p-7 shadow-2xl rounded-2xl">
     @switch($documentTemplate)
         @case('classic')
             <x-documents.template.classic

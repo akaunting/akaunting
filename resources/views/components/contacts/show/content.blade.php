@@ -6,7 +6,17 @@
         <x-show.summary.left>
             @if (! $hideAvatar)
             <x-slot name="avatar">
-                {{ $contact->initials }}
+                @if ($contact->logo)
+                    @if (is_object($contact->logo))
+                        <img src="{{ Storage::url($contact->logo->id) }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}" title="{{ $contact->name }}">
+                    @else
+                        <img src="{{ asset('public/img/user.svg') }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}"/>
+                    @endif
+
+                    {{ $contact->initials }}
+                @else
+                    {{ $contact->initials }}
+                @endif
             </x-slot>
             @endif
 
@@ -150,7 +160,7 @@
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"
                     />
-
+                    
                     @stack('transactions_nav_end')
                 </x-slot>
 

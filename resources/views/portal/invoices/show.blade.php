@@ -26,23 +26,35 @@
                             @php $is_active = true; @endphp
 
                             <x-slot name="navs">
-                                <div data-tabs-swiper class="w-full flex">
-                                    @foreach ($payment_methods as $key => $name)
-                                        @stack('invoice_{{ $key }}_tab_start')
-                                            <div data-tabs-slide>
-                                                <x-tabs.nav
-                                                    id="{{ $name }}"
-                                                    @click="onChangePaymentMethod('{{ $key }}')"
-                                                >
-                                                    <div>
-                                                        {{ $name }}
-                                                    </div>
-                                                </x-tabs.nav>
-                                            </div>
-                                        @stack('invoice_{{ $key }}_tab_end')
+                                <div class="w-full flex {{ count($payment_methods) > 3 ? 'swiper swiper-links': 'w-full flex' }}">
+                                    <div class="{{ count($payment_methods) > 3 ? 'swiper-wrapper' : 'w-full flex' }}">
+                                        @foreach ($payment_methods as $key => $name)
+                                            @stack('invoice_{{ $key }}_tab_start')
+                                                <div class="{{ count($payment_methods) > 3 ? 'swiper-slide': '' }}">
+                                                    <x-tabs.nav
+                                                        id="{{ $name }}"
+                                                        @click="onChangePaymentMethodSigned('{{ $key }}')"
+                                                    >
+                                                        <div>
+                                                            {{ $name }}
+                                                        </div>
+                                                    </x-tabs.nav>
+                                                </div>
+                                            @stack('invoice_{{ $key }}_tab_end')
 
-                                        @php $is_active = false; @endphp
-                                    @endforeach
+                                            @php $is_active = false; @endphp
+                                        @endforeach
+                                    </div>
+
+                                    @if (count($payment_methods) > 3)
+                                        <div class="swiper-button-next top-3 right-0">
+                                            <span class="material-icons">chevron_right</span>
+                                        </div>
+
+                                        <div class="swiper-button-prev top-3 left-0">
+                                            <span class="material-icons">chevron_left</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </x-slot>
                         </div>
