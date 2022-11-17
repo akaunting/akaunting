@@ -29,6 +29,9 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                     let td_item = td[i];
 
                     td_item.addEventListener("click", (event) => {
+                        if (document.body.clientWidth < 768 && event.target.closest('[overflow-x-hidden]')) {
+                            return;
+                        }
                         // click disabled when preview dialog is open
                         if (event.target.closest('[data-tooltip-target]')) {
                             return;
@@ -436,6 +439,7 @@ function marqueeAnimation(truncate) {
 
         //there is overflow class for the animation does not overflow the width
         truncate.parentElement.parentElement.classList.add('overflow-x-hidden');
+        truncate.parentElement.parentElement.setAttribute('overflow-x-hidden', true);
     }
 }
 
