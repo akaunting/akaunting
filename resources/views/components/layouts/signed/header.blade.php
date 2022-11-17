@@ -13,7 +13,7 @@
                 </h1>
 
                 @if (! empty($status))
-                <div class="ltr:ml-4 rtl:mr-4">
+                <div class="ltr:ml-4 rtl:mr-4 mt-2">
                     {!! $status !!}
                 </div>
                 @endif

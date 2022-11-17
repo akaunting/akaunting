@@ -4,7 +4,9 @@
     </x-slot>
 
     <x-slot name="info">
-        <div class="mt-3">
+        <div class="mt-4">
+        <x-index.default text="{{ trans('accounts.default_account') }}" />
+
             @if (! $account->enabled)
                 <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
             @endif
