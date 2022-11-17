@@ -53686,6 +53686,16 @@ table thead a:hover{
     padding-right: 8px !important;
 }
 
+.el-select-dropdown__item .new-badge {
+    width: 45px !important;
+    margin-left: 8px;
+    z-index: 99;
+}
+
+.el-select-dropdown__item .new-badge:hover {
+    background-color: #6ea152;
+}
+
 .el-select-dropdown__item .material-icons {
     padding-right: 0 !important;
     padding-left: 0 !important;
