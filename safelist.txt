@@ -18,6 +18,16 @@ sm:min-h-500
 sm:max-w-4xl
 sm:space-x-4
 sm:text-purple
+sm:text-xs
+sm:text-base
+sm:text-lg
+sm:text-xl
+sm:text-2xl
+sm:p-10
+sm:py-10
+sm:ltr:pl-10
+sm:rtl:pr-10
+sm:mt-6
 md:grid-cols-2
 lg:mt-2
 lg:mt-4

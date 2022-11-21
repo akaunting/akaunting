@@ -605,6 +605,10 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     .full-width-mobile {
         width: 100% !important;
     }
+
+    .full-height-mobile {
+        height: 100% !important;
+    }
  }
  /* full-width for mobile. Some component use inline styling for width */
 

@@ -2,7 +2,7 @@
     <div>
         <nav aria-label="Progress">
         	<ol role="list" class="flex mb-10">
-                <li class="w-1/4">
+                <li class="w-1/3">
                 	<span class="pr-6 flex flex-col">
                         <span
                           	:class="[{'bg-purple': active_state > 0}, {'bg-purple': active_state == 0}]"
@@ -15,7 +15,7 @@
                 	</span>
               	</li>
 
-                <li class="w-1/4">
+                <li class="w-1/3">
                     <span class="px-3 flex flex-col">
                         <span
                             :class="[{'bg-purple': active_state > 1}, {'bg-purple': active_state == 1}]"
@@ -28,7 +28,7 @@
                     </span>
                 </li>
 
-                <li class="w-1/4">
+                <li class="w-1/3">
                     <span class="pl-6 flex flex-col">
                         <span
                             :class="[{'bg-purple': active_state == 3}]"
