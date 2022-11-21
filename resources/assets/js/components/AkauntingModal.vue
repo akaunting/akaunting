@@ -6,6 +6,7 @@
             v-show="show"
             tabindex="-1"
             role="dialog"
+            data-modal-handle
             :aria-hidden="!show">
             <div class="w-full my-10 m-auto flex flex-col px-2 sm:px-0" :class="modalDialogClass ? modalDialogClass : 'max-w-md'">
                 <slot name="modal-content">

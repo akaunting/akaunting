@@ -11,7 +11,12 @@
 
 @stack('menu_start')
 
-<div data-real-menu class="w-70 h-screen flex hidden fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0">
+<div
+    x-data="{ }"
+    x-init="setTimeout(() => $refs.realMenu.classList.remove('hidden'), 1000)"
+    x-ref="realMenu"
+    class="w-70 h-screen flex hidden fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0"
+>
     <div class="w-14 py-7 px-1 bg-lilac-900 z-10 menu-scroll overflow-y-auto overflow-x-hidden">
         <div 
             data-tooltip-target="tooltip-profile"
