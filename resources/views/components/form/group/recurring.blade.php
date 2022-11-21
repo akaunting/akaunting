@@ -1,7 +1,7 @@
 <akaunting-recurring
     start-text="{!! trans('recurring.limit_date', ['type' => Str::replace('-recurring', '', $type)]) !!}"
     :date-range-text="{{ json_encode(trans('general.date_range')) }}"
-    middleText="{!! trans('recurring.limit_middle') !!}"
+    middle-text="{!! trans('recurring.limit_middle') !!}"
     end-text="{{ Str::plural(Str::replace('-recurring', '', $type)) }}"
 
     :frequencies="{{ json_encode($frequencies) }}"
