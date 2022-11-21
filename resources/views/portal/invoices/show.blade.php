@@ -18,7 +18,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse lg:space-y-0">
+        <div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse space-y-4 lg:space-y-0">
             <div class="w-full lg:w-5/12">
                 @if (! empty($payment_methods) && ! in_array($invoice->status, ['paid', 'cancelled']))
                     <div class="tabs w-full" x-data="{ active: '{{ reset($payment_methods) }}' }">
