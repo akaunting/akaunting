@@ -1,7 +1,7 @@
 @stack('header_start')
 
 <div id="header" class="xl:pt-6 -mt-2">
-    <div class="flex flex-col sm:flex-row items-start justify-between space-x-4 hide-empty-page">
+    <div class="flex flex-col sm:flex-row items-start justify-between sm:space-x-4 hide-empty-page">
         <div data-page-title-first class="w-full sm:w-6/12 items-center mb-3 sm:mb-0">
             <div class="flex items-center">
                 <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5 mt-2 whitespace-nowrap">
@@ -13,7 +13,7 @@
                 </h1>
 
                 @if (! empty($status))
-                <div class="ltr:ml-4 rtl:mr-4">
+                <div class="ltr:ml-4 rtl:mr-4 mt-2">
                     {!! $status !!}
                 </div>
                 @endif

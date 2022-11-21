@@ -53686,6 +53686,16 @@ table thead a:hover{
     padding-right: 8px !important;
 }
 
+.el-select-dropdown__item .new-badge {
+    width: 45px !important;
+    margin-left: 8px;
+    z-index: 99;
+}
+
+.el-select-dropdown__item .new-badge:hover {
+    background-color: #6ea152;
+}
+
 .el-select-dropdown__item .material-icons {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -54087,6 +54097,10 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 @media only screen and (max-width: 991px) {
     .full-width-mobile {
         width: 100% !important;
+    }
+
+    .full-height-mobile {
+        height: 100% !important;
     }
  }
  /* full-width for mobile. Some component use inline styling for width */
@@ -55817,12 +55831,12 @@ body{
   padding-right: 0.75rem;
 }
 
-[dir="ltr"] .ltr\:pl-10{
-  padding-left: 2.5rem;
-}
-
 [dir="ltr"] .ltr\:pr-10{
   padding-right: 2.5rem;
+}
+
+[dir="ltr"] .ltr\:pl-10{
+  padding-left: 2.5rem;
 }
 
 [dir="ltr"] .ltr\:text-left{
@@ -56826,12 +56840,12 @@ body{
   padding-left: 0.75rem;
 }
 
-[dir="rtl"] .rtl\:pr-10{
-  padding-right: 2.5rem;
-}
-
 [dir="rtl"] .rtl\:pl-10{
   padding-left: 2.5rem;
+}
+
+[dir="rtl"] .rtl\:pr-10{
+  padding-right: 2.5rem;
 }
 
 [dir="rtl"] .rtl\:text-left{
@@ -56891,6 +56905,10 @@ body{
 
   .sm\:float-right{
     float: right;
+  }
+
+  .sm\:mt-6{
+    margin-top: 1.5rem;
   }
 
   .sm\:mt-12{
@@ -57086,8 +57104,17 @@ body{
     border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
+  .sm\:p-10{
+    padding: 2.5rem;
+  }
+
   .sm\:p-7{
     padding: 1.75rem;
+  }
+
+  .sm\:py-10{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .sm\:px-0{
@@ -57098,6 +57125,31 @@ body{
   .sm\:px-2{
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+
+  .sm\:text-xs{
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .sm\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .sm\:text-lg{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-xl{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-2xl{
+    font-size: 1.375rem;
+    line-height: 1.5rem;
   }
 
   .sm\:text-6xl{
@@ -57114,12 +57166,20 @@ body{
     right: 1rem;
   }
 
+  [dir="ltr"] .sm\:ltr\:pl-10{
+    padding-left: 2.5rem;
+  }
+
   [dir="rtl"] .sm\:rtl\:left-4{
     left: 1rem;
   }
 
   [dir="rtl"] .sm\:rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 1;
+  }
+
+  [dir="rtl"] .sm\:rtl\:pr-10{
+    padding-right: 2.5rem;
   }
 }
 

@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="info">
-        <div class="mt-3">
+        <div class="mt-4">
             @if (! $account->enabled)
                 <x-index.disable text="{{ trans_choice('general.accounts', 1) }}" />
             @endif
