@@ -38,30 +38,20 @@ import GLightbox from 'glightbox';
 
 Swiper.use([Navigation, Pagination]);
 
-//sentry integration
-import * as Sentry from "@sentry/vue";
-import { BrowserTracing } from "@sentry/tracing";
+import Bugsnag from './../exceptions/trackers/bugsnag';
+import Sentry from './../exceptions/trackers/sentry';
 
-if (sentry_dsn && sentry_dsn != '' && sentry_dsn != undefined) {
-    Sentry.init({
-        Vue,
-        dsn: sentry_dsn,
-        logErrors: true,
-        integrations: [
-            new BrowserTracing({
-                tracingOrigins: [],
-            }),
-        ],
-        // Set tracesSampleRate to 1.0 to capture 100%
-        // of transactions for performance monitoring.
-        // We recommend adjusting this value in production
-        tracesSampleRate: 1.0,
-    });
-
-    Sentry.setUser(sentry_user[0]);
-    Sentry.setTag("sentry_tag", "here");
+// Exception Tracket start here!!s
+if (typeof exception_tracker != 'undefined') {
+    switch (exception_tracker.channel) {
+        case 'bugsnag':
+            Vue.use(Bugsnag);
+            break;
+        case 'sentry':
+            Vue.use(Sentry);
+            break;
+    }
 }
-//sentry integration
 
 export default {
     components: {

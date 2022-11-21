@@ -2,6 +2,7 @@
 
 namespace App\Exceptions\Trackers;
 
+use App\Traits\Trackers as Base;
 use Illuminate\Support\Str;
 use Sentry\Event;
 use Sentry\EventHint;
@@ -9,17 +10,15 @@ use Sentry\Tracing\SamplingContext;
 
 class Sentry
 {
+    use Base;
+
     public static function beforeSend(Event $event, ?EventHint $hint): ?Event
     {
         $event->setRelease(version('short'));
 
-        $event->setTags([
-            'company_id' => (string) company_id(),
-            'locale' => (string) app()->getLocale(),
-            'timezone' => (string) config('app.timezone'),
-            'app_type' => (string) static::getAppType(),
-            'route_name' => (string) static::getRouteName(),
-        ]);
+        $tags = $this->getTrackerTags();
+
+        $event->setTags($tags);
 
         return $event;
     }
@@ -48,29 +47,5 @@ class Sentry
         }
 
         return false;
-    }
-
-    public static function getAppType(): string
-    {
-        $hostname = gethostname();
-
-        if (Str::contains($hostname, '-queue-')) {
-            $app_type = 'queue';
-        } elseif (Str::contains($hostname, '-cron-')) {
-            $app_type = 'cron';
-        } elseif (request()->isApi()) {
-            $app_type = 'api';
-        } elseif (app()->runningInConsole()) {
-            $app_type = 'console';
-        } else {
-            $app_type = 'ui';
-        }
-
-        return $app_type;
-    }
-
-    public static function getRouteName(): ?string
-    {
-        return request()->route()?->getName();
     }
 }
