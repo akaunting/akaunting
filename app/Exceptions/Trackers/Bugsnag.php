@@ -2,28 +2,23 @@
 
 namespace App\Exceptions\Trackers;
 
+use App\Traits\Trackers as Base;
 use Throwable;
 
 class Bugsnag
 {
+    use Base;
+
     public static function beforeSend(Throwable $e): void
     {
         app('bugsnag')->setAppVersion(version('short'));
 
-        app('bugsnag')->registerCallback(function ($report) {
+        $tags = $this->getTrackerTags();
+
+        app('bugsnag')->registerCallback(function ($report) use($tags) {
             $report->setMetaData([
-                'akaunting' => [
-                    'company_id' => (string) company_id(),
-                    'locale' => (string) app()->getLocale(),
-                    'timezone' => (string) config('app.timezone'),
-                    'route_name' => (string) static::getRouteName(),
-                ]
+                'akaunting' => $tags
             ]);
         });
-    }
-
-    public static function getRouteName(): ?string
-    {
-        return request()->route()?->getName();
     }
 }

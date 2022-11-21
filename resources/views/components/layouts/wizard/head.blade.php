@@ -39,6 +39,8 @@
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
     //--></script>
 
+    <x-script.exceptions.trackers />
+
     @stack('js')
 
     <script type="text/javascript"><!--
