@@ -62,6 +62,10 @@ const app = new Vue({
         }
     },
 
+    created() {
+        this.onChangePaymentMethodSigned(first_payment_methods);
+    },
+
     mounted() {
         if (typeof this.form.password !== 'undefined') {
             this.form.password = '';
