@@ -73,7 +73,7 @@
                 :label="option.value"
                 :value="option.key">
                 <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'"><i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
+                <span class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[option.key] || (option.mark_new)">{{ addNew.new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -88,7 +88,7 @@
                     :label="option.value"
                     :value="option.key">
                     <span class="float-left">{{ option.value }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
+                    <span class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[option.key] || (option.mark_new)">{{ addNew.new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -105,7 +105,7 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected]  || (sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected)">{{ addNew.new_text }}</span>
 
         <select :name="name" :id="name" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
@@ -421,7 +421,8 @@ export default {
                             values.push({
                                 key: key.toString(),
                                 value: value,
-                                level: 0
+                                level: 0,
+                                mark_new: false,
                             });
                         }
 
@@ -437,14 +438,16 @@ export default {
                                 index: index,
                                 key: index.toString(),
                                 value: option,
-                                level: 0
+                                level: 0,
+                                mark_new: false,
                             });
                         } else {
                             this.sorted_options.push({
                                 index: index,
                                 key: option.id.toString(),
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
-                                level: (option.level) ? option.level : 0
+                                level: (option.level) ? option.level : 0,
+                                mark_new: (option.mark_new) ? option.mark_new : false,
                             });
                         }
                     }, this);
@@ -456,7 +459,8 @@ export default {
                         this.sorted_options.push({
                             key: key.toString(),
                             value: value,
-                            level: 0
+                            level: 0,
+                            mark_new: false,
                         });
                     }
                 } else {
@@ -466,14 +470,16 @@ export default {
                                 index: index,
                                 key: index.toString(),
                                 value: option,
-                                level: 0
+                                level: 0,
+                                mark_new: false,
                             });
                         } else {
                             this.sorted_options.push({
                                 index: index,
                                 key: option.id.toString(),
                                 value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name,
-                                level: (option.level) ? option.level : 0
+                                level: (option.level) ? option.level : 0,
+                                mark_new: (option.mark_new) ? option.mark_new : false,
                             });
                         }
                     }, this);

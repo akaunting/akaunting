@@ -20,7 +20,7 @@
 
                 <div class="gap-x-1 relative">
                     <button data-dz-remove="true" class="absolute group right-0">
-                        <span class="material-icons text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
+                        <span class="material-icons-outlined text-base text-gray-300 px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
                     </button>
                 </div>
             </div>
@@ -45,12 +45,12 @@
                         </div>
                     </div>
 
-                    <div class="gap-x-1">
+                    <div class="flex flex-col gap-x-1">
                         <button data-dz-remove="true" class="group">
-                            <span class="material-icons text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
+                            <span class="material-icons-outlined text-base text-gray-300 px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
                         </button>
                         <a href="#" type="button" class="group hidden" data-dz-download>
-                            <span class="material-icons-round text-base text-red px-1.5 py-1 rounded-lg group-hover:bg-gray-100">download</span>
+                            <span class="material-icons text-base text-gray-300 px-1.5 py-1 rounded-lg group-hover:bg-gray-100">download</span>
                         </a>
                     </div>
                 </div>

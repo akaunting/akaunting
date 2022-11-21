@@ -4,12 +4,8 @@
     $slot_is_string = strval(strlen($slot));
 @endphp
 
-@if ($slot_is_string >= $textSize && ! $slot_isHtml)
-    <x-tooltip id="page-title" placement="bottom" message="{!! $slot !!}">
-        <div class="truncate" style="width: 22rem;">
-            {!! $slot !!}
-        </div>
-    </x-tooltip>
-@else 
-    {!! $slot !!}
-@endif
+<div>
+    <div data-title-truncate>
+        {!! $slot !!}
+    </div>
+</div>
