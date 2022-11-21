@@ -13,6 +13,15 @@ class Categories extends Import
         return new Model($row);
     }
 
+    public function map($row): array
+    {
+        $row = parent::map($row);
+
+        $row['type'] = $this->getCategoryType($row['type']);
+
+        return $row;
+    }
+
     public function rules(): array
     {
         return (new Request())->rules();

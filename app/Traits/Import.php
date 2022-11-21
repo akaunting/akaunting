@@ -60,6 +60,11 @@ trait Import
         return is_null($id) ? $id : (int) $id;
     }
 
+    public function getCategoryType($type)
+    {
+        return array_key_exists($type, config('type.category')) ? $type : 'other';
+    }
+
     public function getContactId($row, $type = null)
     {
         $id = isset($row['contact_id']) ? $row['contact_id'] : null;
