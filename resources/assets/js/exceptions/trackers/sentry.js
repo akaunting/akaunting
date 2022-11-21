@@ -3,8 +3,6 @@ import { BrowserTracing } from "@sentry/tracing";
 
 export default {
     install(Vue) {
-        alert(exception_tracker.params.traces_sample_rate);
-
         Sentry.init({
             Vue,
             dsn: exception_tracker.action,
