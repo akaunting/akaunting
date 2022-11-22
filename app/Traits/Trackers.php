@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 trait Trackers
 {
-    public function getTrackerTags(): array
+    public static function getTrackerTags(): array
     {
         return [
             'company_id' => (string) company_id(),

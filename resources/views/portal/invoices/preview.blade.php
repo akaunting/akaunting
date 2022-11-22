@@ -20,7 +20,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse space-y-12 lg:space-y-0">
+        <div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse space-y-4 lg:space-y-0">
             <div class="w-full lg:w-5/12">
                 @if (! empty($payment_methods) && ! in_array($invoice->status, ['paid', 'cancelled']))
                     <div class="tabs w-full" x-data="{ active: '{{ reset($payment_methods) }}' }">
@@ -80,7 +80,7 @@
                                 not-required
                                 form-group-class="invisible"
                                 placeholder="{{ trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)]) }}"
-                                change="onChangePaymentMethodSigned('{{ array_key_first($payment_methods) }}')"
+                                change="onChangePaymentMethodSigned"
                             />
 
                             <x-form.input.hidden name="document_id" :value="$invoice->id" v-model="form.document_id" />
@@ -128,7 +128,7 @@
                 @endif
             </div>
 
-            <div class="hidden lg:block w-7/12">
+            <div class="w-full lg:w-7/12">
                 <x-documents.show.template
                     type="invoice"
                     :document="$invoice"

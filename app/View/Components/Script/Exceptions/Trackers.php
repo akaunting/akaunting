@@ -87,7 +87,7 @@ class Trackers extends Component
             return $tags;
         }
 
-        return $this->getTrackerTags();
+        return static::getTrackerTags();
     }
 
     public function getParams($params)
@@ -105,7 +105,7 @@ class Trackers extends Component
             case 'sentry':
                 $params = [
                     'release' => version('short'),
-                    'traces_sample_rate' => $this->sentryTracesSampleRate(),
+                    'traces_sample_rate' => static::sentryTracesSampleRate(),
                 ];
                 break;
         }
