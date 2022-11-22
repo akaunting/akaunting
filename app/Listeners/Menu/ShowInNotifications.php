@@ -46,7 +46,7 @@ class ShowInNotifications
                 $new->notifiable_id = user()->id;
                 $new->data = [
                     'title' => $name . ' (v' . $update . ')',
-                    'description' => '<a href="' . route('updates.index') . '">' . trans('install.update.' . $prefix, ['module' => $name]) . '</a>',
+                    'description' => trans('install.update.' . $prefix, ['module' => $name, 'url' => route('updates.index')]),
                 ];
                 $new->created_at = \Carbon\Carbon::now();
 
