@@ -478,6 +478,10 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
         let title_truncate = first.querySelector('[data-title-truncate]');
 
         if (title_truncate !== null) {
+            //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
+            first.querySelector('h1').classList.add('mr-0.5');
+            //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
+            
             if (first.clientWidth < title_truncate.clientWidth && second.clientHeight > 0) {
                 // added specific width styling for truncate text
                 title_truncate.style.width = first.clientWidth + 'px';
@@ -505,6 +509,8 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
                     this.classList.add('truncate');
                 });
                 // added truncate animation for truncated text
+
+                first.querySelector('h1').classList.remove('mr-0.5');
             }
         }
 
