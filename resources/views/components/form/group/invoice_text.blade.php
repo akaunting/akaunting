@@ -156,8 +156,8 @@
         @if (! empty($remote))
         remote-action="{{ $attributes['remote_action'] }}"
 
-        @if (! empty($attributes['currecny_code']))
-        currency-code="{{ $attributes['currecny_code'] }}"
+        @if (! empty($attributes['currency_code']))
+        currency-code="{{ $attributes['currency_code'] }}"
         @endif
         @endif
 
