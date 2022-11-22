@@ -16,7 +16,7 @@ class Sentry
     {
         $event->setRelease(version('short'));
 
-        $tags = $this->getTrackerTags();
+        $tags = self::getTrackerTags();
 
         $event->setTags($tags);
 
