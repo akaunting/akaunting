@@ -98,6 +98,12 @@ class Updates extends Controller
             $name = $module->getName();
 
             $installed = $module->get('version');
+
+            if ($installed >= $version) {
+                flash(trans('modules.warning.latest_version', ['module' => $name]))->warning()->important();
+
+                return $this->check();
+            }
         }
 
         return view('install.updates.edit', compact('alias', 'name', 'installed', 'version'));

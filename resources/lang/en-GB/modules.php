@@ -102,6 +102,10 @@ return [
         'finish'            => 'Not able to finalize :module installation',
     ],
 
+    'warning' => [
+        'latest_version'    => 'You are using the latest version of :module, no updates available.',
+    ],
+
     'badge' => [
         'installed'         => 'Installed',
         'pre_sale'          => 'Pre-Sale',
