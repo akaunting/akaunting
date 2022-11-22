@@ -25,6 +25,8 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $appends = ['display_name'];
+
     /**
      * Attributes that should be mass-assignable.
      *
@@ -225,6 +227,14 @@ class Category extends Model
     public function getColorHexCodeAttribute(): string
     {
         return $this->getHexCodeOfTailwindClass($this->color);
+    }
+
+    /**
+     * Get the display name of the category.
+     */ 
+    public function getDisplayNameAttribute()
+    {
+        return $this->name . ' (' . ucfirst($this->type) . ')';
     }
 
     /**
