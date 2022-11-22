@@ -53411,7 +53411,7 @@ button, input, optgroup, select, textarea{
   border-bottom-left-radius: 0.5rem;
   border-right-width: 0px;
 }
-.suggestion-buttons > a:first-child, .suggestion-buttons > button:first-child{
+.suggestion-buttons a, .suggestion-buttons button{
   margin-top: 0.5rem;
 }
 [data-dropdown-actions] {
