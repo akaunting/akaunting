@@ -13,7 +13,7 @@ class Bugsnag
     {
         app('bugsnag')->setAppVersion(version('short'));
 
-        $tags = self::getTrackerTags();
+        $tags = static::getTrackerTags();
 
         app('bugsnag')->registerCallback(function ($report) use($tags) {
             $report->setMetaData([
