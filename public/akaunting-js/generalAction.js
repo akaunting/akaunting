@@ -244,10 +244,13 @@ function runTooltip(tooltipToggleEl) {
 
     function show() {
         // Make the tooltip visible
-        tooltipEl.classList.remove("opacity-0");
-        tooltipEl.classList.add("opacity-100");
-        tooltipEl.classList.remove("invisible");
-        tooltipEl.classList.add("visible"); // Enable the event listeners
+            if (tooltipEl.classList.contains("opacity-100", "visible")) {
+                tooltipEl.classList.remove("opacity-0");
+                tooltipEl.classList.add("opacity-100");
+                tooltipEl.classList.remove("invisible");
+                tooltipEl.classList.add("visible"); 
+            }
+         // Enable the event listeners
 
         popperInstance.setOptions((options) => ({
             ...options,
@@ -265,10 +268,13 @@ function runTooltip(tooltipToggleEl) {
 
     function hide() {
         // Hide the tooltip
-        tooltipEl.classList.remove("opacity-100");
-        tooltipEl.classList.add("opacity-0");
-        tooltipEl.classList.remove("visible");
-        tooltipEl.classList.add("invisible"); // Disable the event listeners
+        if (tooltipEl.classList.contains("opacity-100", "visible")) {
+            tooltipEl.classList.remove("opacity-100");
+            tooltipEl.classList.add("opacity-0");
+            tooltipEl.classList.remove("visible");
+            tooltipEl.classList.add("invisible");
+        }
+        // Disable the event listeners
 
         popperInstance.setOptions((options) => ({
             ...options,
@@ -472,6 +478,10 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
         let title_truncate = first.querySelector('[data-title-truncate]');
 
         if (title_truncate !== null) {
+            //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
+            first.querySelector('h1').classList.add('mr-0.5');
+            //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
+            
             if (first.clientWidth < title_truncate.clientWidth && second.clientHeight > 0) {
                 // added specific width styling for truncate text
                 title_truncate.style.width = first.clientWidth + 'px';
@@ -499,6 +509,8 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
                     this.classList.add('truncate');
                 });
                 // added truncate animation for truncated text
+
+                first.querySelector('h1').classList.remove('mr-0.5');
             }
         }
 
