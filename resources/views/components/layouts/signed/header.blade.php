@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div data-page-title-second class="w-full flex flex-wrap flex-col sm:flex-row sm:items-center justify-end sm:space-x-2 sm:rtl:space-x-reverse space-y-2 suggestion-buttons">
+        <div data-page-title-second class="w-full flex flex-wrap flex-col sm:flex-row sm:items-center justify-end sm:space-x-2 sm:rtl:space-x-reverse suggestion-buttons">
             @stack('header_button_start')
 
             {!! $buttons !!}
