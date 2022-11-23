@@ -205,6 +205,8 @@ export default {
                         let form_id = document.getElementById('modal-add-new-form-' + form_prefix).children[0].id;
 
                         this.form = new Form(form_id);
+
+                        this.onHiddenNameChange();
                     },
 
                     data: function () {
@@ -233,6 +235,11 @@ export default {
                             item_name_input: false,
                             price_name_input: false,
                             quantity_name_input: false,
+                            hidden_names: {
+                                item_name: "0",
+                                price: "0",
+                                quantity: "0",
+                            }
                         }
                     },
 
@@ -304,6 +311,12 @@ export default {
                             this.$refs[item].$el.classList.remove('sm:col-span-3');
                         },
 
+                        onHiddenNameChange() {
+                            this.hidden_names.quantity = this.form.quantity_name == "hide" ? "1" : "0";
+                            this.hidden_names.price = this.form.price_name == "hide" ? "1" : "0";
+                            this.hidden_names.item_name = this.form.item_name == "hide" ? "1" : "0";
+                        },
+
                         settingsInvoice() {
                             if (this.form.item_name == 'custom') {
                                 this.item_name_input = true;
@@ -328,7 +341,8 @@ export default {
                                 this.quantity_name_input = false;
                                 this.onFullWidthColumn("quantity_name");
                             }
-                            
+
+                            this.onHiddenNameChange();
                         },
                     },
 

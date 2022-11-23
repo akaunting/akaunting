@@ -51,10 +51,25 @@ const app = new Vue({
             item_name_input: false,
             price_name_input: false,
             quantity_name_input: false,
+            hidden_names: {
+                item_name: "0",
+                price: "0",
+                quantity: "0",
+            }
         }
     },
 
+    mounted() {
+        this.onHiddenNameChange();
+    },
+
     methods:{
+        onHiddenNameChange() {
+            this.hidden_names.quantity = this.form.quantity_name == "hide" ? "1" : "0";
+            this.hidden_names.price = this.form.price_name == "hide" ? "1" : "0";
+            this.hidden_names.item_name = this.form.item_name == "hide" ? "1" : "0";
+        },
+
         onChangeProtocol(protocol) {
             switch(protocol) {
                 case "smtp":
@@ -175,7 +190,8 @@ const app = new Vue({
                 this.quantity_name_input = false;
                 this.onFullWidthColumn("quantity_name");
             }
-            
+
+            this.onHiddenNameChange();
         },
 
         // Change currency get money
