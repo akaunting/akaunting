@@ -25,7 +25,7 @@ trait Relationships
             }
 
             $text = Str::contains($text, '::') ? $text : 'general.' . $text;
-            $counter[] = $c . ' ' . strtolower(trans_choice($text, ($c > 1) ? 2 : 1));
+            $counter[] = (($c > 1) ? $c . ' ' : null ) . strtolower(trans_choice($text, ($c > 1) ? 2 : 1));
         }
 
         return $counter;
