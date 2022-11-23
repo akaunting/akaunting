@@ -57,6 +57,8 @@
                     </x-layouts.admin.header>
 
                     <x-layouts.admin.content>
+                        <x-layouts.admin.notifications />
+
                         @if (! $content->attributes->has('withoutBar'))
                             <x-layouts.modules.bar />
                         @endif
