@@ -451,16 +451,18 @@ document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
 
 //disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
-    let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
+    if (defaultText.closest('tr')) {
+        let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
     
-    if (icon_parents_element.classList.contains('flex')) {
-        icon_parents_element.appendChild(defaultText);
-        icon_parents_element.classList.remove('truncate');
-    } else {
-        if (icon_parents_element.classList.contains('overflow-x-hidden')) {
-            icon_parents_element.parentElement.appendChild(defaultText);
+        if (icon_parents_element.classList.contains('flex')) {
+            icon_parents_element.appendChild(defaultText);
+            icon_parents_element.classList.remove('truncate');
         } else {
-            defaultText.parentElement.appendChild(defaultText);
+            if (icon_parents_element.classList.contains('overflow-x-hidden')) {
+                icon_parents_element.parentElement.appendChild(defaultText);
+            } else {
+                defaultText.parentElement.appendChild(defaultText);
+            }
         }
     }
 });

@@ -179,7 +179,7 @@ export default {
 
         //swiper slider for long tabs items
         for (let [index, item] of document.querySelectorAll('[data-swiper]').entries()) {
-            if (item.clientWidth < item.querySelector('[data-tabs-swiper-wrapper]').clientWidth) {
+            if (item.clientWidth < item.querySelector('[data-tabs-swiper-wrapper]').clientWidth && ! item.querySelector('[data-tabs-swiper-wrapper]').getAttribute('data-disable-slider', true)) {
                 let initial_slide = 0;
                 let hash_split = window.location.hash.split('#')[1];
                 let loop = 0;

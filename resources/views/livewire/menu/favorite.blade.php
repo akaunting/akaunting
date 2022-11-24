@@ -3,7 +3,7 @@
         <span
             id="{{ $favorited ? 'remove-from-favorite' : 'add-to-favorite' }}"
             @class([
-                'flex items-center text-purple text-2xl ltr:ml-2 rtl:mr-2 lg:mt-4 cursor-pointer',
+                'flex items-center text-purple text-2xl ltr:ml-2 rtl:mr-2 cursor-pointer',
                 'material-icons-outlined transform transition-all hover:scale-125' => ($favorited) ? false : true,
                 'material-icons' => (! $favorited) ? false : true,
             ])
