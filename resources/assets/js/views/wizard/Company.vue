@@ -1,124 +1,136 @@
 <template>
-    <div>
-        <div class="relative bg-body z-10 rounded-lg shadow-2xl p-5 sm:p-10 full-height-mobile" style="height:675px;">
-            <WizardSteps :active_state="active"></WizardSteps>
+    <div class="relative bg-body z-10 rounded-lg shadow-2xl p-5 sm:p-10 full-height-mobile" style="height:675px;">
+        <WizardSteps :active_state="active"></WizardSteps>
 
-            <form ref="form" class="w-full">
-                <div class="relative">
-                    <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
-                        <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
-                    </div>
+        <div class="flex flex-col justify-between -mt-5 sm:mt-0 overflow-y-auto" style="height: calc(100% - 53px)">
+            <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
+                <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
+            </div>
 
-                    <div class="flex flex-col justify-between -mt-5 sm:mt-0">
-                        <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 menu-scroll gap-10">
-                            <div class="sm:col-span-6">
-                                <base-input
-                                    not-required
-                                    :label="translations.company.api_key"
-                                    name="api_key"
-                                    data-name="api_key"
-                                    :placeholder="translations.company.api_key"
-                                    v-model="company.api_key"
-                                    :error="onFailErrorGet('api_key')"
-                                />
+            <div class="overflow-x-visible menu-scroll mt-1">
+                <form ref="form" class="py-2 align-middle inline-block min-w-full">
+                    <div class="relative">
+                        <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
+                            <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
+                        </div>
 
-                                <div class="mt-2">
-                                    <small>
-                                        <a href="https://akaunting.com/dashboard" class="text-green" target="_blank">Click here</a>
-                                            to get your API key.
-                                    </small>
-                                </div>
-                            </div>
+                        <div class="flex flex-col justify-between -mt-5 sm:mt-0">
+                            <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 menu-scroll gap-10">
+                                <div class="sm:col-span-6">
+                                    <base-input
+                                        not-required
+                                        :label="translations.company.api_key"
+                                        name="api_key"
+                                        data-name="api_key"
+                                        :placeholder="translations.company.api_key"
+                                        v-model="company.api_key"
+                                        :error="onFailErrorGet('api_key')"
+                                    />
 
-                            <div class="sm:col-span-3">
-                                <base-input
-                                    not-required
-                                    type="text"
-                                    :label="translations.company.tax_number"
-                                    name="tax_number"
-                                    data-name="tax_number"
-                                    :placeholder="translations.company.tax_number"
-                                    v-model="company.tax_number"
-                                    :error="onFailErrorGet('tax_number')"
-                                />
-                            </div>
-
-                            <div class="sm:col-span-3">
-                                <akaunting-date
-                                    not-required 
-                                    :title="translations.company.financial_start"
-                                    data-name="financial_start"
-                                    :placeholder="translations.company.financial_start"
-                                    icon="calendar_today"
-                                    :date-config="{
-                                        dateFormat: 'd-m',
-                                        allowInput: false,
-                                        altInput: true,
-                                        altFormat: 'j F'
-                                    }"
-                                    v-model="company.financial_start"
-                                    :form-error="onFailErrorGet('financial_start')"
-                                ></akaunting-date>
-                            </div>
-
-                            <div class="sm:col-span-3 grid gap-y-4">
-                                <div class="sm:col-span-3">
-                                    <base-input not-required :label="translations.company.address" :error="onFailErrorGet('address')">
-                                        <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
-                                    </base-input>
+                                    <div class="mt-2">
+                                        <small>
+                                            <a href="https://akaunting.com/dashboard" class="text-green" target="_blank">Click here</a>
+                                                to get your API key.
+                                        </small>
+                                    </div>
                                 </div>
 
                                 <div class="sm:col-span-3">
-                                    <base-input not-required :label="translations.company.country" :error="onFailErrorGet('country')">
-                                        <el-select v-model="company.country" filterable>
-                                            <el-option
-                                                v-for="(country, index) in sortedCountries"
-                                                :key="index"
-                                                :label="country.value"
-                                                :value="country.key"
-                                            >
-                                            </el-option>
-                                        </el-select>
-                                    </base-input>
+                                    <base-input
+                                        not-required
+                                        type="text"
+                                        :label="translations.company.tax_number"
+                                        name="tax_number"
+                                        data-name="tax_number"
+                                        :placeholder="translations.company.tax_number"
+                                        v-model="company.tax_number"
+                                        :error="onFailErrorGet('tax_number')"
+                                    />
+                                </div>
 
-                                    <input name="country" type="hidden" class="d-none" v-model="company.country">
+                                <div class="sm:col-span-3">
+                                    <akaunting-date
+                                        not-required 
+                                        :title="translations.company.financial_start"
+                                        data-name="financial_start"
+                                        :placeholder="translations.company.financial_start"
+                                        icon="calendar_today"
+                                        :date-config="{
+                                            dateFormat: 'd-m',
+                                            allowInput: false,
+                                            altInput: true,
+                                            altFormat: 'j F'
+                                        }"
+                                        v-model="company.financial_start"
+                                        :form-error="onFailErrorGet('financial_start')"
+                                    ></akaunting-date>
+                                </div>
+
+                                <div class="sm:col-span-3 grid gap-y-4">
+                                    <div class="sm:col-span-3">
+                                        <base-input not-required :label="translations.company.address" :error="onFailErrorGet('address')">
+                                            <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
+                                        </base-input>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <base-input not-required :label="translations.company.country" :error="onFailErrorGet('country')">
+                                            <el-select v-model="company.country" filterable>
+                                                <el-option
+                                                    v-for="(country, index) in sortedCountries"
+                                                    :key="index"
+                                                    :label="country.value"
+                                                    :value="country.key"
+                                                >
+                                                </el-option>
+                                            </el-select>
+                                        </base-input>
+
+                                        <input name="country" type="hidden" class="d-none" v-model="company.country">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label class="text-black text-sm font-medium">
+                                        {{  translations.company.logo }}
+                                    </label>
+
+                                    <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column" style="width: 10.8rem; height: 10.8rem;" preview-classes="single" :attachments="logo" :v-model="logo">
+                                    </akaunting-dropzone-file-upload>
+
+                                    <div v-if="onFailErrorGet('logo')" class="text-red text-sm mt-1 block" v-html="onFailErrorGet('logo')"></div>
                                 </div>
                             </div>
-
-                            <div class="sm:col-span-3">
-                                <label class="text-black text-sm font-medium">
-                                    {{  translations.company.logo }}
-                                </label>
-
-                                <akaunting-dropzone-file-upload ref="dropzoneWizard" class="form-file dropzone-column" style="width: 10.8rem; height: 10.8rem;" preview-classes="single" :attachments="logo" :v-model="logo">
-                                </akaunting-dropzone-file-upload>
-
-                                <div v-if="onFailErrorGet('logo')" class="text-red text-sm mt-1 block" v-html="onFailErrorGet('logo')"></div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-center mt-5 gap-x-10">
-                            <base-button class="w-1/2  flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="next()">
-                                {{ translations.company.skip }}
-                            </base-button>
-
-                            <button
-                                type="submit"
-                                id="button"
-                                :disabled="button_loading_company"
-                                class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
-                                @click="onEditSave($event)"
-                            >
-                                <i v-if="button_loading_company" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
-                                <span :class="[{'opacity-0': button_loading_company}]">
-                                    {{ translations.company.save }}
-                                </span>
-                            </button>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
+            <div class="flex items-center justify-center mt-5 gap-x-10">
+                <base-button class="w-1/2  flex items-center justify-center px-6 py-1.5 text-base rounded-lg bg-transparent hover:bg-gray-100" @click="next()">
+                    {{ translations.company.skip }}
+                </base-button>
+
+                <button
+                    type="submit"
+                    id="button"
+                    :disabled="button_loading_company"
+                    class="w-1/2 relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
+                    @click="onEditSave($event)"
+                >
+                    <i v-if="button_loading_company" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                    <span :class="[{'opacity-0': button_loading_company}]">
+                        {{ translations.company.save }}
+                    </span>
+                </button>
+            </div>
         </div>
+
+        <form id="form-dynamic-component" method="POST" action="#"></form>
+
+        <component v-bind:is="component" @deleted="onDeleteCurrency($event)"></component>
+
+        <notifications></notifications>
     </div>
 </template>
 
