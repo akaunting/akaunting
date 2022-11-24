@@ -874,8 +874,8 @@ abstract class Form extends Component
         }
 
         // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
-            return $hideName;
+        if ($hideItemName = setting($this->getSettingKey($type, 'item_name'), false) && $hideItemName == 'hide') {
+            return $hideItemName;
         }
 
         $hide = $this->getHideFromConfig($type, 'name');
@@ -885,7 +885,7 @@ abstract class Form extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_name', $hideName);
+        return setting('invoice.item_name', $hideItemName) == 'hide' ? true : false;
     }
 
     protected function getTextItemName($type, $textItemName)
@@ -925,7 +925,7 @@ abstract class Form extends Component
         }
 
         // if you use settting translation
-        if ($hideItemDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
+        if ($hideItemDescription = setting($this->getSettingKey($type, 'hide_item_description'), false) && $hideItemDescription == 'hide') {
             return $hideItemDescription;
         }
 
@@ -961,7 +961,7 @@ abstract class Form extends Component
         }
 
         // if you use settting translation
-        if ($hideItemQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false)) {
+        if ($hideItemQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false) && $hideItemQuantity == 'hide') {
             return $hideItemQuantity;
         }
 
@@ -972,7 +972,7 @@ abstract class Form extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_quantity', $hideItemQuantity);
+        return setting('invoice.quantity_name', $hideItemQuantity) == 'hide' ? true : false;
     }
 
     protected function getTextItemQuantity($type, $textItemQuantity)
@@ -1012,7 +1012,7 @@ abstract class Form extends Component
         }
 
         // if you use settting translation
-        if ($hideItemPrice = setting($this->getSettingKey($type, 'hide_price'), false)) {
+        if ($hideItemPrice = setting($this->getSettingKey($type, 'hide_price'), false) && $hideItemPrice == 'hide') {
             return $hideItemPrice;
         }
 
@@ -1023,7 +1023,7 @@ abstract class Form extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_price', $hideItemPrice);
+        return setting('invoice.price_name', $hideItemPrice) == 'hide' ? true : false;
     }
 
     protected function getTextItemPrice($type, $textItemPrice)

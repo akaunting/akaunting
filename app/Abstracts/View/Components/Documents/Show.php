@@ -1253,7 +1253,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'hide_item_name'), false)) {
+        if ($hideName = setting($this->getSettingKey($type, 'item_name'), false) && $hideName == 'hide') {
             return $hideName;
         }
 
@@ -1264,7 +1264,7 @@ abstract class Show extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_name', $hideName);
+        return setting('invoice.item_name', $hideName) == 'hide' ? true : false;
     }
 
     protected function getHideDescription($type, $hideDescription)
@@ -1295,7 +1295,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false)) {
+        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false) && $hideQuantity == 'hide') {
             return $hideQuantity;
         }
 
@@ -1306,7 +1306,7 @@ abstract class Show extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_quantity', $hideQuantity);
+        return setting('invoice.quantity_name', $hideQuantity) == 'hide' ? true : false;
     }
 
     protected function getHidePrice($type, $hidePrice)
@@ -1316,7 +1316,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false)) {
+        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false) && $hidePrice == 'hide') {
             return $hidePrice;
         }
 
@@ -1327,7 +1327,7 @@ abstract class Show extends Component
         }
 
         // @todo what return value invoice or always false??
-        return setting('invoice.hide_price', $hidePrice);
+        return setting('invoice.price_name', $hidePrice) == 'hide' ? true : false;
     }
 
     protected function getHideDiscount($type, $hideDiscount)
