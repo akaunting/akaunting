@@ -456,6 +456,7 @@ document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
     
         if (icon_parents_element.classList.contains('flex')) {
             icon_parents_element.appendChild(defaultText);
+            icon_parents_element.classList.remove('truncate');
         } else {
             if (icon_parents_element.classList.contains('overflow-x-hidden')) {
                 icon_parents_element.parentElement.appendChild(defaultText);
