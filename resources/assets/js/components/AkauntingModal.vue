@@ -29,7 +29,7 @@
                             <div class="py-1 px-5" v-html="message"></div>
                         </slot>
 
-                        <div class="p-5 rounded-bl-lg rounded-br-lg border-gray-300">
+                        <div class="p-5 border-gray-300">
                             <slot name="card-footer">
                                 <div class="flex items-center justify-end">
                                     <button type="button" class="px-6 py-1.5 ltr:mr-2 rtl:ml-2 hover:bg-gray-200 rounded-lg" @click="onCancel">
