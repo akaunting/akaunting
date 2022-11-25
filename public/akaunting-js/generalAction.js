@@ -451,7 +451,7 @@ document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
 
 //disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
-    if (defaultText.closest('tr')) {
+    if (defaultText.closest('[data-table-list]')) {
         let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
     
         if (icon_parents_element.classList.contains('flex')) {
