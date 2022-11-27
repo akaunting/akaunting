@@ -92,7 +92,7 @@ return [
             'charset' => 'utf8',
             'prefix' => env('DB_PREFIX', 'ak_'),
             'prefix_indexes' => true,
-            'search_path' => 'public',
+            'search_path' => env('DB_SCHEMA', 'public'),
             'sslmode' => 'prefer',
         ],
 
