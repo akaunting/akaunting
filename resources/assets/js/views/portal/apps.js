@@ -147,6 +147,10 @@ const app = new Vue({
                           resolve({
                             template: '<div>' + response.data.html + '</div>',
 
+                            mixins: [
+                                Global
+                            ],
+
                             components: {
                                 CardForm
                             },
@@ -237,6 +241,10 @@ const app = new Vue({
                     this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                           resolve({
                             template: '<div>' + response.data.html + '</div>',
+
+                            mixins: [
+                                Global
+                            ],
 
                             components: {
                                 CardForm

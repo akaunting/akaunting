@@ -645,12 +645,14 @@ export default {
         },
 
         closeIfClickedOutside(event) {
-            if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.getAttribute('data-btn') != 'btn btn-link') {
-                this.visible.options = false;
-                this.visible.operator = false;
-                this.visible.values = false;
+            if (document.getElementById('search-field-' + this._uid)) {
+                if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.getAttribute('data-btn') != 'btn btn-link') {
+                    this.visible.options = false;
+                    this.visible.operator = false;
+                    this.visible.values = false;
 
-                document.removeEventListener('click', this.closeIfClickedOutside);
+                    document.removeEventListener('click', this.closeIfClickedOutside);
+                }
             }
         },
     },
