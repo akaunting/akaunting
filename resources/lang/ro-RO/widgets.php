@@ -16,7 +16,7 @@ return [
     'total_unpaid_bills'        => 'Total facturi neplătite',
 
     'description' => [
-        'receivables'           => 'Suma pe care nu ați primit-o încă de la clienții tăi',
+        'receivables'           => 'Suma pe care nu ai primit-o încă de la clienții tăi',
         'payables'              => 'Suma pe care nu ai plătit-o încă furnizorilor',
         'cash_flow'             => 'Numerar care intră și iese din afacerea ta',
         'profit_loss'           => 'Venituri și cheltuieli, inclusiv facturile și notele de plată neplătite',

@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Rensa Antal',
     'deposit'               => 'Insättning',
     'withdrawal'            => 'Uttag',
+    'reconciled_amount'     => 'Avstämd',
+    'in_progress'           => 'Pågående',
+    'save_draft'            => 'Spara som utkast',
+    'irreconcilable'        => 'Oavstämbar',
 
 ];

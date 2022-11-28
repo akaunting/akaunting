@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'La nouvelle version de Akaunting est disponible ! Veuillez mettre à jour votre installation.',
-        'module'            => 'La nouvelle version de :module est disponible! Veuillez mettre à jour votre installation.',
+        'core'              => 'La nouvelle version de Akaunting est disponible ! Veuillez mettre à jour <a href=":url">votre installation.</a>',
+        'module'            => 'La nouvelle version de :module est disponible ! Veuillez mettre à jour  <a href=":url">votre installation.</a>',
     ],
 ];

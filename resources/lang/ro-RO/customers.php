@@ -18,7 +18,7 @@ return [
 
     'form_description' => [
         'general'               => 'Informațiile de contact ale clientului tău vor apărea în facturi și în profilurile acestora. De asemenea, puteți permite clienților să se conecteze pentru a urmări facturile pe care le trimiteți, bifând căsuța de mai jos.',
-        'billing'               => 'Codul fiscal apare în fiecare factură emisă clientului. Moneda selectată devine monedă implicită pentru acest client.',
+        'billing'               => 'Codul fiscal / CNP-ul apare în fiecare factură emisă clientului. Moneda selectată devine monedă implicită pentru acest client.',
         'address'               => 'Adresa este necesară pentru facturi, așa că trebuie să adaugi detalii despre adresa de facturare pentru clientul tău.',
     ],
 

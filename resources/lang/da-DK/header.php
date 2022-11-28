@@ -25,4 +25,9 @@ return [
     'docs_link'             => 'https://akaunting.com/docs',
     'support_link'          => 'https://akaunting.com/support',
 
+    'favorite' => [
+        'added_favorite'    => 'Tilføjet til favoritter',
+        'add_favorite'      => 'Tilføj til favoritter',
+    ],
+
 ];

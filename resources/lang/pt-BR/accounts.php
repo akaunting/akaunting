@@ -20,7 +20,7 @@ return [
 
     'form_description' => [
         'general'           => 'Use o tipo cartão de crédito para saldo inicial negativo. O número é essencial para reconciliar corretamente as contas. A conta padrão registrará todas as transações se não for selecionada de outra forma.',
-        'bank'              => 'Você pode ter várias contas bancárias em mais de um banco. Gravar informações sobre seu banco irá facilitar combinar as transações dentro de seu banco.',
+        'bank'              => 'É possível ter várias contas bancárias em mais de um banco. Gravar informações sobre seu banco irá facilitar o reconhecimento as transações dentro de seu banco.',
     ],
 
     'no_records' => [

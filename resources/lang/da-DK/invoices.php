@@ -9,6 +9,7 @@ return [
     'due_date'              => 'Forfaldsdato',
     'order_number'          => 'Ordrenummer',
     'bill_to'               => 'Faktura til',
+    'cancel_date'           => 'Annuller Dato',
 
     'quantity'              => 'Antal',
     'price'                 => 'Pris',
@@ -19,6 +20,7 @@ return [
     'total'                 => 'I alt',
 
     'item_name'             => 'Vare navn|Vare navne',
+    'recurring_invoices'    => 'Tilbagevendende Faktura|Tilbagevendende Fakturaer',
 
     'show_discount'         => ':discount% Rabat',
     'add_discount'          => 'Tilføj rabat',
@@ -40,6 +42,11 @@ return [
     'send_invoice'          => 'Send faktura',
     'get_paid'              => 'Betal',
     'accept_payments'       => 'Accepter onlinebetalinger',
+    'payment_received'      => 'Betaling modtaget',
+
+    'form_description' => [
+        'billing'           => 'Faktureringsoplysninger vises på din faktura. Faktureringsdato bruges i skrivebordet og rapporter. Vælg den dato, du forventer at blive betalt som forfaldsdato.',
+    ],
 
     'messages' => [
         'email_required'    => 'Ingen E-mail-adresse for kunden!',
@@ -56,6 +63,23 @@ return [
                 'await'     => 'Afventer betaling',
             ],
         ],
+    ],
+
+    'slider' => [
+        'create'            => ':user oprettede denne faktura den :date',
+        'create_recurring'  => ':user oprettede denne tilbagevendende skabelon den :date',
+        'schedule'          => 'Gentag hver :interval :frekvens siden :date',
+        'children'          => ':count fakturaer blev oprettet automatisk',
+    ],
+
+    'share' => [
+        'show_link'         => 'Din kunde kan se fakturaen på dette link',
+        'copy_link'         => 'Kopier linket og del det med din kunde.',
+        'success_message'   => 'Delingslink kopieret til udklipsholder!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Du forhåndsviser, hvordan din kunde vil se webversionen af din faktura.',
     ],
 
 ];
