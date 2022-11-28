@@ -14,6 +14,8 @@
     </x-slot>
 
     <x-slot name="content">
+        <x-loading.content />
+        
         <div class="flex flex-col space-y-16 py-4 cursor-default">
             <div class="flex flex-col lg:flex-row w-full lg:space-x-16 rtl:space-x-reverse space-y-0">
                 <div class="w-full lg:w-7/12 flex flex-col space-x-2 banner">
@@ -54,7 +56,7 @@
                     @endif
                 </div>
 
-                <div class="w-full lg:w-5/12" x-data="{ price_type : 'yearly' }">
+                <div class="relative w-full lg:w-5/12" x-data="{ price_type : 'yearly' }">
                     <div class="flex flex-col space-y-6">
                         <div class="flex flex-col cursor-default">
                             <div class="flex flex-col space-y-4">
@@ -101,10 +103,10 @@
                             {!! ! empty($module->sort_desc) ? $module->sort_desc : strip_tags($module->description) !!}
                         </div>
 
-                        <div class="relative flex items-center space-x-4 justify-between">
+                        <div class="flex items-center space-x-4 justify-between">
                             <x-layouts.modules.show.price :module="$module" />
 
-                            <div class="flex w-1/2 lg:justify-center">
+                            <div class="flex lg:justify-center">
                                 @if ($module->price != '0.0000')
                                     <x-layouts.modules.show.toggle />
                                 @endif
@@ -114,7 +116,7 @@
                         <x-layouts.modules.show.information :module="$module" />
                     </div>
 
-                    <div class="flex justify-around space-x-12 mt-5">
+                    <div class="flex justify-around mt-5">
                         <x-layouts.modules.show.buttons :module="$module" :installed="$installed" :enable="$enable" />
                     </div>
                 </div>
