@@ -57885,5 +57885,12 @@ body{
   .\32xl\:w-8{
     width: 2rem;
   }
+
+  .\32xl\:flex-row{
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
 }
 

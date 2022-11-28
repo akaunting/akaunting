@@ -1,7 +1,7 @@
 @props(['module'])
 
 @if ($module->price != '0.0000')
-    <div class="flex gap-2 items-baseline cursor-default">
+    <div class="flex flex-col 2xl:flex-row gap-2 items-baseline cursor-default">
         {!! $module->price_prefix !!}
 
         <div x-show="price_type == 'monthly'">

@@ -1,7 +1,7 @@
 <x-form>
-    <div class="lg:absolute lg:ltr:right-0 lg:rtl:left-0 top-4">
+    <div>
         <div class="relative" x-model="price_type">
-            <div class="w-58 flex items-center bg-gray-200 p-1 ltr:mr-2 rtl:ml-2 rounded-lg">
+            <div class="w-58 flex items-center bg-gray-200 p-1 rounded-lg">
                 <button type="button"
                     x-on:click="price_type = 'monthly'"
                     class="w-18 flex justify-center px-2"
