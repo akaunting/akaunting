@@ -1,7 +1,7 @@
 @props(['module'])
 
 @if (! empty($module->plan))
-    <div class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
+    <div x-show="price_type == 'monthly' || price_type == 'yearly'" class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
         <span class="text-sm text-red-700">
             {!! trans('modules.only_premium_plan') !!}
         </span>
@@ -14,7 +14,7 @@
         </span>
     </div>
 @else
-    <div class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
+    <div x-show="price_type == 'monthly' || price_type == 'yearly'" class="text-center text-sm mt-3 mb--2 bg-red-100 rounded-lg p-2 cursor-default">
         <span class="text-sm text-red-700">
             {!! trans('modules.only_works_cloud') !!}
         </span>
