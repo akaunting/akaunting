@@ -13,7 +13,7 @@ return [
 
     'form_description' => [
         'general'           => 'Această informație este vizibilă în înregistrările pe care le creezi.',
-        'billing'           => 'Numărul taxei apare în fiecare factură/notă de plată. Tabloul de bord și rapoartele sunt afișate în moneda implicită.',
+        'billing'           => 'Codul fiscal / CNP-ul apare în fiecare factură/notă de plată. Tabloul de bord și rapoartele sunt afișate în moneda implicită.',
         'address'           => 'Adresa va fi folosită în facturi, note de plată și alte înregistrări pe care le emiți.',
     ],
 

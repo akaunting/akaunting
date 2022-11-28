@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Är du säker på att du vill <b>oavstämd</b> markerade post?<unk> Är du säker på att du vill <b>oavstämd</b> markerade poster?',
     ],
 
+    'success' => [
+        'general'       => ':count post :type.',
+    ],
 ];

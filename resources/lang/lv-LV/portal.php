@@ -12,6 +12,7 @@ return [
     'see_all_details'       => 'Skatiet visu konta informāciju',
     'all_payments'          => 'Piesakieties, lai skatītu visus maksājumus',
     'received_date'         => 'Saņemšanas datums',
+    'redirect_description'  => 'Jūs tiksit novirzīts uz vietni :name , lai veiktu maksājumu.',
 
     'last_payment'          => [
         'title'             => 'Pēdējais maksājums veikts',

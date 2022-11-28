@@ -12,6 +12,7 @@ return [
     'see_all_details'       => 'Voir tous les détails du compte',
     'all_payments'          => 'Connectez-vous pour voir tous les paiements',
     'received_date'         => 'Date de réception',
+    'redirect_description'  => 'Vous serez redirigé vers le site web de :name pour effectuer le paiement.',
 
     'last_payment'          => [
         'title'             => 'Dernier paiement effectué',

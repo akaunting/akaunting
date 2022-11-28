@@ -4,7 +4,7 @@ return [
 
     'bill_number'           => 'Fakturanummer',
     'bill_date'             => 'Fakturadatum',
-    'bill_amount'           => 'Fakturans belopp',
+    'bill_amount'           => 'Räkningens belopp',
     'total_price'           => 'Summa pris',
     'due_date'              => 'Förfallodatum',
     'order_number'          => 'Ordernummer',
@@ -19,11 +19,13 @@ return [
     'total'                 => 'Summa',
 
     'item_name'             => 'Artikelnamn | Artikelnamn',
+    'recurring_bills'       => 'Återkommande räkning|Återkommande räkningar',
 
     'show_discount'         => ':discount % Rabatt',
     'add_discount'          => 'Lägg till rabatt',
     'discount_desc'         => 'av delsumman',
 
+    'payment_made'          => 'Betalning utförd',
     'payment_due'           => 'Betalning',
     'amount_due'            => 'Fordran',
     'paid'                  => 'Betald',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Skapa faktura',
     'receive_bill'          => 'Mottag faktura',
     'make_payment'          => 'Gör betalning',
+
+    'form_description' => [
+        'billing'           => 'Faktureringsdetaljer visas i din räkning. Faktureringsdatum används i instrumentpanelen och rapporter. Välj det datum du räknar med att betala som förfallodatum.',
+    ],
 
     'messages' => [
         'draft'             => 'Detta är ett <b>DRAFT</b> förslag och kommer att stämmas av innan den mottages.',

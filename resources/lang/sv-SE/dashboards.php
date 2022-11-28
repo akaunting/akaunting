@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Fel: Kan inte inaktivera den sista instrumentpanelen. Skapa en ny först!',
     ],
 
+    'form_description' => [
+        'general'               => 'Välj de användare du vill ska ha tillgång till den nya instrumentpanelen.',
+    ],
+
 ];
