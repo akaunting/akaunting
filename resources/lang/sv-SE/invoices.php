@@ -9,6 +9,7 @@ return [
     'due_date'              => 'Förfallodatum',
     'order_number'          => 'Ordernummer',
     'bill_to'               => 'Fakturera till',
+    'cancel_date'           => 'Annulleringsdatum',
 
     'quantity'              => 'Antal',
     'price'                 => 'Pris',
@@ -19,6 +20,7 @@ return [
     'total'                 => 'Totalt',
 
     'item_name'             => 'Artikelnamn | Artikelnamn',
+    'recurring_invoices'    => 'Återkommande faktura|Återkommande fakturor',
 
     'show_discount'         => ':discount % Rabatt',
     'add_discount'          => 'Lägg till rabatt',
@@ -40,6 +42,11 @@ return [
     'send_invoice'          => 'Skicka faktura',
     'get_paid'              => 'Få betalt',
     'accept_payments'       => 'Acceptera onlinebetalningar',
+    'payment_received'      => 'Betalning mottagen',
+
+    'form_description' => [
+        'billing'           => 'Faktureringsuppgifter visas i din faktura. Faktureringsdatum används i instrumentpanelen och rapporter. Välj det datum du förväntar dig att få betalt som förfallodatum.',
+    ],
 
     'messages' => [
         'email_required'    => 'Ingen e-postadress för den här kunden!',
@@ -56,6 +63,23 @@ return [
                 'await'     => 'Väntar på betalning',
             ],
         ],
+    ],
+
+    'slider' => [
+        'create'            => ':user skapade denna faktura :date',
+        'create_recurring'  => ':user skapade den här återkommande mallen :date',
+        'schedule'          => 'Upprepa varje :interval :frequency sedan :date',
+        'children'          => ':count fakturor skapades automatiskt',
+    ],
+
+    'share' => [
+        'show_link'         => 'Din kund kan se fakturan på denna länk',
+        'copy_link'         => 'Kopiera länken och dela den med din kund.',
+        'success_message'   => 'Kopierade delningslänk till urklipp!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Du förhandsgranskar hur din kund ser webbversionen av din faktura.',
     ],
 
 ];

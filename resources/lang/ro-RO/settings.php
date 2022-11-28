@@ -4,7 +4,7 @@ return [
 
     'company' => [
         'description'                   => 'Schimbă numele companiei, e-mail, adresă, cod fiscal etc',
-        'search_keywords'               => 'Companie, nume, e-mail, telefon, adresă, țară, număr fiscal, siglă, oraș, oraș, stat, provincie, cod poștal',
+        'search_keywords'               => 'Companie, nume, e-mail, telefon, adresă, țară, cod fiscal, siglă, oraș, oraș, stat, provincie, cod poștal',
         'name'                          => 'Nume',
         'email'                         => 'Email',
         'phone'                         => 'Telefon',

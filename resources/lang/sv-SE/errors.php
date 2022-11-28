@@ -19,5 +19,7 @@ return [
         '404'       => 'Vi kunde inte hitta sidan du letade efter.',
         '500'       => 'Vi kommer att arbeta med att rätta till detta direkt.',
         'record'    => 'Vi kunde inte hitta registret du letade efter.',
+        'amount'    => 'Denna sida innehåller ogiltiga belopp! Kontakta systemadministratören.',
     ],
+
 ];

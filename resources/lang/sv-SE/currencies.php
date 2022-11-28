@@ -15,6 +15,14 @@ return [
         'position'          => 'Symbol Position',
         'before'            => 'Innan beloppet',
         'after'             => 'Efter belopp',
-    ]
+    ],
+
+    'form_description' => [
+        'general'           => 'Standardvalutan används i instrumentpanelen och rapporter. För andra valutor måste kursen vara lägre än 1 för svagare valutor och högre än 1 för starkare valutor.',
+    ],
+
+    'no_currency'           => 'Ingen valuta',
+    'create_currency'       => 'Skapa en ny valuta och redigera när som helst från inställningar.',
+    'new_currency'          => 'Ny valuta',
 
 ];
