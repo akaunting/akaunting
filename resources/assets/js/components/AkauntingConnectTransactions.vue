@@ -8,8 +8,8 @@
             :aria-hidden="!show">
             <div class="w-full my-10 m-auto flex flex-col" :class="modalDialogClass ? modalDialogClass : 'max-w-screen-sm'">
                 <slot name="modal-content">
-                    <div class="modal-content">
-                        <div class="p-5 bg-body rounded-tl-lg rounded-tr-lg">
+                    <div class="bg-body rounded-lg modal-content">
+                        <div class="p-5">
                             <div class="flex items-center justify-between border-b pb-5">
                                 <slot name="card-header">
                                     <h4 class="text-base font-medium">
@@ -24,7 +24,7 @@
                         </div>
 
                         <slot name="modal-body">
-                            <div class="px-5 bg-body">
+                            <div class="px-5">
                                 <template v-if="transaction">
                                     <div class="flex flex-col items-start gap-y-3">
                                         <div class="text-left text-sm">
@@ -247,7 +247,7 @@
                             </div>
                         </slot>
 
-                        <div class="p-5 bg-body rounded-bl-lg rounded-br-lg border-gray-300">
+                        <div class="p-5 border-gray-300">
                             <slot name="card-footer">
                                 <div class="flex items-center justify-end">
                                     <button type="button" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" @click="onCancel">

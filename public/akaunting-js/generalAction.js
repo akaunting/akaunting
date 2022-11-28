@@ -54,15 +54,17 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
 
     if (document.body.clientWidth <= 768) {
         table.querySelectorAll('[data-table-list]').forEach((actions) => {
-            actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
-                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
-                this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
-      
-                this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
-                    this.classList.add('opacity-0', 'invisible');
-                    this.classList.remove('show');
+            if (actions.querySelector('[data-mobile-actions]')) {
+                actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
+                    this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
+                    this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
+          
+                    this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
+                        this.classList.add('opacity-0', 'invisible');
+                        this.classList.remove('show');
+                    });
                 });
-            });
+            }
         });
     }
 });
@@ -451,7 +453,7 @@ document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
 
 //disable/enable icons ejected from data-truncate-marquee, HTML of icons ejected from parent element (data-truncate-marquee)
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
-    if (defaultText.closest('tr')) {
+    if (defaultText.closest('[data-table-list]')) {
         let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
     
         if (icon_parents_element.classList.contains('flex')) {
