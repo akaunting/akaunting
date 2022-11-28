@@ -7,9 +7,10 @@
         </span>
     </div>
 @elseif (in_array('onprime', $module->where_to_use))
-    <div x-show="price_type == false" class="text-center text-sm mt-3">
+    <div x-show="price_type == 'monthly'" class="text-center text-sm mt-3">
         <span style="font-size: 12px;">
-            <span class="text-red">*</span> <x-link href="https://akaunting.com/features/why-akaunting-cloud?utm_source=software&utm_medium=app_show&utm_campaign={{ str_replace('-', '_', $module->slug) }}" target="_blank" override="class">{!! trans('modules.information_monthly') !!}</x-link>
+            <span class="text-red">*</span> 
+            {!! trans('modules.information_monthly', ['url' => 'https://akaunting.com/features/why-akaunting-cloud?utm_source=software&utm_medium=app_show&utm_campaign=' . str_replace('-', '_', $module->slug)]) !!}
         </span>
     </div>
 @else
