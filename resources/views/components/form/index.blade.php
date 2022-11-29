@@ -17,7 +17,7 @@
     accept-charset="{{ $acceptCharset }}"
     @endif
     @submit.prevent="{{ $submit }}"
-    @keydown="form.errors.clear($event.target.name)"
+    @keydown="form.errors ? form.errors.clear($event.target.name): null"
     {{ $attributes }}
 >
     @csrf
