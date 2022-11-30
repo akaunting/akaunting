@@ -57157,6 +57157,11 @@ body{
     line-height: 2.75rem;
   }
 
+  .sm\:text-sm{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
   .sm\:text-purple{
     --tw-text-opacity: 1;
     color: rgb(85 88 139 / var(--tw-text-opacity));
