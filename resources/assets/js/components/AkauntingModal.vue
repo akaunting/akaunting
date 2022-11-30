@@ -31,8 +31,8 @@
 
                         <div class="p-5 border-gray-300">
                             <slot name="card-footer">
-                                <div class="flex items-center justify-end">
-                                    <button type="button" class="px-6 py-1.5 ltr:mr-2 rtl:ml-2 hover:bg-gray-200 rounded-lg" @click="onCancel">
+                                <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
+                                    <button type="button" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg" @click="onCancel">
                                         {{ button_cancel }}
                                     </button>
 

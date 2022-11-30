@@ -36,12 +36,12 @@
 
                         <div class="p-5 border-gray-300">
                             <slot name="card-footer">
-                                <div class="flex items-center justify-end">
-                                    <button type="button" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" :class="buttons.cancel.class" @click="onCancel">
+                                <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
+                                    <button type="button" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg" :class="buttons.cancel.class" @click="onCancel">
                                         {{ buttons.cancel.text }}
                                     </button>
 
-                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="px-3 py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6 ltr:mr-2 rtl:ml-2" :class="buttons.payment.class">
+                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="px-6 py-1.5 text-xs bg-transparent hover:bg-gray-200 font-medium rounded-lg leading-6" :class="buttons.payment.class">
                                         {{ buttons.payment.text }}
                                     </a>
 
