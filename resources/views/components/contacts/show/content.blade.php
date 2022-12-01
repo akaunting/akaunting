@@ -4,33 +4,29 @@
 
         @if (! $hideTopLeft)
         <x-show.summary.left>
-            @if (! $hideAvatar)
-            <x-slot name="avatar">
-                @if ($contact->logo)
-                    @if (is_object($contact->logo))
-                        <img src="{{ Storage::url($contact->logo->id) }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}" title="{{ $contact->name }}">
+                @if (! $hideAvatar)
+                <x-slot name="avatar">
+                    @if ($contact->logo)
+                        @if (is_object($contact->logo))
+                            <img src="{{ Storage::url($contact->logo->id) }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}" title="{{ $contact->name }}">
+                        @else
+                            <img src="{{ asset('public/img/user.svg') }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}"/>
+                        @endif
+
+                        {{ $contact->initials }}
                     @else
-                        <img src="{{ asset('public/img/user.svg') }}" class="absolute w-12 h-12 rounded-full mr-2 hidden lg:block" alt="{{ $contact->name }}"/>
+                        {{ $contact->initials }}
                     @endif
-
-                    {{ $contact->initials }}
-                @else
-                    {{ $contact->initials }}
+                </x-slot>
                 @endif
-            </x-slot>
-            @endif
 
-            @stack('contact_email_start')
             @if (! $hideEmail)
             <span>{{ $contact->email }}</span>
             @endif
-            @stack('contact_email_end')
 
-            @stack('contact_phone_start')
             @if (! $hidePhone)
             <span>{{ $contact->phone }}</span>
             @endif
-            @stack('contact_phone_end')
         </x-show.summary.left>
         @endif
 
@@ -74,16 +70,44 @@
     <x-show.content>
         @if (! $hideBottomLeft)
         <x-show.content.left>
-            @stack('customer_address_start')
+
+            @stack('name_input_start')
+            @stack('name_input_end')
+
+            @stack('logo_input_start')
+            @stack('logo_input_end')
+
+            @stack('email_input_start')
+            @stack('email_input_end')
+
+            @stack('phone_input_start')
+            @stack('phone_input_end')
+
+            @stack('currency_code_input_start')
+            @stack('currency_code_input_end')
+
+            @stack('address_input_start')
             @if (! $hideAddress)
             <div class="flex flex-col text-sm sm:mb-5">
                 <div class="font-medium">{{ trans('general.address') }}</div>
                 <span>{{ $contact->address }}<br>{{ $contact->location }}</span>
             </div>
             @endif
-            @stack('customer_address_end')
+            @stack('address_input_end')
 
-            @stack('customer_tax_number_start')
+            @stack('city_input_start')
+            @stack('city_input_end')
+
+            @stack('zip_code_input_start')
+            @stack('zip_code_input_end')
+
+            @stack('state_input_start')
+            @stack('state_input_end')
+
+            @stack('country_input_start')
+            @stack('country_input_end')
+
+            @stack('tax_number_input_start')
             @if (! $hideTaxNumber)
             @if ($contact->tax_number)
                 <div class="flex flex-col text-sm sm:mb-5">
@@ -92,9 +116,9 @@
                 </div>
             @endif
             @endif
-            @stack('customer_tax_number_end')
+            @stack('tax_number_input_end')
 
-            @stack('customer_website_start')
+            @stack('website_input_start')
             @if (! $hideWebsite)
             @if ($contact->website)
                 <div class="flex flex-col text-sm sm:mb-5">
@@ -103,9 +127,9 @@
                 </div>
             @endif
             @endif
-            @stack('customer_website_end')
+            @stack('website_input_end')
 
-            @stack('customer_reference_start')
+            @stack('reference_input_start')
             @if (! $hideReference)
             @if ($contact->reference)
                 <div class="flex flex-col text-sm sm:mb-5">
@@ -114,9 +138,9 @@
                 </div>
             @endif
             @endif
-            @stack('customer_reference_end')
+            @stack('reference_input_end')
 
-            @stack('customer_client_portal_start')
+            @stack('create_user_input_start')
                 @if (! $hideUser)
                     <div class="flex flex-col text-sm sm:mb-5">
                         <div class="flex items-center font-medium">
@@ -138,7 +162,7 @@
                         </div>
                     </div>
                 @endif
-            @stack('customer_client_portal_end')
+            @stack('create_user_input_end')
         </x-show.content.left>
         @endif
 
