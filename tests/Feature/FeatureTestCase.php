@@ -59,6 +59,6 @@ abstract class FeatureTestCase extends TestCase
             $flash = $flashMessage->first();
         }
 
-        $this->assertEquals($excepted, $flash['level']);
+        $this->assertEquals($excepted, $flash['level'], json_encode($flash));
     }
 }
