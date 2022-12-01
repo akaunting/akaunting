@@ -53413,6 +53413,7 @@ button, input, optgroup, select, textarea{
 }
 .suggestion-buttons a, .suggestion-buttons button{
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 [data-dropdown-actions] {
         -webkit-transform: unset !important;
@@ -57155,11 +57156,6 @@ body{
   .sm\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
-  }
-
-  .sm\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 
   .sm\:text-purple{
