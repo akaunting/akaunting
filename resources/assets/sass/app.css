@@ -23,7 +23,7 @@
     }
 
     .suggestion-buttons a, .suggestion-buttons button {
-        @apply mt-2;
+        @apply mt-2 mb-2;
     }
 
     [data-dropdown-actions] {
