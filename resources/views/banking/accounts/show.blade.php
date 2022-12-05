@@ -143,7 +143,13 @@
 
             <x-show.content>
                 <x-show.content.left>
-                    @stack('account_number_start')
+                    @stack('type_input_start')
+                    @stack('type_input_end')
+
+                    @stack('name_input_start')
+                    @stack('name_input_end')
+
+                    @stack('number_input_start')
                     <div class="flex flex-col text-sm mb-5">
                         <div class="font-medium">
                             {{ trans('accounts.number') }}
@@ -151,9 +157,9 @@
 
                         <span>{{ $account->number }}</span>
                     </div>
-                    @stack('account_number_end')
+                    @stack('number_input_end')
 
-                    @stack('account_currency_start')
+                    @stack('currency_code_input_start')
                     <div class="flex flex-col text-sm mb-5">
                         <div class="font-medium">
                             {{ trans_choice('general.currencies', 1) }}
@@ -163,9 +169,9 @@
                             {{ $account->currency->name }}
                         </span>
                     </div>
-                    @stack('account_currency_end')
+                    @stack('currency_code_input_end')
 
-                    @stack('account_starting_balance_start')
+                    @stack('opening_balance_input_start')
                     <div class="flex flex-col text-sm mb-5">
                         <div class="font-medium">
                             {{ trans('accounts.opening_balance') }}
@@ -175,9 +181,15 @@
                             <x-money :amount="$account->opening_balance" :currency="$account->currency_code" convert />
                         </span>
                     </div>
-                    @stack('account_starting_balance_end')
+                    @stack('opening_balance_input_end')
 
-                    @stack('account_phone_start')
+                    @stack('default_account_input_start')
+                    @stack('default_account_input_end')
+
+                    @stack('bank_name_input_start')
+                    @stack('bank_name_input_end')
+
+                    @stack('bank_phone_input_start')
                     @if ($account->bank_phone)
                         <div class="flex flex-col text-sm mb-5">
                             <div class="font-medium">
@@ -189,9 +201,9 @@
                             </span>
                         </div>
                     @endif
-                    @stack('account_phone_end')
+                    @stack('bank_phone_input_end')
 
-                    @stack('account_address_start')
+                    @stack('bank_address_input_start')
                     @if ($account->bank_address)
                         <div class="flex flex-col text-sm mb-5">
                             <div class="font-medium">
@@ -203,7 +215,7 @@
                             </span>
                         </div>
                     @endif
-                    @stack('account_address_end')
+                    @stack('bank_address_input_end')
                 </x-show.content.left>
 
                 <x-show.content.right>
