@@ -167,6 +167,9 @@
             </tr>
         @endif
         @stack('description_input_end')
+
+        @stack('contact_id_input_start')
+        @stack('contact_id_input_end')
     </table>
 
     <table class="border-top-1" style="margin-top:15px;">
