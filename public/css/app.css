@@ -56327,10 +56327,6 @@ body{
   right: -2rem;
 }
 
-[dir="rtl"] .rtl\:float-left{
-  float: left;
-}
-
 [dir="rtl"] .rtl\:m-0{
   margin: 0px;
 }
