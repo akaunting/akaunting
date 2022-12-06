@@ -54051,6 +54051,7 @@ html[dir='rtl'] .el-scrollbar__wrap {
 }
 
 .collapse-sub{
+  display: block;
   height: 0px;
   overflow: hidden;
   opacity: 0;
@@ -56325,10 +56326,6 @@ body{
 
 [dir="rtl"] .rtl\:-right-8{
   right: -2rem;
-}
-
-[dir="rtl"] .rtl\:float-left{
-  float: left;
 }
 
 [dir="rtl"] .rtl\:m-0{
