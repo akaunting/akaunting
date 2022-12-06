@@ -114,7 +114,10 @@ const app = new Vue({
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
 
-            this.$refs['items-' + index + '-'  + ref][0].focus();
+            if (this.$refs['items-' + index + '-' + ref] != undefined) {
+                let first_ref = this.$refs['items-' + index + '-'  + ref];
+                first_ref != undefined ? first_ref[0].focus() : this.$refs[Object.keys(this.$refs)[0]][0].focus();
+            }
         },
 
         onCalculateTotal() {
