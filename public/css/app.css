@@ -54051,6 +54051,7 @@ html[dir='rtl'] .el-scrollbar__wrap {
 }
 
 .collapse-sub{
+  display: block;
   height: 0px;
   overflow: hidden;
   opacity: 0;
