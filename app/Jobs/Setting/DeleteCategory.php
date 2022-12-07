@@ -3,6 +3,8 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Events\Setting\CategoryDeleted;
+use App\Events\Setting\CategoryDeleting;
 use App\Exceptions\Settings\LastCategoryDelete;
 use App\Interfaces\Job\ShouldDelete;
 use App\Models\Setting\Category;
@@ -13,9 +15,13 @@ class DeleteCategory extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new CategoryDeleting($this->model));
+
         \DB::transaction(function () {
             $this->model->delete();
         });
+
+        event(new CategoryDeleted($this->model));
 
         return true;
     }
