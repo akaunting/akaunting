@@ -57297,10 +57297,6 @@ body{
     margin-top: 0px;
   }
 
-  .lg\:-mt-16{
-    margin-top: -4rem;
-  }
-
   .lg\:mb-0{
     margin-bottom: 0px;
   }
@@ -57415,10 +57411,6 @@ body{
 
   .lg\:w-46{
     width: 46.875rem;
-  }
-
-  .lg\:w-4\/5{
-    width: 80%;
   }
 
   .lg\:w-3\/5{

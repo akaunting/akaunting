@@ -1,0 +1,82 @@
+/* content */
+@media (min-width: 1024px) {
+  .content-modal {
+    width: 100%;
+  }
+}
+.content-modal {
+  position: fixed;
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+  z-index: 60;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgb(252, 252, 252);
+  z-index: 60;
+}
+
+[dir="ltr"] .content-modal {
+  right: 0px;
+}
+
+[dir="rtl"] .content-modal {
+  left: 0px;
+}
+
+@media (min-width: 1024px) {
+  .content-modal img {
+    margin-top: -4rem;
+  }
+}
+.content-modal img {
+  width: 7rem;
+  height: 7rem;
+}
+/* content */
+
+/* absolute */
+@media (min-width: 1024px) {
+    .absolute-modal {
+      display: block;
+    }
+  }
+  .absolute-modal {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgb(252, 252, 252);
+    z-index: 60;
+  }
+
+  .absolute-modal img {
+    width: 7rem;
+    height: 7rem;
+  }
+/* absolute */
+
+.material-icons-outlined {
+font-family: 'Material Icons Outlined';
+font-weight: normal;
+font-style: normal;
+font-size: 24px;
+line-height: 1;
+letter-spacing: normal;
+text-transform: none;
+display: inline-block;
+white-space: nowrap;
+word-wrap: normal;
+direction: ltr;
+-webkit-font-feature-settings: 'liga';
+-webkit-font-smoothing: antialiased;
+}
