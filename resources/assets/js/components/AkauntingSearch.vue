@@ -256,7 +256,7 @@ export default {
         onInputDateSelected(selectedDates, dateStr, instance) {
             this.filtered[this.filter_index].value = dateStr;
 
-            let date = instance.formatDate(selectedDates[0], 'Y-m-d');
+            let date = selectedDates.length ? instance.formatDate(selectedDates[0], 'Y-m-d') : null;
 
             if (selectedDates.length > 1) {
                 let dates = [];
