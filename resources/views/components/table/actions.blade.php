@@ -82,9 +82,9 @@
             @php $divider = false; @endphp
 
             <div class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions">
-                <button type="button" data-dropdown-toggle="dropdown-actions-{{ $loop->index }}" data-dropdown-placement="left" class="material-icons-outlined text-purple text-lg">more_horiz</button>
+                <button type="button" data-dropdown-toggle="dropdown-actions-{{ $model->id }}-{{ $loop->index }}" data-dropdown-placement="left" class="material-icons-outlined text-purple text-lg">more_horiz</button>
 
-                <div id="dropdown-actions-{{ $loop->index }}" data-dropdown-actions class="absolute py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden !mt-[50px]" style="left:auto; min-width:10rem;">    
+                <div id="dropdown-actions-{{ $model->id }}-{{ $loop->index }}" data-dropdown-actions class="absolute py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden !mt-[50px]" style="left:auto; min-width:10rem;">    
                     @foreach ($more_actions as $action)
                         @php
                             $type = ! empty($action['type']) ? $action['type'] : 'link';
