@@ -36,14 +36,12 @@ class Actions extends Component
 
     protected function getActions($actions)
     {
-        if (! empty($actions)) {
-            return $actions;
-        }
+        if (empty($actions)) {
+            $actions = [];
 
-        $actions = [];
-
-        if ($this->model && ! empty($this->model->line_actions)) {
-            $actions = $this->model->line_actions;
+            if ($this->model && ! empty($this->model->line_actions)) {
+                $actions = $this->model->line_actions;
+            }
         }
 
         foreach ($actions as $key => $action) {

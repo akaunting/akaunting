@@ -561,7 +561,7 @@ html[dir='rtl'] .el-scrollbar__wrap {
 }
 
 .collapse-sub {
-    @apply opacity-0 h-0 overflow-hidden;
+    @apply block opacity-0 h-0 overflow-hidden;
 }
 
 .collapse-sub-report.collapse-sub {

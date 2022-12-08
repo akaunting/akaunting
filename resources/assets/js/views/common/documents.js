@@ -114,7 +114,10 @@ const app = new Vue({
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
 
-            this.$refs['items-' + index + '-'  + ref][0].focus();
+            if (this.$refs['items-' + index + '-' + ref] != undefined) {
+                let first_ref = this.$refs['items-' + index + '-'  + ref];
+                first_ref != undefined ? first_ref[0].focus() : this.$refs[Object.keys(this.$refs)[0]][0].focus();
+            }
         },
 
         onCalculateTotal() {
@@ -811,15 +814,20 @@ const app = new Vue({
 
     watch: {
         'form.discount': function (newVal, oldVal) {
-            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
+            if (newVal > 99) {
+                newVal = oldVal;
+                return;
+            }
+            
+            if (newVal != '' && newVal.search('^[-+]?([0-9]|[1-9][0-9]|100)*\.?[0-9]+$') !== 0) {
                 this.form.discount = oldVal;
-                this.form.discount = this.form.discount.replace(',', '.');
+                this.form.discount = this.form.discount ? this.form.discount.replace(',', '.') : '';
 
                 return;
             }
 
             for (let item of this.regex_condition) {
-                if (this.form.discount.includes(item)) {
+                if (this.form.discount && this.form.discount.includes(item)) {
                     const removeLastChar  = newVal.length - 1;
                     const inputShown = newVal.slice(0, removeLastChar);
 
@@ -827,7 +835,7 @@ const app = new Vue({
                 }
             }
 
-            this.form.discount = this.form.discount.replace(',', '.');
+            this.form.discount = this.form.discount ? this.form.discount.replace(',', '.') : '';
         },
 
         'form.loading': function (newVal, oldVal) {

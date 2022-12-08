@@ -359,7 +359,7 @@ html[dir='rtl'] .text-right
 
 .text-white
 {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .mt-classic

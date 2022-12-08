@@ -100,6 +100,9 @@ class Event extends Provider
         'App\Events\Banking\TransactionCreated' => [
             'App\Listeners\Banking\IncreaseNextTransactionNumber',
         ],
+        'App\Events\Setting\CategoryDeleted' => [
+            'App\Listeners\Setting\DeleteCategoryDeletedSubCategories',
+        ],
     ];
 
     /**

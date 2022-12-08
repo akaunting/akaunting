@@ -3,6 +3,9 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Events\Setting\CategoryDeleted;
+use App\Events\Setting\CategoryDeleting;
+use App\Exceptions\Settings\LastCategoryDelete;
 use App\Interfaces\Job\ShouldDelete;
 use App\Models\Setting\Category;
 
@@ -12,9 +15,13 @@ class DeleteCategory extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new CategoryDeleting($this->model));
+
         \DB::transaction(function () {
             $this->model->delete();
         });
+
+        event(new CategoryDeleted($this->model));
 
         return true;
     }
@@ -28,7 +35,7 @@ class DeleteCategory extends Job implements ShouldDelete
         if (Category::where('type', $this->model->type)->count() == 1) {
             $message = trans('messages.error.last_category', ['type' => strtolower(trans_choice('general.' . $this->model->type . 's', 1))]);
 
-            throw new \Exception($message);
+            throw new LastCategoryDelete($message);
         }
 
         if ($relationships = $this->getRelationships()) {

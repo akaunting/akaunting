@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Banking\Transaction;
-use App\Models\Setting\Category;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class Observer extends Provider
@@ -26,6 +25,5 @@ class Observer extends Provider
     public function boot()
     {
         Transaction::observe('App\Observers\Transaction');
-        Category::observe('App\Observers\Category');
     }
 }

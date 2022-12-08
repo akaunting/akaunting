@@ -3,6 +3,8 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Events\Setting\CategoryUpdated;
+use App\Events\Setting\CategoryUpdating;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Setting\Category;
 
@@ -12,9 +14,13 @@ class UpdateCategory extends Job implements ShouldUpdate
     {
         $this->authorize();
 
+        event(new CategoryUpdating($this->model, $this->request));
+
         \DB::transaction(function () {
             $this->model->update($this->request->all());
         });
+
+        event(new CategoryUpdated($this->model, $this->request));
 
         return $this->model;
     }

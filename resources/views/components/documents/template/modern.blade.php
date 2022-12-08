@@ -11,9 +11,9 @@
         </div>
     </div>
 
-    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }}" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
+    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }} text-white" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
         <div class="col-58">
-            <div class="text p-modern">
+            <div class="text text-white p-modern">
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (! empty($document->contact->logo) && ! empty($document->contact->logo->id))
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-42">
-            <div class="text p-modern right-column">
+            <div class="text text-white p-modern right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
                     <p class="text-normal font-semibold">

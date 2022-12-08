@@ -1,5 +1,5 @@
 <template>
-    <div class="relative bg-body z-10 rounded-lg shadow-2xl p-5 sm:py-10 sm:ltr:pl-10 sm:rtl:pr-10 overflow-hidden">
+    <div class="relative bg-body z-10 rounded-lg shadow-2xl p-5 ltr:pr-0 rtl:pl-0 sm:py-10 sm:ltr:pl-10 sm:rtl:pr-10 overflow-hidden">
         <WizardSteps :active_state="active"></WizardSteps>
 
         <div class="flex flex-col justify-between -mt-5 sm:mt-0" style="height:565px;">
@@ -43,14 +43,14 @@
                 </div>
 
                 <div class="relative w-1/2 right-0 ltr:pl-10 rtl:pr-10 mt-3 hidden lg:flex lg:flex-col">
-                    <div class="bg-purple rounded-tl-lg rounded-bl-lg p-6">
-                        <div class="w-48 text-white rtl:float-left rtl:text-left text-2xl font-semibold leading-9">
+                    <div class="flex flex-col ltr:items-start rtl:items-end bg-purple ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg p-6">
+                        <div class="w-48 text-white text-left text-2xl font-semibold leading-9">
                             {{ translations.finish.apps_managing }}
                         </div>
 
                         <div style="width:372px; height:372px;"></div>
 
-                        <img :src="image_src" class="absolute top-0 right-2" alt="" />
+                        <img :src="image_src" class="absolute top-3 right-2" alt="" />
                     </div>
 
                     <base-button
