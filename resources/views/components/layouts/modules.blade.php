@@ -16,9 +16,8 @@
 
         <x-layouts.admin.menu />
 
-        <!-- this line will refactor -->
-        <!-- <x-loading.content /> -->
-
+        <!-- loading component will add this line -->   
+             
         <div class="main-content xl:ltr:ml-64  xl:rtl:mr-64 transition-all ease-in-out" id="panel">
             <div id="main-body">
                 <div class="container">
