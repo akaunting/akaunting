@@ -54,7 +54,7 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
 
     if (document.body.clientWidth <= 768) {
         table.querySelectorAll('[data-table-list]').forEach((actions) => {
-            if (actions.querySelector('[data-mobile-actions]')) {
+            if (actions.querySelector('[data-mobile-actions]') !== null) {
                 actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
