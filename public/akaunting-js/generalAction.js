@@ -252,42 +252,45 @@ function runTooltip(tooltipToggleEl) {
             } else {
                 tooltipEl.classList.add("opacity-100", "visible");
             }
+
+             // Enable the event listeners
+
+            popperInstance.setOptions((options) => ({
+                ...options,
+                modifiers: [
+                    ...options.modifiers,
+                    {
+                        name: "eventListeners",
+                        enabled: true,
+                    },
+                ],
+            })); // Update its position
+
+            popperInstance.update();
         }
-         // Enable the event listeners
-
-        popperInstance.setOptions((options) => ({
-            ...options,
-            modifiers: [
-                ...options.modifiers,
-                {
-                    name: "eventListeners",
-                    enabled: true,
-                },
-            ],
-        })); // Update its position
-
-        popperInstance.update();
     }
 
     function hide() {
-        // Hide the tooltip
-        if (tooltipEl.classList.contains("opacity-100", "visible")) {
-            tooltipEl.classList.remove("opacity-100", "visible");
-        } else {
-            tooltipEl.classList.add("opacity-0", "invisible");
-        }
-        // Disable the event listeners
+        if (tooltipEl !== null) {
+            // Hide the tooltip
+            if (tooltipEl.classList.contains("opacity-100", "visible")) {
+                tooltipEl.classList.remove("opacity-100", "visible");
+            } else {
+                tooltipEl.classList.add("opacity-0", "invisible");
+            }
+            // Disable the event listeners
 
-        popperInstance.setOptions((options) => ({
-            ...options,
-            modifiers: [
-                ...options.modifiers,
-                {
-                    name: "eventListeners",
-                    enabled: false,
-                },
-            ],
-        }));
+            popperInstance.setOptions((options) => ({
+                ...options,
+                modifiers: [
+                    ...options.modifiers,
+                    {
+                        name: "eventListeners",
+                        enabled: false,
+                    },
+                ],
+            }));
+        }
     }
 
     var showEvents = [];
