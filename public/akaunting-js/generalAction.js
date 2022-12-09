@@ -246,10 +246,12 @@ function runTooltip(tooltipToggleEl) {
 
     function show() {
         // Make the tooltip visible
-        if (tooltipEl.classList.contains("opacity-0", "invisible")) {
-            tooltipEl.classList.remove("opacity-0", "invisible");
-        } else {
-            tooltipEl.classList.add("opacity-100", "visible");
+        if (tooltipEl !== null) {
+            if (tooltipEl.classList.contains("opacity-0", "invisible")) {
+                tooltipEl.classList.remove("opacity-0", "invisible");
+            } else {
+                tooltipEl.classList.add("opacity-100", "visible");
+            }
         }
          // Enable the event listeners
 
