@@ -13,9 +13,9 @@
     </x-layouts.admin.head>
 
     @mobile
-    <body class="g-sidenav-hidden bg-body">
+    <body class="g-sidenav-hidden bg-body overflow-overlay-static">
     @elsemobile
-    <body class="g-sidenav-show bg-body">
+    <body class="g-sidenav-show bg-body overflow-overlay-static">
     @endmobile
 
         @stack('body_start')
@@ -23,8 +23,8 @@
         <x-layouts.admin.menu />
 
         <!-- this line will refactor -->
-        <x-loading.content />
-
+        <!-- <x-loading.content /> -->
+        
         <div class="main-content xl:ltr:ml-64  xl:rtl:mr-64 transition-all ease-in-out" id="panel">
             <div id="main-body">
                 <div class="container">
