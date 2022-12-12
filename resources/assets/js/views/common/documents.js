@@ -113,8 +113,8 @@ const app = new Vue({
     methods: {
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
-
-            if (this.$refs['items-' + index + '-' + ref] != undefined) {
+            
+            if (typeof (this.$refs['items-' + index + '-' + ref]) !== 'undefined') {
                 let first_ref = this.$refs['items-' + index + '-'  + ref];
                 first_ref != undefined ? first_ref[0].focus() : this.$refs[Object.keys(this.$refs)[0]][0].focus();
             }
