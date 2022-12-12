@@ -190,37 +190,40 @@ function runDropdown(dropdownToggleEl) {
         ],
     }); // toggle when click on the button
 
-    dropdownMenuEl.classList.toggle("hidden");
-    dropdownMenuEl.classList.toggle("block");
+    if (dropdownMenuEl !== null) {
+        dropdownMenuEl.classList.toggle("hidden");
+        dropdownMenuEl.classList.toggle("block");
 
-    function handleDropdownOutsideClick(event) {
-        var targetElement = event.target; // clicked element
-
-        if (
-            targetElement !== dropdownMenuEl &&
-            targetElement !== dropdownToggleEl &&
-            !dropdownToggleEl.contains(targetElement)
-        ) {
-            dropdownMenuEl.classList.add("hidden");
-            dropdownMenuEl.classList.remove("block");
-            document.body.removeEventListener(
-                "click",
-                handleDropdownOutsideClick,
-                true
-            );
+        function handleDropdownOutsideClick(event) {
+            var targetElement = event.target; // clicked element
+    
+            if (
+                targetElement !== dropdownMenuEl &&
+                targetElement !== dropdownToggleEl &&
+                !dropdownToggleEl.contains(targetElement)
+            ) {
+                dropdownMenuEl.classList.add("hidden");
+                dropdownMenuEl.classList.remove("block");
+                document.body.removeEventListener(
+                    "click",
+                    handleDropdownOutsideClick,
+                    true
+                );
+            }
+        } // hide popper when clicking outside the element
+    
+        document.body.addEventListener("click", handleDropdownOutsideClick, true);
+    
+        if (dropdownMenuEl.getAttribute("data-click-outside-none") != null) {
+            if (event.target.getAttribute("data-click-outside") != null || event.target.parentElement.getAttribute("data-click-outside") != null) {
+                dropdownMenuEl.classList.add("hidden");
+                dropdownMenuEl.classList.remove("block");
+                return;
+            }
+            debugger;
+            dropdownMenuEl.classList.add("block");
+            dropdownMenuEl.classList.remove("hidden");
         }
-    } // hide popper when clicking outside the element
-
-    document.body.addEventListener("click", handleDropdownOutsideClick, true);
-
-    if (dropdownMenuEl.getAttribute("data-click-outside-none") != null) {
-        if (event.target.getAttribute("data-click-outside") != null || event.target.parentElement.getAttribute("data-click-outside") != null) {
-            dropdownMenuEl.classList.add("hidden");
-            dropdownMenuEl.classList.remove("block");
-            return;
-        }
-        dropdownMenuEl.classList.add("block");
-        dropdownMenuEl.classList.remove("hidden");
     }
 }
 // Toggle dropdown elements using [data-dropdown-toggle]
