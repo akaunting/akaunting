@@ -118,11 +118,5 @@ const app = new Vue({
                 }
             }
         },
-
-        onType(event) {
-            return;
-
-            this.form.type = type;
-        }
     }
 });
