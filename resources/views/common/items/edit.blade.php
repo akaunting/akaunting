@@ -18,7 +18,6 @@
                                 'service' => trans_choice('general.services', 1)
                             ]"
                             checked="{{ $item->type }}"
-                            @input="onType($event)"
                         />
 
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
