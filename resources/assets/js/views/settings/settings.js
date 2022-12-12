@@ -142,13 +142,11 @@ const app = new Vue({
         },
 
         onSmallWidthColumn(item) {
-            this.$refs[item].$el.classList.remove('sm:col-span-6');
-            this.$refs[item].$el.classList.add('sm:col-span-3');
+            this.$refs[item].$el.setAttribute('custom-half', true);
         },
 
         onFullWidthColumn(item) {
-            this.$refs[item].$el.classList.add('sm:col-span-6');
-            this.$refs[item].$el.classList.remove('sm:col-span-3');
+            this.$refs[item].$el.removeAttribute('custom-half');
         },
 
         settingsInvoice() {

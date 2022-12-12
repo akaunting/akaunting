@@ -1592,6 +1592,17 @@ button, input, optgroup, select, textarea{
         margin-left: unset !important;
     }
 
+/* width of container, custom choose */
+
+@media (min-width: 640px){
+
+  [custom-half]{
+    grid-column: span 3 / span 3 !important;
+  }
+}
+
+/* width of container, custom choose */
+
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
