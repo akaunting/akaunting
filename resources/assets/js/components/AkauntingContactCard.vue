@@ -567,7 +567,7 @@ export default {
         },
 
         closeIfClickedOutside(event) {
-            if (!document.getElementById('select-contact-card-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link p-0') {
+            if (!document.getElementById('select-contact-card-' + this._uid).contains(event.target)) {
                 this.show.contact_list = false;
 
                 document.removeEventListener('click', this.closeIfClickedOutside);
