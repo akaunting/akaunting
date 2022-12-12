@@ -239,6 +239,12 @@
     #button-monthly {
         margin-left: unset !important;
     }
+
+    /* width of container, custom choose */
+    [custom-half] {
+        @apply sm:col-span-3 !important;
+    }
+    /* width of container, custom choose */
 }
 
 /* menu */
