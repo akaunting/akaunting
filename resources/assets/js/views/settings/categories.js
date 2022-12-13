@@ -30,6 +30,7 @@ const app = new Vue({
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
             categoriesBasedTypes: null,
+            selected_type: true
         }
     },
 
@@ -50,6 +51,8 @@ const app = new Vue({
 
                 return;
             }
+
+            this.selected_type = false;
 
             this.categoriesBasedTypes = JSON.parse(this.form.categories)[event];
         }
