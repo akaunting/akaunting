@@ -1464,6 +1464,10 @@ input[type="date"]::-webkit-inner-spin-button,
         overflow-x: overlay;
     }
 
+.overflow-y-overlay {
+        overflow-y: overlay;
+    }
+
 .py-top {
         padding-bottom: 16px;
         padding-top: 16px;
@@ -57536,6 +57540,11 @@ body{
       padding-right: 3rem;
     }
   }
+    .lg\:items-start{
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
 
     .dashboard .lg\:px-6{
     padding-left: 0px;
@@ -57548,12 +57557,6 @@ body{
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-  }
-
-    .lg\:items-start{
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
   }
 
     .lg\:items-center{

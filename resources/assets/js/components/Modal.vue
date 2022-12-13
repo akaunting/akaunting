@@ -110,9 +110,9 @@
       show(val) {
         let documentClasses = document.body.classList;
         if (val) {
-          documentClasses.add('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+          documentClasses.add('overflow-y-hidden', 'overflow-overlay');
         } else {
-          documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+          documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
         }
       }
     }

@@ -7,9 +7,9 @@
     </x-layouts.admin.head>
 
     @mobile
-    <body class="g-sidenav-hidden bg-body">
+    <body class="bg-body">
     @elsemobile
-    <body class="g-sidenav-show bg-body">
+    <body class="bg-body overflow-y-overlay">
     @endmobile
 
         @stack('body_start')
