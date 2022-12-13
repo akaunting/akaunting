@@ -814,11 +814,6 @@ const app = new Vue({
 
     watch: {
         'form.discount': function (newVal, oldVal) {
-            if (newVal > 99) {
-                newVal = oldVal;
-                return;
-            }
-            
             if (newVal != '' && newVal.search('^[-+]?([0-9]|[1-9][0-9]|100)*\.?[0-9]+$') !== 0) {
                 this.form.discount = oldVal;
                 this.form.discount = this.form.discount ? this.form.discount.replace(',', '.') : '';
