@@ -239,7 +239,6 @@ export default {
                             item_name_input: false,
                             price_name_input: false,
                             quantity_name_input: false,
-                            set_modal_function: null,
                         }
                     },
 
