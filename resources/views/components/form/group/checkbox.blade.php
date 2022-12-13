@@ -56,6 +56,7 @@
                             :option="$option"
                             optionKey="{{ $optionKey }}"
                             optionValue="{{ $optionValue }}"
+                            disabled="{{ $disabled }}"
                             {{ $attributes->merge($custom_attributes) }}
                         />
                     </div>
