@@ -199,6 +199,12 @@ export default {
                             precision: 2,
                             masked: false /* doesn't work with directive */
                         };
+
+                        if (this.$root.$options.methods) {
+                            for (let method in this.$root.$options.methods) {
+                                this[method] = this.$options.methods[method] !== undefined ? this.$options.methods[method] : this.$root.$options.methods[method];
+                            }
+                        }
                     },
 
                     mounted() {
@@ -233,10 +239,15 @@ export default {
                             item_name_input: false,
                             price_name_input: false,
                             quantity_name_input: false,
+                            set_modal_function: null,
                         }
                     },
 
                     methods: {
+                        example() {
+                            console.log('example', 'component');
+                        },
+
                         setMinDate(date) {
                             this.min_date = date;
                         },
