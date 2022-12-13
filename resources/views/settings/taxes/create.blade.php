@@ -20,7 +20,7 @@
                     <x-slot name="body">
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                        <x-form.group.text name="rate" label="{{ trans('taxes.rate_percent') }}" not-required @input="onChangeTaxRate" />
+                        <x-form.group.text name="rate" label="{{ trans('taxes.rate_percent') }}" @input="onChangeTaxRate" />
 
                         <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" selected="normal" :disabledOptions="$disable_options" />
                     </x-slot>
