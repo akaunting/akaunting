@@ -244,10 +244,6 @@ export default {
                     },
 
                     methods: {
-                        example() {
-                            console.log('example', 'component');
-                        },
-
                         setMinDate(date) {
                             this.min_date = date;
                         },
