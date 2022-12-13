@@ -547,7 +547,7 @@ export default {
 
                     let documentClasses = document.body.classList;
 
-                    documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                    documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
                 }
             })
             .catch(error => {
@@ -563,7 +563,7 @@ export default {
 
             let documentClasses = document.body.classList;
 
-            documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+            documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
         },
 
         closeIfClickedOutside(event) {

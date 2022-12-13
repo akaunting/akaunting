@@ -220,7 +220,7 @@ function runDropdown(dropdownToggleEl) {
                 dropdownMenuEl.classList.remove("block");
                 return;
             }
-            debugger;
+            
             dropdownMenuEl.classList.add("block");
             dropdownMenuEl.classList.remove("hidden");
         }

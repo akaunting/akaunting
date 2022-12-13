@@ -320,7 +320,7 @@ export default {
             this.bulk_action.modal = false;
 
             let documentClasses = document.body.classList;
-            documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+            documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
         },
 
         // Bulk Action Clear selected items
@@ -808,7 +808,7 @@ export default {
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
                             },
                         }
                     })
@@ -954,7 +954,7 @@ export default {
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
                             },
                         }
                     })
@@ -1052,7 +1052,7 @@ export default {
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
                             },
                         }
                     })
@@ -1122,7 +1122,7 @@ export default {
 
                                 let documentClasses = document.body.classList;
 
-                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                                documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
                             },
                         }
                     })

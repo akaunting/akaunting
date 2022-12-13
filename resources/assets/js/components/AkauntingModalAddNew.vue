@@ -155,7 +155,7 @@ export default {
     created: function () {
         let documentClasses = document.body.classList;
 
-        documentClasses.add('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+        documentClasses.add('overflow-y-hidden', 'overflow-overlay');
 
         if (this.modalDialogClass) {
             let modal_size = this.modalDialogClass.replace('modal-', 'max-w-screen-');
@@ -364,7 +364,7 @@ export default {
         onCancel() {
             let documentClasses = document.body.classList;
 
-            documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+            documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
 
             this.$emit("cancel");
         }
@@ -375,9 +375,9 @@ export default {
             let documentClasses = document.body.classList;
 
             if (val) {
-                documentClasses.add('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                documentClasses.add('overflow-y-hidden', 'overflow-overlay');
             } else {
-                documentClasses.remove('overflow-y-hidden', 'overflow-overlay', '-ml-4');
+                documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
             }
         }
     }

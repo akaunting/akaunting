@@ -166,6 +166,10 @@
         overflow-x: overlay;
     }
 
+    .overflow-y-overlay {
+        overflow-y: overlay;
+    }
+
     .py-top {
         padding-bottom: 16px;
         padding-top: 16px;
