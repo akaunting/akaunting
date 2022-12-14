@@ -36,7 +36,9 @@ const app = new Vue({
     },
 
     mounted() {
-        this.form.create_user = false;
+        if (! this.form.create_user) {
+            this.form.create_user = false;
+        }
     },
 
     methods:{

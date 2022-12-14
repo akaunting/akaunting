@@ -48,6 +48,7 @@
                                 :options="['1' => trans('customers.user_created')]"
                                 checkbox-class="sm:col-span-6"
                                 checked
+                                disabled
                             />
                         @else
                             <x-tooltip id="tooltip-client_portal-text" placement="bottom" message="{{ trans('customers.can_login_description') }}">
