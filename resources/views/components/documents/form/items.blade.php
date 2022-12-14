@@ -15,7 +15,7 @@
                 <thead class="border-b">
                     <tr>
                         @stack('move_th_start')
-                        <th class="text-left border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                        <th class="w-6 block text-left border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
                             @if (! $hideEditItemColumns)
                                 <x-documents.form.item-columns :type="$type" />
                             @endif
