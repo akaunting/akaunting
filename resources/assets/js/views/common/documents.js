@@ -470,11 +470,13 @@ const app = new Vue({
 
             let selected_tax;
 
-            this.dynamic_taxes.forEach(function(tax) {
-                if (tax.id == this.tax_id) {
-                    selected_tax = tax;
-                }
-            }, this);
+            if (this.dynamic_taxes.length) {
+                this.dynamic_taxes.forEach(function(tax) {
+                    if (tax.id == this.tax_id) {
+                        selected_tax = tax;
+                    }
+                }, this);
+            }
 
             this.items[item_index].tax_ids.push({
                 id: selected_tax.id,
