@@ -416,7 +416,7 @@
   z-index: 99;
 }
 /*
-! tailwindcss v3.2.1 | MIT License | https://tailwindcss.com
+! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -444,6 +444,7 @@
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
 */
 
 html {
@@ -453,6 +454,8 @@ html {
   -o-tab-size: 4;
      tab-size: 4; /* 3 */
   font-family: Quicksand, system-ui; /* 4 */
+  -webkit-font-feature-settings: normal;
+          font-feature-settings: normal; /* 5 */
 }
 
 /*
