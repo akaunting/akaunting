@@ -327,6 +327,7 @@ export default {
             new_options: {},
             loading: false,
             remote: false,
+            selected_is_compiled: false,
         }
     },
 
@@ -362,7 +363,6 @@ export default {
     mounted() {
         // Check Here..
         this.selected = this.value;
-
         if (this.model.length) {
             try {
                 if (eval(this.model) !== undefined) {
@@ -383,6 +383,7 @@ export default {
 
         setTimeout(function() {
             this.change();
+            this.selected_is_compiled = true;
         }.bind(this), 800);
     },
 
@@ -943,7 +944,11 @@ export default {
                 this.selected = selected.toString();
             } else {
                 if (Array.isArray(this.selected) && !this.selected.length) {
-                    this.selected = selected;
+                    if (! this.selected_is_compiled) {
+                        this.selected = selected;
+                    } else {
+                        this.selected = [];
+                    }
                 } else {
                     let is_string = false;
                     let pre_value = [];
