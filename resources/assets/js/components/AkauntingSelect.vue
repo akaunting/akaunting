@@ -327,7 +327,6 @@ export default {
             new_options: {},
             loading: false,
             remote: false,
-            selected_is_compiled: false,
         }
     },
 
@@ -384,7 +383,6 @@ export default {
 
         setTimeout(function() {
             this.change();
-            this.selected_is_compiled = true;
         }.bind(this), 800);
     },
 
@@ -941,29 +939,30 @@ export default {
         },
 
         value: function (selected) {
-            if (!this.multiple) {
-                this.selected = selected.toString();
-            } else {
-                if (Array.isArray(this.selected) && !this.selected.length) {
-                    if (! this.selected_is_compiled) {
-                        this.selected = selected;
-                    } else {
-                        this.selected = [];
-                    }
-                } else {
-                    let is_string = false;
-                    let pre_value = [];
+            // we tested this function works with post a form and after the selected function so put in the comment line
+            // if (!this.multiple) {
+            //     this.selected = selected.toString();
+            // } else {
+            //     if (Array.isArray(this.selected) && !this.selected.length) {
+            //         this.selected = selected;
+            //     } else {
+            //         let is_string = false;
+            //         let pre_value = [];
 
-                    selected.forEach(item => {
-                        if (typeof item != 'string') {
-                            is_string = true;
-                            pre_value.push(item.toString());
-                        }
-                    });
-                }
-            }
+            //         selected.forEach(item => {
+            //             if (typeof item != 'string') {
+            //                 is_string = true;
+            //                 pre_value.push(item.toString());
+            //             }
+            //         });
 
-            this.change();
+                    // if (is_string) {
+                    //     this.selected = pre_value;
+                    // }
+            //     }
+            // }
+
+            // this.change();
         },
 
         model: function (selected) {
