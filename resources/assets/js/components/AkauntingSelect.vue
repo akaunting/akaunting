@@ -363,6 +363,7 @@ export default {
     mounted() {
         // Check Here..
         this.selected = this.value;
+        
         if (this.model.length) {
             try {
                 if (eval(this.model) !== undefined) {
