@@ -8,6 +8,7 @@ use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
@@ -137,16 +138,16 @@ class CustomersTest extends FeatureTestCase
         Contact::factory()->customer()->count(5)->create();
         $count = Contact::customer()->count();
 
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->get(route('customers.export'))
             ->assertStatus(200);
 
-        \Excel::matchByRegex();
+        Excel::matchByRegex();
 
-        \Excel::assertDownloaded(
-            '/' . \Str::filename(trans_choice('general.customers', 2)) . '-\d{10}\.xlsx/',
+        Excel::assertDownloaded(
+            '/' . str()->filename(trans_choice('general.customers', 2), '-') . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->collection()->count() === $count;
@@ -161,7 +162,7 @@ class CustomersTest extends FeatureTestCase
 
         $customers = Contact::factory()->customer()->count($create_count)->create();
 
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->post(
@@ -170,10 +171,10 @@ class CustomersTest extends FeatureTestCase
             )
             ->assertStatus(200);
 
-        \Excel::matchByRegex();
+        Excel::matchByRegex();
 
-        \Excel::assertDownloaded(
-            '/' . \Str::filename(trans_choice('general.customers', 2)) . '-\d{10}\.xlsx/',
+        Excel::assertDownloaded(
+            '/' . str()->filename(trans_choice('general.customers', 2), '-') . '-\d{10}\.xlsx/',
             function (Export $export) use ($select_count) {
                 return $export->collection()->count() === $select_count;
             }
@@ -182,7 +183,7 @@ class CustomersTest extends FeatureTestCase
 
     public function testItShouldImportCustomers()
     {
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->post(
@@ -196,7 +197,7 @@ class CustomersTest extends FeatureTestCase
             )
             ->assertStatus(200);
 
-        \Excel::assertImported('customers.xlsx');
+        Excel::assertImported('customers.xlsx');
 
         $this->assertFlashLevel('success');
     }
