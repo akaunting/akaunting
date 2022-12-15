@@ -943,7 +943,7 @@ export default {
                 this.selected = selected.toString();
             } else {
                 if (Array.isArray(this.selected) && !this.selected.length) {
-                    this.selected = selected;
+                    this.selected = [];
                 } else {
                     let is_string = false;
                     let pre_value = [];
@@ -954,10 +954,6 @@ export default {
                             pre_value.push(item.toString());
                         }
                     });
-
-                    if (is_string) {
-                        this.selected = pre_value;
-                    }
                 }
             }
 
