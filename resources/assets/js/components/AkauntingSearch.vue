@@ -304,7 +304,7 @@ export default {
         onInput(evt) {
             this.search = evt.target.value;
             
-            let option_url = this.selected_options.length > 0 ? this.selected_options[this.filter_index].url : '';
+            let option_url = this.selected_options.length > 0 && this.selected_options[this.filter_index] !== undefined ? this.selected_options[this.filter_index].url : '';
 
             if (this.search) {
                 if (option_url.indexOf('?') === -1) {
