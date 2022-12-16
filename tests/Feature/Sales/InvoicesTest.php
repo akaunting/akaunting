@@ -191,7 +191,7 @@ class InvoicesTest extends FeatureTestCase
         Excel::matchByRegex();
 
         Excel::assertDownloaded(
-            '/' . str()->filename(trans_choice('general.invoices', 2), '-') . '-\d{10}\.xlsx/',
+            '/' . str()->filename(trans_choice('general.invoices', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->sheets()[0]->collection()->count() === $count;
@@ -218,7 +218,7 @@ class InvoicesTest extends FeatureTestCase
         Excel::matchByRegex();
 
         Excel::assertDownloaded(
-            '/' . str()->filename(trans_choice('general.invoices', 2), '-') . '-\d{10}\.xlsx/',
+            '/' . str()->filename(trans_choice('general.invoices', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($select_count) {
                 return $export->sheets()[0]->collection()->count() === $select_count;
             }

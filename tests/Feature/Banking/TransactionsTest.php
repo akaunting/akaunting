@@ -129,7 +129,7 @@ class TransactionsTest extends FeatureTestCase
         Excel::matchByRegex();
 
         Excel::assertDownloaded(
-            '/' . str()->filename(trans_choice('general.transactions', 2), '-') . '-\d{10}\.xlsx/',
+            '/' . str()->filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->collection()->count() === $count;
@@ -156,7 +156,7 @@ class TransactionsTest extends FeatureTestCase
         Excel::matchByRegex();
 
         Excel::assertDownloaded(
-            '/' . str()->filename(trans_choice('general.transactions', 2), '-') . '-\d{10}\.xlsx/',
+            '/' . str()->filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($select_count) {
                 return $export->collection()->count() === $select_count;
             }
