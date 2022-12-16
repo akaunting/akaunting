@@ -53611,7 +53611,7 @@ table thead a:hover{
   --tw-ring-color: transparent;
 }
 
-.el-select .el-input .el-input__inner{
+.el-select .el-input .el-input__inner, .un-el-select{
   margin-top: 0.25rem;
   height: auto;
   width: 100%;
@@ -53631,32 +53631,32 @@ table thead a:hover{
   color: rgb(66 66 66 / var(--tw-text-opacity));
 }
 
-.el-select .el-input .el-input__inner::-webkit-input-placeholder{
+.el-select .el-input .el-input__inner::-webkit-input-placeholder, .un-el-select::-webkit-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.el-select .el-input .el-input__inner::-moz-placeholder{
+.el-select .el-input .el-input__inner::-moz-placeholder, .un-el-select::-moz-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.el-select .el-input .el-input__inner:-ms-input-placeholder{
+.el-select .el-input .el-input__inner:-ms-input-placeholder, .un-el-select:-ms-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.el-select .el-input .el-input__inner::-ms-input-placeholder{
+.el-select .el-input .el-input__inner::-ms-input-placeholder, .un-el-select::-ms-input-placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.el-select .el-input .el-input__inner::placeholder{
+.el-select .el-input .el-input__inner::placeholder, .un-el-select::placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(199 201 217 / var(--tw-placeholder-opacity));
 }
 
-.el-select .el-input .el-input__inner:focus{
+.el-select .el-input .el-input__inner:focus, .un-el-select:focus{
   --tw-border-opacity: 1;
   border-color: rgb(85 88 139 / var(--tw-border-opacity));
   outline: 2px solid transparent;
@@ -53664,12 +53664,12 @@ table thead a:hover{
   --tw-ring-color: transparent;
 }
 
-.el-select .el-input .el-input__inner:disabled{
+.el-select .el-input .el-input__inner:disabled, .un-el-select:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.el-select .el-input .el-input__inner {
+.el-select .el-input .el-input__inner, .un-el-select {
     color:#595959 !important;
 }
 

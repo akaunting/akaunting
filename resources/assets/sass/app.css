@@ -286,7 +286,7 @@
     @apply focus:outline-none focus:ring-transparent focus:border-transparent bg-transparent cursor-pointer;
 }
 
-.el-select .el-input .el-input__inner {
+.el-select .el-input .el-input__inner, .un-el-select {
     @apply w-full h-auto text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple;
     color:#595959 !important;
 }
