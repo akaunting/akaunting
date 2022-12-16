@@ -1355,7 +1355,7 @@ input[type=file]::file-selector-button:hover{
 
 .disabled-money input, .disabled-money {
         background-color:transparent !important;
-        border: none;
+        border: none !important;
     }
 
 [type="radio"]{
