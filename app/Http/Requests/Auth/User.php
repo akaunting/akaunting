@@ -69,6 +69,7 @@ class User extends FormRequest
             'companies'         => $companies,
             'roles'             => $roles,
             'picture'           => $picture,
+            'landing_page'      => 'required|string',
         ];
     }
 
