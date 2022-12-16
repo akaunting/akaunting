@@ -7,6 +7,7 @@ use App\Jobs\Banking\CreateTransaction;
 use App\Models\Banking\Transaction;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
 
 class TransactionsTest extends FeatureTestCase
@@ -119,16 +120,16 @@ class TransactionsTest extends FeatureTestCase
         $count = 5;
         Transaction::factory()->income()->count($count)->create();
 
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->get(route('transactions.export'))
             ->assertStatus(200);
 
-        \Excel::matchByRegex();
+        Excel::matchByRegex();
 
-        \Excel::assertDownloaded(
-            '/' . \Str::filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
+        Excel::assertDownloaded(
+            '/' . str()->filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($count) {
                 // Assert that the correct export is downloaded.
                 return $export->collection()->count() === $count;
@@ -143,7 +144,7 @@ class TransactionsTest extends FeatureTestCase
 
         $transactions = Transaction::factory()->income()->count($create_count)->create();
 
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->post(
@@ -152,10 +153,10 @@ class TransactionsTest extends FeatureTestCase
             )
             ->assertStatus(200);
 
-        \Excel::matchByRegex();
+        Excel::matchByRegex();
 
-        \Excel::assertDownloaded(
-            '/' . \Str::filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
+        Excel::assertDownloaded(
+            '/' . str()->filename(trans_choice('general.transactions', 2)) . '-\d{10}\.xlsx/',
             function (Export $export) use ($select_count) {
                 return $export->collection()->count() === $select_count;
             }
@@ -164,7 +165,7 @@ class TransactionsTest extends FeatureTestCase
 
     public function testItShouldImportTransactions()
     {
-        \Excel::fake();
+        Excel::fake();
 
         $this->loginAs()
             ->post(
@@ -178,7 +179,7 @@ class TransactionsTest extends FeatureTestCase
             )
             ->assertStatus(200);
 
-        \Excel::assertImported('transactions.xlsx');
+        Excel::assertImported('transactions.xlsx');
 
         $this->assertFlashLevel('success');
     }
