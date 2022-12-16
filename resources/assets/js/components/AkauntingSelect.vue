@@ -362,7 +362,7 @@ export default {
     mounted() {
         // Check Here..
         this.selected = this.value;
-
+        
         if (this.model.length) {
             try {
                 if (eval(this.model) !== undefined) {
@@ -939,29 +939,30 @@ export default {
         },
 
         value: function (selected) {
-            if (!this.multiple) {
-                this.selected = selected.toString();
-            } else {
-                if (Array.isArray(this.selected) && !this.selected.length) {
-                    this.selected = selected;
-                } else {
-                    let is_string = false;
-                    let pre_value = [];
+            // we tested this function works with post a form and after the selected function so put in the comment line
+            // if (!this.multiple) {
+            //     this.selected = selected.toString();
+            // } else {
+            //     if (Array.isArray(this.selected) && !this.selected.length) {
+            //         this.selected = selected;
+            //     } else {
+            //         let is_string = false;
+            //         let pre_value = [];
 
-                    selected.forEach(item => {
-                        if (typeof item != 'string') {
-                            is_string = true;
-                            pre_value.push(item.toString());
-                        }
-                    });
+            //         selected.forEach(item => {
+            //             if (typeof item != 'string') {
+            //                 is_string = true;
+            //                 pre_value.push(item.toString());
+            //             }
+            //         });
 
-                    if (is_string) {
-                        this.selected = pre_value;
-                    }
-                }
-            }
+                    // if (is_string) {
+                    //     this.selected = pre_value;
+                    // }
+            //     }
+            // }
 
-            this.change();
+            // this.change();
         },
 
         model: function (selected) {
