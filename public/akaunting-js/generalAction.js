@@ -54,11 +54,12 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
 
     if (document.body.clientWidth <= 768) {
         table.querySelectorAll('[data-table-list]').forEach((actions) => {
-            if (actions.querySelector('[data-mobile-actions]') !== null) {
-                actions.querySelector('[data-mobile-actions]').addEventListener('click', function() {
+            let actions_html = actions.querySelector('[data-mobile-actions]');
+            if (actions_html) {
+                actions_html.addEventListener('click', function() {
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
-          
+            
                     this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
                         this.classList.add('opacity-0', 'invisible');
                         this.classList.remove('show');
