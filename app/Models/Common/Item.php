@@ -88,6 +88,11 @@ class Item extends Model
         return $query->where($billing . '_price', '=', null);
     }
 
+    public function scopePriceType($query, $price_type)
+    {
+        return $query->whereNotNull($price_type . '_price');
+    }
+
     /**
      * Get the item id.
      *

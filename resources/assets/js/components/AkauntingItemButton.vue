@@ -315,7 +315,7 @@ export default {
         },
 
         async fetchMatchedItems() {
-            await window.axios.get(url + '/common/items?search="' + this.search + '" enabled:1 limit:10')
+            await window.axios.get(url + '/common/items?search="' + this.search + '" not ' + this.price + ':NULL enabled:1 limit:10')
                 .then(response => {
                     this.item_list = [];
                     let items = response.data.data;
