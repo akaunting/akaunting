@@ -1203,6 +1203,10 @@ export default {
             if (this.group) {
                 // Option set sort_option data
                 if (!Array.isArray(options)) {
+                    if (typeof(this.selected) == 'string') {
+                        this.selected = '';
+                    }
+                    
                     for (const [index, _options] of Object.entries(options)) {
                         let values = [];
 
