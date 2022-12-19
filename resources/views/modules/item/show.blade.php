@@ -14,8 +14,6 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-loading.content />
-        
         <div class="flex flex-col space-y-16 py-4 cursor-default">
             <div class="flex flex-col lg:flex-row w-full lg:space-x-16 rtl:space-x-reverse space-y-0">
                 <div class="w-full lg:w-7/12 flex flex-col space-x-2 banner">
