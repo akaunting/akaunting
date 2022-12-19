@@ -141,41 +141,6 @@ const app = new Vue({
             });
         },
 
-        onSmallWidthColumn(item) {
-            this.$refs[item].$el.setAttribute('custom-half', true);
-        },
-
-        onFullWidthColumn(item) {
-            this.$refs[item].$el.removeAttribute('custom-half');
-        },
-
-        settingsInvoice() {
-            if (this.form.item_name == 'custom') {
-                this.item_name_input = true;
-                this.onSmallWidthColumn("item_name");
-            } else {
-                this.item_name_input = false;
-                this.onFullWidthColumn("item_name");
-            }
-
-            if (this.form.price_name == 'custom') {
-                this.price_name_input = true;
-                this.onSmallWidthColumn("price_name");
-            } else {
-                this.price_name_input = false;
-                this.onFullWidthColumn("price_name");
-            }
-
-            if (this.form.quantity_name == 'custom') {
-                this.quantity_name_input = true;
-                this.onSmallWidthColumn("quantity_name");
-            } else {
-                this.quantity_name_input = false;
-                this.onFullWidthColumn("quantity_name");
-            }
-            
-        },
-
         // Change currency get money
         onChangeCurrency(currency_code) {
             if (! currency_code) {
