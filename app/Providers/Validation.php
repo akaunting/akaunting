@@ -46,7 +46,7 @@ class Validation extends Provider
         Validator::extend('amount', function ($attribute, $value, $parameters, $validator) use (&$amount) {
             $status = false;
 
-            if ($value > 0 || in_array($value, $parameters)) {
+            if ($value >= 0 || in_array($value, $parameters)) {
                 $status = true;
             }
 
