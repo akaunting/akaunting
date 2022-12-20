@@ -42,7 +42,7 @@ class Transaction extends FormRequest
             'number' => 'required|string|unique:transactions,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'account_id' => 'required|integer',
             'paid_at' => 'required|date_format:Y-m-d H:i:s',
-            'amount' => 'required|amount',
+            'amount' => 'required|amount:0',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required|gt:0',
             'document_id' => 'nullable|integer',
