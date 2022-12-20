@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Module\Module;
+use App\Traits\Cloud;
 use App\Traits\SiteApi;
 use App\Utilities\Date;
 use App\Utilities\Info;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 
 trait Modules
 {
-    use SiteApi;
+    use Cloud, SiteApi;
 
     public function checkToken($apiKey)
     {
@@ -437,6 +438,15 @@ trait Modules
     {
         if (! $this->moduleExists($alias)) {
             return false;
+        }
+
+        // Check if module is installed in cloud
+        if ($this->isCloud()) {
+            $modules = Cache::get('cloud.companies.' . company_id() . '.modules.installed', []);
+
+            if (in_array($alias, $modules)) {
+                return true;
+            }
         }
 
         if (module($alias)->disabled()) {
