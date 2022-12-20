@@ -273,6 +273,10 @@ export default {
             } else {
                 documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
             }
+        },
+
+        'form.sort': function (val) {
+            this.form.sort = Number(val);
         }
     }
 }
