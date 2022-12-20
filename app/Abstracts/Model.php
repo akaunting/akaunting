@@ -102,12 +102,22 @@ abstract class Model extends Eloquent implements Ownable
     {
         $request = request();
 
+        /**
+         * Modules that use the sort parameter in CRUD operations cause an error,
+         * so this sort parameter set back to old value after the query is executed.
+         * 
+         * for Custom Fields module
+         */
+        $request_sort = $request->get('sort');
+
         $query->usingSearchString()->sortable($sort);
 
         if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
         }
 
+        $request->merge(['sort' => $request_sort]);
+        $request->offsetUnset('direction');
         $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
         return $query->paginate($limit);
