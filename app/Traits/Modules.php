@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Module\Module;
-use App\Traits\Cloud;
 use App\Traits\SiteApi;
 use App\Utilities\Date;
 use App\Utilities\Info;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 trait Modules
 {
-    use Cloud, SiteApi;
+    use SiteApi;
 
     public function checkToken($apiKey)
     {
@@ -441,7 +440,7 @@ trait Modules
         }
 
         // Check if module is installed in cloud
-        if ($this->isCloud()) {
+        if (request()->getHost() == 'app.akaunting.com') {
             $modules = Cache::get('cloud.companies.' . company_id() . '.modules.installed', []);
 
             if (in_array($alias, $modules)) {
