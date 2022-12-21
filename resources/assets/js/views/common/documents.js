@@ -818,9 +818,9 @@ const app = new Vue({
                 return;
             }
 
-            if (newVal != '' && newVal.search('^[-+]?([0-9]|[1-9][0-9]|100)*\.?[0-9]+$') !== 0) {
+            if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.discount = oldVal;
-                this.form.discount = this.form.discount ? this.form.discount.replace(',', '.') : '';
+                this.form.discount.replace(',', '.');
 
                 return;
             }
@@ -834,7 +834,7 @@ const app = new Vue({
                 }
             }
 
-            this.form.discount = this.form.discount ? this.form.discount.replace(',', '.') : '';
+           this.form.discount.replace(',', '.');
         },
 
         'form.loading': function (newVal, oldVal) {
