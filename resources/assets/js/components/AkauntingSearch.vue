@@ -349,6 +349,7 @@ export default {
         onInputConfirm() {
             let path = window.location.href.replace(window.location.search, '');
             let args = '';
+            let redirect = true;
 
             if (this.search) {
                 args += '?search="' + this.search + '" ';
@@ -364,6 +365,11 @@ export default {
             this.filtered.forEach(function (filter, index) {
                 if (!args) {
                     args += '?search=';
+                }
+
+                if (! this.selected_operator.length || ! this.selected_values.length) {
+                    redirect = false;
+                    return;
                 }
 
                 if (this.selected_operator[index].key == '!=') {
@@ -388,7 +394,9 @@ export default {
 
             Cookies.set('search-string', search_string, expires);
 
-            window.location = path + args;
+            if (redirect) {
+                window.location = path + args;
+            }
         },
 
         onOptionSelected(value) {
