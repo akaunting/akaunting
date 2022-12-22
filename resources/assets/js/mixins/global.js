@@ -25,7 +25,6 @@ import AkauntingSwitch from './../components/AkauntingSwitch';
 import AkauntingSlider from './../components/AkauntingSlider';
 import AkauntingColor from './../components/AkauntingColor';
 import CardForm from './../components/CreditCard/CardForm';
-
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';

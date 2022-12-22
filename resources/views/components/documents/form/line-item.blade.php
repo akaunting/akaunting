@@ -19,7 +19,12 @@
                 <tr>
                     @stack('move_td_start')
                     <td class="align-middle border-b-0 flex items-center justify-center" style="width:24px; height:100px; color: #8898aa;">
-                        <span class="w-6 material-icons">list</span>
+                        <draggable @change="log" @start="drag = true" @end="onEnd($event, index)" ghost-class="ghost-card">
+                            <div>
+                                <span class="w-6 material-icons">list</span>
+                                 <div v-html="index"></div>
+                            </div>
+                        </draggable>
                     </td>
                     @stack('move_td_end')
 
@@ -27,7 +32,6 @@
 
                     @if (! $hideItems || (! $hideItemName && ! $hideItemDescription))
                         @stack('name_td_start')
-
                         <td class="px-3 py-3 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right align-middle border-b-0 name">
                             @if (! $hideItemName)
                                 <span class="flex items-center text-sm" tabindex="0" v-if="row.item_id">

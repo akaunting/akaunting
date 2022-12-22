@@ -14,6 +14,7 @@ import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
+import draggable from 'vuedraggable';
 
 // plugin setup
 Vue.use(DashboardPlugin);
@@ -24,6 +25,10 @@ const app = new Vue({
     mixins: [
         Global
     ],
+
+    components: {
+        draggable
+    },
 
     data: function () {
         return {
@@ -77,6 +82,7 @@ const app = new Vue({
             ],
             email_template: false,
             send_to: false,
+            drag: false
         }
     },
 
@@ -111,6 +117,26 @@ const app = new Vue({
     },
 
     methods: {
+        checkMove(event) {
+            debugger;
+        },
+
+        onStart(event) {
+            debugger;
+        },
+
+        onEnd(event, index) {
+            this.drag = false;
+            
+            let element = this.items[index];
+            this.items.splice(index, 1);
+            this.items.splice(event.newIndex, 0, element);
+        },
+
+        log(event) {
+            debugger;
+        },
+
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
             
