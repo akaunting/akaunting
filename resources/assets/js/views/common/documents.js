@@ -820,7 +820,10 @@ const app = new Vue({
 
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.discount = oldVal;
-                this.form.discount.replace(',', '.');
+                
+                if (Number(newVal) == null) {
+                    this.form.discount.replace(',', '.'); 
+                }
 
                 return;
             }
