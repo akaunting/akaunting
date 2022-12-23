@@ -117,24 +117,14 @@ const app = new Vue({
     },
 
     methods: {
-        checkMove(event) {
-            debugger;
-        },
-
-        onStart(event) {
-            debugger;
-        },
-
-        onEnd(event, index) {
+        onEnd() {
             this.drag = false;
-            
-            let element = this.items[index];
-            this.items.splice(index, 1);
-            this.items.splice(event.newIndex, 0, element);
         },
 
-        log(event) {
-            debugger;
+        onUpdate(event) {
+            let fromIndex = this.form.items.indexOf(this.form.items[event.oldIndex]);
+            let element = this.form.items.splice(fromIndex, 1)[0];
+            this.form.items.splice(event.newIndex, 0, element);  
         },
 
         onRefFocus(ref) {
