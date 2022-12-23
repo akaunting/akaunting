@@ -118,7 +118,7 @@ const app = new Vue({
 
     methods: {
         onEnd() {
-            this.drag = false;
+            this.dragging = false;
         },
 
         onUpdate(event) {
