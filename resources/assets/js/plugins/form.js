@@ -493,9 +493,11 @@ export default class Form {
 
     // Form fields check validation issue
     onFail(error) {
-        if (error.request.status == 419) {
-            window.location.href = '';
-            return;
+        if (error.request) {
+            if (error.request.status == 419) {
+                window.location.href = '';
+                return;
+            }    
         }
 
         if (typeof this.errors != "undefined") {
