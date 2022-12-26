@@ -11,7 +11,7 @@
             @stack('timeline_get_paid_body_button_payment_start')
 
             @if (! $hideAddPayment)
-                @if(empty($document->transactions->count()) || (! empty($document->transactions->count()) && $document->paid != $document->amount))
+                @if ($document->status != 'paid' && (empty($document->transactions->count()) || (! empty($document->transactions->count()) && $document->paid != $document->amount)) )
                     <x-button
                         @click="onAddPayment('{{ route('modals.documents.document.transactions.create', $document->id) }}')"
                         id="show-slider-actions-payment-{{ $document->type }}"

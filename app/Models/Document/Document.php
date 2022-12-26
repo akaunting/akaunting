@@ -528,7 +528,7 @@ class Document extends Model
             ];
         } catch (\Exception $e) {}
 
-        if ((empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
+        if ($this->status != 'paid' && (empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
             try {
                 $actions[] = [
                     'type' => 'button',
