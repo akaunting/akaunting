@@ -102,18 +102,18 @@ return [
     // Documents
     'document' => [
         Document::INVOICE_TYPE => [
-            'alias'                 => '', // core empty but module write own alias
-            'group'                 => 'sales', // controller folder name for permission and route
+            'alias'                     => '', // core empty but module write own alias
+            'group'                     => 'sales', // controller folder name for permission and route
             'route' => [
-                'prefix'            => 'invoices', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'invoice', // sales/invoices/{parameter}/edit
-                'document'          => 'invoices.index',
-                'recurring'         => 'recurring-invoices.index',
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'prefix'                => 'invoices', // core use with group + prefix, module ex. estimates
+                'parameter'             => 'invoice', // sales/invoices/{parameter}/edit
+                'document'              => 'invoices.index',
+                'recurring'             => 'recurring-invoices.index',
+                //'create'              => 'invoices.create', // if you change route, you can write full path
             ],
             'permission' => [
-                'prefix'            => 'invoices', // this controller file name.
-                //'create'          => 'create-sales-invoices', // if you change action permission key, you can write full permission
+                'prefix'                => 'invoices', // this controller file name.
+                //'create'              => 'create-sales-invoices', // if you change action permission key, you can write full permission
             ],
             'translation' => [
                 'prefix'                        => 'invoices', // this translation file name.
@@ -123,49 +123,50 @@ return [
                 'section_billing_description'   => 'invoices.form_description.billing',
             ],
             'setting' => [
-                'prefix'            => 'invoice',
+                'prefix'                => 'invoice',
             ],
-            'category_type'         => 'income',
-            'transaction_type'      => 'income',
-            'contact_type'          => 'customer', // use contact type
-            'transaction'           => [
-                'email_template'    => 'invoice_payment_customer', // use email template
+            'category_type'             => 'income',
+            'transaction_type'          => 'income',
+            'contact_type'              => 'customer', // use contact type
+            'inventory_stock_action'    => 'decrease', // decrease stock in stock tracking
+            'transaction'               => [
+                'email_template'        => 'invoice_payment_customer', // use email template
             ],
-            'hide'                  => [], // for document items
-            'class'                 => [],
+            'hide'                      => [], // for document items
+            'class'                     => [],
             'notification' => [
-                'class'             => 'App\Notifications\Sale\Invoice',
-                'notify_contact'    => true,
-                'notify_user'       => true,
+                'class'                 => 'App\Notifications\Sale\Invoice',
+                'notify_contact'        => true,
+                'notify_user'           => true,
             ],
             'script' => [
-                'folder'            => 'common',
-                'file'              => 'documents',
+                'folder'                => 'common',
+                'file'                  => 'documents',
             ],
             'status_workflow' => [
-                'draft'             => 'send',
-                'sent'              => 'get-paid',
-                'viewed'            => 'get-paid',
-                'partial'           => 'get-paid',
-                'paid'              => 'get-paid',
-                'cancelled'         => 'restore',
+                'draft'                 => 'send',
+                'sent'                  => 'get-paid',
+                'viewed'                => 'get-paid',
+                'partial'               => 'get-paid',
+                'paid'                  => 'get-paid',
+                'cancelled'             => 'restore',
             ],
         ],
 
         Document::INVOICE_RECURRING_TYPE => [
-            'alias'                 => '', // core empty but module write own alias
-            'group'                 => 'sales', // controller folder name for permission and route
+            'alias'                     => '', // core empty but module write own alias
+            'group'                     => 'sales', // controller folder name for permission and route
             'route' => [
-                'prefix'            => 'recurring-invoices', // core use with group + prefix, module ex. estimates
-                'parameter'         => 'recurring_invoice', // sales/invoices/{parameter}/edit
-                'document'          => 'invoices.index',
-                'recurring'         => 'recurring-invoices.index',
-                'end'               => 'recurring-invoices.end',
-                //'create'          => 'invoices.create', // if you change route, you can write full path
+                'prefix'                => 'recurring-invoices', // core use with group + prefix, module ex. estimates
+                'parameter'             => 'recurring_invoice', // sales/invoices/{parameter}/edit
+                'document'              => 'invoices.index',
+                'recurring'             => 'recurring-invoices.index',
+                'end'                   => 'recurring-invoices.end',
+                //'create'              => 'invoices.create', // if you change route, you can write full path
             ],
             'permission' => [
-                'prefix'            => 'invoices', // this controller file name.
-                //'create'          => 'create-sales-invoices', // if you change action permission key, you can write full permission
+                'prefix'                => 'invoices', // this controller file name.
+                //'create'              => 'create-sales-invoices', // if you change action permission key, you can write full permission
             ],
             'translation' => [
                 'prefix'                        => 'invoices', // this translation file name.
@@ -176,41 +177,42 @@ return [
                 'section_billing_description'   => 'invoices.form_description.billing',
             ],
             'setting' => [
-                'prefix'            => 'invoice',
+                'prefix'                => 'invoice',
             ],
-            'category_type'         => 'income',
-            'transaction_type'      => 'income',
-            'contact_type'          => 'customer', // use contact type
-            'hide'                  => [], // for document items
-            'class'                 => [],
+            'category_type'             => 'income',
+            'transaction_type'          => 'income',
+            'contact_type'              => 'customer', // use contact type
+            'inventory_stock_action'    => 'decrease', // decrease stock in stock tracking
+            'hide'                      => [], // for document items
+            'class'                     => [],
             'notification' => [
 
             ],
-            'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
             'script' => [
-                'folder'            => 'common',
-                'file'              => 'documents',
+                'folder'                => 'common',
+                'file'                  => 'documents',
             ],
             'status_workflow' => [
-                'draft'             => 'schedule',
-                'active'            => 'schedule',
-                'end'               => 'schedule',
+                'draft'                 => 'schedule',
+                'active'                => 'schedule',
+                'end'                   => 'schedule',
             ],
         ],
 
         Document::BILL_TYPE => [
-            'alias'                 => '',
-            'group'                 => 'purchases',
+            'alias'                     => '',
+            'group'                     => 'purchases',
             'route' => [
-                'prefix'            => 'bills',
-                'parameter'         => 'bill',
-                'document'          => 'bills.index',
-                'recurring'         => 'recurring-bills.index',
-                //'create'          => 'bilss.create',
+                'prefix'                => 'bills',
+                'parameter'             => 'bill',
+                'document'              => 'bills.index',
+                'recurring'             => 'recurring-bills.index',
+                //'create'              => 'bilss.create',
             ],
             'permission' => [
-                'prefix'            => 'bills',
-                //'create'          => 'create-purchases-bills',
+                'prefix'                => 'bills',
+                //'create'              => 'create-purchases-bills',
             ],
             'translation' => [
                 'prefix'                        => 'bills',
@@ -219,48 +221,49 @@ return [
                 'section_billing_description'   => 'bills.form_description.billing',
             ],
             'setting' => [
-                'prefix'            => 'bill',
+                'prefix'                => 'bill',
             ],
-            'category_type'         => 'expense',
-            'transaction_type'      => 'expense',
-            'contact_type'          => 'vendor',
-            'transaction'           => [
-                'email_template'    => 'invoice_payment_customer', // use email template
+            'category_type'             => 'expense',
+            'transaction_type'          => 'expense',
+            'contact_type'              => 'vendor',
+            'inventory_stock_action'    => 'increase', // increases stock in stock tracking
+            'transaction'   => [
+                'email_template'        => 'invoice_payment_customer', // use email template
             ],
-            'hide'                  => [],
+            'hide'                      => [],
             'notification' => [
-                'class'             => 'App\Notifications\Purchase\Bill',
-                'notify_contact'    => false,
-                'notify_user'       => true,
+                'class'                 => 'App\Notifications\Purchase\Bill',
+                'notify_contact'        => false,
+                'notify_user'           => true,
             ],
             'script' => [
-                'folder'            => 'common',
-                'file'              => 'documents',
+                'folder'                => 'common',
+                'file'                  => 'documents',
             ],
             'status_workflow' => [
-                'draft'             => 'receive',
-                'received'          => 'make-payment',
-                'viewed'            => 'make-payment',
-                'partial'           => 'make-payment',
-                'paid'              => 'make-payment',
-                'cancelled'         => 'restore',
+                'draft'                 => 'receive',
+                'received'              => 'make-payment',
+                'viewed'                => 'make-payment',
+                'partial'               => 'make-payment',
+                'paid'                  => 'make-payment',
+                'cancelled'             => 'restore',
             ],
         ],
 
         Document::BILL_RECURRING_TYPE => [
-            'alias'                 => '',
-            'group'                 => 'purchases',
+            'alias'                     => '',
+            'group'                     => 'purchases',
             'route' => [
-                'prefix'            => 'recurring-bills',
-                'parameter'         => 'recurring_bill',
-                'document'          => 'bills.index',
-                'recurring'         => 'recurring-bills.index',
-                'end'               => 'recurring-bills.end',
-                //'create'          => 'bilss.create',
+                'prefix'                => 'recurring-bills',
+                'parameter'             => 'recurring_bill',
+                'document'              => 'bills.index',
+                'recurring'             => 'recurring-bills.index',
+                'end'                   => 'recurring-bills.end',
+                //'create'              => 'bilss.create',
             ],
             'permission' => [
-                'prefix'            => 'bills',
-                //'create'          => 'create-purchases-bills',
+                'prefix'                => 'bills',
+                //'create'              => 'create-purchases-bills',
             ],
             'translation' => [
                 'prefix'                        => 'bills',
@@ -270,24 +273,25 @@ return [
                 'section_billing_description'   => 'bills.form_description.billing',
             ],
             'setting' => [
-                'prefix'            => 'bill',
+                'prefix'                => 'bill',
             ],
-            'category_type'         => 'expense',
-            'transaction_type'      => 'expense',
-            'contact_type'          => 'vendor',
-            'hide'                  => [],
+            'category_type'             => 'expense',
+            'transaction_type'          => 'expense',
+            'contact_type'              => 'vendor',
+            'inventory_stock_action'    => 'increase', // increases stock in stock tracking 
+            'hide'                      => [],
             'notification' => [
 
             ],
-            'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
             'script' => [
-                'folder'            => 'common',
-                'file'              => 'documents',
+                'folder'                => 'common',
+                'file'                  => 'documents',
             ],
             'status_workflow' => [
-                'draft'             => 'schedule',
-                'active'            => 'schedule',
-                'end'               => 'schedule',
+                'draft'                 => 'schedule',
+                'active'                => 'schedule',
+                'end'                   => 'schedule',
             ],
         ],
     ],
