@@ -78,9 +78,6 @@ abstract class Show extends Component
     /** @var bool */
     public $hidePrint;
 
-    /** @var bool */
-    public $checkCancelled;
-
     /** @var string */
     public $printRoute;
 
@@ -330,7 +327,7 @@ abstract class Show extends Component
         $type, $document, $transactions = [],
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '', string $textPage = '',
         bool $hideCreate = false, string $createRoute = '', string $textCreate = '', bool $hideButtonStatuses = false, bool $hideEdit = false, string $editRoute = '', string $showRoute = '',
-        bool $hideMoreActions = false, bool $hideDuplicate = false, string $duplicateRoute = '', bool $hidePrint = false, bool $checkCancelled = true, string $printRoute = '',
+        bool $hideMoreActions = false, bool $hideDuplicate = false, string $duplicateRoute = '', bool $hidePrint = false, string $printRoute = '',
         bool $hideShare = false, string $shareRoute = '', string $signedUrl = '', bool $hideEmail = false, string $emailRoute = '', string $textEmail = '', bool $hidePdf = false, string $pdfRoute = '',
         bool $hideCancel = false, string $cancelledRoute = '', bool $hideCustomize = false, string $permissionCustomize = '', string $customizeRoute = '',
         bool $hideEnd = false, string $endRoute = '',
@@ -381,7 +378,6 @@ abstract class Show extends Component
         $this->duplicateRoute = $this->getDuplicateRoute($type, $duplicateRoute);
 
         $this->hidePrint = $hidePrint;
-        $this->checkCancelled = $checkCancelled;
         $this->printRoute = $this->getPrintRoute($type, $printRoute);
 
         $this->hideShare = $hideShare;
