@@ -3,6 +3,7 @@
   <akaunting-switch
     name="{{ $name }}"
     value="{{ (int) $value }}"
+    label="{{ trans('general.enabled') }}"
 
     @if (! empty($attributes['model']))
     :model="{{ $attributes['model'] }}"
