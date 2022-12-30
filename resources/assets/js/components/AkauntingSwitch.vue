@@ -1,6 +1,6 @@
 <template>
-    <div class="lg:absolute w-12 lg:ltr:right-0 lg:rtl:left-0 xl:-top-12">
-        <label class="lg:hidden">{{ label }}</label>
+    <div class="xl:absolute w-12 xl:ltr:right-0 xl:rtl:left-0 xl:-top-12">
+        <label class="text-black text-sm font-medium mb-1 xl:hidden">{{ label }}</label>
 
         <div class="relative full flex items-center cursor-pointer">
             <input type="radio" :name="name" v-show="selected == '0'" @click="enabled = 1" value="1" id="enabled-1" v-model="selected" class="w-full h-full absolute right-0 z-20 opacity-0 cursor-pointer">

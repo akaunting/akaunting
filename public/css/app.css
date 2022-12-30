@@ -57807,6 +57807,10 @@ body{
 
 @media (min-width: 1280px){
 
+  .xl\:absolute{
+    position: absolute;
+  }
+
   .xl\:top-28{
     top: 7rem;
   }
@@ -57882,6 +57886,10 @@ body{
     left: 0px;
   }
 
+  [dir="ltr"] .xl\:ltr\:right-0{
+    right: 0px;
+  }
+
   [dir="ltr"] .xl\:ltr\:ml-64{
     margin-left: 16rem;
   }
@@ -57892,6 +57900,10 @@ body{
 
   [dir="rtl"] .xl\:rtl\:right-0{
     right: 0px;
+  }
+
+  [dir="rtl"] .xl\:rtl\:left-0{
+    left: 0px;
   }
 
   [dir="rtl"] .xl\:rtl\:mr-64{

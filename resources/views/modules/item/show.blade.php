@@ -121,7 +121,11 @@
             </div>
 
             <div class="tabs w-full">
-                <x-tabs class="flex items-center overflow-x-scroll lg:overflow-visible" active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}">
+                <x-tabs
+                    class="w-full lg:w-auto"
+                    active="{{ ! empty($module->call_to_actions) ? 'features' : 'description' }}"
+                    data-disable-slider
+                >
                     <x-slot name="navs">
                         @stack('features_nav_start')
 
