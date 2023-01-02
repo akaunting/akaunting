@@ -2,19 +2,20 @@
 
 namespace App\Abstracts\View\Components\Documents;
 
-use App\Abstracts\View\Component;
-use App\Models\Common\Media;
+use Image;
+use ReflectionProperty;
 use App\Traits\DateTime;
-use App\Traits\Documents;
 use App\Traits\Tailwind;
+use App\Traits\Documents;
+use Illuminate\Support\Str;
+use App\Models\Common\Media;
 use App\Traits\ViewComponents;
+use App\Abstracts\View\Component;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
-use Image;
 
 abstract class Template extends Component
 {
@@ -123,6 +124,9 @@ abstract class Template extends Component
 
     public $hideNote;
 
+    /** @var bool */
+    public $print;
+
     /**
      * Create a new component instance.
      *
@@ -137,7 +141,7 @@ abstract class Template extends Component
         string $textDocumentTitle = '', string $textDocumentSubheading = '',
         string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
+        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', bool $print = false
     ) {
         $this->type = $type;
         $this->item = $item;
@@ -186,6 +190,8 @@ abstract class Template extends Component
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
+        
+        $this->print = $this->getPrint($print);
 
         // Set Parent data
         //$this->setParentData();
@@ -676,5 +682,23 @@ abstract class Template extends Component
 
         // @todo what return value invoice or always false??
         return setting('invoice.hide_amount', $hideAmount);
+    }
+
+    protected function getPrint($print)
+    {
+        if (! empty($print)) {
+            return $print;
+        }
+
+        $self = new ReflectionProperty($this::class, 'methodCache');
+        $self->setAccessible(true);
+
+        $values = $self->getValue();
+
+        if (array_key_exists('App\View\Components\Layouts\Admin', $values)) {
+            return false;
+        }
+
+        return true;
     }
 }
