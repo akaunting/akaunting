@@ -2,20 +2,19 @@
 
 namespace App\Abstracts\View\Components\Documents;
 
-use Image;
-use ReflectionProperty;
-use App\Traits\DateTime;
-use App\Traits\Tailwind;
-use App\Traits\Documents;
-use Illuminate\Support\Str;
-use App\Models\Common\Media;
-use App\Traits\ViewComponents;
 use App\Abstracts\View\Component;
+use App\Models\Common\Media;
+use App\Traits\DateTime;
+use App\Traits\Documents;
+use App\Traits\Tailwind;
+use App\Traits\ViewComponents;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
+use Image;
+use ReflectionProperty;
 
 abstract class Template extends Component
 {
