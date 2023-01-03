@@ -122,9 +122,20 @@
 
                 @stack('name_input_start')
                     @if (! $hideContactName)
-                        <p>
-                            {{ $document->contact_name }}
-                        </p>
+                        @if ($print)
+                            <p>
+                                {{ $document->contact_name }}
+                            </p>
+                        @else
+                            <x-link href="{{ route($showContactRoute, $document->contact_id) }}"
+                                override="class"
+                                class="py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6"
+                            >
+                                <x-link.hover>
+                                    {{ $document->contact_name }}
+                                </x-link.hover>
+                            </x-link>
+                        @endif
                     @endif
                 @stack('name_input_end')
 

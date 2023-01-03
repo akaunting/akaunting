@@ -9,12 +9,12 @@ use App\Traits\Documents;
 use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
 use Image;
+use ReflectionProperty;
 
 abstract class Template extends Component
 {
@@ -95,6 +95,9 @@ abstract class Template extends Component
     /** @var string */
     public $textOrderNumber;
 
+    /** @var string */
+    public $showContactRoute;
+
     public $hideItems;
 
     public $hideName;
@@ -123,6 +126,9 @@ abstract class Template extends Component
 
     public $hideNote;
 
+    /** @var bool */
+    public $print;
+
     /**
      * Create a new component instance.
      *
@@ -135,9 +141,9 @@ abstract class Template extends Component
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
         string $textDocumentTitle = '', string $textDocumentSubheading = '',
-        string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
+        string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '', string $showContactRoute = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
+        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', bool $print = false
     ) {
         $this->type = $type;
         $this->item = $item;
@@ -168,6 +174,7 @@ abstract class Template extends Component
         $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
         $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
+        $this->showContactRoute = $this->getShowContactRoute($type, $showContactRoute);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
@@ -186,6 +193,8 @@ abstract class Template extends Component
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
+        
+        $this->print = $this->getPrint($print);
 
         // Set Parent data
         //$this->setParentData();
@@ -535,6 +544,23 @@ abstract class Template extends Component
         return 'general.amount';
     }
 
+    protected function getShowContactRoute($type, $showContactRoute)
+    {
+        if (! empty($showContactRoute)) {
+            return $showContactRoute;
+        }
+
+        $route = $this->getRouteFromConfig($type, 'contact.show', 1);
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        $default_key = Str::plural(config('type.' . static::OBJECT_TYPE . '.' . $type . '.contact_type'), 2);
+
+        return $default_key . '.show';
+    }
+
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
     {
         if (! empty($hideItems)) {
@@ -676,5 +702,23 @@ abstract class Template extends Component
 
         // @todo what return value invoice or always false??
         return setting('invoice.hide_amount', $hideAmount);
+    }
+
+    protected function getPrint($print)
+    {
+        if (! empty($print)) {
+            return $print;
+        }
+
+        $self = new ReflectionProperty($this::class, 'methodCache');
+        $self->setAccessible(true);
+
+        $values = $self->getValue();
+
+        if (array_key_exists('App\View\Components\Layouts\Admin', $values)) {
+            return false;
+        }
+
+        return true;
     }
 }
