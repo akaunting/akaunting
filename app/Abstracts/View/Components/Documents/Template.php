@@ -95,6 +95,9 @@ abstract class Template extends Component
     /** @var string */
     public $textOrderNumber;
 
+    /** @var string */
+    public $showContactRoute;
+
     public $hideItems;
 
     public $hideName;
@@ -138,7 +141,7 @@ abstract class Template extends Component
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
         string $textDocumentTitle = '', string $textDocumentSubheading = '',
-        string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
+        string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '', string $showContactRoute = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
         string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', bool $print = false
     ) {
@@ -171,6 +174,7 @@ abstract class Template extends Component
         $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
         $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
+        $this->showContactRoute = $this->getShowContactRoute($type, $showContactRoute);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
@@ -538,6 +542,28 @@ abstract class Template extends Component
         }
 
         return 'general.amount';
+    }
+
+    protected function getShowContactRoute($type, $showContactRoute)
+    {
+        if (! empty($showContactRoute)) {
+            return $showContactRoute;
+        }
+
+
+        if (! empty($showRoute)) {
+            return $showRoute;
+        }
+
+        $route = $this->getRouteFromConfig($type, 'contact.show', 1);
+
+        if (!empty($route)) {
+            return $route;
+        }
+
+        $default_key = Str::plural(config('type.' . static::OBJECT_TYPE . '.' . $type . '.contact_type'), 2);
+
+        return $default_key . '.show';
     }
 
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)

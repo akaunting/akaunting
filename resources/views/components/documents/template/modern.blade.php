@@ -96,7 +96,7 @@
                                 {{ $document->contact_name }}
                             </p>
                         @else
-                            <x-link href="{{ route('customers.show', $document->contact_id) }}"
+                            <x-link href="{{ route($showContactRoute, $document->contact_id) }}"
                                 override="class"
                                 class="py-1.5 mb-3 sm:mb-0 text-xs bg-transparent hover:bg-transparent font-medium leading-6"
                             >
