@@ -550,11 +550,6 @@ abstract class Template extends Component
             return $showContactRoute;
         }
 
-
-        if (! empty($showRoute)) {
-            return $showRoute;
-        }
-
         $route = $this->getRouteFromConfig($type, 'contact.show', 1);
 
         if (!empty($route)) {
