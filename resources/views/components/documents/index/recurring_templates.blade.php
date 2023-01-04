@@ -17,7 +17,12 @@
             </x-table.th>
 
             <x-table.th class="w-2/12 ltr:pr-6 rtl:pl-6 py-3 ltr:text-left rtl:text-right text-xs font-medium text-black tracking-wider" hidden-mobile>
-                <x-sortablelink column="category.name" title="{{ trans_choice('general.categories', 1) }}" />
+                <x-slot name="first">
+                    <x-sortablelink column="contact_name" title="{{ trans_choice($textContactName, 1) }}" />
+                </x-slot>
+                <x-slot name="second">
+                    <x-sortablelink column="category.name" title="{{ trans_choice('general.categories', 1) }}" />
+                </x-slot>
             </x-table.th>
 
             <x-table.th class="w-4/12 sm:w-3/12">
@@ -60,9 +65,14 @@
                 </x-table.td>
 
                 <x-table.td class="w-2/12" hidden-mobile>
-                    <div class="flex items-center">
-                        <x-index.category :model="$item->category" />
-                    </div>
+                    <x-slot name="first">
+                        {{ $item->contact_name }}
+                    </x-slot>
+                    <x-slot name="second">
+                        <div class="flex items-center">
+                            <x-index.category :model="$item->category" />
+                        </div>
+                    </x-slot>
                 </x-table.td>
 
                 <x-table.td class="w-4/12 sm:w-3/12">
