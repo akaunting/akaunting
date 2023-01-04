@@ -6,7 +6,7 @@ return [
     'empty_items'               => 'Niste dodali nijednu stavku.',
     'grand_total'               => 'TOTAL',
     'accept_payment_online'     => 'Prihvatite plaćanja na mreži',
-    'transaction'               => 'Plaćanje za :iznos je izvršeno pomoću :računa.',
+    'transaction'               => 'Plaćanje za :amount je izvršeno pomoću :account.',
     'billing'                   => 'Naplata',
     'advanced'                  => 'Napredno',
 

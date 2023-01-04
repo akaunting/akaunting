@@ -5,7 +5,7 @@ return [
     'title' => [
         '403'       => '¡Ups! Acceso prohibido',
         '404'       => '¡Ups! Página no encontrada',
-        '500'       => '¡Ups! Algo salió mal',
+        '500'       => 'Ups... algo salió mal',
     ],
 
     'header' => [
@@ -15,11 +15,11 @@ return [
     ],
 
     'message' => [
-        '403'       => 'No puede acceder a esta página.',
-        '404'       => 'No pudimos encontrar la página que estaba buscando.',
+        '403'       => 'No puedes acceder a esta página.',
+        '404'       => 'No pudimos encontrar la página que estabas buscando.',
         '500'       => 'Trabajaremos para arreglarlo de inmediato.',
-        'record'    => 'No pudimos encontrar el registro que estaba buscando.',
-        'amount'    => '¡Esta página contiene cantidades no válidas! Por favor, póngase en contacto con el administrador del sistema.',
+        'record'    => 'No pudimos encontrar el registro que estabas buscando.',
+        'amount'    => '¡Esta página contiene cantidades invalidas! Por favor contacta al administrador del sistema.',
     ],
 
 ];

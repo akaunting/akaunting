@@ -12,6 +12,7 @@ return [
     'see_all_details'       => 'Veure els detalls de tots els comptes',
     'all_payments'          => 'Inicia sessió per veure tots els pagaments',
     'received_date'         => 'Data de recepció',
+    'redirect_description'  => 'Seràs redirigit a la web :name per fer el pagament.',
 
     'last_payment'          => [
         'title'             => 'Últim pagament fet',

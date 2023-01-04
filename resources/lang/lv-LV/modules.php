@@ -28,8 +28,10 @@ return [
     'yearly_pricing'        => 'Gada cenas noteikšana',
     'monthly_price'         => 'no :price',
     'per_month'             => 'mēnesī',
-    'billed_yearly'         => 'Izrakstīts par gadu',
+    'once'                  => 'vienreiz',
     'billed_monthly'        => 'Izrakstīts par mēnesi',
+    'billed_yearly'         => 'Izrakstīts par gadu',
+    'billed_once'           => 'Rēķins vienu reizi',
     'save_year'             => 'Jūs ietaupāt <strong>:price</strong> par gadu!',
     'if_paid_year'          => 'Vai <strong>:price/mo</strong> apmaksai par gadu',
     'information_monthly'   => 'Šī opcija ir derīga tikai pakalpojumam <strong>mākoņpakalpojums</strong>',
@@ -100,6 +102,10 @@ return [
         'unzip'             => 'Nevar unzip :modulis',
         'file_copy'         => 'Nevar nokopēt :modulis failus',
         'finish'            => 'Nevar pabeigt :modulis uzstādīšanu',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'Jūs izmantojat jaunāko :module versiju, atjauninājumi nav pieejami.',
     ],
 
     'badge' => [
