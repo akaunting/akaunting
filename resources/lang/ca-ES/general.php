@@ -90,6 +90,7 @@ return [
     'monthly'               => 'Mensualment',
     'quarterly'             => 'Trimestralment',
     'yearly'                => 'Anualment',
+    'lifetime'              => 'Per sempre',
     'add'                   => 'Afegeix',
     'add_new'               => 'Afegeix-ne un de nou',
     'add_income'            => 'Afegeix ingrés',

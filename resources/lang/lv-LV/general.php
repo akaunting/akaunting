@@ -90,6 +90,7 @@ return [
     'monthly'               => 'Ikmēneša',
     'quarterly'             => 'Ceturkšņa',
     'yearly'                => 'Gada',
+    'lifetime'              => 'Dzīve',
     'add'                   => 'Pievienot',
     'add_new'               => 'Pievienot jaunu',
     'add_income'            => 'Pievienot ienākumu',
