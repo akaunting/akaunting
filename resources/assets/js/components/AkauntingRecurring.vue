@@ -76,7 +76,7 @@
                 }">
             </el-date-picker>
 
-            <div class="w-20 px-2 text-sm text-center">
+            <div class="w-24 px-2 text-sm text-center">
                 {{ middleText }}
             </div>
 

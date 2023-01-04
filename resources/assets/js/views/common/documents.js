@@ -82,7 +82,6 @@ const app = new Vue({
             ],
             email_template: false,
             send_to: false,
-            drag: false
         }
     },
 
@@ -117,14 +116,11 @@ const app = new Vue({
     },
 
     methods: {
-        onEnd() {
-            this.dragging = false;
-        },
+        onItemSortUpdate(event) {
+            let item_index = this.form.items.indexOf(this.form.items[event.oldIndex]);
+            let item = this.form.items.splice(item_index, 1)[0];
 
-        onUpdate(event) {
-            let fromIndex = this.form.items.indexOf(this.form.items[event.oldIndex]);
-            let element = this.form.items.splice(fromIndex, 1)[0];
-            this.form.items.splice(event.newIndex, 0, element);  
+            this.form.items.splice(event.newIndex, 0, item);  
         },
 
         onRefFocus(ref) {

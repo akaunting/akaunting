@@ -1,4 +1,4 @@
-<tbody is="draggable" tag="tbody" handle=".handle" @start="dragging = true" @end="dragging = false" @update="onUpdate">
+<tbody is="draggable" tag="tbody" handle=".handle" @start="dragging = true" @end="dragging = false" @update="onItemSortUpdate">
     <tr v-for="(row, index) in items" :index="index">
         @stack('name_td_start')
 
