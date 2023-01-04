@@ -185,4 +185,16 @@ return [
         'mark_read_all'         => ':type is read all notifications!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Firefox Icon Configuration',
+            'description'  => '<span class="font-medium">If your icons not appear please;</span> <br /> <span class="font-medium">Please Allow pages to choose their own fonts, instead of your selections above</span> <br /><br /> <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span>',
+
+        ],
+
+    ],
+
 ];

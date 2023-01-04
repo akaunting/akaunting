@@ -72,6 +72,8 @@
                     </x-layouts.portal.header>
 
                     <x-layouts.portal.content>
+                        <notifications.browser />
+
                         {!! $content !!}
                     </x-layouts.portal.content>
 

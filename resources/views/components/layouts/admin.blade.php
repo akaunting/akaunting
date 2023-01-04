@@ -80,6 +80,8 @@
                     </x-layouts.admin.header>
 
                     <x-layouts.admin.content>
+                        <livewire:notification.browser />
+
                         <x-layouts.admin.notifications />
 
                         {!! $content !!}

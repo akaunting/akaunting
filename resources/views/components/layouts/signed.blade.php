@@ -63,6 +63,8 @@
             </x-layouts.signed.header>
 
             <x-layouts.signed.content>
+                <livewire:notification.browser />
+
                 {!! $content !!}
             </x-layouts.signed.content>
 
