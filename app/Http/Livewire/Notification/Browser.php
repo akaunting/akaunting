@@ -15,13 +15,7 @@ class Browser extends Component
     {
         $user_agent = request()->header('User-Agent');
 
-        $view = 'livewire.notification.browser.firefox';
-
-        if ($this->status || ! empty($_COOKIE['firefox-icon-notification-confirm'])) {
-            $this->status = true;
-        } else {
-            $this->status = false;
-        }
+        $view = 'livewire.notification.browser.index';
 
         if (Str::contains($user_agent, 'Firefox')) {
             $view = 'livewire.notification.browser.firefox';
