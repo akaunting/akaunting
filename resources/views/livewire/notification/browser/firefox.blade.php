@@ -34,14 +34,3 @@
         </div>
     </div>
 </div>
-
-@if ($status)
-<script>
-    let now = new Date();
-    now.setTime(now.getTime() + 1 * 3600 * 1000);
-
-    let expires = now.toUTCString();
-
-    Cookies.set('firefox_notification_confirm', true, expires);
-</script>
-@endif
