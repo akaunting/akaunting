@@ -28,11 +28,13 @@ return [
     'yearly_pricing'        => 'Prix annuel',
     'monthly_price'         => 'à partir de :price',
     'per_month'             => 'par mois',
-    'billed_yearly'         => 'Facturé Annuellement',
+    'once'                  => 'une fois',
     'billed_monthly'        => 'Facturé Mensuellement',
+    'billed_yearly'         => 'Facturé Annuellement',
+    'billed_once'           => 'Facturé une fois',
     'save_year'             => 'Vous économisez <strong>:price</strong> par an !',
     'if_paid_year'          => 'Ou <strong>:price/mo</strong> si payé annuellement',
-    'information_monthly'   => 'Cette option n\'est valide que pour le <strong>Cloud Service</strong>',
+    'information_monthly'   => 'Cette option n\'est valide que pour le <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud Service</strong></a>',
     'install'               => 'Installation',
     'buy_now'               => 'Acheter maintenant',
     'get_api_key'           => '<a href=":url" target="_blank">Cliquez ici</a> pour obtenir votre clé API.
@@ -102,6 +104,10 @@ return [
         'unzip'             => 'Impossible de décompresser :module',
         'file_copy'         => 'Impossible de copier les fichiers :module',
         'finish'            => 'Impossible de finaliser l\'installation de :module',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'Vous utilisez déjà la dernière version de :module, aucune mise à jour n\'est disponible.',
     ],
 
     'badge' => [

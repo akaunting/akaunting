@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Error: No et pots eliminar a tu mateix!',
         'self_disable'      => 'Error: No et pots desactivar a tu mateix!',
+        'unassigned'        => 'Error: No hi pot haver cap empresa sense usuaris! L\'empresa :company ha de tenir almenys un usuari.',
         'no_company'        => 'Error: No hi ha cap empresa assignada al teu compte. Si us plau, contacta amb l\'administrador del sistema.',
     ],
 
