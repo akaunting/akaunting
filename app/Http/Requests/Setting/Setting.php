@@ -41,6 +41,10 @@ class Setting extends FormRequest
                 break;
         }
 
+        if ($this->request->has('number_digit')) {
+            $rules['number_digit'] = 'required|integer|min:1|max:20';
+        }
+
         return $rules;
     }
 

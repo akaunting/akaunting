@@ -14,7 +14,7 @@
                     <x-slot name="body">
                         <x-form.group.text name="number_prefix" label="{{ trans('settings.invoice.prefix') }}"  value="{{ setting('invoice.number_prefix') }}" not-required />
 
-                        <x-form.group.text name="number_digit" label="{{ trans('settings.invoice.digit') }}"  value="{{ setting('invoice.number_digit') }}" not-required />
+                        <x-form.group.number_digit not-required />
 
                         <x-form.group.text name="number_next" label="{{ trans('settings.invoice.next') }}" value="{{ setting('invoice.number_next') }}" not-required />
 
