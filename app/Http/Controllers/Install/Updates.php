@@ -99,7 +99,7 @@ class Updates extends Controller
 
             $installed = $module->get('version');
 
-            if ($installed >= $version) {
+            if (version_compare($installed, $version, '>=')) {
                 flash(trans('modules.warning.latest_version', ['module' => $name]))->warning()->important();
 
                 return $this->check();
