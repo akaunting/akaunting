@@ -114,7 +114,7 @@
 
                 @if ($document->status != 'cancelled')
                     <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
-                        {{ trans('general.cancel') }}
+                        {{ trans('documents.actions.mark_cancelled') }}
                     </x-dropdown.link>
                 @endif
             @endcan

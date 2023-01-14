@@ -614,7 +614,7 @@ class Document extends Model
             if ($this->status != 'cancelled') {
                 try {
                     $actions[] = [
-                        'title' => trans('general.cancel'),
+                        'title' => trans('documents.actions.mark_cancelled'),
                         'icon' => 'cancel',
                         'url' => route($prefix . '.cancelled', $this->id),
                         'permission' => 'update-' . $group . '-' . $permission_prefix,

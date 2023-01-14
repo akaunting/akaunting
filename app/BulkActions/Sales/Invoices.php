@@ -31,7 +31,7 @@ class Invoices extends BulkAction
         ],
         'cancelled' => [
             'icon'          => 'cancel',
-            'name'          => 'general.cancel',
+            'name'          => 'invoices.mark_cancelled',
             'message'       => 'bulk_actions.message.cancelled',
             'permission'    => 'update-sales-invoices',
         ],

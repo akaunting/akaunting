@@ -31,7 +31,7 @@ class Bills extends BulkAction
         ],
         'cancelled' => [
             'icon'          => 'cancel',
-            'name'          => 'general.cancel',
+            'name'          => 'bills.mark_cancelled',
             'message'       => 'bulk_actions.message.cancelled',
             'permission'    => 'update-purchases-bills',
         ],
