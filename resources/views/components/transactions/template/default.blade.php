@@ -229,7 +229,7 @@
 
                     <td class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
                         @if ($transaction->contact->tax_number)
-                            {{ trans('general.tax_number') }}: {{ $transaction->contact->tax_number }}
+                            {{ $transaction->contact->tax_number }}
                         @endif
                     </td>
                 </tr>
