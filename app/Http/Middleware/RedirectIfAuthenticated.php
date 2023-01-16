@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
+use Illuminate\Http\Request;
 
 class RedirectIfAuthenticated
 {
@@ -12,17 +12,19 @@ class RedirectIfAuthenticated
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (Auth::guard($guard)->check()) {
-            if (Auth::user()->customer) {
-                return redirect('/customers');
+        $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if (!auth()->guard($guard)->check()) {
+                continue;
             }
 
-            return redirect('/');
+            return redirect(user()->getLandingPageOfUser());
         }
 
         return $next($request);

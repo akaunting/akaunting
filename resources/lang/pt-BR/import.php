@@ -4,6 +4,7 @@ return [
 
     'import'                => 'Importar',
     'title'                 => 'Importação: tipo',
-    'message'               => 'Permitidos tipos de arquivos: CSV, XLS. Por favor, <a target="_blank" href=":link"> <strong>Baixe</strong></a> o arquivo de amostra.',
+    'limitations'           => 'Tipos de arquivos permitidos: :extensions<br>Número máximo permitido: :row_limit',
+    'sample_file'           => 'Você pode <a target="_blank" href=":download_link"><strong>baixar</strong></a> o arquivo de exemplo e preenchê-lo com os seus dados.',
 
 ];

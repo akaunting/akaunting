@@ -1,0 +1,288 @@
+.quill {
+  @apply mt-1;
+}
+
+.ql-container {
+  font-family: "Quicksand", sans-serif !important;
+}
+
+.ql-editor p {
+  color: #424242;
+  display: inline;
+}
+
+.ql-toolbar {
+  @apply text-black;
+  position: relative;
+  padding: .625rem .75rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.ql-editor {
+  @apply text-sm text-light-gray;
+  display: block;
+  width: 100%;
+  padding: 12px 9px !important;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid;
+  border-top: unset;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  font-size: 14px !important;
+  height: auto !important;
+}
+
+.ql-toolbar button:hover {
+  color: #55588B !important;
+}
+
+.ql-snow .ql-editor a {
+  @apply text-green no-underline;
+}
+
+.quillWrapper {
+  @apply mt-1;
+}
+
+.ql-container.ql-snow {
+  border: unset !important;
+}
+
+.ql-tooltip {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  width: 18.5rem;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.4375rem;
+  padding: 0.625rem 0.75rem;
+  margin-top: 0.6rem;
+  -webkit-box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+}
+.ql-tooltip:after,
+.ql-tooltip:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.ql-tooltip:before {
+  border-bottom: 0.6rem solid rgba(0, 0, 0, 0.05);
+  border-left: 0.6rem solid transparent;
+  border-right: 0.6rem solid transparent;
+}
+.ql-tooltip:after {
+  border-bottom: 0.5rem solid #fff;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+}
+.ql-container .ql-tooltip:hover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.ql-tooltip .ql-preview {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ql-tooltip .ql-preview {
+      -webkit-transition: none;
+      transition: none;
+  }
+}
+.ql-tooltip.ql-editing .ql-preview {
+  display: none;
+}
+.ql-tooltip input {
+  display: none;
+  width: 100%;
+  padding-top: calc(0.25rem + 1px);
+  padding-bottom: calc(0.25rem + 1px);
+  background-color: transparent;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border: none;
+  color: #8898aa;
+}
+.ql-tooltip input:focus {
+  outline: none;
+}
+.ql-tooltip.ql-editing input {
+  display: block;
+}
+.ql-tooltip .ql-action,
+.ql-tooltip .ql-remove {
+  margin-left: 0.25rem;
+}
+.ql-tooltip .ql-action:before,
+.ql-tooltip .ql-remove:before {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ql-tooltip .ql-action:before,
+  .ql-tooltip .ql-remove:before {
+      -webkit-transition: none;
+      transition: none;
+  }
+}
+.ql-tooltip .ql-action:before:focus,
+.ql-tooltip .ql-action:before:hover,
+.ql-tooltip .ql-remove:before:focus,
+.ql-tooltip .ql-remove:before:hover {
+  text-decoration: none;
+}
+.ql-tooltip .ql-action:before.focus,
+.ql-tooltip .ql-action:before:focus,
+.ql-tooltip .ql-remove:before.focus,
+.ql-tooltip .ql-remove:before:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+.ql-tooltip .ql-action:before,
+.ql-tooltip.ql-editing .ql-action:before {
+  color: #fff;
+  background-color: #5e72e4;
+  border-color: #5e72e4;
+  -webkit-box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.ql-tooltip .ql-action:before:hover,
+.ql-tooltip.ql-editing .ql-action:before:hover {
+  color: #fff;
+  background-color: #5e72e4;
+  border-color: #5e72e4;
+}
+.ql-tooltip .ql-action:before.focus,
+.ql-tooltip .ql-action:before:focus,
+.ql-tooltip.ql-editing .ql-action:before.focus,
+.ql-tooltip.ql-editing .ql-action:before:focus {
+  -webkit-box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(94, 114, 228, 0.5);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(94, 114, 228, 0.5);
+}
+.ql-tooltip .ql-action:before.disabled,
+.ql-tooltip .ql-action:before:disabled,
+.ql-tooltip.ql-editing .ql-action:before.disabled,
+.ql-tooltip.ql-editing .ql-action:before:disabled {
+  color: #fff;
+  background-color: #5e72e4;
+  border-color: #5e72e4;
+}
+.ql-tooltip .ql-action:before:not(:disabled):not(.disabled).active,
+.ql-tooltip .ql-action:before:not(:disabled):not(.disabled):active,
+.ql-tooltip.ql-editing .ql-action:before:not(:disabled):not(.disabled).active,
+.ql-tooltip.ql-editing .ql-action:before:not(:disabled):not(.disabled):active,
+.show > .ql-tooltip .ql-action:before.dropdown-toggle,
+.show > .ql-tooltip.ql-editing .ql-action:before.dropdown-toggle {
+  color: #fff;
+  background-color: #324cdd;
+  border-color: #5e72e4;
+}
+.ql-tooltip .ql-action:before:not(:disabled):not(.disabled).active:focus,
+.ql-tooltip .ql-action:before:not(:disabled):not(.disabled):active:focus,
+.ql-tooltip.ql-editing .ql-action:before:not(:disabled):not(.disabled).active:focus,
+.ql-tooltip.ql-editing .ql-action:before:not(:disabled):not(.disabled):active:focus,
+.show > .ql-tooltip .ql-action:before.dropdown-toggle:focus,
+.show > .ql-tooltip.ql-editing .ql-action:before.dropdown-toggle:focus {
+  -webkit-box-shadow: none, 0 0 0 0 rgba(94, 114, 228, 0.5);
+  box-shadow: none, 0 0 0 0 rgba(94, 114, 228, 0.5);
+}
+.ql-tooltip .ql-action:before {
+  content: "Edit";
+}
+.ql-tooltip.ql-editing .ql-action:before {
+  content: "Save";
+}
+.ql-tooltip .ql-remove:before {
+  color: #212529;
+  background-color: #fff;
+  -webkit-box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  content: "Remove";
+  border-color: #dee2e6;
+}
+.ql-tooltip .ql-remove:before:hover {
+  color: #212529;
+  background-color: #fff;
+  border-color: #fff;
+}
+.ql-tooltip .ql-remove:before.focus,
+.ql-tooltip .ql-remove:before:focus {
+  -webkit-box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+}
+.ql-tooltip .ql-remove:before.disabled,
+.ql-tooltip .ql-remove:before:disabled {
+  color: #212529;
+  background-color: #fff;
+  border-color: #fff;
+}
+.ql-tooltip .ql-remove:before:not(:disabled):not(.disabled).active,
+.ql-tooltip .ql-remove:before:not(:disabled):not(.disabled):active,
+.show > .ql-tooltip .ql-remove:before.dropdown-toggle {
+  color: #212529;
+  background-color: #e6e5e5;
+  border-color: #fff;
+}
+.ql-tooltip .ql-remove:before:not(:disabled):not(.disabled).active:focus,
+.ql-tooltip .ql-remove:before:not(:disabled):not(.disabled):active:focus,
+.show > .ql-tooltip .ql-remove:before.dropdown-toggle:focus {
+  -webkit-box-shadow: none, 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+  box-shadow: none, 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+}
+.ql-tooltip.ql-editing .ql-remove:before {
+  display: none;
+}
+
+.ql-snow .ql-tooltip::before {
+    display: none;
+}
+
+.ql-snow .ql-tooltip a.ql-action::after {
+    display: none;
+}
+
+.ql-snow .ql-tooltip input[type=text]::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.ql-snow .ql-hidden {
+  display: none !important;
+}

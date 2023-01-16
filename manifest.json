@@ -1,0 +1,125 @@
+{
+    "name": "Akaunting",
+    "short_name": "Akaunting",
+    "description": "Free invoicing and accounting software for small businesses and freelancers.",
+    "categories": [
+        "finance",
+        "business"
+    ],
+    "start_url": ".?utm_source=pwa",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "orientation": "any",
+    "android_package_name": "com.akaunting.akaunting",
+    "prefer_related_applications": true,
+    "related_applications": [
+        {
+            "id": "com.akaunting.akaunting",
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=com.akaunting.akaunting"
+        },
+        {
+            "platform": "itunes",
+            "url": "https://apps.apple.com/us/app/akaunting/id1573240410"
+        }
+    ],
+    "splash": {
+        "640x1136":  "public/img/pwa/splash-640x1136.png",
+        "750x1334":  "public/img/pwa/splash-750x1334.png",
+        "828x1792":  "public/img/pwa/splash-828x1792.png",
+        "1125x2436": "public/img/pwa/splash-1125x2436.png",
+        "1242x2208": "public/img/pwa/splash-1242x2208.png",
+        "1242x2688": "public/img/pwa/splash-1242x2688.png",
+        "1536x2048": "public/img/pwa/splash-1536x2048.png",
+        "1668x2224": "public/img/pwa/splash-1668x2224.png",
+        "1668x2388": "public/img/pwa/splash-1668x2388.png",
+        "2048x2732": "public/img/pwa/splash-2048x2732.png"
+    },
+    "icons": [
+        {
+            "src": "public/img/pwa/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "purpose": "maskable",
+            "src": "public/img/pwa/icon-192x192-maskable.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "public/img/pwa/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "purpose": "maskable",
+            "src": "public/img/pwa/icon-512x512-maskable.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "public/img/pwa/screenshot-dashboard.png",
+            "sizes": "1932x1394",
+            "type": "image/png"
+        },
+        {
+            "src": "public/img/pwa/screenshot-invoice.png",
+            "sizes": "2748x1986",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "New Invoice",
+            "short_name": "New Invoice",
+            "description": "Create a new invoice",
+            "url": "sales/invoices/create?utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/pwa/icon-192x192.png",
+					"sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Income",
+            "short_name": "New Income",
+            "description": "Create a new income",
+            "url": "banking/transactions/create?type=income&utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/pwa/icon-192x192.png",
+					"sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Bill",
+            "short_name": "New Bill",
+            "description": "Create a new bill",
+            "url": "purchases/bills/create?utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/pwa/icon-192x192.png",
+					"sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "New Expense",
+            "short_name": "New Expense",
+            "description": "Create a new expense",
+            "url": "banking/transactions/create?type=expense&utm_source=pwa",
+            "icons": [
+                {
+                    "src": "public/img/pwa/icon-192x192.png",
+					"sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}

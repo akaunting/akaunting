@@ -2,10 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Allow Login?',
-    'user_created'          => 'User Created',
+    'can_login'             => 'Может войти?',
+    'user_created'          => 'Пользователь создан',
 
     'error' => [
-        'email'             => 'The email has already been taken.'
-    ]
+        'email'             => 'Этот e-mail уже занят.',
+    ],
+
 ];

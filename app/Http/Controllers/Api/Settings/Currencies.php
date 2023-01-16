@@ -2,50 +2,61 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Currency as Request;
+use App\Http\Resources\Setting\Currency as Resource;
+use App\Jobs\Setting\CreateCurrency;
+use App\Jobs\Setting\DeleteCurrency;
+use App\Jobs\Setting\UpdateCurrency;
 use App\Models\Setting\Currency;
-use App\Transformers\Setting\Currency as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Currencies extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $currencies = Currency::collect();
 
-        return $this->response->paginator($currencies, new Transformer());
+        return Resource::collection($currencies);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Currency  $currency
-     * @return \Dingo\Api\Http\Response
+     * @param  int|string  $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Currency $currency)
+    public function show($id)
     {
-        return $this->response->item($currency, new Transformer());
+        // Check if we're querying by id or code
+        if (is_numeric($id)) {
+            $currency = Currency::find($id);
+        } else {
+            $currency = Currency::where('code', $id)->first();
+        }
+
+        if (! $currency instanceof Currency) {
+            return $this->errorInternal('No query results for model [' . Currency::class . '] ' . $id);
+        }
+
+        return new Resource($currency);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $currency = Currency::create($request->all());
+        $currency = $this->dispatch(new CreateCurrency($request));
 
-        return $this->response->created(url('api/currencies/'.$currency->id));
+        return $this->created(route('api.currencies.show', $currency->id), new Resource($currency));
     }
 
     /**
@@ -53,25 +64,63 @@ class Currencies extends ApiController
      *
      * @param  $currency
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Currency $currency, Request $request)
     {
-        $currency->update($request->all());
+        try {
+            $currency = $this->dispatch(new UpdateCurrency($currency, $request));
 
-        return $this->response->item($currency->fresh(), new Transformer());
+            return new Resource($currency->fresh());
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
+    }
+
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  Currency  $currency
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function enable(Currency $currency)
+    {
+        $currency = $this->dispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 1])));
+
+        return new Resource($currency->fresh());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  Currency  $currency
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function disable(Currency $currency)
+    {
+        try {
+            $currency = $this->dispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 0])));
+
+            return new Resource($currency->fresh());
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  Currency  $currency
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Currency $currency)
     {
-        $currency->delete();
+        try {
+            $this->dispatch(new DeleteCurrency($currency));
 
-        return $this->response->noContent();
+            return $this->noContent();
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
     }
 }

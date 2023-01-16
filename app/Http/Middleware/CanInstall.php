@@ -21,6 +21,6 @@ class CanInstall
         }
 
         // Already installed, redirect to login
-        redirect('auth/login')->send();
+        return redirect()->route('login');
     }
 }

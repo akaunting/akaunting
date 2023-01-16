@@ -2,19 +2,17 @@
 
 namespace App\Models\Auth;
 
-use EloquentFilter\Filterable;
-use Laratrust\LaratrustRole;
+use Akaunting\Sortable\Traits\Sortable;
+use App\Traits\Tenants;
+use Bkwld\Cloner\Cloneable;
+use Laratrust\Models\LaratrustRole;
 use Laratrust\Traits\LaratrustRoleTrait;
-use Kyslik\ColumnSortable\Sortable;
-use Request;
-use Route;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Role extends LaratrustRole
 {
-    use LaratrustRoleTrait;
-    use Filterable;
-    use Sortable;
-    
+    use Cloneable, LaratrustRoleTrait, SearchString, Sortable, Tenants;
+
     protected $table = 'roles';
 
     /**
@@ -22,31 +20,56 @@ class Role extends LaratrustRole
      *
      * @var array
      */
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'display_name', 'description', 'created_from', 'created_by'];
 
     /**
-     * Define the filter provider globally.
+     * Clonable relationships.
      *
-     * @return ModelFilter
+     * @var array
      */
-    public function modelFilter()
+    public $cloneable_relations = ['permissions'];
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
     {
-        // Check if is api or web
-        if (Request::is('api/*')) {
-            $arr = array_reverse(explode('\\', explode('@', app()['api.router']->currentRouteAction())[0]));
-            $folder = $arr[1];
-            $file = $arr[0];
-        } else {
-            list($folder, $file) = explode('/', Route::current()->uri());
-        }
+        $actions = [];
 
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
-        }
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('roles.roles.edit', $this->id),
+            'permission' => 'update-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-role-' . $this->id,
+            ],
+        ];
 
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
+        $actions[] = [
+            'title' => trans('general.duplicate'),
+            'icon' => 'file_copy',
+            'url' => route('roles.roles.duplicate', $this->id),
+            'permission' => 'create-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-duplicate-role-' . $this->id,
+            ],
+        ];
 
-        return $this->provideFilter($class);
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'roles.roles.destroy',
+            'permission' => 'delete-roles-roles',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-role-' . $this->id,
+            ],
+            'model' => $this,
+        ];
+
+        return $actions;
     }
 
     /**
@@ -61,9 +84,20 @@ class Role extends LaratrustRole
     {
         $request = request();
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        $search = $request->get('search');
+        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->filter($input)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param  Document $src
+     * @param  boolean $child
+     */
+    public function onCloning($src, $child = null)
+    {
+        $this->name = $src->name . '-' . Role::max('id') + 1;
     }
 }

@@ -4,6 +4,6 @@ return [
 
     'previous'              => '&laquo; Trang sau',
     'next'                  => 'Trang trước &raquo;',
-    'showing'               => 'Hiển thị :đầu đến :cuối của :tất cả :loại',
+    'showing'               => 'Hiển thị :first đến :last trong tổng số :total :type',
 
 ];

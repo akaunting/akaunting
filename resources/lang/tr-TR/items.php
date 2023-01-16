@@ -2,14 +2,8 @@
 
 return [
 
-    'quantities'            => 'Adet|Adetler',
-    'sales_price'           => 'Satış Fiyatı',
-    'purchase_price'        => 'Alış Fiyatı',
-    'sku'                   => 'Ürün Kodu',
-
-    'notification' => [
-        'message'       => ':name ürünün stoğu tükendiği için bu iletiyi almaktasınız.',
-        'button'        => 'Şimdi Görüntüle',
-    ],
+    'sale_price'            => 'Satış Fiyatı',
+    'purchase_price'         => 'Alış Fiyatı',
+    'enter_item_description' => 'Bir açıklama giriniz',
 
 ];

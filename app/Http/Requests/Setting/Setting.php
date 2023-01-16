@@ -2,20 +2,11 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
+use Illuminate\Support\Str;
 
-class Setting extends Request
+class Setting extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,10 +14,50 @@ class Setting extends Request
      */
     public function rules()
     {
+        $rules = [];
+
+        $prefix = $this->request->get('_prefix', null);
+
+        switch ($prefix) {
+            case 'company':
+                $logo = 'mimes:' . config('filesystems.mimes')
+                        . '|between:0,' . config('filesystems.max_size') * 1024
+                        . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
+
+                $rules = [
+                    'name'  => 'required|string',
+                    'email' => 'required|email',
+                    'logo'  => $logo,
+                ];
+
+                break;
+            case 'default':
+                $rules = [
+                    'currency'          => 'required|string|currency',
+                    'locale'            => 'required|string',
+                    'payment_method'    => 'required|string',
+                ];
+
+                break;
+        }
+
+        if ($this->request->has('number_digit')) {
+            $rules['number_digit'] = 'required|integer|min:1|max:20';
+        }
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+        $logo_dimensions = trans('validation.custom.invalid_dimension', [
+            'attribute'     => Str::lower(trans('settings.company.logo')),
+            'width'         => config('filesystems.max_width'),
+            'height'        => config('filesystems.max_height'),
+        ]);
+
         return [
-            'company_name' => 'required|string',
-            'company_email' => 'required|email',
-            'company_logo' => 'mimes:' . setting('general.file_types', 'pdf,jpeg,jpg,png'),
+            'logo.dimensions' => $logo_dimensions,
         ];
     }
 }

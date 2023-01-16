@@ -2,15 +2,10 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Bus\Queueable;
+use App\Abstracts\Job;
 
-class $CLASS$ implements ShouldQueue
+class $CLASS$ extends Job
 {
-    use InteractsWithQueue, SerializesModels, Queueable;
-
     /**
      * Create a new job instance.
      *

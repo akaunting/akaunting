@@ -2,13 +2,10 @@
 
 namespace App\Models\Module;
 
-use App\Models\Model;
-use Sofa\Eloquence\Eloquence;
+use App\Abstracts\Model;
 
 class Module extends Model
 {
-    use Eloquence;
-
     protected $table = 'modules';
 
     /**
@@ -16,7 +13,16 @@ class Module extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'alias', 'status'];
+    protected $fillable = ['company_id', 'alias', 'enabled', 'created_from', 'created_by'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
 
     /**
      * Scope alias.

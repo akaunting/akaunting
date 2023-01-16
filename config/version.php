@@ -4,22 +4,22 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Import',
+    'code'      =>  'Tailwind',
 
-    'major'     =>  '1',
+    'major'     =>  '3',
 
-    'minor'     =>  '1',
+    'minor'     =>  '0',
 
-    'patch'     =>  '15',
+    'patch'     =>  '11',
 
     'build'     =>  '',
-    
+
     'status'    =>  'Stable',
-    
-    'date'      =>  '13-March-2018',
-    
-    'time'      =>  '16:00',
-    
+
+    'date'      =>  '04-January-2023',
+
+    'time'      =>  '01:00',
+
     'zone'      =>  'GMT +3',
-    
+
 ];

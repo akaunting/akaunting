@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Yenile',
 
     'steps' => [
-        'requirements'      => 'Lütfen, aşağıdaki sistem gereksinimlerini karşılayın!',
+        'requirements'      => 'Sorunları gidermek için hosting firması ile iletişime geçin!',
         'language'          => 'Adım 1/3 : Dil Seçimi',
         'database'          => 'Adım 2/3 : Veritabanı Ayarları',
         'settings'          => 'Adım 3/3 : Şirket ve Yönetici Bilgileri',
@@ -19,8 +19,10 @@ return [
     'requirements' => [
         'enabled'           => ':feature etkin olmalıdır!',
         'disabled'          => ':feature devre dışı bırakılmalıdır!',
-        'extension'         => ':extension eklentisi yüklenmelidir!',
+        'extension'         => ':extension eklendisi kurulmalı ve yüklenmelidir!',
         'directory'         => ':directory dizini yazılabilir olmalıdır!',
+        'executable'        => 'PHP CLI çalıştırıcısı bulunamadı veya çalışmıyor veya sürümü :php_version ve üstü değil. Lütfen, hosting firmanızdan PHP_BINARY veya PHP_PATH ortam değerlerini doğru ayarlamasını isteyin.',
+        'npm'               => '<b>Eksik JavaScript dosyaları !</b> <br><br><span><em class="underline">npm install</em> ve <em class="underline">npm run dev</em> komutlarını çalıştırmalısınız.</span>', 
     ],
 
     'database' => [
@@ -38,7 +40,12 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Hata: HTTP ve CLI için PHP sürümün :php_version ve üstü olması gerektiğini hosting firmanıza bildirin.',
         'connection'        => 'Hata: Veritabanına bağlanamıyoruz! Lütfen veritabanı bilgilerini kontrol ediniz.',
     ],
 
+    'update' => [
+        'core'              => 'Akaunting\'in yeni sürümü mevcut! Lütfen kurulumunuzu güncelleyin.',
+        'module'            => ':modülün yeni versiyonu mevcut! Lütfen kurulumunuzu güncelleyin.',
+    ],
 ];

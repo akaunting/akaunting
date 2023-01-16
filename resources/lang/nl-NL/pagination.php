@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '«Vorige',
-    'next'                  => '«Volgende»;',
-    'showing'               => 'Tonen: eerst aan: laatste van: totale: type',
-
+    'previous'              => 'Vorige',
+    'next'                  => 'Volgende',
+    'showing'               => ':first-:last van :total items',
+    'page'                  => 'per pagina',
 ];

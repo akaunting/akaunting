@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Traits\Modules;
-use Illuminate\Routing\Route;
+use App\Abstracts\Http\Controller;
 
 class Home extends Controller
 {
-    use Modules;
-
     /**
      * Display a listing of the resource.
      *
@@ -17,18 +13,16 @@ class Home extends Controller
      */
     public function index()
     {
-        $this->checkApiToken();
+        return $this->response('modules.home.index');
+    }
 
-        $data = [
-            'query' => [
-                'limit' => 4
-            ]
-        ];
-
-        $paid = $this->getPaidModules($data);
-        $new = $this->getNewModules($data);
-        $free = $this->getFreeModules($data);
-
-        return view('modules.home.index', compact('paid', 'new', 'free'));
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('apps.home.index');
     }
 }

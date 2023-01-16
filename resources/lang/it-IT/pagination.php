@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Precedente',
-    'next'                  => 'Prossimo &raquo;',
-    'showing'               => 'Visualizza dal :first al :last di :total :type',
-
+    'previous'              => 'Precedente',
+    'next'                  => 'Successivo',
+    'showing'               => ':first-:last di :total recordi.',
+    'page'                  => 'per pagina.',
 ];

@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Marku Decimal',
     'thousands_separator'   => 'Mijëra Ndarës',
     'precision'             => 'Saktësia',
+    'conversion'            => 'Konvertimi i valutës: :price (:currency_code) në :currency_rate',
     'symbol' => [
         'symbol'            => 'Simboli',
         'position'          => 'Pozicioni i Simbolit',

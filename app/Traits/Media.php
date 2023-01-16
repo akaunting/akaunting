@@ -34,4 +34,30 @@ trait Media
 
         return $media;
     }
+
+    public function attachMedia($media, $tags): void
+    {
+        $tags = (array)$tags;
+        $increments = $this->getOrderValueForTags($tags);
+
+        $ids = $this->extractPrimaryIds($media);
+
+        foreach ($tags as $tag) {
+            $attach = [];
+
+            foreach ($ids as $id) {
+                $attach[$id] = [
+                    'company_id' => company_id(),
+                    'created_from' => source_name(),
+                    'created_by' => user_id(),
+                    'tag' => $tag,
+                    'order' => ++$increments[$tag],
+                ];
+            }
+
+            $this->media()->attach($attach);
+        }
+
+        $this->markMediaDirty($tags);
+    }
 }

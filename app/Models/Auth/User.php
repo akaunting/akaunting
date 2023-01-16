@@ -2,22 +2,25 @@
 
 namespace App\Models\Auth;
 
+use Akaunting\Sortable\Traits\Sortable;
 use App\Notifications\Auth\Reset;
-use Date;
-use EloquentFilter\Filterable;
-use GuzzleHttp\Exception\RequestException;
+use App\Traits\Media;
+use App\Traits\Owners;
+use App\Traits\Sources;
+use App\Traits\Tenants;
+use App\Traits\Users;
+use App\Utilities\Date;
+use Illuminate\Contracts\Translation\HasLocalePreference;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
-use Request;
-use Route;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
-    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Media;
+    use HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
 
     protected $table = 'users';
 
@@ -26,7 +29,16 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled'];
+    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled', 'landing_page', 'created_from', 'created_by'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -49,14 +61,42 @@ class User extends Authenticatable
      */
     public $sortable = ['name', 'email', 'enabled'];
 
-    public function companies()
+    public static function boot()
     {
-        return $this->morphToMany('App\Models\Company\Company', 'user', 'user_companies', 'user_id', 'company_id');
+        parent::boot();
+
+        static::retrieved(function ($model) {
+            $model->setCompanyIds();
+        });
+
+        static::saving(function ($model) {
+            $model->unsetCompanyIds();
+        });
     }
 
-    public function customer()
+    public function companies()
     {
-        return $this->hasOne('App\Models\Income\Customer', 'user_id', 'id');
+        return $this->belongsToMany('App\Models\Common\Company', 'App\Models\Auth\UserCompany');
+    }
+
+    public function contact()
+    {
+        return $this->hasOne('App\Models\Common\Contact', 'user_id', 'id');
+    }
+
+    public function dashboards()
+    {
+        return $this->belongsToMany('App\Models\Common\Dashboard', 'App\Models\Auth\UserDashboard');
+    }
+
+    public function invitation()
+    {
+        return $this->hasOne('App\Models\Auth\UserInvitation', 'user_id', 'id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Auth\Role', 'App\Models\Auth\UserRole');
     }
 
     /**
@@ -64,6 +104,10 @@ class User extends Authenticatable
      */
     public function getNameAttribute($value)
     {
+        if (empty($value)) {
+            return trans('general.na');
+        }
+
         return ucfirst($value);
     }
 
@@ -73,24 +117,24 @@ class User extends Authenticatable
     public function getPictureAttribute($value)
     {
         // Check if we should use gravatar
-        if (setting('general.use_gravatar', '0') == '1') {
+        if (setting('default.use_gravatar', '0') == '1') {
             try {
                 // Check for gravatar
-                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
+                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))) . '?size=90&d=404';
 
                 $client = new \GuzzleHttp\Client(['verify' => false]);
 
                 $client->request('GET', $url)->getBody()->getContents();
 
                 $value = $url;
-            } catch (RequestException $e) {
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
                 // 404 Not Found
             }
         }
 
-        if (!empty($value) && !$this->hasMedia('picture')) {
+        if (!empty($value)) {
             return $value;
-        } elseif (!$this->hasMedia('picture')) {
+        } elseif (! $this->hasMedia('picture')) {
             return false;
         }
 
@@ -100,7 +144,7 @@ class User extends Authenticatable
     /**
      * Always return a valid picture when we retrieve it
      */
-    public function getLastLoggedInAtAttribute($value)
+    public function getLastLoggedAttribute($value)
     {
         // Date::setLocale('tr');
 
@@ -109,14 +153,6 @@ class User extends Authenticatable
         } else {
             return trans('auth.never');
         }
-    }
-
-    /**
-     * Send reset link to user via email
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new Reset($token));
     }
 
     /**
@@ -136,30 +172,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Define the filter provider globally.
-     *
-     * @return ModelFilter
+     * Send reset link to user via email
      */
-    public function modelFilter()
+    public function sendPasswordResetNotification($token)
     {
-        // Check if is api or web
-        if (Request::is('api/*')) {
-            $arr = array_reverse(explode('\\', explode('@', app()['api.router']->currentRouteAction())[0]));
-            $folder = $arr[1];
-            $file = $arr[0];
-        } else {
-            list($folder, $file) = explode('/', Route::current()->uri());
-        }
-
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
-        }
-
-        //$class = '\App\Filters\Auth\Users';
-
-        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
-
-        return $this->provideFilter($class);
+        $this->notify(new Reset($token, $this->email));
     }
 
     /**
@@ -173,15 +190,27 @@ class User extends Authenticatable
     public function scopeCollect($query, $sort = 'name')
     {
         $request = request();
+        $search = $request->get('search');
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        /**
+         * Modules that use the sort parameter in CRUD operations cause an error,
+         * so this sort parameter set back to old value after the query is executed.
+         * 
+         * for Custom Fields module
+         */
+        $request_sort = $request->get('sort');
 
-        return $query->filter($input)->sortable($sort)->paginate($limit);
+        $query->usingSearchString($search)->sortable($sort);
+
+        $request->merge(['sort' => $request_sort]);
+        $request->offsetUnset('direction');
+        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
+
+        return $query->paginate($limit);
     }
 
     /**
-     * Scope to only include active currencies.
+     * Scope to only include active users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -189,5 +218,164 @@ class User extends Authenticatable
     public function scopeEnabled($query)
     {
         return $query->where('enabled', 1);
+    }
+
+    /**
+     * Scope to only customers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsCustomer($query)
+    {
+        return $query->wherePermissionIs('read-client-portal');
+    }
+
+    /**
+     * Scope to only users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsNotCustomer($query)
+    {
+        return $query->wherePermissionIs('read-admin-panel');
+    }
+
+    /**
+     * Attach company_ids attribute to model.
+     *
+     * @return void
+     */
+    public function setCompanyIds()
+    {
+        $company_ids = $this->withoutEvents(function () {
+            return $this->companies->pluck('id')->toArray();
+        });
+
+        $this->setAttribute('company_ids', $company_ids);
+    }
+
+    /**
+     * Detach company_ids attribute from model.
+     *
+     * @return void
+     */
+    public function unsetCompanyIds()
+    {
+        $this->offsetUnset('company_ids');
+    }
+
+    /**
+     * Determine if user is a customer.
+     *
+     * @return bool
+     */
+    public function isCustomer()
+    {
+        return (bool) $this->can('read-client-portal');
+    }
+
+    /**
+     * Determine if user is not a customer.
+     *
+     * @return bool
+     */
+    public function isNotCustomer()
+    {
+        return (bool) $this->can('read-admin-panel');
+    }
+
+    public function scopeSource($query, $source)
+    {
+        return $query->where($this->qualifyColumn('created_from'), $source);
+    }
+
+    public function scopeIsOwner($query)
+    {
+        return $query->where($this->qualifyColumn('created_by'), user_id());
+    }
+
+    public function scopeIsNotOwner($query)
+    {
+        return $query->where($this->qualifyColumn('created_by'), '<>', user_id());
+    }
+
+    public function ownerKey($owner)
+    {
+        if ($this->isNotOwnable()) {
+            return 0;
+        }
+
+        return $this->created_by;
+    }
+
+    /**
+     * Get the user's preferred locale.
+     *
+     * @return string
+     */
+    public function preferredLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        if (user()->id == $this->id) {
+            return $actions;
+        }
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('users.edit', $this->id),
+            'permission' => 'update-auth-users',
+            'attributes' => [
+                'id' => 'index-line-actions-show-user-' . $this->id,
+            ],
+        ];
+
+        if ($this->hasPendingInvitation()) {
+            $actions[] = [
+                'title' => trans('general.resend') . ' ' . trans_choice('general.invitations', 1),
+                'icon' => 'replay',
+                'url' => route('users.invite', $this->id),
+                'permission' => 'update-auth-users',
+                'attributes' => [
+                    'id' => 'index-line-actions-resend-user-' . $this->id,
+                ],
+            ];
+        }
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'users.destroy',
+            'permission' => 'delete-auth-users',
+            'attributes' => [
+                'id' => 'index-line-actions-delete-user-' . $this->id,
+            ],
+            'model' => $this,
+        ];
+
+        return $actions;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\User::new();
     }
 }

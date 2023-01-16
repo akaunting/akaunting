@@ -6,12 +6,17 @@ return [
      *
      * Should extend `Plank\Mediable\Media`
      */
-    'model' => Plank\Mediable\Media::class,
+    'model' => env('MEDIABLE_MODEL', App\Models\Common\Media::class),
+
+    /*
+     * Name to be used for mediables joining table
+     */
+    'mediables_table' => env('MEDIABLE_TABLE', 'mediables'),
 
     /*
      * Filesystem disk to use if none is specified
      */
-    'default_disk' => 'uploads',
+    'default_disk' => env('MEDIABLE_DEFAULT_DISK', 'uploads'),
 
     /*
      * Filesystems that can be used for media storage
@@ -20,6 +25,7 @@ return [
      */
     'allowed_disks' => [
         'uploads',
+        's3',
     ],
 
     /*
@@ -150,7 +156,7 @@ return [
                 'text/json',
                 'application/json',
                 'application/msword',
-                'application/application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             ],
             'extensions' => [
                 'doc',
@@ -173,17 +179,17 @@ return [
         ],
         Plank\Mediable\Media::TYPE_PRESENTATION => [
             'mime_types' =>
-            [
-                'application/vnd.ms-powerpoint',
-                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
-            ],
+                [
+                    'application/vnd.ms-powerpoint',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
+                ],
             'extensions' =>
-            [
-                'ppt',
-                'pptx',
-                'ppsx',
-            ]
+                [
+                    'ppt',
+                    'pptx',
+                    'ppsx',
+                ]
         ],
     ],
 
@@ -201,7 +207,7 @@ return [
         'pattern' => [
             '^https?://' => Plank\Mediable\SourceAdapters\RemoteUrlAdapter::class,
             '^/' => Plank\Mediable\SourceAdapters\LocalPathAdapter::class,
-            '^[a-zA-Z]:\\' => Plank\Mediable\SourceAdapters\LocalPathAdapter::class
+            '^[a-zA-Z]:\\\\' => Plank\Mediable\SourceAdapters\LocalPathAdapter::class
         ],
     ],
 

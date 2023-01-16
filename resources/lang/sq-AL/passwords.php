@@ -18,5 +18,6 @@ return [
     'sent' => 'Kemi dërguar e-mail linkun tuaj të rivendosjes së fjalëkalimit!',
     'token' => 'Ky shenjë e rivendosjes së fjalëkalimit është e pavlefshme.',
     'user' => "Ne nuk mund të gjejmë një përdorues me atë adresë e-mail.",
+    'throttle' => 'Ju lutemi prisni përpara se të provoni përsëri.',
 
 ];

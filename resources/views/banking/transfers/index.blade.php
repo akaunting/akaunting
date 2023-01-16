@@ -1,62 +1,162 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.transfers', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.transfers', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.transfers', 2) }}"
+        icon="sync_alt"
+        route="transfers.index"
+    ></x-slot>
 
-@permission('create-banking-transfers')
-@section('new_button')
-<span class="new-button"><a href="{{ url('banking/transfers/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
-@endpermission
+    <x-slot name="buttons">
+        @can('create-banking-transfers')
+            <x-link href="{{ route('transfers.create') }}" kind="primary">
+                {{ trans('general.title.new', ['type' => trans_choice('general.transfers', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::select('from_account', $accounts, request('from_account'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('to_account', $accounts, request('to_account'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
-        </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
+    <x-slot name="moreButtons">
+        <x-dropdown id="dropdown-more-actions">
+            <x-slot name="trigger">
+                <span class="material-icons pointer-events-none">more_horiz</span>
+            </x-slot>
 
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-transfers">
-                <thead>
-                <tr>
-                    <th class="col-md-3">@sortablelink('payment.paid_at', trans('general.date'))</th>
-                    <th class="col-md-3">@sortablelink('payment.name', trans('transfers.from_account'))</th>
-                    <th class="col-md-3">@sortablelink('revenue.name', trans('transfers.to_account'))</th>
-                    <th class="col-md-3 text-right amount-space">@sortablelink('payment.amount', trans('general.amount'))</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($transfers as $item)
-                    <tr>
-                        <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                        <td>{{ $item->from_account }}</td>
-                        <td>{{ $item->to_account }}</td>
-                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- /.box-body -->
+            @can('create-banking-transfers')
+                <x-dropdown.link href="{{ route('import.create', ['banking', 'transfers']) }}">
+                    {{ trans('import.import') }}
+                </x-dropdown.link>
+            @endcan
 
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $items, 'type' => 'transfers'])
-    </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
-@endsection
+            <x-dropdown.link href="{{ route('transfers.export', request()->input()) }}">
+                {{ trans('general.export') }}
+            </x-dropdown.link>
+        </x-dropdown>
+    </x-slot>
+
+    <x-slot name="content">
+        @if ($transfers->count() || request()->get('search', false))
+            <x-index.container>
+                <x-index.search
+                    search-string="App\Models\Banking\Transfer"
+                    bulk-action="App\BulkActions\Banking\Transfers"
+                />
+
+                <x-table>
+                    <x-table.thead>
+                        <x-table.tr>
+                            <x-table.th kind="bulkaction">
+                                <x-index.bulkaction.all />
+                            </x-table.th>
+
+                            <x-table.th class="w-3/12" hidden-mobile>
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.paid_at" title="{{ trans('general.created_date') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="expense_transaction.reference" title="{{ trans('general.reference') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.name" title="{{ trans('transfers.from_account') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.name" title="{{ trans('transfers.to_account') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.rate" title="{{ trans('transfers.from_rate') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.rate" title="{{ trans('transfers.to_rate') }}" />
+                                </x-slot>
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12 sm:w-3/12" kind="amount">
+                                <x-slot name="first">
+                                    <x-sortablelink column="expense_transaction.amount" title="{{ trans('transfers.from_amount') }}" />
+                                </x-slot>
+                                <x-slot name="second">
+                                    <x-sortablelink column="income_transaction.amount" title="{{ trans('transfers.to_amount') }}" />
+                                </x-slot>
+                            </x-table.th>
+                        </x-table.tr>
+                    </x-table.thead>
+
+                    <x-table.tbody>
+                        @foreach($transfers as $item)
+                            @php
+                                $item->name = trans('transfers.messages.delete', [
+                                    'from' => $item->expense_transaction->account->name,
+                                    'to' => $item->income_transaction->account->name,
+                                    'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)
+                                ]);
+                            @endphp
+
+                            <x-table.tr href="{{ route('transfers.show', $item->id) }}">
+                                <x-table.td kind="bulkaction">
+                                    <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->expense_transaction->account->name }}" />
+                                </x-table.td>
+
+                                <x-table.td class="w-3/12" hidden-mobile>
+                                    <x-slot name="first" class="flex items-center font-bold" override="class">
+                                        <x-date date="{{ $item->expense_transaction->paid_at }}" />
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        @if (! empty($item->reference))
+                                            {{ $item->reference }}
+                                        @else
+                                            <x-empty-data />
+                                        @endif
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12">
+                                    <x-slot name="first">
+                                        {{ $item->expense_transaction->account->name }}
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        {{ $item->income_transaction->account->name }}
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12">
+                                    <x-slot name="first">
+                                        {{ $item->expense_transaction->currency_rate }}
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        {{ $item->income_transaction->currency_rate }}
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12 sm:w-3/12" kind="amount">
+                                    <x-slot name="first">
+                                        <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
+                                    </x-slot>
+                                    <x-slot name="second">
+                                        <x-money :amount="$item->income_transaction->amount" :currency="$item->income_transaction->currency_code" convert />
+                                    </x-slot>
+                                </x-table.td>
+
+                                <x-table.td kind="action">
+                                    <x-table.actions :model="$item" />
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </x-table.tbody>
+                </x-table>
+
+                <x-pagination :items="$transfers" />
+            </x-index.container>
+        @else
+            <x-empty-page group="banking" page="transfers" />
+        @endif
+    </x-slot>
+
+    <x-script folder="banking" file="transfers" />
+</x-layouts.admin>

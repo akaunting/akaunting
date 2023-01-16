@@ -2,40 +2,62 @@
 
 return [
 
-    'bill_number'       => 'Número da conta',
-    'bill_date'         => 'Data de Emissão',
-    'total_price'       => 'Valor Total',
-    'due_date'          => 'Data de Vencimento',
-    'order_number'      => 'Número',
-    'bill_from'         => 'Bill From',
+    'bill_number'           => 'Número da conta',
+    'bill_date'             => 'Data de Emissão',
+    'bill_amount'           => 'Valor da Conta',
+    'total_price'           => 'Valor Total',
+    'due_date'              => 'Data de Vencimento',
+    'order_number'          => 'Número',
+    'bill_from'             => 'Bill From',
 
-    'quantity'          => 'Quantidade',
-    'price'             => 'Preço',
-    'sub_total'         => 'Subtotal',
-    'tax_total'         => 'Taxa',
-    'total'             => 'Total',
+    'quantity'              => 'Quantidade',
+    'price'                 => 'Preço',
+    'sub_total'             => 'Subtotal',
+    'discount'              => 'Desconto',
+    'item_discount'         => 'Linha de desconto',
+    'tax_total'             => 'Taxa',
+    'total'                 => 'Total',
 
-    'item_name'         => 'Nome(s) do(s) Item(s)',
+    'item_name'             => 'Nome(s) do(s) Item(s)',
+    'recurring_bills'       => 'Pagamento recorrente|Pagamentos recorrentes',
 
-    'payment_due'       => 'Valor Devido',
-    'amount_due'        => 'Total Devido',
-    'paid'              => 'Pago',
-    'histories'         => 'Histórico',
-    'payments'          => 'Pagamentos',
-    'add_payment'       => 'Novo Pagamento',
-    'mark_received'     => 'Marcar como Recebida',
-    'download_pdf'      => 'Baixar em PDF',
-    'send_mail'         => 'Enviar E-mail',
+    'show_discount'         => ':discount% desconto',
+    'add_discount'          => 'Adicionar desconto',
+    'discount_desc'         => 'subtotal',
 
-    'status' => [
-        'draft'         => 'Rascunho',
-        'received'      => 'Recebido',
-        'partial'       => 'Parcial',
-        'paid'          => 'Pago',
+    'payment_made'          => 'Pagamento feito',
+    'payment_due'           => 'Valor Devido',
+    'amount_due'            => 'Total Devido',
+    'paid'                  => 'Pago',
+    'histories'             => 'Histórico',
+    'payments'              => 'Pagamentos',
+    'add_payment'           => 'Novo Pagamento',
+    'mark_paid'             => 'Marcar como pago',
+    'mark_received'         => 'Marcar como Recebida',
+    'mark_cancelled'        => 'Marcar como cancelado',
+    'download_pdf'          => 'Baixar em PDF',
+    'send_mail'             => 'Enviar E-mail',
+    'create_bill'           => 'Criar fatura',
+    'receive_bill'          => 'Receber fatura',
+    'make_payment'          => 'Fazer pagamento',
+
+    'form_description' => [
+        'billing'           => 'Os detalhes de faturamento aparecem na sua conta. A Data da Emissão é usada no painel e nos relatórios. Selecione a data que espera pagar como Data de Vencimento.',
     ],
 
     'messages' => [
-        'received'      => 'Conta marcada como recebida com sucesso!',
+        'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for recebida.',
+
+        'status' => [
+            'created'       => 'Criado em :date',
+            'receive' => [
+                'draft'     => 'Não Recebido',
+                'received'  => 'Recebido em :date',
+            ],
+            'paid' => [
+                'await'     => 'Aguardando pagamento',
+            ],
+        ],
     ],
 
 ];

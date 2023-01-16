@@ -1,0 +1,23 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use $EVENTNAME$;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class $CLASS$ implements ShouldQueue
+{
+    use InteractsWithQueue;
+
+    /**
+     * Handle the event.
+     *
+     * @param  $SHORTEVENTNAME$  $event
+     * @return void
+     */
+    public function handle($SHORTEVENTNAME$ $event)
+    {
+        //
+    }
+}

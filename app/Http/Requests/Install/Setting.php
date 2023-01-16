@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Install;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Setting extends Request
+class Setting extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,8 +15,8 @@ class Setting extends Request
     {
         return [
             'company_name' => 'required',
-            'company_email' => 'required',
-            'user_email' => 'required',
+            'company_email' => 'required|email',
+            'user_email' => 'required|email',
             'user_password' => 'required'
         ];
     }

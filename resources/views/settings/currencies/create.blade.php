@@ -1,76 +1,51 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.currencies', 1)]) }}"
+        icon="paid"
+        route="currencies.create"
+    ></x-slot>
 
-@section('content')
-    <!-- Default box -->
-    <div class="box box-success">
-    {!! Form::open(['url' => 'settings/currencies', 'role' => 'form']) !!}
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="currency" route="currencies.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('currencies.form_description.general') }}" />
+                    </x-slot>
 
-    <div class="box-body">
-        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes) }}
+                        <x-form.group.select name="code" label="{{ trans('currencies.code') }}" :options="$codes" searchable change="onChangeCode" />
 
-        {{ Form::textGroup('rate', trans('currencies.rate'), 'money') }}
+                        <x-form.group.text name="rate" label="{{ trans('currencies.rate') }}" @input="onChangeRate" ::disabled="form.default_currency == 1" />
 
-        {{ Form::textGroup('precision', trans('currencies.precision'), 'bullseye') }}
+                        <x-form.group.select name="precision" label="{{ trans('currencies.precision') }}" :options="$precisions" model="form.precision" />
 
-        {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
+                        <x-form.group.text name="symbol" label="{{ trans('currencies.symbol.symbol') }}" />
 
-        {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]) }}
+                        <x-form.group.select name="symbol_first" label="{{ trans('currencies.symbol.position') }}" :options="['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]" not-required model="form.symbol_first" />
 
-        {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'columns') }}
+                        <x-form.group.text name="decimal_mark" label="{{ trans('currencies.decimal_mark') }}" />
 
-        {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'columns', []) }}
+                        <x-form.group.text name="thousands_separator" label="{{ trans('currencies.thousands_separator') }}" not-required />
 
-        {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                        <x-form.group.toggle name="default_currency" label="{{ trans('currencies.default') }}" :value="false" />
+                    </x-slot>
+                </x-form.section>
 
-        {{ Form::radioGroup('default_currency', trans('currencies.default')) }}
-    </div>
-    <!-- /.box-body -->
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="currencies.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-    <div class="box-footer">
-        {{ Form::saveButtons('settings/currencies') }}
-    </div>
-    <!-- /.box-footer -->
-
-    {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function(){
-            $('#enabled_1').trigger('click');
-
-            $('#name').focus();
-
-            $("#code").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
-            });
-
-            $('#code').change(function() {
-                $.ajax({
-                    url: '{{ url("settings/currencies/config") }}',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: 'code=' + $(this).val(),
-                    success: function(data) {
-                        $('#precision').val(data.precision);
-                        $('#symbol').val(data.symbol);
-                        $('#symbol_first').val(data.symbol_first);
-                        $('#decimal_mark').val(data.decimal_mark);
-                        $('#thousands_separator').val(data.thousands_separator);
-
-                        // This event Select2 Stylesheet
-                        $('#symbol_first').trigger('change');
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
+    <x-script folder="settings" file="currencies" />
+</x-layouts.admin>

@@ -2,8 +2,8 @@
 
 return [
 
-    'import'                => 'Import',
-    'title'                 => 'Import :type',
-    'message'               => 'Allowed file types: CSV, XLS. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'import'                => 'Импортировать',
+    'title'                 => 'Импорт :type',
+    'message'               => 'Допустимые типы файлов: CSV, XLS. Пожалуйста, <a target="_blank" href=":link"><strong>скачайте</strong></a> файл примера.',
 
 ];

@@ -1,52 +1,130 @@
 {
     "name": "akaunting/akaunting",
-    "description": "Free accounting software, based on Laravel framework.",
+    "description": "Free accounting software built with Laravel",
     "homepage": "https://akaunting.com",
-    "keywords": ["laravel", "accounting", "software", "online"],
+    "keywords": [
+        "laravel",
+        "accounting",
+        "invoice",
+        "expenses",
+        "software",
+        "online"
+    ],
     "license": "GPL-3.0+",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "akaunting/language": "1.0.*",
-        "akaunting/money": "1.0.*",
-        "akaunting/setting": "1.0.*",
-        "akaunting/version": "1.0.*",
-        "almasaeed2010/adminlte": "2.3.*",
-        "barryvdh/laravel-debugbar": "2.3.*",
-        "barryvdh/laravel-dompdf": "0.*",
-        "barryvdh/laravel-ide-helper": "2.3.*",
-        "bkwld/cloner": "3.2.*",
-        "consoletvs/charts": "4.6.*",
-        "dingo/api": "1.0.0-beta8",
-        "fideloper/proxy": "3.3.*",
-        "guzzlehttp/guzzle": "6.3.*",
-        "intervention/image": "2.3.*",
-        "jenssegers/date": "3.3.*",
-        "kyslik/column-sortable": "5.4.*",
-        "laracasts/flash": "3.0.*",
-        "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "LaravelCollective/html": "5.4.*",
-        "maatwebsite/excel": "2.1.*",
-        "nwidart/laravel-menus": "0.5.*",
-        "nwidart/laravel-modules": "1.*",
-        "plank/laravel-mediable": "2.5.*",
-        "santigarcor/laratrust": "4.0.*",
-        "sofa/eloquence": "5.4.*",
-        "tucker-eric/eloquentfilter": "1.1.*"
+        "php": "^8.0.2",
+        "ext-bcmath": "*",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-fileinfo": "*",
+        "ext-intl": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-tokenizer": "*",
+        "ext-xml": "*",
+        "ext-zip": "*",
+        "akaunting/laravel-apexcharts": "^2.0",
+        "akaunting/laravel-debugbar-collector": "^2.0",
+        "akaunting/laravel-firewall": "^2.0",
+        "akaunting/laravel-language": "^1.0",
+        "akaunting/laravel-menu": "^3.0",
+        "akaunting/laravel-module": "^2.0",
+        "akaunting/laravel-money": "^3.0",
+        "akaunting/laravel-mutable-observer": "^1.0",
+        "akaunting/laravel-setting": "^1.2",
+        "akaunting/laravel-sortable": "^1.0",
+        "akaunting/laravel-version": "^1.0",
+        "akaunting/module-offline-payments": "^3.0",
+        "akaunting/module-paypal-standard": "^3.0",
+        "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-ide-helper": "^2.9",
+        "bkwld/cloner": "^3.10",
+        "bugsnag/bugsnag-laravel": "^2.24",
+        "doctrine/dbal": "^3.1",
+        "fruitcake/laravel-cors": "^2.0",
+        "genealabs/laravel-model-caching": "0.12.*",
+        "graham-campbell/markdown": "14.0.x-dev",
+        "guzzlehttp/guzzle": "^7.4",
+        "intervention/image": "^2.5",
+        "intervention/imagecache": "^2.5",
+        "laracasts/flash": "3.2.*",
+        "laravel/framework": "^9.0",
+        "laravel/sanctum": "^2.14",
+        "laravel/slack-notification-channel": "^2.3",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "league/oauth2-client": "^2.6",
+        "league/omnipay": "^3.2",
+        "livewire/livewire": "^2.10",
+        "lorisleiva/laravel-search-string": "^1.2",
+        "maatwebsite/excel": "3.1.*",
+        "mnsami/composer-custom-directory-installer": "2.0.*",
+        "plank/laravel-mediable": "^5.4",
+        "riverskies/laravel-mobile-detect": "^1.3",
+        "santigarcor/laratrust": "^7.0",
+        "sentry/sentry-laravel": "^3.0",
+        "simple-icons/simple-icons": "^6.0",
+        "simshaun/recurr": "^5.0",
+        "staudenmeir/belongs-to-through": "^2.12",
+        "staudenmeir/eloquent-has-many-deep": "^1.15",
+        "symfony/http-client": "^6.0",
+        "symfony/mailgun-mailer": "^6.0",
+        "symfony/postmark-mailer": "^6.0",
+        "symfony/sendgrid-mailer": "^6.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.6.*"
+        "beyondcode/laravel-dump-server": "^1.5",
+        "brianium/paratest": "^6.1",
+        "fakerphp/faker": "^1.9.1",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ignition": "^1.0",
+        "wnx/laravel-stats": "^2.5"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "installer-paths": {
+            "modules/OfflinePayments": ["akaunting/module-offline-payments"],
+            "modules/PaypalStandard": ["akaunting/module-paypal-standard"]
+        }
     },
     "autoload": {
-        "classmap": [
-            "database",
-            "app/Overrides"
-        ],
         "psr-4": {
-            "App\\": "app/",
-            "Modules\\": "modules/"
-        }
+            "App\\": ["app/"],
+            "Akaunting\\Module\\Commands\\": "overrides/akaunting/laravel-module/Commands/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeds\\": "database/seeds/",
+            "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
+            "Illuminate\\View\\Concerns\\": "overrides/Illuminate/View/Concerns/",
+            "Livewire\\": "overrides/livewire/",
+            "Maatwebsite\\Excel\\": "overrides/maatwebsite/excel/",
+            "Modules\\": "modules/",
+            "Symfony\\Component\\Process\\": "overrides/symfony/process/"
+        },
+        "exclude-from-classmap": [
+            "vendor/akaunting/laravel-module/src/Commands/DeleteCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/DisableCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/EnableCommand.php",
+            "vendor/akaunting/laravel-module/src/Commands/InstallCommand.php",
+            "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
+            "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
+            "vendor/livewire/livewire/src/LivewireServiceProvider.php",
+            "vendor/maatwebsite/excel/src/Fakes/ExcelFake.php",
+            "vendor/maatwebsite/excel/src/QueuedWriter.php",
+            "vendor/symfony/process/PhpExecutableFinder.php"
+        ],
+        "files": [
+            "app/Utilities/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -54,32 +132,41 @@
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
+        ],
         "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan clear-compiled",
-            "php artisan optimize",
-            "composer dump-autoload"
+            "php artisan ide-helper:models --nowrite"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan clear-compiled",
-            "php artisan optimize",
-            "composer dump-autoload"
+            "php artisan ide-helper:models --nowrite"
         ],
         "post-create-project-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan clear-compiled",
-            "php artisan optimize",
+            "php artisan ide-helper:meta"
+        ],
+        "prod": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi --no-dev",
+            "composer dump-autoload"
+        ],
+        "test": [
+            "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi",
             "composer dump-autoload"
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "mnsami/composer-custom-directory-installer": true
+        }
     }
 }

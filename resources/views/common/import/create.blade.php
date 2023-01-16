@@ -1,54 +1,61 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('import.title', ['type' => $title_type]) }}
+    </x-slot>
 
-@section('title', trans('import.title', ['type' => trans_choice('general.' . $type, 2)]))
+    <x-slot name="content">
+        <div class="card">
+            <x-form id="import" :route="$form_params['route']" :url="$form_params['url']">
+                <div class="card-body mt-8">
+                    <div class="border-t-4 border-orange-300 rounded-b-lg text-orange-700 px-4 py-3 shadow-md" role="alert">
+                        <div class="flex">
+                            <div>
+                                {!! trans('import.limitations', ['extensions' => strtoupper(config('excel.imports.extensions')),
+                                        'row_limit' => config('excel.imports.row_limit')
+                                    ])
+                                !!}
+                            </div>
+                        </div>
+                    </div>
 
-@section('content')
-    <div class="box box-success">
-        {!! Form::open(['url' => $path . '/import', 'files' => true, 'role' => 'form']) !!}
+                    <div class="border-t-4 mt-8 border-blue-300 rounded-b-lg text-blue-700 px-4 py-3 shadow-md" role="alert">
+                        <div class="flex">
+                            <div>
+                                {!! trans('import.sample_file', ['download_link' => $sample_file]) !!}
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="box-body">
-            <div class="col-md-12">
-                <div class="alert alert-info alert-important">
-                    {!! trans('import.message', ['link' => url('public/files/import/' . $type . '.csv')]) !!}
+                    <x-form.group.file name="import" dropzone-class="form-file" singleWidthClasses :options="['acceptedFiles' => '.xls,.xlsx']" form-group-class="mt-8" />
                 </div>
-            </div>
-            <div class="form-group col-md-12 required {{ $errors->has('import') ? 'has-error' : '' }}" style="min-height: 59px">
-                {!! Form::label('import', trans('general.form.select.file'), ['class' => 'control-label']) !!}
-                {!! Form::file('import', null, ['class' => 'form-control']) !!}
-                {!! $errors->first('import', '<p class="help-block">:message</p>') !!}
-            </div>
-        </div>
-        <!-- /.box-body -->
 
-        <div class="box-footer">
-            <div class="col-md-12">
-                <div class="form-group no-margin">
-                    {!! Form::button('<span class="fa fa-download"></span> &nbsp;' . trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
-                    <a href="{{ url($path) }}" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>
+                <div class="mt-8">
+                    <div class="sm:col-span-6 flex items-center justify-end">
+                        @if (! empty($route))
+                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" override="class">
+                                {{ trans('general.cancel') }}
+                            </x-link>
+                        @else
+                            <x-link href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:mr-2 rtl:ml-2" override="class">
+                                {{ trans('general.cancel') }}
+                            </x-link>
+                        @endif
+
+                        <x-button
+                            type="submit"
+                            class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
+                            ::disabled="form.loading"
+                            override="class"
+                        >
+                            <x-button.loading>
+                                {{ trans('import.import') }}
+                            </x-button.loading>
+                        </x-button>
+                    </div>
                 </div>
-            </div>
+            </x-form>
         </div>
+    </x-slot>
 
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('js')
-<script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-@endpush
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-@endpush
-
-@push('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#import').fancyfile({
-            text  : '{{ trans('general.form.select.file') }}',
-            style : 'btn-default',
-            placeholder : '{{ trans('general.form.no_file_selected') }}'
-        });
-    });
-</script>
-@endpush
+    <x-script folder="common" file="imports" />
+</x-layouts.admin>

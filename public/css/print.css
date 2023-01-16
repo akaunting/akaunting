@@ -1,0 +1,858 @@
+@charset "UTF-8";
+
+/*--General Start--*/
+.print-content {
+    color: #3c3f72;
+}
+
+table
+{
+    width: 100%;
+}
+
+th, td
+{
+    padding: 10px 9px 10px 9px;
+}
+
+.print-template p {
+    color: #424242;
+    margin-bottom: 9px;
+}
+
+.spacing {
+    display: inline-block;
+    margin-bottom: 9px;
+}
+
+.print-report-padding {
+    padding-left: 25px;
+}
+
+html[dir='ltr'] .right-column {
+    text-align: right;
+}
+
+html[dir='rtl'] .right-column {
+    text-align: left;
+}
+
+.small-text {
+    font-size: 10px;
+}
+
+.text-medium {
+    font-weight: 500;
+}
+
+.text-normal {
+    font-size: 14px;
+}
+
+.text-default {
+    font-size: 12px;
+}
+
+.text-semibold {
+    font-weight: 600;
+}
+
+.row
+{
+    font-size: 0;
+}
+
+.mb-1
+{
+    margin-bottom: 8px;
+}
+
+.margin-bottom-spacing {
+    margin: 24px 0;
+}
+
+.print-template .mt-1
+{
+    margin-top: 8px;
+}
+
+html[dir='ltr'] .print-template .ml-1
+{
+    margin-left: 8px;
+}
+
+html[dir='rtl'] .print-template .ml-1
+{
+    margin-right: 8px;
+}
+
+html[dir='ltr'] .print-template .ml-2
+{
+    margin-right: 16px;
+}
+
+html[dir='rtl'] .print-template .ml-2
+{
+    margin-left: 16px;
+}
+
+.pl-head
+{
+    padding-left: 18px;
+}
+
+.print-template .mt-0
+{
+    margin-top: 0 !important;
+}
+
+.print-template .mt-1
+{
+    margin-top: 8px;
+}
+
+.print-template .mt-2
+{
+    margin-top: 16px;
+}
+
+.print-template .mt-3
+{
+    margin-top: 24px;
+}
+
+.print-template .mt-4
+{
+    margin-top: 32px;
+}
+
+.print-template .mt-5
+{
+    margin-top: 40px;
+}
+
+.print-template .mt-6
+{
+    margin-top: 48px;
+}
+
+.print-template .mt-7
+{
+    margin-top: 56px;
+}
+
+.print-template .mt-8
+{
+    margin-top: 64px;
+}
+
+.print-template .mt-9
+{
+    margin-top: 72px;
+}
+
+.print-template .pb-0
+{
+    padding-bottom: 0;
+}
+
+.print-template .pb-1
+{
+    padding-bottom: 8px;
+}
+
+.print-template .py-1
+{
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.py-top
+{
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+
+.p-index-left {
+    padding: 0 15px 0 0;
+}
+
+.p-index-right {
+    padding: 0 0 0 15px;
+}
+
+.p-modern {
+    padding: 0 10px 0 10px;
+}
+
+.print-template .pt-2
+{
+    padding-top: 16px;
+}
+
+.print-template .pb-2
+{
+    padding-bottom: 16px;
+}
+
+.print-template .pl-3
+{
+    padding-left: 24px;
+}
+
+.print-template .pl-4
+{
+    padding-left: 32px;
+}
+
+.print-template .pl-5
+{
+    padding-left: 40px;
+}
+
+.print-template .pl-6
+{
+    padding-left: 48px;
+}
+
+.print-template .pl-7
+{
+    padding-left: 56px;
+}
+
+.print-template .pl-8
+{
+    padding-left: 64px;
+}
+
+.print-template .pl-9
+{
+    padding-left: 72px;
+}
+
+.border-1
+{
+    border: 1px solid #e5e5e5;
+}
+
+.border-top-1
+{
+    border-top: 1px solid #adadad;
+}
+
+.border-bottom-1
+{
+    border-bottom: 1px solid #adadad;
+}
+
+.border-radius-default
+{
+    border-radius: 0.25rem
+}
+
+/* html[dir='ltr'] .border-radius-first {
+    border-radius: 10px 0px 0px 10px;
+}
+
+html[dir='rtl'] .border-radius-first {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir='ltr'] .border-radius-last {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir='rtl'] .border-radius-last {
+    border-radius: 10px 0px 0px 10px;
+} */
+
+/* template table border radius control */
+html[dir="ltr"] .lines-radius-border thead td:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+html[dir="ltr"] .lines-radius-border thead td:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+/* template table border radius control */
+
+html[dir='ltr'] .float-left
+{
+    float: left !important;
+}
+
+html[dir='rtl'] .float-left
+{
+    float: right !important;
+}
+
+html[dir='ltr'] .float-right
+{
+    float: right !important;
+}
+
+html[dir='rtl'] .float-right
+{
+    float: left !important;
+}
+
+.font-size-unset
+{
+    font-size: unset;
+}
+
+.text
+{
+    color: #595959;
+    margin-top:8px;
+    font-size: 12px;
+}
+
+.text-dark {
+    color: black;
+}
+
+.text-nowrap
+{
+    white-space: nowrap;
+}
+
+.text-left
+{
+    text-align: left;
+}
+
+html[dir='ltr'] .text-alignment-left {
+    text-align: left !important;
+}
+
+html[dir='rtl'] .text-alignment-left {
+    text-align: right !important;
+}
+
+html[dir='ltr'] .text-alignment-right {
+    text-align: right !important;
+}
+
+html[dir='rtl'] .text-alignment-right {
+    text-align: left !important;
+}
+
+html[dir='ltr'] .text-right
+{
+    text-align: right;
+}
+
+html[dir='rtl'] .text-right
+{
+    text-align: left;
+}
+
+.text-alignment-center {
+    text-align: center;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.text-white
+{
+    color: #ffffff !important;
+}
+
+.mt-classic
+{
+    margin-top: 6px;
+}
+
+.bg-default
+{
+    background-color: #3c3f72;
+}
+
+.radius-circle {
+    border-radius: 50%;
+}
+
+/*--General Finish--*/
+
+/*--Print Template Default Start--*/
+.col-100
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.col-w-2 {
+    width: 16.6666666667%;
+}
+
+.col-w-4 {
+    width: 33.3333333333%;
+}
+
+.col-w-6 {
+    width: 50%;
+}
+
+.col-w-8 {
+    width: 66.6666666667%;
+}
+
+.col-w-10 {
+    width: 83.3333333333%;
+}
+
+.col-w-12 {
+    width: 50%;
+}
+
+.w-image {
+    width: 70px;
+}
+
+.w-numbers {
+    width: 93px;
+}
+
+.lines
+{
+    border-collapse: collapse;
+    table-layout: auto;
+    border-bottom: 1px solid #adadad;
+}
+
+.lines thead {
+    -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+
+.lines tbody td
+{
+    border-bottom: 1px solid #adadad;
+}
+
+
+.lines .item
+{
+    width: 40%;
+}
+
+.lines .quantity
+{
+    width: 10%;
+    text-align: right;
+}
+
+.lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
+.lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+
+.modern-lines {
+    border-bottom: unset;
+}
+
+.modern-lines tbody td {
+    border-bottom: unset;
+}
+
+.d-logo
+{
+    padding-top: 18px;
+    padding-bottom: 30px;
+}
+
+.d-note
+{
+    width: 80%;
+    background-color: #e5e5e5;
+}
+/*--Print Template Default Finish--*/
+
+/*--Print Template Classic Start--*/
+.c-logo
+{
+    padding-top: 25px;
+}
+
+.c-note
+{
+    width: 80%;
+}
+
+.invoice-classic-line
+{
+    height: 1px;
+    background-color: #adadad;
+}
+
+.invoice-classic-frame
+{
+    width: 90%;
+    height: 60px;
+    border: 1px solid #adadad;
+    border-radius: 10px;
+}
+
+.invoice-classic-inline-frame
+{
+    margin: 4.5px auto;
+    width: 95% !important;
+    height: 50px;
+    border: 1px solid #adadad;
+    border-radius: 10px;
+}
+
+.modern-head {
+    border-radius: 10px;
+}
+
+.col-33
+{
+    display: inline-block;
+    width: 33%;
+    vertical-align: top;
+}
+
+.c-lines thead th
+{
+    border-bottom: 1px dashed #e5e5e5;
+}
+
+.c-lines tbody td
+{
+    border-top: 1px dashed #e5e5e5;
+}
+
+.c-lines .item
+{
+    width: 40%;
+}
+
+.c-lines .quantity
+{
+    width: 10%;
+    text-align: right;
+}
+
+.c-lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.c-lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
+.c-lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+
+.border-bottom-dashed
+{
+    border-bottom: 1px dashed #e5e5e5;
+}
+
+.border-bottom-dashed-black
+{
+    border-bottom: 1px dashed #595959;
+}
+/*--Print Template Classic Finish--*/
+
+/*--Print Template Modern Start--*/
+.justify-content-between
+{
+    justify-content: space-between !important;
+}
+
+.align-items-center
+{
+    align-items: center !important;
+}
+
+.d-flex
+{
+    display: flex !important;
+}
+
+.m-note
+{
+    width: 80%;
+}
+
+.modern-lines
+{
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.modern-lines .item
+{
+    width: 40%;
+}
+
+.modern-lines .quantity
+{
+    width: 10%;
+    text-align: center;
+}
+
+.modern-lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.modern-lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
+.modern-lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+/*--Print Template Modern Finish--*/
+
+/*--Print Reports Start--*/
+.rp-border-top-1
+{
+    border-top: 1px solid #e5e5e5;
+}
+
+.rp-border-bottom-1
+{
+    border-bottom: 1px solid #adadad;
+}
+
+.rp-border-top-1
+{
+    border-top: 1px solid #e5e5e5;
+}
+
+.rp-border-0
+{
+    border: 0 !important;
+}
+
+.rp-border-collapse
+{
+    border-collapse: collapse;
+}
+
+.rp-float-left
+{
+    float: left;
+}
+
+.rp-float-right
+{
+    float: right;
+}
+/*--Print Reports Finish--*/
+
+.clearfix:after {
+	display: block;
+	clear: both;
+	content: ""
+}
+
+.show-card {
+    padding: 0px 15px;
+    border-radius: 0px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 4px 16px;
+}
+
+.card-amount-badge h5 {
+    font-size: 20px;
+}
+
+.card-amount-badge span {
+    font-size: 32px;
+}
+
+.show-card-body {
+    padding: 1.5rem 2.5rem;
+}
+
+.show-card-bg-success {
+    width: 350px;
+    height: 150px;
+    border-radius: unset;
+}
+.show-company-value strong {
+    font-weight: bold;
+}
+
+.show-company p {
+    min-height: 52px;
+}
+
+.extra-spacing {
+    margin-top: 30px;
+}
+
+.top-spacing {
+    margin-top: 20px;
+}
+
+/*--Print--*/
+
+.col-1 {
+    width: 8.333333%;
+}
+
+.col-2 {
+    width: 16.666667%;
+}
+
+.col-4 {
+    width: 33.333333%;
+}
+
+html[dir='ltr'] .print-alignment {
+    text-align: right;
+}
+
+html[dir='rtl'] .print-alignment {
+    text-align: left;
+}
+
+.print-heading {
+    color: #55588b;
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    border-bottom: 1px solid;
+}
+
+html[dir='ltr'] .print-heading {
+    text-align: left;
+}
+
+html[dir='rtl'] .print-heading {
+    text-align: right;
+}
+
+.custom-product-hunt {
+    display: none;
+}
+
+.classic-invoice {
+    margin-top: 10px;
+}
+/*--Print --*/
+
+.col-60 {
+    display: inline-block;
+    width: 60%;
+    vertical-align: top;
+}
+
+.col-50 {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+
+.col-40 {
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+}
+
+.col-58{
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+}
+
+.col-42 {
+    display: inline-block;
+    width: 42%;
+    vertical-align: top;
+}
+
+.col-16 {
+    display: inline-block;
+    max-width: 16%;
+    vertical-align: top;
+}
+
+@media (max-width: 480px) {
+    .col-60 {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .col-40 {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .mt-classic {
+        margin-top: -1px;
+    }
+}
+
+@media (min-width: 991px) {
+    .classic-invoice {
+        margin-top: unset;
+    }
+}
+
+@media (max-width: 1600px) {
+    .p-index-right {
+        padding: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .transaction-head-text {
+        max-width: 100px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .transaction-head-text {
+        max-width: 75px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .show-card {
+        overflow-y: scroll;
+    }
+
+    .show-card-body {
+        padding: 1.5rem 1.5rem;
+    }
+}

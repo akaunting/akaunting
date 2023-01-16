@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Số lượng',
     'price'             => 'Đơn giá',
     'sub_total'         => 'Tổng phụ',
+    'discount'          => 'Discount',
     'tax_total'         => 'Tổng thuế',
     'total'             => 'Tổng số',
 
     'item_name'         => 'Tên mục | Tên mục',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Hạn thanh toán',
     'amount_due'        => 'Số tiền phải trả',
@@ -27,7 +32,7 @@ return [
     'download_pdf'      => 'Tải PDF',
     'send_mail'         => 'Gửi email',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Bản nháp',
         'received'      => 'Đã nhận',
         'partial'       => 'Một phần',
@@ -36,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Hoá đợn được đánh dấu là đã nhận thanh toán!',
+        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'receive'      => [
+                'draft'     => 'Not sent',
+                'received'  => 'Received on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
 ];

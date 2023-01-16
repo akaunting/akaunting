@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Sebelumnya',
-    'next'                  => 'Berikutnya &raquo;',
-    'showing'               => 'Menampilkan :first ke :last dari :total :type',
-
+    'previous'              => 'Sebelumnya',
+    'next'                  => 'Berikutnya',
+    'showing'               => ':first-:last of :total records.',
+    'page'                  => 'per halaman.',
 ];

@@ -2,50 +2,50 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Tax as Request;
+use App\Http\Resources\Setting\Tax as Resource;
+use App\Jobs\Setting\CreateTax;
+use App\Jobs\Setting\DeleteTax;
+use App\Jobs\Setting\UpdateTax;
 use App\Models\Setting\Tax;
-use App\Transformers\Setting\Tax as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Taxes extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $taxes = Tax::collect();
 
-        return $this->response->paginator($taxes, new Transformer());
+        return Resource::collection($taxes);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  Tax  $tax
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Tax $tax)
     {
-        return $this->response->item($tax, new Transformer());
+        return new Resource($tax);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $tax = Tax::create($request->all());
+        $tax = $this->dispatch(new CreateTax($request));
 
-        return $this->response->created(url('api/taxes/'.$tax->id));
+        return $this->created(route('api.taxes.show', $tax->id), new Resource($tax));
     }
 
     /**
@@ -53,25 +53,63 @@ class Taxes extends ApiController
      *
      * @param  $tax
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Tax $tax, Request $request)
     {
-        $tax->update($request->all());
+        try {
+            $tax = $this->dispatch(new UpdateTax($tax, $request));
 
-        return $this->response->item($tax->fresh(), new Transformer());
+            return new Resource($tax->fresh());
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
+    }
+
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  Tax  $tax
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function enable(Tax $tax)
+    {
+        $tax = $this->dispatch(new UpdateTax($tax, request()->merge(['enabled' => 1])));
+
+        return new Resource($tax->fresh());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  Tax  $tax
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function disable(Tax $tax)
+    {
+        try {
+            $tax = $this->dispatch(new UpdateTax($tax, request()->merge(['enabled' => 0])));
+
+            return new Resource($tax->fresh());
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  Tax  $tax
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Tax $tax)
     {
-        $tax->delete();
+        try {
+            $this->dispatch(new DeleteTax($tax));
 
-        return $this->response->noContent();
+            return $this->noContent();
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
     }
 }

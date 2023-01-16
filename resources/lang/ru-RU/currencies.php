@@ -5,14 +5,15 @@ return [
     'code'                  => 'Код',
     'rate'                  => 'Оценка',
     'default'               => 'Валюта по-умолчанию',
-    'decimal_mark'          => 'Decimal Mark',
-    'thousands_separator'   => 'Thousands Separator',
-    'precision'             => 'Precision',
+    'decimal_mark'          => 'Десятичный знак',
+    'thousands_separator'   => 'Разделитель тысяч',
+    'precision'             => 'Точность',
+    'conversion'            => 'Конвертация валюты: :price (:currency_code) с курсом :currency_rate',
     'symbol' => [
-        'symbol'            => 'Symbol',
-        'position'          => 'Symbol Position',
-        'before'            => 'Before Amount',
-        'after'             => 'After Amount',
+        'symbol'            => 'Символ',
+        'position'          => 'Позиция символа',
+        'before'            => 'До итоговой суммы',
+        'after'             => 'После итоговой суммы',
     ]
 
 ];

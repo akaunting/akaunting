@@ -3,12 +3,12 @@
 return [
 
     'next'                  => 'Selanjutnya',
-    'refresh'               => 'Menyegarkan',
+    'refresh'               => 'Perbarui',
 
     'steps' => [
-        'requirements'      => 'Tolong, memenuhi persyaratan berikut!',
+        'requirements'      => 'Silakan meminta ke penyedia hosting Anda untuk memperbaiki kesalahan!',
         'language'          => 'Langkah 1/3 : Seleksi Bahasa',
-        'database'          => 'Langkah 2/3 : Setup basis data',
+        'database'          => 'Atur Database',
         'settings'          => 'Langkah 3/3: Detail Perusahaan dan Admin',
     ],
 
@@ -19,15 +19,16 @@ return [
     'requirements' => [
         'enabled'           => ':feature perlu diaktifkan!',
         'disabled'          => ':feature perlu dinonaktifkan!',
-        'extension'         => ':extension ekstensi perlu dimuat!',
+        'extension'         => ': ekstensi ekstensi perlu diinstal dan dimuat!',
         'directory'         => ':directory direktori perlu ditulis!',
+        'executable'        => 'Berkas PHP CLI belum didefinisikan/bekerja atau bukan versi :php_version ke atas. Mohon tanyakan ke penyedia hosting untuk mengatur variabel PHP_BINARY atau PHP_PATH dengan benar.',
     ],
 
     'database' => [
         'hostname'          => 'Nama host',
         'username'          => 'Nama pengguna',
         'password'          => 'Kata Sandi',
-        'name'              => 'Basis data',
+        'name'              => 'Database',
     ],
 
     'settings' => [
@@ -38,7 +39,8 @@ return [
     ],
 
     'error' => [
-        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Tolong, pastikan detilnya benar.',
+        'php_version'       => 'Terjadi Kesalahan: Minta ke penyedia hosting Anda untuk menggunakan PHP: php_version atau lebih tinggi untuk HTTP dan CLI.',
+        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Silahkan, pastikan bahwa rinciannya benar.',
     ],
 
 ];

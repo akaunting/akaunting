@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
+use App\Http\Requests\Module\Install as InstallRequest;
+use App\Jobs\Install\CopyFiles;
+use App\Jobs\Install\DisableModule;
+use App\Jobs\Install\DownloadFile;
+use App\Jobs\Install\EnableModule;
+use App\Jobs\Install\InstallModule;
+use App\Jobs\Install\UninstallModule;
+use App\Jobs\Install\UnzipFile;
 use App\Models\Module\Module;
-use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
-use Artisan;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 
 class Item extends Controller
 {
@@ -16,17 +21,13 @@ class Item extends Controller
 
     /**
      * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
      */
-    public function __construct(Route $route)
+    public function __construct()
     {
-        parent::__construct($route);
-
         // Add CRUD permission check
-        $this->middleware('permission:create-modules-item')->only(['install']);
-        $this->middleware('permission:update-modules-item')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-modules-item')->only(['uninstall']);
+        $this->middleware('permission:create-modules-item')->only('install');
+        $this->middleware('permission:update-modules-item')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-modules-item')->only('uninstall');
     }
 
     /**
@@ -38,24 +39,40 @@ class Item extends Controller
      */
     public function show($alias)
     {
-        $this->checkApiToken();
-
         $enable = false;
         $installed = false;
 
         $module = $this->getModule($alias);
 
-        $check = Module::alias($alias)->first();
+        if (empty($module)) {
+            return redirect()->route('apps.home.index')->send();
+        }
 
-        if ($check) {
+        if ($this->moduleExists($alias) && ($model = Module::alias($alias)->first())) {
             $installed = true;
 
-            if ($check->status) {
+            if ($model->enabled) {
                 $enable = true;
             }
         }
 
-        return view('modules.item.show', compact('module', 'about', 'installed', 'enable'));
+        if (request()->get('utm_source')) {
+            $parameters = request()->all();
+
+            $character = '?';
+
+            if (strpos($module->action_url, '?') !== false) {
+                $character = '&';
+            }
+
+            $module->action_url .= $character . http_build_query($parameters);
+        }
+
+        if ($module->status_type == 'pre_sale') {
+            return view('modules.item.pre_sale', compact('module', 'installed', 'enable'));
+        }
+
+        return view('modules.item.show', compact('module', 'installed', 'enable'));
     }
 
     /**
@@ -65,33 +82,81 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function steps(Request $request)
+    public function steps(InstallRequest $request)
     {
-        $this->checkApiToken();
-
-        $json = [];
-        $json['step'] = [];
+        $steps = [];
 
         $name = $request['name'];
-        $version = $request['version'];
+        $alias = $request['alias'];
 
-        // Download
-        $json['step'][] = [
-            'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('apps/download')
-        ];
+        if ($this->moduleExists($alias)) {
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        } else {
+            // Download
+            $steps[] = [
+                'text' => trans('modules.installation.download', ['module' => $name]),
+                'url'  => route('apps.download')
+            ];
 
-        // Unzip
-        $json['step'][] = [
-            'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('apps/unzip')
-        ];
+            // Unzip
+            $steps[] = [
+                'text' => trans('modules.installation.unzip', ['module' => $name]),
+                'url'  => route('apps.unzip')
+            ];
 
-        // Download
-        $json['step'][] = [
-            'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => url('apps/install')
-        ];
+            // Copy
+            $steps[] = [
+                'text' => trans('modules.installation.file_copy', ['module' => $name]),
+                'url'  => route('apps.copy')
+            ];
+
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $steps,
+            'message' => null
+        ]);
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function download(InstallRequest $request)
+    {
+        try {
+            $path = $this->dispatch(new DownloadFile($request['alias'], $request['version']));
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -103,17 +168,27 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function download(Request $request)
+    public function unzip(InstallRequest $request)
     {
-        $this->checkApiToken();
+        try {
+            $path = $this->dispatch(new UnzipFile($request['alias'], $request['path']));
 
-        $path = $request['path'];
-
-        $version = $request['version'];
-
-        $path .= '/' . $version . '/' . version('short') . '/' . setting('general.api_token');
-
-        $json = $this->downloadModule($path);
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -125,13 +200,29 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function unzip(Request $request)
+    public function copy(InstallRequest $request)
     {
-        $this->checkApiToken();
+        try {
+            $this->dispatch(new CopyFiles($request['alias'], $request['path']));
 
-        $path = $request['path'];
+            event(new \App\Events\Module\Copied($request['alias'], company_id()));
 
-        $json = $this->unzipModule($path);
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'alias' => $request['alias'],
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -143,20 +234,40 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function install(Request $request)
+    public function install(InstallRequest $request)
     {
-        $this->checkApiToken();
+        try {
+            event(new \App\Events\Module\Installing($request['alias'], company_id()));
 
-        $path = $request['path'];
+            $this->dispatch(new InstallModule($request['alias'], company_id()));
 
-        $json = $this->installModule($path);
+            $name = module($request['alias'])->getName();
 
-        if ($json['success']) {
-            Artisan::call('module:install', ['alias' => $json['data']['alias'], 'company_id' => session('company_id')]);
-
-            $message = trans('modules.installed', ['module' => $json['data']['name']]);
+            $message = trans('modules.installed', ['module' => $name]);
 
             flash($message)->success();
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'redirect' => route('apps.app.show', $request['alias']),
+                'data' => [
+                    'name' => $name,
+                    'alias' => $request['alias'],
+                ],
+            ];
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error()->important();
+
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => [],
+            ];
         }
 
         return response()->json($json);
@@ -164,111 +275,113 @@ class Item extends Controller
 
     public function uninstall($alias)
     {
-        $this->checkApiToken();
+        try {
+            $name = module($alias)->getName();
 
-        $json = $this->uninstallModule($alias);
+            $this->dispatch(new UninstallModule($alias, company_id()));
 
-        $module = Module::alias($alias)->first();
+            $message = trans('modules.uninstalled', ['module' => $name]);
 
-        $data = [
-            'company_id' => session('company_id'),
-            'module_id' => $module->id,
-            'category' => $json['data']['category'],
-            'version' => $json['data']['version'],
-            'description' => trans('modules.uninstalled', ['module' => $json['data']['name']]),
-        ];
+            flash($message)->success();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
 
-        ModuleHistory::create($data);
+            flash($message)->error()->important();
+        }
 
-        $module->delete();
-
-        $message = trans('modules.uninstalled', ['module' => $json['data']['name']]);
-
-        flash($message)->success();
-
-        return redirect('apps/' . $alias)->send();
-    }
-
-    public function update($alias)
-    {
-        $this->checkApiToken();
-
-        $json = $this->updateModule($alias);
-
-        $module = Module::alias($alias)->first();
-
-        $data = [
-            'company_id' => session('company_id'),
-            'module_id' => $module->id,
-            'category' => $json['data']['category'],
-            'version' => $json['data']['version'],
-            'description' => trans_choice('modules.updated', $json['data']['name']),
-        ];
-
-        ModuleHistory::create($data);
-
-        $message = trans('modules.updated', ['module' => $json['data']['name']]);
-
-        flash($message)->success();
-
-        return redirect('apps/' . $alias)->send();
+        return redirect()->route('apps.app.show', $alias)->send();
     }
 
     public function enable($alias)
     {
-        $this->checkApiToken();
+        try {
+            $name = module($alias)->getName();
 
-        $json = $this->enableModule($alias);
+            $this->dispatch(new EnableModule($alias, company_id()));
 
-        $module = Module::alias($alias)->first();
+            $message = trans('modules.enabled', ['module' => $name]);
 
-        $data = [
-            'company_id' => session('company_id'),
-            'module_id' => $module->id,
-            'category' => $json['data']['category'],
-            'version' => $json['data']['version'],
-            'description' => trans('modules.enabled', ['module' => $json['data']['name']]),
-        ];
+            flash($message)->success();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
 
-        $module->status = 1;
+            flash($message)->error()->important();
+        }
 
-        $module->save();
-
-        ModuleHistory::create($data);
-
-        $message = trans('modules.enabled', ['module' => $json['data']['name']]);
-
-        flash($message)->success();
-
-        return redirect('apps/' . $alias)->send();
+        return redirect()->route('apps.app.show', $alias)->send();
     }
 
     public function disable($alias)
     {
-        $this->checkApiToken();
+        try {
+            $name = module($alias)->getName();
 
-        $json = $this->disableModule($alias);
+            $this->dispatch(new DisableModule($alias, company_id()));
 
-        $module = Module::alias($alias)->first();
+            $message = trans('modules.disabled', ['module' => $name]);
 
+            flash($message)->success();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error()->important();
+        }
+
+        return redirect()->route('apps.app.show', $alias)->send();
+    }
+
+    public function releases($alias, Request $request)
+    {
         $data = [
-            'company_id' => session('company_id'),
-            'module_id' => $module->id,
-            'category' => $json['data']['category'],
-            'version' => $json['data']['version'],
-            'description' => trans('modules.disabled', ['module' => $json['data']['name']]),
+            'query' => [
+                'page' => $request->get('page', 1),
+            ]
         ];
 
-        $module->status = 0;
+        $releases = $this->getModuleReleases($alias, $data);
 
-        $module->save();
+        $html = view('components.layouts.modules.releases', compact('releases'))->render();
 
-        ModuleHistory::create($data);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $releases,
+            'message' => null,
+            'html' => $html,
+        ]);
+    }
 
-        $message = trans('modules.disabled', ['module' => $json['data']['name']]);
+    public function reviews($alias, Request $request)
+    {
+        $data = [
+            'query' => [
+                'page' => $request->get('page', 1),
+            ]
+        ];
 
-        flash($message)->success();
+        $reviews = $this->getModuleReviews($alias, $data);
 
-        return redirect('apps/' . $alias)->send();
+        $html = view('components.layouts.modules.reviews', compact('reviews'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $reviews,
+            'message' => null,
+            'html' => $html,
+        ]);
+    }
+
+    public function documentation($alias)
+    {
+        $documentation = $this->getModuleDocumentation($alias);
+
+        $back = route('apps.app.show', $alias);
+
+        if (empty($documentation)) {
+            return redirect()->route($back)->send();
+        }
+
+        return view('modules.item.documentation', compact('documentation', 'back'));
     }
 }

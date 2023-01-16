@@ -2,25 +2,19 @@
 
 namespace App\Listeners\Auth;
 
-use Date;
-use Illuminate\Auth\Events\Login as ILogin;
+use App\Utilities\Date;
+use Illuminate\Auth\Events\Login as Event;
 
 class Login
 {
-
     /**
      * Handle the event.
      *
-     * @param ILogin $event
+     * @param Event $event
      * @return void
      */
-    public function handle(ILogin $event)
+    public function handle(Event $event)
     {
-        // Set company id
-        $company = $event->user->companies()->first();
-
-        session(['company_id' => $company->id]);
-
         // Save user login time
         $event->user->last_logged_in_at = Date::now();
 

@@ -1,15 +1,15 @@
-@extends('layouts.install')
+<x-layouts.install>
+    <x-slot name="title">
+        {{ trans('install.steps.language') }}
+    </x-slot>
 
-@section('header', trans('install.steps.language'))
-
-@section('content')
-    <div class="form-group">
-        <div class="col-md-12">
-            <select name="lang" id="lang" size="17" class="form-control">
+    <x-slot name="content">
+        <div class="mb-0">
+            <select name="lang" id="lang" size="14" class="w-full text-black text-sm font-medium">
                 @foreach (language()->allowed() as $code => $name)
-                <option value="{{ $code }}" @if ($code == 'en-GB') {{ 'selected="selected"' }} @endif>{{ $name }}</option>
+                <option value="{{ $code }}" @if ($code=='en-GB' ) {{ 'selected="selected"' }} @endif>{{ $name }}</option>
                 @endforeach
             </select>
         </div>
-    </div>
-@endsection
+    </x-slot>
+</x-layouts.install>

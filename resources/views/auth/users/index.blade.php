@@ -1,92 +1,110 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans_choice('general.users', 2) }}</x-slot>
 
-@section('title', trans_choice('general.users', 2))
+    <x-slot name="favorite"
+        title="{{ trans_choice('general.users', 2) }}"
+        icon="people"
+        route="users.index"
+    ></x-slot>
 
-@permission('create-auth-users')
-@section('new_button')
-<span class="new-button"><a href="{{ url('auth/users/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
-@endpermission
+    <x-slot name="buttons">
+        @can('create-auth-users')
+            <x-link href="{{ route('users.create') }}" kind="primary" id="index-more-actions-invite-user">
+                {{ trans('general.title.invite', ['type' => trans_choice('general.users', 1)]) }}
+            </x-link>
+        @endcan
+    </x-slot>
 
-@section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'auth/users', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('role', $roles, request('role'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
-        </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-users">
-                <thead>
-                    <tr>
-                        <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-3">@sortablelink('email', trans('general.email'))</th>
-                        <th class="col-md-3 hidden-xs">{{ trans_choice('general.roles', 2) }}</th>
-                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
-                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $item)
-                    <tr>
-                        <td>
-                            <a href="{{ url('auth/users/' . $item->id . '/edit') }}">
-                                @if ($item->picture)
-                                <img src="{{ Storage::url($item->picture->id) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
-                                @endif
-                                {{ $item->name }}
-                            </a>
-                        </td>
-                        <td>{{ $item->email }}</td>
-                        <td class="hidden-xs" style="vertical-align: middle;">
-                            @foreach($item->roles as $role)
-                                <label class="label label-default">{{ $role->display_name }}</label>
-                            @endforeach
-                        </td>
-                        <td class="hidden-xs">
-                            @if ($item->enabled)
-                                <span class="label label-success">{{ trans('general.enabled') }}</span>
-                            @else
-                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('auth/users/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    @permission('delete-auth-users')
-                                    <li>{!! Form::deleteLink($item, 'auth/users') !!}</li>
-                                    @endpermission
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- /.box-body -->
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $users, 'type' => 'users'])
-    </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
-@endsection
+    <x-slot name="content">
+        @if ($users->count() || request()->get('search', false))
+            <x-index.container>
+                <x-index.search
+                    search-string="App\Models\Auth\User"
+                    bulk-action="App\BulkActions\Auth\Users"
+                />
 
+                <x-table>
+                    <x-table.thead>
+                        <x-table.tr>
+                            <x-table.th kind="bulkaction">
+                                <x-index.bulkaction.all />
+                            </x-table.th>
+
+                            <x-table.th class="w-8/12 sm:w-5/12">
+                                <x-sortablelink column="name" title="{{ trans('general.name') }}" />
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12" hidden-mobile>
+                                <x-sortablelink column="email" title="{{ trans('general.email') }}" />
+                            </x-table.th>
+
+                            <x-table.th class="w-4/12" kind="right">
+                                {{ trans_choice('general.roles', 1) }}
+                            </x-table.th>
+                        </x-table.tr>
+                    </x-table.thead>
+
+                    <x-table.tbody>
+                        @foreach($users as $item)
+                            <x-table.tr href="{{ route('users.edit', $item->id) }}">
+                                <x-table.td kind="bulkaction">
+                                    <x-index.bulkaction.single
+                                        id="{{ $item->id }}"
+                                        name="{{ $item->name }}"
+                                        :disabled="($item->hasPendingInvitation() || user()->id == $item->id) ? true : false"
+                                    />
+                                </x-table.td>
+
+                                <x-table.td class="w-8/12 sm:w-5/12">
+                                    <div class="flex items-center space-x-2">
+                                        @if (setting('default.use_gravatar', '0') == '1')
+                                            <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" title="{{ $item->name }}" alt="{{ $item->name }}">
+                                        @elseif (is_object($item->picture))
+                                            <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                        @else
+                                            <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" alt="{{ $item->name }}"/>
+                                        @endif
+
+                                        {{ !empty($item->name) ? $item->name : trans('general.na') }}
+
+                                        @if ($item->hasPendingInvitation())
+                                            <x-index.status status="pending" background-color="bg-status-danger" text-color="text-black" />
+                                        @endif
+
+                                        @if (! $item->enabled)
+                                            <x-index.disable text="{{ trans_choice('general.users', 1) }}" />
+                                        @endif
+                                    </div>
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12" hidden-mobile>
+                                    {{ $item->email }}
+                                </x-table.td>
+
+                                <x-table.td class="w-4/12" kind="right">
+                                    <div class="space-x-2">
+                                        @foreach($item->roles as $role)
+                                            <span class="bg-lilac-900 px-2 py-0.5 test-xs rounded-lg text-black">
+                                                {{ $role->display_name }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                </x-table.td>
+
+                                <x-table.td kind="action">
+                                    <x-table.actions :model="$item" />
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </x-table.tbody>
+                </x-table>
+
+                <x-pagination :items="$users" />
+            </x-index.container>
+        @else
+            <x-empty-page group="auth" page="users" />
+        @endif
+    </x-slot>
+
+    <x-script folder="auth" file="users" />
+</x-layouts.admin>

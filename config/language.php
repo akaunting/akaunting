@@ -21,7 +21,28 @@ return [
     | to url('/')
     |
     */
-    'home'          => true,
+    'home'          => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Add Language Code
+    |--------------------------------------------------------------------------
+    |
+    | This option will add the language code to the redirected url
+    |
+    */
+    'url'          => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Set strategy
+    |--------------------------------------------------------------------------
+    |
+    | This option will determine the strategy used to determine the back url.
+    | It can be 'session' (default) or 'referer'
+    |
+    */
+    'back'          => 'session',
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +62,7 @@ return [
     | This option the language of jenssegers/date library.
     |
     */
-    'date'          => true,
+    'date'          => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -92,7 +113,6 @@ return [
     | This option indicates the flags features.
     |
     */
-
     'flags'         => ['width' => '22px', 'ul_class' => 'menu', 'li_class' => '', 'img_class' => ''],
 
     /*
@@ -100,10 +120,12 @@ return [
     | Language code mode
     |--------------------------------------------------------------------------
     |
-    | This option indicates the language code to be used, short or long
+    | This option indicates the language code and name to be used, short/long
+    | and english/native.
+    | Short: language code (en)
+    | Long: languagecode-COUNTRYCODE (en-GB)
     |
     */
-
     'mode'          => ['code' => 'long', 'name' => 'native'],
 
     /*
@@ -111,65 +133,79 @@ return [
     | Allowed languages
     |--------------------------------------------------------------------------
     |
-    | This options indicates the allowed languages.
+    | This options indicates the language allowed languages.
     |
     */
-
-    'allowed'       => ['en-GB', 'ar-SA', 'cs-CZ', 'de-DE', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'hr-HR', 'id-ID', 'it-IT', 'nb-NO', 'nl-NL', 'pt-BR', 'ru-RU', 'sq-AL', 'sv-SE', 'tr-TR', 'vi-VN', 'zh-TW'],
+    'allowed'       => ['ar-SA', 'az-AZ', 'bg-BG', 'bn-BD', 'bs-BA', 'ca-ES', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-US', 'es-AR', 'es-ES', 'es-MX', 'et-EE', 'fa-IR', 'fr-FR', 'he-IL', 'hi-IN', 'hr-HR', 'hu-HU', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE', 'ko-KR', 'lt-LT', 'lv-LV', 'mk-MK', 'ms-MY', 'nb-NO', 'ne-NP', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SI', 'sr-RS', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ',  'vi-VN', 'zh-CN', 'zh-TW'],
 
     /*
     |--------------------------------------------------------------------------
-    | All languages
+    | All Languages
     |--------------------------------------------------------------------------
     |
     | This option indicates the language codes and names.
     |
     */
-
     'all' => [
-        ['short' => 'ar',       'long' => 'ar-SA',      'english' => 'Arabic',              'native' => 'العربية'],
-        ['short' => 'bg',       'long' => 'bg-BG',      'english' => 'Bulgarian',           'native' => 'български'],
-        ['short' => 'bn',       'long' => 'bn-BD',      'english' => 'Bengali',             'native' => 'বাংলা'],
-        ['short' => 'cn',       'long' => 'zh-CN',      'english' => 'Chinese (S)',         'native' => '简体中文'],
-        ['short' => 'cs',       'long' => 'cs-CZ',      'english' => 'Czech',               'native' => 'Čeština'],
-        ['short' => 'da',       'long' => 'da-DK',      'english' => 'Danish',              'native' => 'Dansk'],
-        ['short' => 'de',       'long' => 'de-DE',      'english' => 'German',              'native' => 'Deutsch'],
-        ['short' => 'de',       'long' => 'de-AT',      'english' => 'Austrian',            'native' => 'Österreichisches Deutsch'],
-        ['short' => 'fi',       'long' => 'fi-FI',      'english' => 'Finnish',             'native' => 'Suomi'],
-        ['short' => 'fr',       'long' => 'fr-FR',      'english' => 'French',              'native' => 'Français'],
-        ['short' => 'el',       'long' => 'el-GR',      'english' => 'Greek',               'native' => 'Ελληνικά'],
-        ['short' => 'en',       'long' => 'en-AU',      'english' => 'English (AU)',        'native' => 'English (AU)'],
-        ['short' => 'en',       'long' => 'en-CA',      'english' => 'English (CA)',        'native' => 'English (CA)'],
-        ['short' => 'en',       'long' => 'en-GB',      'english' => 'English (GB)',        'native' => 'English (GB)'],
-        ['short' => 'en',       'long' => 'en-US',      'english' => 'English (US)',        'native' => 'English (US)'],
-        ['short' => 'es',       'long' => 'es-ES',      'english' => 'Spanish',             'native' => 'Español'],
-        ['short' => 'et',       'long' => 'et-EE',      'english' => 'Estonian',            'native' => 'Eesti'],
-        ['short' => 'he',       'long' => 'he-IL',      'english' => 'Hebrew',              'native' => 'עִבְרִית'],
-        ['short' => 'hi',       'long' => 'hi-IN',      'english' => 'Hindi',               'native' => 'हिन्दी'],
-        ['short' => 'hr',       'long' => 'hr-HR',      'english' => 'Croatian',            'native' => 'Hrvatski'],
-        ['short' => 'hu',       'long' => 'hu-HU',      'english' => 'Hungarian',           'native' => 'Magyar'],
-        ['short' => 'hy',       'long' => 'hy-AM',      'english' => 'Armenian',            'native' => 'Հայերեն'],
-        ['short' => 'id',       'long' => 'id-ID',      'english' => 'Indonesian',          'native' => 'Bahasa Indonesia'],
-        ['short' => 'it',       'long' => 'it-IT',      'english' => 'Italian',             'native' => 'Italiano'],
-        ['short' => 'ir',       'long' => 'fa-IR',      'english' => 'Persian',             'native' => 'فارسی'],
-        ['short' => 'lt',       'long' => 'lt-LT',      'english' => 'Lithuanian',          'native' => 'Lietuvių'],
-        ['short' => 'jp',       'long' => 'ja-JP',      'english' => 'Japanese',            'native' => '日本語'],
-        ['short' => 'ko',       'long' => 'ko-KR',      'english' => 'Korean',              'native' => '한국어'],
-        ['short' => 'ms',       'long' => 'ms-MY',      'english' => 'Malay',               'native' => 'Bahasa Melayu'],
-        ['short' => 'mx',       'long' => 'es-MX',      'english' => 'Mexico',              'native' => 'Español de México'],
-        ['short' => 'nb',       'long' => 'nb-NO',      'english' => 'Norwegian',           'native' => 'Norsk Bokmål'],
-        ['short' => 'nl',       'long' => 'nl-NL',      'english' => 'Dutch',               'native' => 'Nederlands'],
-        ['short' => 'pl',       'long' => 'pl-PL',      'english' => 'Polish',              'native' => 'Polski'],
-        ['short' => 'pt-BR',    'long' => 'pt-BR',      'english' => 'Brazilian',           'native' => 'Português do Brasil'],
-        ['short' => 'pt',       'long' => 'pt-PT',      'english' => 'Portuguese',          'native' => 'Português'],
-        ['short' => 'ro',       'long' => 'ro-RO',      'english' => 'Romanian',            'native' => 'Română'],
-        ['short' => 'ru',       'long' => 'ru-RU',      'english' => 'Russian',             'native' => 'Русский'],
-        ['short' => 'sq',       'long' => 'sq-AL',      'english' => 'Albanian',            'native' => 'Shqip'],
-        ['short' => 'sv',       'long' => 'sv-SE',      'english' => 'Swedish',             'native' => 'Svenska'],
-        ['short' => 'th',       'long' => 'th-TH',      'english' => 'Thai',                'native' => 'ไทย'],
-        ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe'],
-        ['short' => 'tw',       'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
-        ['short' => 'uk',       'long' => 'uk-UA',      'english' => 'Ukrainian',           'native' => 'Українська'],
-        ['short' => 'vn',       'long' => 'vi-VN',      'english' => 'Vietnamese',          'native' => 'Tiếng Việt'],
+        ['short' => 'ar',       'long' => 'ar-SA',      'direction' => 'rtl',       'english' => 'Arabic',              'native' => 'العربية'],
+        ['short' => 'az',       'long' => 'az-AZ',      'direction' => 'ltr',       'english' => 'Azerbaijani',         'native' => 'Azərbaycan'],
+        ['short' => 'bg',       'long' => 'bg-BG',      'direction' => 'ltr',       'english' => 'Bulgarian',           'native' => 'български'],
+        ['short' => 'bn',       'long' => 'bn-BD',      'direction' => 'ltr',       'english' => 'Bengali',             'native' => 'বাংলা'],
+        ['short' => 'bs',       'long' => 'bs-BA',      'direction' => 'ltr',       'english' => 'Bosnian',             'native' => 'Bosanski'],
+        ['short' => 'ca',       'long' => 'ca-ES',      'direction' => 'ltr',       'english' => 'Catalan',             'native' => 'Català'],
+        ['short' => 'cn',       'long' => 'zh-CN',      'direction' => 'ltr',       'english' => 'Chinese (S)',         'native' => '简体中文'],
+        ['short' => 'cs',       'long' => 'cs-CZ',      'direction' => 'ltr',       'english' => 'Czech',               'native' => 'Čeština'],
+        ['short' => 'da',       'long' => 'da-DK',      'direction' => 'ltr',       'english' => 'Danish',              'native' => 'Dansk'],
+        ['short' => 'de',       'long' => 'de-DE',      'direction' => 'ltr',       'english' => 'German',              'native' => 'Deutsch'],
+        ['short' => 'de',       'long' => 'de-AT',      'direction' => 'ltr',       'english' => 'Austrian',            'native' => 'Österreichisches Deutsch'],
+        ['short' => 'fi',       'long' => 'fi-FI',      'direction' => 'ltr',       'english' => 'Finnish',             'native' => 'Suomi'],
+        ['short' => 'fr',       'long' => 'fr-FR',      'direction' => 'ltr',       'english' => 'French',              'native' => 'Français'],
+        ['short' => 'ea',       'long' => 'es-AR',      'direction' => 'ltr',       'english' => 'Spanish (Argentina)', 'native' => 'Español de Argentina'],
+        ['short' => 'el',       'long' => 'el-GR',      'direction' => 'ltr',       'english' => 'Greek',               'native' => 'Ελληνικά'],
+        ['short' => 'en',       'long' => 'en-AU',      'direction' => 'ltr',       'english' => 'English (AU)',        'native' => 'English (AU)'],
+        ['short' => 'en',       'long' => 'en-CA',      'direction' => 'ltr',       'english' => 'English (CA)',        'native' => 'English (CA)'],
+        ['short' => 'en',       'long' => 'en-GB',      'direction' => 'ltr',       'english' => 'English (GB)',        'native' => 'English (GB)'],
+        ['short' => 'en',       'long' => 'en-US',      'direction' => 'ltr',       'english' => 'English (US)',        'native' => 'English (US)'],
+        ['short' => 'es',       'long' => 'es-ES',      'direction' => 'ltr',       'english' => 'Spanish',             'native' => 'Español'],
+        ['short' => 'et',       'long' => 'et-EE',      'direction' => 'ltr',       'english' => 'Estonian',            'native' => 'Eesti'],
+        ['short' => 'he',       'long' => 'he-IL',      'direction' => 'rtl',       'english' => 'Hebrew',              'native' => 'עִבְרִית'],
+        ['short' => 'hi',       'long' => 'hi-IN',      'direction' => 'ltr',       'english' => 'Hindi',               'native' => 'हिन्दी'],
+        ['short' => 'hr',       'long' => 'hr-HR',      'direction' => 'ltr',       'english' => 'Croatian',            'native' => 'Hrvatski'],
+        ['short' => 'hu',       'long' => 'hu-HU',      'direction' => 'ltr',       'english' => 'Hungarian',           'native' => 'Magyar'],
+        ['short' => 'hy',       'long' => 'hy-AM',      'direction' => 'ltr',       'english' => 'Armenian',            'native' => 'Հայերեն',],
+        ['short' => 'id',       'long' => 'id-ID',      'direction' => 'ltr',       'english' => 'Indonesian',          'native' => 'Bahasa Indonesia'],
+        ['short' => 'is',       'long' => 'is-IS',      'direction' => 'ltr',       'english' => 'Icelandic',           'native' => 'Íslenska'],
+        ['short' => 'it',       'long' => 'it-IT',      'direction' => 'ltr',       'english' => 'Italian',             'native' => 'Italiano'],
+        ['short' => 'ir',       'long' => 'fa-IR',      'direction' => 'rtl',       'english' => 'Persian',             'native' => 'فارسی'],
+        ['short' => 'jp',       'long' => 'ja-JP',      'direction' => 'ltr',       'english' => 'Japanese',            'native' => '日本語'],
+        ['short' => 'ka',       'long' => 'ka-GE',      'direction' => 'ltr',       'english' => 'Georgian',            'native' => 'ქართული'],
+        ['short' => 'ko',       'long' => 'ko-KR',      'direction' => 'ltr',       'english' => 'Korean',              'native' => '한국어'],
+        ['short' => 'lt',       'long' => 'lt-LT',      'direction' => 'ltr',       'english' => 'Lithuanian',          'native' => 'Lietuvių'],
+        ['short' => 'lv',       'long' => 'lv-LV',      'direction' => 'ltr',       'english' => 'Latvian',             'native' => 'Latviešu valoda'],
+        ['short' => 'mk',       'long' => 'mk-MK',      'direction' => 'ltr',       'english' => 'Macedonian',          'native' => 'Македонски јазик'],
+        ['short' => 'ms',       'long' => 'ms-MY',      'direction' => 'ltr',       'english' => 'Malay',               'native' => 'Bahasa Melayu'],
+        ['short' => 'mx',       'long' => 'es-MX',      'direction' => 'ltr',       'english' => 'Mexico',              'native' => 'Español de México'],
+        ['short' => 'nb',       'long' => 'nb-NO',      'direction' => 'ltr',       'english' => 'Norwegian',           'native' => 'Norsk Bokmål'],
+        ['short' => 'ne',       'long' => 'ne-NP',      'direction' => 'ltr',       'english' => 'Nepali',              'native' => 'नेपाली'],
+        ['short' => 'nl',       'long' => 'nl-NL',      'direction' => 'ltr',       'english' => 'Dutch',               'native' => 'Nederlands'],
+        ['short' => 'pl',       'long' => 'pl-PL',      'direction' => 'ltr',       'english' => 'Polish',              'native' => 'Polski'],
+        ['short' => 'pt-BR',    'long' => 'pt-BR',      'direction' => 'ltr',       'english' => 'Brazilian',           'native' => 'Português do Brasil'],
+        ['short' => 'pt',       'long' => 'pt-PT',      'direction' => 'ltr',       'english' => 'Portuguese',          'native' => 'Português'],
+        ['short' => 'ro',       'long' => 'ro-RO',      'direction' => 'ltr',       'english' => 'Romanian',            'native' => 'Română'],
+        ['short' => 'ru',       'long' => 'ru-RU',      'direction' => 'ltr',       'english' => 'Russian',             'native' => 'Русский'],
+        ['short' => 'sr',       'long' => 'sr-RS',      'direction' => 'ltr',       'english' => 'Serbian (Cyrillic)',  'native' => 'Српски језик'],
+        ['short' => 'sr',       'long' => 'sr-CS',      'direction' => 'ltr',       'english' => 'Serbian (Latin)',     'native' => 'Српски језик'],
+        ['short' => 'sq',       'long' => 'sq-AL',      'direction' => 'ltr',       'english' => 'Albanian',            'native' => 'Shqip'],
+        ['short' => 'sk',       'long' => 'sk-SK',      'direction' => 'ltr',       'english' => 'Slovak',              'native' => 'Slovenčina'],
+        ['short' => 'sl',       'long' => 'sl-SI',      'direction' => 'ltr',       'english' => 'Slovenian',           'native' => 'Slovenščina'],
+        ['short' => 'sv',       'long' => 'sv-SE',      'direction' => 'ltr',       'english' => 'Swedish',             'native' => 'Svenska'],
+        ['short' => 'th',       'long' => 'th-TH',      'direction' => 'ltr',       'english' => 'Thai',                'native' => 'ไทย'],
+        ['short' => 'tr',       'long' => 'tr-TR',      'direction' => 'ltr',       'english' => 'Turkish',             'native' => 'Türkçe'],
+        ['short' => 'tw',       'long' => 'zh-TW',      'direction' => 'ltr',       'english' => 'Chinese (T)',         'native' => '繁體中文'],
+        ['short' => 'uk',       'long' => 'uk-UA',      'direction' => 'ltr',       'english' => 'Ukrainian',           'native' => 'Українська'],
+        ['short' => 'ur',       'long' => 'ur-PK',      'direction' => 'rtl',       'english' => 'Urdu (Pakistan)',     'native' => 'اردو'],
+        ['short' => 'uz',       'long' => 'uz-UZ',      'direction' => 'ltr',       'english' => 'Uzbek',               'native' => 'O\'zbek'],
+        ['short' => 'vi',       'long' => 'vi-VN',      'direction' => 'ltr',       'english' => 'Vietnamese',          'native' => 'Tiếng Việt'],
     ],
+
 ];

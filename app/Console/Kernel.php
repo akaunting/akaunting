@@ -12,13 +12,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        Commands\CompanySeed::class,
-        Commands\BillReminder::class,
-        Commands\Install::class,
-        Commands\InvoiceReminder::class,
-        Commands\ModuleInstall::class,
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.
@@ -29,12 +23,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Not installed yet
-        if (!env('APP_INSTALLED')) {
+        if (!config('app.installed')) {
             return;
         }
 
-        $schedule->command('reminder:invoice')->dailyAt(setting('general.schedule_time', '09:00'));
-        $schedule->command('reminder:bill')->dailyAt(setting('general.schedule_time', '09:00'));
+        $schedule_time = config('app.schedule_time');
+
+        $schedule->command('reminder:invoice')->dailyAt($schedule_time);
+        $schedule->command('reminder:bill')->dailyAt($schedule_time);
+        $schedule->command('recurring:check')->dailyAt($schedule_time)->runInBackground();
+        $schedule->command('storage-temp:clear')->dailyAt('17:00');
     }
 
     /**
@@ -45,5 +43,17 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
+
+        $this->load(__DIR__ . '/Commands');
+    }
+
+    /**
+     * Get the timezone that should be used by default for scheduled events.
+     *
+     * @return \DateTimeZone|string|null
+     */
+    protected function scheduleTimezone()
+    {
+        return config('app.timezone');
     }
 }

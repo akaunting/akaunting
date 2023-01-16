@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use Akaunting\Money\Money;
 use App\Models\Setting\Currency;
 
 class Overrider
@@ -11,7 +12,7 @@ class Overrider
     public static function load($type)
     {
         // Overrides apply per company
-        $company_id = session('company_id');
+        $company_id = company_id();
         if (empty($company_id)) {
             return;
         }
@@ -25,38 +26,45 @@ class Overrider
 
     protected static function loadSettings()
     {
-        // Set the active company settings
-        setting()->setExtraColumns(['company_id' => static::$company_id]);
-        setting()->load(true);
-
         // Timezone
-        config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        $timezone = setting('localisation.timezone');
 
-        // Email
-        $email_protocol = setting('general.email_protocol', 'mail');
-        config(['mail.driver' => $email_protocol]);
-        config(['mail.from.name' => setting('general.company_name')]);
-        config(['mail.from.address' => setting('general.company_email')]);
-
-        if ($email_protocol == 'sendmail') {
-            config(['mail.sendmail' => setting('general.email_sendmail_path')]);
-        } elseif ($email_protocol == 'smtp') {
-            config(['mail.host' => setting('general.email_smtp_host')]);
-            config(['mail.port' => setting('general.email_smtp_port')]);
-            config(['mail.username' => setting('general.email_smtp_username')]);
-            config(['mail.password' => setting('general.email_smtp_password')]);
-            config(['mail.encryption' => setting('general.email_smtp_encryption')]);
+        if (empty($timezone)) {
+            $timezone = config('setting.fallback.localisation.timezone');
         }
 
-        // Session
-        config(['session.driver' => setting('general.session_handler', 'file')]);
-        config(['session.lifetime' => setting('general.session_lifetime', '30')]);
+        config(['app.timezone' => $timezone]);
+        date_default_timezone_set(config('app.timezone'));
+
+        // Email
+        $email_protocol = setting('email.protocol', 'mail');
+        config(['mail.default' => $email_protocol]);
+        config(['mail.from.name' => setting('company.name')]);
+        config(['mail.from.address' => setting('company.email')]);
+
+        if ($email_protocol == 'sendmail') {
+            config(['mail.mailers.sendmail.path' => setting('email.sendmail_path')]);
+        } elseif ($email_protocol == 'smtp') {
+            config(['mail.mailers.smtp.host' => setting('email.smtp_host')]);
+            config(['mail.mailers.smtp.port' => setting('email.smtp_port')]);
+            config(['mail.mailers.smtp.username' => setting('email.smtp_username')]);
+            config(['mail.mailers.smtp.password' => setting('email.smtp_password')]);
+            config(['mail.mailers.smtp.encryption' => setting('email.smtp_encryption')]);
+        }
 
         // Locale
-        if (session('locale') == '') {
-            //App::setLocale(setting('general.default_language'));
-            //Session::put('locale', setting('general.default_language'));
-            config(['app.locale' => setting('general.default_locale')]);
+        if (! session('locale')) {
+            $locale = user()->locale ?? setting('default.locale');
+
+            app()->setLocale($locale);
+        }
+
+        // Set locale for Money package
+		Money::setLocale(app()->getLocale());
+
+        // Set app url dynamically if empty
+        if (! config('app.url')) {
+            config(['app.url' => url('/')]);
         }
     }
 
@@ -65,10 +73,8 @@ class Overrider
         $currencies = Currency::all();
 
         foreach ($currencies as $currency) {
-            if (!isset($currency->precision)) {
-                continue;
-            }
-
+            config(['money.' . $currency->code . '.name' => $currency->name]);
+            config(['money.' . $currency->code . '.rate' => $currency->rate]);
             config(['money.' . $currency->code . '.precision' => $currency->precision]);
             config(['money.' . $currency->code . '.symbol' => $currency->symbol]);
             config(['money.' . $currency->code . '.symbol_first' => $currency->symbol_first]);
@@ -79,5 +85,4 @@ class Overrider
         // Set currencies with new settings
         \Akaunting\Money\Currency::setCurrencies(config('money'));
     }
-
 }

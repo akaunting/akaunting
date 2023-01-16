@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Banking;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Account extends Request
+class Account extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,11 +13,20 @@ class Account extends Request
      */
     public function rules()
     {
+        $type = $this->request->get('type', 'bank');
+        $opening_balance = 'required';
+
+        if ($type == 'bank') {
+            $opening_balance = '|amount:0';
+        }
+
         return [
+            'type' => 'required|string',
             'name' => 'required|string',
             'number' => 'required|string',
-            'currency_code' => 'required|string',
-            'opening_balance' => 'required',
+            'currency_code' => 'required|string|currency',
+            'opening_balance' => $opening_balance,
+            'enabled' => 'integer|boolean',
         ];
     }
 }

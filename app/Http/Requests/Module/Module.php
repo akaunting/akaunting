@@ -2,18 +2,23 @@
 
 namespace App\Http\Requests\Module;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
+use App\Traits\Modules as RemoteModules;
+use Illuminate\Validation\Factory as ValidationFactory;
 
-class Module extends Request
+class Module extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    use RemoteModules;
+
+    public function __construct(ValidationFactory $validation)
     {
-        return true;
+        $validation->extend(
+            'check',
+            function ($attribute, $value, $parameters) {
+                return $this->checkToken($value);
+            },
+            trans('messages.error.invalid_apikey')
+        );
     }
 
     /**
@@ -24,7 +29,7 @@ class Module extends Request
     public function rules()
     {
         return [
-            'api_token' => 'required|string',
+            'api_key' => 'required|string|check',
         ];
     }
 }

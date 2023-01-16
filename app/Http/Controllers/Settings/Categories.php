@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
+use App\Exports\Settings\Categories as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Setting\Category as Request;
+use App\Imports\Settings\Categories as Import;
+use App\Jobs\Setting\CreateCategory;
+use App\Jobs\Setting\DeleteCategory;
+use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
+use App\Traits\Categories as Helper;
 
 class Categories extends Controller
 {
+    use Helper;
 
     /**
      * Display a listing of the resource.
@@ -16,14 +24,27 @@ class Categories extends Controller
      */
     public function index()
     {
-        $categories = Category::collect();
+        $query = Category::with('sub_categories');
 
-        $transfer_id = Category::transfer();
+        if (request()->has('search')) {
+            $query->withSubcategory();
+        }
 
-        $types = collect(['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other'])
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
+        $categories = $query->collect();
 
-        return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
+        $types = $this->getCategoryTypes();
+
+        return $this->response('settings.categories.index', compact('categories', 'types'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -33,7 +54,23 @@ class Categories extends Controller
      */
     public function create()
     {
-        return view('settings.categories.create');
+        $types = $this->getCategoryTypes();
+
+        $categories = [];
+
+        foreach (config('type.category') as $type => $config) {
+            $categories[$type] = [];
+        }
+
+        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
+            $categories[$category->type][] = [
+                'id' => $category->id,
+                'title' => $category->name,
+                'level' => $category->level,
+            ];
+        });
+
+        return view('settings.categories.create', compact('types', 'categories'));
     }
 
     /**
@@ -45,13 +82,47 @@ class Categories extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
+        $response = $this->ajaxDispatch(new CreateCategory($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
 
-        return redirect('settings/categories');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('categories.create');
+
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.categories', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['settings', 'categories']);
+
+            flash($response['message'])->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -63,74 +134,146 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        return view('settings.categories.edit', compact('category'));
+        $types = $this->getCategoryTypes();
+
+        $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
+
+        $edited_category_id = $category->id;
+
+        $categories = [];
+
+        foreach (config('type.category') as $type => $config) {
+            $categories[$type] = [];
+        }
+
+        $skip_categories = [];
+        $skip_categories[] = $edited_category_id;
+
+        foreach ($category->sub_categories as $sub_category) {
+            $skip_categories[] = $sub_category->id;
+
+            if ($sub_category->sub_categories) {
+                $skips = $this->getChildrenCategoryIds($sub_category);
+
+                foreach ($skips as $skip) {
+                    $skip_categories[] = $skip;
+                }
+            }
+        }
+
+        Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories, &$skip_categories) {
+            if (in_array($category->id, $skip_categories)) {
+                return;
+            }
+
+            $categories[$category->type][] = [
+                'id' => $category->id,
+                'title' => $category->name,
+                'level' => $category->level,
+            ];
+        });
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Category  $category
-     * @param  Request  $request
+     * @param  Category $category
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Category $category, Request $request)
     {
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'revenues' => 'revenues',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new UpdateCategory($category, $request));
 
-        if (empty($relationships) || $request['enabled']) {
-            $category->update($request->all());
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.categories', 1)]);
+            $message = trans('messages.success.updated', ['type' => $category->name]);
 
             flash($message)->success();
-
-            return redirect('settings/categories');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $response['redirect'] = route('categories.edit', $category->id);
 
-            flash($message)->warning();
+            $message = $response['message'];
 
-            return redirect('settings/categories/' . $category->id . '/edit');
+            flash($message)->error()->important();
         }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Enable the specified resource.
+     *
+     * @param  Category $category
+     *
+     * @return Response
+     */
+    public function enable(Category $category)
+    {
+        $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
+
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $category->name]);
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Category $category
+     *
+     * @return Response
+     */
+    public function disable(Category $category)
+    {
+        $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
+
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $category->name]);
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
     public function destroy(Category $category)
     {
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'revenues' => 'revenues',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteCategory($category));
 
-        // Can't delete transfer category
-        if ($category->id == Category::transfer()) {
-            return redirect('settings/categories');
-        }
+        $response['redirect'] = route('categories.index');
 
-        if (empty($relationships)) {
-            $category->delete();
-
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.categories', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $category->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error()->important();
         }
 
-        return redirect('settings/categories');
+        return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.categories', 2));
     }
 }

@@ -4,10 +4,11 @@ return [
 
     'domain'                => '網域',
     'logo'                  => '商標',
-    'manage'                => '管理公司',
-    'all'                   => '所有公司',
+
     'error' => [
-        'delete_active'     => '錯誤：不能刪除使用中的公司，請先修改！',
+        'not_user_company'  => '錯誤：您不允許變更此公司！',
+        'delete_active'     => '錯誤：無法刪除使用中的公司。請先切換到另一家！',
+        'disable_active'    => '錯誤：無法停用使用中的公司。請先切換到另一家！',
     ],
 
 ];

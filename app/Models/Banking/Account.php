@@ -2,12 +2,14 @@
 
 namespace App\Models\Banking;
 
-use App\Models\Model;
-use Sofa\Eloquence\Eloquence;
+use App\Abstracts\Model;
+use App\Traits\Transactions;
+use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Account extends Model
 {
-    use Eloquence;
+    use Cloneable, HasFactory, Transactions;
 
     protected $table = 'accounts';
 
@@ -16,69 +18,89 @@ class Account extends Model
      *
      * @var array
      */
-    protected $appends = ['balance'];
+    protected $appends = ['balance', 'title'];
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled'];
+    protected $fillable = ['company_id', 'type', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled', 'created_from', 'created_by'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'opening_balance' => 'double',
+        'enabled' => 'boolean',
+    ];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['name', 'number', 'opening_balance', 'enabled'];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchableColumns = [
-        'name'         => 10,
-        'number'       => 10,
-        'bank_name'    => 10,
-        'bank_phone'   => 5,
-        'bank_address' => 2,
-    ];
+    public $sortable = ['name', 'number', 'balance', 'bank_name', 'bank_phone'];
 
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function invoice_payments()
+    public function expense_transactions()
     {
-        return $this->hasMany('App\Models\Income\InvoicePayment');
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getExpenseTypes());
     }
 
-    public function revenues()
+    public function income_transactions()
     {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->transactions()->whereIn('transactions.type', (array) $this->getIncomeTypes());
     }
 
-    public function bill_payments()
+    public function transactions()
     {
-        return $this->hasMany('App\Models\Expense\BillPayment');
+        return $this->hasMany('App\Models\Banking\Transaction');
     }
 
-    public function payments()
+    public function scopeName($query, $name)
     {
-        return $this->hasMany('App\Models\Expense\Payment');
+        return $query->where('name', '=', $name);
+    }
+
+    public function scopeNumber($query, $number)
+    {
+        return $query->where('number', '=', $number);
     }
 
     /**
-     * Convert opening balance to double.
+     * Sort by balance
      *
-     * @param  string  $value
-     * @return void
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function setOpeningBalanceAttribute($value)
+    public function balanceSortable($query, $direction)
     {
-        $this->attributes['opening_balance'] = (double) $value;
+        return $query//->join('transactions', 'transactions.account_id', '=', 'accounts.id')
+            ->orderBy('balance', $direction)
+            ->select(['accounts.*', 'accounts.opening_balance as balance']);
+    }
+
+    /**
+     * Get the name with currency.
+     *
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        if ($this->currency->symbol) {
+            return $this->name . ' (' . $this->currency->symbol . ')';
+        }
+
+        return $this->name;
     }
 
     /**
@@ -91,26 +113,99 @@ class Account extends Model
         // Opening Balance
         $total = $this->opening_balance;
 
-        // Sum invoices
-        foreach ($this->invoice_payments as $item) {
-            $total += $item->amount;
-        }
+        // Sum Incomes
+        $total += $this->income_transactions->sum('amount');
 
-        // Sum revenues
-        foreach ($this->revenues as $item) {
-            $total += $item->amount;
-        }
-
-        // Subtract bills
-        foreach ($this->bill_payments as $item) {
-            $total -= $item->amount;
-        }
-
-        // Subtract payments
-        foreach ($this->payments as $item) {
-            $total -= $item->amount;
-        }
+        // Subtract Expenses
+        $total -= $this->expense_transactions->sum('amount');
 
         return $total;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getIncomeBalanceAttribute()
+    {
+        // Opening Balance
+        //$total = $this->opening_balance;
+        $total = 0;
+
+        // Sum Incomes
+        $total += $this->income_transactions->sum('amount');
+
+        return $total;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getExpenseBalanceAttribute()
+    {
+        // Opening Balance
+        //$total = $this->opening_balance;
+        $total = 0;
+
+        // Subtract Expenses
+        $total += $this->expense_transactions->sum('amount');
+
+        return $total;
+    }
+
+    /**
+     * Get the line actions.
+     *
+     * @return array
+     */
+    public function getLineActionsAttribute()
+    {
+        $actions = [];
+
+        $actions[] = [
+            'title' => trans('general.show'),
+            'icon' => 'visibility',
+            'url' => route('accounts.show', $this->id),
+            'permission' => 'read-banking-accounts',
+            'attributes' => [
+                'id' => 'index-line-actions-show-account-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
+            'title' => trans('general.edit'),
+            'icon' => 'edit',
+            'url' => route('accounts.edit', $this->id),
+            'permission' => 'update-banking-accounts',
+            'attributes' => [
+                'id' => 'index-line-actions-edit-account-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
+            'type' => 'delete',
+            'icon' => 'delete',
+            'route' => 'accounts.destroy',
+            'permission' => 'delete-banking-accounts',
+            'model' => $this,
+            'attributes' => [
+                'id' => 'index-line-actions-delete-account-' . $this->id,
+            ],
+        ];
+
+        return $actions;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Account::new();
     }
 }

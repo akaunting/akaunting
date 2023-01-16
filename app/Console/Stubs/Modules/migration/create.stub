@@ -14,7 +14,7 @@ class $CLASS$ extends Migration
     public function up()
     {
         Schema::create('$TABLE$', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 $FIELDS$
             $table->timestamps();
         });

@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Aktualisieren',
 
     'steps' => [
-        'requirements'      => 'Bitte, erfüllen Sie die folgenden Anforderungen!',
+        'requirements'      => 'Bitte wenden Sie sich an Ihren Hosting-Dienstleister um die Fehler beheben zu lassen!',
         'language'          => 'Schritt 1/3: Sprachauswahl',
         'database'          => 'Schritt 2/3: Datenbank-Setup',
         'settings'          => 'Schritt 3/3: Unternehmen und Admin-Details',
@@ -19,12 +19,14 @@ return [
     'requirements' => [
         'enabled'           => ':feature muss aktiviert sein!',
         'disabled'          => ':feature muss deaktiviert sein!',
-        'extension'         => ':extension Erweiterung muss geladen sein!',
+        'extension'         => ':extension Erweiterung muss installiert und geladen sein!',
         'directory'         => ':directory Verzeichnis muss schreibbar sein!',
+        'executable'        => 'Die ausführbare PHP-CLI-Datei ist nicht definiert/funktioniert nicht oder die PHP-Version entspricht nicht :php_version oder höher! Bitten Sie Ihre Hosting-Firma, die Umgebungsvariablen PHP_BINARY oder PHP_PATH korrekt zu setzen.',
+        'npm'               => '<b>Es fehlenJavaScript-Dateien!</b> <br><br><span>Sie sollten die Befehle <em class="underline">npm install</em> und <em class="underline">npm dev</em> ausführen.</span>', 
     ],
 
     'database' => [
-        'hostname'          => 'Hostname',
+        'hostname'          => 'Servername',
         'username'          => 'Benutzername',
         'password'          => 'Passwort',
         'name'              => 'Datenbank',
@@ -38,7 +40,12 @@ return [
     ],
 
     'error' => [
-        'connection'        => 'Fehler: Konnte keine Verbindung zur Datenbank hergestellt werden! Stellen Sie sicher, dass die Angaben korrekt sind.',
+        'php_version'       => 'Fehler: Bitten Sie Ihren Hosting-Provider, PHP :php_version oder höher für HTTP und CLI zu verwenden.',
+        'connection'        => 'Fehler: Es konnte keine Verbindung zur Datenbank hergestellt werden! Stellen Sie sicher, dass die Angaben korrekt sind.',
     ],
 
+    'update' => [
+        'core'              => 'Akaunting neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
+        'module'            => ':module neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
+    ],
 ];

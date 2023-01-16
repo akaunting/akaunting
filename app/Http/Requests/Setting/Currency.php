@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Currency extends Request
+class Currency extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,20 +15,22 @@ class Currency extends Request
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->currency->getAttribute('id');
+            $id = is_numeric($this->currency) ? $this->currency : $this->currency->getAttribute('id');
         } else {
             $id = null;
         }
 
         // Get company id
-        $company_id = $this->request->get('company_id');
+        $company_id = (int) $this->request->get('company_id');
 
         return [
             'name' => 'required|string',
             'code' => 'required|string|unique:currencies,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
-            'rate' => 'required',
-            'enabled' => 'boolean',
-            'default_currency' => 'boolean',
+            'rate' => 'required|gt:0',
+            'enabled' => 'integer|boolean',
+            'default_currency' => 'nullable|boolean',
+            'symbol_first' => 'nullable|boolean',
+            'thousands_separator' => 'different:decimal_mark',
         ];
     }
 }

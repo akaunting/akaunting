@@ -2,10 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Inloggen toestaan?',
+    'can_login'             => 'Mag inloggen?',
     'user_created'          => 'Gebruiker aangemaakt',
 
     'error' => [
-        'email'             => 'Deze e-mail is reeds geregistreerd.'
-    ]
+        'email'             => 'Dit e-mailadres is al reeds geregistreerd.',
+    ],
+
 ];

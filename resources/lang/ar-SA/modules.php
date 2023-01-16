@@ -2,46 +2,82 @@
 
 return [
 
-    'title'                 => 'رمز API',
-    'api_token'             => 'رمز الوصول',
-    'top_paid'              => 'أعلى المدفوعات',
+    'api_key'               => 'مفتاح API',
+    'my_apps'               => 'تطبيقاتي',
+    'pre_sale'              => 'قبل البيع',
+    'top_paid'              => 'أعلى مدفوعات',
     'new'                   => 'جديد',
-    'top_free'              => 'المجانيات الأعلى',
-    'free'                  => 'مجانى',
+    'top_free'              => 'أعلى مجانيات ',
+    'free'                  => 'مجاناً',
     'install'               => 'تثبيت',
-    'buy_now'               => 'اشترى الأن',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">اضغط هنا</a> للحصول على رمز الوصول الخاص بك API.',
-    'no_apps'               => 'لا يوجد تطبيقات فى هذة الفئة حتي الأن.',
-    'developer'             => 'هل أنت مطور؟ <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> هنا</a> يمكنك أن تتعلم كيفية إنشاء التطبيق وبدء البيع من اليوم!',
+    'buy_now'               => 'الشراء الآن',
+    'get_api_key'           => '<a href=":url" target="_blank">إضغط هنا</a>للحصول على مفتاح API الخاص بك.',
+    'no_apps'               => 'لا توجد تطبيقات فى هذه الفئة حتى الآن.',
+    'become_developer'      => 'هل أنت مطور؟ <a href=":url" target="_blank"> هنا </a> ، يمكنك تعلم كيفية إنشاء تطبيق وبدء البيع اليوم!',
+    'recommended_apps'      => 'التطبيقات الموصى بها',
 
     'about'                 => 'حول',
 
-    'added'                 => 'مُضاف',
-    'updated'               => 'تحديث',
+    'added'                 => 'تمت الإضافة',
+    'updated'               => 'تم التحديث',
     'compatibility'         => 'التوافق',
+    'documentation'         => 'الوثائق',
+    'view'                  => 'عرض',
+    'back'                  => 'رجوع',
 
-    'installed'             => ':القسم مثبت',
-    'uninstalled'           => ': قسم غير مفعل',
+    'installed'             => 'تم تثبيت :module',
+    'uninstalled'           => 'تم إلغاء تثبيت :module',
     //'updated'               => ':module updated',
-    'enabled'               => ': قسم مفعل',
-    'disabled'              => ': قسم غير مفعل',
+    'enabled'               => 'تم تفعيل :module',
+    'disabled'              => 'تم تعطيل :module',
 
     'tab' => [
         'installation'      => 'التثبيت',
-        'faq'               => 'الاسئلة الشائعة',
+        'faq'               => 'الأسئلة الشائعة',
         'changelog'         => 'سجل التغييرات',
+        'reviews'           => 'التقييمات',
     ],
 
     'installation' => [
         'header'            => 'تثبيت التطبيق',
-        'download'          => 'تحميل : ملفات القسم.',
-        'unzip'             => 'استخراج : ملفات القسم.',
-        'install'           => 'تثبيت: ملفات القسم.',
+        'download'          => 'تحميل :module',
+        'unzip'             => 'إستخراج ملفات :module',
+        'file_copy'         => 'نسخ ملفات :module',
+        'finish'            => 'شارف على انتهاء تثبيت :module',
+        'redirect'          => 'تم تثبيت:module، سيتم تحويلك الى صفحة التحديثات',
+        'install'           => 'تثبيت :module',
+    ],
+
+    'errors' => [
+        'download'          => 'لم نتمكن من تحميل :module',
+        'zip'               => 'لم نتمكن من انشاء ملف zip :module',
+        'unzip'             => 'لم نتمكن من فك ضغط :module',
+        'file_copy'         => 'لم نتمكن من نسخ ملفات :module',
+        'finish'            => 'لم نتمكن من انهاء تثبيت :module',
+    ],
+
+    'badge' => [
+        'installed'         => 'مثبت',
+        'pre_sale'          => 'قبل البيع',
     ],
 
     'button' => [
-        'uninstall'         => 'الغاء التثبيت',
-        'disable'           => 'الغاء التفعيل',
+        'uninstall'         => 'إلغاء التثبيت',
+        'disable'           => 'تعطيل',
         'enable'            => 'تفعيل',
     ],
+
+    'my' => [
+        'purchased'         => 'التي تم شراؤها',
+        'installed'         => 'التي تم تثبيتها',
+    ],
+
+    'reviews' => [
+        'button' => [
+            'add'           => 'أضف تقييمك'
+        ],
+
+        'na'                => 'لا يوجد تقييمات.'
+    ],
+
 ];

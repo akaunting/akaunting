@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Abstracts\Http\FormRequest;
 
 class $CLASS$ extends FormRequest
 {
@@ -16,15 +16,5 @@ class $CLASS$ extends FormRequest
         return [
             //
         ];
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 }

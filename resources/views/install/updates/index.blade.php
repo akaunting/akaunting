@@ -1,72 +1,124 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans_choice('general.updates', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.updates', 2))
+    <x-slot name="buttons">
+        <x-link href="{{ route('updates.check') }}">
+            {{ trans('updates.check') }}
+        </x-link>
+    </x-slot>
 
-@section('new_button')
-<span class="new-button"><a href="{{ url('install/updates/check') }}" class="btn btn-warning btn-sm"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a></span>
-@endsection
+    <x-slot name="content">
+        <div class="my-10">
+            <div class="flex items-center">
+                <div class="relative px-4 text-sm text-center pb-2 text-purple font-medium border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md">
+                    <span>Akaunting</span>
+                </div>
+            </div>
 
-@section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        <i class="fa fa-gear"></i>
-        <h3 class="box-title">Akaunting</h3>
-    </div>
-    <!-- /.box-header -->
+            <x-table>
+                <x-table.tbody>
+                    <x-table.tr>
+                        @if (empty($core))
+                            <x-table.td class="w-12/12" kind="cursor-none">
+                                {{ trans('updates.latest_core') }}
+                            </x-table.td>
+                        @else
+                            <x-table.td class="w-6/12" kind="cursor-none">
+                                {{ trans('updates.new_core') }}
+                            </x-table.td>
 
-    <div class="box-body">
-        @if (empty($core))
-        {{ trans('updates.latest_core') }}
-        @else
-            {{ trans('updates.new_core') }}
-            <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => $core]) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
-            <a href="{{ url('install/updates/changelog') }}" data-toggle="tooltip" title="{{ trans('updates.changelog') }}" class="btn btn-default btn-xs popup"><i class="fa fa-exchange"></i> &nbsp;{{ trans('updates.changelog') }}</a>
-        @endif
-    </div>
-    <!-- /.box-body -->
+                            <x-table.td kind="right" class="w-6/12" kind="cursor-none">
+                                <x-slot name="first" class="flex justify-end" override="class">
+                                    <x-link href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="px-3 py-1.5 rounded-xl text-sm font-medium leading-6 ltr:mr-2 rtl:ml-2 bg-green text-white hover:bg-green-700 disabled:bg-green-100" override="class">
+                                        {{ trans('updates.update', ['version' => $core]) }}
+                                    </x-link>
 
-</div>
-<!-- /.box -->
-
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        <i class="fa fa-rocket"></i>
-        <h3 class="box-title">{{ trans_choice('general.modules', 2) }}</h3>
-    </div>
-    <!-- /.box-header -->
-
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-translations">
-                <thead>
-                    <tr>
-                        <th class="col-md-4">{{ trans('general.name') }}</th>
-                        <th class="col-md-2">{{ trans_choice('general.categories', 1) }}</th>
-                        <th class="col-md-2">{{ trans('updates.installed_version') }}</th>
-                        <th class="col-md-2">{{ trans('updates.latest_version') }}</th>
-                        <th class="col-md-2">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($modules as $module)
-                    <tr>
-                        <td>{{ $module->name }}</td>
-                        <td>{{ $module->category }}</td>
-                        <td>{{ $module->installed }}</td>
-                        <td>{{ $module->latest }}</td>
-                        <td>
-                            <a href="{{ url('install/updates/update/' . $module->alias . '/' . $module->latest) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                                    <x-button @click="onChangelog">
+                                        {{ trans('updates.changelog') }}
+                                    </x-button>
+                                </x-slot>
+                            </x-table.td>
+                        @endif
+                    </x-table.tr>
+                </x-table.tbody>
+            </x-table>
         </div>
-    </div>
-    <!-- /.box-body -->
 
-</div>
-<!-- /.box -->
-@endsection
+        <div class="flex items-center">
+            <div class="relative px-4 text-sm text-center pb-2 text-purple font-medium border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md">
+                {{ trans_choice('general.modules', 2) }}
+            </div>
+        </div>
+
+        <x-index.container class="my-0" override="class">
+            <x-table>
+                <x-table.thead>
+                    <x-table.tr>
+                        <x-table.th class="w-3/12">
+                            {{ trans('general.name') }}
+                        </x-table.th>
+
+                        <x-table.th class="w-3/12" hidden-mobile>
+                            {{ trans('updates.installed_version') }}
+                        </x-table.th>
+
+                        <x-table.th class="w-3/12" hidden-mobile>
+                            {{ trans('updates.latest_version') }}
+                        </x-table.th>
+
+                        <x-table.th class="w-3/12" kind="right">
+                            {{ trans('general.actions') }}
+                        </x-table.th>
+                    </x-table.tr>
+                </x-table.thead>
+
+                <x-table.tbody>
+                    @if ($modules)
+                        @foreach($modules as $module)
+                        <x-table.tr>
+                            <x-table.td class="w-3/12" kind="cursor-none">
+                                {{ $module->name }}
+                            </x-table.td>
+
+                            <x-table.td class="w-3/12" kind="cursor-none">
+                                {{ $module->installed }}
+                            </x-table.td>
+
+                            <x-table.td class="w-3/12" kind="cursor-none">
+                                {{ $module->latest }}
+                            </x-table.td>
+
+                            <x-table.td class="w-3/12" kind="right">
+                                <x-link href="{{ route('updates.run', ['alias' => $module->alias, 'version' => $module->latest]) }}" kind="primary">
+                                    {{ trans_choice('general.updates', 1) }}
+                                </x-link>
+                            </x-table.td>
+                        </x-table.tr>
+                        @endforeach
+                    @else
+                        <x-table.tr>
+                            <x-table.td class="w-4/12">
+                                <small>{{ trans('general.no_records') }}</small>
+                            </x-table.td>
+                        </x-table.tr>
+                    @endif
+                </x-table.tbody>
+            </x-table>
+        </x-index.container>
+
+        <akaunting-modal v-if="changelog.show"
+            modal-dialog-class="max-w-screen-xl change-log-modal"
+            :show="changelog.show"
+            :title="'{{ trans('updates.changelog') }}'"
+            @cancel="changelog.show = false"
+            :message="changelog.html">
+            <template #card-footer>
+                <span></span>
+            </template>
+        </akaunting-modal>
+    </x-slot>
+
+    <x-script folder="install" file="update" />
+</x-layouts.admin>

@@ -1,72 +1,88 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.edit', ['type' => trans_choice('general.transfers', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.transfers', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="transfer" method="PATCH" :route="['transfers.update', $transfer->id]" :model="$transfer">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('transfers.form_description.general') }}" />
+                    </x-slot>
 
-@section('content')
-    <!-- Default box -->
-    <div class="box box-success">
-        {!! Form::model($transfer, [
-            'method' => 'PATCH',
-            'url' => ['banking/transfers', $transfer->id],
-            'role' => 'form'
-        ]) !!}
+                    <x-slot name="body">
+                        <x-form.group.select name="from_account_id" label="{{ trans('transfers.from_account') }}" :options="$accounts" change="onChangeFromAccount" />
 
-        <div class="box-body">
-            {{ Form::selectGroup('from_account_id', trans('transfers.from_account'), 'university', $accounts) }}
+                        <x-form.group.select name="to_account_id" label="{{ trans('transfers.to_account') }}" :options="$accounts" change="onChangeToAccount" />
 
-            {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts) }}
+                        @if ($transfer->from_currency_code != $transfer->to_currency_code)
+                            <div v-if="show_rate" class="sm:col-span-3">
+                                <x-form.input.hidden name="from_currency_code" :value="$transfer->from_currency_code" v-model="form.from_currency_code" />
 
-            {{ Form::textGroup('amount', trans('general.amount'), 'money') }}
+                                <x-form.group.text name="from_account_rate" label="{{ trans('transfers.from_account_rate') }}" v-disabled="form.from_currency_code == '{{ default_currency() }}'" />
+                            </div>
 
-            {{ Form::textGroup('transferred_at', trans('general.date'), 'calendar',['id' => 'transferred_at', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::now()->toDateString()) }}
+                            <div v-if="show_rate" class="sm:col-span-3">
+                                <x-form.input.hidden name="to_currency_code" :value="$transfer->to_currency_code" v-model="form.to_currency_code" />
 
-            {{ Form::textareaGroup('description', trans('general.description')) }}
+                                <x-form.group.text name="to_account_rate" label="{{ trans('transfers.to_account_rate') }}" v-disabled="form.to_currency_code == '{{ default_currency() }}'" />
+                            </div>
+                        @else
+                            <div v-if="show_rate" class="sm:col-span-3">
+                                <x-form.input.hidden name="from_currency_code" :value="$transfer->from_currency_code" v-model="form.from_currency_code" />
 
-            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, null) }}
+                                <x-form.group.text name="from_account_rate" label="{{ trans('transfers.from_account_rate') }}" v-disabled="form.from_currency_code == '{{ default_currency() }}'" />
+                            </div>
 
-            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
-        </div>
-        <!-- /.box-body -->
+                            <div v-if="show_rate" class="sm:col-span-3">
+                                <x-form.input.hidden name="to_currency_code" :value="$transfer->to_currency_code" v-model="form.to_currency_code" />
 
-        @permission('update-banking-transfers')
-        <div class="box-footer">
-            {{ Form::saveButtons('banking/transfers') }}
-        </div>
-        <!-- /.box-footer -->
-        @endpermission
+                                <x-form.group.text name="to_account_rate" label="{{ trans('transfers.to_account_rate') }}" v-disabled="form.to_currency_code == '{{ default_currency() }}'" />
+                            </div>
+                        @endif
 
-        {!! Form::close() !!}
-    </div>
-@endsection
+                        <x-form.group.date name="transferred_at" label="{{ trans('general.date') }}" icon="calendar_today" value="{{ Date::parse($transfer->transferred_at)->toDateString() }}" show-date-format="{{ company_date_format() }}" date-format="Y-m-d" autocomplete="off" />
 
-@push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-@endpush
+                        <x-form.group.money name="amount" label="{{ trans('general.amount') }}" :value="$transfer->amount" :currency="$currency" dynamicCurrency="currency" />
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-@endpush
+                        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
+                    </x-slot>
+                </x-form.section>
 
-@push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            //Date picker
-            $('#transferred_at').datepicker({
-                format: 'yyyy-mm-dd',
-                autoclose: true
-            });
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans_choice('general.others', 1) }}" description="{{ trans('transfers.form_description.other') }}" />
+                    </x-slot>
 
-            $("#from_account_id").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-            });
+                    <x-slot name="body">
+                        <x-form.group.payment-method />
 
-            $("#to_account_id").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-            });
+                        <x-form.group.text name="reference" label="{{ trans('general.reference') }}" not-required />
 
-            $("#payment_method").select2({
-                placeholder: "{{ trans_choice('general.payment_methods', 1) }}"
-            });
-        });
-    </script>
-@endpush
+                        <x-form.group.attachment />
+
+                        <x-form.input.hidden name="currency_code" :value="$currency->code" v-model="form.currency_code" />
+                        <x-form.input.hidden name="currency_rate" :value="$currency->rate" v-model="form.currency_rate" />
+                    </x-slot>
+                </x-form.section>
+
+                @can('update-banking-transfers')
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="transfers.index" />
+                    </x-slot>
+                </x-form.section>
+                @endcan
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    @push('scripts_start')
+        <script type="text/javascript">
+            var transfer_edit = {{ $transfer->id }};
+        </script>
+    @endpush
+
+    <x-script folder="banking" file="transfers" />
+</x-layouts.admin>

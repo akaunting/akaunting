@@ -2,14 +2,8 @@
 
 return [
 
-    'quantities'            => 'Hoeveelheid | Hoeveelheden',
-    'sales_price'           => 'Verkoopprijs',
-    'purchase_price'        => 'Aankoopprijs',
-    'sku'                   => 'SKU',
-
-    'notification' => [
-        'message'       => 'U ontvangt deze e-mail omdat : naam draait niet op voorraad.',
-        'button'        => 'Bekijk nu',
-    ],
+    'sale_price'            => 'Verkoopprijs',
+    'purchase_price'         => 'Aankoopprijs',
+    'enter_item_description' => 'Voer artikelbeschrijving in',
 
 ];

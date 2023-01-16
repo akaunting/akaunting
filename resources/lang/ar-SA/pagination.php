@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; السابق',
-    'next'                  => 'التالي &raquo;',
-    'showing'               => 'اظهار : الأول الى :الأخير من الكل : النوع',
-
+    'previous'              => 'السابق',
+    'next'                  => 'التالي',
+    'showing'               => 'السجلات:first-:last of :total .',
+    'page'                  => 'لكل صفحة.',
 ];

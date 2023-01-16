@@ -1,39 +1,39 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">
+        {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}
+    </x-slot>
 
-@section('title', trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]))
+    <x-slot name="favorite"
+        title="{{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}"
+        icon="percent"
+        route="tax_rates.create"
+    ></x-slot>
 
-@section('content')
-      <!-- Default box -->
-      <div class="box box-success">
-        {!! Form::open(['url' => 'settings/taxes', 'role' => 'form']) !!}
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="tax" route="taxes.store">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('taxes.form_description.general') }}" />
+                    </x-slot>
 
-        <div class="box-body">
-            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+                    <x-slot name="body">
+                        <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-            {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+                        <x-form.group.text name="rate" label="{{ trans('taxes.rate_percent') }}" @input="onChangeTaxRate" />
 
-            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
-        </div>
-        <!-- /.box-body -->
+                        <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" selected="normal" :disabledOptions="$disable_options" />
+                    </x-slot>
+                </x-form.section>
 
-        <div class="box-footer">
-            {{ Form::saveButtons('settings/taxes') }}
-        </div>
-        <!-- /.box-footer -->
+                <x-form.section>
+                    <x-slot name="foot">
+                        <x-form.buttons cancel-route="taxes.index" />
+                    </x-slot>
+                </x-form.section>
+            </x-form>
+        </x-form.container>
+    </x-slot>
 
-        {!! Form::close() !!}
-      </div>
-@endsection
-
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function() {
-            $('#enabled_1').trigger('click');
-
-            $('#name').focus();
-        });
-    </script>
-@endpush
+    <x-script folder="settings" file="taxes" />
+</x-layouts.admin>

@@ -1,33 +1,21 @@
-@extends('layouts.modules')
+<x-layouts.modules>
+    <x-slot name="title">
+        {{ trans_choice('general.modules', 2) }}
+    </x-slot>
 
-@section('title', trans_choice('general.modules', 2))
+    <x-slot name="buttons">
+        <x-link href="{{ route('apps.api-key.create') }}">
+            {{ trans('modules.api_key') }}
+        </x-link>
 
-@section('content')
-    @include('partials.modules.bar')
+        <x-link href="{{ route('apps.my.index') }}">
+            {{ trans('modules.my_apps') }}
+        </x-link>
+    </x-slot>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="content-header no-padding-left">
-                <h3>{{ $title }}</h3>
-            </div>
+    <x-slot name="content">
+        <x-modules.items title="{{ $title }}" :model="$modules" see-more />
+    </x-slot>
 
-            @if ($modules)
-                @foreach ($modules as $module)
-                    @include('partials.modules.item')
-                @endforeach
-            @else
-                <div class="box box-success">
-                    <div class="box-body">
-                        <p class="col-md-12" style="margin-top: 15px">
-                            {{ trans('modules.no_apps') }}
-                        </p>
-                        <p class="col-md-12" style="margin-top: 20px">
-                            <small>{!! trans('modules.developer') !!}</small>
-                        </p>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-            @endif
-        </div>
-    </div>
-@endsection
+    <x-script folder="modules" file="apps" />
+</x-layouts.modules>

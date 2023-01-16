@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Aktualizovat',
 
     'steps' => [
-        'requirements'      => 'Prosím splň následující požadavky!',
+        'requirements'      => 'Prosím, požádejte svého poskytovatele hostingu o opravu chyb!',
         'language'          => 'Krok 1/3: Výběr jazyka',
         'database'          => 'Krok 2/3: Nastavení databáze',
         'settings'          => 'Krok 3/3: Údaje o společnosti a administrátorovi',
@@ -17,10 +17,11 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => 'Musíš povolit :feature!',
-        'disabled'          => 'Musiš vypnout :feature!',
-        'extension'         => 'Musíš zavést rozšíření:extension!',
-        'directory'         => 'Do složky:directory se musí dát zapisovat!',
+        'enabled'           => 'Musíte povolit :feature!',
+        'disabled'          => 'Musíte zakázat :feature!',
+        'extension'         => 'Rozšíření :extension musí být nainstalováno a načteno!',
+        'directory'         => 'Složka :directory musí být zapisovatelná!',
+        'executable'        => 'Spustitelný soubor PHP CLI není definovaný/funkční nebo jeho verze není :php_version nebo vyšší! Požádejte, prosím, poskytovatele hostingu, aby správně nastavila proměnnou PHP_BINARY nebo PHP_PATH.',
     ],
 
     'database' => [
@@ -32,13 +33,14 @@ return [
 
     'settings' => [
         'company_name'      => 'Název společnosti',
-        'company_email'     => 'Email společnosti',
-        'admin_email'       => 'Email administratora',
+        'company_email'     => 'E-mail společnosti',
+        'admin_email'       => 'E-mail administrátora',
         'admin_password'    => 'Heslo administrátora',
     ],
 
     'error' => [
-        'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím ujistěte se, že údaje jsou správné.',
+        'php_version'       => 'Chyba: Požádejte svého poskytovatele hostingu o aktualizaci na PHP :php_version nebo vyšší jak pro HTTP, tak i pro CLI.',
+        'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím, ujistěte se, že údaje jsou správné.',
     ],
 
 ];

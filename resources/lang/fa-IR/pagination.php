@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; قبلی',
-    'next'                  => 'بعدی &raquo;',
-    'showing'               => 'نمایش :first تا :last از :total :typr',
-
+    'previous'              => 'پیشین',
+    'next'                  => 'بعدی',
+    'showing'               => ':first-:last از :total رکورد.',
+    'page'                  => 'در صفحه.',
 ];

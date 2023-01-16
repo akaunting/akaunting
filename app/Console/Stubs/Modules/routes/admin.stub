@@ -1,0 +1,13 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/**
+ * 'admin' middleware and '$ALIAS$' prefix applied to all routes (including names)
+ *
+ * @see \App\Providers\Route::register
+ */
+
+Route::admin('$ALIAS$', function () {
+    Route::get('/', 'Main@index');
+});

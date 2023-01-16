@@ -1,704 +1,335 @@
 <?php
 
-return array(
+return [
 
-    'cache'      => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Enable/Disable cell caching
-        |--------------------------------------------------------------------------
-        */
-        'enable'   => true,
+    'exports' => [
 
         /*
         |--------------------------------------------------------------------------
-        | Caching driver
+        | Chunk size
         |--------------------------------------------------------------------------
         |
-        | Set the caching driver
-        |
-        | Available methods:
-        | memory|gzip|serialized|igbinary|discISAM|apc|memcache|temp|wincache|sqlite|sqlite3
+        | When using FromQuery, the query is automatically chunked.
+        | Here you can specify how big the chunk should be.
         |
         */
-        'driver'   => 'memory',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cache settings
-        |--------------------------------------------------------------------------
-        */
-        'settings' => [
-
-            'memoryCacheSize' => '32MB',
-            'cacheTime'       => 600
-
-        ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Memcache settings
-        |--------------------------------------------------------------------------
-        */
-        'memcache' => [
-
-            'host' => 'localhost',
-            'port' => 11211,
-
-        ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cache dir (for discISAM)
-        |--------------------------------------------------------------------------
-        */
-
-        'dir'      => storage_path('cache')
-    ],
-
-    'properties' => [
-        'creator'        => 'Akaunting',
-        'lastModifiedBy' => 'Akaunting',
-        'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'akaunting, excel, export',
-        'category'       => 'Excel',
-        'manager'        => 'Akaunting',
-        'company'        => 'Akaunting',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sheets settings
-    |--------------------------------------------------------------------------
-    */
-    'sheets'     => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Default page setup
-        |--------------------------------------------------------------------------
-        */
-        'pageSetup' => [
-            'orientation'           => 'portrait',
-            'paperSize'             => '9',
-            'scale'                 => '100',
-            'fitToPage'             => false,
-            'fitToHeight'           => true,
-            'fitToWidth'            => true,
-            'columnsToRepeatAtLeft' => ['', ''],
-            'rowsToRepeatAtTop'     => [0, 0],
-            'horizontalCentered'    => false,
-            'verticalCentered'      => false,
-            'printArea'             => null,
-            'firstPageNumber'       => null,
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Creator
-    |--------------------------------------------------------------------------
-    |
-    | The default creator of a new Excel file
-    |
-    */
-
-    'creator'    => 'Akaunting',
-
-    'csv'        => [
-        /*
-       |--------------------------------------------------------------------------
-       | Delimiter
-       |--------------------------------------------------------------------------
-       |
-       | The default delimiter which will be used to read out a CSV file
-       |
-       */
-
-        'delimiter'   => ',',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Enclosure
-        |--------------------------------------------------------------------------
-        */
-
-        'enclosure'   => '"',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Line endings
-        |--------------------------------------------------------------------------
-        */
-
-        'line_ending' => "\r\n",
-
-        /*
-        |--------------------------------------------------------------------------
-        | setUseBom
-        |--------------------------------------------------------------------------
-        */
-
-        'use_bom' => false
-    ],
-
-    'export'     => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Autosize columns
-        |--------------------------------------------------------------------------
-        |
-        | Disable/enable column autosize or set the autosizing for
-        | an array of columns ( array('A', 'B') )
-        |
-        */
-        'autosize'                    => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Autosize method
-        |--------------------------------------------------------------------------
-        |
-        | --> PHPExcel_Shared_Font::AUTOSIZE_METHOD_APPROX
-        | The default is based on an estimate, which does its calculation based
-        | on the number of characters in the cell value (applying any calculation
-        | and format mask, and allowing for wordwrap and rotation) and with an
-        | "arbitrary" adjustment based on the font (Arial, Calibri or Verdana,
-        | defaulting to Calibri if any other font is used) and a proportional
-        | adjustment for the font size.
-        |
-        | --> PHPExcel_Shared_Font::AUTOSIZE_METHOD_EXACT
-        | The second method is more accurate, based on actual style formatting as
-        | well (bold, italic, etc), and is calculated by generating a gd2 imagettf
-        | bounding box and using its dimensions to determine the size; but this
-        | method is significantly slower, and its accuracy is still dependent on
-        | having the appropriate fonts installed.
-        |
-        */
-        'autosize-method'             => PHPExcel_Shared_Font::AUTOSIZE_METHOD_APPROX,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Auto generate table heading
-        |--------------------------------------------------------------------------
-        |
-        | If set to true, the array indices (or model attribute names)
-        | will automatically be used as first row (table heading)
-        |
-        */
-        'generate_heading_by_indices' => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Auto set alignment on merged cells
-        |--------------------------------------------------------------------------
-        */
-        'merged_cell_alignment'       => 'left',
+        'chunk_size' => env('EXCEL_EXPORTS_CHUNK_SIZE', 100),
 
         /*
         |--------------------------------------------------------------------------
         | Pre-calculate formulas during export
         |--------------------------------------------------------------------------
         */
-        'calculate'                   => false,
+        'pre_calculate_formulas' => env('EXCEL_EXPORTS_PRE_CALCULATE_FORMULAS', false),
 
         /*
         |--------------------------------------------------------------------------
-        | Include Charts during export
+        | Enable strict null comparison
         |--------------------------------------------------------------------------
+        |
+        | When enabling strict null comparison empty cells ('') will
+        | be added to the sheet.
         */
-        'includeCharts'               => false,
+        'strict_null_comparison' => env('EXCEL_EXPORTS_STRING_NULL_COMPARISON', false),
 
         /*
         |--------------------------------------------------------------------------
-        | Default sheet settings
+        | CSV Settings
         |--------------------------------------------------------------------------
+        |
+        | Configure e.g. delimiter, enclosure and line ending for CSV exports.
+        |
         */
-        'sheets'                      => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Default page margin
-            |--------------------------------------------------------------------------
-            |
-            | 1) When set to false, default margins will be used
-            | 2) It's possible to enter a single margin which will
-            |    be used for all margins.
-            | 3) Alternatively you can pass an array with 4 margins
-            |    Default order: array(top, right, bottom, left)
-            |
-            */
-            'page_margin'          => false,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Value in source array that stands for blank cell
-            |--------------------------------------------------------------------------
-            */
-            'nullValue'            => null,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Insert array starting from this cell address as the top left coordinate
-            |--------------------------------------------------------------------------
-            */
-            'startCell'            => 'A1',
-
-            /*
-            |--------------------------------------------------------------------------
-            | Apply strict comparison when testing for null values in the array
-            |--------------------------------------------------------------------------
-            */
-            'strictNullComparison' => false
+        'csv' => [
+            'delimiter'              => ',',
+            'enclosure'              => '"',
+            'line_ending'            => PHP_EOL,
+            'use_bom'                => false,
+            'include_separator_line' => false,
+            'excel_compatibility'    => false,
         ],
 
         /*
         |--------------------------------------------------------------------------
-        | Store settings
+        | Worksheet properties
         |--------------------------------------------------------------------------
+        |
+        | Configure e.g. default title, creator, subject,...
+        |
         */
-
-        'store'                       => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Path
-            |--------------------------------------------------------------------------
-            |
-            | The path we want to save excel file to
-            |
-            */
-            'path'       => storage_path('app/exports'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Return info
-            |--------------------------------------------------------------------------
-            |
-            | Whether we want to return information about the stored file or not
-            |
-            */
-            'returnInfo' => false
-
+        'properties' => [
+            'creator'        => 'Akaunting',
+            'lastModifiedBy' => '',
+            'title'          => '',
+            'description'    => '',
+            'subject'        => '',
+            'keywords'       => '',
+            'category'       => '',
+            'manager'        => '',
+            'company'        => '',
         ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | PDF Settings
-        |--------------------------------------------------------------------------
-        */
-        'pdf'                         => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | PDF Drivers
-            |--------------------------------------------------------------------------
-            | Supported: DomPDF, tcPDF, mPDF
-            */
-            'driver'  => 'DomPDF',
-
-            /*
-            |--------------------------------------------------------------------------
-            | PDF Driver settings
-            |--------------------------------------------------------------------------
-            */
-            'drivers' => [
-
-                /*
-                |--------------------------------------------------------------------------
-                | DomPDF settings
-                |--------------------------------------------------------------------------
-                */
-                'DomPDF' => [
-                    'path' => base_path('vendor/dompdf/dompdf/')
-                ],
-
-                /*
-                |--------------------------------------------------------------------------
-                | tcPDF settings
-                |--------------------------------------------------------------------------
-                */
-                'tcPDF'  => [
-                    'path' => base_path('vendor/tecnick.com/tcpdf/')
-                ],
-
-                /*
-                |--------------------------------------------------------------------------
-                | mPDF settings
-                |--------------------------------------------------------------------------
-                */
-                'mPDF'   => [
-                    'path' => base_path('vendor/mpdf/mpdf/')
-                ],
-            ]
-        ]
     ],
 
-    'filters'    => [
+    'imports' => [
+
+        'chunk_size' => env('EXCEL_IMPORTS_CHUNK_SIZE', 100),
+
+        'row_limit' => env('EXCEL_IMPORTS_ROW_LIMIT', 1000),
+
+        'extensions' => env('EXCEL_IMPORTS_EXTENSIONS', 'xls,xlsx'),
+
         /*
         |--------------------------------------------------------------------------
-        | Register read filters
+        | Read Only
         |--------------------------------------------------------------------------
+        |
+        | When dealing with imports, you might only be interested in the
+        | data that the sheet exists. By default we ignore all styles,
+        | however if you want to do some logic based on style data
+        | you can enable it by setting read_only to false.
+        |
         */
+        'read_only' => env('EXCEL_IMPORTS_READ_ONLY', true),
 
-        'registered' => [
-            'chunk' => 'Maatwebsite\Excel\Filters\ChunkReadFilter'
+        /*
+        |--------------------------------------------------------------------------
+        | Ignore Empty
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with imports, you might be interested in ignoring
+        | rows that have null values or empty strings. By default rows
+        | containing empty strings or empty values are not ignored but can be
+        | ignored by enabling the setting ignore_empty to true.
+        |
+        */
+        'ignore_empty' => env('EXCEL_IMPORTS_IGNORE_EMPTY', true),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Heading Row Formatter
+        |--------------------------------------------------------------------------
+        |
+        | Configure the heading row formatter.
+        | Available options: none|slug|custom
+        |
+        */
+        'heading_row' => [
+            'formatter' => 'slug',
         ],
 
         /*
         |--------------------------------------------------------------------------
-        | Enable certain filters for every file read
+        | CSV Settings
         |--------------------------------------------------------------------------
+        |
+        | Configure e.g. delimiter, enclosure and line ending for CSV imports.
+        |
         */
+        'csv' => [
+            'delimiter'        => ',',
+            'enclosure'        => '"',
+            'escape_character' => '\\',
+            'contiguous'       => false,
+            'input_encoding'   => 'UTF-8',
+        ],
 
-        'enabled'    => []
+        /*
+        |--------------------------------------------------------------------------
+        | Worksheet properties
+        |--------------------------------------------------------------------------
+        |
+        | Configure e.g. default title, creator, subject,...
+        |
+        */
+        'properties'  => [
+            'creator'        => 'Akaunting',
+            'lastModifiedBy' => '',
+            'title'          => '',
+            'description'    => '',
+            'subject'        => '',
+            'keywords'       => '',
+            'category'       => '',
+            'manager'        => '',
+            'company'        => '',
+        ],
     ],
 
-    'import'     => [
+    /*
+    |--------------------------------------------------------------------------
+    | Extension detector
+    |--------------------------------------------------------------------------
+    |
+    | Configure here which writer type should be used when
+    | the package needs to guess the correct type
+    | based on the extension alone.
+    |
+    */
+    'extension_detector' => [
+        'xlsx'     => 'Xlsx',
+        'xlsm'     => 'Xlsx',
+        'xltx'     => 'Xlsx',
+        'xltm'     => 'Xlsx',
+        'xls'      => 'Xls',
+        'xlt'      => 'Xls',
+        'ods'      => 'Ods',
+        'ots'      => 'Ods',
+        'slk'      => 'Slk',
+        'xml'      => 'Xml',
+        'gnumeric' => 'Gnumeric',
+        'htm'      => 'Html',
+        'html'     => 'Html',
+        'csv'      => 'Csv',
+        'tsv'      => 'Csv',
 
         /*
         |--------------------------------------------------------------------------
-        | Has heading
+        | PDF Extension
         |--------------------------------------------------------------------------
         |
-        | The sheet has a heading (first) row which we can use as attribute names
-        |
-        | Options: true|false|slugged|slugged_with_count|ascii|numeric|hashed|trans|original
-        |
-        */
-
-        'heading'                 => 'slugged',
-
-        /*
-        |--------------------------------------------------------------------------
-        | First Row with data or heading of data
-        |--------------------------------------------------------------------------
-        |
-        | If the heading row is not the first row, or the data doesn't start
-        | on the first row, here you can change the start row.
+        | Configure here which Pdf driver should be used by default.
+        | Available options: Excel::MPDF | Excel::TCPDF | Excel::DOMPDF
         |
         */
-
-        'startRow'                => 1,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cell name word separator
-        |--------------------------------------------------------------------------
-        |
-        | The default separator which is used for the cell names
-        | Note: only applies to 'heading' settings 'true' && 'slugged'
-        |
-        */
-
-        'separator'               => '_',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Slug whitelisting
-        |--------------------------------------------------------------------------
-        |
-        | Here you can whitelist certain characters in the slug.
-        | E.g. user.last_name will not remove . and _
-        | Note: only applies to 'heading' settings 'true' && 'slugged'
-        |
-        */
-
-        'slug_whitelist'       => '._',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Include Charts during import
-        |--------------------------------------------------------------------------
-        */
-
-        'includeCharts'           => false,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Sheet heading conversion
-        |--------------------------------------------------------------------------
-        |
-        | Convert headings to ASCII
-        | Note: only applies to 'heading' settings 'true' && 'slugged'
-        |
-        */
-
-        'to_ascii'                => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Import encoding
-        |--------------------------------------------------------------------------
-        */
-
-        'encoding'                => [
-
-            'input'  => 'UTF-8',
-            'output' => 'UTF-8'
-
-        ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Calculate
-        |--------------------------------------------------------------------------
-        |
-        | By default cells with formulas will be calculated.
-        |
-        */
-
-        'calculate'               => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Ignore empty cells
-        |--------------------------------------------------------------------------
-        |
-        | By default empty cells are not ignored
-        |
-        */
-
-        'ignoreEmpty'             => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Force sheet collection
-        |--------------------------------------------------------------------------
-        |
-        | For a sheet collection even when there is only 1 sheets.
-        | When set to false and only 1 sheet found, the parsed file will return
-        | a row collection instead of a sheet collection.
-        | When set to true, it will return a sheet collection instead.
-        |
-        */
-        'force_sheets_collection' => false,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Date format
-        |--------------------------------------------------------------------------
-        |
-        | The format dates will be parsed to
-        |
-        */
-
-        'dates'                   => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Enable/disable date formatting
-            |--------------------------------------------------------------------------
-            */
-            'enabled' => true,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Default date format
-            |--------------------------------------------------------------------------
-            |
-            | If set to false, a carbon object will return
-            |
-            */
-            'format'  => false,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Date columns
-            |--------------------------------------------------------------------------
-            */
-            'columns' => []
-        ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Import sheets by config
-        |--------------------------------------------------------------------------
-        */
-        'sheets'                  => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Example sheet
-            |--------------------------------------------------------------------------
-            |
-            | Example sheet "test" will grab the firstname at cell A2
-            |
-            */
-
-            'test' => [
-
-                'firstname' => 'A2'
-
-            ]
-
-        ]
+        'pdf' => 'Dompdf',
     ],
 
-    'views'      => [
+    /*
+    |--------------------------------------------------------------------------
+    | Value Binder
+    |--------------------------------------------------------------------------
+    |
+    | PhpSpreadsheet offers a way to hook into the process of a value being
+    | written to a cell. In there some assumptions are made on how the
+    | value should be formatted. If you want to change those defaults,
+    | you can implement your own default value binder.
+    |
+    | Possible value binders:
+    |
+    | [x] Maatwebsite\Excel\DefaultValueBinder::class
+    | [x] PhpOffice\PhpSpreadsheet\Cell\StringValueBinder::class
+    | [x] PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder::class
+    |
+    */
+    'value_binder' => [
+        'default' => 'Maatwebsite\Excel\DefaultValueBinder',
+    ],
+
+    'cache' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Default cell caching driver
+        |--------------------------------------------------------------------------
+        |
+        | By default PhpSpreadsheet keeps all cell values in memory, however when
+        | dealing with large files, this might result into memory issues. If you
+        | want to mitigate that, you can configure a cell caching driver here.
+        | When using the illuminate driver, it will store each value in a the
+        | cache store. This can slow down the process, because it needs to
+        | store each value. You can use the "batch" store if you want to
+        | only persist to the store when the memory limit is reached.
+        |
+        | Drivers: memory|illuminate|batch
+        |
+        */
+        'driver'     => env('EXCEL_CACHE_DRIVER', 'memory'),
 
         /*
         |--------------------------------------------------------------------------
-        | Styles
+        | Batch memory caching
         |--------------------------------------------------------------------------
         |
-        | The default styles which will be used when parsing a view
+        | When dealing with the "batch" caching driver, it will only
+        | persist to the store when the memory limit is reached.
+        | Here you can tweak the memory limit to your liking.
         |
         */
+        'batch'     => [
+            'memory_limit' => env('EXCEL_CACHE_BATCH_MEMORY_LIMIT', 60000),
+        ],
 
-        'styles' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Illuminate cache
+        |--------------------------------------------------------------------------
+        |
+        | When using the "illuminate" caching driver, it will automatically use
+        | your default cache store. However if you prefer to have the cell
+        | cache on a separate store, you can configure the store name here.
+        | You can use any store defined in your cache config. When leaving
+        | at "null" it will use the default store.
+        |
+        */
+        'illuminate' => [
+            'store' => null,
+        ],
+    ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | Table headings
-            |--------------------------------------------------------------------------
-            */
-            'th'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 12,
-                ]
-            ],
+     /*
+    |--------------------------------------------------------------------------
+    | Transaction Handler
+    |--------------------------------------------------------------------------
+    |
+    | By default the import is wrapped in a transaction. This is useful
+    | for when an import may fail and you want to retry it. With the
+    | transactions, the previous import gets rolled-back.
+    |
+    | You can disable the transaction handler by setting this to null.
+    | Or you can choose a custom made transaction handler here.
+    |
+    | Supported handlers: null|db
+    |
+    */
+    'transactions' => [
+        'handler' => env('EXCEL_TRANSACTIONS_HANDLER', 'db'),
+    ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | Strong tags
-            |--------------------------------------------------------------------------
-            */
-            'strong' => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 12,
-                ]
-            ],
+    'temporary_files' => [
 
-            /*
-            |--------------------------------------------------------------------------
-            | Bold tags
-            |--------------------------------------------------------------------------
-            */
-            'b'      => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 12,
-                ]
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | Local Temporary Path
+        |--------------------------------------------------------------------------
+        |
+        | When exporting and importing files, we use a temporary file, before
+        | storing reading or downloading. Here you can customize that path.
+        |
+        */
+        'local_path' => storage_path('app/temp'),
 
-            /*
-            |--------------------------------------------------------------------------
-            | Italic tags
-            |--------------------------------------------------------------------------
-            */
-            'i'      => [
-                'font' => [
-                    'italic' => true,
-                    'size'   => 12,
-                ]
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | Remote Temporary Disk
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with a multi server setup with queues in which you
+        | cannot rely on having a shared local temporary path, you might
+        | want to store the temporary file on a shared disk. During the
+        | queue executing, we'll retrieve the temporary file from that
+        | location instead. When left to null, it will always use
+        | the local path. This setting only has effect when using
+        | in conjunction with queued imports and exports.
+        |
+        */
+        'remote_disk'       => env('EXCEL_TEMPORARY_FILES_REMOTE_DISK'),
+        'remote_prefix'     => env('EXCEL_TEMPORARY_FILES_REMOTE_PREFIX'),
 
-            /*
-            |--------------------------------------------------------------------------
-            | Heading 1
-            |--------------------------------------------------------------------------
-            */
-            'h1'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 24,
-                ]
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | Force Resync
+        |--------------------------------------------------------------------------
+        |
+        | When dealing with a multi server setup as above, it's possible
+        | for the clean up that occurs after entire queue has been run to only
+        | cleanup the server that the last AfterImportJob runs on. The rest of the server
+        | would still have the local temporary file stored on it. In this case your
+        | local storage limits can be exceeded and future imports won't be processed.
+        | To mitigate this you can set this config value to be true, so that after every
+        | queued chunk is processed the local temporary file is deleted on the server that
+        | processed it.
+        |
+        */
+        'force_resync_remote' => env('EXCEL_TEMPORARY_FILES_FORCE_RESYNC_REMOTE'),
 
-            /*
-            |--------------------------------------------------------------------------
-            | Heading 2
-            |--------------------------------------------------------------------------
-            */
-            'h2'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 18,
-                ]
-            ],
+    ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | Heading 3
-            |--------------------------------------------------------------------------
-            */
-            'h3'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 13.5,
-                ]
-            ],
-
-            /*
-             |--------------------------------------------------------------------------
-             | Heading 4
-             |--------------------------------------------------------------------------
-             */
-            'h4'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 12,
-                ]
-            ],
-
-            /*
-             |--------------------------------------------------------------------------
-             | Heading 5
-             |--------------------------------------------------------------------------
-             */
-            'h5'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 10,
-                ]
-            ],
-
-            /*
-             |--------------------------------------------------------------------------
-             | Heading 6
-             |--------------------------------------------------------------------------
-             */
-            'h6'     => [
-                'font' => [
-                    'bold' => true,
-                    'size' => 7.5,
-                ]
-            ],
-
-            /*
-             |--------------------------------------------------------------------------
-             | Hyperlinks
-             |--------------------------------------------------------------------------
-             */
-            'a'      => [
-                'font' => [
-                    'underline' => true,
-                    'color'     => ['argb' => 'FF0000FF'],
-                ]
-            ],
-
-            /*
-             |--------------------------------------------------------------------------
-             | Horizontal rules
-             |--------------------------------------------------------------------------
-             */
-            'hr'     => [
-                'borders' => [
-                    'bottom' => [
-                        'style' => 'thin',
-                        'color' => ['FF000000']
-                    ],
-                ]
-            ]
-        ]
-
-    ]
-
-);
+];

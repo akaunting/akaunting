@@ -19,9 +19,10 @@ class Reset extends Notification
      *
      * @param  string  $token
      */
-    public function __construct($token)
+    public function __construct($token, $email)
     {
         $this->token = $token;
+        $this->email = $email;
     }
 
     /**
@@ -43,11 +44,9 @@ class Reset extends Notification
      */
     public function toMail($notifiable)
     {
-        setting(['general.company_name' => config('app.name')]);
-
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url('auth/reset', $this->token, true))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line(trans('auth.notification.message_1'))
+            ->action(trans('auth.notification.button'), route('reset', ['token' => $this->token, 'email' => $this->email]))
+            ->line(trans('auth.notification.message_2'));
     }
 }

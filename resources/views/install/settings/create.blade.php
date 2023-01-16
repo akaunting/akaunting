@@ -1,38 +1,17 @@
-@extends('layouts.install')
+<x-layouts.install>
+    <x-slot name="title">
+        {{ trans('install.steps.settings') }}
+    </x-slot>
 
-@section('header', trans('install.steps.settings'))
+    <x-slot name="content">
+        <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
+            <x-form.group.text name="company_name" label="{{ trans('install.settings.company_name') }}" value="{{ old('company_name') }}" form-group-class="sm:col-span-6" />
 
-@section('content')
-    {{ Form::textGroup('company_name', trans('install.settings.company_name'), 'id-card-o', ['required' => 'required'], old('company_name'), 'col-md-12') }}
+            <x-form.group.text name="company_email" label="{{ trans('install.settings.company_email') }}" value="{{ old('company_email') }}" form-group-class="sm:col-span-6" />
 
-    {{ Form::textGroup('company_email', trans('install.settings.company_email'), 'envelope', ['required' => 'required'], old('company_email'), 'col-md-12') }}
+            <x-form.group.text name="user_email" label="{{ trans('install.settings.admin_email') }}" value="{{ old('user_email') }}" form-group-class="sm:col-span-6" />
 
-    {{ Form::textGroup('user_email', trans('install.settings.admin_email'), 'envelope', ['required' => 'required'], old('user_email'), 'col-md-12') }}
-
-    {{ Form::passwordGroup('user_password', trans('install.settings.admin_password'), 'key', ['required' => 'required'], old('user_password'), 'col-md-12') }}
-@endsection
-
-@push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#next-button').attr('disabled', true);
-
-            $('#company_name, #company_email, #user_email, #user_password').keyup(function() {
-                inputCheck();
-            });
-        });
-
-        function inputCheck() {
-            company_name = $('#company_name').val();
-            company_email = $('#company_email').val();
-            user_email = $('#user_email').val();
-            user_password = $('#user_password').val();
-
-            if (company_name != '' && company_email != '' && user_email != '' && user_password != '') {
-                $('#next-button').attr('disabled', false);
-            } else {
-                $('#next-button').attr('disabled', true);
-            }
-        }
-    </script>
-@endpush
+            <x-form.group.password name="user_password" label="{{ trans('install.settings.admin_password') }}" form-group-class="sm:col-span-6" />
+        </div>
+    </x-slot>
+</x-layouts.install>

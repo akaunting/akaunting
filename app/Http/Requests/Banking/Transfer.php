@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Banking;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Transfer extends Request
+class Transfer extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,8 +16,8 @@ class Transfer extends Request
         return [
             'from_account_id' => 'required|integer',
             'to_account_id' => 'required|integer',
-            'amount' => 'required',
-            'transferred_at' => 'required|date',
+            'amount' => 'required|amount',
+            'transferred_at' => 'required|date_format:Y-m-d',
             'payment_method' => 'required|string',
         ];
     }

@@ -5,7 +5,8 @@ namespace App\Utilities;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
-use Parsedown;
+use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Support\Arr;
 
 class Versions
 {
@@ -25,8 +26,6 @@ class Versions
             return $output;
         }
 
-        $parsedown = new Parsedown();
-
         $releases = json_decode($json);
 
         foreach ($releases as $release) {
@@ -42,9 +41,9 @@ class Versions
                 continue;
             }
 
-            $output .= '<h2><span class="label label-success">'.$release->tag_name.'</span></h2>';
+            $output .= '<h2><span class="badge badge-pill badge-success">' . $release->tag_name . '</span></h2>';
 
-            $output .= $parsedown->text($release->body);
+            $output .= Markdown::convertToHtml($release->body);
 
             $output .= '<hr>';
         }
@@ -52,61 +51,125 @@ class Versions
         return $output;
     }
 
-    public static function latest($modules = array())
+    public static function latest($alias)
+    {
+        $versions = static::all($alias);
+
+        if (empty($versions[$alias]) || empty($versions[$alias]->data)) {
+            return false;
+        }
+
+        return $versions[$alias]->data->latest;
+    }
+
+    public static function all($modules = null)
     {
         // Get data from cache
-        $data = Cache::get('versions');
+        $versions = Cache::get('versions');
 
-        if (!empty($data)) {
-            return $data;
+        if (!empty($versions)) {
+            return $versions;
         }
 
         $info = Info::all();
 
-        // No data in cache, grab them from remote
-        $data = array();
+        $versions = [];
 
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $data['core'] = static::getLatestVersion($url);
+        $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
+
+        $modules = Arr::wrap($modules);
 
         // Then modules
         foreach ($modules as $module) {
+            if (is_string($module)) {
+                $module = module($module);
+            }
+
+            if (!$module instanceof \Akaunting\Module\Module) {
+                continue;
+            }
+
             $alias = $module->get('alias');
             $version = $module->get('version');
 
             $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
 
-            $data[$alias] = static::getLatestVersion($url);
+            $versions[$alias] = static::getLatestVersion($url, $version);
         }
 
-        Cache::put('versions', $data, Date::now()->addHour(6));
+        Cache::put('versions', $versions, Date::now()->addHour(6));
 
-        return $data;
+        return $versions;
     }
 
-    public static function getLatestVersion($url)
+    public static function getLatestVersion($url, $latest)
     {
-        $latest = '0.0.0';
-
-        $response = static::getRemote($url, ['timeout' => 30, 'referer' => true]);
-
-        // Bad response
-        if ($response->getStatusCode() != 200) {
+        if (!$data = static::getResponseData('GET', $url, ['timeout' => 10])) {
             return $latest;
         }
 
-        $content = json_decode($response->getBody());
-
-        // Empty response
-        if (!is_object($content) || !is_object($content->data)) {
+        if (!is_object($data)) {
             return $latest;
         }
 
-        // Get the latest version
-        $latest = $content->data->latest;
+        return $data->latest;
+    }
 
-        return $latest;
+    public static function getUpdates()
+    {
+        // Get data from cache
+        $updates = Cache::get('updates');
+
+        if (!empty($updates)) {
+            return $updates;
+        }
+
+        $updates = [];
+
+        $modules = module()->all();
+
+        $versions = static::all($modules);
+
+        foreach ($versions as $alias => $latest_version) {
+            if ($alias == 'core') {
+                $installed_version = version('short');
+            } else {
+                $module = module($alias);
+
+                if (!$module instanceof \Akaunting\Module\Module) {
+                    continue;
+                }
+
+                $installed_version = $module->get('version');
+            }
+
+            if (version_compare($installed_version, $latest_version, '>=')) {
+                continue;
+            }
+
+            $updates[$alias] = $latest_version;
+        }
+
+        Cache::put('updates', $updates, Date::now()->addHour(6));
+
+        return $updates;
+    }
+
+    public static function shouldUpdate($listener_version, $old_version, $new_version): bool
+    {
+        // Don't update if "listener" is same or lower than "old" version
+        if (version_compare($listener_version, $old_version, '<=')) {
+            return false;
+        }
+
+        // Don't update if "listener" is higher than "new" version
+        if (version_compare($listener_version, $new_version, '>')) {
+            return false;
+        }
+
+        return true;
     }
 }

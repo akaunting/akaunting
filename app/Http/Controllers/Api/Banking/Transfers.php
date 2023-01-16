@@ -2,52 +2,80 @@
 
 namespace App\Http\Controllers\Api\Banking;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Banking\Transfer as Request;
+use App\Http\Resources\Banking\Transfer as Resource;
+use App\Jobs\Banking\CreateTransfer;
+use App\Jobs\Banking\UpdateTransfer;
+use App\Jobs\Banking\DeleteTransfer;
 use App\Models\Banking\Transfer;
-use App\Models\Expense\Payment;
-use App\Models\Income\Revenue;
-use App\Transformers\Banking\Transfer as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Transfers extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $transfers = Transfer::with(['payment', 'revenue'])->collect('payment.paid_at');
+        $transfers = Transfer::with(
+            'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account'
+        )->collect('expense_transaction.paid_at');
 
-        return $this->response->paginator($transfers, new Transformer());
+        $special_key = [
+            'expense_transaction.name' => 'from_account',
+            'income_transaction.name' => 'to_account',
+        ];
+
+        $request = request();
+        if (isset($request['sort']) && array_key_exists($request['sort'], $special_key)) {
+            $items = $transfers->items();
+
+            $sort_order = [];
+
+            foreach ($items as $key => $value) {
+                $sort = $request['sort'];
+
+                if (array_key_exists($request['sort'], $special_key)) {
+                    $sort = $special_key[$request['sort']];
+                }
+
+                $sort_order[$key] = $value->{$sort};
+            }
+
+            $sort_type = (isset($request['order']) && $request['order'] == 'asc') ? SORT_ASC : SORT_DESC;
+
+            array_multisort($sort_order, $sort_type, $items);
+
+            $transfers->setCollection(collect($items));
+        }
+
+        return Resource::collection($transfers);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  Transfer  $transfer
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Transfer $transfer)
     {
-        return $this->response->item($transfer, new Transformer());
+        return new Resource($transfer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $transfer = Transfer::create($request->all());
+        $transfer = $this->dispatch(new CreateTransfer($request));
 
-        return $this->response->created(url('api/transfers/'.$transfer->id));
+        return $this->created(route('api.transfers.show', $transfer->id), new Resource($transfer));
     }
 
     /**
@@ -55,30 +83,29 @@ class Transfers extends ApiController
      *
      * @param  $transfer
      * @param  $request
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Transfer $transfer, Request $request)
     {
-        $transfer->update($request->all());
+        $transfer = $this->dispatch(new UpdateTransfer($transfer, $request));
 
-        return $this->response->item($transfer->fresh(), new Transformer());
+        return new Resource($transfer->fresh());
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  Transfer  $transfer
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Transfer $transfer)
     {
-        $payment = Payment::findOrFail($transfer['payment_id']);
-        $revenue = Revenue::findOrFail($transfer['revenue_id']);
+        try {
+            $this->dispatch(new DeleteTransfer($transfer));
 
-        $transfer->delete();
-        $payment->delete();
-        $revenue->delete();
-
-        return $this->response->noContent();
+            return $this->noContent();
+        } catch(\Exception $e) {
+            $this->errorUnauthorized($e->getMessage());
+        }
     }
 }

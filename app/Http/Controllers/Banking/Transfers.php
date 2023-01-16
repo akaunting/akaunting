@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Banking;
 
-use App\Http\Controllers\Controller;
-
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transfer as Request;
+use App\Exports\Banking\Transfers as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Banking\Transfers as Import;
+use App\Jobs\Banking\CreateTransfer;
+use App\Jobs\Banking\UpdateTransfer;
+use App\Jobs\Banking\DeleteTransfer;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transfer;
-use App\Models\Expense\Payment;
-use App\Models\Income\Revenue;
-use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
-
-use App\Utilities\Modules;
+use Illuminate\Support\Str;
 
 class Transfers extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -24,52 +24,21 @@ class Transfers extends Controller
      */
     public function index()
     {
-        $request = request();
+        $transfers = Transfer::with(
+            'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account'
+        )->collect(['expense_transaction.paid_at' => 'desc']);
 
-        $items = Transfer::with(['payment', 'revenue', 'account'])->collect('payment.paid_at');
+        return $this->response('banking.transfers.index', compact('transfers'));
+    }
 
-        $accounts = collect(Account::enabled()->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
-
-        $transfers = array();
-
-        foreach ($items as $item) {
-            $payment = $item->payment;
-            $revenue = $item->revenue;
-
-            $transfers[] = (object)[
-                'from_account' => $payment->account->name,
-                'to_account' => $revenue->account->name,
-                'amount' => $payment->amount,
-                'currency_code' => $payment->currency_code,
-                'paid_at' => $payment->paid_at,
-            ];
-        }
-
-        $special_key = array(
-            'payment.name' => 'from_account',
-            'revenue.name' => 'to_account',
-        );
-
-        if (isset($request['sort']) && array_key_exists($request['sort'], $special_key)) {
-            $sort_order = array();
-
-            foreach ($transfers as $key => $value) {
-                $sort = $request['sort'];
-
-                if (array_key_exists($request['sort'], $special_key)) {
-                    $sort = $special_key[$request['sort']];
-                }
-
-                $sort_order[$key] = $value->{$sort};
-            }
-
-            $sort_type = (isset($request['order']) && $request['order'] == 'asc') ? SORT_ASC : SORT_DESC;
-
-            array_multisort($sort_order, $sort_type, $transfers);
-        }
-
-        return view('banking.transfers.index', compact('transfers', 'items', 'accounts'));
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show(Transfer $transfer)
+    {
+        return view('banking.transfers.show', compact('transfer'));
     }
 
     /**
@@ -79,11 +48,11 @@ class Transfers extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $payment_methods = Modules::getPaymentMethods();
+        $currency = Currency::where('code', default_currency())->first();
 
-        return view('banking.transfers.create', compact('accounts', 'payment_methods'));
+        return view('banking.transfers.create', compact('accounts', 'currency'));
     }
 
     /**
@@ -95,167 +64,189 @@ class Transfers extends Controller
      */
     public function store(Request $request)
     {
-        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+        $response = $this->ajaxDispatch(new CreateTransfer($request));
 
-        $payment_currency_code = Account::where('id', $request['from_account_id'])->pluck('currency_code')->first();
-        $revenue_currency_code = Account::where('id', $request['to_account_id'])->pluck('currency_code')->first();
+        if ($response['success']) {
+            $response['redirect'] = route('transfers.show', $response['data']->id);
 
-        $request['account_id'] = $request['from_account_id'];
-        $request['paid_at'] = $request['transferred_at'];
-        $request['currency_code'] = $payment_currency_code;
-        $request['currency_rate'] = $currencies[$payment_currency_code];
-        $request['vendor_id'] = '0';
-        $request['category_id'] = Category::transfer(); // Transfer Category ID
-        $request['attachment'] = '';
+            $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
 
-        $payment = Payment::create($request->all());
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('transfers.create');
 
-        $transfer = new Transfer();
+            $message = $response['message'];
 
-        $transfer->default_currency_code = $payment_currency_code;
-        $transfer->amount = $request['amount'];
-        $transfer->currency_code = $revenue_currency_code;
-        $transfer->currency_rate = $currencies[$revenue_currency_code];
+            flash($message)->error()->important();
+        }
 
-        $amount = $transfer->getDynamicConvertedAmount();
+        return response()->json($response);
+    }
 
-        $request['account_id'] = $request['to_account_id'];
-        // paid_at
-        $request['amount'] = $amount;
-        $request['currency_code'] = $revenue_currency_code;
-        $request['currency_rate'] = $currencies[$revenue_currency_code];
-        $request['customer_id'] = '0';
-        // description
-        // category_id
-        // payment_method
-        // reference
-        // attachment
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function duplicate(Transfer $transfer)
+    {
+        $clone = $transfer->duplicate();
 
-        $revenue = Revenue::create($request->all());
-
-        $request['payment_id'] = $payment->id;
-        $request['revenue_id'] = $revenue->id;
-
-        Transfer::create($request->all());
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.transfers', 1)]);
 
         flash($message)->success();
 
-        return redirect('banking/transfers');
+        return redirect()->route('transfers.show', $clone->id);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.transfers', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('transfers.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['banking', 'transfers']);
+
+            flash($response['message'])->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Request  $request
+     * @param  Transfer  $transfer
      *
      * @return Response
      */
-    public function edit(Request $request)
+    public function edit(Transfer $transfer)
     {
-        $payment = Payment::findOrFail($request['payment_id']);
-        $revenue = Revenue::findOrFail($request['revenue_id']);
+        $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $transfer['from_account_id'] = $payment->account_id;
-        $transfer['to_account_id'] = $revenue->account_id;
-        $transfer['transferred_at'] = $revenue->deposited_at;
-        $transfer['description'] = $revenue->description;
-        $transfer['amount'] = $revenue->amount;
-        $transfer['payment_method'] = $revenue->payment_method;
-        $transfer['reference'] = $revenue->reference;
+        $currency_code = ($transfer->expense_transaction->account) ? $transfer->expense_transaction->account->currency_code : default_currency();
 
-        $accounts = Account::listArray();
+        $currency = Currency::where('code', $currency_code)->first();
 
-        $payment_methods = Modules::getPaymentMethods();
-
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods'));
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'currency'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Transfer  $transfer
+     * @param  $id
      * @param  Request  $request
      *
      * @return Response
      */
     public function update(Transfer $transfer, Request $request)
     {
-        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+        $response = $this->ajaxDispatch(new UpdateTransfer($transfer, $request));
 
-        $payment_currency_code = Account::where('id', $request['from_account_id'])->pluck('currency_code')->first();
-        $revenue_currency_code = Account::where('id', $request['to_account_id'])->pluck('currency_code')->first();
+        if ($response['success']) {
+            $response['redirect'] = route('transfers.show', $transfer->id);
 
-        $payment = Payment::findOrFail($transfer->payment_id);
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.transfers', 1)]);
 
-        $request['account_id'] = $request['from_account_id'];
-        $request['paid_at'] = $request['transferred_at'];
-        $request['currency_code'] = $payment_currency_code;
-        $request['currency_rate'] = $currencies[$payment_currency_code];
-        $request['vendor_id'] = '0';
-        $request['category_id'] = Category::transfer(); // Transfer Category ID
-        $request['attachment'] = '';
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('transfers.edit', $transfer->id);
 
-        $payment->update($request->all());
+            $message = $response['message'];
 
-        $revenue = Revenue::findOrFail($transfer->income_id);
+            flash($message)->error()->important();
+        }
 
-        $transfer = new Transfer();
-
-        $transfer->default_currency_code = $payment_currency_code;
-        $transfer->amount = $request['amount'];
-        $transfer->currency_code = $revenue_currency_code;
-        $transfer->currency_rate = $currencies[$revenue_currency_code];
-
-        $amount = $transfer->getDynamicConvertedAmount();
-
-        $request['account_id'] = $request['to_account_id'];
-        // paid_at
-        $request['amount'] = $amount;
-        $request['currency_code'] = $revenue_currency_code;
-        $request['currency_rate'] = $currencies[$revenue_currency_code];
-        $request['customer_id'] = '0';
-        // description
-        // category_id
-        // payment_method
-        // reference
-        // attachment
-
-        $revenue->update($request->all());
-
-        $request['payment_id'] = $payment->id;
-        $request['revenue_id'] = $revenue->id;
-
-        $transfer->update($request->all());
-
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.transfers', 1)]);
-
-        flash($message)->success();
-
-        return redirect('banking/transfers');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Transfer  $transfer
+     * @param  $id
      *
      * @return Response
      */
     public function destroy(Transfer $transfer)
     {
-        $payment = Payment::findOrFail($transfer['payment_id']);
-        $revenue = Revenue::findOrFail($transfer['revenue_id']);
+        $response = $this->ajaxDispatch(new DeleteTransfer($transfer));
 
-        $transfer->delete();
-        $payment->delete();
-        $revenue->delete();
+        $response['redirect'] = route('transfers.index');
 
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.transfers', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.transfers', 1)]);
 
-        flash($message)->success();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
 
-        return redirect('banking/transfers');
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.transfers', 2));
+    }
+
+    /**
+     * Print the transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function printTransfer(Transfer $transfer)
+    {
+        event(new \App\Events\Banking\TransferPrinting($transfer));
+
+        $view = view($transfer->template_path, compact('transfer'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+    }
+
+    /**
+     * Download the PDF file of transfer.
+     *
+     * @param  Transfer $transfer
+     *
+     * @return Response
+     */
+    public function pdfTransfer(Transfer $transfer)
+    {
+        event(new \App\Events\Banking\TransferPrinting($transfer));
+
+        $currency_style = true;
+
+        $view = view($transfer->template_path, compact('transfer', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = trans_choice('general.transfers', 1) . '-' . Str::slug($transfer->id, '-', language()->getShortCode()) . '-' . time() . '.pdf';
+
+        return $pdf->download($file_name);
     }
 }

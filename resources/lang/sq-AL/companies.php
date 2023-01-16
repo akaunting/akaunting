@@ -4,10 +4,11 @@ return [
 
     'domain'                => 'Domain',
     'logo'                  => 'Logoja',
-    'manage'                => 'Menaxho Kompanitë',
-    'all'                   => 'Të Gjitha Kompanitë',
+
     'error' => [
-        'delete_active'     => 'Gabim: Nuk mund të fshihet kompania aktive, ju lutem, ndryshoni së pari!',
+        'not_user_company'  => 'Gabim: Nuk ju lejohet të ndryshoni këtë kompani!',
+        'delete_active'     => 'Gabim: Nuk mund të fshihet kompania aktive. Ju lutem, kaloni në një tjetër së pari!',
+        'disable_active'    => 'Gabim: Nuk mund të çaktivizohet kompania aktive. Ju lutem, kaloni në një tjetër së pari!',
     ],
 
 ];

@@ -2,8 +2,9 @@
 
 return [
 
-    'import'                => 'Import',
-    'title'                 => 'Import :type',
-    'message'               => 'Allowed file types: CSV, XLS. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'import'                => 'Importeren',
+    'title'                 => ':type importeren',
+    'limitations'           => 'Toegestane bestandstypen: :extensions<br>Toegestane maximale rijen: :row_limit',
+    'sample_file'           => 'U kunt <a target="_blank" href=":download_link"><strong>download</strong></a> het voorbeeldbestand downloaden en invullen met uw gegevens.',
 
 ];

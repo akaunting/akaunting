@@ -152,8 +152,8 @@ return [
         'subunit'             => 100,
         'symbol'              => 'лв',
         'symbol_first'        => false,
-        'decimal_mark'        => '.',
-        'thousands_separator' => ',',
+        'decimal_mark'        => ',',
+        'thousands_separator' => ' ',
     ],
 
     'BHD' => [
@@ -266,7 +266,7 @@ return [
         'thousands_separator' => ',',
     ],
 
-    'BYR' => [
+    'BYN' => [
         'name'                => 'Belarussian Ruble',
         'code'                => 974,
         'precision'           => 0,
@@ -646,7 +646,7 @@ return [
         'precision'           => 2,
         'subunit'             => 100,
         'symbol'              => 'kn',
-        'symbol_first'        => true,
+        'symbol_first'        => false,
         'decimal_mark'        => ',',
         'thousands_separator' => '.',
     ],
@@ -1202,11 +1202,11 @@ return [
     ],
 
     'PEN' => [
-        'name'                => 'Nuevo Sol',
+        'name'                => 'Sol',
         'code'                => 604,
         'precision'           => 2,
         'subunit'             => 100,
-        'symbol'              => 'S/.',
+        'symbol'              => 'S/',
         'symbol_first'        => true,
         'decimal_mark'        => '.',
         'thousands_separator' => ',',
@@ -1635,8 +1635,8 @@ return [
         'code'                => 860,
         'precision'           => 2,
         'subunit'             => 100,
-        'symbol'              => null,
-        'symbol_first'        => false,
+        'symbol'              => 'лв',
+        'symbol_first'        => true,
         'decimal_mark'        => '.',
         'thousands_separator' => ',',
     ],

@@ -2,40 +2,56 @@
 
 return [
 
-    'bill_number'       => 'شماره صورتحساب',
-    'bill_date'         => 'تاریخ صورتحساب',
-    'total_price'       => 'قیمت کل',
-    'due_date'          => 'سررسید',
-    'order_number'      => 'شماره سفارش',
-    'bill_from'         => 'صورتحساب از',
+    'bill_number'           => 'شماره صورتحساب',
+    'bill_date'             => 'تاریخ صورتحساب',
+    'bill_amount'           => 'مقدار صورت‌حساب',
+    'total_price'           => 'قیمت کل',
+    'due_date'              => 'سررسید',
+    'order_number'          => 'شماره سفارش',
+    'bill_from'             => 'صورتحساب از',
 
-    'quantity'          => 'تعداد',
-    'price'             => 'قيمت',
-    'sub_total'         => 'جمع کل',
-    'tax_total'         => 'مجموع مالیات',
-    'total'             => 'مجموع',
+    'quantity'              => 'تعداد',
+    'price'                 => 'قيمت',
+    'sub_total'             => 'جمع کل',
+    'discount'              => 'تخفیف',
+    'item_discount'         => 'تخفیف جزء',
+    'tax_total'             => 'مجموع مالیات',
+    'total'                 => 'مجموع',
 
-    'item_name'         => 'نام آیتم | نام آیتم ها',
+    'item_name'             => 'نام آیتم | نام آیتم ها',
 
-    'payment_due'       => 'سررسید پرداخت',
-    'amount_due'        => 'مقدار سررسید',
-    'paid'              => 'پرداخت شده',
-    'histories'         => 'تاریخچه',
-    'payments'          => 'پرداخت ها',
-    'add_payment'       => 'پرداخت',
-    'mark_received'     => 'دریافت شده',
-    'download_pdf'      => 'دانلود PDF',
-    'send_mail'         => 'ارسال ایمیل',
+    'show_discount'         => 'تخفیف: discount%',
+    'add_discount'          => 'اضافه کردن تخفیف',
+    'discount_desc'         => 'از جمع کل',
 
-    'status' => [
-        'draft'         => 'پیش‌ نویس',
-        'received'      => 'دریافت شده',
-        'partial'       => 'جزئیات',
-        'paid'          => 'پرداخت شده',
-    ],
+    'payment_due'           => 'سررسید پرداخت',
+    'amount_due'            => 'مقدار سررسید',
+    'paid'                  => 'پرداخت شده',
+    'histories'             => 'تاریخچه',
+    'payments'              => 'پرداخت ها',
+    'add_payment'           => 'پرداخت',
+    'mark_paid'             => 'تغییر وضعیت به پرداخت شده',
+    'mark_received'         => 'دریافت شده',
+    'mark_cancelled'        => 'تغییر وضعیت به لغو شده',
+    'download_pdf'          => 'دانلود PDF',
+    'send_mail'             => 'ارسال ایمیل',
+    'create_bill'           => 'ایجاد صورتحساب',
+    'receive_bill'          => 'دریافت صورتحساب',
+    'make_payment'          => 'تغییر وضعیت به پرداخت شده',
 
     'messages' => [
-        'received'      => 'صورتحساب مشخص شده با موفقیت علامت گذاری شد.',
+        'draft'             => 'این پیشنویس <b> صورت حساب  <b/> است و پس از دریافت وجه بر روی نمودار را اعمال می شود.',
+
+        'status' => [
+            'created'       => 'تاریخ ایجاد :date',
+            'receive' => [
+                'draft'     => 'ارسال نشده',
+                'received'  => 'تاریخ دریافت :date',
+            ],
+            'paid' => [
+                'await'     => 'در انتظار پرداخت',
+            ],
+        ],
     ],
 
 ];

@@ -2,9 +2,22 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Abstracts\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class $CLASS$ extends Model
 {
+    use HasFactory;
+
     protected $fillable = $FILLABLE$;
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \$FACTORY_NAMESPACE$\$NAME$::new();
+    }
 }

@@ -8,8 +8,8 @@ return [
     'overdue_invoices'          => 'Просроченные квитанции',
     'total_expenses'            => 'Всего расходов',
     'payables'                  => 'Долги по кредитам',
-    'open_bills'                => 'Открытые счета',
-    'overdue_bills'             => 'Просроченные счета',
+    'open_bills'                => 'Открытые закупки',
+    'overdue_bills'             => 'Просроченные закупки',
     'total_profit'              => 'Общая прибыль',
     'open_profit'               => 'Открытая прибыль',
     'overdue_profit'            => 'Просроченная прибыль',
@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Баланс счёта',
     'latest_incomes'            => 'Последние доходы',
     'latest_expenses'           => 'Последние расходы',
-
 ];

@@ -1,109 +1,89 @@
-@extends('layouts.admin')
+<x-layouts.admin>
+    <x-slot name="title">{{ trans('general.title.edit', ['type' => trans_choice('general.users', 1)]) }}</x-slot>
 
-@section('title', trans('general.title.edit', ['type' => trans_choice('general.users', 1)]))
+    <x-slot name="content">
+        <x-form.container>
+            <x-form id="user" method="PATCH" :route="[$route, $user->id]" :model="$user">
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('auth.personal_information') }}" description="{{ trans('auth.form_description.personal') }}" />
+                    </x-slot>
 
-@section('content')
-    <!-- Default box -->
-    <div class="box box-success">
-        {!! Form::model($user, [
-            'method' => 'PATCH',
-            'files' => true,
-            'url' => ['auth/users', $user->id],
-            'role' => 'form'
-        ]) !!}
+                    <x-slot name="body">
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-3' : 'grid-rows-2' }}">
+                            <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        <div class="box-body">
-            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+                            <x-form.group.email name="email" label="{{ trans('general.email') }}" ::disabled="{{ $user->hasPendingInvitation() ? 'true' : 'false' }}" />
 
-            {{ Form::emailGroup('email', trans('general.email'), 'envelope') }}
+                            @if (user()->id == $user->id)
+                            <x-form.group.checkbox name="change_password" :options="['1' => trans('auth.change_password')]" form-group-class="sm:col-span-3" checkbox-class="sm:col-span-6" @input="onChangePassword($event)" />
 
-            {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', []) }}
+                            <x-form.group.password name="password" :label="trans('auth.password.new')" v-show="show_password" />
+                            @endif
+                        </div>
 
-            {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', []) }}
+                        <div class="sm:col-span-3 grid gap-x-8 gap-y-6 {{ user()->id == $user->id ? 'grid-rows-3' : 'grid-rows-2' }}">
+                            @if (setting('default.use_gravatar', '0') == '1')
+                                <x-form.group.text name="fake_picture" label="{{ trans_choice('general.pictures', 1) }}" disabled placeholder="{{ trans('settings.default.use_gravatar') }}" form-group-class="sm:col-span-3 sm:row-span-2" />
+                            @else
+                                <x-form.group.file name="picture" :value="$user->picture" label="{{ trans_choice('general.pictures', 1) }}" not-required form-group-class="sm:col-span-3 sm:row-span-2" />
+                            @endif
 
-            {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed()) }}
+                            @if (user()->id == $user->id)
+                            <x-form.group.password name="current_password" :label="trans('auth.password.current')" v-show="show_password" />
 
-            {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1)) }}
+                            <x-form.group.password name="password_confirmation" :label="trans('auth.password.new_confirm')" v-show="show_password" />
+                            @endif
+                        </div>
+                    </x-slot>
+                </x-form.section>
 
-            @permission('read-companies-companies')
-            {{ Form::checkboxGroup('companies', trans_choice('general.companies', 2), $companies, 'company_name') }}
-            @endpermission
+                @if (user()->can('read-common-companies') || user()->hasRole(['admin', 'manager']))
+                    <x-form.section>
+                        <x-slot name="head">
+                            <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
+                        </x-slot>
 
-            @permission('read-auth-roles')
-            {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
-            @endpermission
+                        <x-slot name="body">
+                            @can('read-common-companies')
+                                <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" selected-key="company_ids" :remote_action="route('companies.index')" form-group-class="sm:col-span-6" />
+                            @endcan
 
-            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
-        </div>
-        <!-- /.box-body -->
-
-        @permission('update-auth-users')
-        <div class="box-footer">
-            {{ Form::saveButtons('auth/users') }}
-        </div>
-        <!-- /.box-footer -->
-        @endpermission
-
-        {!! Form::close() !!}
-    </div>
-@endsection
-
-@push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
-@endpush
-
-@push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
-@endpush
-
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function(){
-            $("#locale").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.languages', 1)]) }}"
-            });
-
-            $('#picture').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
-                @if($user->picture)
-                placeholder : '<?php echo $user->picture->basename; ?>'
-                @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                            @role('admin|manager')
+                                <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" change="onChangeRole" selected-key="roles.id" />
+                            @endrole
+                        </x-slot>
+                    </x-form.section>
                 @endif
-            });
 
-            @if($user->picture)
-                picture_html  = '<span class="picture">';
-                picture_html += '    <a href="{{ url('uploads/' . $user->picture->id . '/download') }}">';
-                picture_html += '        <span id="download-picture" class="text-primary">';
-                picture_html += '            <i class="fa fa-file-{{ $user->picture->aggregate_type }}-o"></i> {{ $user->picture->basename }}';
-                picture_html += '        </span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::open(['id' => 'picture-' . $user->picture->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $user->picture->id)], 'style' => 'display:inline']) !!}';
-                picture_html += '    <a id="remove-picture" href="javascript:void();">';
-                picture_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::close() !!}';
-                picture_html += '</span>';
-    
-                $('.fancy-file .fake-file').append(picture_html);
-    
-                $(document).on('click', '#remove-picture', function (e) {
-                    confirmDelete("#picture-{!! $user->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $user->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
-            @endif
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.preferences') }}" description="{!! trans('auth.form_description.preferences') !!}" />
+                    </x-slot>
 
-            $('input[type=checkbox]').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-                increaseArea: '20%' // optional
-            });
-        });
-    </script>
-@endpush
+                    <x-slot name="body">
+                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" dynamicOptions="landing_pages" />
+
+                        <x-form.group.locale />
+                    </x-slot>
+                </x-form.section>
+
+                <x-form.group.switch name="enabled" label="{{ trans('general.enabled') }}" />
+
+                @canany(['update-auth-users', 'update-auth-profile'])
+                    <x-form.section>
+                        <x-slot name="foot">
+                            @if (user()->can('read-auth-users'))
+                                <x-form.buttons cancel-route="users.index" />
+                            @else
+                                <x-form.buttons cancel-route="dashboard" />
+                            @endif
+                        </x-slot>
+                    </x-form.section>
+                @endcanany
+            </x-form>
+        </x-form.container>
+    </x-slot>
+
+    <x-script folder="auth" file="users" />
+</x-layouts.admin>

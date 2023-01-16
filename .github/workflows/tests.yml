@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+ push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  tests:
+
+    name: PHP ${{ matrix.php }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['8.0', '8.1']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache Composer
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          coverage: none
+
+      - name: Copy .env
+        run: cp .env.testing .env
+
+      - name: Install NPM
+        run: npm install
+
+      - name: Compile assets
+        run: npm run production
+
+      - name: Install Composer
+        run: composer test
+
+      - name: Execute tests
+        run: php artisan test --parallel
