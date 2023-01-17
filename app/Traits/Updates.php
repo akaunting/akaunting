@@ -23,7 +23,7 @@ trait Updates
     /**
      * delete the files.
      */
-    public function deleteFiles(array $files, $alias = null): void
+    public function deleteFiles(array $files, $alias = ''): void
     {
         $path = $this->getPathByAlias($alias);
 
@@ -35,7 +35,7 @@ trait Updates
     /**
      * delete the folders.
      */
-    public function deleteFolders(array $folders, $alias = null): void
+    public function deleteFolders(array $folders, $alias = ''): void
     {
         $path = $this->getPathByAlias($alias);
 
