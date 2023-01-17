@@ -18,7 +18,7 @@
 
                     <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">
                         <div class="flex flex-col gap-4">
-                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Akaunting" />
+                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Workhy Books" />
 
                             <div class="rounded-xl px-5 py-3 mb-5 bg-red-100 text-sm mb-0 text-red-600">
                                 {!! trans('install.requirements.npm') !!}
@@ -34,7 +34,7 @@
 
                     <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">
                         <div class="flex flex-col gap-4">
-                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Akaunting" />
+                            <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-16 my-3" alt="Workhy Books" />
 
                             <x-layouts.install.content :title="$title">
                                 {!! $content !!}
