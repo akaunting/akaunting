@@ -7,6 +7,7 @@ use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentReceived;
 use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Document\CancelDocument;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
@@ -71,7 +72,11 @@ class Bills extends BulkAction
                 continue;
             }
 
-            event(new DocumentCancelled($bill));
+            try {
+                $this->dispatch(new CancelDocument($bill));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
         }
     }
 

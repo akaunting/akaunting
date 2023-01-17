@@ -3,11 +3,11 @@
 namespace App\BulkActions\Sales;
 
 use App\Abstracts\BulkAction;
-use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentMarkedSent;
 use App\Events\Document\PaymentReceived;
 use App\Exports\Sales\Invoices as Export;
+use App\Jobs\Document\CancelDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
 
@@ -71,7 +71,11 @@ class Invoices extends BulkAction
                 continue;
             }
 
-            event(new DocumentCancelled($invoice));
+            try {
+                $this->dispatch(new CancelDocument($invoice));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
         }
     }
 

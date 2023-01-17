@@ -4,7 +4,7 @@ namespace App\Events\Document;
 
 use App\Abstracts\Event;
 
-class DocumentCancelled extends Event
+class DocumentCancelling extends Event
 {
     public $document;
 

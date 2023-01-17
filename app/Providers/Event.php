@@ -43,9 +43,6 @@ class Event extends Provider
         'App\Events\Document\DocumentReceived' => [
             'App\Listeners\Document\MarkDocumentReceived',
         ],
-        'App\Events\Document\DocumentCancelled' => [
-            'App\Listeners\Document\MarkDocumentCancelled',
-        ],
         'App\Events\Document\DocumentRecurring' => [
             'App\Listeners\Document\SendDocumentRecurringNotification',
         ],

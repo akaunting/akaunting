@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Document\DocumentCancelled;
 use App\Exports\Sales\Invoices as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
 use App\Imports\Sales\Invoices as Import;
+use App\Jobs\Document\CancelDocument;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
@@ -238,11 +240,17 @@ class Invoices extends Controller
      */
     public function markCancelled(Document $invoice)
     {
-        event(new \App\Events\Document\DocumentCancelled($invoice));
+        $response = $this->ajaxDispatch(new CancelDocument($invoice));
 
-        $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.invoices', 1)]);
+        if ($response['success']) {
+            $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.invoices', 1)]);
 
-        flash($message)->success();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
 
         return redirect()->back();
     }
