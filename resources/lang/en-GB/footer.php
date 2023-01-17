@@ -3,9 +3,9 @@
 return [
 
     'version'               => 'Version',
-    'powered'               => '',
+    'powered'               => 'Workhy',
     'link'                  => 'https://workhy.com',
-    'software'              => '',
+    'software'              => 'Books',
     'powered_by'            => 'Powered by',
     'tag_line'              => 'Send invoices, track expenses, and automate accounting with Akaunting. :get_started_url',
     'get_started'           => 'Get Started',
