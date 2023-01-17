@@ -40,7 +40,7 @@ class Transaction extends Factory
         return [
             'company_id' => $this->company->id,
             'type' => $this->type,
-            'number' => $this->getNextTransactionNumber(),
+            'number' => $this->getNumber(),
             'account_id' => setting('default.account'),
             'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
@@ -89,7 +89,7 @@ class Transaction extends Factory
     {
         return $this->state([
             'type' => $this->getRawAttribute('type') . '-recurring',
-            'number' => $this->getNextTransactionNumber('-recurring'),
+            'number' => $this->getNumber('-recurring'),
             'recurring_started_at' => $this->getRawAttribute('paid_at'),
             'recurring_frequency' => 'daily',
             'recurring_custom_frequency' => 'daily',
@@ -100,5 +100,18 @@ class Transaction extends Factory
             'disabled_transaction_number' => "Auto-generated",
             'real_type' => $this->getRawAttribute('type'),
         ]);
+    }
+
+    /**
+     * Get transaction number
+     *
+     */
+    public function getNumber($suffix = '')
+    {
+        $number = $this->getNextTransactionNumber($suffix);
+        
+        $this->increaseNextTransactionNumber($suffix);
+
+        return $number;
     }
 }
