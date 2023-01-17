@@ -86,3 +86,7 @@ rtl:-left-1.5
 rtl:-scale-x-100
 ltr:border-l-8
 rtl:border-r-8
+ltr:float-right
+ltr:float-left
+rtl:float-right
+rtl:float-left
