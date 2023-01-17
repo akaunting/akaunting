@@ -112,7 +112,7 @@
             @can($permissionUpdate)
                 <x-dropdown.divider />
 
-                @if ($document->status != 'cancelled')
+                @if ($document->status != 'cancelled' && $document->status != 'draft')
                     <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
                         {{ trans('general.cancel') }}
                     </x-dropdown.link>
