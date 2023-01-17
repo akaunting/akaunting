@@ -3,8 +3,8 @@
 return [
 
     'version'               => 'Vеrzija',
-    'powered'               => 'Omogućio vam je Akaunting',
-    'link'                  => 'https://Akaunting.com',
+    'powered'               => 'Omogućio vam je Workhy Books',
+    'link'                  => 'https://Workhy Books.com',
     'software'              => 'Slobodan softver za knjigovodstvo',
 
 ];

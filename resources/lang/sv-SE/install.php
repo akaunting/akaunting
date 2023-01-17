@@ -22,7 +22,7 @@ return [
         'extension'         => ':extension tillägget måste vara installerad och laddad!',
         'directory'         => ':directory katalogen måste vara skrivbar!',
         'executable'        => 'PHP CLI körbar fil är inte definierad/fungerar eller dess version är inte :php_version eller högre! Be ditt webbhotellföretag att ställa in miljövariabeln PHP_BINARY eller PHP_PATH på rätt sätt.',
-        'npm'               => '<b>Saknade JavaScript-filer!</b> <br><br><span>Du bör köra <em class="underline">npm install</em> och <em class="underline">npm run dev</em> kommandona.</span>', 
+        'npm'               => '<b>Saknade JavaScript-filer!</b> <br><br><span>Du bör köra <em class="underline">npm install</em> och <em class="underline">npm run dev</em> kommandona.</span>',
     ],
 
     'database' => [
@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Ny Akaunting-version tillgänglig! Vänligen uppdatera <a href=":url">din installation.</a>',
+        'core'              => 'Ny Workhy Books-version tillgänglig! Vänligen uppdatera <a href=":url">din installation.</a>',
         'module'            => 'Ny version av :module tillgänglig! Vänligen uppdatera din installation.',
     ],
 ];

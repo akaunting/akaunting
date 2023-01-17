@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Sie erhalten diese E-Mail, weil Sie zur zusammenarbeit bei Akaunting eingeladen wurden.',
+        'message_1'         => 'Sie erhalten diese E-Mail, weil Sie zur zusammenarbeit bei Workhy Books eingeladen wurden.',
         'message_2'         => 'Wenn Sie nicht beitreten möchten, ist keine weitere Aktion erforderlich.',
         'button'            => 'Legen Sie los',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Rechnungen einfach erstellen',
         'reports'           => 'Detaillierte Berichte abrufen',
         'expense'           => 'Alle Ausgaben verfolgen',
-        'customize'         => 'Passen Sie Ihr Akaunting an',
+        'customize'         => 'Passen Sie Ihr Workhy Books an',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Admin',
-            'description'   => 'Sie erhalten vollen Zugriff auf Akaunting, einschließlich Kunden, Rechnungen, Berichte, Einstellungen und Apps.',
+            'description'   => 'Sie erhalten vollen Zugriff auf Workhy Books, einschließlich Kunden, Rechnungen, Berichte, Einstellungen und Apps.',
         ],
         'manager' => [
             'name'          => 'Manager',
-            'description'   => 'Sie erhalten vollen Zugriff auf Akaunting, können aber keine Benutzer und Apps verwalten.',
+            'description'   => 'Sie erhalten vollen Zugriff auf Workhy Books, können aber keine Benutzer und Apps verwalten.',
         ],
         'customer' => [
             'name'          => 'Kunde',

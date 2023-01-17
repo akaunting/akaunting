@@ -22,7 +22,7 @@ return [
         'extension'         => ':paplašinājumi nepieciešams ielādēt!',
         'directory'         => ':direktorijs direktorijai jābūt rakstīšanas tiesībām!',
         'executable'        => 'PHP CLI izpildāmais fails nav definēts/nedarbojas vai tā versija nav :php_version vai augstāka! Lūdziet savam uzturētājuzņēmumam uzstatīt PHP_BINARY vai PHP_PATH vides mainīgo pareizi.',
-        'npm'               => '<b>Trūkst JavaScript failu !</b> <br><br><span>You should run <em class="underline">npm install</em> and <em class="underline">npm run dev</em> instalēšanas komandas.</span>', 
+        'npm'               => '<b>Trūkst JavaScript failu !</b> <br><br><span>You should run <em class="underline">npm install</em> and <em class="underline">npm run dev</em> instalēšanas komandas.</span>',
     ],
 
     'database' => [
@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Akaunting jauna versija ir pieejama! Lūdzu, atjauniniet savu instalāciju.',
+        'core'              => 'Workhy Books jauna versija ir pieejama! Lūdzu, atjauniniet savu instalāciju.',
         'module'            => ':module ir pieejama jaunā versija! Lūdzu, atjauniniet savu instalāciju.',
     ],
 ];

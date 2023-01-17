@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Receitas e despesas, incluindo faturas e contas não pagas',
         'expenses_by_category'  => 'Principais despesas em várias categorias',
         'account_balance'       => 'Saldo atual das suas contas bancárias',
-        'bank_feeds'            => 'Importe suas transações para o Akaunting automaticamente </br>conectando suas contas bancárias',
+        'bank_feeds'            => 'Importe suas transações para o Workhy Books automaticamente </br>conectando suas contas bancárias',
     ],
 
     'periods' => [

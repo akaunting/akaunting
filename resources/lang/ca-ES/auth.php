@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Estàs rebent aquest correu electrònic perquè estàs convidat a unir-te a l\'Akaunting.',
+        'message_1'         => 'Estàs rebent aquest correu electrònic perquè estàs convidat a unir-te a l\'Workhy Books.',
         'message_2'         => 'Si no t\'hi vols unir, no cal que facis res més.',
         'button'            => 'Comença',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Crea factures fàcilment',
         'reports'           => 'Obté informes detallats',
         'expense'           => 'Fes el seguiment de qualsevol despesa',
-        'customize'         => 'Personalitza el teu Akaunting',
+        'customize'         => 'Personalitza el teu Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Administrador',
-            'description'   => 'Tenen accés complet al vostre Akaunting, inclosos clients, factures, informes, configuracions i aplicacions.',
+            'description'   => 'Tenen accés complet al vostre Workhy Books, inclosos clients, factures, informes, configuracions i aplicacions.',
         ],
         'manager' => [
             'name'          => 'Gerent',
-            'description'   => 'Tenen accés complet al teu Akaunting, però no poden gestionar usuaris i aplicacions.',
+            'description'   => 'Tenen accés complet al teu Workhy Books, però no poden gestionar usuaris i aplicacions.',
         ],
         'customer' => [
             'name'          => 'Client',

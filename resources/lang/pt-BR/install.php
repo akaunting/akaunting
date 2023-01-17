@@ -22,7 +22,7 @@ return [
         'extension'         => 'Extensão :extension precisa ser instalado e carregado!',
         'directory'         => 'O diretório :directory precisa de permissão para escrita!',
         'executable'        => 'O arquivo executável do PHP CLI não está definido/funcionando ou sua versão não é :php_version ou superior! Por favor, peça à sua empresa de hospedagem que defina corretamente a variável de ambiente PHP_BINARY ou PHP_PATH.',
-        'npm'               => '<b>Arquivos JavaScript ausentes!</b> <br><br><span>É preciso executar os comandos <em class="underline">npm install</em> e <em class="underline">npm run dev</em> .</span>', 
+        'npm'               => '<b>Arquivos JavaScript ausentes!</b> <br><br><span>É preciso executar os comandos <em class="underline">npm install</em> e <em class="underline">npm run dev</em> .</span>',
     ],
 
     'database' => [
@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Uma nova versão do Akaunting está disponível! Por favor, atualize sua instalação.',
+        'core'              => 'Uma nova versão do Workhy Books está disponível! Por favor, atualize sua instalação.',
         'module'            => 'Uma nova versão do :module está disponível! Por favor, atualize sua instalação.',
     ],
 ];

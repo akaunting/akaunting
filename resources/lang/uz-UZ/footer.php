@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Rusum',
-    'powered'               => 'Akaunting tizimida ishlaydi',
+    'powered'               => 'Workhy Books tizimida ishlaydi',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Bepul buxgalteriya dasturi',
 

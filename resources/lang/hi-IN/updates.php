@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'इंस्टॉलेंड वर्जन',
     'latest_version'        => 'नवीनतम वर्जन',
-    'update'                => 'Akaunting को अपडेट करें इस वर्जन पर :version वर्जन',
+    'update'                => 'Workhy Books को अपडेट करें इस वर्जन पर :version वर्जन',
     'changelog'             => 'चेंज लोग',
     'check'                 => 'चेक',
     'new_core'              => 'एकाउंटिंग का नवीनतम वर्जन उपलब्ध है।',

@@ -22,7 +22,7 @@ return [
         'extension'         => 'Cal instal·lar i carregar l\'extensió :extension',
         'directory'         => 'El directori :directory ha de tenir permisos d\'escriptura',
         'executable'        => 'El fitxer de l\'executable PHP CLI (consola de PHP) no està definit o no funciona amb la versió :php_version o superior. Si us plau, demana al teu proveïdor d\'allotjament que configuri les variables d\'entorn PHP_BINARY o PHP_PATH correctament.',
-        'npm'               => '<b>Falten arxius de JavaScript !</b> <br><br><span>Hauríes d\'executar les instruccions següents <em class="underline">npm install</em> i <em class="underline">npm run dev</em>.</span>', 
+        'npm'               => '<b>Falten arxius de JavaScript !</b> <br><br><span>Hauríes d\'executar les instruccions següents <em class="underline">npm install</em> i <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Hi ha una nova versió d\'Akaunting disponible. Si us plau, actualitza la teva instal·lació.',
+        'core'              => 'Hi ha una nova versió d\'Workhy Books disponible. Si us plau, actualitza la teva instal·lació.',
         'module'            => 'Nova versió del mòdul :module! Si us plau, actualitza la teva instal·lació.',
     ],
 ];

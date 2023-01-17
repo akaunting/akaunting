@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Ingressos i despeses incloses les factures de clients i proveïdors impagades',
         'expenses_by_category'  => 'Principals despeses en vàries categories',
         'account_balance'       => 'Saldo actual dels teus comptes bancaris',
-        'bank_feeds'            => 'Importa les teves transaccions a Akaunting automàticament </br>connectant els vostres comptes bancaris',
+        'bank_feeds'            => 'Importa les teves transaccions a Workhy Books automàticament </br>connectant els vostres comptes bancaris',
     ],
 
     'periods' => [

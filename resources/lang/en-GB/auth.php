@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'You are receiving this email because you are invited to join the Akaunting.',
+        'message_1'         => 'You are receiving this email because you are invited to join the Workhy Books.',
         'message_2'         => 'If you do not want to join, no further action is required.',
         'button'            => 'Get started',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Create invoices easily',
         'reports'           => 'Get detailed reports',
         'expense'           => 'Track any expense',
-        'customize'         => 'Customize your Akaunting',
+        'customize'         => 'Customize your Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Admin',
-            'description'   => 'They get full access to your Akaunting including customers, invoices, reports, settings, and apps.',
+            'description'   => 'They get full access to your Workhy Books including customers, invoices, reports, settings, and apps.',
         ],
         'manager' => [
             'name'          => 'Manager',
-            'description'   => 'They get full access to your Akaunting, but can\'t manage users and apps.',
+            'description'   => 'They get full access to your Workhy Books, but can\'t manage users and apps.',
         ],
         'customer' => [
             'name'          => 'Customer',

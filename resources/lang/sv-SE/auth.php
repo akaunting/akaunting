@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Du får detta e-postmeddelande eftersom du är inbjuden att gå med i Akaunting.',
+        'message_1'         => 'Du får detta e-postmeddelande eftersom du är inbjuden att gå med i Workhy Books.',
         'message_2'         => 'Om du inte vill gå med krävs inga ytterligare åtgärder.',
         'button'            => 'Kom igång',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Skapa fakturor enkelt',
         'reports'           => 'Få detaljerade redovisningsrapporter',
         'expense'           => 'Spåra alla kostnader och utgifter',
-        'customize'         => 'Anpassa Akaunting',
+        'customize'         => 'Anpassa Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Administratör',
-            'description'   => 'De får full tillgång till din Akaunting inklusive kunder, fakturor, rapporter, inställningar och appar.',
+            'description'   => 'De får full tillgång till din Workhy Books inklusive kunder, fakturor, rapporter, inställningar och appar.',
         ],
         'manager' => [
             'name'          => 'Föreståndare',
-            'description'   => 'De får full tillgång till din Akaunting, men kan inte hantera användare och appar.',
+            'description'   => 'De får full tillgång till din Workhy Books, men kan inte hantera användare och appar.',
         ],
         'customer' => [
             'name'          => 'Kund',

@@ -44,7 +44,7 @@ return [
     ],
 
     'update' => [
-        'core'              => '¡La nueva versión de Akaunting está disponible! Por favor, actualiza tu instalación.',
+        'core'              => '¡La nueva versión de Workhy Books está disponible! Por favor, actualiza tu instalación.',
         'module'            => '¡nueva versión de :module está disponible! Por favor, actualice su instalación.',
     ],
 ];

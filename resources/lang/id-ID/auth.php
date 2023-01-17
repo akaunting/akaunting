@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Anda menerima email ini karena anda diundang untuk mendaftar ke Akaunting.',
+        'message_1'         => 'Anda menerima email ini karena anda diundang untuk mendaftar ke Workhy Books.',
         'message_2'         => 'Jika Anda tidak ingin membuat sebuah akun, tidak diperlukan tindakan lebih lanjut.',
         'button'            => 'Mulai',
     ],
@@ -64,7 +64,7 @@ return [
         'invoice'           => 'Buat faktur instan',
         'reports'           => 'Dapatkan detail laporan',
         'expense'           => 'Lacak semua pengeluaran',
-        'customize'         => 'Sesuaikan Akaunting Anda',
+        'customize'         => 'Sesuaikan Workhy Books Anda',
     ],
 
     'roles' => [

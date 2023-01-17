@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Versiya',
-    'powered'               => 'Akaunting tərəfindən',
+    'powered'               => 'Workhy Books tərəfindən',
     'link'                  => 'https://akaunting.com/tr',
     'software'              => 'Pulsuz Ön Muhasibat Proqramı',
 
