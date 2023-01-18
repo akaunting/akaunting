@@ -14,9 +14,7 @@
                         <div class="p-5">
                             <div class="flex items-center justify-between border-b pb-5">
                                 <slot name="card-header">
-                                    <h4 class="text-base font-medium">
-                                        {{ title }}
-                                    </h4>
+                                    <h4 class="text-base font-medium" v-html="title"></h4>
 
                                     <button type="button" class="text-lg" @click="onCancel" aria-hidden="true">
                                         <span class="rounded-md border-b-2 px-2 py-1 text-sm bg-gray-100">esc</span>
