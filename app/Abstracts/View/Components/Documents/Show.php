@@ -482,7 +482,7 @@ abstract class Show extends Component
         $this->hideDueAt = $hideDueAt;
 
         $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
-        $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
+        $this->textDocumentSubheading = $this->getTextDocumentSubheading($type, $textDocumentSubheading);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
@@ -994,6 +994,10 @@ abstract class Show extends Component
             return $textDocumentTitle;
         }
 
+        if (! empty($this->document) && $this->document->title !== '') {
+            return $this->document->title;
+        }
+
         $key = $this->getSettingKey($type, 'title');
 
         if (! empty(setting($key))) {
@@ -1013,6 +1017,10 @@ abstract class Show extends Component
     {
         if (! empty($textDocumentSubheading)) {
             return $textDocumentSubheading;
+        }
+
+        if (! empty($this->document) && $this->document->subheading !== '') {
+            return $this->document->subheading;
         }
 
         $key = $this->getSettingKey($type, 'subheading');

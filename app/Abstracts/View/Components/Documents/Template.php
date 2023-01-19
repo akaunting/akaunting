@@ -172,7 +172,7 @@ abstract class Template extends Component
         $this->hideDueAt = $hideDueAt;
 
         $this->textDocumentTitle = $this->getTextDocumentTitle($type, $textDocumentTitle);
-        $this->textDocumentSubheading = $this->gettextDocumentSubheading($type, $textDocumentSubheading);
+        $this->textDocumentSubheading = $this->getTextDocumentSubheading($type, $textDocumentSubheading);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
         $this->showContactRoute = $this->getShowContactRoute($type, $showContactRoute);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
@@ -193,7 +193,7 @@ abstract class Template extends Component
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
-        
+
         $this->print = $this->getPrint($print);
 
         // Set Parent data
@@ -295,6 +295,10 @@ abstract class Template extends Component
             return $textDocumentTitle;
         }
 
+        if (! empty($this->document) && $this->document->title !== '') {
+            return $this->document->title;
+        }
+
         $key = $this->getSettingKey($type, 'title');
 
         if (! empty(setting($key))) {
@@ -314,6 +318,10 @@ abstract class Template extends Component
     {
         if (! empty($textDocumentSubheading)) {
             return $textDocumentSubheading;
+        }
+
+        if (! empty($this->document) && $this->document->subheading !== '') {
+            return $this->document->subheading;
         }
 
         $key = $this->getSettingKey($type, 'subheading');

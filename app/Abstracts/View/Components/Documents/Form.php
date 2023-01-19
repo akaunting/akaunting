@@ -59,19 +59,7 @@ abstract class Form extends Component
     public $hideLogo;
 
     /** @var bool */
-    public $hideDocumentTitle;
-
-    /** @var bool */
-    public $hideDocumentSubheading;
-
-    /** @var bool */
     public $hideCompanyEdit;
-
-    /** @var string */
-    public $titleSetting;
-
-    /** @var string */
-    public $subheadingSetting;
     /* -- Company End -- */
 
     /* -- Main Start -- */
@@ -112,6 +100,18 @@ abstract class Form extends Component
 
     /** @var string */
     public $textChooseDifferentContact;
+
+    /** @var bool */
+    public $hideDocumentTitle;
+
+    /** @var bool */
+    public $hideDocumentSubheading;
+
+    /** @var string */
+    public $title;
+
+    /** @var string */
+    public $subheading;
 
     /** @var bool */
     public $hideIssuedAt;
@@ -269,10 +269,11 @@ abstract class Form extends Component
         string $type, $model = false, $document = false, $currencies = false, $currency = false, $currency_code = false,
         string $formId = 'document', $formRoute = '', $formMethod = '',
         bool $hideCompany = false, string $textSectionCompaniesTitle = '', string $textSectionCompaniesDescription = '',
-        bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false, string $titleSetting = '', $subheadingSetting = '',
+        bool $hideLogo = false, bool $hideCompanyEdit = false,
         string $textSectionMainTitle = '', string $textSectionMainDescription = '',
         string $typeContact = '', string $textContact = '', $contacts = [], $contact = false, string $searchContactRoute = '', string $createContactRoute = '',
         string $textAddContact = '', string $textCreateNewContact = '', string $textEditContact = '', string $textContactInfo = '', string $textChooseDifferentContact = '',
+        bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, string $title = '', string $subheading = '',
         bool $hideIssuedAt = false, string $textIssuedAt = '', string $issuedAt = '', bool $hideDueAt = false, string $textDueAt = '', string $dueAt = '', $periodDueAt = '',
         bool $hideDocumentNumber = false, string $textDocumentNumber = '', string $documentNumber = '', bool $hideOrderNumber = false, string $textOrderNumber = '', string $orderNumber = '',
         bool $hideEditItemColumns = false, bool $hideItems = false, bool $hideItemName = false, string $textItemName = '', bool $hideItemDescription = false, string $textItemDescription = '',
@@ -306,11 +307,7 @@ abstract class Form extends Component
         $this->textSectionCompaniesTitle = $this->getTextSectionCompaniesTitle($type, $textSectionCompaniesTitle);
         $this->textSectionCompaniesDescription = $this->getTextSectionCompaniesDescription($type, $textSectionCompaniesDescription);
         $this->hideLogo = $hideLogo;
-        $this->hideDocumentTitle = $hideDocumentTitle;
-        $this->hideDocumentSubheading = $hideDocumentSubheading;
         $this->hideCompanyEdit = $hideCompanyEdit;
-        $this->titleSetting = $this->getTitleSettingValue($type, $titleSetting);
-        $this->subheadingSetting = $this->getSubheadingSettingValue($type, $subheadingSetting);
         /** Company End */
 
         /* -- Main Start -- */
@@ -331,6 +328,11 @@ abstract class Form extends Component
         $this->textEditContact = $this->getTextEditContact($type, $textEditContact);
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
         $this->textChooseDifferentContact = $this->getTextChooseDifferentContact($type, $textChooseDifferentContact);
+
+        $this->hideDocumentTitle = $hideDocumentTitle;
+        $this->hideDocumentSubheading = $hideDocumentSubheading;
+        $this->title = $this->getTitleValue($type, $title);
+        $this->subheading = $this->getSubheadingValue($type, $subheading);
 
         $this->hideIssuedAt = $hideIssuedAt;
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
@@ -1165,19 +1167,27 @@ abstract class Form extends Component
         return $this->getTextSectionDescription($type, 'advanced', 'documents.form_description.advanced');
     }
 
-    protected function getTitleSettingValue($type, $titleSetting)
+    protected function getTitleValue($type, $title)
     {
-        if (! empty($titleSetting)) {
-            return $titleSetting;
+        if (! empty($title)) {
+            return $title;
+        }
+
+        if (! empty($this->document) && $this->document->title !== '') {
+            return $this->document->title;
         }
 
         return setting($this->getSettingKey($type, 'title'));
     }
 
-    protected function getSubheadingSettingValue($type, $subheadingSetting)
+    protected function getSubheadingValue($type, $subheading)
     {
-        if (! empty($subheadingSetting)) {
-            return $subheadingSetting;
+        if (! empty($subheading)) {
+            return $subheading;
+        }
+
+        if (! empty($this->document) && $this->document->title !== '') {
+            return $this->document->subheading;
         }
 
         return setting($this->getSettingKey($type, 'subheading'));

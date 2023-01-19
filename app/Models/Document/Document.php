@@ -56,6 +56,8 @@ class Document extends Model
         'contact_city',
         'notes',
         'footer',
+        'title',
+        'subheading',
         'parent_id',
         'created_from',
         'created_by',

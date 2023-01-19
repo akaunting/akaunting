@@ -7,20 +7,9 @@
     </x-slot>
 
     <x-slot name="body">
-        <div class="sm:col-span-2 grid gap-x-8 gap-y-6">
-            @if (! $hideDocumentTitle)
-                <x-form.group.text name="title" label="{{ trans('settings.invoice.title') }}" value="{{ $titleSetting }}" not-required data-field="setting" />
-            @endif
-
-            @if (! $hideDocumentSubheading)
-                <x-form.group.text name="subheading" label="{{ trans('settings.invoice.subheading') }}" value="{{ $subheadingSetting }}" not-required data-field="setting" />
-            @endif
-        </div>
-
-        <div class="sm:col-span-1"></div>
-
         <div class="sm:col-span-2">
             @if (! $hideLogo)
+                <x-form.input.hidden name="company_logo" data-field="setting" />
                 <x-form.group.file name="company_logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" not-required data-field="setting" />
             @endif
         </div>
