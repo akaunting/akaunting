@@ -203,7 +203,8 @@ class User extends Authenticatable implements HasLocalePreference
         $query->usingSearchString($search)->sortable($sort);
 
         $request->merge(['sort' => $request_sort]);
-        $request->offsetUnset('direction');
+        // This line disabled because broken sortable issue.
+        //$request->offsetUnset('direction');
         $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
         return $query->paginate($limit);
