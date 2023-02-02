@@ -43,6 +43,9 @@ return [
         // Capture views as spans
         'views' => env('SENTRY_TRACE_VIEWS', true),
 
+        // Capture HTTP client requests as spans
+        'http_client_requests' => env('SENTRY_TRACE_HTTP_CLIENT_REQUESTS', true),
+
         // Indicates if the tracing integrations supplied by Sentry should be loaded
         'default_integrations' => env('SENTRY_TRACE_DEFAULT_INTEGRATIONS', true),
 
