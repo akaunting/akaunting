@@ -122,4 +122,11 @@ class Users extends ApiController
             $this->errorUnauthorized($e->getMessage());
         }
     }
+
+    public function createToken (Request $request)
+    {
+        $token = $request->user()->createToken($request->token_name);
+
+        return ['token' => $token->plainTextToken];
+    }
 }

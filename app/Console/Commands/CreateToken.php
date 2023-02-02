@@ -34,6 +34,8 @@ class CreateToken extends Command
 
         $token = $this->user->createToken('Api Token');
 
-        return ['token' => $token->plainTextToken];
+        $this->info("token => {$token->plainTextToken}");
+
+        return self::SUCCESS;
     }
 }
