@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
         'api' => [
             'auth.basic.once',
             'auth.disabled',
+            'auth:sanctum',
             'throttle:api',
             'permission:read-api',
             'company.identify',

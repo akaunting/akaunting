@@ -16,11 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Sanctum\HasApiTokens;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
+    use HasApiTokens, HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
 
     protected $table = 'users';
 
@@ -195,7 +196,7 @@ class User extends Authenticatable implements HasLocalePreference
         /**
          * Modules that use the sort parameter in CRUD operations cause an error,
          * so this sort parameter set back to old value after the query is executed.
-         * 
+         *
          * for Custom Fields module
          */
         $request_sort = $request->get('sort');
