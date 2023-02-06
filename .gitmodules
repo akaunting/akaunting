@@ -1,0 +1,3 @@
+[submodule "modules/WbPermissions"]
+	path = modules/WbPermissions
+	url = git@github.com:mukellef/mod-wb-permissions.git
