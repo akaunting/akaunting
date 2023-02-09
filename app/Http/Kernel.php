@@ -51,6 +51,7 @@ class Kernel extends HttpKernel
 //            'auth.basic.once',
             'auth:sanctum',
             'auth.disabled',
+            'auth:sanctum',
             'throttle:api',
             'permission:read-api',
             'company.identify',

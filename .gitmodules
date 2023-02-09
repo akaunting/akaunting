@@ -1,3 +1,8 @@
+
+[submodule "modules/WbProxy"]
+	path = modules/WbProxy
+	url = git@github.com:mukellef/mod-wb-proxy.git
+
 [submodule "modules/WbPermissions"]
 	path = modules/WbPermissions
 	url = git@github.com:mukellef/mod-wb-permissions.git
