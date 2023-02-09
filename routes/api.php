@@ -12,6 +12,8 @@ Route::group(['as' => 'api.'], function () {
     // Ping
     Route::get('ping', 'Common\Ping@pong')->name('ping');
 
+    Route::post('/tokens/create', 'Auth\Users@createToken')->name('users.token');
+
     // Users
     Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
     Route::get('users/{user}/disable', 'Auth\Users@disable')->name('users.disable');

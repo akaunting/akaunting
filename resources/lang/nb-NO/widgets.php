@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Inntekter og utgifter inkludert ubetalte fakturaer og regninger',
         'expenses_by_category'  => 'Største utgifter mellom ulike kategorier',
         'account_balance'       => 'Gjeldende saldo på dine bankkonti',
-        'bank_feeds'            => 'Importer dine transaksjoner til Akaunting automatisk </br>ved å koble til dine bankkontoer',
+        'bank_feeds'            => 'Importer dine transaksjoner til Workhy Books automatisk </br>ved å koble til dine bankkontoer',
     ],
 
     'periods' => [

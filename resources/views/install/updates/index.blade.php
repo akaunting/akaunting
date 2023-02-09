@@ -13,7 +13,7 @@
         <div class="my-10">
             <div class="flex items-center">
                 <div class="relative px-4 text-sm text-center pb-2 text-purple font-medium border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md">
-                    <span>Akaunting</span>
+                    <span>Workhy Books</span>
                 </div>
             </div>
 

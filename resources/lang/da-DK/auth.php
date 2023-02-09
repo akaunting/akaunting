@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Du modtager denne e-mail, fordi du er inviteret til at deltage i Akaunting.',
+        'message_1'         => 'Du modtager denne e-mail, fordi du er inviteret til at deltage i Workhy Books.',
         'message_2'         => 'Hvis du ikke ønsker at deltage, er der ikke behov for yderligere handling.',
         'button'            => 'Kom i gang',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Opret nemt fakturaer',
         'reports'           => 'Hent detaljerede rapporter',
         'expense'           => 'Spor enhver udgift',
-        'customize'         => 'Tilpas din Akaunting',
+        'customize'         => 'Tilpas din Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Admin',
-            'description'   => 'De får fuld adgang til din Akaunting herunder kunder, fakturaer, rapporter, indstillinger og apps.',
+            'description'   => 'De får fuld adgang til din Workhy Books herunder kunder, fakturaer, rapporter, indstillinger og apps.',
         ],
         'manager' => [
             'name'          => 'Leder',
-            'description'   => 'De får fuld adgang til din Akaunting, men kan ikke administrere brugere og apps.',
+            'description'   => 'De får fuld adgang til din Workhy Books, men kan ikke administrere brugere og apps.',
         ],
         'customer' => [
             'name'          => 'Kunde',

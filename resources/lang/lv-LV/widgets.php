@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Ieņēmumi un izdevumi, tostarp neapmaksāti rēķini un piegādātāju rēķini',
         'expenses_by_category'  => 'Lielākie izdevumi dažādās kategorijās',
         'account_balance'       => 'Pašreizējais jūsu bankas kontu atlikums',
-        'bank_feeds'            => 'Importējiet savus darījumus pakalpojumā Akaunting automātiski </br>, savienojot savus bankas kontus',
+        'bank_feeds'            => 'Importējiet savus darījumus pakalpojumā Workhy Books automātiski </br>, savienojot savus bankas kontus',
     ],
 
     'periods' => [

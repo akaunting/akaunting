@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'Asennettu versio',
     'latest_version'        => 'Viimeisin versio',
-    'update'                => 'Päivitä Akaunting versioon :version',
+    'update'                => 'Päivitä Workhy Books versioon :version',
     'changelog'             => 'Muutosloki',
     'check'                 => 'Tarkista',
     'new_core'              => 'Päivitetty versio Akauntingista on saatavilla.',

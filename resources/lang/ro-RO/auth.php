@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Primești acest email deoarece ești invitat să te alături în Akaunting.',
+        'message_1'         => 'Primești acest email deoarece ești invitat să te alături în Workhy Books.',
         'message_2'         => 'Dacă nu dorești să te alături, nu este necesară nicio acțiune suplimentară.',
         'button'            => 'Să începem',
     ],
@@ -64,13 +64,13 @@ return [
         'invoice'           => 'Creează facturi ușor',
         'reports'           => 'Obține rapoarte detaliate',
         'expense'           => 'Urmărește orice cheltuială',
-        'customize'         => 'Personalizează-ți Akaunting',
+        'customize'         => 'Personalizează-ți Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Administrator',
-            'description'   => 'Aceștia au acces deplin la Akaunting-ul tău, inclusiv la clienți, facturi, rapoarte, setări și aplicații.',
+            'description'   => 'Aceștia au acces deplin la Workhy Books-ul tău, inclusiv la clienți, facturi, rapoarte, setări și aplicații.',
         ],
         'manager' => [
             'name'          => 'Manager',

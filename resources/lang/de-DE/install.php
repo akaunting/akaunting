@@ -22,7 +22,7 @@ return [
         'extension'         => ':extension Erweiterung muss installiert und geladen sein!',
         'directory'         => ':directory Verzeichnis muss schreibbar sein!',
         'executable'        => 'Die ausführbare PHP-CLI-Datei ist nicht definiert/funktioniert nicht oder die PHP-Version entspricht nicht :php_version oder höher! Bitten Sie Ihre Hosting-Firma, die Umgebungsvariablen PHP_BINARY oder PHP_PATH korrekt zu setzen.',
-        'npm'               => '<b>Es fehlenJavaScript-Dateien!</b> <br><br><span>Sie sollten die Befehle <em class="underline">npm install</em> und <em class="underline">npm dev</em> ausführen.</span>', 
+        'npm'               => '<b>Es fehlenJavaScript-Dateien!</b> <br><br><span>Sie sollten die Befehle <em class="underline">npm install</em> und <em class="underline">npm dev</em> ausführen.</span>',
     ],
 
     'database' => [
@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Akaunting neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
+        'core'              => 'Workhy Books neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
         'module'            => ':module neue Version ist verfügbar! Bitte aktualisieren Sie Ihre Installation.',
     ],
 ];

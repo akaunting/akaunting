@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Versija',
-    'powered'               => 'Sukurta Akaunting',
+    'powered'               => 'Sukurta Workhy Books',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Laisva apskaitos programa',
 

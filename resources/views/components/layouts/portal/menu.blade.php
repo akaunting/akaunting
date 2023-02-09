@@ -4,7 +4,7 @@
     <span class="material-icons text-black js-hamburger-menu">menu</span>
 
     <div class="flex items-center m-auto">
-        <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-8 m-auto" alt="Akaunting" />
+        <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-8 m-auto" alt="Workhy Books" />
         <span class="ltr:ml-2 rtl:mr-2">{{ Str::limit(setting('company.name'), 22) }}</span>
     </div>
 </div>
@@ -18,7 +18,7 @@
     class="w-70 h-screen flex hidden fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0"
 >
     <div class="w-14 py-7 px-1 bg-lilac-900 z-10 menu-scroll overflow-y-auto overflow-x-hidden">
-        <div 
+        <div
             data-tooltip-target="tooltip-profile"
             data-tooltip-placement="right"
             class="flex flex-col items-center justify-center mb-5 cursor-pointer menu-button"
@@ -63,13 +63,13 @@
                 </button>
             </x-tooltip>
             @endcan
-            
+
             <x-tooltip id="tooltip-search" placement="right" message="{{ trans('general.search') }}">
                 <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer">
                     <span name="search" class="material-icons-outlined text-purple text-2xl pointer-events-none">search</span>
                 </button>
             </x-tooltip>
-            
+
             <x-tooltip id="tooltip-support" placement="right" message="{{ trans('general.help') }}">
                 <x-link href="{{ url(trans('header.support_link')) }}" target="_blank" class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" override="class">
                     <span class="material-icons-outlined text-purple text-2xl pointer-events-none">support</span>
@@ -84,7 +84,7 @@
         <div class="relative mb-5 cursor-pointer">
             <button type="button" class="flex items-center" data-dropdown-toggle="dropdown-menu-company">
                 <div class="w-8 h-8 flex items-center justify-center">
-                    <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-6 h-6" alt="Akaunting" />
+                    <img src="{{ asset('public/img/akaunting-logo-green.svg') }}" class="w-6 h-6" alt="Workhy Books" />
                 </div>
 
                 <div class="flex ltr:ml-2 rtl:mr-2">
@@ -103,7 +103,7 @@
                     @endcan
                 </div>
             </button>
-            
+
             @can('read-common-companies')
                 <div id="dropdown-menu-company" class="absolute right-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
                     @foreach($companies as $com)

@@ -1,0 +1,13 @@
+id: 41053
+name: Books
+environments:
+  production:
+    timeout: 30
+    memory: 1024
+    cli-memory: 512
+    gateway-version: 2
+    runtime: 'php-8.1:al2'
+    build:
+      - 'composer install --no-dev'
+      - 'php artisan event:cache'
+      - 'npm ci && npm run build && rm -rf node_modules'

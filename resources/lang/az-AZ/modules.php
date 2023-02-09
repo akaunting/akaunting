@@ -13,7 +13,7 @@ return [
     'buy_now'               => 'İndi satın al',
     'get_api_key'           => 'API Açar almaq üçün <a href=":url" target="_blank">buraya vurun</a>.',
     'no_apps'               => 'Bu kateqoriyada hələ heç bir tətbiq yoxdur.',
-    'become_developer'      => 'Bir geliştiricisiniz? <a href=":url" target="_blank">Buraya</a> Akaunting üçün tətbiqetmələr inkişaf etdirməyi öyrənib və dərhal pul qazanmağa başlayacağınızı bilərsiniz!',
+    'become_developer'      => 'Bir geliştiricisiniz? <a href=":url" target="_blank">Buraya</a> Workhy Books üçün tətbiqetmələr inkişaf etdirməyi öyrənib və dərhal pul qazanmağa başlayacağınızı bilərsiniz!',
     'recommended_apps'      => 'Məsləhət Görülən tətbiqlər',
 
     'about'                 => 'Haqqında',

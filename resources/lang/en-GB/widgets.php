@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Income and expenses including unpaid invoices and bills',
         'expenses_by_category'  => 'Top expenses across various categories',
         'account_balance'       => 'Current balance of your bank accounts',
-        'bank_feeds'            => 'Import your transactions to Akaunting automatically </br>by connecting your bank accounts',
+        'bank_feeds'            => 'Import your transactions to Workhy Books automatically </br>by connecting your bank accounts',
     ],
 
     'periods' => [

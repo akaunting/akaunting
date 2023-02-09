@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Venituri și cheltuieli, inclusiv facturile și notele de plată neplătite',
         'expenses_by_category'  => 'Cheltuieli de top din diverse categorii',
         'account_balance'       => 'Soldul curent al conturilor bancare',
-        'bank_feeds'            => 'Importă tranzacțiile tale în Akaunting automat </br>prin conectarea conturilor tale bancare',
+        'bank_feeds'            => 'Importă tranzacțiile tale în Workhy Books automat </br>prin conectarea conturilor tale bancare',
     ],
 
     'periods' => [

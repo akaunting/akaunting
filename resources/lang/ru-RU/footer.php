@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Версия',
-    'powered'               => '© Akaunting',
+    'powered'               => '© Workhy Books',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Бесплатное Биллинговое ПО',
 

@@ -63,13 +63,13 @@ return [
         'invoice'           => 'Lako kreirajte fakture',
         'reports'           => 'Dobijte detaljne izvještaje',
         'expense'           => 'Pratite sve troškove',
-        'customize'         => 'Prilagodite svoj Akaunting',
+        'customize'         => 'Prilagodite svoj Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Admin',
-            'description'   => 'Oni dobijaju potpuni pristup vašem Akaunting-u uključujući klijente, fakture, izvještaje, postavke i aplikacije.',
+            'description'   => 'Oni dobijaju potpuni pristup vašem Workhy Books-u uključujući klijente, fakture, izvještaje, postavke i aplikacije.',
         ],
         'manager' => [
             'name'          => 'Upravljaj',

@@ -55,7 +55,7 @@ return [
     ],
 
     'invitation' => [
-        'message_1'         => 'Jūs saņēmāt šo e-pasta ziņojumu, jo esat uzaicināts pievienoties Akaunting.',
+        'message_1'         => 'Jūs saņēmāt šo e-pasta ziņojumu, jo esat uzaicināts pievienoties Workhy Books.',
         'message_2'         => 'Ja nevēlaties pievienoties, turpmāka darbība nav nepieciešama.',
         'button'            => 'Sākt tagad',
     ],
@@ -64,17 +64,17 @@ return [
         'invoice'           => 'Viegli izveidojiet rēķinus',
         'reports'           => 'Saņemiet detalizētus pārskatus',
         'expense'           => 'Izsekojiet visiem izdevumiem',
-        'customize'         => 'Pielāgojiet savu Akaunting',
+        'customize'         => 'Pielāgojiet savu Workhy Books',
     ],
 
     'roles' => [
         'admin' => [
             'name'          => 'Administrators',
-            'description'   => 'Viņi iegūst pilnu piekļuvi jūsu Akaunting, tostarp klientiem, rēķiniem, pārskatiem, iestatījumiem un lietotnēm.',
+            'description'   => 'Viņi iegūst pilnu piekļuvi jūsu Workhy Books, tostarp klientiem, rēķiniem, pārskatiem, iestatījumiem un lietotnēm.',
         ],
         'manager' => [
             'name'          => 'Vadītājs',
-            'description'   => 'Viņi iegūst pilnu piekļuvi jūsu Akaunting, taču nevar pārvaldīt lietotājus un lietotnes.',
+            'description'   => 'Viņi iegūst pilnu piekļuvi jūsu Workhy Books, taču nevar pārvaldīt lietotājus un lietotnes.',
         ],
         'customer' => [
             'name'          => 'Klients',

@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Einnahmen und Ausgaben einschließlich unbezahlter Rechnungen',
         'expenses_by_category'  => 'Top-Ausgaben in verschiedenen Kategorien',
         'account_balance'       => 'Aktueller Kontostand Ihrer Bankkonten',
-        'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Akaunting, </br>indem Sie Ihre Bankkonten verbinden',
+        'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Workhy Books, </br>indem Sie Ihre Bankkonten verbinden',
     ],
 
     'periods' => [

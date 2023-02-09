@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Prihodi i rashodi uključujući neplaćene fakture i račune',
         'expenses_by_category'  => 'Najveći troškovi u različitim kategorijama',
         'account_balance'       => 'Trenutno stanje vaših bankovnih računa',
-        'bank_feeds'            => 'Uvezite svoje transakcije u Akaunting automatski </br>povezujući svoje bankovne račune',
+        'bank_feeds'            => 'Uvezite svoje transakcije u Workhy Books automatski </br>povezujući svoje bankovne račune',
     ],
 
     'periods' => [
