@@ -112,7 +112,7 @@ trait Uploads
 
         $path = $media->getDiskPath();
 
-        if (Storage::missing($path)) {
+        if (Storage::disk($media->disk)->missing($path)) {
             return false;
         }
 
