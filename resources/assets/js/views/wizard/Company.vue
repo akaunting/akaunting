@@ -2,7 +2,7 @@
     <div class="relative bg-body z-10 rounded-lg shadow-2xl p-5 sm:p-10 full-height-mobile" style="height:675px;">
         <WizardSteps :active_state="active"></WizardSteps>
 
-        <div class="flex flex-col justify-between -mt-5 sm:mt-0 overflow-y-auto" style="height: calc(100% - 53px)">
+        <div class="flex flex-col justify-between -mt-5 sm:mt-0" style="height: calc(100% - 53px)">
             <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
                 <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
             </div>
