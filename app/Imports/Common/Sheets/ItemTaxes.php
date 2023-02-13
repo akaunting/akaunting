@@ -4,7 +4,6 @@ namespace App\Imports\Common\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Common\ItemTax as Request;
-use App\Models\Common\Item;
 use App\Models\Common\ItemTax as Model;
 
 class ItemTaxes extends Import
@@ -16,13 +15,13 @@ class ItemTaxes extends Import
 
     public function map($row): array
     {
-        $row = parent::map($row);
-
-        $row['item_id'] = (int) Item::where('name', $row['item_name'])->value('id');
-
-        if ($this->isEmpty($row, 'item_id')) {
+        if ($this->isEmpty($row, 'item_name')) {
             return [];
         }
+
+        $row = parent::map($row);
+
+        $row['item_id'] = $this->getItemId($row);
 
         $row['tax_id'] = $this->getTaxId($row);
 
