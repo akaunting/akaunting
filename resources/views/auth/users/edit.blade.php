@@ -62,7 +62,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" dynamicOptions="landing_pages" />
+                        <x-form.group.select name="landing_page" label="{{ trans('auth.landing_page') }}" :options="$landing_pages" dynamicOptions="landing_pages" force-dynamic-option-value />
 
                         <x-form.group.locale />
                     </x-slot>
