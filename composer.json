@@ -166,7 +166,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "mnsami/composer-custom-directory-installer": true
+            "mnsami/composer-custom-directory-installer": true,
+            "php-http/discovery": true
         }
     }
 }
