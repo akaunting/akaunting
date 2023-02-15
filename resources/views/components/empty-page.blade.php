@@ -65,10 +65,6 @@
             @endif
         </ul>
     </div>
-
-    <div class="w-full lg:w-1/2 flex justify-end mt-8 lg:mt-60">
-        <img src="{{ $image }}" alt="{{ $title }}" />
-    </div>
 </div>
 
 @push('css')
