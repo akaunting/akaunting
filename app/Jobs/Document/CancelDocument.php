@@ -7,7 +7,7 @@ use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentCancelling;
 use App\Models\Document\Document;
 
-class CancelDocument extends Job implements ShouldCancel
+class CancelDocument extends Job
 {
     protected $model;
 
