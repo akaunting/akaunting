@@ -10,7 +10,6 @@ use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
 use Image;
@@ -193,7 +192,7 @@ abstract class Template extends Component
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
-        
+
         $this->print = $this->getPrint($print);
 
         // Set Parent data
@@ -228,7 +227,7 @@ abstract class Template extends Component
         if (! empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -241,7 +240,7 @@ abstract class Template extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }

@@ -11,7 +11,6 @@ use App\Abstracts\View\Component;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
 use Image;
@@ -928,7 +927,7 @@ abstract class Show extends Component
         if (! empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -941,7 +940,7 @@ abstract class Show extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
