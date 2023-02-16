@@ -298,7 +298,7 @@
 
     <div class="row mt-7 clearfix">
         <div class="col-60">
-            <div class="text p-index-right p-modern">
+            <div class="text p-index-right p-modern break-words">
                 @stack('notes_input_start')
                     @if ($document->notes)
                         <p class="font-semibold">

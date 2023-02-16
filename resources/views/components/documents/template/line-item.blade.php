@@ -1,16 +1,16 @@
 <tr>
     @stack('name_td_start')
         @if (! $hideItems || (! $hideName && ! $hideDescription))
-            <td class="item text text-alignment-left text-left">
+            <td class="item text text-alignment-left text-left max-w-0">
                 @if (! $hideName)
                     {{ $item->name }} <br/>
                 @endif
 
                 @if (! $hideDescription)
                     @if (! empty($item->description))
-                        <span class="small-text">
+                        <div class="small-text break-words">
                             {!! \Illuminate\Support\Str::limit(nl2br($item->description), 500) !!}
-                        </span>
+                        </div>
                     @endif
                 @endif
 

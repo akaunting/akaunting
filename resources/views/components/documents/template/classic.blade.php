@@ -113,7 +113,7 @@
 
     <div class="row top-spacing">
         <div class="col-60">
-            <div class="text p-index-left">
+            <div class="text p-index-left break-words">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
                         {{ trans($textContactInfo) }}
@@ -328,7 +328,7 @@
 
     <div class="row mt-4 clearfix">
         <div class="col-60">
-            <div class="text p-index-right">
+            <div class="text p-index-right break-words">
                 @stack('notes_input_start')
                     @if ($hideNote)
                         @if ($document->notes)
