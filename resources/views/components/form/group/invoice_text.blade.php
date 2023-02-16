@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
 <div
     @class([
-        'grid sm:grid-cols-6 lg:gap-8',
+        'grid sm:grid-cols-6 lg:gap-8 col-span-3',
         $formGroupClass,
         'required' => $required,
         'readonly' => $readonly,
