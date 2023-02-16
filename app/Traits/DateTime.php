@@ -2,11 +2,9 @@
 
 namespace App\Traits;
 
-use Date;
-use DateTimeZone;
-use Illuminate\Support\Str;
-use Carbon\CarbonPeriod;
 use App\Traits\SearchString;
+use App\Utilities\Date;
+use Carbon\CarbonPeriod;
 
 trait DateTime
 {
@@ -61,13 +59,24 @@ trait DateTime
 
     public function getTimezones()
     {
-        return collect(DateTimeZone::listIdentifiers())
-            ->mapWithKeys(function ($timezone) {
-                return [$timezone => Str::after($timezone, '/')];
-            })
-            ->groupBy(function ($item, $key) {
-                return Str::before($key, '/');
-            }, preserveKeys: true);
+        // The list of available timezone groups to use.
+        $use_zones = ['Africa', 'America', 'Antarctica', 'Arctic', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific'];
+
+        // Get the list of time zones from the server.
+        $zones = \DateTimeZone::listIdentifiers();
+
+        return collect($zones)
+                ->mapWithKeys(function ($timezone) use ($use_zones) {
+                    if (! in_array(str($timezone)->before('/'), $use_zones)) {
+                        return [];
+                    }
+
+                    return [$timezone => str($timezone)->after('/')->value()];
+                })
+                ->groupBy(function ($item, $key) {
+                    return str($key)->before('/')->value();
+                }, preserveKeys: true)
+                ->toArray();
     }
 
     public function getFinancialStart($year = null)
