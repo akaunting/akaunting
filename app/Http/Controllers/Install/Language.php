@@ -14,7 +14,15 @@ class Language extends Controller
      */
     public function create()
     {
-        return view('install.language.create');
+        $locale = config('app.locale');
+
+        $lang_allowed = language()->allowed();
+
+        if (! $locale || ! array_key_exists($locale, $lang_allowed)) {
+            $locale = 'en-GB';
+        }
+
+        return view('install.language.create', compact('locale', 'lang_allowed'));
     }
 
     /**
