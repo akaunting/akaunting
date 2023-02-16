@@ -17,9 +17,9 @@ class Database extends Controller
     {
         return view('install.database.create', [
             'host'      => env('DB_HOST'    , 'localhost'),
-            'username'  => env('DB_USERNAME', 'root'),
+            'username'  => env('DB_USERNAME', ''),
             'password'  => env('DB_PASSWORD', ''),
-            'database'  => env('DB_DATABASE', 'akaunting'),
+            'database'  => env('DB_DATABASE', ''),
         ]);
     }
 
