@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
-use App\Events\Document\DocumentCancelled;
 use App\Exports\Sales\Invoices as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;

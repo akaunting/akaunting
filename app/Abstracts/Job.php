@@ -5,7 +5,6 @@ namespace App\Abstracts;
 use App\Abstracts\Http\FormRequest;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
-use App\Interfaces\Job\ShouldCancel;
 use App\Interfaces\Job\ShouldCreate;
 use App\Interfaces\Job\ShouldDelete;
 use App\Interfaces\Job\ShouldUpdate;
@@ -29,7 +28,6 @@ abstract class Job
         $this->booting(...$arguments);
         $this->bootCreate(...$arguments);
         $this->bootUpdate(...$arguments);
-        $this->bootCancel(...$arguments);
         $this->bootDelete(...$arguments);
         $this->booted(...$arguments);
     }
@@ -71,15 +69,6 @@ abstract class Job
         if ($request instanceof Request) {
             $this->request = $request;
         }
-    }
-
-    public function bootCancel(...$arguments): void
-    {
-        if (! $this instanceof ShouldCancel) {
-            return;
-        }
-
-        $this->setModel($arguments[0]);
     }
 
     public function bootDelete(...$arguments): void

@@ -3,7 +3,6 @@
 namespace App\BulkActions\Purchases;
 
 use App\Abstracts\BulkAction;
-use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentReceived;
 use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
