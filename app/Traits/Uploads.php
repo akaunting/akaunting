@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use App\Models\Common\Media as MediaModel;
 use App\Utilities\Date;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MediaUploader;
 
@@ -112,7 +111,7 @@ trait Uploads
 
         $path = $media->getDiskPath();
 
-        if (Storage::missing($path)) {
+        if (! $media->fileExists()) {
             return false;
         }
 
