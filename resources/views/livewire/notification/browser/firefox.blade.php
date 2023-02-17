@@ -2,7 +2,7 @@
     <div
         data-modal-handle
         @class([
-            'modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden fade justify-center items-start',
+            'firefox-confirm-modal modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden fade justify-center items-start',
             'show flex flex-wrap modal-background' => ! $status,
             'hidden' => $status,
         ])
@@ -24,8 +24,12 @@
                 </div>
 
                 <div class="p-5 bg-body rounded-bl-lg rounded-br-lg border-gray-300">
-                    <div class="flex items-center justify-end">
-                        <button wire:click="firefoxConfirm" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg disabled:bg-green-100">
+                    <div class="flex items-center justify-end space-x-2">
+                        <button onclick="closeConfirmFirefox()" class="relative px-6 py-1.5 hover:bg-gray-100 rounded-lg disabled:bg-green-100">
+                            {{ trans('general.cancel') }}
+                        </button>
+
+                        <button onclick="closeConfirmFirefox()" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg disabled:bg-green-100">
                             {{ trans('general.confirm') }}
                         </button>
                     </div>
@@ -34,3 +38,18 @@
         </div>
     </div>
 </div>
+
+@push('scripts_start')
+<script>
+    function closeConfirmFirefox() {
+        const d = new Date();
+        d.setTime(d.getTime() + (86400 * 90 * 90 * 90 * 30));
+
+        let expires = "expires="+ d.toUTCString();
+
+        document.cookie = "firefox-icon-notification-confirm=true;" + expires + ";path=/";
+
+        document.querySelector('.firefox-confirm-modal').remove();
+    }
+</script>
+@endpush

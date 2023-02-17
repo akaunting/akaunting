@@ -26,11 +26,11 @@ class Browser extends Component
                 $this->status = false;
             }
         } elseif (Str::contains($user_agent, 'Edg')) {
-            // $view = 'livewire.notification.browser.chrome';
-        } elseif (Str::contains($user_agent, 'Safari')) {
             // $view = 'livewire.notification.browser.edge';
-        } elseif (Str::contains($user_agent, 'Chrome')) {
+        } elseif (Str::contains($user_agent, 'Safari')) {
             // $view = 'livewire.notification.browser.safari';
+        } elseif (Str::contains($user_agent, 'Chrome')) {
+            // $view = 'livewire.notification.browser.chrome';
         } elseif (Str::contains($user_agent, 'Opera')) {
             // $view = 'livewire.notification.browser.opera';
         }
