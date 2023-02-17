@@ -65,13 +65,13 @@
                 @focus="onInputFocus"
                 v-show="show_button"
                 @click="onInputConfirm"
-                class="absolute right-0.5 z-50 mt-3 text-sm text-gray-700 font-medium px-2.5 py-1 h-7 rounded-lg"
+                class="absolute ltr:right-0.5 rtl:left-0.5 z-50 mt-3 text-sm text-gray-700 font-medium px-2.5 py-1 h-7 rounded-lg"
                 :class="search.length == 0 ? 'opacity-60 cursor-default' : 'cursor-pointer hover:bg-gray-100'"
                 :disabled="search.length == 0"
             >
                 <div class="flex">
                     <span>search</span>
-                    <span class="material-icons-outlined text-sm ltr:scale-x-100 rtl:-scale-x-100 ml-1 mt-0.5">
+                    <span class="material-icons-outlined text-sm ltr:scale-x-100 rtl:-scale-x-100 ltr:ml-1 rtl:mr-1 mt-0.5">
                         keyboard_return
                     </span>
                 </div>
