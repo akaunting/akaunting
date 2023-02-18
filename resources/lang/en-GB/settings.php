@@ -59,7 +59,7 @@ return [
 
     'invoice' => [
         'description'                   => 'Customize invoice prefix, number, terms, footer etc',
-        'search_keywords'               => 'customize, invoice, number, prefix, digit, next, logo, name, price, quantity, template, title, subheading, footer, note, hide, due, colour, payment, terms, column',
+        'search_keywords'               => 'customize, invoice, number, prefix, digit, next, logo, name, price, quantity, unit, template, title, subheading, footer, note, hide, due, colour, payment, terms, column',
         'prefix'                        => 'Number Prefix',
         'digit'                         => 'Number Digit',
         'next'                          => 'Next Number',
@@ -74,6 +74,8 @@ return [
         'rate'                          => 'Rate',
         'quantity_name'                 => 'Quantity Name',
         'quantity'                      => 'Quantity',
+        'unit_name'                     => 'Unit Name',
+        'unit'                          => 'Unit',
         'payment_terms'                 => 'Payment Terms',
         'title'                         => 'Title',
         'subheading'                    => 'Subheading',
@@ -87,6 +89,7 @@ return [
             'item_name'                 => 'Hide Item Name',
             'item_description'          => 'Hide Item Description',
             'quantity'                  => 'Hide Quantity',
+            'unit'                      => 'Hide Unit',
             'price'                     => 'Hide Price',
             'amount'                    => 'Hide Amount',
         ],

@@ -6,9 +6,10 @@
                     <col class="small-col" style="width: 24px;">
                     <col class="small-col name-col" style="width: 20%;">
                     <col class="small-col description-col" style="width: 30%;">
+                    <col class="small-col" style="width: 10%;">
+                    <col class="small-col" style="width: 13%;">
                     <col class="small-col" style="width: 12%;">
-                    <col class="small-col" style="width: 15%;">
-                    <col class="small-col amount-col" style="width: 20%;">
+                    <col class="small-col amount-col" style="width: 12%;">
                     <col class="small-col" style="width: 24px;">
                 </colgroup>
 
@@ -56,6 +57,16 @@
 
                         @stack('quantity_th_end')
 
+                        @stack('unit_th_start')
+
+                        <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                            @if (! $hideItemUnit)    
+                                {{ trans($textItemUnit) }}
+                            @endif
+                        </th>
+
+                        @stack('unit_th_end')
+
                         @stack('price_th_start')
 
                         <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0 pr-1" style="vertical-align:bottom;">
@@ -97,7 +108,7 @@
                     @stack('add_item_td_start')
 
                     <tr id="addItem">
-                        <td colspan="7">
+                        <td colspan="8">
                             <x-documents.form.item-button
                                 type="{{ $type }}"
                                 is-sale="{{ $isSalePrice }}"

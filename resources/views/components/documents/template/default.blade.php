@@ -235,6 +235,16 @@
                                     @endif
                                 @stack('quantity_th_end')
 
+                                @stack('unit_th_start')
+                                    @if (! $hideUnit)
+                                        <td class="unit text font-semibold text-alignment-right text-right text-white">
+                                            <span>
+                                                {{ trans($textUnit) }}
+                                            </span>
+                                        </td>
+                                    @endif
+                                @stack('unit_th_end')
+
                                 @stack('price_th_start')
                                     @if (! $hidePrice)
                                         <td class="price text font-semibold text-alignment-right text-right text-white">

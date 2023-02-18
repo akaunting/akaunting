@@ -28,6 +28,14 @@
         @endif
     @stack('quantity_td_end')
 
+    @stack('unit_td_start')
+        @if (! $hideUnit)
+            <td class="unit text text-alignment-right text-right">
+                {{ $item->unit }}
+            </td>
+        @endif
+    @stack('unit_td_end')
+
     @stack('price_td_start')
         @if (! $hidePrice)
             <td class="price text text-alignment-right text-right">

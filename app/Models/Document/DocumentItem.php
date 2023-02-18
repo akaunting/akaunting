@@ -32,6 +32,7 @@ class DocumentItem extends Model
         'name',
         'description',
         'quantity',
+        'unit',
         'price',
         'total',
         'tax',

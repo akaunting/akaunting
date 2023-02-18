@@ -29,6 +29,12 @@ class Invoice extends SettingController
             'custom' => trans('settings.invoice.custom'),
         ];
 
+        $unit_names = [
+            'hide' => trans('settings.invoice.hide.unit'),
+            'settings.invoice.unit' => trans('settings.invoice.unit'),
+            'custom' => trans('settings.invoice.custom'),
+        ];
+
         $payment_terms = [
             '0' => trans('settings.invoice.due_receipt'),
             '15' => trans('settings.invoice.due_days', ['days' => 15]),
@@ -42,6 +48,7 @@ class Invoice extends SettingController
             'item_names',
             'price_names',
             'quantity_names',
+            'unit_names',
             'payment_terms'
         ));
     }

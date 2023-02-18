@@ -4,15 +4,16 @@
 
         <td class="border-r-0 border-b-0 p-0"
             :class="[{'has-error': form.errors.has('items.' + index + '.name') }]"
-            colspan="7">
+            colspan="8">
             <table class="w-full border-b pb-3">
                 <colgroup>
                     <col class="small-col" style="width: 24px;">
                     <col class="small-col" style="width: 20%;">
                     <col class="small-col description-col" style="width: 30%;">
+                    <col class="small-col" style="width: 10%;">
+                    <col class="small-col" style="width: 13%;">
                     <col class="small-col" style="width: 12%;">
-                    <col class="small-col" style="width: 15%;">
-                    <col class="small-col amount-col" style="width: 20%;">
+                    <col class="small-col amount-col" style="width: 12%;">
                     <col class="small-col" style="width: 24px;">
                 </colgroup>
 
@@ -123,6 +124,30 @@
 
                         @stack('quantity_td_end')
 
+                        @stack('unit_td_start')
+
+                        <td class="px-3 py-3 border-b-0 unit">
+                            @if (! $hideItemUnit)
+                                <div>
+                                    @stack('unit_input_start')
+
+                                    <input
+                                        type="text"
+                                        :ref="'items-' + index + '-unit'"
+                                        class="w-full text-sm px-3 py-2.5 mt-0 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple mt-0"
+                                        :name="'items.' + index + '.unit'"
+                                        data-item="unit"
+                                        v-model="row.unit"
+                                        @input="onBindingItemField(index, 'unit')"
+                                    />
+
+                                    @stack('unit_input_end')
+                                </div>
+                            @endif
+                        </td>
+
+                        @stack('unit_td_end')
+
                         @stack('price_td_start')
 
                         <td class="px-3 py-3 pr-1 border-b-0 price">
@@ -189,7 +214,7 @@
                             @stack('item_custom_fields')
                         </td>
 
-                        <td colspan="4" class="px-0 pb-3">
+                        <td colspan="5" class="px-0 pb-3">
                             <div class="relative">
                                 <div class="absolute -top-6 ltr:left-3 rtl:right-3 flex items-center">
                                     @if (! $hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))

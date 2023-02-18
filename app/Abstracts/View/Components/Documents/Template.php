@@ -105,6 +105,8 @@ abstract class Template extends Component
 
     public $hideQuantity;
 
+    public $hideUnit;
+
     public $hidePrice;
 
     public $hideDiscount;
@@ -116,6 +118,9 @@ abstract class Template extends Component
 
     /** @var string */
     public $textQuantity;
+
+    /** @var string */
+    public $textUnit;
 
     /** @var string */
     public $textPrice;
@@ -141,8 +146,8 @@ abstract class Template extends Component
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
         string $textDocumentTitle = '', string $textDocumentSubheading = '',
         string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '', string $showContactRoute = '',
-        bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', bool $print = false
+        bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hideUnit = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
+        string $textItems = '', string $textQuantity = '', string $textUnit = '', string $textPrice = '', string $textAmount = '', bool $print = false
     ) {
         $this->type = $type;
         $this->item = $item;
@@ -183,6 +188,7 @@ abstract class Template extends Component
         $this->hideName = $this->getHideName($type, $hideName);
         $this->hideDescription = $this->getHideDescription($type, $hideDescription);
         $this->hideQuantity = $this->getHideQuantity($type, $hideQuantity);
+        $this->hideUnit = $this->getHideUnit($type, $hideUnit);
         $this->hidePrice = $this->getHidePrice($type, $hidePrice);
         $this->hideDiscount = $this->getHideDiscount($type, $hideDiscount);
         $this->hideAmount = $this->getHideAmount($type, $hideAmount);
@@ -190,6 +196,7 @@ abstract class Template extends Component
 
         $this->textItems = $this->getTextItems($type, $textItems);
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
+        $this->textUnit = $this->getTextUnit($type, $textUnit);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
 
@@ -504,6 +511,36 @@ abstract class Template extends Component
         return 'invoices.quantity';
     }
 
+    protected function getTextUnit($type, $textUnit)
+    {
+        if (! empty($textUnit)) {
+            return $textUnit;
+        }
+
+        // if you use settting translation
+        if (setting($this->getDocumentSettingKey($type, 'unit_name'), 'unit') === 'custom') {
+            if (empty($textUnit = setting($this->getDocumentSettingKey($type, 'unit_name_input')))) {
+                $textUnit = 'invoices.unit';
+            }
+
+            return $textUnit;
+        }
+
+        if (setting($this->getDocumentSettingKey($type, 'unit_name')) !== null
+            && (trans(setting($this->getDocumentSettingKey($type, 'unit_name'))) != setting($this->getDocumentSettingKey($type, 'unit_name')))
+        ) {
+            return setting($this->getDocumentSettingKey($type, 'unit_name'));
+        }
+
+        $translation = $this->getTextFromConfig($type, 'unit');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.unit';
+    }
+
     protected function getTextPrice($type, $textPrice)
     {
         if (! empty($textPrice)) {
@@ -645,6 +682,31 @@ abstract class Template extends Component
         }
 
         return false;
+    }
+
+    protected function getHideUnit($type, $hideUnit)
+    {
+        if (! empty($hideUnit)) {
+            return $hideUnit;
+        }
+
+        $hideUnit = setting($this->getDocumentSettingKey($type, 'unit_name'), false);
+
+        // if you use setting translation
+        if ($hideUnit === 'hide') {
+            return $hideUnit;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'unit');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // hide column if no unit is set
+        return $this->document->items->every(function ($item) {
+            return empty($item->unit);
+        });
     }
 
     protected function getHidePrice($type, $hidePrice)

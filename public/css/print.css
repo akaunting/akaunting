@@ -440,7 +440,7 @@ html[dir='rtl'] .text-right
 
 .lines .item
 {
-    width: 40%;
+    width: 35%;
 }
 
 .lines .quantity
@@ -449,9 +449,15 @@ html[dir='rtl'] .text-right
     text-align: right;
 }
 
+.lines .unit
+{
+    width: 15%;
+    text-align: right;
+}
+
 .lines .price
 {
-    width: 20%;
+    width: 15%;
     text-align: right;
 }
 
@@ -463,7 +469,7 @@ html[dir='rtl'] .text-right
 
 .lines .total
 {
-    width: 20%;
+    width: 15%;
     text-align: right;
 }
 

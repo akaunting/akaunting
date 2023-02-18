@@ -124,6 +124,7 @@ export default {
             item_name_input: false,
             price_name_input: false,
             quantity_name_input: false,
+            unit_name_input: false,
         }
     },
 
@@ -1318,6 +1319,14 @@ export default {
             } else {
                 this.quantity_name_input = false;
                 this.onFullWidthColumn("quantity_name");
+            }
+
+            if (this.form.unit_name == 'custom') {
+                this.unit_name_input = true;
+                this.onSmallWidthColumn("unit_name");
+            } else {
+                this.unit_name_input = false;
+                this.onFullWidthColumn("unit_name");
             }
             
         },

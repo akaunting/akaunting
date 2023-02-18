@@ -297,6 +297,8 @@ abstract class Show extends Component
 
     public $hideQuantity;
 
+    public $hideUnit;
+
     public $hidePrice;
 
     public $hideDiscount;
@@ -308,6 +310,9 @@ abstract class Show extends Component
 
     /** @var string */
     public $textQuantity;
+
+    /** @var string */
+    public $textUnit;
 
     /** @var string */
     public $textPrice;
@@ -348,8 +353,8 @@ abstract class Show extends Component
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
         string $textDocumentTitle = '', string $textDocumentSubheading = '',
         string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
-        bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
+        bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hideUnit = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false,
+        string $textItems = '', string $textQuantity = '', string $textUnit = '', string $textPrice = '', string $textAmount = ''
     ) {
         /* -- Main Start -- */
         $this->type = $type;
@@ -492,6 +497,7 @@ abstract class Show extends Component
         $this->hideName = $this->getHideName($type, $hideName);
         $this->hideDescription = $this->getHideDescription($type, $hideDescription);
         $this->hideQuantity = $this->getHideQuantity($type, $hideQuantity);
+        $this->hideUnit = $this->getHideUnit($type, $hideUnit);
         $this->hidePrice = $this->getHidePrice($type, $hidePrice);
         $this->hideDiscount = $this->getHideDiscount($type, $hideDiscount);
         $this->hideAmount = $this->getHideAmount($type, $hideAmount);
@@ -499,6 +505,7 @@ abstract class Show extends Component
 
         $this->textItems = $this->getTextItems($type, $textItems);
         $this->textQuantity = $this->getTextQuantity($type, $textQuantity);
+        $this->textUnit = $this->getTextUnit($type, $textUnit);
         $this->textPrice = $this->getTextPrice($type, $textPrice);
         $this->textAmount = $this->getTextAmount($type, $textAmount);
         /* -- Template End -- */
@@ -1190,6 +1197,29 @@ abstract class Show extends Component
         return 'invoices.quantity';
     }
 
+    protected function getTextUnit($type, $textUnit)
+    {
+        if (! empty($textUnit)) {
+            return $textUnit;
+        }
+
+        if (setting($this->getDocumentSettingKey($type, 'unit_name'), 'unit') === 'custom') {
+            if (empty($textUnit = setting($this->getDocumentSettingKey($type, 'unit_name_input')))) {
+                $textUnit = 'invoices.unit';
+            }
+
+            return $textUnit;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'unit');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.unit';
+    }
+
     protected function getTextPrice($type, $textPrice)
     {
         if (!empty($textPrice)) {
@@ -1302,6 +1332,28 @@ abstract class Show extends Component
         }
 
         $hide = $this->getHideFromConfig($type, 'quantity');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideUnit($type, $hideUnit)
+    {
+        if (! empty($hideUnit)) {
+            return $hideUnit;
+        }
+
+        $hideUnit = setting($this->getDocumentSettingKey($type, 'unit_name'), false);
+
+        // if you use setting translation
+        if ($hideUnit === 'hide') {
+            return true;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'unit');
 
         if ($hide) {
             return $hide;

@@ -129,6 +129,17 @@
                                 :input-value="setting('invoice.quantity_name_input')"
                                 form-group-class="sm:col-span-6"
                             />
+
+                            <x-form.group.invoice-text
+                                name="unit_name"
+                                label="{{ trans('settings.invoice.unit_name') }}"
+                                :options="$unit_names"
+                                :selected="setting('invoice.unit_name')"
+                                change="settingsInvoice"
+                                input-name="unit_name_input"
+                                :input-value="setting('invoice.unit_name_input')"
+                                form-group-class="sm:col-span-6"
+                            />
                         </div>
 
                         <div class="flex gap-10">

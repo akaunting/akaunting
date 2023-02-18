@@ -12,6 +12,7 @@ return [
     'cancel_date'           => 'Cancel Date',
 
     'quantity'              => 'Quantity',
+    'unit'                  => 'Unit',
     'price'                 => 'Price',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Discount',

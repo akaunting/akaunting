@@ -33,6 +33,17 @@
             form-group-class="sm:col-span-6 sm:gap-0"
         />
 
+        <x-form.group.invoice-text
+            name="unit_name"
+            label="{{ trans('settings.invoice.unit_name') }}"
+            :options="$unit_names"
+            :selected="$unit_name"
+            change="settingsInvoice"
+            input-name="unit_name_input"
+            :input-value="$unit_name_input"
+            form-group-class="sm:col-span-6 sm:gap-0"
+        />
+
         <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="$hide_item_description" />
         <x-form.group.toggle name="hide_amount" label="{{ trans('settings.invoice.hide.amount') }}" :value="$hide_amount" not-required form-group-class="sm:col-span-6" />
 
