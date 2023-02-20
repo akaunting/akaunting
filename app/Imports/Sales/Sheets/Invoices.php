@@ -20,6 +20,8 @@ class Invoices extends Import
             return [];
         }
 
+        $row['invoice_number'] = (string) $row['invoice_number'];
+
         $row = parent::map($row);
 
         $country = array_search($row['contact_country'], trans('countries'));

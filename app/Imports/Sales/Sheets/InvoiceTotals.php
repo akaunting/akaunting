@@ -20,6 +20,8 @@ class InvoiceTotals extends Import
             return [];
         }
 
+        $row['invoice_number'] = (string) $row['invoice_number'];
+
         $row = parent::map($row);
 
         $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();

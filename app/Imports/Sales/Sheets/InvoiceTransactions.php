@@ -19,6 +19,8 @@ class InvoiceTransactions extends Import
             return [];
         }
 
+        $row['invoice_number'] = (string) $row['invoice_number'];
+
         $row = parent::map($row);
 
         $row['type'] = 'income';
