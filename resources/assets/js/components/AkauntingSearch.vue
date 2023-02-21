@@ -34,7 +34,7 @@
             v-if="!show_date"
             type="text"
             class="w-full h-12 lg:h-auto bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
-            :class="!show_icon ? 'px-4' : 'px-10'"
+            :class="!show_icon ? 'ltr:pr-4 rtl:pl-4' : 'ltr:pr-10 rtl:pl-10'"
             :placeholder="dynamicPlaceholder"
             :ref="'input-search-field-' + _uid"
             v-model="search"
@@ -50,7 +50,7 @@
                 @blur="onBlur"
                 :config="dateConfig"
                 class="w-full h-12 lg:h-auto bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100 datepicker"
-                :class="!show_icon ? 'px-4' : 'px-10'"
+                :class="!show_icon ? 'ltr:pr-4 rtl:pl-4' : 'ltr:pr-10 rtl:pl-10'"
                 :placeholder="dynamicPlaceholder"
                 :ref="'input-search-date-field-' + _uid"
                 value=""
@@ -59,13 +59,23 @@
                 @keyup.enter="onInputConfirm"
             >
             </flat-picker>
-                <span
-                    v-if="show_icon"
-                    class="material-icons absolute bottom-1 ltr:left-3 rtl:right-3 text-lg text-black"
-                    style="z-index:-1;"
-                >
-                    search
-                </span>
+
+            <button
+                v-if="show_icon"
+                @focus="onInputFocus"
+                v-show="show_button"
+                @click="onInputConfirm"
+                class="absolute ltr:right-0.5 rtl:left-0.5 z-50 mt-3 text-sm text-gray-700 font-medium px-2.5 py-1 h-7 rounded-lg"
+                :class="search.length == 0 ? 'opacity-60 cursor-default' : 'cursor-pointer hover:bg-gray-100'"
+                :disabled="search.length == 0"
+            >
+                <div class="flex">
+                    <span>search</span>
+                    <span class="material-icons-outlined text-sm ltr:scale-x-100 rtl:-scale-x-100 ltr:ml-1 rtl:mr-1 mt-0.5">
+                        keyboard_return
+                    </span>
+                </div>
+            </button>
 
             <button type="button" class="absolute ltr:right-0 rtl:left-0 top-4 lg:top-2 clear" v-if="show_close_icon" @click="onSearchAndFilterClear">
                 <span class="material-icons text-sm">close</span>
@@ -217,6 +227,7 @@ export default {
             values: [],
             current_value: null,
             show_date: false,
+            show_button: false,
             show_close_icon: false,
             show_icon: true,
             not_equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
@@ -228,6 +239,8 @@ export default {
 
     methods: {
         onInputFocus() {
+            this.show_button = true;
+
             if (!this.filter_list.length) {
                 return;
             }
@@ -303,6 +316,7 @@ export default {
 
         onInput(evt) {
             this.search = evt.target.value;
+            this.show_button = true;
             
             let option_url = this.selected_options.length > 0 && this.selected_options[this.filter_index] !== undefined ? this.selected_options[this.filter_index].url : '';
 
@@ -658,6 +672,7 @@ export default {
                     this.visible.options = false;
                     this.visible.operator = false;
                     this.visible.values = false;
+                    this.show_button = false;
 
                     document.removeEventListener('click', this.closeIfClickedOutside);
                 }
