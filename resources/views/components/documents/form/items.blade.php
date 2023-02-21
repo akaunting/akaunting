@@ -15,6 +15,7 @@
                 <thead class="border-b">
                     <tr>
                         @stack('move_th_start')
+
                         <th class="w-6 block text-left border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
                             @if (! $hideEditItemColumns)
                                 <x-documents.form.item-columns :type="$type" />
@@ -31,11 +32,10 @@
                                         {{ (trans_choice($textItemName, 2) != $textItemName) ? trans_choice($textItemName, 2) : trans($textItemName) }}
                                     @endif
                                 </th>
-                            
 
                             @stack('name_th_end')
 
-                            @stack('move_th_start')
+                            @stack('description_th_start')
 
                             <th class="px-3 py-1 text-left text-xs font-normal border-t-0 border-r-0 border-b-0" style=" vertical-align:bottom;">
                                 @if (! $hideItemDescription)
@@ -43,8 +43,7 @@
                                 @endif
                             </th>
                             
-
-                            @stack('move_th_end')
+                            @stack('description_th_end')
                         @endif
 
                         @stack('quantity_th_start')
@@ -54,7 +53,6 @@
                                 {{ trans($textItemQuantity) }}
                             @endif
                         </th>
-                        
 
                         @stack('quantity_th_end')
 
