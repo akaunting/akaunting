@@ -30,10 +30,10 @@ class Tax extends Form
 
         $this->field = [
             'key' => 'id',
-            'value' => 'name'
+            'value' => 'title'
         ];
 
-        $this->taxes = Model::enabled()->orderBy('name')->pluck('name', 'id');
+        $this->taxes = Model::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $tax_id = old('tax.id', old('tax_id', null));
 
@@ -43,7 +43,7 @@ class Tax extends Form
             if (! $this->taxes->has($tax_id)) {
                 $tax = Model::find($tax_id);
 
-                $this->taxes->put($tax->id, $tax->name);
+                $this->taxes->put($tax->id, $tax->title);
             }
         }
 
