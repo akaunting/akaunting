@@ -137,12 +137,8 @@ trait DateTime
             break;
         }
 
-        if (!isset($this_quarter)) {
+        if (! isset($this_quarter)) {
             $this_quarter = $financial_quarters[0];
-        }
-
-        if (!isset($previous_quarter)) {
-            $previous_quarter = $financial_quarters[0];
         }
 
         $date_picker_shortcuts = [
@@ -158,15 +154,18 @@ trait DateTime
                 'start' => $this_quarter->getStartDate()->format('Y-m-d'),
                 'end' => $this_quarter->getEndDate()->format('Y-m-d'),
             ],
-            trans('reports.previous_quarter') => [
-                'start' => $previous_quarter->getStartDate()->format('Y-m-d'),
-                'end' => $previous_quarter->getEndDate()->format('Y-m-d'),
-            ],
             trans('reports.last_12_months') => [
                 'start' => $today->copy()->subYear()->startOfDay()->format('Y-m-d'),
                 'end' => $today->copy()->subDay()->endOfDay()->format('Y-m-d'),
             ],
         ];
+
+        if (isset($previous_quarter)) {
+            $date_picker_shortcuts[trans('reports.previous_quarter')] = [
+                'start' => $previous_quarter->getStartDate()->format('Y-m-d'),
+                'end' => $previous_quarter->getEndDate()->format('Y-m-d'),
+            ];
+        }
 
         return $date_picker_shortcuts;
     }
