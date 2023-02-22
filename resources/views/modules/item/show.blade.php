@@ -54,7 +54,7 @@
                     @endif
                 </div>
 
-                <div class="relative w-full lg:w-5/12" x-data="{ price_type : 'yearly' }">
+                <div class="relative w-full lg:w-5/12" x-data="{ price_type : {{ $module->where_to_use[0] == 'cloud' ? "'lifetime'" : "'yearly'" }} }">
                     <div class="flex flex-col space-y-6">
                         <div class="flex flex-col cursor-default">
                             <div class="flex flex-col space-y-4">
