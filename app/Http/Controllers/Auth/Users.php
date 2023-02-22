@@ -341,8 +341,6 @@ class Users extends Controller
     {
         $response = $this->ajaxDispatch(new CreateInvitation($user, company()));
 
-        $response['redirect'] = route('users.index');
-
         if ($response['success']) {
             $message = trans('messages.success.invited', ['type' => trans_choice('general.users', 1)]);
 
@@ -353,7 +351,7 @@ class Users extends Controller
             flash($message)->error()->important();
         }
 
-        return response()->json($response);
+        return redirect()->route('users.index');
     }
 
     /**
