@@ -22,6 +22,8 @@ class BillItemTaxes extends Import
             return [];
         }
 
+        $row['bill_number'] = (string) $row['bill_number'];
+
         $row = parent::map($row);
 
         $row['document_id'] = (int) Document::bill()->number($row['bill_number'])->pluck('id')->first();

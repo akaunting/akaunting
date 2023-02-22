@@ -20,6 +20,8 @@ class Bills extends Import
             return [];
         }
 
+        $row['bill_number'] = (string) $row['bill_number'];
+
         $row = parent::map($row);
 
         $country = array_search($row['contact_country'], trans('countries'));
