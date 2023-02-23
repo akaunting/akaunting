@@ -31,8 +31,5 @@
             </div>
         </div>
 
-        <div class="absolute ltr:right-0 rtl:left-0">
-            <img src="{{ $item->thumb }}" alt="{{ $item->title }}" />
-        </div>
     </div>
 @endforeach

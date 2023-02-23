@@ -5,7 +5,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/folder.png') }}" />
+                        <img src="{{ asset('public/img/auth/invoices.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -15,7 +15,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/chart.png') }}" />
+                        <img src="{{ asset('public/img/auth/reports.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -25,7 +25,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/client.png') }}" />
+                        <img src="{{ asset('public/img/auth/files.svg') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -35,7 +35,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/layout.png') }}" />
+                        <img src="{{ asset('public/img/auth/incorporation.svg') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
