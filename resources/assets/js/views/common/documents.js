@@ -493,19 +493,21 @@ const app = new Vue({
                 }
             }, this);
         
-            this.items[item_index].tax_ids.push({
-                id: selected_tax.id,
-                name: selected_tax.title,
-                price: 0
-            });
+            if (selected_tax) {
+                this.items[item_index].tax_ids.push({
+                    id: selected_tax.id,
+                    name: selected_tax.title,
+                    price: 0
+                });
 
-            this.form.items[item_index].tax_ids.push(this.tax_id);
+                this.form.items[item_index].tax_ids.push(this.tax_id);
 
-            if (this.taxes.includes(this.tax_id)) {
-                this.taxes[this.tax_id].push(this.items[item_index].item_id);
-            } else {
-                this.taxes[this.tax_id] = [];
-                this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                if (this.taxes.includes(this.tax_id)) {
+                    this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                } else {
+                    this.taxes[this.tax_id] = [];
+                    this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                }
             }
 
             this.tax_id = '';
