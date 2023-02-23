@@ -35,6 +35,7 @@
         "json-schema": ">=0.4.0",
         "laravel-mix-tailwind": "^0.1.2",
         "lodash": "^4.17.21",
+        "lottie-web-vue": "1.2.1",
         "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",
         "swiper": "^7.3.1",

@@ -6,6 +6,8 @@ import BaseButton from './../components/BaseButton.vue';
 import Badge from './../components/Badge.vue';
 import BaseAlert from './../components/BaseAlert';
 import { Input, Tooltip, Popover } from 'element-ui';
+import Lottie from "./../components/Lottie"
+import LottieAnimation from "lottie-web-vue";
 /**
  * You can register global components here and use them as a plugin in your main Vue instance
  */
@@ -20,6 +22,8 @@ const GlobalComponents = {
         Vue.component(Card.name, Card);
         Vue.component(Modal.name, Modal);
         Vue.component(StatsCard.name, StatsCard);
+        Vue.component(Lottie.name, Lottie);
+        Vue.component("LottieAnimation", LottieAnimation);
         Vue.component(Input.name, Input);
         Vue.use(Tooltip);
         Vue.use(Popover);
