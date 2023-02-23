@@ -57629,10 +57629,6 @@ body{
     border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
   }
 
-    .lg\:overflow-visible{
-    overflow: visible;
-  }
-
     .lg\:overflow-x-hidden{
     overflow-x: hidden;
   }
@@ -57752,10 +57748,6 @@ body{
     right: 0px;
   }
 
-    [dir="ltr"] .lg\:ltr\:right-0{
-    right: 0px;
-  }
-
     [dir="ltr"] .lg\:ltr\:ml-72{
     margin-left: 18rem;
   }
@@ -57777,10 +57769,6 @@ body{
   }
 
     [dir="rtl"] .rtl\:lg\:left-0{
-    left: 0px;
-  }
-
-    [dir="rtl"] .lg\:rtl\:left-0{
     left: 0px;
   }
 

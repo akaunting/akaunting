@@ -21,7 +21,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use HasApiTokens, HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
+    use HasFactory, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users, HasApiTokens;
 
     protected $table = 'users';
 

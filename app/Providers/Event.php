@@ -27,6 +27,7 @@ class Event extends Provider
         ],
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
+            'App\Listeners\Auth\WorkhyAuthLogout',
         ],
         //'Illuminate\Console\Events\ScheduledTaskStarting' => [
         'Illuminate\Console\Events\CommandStarting' => [

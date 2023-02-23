@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Auth\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -10,7 +15,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('login', 'Auth\Login@create')->name('login');
+    Route::get('login', 'Auth\Login@create')->name('login')
+        ->middleware('auth.workhy');
+
     Route::post('login', 'Auth\Login@store')->name('login.store');
 
     Route::get('forgot', 'Auth\Forgot@create')->name('forgot');
@@ -24,6 +31,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\Register@store')->name('register.store');
 });
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    $key = Config::get('workhy.auth.signed_key_name');
+
+    if($request->has($key)){
+        return redirect()->route('login', [
+            $key => $request->get($key),
+        ]);
+    }
+
     return redirect()->route('login');
 });
