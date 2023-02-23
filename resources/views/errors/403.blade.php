@@ -23,7 +23,7 @@
                 @php $landing_page = user() ? user()->getLandingPageOfUser() : route('login'); @endphp
                 <x-link
                     href="{{ $landing_page }}"
-                    class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100 mt-3"
+                    class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-300 mt-3"
                     override="class"
                 >
                     {{ trans('general.go_to_dashboard') }}

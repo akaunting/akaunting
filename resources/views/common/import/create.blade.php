@@ -36,14 +36,14 @@
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @else
-                            <x-link href="{{ url($path) }}" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:mr-2 rtl:ml-2" override="class">
+                            <x-link href="{{ url($path) }}" class="px-6 py-3 hover:bg-gray-200 ltr:mr-2 rtl:ml-2 transition duration-150 ease-in-out rounded-full" override="class">
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @endif
 
                         <x-button
                             type="submit"
-                            class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
+                            class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full"
                             ::disabled="form.loading"
                             override="class"
                         >

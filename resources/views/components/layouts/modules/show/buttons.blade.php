@@ -63,7 +63,7 @@
                     @else
                         <button type="button"
                             @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{!! str_replace("'", "\'", $module->name) !!}', '{{ $module->version }}')"
-                            class="bg-green disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
+                            class="bg-green disabled:bg-green-300 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                             id="install-module"
                             :disabled="installation.show"
                         >
@@ -148,7 +148,7 @@
                     @else
                         <button type="button"
                             @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{!! str_replace("'", "\'", $module->name) !!}', '{{ $module->version }}')"
-                            class="bg-green disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
+                            class="bg-green disabled:bg-green-300 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                             id="install-module"
                             :disabled="installation.show"
                         >

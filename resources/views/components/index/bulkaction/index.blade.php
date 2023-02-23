@@ -72,14 +72,14 @@
         v-if='bulk_action.message && bulk_action.modal'>
         <template #card-footer>
             <div class="flex items-center justify-end">
-                <button type="button" @click="onCancelBulkAction" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:mr-2 rtl:ml-2">
+                <button type="button" @click="onCancelBulkAction" class="px-6 py-1.5 hover:bg-gray-200 ltr:mr-2 rtl:ml-2 transition duration-150 ease-in-out rounded-full">
                     <span>{{ trans('general.cancel') }}</span>
                 </button>
 
                 <button type="button"
                     :disabled="bulk_action.loading"
                     @click="onActionBulkAction"
-                    class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100"
+                    class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full"
                 >
                     <i v-if="bulk_action.loading" class="submit-spin absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto"></i>
                     <span :class="[{'opacity-0': bulk_action.loading}]">{{ trans('general.confirm') }}</span>

@@ -6,7 +6,7 @@
             @if (! $hideSendTo)
             <x-button
                 id="invoice-send-to"
-                class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 ltr:ml-2 rtl:mr-2 text-base rounded-lg disabled:bg-green-100"
+                class="relative flex items-center justify-center bg-green hover:bg-green-500 text-white px-6 py-1.5 ltr:ml-2 rtl:mr-2 text-base disabled:bg-green-300 transition duration-150 ease-in-out rounded-full"
                 override="class"
                 ::disabled="form.loading"
                 @click="onSubmitViaSendEmail"

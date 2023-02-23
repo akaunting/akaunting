@@ -11,7 +11,7 @@
         @stack('button_pdf_end')
 
         @stack('button_print_start')
-        <x-link href="{{ route('portal.payments.print', $payment->id) }}" target="_blank" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm font-medium leading-6">
+        <x-link href="{{ route('portal.payments.print', $payment->id) }}" target="_blank" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 text-sm font-medium leading-6 transition duration-150 ease-in-out rounded-full">
             {{ trans('general.print') }}
         </x-link>
         @stack('button_print_end')

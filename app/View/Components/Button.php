@@ -51,13 +51,13 @@ class Button extends Component
 
         switch ($this->kind) {
             case 'primary':
-                $default .= ' bg-green hover:bg-green-700 text-white disabled:bg-green-100';
+                $default .= ' bg-green hover:bg-green-500 text-white disabled:bg-green-100 transition duration-150 ease-in-out rounded-full';
                 break;
             case 'secondary':
-                $default .= ' bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100';
+                $default .= ' bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100 transition duration-150 ease-in-out rounded-full';
                 break;
             default:
-                $default .= ' bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50';
+                $default .= ' bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 transition duration-150 ease-in-out rounded-full';
         }
 
         if (in_array('class', $this->override)) {

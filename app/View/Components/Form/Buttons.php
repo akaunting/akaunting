@@ -16,7 +16,7 @@ class Buttons extends Component
 
     public $cancelUrl;
 
-    public $cancelClass = 'px-6 py-1.5 hover:bg-gray-200 rounded-lg ltr:mr-2 rtl:ml-2';
+    public $cancelClass = 'px-6 py-1.5 hover:bg-gray-200 ltr:mr-2 rtl:ml-2 transition duration-150 ease-in-out rounded-full';
 
     public $cancelText;
 

@@ -59,7 +59,7 @@
                         <div class="flex items-end lg:justify-end xl:justify-start col-span-10 xl:col-span-2">
                             <x-button
                                 type="button"
-                                class="w-full px-3 py-2 bg-transparent hover:bg-purple text-black hover:text-white rounded-lg border border-purple"
+                                class="w-full px-3 py-2 bg-green hover:bg-green-500 text-white transition duration-150 ease-in-out rounded-full"
                                 override="class"
                                 @click="onReconcilition"
                             >
