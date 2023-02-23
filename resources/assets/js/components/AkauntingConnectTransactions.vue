@@ -425,7 +425,9 @@ export default {
             }
 
             // 198.4
-            money = money.replace(this.currency.symbol, '').replaceAll(this.currency.thousands_separator, '').replace(this.currency.decimal_mark, '.');
+            let regex = new RegExp(this.currency.thousands_separator, 'gi');
+
+            money = money.replace(this.currency.symbol, '').replace(regex, '').replace(this.currency.decimal_mark, '.');
 
             // "198.40"
             money = parseFloat(money).toFixed(this.currency.precision);
