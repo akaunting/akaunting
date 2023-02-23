@@ -128,7 +128,12 @@ const app = new Vue({
             
             if (typeof (this.$refs['items-' + index + '-' + ref]) !== 'undefined') {
                 let first_ref = this.$refs['items-' + index + '-'  + ref];
-                first_ref != undefined ? first_ref[0].focus() : this.$refs[Object.keys(this.$refs)[0]][0].focus();
+
+                if (first_ref != undefined) {
+                    first_ref[0].focus();
+                } else if (this.$refs[Object.keys(this.$refs)[0]] != undefined) {
+                    this.$refs[Object.keys(this.$refs)[0]][0].focus();
+                }
             }
         },
 
