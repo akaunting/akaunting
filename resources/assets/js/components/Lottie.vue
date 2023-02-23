@@ -1,5 +1,5 @@
 <template>
-  <LottieAnimation ref="anim" :animationData="loader" :loop="true" speed="30" />
+  <LottieAnimation ref="anim" :animationData="loader" :loop="true" :speed="30" />
 </template>
 
 <script>
