@@ -156,20 +156,4 @@ return [
     */
 
     'middleware' => explode(',', env('API_MIDDLEWARE', 'api')),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Rate Limit (Throttle)
-    |--------------------------------------------------------------------------
-    |
-    | Consumers of your API can be limited to the amount of requests they can
-    | make. You can create your own throttles or simply change the default
-    | throttles.
-    |
-    */
-
-    'rate_limit' => [
-        Limit::perMinute(env('API_RATE_LIMIT', 60)),
-    ],
-
 ];
