@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Document\Document;
 use App\Abstracts\View\Components\Documents\Document as DocumentComponent;
 use App\Utilities\Date;
+use App\Utilities\Documents as DocumentsUtilities;
 use App\Traits\Transactions;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\DNSCheckValidation;
@@ -31,27 +32,12 @@ trait Documents
 
     public function getNextDocumentNumber(string $type): string
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $prefix = setting($type . '.number_prefix');
-        $next = setting($type . '.number_next');
-        $digit = setting($type . '.number_digit');
-
-        return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        return DocumentsUtilities::getNextDocumentNumber($type);
     }
 
     public function increaseNextDocumentNumber(string $type): void
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $next = setting($type . '.number_next', 1) + 1;
-
-        setting([$type . '.number_next' => $next]);
-        setting()->save();
+        DocumentsUtilities::increaseNextDocumentNumber($type);
     }
 
     public function getDocumentStatuses(string $type): Collection
