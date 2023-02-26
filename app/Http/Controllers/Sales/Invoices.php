@@ -10,6 +10,7 @@ use App\Imports\Sales\Invoices as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\SendDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
@@ -260,12 +261,17 @@ class Invoices extends Controller
             return redirect()->back();
         }
 
-        // Notify the customer
-        $invoice->contact->notify(new Notification($invoice, 'invoice_new_customer', true));
+        $response = $this->ajaxDispatch(new SendDocument($invoice));
 
-        event(new \App\Events\Document\DocumentSent($invoice));
+        if ($response['success']) {
+            $message = trans('documents.messages.email_sent', ['type' => trans_choice('general.invoices', 1)]);
 
-        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.invoices', 1)]))->success();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
 
         return redirect()->back();
     }
