@@ -748,6 +748,6 @@ form {
 
 body {
     @apply text-black;
-    font-family: "Quicksand", sans-serif;
+    font-family: "Clear Sans",-apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI";
     height: 100%;
 }

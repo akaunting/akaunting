@@ -56648,7 +56648,7 @@ form {
 body{
   --tw-text-opacity: 1;
   color: rgb(66 66 66 / var(--tw-text-opacity));
-    font-family: "Quicksand", sans-serif;
+    font-family: "Clear Sans",-apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI";
     height: 100%;
 }
 
