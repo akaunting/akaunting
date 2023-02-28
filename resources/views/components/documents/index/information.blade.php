@@ -93,21 +93,21 @@
             </div>
 
             <div class="w-full flex flex-col">
-                <div class="flex items-center justify-between font-medium">
-                    <span>
-                        {{ trans('general.paid') }}
-                    </span>
+                @if ($document->paid)
+                    <div class="flex items-center justify-between font-medium">
+                        <span>
+                            {{ trans('general.paid') }}
+                        </span>
 
-                    @if ($document->paid)
                         <span>
                             <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
                         </span>
-                    @endif
-                </div>
+                    </div>
+                @endif
 
                 <div class="flex items-center justify-between font-medium">
                     <span>
-                        {{ trans('general.due') }}
+                        {{ trans('general.amount') }}
                     </span>
 
                     <span>
