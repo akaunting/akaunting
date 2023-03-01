@@ -198,9 +198,25 @@ export default {
                             masked: false /* doesn't work with directive */
                         };
 
+                        // Parent vue instance methods merge with child vue instance methods
                         if (this.$root.$options.methods) {
-                            for (let method in this.$root.$options.methods) {
-                                this[method] = this.$options.methods[method] !== undefined ? this.$options.methods[method] : this.$root.$options.methods[method];
+                            let parent_methods = this.$root.$options.methods;
+
+                            for (let method_key in parent_methods) {
+                                if (this.$options.methods[method_key] === undefined) {
+                                    this[method_key] = parent_methods[method_key];
+                                }
+                            }
+                        }
+
+                        // Parent vue instance data merge with child vue instance data
+                        if (this.$root._data) {
+                            let parent_data = this.$root._data;
+
+                            for (let data_key in parent_data) {
+                                if (this[data_key] === undefined) {
+                                    this[data_key] = parent_data[data_key];
+                                }
                             }
                         }
                     },
