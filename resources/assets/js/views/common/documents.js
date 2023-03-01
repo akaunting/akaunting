@@ -120,12 +120,12 @@ const app = new Vue({
             let item_index = this.form.items.indexOf(this.form.items[event.oldIndex]);
             let item = this.form.items.splice(item_index, 1)[0];
 
-            this.form.items.splice(event.newIndex, 0, item);  
+            this.form.items.splice(event.newIndex, 0, item);
         },
 
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
-            
+
             if (typeof (this.$refs['items-' + index + '-' + ref]) !== 'undefined') {
                 let first_ref = this.$refs['items-' + index + '-'  + ref];
 
@@ -486,13 +486,13 @@ const app = new Vue({
             }
 
             let selected_tax;
-            
+
             this.dynamic_taxes.forEach(function(tax) {
                 if (tax.id == this.tax_id) {
                     selected_tax = tax;
                 }
             }, this);
-        
+
             if (selected_tax) {
                 this.items[item_index].tax_ids.push({
                     id: selected_tax.id,
@@ -677,7 +677,7 @@ const app = new Vue({
 
         onFormCapture() {
            let form_html = document.querySelector('form');
-           
+
            if (form_html && form_html.getAttribute('id') == 'document') {
                form_html.querySelectorAll('input, textarea, select, ul, li, a').forEach((element) => {
                   element.addEventListener('click', () => {
@@ -839,9 +839,9 @@ const app = new Vue({
 
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.discount = oldVal;
-                
+
                 if (Number(newVal) == null) {
-                    this.form.discount.replace(',', '.'); 
+                    this.form.discount.replace(',', '.');
                 }
 
                 return;
