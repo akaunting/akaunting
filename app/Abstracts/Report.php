@@ -222,7 +222,9 @@ abstract class Report
         foreach ($tmp_values as $id => $value) {
             $labels[$id] = $this->row_names[$table_key][$id];
 
-            $colors[$id] = ($group == 'category') ? Category::withSubCategory()->find($id)?->colorHexCode : '#' . dechex(rand(0x000000, 0xFFFFFF));
+            $colors[$id] = ($group == 'category')
+                            ? Category::withSubCategory()->find($id)?->colorHexCode
+                            : $this->randHexColor();
 
             $values[$id] = round(($value * 100 / $total), 0);
         }
@@ -641,5 +643,15 @@ abstract class Report
                 'required' => 'required',
             ],
         ];
+    }
+
+    public function randHexColorPart(): string
+    {
+        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    }
+
+    public function randHexColor(): string
+    {
+        return '#' . $this->randHexColorPart() . $this->randHexColorPart() . $this->randHexColorPart();
     }
 }
