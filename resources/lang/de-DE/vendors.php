@@ -3,14 +3,14 @@
 return [
 
     'form_description' => [
-        'general'           => 'Hier können Sie alle Kontaktinformationen zum Kreditor hinzufügen, z.B. die Adresse oder/und das Logo',
-        'billing'           => 'Die Steuernummer erscheint auf jeder ausgestellten Rechnung. Die ausgewählte Währung wird zur Standardwährung für diesen Kreditor.',
-        'address'           => 'Die Adresse wird für die Rechnungen benötigt, daher müssen Sie die Rechnungsadresse für den Kreditor hinzufügen.',
+        'general'           => 'Die Kontaktinformationen Ihres Lieferanten werden in Rechnungen und Profilen angezeigt. Sie können die Kontaktinformationen und das Logo des Lieferanten hinzufügen.',
+        'billing'           => 'Die Steuernummer erscheint auf jeder Eingangsrechnung. Die ausgewählte Währung wird zur Standardwährung für diesen Lieferanten.',
+        'address'           => 'Eine Rechnungsadresse ist für das Erfassen von Eingangsrechnungen erforderlich. Bitte ergänzen Sie die Rechnungsadresse des Lieferanten.',
     ],
 
     'no_records' => [
-        'bills'             => 'Sie haben noch keine Rechnung von diesem Kreditor erhalten. Erfassen Sie jetzt eine neue Rechnung.',
-        'transactions'      => 'Es gibt noch keine Transaktionen zu diesem Kreditor. Erfassen Sie jetzt eine neue.',
+        'bills'             => 'Sie haben noch keine Rechnung von diesem Lieferanten erhalten. Erfassen Sie jetzt eine neue Rechnung.',
+        'transactions'      => 'Es gibt noch keine Transaktionen zu diesem Lieferanten. Erfassen Sie jetzt eine neue Transaktion.',
     ],
 
 ];

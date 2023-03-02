@@ -45,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Akaunting\'in yeni sürümü mevcut! Lütfen kurulumunuzu güncelleyin.',
-        'module'            => ':modülün yeni versiyonu mevcut! Lütfen kurulumunuzu güncelleyin.',
+        'core'              => 'Akaunting\'in yeni sürümü çıktı! Lütfen <a href=":url">güncelleyin</a>.',
+        'module'            => ':module yeni sürümü çıktı! Lütfen <a href=":url">güncelleyin</a>.',
     ],
 ];

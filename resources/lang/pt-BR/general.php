@@ -90,6 +90,7 @@ return [
     'monthly'               => 'Mensal',
     'quarterly'             => 'Trimestral',
     'yearly'                => 'Anual',
+    'lifetime'              => 'Duração',
     'add'                   => 'Adicionar',
     'add_new'               => 'Adicionar novo',
     'add_income'            => 'Adicionar Receita',

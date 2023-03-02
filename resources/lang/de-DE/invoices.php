@@ -9,7 +9,7 @@ return [
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',
     'bill_to'               => 'Rechnung an',
-    'cancel_date'           => 'Datum abbrechen',
+    'cancel_date'           => 'Storniert am',
 
     'quantity'              => 'Menge',
     'price'                 => 'Preis',

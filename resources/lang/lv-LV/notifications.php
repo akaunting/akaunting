@@ -185,4 +185,16 @@ return [
         'mark_read_all'         => ':type ir izlasīti visi paziņojumi!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Firefox Ikonas konfigurācija',
+            'description'  => '<span class="font-medium">Ja jūsu ikonas neparādās, lūdzu;</span> <br /> <span class="font-medium">Lūdzu, ļaujiet lapām pašām izvēlēties fontus, nevis pēc jūsu atlases iepriekš< /span> <br /><br /> <span class="font-bold"> Iestatījumi (Preferences) > Fonti > Papildu </span>',
+
+        ],
+
+    ],
+
 ];
