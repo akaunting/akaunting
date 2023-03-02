@@ -90,6 +90,7 @@ return [
     'monthly'               => 'मासिक',
     'quarterly'             => 'त्रैमासिक',
     'yearly'                => 'वार्षिक',
+    'lifetime'              => 'जीवनपर्यंत',
     'add'                   => 'जोड़ें',
     'add_new'               => 'नया जोड़ें',
     'add_income'            => 'आय जोड़ें',

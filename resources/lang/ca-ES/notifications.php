@@ -186,4 +186,16 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
         'mark_read_all'         => ':type ha llegit totes les notificacions!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuració de la icona de Firefox',
+            'description'  => '<span class="font-medium">Si les teves icones no apareixen;</span> <br /> <span class="font-medium">Si us plau permet que les pàgines facin servir els seus propis tipus de lletra en comptes de la selecció de dalt</span> <br /><br /> <span class="font-bold"> Configuració (Preferències) > Tipus de lletra > Avançat </span>',
+
+        ],
+
+    ],
+
 ];

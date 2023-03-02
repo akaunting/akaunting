@@ -28,8 +28,10 @@ return [
     'yearly_pricing'        => 'वार्षिक मूल्य निर्धारण',
     'monthly_price'         => ' :price से',
     'per_month'             => 'प्रति माह',
-    'billed_yearly'         => 'वार्षिक बिल किया गया',
+    'once'                  => 'एक बार',
     'billed_monthly'        => 'मासिक बिल किया गया',
+    'billed_yearly'         => 'वार्षिक बिल किया गया',
+    'billed_once'           => 'एक बार बिल किया',
     'save_year'             => 'आप सालाना <strong>:price</strong> बचाते हैं!',
     'if_paid_year'          => 'या <strong>:price/mo</strong> अगर सालाना भुगतान किया जाता है',
     'information_monthly'   => 'यह विकल्प केवल <strong>क्लाउड सेवा</strong> के लिए मान्य है',
@@ -100,6 +102,10 @@ return [
         'unzip'             => ':module अनज़िप करने में सक्षम नहीं है।',
         'file_copy'         => ':module फ़ाइलों को कॉपी करने में सक्षम नहीं है',
         'finish'            => ':module इंस्टॉलेसन को अंतिम रूप देने में सक्षम नहीं है',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'आप  :module के नवीनतम संस्करण का उपयोग कर रहे हैं, कोई अपडेट उपलब्ध नहीं है।',
     ],
 
     'badge' => [

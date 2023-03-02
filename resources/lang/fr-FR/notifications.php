@@ -185,4 +185,16 @@ return [
         'mark_read_all'         => ':type est en train de lire toutes les notifications !',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuration des icônes dans Firefox',
+            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, merci d\'activer;</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
+
+        ],
+
+    ],
+
 ];

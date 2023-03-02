@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Yakin ingin <b>membatalkan rekonsiliasi</b> data yang dipilih?|Yakin ingin <b>membatalkan rekonsiliasi</b> data yang dipilih?',
     ],
 
+    'success' => [
+        'general'       => ':count catatan :type.',
+    ],
 ];

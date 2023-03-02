@@ -13,7 +13,7 @@ return [
     'default_account'       => 'Standardkonto',
     'incoming'              => 'Eingehende',
     'outgoing'              => 'Ausgehende',
-    'see_performance'       => 'Einkommen vs Ausgaben',
+    'see_performance'       => 'Einnahmen / Ausgaben',
     'create_report'         => 'Wenn Sie die Einnahmen vs Ausgaben für dieses Konto sehen möchten, können Sie eine Bericht-Instanz erstellen.',
     'banks'                 => 'Bank|Banken',
     'credit_cards'          => 'Kreditkarte|Kreditkarten',
@@ -25,7 +25,7 @@ return [
 
     'no_records' => [
         'transactions'      => 'Es gibt noch keine Transaktionen auf diesem Konto. Erfassen Sie jetzt eine neue.',
-        'transfers'         => 'Es gibt noch keine Überweisung nach/von diesem Konto. Erfassen Sie jetzt eine neue.',
+        'transfers'         => 'Es gibt noch keine Umbuchungen zu diesem Konto. Erfassen Sie jetzt eine neue Umbuchung.',
     ],
 
 ];
