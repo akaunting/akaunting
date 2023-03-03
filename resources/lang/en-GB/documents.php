@@ -10,6 +10,10 @@ return [
     'billing'                   => 'Billing',
     'advanced'                  => 'Advanced',
 
+    'actions' => [
+        'cancel'                => 'Cancel',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b>You</b> marked this invoice as',
         'services'              => 'Services',
