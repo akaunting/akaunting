@@ -51,6 +51,7 @@ class Import
                 'message'   => $message,
             ];
         } catch (Throwable $e) {
+            report($e);
             if ($e instanceof ValidationException) {
                 foreach ($e->failures() as $failure) {
                     $message = trans('messages.error.import_column', [
