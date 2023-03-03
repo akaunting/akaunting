@@ -36,7 +36,6 @@ class Version3013 extends Listener
             foreach ($types as $type => $translations) {
                 DB::table('categories')->whereIn('type', $translations)->update(['type' => $type]);
             }
-
         });
 
         Log::channel('stdout')->info('Done!');
