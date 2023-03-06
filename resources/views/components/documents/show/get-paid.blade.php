@@ -61,54 +61,56 @@
 
                         </br>
 
-                        @if (! empty($transaction->contact) && $transaction->contact->email)
-                            <x-button id="show-slider-actions-transaction-send-email-{{ $document->type }}-{{ $transaction->id }}" class="text-purple mt-1" override="class" @click="onEmailViaTemplate('{{ route($transactionEmailRoute, $transaction->id) }}', '{{ $transactionEmailTemplate }}')">
-                                <x-button.hover color="to-purple">
-                                    {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
-                                </x-button.hover>
-                            </x-button>
-                        @else
-                            <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
-                                <x-button class="text-purple mt-1" override="class" disabled="disabled">
+                        <div class="flex flex-row">
+                            @if (! empty($transaction->contact) && $transaction->contact->email)
+                                <x-button id="show-slider-actions-transaction-send-email-{{ $document->type }}-{{ $transaction->id }}" class="text-purple mt-1" override="class" @click="onEmailViaTemplate('{{ route($transactionEmailRoute, $transaction->id) }}', '{{ $transactionEmailTemplate }}')">
                                     <x-button.hover color="to-purple">
                                         {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
                                     </x-button.hover>
                                 </x-button>
-                            </x-tooltip>
-                        @endif
+                            @else
+                                <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
+                                    <x-button class="text-purple mt-1" override="class" disabled="disabled">
+                                        <x-button.hover color="to-purple">
+                                            {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
+                                        </x-button.hover>
+                                    </x-button>
+                                </x-tooltip>
+                            @endif
 
-                        <span> - </span>
+                            <span class="mt-1 mr-2 ml-2"> - </span>
 
-                        <x-button
-                            @click="onEditPayment('{{ route('modals.documents.document.transactions.edit', ['document' => $document->id, 'transaction' => $transaction->id]) }}')"
-                            id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
-                            class="text-purple mt-1"
-                            override="class"
-                        >
-                            <x-button.hover color="to-purple">
-                                {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
-                            </x-button.hover>
-                        </x-button>
+                            <x-button
+                                @click="onEditPayment('{{ route('modals.documents.document.transactions.edit', ['document' => $document->id, 'transaction' => $transaction->id]) }}')"
+                                id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
+                                class="text-purple mt-1"
+                                override="class"
+                            >
+                                <x-button.hover color="to-purple">
+                                    {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
+                                </x-button.hover>
+                            </x-button>
 
-                        <span> - </span>
+                            <span class="mt-1 mr-2 ml-2"> - </span>
 
-                        @php
-                            $message = trans('general.delete_confirm', [
-                                'name' => '<strong>' . Date::parse($transaction->paid_at)->format(company_date_format()) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
-                                'type' => strtolower(trans_choice('general.transactions', 1))
-                            ]);
-                        @endphp
+                            @php
+                                $message = trans('general.delete_confirm', [
+                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format(company_date_format()) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
+                                    'type' => strtolower(trans_choice('general.transactions', 1))
+                                ]);
+                            @endphp
 
-                        <x-delete-link
-                            :model="$transaction"
-                            :route="'transactions.destroy'"
-                            :title="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
-                            :message="$message"
-                            :label="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
-                            class="text-purple mt-1"
-                            text-class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize"
-                            override="class"
-                        />
+                            <x-delete-link
+                                :model="$transaction"
+                                :route="'transactions.destroy'"
+                                :title="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
+                                :message="$message"
+                                :label="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
+                                class="text-purple mt-1"
+                                text-class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize"
+                                override="class"
+                            />
+                        </div>
                     </div>
                 @endforeach
             @else

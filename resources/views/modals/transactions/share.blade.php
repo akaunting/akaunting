@@ -10,7 +10,7 @@
                 value="{{ $signedUrl }}"
                 ref="clone"
                 @click="onCopyLink()"
-                style="appearance: none; background-color: whitesmoke; border: none; font-size: 16px;"
+                style="appearance: none; background-color: whitesmoke; cursor:pointer; border: none; font-size: 16px;"
             />
             <x-form.input.hidden name="hidden-share" value="{{ $signedUrl }}" />
 
