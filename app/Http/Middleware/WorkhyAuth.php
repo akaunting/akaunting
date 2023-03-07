@@ -27,7 +27,7 @@ class WorkhyAuth
             return $response;
         }
 
-        $request->headers->set('Authorization', 'Bearer '. Crypt::decryptString($token));
+        $request->headers->set('Authorization', 'Bearer '. $token);
 
         $user = Auth::guard('sanctum')->user();
 
@@ -69,7 +69,14 @@ class WorkhyAuth
             $request->session()->put($key, $request->get($key));
         }
 
-        return $request->session()->get($key);
+        $encryptedToken = $request->session()->get($key);
+        
+        $encrypter = new \Illuminate\Encryption\Encrypter(
+            Config::get('workhy.auth.signed_token_secret'), 
+            Config::get('workhy.auth.signed_token_cipher')
+        );
+
+        return $encrypter->decrypt($encryptedToken);
     }
 
     /**
