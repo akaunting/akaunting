@@ -8,6 +8,8 @@ use App\Models\Common\ItemTax as Model;
 
 class ItemTaxes extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -26,10 +28,5 @@ class ItemTaxes extends Import
         $row['tax_id'] = $this->getTaxId($row);
 
         return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }
