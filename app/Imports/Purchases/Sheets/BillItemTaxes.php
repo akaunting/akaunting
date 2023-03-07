@@ -11,6 +11,8 @@ use App\Models\Document\DocumentItemTax as Model;
 
 class BillItemTaxes extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -46,10 +48,8 @@ class BillItemTaxes extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['bill_number'] = 'required|string';
 
         unset($rules['bill_id']);

@@ -2,6 +2,7 @@
 
 namespace App\Abstracts;
 
+use App\Abstracts\Http\FormRequest;
 use App\Traits\Import as ImportHelper;
 use App\Traits\Sources;
 use App\Utilities\Date;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -26,6 +28,8 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     use Importable, ImportHelper, Sources;
 
     public $user;
+
+    public $request_class = null;
 
     public function __construct()
     {
@@ -68,6 +72,49 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
     public function rules(): array
     {
         return [];
+    }
+
+    /**
+     * You can override this method to add custom rules for each row.
+     */
+    public function prepareRules(array $rules): array
+    {
+        return $rules;
+    }
+
+    /**
+     * Validate each row data.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     * @throws ValidationException
+     */
+    public function withValidator($validator)
+    {
+        $condition = class_exists($this->request_class)
+                    ? ! ($request = new $this->request_class) instanceof FormRequest
+                    : true;
+
+        if ($condition) {
+            return;
+        }
+
+        foreach ($validator->getData() as $row => $data) {
+            $request->initialize(request: $data);
+
+            $rules = $this->prepareRules($request->rules());
+
+            try {
+                Validator::make($data, $rules)->validate();
+            } catch (ValidationException $e) {
+                foreach ($e->validator->failed() as $attribute => $value) {
+                    foreach ($value as $rule => $params) {
+                        $validator->addFailure($row . '.' . $attribute, $rule, $params);
+                    }
+                }
+
+                throw new ValidationException($validator);
+            }
+        }
     }
 
     public function chunkSize(): int

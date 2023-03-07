@@ -8,6 +8,8 @@ use App\Models\Setting\Category as Model;
 
 class Categories extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -20,10 +22,5 @@ class Categories extends Import
         $row['type'] = $this->getCategoryType($row['type']);
 
         return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }
