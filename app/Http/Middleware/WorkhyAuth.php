@@ -21,7 +21,6 @@ class WorkhyAuth
         $response = $next($request);
 
         $key = Config::get('workhy.auth.signed_key_name');
-        $guards = Config::get('workhy.auth.guards');
 
         if(!$token = $this->getToken($request, $key)){
             return $response;
@@ -30,6 +29,7 @@ class WorkhyAuth
         $request->headers->set('Authorization', 'Bearer '. $token);
 
         $user = Auth::guard('sanctum')->user();
+        
 
         if(!$user || ($user && !$user->enabled)){
             $this->invalidate($request);
@@ -70,9 +70,9 @@ class WorkhyAuth
         }
 
         $encryptedToken = $request->session()->get($key);
-        
+
         $encrypter = new \Illuminate\Encryption\Encrypter(
-            Config::get('workhy.auth.signed_token_secret'), 
+            Config::get('workhy.auth.signed_token_secret'),
             Config::get('workhy.auth.signed_token_cipher')
         );
 
