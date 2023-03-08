@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class RedirectIfAuthenticated
 {
@@ -19,6 +20,8 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
+        $this->workhyAuthFlow($request);
+
         foreach ($guards as $guard) {
             if (!auth()->guard($guard)->check()) {
                 continue;
@@ -28,5 +31,16 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
+    }
+
+    private function workhyAuthFlow(Request $request)
+    {
+        $key = Config::get('workhy.auth.signed_key_name');
+
+        if($request->has($key)){
+            if(auth()->check()){
+                auth()->logout();
+            }
+        }
     }
 }
