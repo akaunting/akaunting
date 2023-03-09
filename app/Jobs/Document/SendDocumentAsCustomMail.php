@@ -3,6 +3,7 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Events\Document\DocumentSending;
 use App\Events\Document\DocumentSent;
 use App\Models\Document\Document;
 
@@ -17,6 +18,8 @@ class SendDocumentAsCustomMail extends Job
     public function handle(): void
     {
         $document = Document::find($this->request->get('document_id'));
+
+        event(new DocumentSending($document));
 
         $custom_mail = $this->request->only(['to', 'subject', 'body']);
 

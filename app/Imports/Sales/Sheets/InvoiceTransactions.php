@@ -8,6 +8,8 @@ use App\Models\Banking\Transaction as Model;
 
 class InvoiceTransactions extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -24,20 +26,18 @@ class InvoiceTransactions extends Import
         $row = parent::map($row);
 
         $row['type'] = 'income';
+        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['account_id'] = $this->getAccountId($row);
         $row['category_id'] = $this->getCategoryId($row, 'income');
         $row['contact_id'] = $this->getContactId($row, 'customer');
-        $row['currency_code'] = $this->getCurrencyCode($row);
         $row['document_id'] = $this->getDocumentId($row);
         $row['number'] = $row['transaction_number'];
 
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['invoice_number'] = 'required|string';
 
         return $rules;

@@ -8,6 +8,8 @@ use App\Models\Banking\Transaction as Model;
 
 class Transactions extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -24,10 +26,5 @@ class Transactions extends Import
         $row['document_id'] = $this->getDocumentId($row);
 
         return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }

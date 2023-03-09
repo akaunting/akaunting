@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 trait Categories
 {
-    public function getCategoryTypes(): array
+    public function getCategoryTypes(bool $translate = true): array
     {
         $types = [];
         $configs = config('type.category');
@@ -21,7 +21,7 @@ trait Categories
                 $name = $attr['alias'] . '::' . $name;
             }
 
-            $types[$type] = trans_choice($name, 1);
+            $types[$type] = $translate ? trans_choice($name, 1) : $name;
         }
 
         return $types;
