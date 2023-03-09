@@ -34,6 +34,8 @@ class BillItems extends Import
             $row['name'] = $row['item_name'];
         }
 
+        $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
+
         $row['tax'] = (double) $row['tax'];
         $row['tax_id'] = 0;
         $row['type'] = Document::BILL_TYPE;

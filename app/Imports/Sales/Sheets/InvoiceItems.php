@@ -28,11 +28,13 @@ class InvoiceItems extends Import
 
         $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
-        if (empty($row['item_id']) && !empty($row['item_name'])) {
+        if (empty($row['item_id']) && ! empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);
 
             $row['name'] = $row['item_name'];
         }
+
+        $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
 
         $row['tax'] = (double) $row['tax'];
         $row['tax_id'] = 0;
