@@ -39,6 +39,8 @@ class Import
                 ['type' => $translation]
             );
         } catch (Throwable $e) {
+            report($e);
+
             $message = self::flashFailures($e);
 
             $success = false;
