@@ -34,6 +34,7 @@ class BillItems extends Export
             'bill_number',
             'item_name',
             'item_description',
+            'item_type',
             'quantity',
             'price',
             'total',
