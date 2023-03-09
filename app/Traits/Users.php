@@ -26,17 +26,13 @@ trait Users
      */
     public function isUserCompany($id)
     {
-        $user = user();
-
-        if (empty($user)) {
-            return app()->runningInConsole() ? true : false;
+        if (app()->runningInConsole()) {
+            return true;
         }
 
-        $company = $user->withoutEvents(function () use ($user, $id) {
-            return $user->companies()->where('id', $id)->first();
-        });
+        $user = user();
 
-        return !empty($company);
+        return $user && $user->companies()->where('id', $id)->exists();
     }
 
     public function isNotUserCompany($id)

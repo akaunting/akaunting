@@ -61,19 +61,6 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public $sortable = ['name', 'email', 'enabled'];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::retrieved(function ($model) {
-            $model->setCompanyIds();
-        });
-
-        static::saving(function ($model) {
-            $model->unsetCompanyIds();
-        });
-    }
-
     public function companies()
     {
         return $this->belongsToMany('App\Models\Common\Company', 'App\Models\Auth\UserCompany');
@@ -241,30 +228,6 @@ class User extends Authenticatable implements HasLocalePreference
     public function scopeIsNotCustomer($query)
     {
         return $query->wherePermissionIs('read-admin-panel');
-    }
-
-    /**
-     * Attach company_ids attribute to model.
-     *
-     * @return void
-     */
-    public function setCompanyIds()
-    {
-        $company_ids = $this->withoutEvents(function () {
-            return $this->companies->pluck('id')->toArray();
-        });
-
-        $this->setAttribute('company_ids', $company_ids);
-    }
-
-    /**
-     * Detach company_ids attribute from model.
-     *
-     * @return void
-     */
-    public function unsetCompanyIds()
-    {
-        $this->offsetUnset('company_ids');
     }
 
     /**
