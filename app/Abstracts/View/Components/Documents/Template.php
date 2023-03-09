@@ -278,7 +278,7 @@ abstract class Template extends Component
         $key = $this->getSettingKey($type, 'color');
 
         if (! empty(setting($key))) {
-            return setting($key);
+            $backgroundColor = setting($key);
         }
 
         // checking config color
