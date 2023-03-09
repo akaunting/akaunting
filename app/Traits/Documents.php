@@ -149,8 +149,11 @@ trait Documents
 
         $prefix = config('type.document.' . $type . '.setting.prefix');
 
-
-        $key .= $prefix . '.' . $setting_key;
+        if (! empty($prefix)) {
+            $key .= $prefix . '.' . $setting_key;
+        } else {
+            $key .= $setting_key;
+        }
 
         return $key;
     }

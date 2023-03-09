@@ -274,16 +274,22 @@ abstract class Template extends Component
             return $backgroundColor;
         }
 
-        if ($background_color = config('type.document.' . $type . '.color', false)) {
-            return $background_color;
+        // checking setting color
+        $key = $this->getSettingKey($type, 'color');
+
+        if (! empty(setting($key))) {
+            return setting($key);
         }
 
-
-        if (! empty($alias = config('type.document.' . $type . '.alias'))) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
+        // checking config color
+        if (empty($backgroundColor) && $background_color = config('type.document.' . $type . '.color', false)) {
+            $backgroundColor = $background_color;
         }
 
-        $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
+        // set default color
+        if (empty($backgroundColor)) {
+            $backgroundColor = '#55588b';
+        }
 
         return $this->getHexCodeOfTailwindClass($backgroundColor);
     }
