@@ -113,6 +113,8 @@ class SearchString extends Component
 
     protected function getFilterName($column, $options)
     {
+        $column = last(explode('.', $column));
+        
         if (strpos($column, '_id') !== false) {
             $column = str_replace('_id', '', $column);
         } else if (strpos($column, '_code') !== false) {
