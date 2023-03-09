@@ -8,6 +8,8 @@ use App\Models\Common\Contact as Model;
 
 class Customers extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -25,10 +27,5 @@ class Customers extends Import
         $row['user_id'] = null;
 
         return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }

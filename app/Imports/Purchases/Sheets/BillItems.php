@@ -9,6 +9,8 @@ use App\Models\Document\DocumentItem as Model;
 
 class BillItems extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -39,10 +41,8 @@ class BillItems extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['bill_number'] = 'required|string';
 
         unset($rules['bill_id']);

@@ -113,7 +113,7 @@
                 <x-dropdown.divider />
 
                 <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
-                    {{ trans('general.cancel') }}
+                    {{ trans('documents.actions.cancel') }}
                 </x-dropdown.link>
             @endcan
         @endif

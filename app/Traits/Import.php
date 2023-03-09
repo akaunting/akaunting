@@ -172,6 +172,7 @@ trait Import
 
         $data = [
             'company_id'        => company_id(),
+            'type'              => !empty($row['account_type']) ? $row['account_type'] : 'bank',
             'currency_code'     => $row['currency_code'],
             'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['currency_code'],
             'number'            => !empty($row['account_number']) ? $row['account_number'] : (string) rand(1, 10000),
@@ -198,6 +199,7 @@ trait Import
 
         $data = [
             'company_id'        => company_id(),
+            'type'              => !empty($row['account_type']) ? $row['account_type'] : 'bank',
             'name'              => $row['account_name'],
             'number'            => !empty($row['account_number']) ? $row['account_number'] : (string) rand(1, 10000),
             'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : default_currency(),
@@ -224,6 +226,7 @@ trait Import
 
         $data = [
             'company_id'        => company_id(),
+            'type'              => !empty($row['account_type']) ? $row['account_type'] : 'bank',
             'number'            => $row['account_number'],
             'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['account_number'],
             'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : default_currency(),
