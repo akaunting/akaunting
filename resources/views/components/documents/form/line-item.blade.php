@@ -275,7 +275,7 @@
                                         />
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteDiscount(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>
@@ -286,7 +286,7 @@
                             <div class="flex items-center justify-between h-10 ml-3 my-3" v-for="(row_tax, row_tax_index) in row.tax_ids"
                                 :index="row_tax_index"
                             >
-                                <span class="absolute text-sm ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
+                                <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
 
                                 <div class="lg:w-1/4 lg:absolute">
                                     @stack('taxes_input_start')
@@ -350,7 +350,7 @@
                                         />
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteTax(index, row_tax_index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>
@@ -359,7 +359,7 @@
                             </div>
 
                             <div v-if="row.add_tax" class="flex items-center justify-between h-10 ml-3 my-3" :class="{'pt-2' : row.add_discount}">
-                                <span class="absolute text-sm ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
+                                <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
 
                                 <div class="lg:w-1/4 lg:absolute">
                                     @stack('taxes_input_start')
@@ -415,7 +415,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteTax(index, 999)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>
