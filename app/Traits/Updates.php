@@ -51,6 +51,9 @@ trait Updates
         }
     }
 
+    /**
+     * Run single migration.
+     */
     public function runMigration(string $file_name, $alias = ''): void
     {
         $path = $this->getPathByAlias($alias);
@@ -68,6 +71,9 @@ trait Updates
         Artisan::call('migrate', ['--force' => true, '--path' => $migration_file]);
     }
 
+    /**
+     * Run multiple migrations.
+     */
     public function runMigrations(array $file_names, $alias = ''): void
     {
         foreach ($file_names as $file_name) {
