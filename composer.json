@@ -136,22 +136,17 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-install-cmd": [
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan ide-helper:models --nowrite"
-        ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan vendor:publish --tag=livewire:assets --ansi --force",
+            "@php artisan vendor:publish --tag=livewire:assets --ansi --force"
+        ],
+        "post-create-project-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
+        ],
+        "idehelp": [
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
             "php artisan ide-helper:models --nowrite"
-        ],
-        "post-create-project-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta"
         ],
         "prod": [
             "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi --no-dev",
