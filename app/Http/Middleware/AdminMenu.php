@@ -16,11 +16,6 @@ class AdminMenu
      */
     public function handle($request, Closure $next)
     {
-        // Check if logged in
-        if (!auth()->check()) {
-            return $next($request);
-        }
-
         menu()->create('admin', function ($menu) {
             $menu->style('tailwind');
 
