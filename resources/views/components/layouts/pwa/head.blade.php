@@ -27,7 +27,7 @@
 
 <!-- Tile for Win8 -->
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="{{ asset('public/img/pwa/akaunting-512x512.png') }}">
+<meta name="msapplication-TileImage" content="{{ asset('public/img/pwa/icon-512x512.png') }}">
 
 <script type="text/javascript">
     if ('serviceWorker' in navigator) {
