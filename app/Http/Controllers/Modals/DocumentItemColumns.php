@@ -32,22 +32,22 @@ class DocumentItemColumns extends Controller
 
         $item_names = [
             'hide' => trans('settings.invoice.hide.item_name'),
-            'settings.invoice.item' => trans('settings.' . $type . '.item'),
-            'settings.invoice.product' => trans('settings.' . $type . '.product'),
-            'settings.invoice.service' =>  trans('settings.' . $type . '.service'),
+            'settings.invoice.item' => trans('settings.invoice.item'),
+            'settings.invoice.product' => trans('settings.invoice.product'),
+            'settings.invoice.service' =>  trans('settings.invoice.service'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $price_names = [
             'hide' => trans('settings.invoice.hide.price'),
-            'settings.invoice.price' => trans('settings.' . $type . '.price'),
-            'settings.invoice.rate' => trans('settings.' . $type . '.rate'),
+            'settings.invoice.price' => trans('settings.invoice.price'),
+            'settings.invoice.rate' => trans('settings.invoice.rate'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $quantity_names = [
             'hide' => trans('settings.invoice.hide.quantity'),
-            'settings.invoice.quantity' => trans('settings.' . $type . '.quantity'),
+            'settings.invoice.quantity' => trans('settings.invoice.quantity'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
