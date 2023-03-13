@@ -46,7 +46,6 @@
         "bkwld/cloner": "^3.10",
         "bugsnag/bugsnag-laravel": "^2.24",
         "doctrine/dbal": "^3.1",
-        "fruitcake/laravel-cors": "^2.0",
         "genealabs/laravel-model-caching": "0.12.*",
         "graham-campbell/markdown": "14.0.x-dev",
         "guzzlehttp/guzzle": "^7.4",
