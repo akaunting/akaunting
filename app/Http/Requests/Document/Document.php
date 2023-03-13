@@ -65,6 +65,27 @@ class Document extends FormRequest
             'recurring_interval'    => 'exclude_unless:recurring_frequency,custom|gt:0',
         ];
 
+        // Is Recurring
+        if ($this->request->has('recurring_frequency')) {
+            // first line of the recurring rule
+            if ($this->request->get('recurring_frequency') == 'custom') {
+                $rules['recurring_interval'] = 'required|gte:1';
+                $rules['recurring_custom_frequency'] = 'required|string|in:daily,weekly,monthly,yearly';
+            }
+
+            // second line of the recurring rule
+            $rules['recurring_started_at'] = 'required|date_format:Y-m-d H:i:s';
+
+            switch($this->request->get('recurring_limit')) {
+                case 'date':
+                    $rules['recurring_limit_date'] = 'required|date_format:Y-m-d H:i:s|after_or_equal:recurring_started_at';
+                    break;
+                case 'count':
+                    $rules['recurring_limit_count'] = 'required|gte:0';
+                    break;
+            }
+        }
+
         $items = $this->request->all('items');
 
         if ($items) {
@@ -93,6 +114,18 @@ class Document extends FormRequest
 
             $this->request->set('issued_at', $issued_at);
             $this->request->set('due_at', $due_at);
+
+            if ($this->request->get('recurring_started_at')) {
+                $recurring_started_at = Date::parse($this->request->get('recurring_started_at'))->format('Y-m-d');
+
+                $this->request->set('recurring_started_at', $recurring_started_at);
+            }
+
+            if ($this->request->get('recurring_limit_date')) {
+                $recurring_limit_date = Date::parse($this->request->get('recurring_limit_date'))->format('Y-m-d');
+
+                $this->request->set('recurring_limit_date', $recurring_limit_date);
+            }
         }
     }
 
@@ -117,6 +150,8 @@ class Document extends FormRequest
             'width'         => config('filesystems.max_width'),
             'height'        => config('filesystems.max_height'),
         ]);
+
+        $messages['recurring_limit_date.after_or_equal'] = trans('');
 
         return $messages;
     }

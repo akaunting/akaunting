@@ -23,12 +23,14 @@
     @else
     @interval="form.recurring_interval = $event"
     @endif
+    :invertal-error="form.errors.get('recurring_interval')"
 
     @if ($attributes->has('@custom_frequency'))
     @custom_frequency="form.recurring_custom_frequency = $event;{{ $attributes['@custom_frequency'] }}"
     @else
     @custom_frequency="form.recurring_custom_frequency = $event"
     @endif
+    :custom-frequency-error="form.errors.get('recurring_custom_frequency')"
 
     started-value="{{ $startedValue }}"
     @if ($attributes->has('@started'))
@@ -36,6 +38,7 @@
     @else
     @started="form.recurring_started_at = $event"
     @endif
+    :started-error="form.errors.get('recurring_started_at')"
 
     :limits="{{ json_encode($limits) }}"
     limit-value="{{ $limit }}"
@@ -52,6 +55,7 @@
     @else
     @limit_count="form.recurring_limit_count = $event"
     @endif
+    :limit-count-error="form.errors.get('recurring_limit_count')"
 
     limit-date-value="{{ $limitDateValue }}"
     @if ($attributes->has('@limit_date'))
@@ -59,6 +63,7 @@
     @else
     @limit_date="form.recurring_limit_date = $event"
     @endif
+    :limit-date-error="form.errors.get('recurring_limit_date')"
 
     date-format="{{ company_date_format() }}"
 

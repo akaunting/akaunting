@@ -17,7 +17,8 @@ class DateFormat
     public function handle($request, Closure $next)
     {
         if (($request->method() == 'POST') || ($request->method() == 'PATCH')) {
-            $fields = ['paid_at', 'due_at', 'issued_at', 'started_at', 'ended_at', 'expire_at'];
+            // todo fire event
+            $fields = ['paid_at', 'due_at', 'issued_at', 'started_at', 'ended_at', 'expire_at', 'recurring_started_at', 'recurring_limit_date'];
 
             foreach ($fields as $field) {
                 $date = $request->get($field);

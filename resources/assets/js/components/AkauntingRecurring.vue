@@ -20,6 +20,8 @@
 
             <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="interval" @input="change" v-if="frequency == 'custom'">
 
+            <div class="text-red text-sm mt-1 block" v-if="invertalError" v-html="invertalError"></div>
+
             <el-select class="w-36 ml-2" v-model="customFrequency" @input="change" v-if="frequency == 'custom'">
                 <el-option
                 v-for="(label, value) in customFrequencies"
@@ -28,6 +30,8 @@
                 :value="value">
                 </el-option>
             </el-select>
+
+            <div class="text-red text-sm mt-1 block" v-if="customFrequencyError" v-html="customFrequencyError"></div>
         </div>
 
         <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-start': limit !== 'never' }">
@@ -76,6 +80,8 @@
                 }">
             </el-date-picker>
 
+            <div class="text-red text-sm mt-1 block" v-if="startedError" v-html="startedError"></div>
+
             <div class="w-24 px-2 text-sm text-center">
                 {{ middleText }}
             </div>
@@ -90,6 +96,8 @@
             </el-select>
 
             <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+
+            <div class="text-red text-sm mt-1 block" v-if="limitCountError" v-html="limitCountError"></div>
 
             <div class="pl-2 text-sm" v-if="limit == 'after'">
                 {{ endText }}
@@ -106,6 +114,8 @@
                 @input="change"
             >
             </el-date-picker>
+
+            <div class="text-red text-sm mt-1 block" v-if="limitDateError" v-html="limitDateError"></div>
         </div>
     </div>
 </template>
@@ -163,6 +173,11 @@ export default {
             default: 'monthly',
             description: "Default reccuring type"
         },
+        invertalError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         customFrequencies: null,
         customFrequencyValue: {
@@ -170,11 +185,21 @@ export default {
             default: 'monthly',
             description: "Default reccuring type"
         },
+        customFrequencyError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         startedValue: {
             type: String,
             default: 'never',
             description: "Default reccuring limit"
+        },
+        startedError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
         },
 
         limits: null,
@@ -190,11 +215,21 @@ export default {
             default: 0,
             description: "Default reccuring limit"
         },
+        limitCountError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         limitDateValue: {
             type: String,
             default: '',
             description: "Default reccuring limit"
+        },
+        limitDateError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
         },
 
         dateFormat: {
