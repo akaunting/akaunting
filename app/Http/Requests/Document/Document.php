@@ -115,13 +115,13 @@ class Document extends FormRequest
             $this->request->set('issued_at', $issued_at);
             $this->request->set('due_at', $due_at);
 
-            if ($this->request->get('recurring_started_at')) {
+            if ($this->request->has('recurring_started_at')) {
                 $recurring_started_at = Date::parse($this->request->get('recurring_started_at'))->format('Y-m-d');
 
                 $this->request->set('recurring_started_at', $recurring_started_at);
             }
 
-            if ($this->request->get('recurring_limit_date')) {
+            if ($this->request->has('recurring_limit_date')) {
                 $recurring_limit_date = Date::parse($this->request->get('recurring_limit_date'))->format('Y-m-d');
 
                 $this->request->set('recurring_limit_date', $recurring_limit_date);
@@ -150,8 +150,6 @@ class Document extends FormRequest
             'width'         => config('filesystems.max_width'),
             'height'        => config('filesystems.max_height'),
         ]);
-
-        $messages['recurring_limit_date.after_or_equal'] = trans('');
 
         return $messages;
     }

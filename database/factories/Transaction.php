@@ -95,7 +95,7 @@ class Transaction extends Factory
             'recurring_custom_frequency' => 'daily',
             'recurring_interval' => '1',
             'recurring_limit' => 'date',
-            'recurring_limit_date' => Date::now()->addDay(7)->format('Y-m-d'),
+            'recurring_limit_date' => Date::now()->addDay(7)->format('Y-m-d H:i:s'),
             'disabled_transaction_paid' => "Auto-generated",
             'disabled_transaction_number' => "Auto-generated",
             'real_type' => $this->getRawAttribute('type'),
