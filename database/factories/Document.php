@@ -255,10 +255,7 @@ class Document extends AbstractFactory
             ],
         ];
 
-        return $this->state([
-            'items' => $items,
-            'recurring_frequency' => 'no',
-        ]);
+        return $this->state(['items' => $items]);
     }
 
     /**
@@ -268,7 +265,7 @@ class Document extends AbstractFactory
     public function getDocumentNumber($type)
     {
         $document_number = $this->getNextDocumentNumber($type);
-        
+
         $this->increaseNextDocumentNumber($type);
 
         return $document_number;
