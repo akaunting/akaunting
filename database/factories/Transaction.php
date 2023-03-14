@@ -90,7 +90,7 @@ class Transaction extends Factory
         return $this->state([
             'type' => $this->getRawAttribute('type') . '-recurring',
             'number' => $this->getNumber('-recurring'),
-            'recurring_started_at' => $this->getRawAttribute('paid_at'),
+            'recurring_started_at' => Date::now()->format('Y-m-d H:i:s'),
             'recurring_frequency' => 'daily',
             'recurring_custom_frequency' => 'daily',
             'recurring_interval' => '1',
