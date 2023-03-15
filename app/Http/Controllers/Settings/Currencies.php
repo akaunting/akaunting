@@ -232,13 +232,13 @@ class Currencies extends Controller
 
         $code = request('code');
 
-        $currencies = Currency::all()->pluck('rate', 'code');
-
         if ($code) {
+            $currencies = Currency::all()->pluck('rate', 'code');
+
             $currency = config('money.' . $code);
 
             $currency['rate'] = isset($currencies[$code]) ? $currencies[$code] : null;
-            $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
+            $currency['symbol_first'] = ! empty($currency['symbol_first']) ? 1 : 0;
 
             $json = (object) $currency;
         }
