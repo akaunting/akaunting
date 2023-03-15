@@ -96,7 +96,7 @@ class Account extends Model
      */
     public function getTitleAttribute()
     {
-        if ($this->currency->symbol) {
+        if (! empty($this->currency) && ! empty($this->currency->symbol)) {
             return $this->name . ' (' . $this->currency->symbol . ')';
         }
 
