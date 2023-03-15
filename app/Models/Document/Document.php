@@ -216,7 +216,10 @@ class Document extends Model
 
     public function scopeInvoiceRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::INVOICE_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::INVOICE_RECURRING_TYPE)
+                    ->whereHas('recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
     }
 
     public function scopeBill(Builder $query): Builder
@@ -226,7 +229,10 @@ class Document extends Model
 
     public function scopeBillRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::BILL_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::BILL_RECURRING_TYPE)
+                    ->whereHas('recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
     }
 
     /**
