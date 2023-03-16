@@ -19,7 +19,7 @@ class SendDocumentViewNotification
     {
         $document = $event->document;
 
-        if (in_array($documet->status, [
+        if (in_array($document->status, [
             'viewed', 'approved', 'received', 'refused', 'partial', 'paid',
             'cancelled', 'voided', 'completed', 'refunded',
         ])) {
