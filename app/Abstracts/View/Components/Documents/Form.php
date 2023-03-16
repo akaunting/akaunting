@@ -289,9 +289,11 @@ abstract class Form extends Component
 
         $this->model = ! empty($model) ? $model : $document;
         $this->document = $this->model;
-        $this->currencies = $this->getCurrencies($currencies);
-        $this->currency = $this->getCurrency($document, $currency, $currency_code);
+
         $this->currency_code = ! empty($this->currency) ? $this->currency->code : default_currency();
+        $this->currency = $this->getCurrency($document, $currency, $currency_code);
+        $this->currencies = $this->getCurrencies($currencies);
+
         $this->taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         /* -- Content Start -- */
