@@ -40,9 +40,10 @@ class DocumentItem extends Model
      * @var array
      */
     protected $casts = [
-        'price' => 'double',
-        'total' => 'double',
-        'tax' => 'double',
+        'price'         => 'double',
+        'total'         => 'double',
+        'tax'           => 'double',
+        'deleted_at'    => 'datetime',
     ];
 
     /**

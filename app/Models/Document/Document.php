@@ -30,8 +30,6 @@ class Document extends Model
 
     protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at', 'reconciled', 'contact_location'];
 
-    protected $dates = ['deleted_at', 'issued_at', 'due_at'];
-
     protected $fillable = [
         'company_id',
         'type',
@@ -67,8 +65,11 @@ class Document extends Model
      * @var array
      */
     protected $casts = [
-        'amount' => 'double',
+        'issued_at'     => 'datetime',
+        'due_at'        => 'datetime',
+        'amount'        => 'double',
         'currency_rate' => 'double',
+        'deleted_at'    => 'datetime',
     ];
 
     /**

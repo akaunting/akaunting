@@ -33,8 +33,9 @@ class Account extends Model
      * @var array
      */
     protected $casts = [
-        'opening_balance' => 'double',
-        'enabled' => 'boolean',
+        'opening_balance'   => 'double',
+        'enabled'           => 'boolean',
+        'deleted_at'        => 'datetime',
     ];
 
     /**

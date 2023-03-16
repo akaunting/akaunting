@@ -15,7 +15,6 @@ use Bkwld\Cloner\Cloneable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 class Contact extends Model
 {
     use Cloneable, Contacts, Currencies, HasFactory, Media, Notifiable, Transactions;
@@ -57,15 +56,6 @@ class Contact extends Model
         'enabled',
         'created_from',
         'created_by',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'enabled' => 'boolean',
     ];
 
     /**

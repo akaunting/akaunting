@@ -36,9 +36,10 @@ class Item extends Model
      * @var array
      */
     protected $casts = [
-        'sale_price' => 'double',
-        'purchase_price' => 'double',
-        'enabled' => 'boolean',
+        'sale_price'        => 'double',
+        'purchase_price'    => 'double',
+        'enabled'           => 'boolean',
+        'deleted_at'        => 'datetime',
     ];
 
     /**

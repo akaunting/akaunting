@@ -22,10 +22,10 @@ abstract class Model extends Eloquent implements Ownable
 
     protected $tenantable = true;
 
-    protected $dates = ['deleted_at'];
-
     protected $casts = [
-        'enabled' => 'boolean',
+        'amount'        => 'double',
+        'enabled'       => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     public $allAttributes = [];
@@ -105,7 +105,7 @@ abstract class Model extends Eloquent implements Ownable
         /**
          * Modules that use the sort parameter in CRUD operations cause an error,
          * so this sort parameter set back to old value after the query is executed.
-         * 
+         *
          * for Custom Fields module
          */
         $request_sort = $request->get('sort');

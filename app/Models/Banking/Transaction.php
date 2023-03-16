@@ -30,8 +30,6 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $dates = ['deleted_at', 'paid_at'];
-
     /**
      * Attributes that should be mass-assignable.
      *
@@ -64,8 +62,10 @@ class Transaction extends Model
      * @var array
      */
     protected $casts = [
-        'amount' => 'double',
-        'currency_rate' => 'double',
+        'paid_at'           => 'datetime',
+        'amount'            => 'double',
+        'currency_rate'     => 'double',
+        'deleted_at'        => 'datetime',
     ];
 
     /**

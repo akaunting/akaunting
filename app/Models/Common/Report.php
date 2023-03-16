@@ -25,7 +25,8 @@ class Report extends Model
      * @var array
      */
     protected $casts = [
-        'settings' => 'object',
+        'settings'      => 'object',
+        'deleted_at'    => 'datetime',
     ];
 
     /**

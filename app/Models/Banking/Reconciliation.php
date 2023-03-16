@@ -26,9 +26,10 @@ class Reconciliation extends Model
      * @var array
      */
     protected $casts = [
-        'closing_balance' => 'double',
-        'reconciled' => 'boolean',
-        'transactions' => 'array',
+        'closing_balance'   => 'double',
+        'reconciled'        => 'boolean',
+        'transactions'      => 'array',
+        'deleted_at'        => 'datetime',
     ];
 
     /**

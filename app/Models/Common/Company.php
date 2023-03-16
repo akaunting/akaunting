@@ -34,12 +34,11 @@ class Company extends Eloquent implements Ownable
      */
     protected $appends = ['location'];
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['domain', 'enabled', 'created_from', 'created_by'];
 
     protected $casts = [
-        'enabled' => 'boolean',
+        'enabled'       => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     public $allAttributes = [];

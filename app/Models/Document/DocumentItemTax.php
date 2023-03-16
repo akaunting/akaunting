@@ -16,15 +16,6 @@ class DocumentItemTax extends Model
 
     protected $fillable = ['company_id', 'type', 'document_id', 'document_item_id', 'tax_id', 'name', 'amount', 'created_from', 'created_by'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'amount' => 'double',
-    ];
-
     public function document()
     {
         return $this->belongsTo('App\Models\Document\Document')->withoutGlobalScope('App\Scopes\Document');

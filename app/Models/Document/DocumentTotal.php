@@ -18,15 +18,6 @@ class DocumentTotal extends Model
 
     protected $fillable = ['company_id', 'type', 'document_id', 'code', 'name', 'amount', 'sort_order', 'created_from', 'created_by'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'amount' => 'double',
-    ];
-
     public function document()
     {
         return $this->belongsTo('App\Models\Document\Document')->withoutGlobalScope('App\Scopes\Document');

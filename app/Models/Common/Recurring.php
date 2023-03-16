@@ -43,7 +43,8 @@ class Recurring extends Model
      * @var array
      */
     protected $casts = [
-        'auto_send' => 'boolean',
+        'auto_send'     => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     /**
