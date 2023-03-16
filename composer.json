@@ -83,7 +83,7 @@
         "fakerphp/faker": "^1.20",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^7.1",
-        "phpunit/phpunit": "^9.5|^10.0",
+        "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0",
         "wnx/laravel-stats": "^2.11"
     },
