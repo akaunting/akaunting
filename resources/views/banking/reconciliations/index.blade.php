@@ -120,7 +120,7 @@
                 <x-pagination :items="$reconciliations" />
             </x-index.container>
         @else
-            <x-empty-page group="banking" page="reconciliations" />
+            <x-empty-page group="banking" page="reconciliations" hide-button-import />
         @endif
     </x-slot>
 
