@@ -14,9 +14,9 @@
                     <x-slot name="body">
                         <x-form.group.text name="number_prefix" label="{{ trans('settings.invoice.prefix') }}"  value="{{ setting('invoice.number_prefix') }}" not-required />
 
-                        <x-form.group.number_digit  :clearable="'false'" not-required />
+                        <x-form.group.number_digit :clearable="'false'" not-required />
 
-                        <x-form.group.text name="number_next" label="{{ trans('settings.invoice.next') }}" value="{{ setting('invoice.number_next') }}" not-required />
+                        <x-form.group.number name="number_next" label="{{ trans('settings.invoice.next') }}" value="{{ setting('invoice.number_next') }}" not-required />
 
                         <x-form.group.select name="payment_terms" label="{{ trans('settings.invoice.payment_terms') }}" :options="$payment_terms" :clearable="'false'" :selected="setting('invoice.payment_terms')" not-required />
                     </x-slot>
