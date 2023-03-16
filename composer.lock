@@ -4,31 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64e36c3a89c679084f5c47ced050ea9f",
+    "content-hash": "5bbb28bca397f0c44e747eebf889f47a",
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
-            "version": "2.0.1",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-apexcharts.git",
-                "reference": "3b545508bec317c36a0cb83809de6e6cc8397832"
+                "reference": "c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/3b545508bec317c36a0cb83809de6e6cc8397832",
-                "reference": "3b545508bec317c36a0cb83809de6e6cc8397832",
+                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f",
+                "reference": "c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f",
                 "shasum": ""
             },
             "require": {
                 "balping/json-raw-encoder": "^1.0",
                 "ext-json": "*",
-                "illuminate/support": ">=8.0",
-                "php": ">=8.0"
+                "illuminate/support": "^9.0|^10.0",
+                "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": ">=6.0",
-                "phpunit/phpunit": ">=9.0"
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.4|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
             },
             "type": "library",
             "extra": {
@@ -70,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-apexcharts/issues",
-                "source": "https://github.com/akaunting/laravel-apexcharts/tree/2.0.1"
+                "source": "https://github.com/akaunting/laravel-apexcharts/tree/3.0.1"
             },
-            "time": "2022-06-16T14:48:25+00:00"
+            "time": "2023-03-16T14:46:17+00:00"
         },
         {
             "name": "akaunting/laravel-debugbar-collector",
@@ -342,16 +343,16 @@
         },
         {
             "name": "akaunting/laravel-module",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-module.git",
-                "reference": "231bcac97be122a6ff00479b422523ffede9007b"
+                "reference": "a6d6cf4578759db636ce9063bd2c88b3ef73199a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-module/zipball/231bcac97be122a6ff00479b422523ffede9007b",
-                "reference": "231bcac97be122a6ff00479b422523ffede9007b",
+                "url": "https://api.github.com/repos/akaunting/laravel-module/zipball/a6d6cf4578759db636ce9063bd2c88b3ef73199a",
+                "reference": "a6d6cf4578759db636ce9063bd2c88b3ef73199a",
                 "shasum": ""
             },
             "require": {
@@ -360,7 +361,7 @@
             "require-dev": {
                 "laravel/framework": "^9.0|^10.0",
                 "orchestra/testbench": "^7.4|^8.0",
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^9.5|^10.0"
             },
             "type": "library",
             "extra": {
@@ -402,22 +403,22 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-module/issues",
-                "source": "https://github.com/akaunting/laravel-module/tree/3.0.0"
+                "source": "https://github.com/akaunting/laravel-module/tree/3.0.1"
             },
-            "time": "2023-03-16T10:51:39+00:00"
+            "time": "2023-03-16T14:48:10+00:00"
         },
         {
             "name": "akaunting/laravel-money",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-money.git",
-                "reference": "1b9a56e9cfdfe53291be2936754592c2c432ddcf"
+                "reference": "df99d0f5d415490ef7e79362c3b694e8cc8af903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/1b9a56e9cfdfe53291be2936754592c2c432ddcf",
-                "reference": "1b9a56e9cfdfe53291be2936754592c2c432ddcf",
+                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/df99d0f5d415490ef7e79362c3b694e8cc8af903",
+                "reference": "df99d0f5d415490ef7e79362c3b694e8cc8af903",
                 "shasum": ""
             },
             "require": {
@@ -430,7 +431,7 @@
             },
             "require-dev": {
                 "orchestra/testbench": "^7.4|^8.0",
-                "phpunit/phpunit": "^9.5",
+                "phpunit/phpunit": "^9.5|^10.0",
                 "vimeo/psalm": "^4.23"
             },
             "type": "library",
@@ -471,31 +472,31 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-money/issues",
-                "source": "https://github.com/akaunting/laravel-money/tree/4.0.0"
+                "source": "https://github.com/akaunting/laravel-money/tree/4.0.1"
             },
-            "time": "2023-02-14T18:09:30+00:00"
+            "time": "2023-03-16T14:39:27+00:00"
         },
         {
             "name": "akaunting/laravel-mutable-observer",
-            "version": "1.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-mutable-observer.git",
-                "reference": "09664ab6037b5c668f7437d0dcbd50ae40078e3e"
+                "reference": "f7367ae0fcf7e9ac640bee5ec016471564125b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-mutable-observer/zipball/09664ab6037b5c668f7437d0dcbd50ae40078e3e",
-                "reference": "09664ab6037b5c668f7437d0dcbd50ae40078e3e",
+                "url": "https://api.github.com/repos/akaunting/laravel-mutable-observer/zipball/f7367ae0fcf7e9ac640bee5ec016471564125b21",
+                "reference": "f7367ae0fcf7e9ac640bee5ec016471564125b21",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=8.0",
-                "php": ">=8.0"
+                "laravel/framework": "^9.0|^10.0",
+                "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": ">=7.0",
-                "phpunit/phpunit": ">=9.0"
+                "orchestra/testbench": "^7.4|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
             },
             "type": "library",
             "extra": {
@@ -532,9 +533,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-mutable-observer/issues",
-                "source": "https://github.com/akaunting/laravel-mutable-observer/tree/1.0.0"
+                "source": "https://github.com/akaunting/laravel-mutable-observer/tree/2.0.1"
             },
-            "time": "2022-02-23T08:45:00+00:00"
+            "time": "2023-03-16T14:49:06+00:00"
         },
         {
             "name": "akaunting/laravel-setting",
@@ -605,25 +606,25 @@
         },
         {
             "name": "akaunting/laravel-sortable",
-            "version": "1.0.6",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-sortable.git",
-                "reference": "3102d2c53bc9ef89b697331a7a1c8d8463738f22"
+                "reference": "f0ac8c5c53d6196575011f23d85a5e9587cf321b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-sortable/zipball/3102d2c53bc9ef89b697331a7a1c8d8463738f22",
-                "reference": "3102d2c53bc9ef89b697331a7a1c8d8463738f22",
+                "url": "https://api.github.com/repos/akaunting/laravel-sortable/zipball/f0ac8c5c53d6196575011f23d85a5e9587cf321b",
+                "reference": "f0ac8c5c53d6196575011f23d85a5e9587cf321b",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=6.0",
-                "php": ">=7.3"
+                "laravel/framework": "^9.0|^10.0",
+                "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": ">=6.0",
-                "phpunit/phpunit": ">=9.0"
+                "orchestra/testbench": "^7.4|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
             },
             "type": "library",
             "extra": {
@@ -663,9 +664,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-sortable/issues",
-                "source": "https://github.com/akaunting/laravel-sortable/tree/1.0.6"
+                "source": "https://github.com/akaunting/laravel-sortable/tree/2.0.1"
             },
-            "time": "2022-09-23T10:54:50+00:00"
+            "time": "2023-03-16T14:47:26+00:00"
         },
         {
             "name": "akaunting/laravel-version",
