@@ -14,11 +14,11 @@
                     <x-slot name="body">
                         <x-form.group.text name="number_prefix" label="{{ trans('settings.invoice.prefix') }}"  value="{{ setting('invoice.number_prefix') }}" not-required />
 
-                        <x-form.group.number_digit not-required />
+                        <x-form.group.number_digit  :clearable="'false'" not-required />
 
                         <x-form.group.text name="number_next" label="{{ trans('settings.invoice.next') }}" value="{{ setting('invoice.number_next') }}" not-required />
 
-                        <x-form.group.select name="payment_terms" label="{{ trans('settings.invoice.payment_terms') }}" :options="$payment_terms" :selected="setting('invoice.payment_terms')" not-required />
+                        <x-form.group.select name="payment_terms" label="{{ trans('settings.invoice.payment_terms') }}" :options="$payment_terms" :clearable="'false'" :selected="setting('invoice.payment_terms')" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -98,6 +98,7 @@
                                 name="item_name"
                                 label="{{ trans('settings.invoice.item_name') }}"
                                 :options="$item_names"
+                                :clearable="'false'"
                                 :selected="setting('invoice.item_name')"
                                 change="settingsInvoice"
                                 input-name="item_name_input"
@@ -109,6 +110,7 @@
                                 name="price_name"
                                 label="{{ trans('settings.invoice.price_name') }}"
                                 :options="$price_names"
+                                :clearable="'false'"
                                 :selected="setting('invoice.price_name')"
                                 change="settingsInvoice"
                                 input-name="price_name_input"
@@ -120,6 +122,7 @@
                                 name="quantity_name"
                                 label="{{ trans('settings.invoice.quantity_name') }}"
                                 :options="$quantity_names"
+                                :clearable="'false'"
                                 :selected="setting('invoice.quantity_name')"
                                 change="settingsInvoice"
                                 input-name="quantity_name_input"
