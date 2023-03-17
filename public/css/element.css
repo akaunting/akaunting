@@ -10202,7 +10202,7 @@
 }
 
 .el-progress-bar__innerText {
-    color: #FFF;
+    color: #FFF !important;
     font-size: 12px;
     margin: 0 5px
 }
