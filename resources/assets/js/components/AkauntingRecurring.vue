@@ -92,7 +92,7 @@
             </div>
 
             <el-select class="w-20" v-model="limit" @input="change"
-            :class="startedError || limitDateError ? 'pt-0 pb-0' : '' && startedError && limitDateError ? 'pt-6 pb-16' : 'pb-10'">
+            :class="startedError || limitDateError ? 'pt-0 pb-6' : '' && startedError && limitDateError ? 'pt-6 pb-16' : 'pb-10'">
                 <el-option
                 v-for="(label, value) in limits"
                 :key="value"
