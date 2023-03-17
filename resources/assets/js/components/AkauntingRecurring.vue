@@ -39,54 +39,60 @@
                 {{ startText }}
             </div>
 
-            <el-date-picker
-                class="w-36 recurring-invoice-data"
-                v-model="started_at"
-                @input="change"
-                type="date"
-                align="right"
-                :format="formatDate"
-                value-format="yyyy-MM-dd"
-                :picker-options="{
-                    disabledDate(time) {
-                        return time.getTime() < Date.now();
-                    },
-                    shortcuts: [
-                        {
-                            text: dateRangeText['today'],
-                            onClick(picker) {
-                                picker.$emit('pick', new Date());
-                            }
+            <div
+            :class="startedError ? 'pt-0' : '' && startedError || limitDateError ? 'pt-0 pb-5' : 'pb-10' && startedError && limitDateError ? 'pt-6 pb-5' : 'pb-10'">
+                    <el-date-picker
+                    class="w-36 cursor-pointer recurring-invoice-data"
+                    v-model="started_at"
+                    @input="change"
+                    type="date"
+                    align="right"
+                    :format="formatDate"
+                    value-format="yyyy-MM-dd"
+                    :picker-options="{
+                        disabledDate(time) {
+                            return time.getTime() < Date.now();
                         },
-                        {
-                            text: dateRangeText['yesterday'],
-                            onClick(picker) {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24);
+                        shortcuts: [
+                            {
+                                text: dateRangeText['today'],
+                                onClick(picker) {
+                                    picker.$emit('pick', new Date());
+                                }
+                            },
+                            {
+                                text: dateRangeText['yesterday'],
+                                onClick(picker) {
+                                    const date = new Date();
+                                    date.setTime(date.getTime() - 3600 * 1000 * 24);
 
-                                picker.$emit('pick', date);
+                                    picker.$emit('pick', date);
+                                }
+                            },
+                            {
+                                text: dateRangeText['week_ago'],
+                                onClick(picker) {
+                                    const date = new Date();
+                                    date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+
+                                    picker.$emit('pick', date);
+                                }
                             }
-                        },
-                        {
-                            text: dateRangeText['week_ago'],
-                            onClick(picker) {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                        ]
+                    }">
+                    </el-date-picker>
 
-                                picker.$emit('pick', date);
-                            }
-                        }
-                    ]
-                }">
-            </el-date-picker>
+                <div class="text-red text-sm mt-1 block" v-if="startedError" v-html="startedError"></div>
 
-            <div class="text-red text-sm mt-1 block" v-if="startedError" v-html="startedError"></div>
+            </div>
 
-            <div class="w-24 px-2 text-sm text-center">
+            <div class="w-24 px-2 text-sm text-center"
+            :class="(startedError || limitDateError ? 'pt-10 pb-14' : 'pb-10') && (startedError && limitDateError ? 'pt-6 pb-14' : 'pb-10')">
                 {{ middleText }}
             </div>
 
-            <el-select class="w-20" v-model="limit" @input="change">
+            <el-select class="w-20" v-model="limit" @input="change"
+            :class="startedError || limitDateError ? 'pt-0 pb-0' : '' && startedError && limitDateError ? 'pt-6 pb-16' : 'pb-10'">
                 <el-option
                 v-for="(label, value) in limits"
                 :key="value"
@@ -95,7 +101,7 @@
                 </el-option>
             </el-select>
 
-            <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+            <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
 
             <div class="text-red text-sm mt-1 block" v-if="limitCountError" v-html="limitCountError"></div>
 
@@ -103,19 +109,22 @@
                 {{ endText }}
             </div>
 
-            <el-date-picker
-                class="w-36 ml-2 recurring-invoice-data"
-                v-model="limitDate"
-                type="date"
-                align="right"
-                :format="formatDate"
-                value-format="yyyy-MM-dd"
-                v-if="limit == 'on'"
-                @input="change"
-            >
-            </el-date-picker>
+            <div 
+            :class="startedError || limitDateError ? 'pt-10 pb-10' : 'pb-10'  &&  startedError && limitDateError ? ' pt-20 pb-14' : 'pb-10'">
+                    <el-date-picker
+                    class="w-36 ml-2 cursor-pointer recurring-invoice-data"
+                    v-model="limitDate"
+                    type="date"
+                    align="right"
+                    :format="formatDate"
+                    value-format="yyyy-MM-dd"
+                    v-if="limit == 'on'"
+                    @input="change"
+                >
+                </el-date-picker>
 
-            <div class="text-red text-sm mt-1 block" v-if="limitDateError" v-html="limitDateError"></div>
+                <div class="text-red text-sm mt-1 ml-2 block" v-if="limitDateError" v-html="limitDateError"></div>
+            </div>
         </div>
     </div>
 </template>
