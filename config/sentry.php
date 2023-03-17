@@ -31,6 +31,9 @@ return [
 
         // Capture command information in breadcrumbs
         'command_info' => env('SENTRY_BREADCRUMBS_COMMAND_INFO', true),
+
+        // Capture HTTP client requests information in breadcrumbs
+        'http_client_requests' => env('SENTRY_BREADCRUMBS_HTTP_CLIENT_REQUESTS', true),
     ],
 
     'tracing' => [
