@@ -4,7 +4,7 @@ return [
 
     'enabled' => env('FIREWALL_ENABLED', false),
 
-    'whitelist' => [env('FIREWALL_WHITELIST', '')],
+    'whitelist' => explode(',', env('FIREWALL_WHITELIST', '')),
 
     'models' => [
         'user' => '\App\Models\Auth\User',
