@@ -18,14 +18,14 @@ trait Emails
         $limit_per_month = config('app.throttles.email.month');
         $decay_per_month = 60 * 60 * 24 * 30;
 
-        $can_send = RateLimiter::attempt($key_per_month, $limit_per_month, fn() => '', $decay_per_month);
+        $can_send = RateLimiter::attempt($key_per_month, $limit_per_month, fn() => null, $decay_per_month);
 
         if ($can_send) {
             // Check if the user has reached the limit of emails per minute
             $key_per_minute = 'email-minute:' . user()->id;
             $limit_per_minute = config('app.throttles.email.minute');
 
-            $can_send = RateLimiter::attempt($key_per_minute, $limit_per_minute, fn() => '');
+            $can_send = RateLimiter::attempt($key_per_minute, $limit_per_minute, fn() => null);
         }
 
         if ($can_send) {
