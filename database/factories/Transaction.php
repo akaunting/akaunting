@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Abstracts\Factory;
 use App\Models\Banking\Transaction as Model;
+use App\Models\Common\Contact;
 use App\Traits\Transactions;
 use App\Utilities\Date;
 
@@ -61,10 +62,21 @@ class Transaction extends Factory
      */
     public function income()
     {
-        return $this->state([
-            'type' => 'income',
-            'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
-        ]);
+        return $this->state(function (array $attributes): array {
+            $contacts = Contact::customer()->enabled()->get();
+
+            if ($contacts->count()) {
+                $contact = $contacts->random(1)->first();
+            } else {
+                $contact = Contact::factory()->customer()->enabled()->create();
+            }
+
+            return [
+                'type' => 'income',
+                'contact_id' => $contact->id,
+                'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
+            ];
+        });
     }
 
     /**
@@ -74,10 +86,21 @@ class Transaction extends Factory
      */
     public function expense()
     {
-        return $this->state([
-            'type' => 'expense',
-            'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
-        ]);
+        return $this->state(function (array $attributes): array {
+            $contacts = Contact::vendor()->enabled()->get();
+
+            if ($contacts->count()) {
+                $contact = $contacts->random(1)->first();
+            } else {
+                $contact = Contact::factory()->vendor()->enabled()->create();
+            }
+
+            return [
+                'type' => 'expense',
+                'contact_id' => $contact->id,
+                'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
+            ];
+        });
     }
 
     /**
@@ -109,7 +132,7 @@ class Transaction extends Factory
     public function getNumber($suffix = '')
     {
         $number = $this->getNextTransactionNumber($suffix);
-        
+
         $this->increaseNextTransactionNumber($suffix);
 
         return $number;

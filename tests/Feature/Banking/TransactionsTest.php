@@ -4,6 +4,7 @@ namespace Tests\Feature\Banking;
 
 use App\Exports\Banking\Transactions as Export;
 use App\Jobs\Banking\CreateTransaction;
+use App\Notifications\Banking\Transaction as Notification;
 use App\Models\Banking\Transaction;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -68,6 +69,37 @@ class TransactionsTest extends FeatureTestCase
             'paid_at' => $request['recurring_started_at'],
             'amount' => $request['amount'],
         ]);
+    }
+
+    public function testItShouldSendTransactionEmail()
+    {
+        config(['mail.default' => 'array']);
+
+        $transaction = $this->dispatch(new CreateTransaction($this->getRequest()));
+
+        $this->loginAs()
+            ->post(route('modals.transactions.emails.store', $transaction->id), $this->getEmailRequest($transaction))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldHitRateLimitForSendTransactionEmail()
+    {
+        config(['mail.default' => 'array']);
+
+        $transaction = $this->dispatch(new CreateTransaction($this->getRequest()));
+
+        for ($i = 0; $i < config('app.throttles.email.minute'); $i++) {
+            $this->loginAs()
+                ->post(route('modals.transactions.emails.store', $transaction->id), $this->getEmailRequest($transaction));
+        }
+
+        $this->loginAs()
+            ->post(route('modals.transactions.emails.store', $transaction->id), $this->getEmailRequest($transaction))
+            ->assertJson([
+                'success' => false,
+            ]);
     }
 
 	public function testItShouldSeeTransactionUpdatePage()
@@ -191,5 +223,19 @@ class TransactionsTest extends FeatureTestCase
         $factory = $recurring ? $factory->income()->recurring() : $factory->income();
 
         return $factory->raw();
+    }
+
+    public function getEmailRequest($transaction)
+    {
+        $email_template = config('type.transaction.' . $transaction->type . '.email_template');
+
+        $notification = new Notification($transaction, $email_template, true);
+
+        return [
+            'transaction_id'    => $transaction->id,
+            'to'                => $transaction->contact->email,
+            'subject'           => $notification->getSubject(),
+            'body'              => $notification->getBody(),
+        ];
     }
 }

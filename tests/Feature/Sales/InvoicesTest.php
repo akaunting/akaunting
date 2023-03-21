@@ -5,6 +5,7 @@ namespace Tests\Feature\Sales;
 use App\Exports\Sales\Invoices as Export;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Document\Document;
+use App\Notifications\Sale\Invoice as Notification;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -125,6 +126,37 @@ class InvoicesTest extends FeatureTestCase
             'type' => Document::INVOICE_RECURRING_TYPE,
             'document_number' => $request['document_number'],
         ]);
+    }
+
+    public function testItShouldSendInvoiceEmail()
+    {
+        config(['mail.default' => 'array']);
+
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        $this->loginAs()
+            ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldHitRateLimitForSendInvoiceEmail()
+    {
+        config(['mail.default' => 'array']);
+
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        for ($i = 0; $i < config('app.throttles.email.minute'); $i++) {
+            $this->loginAs()
+                ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice));
+        }
+
+        $this->loginAs()
+            ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice))
+            ->assertJson([
+                'success' => false,
+            ]);
     }
 
     public function testItShouldSeeInvoiceUpdatePage()
@@ -253,5 +285,17 @@ class InvoicesTest extends FeatureTestCase
         $factory = $recurring ? $factory->invoice()->items()->recurring() : $factory->invoice()->items();
 
         return $factory->raw();
+    }
+
+    public function getEmailRequest($invoice)
+    {
+        $notification = new Notification($invoice, 'invoice_new_customer', true);
+
+        return [
+            'document_id'   => $invoice->id,
+            'to'            => $invoice->contact->email,
+            'subject'       => $notification->getSubject(),
+            'body'          => $notification->getBody(),
+        ];
     }
 }
