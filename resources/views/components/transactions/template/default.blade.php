@@ -132,7 +132,11 @@
                 </td>
 
                 <td valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
-                    {{ !empty($payment_methods[$transaction->payment_method]) ? $payment_methods[$transaction->payment_method] : trans('general.na') }}
+                    @if (! empty($payment_methods[$transaction->payment_method]))
+                        {!! $payment_methods[$transaction->payment_method] !!}
+                    @else
+                        <x-empty-data />
+                    @endif
                 </td>
             </tr>
         @endif
