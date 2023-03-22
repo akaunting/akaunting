@@ -23,6 +23,7 @@ trait Recurring
         $limit_by = !empty($request['recurring_limit']) ? $request['recurring_limit'] : 'count';
         $limit_count = isset($request['recurring_limit_count']) ? (int) $request['recurring_limit_count'] : 0;
         $limit_date = !empty($request['recurring_limit_date']) ? $request['recurring_limit_date'] : null;
+        $auto_send = !empty($request['recurring_send_email']) ? $request['recurring_send_email'] : 0;
         $source = !empty($request['created_from']) ? $request['created_from'] : source_name();
         $owner = !empty($request['created_by']) ? $request['created_by'] : user_id();
 
@@ -35,6 +36,7 @@ trait Recurring
             'limit_by'      => $limit_by,
             'limit_count'   => $limit_count,
             'limit_date'    => $limit_date,
+            'auto_send'     => $auto_send,
             'created_from'  => $source,
             'created_by'    => $owner,
         ]);
@@ -54,6 +56,7 @@ trait Recurring
         $limit_by = !empty($request['recurring_limit']) ? $request['recurring_limit'] : 'count';
         $limit_count = isset($request['recurring_limit_count']) ? (int) $request['recurring_limit_count'] : 0;
         $limit_date = !empty($request['recurring_limit_date']) ? $request['recurring_limit_date'] : null;
+        $auto_send = !empty($request['recurring_send_email']) ? $request['recurring_send_email'] : 0;
 
         $recurring = $this->recurring();
         $model_exists = $recurring->count();
@@ -66,6 +69,7 @@ trait Recurring
             'limit_by'      => $limit_by,
             'limit_count'   => $limit_count,
             'limit_date'    => $limit_date,
+            'auto_send'     => $auto_send,
         ];
 
         if (! empty($request['recurring_status'])) {

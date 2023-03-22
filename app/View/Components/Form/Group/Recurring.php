@@ -22,6 +22,9 @@ class Recurring extends Component
     public $limitCount = '';
     public $limitDateValue = '';
 
+    public $sendEmailShow;
+    public $sendEmail;
+
     /**
      * Create a new component instance.
      *
@@ -41,6 +44,9 @@ class Recurring extends Component
         $startedValue = '',
         $limitCount = '',
         $limitDateValue = '',
+
+        $sendEmailShow = true,
+        $sendEmail = false
     ) {
         $this->type = $this->getType($type);
         $this->frequency = $this->getFrequency($frequency);
@@ -55,6 +61,9 @@ class Recurring extends Component
         $this->startedValue = $this->getStartedValue($startedValue);
         $this->limitCount = $this->getLimitCount($limitCount);
         $this->limitDateValue = $this->getLimitDateValue($limitDateValue);
+
+        $this->sendEmailShow = $this->getSendEmailShow($sendEmailShow);
+        $this->sendEmail = $this->getSendEmail($sendEmail);
     }
 
     /**
@@ -170,5 +179,23 @@ class Recurring extends Component
         }
 
         return Date::now()->toDateString();
+    }
+
+    protected function getSendEmailShow($sendEmailShow)
+    {
+        if (! empty($sendEmailShow)) {
+            return $sendEmailShow;
+        }
+
+        return false;
+    }
+
+    protected function getSendEmail($sendEmail)
+    {
+        if (! empty($sendEmail)) {
+            return $sendEmail;
+        }
+
+        return false;
     }
 }
