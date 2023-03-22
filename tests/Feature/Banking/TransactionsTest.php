@@ -8,6 +8,7 @@ use App\Notifications\Banking\Transaction as Notification;
 use App\Models\Banking\Transaction;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
 
@@ -73,7 +74,7 @@ class TransactionsTest extends FeatureTestCase
 
     public function testItShouldSendTransactionEmail()
     {
-        config(['mail.default' => 'array']);
+        NotificationFacade::fake();
 
         $transaction = $this->dispatch(new CreateTransaction($this->getRequest()));
 
@@ -82,15 +83,19 @@ class TransactionsTest extends FeatureTestCase
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        NotificationFacade::assertSentTo($transaction->contact, Notification::class);
     }
 
     public function testItShouldHitRateLimitForSendTransactionEmail()
     {
-        config(['mail.default' => 'array']);
+        NotificationFacade::fake();
+
+        $limit_per_minute = (int) config('app.throttles.email.minute');
 
         $transaction = $this->dispatch(new CreateTransaction($this->getRequest()));
 
-        for ($i = 0; $i < config('app.throttles.email.minute'); $i++) {
+        for ($i = 0; $i < $limit_per_minute; $i++) {
             $this->loginAs()
                 ->post(route('modals.transactions.emails.store', $transaction->id), $this->getEmailRequest($transaction));
         }
@@ -100,6 +105,8 @@ class TransactionsTest extends FeatureTestCase
             ->assertJson([
                 'success' => false,
             ]);
+
+        NotificationFacade::assertSentTimes(Notification::class, $limit_per_minute);
     }
 
 	public function testItShouldSeeTransactionUpdatePage()
