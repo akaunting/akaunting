@@ -10,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
 
@@ -130,7 +131,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldSendInvoiceEmail()
     {
-        config(['mail.default' => 'array']);
+        NotificationFacade::fake();
 
         $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
 
@@ -139,15 +140,19 @@ class InvoicesTest extends FeatureTestCase
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        NotificationFacade::assertSentTo($invoice->contact, Notification::class);
     }
 
     public function testItShouldHitRateLimitForSendInvoiceEmail()
     {
-        config(['mail.default' => 'array']);
+        NotificationFacade::fake();
+
+        $limit_per_minute = (int) config('app.throttles.email.minute');
 
         $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
 
-        for ($i = 0; $i < config('app.throttles.email.minute'); $i++) {
+        for ($i = 0; $i < $limit_per_minute; $i++) {
             $this->loginAs()
                 ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice));
         }
@@ -157,6 +162,8 @@ class InvoicesTest extends FeatureTestCase
             ->assertJson([
                 'success' => false,
             ]);
+
+        NotificationFacade::assertSentTimes(Notification::class, $limit_per_minute);
     }
 
     public function testItShouldSeeInvoiceUpdatePage()
