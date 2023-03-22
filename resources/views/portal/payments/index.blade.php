@@ -41,11 +41,7 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 sm:w-3/12">
-                                    @if (! empty($payment_methods[$item->payment_method]))
-                                        {!! $payment_methods[$item->payment_method] !!}
-                                    @else
-                                        <x-empty-data />
-                                    @endif
+                                    <x-payment-method :method="$item->payment_method" type="customer" />
                                 </x-table.td>
 
                                 <x-table.td class="w-3/12" hidden-mobile>
