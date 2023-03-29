@@ -1,5 +1,5 @@
 @props([
-    'metaTitle', 'title',
+    'metaTitle', 'title', 'currency'
 ])
 
 <head>

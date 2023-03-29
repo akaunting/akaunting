@@ -45,7 +45,7 @@
 
         <div class="text-xs mt-6" style="margin-left: 0 !important;">
             <span class="font-medium">
-                {{ trans('invoices.payment_received') }} :
+                {{ trans('invoices.payments_received') }}:
             </span>
 
             @if ($transactions->count())

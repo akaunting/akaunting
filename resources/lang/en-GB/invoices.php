@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Send Invoice',
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
-    'payment_received'      => 'Payment received',
+    'payments_received'     => 'Payments received',
 
     'form_description' => [
         'billing'           => 'Billing details appear in your invoice. Invoice Date is used in the dashboard and reports. Select the date you expect to get paid as the Due Date.',

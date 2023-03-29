@@ -104,6 +104,10 @@ class Event extends Provider
         'App\Events\Setting\CategoryDeleted' => [
             'App\Listeners\Setting\DeleteCategoryDeletedSubCategories',
         ],
+        'App\Events\Email\TooManyEmailsSent' => [
+            'App\Listeners\Email\ReportTooManyEmailsSent',
+            'App\Listeners\Email\TellFirewallTooManyEmailsSent',
+        ],
     ];
 
     /**
