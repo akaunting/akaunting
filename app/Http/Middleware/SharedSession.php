@@ -16,11 +16,14 @@ class SharedSession
     public function handle($request, Closure $next)
     {
         if(\App::isProduction()){
-            if($request->getHost() == env('SESSION_DOMAIN_MUKELLEF')){
-                \Config::set('session.domain', env('SESSION_DOMAIN_MUKELLEF'));
+            if($request->getHost() == substr(env('SESSION_DOMAIN_MUKELLEF'), 1)){
+                $domain = env('SESSION_DOMAIN_MUKELLEF');
+            }
+            else{
+                $domain = env('SESSION_DOMAIN_WORKHY');
             }
 
-            \Config::set('session.domain', env('SESSION_DOMAIN_WORKHY'));
+            \Config::set('session.domain', $domain);
         }
 
         return $next($request);
