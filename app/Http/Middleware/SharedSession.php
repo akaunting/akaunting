@@ -16,7 +16,7 @@ class SharedSession
     public function handle($request, Closure $next)
     {
         if(\App::isProduction()){
-            if($request->getHost() == substr(env('SESSION_DOMAIN_MUKELLEF'), 1)){
+            if(\Str::endsWith($request->getHost(), substr(env('SESSION_DOMAIN_MUKELLEF'), 1))){
                 $domain = env('SESSION_DOMAIN_MUKELLEF');
             }
             else{
