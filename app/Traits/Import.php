@@ -331,7 +331,7 @@ trait Import
 
         $data = [
             'company_id'        => company_id(),
-            'type'              => $row['item_type'],
+            'type'              => !empty($row['item_type']) ? $row['item_type'] : (!empty($row['type']) ? $row['type'] : 'product'),
             'name'              => $row['item_name'],
             'description'       => !empty($row['item_description']) ? $row['item_description'] : null,
             'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
