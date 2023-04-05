@@ -10,7 +10,13 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.account name="account" not-required without-change />
+                        <x-form.group.select
+                            name="account"
+                            label="{{ trans_choice('general.accounts', 1) }}"
+                            :options="$accounts"
+                            :selected="setting('default.account')"
+                            not-required
+                        />
 
                         <x-form.group.currency name="currency" not-required />
 
