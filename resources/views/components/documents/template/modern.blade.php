@@ -52,7 +52,7 @@
                     @if (! $hideCompanyTaxNumber)
                         <p class="text-white">
                             @if (setting('company.tax_number'))
-                                <span class="text-medium text-default">
+                                <span class="font-semibold">
                                     {{ trans('general.tax_number') }}:
                                 </span>
 
@@ -122,7 +122,7 @@
                     @if (! $hideContactTaxNumber)
                         @if ($document->contact_tax_number)
                             <p>
-                                <span class="text-medium text-default">
+                                <span class="font-semibold">
                                     {{ trans('general.tax_number') }}:
                                 </span>
 
