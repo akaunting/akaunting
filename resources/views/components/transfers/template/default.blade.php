@@ -214,11 +214,7 @@
             </td>
 
             <td valign="top" valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
-                @if (! empty($payment_methods[$transfer->expense_transaction->payment_method]))
-                    {!! $payment_methods[$transfer->expense_transaction->payment_method] !!}
-                @else
-                    <x-empty-data />
-                @endif
+                <x-payment-method :method="$transfer->expense_transaction->payment_method" />
             </td>
         </tr>
         @stack('payment_method_input_end')

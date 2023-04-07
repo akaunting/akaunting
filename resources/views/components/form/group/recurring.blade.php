@@ -3,6 +3,9 @@
     :date-range-text="{{ json_encode(trans('general.date_range')) }}"
     middle-text="{!! trans('recurring.limit_middle') !!}"
     end-text="{{ Str::plural(Str::replace('-recurring', '', $type)) }}"
+    send-email-text="{{ trans('recurring.send_email_auto') }}"
+    send-email-yes-text="{{ trans('general.yes') }}"
+    send-email-no-text="{{ trans('general.no') }}"
 
     :frequencies="{{ json_encode($frequencies) }}"
     frequency-text="{!! trans('recurring.frequency_type', ['type' => Str::replace('-recurring', '', $type)]) !!}"
@@ -64,6 +67,15 @@
     @limit_date="form.recurring_limit_date = $event"
     @endif
     :limit-date-error="form.errors.get('recurring_limit_date')"
+
+    send-email-show="{{ $sendEmailShow }}"
+    send-email-value="{{ $sendEmail }}"
+    @if ($attributes->has('@send_email'))
+    @send_email="form.recurring_send_email = $event;{{ $attributes['@send_email'] }}"
+    @else
+    @send_email="form.recurring_send_email = $event"
+    @endif
+    :send-email-error="form.errors.get('recurring_send_email')"
 
     date-format="{{ company_date_format() }}"
 

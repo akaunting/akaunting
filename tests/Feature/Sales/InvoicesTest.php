@@ -5,9 +5,11 @@ namespace Tests\Feature\Sales;
 use App\Exports\Sales\Invoices as Export;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Document\Document;
+use App\Notifications\Sale\Invoice as Notification;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
@@ -125,6 +127,43 @@ class InvoicesTest extends FeatureTestCase
             'type' => Document::INVOICE_RECURRING_TYPE,
             'document_number' => $request['document_number'],
         ]);
+    }
+
+    public function testItShouldSendInvoiceEmail()
+    {
+        NotificationFacade::fake();
+
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        $this->loginAs()
+            ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        NotificationFacade::assertSentTo($invoice->contact, Notification::class);
+    }
+
+    public function testItShouldHitRateLimitForSendInvoiceEmail()
+    {
+        NotificationFacade::fake();
+
+        $limit_per_minute = (int) config('app.throttles.email.minute');
+
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        for ($i = 0; $i < $limit_per_minute; $i++) {
+            $this->loginAs()
+                ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice));
+        }
+
+        $this->loginAs()
+            ->post(route('modals.invoices.emails.store', $invoice->id), $this->getEmailRequest($invoice))
+            ->assertJson([
+                'success' => false,
+            ]);
+
+        NotificationFacade::assertSentTimes(Notification::class, $limit_per_minute);
     }
 
     public function testItShouldSeeInvoiceUpdatePage()
@@ -253,5 +292,17 @@ class InvoicesTest extends FeatureTestCase
         $factory = $recurring ? $factory->invoice()->items()->recurring() : $factory->invoice()->items();
 
         return $factory->raw();
+    }
+
+    public function getEmailRequest($invoice)
+    {
+        $notification = new Notification($invoice, 'invoice_new_customer', true);
+
+        return [
+            'document_id'   => $invoice->id,
+            'to'            => $invoice->contact->email,
+            'subject'       => $notification->getSubject(),
+            'body'          => $notification->getBody(),
+        ];
     }
 }

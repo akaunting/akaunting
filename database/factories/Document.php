@@ -214,6 +214,7 @@ class Document extends AbstractFactory
             'recurring_frequency' => 'daily',
             'recurring_interval' => '1',
             'recurring_limit_count' => '7',
+            'recurring_send_email' => '1',
         ]);
     }
 

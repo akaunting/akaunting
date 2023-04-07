@@ -5,11 +5,14 @@ namespace App\Jobs\Document;
 use App\Abstracts\Job;
 use App\Events\Document\DocumentSending;
 use App\Events\Document\DocumentSent;
+use App\Http\Requests\Common\CustomMail as Request;
 use App\Models\Document\Document;
 
 class SendDocumentAsCustomMail extends Job
 {
-    public function __construct($request, $template_alias)
+    public string $template_alias;
+
+    public function __construct(Request $request, string $template_alias)
     {
         $this->request = $request;
         $this->template_alias = $template_alias;

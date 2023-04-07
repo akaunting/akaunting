@@ -122,14 +122,19 @@ class PaymentReceived extends Notification
 
     public function getTagsReplacement(): array
     {
+        $route_params = [
+            'company_id'    => $this->invoice->company_id,
+            'invoice'       => $this->invoice->id,
+        ];
+
         return [
             $this->invoice->document_number,
             money($this->invoice->amount, $this->invoice->currency_code, true),
             company_date($this->invoice->due_at),
             trans('documents.statuses.' . $this->invoice->status),
-            URL::signedRoute('signed.invoices.show', [$this->invoice->id]),
-            route('invoices.show', $this->invoice->id),
-            route('portal.invoices.show', $this->invoice->id),
+            URL::signedRoute('signed.invoices.show', $route_params),
+            route('invoices.show', $route_params),
+            route('portal.invoices.show', $route_params),
             money($this->transaction->amount, $this->transaction->currency_code, true),
             company_date($this->transaction->paid_at),
             $this->transaction->payment_method,

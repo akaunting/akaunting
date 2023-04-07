@@ -67,7 +67,11 @@
                     @foreach($categories as $item)
                         <x-table.tr href="{{ route('categories.edit', $item->id) }}">
                             <x-table.td kind="bulkaction">
-                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                                <x-index.bulkaction.single 
+                                    id="{{ $item->id }}"
+                                    name="{{ $item->name }}"
+                                    :disabled="($item->isTransferCategory()) ? true : false"
+                                />
                             </x-table.td>
 
                             <x-table.td class="w-5/12">

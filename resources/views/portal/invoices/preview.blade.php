@@ -100,7 +100,7 @@
                         <x-slot name="body" class="block" override="class">
                             <div class="text-xs mt-1" style="margin-left: 0 !important;">
                                 <span class="font-medium">
-                                    {{ trans('invoices.payment_received') }} :
+                                    {{ trans('invoices.payments_received') }}:
                                 </span>
 
                                 @if ($invoice->transactions->count())

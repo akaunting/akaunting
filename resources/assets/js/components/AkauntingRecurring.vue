@@ -126,6 +126,22 @@
                 <div class="text-red text-sm mt-1 ml-2 block" v-if="limitDateError" v-html="limitDateError"></div>
             </div>
         </div>
+
+        <div v-if="sendEmailShow" class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
+                {{ sendEmailText }}
+            </div>
+
+            <div class="flex items-center mt-1">
+                <label @click="sendEmail=1;change();" v-bind:class="[sendEmail == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
+                    {{ sendEmailYesText }}
+                </label>
+
+                <label @click="sendEmail=0;change();"v-bind:class="[sendEmail == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
+                    {{ sendEmailNoText }}
+                </label>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -246,6 +262,32 @@ export default {
             default: 'dd MM yyyy',
             description: "Default date format"
         },
+
+        sendEmailShow: {
+            type: Number,
+            default: 1,
+            description: "Created recurring model send automatically option"
+        },
+        sendEmailText: {
+            type: String,
+            default: 'Send email automatically',
+            description: "Created recurring model send automatically option"
+        },
+        sendEmailYesText: {
+            type: String,
+            default: 'Yes',
+            description: "Send email option yes text"
+        },
+        sendEmailNoText: {
+            type: String,
+            default: 'No',
+            description: "Send email option no text"
+        },
+        sendEmailValue: {
+            type: [Number, String],
+            default: 0,
+            description: "Send Email value"
+        }
     },
 
     data() {
@@ -258,6 +300,7 @@ export default {
             limitCount: 0,
             limitDate: '',
             formatDate: 'dd MM YYYY',
+            sendEmail: 0,
         }
     },
 
@@ -283,6 +326,8 @@ export default {
         } else {
             this.limit = 'on';
         }
+
+        this.sendEmail = this.sendEmailValue;
 
         setTimeout(function() {
             this.change();
@@ -315,6 +360,8 @@ export default {
                     this.$emit('limit_count', 0);
                     break;
             }
+
+            this.$emit('send_email', this.sendEmail);
         },
 
         convertToDarteFormat(format) {
