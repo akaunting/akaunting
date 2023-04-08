@@ -30,7 +30,7 @@ class Vendors extends Controller
      */
     public function index()
     {
-        $vendors = Contact::with('bills.transactions')->vendor()->collect();
+        $vendors = Contact::with('bills.histories', 'bills.totals', 'bills.transactions', 'media')->vendor()->collect();
 
         return $this->response('purchases.vendors.index', compact('vendors'));
     }
