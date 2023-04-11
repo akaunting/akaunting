@@ -33,7 +33,7 @@
         "glightbox": "^3.2.0",
         "json-schema": ">=0.4.0",
         "laravel-mix-tailwind": "^0.1.2",
-        "lodash": "^4.17.21",
+        "lodash": ">=4.17.21",
         "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",
         "swiper": "^9.2.0",
