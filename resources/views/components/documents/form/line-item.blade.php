@@ -126,28 +126,26 @@
                         @stack('price_td_start')
 
                         <td class="px-3 py-3 pr-1 border-b-0 price">
-                            @if (! $hideItemPrice)
-                                <div>
-                                    @stack('price_input_start')
+                            <div>
+                                @stack('price_input_start')
 
-                                    <x-form.input.money
-                                        name="price"
-                                        value="0"
-                                        row-input
-                                        data-item="price"
-                                        v-model="row.price"
-                                        v-error="form.errors.get('items.' + index + '.price')"
-                                        v-error-message="form.errors.get('items.' + index + '.price')"
-                                        change="row.price = $event; form.errors.clear('items.' + index + '.price'); onCalculateTotal"
-                                        :currency="$currency"
-                                        dynamicCurrency="currency"
-                                        money-class="text-right mt-0"
-                                        form-group-class="text-right"
-                                    />
+                                <x-form.input.money
+                                    name="price"
+                                    value="0"
+                                    row-input
+                                    data-item="price"
+                                    v-model="row.price"
+                                    v-error="form.errors.get('items.' + index + '.price')"
+                                    v-error-message="form.errors.get('items.' + index + '.price')"
+                                    change="row.price = $event; form.errors.clear('items.' + index + '.price'); onCalculateTotal"
+                                    :currency="$currency"
+                                    dynamicCurrency="currency"
+                                    money-class="text-right mt-0"
+                                    form-group-class="text-right"
+                                />
 
-                                    @stack('price_input_end')
-                                </div>
-                            @endif
+                                @stack('price_input_end')
+                            </div>
                         </td>
 
                         @stack('price_td_end')

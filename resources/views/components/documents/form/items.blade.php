@@ -49,7 +49,7 @@
                         @stack('quantity_th_start')
 
                         <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
-                            @if (! $hideItemQuantity)    
+                            @if (! $hideItemQuantity)
                                 {{ trans($textItemQuantity) }}
                             @endif
                         </th>
@@ -59,8 +59,13 @@
                         @stack('price_th_start')
 
                         <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0 pr-1" style="vertical-align:bottom;">
-                            @if (! $hideItemPrice)    
-                                {{ trans($textItemPrice) }}
+                            {{ trans($textItemPrice) }}
+
+                            @if ($hideItemPrice)
+                                &nbsp;&nbsp;
+                                <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                    <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                </x-tooltip>
                             @endif
                         </th>
                         
@@ -69,7 +74,7 @@
                         @stack('total_th_start')
 
                         <th class="px-3 py-1 ltr:text-right rtl:text-left text-xs font-normal border-t-0 border-b-0 item-total" style="vertical-align:bottom;">
-                            @if (! $hideItemAmount)    
+                            @if (! $hideItemAmount)
                                 {{ trans($textItemAmount) }}
                             @endif
                         </th>
