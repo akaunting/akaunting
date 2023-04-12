@@ -152,7 +152,7 @@ class Customers extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($customer, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('customers.index');
+            $response['redirect'] = route('customers.show', $response['data']->id);
 
             $message = trans('messages.success.updated', ['type' => $customer->name]);
 

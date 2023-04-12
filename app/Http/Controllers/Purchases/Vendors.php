@@ -152,7 +152,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($vendor, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('vendors.index');
+            $response['redirect'] = route('vendors.show', $response['data']->id);
 
             $message = trans('messages.success.updated', ['type' => $vendor->name]);
 
