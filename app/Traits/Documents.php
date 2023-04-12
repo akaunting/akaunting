@@ -29,6 +29,21 @@ trait Documents
         return ! $this->isRecurring();
     }
 
+    public function getRecurringDocumentTypes() : array
+    {
+        $types = array_keys(config('type.document'));
+
+        $recurring_types = [];
+
+        foreach ($types as $type) {
+            if (Str::endsWith($type, '-recurring')) {
+                $recurring_types[] = $type;
+            }
+        }
+
+        return $recurring_types;
+    }
+
     public function getNextDocumentNumber(string $type): string
     {
         if ($alias = config('type.document.' . $type . '.alias')) {
@@ -138,7 +153,13 @@ trait Documents
         return 'documents.statuses.';
     }
 
+    // This function will be remoed in the future
     protected function getSettingKey($type, $setting_key)
+    {
+        return $this->getDocumentSettingKey($type, $setting_key);
+    }
+
+    protected function getDocumentSettingKey($type, $setting_key)
     {
         $key = '';
         $alias = config('type.document.' . $type . '.alias');

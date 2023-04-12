@@ -132,7 +132,7 @@ trait Transactions
         return Str::slug($transaction->id, $separator, language()->getShortCode());
     }
 
-    protected function getSettingKey(string $type, string $setting_key): string
+    protected function getTransactionSettingKey(string $type, string $setting_key): string
     {
         $key = '';
         $alias = config('type.transaction.' . $type . '.alias');

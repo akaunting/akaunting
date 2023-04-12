@@ -482,7 +482,7 @@ abstract class Show extends Component
             return $template;
         }
 
-        $transactionTemplate = setting($this->getSettingKey($type, 'template')) ?: 'default';
+        $transactionTemplate = setting($this->getTransactionSettingKey($type, 'template')) ?: 'default';
 
         return $transactionTemplate;
     }

@@ -47,7 +47,7 @@ class SettingFieldCreated
                 continue;
             }
 
-            $real_key = $this->getSettingKey($type, $key);
+            $real_key = $this->getDocumentSettingKey($type, $key);
 
             setting()->set($real_key, $value);
         }
@@ -71,7 +71,7 @@ class SettingFieldCreated
                     continue;
                 }
 
-                $real_key = setting($this->getSettingKey($type, $key));
+                $real_key = setting($this->getDocumentSettingKey($type, $key));
 
                 setting()->set($real_key, $value);
             }

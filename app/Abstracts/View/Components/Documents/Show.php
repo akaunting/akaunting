@@ -909,7 +909,7 @@ abstract class Show extends Component
             return $template;
         }
 
-        $documentTemplate =  setting($this->getSettingKey($type, 'template'), 'default');
+        $documentTemplate =  setting($this->getDocumentSettingKey($type, 'template'), 'default');
 
         return $documentTemplate;
     }
@@ -975,7 +975,7 @@ abstract class Show extends Component
         }
 
         // checking setting color
-        $key = $this->getSettingKey($type, 'color');
+        $key = $this->getDocumentSettingKey($type, 'color');
 
         if (! empty(setting($key))) {
             $backgroundColor = setting($key);
@@ -1000,7 +1000,7 @@ abstract class Show extends Component
             return $textDocumentTitle;
         }
 
-        $key = $this->getSettingKey($type, 'title');
+        $key = $this->getDocumentSettingKey($type, 'title');
 
         if (! empty(setting($key))) {
             return setting($key);
@@ -1021,7 +1021,7 @@ abstract class Show extends Component
             return $textDocumentSubheading;
         }
 
-        $key = $this->getSettingKey($type, 'subheading');
+        $key = $this->getDocumentSettingKey($type, 'subheading');
 
         if (!empty(setting($key))) {
             return setting($key);
@@ -1151,8 +1151,8 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'item_name'), 'items') == 'custom') {
-            if (empty($textItems = setting($this->getSettingKey($type, 'item_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'item_name'), 'items') == 'custom') {
+            if (empty($textItems = setting($this->getDocumentSettingKey($type, 'item_name_input')))) {
                 $textItems = 'general.items';
             }
 
@@ -1175,8 +1175,8 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
-            if (empty($textQuantity = setting($this->getSettingKey($type, 'quantity_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
+            if (empty($textQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name_input')))) {
                 $textQuantity = 'invoices.quantity';
             }
 
@@ -1199,8 +1199,8 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'price_name'), 'price') === 'custom') {
-            if (empty($textPrice = setting($this->getSettingKey($type, 'price_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'price_name'), 'price') === 'custom') {
+            if (empty($textPrice = setting($this->getDocumentSettingKey($type, 'price_name_input')))) {
                 $textPrice = 'invoices.price';
             }
 
@@ -1255,7 +1255,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'item_name'), false) && $hideName == 'hide') {
+        if ($hideName = setting($this->getDocumentSettingKey($type, 'item_name'), false) && $hideName == 'hide') {
             return $hideName;
         }
 
@@ -1276,7 +1276,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
+        if ($hideDescription = setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
             return $hideDescription;
         }
 
@@ -1297,7 +1297,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false) && $hideQuantity == 'hide') {
+        if ($hideQuantity = setting($this->getDocumentSettingKey($type, 'hide_quantity'), false) && $hideQuantity == 'hide') {
             return $hideQuantity;
         }
 
@@ -1318,7 +1318,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false) && $hidePrice == 'hide') {
+        if ($hidePrice = setting($this->getDocumentSettingKey($type, 'hide_price'), false) && $hidePrice == 'hide') {
             return $hidePrice;
         }
 
@@ -1339,7 +1339,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideDiscount = setting($this->getSettingKey($type, 'hide_discount'), false)) {
+        if ($hideDiscount = setting($this->getDocumentSettingKey($type, 'hide_discount'), false)) {
             return $hideDiscount;
         }
 
@@ -1360,7 +1360,7 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
+        if ($hideAmount = setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
             return $hideAmount;
         }
 
