@@ -32,7 +32,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Document::invoice()->with('contact', 'transactions')->collect(['document_number'=> 'desc']);
+        $invoices = Document::invoice()->with('contact', 'items', 'last_history', 'transactions')->collect(['document_number'=> 'desc']);
 
         return $this->response('sales.invoices.index', compact('invoices'));
     }
