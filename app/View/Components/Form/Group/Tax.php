@@ -47,7 +47,7 @@ class Tax extends Form
             }
         }
 
-        if (empty($this->selected)) {
+        if (empty($this->selected) && empty($this->getParentData('model'))) {
             $this->selected = setting('default.tax');
         }
 
