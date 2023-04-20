@@ -20,6 +20,9 @@ class Icon extends Component
     public $rounded;
 
     /** @var bool */
+    public $sharp;
+
+    /** @var bool */
     public $simpleIcons;
 
     /** @var bool */
@@ -34,14 +37,15 @@ class Icon extends Component
      * @return void
      */
     public function __construct(
-        string $icon = '', string $class = '', 
-        bool $filled = false, bool $rounded = false, 
+        string $icon = '', string $class = '',
+        bool $filled = false, bool $rounded = false, bool $sharp = false,
         bool $simpleIcons = false, bool $custom = false, string $alias = ''
     ) {
         $this->icon         = $icon;
         $this->class        = ($simpleIcons) ? 'w-8 h-8 ' . $class : $class;
         $this->filled       = $filled;
         $this->rounded      = $rounded;
+        $this->sharp        = $sharp;
         $this->simpleIcons  = $simpleIcons;
         $this->custom       = $custom;
         $this->alias        = $alias;
