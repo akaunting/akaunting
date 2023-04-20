@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Abstracts\Http\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\Reset as Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -36,10 +36,15 @@ class Reset extends Controller
         );
     }
 
+    /**
+     * Send a reset link to the given user.
+     *
+     * @param  \App\Http\Requests\Auth\Reset  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
-        $this->validate($request, $this->rules(), $this->validationErrorMessages());
-
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
