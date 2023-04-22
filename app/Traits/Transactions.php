@@ -231,8 +231,8 @@ trait Transactions
     public function getNextTransactionNumber($suffix = ''): string
     {
         $prefix = setting('transaction' . $suffix . '.number_prefix');
-        $next   = setting('transaction' . $suffix . '.number_next');
-        $digit  = setting('transaction' . $suffix . '.number_digit');
+        $next   = (string) setting('transaction' . $suffix . '.number_next');
+        $digit  = (int) setting('transaction' . $suffix . '.number_digit');
 
         $get_number = fn($prefix, $next, $digit) => $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
         $number_exists = fn($number) => Transaction::where('number', $number)->exists();

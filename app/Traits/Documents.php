@@ -51,8 +51,8 @@ trait Documents
         }
 
         $prefix = setting($type . '.number_prefix');
-        $next = setting($type . '.number_next');
-        $digit = setting($type . '.number_digit');
+        $next = (string) setting($type . '.number_next');
+        $digit = (int) setting($type . '.number_digit');
 
         return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
     }
