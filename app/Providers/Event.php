@@ -108,6 +108,10 @@ class Event extends Provider
             'App\Listeners\Email\ReportTooManyEmailsSent',
             'App\Listeners\Email\TellFirewallTooManyEmailsSent',
         ],
+        'App\Events\Email\InvalidEmailDetected' => [
+            'App\Listeners\Email\DisablePersonDueToInvalidEmail',
+            'App\Listeners\Email\SendInvalidEmailNotification',
+        ],
     ];
 
     /**

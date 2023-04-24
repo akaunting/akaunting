@@ -72,6 +72,7 @@ return [
     'attachments'           => 'Attachment|Attachments',
     'histories'             => 'History|Histories',
     'your_notifications'    => 'Your notification|Your notifications',
+    'employees'             => 'Employee|Employees',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',

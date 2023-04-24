@@ -244,6 +244,11 @@ class User extends Authenticatable implements HasLocalePreference
         return $query->wherePermissionIs('read-admin-panel');
     }
 
+    public function scopeEmail($query, $email)
+    {
+        return $query->where('email', '=', $email);
+    }
+
     /**
      * Attach company_ids attribute to model.
      *

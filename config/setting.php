@@ -171,6 +171,7 @@ return [
             'type' => [
                 'customer'              => env('SETTING_FALLBACK_CONTACT_TYPE_CUSTOMER', Contact::CUSTOMER_TYPE),
                 'vendor'                => env('SETTING_FALLBACK_CONTACT_TYPE_VENDOR', Contact::VENDOR_TYPE),
+                'employee'              => env('SETTING_FALLBACK_CONTACT_TYPE_EMPLOYEE', Contact::EMPLOYEE_TYPE),
             ],
         ],
         'transaction' => [

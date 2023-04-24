@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Akaunting\Money\Exceptions\UnexpectedAmountException;
+use App\Events\Email\InvalidEmailDetected;
 use App\Exceptions\Http\Resource as ResourceException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,6 +16,7 @@ use Illuminate\View\ViewException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\Exception\HttpTransportException as MailerHttpTransportException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -191,6 +193,21 @@ class Handler extends ExceptionHandler
                 return response()->view('errors.500', [
                     'message' => trans('errors.message.amount'),
                 ], 500);
+            }
+        }
+
+        if ($exception instanceof MailerHttpTransportException) {
+            /**
+             * Couldn't access the SentMessage object to get the email address
+             * https://symfony.com/doc/current/mailer.html#debugging-emails
+             *
+             * https://codespeedy.com/extract-email-addresses-from-a-string-in-php
+             * https://phpliveregex.com/p/IMG
+             */
+            preg_match("/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/", $exception->getMessage(), $matches);
+
+            if (! empty($matches[0])) {
+                event(new InvalidEmailDetected($matches[0], $exception->getMessage()));
             }
         }
 
