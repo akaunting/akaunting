@@ -208,6 +208,12 @@ class Handler extends ExceptionHandler
 
             if (! empty($matches[0])) {
                 event(new InvalidEmailDetected($matches[0], $exception->getMessage()));
+
+                if ($request->ajax()) {
+                    return response()->json([
+                        'error' => trans('notifications.menu.invalid_email.description', ['email' => $matches[0]]),
+                    ], $exception->getCode());
+                }
             }
         }
 
