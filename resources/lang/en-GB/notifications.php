@@ -68,7 +68,7 @@ return [
         'invalid' => [
 
             'title'         => 'Invalid :type Email',
-            'description'   => '<strong>:email</strong> email address has been reported as invalid and the person has been disabled. Please check the following error message and fix the email address:',
+            'description'   => 'The :email email address has been reported as invalid, and the person has been disabled. Please check the following error message and fix the email address:',
 
         ],
 
@@ -191,7 +191,7 @@ return [
         'invalid_email' => [
 
             'title'         => 'Invalid :type Email',
-            'description'   => '<strong>:email</strong> email address has been reported as invalid and the person has been disabled. Please check and fix the email address.',
+            'description'   => 'The <strong>:email</strong> email address has been reported as invalid, and the person has been disabled. Please check and fix the email address.',
 
         ],
 

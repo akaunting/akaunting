@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class InvalidEmail extends Notification implements ShouldQueue
 {
@@ -54,8 +55,12 @@ class InvalidEmail extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->subject(trans('notifications.email.invalid.title', ['type' => $this->type]))
-            ->line(trans('notifications.email.invalid.description', ['email' => $this->email]))
-            ->line($this->error)
+            ->line(new HtmlString('<br>'))
+            ->line(new HtmlString('<br>'))
+            ->line(new HtmlString(trans('notifications.email.invalid.description', ['email' => $this->email])))
+            ->line(new HtmlString('<br>'))
+            ->line(new HtmlString('<br>'))
+            ->line(new HtmlString('<i>' . $this->error . '</i>'))
             ->action(trans_choice('general.dashboards', 1), $dashboard_url);
     }
 
