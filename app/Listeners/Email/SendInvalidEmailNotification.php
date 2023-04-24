@@ -24,7 +24,7 @@ class SendInvalidEmailNotification
         }
 
         if ($event->contact->isCustomer() || $event->contact->isVendor() || $event->contact->isEmployee()) {
-            $type = trans('general.' . Str::plural($event->contact->type), 1);
+            $type = trans_choice('general.' . Str::plural($event->contact->type), 1);
         } else {
             $type = ucfirst($event->contact->type);
         }
