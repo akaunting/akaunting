@@ -4,6 +4,7 @@
 
     :title="$title"
     :description="$description"
+    :message="$message"
     :list="$list"
 
     :rounded="$rounded"

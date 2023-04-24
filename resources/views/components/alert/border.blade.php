@@ -7,6 +7,7 @@
 
     :title="$title"
     :description="$description"
+    :message="$message"
     :list="$list"
 
     :actions="$actions"

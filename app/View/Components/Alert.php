@@ -19,10 +19,16 @@ class Alert extends Component
     public $icon;
 
     /** @var string */
+    public $typr;
+
+    /** @var string */
     public $title;
 
     /** @var string */
     public $description;
+
+    /** @var string */
+    public $message;
 
     /** @var array */
     public $list;
@@ -42,19 +48,25 @@ class Alert extends Component
         bool $rounded = true, bool $border = false,
         
         string $color = '', string $icon = '',
+
+        string $type = '',
         
-        string $title = '', string $description = '',
+        string $title = '', string $description = '', string $message = '',
         array $list = [], array $actions = [],
         bool $dismiss = false
     ) {
         $this->rounded = $rounded;
         $this->border = $border;
 
+        $this->type = $type;
+
         $this->color = $this->getColor($color);
         $this->icon = $this->getIcon($icon);
 
         $this->title = $title;
         $this->description = $description;
+
+        $this->message = $message;
 
         $this->list = $list;
         $this->actions = $actions;
@@ -78,7 +90,24 @@ class Alert extends Component
             return $color;
         }
 
-        $color = 'green';
+        switch ($this->type) {
+            case 'success':
+                $color = 'green';
+                break;
+            case 'info':
+                $color = 'blue';
+                break;
+            case 'warning':
+                $color = 'orange';
+                break;
+            case 'danger':
+            case 'error':
+                $color = 'red';
+                break;
+            default:
+                $color = 'green';
+                break;
+        }
 
         return $color;
     }
@@ -89,7 +118,24 @@ class Alert extends Component
             return $icon;
         }
 
-        $icon = 'check_circle';
+        switch ($this->type) {
+            case 'success':
+                $icon = 'check_circle';
+                break;
+            case 'info':
+                $icon = 'info';
+                break;
+            case 'warning':
+                $icon = 'warning';
+                break;
+            case 'danger':
+            case 'error':
+                $icon = 'error';
+                break;
+            default:
+                $icon = 'check_circle';
+                break;
+        }
 
         return $icon;
     }

@@ -2,8 +2,9 @@
     @class([
         'rounded-md' => $rounded,
         'border-l-4 border-' . $color . '-400' => $border,
-        'bg-' . $color . '-50',
-        'p-4',
+        'bg-' . $color . '-50' => $color != 'green',
+        'bg-' . $color . '-100' => $color == 'green',
+        'p-4 my-4',
     ])
     x-data
 >
@@ -13,21 +14,31 @@
         </div>
 
         <div class="ml-3">
-            <h3 class="text-sm font-medium text-{{ $color }}-800">
-                {{ $title }}
-            </h3>
+            @if ($title)
+                <h3 class="text-sm font-medium text-{{ $color }}-800">
+                    {!! $title !!}
+                </h3>
+            @endif
 
-            <div class="mt-2 text-sm text-{{ $color }}-700">
-                <p>{{ $description }}</p>
+            @if ($description || $list)
+                <div class="mt-2 text-sm text-{{ $color }}-700">
+                    <p>{!! $description !!}</p>
 
-                @if ($list)
-                    <ul role="list" class="list-disc space-y-1 pl-5">
-                        @foreach ($list as $message)
-                            <li>{{ $message }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-            </div>
+                    @if ($list)
+                        <ul role="list" class="list-disc space-y-1 pl-5">
+                            @foreach ($list as $message)
+                                <li>{!! $message !!}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+            @endif
+
+            @if ($message)
+                <p class="text-sm font-medium text-{{ $color }}-800 inline-block align-middle">
+                    {!! $message !!}
+                </p>
+            @endif
 
             @if ($actions) 
                 <div class="mt-4">
@@ -83,7 +94,8 @@
                         @class([
                             'inline-flex',
                             'rounded-md',
-                            'bg-' . $color . '-50',
+                            'bg-' . $color . '-50' => $color != 'green',
+                            'bg-' . $color . '-100' => $color == 'green',
                             'p-1.5',
                             'text-sm font-medium',
                             'text-' . $color . '-500 hover:bg-' . $color . '-100',
