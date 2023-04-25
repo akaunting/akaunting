@@ -29,6 +29,7 @@ return [
     'child'                 => ':url स्वचालित रूप से :date को बनाया गया था',
     'message'               => 'यह एक आवर्ती :type है और अगला :type :date को स्वचालित रूप से उत्पन्न हो जाएगा',
     'message_parent'        => 'यह  :type स्वचालित रूप से :link से उत्पन्न हुआ था',
+    'send_email_auto'       => 'ईमेल स्वचालित रूप से भेजें',
 
     'frequency_type'        => 'इस :type को दोहराएं',
     'limit_date'            => 'पर पहली :type बनाएं',

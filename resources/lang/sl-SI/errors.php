@@ -20,5 +20,7 @@ Ups! Prepovedan dostop',
         '404'       => 'Nismo mogli najti strani, ki ste jo iskali.',
         '500'       => 'To bomo popravili takoj.',
         'record'    => 'Iskani zapis ni bilo mogoče najti.',
+        'amount'    => 'Ta stran vsebuje neveljavne zneske! Prosimo, kontaktirajte skrbnika sistema.',
     ],
+
 ];

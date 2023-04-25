@@ -29,6 +29,7 @@ return [
     'child'                 => ':url tika automātiski izveidots :date',
     'message'               => ':veids iestatīta atkārtošana. Nākošais :veids tiks automātiski ģenerēts :datums',
     'message_parent'        => 'Šis :veids tika ģenerēts automātiski no :links',
+    'send_email_auto'       => 'Sūtīt e-pastu automātiski',
 
     'frequency_type'        => 'Atkārtojiet :type',
     'limit_date'            => 'Vispirms izveidojiet :type',

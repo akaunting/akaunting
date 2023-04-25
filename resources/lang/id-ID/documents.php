@@ -10,6 +10,12 @@ return [
     'billing'                   => 'Tagihan',
     'advanced'                  => 'Opsi Lanjutan',
 
+    'item_price_hidden'         => 'Kolom ini disembunyikan untuk tipe :type.',
+
+    'actions' => [
+        'cancel'                => 'Batal',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b>Anda</b> menandai faktur ini sebagai',
         'services'              => 'Layanan',
