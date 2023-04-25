@@ -55,15 +55,24 @@ trait SiteApi
         return $response;
     }
 
-    public static function getResponseData($method, $path, $data = [], $status_code = 200)
+    public static function getResponseBody($method, $path, $data = [], $status_code = 200)
     {
-        if (!$response = static::getResponse($method, $path, $data, $status_code)) {
+        if (! $response = static::getResponse($method, $path, $data, $status_code)) {
             return [];
         }
 
         $body = json_decode($response->getBody());
 
-        if (!is_object($body)) {
+        return $body;
+    }
+
+    public static function getResponseData($method, $path, $data = [], $status_code = 200)
+    {
+        if (! $body = static::getResponseBody($method, $path, $data, $status_code)) {
+            return [];
+        }
+
+        if (! is_object($body)) {
             return [];
         }
 

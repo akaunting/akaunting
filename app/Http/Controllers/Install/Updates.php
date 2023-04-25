@@ -48,7 +48,9 @@ class Updates extends Controller
                 $m->name = $row->getName();
                 $m->alias = $row->get('alias');
                 $m->installed = $row->get('version');
-                $m->latest = $updates[$alias];
+                $m->latest = $updates[$alias]->latest;
+                $m->errors = $updates[$alias]->errors;
+                $m->message = $updates[$alias]->message;
 
                 $modules[] = $m;
             }

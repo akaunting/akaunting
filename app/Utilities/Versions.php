@@ -55,11 +55,11 @@ class Versions
     {
         $versions = static::all($alias);
 
-        if (empty($versions[$alias]) || empty($versions[$alias]->data)) {
+        if (empty($versions[$alias])) {
             return false;
         }
 
-        return $versions[$alias]->data->latest;
+        return $versions[$alias];
     }
 
     public static function all($modules = null)
@@ -67,7 +67,7 @@ class Versions
         // Get data from cache
         $versions = Cache::get('versions');
 
-        if (!empty($versions)) {
+        if (! empty($versions)) {
             return $versions;
         }
 
@@ -78,9 +78,25 @@ class Versions
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
-
+        # Installed modules start
         $modules = Arr::wrap($modules);
+
+        $installed_modules = [];
+        $module_version = '?modules=';
+
+        foreach ($modules as $module) {
+            $alias = $module->get('alias');
+            $version = $module->get('version');
+
+            $installed_modules[] = $alias;
+        }
+
+        $module_version .= implode(',', $installed_modules);
+
+        $url .= $module_version;
+        # Installed modules end
+
+        $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
 
         // Then modules
         foreach ($modules as $module) {
@@ -88,7 +104,7 @@ class Versions
                 $module = module($module);
             }
 
-            if (!$module instanceof \Akaunting\Module\Module) {
+            if (! $module instanceof \Akaunting\Module\Module) {
                 continue;
             }
 
@@ -107,15 +123,27 @@ class Versions
 
     public static function getLatestVersion($url, $latest)
     {
-        if (!$data = static::getResponseData('GET', $url, ['timeout' => 10])) {
-            return $latest;
+        $version = new \stdClass();
+
+        $version->can_update = true;
+        $version->latest = $latest;
+        $version->errors = false;
+        $version->message = '';
+
+        if (! $body = static::getResponseBody('GET', $url, ['timeout' => 10])) {
+            return $version;
         }
 
-        if (!is_object($data)) {
-            return $latest;
+        if (! is_object($body)) {
+            return $version;
         }
 
-        return $data->latest;
+        $version->can_update = $body->success;
+        $version->latest = $body->data->latest;
+        $version->errors = $body->errors;
+        $version->message = $body->message;
+
+        return $version;
     }
 
     public static function getUpdates()
@@ -123,7 +151,7 @@ class Versions
         // Get data from cache
         $updates = Cache::get('updates');
 
-        if (!empty($updates)) {
+        if (! empty($updates)) {
             return $updates;
         }
 
@@ -146,7 +174,7 @@ class Versions
                 $installed_version = $module->get('version');
             }
 
-            if (version_compare($installed_version, $latest_version, '>=')) {
+            if (version_compare($installed_version, $latest_version->latest, '>=')) {
                 continue;
             }
 

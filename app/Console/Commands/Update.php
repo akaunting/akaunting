@@ -91,7 +91,7 @@ class Update extends Command
 
     public function getNewVersion()
     {
-        return ($this->argument('new') == 'latest') ? Versions::latest($this->alias) : $this->argument('new');
+        return ($this->argument('new') == 'latest') ? Versions::latest($this->alias)?->latest : $this->argument('new');
     }
 
     public function getOldVersion()
