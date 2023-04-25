@@ -24,7 +24,7 @@ return [
     ],
 
     'no_records' => [
-        'transactions'      => 'Es gibt noch keine Transaktionen auf diesem Konto. Erfassen Sie jetzt eine neue.',
+        'transactions'      => 'Es gibt noch keine Transaktionen nach/von diesem Konto. Erstellen Sie jetzt eine neue.',
         'transfers'         => 'Es gibt noch keine Umbuchungen zu diesem Konto. Erfassen Sie jetzt eine neue Umbuchung.',
     ],
 

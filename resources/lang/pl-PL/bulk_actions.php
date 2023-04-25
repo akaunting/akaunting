@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Czy na pewno chcesz cofnąć <b>uzgodnienie</b> wybranego rekordu?|Czy na pewno chcesz cofnąć <b>uzgodnienie</b> wybranych rekordów?',
     ],
 
+    'success' => [
+        'general'       => ':count :type',
+    ],
 ];

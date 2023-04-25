@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Błąd: Nie można wyłączyć ostatniego panelu. Proszę najpierw utworzyć nowy!',
     ],
 
+    'form_description' => [
+        'general'               => 'Wybierz użytkowników, którzy mają mieć dostęp do nowego panelu.',
+    ],
+
 ];

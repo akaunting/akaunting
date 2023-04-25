@@ -22,4 +22,7 @@ Ali ste prepričani, da želite <b> podvojiti </b> izbrani zapis?',
         'unreconcile'   => 'Ali ste prepričani, da želite <b> razdružiti </b> izbranega zapisa? | Ali ste prepričani, da želite <b> razdružiti </b> izbrane zapise?',
     ],
 
+    'success' => [
+        'general'       => ':count zapisov :type',
+    ],
 ];

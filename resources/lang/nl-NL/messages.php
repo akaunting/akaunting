@@ -13,6 +13,9 @@ return [
         'export_queued'     => ':type export van de huidige pagina is ingepland! U ontvangt een e-mail wanneer deze klaar is om te downloaden.',
         'enabled'           => ':type ingeschakeld!',
         'disabled'          => ':type uitgeschakeld!',
+        'connected'         => ':type verbonden!',
+        'invited'           => ':type uitgenodigd!',
+        'ended'             => ':type beëindigd!',
 
         'clear_all'         => 'Geweldig! U heeft al uw :type verwijderd.',
     ],
@@ -23,10 +26,13 @@ return [
         'customer'          => 'Fout: Gebruiker niet aangemaakt! :name heeft dit e-mailadres al in gebruik.',
         'no_file'           => 'Fout: geen bestand geselecteerd!',
         'last_category'     => 'Fout: Kan de laatste categorie niet verwijderen: :type',
+        'transfer_category' => 'Fout: Kan de overdracht niet verwijderen <b>:type</b> categorie!',
         'change_type'       => 'Fout: Kan het type niet wijzigen omdat :text gerelateerd is!',
         'invalid_apikey'    => 'Fout: De ingevoerde API-sleutel is ongeldig!',
         'import_column'     => 'Fout: :message Blad naam: :sheet. Lijnnummer: :line.',
         'import_sheet'      => 'Fout: Bladnaam is niet geldig. Vergelijk het met het voorbeeldbestand.',
+        'same_amount'       => 'Fout: Het totale bedrag van de splitsing moet precies hetzelfde zijn als het :transaction total: :bedrag',
+        'over_match'        => 'Fout: :type niet verbonden! Het door u ingevoerde bedrag kan niet hoger zijn dan het betalingstotaal: :amount',
     ],
 
     'warning' => [
@@ -36,6 +42,7 @@ return [
         'reconciled_doc'    => 'Waarschuwing: U heeft geen rechten om :type te wijzigen/wijzigen omdat deze transacties is afgestemd!',
         'disable_code'      => 'Waarschuwing: U mag <b>:name</b> niet uitschakelen omdat het gerelateerd is aan :text.',
         'payment_cancel'    => 'U heeft uw recente :method betaling geannuleerd!',
+        'missing_transfer'  => 'Waarschuwing: De overdracht met betrekking tot deze transactie ontbreekt. Je kunt overwegen deze transactie te verwijderen.',
     ],
 
 ];

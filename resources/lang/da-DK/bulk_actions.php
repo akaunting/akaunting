@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Er du sikker på du vil fjerne <b>afstemningen</b> på den valgte post?|Er du sikker på du vil fjerne <b>afstemningen</b> på de valgte poster?',
     ],
 
+    'success' => [
+        'general'       => ':count registrer :type.',
+    ],
 ];
