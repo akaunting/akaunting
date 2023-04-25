@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="w-1/3">
-                    <span class="px-6 flex flex-col">
+                    <span class="ltr:pl-6 ltr:pr-9 rtl:pl-3 flex flex-col">
                         <span
                             :class="[{'bg-purple': active_state == 2}]"
                             class="w-full h-1 bg-gray-300 rounded-xl text-transparent"
