@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Kirim faktur',
     'get_paid'              => 'Telah dibayar',
     'accept_payments'       => 'Menerima pembayaran online',
-    'payment_received'      => 'Pembayaran diterima',
+    'payments_received'     => 'Pembayaran diterima',
 
     'form_description' => [
         'billing'           => 'Detail penagihan muncul di faktur Anda. Tanggal Faktur digunakan di dasbor dan laporan. Pilih tanggal yang Anda harapkan untuk dibayar sebagai Tanggal Jatuh Tempo.',

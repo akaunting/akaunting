@@ -19,11 +19,13 @@ return [
     'total'                 => 'Končni znesek',
 
     'item_name'             => 'Ime Artikla|Ime Artiklov',
+    'recurring_bills'       => 'Ponavljajoči se račun|Ponavljajoči se računi',
 
     'show_discount'         => ': popust % popust',
     'add_discount'          => 'Dodaj popust',
     'discount_desc'         => 'od delne vsote',
 
+    'payment_made'          => 'Plačilo je bilo izvedeno',
     'payment_due'           => 'Rok plačila',
     'amount_due'            => 'Znesek',
     'paid'                  => 'Plačano',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Ustvarite račun',
     'receive_bill'          => 'Prejmite račun',
     'make_payment'          => 'Izvedi plačilo',
+
+    'form_description' => [
+        'billing'           => 'Podrobnosti za obračun so prikazane na vašem računu. Datum računa se uporablja na nadzorni plošči in poročilih. Za datum zapadlosti izberite datum, za katerega pričakujete, da boste prejeli plačilo.',
+    ],
 
     'messages' => [
         'draft'             => 'To je <b>OSNUTEK</b> računa, ki bo v grafikonih viden šele po prejemu.',

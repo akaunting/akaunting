@@ -26,6 +26,7 @@ return [
         'customer'          => 'Error: No s\'ha creat l\'usuari! :name ja utilitza aquesta adreça de correu electrònic.',
         'no_file'           => 'Error: No s\'ha seleccionat cap fitxer!',
         'last_category'     => 'Error: No es pot esborrar l\'últim :type de categoria!',
+        'transfer_category' => 'Error: No es pot esborrar l\'última categoria de :type!',
         'change_type'       => 'Error: No es pot canviar el tipus perquè té :text relacionat!',
         'invalid_apikey'    => 'Error: La clau API proporcionada no és vàlida!',
         'import_column'     => 'Error: :message Nom de la pàgina: :sheet. Número de línia: :line.',

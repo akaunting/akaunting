@@ -29,6 +29,7 @@ return [
     'child'                 => ':url secara otomatis dibuat pada :date',
     'message'               => 'Ini adalah :type berulang dan :type selanjutnya akan dibuat otomatis pada tanggal :date',
     'message_parent'        => ':type ini dihasilkan otomatis dari :link',
+    'send_email_auto'       => 'Kirim email secara otomatis',
 
     'frequency_type'        => 'Ulangi :type ini',
     'limit_date'            => 'Buat :type pertama aktif',

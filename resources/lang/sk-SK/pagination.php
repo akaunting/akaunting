@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Predchádzajúca',
-    'next'                  => 'Nasledujúca &raquo;',
+    'previous'              => 'Predchádzajúca',
+    'next'                  => 'Nasledujúca',
     'showing'               => 'Zobrazené :first do :last z :total :type',
     'page'                  => 'na stranu.',
 ];

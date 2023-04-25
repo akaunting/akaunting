@@ -7,7 +7,7 @@ return [
     'normal'                => 'Normal',
     'inclusive'             => 'Incluído',
     'compound'              => 'Composto',
-    'fixed'                 => 'Corrigido',
+    'fixed'                 => 'Fixo',
     'withholding'           => 'Retido',
     'no_taxes'              => 'Sem impostos',
     'create_task'           => 'Crie um novo imposto e edite a qualquer momento nas configurações.',

@@ -10,6 +10,12 @@ return [
     'billing'                   => 'Norēķini',
     'advanced'                  => 'Papildu',
 
+    'item_price_hidden'         => 'Šī kolonna ir paslēpta jūsu :type.',
+
+    'actions' => [
+        'cancel'                => 'Atcelt',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b> Jūs </b> atzīmējāt šo rēķinu kā',
         'services'              => 'Pakalpojumi',

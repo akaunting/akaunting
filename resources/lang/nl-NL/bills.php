@@ -19,11 +19,13 @@ return [
     'total'                 => 'Totaal',
 
     'item_name'             => 'Artikelnaam|Artikelnamen',
+    'recurring_bills'       => 'Terugkerende Rekening|Terugkerende Rekeningen',
 
     'show_discount'         => ':discount% korting',
     'add_discount'          => 'Korting toevoegen',
     'discount_desc'         => 'van subtotaal',
 
+    'payment_made'          => 'Betaling Gebeurd',
     'payment_due'           => 'Te betalen voor',
     'amount_due'            => 'Verschuldigd bedrag',
     'paid'                  => 'Betaald',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Factuur maken',
     'receive_bill'          => 'Factuur ontvangen',
     'make_payment'          => 'Betaling',
+
+    'form_description' => [
+        'billing'           => 'Betalingsgegevens verschijnen op uw factuur. Factuurdatum wordt gebruikt in het dashboard en in rapporten. Selecteer de datum waarop u verwacht te betalen als Vervaldatum.',
+    ],
 
     'messages' => [
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',

@@ -9,6 +9,7 @@ return [
     'due_date'              => 'Datum zapadlosti',
     'order_number'          => 'Številka naročila',
     'bill_to'               => 'Račun za',
+    'cancel_date'           => 'Datum preklica',
 
     'quantity'              => 'Količina',
     'price'                 => 'Cena',
@@ -19,6 +20,7 @@ return [
     'total'                 => 'Skupaj',
 
     'item_name'             => 'Ime artikla|Imena artiklov',
+    'recurring_invoices'    => 'Ponavljajoči se račun|Ponavljajoči se računi',
 
     'show_discount'         => ':discount% popust',
     'add_discount'          => 'Dodaj popust',
@@ -40,6 +42,11 @@ return [
     'send_invoice'          => 'Pošlji račun',
     'get_paid'              => 'Prejmi plačilo',
     'accept_payments'       => 'Sprejmi Spletna Plačila',
+    'payments_received'     => 'Prejeto plačilo',
+
+    'form_description' => [
+        'billing'           => 'Podrobnosti za obračun so prikazane na vašem računu. Datum računa se uporablja na nadzorni plošči in poročilih. Za datum zapadlosti izberite datum, za katerega pričakujete, da boste prejeli plačilo.',
+    ],
 
     'messages' => [
         'email_required'    => 'Za to stranko ne obstaja elektronski naslov!',
@@ -56,6 +63,23 @@ return [
                 'await'     => 'Čakanje na plačilo',
             ],
         ],
+    ],
+
+    'slider' => [
+        'create'            => ':user je ustvaril ta račun dne :date',
+        'create_recurring'  => ':user je ustvaril to ponavljajočo se predlogo dne :date',
+        'schedule'          => 'Ponovi vsak :interval :pogostost od :date',
+        'children'          => ':count računov je bilo ustvarjeno samodejno',
+    ],
+
+    'share' => [
+        'show_link'         => 'Vaša stranka si lahko ogleda račun na tej povezavi',
+        'copy_link'         => 'Kopirajte povezavo in jo delite s stranko.',
+        'success_message'   => 'Povezava za skupno rabo je kopirana!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Predogledujete si, kako bo vaša stranka videla spletno različico vašega računa.',
     ],
 
 ];

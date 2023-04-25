@@ -29,6 +29,7 @@ return [
     'child'                 => ':url a été créé automatiquement le :date',
     'message'               => 'Il s\'agit d\'un :type récurrent et le prochain :type sera automatiquement généré le :date',
     'message_parent'        => 'Ce :type a été généré automatiquement à partir de :link',
+    'send_email_auto'       => 'Envoyer un courriel automatiquement',
 
     'frequency_type'        => 'Répéter ce :type',
     'limit_date'            => 'Créer le premier :type le',
