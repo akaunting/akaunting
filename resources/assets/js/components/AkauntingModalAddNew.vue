@@ -188,6 +188,16 @@ export default {
                     created: function() {
                         this.form = new Form('form-create');
 
+                        // for override global currency variable..
+                        this.currency = {
+                            decimal: '.',
+                            thousands: ',',
+                            prefix: '$ ',
+                            suffix: '',
+                            precision: 2,
+                            masked: false /* doesn't work with directive */
+                        };
+
                         // Parent vue instance methods merge with child vue instance methods
                         if (this.$root.$options.methods) {
                             let parent_methods = this.$root.$options.methods;
