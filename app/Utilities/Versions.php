@@ -85,8 +85,15 @@ class Versions
         $module_version = '?modules=';
 
         foreach ($modules as $module) {
+            if (is_string($module)) {
+                $module = module($module);
+            }
+
+            if (! $module instanceof \Akaunting\Module\Module) {
+                continue;
+            }
+
             $alias = $module->get('alias');
-            $version = $module->get('version');
 
             $installed_modules[] = $alias;
         }
