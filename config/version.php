@@ -10,7 +10,7 @@ return [
 
     'minor'     =>  '0',
 
-    'patch'     =>  '13',
+    'patch'     =>  '14',
 
     'build'     =>  '',
 
@@ -18,7 +18,7 @@ return [
 
     'date'      =>  '25-April-2023',
 
-    'time'      =>  '11:00',
+    'time'      =>  '17:00',
 
     'zone'      =>  'GMT +3',
 
