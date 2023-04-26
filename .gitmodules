@@ -10,3 +10,11 @@
 [submodule "modules/WbOverride"]
 	path = modules/WbOverride
 	url = git@github.com:mukellef/mod-wb-override.git
+
+[submodule "modules/Receipt"]
+	path = modules/Receipt
+	url = git@github.com:mukellef/mod-wb-receipt.git
+
+[submodule "modules/BankFeeds"]
+	path = modules/BankFeeds
+	url = git@github.com:mukellef/mod-wb-bank-feeds.git
