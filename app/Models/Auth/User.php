@@ -37,8 +37,11 @@ class User extends Authenticatable implements HasLocalePreference
      * @var array
      */
     protected $casts = [
-        'enabled'       => 'boolean',
-        'deleted_at'    => 'datetime',
+        'enabled'           => 'boolean',
+        'last_logged_in_at' => 'datetime',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+        'deleted_at'        => 'datetime',
     ];
 
     /**
@@ -47,13 +50,6 @@ class User extends Authenticatable implements HasLocalePreference
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * Sortable columns.
