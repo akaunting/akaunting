@@ -3,6 +3,7 @@
 namespace App\Abstracts\View\Components\Documents;
 
 use App\Abstracts\View\Component;
+use App\Interfaces\Service\DocumentNumberService;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
@@ -266,6 +267,7 @@ abstract class Form extends Component
      * @return void
      */
     public function __construct(
+        protected DocumentNumberService $documentNumberService,
         string $type, $model = false, $document = false, $currencies = false, $currency = false, $currency_code = false,
         string $formId = 'document', $formRoute = '', $formMethod = '',
         bool $hideCompany = false, string $textSectionCompaniesTitle = '', string $textSectionCompaniesDescription = '',
@@ -815,10 +817,12 @@ abstract class Form extends Component
             return $document->document_number;
         }
 
-        $document_number = $this->getNextDocumentNumber($type);
+        $contact = ($this->contact instanceof \stdClass) ? null : $this->contact;
+
+        $document_number = $this->documentNumberService->getNextDocumentNumber($type, $contact);
 
         if (empty($document_number)) {
-            $document_number = $this->getNextDocumentNumber(Document::INVOICE_TYPE);
+            $document_number = $this->documentNumberService->getNextDocumentNumber(Document::INVOICE_TYPE, $contact);
         }
 
         return $document_number;

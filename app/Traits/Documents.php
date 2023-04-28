@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Interfaces\Service\DocumentNumberService;
 use App\Models\Document\Document;
 use App\Abstracts\View\Components\Documents\Document as DocumentComponent;
 use App\Utilities\Date;
@@ -44,29 +45,24 @@ trait Documents
         return $recurring_types;
     }
 
+    /**
+     * Deprecated. Use the DocumentNumberService::getNextDocumentNumber() method instead.
+     *
+     * @deprecated This method is deprecated and will be removed in future versions.
+     */
     public function getNextDocumentNumber(string $type): string
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $prefix = setting($type . '.number_prefix');
-        $next = (string) setting($type . '.number_next');
-        $digit = (int) setting($type . '.number_digit');
-
-        return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        return app(DocumentNumberService::class)->getNextDocumentNumber($type, null);
     }
 
+    /**
+     * Deprecated. Use the DocumentNumberService::increaseNextDocumentNumber() method instead.
+     *
+     * @deprecated This method is deprecated and will be removed in future versions.
+     */
     public function increaseNextDocumentNumber(string $type): void
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $next = setting($type . '.number_next', 1) + 1;
-
-        setting([$type . '.number_next' => $next]);
-        setting()->save();
+        app(DocumentNumberService::class)->increaseNextDocumentNumber($type, null);
     }
 
     public function getDocumentStatuses(string $type): Collection
