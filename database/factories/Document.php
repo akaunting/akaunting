@@ -9,7 +9,7 @@ use App\Events\Document\DocumentReceived;
 use App\Events\Document\DocumentSent;
 use App\Events\Document\DocumentViewed;
 use App\Events\Document\PaymentReceived;
-use App\Interfaces\Service\DocumentNumberService;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
@@ -268,11 +268,11 @@ class Document extends AbstractFactory
      */
     public function getDocumentNumber($type, Contact $contact)
     {
-        $document_number_service = app(DocumentNumberService::class);
+        $utility = app(DocumentNumber::class);
 
-        $document_number = $document_number_service->getNextDocumentNumber($type, $contact);
+        $document_number = $utility->getNextNumber($type, $contact);
 
-        $document_number_service->increaseNextDocumentNumber($type, $contact);
+        $utility->increaseNextNumber($type, $contact);
 
         return $document_number;
     }

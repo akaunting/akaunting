@@ -3,7 +3,7 @@
 namespace App\Models\Document;
 
 use App\Abstracts\Model;
-use App\Interfaces\Service\DocumentNumberService;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Models\Common\Media as MediaModel;
 use App\Models\Setting\Tax;
 use App\Scopes\Document as Scope;
@@ -252,7 +252,7 @@ class Document extends Model
         }
 
         $this->status          = 'draft';
-        $this->document_number = app(DocumentNumberService::class)->getNextDocumentNumber($type, $src->contact);
+        $this->document_number = app(DocumentNumber::class)->getNextNumber($type, $src->contact);
     }
 
     public function getSentAtAttribute(string $value = null)

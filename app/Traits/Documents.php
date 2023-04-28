@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Interfaces\Service\DocumentNumberService;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Models\Document\Document;
 use App\Abstracts\View\Components\Documents\Document as DocumentComponent;
 use App\Utilities\Date;
@@ -46,23 +46,23 @@ trait Documents
     }
 
     /**
-     * Deprecated. Use the DocumentNumberService::getNextDocumentNumber() method instead.
+     * Deprecated. Use the DocumentNumber::getNextNumber() method instead.
      *
      * @deprecated This method is deprecated and will be removed in future versions.
      */
     public function getNextDocumentNumber(string $type): string
     {
-        return app(DocumentNumberService::class)->getNextDocumentNumber($type, null);
+        return app(DocumentNumber::class)->getNextNumber($type, null);
     }
 
     /**
-     * Deprecated. Use the DocumentNumberService::increaseNextDocumentNumber() method instead.
+     * Deprecated. Use the DocumentNumber::increaseNextNumber() method instead.
      *
      * @deprecated This method is deprecated and will be removed in future versions.
      */
     public function increaseNextDocumentNumber(string $type): void
     {
-        app(DocumentNumberService::class)->increaseNextDocumentNumber($type, null);
+        app(DocumentNumber::class)->increaseNextNumber($type, null);
     }
 
     public function getDocumentStatuses(string $type): Collection

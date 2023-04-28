@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Services\Document;
+namespace App\Utilities;
 
-use App\Interfaces\Service\DocumentNumberService;
+use App\Interfaces\Utility\DocumentNumber as DocumentNumberInterface;
 use App\Models\Common\Contact;
 
-class CoreDocumentNumberService implements DocumentNumberService
+class DocumentNumber implements DocumentNumberInterface
 {
-    public function getNextDocumentNumber(string $type, ?Contact $contact): string
+    public function getNextNumber(string $type, ?Contact $contact): string
     {
         $type = $this->resolveTypeAlias($type);
 
         $prefix = setting($type . '.number_prefix');
-        $next = (string)setting($type . '.number_next');
-        $digit = (int)setting($type . '.number_digit');
+        $next = (string) setting($type . '.number_next');
+        $digit = (int) setting($type . '.number_digit');
 
         return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
     }
 
-    public function increaseNextDocumentNumber(string $type, ?Contact $contact): void
+    public function increaseNextNumber(string $type, ?Contact $contact): void
     {
         $type = $this->resolveTypeAlias($type);
 
