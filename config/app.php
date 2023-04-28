@@ -195,6 +195,7 @@ return [
         App\Providers\Observer::class,
         App\Providers\Queue::class,
         App\Providers\Route::class,
+        App\Providers\Service::class,
         App\Providers\Validation::class,
         App\Providers\ViewComposer::class,
 
