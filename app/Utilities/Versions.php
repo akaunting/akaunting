@@ -3,10 +3,10 @@
 namespace App\Utilities;
 
 use App\Traits\SiteApi;
-use Cache;
-use Date;
+use App\Utilities\Date;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class Versions
 {
