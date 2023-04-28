@@ -67,7 +67,13 @@ class Users extends Controller
         $landing_pages = $u->landing_pages;
 
         $roles = Role::all()->reject(function ($r) {
-            return $r->hasPermission('read-client-portal');
+            $status = $r->hasPermission('read-client-portal');
+
+            if ($r->name == 'employee') {
+                $status = true;
+            }
+
+            return $status;
         })->pluck('display_name', 'id');
 
         $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
@@ -129,12 +135,21 @@ class Users extends Controller
         if ($user->isCustomer()) {
             // Show only roles with customer permission
             $roles = Role::all()->reject(function ($r) {
-                return !$r->hasPermission('read-client-portal');
+                return ! $r->hasPermission('read-client-portal');
             })->pluck('display_name', 'id');
+        } else if ($user->isEmployee()) {
+            // Show only roles with employee permission
+            $roles = Role::where('name', 'employee')->get()->pluck('display_name', 'id');
         } else {
             // Don't show roles with customer permission
             $roles = Role::all()->reject(function ($r) {
-                return $r->hasPermission('read-client-portal');
+                $status = $r->hasPermission('read-client-portal');
+
+                if ($r->name == 'employee') {
+                    $status = true;
+                }
+
+                return $status;
             })->pluck('display_name', 'id');
         }
 

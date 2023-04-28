@@ -23,6 +23,12 @@ class CreateInvitation extends Job
     public function handle(): UserInvitation
     {
         \DB::transaction(function () {
+            $invitations = UserInvitation::where('user_id', $this->user->id)->get();
+
+            foreach ($invitations as $invitation) {
+                $invitation->delete();
+            }
+
             $this->invitation = UserInvitation::create([
                 'user_id' => $this->user->id,
                 'token' => (string) Str::uuid(),

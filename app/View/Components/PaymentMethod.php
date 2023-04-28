@@ -50,7 +50,7 @@ class PaymentMethod extends Component
 
         // check here protal or admin panel..
         if (empty($type)) {
-            $type = Str::contains(request()->route()->getName(), 'portal') ? 'customer' : 'all';
+            $type = Str::contains(request()?->route()?->getName(), 'portal') ? 'customer' : 'all';
         }
 
         $payment_methods = Modules::getPaymentMethods($type);
