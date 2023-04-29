@@ -267,7 +267,6 @@ abstract class Form extends Component
      * @return void
      */
     public function __construct(
-        protected DocumentNumber $documentNumberUtility,
         string $type, $model = false, $document = false, $currencies = false, $currency = false, $currency_code = false,
         string $formId = 'document', $formRoute = '', $formMethod = '',
         bool $hideCompany = false, string $textSectionCompaniesTitle = '', string $textSectionCompaniesDescription = '',
@@ -817,12 +816,14 @@ abstract class Form extends Component
             return $document->document_number;
         }
 
-        $contact = ($this->contact instanceof \stdClass) ? null : $this->contact;
+        $contact = ($this->contact instanceof Contact) ? $this->contact : null;
 
-        $document_number = $this->documentNumberUtility->getNextNumber($type, $contact);
+        $utility = app(DocumentNumber::class);
+
+        $document_number = $utility->getNextNumber($type, $contact);
 
         if (empty($document_number)) {
-            $document_number = $this->documentNumberUtility->getNextNumber(Document::INVOICE_TYPE, $contact);
+            $document_number = $utility->getNextNumber(Document::INVOICE_TYPE, $contact);
         }
 
         return $document_number;
