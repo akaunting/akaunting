@@ -171,6 +171,17 @@ class Contact extends Model
         return $query->whereIn($this->qualifyColumn('type'), (array) $this->getCustomerTypes());
     }
 
+    /**
+     * Scope to include only employees.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEmployee($query)
+    {
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getEmployeeTypes());
+    }
+
     public function scopeEmail($query, $email)
     {
         return $query->where('email', '=', $email);
