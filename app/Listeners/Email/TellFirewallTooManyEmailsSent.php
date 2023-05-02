@@ -30,12 +30,16 @@ class TellFirewallTooManyEmailsSent
 
     public function loadConfig(): void
     {
+        if (! empty(Config::get('firewall.middleware.' . $this->middleware))) {
+            return;
+        }
+
         $config = array_merge_recursive(
             Config::get('firewall'),
             [
                 'middleware' => [
                     $this->middleware => [
-                        'enabled' => env('FIREWALL_MIDDLEWARE_' . strtoupper($this->middleware) . '_ENABLED', env('FIREWALL_ENABLED', true)),
+                        'enabled' => env('FIREWALL_MIDDLEWARE_' . strtoupper($this->middleware) . '_ENABLED', Config::get('firewall.enabled', true)),
 
                         'methods' => ['post'],
 
