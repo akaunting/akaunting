@@ -13,7 +13,6 @@ use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\SendDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
-use App\Notifications\Sale\Invoice as Notification;
 use App\Traits\Documents;
 
 class Invoices extends Controller
