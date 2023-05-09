@@ -186,26 +186,19 @@ trait Recurring
         return $limit;
     }
 
-    public function getCurrentRecurring()
-    {
-        if (! $schedule = $this->getRecurringSchedule()) {
-            return false;
-        }
-
-        if (! $current = $schedule->current()) {
-            return false;
-        }
-
-        return $current->getStart();
-    }
-
     public function getNextRecurring()
     {
         if (! $schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
-        if (! $next = $schedule->next()) {
+        $schedule = $schedule->startsAfter($this->getRecurringRuleTodayDate());
+
+        if ($schedule->count() == 0) {
+            return false;
+        }
+
+        if (! $next = $schedule->current()) {
             return false;
         }
 
