@@ -741,9 +741,7 @@ abstract class Show extends Component
             return $textRecurringType;
         }
 
-        $default_key = config('type.' . static::OBJECT_TYPE . '.' . $type . '.translation.prefix');
-
-        $translation = $this->getTextFromConfig($type, 'recurring_tye', $default_key);
+        $translation = config('type.' . static::OBJECT_TYPE . '.' . $type . '.translation.tab_document');
 
         if (! empty($translation)) {
             return $translation;
