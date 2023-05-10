@@ -160,65 +160,102 @@
                                     </x-table.thead>
 
                                     <x-table.tbody>
-                                        @foreach($user->companies as $item)
-                                            <x-table.tr>
-                                                <x-table.td class="w-2/12 sm:w-1/12">
-                                                    {{ $item->id }}
-                                                </x-table.td>
+                                        @foreach($companies as $item)
+                                            @if (in_array($item->id, user()->company_ids))
+                                                <x-table.tr>
+                                                    <x-table.td class="w-2/12 sm:w-1/12">
+                                                        {{ $item->id }}
+                                                    </x-table.td>
 
-                                                <x-table.td class="w-8/12 sm:w-4/12">
-                                                    <x-slot name="first" class="flex" override="class">
-                                                        <div class="font-bold truncate">
-                                                            {{ $item->name }}
-                                                        </div>
+                                                    <x-table.td class="w-8/12 sm:w-4/12">
+                                                        <x-slot name="first" class="flex" override="class">
+                                                            <div class="font-bold truncate">
+                                                                {{ $item->name }}
+                                                            </div>
 
-                                                        @if (! $item->enabled)
-                                                            <x-index.disable text="{{ trans_choice('general.companies', 1) }}" />
-                                                        @endif
-                                                    </x-slot>
-                                                    <x-slot name="second">
-                                                        @if ($item->tax_number)
-                                                            {{ $item->tax_number }}
-                                                        @else
-                                                            <x-empty-data />
-                                                        @endif
-                                                    </x-slot>
-                                                </x-table.td>
+                                                            @if (! $item->enabled)
+                                                                <x-index.disable text="{{ trans_choice('general.companies', 1) }}" />
+                                                            @endif
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            @if ($item->tax_number)
+                                                                {{ $item->tax_number }}
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                    </x-table.td>
 
-                                                <x-table.td class="w-4/12" hidden-mobile>
-                                                    <x-slot name="first">
-                                                        @if ($item->email)
-                                                            {{ $item->email }}
-                                                        @else
-                                                            <x-empty-data />
-                                                        @endif
-                                                    </x-slot>
-                                                    <x-slot name="second">
-                                                        @if ($item->phone)
-                                                            {{ $item->phone }}
-                                                        @else
-                                                            <x-empty-data />
-                                                        @endif
-                                                    </x-slot>
-                                                </x-table.td>
+                                                    <x-table.td class="w-4/12" hidden-mobile>
+                                                        <x-slot name="first">
+                                                            @if ($item->email)
+                                                                {{ $item->email }}
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            @if ($item->phone)
+                                                                {{ $item->phone }}
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                    </x-table.td>
 
-                                                <x-table.td class="w-3/12" kind="amount">
-                                                    <x-slot name="first">
-                                                        @if ($item->country)
-                                                            <x-index.country code="{{ $item->country }}" />
-                                                        @else
-                                                            <x-empty-data />
-                                                        @endif
-                                                    </x-slot>
-                                                    <x-slot name="second">
-                                                        @if ($item->currency)
-                                                            <x-index.currency code="{{ $item->currency }}" />
-                                                        @else
-                                                            <x-empty-data />
-                                                        @endif
-                                                    </x-slot>
-                                                </x-table.td>
-                                            </x-table.tr>
+                                                    <x-table.td class="w-3/12" kind="amount">
+                                                        <x-slot name="first">
+                                                            @if ($item->country)
+                                                                <x-index.country code="{{ $item->country }}" />
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            @if ($item->currency)
+                                                                <x-index.currency code="{{ $item->currency }}" />
+                                                            @else
+                                                                <x-empty-data />
+                                                            @endif
+                                                        </x-slot>
+                                                    </x-table.td>
+                                                </x-table.tr>
+                                            @else
+                                                <x-table.tr>
+                                                    <x-table.td class="w-2/12 sm:w-1/12">
+                                                        ***
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-8/12 sm:w-4/12">
+                                                        <x-slot name="first" class="flex" override="class">
+                                                            <div class="font-bold truncate">
+                                                                ***
+                                                            </div>
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            ***
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-4/12" hidden-mobile>
+                                                        <x-slot name="first">
+                                                            ***
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            ***
+                                                        </x-slot>
+                                                    </x-table.td>
+
+                                                    <x-table.td class="w-3/12" kind="amount">
+                                                        <x-slot name="first">
+                                                            ***
+                                                        </x-slot>
+                                                        <x-slot name="second">
+                                                            ***
+                                                        </x-slot>
+                                                    </x-table.td>
+                                                </x-table.tr>
+                                            @endif
                                         @endforeach
                                     </x-table.tbody>
                                 </x-table>

@@ -57,7 +57,9 @@ class Users extends Controller
 
         $landing_pages = $u->landing_pages;
 
-        return view('auth.users.show', compact('user', 'landing_pages'));
+        $companies = $user->companies()->collect();
+
+        return view('auth.users.show', compact('user', 'landing_pages', 'companies'));
     }
 
     /**
