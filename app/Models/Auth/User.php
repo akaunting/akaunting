@@ -379,12 +379,22 @@ class User extends Authenticatable implements HasLocalePreference
         }
 
         $actions[] = [
+            'title' => trans('general.show'),
+            'icon' => 'visibility',
+            'url' => route('users.show', $this->id),
+            'permission' => 'read-auth-users',
+            'attributes' => [
+                'id' => 'index-line-actions-show-user-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
             'title' => trans('general.edit'),
             'icon' => 'edit',
             'url' => route('users.edit', $this->id),
             'permission' => 'update-auth-users',
             'attributes' => [
-                'id' => 'index-line-actions-show-user-' . $this->id,
+                'id' => 'index-line-actions-edit-user-' . $this->id,
             ],
         ];
 

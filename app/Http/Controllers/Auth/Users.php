@@ -47,9 +47,19 @@ class Users extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(User $user)
     {
-        return redirect()->route('users.index');
+        $u = new \stdClass();
+        $u->role = $user->roles()->first();
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
+
+        $companies = $user->companies()->collect();
+
+        return view('auth.users.show', compact('user', 'landing_pages', 'companies'));
     }
 
     /**
@@ -95,7 +105,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new CreateUser($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('users.index');
+            $response['redirect'] = route('users.show', $response['data']->id);
 
             $message = trans('messages.success.invited', ['type' => trans_choice('general.users', 1)]);
 
@@ -191,7 +201,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, $request));
 
         if ($response['success']) {
-            $response['redirect'] = user()->can('read-auth-users') ? route('users.index') : route('users.edit', $user->id);
+            $response['redirect'] = user()->can('read-auth-users') ? route('users.show', $user->id) : route('users.edit', $user->id);
 
             $message = trans('messages.success.updated', ['type' => $user->name]);
 
