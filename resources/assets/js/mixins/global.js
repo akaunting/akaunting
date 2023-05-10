@@ -505,6 +505,10 @@ export default {
 
         // Dynamic component get path view and show it.
         onDynamicComponent(path) {
+            if (! path) {
+                return;
+            }
+
             axios.get(path)
             .then(response => {
                 let html = response.data.html;
@@ -562,6 +566,10 @@ export default {
         },
 
         onDynamicFormParams(path, params) {
+            if (! path) {
+                return;
+            }
+
             let data = {};
 
             for (const [key, value] of Object.entries(params)) {
