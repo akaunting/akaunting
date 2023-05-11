@@ -44,7 +44,7 @@ class SendInvalidEmailNotification
             return;
         }
 
-        $type = trans('general.users', 1);
+        $type = trans_choice('general.users', 1);
 
         foreach ($users as $user) {
             if ($user->cannot('read-notifications')) {
