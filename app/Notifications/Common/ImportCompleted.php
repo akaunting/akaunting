@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class ImportCompleted extends Notification implements ShouldQueue
 {
@@ -49,6 +50,7 @@ class ImportCompleted extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->subject(trans('notifications.import.completed.title'))
+            ->line(new HtmlString('<br><br>'))
             ->line(trans('notifications.import.completed.description'))
             ->action(trans_choice('general.dashboards', 1), $dashboard_url);
     }
