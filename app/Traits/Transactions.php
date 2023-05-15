@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
+use App\Interfaces\Utility\TransactionNumber;
 use Illuminate\Support\Str;
 
 trait Transactions
@@ -228,36 +229,13 @@ trait Transactions
         return Str::replace('-split', '', $transfer_type);
     }
 
-    public function getNextTransactionNumber($suffix = ''): string
+    public function getNextTransactionNumber($type = 'income', $suffix = ''): string
     {
-        $prefix = setting('transaction' . $suffix . '.number_prefix');
-        $next   = (string) setting('transaction' . $suffix . '.number_next');
-        $digit  = (int) setting('transaction' . $suffix . '.number_digit');
-
-        $get_number = fn($prefix, $next, $digit) => $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
-        $number_exists = fn($number) => Transaction::where('number', $number)->exists();
-
-        $transaction_number = $get_number($prefix, $next, $digit);
-
-        if ($number_exists($transaction_number)) {
-            do {
-                $next++;
-
-                $transaction_number = $get_number($prefix, $next, $digit);
-            } while ($number_exists($transaction_number));
-
-            setting(['transaction' . $suffix . '.number_next' => $next]);
-            setting()->save();
-        }
-
-        return $transaction_number;
+        return app(TransactionNumber::class)->getNextNumber($type, $suffix, null);
     }
 
-    public function increaseNextTransactionNumber($suffix = ''): void
+    public function increaseNextTransactionNumber($type = 'income', $suffix = ''): void
     {
-        $next = setting('transaction' . $suffix . '.number_next', 1) + 1;
-
-        setting(['transaction' . $suffix . '.number_next' => $next]);
-        setting()->save();
+        app(TransactionNumber::class)->increaseNextNumber($type, $suffix, null);
     }
 }
