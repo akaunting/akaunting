@@ -8,7 +8,7 @@ use App\Models\Common\Contact;
 
 class TransactionNumber implements TransactionNumberInterface
 {
-    public function getNextNumber($suffix = '', ?Contact $contact): string
+    public function getNextNumber($type, $suffix = '', ?Contact $contact): string
     {
         $prefix = setting('transaction' . $suffix . '.number_prefix');
         $next   = (string) setting('transaction' . $suffix . '.number_next');
@@ -34,7 +34,7 @@ class TransactionNumber implements TransactionNumberInterface
 
     }
 
-    public function increaseNextNumber($suffix = '', ?Contact $contact): void
+    public function increaseNextNumber($type, $suffix = '', ?Contact $contact): void
     {
         $next = setting('transaction' . $suffix . '.number_next', 1) + 1;
 
