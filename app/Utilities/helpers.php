@@ -3,6 +3,7 @@
 use App\Models\Common\Company;
 use App\Traits\DateTime;
 use App\Traits\Sources;
+use App\Traits\Modules;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
 
@@ -85,6 +86,20 @@ if (! function_exists('company')) {
         }
 
         return $company;
+    }
+}
+
+if (! function_exists('module_is_enabled')) {
+    /**
+     * Check if a module is enabled.
+     */
+    function module_is_enabled(string $alias): bool
+    {
+        $module = new class() {
+            use Modules;
+        };
+
+        return $module->moduleIsEnabled($alias);
     }
 }
 
