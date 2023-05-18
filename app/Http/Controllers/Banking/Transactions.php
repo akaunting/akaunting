@@ -101,7 +101,7 @@ class Transactions extends Controller
         $type = request()->get('type', 'income');
         $real_type = $this->getRealTypeTransaction($type);
 
-        $number = $this->getNextTransactionNumber();
+        $number = $this->getNextTransactionNumber($type);
 
         $contact_type = config('type.transaction.' . $type . '.contact_type');
 
