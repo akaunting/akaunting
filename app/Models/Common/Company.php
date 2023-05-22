@@ -548,7 +548,7 @@ class Company extends Eloquent implements Ownable
                 'title' => trans('general.switch'),
                 'icon' => 'settings_ethernet',
                 'url' => route('companies.switch', $this->id),
-                'permission' => 'read-common-companies',
+                //'permission' => 'read-common-companies', remove this permission to allow switching to any company
                 'attributes' => [
                     'id' => 'index-line-actions-switch-company-' . $this->id,
                 ],
