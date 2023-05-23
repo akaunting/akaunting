@@ -433,10 +433,12 @@ export default {
 
             let option = false;
             let option_url = false;
+            let option_fields = {};
 
             for (let i = 0; i < this.filter_list.length; i++) {
                 if (this.filter_list[i].key == value) {
                     option = this.filter_list[i].value;
+                    option_fields = (this.filter_list[i]['value_option_fields']) ? this.filter_list[i].value_option_fields : {};
 
                     if (this.filter_list[i].values !== 'undefined' && Object.keys(this.filter_list[i].values).length) {
                         this.option_values[value] = this.convertOption(this.filter_list[i].values);
@@ -485,7 +487,7 @@ export default {
                 }
             }
 
-            if (!this.option_values[value] && option_url) {
+            if (! this.option_values[value] && option_url) {
                 if (option_url.indexOf('limit') === -1) {
                     option_url += ' limit:10';
                 }
@@ -497,11 +499,19 @@ export default {
                     this.values = [];
 
                     data.forEach(function (item) {
-                        this.values.push({
-                            key: (item.code) ? item.code : item.id,
-                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                            level: (item.level) ? item.level : null,
-                        });
+                        if (Object.keys(option_fields).length) {
+                            this.values.push({
+                                key: (option_fields['key']) ? item[option_fields['key']] : (item.code) ? item.code : item.id,
+                                value: (option_fields['value']) ? item[option_fields['value']] : (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                level: (option_fields['level']) ? item[option_fields['level']] : (item.level) ? item.level : null,
+                            });
+                        } else {
+                            this.values.push({
+                                key: (item.code) ? item.code : item.id,
+                                value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                level: (item.level) ? item.level : null,
+                            });
+                        }
                     }, this);
 
                     this.option_values[value] = this.values;
@@ -657,7 +667,7 @@ export default {
             let values = [];
 
             // Option set sort_option data
-            if (!Array.isArray(options)) {
+            if (! Array.isArray(options)) {
                 for (const [key, value] of Object.entries(options)) {
                     values.push({
                         key: (key).toString(),

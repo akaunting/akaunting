@@ -75,6 +75,7 @@ class SearchString extends Component
                         'type' => $this->getFilterType($options),
                         'url' => $this->getFilterUrl($column, $options),
                         'values' => $this->getFilterValues($column, $options),
+                        'value_option_fields' => $options['fields'] ?? [],
                     ];
                 }
             }
