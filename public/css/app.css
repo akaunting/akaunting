@@ -64856,6 +64856,14 @@ body{
 
 @media (min-width: 640px){
 
+  .sm\:absolute{
+    position: absolute;
+  }
+
+  .sm\:relative{
+    position: relative;
+  }
+
   .sm\:inset-y-1\/2{
     top: 50%;
     bottom: 50%;
@@ -64971,8 +64979,16 @@ body{
     width: 16.666667%;
   }
 
+  .sm\:w-2\/5{
+    width: 40%;
+  }
+
   .sm\:w-3\/12{
     width: 25%;
+  }
+
+  .sm\:w-3\/5{
+    width: 60%;
   }
 
   .sm\:w-37{
@@ -65005,6 +65021,10 @@ body{
 
   .sm\:w-auto{
     width: auto;
+  }
+
+  .sm\:w-full{
+    width: 100%;
   }
 
   .sm\:max-w-4xl{
@@ -65391,6 +65411,10 @@ body{
 
   .lg\:w-2\/4{
     width: 50%;
+  }
+
+  .lg\:w-2\/5{
+    width: 40%;
   }
 
   .lg\:w-3\/12{

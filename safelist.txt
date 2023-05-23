@@ -14,6 +14,8 @@ hover:text-pastel_green-600
 sm:ltr:right-4
 sm:rtl:left-4
 sm:w-500
+sm:w-2/5
+sm:w-3/5
 sm:min-h-500
 sm:max-w-4xl
 sm:space-x-4
@@ -28,6 +30,9 @@ sm:py-10
 sm:ltr:pl-10
 sm:rtl:pr-10
 sm:mt-6
+sm:w-full
+sm:relative
+sm:absolute
 md:grid-cols-2
 lg:mt-2
 lg:mt-4
@@ -36,6 +41,8 @@ lg:my-12
 lg:mt-4
 lg:pl-6
 lg:w-9
+lg:w-2/5
+lg:w-3/5
 lg:mt-11
 lg:-mx-12
 lg:w-96
@@ -67,6 +74,8 @@ lg:h-full
 lg:w-18
 lg:-mt-10
 lg:overflow-x-hidden
+lg:relative
+lg:absolute
 xl:grid-cols-4
 xl:w-8/12
 xl:pt-6
