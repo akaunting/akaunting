@@ -112,6 +112,8 @@ export default {
         })
         .catch((error) => {
             this.$notify({
+                verticalAlign: 'bottom',
+                horizontalAlign: 'left',
                 message: this.translations.finish.error_message,
                 timeout: 1000,
                 icon: "",

@@ -271,6 +271,8 @@ export default {
                 }
 
                 this.$notify({
+                    verticalAlign: 'bottom',
+                    horizontalAlign: 'left',
                     message: notify.message,
                     timeout: timeout,
                     icon: 'error_outline',
@@ -1120,6 +1122,8 @@ export default {
                                 document.execCommand('copy');
 
                                 this.$notify({
+                                    verticalAlign: 'bottom',
+                                    horizontalAlign: 'left',
                                     message: this.share.success_message,
                                     timeout: 5000,
                                     icon: 'error_outline',

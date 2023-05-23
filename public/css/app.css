@@ -65184,12 +65184,20 @@ body{
     right: 1rem;
   }
 
+  :is([dir="ltr"] .sm\:ltr\:left-4){
+    left: 1rem;
+  }
+
   :is([dir="ltr"] .sm\:ltr\:pl-10){
     padding-left: 2.5rem;
   }
 
   :is([dir="rtl"] .sm\:rtl\:left-4){
     left: 1rem;
+  }
+
+  :is([dir="rtl"] .sm\:rtl\:right-4){
+    right: 1rem;
   }
 
   :is([dir="rtl"] .sm\:rtl\:space-x-reverse) > :not([hidden]) ~ :not([hidden]){
