@@ -250,7 +250,7 @@
             this.elmHeight = this.$el.clientHeight;
 
             if (this.timeout) {
-                //setTimeout(this.close, this.timeout);
+                setTimeout(this.close, this.timeout);
             }
         },
     };
