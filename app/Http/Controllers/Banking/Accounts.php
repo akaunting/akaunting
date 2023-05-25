@@ -23,7 +23,7 @@ class Accounts extends Controller
      */
     public function index()
     {
-        $accounts = Account::with('income_transactions', 'expense_transactions')->collect();
+        $accounts = Account::with('transactions')->collect();
 
         return $this->response('banking.accounts.index', compact('accounts'));
     }
@@ -35,7 +35,7 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        $transactions = Transaction::with('category', 'contact', 'document')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('category', 'contact', 'document', 'recurring')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
 
         $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')
                                 ->whereHas('expense_transaction', fn ($query) => $query->where('account_id', $account->id))
