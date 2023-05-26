@@ -242,16 +242,30 @@ class Item extends Controller
             $this->dispatch(new InstallModule($request['alias'], company_id()));
 
             $name = module($request['alias'])->getName();
+            $module_routes = module_attribute($request['alias'], 'routes', []);
 
             $message = trans('modules.installed', ['module' => $name]);
 
             flash($message)->success();
 
+            $redirect = route('apps.app.show', $request['alias']);
+
+            // Get module.json redirect route
+            if (! empty($module_routes['redirect_after_install'])) {
+                if (is_array($module_routes['redirect_after_install'])) {
+                    $route = array_shift($module_routes['redirect_after_install']);
+
+                    $redirect = route($route, $module_routes['redirect_after_install']);
+                } else {
+                    $redirect = route($module_routes['redirect_after_install']);
+                }
+            }
+
             $json = [
                 'success' => true,
                 'error' => false,
                 'message' => null,
-                'redirect' => route('apps.app.show', $request['alias']),
+                'redirect' => $redirect,
                 'data' => [
                     'name' => $name,
                     'alias' => $request['alias'],
