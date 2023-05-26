@@ -47,7 +47,7 @@
                         @break
 
                     @default
-                        <a href="{{ $action['url'] }}" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group/tooltip" {!! $action['attributes'] ?? null !!}>
+                        <a href="{{ $action['url'] }}" x-data="{ clicked: false }" x-on:click="clicked = true;" x-bind:class="{ 'pointer-events-none': clicked }" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group/tooltip" {!! $action['attributes'] ?? null !!}>
                             <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                                 {{ $action['icon'] }}
                             </span>
@@ -124,7 +124,7 @@
                                 @php $divider = false; @endphp
 
                                 <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap" {!! $action['attributes'] ?? null !!}>
-                                    <a href="{{ $action['url'] }}" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                    <a href="{{ $action['url'] }}" x-data="{ clicked: false }" x-on:click="clicked = true;" x-bind:class="{ 'pointer-events-none': clicked }" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
                                         {{ $action['title'] }}
                                     </a>
                                 </div>
