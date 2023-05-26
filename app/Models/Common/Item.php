@@ -94,6 +94,15 @@ class Item extends Model
         return $query->whereNotNull($price_type . '_price');
     }
 
+    public function scopeType($query, $type)
+    {
+        if (empty($type)) {
+            return $query;
+        }
+
+        return $query->whereIn('type', $type);
+    }
+
     /**
      * Get the item id.
      *
