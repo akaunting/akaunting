@@ -30,10 +30,15 @@ class SendDocumentAsCustomMail extends Job
             $custom_mail['cc'] = user()->email;
         }
 
+        $attachments = collect($this->request->get('attachments', []))
+            ->filter(fn($value) => $value == true)
+            ->keys()
+            ->all();
+
         $notification = config('type.document.' . $document->type . '.notification.class');
 
         // Notify the contact
-        $document->contact->notify(new $notification($document, $this->template_alias, true, $custom_mail));
+        $document->contact->notify(new $notification($document, $this->template_alias, true, $custom_mail, $attachments));
 
         event(new DocumentSent($document));
     }
