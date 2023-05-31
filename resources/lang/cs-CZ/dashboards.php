@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Chyba: Nelze odstranit poslední dashboard. Nejdříve, prosím, vytvořte nový!',
     ],
 
+    'form_description' => [
+        'general'               => 'Vyberte uživatele, které chcete mít přístup k nové nástěnce.',
+    ],
+
 ];
