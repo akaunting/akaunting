@@ -230,6 +230,7 @@ return [
     'go_back'               => 'Go back to :type',
     'validation_error'      => 'Validation error',
     'dismiss'               => 'Dismiss',
+    'size'                  => 'Size',
 
     'card' => [
         'cards'                 => 'Card|Cards',
