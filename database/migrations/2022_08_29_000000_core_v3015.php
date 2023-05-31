@@ -25,7 +25,7 @@ return new class extends Migration
         });
 
         // User Roles
-        Schema::table('user_companies', function(Blueprint $table) {
+        Schema::table('user_roles', function(Blueprint $table) {
             $table->index('user_id');
             $table->index('role_id');
         });
