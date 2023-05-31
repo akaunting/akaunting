@@ -27,6 +27,13 @@ class Contact extends Model
     protected $table = 'contacts';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['media'];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
