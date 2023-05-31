@@ -9851,16 +9851,16 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "50ec5eae5d09d182d2d048981d0b45c24579a7f7"
+                "reference": "516df9df80414a71fa5464039746e8e98b066e09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/50ec5eae5d09d182d2d048981d0b45c24579a7f7",
-                "reference": "50ec5eae5d09d182d2d048981d0b45c24579a7f7",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/516df9df80414a71fa5464039746e8e98b066e09",
+                "reference": "516df9df80414a71fa5464039746e8e98b066e09",
                 "shasum": ""
             },
             "require": {
@@ -9925,7 +9925,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/3.4.0"
+                "source": "https://github.com/getsentry/sentry-laravel/tree/3.4.1"
             },
             "funding": [
                 {
@@ -9937,7 +9937,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-08T14:15:56+00:00"
+            "time": "2023-05-31T10:43:06+00:00"
         },
         {
             "name": "simple-icons/simple-icons",
