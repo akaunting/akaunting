@@ -20,11 +20,7 @@ class NumberDigit extends Form
         if (empty($this->name)) {
             $this->name = 'number_digit';
         }
-
-        if (empty($this->label)) {
-            $this->label = trans('settings.invoice.digit');
-        }
-
+        
         $this->number_digits = [
             '1' => '1',
             '2' => '2',

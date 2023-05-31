@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
+    Route::get('{id}/inline', 'Common\Uploads@inline')->name('inline');
     Route::delete('{id}', 'Common\Uploads@destroy')->name('destroy');
 });
 

@@ -36,9 +36,16 @@ class Invoice extends Notification
     public $attach_pdf;
 
     /**
+     * List of document attachments to attach when sending the email.
+     *
+     * @var array
+     */
+    public $attachments;
+
+    /**
      * Create a notification instance.
      */
-    public function __construct(Document $invoice = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [])
+    public function __construct(Document $invoice = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [], $attachments = [])
     {
         parent::__construct();
 
@@ -46,6 +53,7 @@ class Invoice extends Notification
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
         $this->custom_mail = $custom_mail;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -66,6 +74,17 @@ class Invoice extends Notification
             $message->attach($this->storeDocumentPdfAndGetPath($this->invoice), [
                 'mime' => 'application/pdf',
             ]);
+        }
+
+        // Attach selected attachments
+        if (! empty($this->invoice->attachment)) {
+            foreach ($this->invoice->attachment as $attachment) {
+                if (in_array($attachment->id, $this->attachments)) {
+                    $message->attach($attachment->getAbsolutePath(), [
+                        'mime' => $attachment->mime_type,
+                    ]);
+                }
+            }
         }
 
         return $message;
