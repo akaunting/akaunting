@@ -15,6 +15,13 @@ class DocumentItem extends Model
 
     protected $table = 'document_items';
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['taxes'];
+
     protected $appends = ['discount'];
 
     protected $fillable = [

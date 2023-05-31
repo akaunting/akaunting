@@ -27,6 +27,8 @@ class Company extends Eloquent implements Ownable
 
     protected $table = 'companies';
 
+    protected $with = ['settings'];
+
     /**
      * The accessors to append to the model's array form.
      *

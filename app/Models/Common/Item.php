@@ -17,6 +17,13 @@ class Item extends Model
     protected $table = 'items';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['taxes'];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
