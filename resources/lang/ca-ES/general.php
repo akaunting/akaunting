@@ -72,6 +72,7 @@ return [
     'attachments'           => 'Adjunt|Adjunts',
     'histories'             => 'Història|Històries',
     'your_notifications'    => 'La teva notificació|Les teves notificacions',
+    'employees'             => 'Empleat|Empleats',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
@@ -228,6 +229,7 @@ return [
     'preview_mode'          => 'Mode de previsualització',
     'go_back'               => 'Torna a :type',
     'validation_error'      => 'Error de validació',
+    'dismiss'               => 'Ignora',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',
