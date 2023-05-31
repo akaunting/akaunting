@@ -621,6 +621,7 @@ const app = new Vue({
         onChangeCurrency(currency_code) {
             if (this.edit.status && this.edit.currency <= 2) {
                 this.edit.currency++;
+
                 return;
             }
 

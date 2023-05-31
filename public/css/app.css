@@ -65180,12 +65180,12 @@ body{
     color: rgb(85 88 139 / var(--tw-text-opacity));
   }
 
-  :is([dir="ltr"] .sm\:ltr\:right-4){
-    right: 1rem;
-  }
-
   :is([dir="ltr"] .sm\:ltr\:left-4){
     left: 1rem;
+  }
+
+  :is([dir="ltr"] .sm\:ltr\:right-4){
+    right: 1rem;
   }
 
   :is([dir="ltr"] .sm\:ltr\:pl-10){

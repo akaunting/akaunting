@@ -1,15 +1,13 @@
 <x-form id="form-email" :route="[$store_route, $invoice->id]">
-    <x-tabs active="general" class="grid grid-cols-{{ $invoice->attachment ? '2' : '1' }}" override="class" ignore-hash>
+    <x-tabs active="general" class="grid grid-cols-2 auto-rows-max" override="class" ignore-hash>
         <x-slot name="navs">
             <x-tabs.nav id="general">
                 {{ trans('general.general') }}
             </x-tabs.nav>
 
-            @if ($invoice->attachment)
-                <x-tabs.nav id="attachments">
-                    {{ trans_choice('general.attachments', 2) }}
-                </x-tabs.nav>
-            @endif
+            <x-tabs.nav id="attachments">
+                {{ trans_choice('general.attachments', 2) }}
+            </x-tabs.nav>
         </x-slot>
 
         <x-slot name="content">
@@ -29,8 +27,8 @@
                 </x-form.section>
             </x-tabs.tab>
 
-            @if ($invoice->attachment)
-                <x-tabs.tab id="attachments">
+            <x-tabs.tab id="attachments">
+                @if ($invoice->attachment)
                     <x-table>
                         <x-table.thead>
                             <x-table.tr class="flex items-center px-1">
@@ -55,11 +53,11 @@
                                 <x-table.tr id="method-{{ $attachment->id }}">
                                     <x-table.td class="w-1/12">
                                         <input type="checkbox"
-                                               id="attachment-{{ $attachment->id }}"
-                                               name="{{ $attachment->id }}"
-                                               class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent"
-                                               data-field="attachments"
-                                               @input="e => form.attachments[e.target.name] = e.target.checked | 0">
+                                            id="attachment-{{ $attachment->id }}"
+                                            name="{{ $attachment->id }}"
+                                            class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent"
+                                            data-field="attachments"
+                                            @input="e => form.attachments[e.target.name] = e.target.checked | 0">
                                     </x-table.td>
                                     <x-table.td class="w-1/6">
                                         @if ($attachment->aggregate_type == 'image')
@@ -84,8 +82,12 @@
                             @endforeach
                         </x-table.tbody>
                     </x-table>
-                </x-tabs.tab>
-            @endif
+                @else
+                    <p class="mt-6 text-sm">
+                        {{ trans('documents.empty_attachments', ['type' => $invoice->type]) }}
+                    </p>
+                @endif
+            </x-tabs.tab>
         </x-slot>
     </x-tabs>
 </x-form>

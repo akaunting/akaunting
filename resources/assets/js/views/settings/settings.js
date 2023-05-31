@@ -141,7 +141,7 @@ const app = new Vue({
             });
         },
 
-        // Change currency get money
+        // Change currency get money override because remove form currency_code and currency_rate column
         onChangeCurrency(currency_code) {
             if (! currency_code) {
                 return;
