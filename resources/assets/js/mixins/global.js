@@ -469,6 +469,9 @@ export default {
         onChangePaginationLimit(event) {
             let path = '';
 
+            let split_href = window.location.href.split('#');
+            let href = split_href[0];
+
             if (window.location.search.length) {
                 if (window.location.search.includes('limit')) {
                     let queries = [];
@@ -496,10 +499,14 @@ export default {
                     });
 
                 } else {
-                    path = window.location.href + '&limit=' + event.target.getAttribute("value");
+                    path = href + '&limit=' + event.target.getAttribute("value");
                 }
             } else {
-                path = window.location.href + '?limit=' + event.target.getAttribute("value");
+                path = href + '?limit=' + event.target.getAttribute("value");
+            }
+
+            if (split_href[1]) {
+                path +=  '#' + split_href[1];
             }
 
             window.location.href = path;
