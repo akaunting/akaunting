@@ -323,7 +323,7 @@ trait Import
         return $contact->id;
     }
 
-    public function getItemIdFromName($row, $type)
+    public function getItemIdFromName($row, $type = 'product')
     {
         $item_id = Item::type($type)->where('name', $row['item_name'])->pluck('id')->first();
 
