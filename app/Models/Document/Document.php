@@ -471,7 +471,7 @@ class Document extends Model
             $location[] = $this->contact_state;
         }
 
-        if ($this->contact_country && in_array($this->contact_country, trans('countries'))) {
+        if ($this->contact_country && array_key_exists($this->contact_country, trans('countries'))) {
             $location[] = trans('countries.' . $this->contact_country);
         }
 

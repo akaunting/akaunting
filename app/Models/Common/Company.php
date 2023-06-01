@@ -27,7 +27,7 @@ class Company extends Eloquent implements Ownable
 
     protected $table = 'companies';
 
-    protected $with = ['settings'];
+    //protected $with = ['settings'];
 
     /**
      * The accessors to append to the model's array form.
@@ -529,7 +529,7 @@ class Company extends Eloquent implements Ownable
 
         $country = setting('company.country');
 
-        if ($country && in_array($country, trans('countries'))) {
+        if ($country && array_key_exists($country, trans('countries'))) {
             $location[] = trans('countries.' . $country);
         }
 

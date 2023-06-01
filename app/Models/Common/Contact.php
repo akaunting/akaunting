@@ -278,7 +278,7 @@ class Contact extends Model
             $location[] = $this->state;
         }
 
-        if ($this->country && in_array($this->country, trans('countries'))) {
+        if ($this->country && array_key_exists($this->country, trans('countries'))) {
             $location[] = trans('countries.' . $this->country);
         }
 
