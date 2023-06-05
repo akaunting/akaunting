@@ -323,8 +323,10 @@ trait Import
         return $contact->id;
     }
 
-    public function getItemIdFromName($row, $type = 'product')
+    public function getItemIdFromName($row, $type = null)
     {
+        $type = !empty($type) ? $type : (!empty($row['item_type']) ? $row['item_type'] : 'product');
+
         $item_id = Item::type($type)->where('name', $row['item_name'])->pluck('id')->first();
 
         if (!empty($item_id)) {

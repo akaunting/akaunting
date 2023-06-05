@@ -107,7 +107,7 @@ class Item extends Model
             return $query;
         }
 
-        return $query->whereIn($this->qualifyColumn('type'), $type);
+        return $query->where($this->qualifyColumn('type'), $type);
     }
 
     /**
