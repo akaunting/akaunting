@@ -68,6 +68,14 @@ class Update extends Command
 
         $this->old = $this->getOldVersion();
 
+        if (version_compare($this->old, $this->new, '>=')) {
+            $message = 'The current version for the ' . $this->alias . ' is the latest version!';
+
+            $this->info($message);
+
+            return self::CMD_SUCCESS;
+        }
+
         company($this->company)->makeCurrent();
 
         if (!$path = $this->download()) {
