@@ -35,7 +35,7 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        $transactions = Transaction::with('category', 'contact', 'document', 'recurring')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('category', 'contact', 'contact.media', 'document', 'document.media', 'recurring', 'media')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
 
         $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')
                                 ->whereHas('expense_transaction', fn ($query) => $query->where('account_id', $account->id))
