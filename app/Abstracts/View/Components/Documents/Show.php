@@ -1252,9 +1252,11 @@ abstract class Show extends Component
             return $hideName;
         }
 
+        $hideName = setting($this->getDocumentSettingKey($type, 'item_name'), false);
+
         // if you use settting translation
-        if ($hideName = setting($this->getDocumentSettingKey($type, 'item_name'), false) && $hideName == 'hide') {
-            return $hideName;
+        if ($hideName === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'name');
@@ -1263,8 +1265,7 @@ abstract class Show extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.item_name', $hideName) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHideDescription($type, $hideDescription)
@@ -1274,8 +1275,8 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideDescription = setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
-            return $hideDescription;
+        if (setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'description');
@@ -1284,8 +1285,7 @@ abstract class Show extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_description', $hideDescription);
+        return false;
     }
 
     protected function getHideQuantity($type, $hideQuantity)
@@ -1294,9 +1294,11 @@ abstract class Show extends Component
             return $hideQuantity;
         }
 
+        $hideQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name'), false);
+
         // if you use settting translation
-        if ($hideQuantity = setting($this->getDocumentSettingKey($type, 'hide_quantity'), false) && $hideQuantity == 'hide') {
-            return $hideQuantity;
+        if ($hideQuantity === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'quantity');
@@ -1305,8 +1307,7 @@ abstract class Show extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.quantity_name', $hideQuantity) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHidePrice($type, $hidePrice)
@@ -1315,9 +1316,11 @@ abstract class Show extends Component
             return $hidePrice;
         }
 
+        $hidePrice = setting($this->getDocumentSettingKey($type, 'price_name'), false);
+
         // if you use settting translation
-        if ($hidePrice = setting($this->getDocumentSettingKey($type, 'hide_price'), false) && $hidePrice == 'hide') {
-            return $hidePrice;
+        if ($hidePrice === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'price');
@@ -1326,8 +1329,7 @@ abstract class Show extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.price_name', $hidePrice) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHideDiscount($type, $hideDiscount)
@@ -1358,8 +1360,8 @@ abstract class Show extends Component
         }
 
         // if you use settting translation
-        if ($hideAmount = setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
-            return $hideAmount;
+        if (setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'amount');
@@ -1368,7 +1370,6 @@ abstract class Show extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_amount', $hideAmount);
+        return false;
     }
 }
