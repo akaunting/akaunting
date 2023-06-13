@@ -30,7 +30,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Document::bill()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'media')->collect(['issued_at' => 'desc']);
+        $bills = Document::bill()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['issued_at' => 'desc']);
 
         return $this->response('purchases.bills.index', compact('bills'));
     }
