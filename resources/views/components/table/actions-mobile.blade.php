@@ -19,70 +19,70 @@
     <div class="w-full my-10 m-auto flex flex-col px-2 sm:px-0 max-w-md">
         <div class="p-2 bg-body rounded-lg">
             @foreach ($actions as $action)
-                @if (! empty($action['permission']))
-                    @can($action['permission'])
-                @endif
-
                 @if ($count_buttons > 3 && $loop->count > 4)
                     @break
                 @endif
 
-                @php
-                    $type = ! empty($action['type']) ? $action['type'] : 'link';
-                @endphp
+                @if (isset($action['type']) && $action['type'] == 'divider')
+                    @continue
+                @endif
 
-                @switch($type)
-                    @case('button')
-                        <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                            <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
-                                <span class="material-icons-outlined text-purple text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">
-                                    {{ $action['icon'] }}
-                                </span>
+                @if (
+                    empty($action['permission'])
+                    || (! empty($action['permission']) && user()->can($action['permission']))
+                )
+                    @php
+                        $type = ! empty($action['type']) ? $action['type'] : 'link';
+                    @endphp
 
-                                {{ $action['title'] }}
-                            </div>
-                        </button>
-                        @break
+                    @switch($type)
+                        @case('button')
+                            <button type="button" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
+                                <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                    <span class="material-icons-outlined text-purple text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">
+                                        {{ $action['icon'] }}
+                                    </span>
 
-                    @case('delete')
-                        @php
-                            $title = $action['title'] ?? null;
-                            $modelId = ! empty($action['model-id']) ? $action['model-id'] : 'id';
-                            $modelName = ! empty($action['model-name']) ? $action['model-name'] : 'name';
-                        @endphp
+                                    {{ $action['title'] }}
+                                </div>
+                            </button>
+                            @break
 
-                        <x-delete-button :model="$action['model']" :route="$action['route']" :text="$title" :model-id="$modelId" :model-name="$modelName" />
-                        @break
+                        @case('delete')
+                            @php
+                                $title = $action['title'] ?? null;
+                                $modelId = ! empty($action['model-id']) ? $action['model-id'] : 'id';
+                                $modelName = ! empty($action['model-name']) ? $action['model-name'] : 'name';
+                            @endphp
 
-                    @default
-                        <a href="{{ $action['url'] }}" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
-                            <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
-                                <span class="material-icons-outlined text-purple text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">
-                                    {{ $action['icon'] }}
-                                </span>
+                            <x-delete-button :model="$action['model']" :route="$action['route']" :text="$title" :model-id="$modelId" :model-name="$modelName" />
+                            @break
 
-                                {{ $action['title'] }}
-                            </div>
-                        </a>
-                @endswitch
+                        @default
+                            <a href="{{ $action['url'] }}" class="w-full flex items-center text-purple px-2 h-9 leading-9" {!! $action['attributes'] ?? null !!}>
+                                <div class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">
+                                    <span class="material-icons-outlined text-purple text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">
+                                        {{ $action['icon'] }}
+                                    </span>
 
-                @php
-                    array_shift($actions);
+                                    {{ $action['title'] }}
+                                </div>
+                            </a>
+                    @endswitch
 
-                    $count_buttons++;
-                @endphp
+                    @php
+                        array_shift($actions);
 
-                @if (! empty($action['permission']))
-                    @endcan
+                        $count_buttons++;
+                    @endphp
                 @endif
             @endforeach
 
             @foreach ($actions as $action)
-                @if (! empty($action['permission']))
-                    @can($action['permission'])
-                    @php $more_actions[] = $action; @endphp
-                    @endcan
-                @else
+                @if (
+                    empty($action['permission'])
+                    || (! empty($action['permission']) && user()->can($action['permission']))
+                )
                     @php $more_actions[] = $action; @endphp
                 @endif
             @endforeach
