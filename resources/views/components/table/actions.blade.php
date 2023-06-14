@@ -12,11 +12,14 @@
                 @break
             @endif
 
+            @if (isset($action['type']) && $action['type'] == 'divider')
+                @continue
+            @endif
+
             @if (
                 empty($action['permission'])
                 || (! empty($action['permission']) && user()->can($action['permission']))
             )
-
                 @php
                     $type = ! empty($action['type']) ? $action['type'] : 'link';
                 @endphp
