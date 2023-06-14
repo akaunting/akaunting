@@ -29,6 +29,13 @@ class DisablePersonDueToInvalidEmail
             return;
         }
 
+        // If only one user is left, don't disable it
+        $users = company()?->users;
+
+        if ($users && $users->count() <= 1) {
+            return;
+        }
+
         $event->user->enabled = false;
         $event->user->save();
     }
