@@ -41,7 +41,7 @@ class Reconciliation extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\Models\Banking\Account');
+        return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
     }
 
     /**
