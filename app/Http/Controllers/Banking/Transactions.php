@@ -98,7 +98,7 @@ class Transactions extends Controller
      */
     public function create()
     {
-        $type = request()->get('type', 'income');
+        $type = $this->getTypeTransaction(request()->get('type', 'income'));
         $real_type = $this->getRealTypeTransaction($type);
 
         $number = $this->getNextTransactionNumber($type);

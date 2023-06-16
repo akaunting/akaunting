@@ -264,8 +264,8 @@ export default {
         },
 
         sendEmailShow: {
-            type: Number,
-            default: 1,
+            type: [String, Number, Array, Object, Boolean],
+            default: '1',
             description: "Created recurring model send automatically option"
         },
         sendEmailText: {

@@ -63,9 +63,9 @@ class RecurringTransactions extends Controller
      */
     public function create()
     {
-        $type = request()->get('type', 'income-recurring');
-        $real_type = request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type));
-        $contact_type = config('type.transaction.' . $real_type . '.contact_type');
+        $type = $this->getTypeRecurringTransaction(request()->get('type', 'income-recurring'));
+        $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
+        $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
         $number = $this->getNextTransactionNumber('-recurring');
 
@@ -139,8 +139,8 @@ class RecurringTransactions extends Controller
     public function edit(Transaction $recurring_transaction)
     {
         $type = $recurring_transaction->type;
-        $real_type = request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type));
-        $contact_type = config('type.transaction.' . $real_type . '.contact_type');
+        $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
+        $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
         $number = $this->getNextTransactionNumber('-recurring');
 

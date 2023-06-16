@@ -205,6 +205,11 @@ trait Transactions
         ];
     }
 
+    public function getTypeTransaction(string $type = Transaction::INCOME_TYPE): string
+    {
+        return array_key_exists($type, config('type.transaction')) ? $type : Transaction::INCOME_TYPE;
+    }
+
     public function getRealTypeTransaction(string $type): string
     {
         $type = $this->getRealTypeOfRecurringTransaction($type);
@@ -212,6 +217,15 @@ trait Transactions
         $type = $this->getRealTypeOfSplitTransaction($type);
 
         return $type;
+    }
+
+    public function getTypeRecurringTransaction(string $type = Transaction::INCOME_RECURRING_TYPE): string
+    {
+        if (! Str::contains($type, '-recurring')) {
+            return Transaction::INCOME_RECURRING_TYPE;
+        }
+
+        return array_key_exists($type, config('type.transaction')) ? $type : Transaction::INCOME_RECURRING_TYPE;
     }
 
     public function getRealTypeOfRecurringTransaction(string $recurring_type): string
