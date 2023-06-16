@@ -3,6 +3,7 @@
 namespace App\Imports\Sales;
 
 use App\Abstracts\Import;
+use App\Models\Auth\User;
 use App\Http\Requests\Common\Contact as Request;
 use App\Models\Common\Contact as Model;
 
@@ -25,6 +26,10 @@ class Customers extends Import
         $row['country'] = !empty($country) ? $country : null;
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['user_id'] = null;
+
+        if (isset($row['can_login']) && isset($row['email'])) {
+            $row['user_id'] = User::where('email', $row['email'])->first()?->id ?? null;
+        }
 
         return $row;
     }
