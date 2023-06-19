@@ -72,6 +72,8 @@ export default {
             }
 
             this.$notify({
+                verticalAlign: 'bottom',
+                horizontalAlign: 'left',
                 message: response.data.message,
                 timeout: timeout,
                 icon: "error_outline",
@@ -92,6 +94,8 @@ export default {
             }
 
             this.$notify({
+                verticalAlign: 'bottom',
+                horizontalAlign: 'left',
                 message: event.message,
                 timeout: timeout,
                 icon: "error_outline",

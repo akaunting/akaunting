@@ -17,6 +17,13 @@ class Item extends Model
     protected $table = 'items';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['taxes'];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -92,6 +99,15 @@ class Item extends Model
     public function scopePriceType($query, $price_type)
     {
         return $query->whereNotNull($price_type . '_price');
+    }
+
+    public function scopeType($query, $type)
+    {
+        if (empty($type)) {
+            return $query;
+        }
+
+        return $query->where($this->qualifyColumn('type'), $type);
     }
 
     /**

@@ -271,6 +271,8 @@ export default {
                 }
 
                 this.$notify({
+                    verticalAlign: 'bottom',
+                    horizontalAlign: 'left',
                     message: notify.message,
                     timeout: timeout,
                     icon: 'error_outline',
@@ -467,6 +469,9 @@ export default {
         onChangePaginationLimit(event) {
             let path = '';
 
+            let split_href = window.location.href.split('#');
+            let href = split_href[0];
+
             if (window.location.search.length) {
                 if (window.location.search.includes('limit')) {
                     let queries = [];
@@ -494,10 +499,14 @@ export default {
                     });
 
                 } else {
-                    path = window.location.href + '&limit=' + event.target.getAttribute("value");
+                    path = href + '&limit=' + event.target.getAttribute("value");
                 }
             } else {
-                path = window.location.href + '?limit=' + event.target.getAttribute("value");
+                path = href + '?limit=' + event.target.getAttribute("value");
+            }
+
+            if (split_href[1]) {
+                path +=  '#' + split_href[1];
             }
 
             window.location.href = path;
@@ -505,6 +514,10 @@ export default {
 
         // Dynamic component get path view and show it.
         onDynamicComponent(path) {
+            if (! path) {
+                return;
+            }
+
             axios.get(path)
             .then(response => {
                 let html = response.data.html;
@@ -562,6 +575,10 @@ export default {
         },
 
         onDynamicFormParams(path, params) {
+            if (! path) {
+                return;
+            }
+
             let data = {};
 
             for (const [key, value] of Object.entries(params)) {
@@ -1001,7 +1018,7 @@ export default {
 
                 this.component = Vue.component('add-new-component', (resolve, reject) => {
                     resolve({
-                        template: '<div id="dynamic-email-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-md" :show="email.modal" @submit="onSubmit" @cancel="onCancel" :buttons="email.buttons" :title="email.title" :is_component=true :message="email.html"></akaunting-modal-add-new></div>',
+                        template: '<div id="dynamic-email-component"><akaunting-modal-add-new modal-dialog-class="max-w-screen-md" modal-position-top :show="email.modal" @submit="onSubmit" @cancel="onCancel" :buttons="email.buttons" :title="email.title" :is_component=true :message="email.html"></akaunting-modal-add-new></div>',
 
                         components: {
                             AkauntingDropzoneFileUpload,
@@ -1112,6 +1129,8 @@ export default {
                                 document.execCommand('copy');
 
                                 this.$notify({
+                                    verticalAlign: 'bottom',
+                                    horizontalAlign: 'left',
                                     message: this.share.success_message,
                                     timeout: 5000,
                                     icon: 'error_outline',

@@ -33,7 +33,7 @@
         "glightbox": "^3.2.0",
         "json-schema": ">=0.4.0",
         "laravel-mix-tailwind": "^0.1.2",
-        "lodash": ">=4.17.21",
+        "lodash": "^4.17.21",
         "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",
         "swiper": "^9.2.0",
@@ -47,7 +47,10 @@
         "vue-router": "^3.6.5",
         "vue2-editor": "^2.10.3",
         "vue2-transitions": "^0.3.0",
-        "vuedraggable": "^2.24.3"
+        "vuedraggable": "^2.24.3",
+        "moment": ">=2.29.4",
+        "qs": "^6.11.1",
+        "jsonwebtoken": "^9.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.21.4",

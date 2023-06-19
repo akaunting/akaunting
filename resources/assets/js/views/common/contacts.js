@@ -69,6 +69,8 @@ const app = new Vue({
 
                         if (response.data.error) {
                             this.$notify({
+                                verticalAlign: 'bottom',
+                                horizontalAlign: 'left',
                                 message: response.data.message,
                                 timeout: 0,
                                 icon: 'fas fa-bell',

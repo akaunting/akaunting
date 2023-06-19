@@ -22,6 +22,7 @@ return [
         'extension'         => 'Rozšíření :extension musí být nainstalováno a načteno!',
         'directory'         => 'Složka :directory musí být zapisovatelná!',
         'executable'        => 'Spustitelný soubor PHP CLI není definovaný/funkční nebo jeho verze není :php_version nebo vyšší! Požádejte, prosím, poskytovatele hostingu, aby správně nastavila proměnnou PHP_BINARY nebo PHP_PATH.',
+        'npm'               => '<b>Chybí JavaScript soubory!</b> <br><br><span>Měli byste spustit <em class="underline">npm install</em> a <em class="underline">npm run dev</em> příkaz.</span>', 
     ],
 
     'database' => [
@@ -43,4 +44,8 @@ return [
         'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím, ujistěte se, že údaje jsou správné.',
     ],
 
+    'update' => [
+        'core'              => 'Je dostupná nová verze! Aktualizujte prosím <a href=":url">vaši instalaci.</a>',
+        'module'            => 'Je dostupná nová verze :module! Aktualizujte prosím <a href=":url">vaši instalaci</a>',
+    ],
 ];

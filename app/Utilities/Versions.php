@@ -3,10 +3,10 @@
 namespace App\Utilities;
 
 use App\Traits\SiteApi;
-use Cache;
-use Date;
+use App\Utilities\Date;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class Versions
 {
@@ -56,7 +56,7 @@ class Versions
         $versions = static::all($alias);
 
         if (empty($versions[$alias])) {
-            return false;
+            return static::getVersionByAlias($alias);
         }
 
         return $versions[$alias];
@@ -126,6 +126,30 @@ class Versions
         Cache::put('versions', $versions, Date::now()->addHour(6));
 
         return $versions;
+    }
+
+    public static function getVersionByAlias($alias)
+    {
+        $info = Info::all();
+
+        // Check core first
+        $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
+        $version = $info['akaunting'];
+
+        if ($alias != 'core') {
+            $version = module($alias)->get('version');
+
+            $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
+        }
+
+        // Get data from cache
+        $versions = Cache::get('versions', []);
+
+        $versions[$alias] = static::getLatestVersion($url, $version);
+
+        Cache::put('versions', $versions, Date::now()->addHour(6));
+
+        return $versions[$alias];
     }
 
     public static function getLatestVersion($url, $latest)

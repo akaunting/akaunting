@@ -10,6 +10,12 @@ return [
     'billing'                   => 'बिलिंग',
     'advanced'                  => 'अग्रिम',
 
+    'item_price_hidden'         => 'यह कॉलम आपके :type पर छिपा हुआ है।',
+
+    'actions' => [
+        'cancel'                => 'रद्द करें',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b>आपने</b> इस चालान को इस रूप में चिह्नित किया है ',
         'services'              => 'सेवाएं',

@@ -372,7 +372,11 @@ return [
             'contact_phone' => ['searchable' => true],
             'contact_address' => ['searchable' => true],
             'category_id' => [
-                'route' => ['categories.index', 'search=type:income enabled:1']
+                'route' => ['categories.index', 'search=type:income enabled:1'],
+                'fields' => [
+                    'key' => 'id',
+                    'value' => 'name',
+                ],
             ],
             'parent_id',
             'recurring' => [

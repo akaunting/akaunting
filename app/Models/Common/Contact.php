@@ -27,6 +27,13 @@ class Contact extends Model
     protected $table = 'contacts';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['media'];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -171,6 +178,17 @@ class Contact extends Model
         return $query->whereIn($this->qualifyColumn('type'), (array) $this->getCustomerTypes());
     }
 
+    /**
+     * Scope to include only employees.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEmployee($query)
+    {
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getEmployeeTypes());
+    }
+
     public function scopeEmail($query, $email)
     {
         return $query->where('email', '=', $email);
@@ -260,7 +278,7 @@ class Contact extends Model
             $location[] = $this->state;
         }
 
-        if ($this->country && in_array($this->country, trans('countries'))) {
+        if ($this->country && array_key_exists($this->country, trans('countries'))) {
             $location[] = trans('countries.' . $this->country);
         }
 

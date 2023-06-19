@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Abstracts\Http\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request as BaseRequest;
 use App\Http\Requests\Auth\Reset as Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class Reset extends Controller
         $this->middleware('guest');
     }
 
-    public function create(Request $request, $token = null)
+    public function create(BaseRequest $request, $token = null)
     {
         return view('auth.reset.create')->with(
             ['token' => $token, 'email' => $request->email]

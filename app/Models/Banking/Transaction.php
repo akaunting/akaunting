@@ -304,6 +304,7 @@ class Transaction extends Model
         $this->number       = $this->getNextTransactionNumber($suffix);
         $this->document_id  = null;
         $this->split_id     = null;
+        unset($this->reconciled);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 return [
 
+    // @see https://docs.sentry.io/product/sentry-basics/dsn-explainer/
     'dsn' => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
 
     // capture release as git sha
@@ -80,5 +81,7 @@ return [
     'before_send' => [env('SENTRY_BEFORE_SEND_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'beforeSend'],
 
     'traces_sampler' => [env('SENTRY_TRACES_SAMPLER_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'tracesSampler'],
+
+    'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE') === null ? null : (float) env('SENTRY_PROFILES_SAMPLE_RATE'),
 
 ];

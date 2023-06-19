@@ -1113,9 +1113,7 @@ abstract class Show extends Component
             return $textRecurringType;
         }
 
-        $default_key = config('type.transaction.' . $type . '.translation.transactions');
-
-        $translation = $this->getTextFromConfig($type, 'recurring_type', $default_key);
+        $translation = config('type.transaction.' . $type . '.translation.transactions');
 
         if (! empty($translation)) {
             return $translation;

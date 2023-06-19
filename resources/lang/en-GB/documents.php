@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'There are no files attached to this :type.',
 ];

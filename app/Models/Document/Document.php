@@ -3,6 +3,7 @@
 namespace App\Models\Document;
 
 use App\Abstracts\Model;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Models\Common\Media as MediaModel;
 use App\Models\Setting\Tax;
 use App\Scopes\Document as Scope;
@@ -251,7 +252,7 @@ class Document extends Model
         }
 
         $this->status          = 'draft';
-        $this->document_number = $this->getNextDocumentNumber($type);
+        $this->document_number = app(DocumentNumber::class)->getNextNumber($type, $src->contact);
     }
 
     public function getSentAtAttribute(string $value = null)
@@ -470,7 +471,7 @@ class Document extends Model
             $location[] = $this->contact_state;
         }
 
-        if ($this->contact_country && in_array($this->contact_country, trans('countries'))) {
+        if ($this->contact_country && array_key_exists($this->contact_country, trans('countries'))) {
             $location[] = trans('countries.' . $this->contact_country);
         }
 

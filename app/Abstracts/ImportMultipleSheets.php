@@ -20,6 +20,6 @@ abstract class ImportMultipleSheets implements ShouldQueue, WithChunkReading, Wi
 
     public function chunkSize(): int
     {
-        return 100;
+        return config('excel.imports.chunk_size');
     }
 }

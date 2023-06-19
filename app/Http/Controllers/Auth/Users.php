@@ -47,9 +47,19 @@ class Users extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show(User $user)
     {
-        return redirect()->route('users.index');
+        $u = new \stdClass();
+        $u->role = $user->roles()->first();
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
+
+        $companies = $user->companies()->collect();
+
+        return view('auth.users.show', compact('user', 'landing_pages', 'companies'));
     }
 
     /**
@@ -67,7 +77,13 @@ class Users extends Controller
         $landing_pages = $u->landing_pages;
 
         $roles = Role::all()->reject(function ($r) {
-            return $r->hasPermission('read-client-portal');
+            $status = $r->hasPermission('read-client-portal');
+
+            if ($r->name == 'employee') {
+                $status = true;
+            }
+
+            return $status;
         })->pluck('display_name', 'id');
 
         $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
@@ -89,7 +105,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new CreateUser($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('users.index');
+            $response['redirect'] = route('users.show', $response['data']->id);
 
             $message = trans('messages.success.invited', ['type' => trans_choice('general.users', 1)]);
 
@@ -129,12 +145,21 @@ class Users extends Controller
         if ($user->isCustomer()) {
             // Show only roles with customer permission
             $roles = Role::all()->reject(function ($r) {
-                return !$r->hasPermission('read-client-portal');
+                return ! $r->hasPermission('read-client-portal');
             })->pluck('display_name', 'id');
+        } else if ($user->isEmployee()) {
+            // Show only roles with employee permission
+            $roles = Role::where('name', 'employee')->get()->pluck('display_name', 'id');
         } else {
             // Don't show roles with customer permission
             $roles = Role::all()->reject(function ($r) {
-                return $r->hasPermission('read-client-portal');
+                $status = $r->hasPermission('read-client-portal');
+
+                if ($r->name == 'employee') {
+                    $status = true;
+                }
+
+                return $status;
             })->pluck('display_name', 'id');
         }
 
@@ -176,7 +201,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, $request));
 
         if ($response['success']) {
-            $response['redirect'] = user()->can('read-auth-users') ? route('users.index') : route('users.edit', $user->id);
+            $response['redirect'] = user()->can('read-auth-users') ? route('users.show', $user->id) : route('users.edit', $user->id);
 
             $message = trans('messages.success.updated', ['type' => $user->name]);
 

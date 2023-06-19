@@ -15,33 +15,34 @@
                 <span v-if="filter.operator" class="flex items-center bg-purple-lighter text-black border-2 border-body border-l border-r border-t-0 border-b-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-operator" style="margin-left:0; margin-right:0;">
                     <span v-if="filter.operator == '='" class="material-icons text-2xl">drag_handle</span>
                     <span v-else-if="filter.operator == '><'" class="material-icons text-2xl transform rotate-90">height</span>
+                    <span v-else class="w-5">
+                        <img :src="not_equal_image" class="w-5 h-5 object-cover block" />
+                    </span>
 
-                    <img v-else :src="not_equal_image" class="w-5 h-5 object-cover block" />
-
-                    <i v-if="!filter.value" class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close " style="font-size: 16px;" @click="onFilterDelete(index)"></i>
+                    <i v-if="!filter.value" class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close" style="font-size: 16px;" @click="onFilterDelete(index)"></i>
                 </span>
 
-                <span v-if="filter.value" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small  el-tag-value">
+                <span v-if="filter.value" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-value">
                     {{ filter.value }}
 
-                    <i class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close " style="font-size: 16px;" @click="onFilterDelete(index)"></i>
+                    <i class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close" style="font-size: 16px;" @click="onFilterDelete(index)"></i>
                 </span>
             </div>
         </div>
 
         <div class="relative w-full h-full flex">
             <input
-            v-if="!show_date"
-            type="text"
-            class="w-full h-12 lg:h-auto bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
-            :class="!show_icon ? 'ltr:pr-4 rtl:pl-4' : 'ltr:pr-10 rtl:pl-10'"
-            :placeholder="dynamicPlaceholder"
-            :ref="'input-search-field-' + _uid"
-            v-model="search"
-            @focus="onInputFocus"
-            @input="onInput"
-            @blur="onBlur"
-            @keyup.enter="onInputConfirm"
+                v-if="!show_date"
+                type="text"
+                class="w-full h-12 lg:h-auto bg-transparent text-black text-sm border-0 pb-0 focus:outline-none focus:ring-transparent focus:border-purple-100"
+                :class="!show_icon ? 'ltr:pr-4 rtl:pl-4' : 'ltr:pr-10 rtl:pl-10'"
+                :placeholder="dynamicPlaceholder"
+                :ref="'input-search-field-' + _uid"
+                v-model="search"
+                @focus="onInputFocus"
+                @input="onInput"
+                @blur="onBlur"
+                @keyup.enter="onInputConfirm"
             />
 
             <flat-picker
@@ -148,47 +149,57 @@ export default {
             default: 'Search or filter results...',
             description: 'Input placeholder'
         },
+
         selectPlaceholder: {
             type: String,
         },
+
         enterPlaceholder: {
             type: String,
         },
+
         searchText: {
             type: String,
             default: 'Search for this text',
             description: 'Input placeholder'
         },
+
         operatorIsText: {
             type: String,
             default: 'is',
             description: 'Operator is "="'
         },
+
         operatorIsNotText: {
             type: String,
             default: 'is not',
             description: 'Operator is not "!="'
         },
+
         noDataText: {
             type: String,
             default: 'No Data',
             description: "Selectbox empty options message"
         },
+
         noMatchingDataText: {
             type: String,
             default: 'No Matchign Data',
             description: "Selectbox search option not found item message"
         },
+
         value: {
             type: String,
             default: null,
             description: 'Search attribute value'
         },
+
         filters: {
             type: Array,
             default: () => [],
             description: 'List of filters'
         },
+
         defaultFiltered: {
             type: Array,
             default: () => [],
@@ -196,7 +207,6 @@ export default {
         },
 
         dateConfig: null
-
     },
 
     model: {
@@ -317,7 +327,7 @@ export default {
         onInput(evt) {
             this.search = evt.target.value;
             this.show_button = true;
-            
+
             let option_url = this.selected_options.length > 0 && this.selected_options[this.filter_index] !== undefined ? this.selected_options[this.filter_index].url : '';
 
             if (this.search) {
@@ -423,10 +433,12 @@ export default {
 
             let option = false;
             let option_url = false;
+            let option_fields = {};
 
             for (let i = 0; i < this.filter_list.length; i++) {
                 if (this.filter_list[i].key == value) {
                     option = this.filter_list[i].value;
+                    option_fields = (this.filter_list[i]['value_option_fields']) ? this.filter_list[i].value_option_fields : {};
 
                     if (this.filter_list[i].values !== 'undefined' && Object.keys(this.filter_list[i].values).length) {
                         this.option_values[value] = this.convertOption(this.filter_list[i].values);
@@ -475,7 +487,7 @@ export default {
                 }
             }
 
-            if (!this.option_values[value] && option_url) {
+            if (! this.option_values[value] && option_url) {
                 if (option_url.indexOf('limit') === -1) {
                     option_url += ' limit:10';
                 }
@@ -487,11 +499,19 @@ export default {
                     this.values = [];
 
                     data.forEach(function (item) {
-                        this.values.push({
-                            key: (item.code) ? item.code : item.id,
-                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                            level: (item.level) ? item.level : null,
-                        });
+                        if (Object.keys(option_fields).length) {
+                            this.values.push({
+                                key: (option_fields['key']) ? item[option_fields['key']] : (item.code) ? item.code : item.id,
+                                value: (option_fields['value']) ? item[option_fields['value']] : (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                level: (option_fields['level']) ? item[option_fields['level']] : (item.level) ? item.level : null,
+                            });
+                        } else {
+                            this.values.push({
+                                key: (item.code) ? item.code : item.id,
+                                value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                                level: (item.level) ? item.level : null,
+                            });
+                        }
                     }, this);
 
                     this.option_values[value] = this.values;
@@ -617,7 +637,7 @@ export default {
             this.selected_values.splice(index, 1);
 
             this.show_date = false;
-            
+
             if (this.filter_index == 0) {
                 this.onChangeSearchAndFilterText(this.defaultPlaceholder, true);
                 this.show_close_icon = false;
@@ -647,7 +667,7 @@ export default {
             let values = [];
 
             // Option set sort_option data
-            if (!Array.isArray(options)) {
+            if (! Array.isArray(options)) {
                 for (const [key, value] of Object.entries(options)) {
                     values.push({
                         key: (key).toString(),
@@ -850,6 +870,7 @@ export default {
             this.values.sort(function (a, b) {
                 var nameA = a.value.toUpperCase(); // ignore upper and lowercase
                 var nameB = b.value.toUpperCase(); // ignore upper and lowercase
+
                 if (nameA < nameB) {
                     return -1;
                 }
@@ -857,6 +878,7 @@ export default {
                 if (nameA > nameB) {
                     return 1;
                 }
+
                 // names must be equal
                 return 0;
             });
@@ -936,7 +958,7 @@ export default {
 
     .searh-field .btn:not(:disabled):not(.disabled):active:focus,
     .searh-field .btn:not(:disabled):not(.disabled).active:focus {
-    -webkit-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
         box-shadow: none !important;
     }
 

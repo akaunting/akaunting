@@ -22,6 +22,10 @@ class SendDocumentPaymentNotification
         $document = $event->document;
         $transaction = $document->transactions()->latest()->first();
 
+        if (! $transaction) {
+            return;
+        }
+
         // Notify the customer
         if ($document->contact && !empty($document->contact_email)) {
             $document->contact->notify(new Notification($document, $transaction, "{$document->type}_payment_customer"), true);

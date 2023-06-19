@@ -8,6 +8,7 @@ use App\Http\Resources\Document\DocumentHistory;
 use App\Http\Resources\Document\DocumentItem;
 use App\Http\Resources\Document\DocumentItemTax;
 use App\Http\Resources\Document\DocumentTotal;
+use App\Http\Resources\Setting\Category;
 use App\Http\Resources\Setting\Currency;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -32,6 +33,7 @@ class Document extends JsonResource
             'due_at' => $this->due_at ? $this->due_at->toIso8601String() : '',
             'amount' => $this->amount,
             'amount_formatted' => money($this->amount, $this->currency_code, true)->format(),
+            'category_id' => $this->category_id,
             'currency_code' => $this->currency_code,
             'currency_rate' => $this->currency_rate,
             'contact_id' => $this->contact_id,
@@ -50,6 +52,7 @@ class Document extends JsonResource
             'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'category' => new Category($this->category),
             'currency' => new Currency($this->currency),
             'contact' => new Contact($this->contact),
             'histories' => [static::$wrap => DocumentHistory::collection($this->histories)],

@@ -65,6 +65,11 @@ class Account extends Model
         return $this->hasMany('App\Models\Banking\Transaction');
     }
 
+    public function reconciliations()
+    {
+        return $this->hasMany('App\Models\Banking\Reconciliation');
+    }
+
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);

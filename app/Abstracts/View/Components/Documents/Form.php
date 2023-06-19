@@ -3,6 +3,7 @@
 namespace App\Abstracts\View\Components\Documents;
 
 use App\Abstracts\View\Component;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
@@ -815,10 +816,14 @@ abstract class Form extends Component
             return $document->document_number;
         }
 
-        $document_number = $this->getNextDocumentNumber($type);
+        $contact = ($this->contact instanceof Contact) ? $this->contact : null;
+
+        $utility = app(DocumentNumber::class);
+
+        $document_number = $utility->getNextNumber($type, $contact);
 
         if (empty($document_number)) {
-            $document_number = $this->getNextDocumentNumber(Document::INVOICE_TYPE);
+            $document_number = $utility->getNextNumber(Document::INVOICE_TYPE, $contact);
         }
 
         return $document_number;

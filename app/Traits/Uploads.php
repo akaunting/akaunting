@@ -118,7 +118,7 @@ trait Uploads
         return $path;
     }
 
-    public function streamMedia($media)
+    public function streamMedia($media, $disposition = 'attachment')
     {
         return response()->streamDownload(
             function() use ($media) {
@@ -133,6 +133,7 @@ trait Uploads
                 'Content-Type'      => $media->mime_type,
                 'Content-Length'    => $media->size,
             ],
+            $disposition,
         );
     }
 

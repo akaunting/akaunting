@@ -99,7 +99,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Import failed',
+            'title'         => 'Import failed',
             'description'   => 'Not able to import the file due to several issues. Check out your email for the details.',
 
         ],

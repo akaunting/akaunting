@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Abstracts\Factory;
+use App\Interfaces\Utility\TransactionNumber;
 use App\Models\Banking\Transaction as Model;
 use App\Models\Common\Contact;
 use App\Traits\Transactions;
@@ -41,7 +42,7 @@ class Transaction extends Factory
         return [
             'company_id' => $this->company->id,
             'type' => $this->type,
-            'number' => $this->getNumber(),
+            'number' => $this->getNumber($this->type),
             'account_id' => setting('default.account'),
             'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
@@ -73,6 +74,7 @@ class Transaction extends Factory
 
             return [
                 'type' => 'income',
+                'number' => $this->getNumber('income', '', $contact),
                 'contact_id' => $contact->id,
                 'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
             ];
@@ -97,6 +99,7 @@ class Transaction extends Factory
 
             return [
                 'type' => 'expense',
+                'number' => $this->getNumber('expense', '', $contact),
                 'contact_id' => $contact->id,
                 'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
             ];
@@ -110,9 +113,11 @@ class Transaction extends Factory
      */
     public function recurring()
     {
+        $type = $this->getRawAttribute('type') . '-recurring';
+
         return $this->state([
-            'type' => $this->getRawAttribute('type') . '-recurring',
-            'number' => $this->getNumber('-recurring'),
+            'type' => $type,
+            'number' => $this->getNumber($type, '-recurring'),
             'recurring_started_at' => Date::now()->format('Y-m-d H:i:s'),
             'recurring_frequency' => 'daily',
             'recurring_custom_frequency' => 'daily',
@@ -129,11 +134,13 @@ class Transaction extends Factory
      * Get transaction number
      *
      */
-    public function getNumber($suffix = '')
+    public function getNumber($type, $suffix = '', $contact = null)
     {
-        $number = $this->getNextTransactionNumber($suffix);
+        $utility = app(TransactionNumber::class);
 
-        $this->increaseNextTransactionNumber($suffix);
+        $number = $utility->getNextNumber($type, $suffix, $contact);
+
+        $utility->increaseNextNumber($type, $suffix ,$contact);
 
         return $number;
     }

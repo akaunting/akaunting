@@ -137,12 +137,14 @@ trait Import
         return is_null($id) ? $id : (int) $id;
     }
 
-    public function getItemId($row)
+    public function getItemId($row, $type = null)
     {
         $id = isset($row['item_id']) ? $row['item_id'] : null;
 
+        $type = !empty($type) ? $type : (!empty($row['item_type']) ? $row['item_type'] : 'product');
+
         if (empty($id) && !empty($row['item_name'])) {
-            $id = $this->getItemIdFromName($row);
+            $id = $this->getItemIdFromName($row, $type);
         }
 
         return is_null($id) ? $id : (int) $id;
@@ -246,7 +248,7 @@ trait Import
 
     public function getCategoryIdFromName($row, $type)
     {
-        $category_id = Category::withSubCategory()->where('name', $row['category_name'])->pluck('id')->first();
+        $category_id = Category::type($type)->withSubCategory()->where('name', $row['category_name'])->pluck('id')->first();
 
         if (!empty($category_id)) {
             return $category_id;
@@ -271,7 +273,7 @@ trait Import
 
     public function getContactIdFromEmail($row, $type)
     {
-        $contact_id = Contact::where('email', $row['contact_email'])->pluck('id')->first();
+        $contact_id = Contact::type($type)->where('email', $row['contact_email'])->pluck('id')->first();
 
         if (!empty($contact_id)) {
             return $contact_id;
@@ -297,7 +299,7 @@ trait Import
 
     public function getContactIdFromName($row, $type)
     {
-        $contact_id = Contact::where('name', $row['contact_name'])->pluck('id')->first();
+        $contact_id = Contact::type($type)->where('name', $row['contact_name'])->pluck('id')->first();
 
         if (!empty($contact_id)) {
             return $contact_id;
@@ -321,9 +323,11 @@ trait Import
         return $contact->id;
     }
 
-    public function getItemIdFromName($row)
+    public function getItemIdFromName($row, $type = null)
     {
-        $item_id = Item::where('name', $row['item_name'])->pluck('id')->first();
+        $type = !empty($type) ? $type : (!empty($row['item_type']) ? $row['item_type'] : 'product');
+
+        $item_id = Item::type($type)->where('name', $row['item_name'])->pluck('id')->first();
 
         if (!empty($item_id)) {
             return $item_id;
@@ -331,7 +335,7 @@ trait Import
 
         $data = [
             'company_id'        => company_id(),
-            'type'              => !empty($row['item_type']) ? $row['item_type'] : (!empty($row['type']) ? $row['type'] : 'product'),
+            'type'              => $type,
             'name'              => $row['item_name'],
             'description'       => !empty($row['item_description']) ? $row['item_description'] : null,
             'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
@@ -350,7 +354,7 @@ trait Import
 
     public function getTaxIdFromRate($row, $type = 'normal')
     {
-        $tax_id = Tax::where('rate', $row['tax_rate'])->pluck('id')->first();
+        $tax_id = Tax::type($type)->where('rate', $row['tax_rate'])->pluck('id')->first();
 
         if (!empty($tax_id)) {
             return $tax_id;

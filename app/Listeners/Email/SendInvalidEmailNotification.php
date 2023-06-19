@@ -10,7 +10,11 @@ class SendInvalidEmailNotification
 {
     public function handle(Event $event): void
     {
-        $users = company()->users;
+        $users = company()?->users;
+
+        if (empty($users)) {
+            return;
+        }
 
         $this->notifyAdminsAboutInvalidContactEmail($event, $users);
 
@@ -44,7 +48,7 @@ class SendInvalidEmailNotification
             return;
         }
 
-        $type = trans('general.users', 1);
+        $type = trans_choice('general.users', 1);
 
         foreach ($users as $user) {
             if ($user->cannot('read-notifications')) {

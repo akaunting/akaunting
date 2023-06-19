@@ -54,6 +54,8 @@ const login = new Vue({
                 let type = notify.level;
 
                 this.$notify({
+                    verticalAlign: 'bottom',
+                    horizontalAlign: 'left',
                     message: notify.message,
                     timeout: 5000,
                     icon: '',

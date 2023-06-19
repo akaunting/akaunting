@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class ImportFailed extends Notification implements ShouldQueue
 {
@@ -51,11 +52,15 @@ class ImportFailed extends Notification implements ShouldQueue
     {
         $message = (new MailMessage)
             ->subject(trans('notifications.import.failed.title'))
+            ->line(new HtmlString('<br><br>'))
             ->line(trans('notifications.import.failed.description'));
 
         foreach ($this->errors as $error) {
+            $message->line(new HtmlString('<br><br>'));
             $message->line($error);
         }
+
+        $message->line(new HtmlString('<br><br>'));
 
         return $message;
     }

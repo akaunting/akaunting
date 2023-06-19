@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item relative w-2/4 lg:w-3/4 h-48 m-auto" :class="{ '-active' : isCardFlipped }">
+  <div class="card-item relative w-2/4 lg:w-3/4 h-48 m-auto my-5" :class="{ '-active' : isCardFlipped }">
     <div class="card-item__side h-full rounded-lg shadow-lg overflow-hidden" style="transform: perspective(2000px) rotateY(0deg) rotateX(0deg) rotate(0deg);
   transform-style: preserve-3d;
   transition: all 0.8s cubic-bezier(0.71, 0.03, 0.56, 0.85);
