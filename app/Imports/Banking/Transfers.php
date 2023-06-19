@@ -41,10 +41,10 @@ class Transfers extends Import
         return [
             'from_account_id' => 'required|integer',
             'from_currency_code' => 'required|string|currency',
-            'from_currency_rate' => 'required',
+            'from_currency_rate' => 'required|gt:0',
             'to_account_id' => 'required|integer',
             'to_currency_code' => 'required|string|currency',
-            'to_currency_rate' => 'required',
+            'to_currency_rate' => 'required|gt:0',
             'amount' => 'required|amount',
             'transferred_at' => 'required|date_format:Y-m-d',
             'payment_method' => 'required|string',
