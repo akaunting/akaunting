@@ -14,6 +14,7 @@ use App\Jobs\Common\CreateItem;
 use App\Jobs\Setting\CreateCategory;
 use App\Jobs\Setting\CreateCurrency;
 use App\Jobs\Setting\CreateTax;
+use App\Models\Auth\User;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
@@ -108,6 +109,17 @@ trait Import
         $currency = $this->dispatch(new CreateCurrency($data));
 
         return $currency->code;
+    }
+
+    public function getCreatedById($row)
+    {
+        $user = User::where('email', $row['created_by'])->first();
+
+        if (! empty($user)) {
+            return $user->id;
+        }
+
+        return $this->user->id;
     }
 
     public function getDocumentId($row)

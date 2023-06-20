@@ -538,17 +538,29 @@ class Document extends Model
 
         if ($this->status != 'paid' && (empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
             try {
-                $actions[] = [
-                    'type' => 'button',
-                    'title' => trans('invoices.add_payment'),
-                    'icon' => 'paid',
-                    'url' => route('modals.documents.document.transactions.create', $this->id),
-                    'permission' => 'read-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-line-actions-payment-' . $this->type . '-' . $this->id,
-                        '@click' => 'onAddPayment("' . route('modals.documents.document.transactions.create', $this->id) . '")',
-                    ],
-                ];
+                if ($this->totals->count()) {
+                    $actions[] = [
+                        'type' => 'button',
+                        'title' => trans('invoices.add_payment'),
+                        'icon' => 'paid',
+                        'url' => route('modals.documents.document.transactions.create', $this->id),
+                        'permission' => 'read-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            'id' => 'index-line-actions-payment-' . $this->type . '-' . $this->id,
+                            '@click' => 'onAddPayment("' . route('modals.documents.document.transactions.create', $this->id) . '")',
+                        ],
+                    ];
+                } else {
+                    $actions[] = [
+                        'type' => 'button',
+                        'title' => trans('invoices.messages.totals_required', ['type' => $this->type]),
+                        'icon' => 'paid',
+                        'permission' => 'read-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            "disabled" => "disabled",
+                        ],
+                    ];
+                }
             } catch (\Exception $e) {}
         }
 

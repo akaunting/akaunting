@@ -43,7 +43,7 @@ class Bills extends Import
     {
         $rules['bill_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
         $rules['billed_at'] = $rules['issued_at'];
-        $rules['currency_rate'] = 'required';
+        $rules['currency_rate'] = 'required|gt:0';
 
         unset($rules['document_number'], $rules['issued_at'], $rules['type']);
 
