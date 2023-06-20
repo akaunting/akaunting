@@ -231,7 +231,7 @@
                                                 :class="[{'btn-outline-primary' : row.discount_type !== 'fixed'}, {'bg-white rounded-lg' : row.discount_type === 'fixed'}]"
                                                 @click="onChangeLineDiscountType(index, 'fixed')"
                                             >
-                                                <span class="text-base">{{ $currency->symbol }}</span>
+                                                <span class="text-base">{{ ($currency) ? $currency->symbol ? '$' }}</span>
                                             </button>
                                         </div>
 
