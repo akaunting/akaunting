@@ -16,7 +16,6 @@
             'p-4',
             'text-black font-bold',
             'rounded-lg',
-            'z-30',
             { 
                 'alert-with-icon': icon
             },
@@ -26,6 +25,7 @@
         ]"
         role="alert"
         :style="customPosition"
+        style="z-index: 100;"
         data-notify-position="top-center"
     >
         <div class="flex items-center ltr:pr-3 rtl:pl-3">
