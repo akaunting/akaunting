@@ -194,20 +194,19 @@ class Tiles extends Controller
             case 'paid':
                 $response = $this->getPaidModules($data);
 
-                $last_page = $response->last_page;
+                $last_page = ! empty($response) ? $response->last_page : 1;
                 $modules = $this->prepareModules($response);
                 break;
             case 'new':
                 $response = $this->getNewModules($data);
 
-                $last_page = $response->last_page;
+                $last_page = ! empty($response) ? $response->last_page : 1;
                 $modules = $this->prepareModules($response);
-
                 break;
             case 'free':
                 $response = $this->getFreeModules($data);
 
-                $last_page = $response->last_page;
+                $last_page = ! empty($response) ? $response->last_page : 1;
                 $modules = $this->prepareModules($response);
                 break;
             case 'search':
@@ -215,7 +214,7 @@ class Tiles extends Controller
 
                 $response = $this->getSearchModules($data);
 
-                $last_page = $response->last_page;
+                $last_page = ! empty($response) ? $response->last_page : 1;
                 $modules = $this->prepareModules($response);
                 break;
         }
