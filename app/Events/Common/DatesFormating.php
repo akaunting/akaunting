@@ -6,6 +6,8 @@ use App\Abstracts\Event;
 
 class DatesFormating extends Event
 {
+    public $columns;
+
     public $request;
 
     /**
@@ -13,8 +15,9 @@ class DatesFormating extends Event
      *
      * @param $request
      */
-    public function __construct($request)
+    public function __construct($columns, $request)
     {
+        $this->columns = $columns;
         $this->request = $request;
     }
 }

@@ -19,9 +19,8 @@ class DateFormat
     public function handle($request, Closure $next)
     {
         if (($request->method() == 'POST') || ($request->method() == 'PATCH')) {
-            event(new DatesFormating($request));
-
-            $fields = [
+            $columns = new \stdClass();
+            $columns->fields = [
                 'paid_at',
                 'due_at',
                 'issued_at',
@@ -31,6 +30,10 @@ class DateFormat
                 'recurring_started_at',
                 'recurring_limit_date',
             ];
+
+            event(new DatesFormating($columns, $request));
+
+            $fields = $columns->fields;
 
             foreach ($fields as $field) {
                 $date = $request->get($field);
