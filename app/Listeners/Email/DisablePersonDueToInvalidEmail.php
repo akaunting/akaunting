@@ -36,6 +36,14 @@ class DisablePersonDueToInvalidEmail
             return;
         }
 
+        $companies = $event->user->companies;
+
+        foreach ($companies as $company) {
+            if ($company->users->count() <= 1) {
+                return;
+            }
+        }
+
         $event->user->enabled = false;
         $event->user->save();
     }
