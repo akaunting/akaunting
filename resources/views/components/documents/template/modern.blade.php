@@ -17,9 +17,9 @@
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (! empty($document->contact->logo) && ! empty($document->contact->logo->id))
-                        <img class="w-image radius-circle" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
+                        <img class="radius-circle" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
                     @else
-                        <img class="w-image radius-circle" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
+                        <img class="radius-circle" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
                 @endif
                 @stack('company_logo_input_end')
