@@ -231,6 +231,7 @@ return [
     'validation_error'      => 'Validation error',
     'dismiss'               => 'Dismiss',
     'size'                  => 'Size',
+    'media'                 => 'Media',
 
     'card' => [
         'cards'                 => 'Card|Cards',
