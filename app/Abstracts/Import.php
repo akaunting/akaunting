@@ -57,7 +57,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
             $row['reconciled'] = (int) $row['reconciled'];
         }
 
-        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at', 'transferred_at'];
+        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'transferred_at'];
         foreach ($date_fields as $date_field) {
             if (!isset($row[$date_field])) {
                 continue;

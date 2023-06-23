@@ -220,6 +220,8 @@
 
                 let styles = {};
 
+                styles.zIndex = 100;
+
                 if (this.verticalAlign === 'top') {
                     styles.top = `${pixels}px`;
                 } else {
