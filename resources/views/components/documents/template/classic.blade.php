@@ -17,9 +17,9 @@
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
-                        <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
+                        <img  class="c-logo" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
                     @else
-                        <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
+                        <img  class="c-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
                 @endif
                 @stack('company_logo_input_end')
