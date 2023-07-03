@@ -22,6 +22,7 @@ class DocumentItem extends JsonResource
             'document_id' => $this->document_id,
             'item_id' => $this->item_id,
             'name' => $this->name,
+            'description' => $this->description,
             'price' => $this->price,
             'price_formatted' => money($this->price, $this->document->currency_code, true)->format(),
             'total' => $this->total,
