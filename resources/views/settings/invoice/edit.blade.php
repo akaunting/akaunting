@@ -132,7 +132,7 @@
                         </div>
 
                         <div class="flex gap-10">
-                            <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="setting('invoice.hide_item_description')" not-required form-group-class="sm:col-span-6" />
+                            <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="setting('invoice.hide_item_description')" change="settingsInvoice()" not-required form-group-class="sm:col-span-6" />
 
                             <x-form.group.toggle name="hide_amount" label="{{ trans('settings.invoice.hide.amount') }}" :value="setting('invoice.hide_amount')" not-required form-group-class="sm:col-span-6" />
                         </div>
@@ -149,6 +149,7 @@
 
                 <x-form.input.hidden name="_template" :value="setting('invoice.template')" />
                 <x-form.input.hidden name="_prefix" value="invoice" />
+                <x-form.input.hidden name="message_name_or_description_required" :value="trans('invoices.messages.name_or_description_required', ['name' => trans('general.name'), 'description' => trans('general.description')])" />
             </x-form>
         </x-form.container>
     </x-slot>

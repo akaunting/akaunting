@@ -65,6 +65,8 @@ return [
                 'await'     => 'Awaiting payment',
             ],
         ],
+
+        'name_or_description_required' => 'Your invoice must show at least one of the <b>:name</b> or <b>:description</b>.',
     ],
 
     'slider' => [

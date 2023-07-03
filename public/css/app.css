@@ -62577,6 +62577,11 @@ body{
   background-color: rgb(101 99 140 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-purple-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 243 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-opacity-100:hover{
   --tw-bg-opacity: 1;
 }
@@ -63825,6 +63830,10 @@ body{
 
 :is([dir="ltr"] .ltr\:pr-6){
   padding-right: 1.5rem;
+}
+
+:is([dir="ltr"] .ltr\:pr-9){
+  padding-right: 2.25rem;
 }
 
 :is([dir="ltr"] .ltr\:text-left){
@@ -65606,6 +65615,10 @@ body{
     --tw-divide-y-reverse: 0;
     border-top-width: calc(0px * calc(1 - var(--tw-divide-y-reverse)));
     border-bottom-width: calc(0px * var(--tw-divide-y-reverse));
+  }
+
+  .lg\:overflow-hidden{
+    overflow: hidden;
   }
 
   .lg\:overflow-x-hidden{
