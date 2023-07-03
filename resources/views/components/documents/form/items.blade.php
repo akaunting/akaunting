@@ -30,6 +30,13 @@
                                 <th class="px-3 py-1 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
                                     @if (! $hideItemName)
                                         {{ (trans_choice($textItemName, 2) != $textItemName) ? trans_choice($textItemName, 2) : trans($textItemName) }}
+
+                                        @if ($hideSettingItemName)
+                                            &nbsp;&nbsp;
+                                            <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                                <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                            </x-tooltip>
+                                        @endif
                                     @endif
                                 </th>
 
@@ -40,9 +47,16 @@
                             <th class="px-3 py-1 text-left text-xs font-normal border-t-0 border-r-0 border-b-0" style=" vertical-align:bottom;">
                                 @if (! $hideItemDescription)
                                     {{ trans($textItemDescription) }}
+
+                                    @if ($hideSettingItemDescription)
+                                        &nbsp;&nbsp;
+                                        <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                            <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                        </x-tooltip>
+                                    @endif
                                 @endif
                             </th>
-                            
+
                             @stack('description_th_end')
                         @endif
 
@@ -51,6 +65,13 @@
                         <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
                             @if (! $hideItemQuantity)
                                 {{ trans($textItemQuantity) }}
+
+                                @if ($hideSettingItemQuantity)
+                                    &nbsp;&nbsp;
+                                    <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                        <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                    </x-tooltip>
+                                @endif
                             @endif
                         </th>
 
@@ -59,16 +80,18 @@
                         @stack('price_th_start')
 
                         <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0 pr-1" style="vertical-align:bottom;">
-                            {{ trans($textItemPrice) }}
+                            @if (! $hideItemPrice)
+                                {{ trans($textItemPrice) }}
 
-                            @if ($hideItemPrice)
-                                &nbsp;&nbsp;
-                                <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
-                                    <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
-                                </x-tooltip>
+                                @if ($hideSettingItemPrice)
+                                    &nbsp;&nbsp;
+                                    <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                        <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                    </x-tooltip>
+                                @endif
                             @endif
                         </th>
-                        
+
                         @stack('price_th_end')
 
                         @stack('total_th_start')
@@ -76,9 +99,16 @@
                         <th class="px-3 py-1 ltr:text-right rtl:text-left text-xs font-normal border-t-0 border-b-0 item-total" style="vertical-align:bottom;">
                             @if (! $hideItemAmount)
                                 {{ trans($textItemAmount) }}
+
+                                @if ($hideSettingItemAmount)
+                                    &nbsp;&nbsp;
+                                    <x-tooltip id="tooltip-item-price" placement="top" message="{{ trans('documents.item_price_hidden', ['type' => config('type.document.' . $type . '.translation.prefix')]) }}">
+                                        <x-icon icon="visibility_off" class="text-sm font-normal"></x-icon>
+                                    </x-tooltip>
+                                @endif
                             @endif
                         </th>
-                        
+
                         @stack('total_th_end')
 
                         @stack('remove_th_start')

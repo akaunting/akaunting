@@ -164,11 +164,17 @@ abstract class Form extends Component
     /** @var bool */
     public $hideItemName;
 
+    /** @var bool */
+    public $hideSettingItemName;
+
     /** @var string */
     public $textItemName;
 
     /** @var bool */
     public $hideItemDescription;
+
+    /** @var bool */
+    public $hideSettingItemDescription;
 
     /** @var string */
     public $textItemDescription;
@@ -176,17 +182,26 @@ abstract class Form extends Component
     /** @var bool */
     public $hideItemQuantity;
 
+    /** @var bool */
+    public $hideSettingItemQuantity;
+
     /** @var string */
     public $textItemQuantity;
 
     /** @var bool */
     public $hideItemPrice;
 
+    /** @var bool */
+    public $hideSettingItemPrice;
+
     /** @var string */
     public $textItemPrice;
 
     /** @var bool */
     public $hideItemAmount;
+
+    /** @var bool */
+    public $hideSettingItemAmount;
 
     /** @var string */
     public $textItemAmount;
@@ -276,8 +291,8 @@ abstract class Form extends Component
         string $textAddContact = '', string $textCreateNewContact = '', string $textEditContact = '', string $textContactInfo = '', string $textChooseDifferentContact = '',
         bool $hideIssuedAt = false, string $textIssuedAt = '', string $issuedAt = '', bool $hideDueAt = false, string $textDueAt = '', string $dueAt = '', $periodDueAt = '',
         bool $hideDocumentNumber = false, string $textDocumentNumber = '', string $documentNumber = '', bool $hideOrderNumber = false, string $textOrderNumber = '', string $orderNumber = '',
-        bool $hideEditItemColumns = false, bool $hideItems = false, bool $hideItemName = false, string $textItemName = '', bool $hideItemDescription = false, string $textItemDescription = '',
-        bool $hideItemQuantity = false, string $textItemQuantity = '', bool $hideItemPrice = false, string $textItemPrice = '', bool $hideItemAmount = false, string $textItemAmount = '',
+        bool $hideEditItemColumns = false, bool $hideItems = false, bool $hideItemName = false, bool $hideSettingItemName = false, string $textItemName = '', bool $hideItemDescription = false, bool $hideSettingItemDescription = false, string $textItemDescription = '',
+        bool $hideItemQuantity = false, bool $hideSettingItemQuantity = false, string $textItemQuantity = '', bool $hideItemPrice = false, bool $hideSettingItemPrice = false, string $textItemPrice = '', bool $hideItemAmount = false, bool $hideSettingItemAmount = false, string $textItemAmount = '',
         bool $hideDiscount = false, bool $isSalePrice = false, bool $isPurchasePrice = false, int $searchCharLimit = 0, string $notes = '',
         bool $showRecurring = false,
         bool $hideAdvanced = false, string $textSectionAdvancedTitle = '', string $textSectionAdvancedDescription = '',
@@ -358,18 +373,23 @@ abstract class Form extends Component
 
         $this->hideItems = $this->getHideItems($type, $hideItems, $hideItemName, $hideItemDescription);
         $this->hideItemName = $this->getHideItemName($type, $hideItemName);
+        $this->hideSettingItemName = $this->getHideSettingItemName($type, $hideSettingItemName);
         $this->textItemName = $this->getTextItemName($type, $textItemName);
 
         $this->hideItemDescription = $this->getHideItemDescription($type, $hideItemDescription);
+        $this->hideSettingItemDescription = $this->getHideSettingItemDescription($type, $hideSettingItemDescription);
         $this->textItemDescription = $this->getTextItemDescription($type, $textItemDescription);
 
         $this->hideItemQuantity = $this->getHideItemQuantity($type, $hideItemQuantity);
+        $this->hideSettingItemQuantity = $this->getHideSettingItemQuantity($type, $hideSettingItemQuantity);
         $this->textItemQuantity = $this->getTextItemQuantity($type, $textItemQuantity);
 
         $this->hideItemPrice = $this->getHideItemPrice($type, $hideItemPrice);
+        $this->hideSettingItemPrice = $this->getHideSettingItemPrice($type, $hideSettingItemPrice);
         $this->textItemPrice = $this->getTextItemPrice($type, $textItemPrice);
 
         $this->hideItemAmount = $this->getHideItemAmount($type, $hideItemAmount);
+        $this->hideSettingItemAmount = $this->getHideSettingItemAmount($type, $hideSettingItemAmount);
         $this->textItemAmount = $this->getTextItemAmount($type, $textItemAmount);
 
         $this->hideDiscount = $this->getHideDiscount($type, $hideDiscount);
@@ -880,17 +900,26 @@ abstract class Form extends Component
             return $hideItemName;
         }
 
+        $hide = $this->getHideFromConfig($type, 'name');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideSettingItemName($type, $hideSettingItemName): bool
+    {
+        if (! empty($hideSettingItemName)) {
+            return $hideSettingItemName;
+        }
+
         $hideItemName = setting($this->getDocumentSettingKey($type, 'item_name'), false);
 
         // if you use settting translation
         if ($hideItemName === 'hide') {
             return true;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'name');
-
-        if ($hide) {
-            return $hide;
         }
 
         return false;
@@ -932,17 +961,24 @@ abstract class Form extends Component
             return $hideItemDescription;
         }
 
-
-
-        // if you use settting translation
-        if (setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
-            return true;
-        }
-
         $hide = $this->getHideFromConfig($type, 'description');
 
         if ($hide) {
             return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideSettingItemDescription($type, $hideSettingItemDescription): bool
+    {
+        if (! empty($hideSettingItemDescription)) {
+            return $hideSettingItemDescription;
+        }
+
+        // if you use settting translation
+        if (setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
+            return true;
         }
 
         return false;
@@ -969,17 +1005,26 @@ abstract class Form extends Component
             return $hideItemQuantity;
         }
 
+        $hide = $this->getHideFromConfig($type, 'quantity');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideSettingItemQuantity($type, $hideSettingItemQuantity): bool
+    {
+        if (! empty($hideSettingItemQuantity)) {
+            return $hideSettingItemQuantity;
+        }
+
         $hideItemQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name'), false);
 
         // if you use settting translation
         if ($hideItemQuantity === 'hide') {
             return true;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'quantity');
-
-        if ($hide) {
-            return $hide;
         }
 
         return false;
@@ -1021,17 +1066,26 @@ abstract class Form extends Component
             return $hideItemPrice;
         }
 
+        $hide = $this->getHideFromConfig($type, 'price');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideSettingItemPrice($type, $hideSettingItemPrice): bool
+    {
+        if (! empty($hideSettingItemPrice)) {
+            return $hideSettingItemPrice;
+        }
+
         $hideItemPrice = setting($this->getDocumentSettingKey($type, 'price_name'), false);
 
         // if you use settting translation
         if ($hideItemPrice === 'hide') {
             return true;
-        }
-
-        $hide = $this->getHideFromConfig($type, 'price');
-
-        if ($hide) {
-            return $hide;
         }
 
         return false;
@@ -1073,15 +1127,24 @@ abstract class Form extends Component
             return $hideItemAmount;
         }
 
-        // if you use settting translation
-        if (setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
-            return true;
-        }
-
         $hide = $this->getHideFromConfig($type, 'amount');
 
         if ($hide) {
             return $hide;
+        }
+
+        return false;
+    }
+
+    protected function getHideSettingItemAmount($type, $hideSettingItemAmount): bool
+    {
+        if (! empty($hideSettingItemAmount)) {
+            return $hideSettingItemAmount;
+        }
+
+        // if you use settting translation
+        if (setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
+            return true;
         }
 
         return false;
