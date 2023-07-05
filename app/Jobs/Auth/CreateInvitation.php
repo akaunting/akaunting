@@ -5,12 +5,15 @@ namespace App\Jobs\Auth;
 use App\Abstracts\Job;
 use App\Models\Auth\UserInvitation;
 use App\Notifications\Auth\Invitation as Notification;
+use App\Traits\Sources;
 use Exception;
 use Illuminate\Support\Str;
 use Symfony\Component\Mailer\Exception\TransportException;
 
 class CreateInvitation extends Job
 {
+    use Sources;
+
     protected $invitation;
 
     protected $user;
@@ -32,6 +35,8 @@ class CreateInvitation extends Job
             $this->invitation = UserInvitation::create([
                 'user_id' => $this->user->id,
                 'token' => (string) Str::uuid(),
+                'created_by' => user_id(),
+                'created_from' => $this->getSourceName(request()),
             ]);
 
             $notification = new Notification($this->invitation);

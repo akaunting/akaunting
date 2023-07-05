@@ -26,6 +26,12 @@ return new class extends Migration
 
             $table->unique(['company_id', 'key', 'deleted_at']);
         });
+
+        // User Invitations
+        Schema::table('user_invitations', function (Blueprint $table) {
+            $table->unsignedInteger('created_by')->nullable()->after('token');
+            $table->string('created_from', 100)->nullable()->after('token');
+        });
     }
 
     /**
@@ -47,6 +53,12 @@ return new class extends Migration
             }
 
             $table->unique(['company_id', 'key']);
+        });
+
+        // User Invitations
+        Schema::table('user_invitations', function (Blueprint $table) {
+            $table->dropColumn('created_by');
+            $table->dropColumn('created_from');
         });
     }
 };
