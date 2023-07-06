@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Zákazník nemá uvedenou e-mailovou adresu!',
+        'totals_required'   => 'Součet faktury je vyžadován. Prosím upravte :type a znovu ji uložte.',
+
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude odeslána.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Čeká na platbu',
             ],
         ],
+
+        'name_or_description_required' => 'Vaše faktura musí obsahovat alespoň jeden z <b>:name</b> nebo <b>:description</b>.',
     ],
 
     'slider' => [

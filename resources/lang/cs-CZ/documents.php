@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Není zde žádná poznámka připojená k tomuto pádu.',
 ];

@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Er is geen e-mailadres bekend van deze klant!',
+        'totals_required'   => 'Factuurtotalen zijn vereist Bewerk het :type en sla het opnieuw op.',
+
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'In afwachting van betaling',
             ],
         ],
+
+        'name_or_description_required' => 'Je factuur moet ten minste één van de volgende punten bevatten <b>:name</b> of <b>:description</b>.',
     ],
 
     'slider' => [

@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'No hi ha cap fitxer adjunt a aquest/a :type.',
 ];

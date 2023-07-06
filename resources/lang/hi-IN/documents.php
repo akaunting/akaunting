@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'इस :type से कोई फ़ाइल अनुलग्नित नहीं है',
 ];

@@ -196,7 +196,7 @@ return [
     'due_on'                => 'Venç el',
     'amount_due'            => 'Quantitat',
     'financial_year'        => 'Any fiscal',
-    'created'               => 'Creat/da',
+    'created'               => 'Creat',
     'state'                 => 'Província/Estat',
     'zip_code'              => 'Codi postal',
     'parent'                => 'Pare/Mare',
@@ -230,6 +230,8 @@ return [
     'go_back'               => 'Torna a :type',
     'validation_error'      => 'Error de validació',
     'dismiss'               => 'Ignora',
+    'size'                  => 'Mida',
+    'media'                 => 'Multimèdia',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',

@@ -64,6 +64,17 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Correu :type no vàlid',
+            'description'   => 'L\'adreça de correu :email ha estat identificada com a no vàlida, i l\'usuari ha estat desactivat. Si us plau comprova el següent missatge d\'error i corregeix l\'adreça de correu.',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -89,7 +100,7 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
         'import_failed' => [
 
-            'subject'       => 'Ha fallat la importació',
+            'title'         => 'Ha fallat la importació',
             'description'   => 'No s\'ha pogut importar l\'arxiu per vàries raons. Pots mirar el teu correu per tenir-ne més detalls.',
 
         ],
@@ -175,6 +186,13 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
             'title'         => 'Nova factura recurrent',
             'description'   => 'S\'ha creat la factura recurrent <strong>:bill_number</strong> de <strong>:vendor_name</strong>. Pots prémer <a href=":bill_admin_link">aquí</a> per veure\'n els detalls.',
+
+        ],
+
+        'invalid_email' => [
+
+            'title'         => 'Correu :type no vàlid',
+            'description'   => 'L\'adreça de correu <strong>:email</strong> ha estat identificada com a no vàlida, i l\'usuari ha estat desactivat. Si us plau comprova i corregeix l\'adreça de correu.',
 
         ],
 
