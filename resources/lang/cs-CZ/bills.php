@@ -51,7 +51,7 @@ return [
         'status' => [
             'created'       => 'Vytvořeno :date',
             'receive' => [
-                'draft'     => 'Neodesláno',
+                'draft'     => 'Neobdrženo',
                 'received'  => 'Přijato :date',
             ],
             'paid' => [

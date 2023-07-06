@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'                   => 'Changer le nom de la société, l\'email, l\'adresse, le numéro de taxe, etc',
+        'description'                   => 'Changer le nom de la société, l\'email, l\'adresse, le numéro SIRET, etc',
         'search_keywords'               => 'société, nom, courriel, téléphone, adresse, pays, numéro SIRET, logo, ville, ville, état, province, code postal',
         'name'                          => 'Nom',
         'email'                         => 'Email',
@@ -58,7 +58,7 @@ return [
     ],
 
     'invoice' => [
-        'description'                   => 'Personnaliser le préfixe de la facture, le numéro , les termes, le pied de page, etc',
+        'description'                   => 'Personnaliser le préfixe de la facture, le numéro, les conditions, le pied de page, etc',
         'search_keywords'               => 'personnaliser, facture, numéro, préfixe, chiffre, suivant, logo, nom, prix, quantité, modèle, titre, sous-en-tête, pied de page, note, masquer, couleurs, paiement, conditions, colonne',
         'prefix'                        => 'Préfixe de numérotation',
         'digit'                         => 'Nombre de chiffres',

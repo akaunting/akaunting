@@ -230,6 +230,8 @@ return [
     'go_back'               => 'Jít zpět na :type',
     'validation_error'      => 'Chyba ověření',
     'dismiss'               => 'Odmítnout',
+    'size'                  => 'Velikost',
+    'media'                 => 'Média',
 
     'card' => [
         'cards'                 => 'Karta|Karty',
@@ -291,11 +293,11 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-green">documentation</a> for more details.',
-        'items' => 'Položky mohou být produkty nebo služby. Položky můžete použít při vytváření faktur vydaných či přijatých, aby byla pole s údaji o ceně, dani atd. vyplněna.',
+        'documentation' => 'Pro více informací se podívejte na <a href=":url" target="_blank" class="text-green bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-green transition-backgroundSize">dokumentaci</a>.',
+        'items' => 'Položky mohou být produkty nebo služby. Položky můžete použít při vytváření faktur vydaných či přijatých, aby byla pole s údaji o ceně, o dani atd. vyplněna.',
         'invoices' => 'Faktury vydané mohou být jednorázové nebo opakující se. Můžete je odeslat zákazníkům a začít přijímat online platby.',
         'revenues' => 'Příjem je zaplacená příjmová transakce. Může se jednat o nezávislý záznam (tj. vklad) nebo o záznam připojený k faktuře.',
-        'customers' => 'Zákazníci jsou zapotřebí, pokud chcete vytvářet přijaté faktury. Mohou se také přihlásit do Klientského portálu a vidět svůj zůstatek.',
+        'customers' => 'Zákazníci jsou zapotřebí, pokud chcete vytvářet přijaté faktury. Mohou se také přihlásit do Klientského portálu a vidět svou bilanci.',
         'bills' => 'Faktury přijaté mohou být jednorázové nebo opakující se. Uvádějí, kolik dlužíte svým prodejcům za zakoupené produkty nebo služby.',
         'payments' => 'Platba je zaplacená výdajová transakce. Může se jednat o nezávislý záznam (např. účtenka za jídlo) nebo o záznam připojený k přijaté faktuře.',
         'vendors' => 'Dodavatelé jsou zapotřebí, pokud chcete vytvářet přijaté faktury. Můžete vidět zůstatek, který dlužíte a filtrovat zprávy podle dodavatele.',

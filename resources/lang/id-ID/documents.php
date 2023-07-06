@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Tidak ada dokumen yang dilampirkan pada tipe :type ini.',
 ];

@@ -230,6 +230,8 @@ return [
     'go_back'               => 'Terug naar :type',
     'validation_error'      => 'Validatiefout',
     'dismiss'               => 'Verwerp',
+    'size'                  => 'Grootte',
+    'media'                 => 'Media',
 
     'card' => [
         'cards'                 => 'Kaart|Kaarten',

@@ -26,6 +26,7 @@ return [
         'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
         'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
+        'transfer_category' => 'Erreur: Impossible de supprimer la catégorie de transfert <b>:type</b>!',
         'change_type'       => 'Erreur : Impossible de changer le type car il est lié à :text !',
         'invalid_apikey'    => 'Erreur : La clé API saisie n\'est pas valide !',
         'import_column'     => 'Erreur : :message Nom de la feuille : :sheet. Numéro de ligne : :line.',
@@ -35,8 +36,8 @@ return [
     ],
 
     'warning' => [
-        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :texte.',
-        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :texte.',
+        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :text.',
+        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :text.',
         'reconciled_tran'   => 'Avertissement : Vous n\'êtes pas autorisé à modifier/supprimer cette transaction car elle a été réconciliée !',
         'reconciled_doc'    => 'Avertissement : Vous n\'êtes pas autorisé à changer/supprimer :type car il a réconcilié les transactions !',
         'disable_code'      => 'Avertissement : vous n’êtes pas autorisé à désactiver ou modifier la devise de <b>:name</b> car elle est liée à :text.',

@@ -89,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Aan dit :type zijn geen bestanden gekoppeld.',
 ];
