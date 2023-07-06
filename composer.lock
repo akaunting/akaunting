@@ -730,16 +730,16 @@
         },
         {
             "name": "akaunting/module-offline-payments",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-offline-payments.git",
-                "reference": "75fac34630d08b91d724730b0096457f2087b02e"
+                "reference": "9ac105c829da615f244ecbebdb42295824c32c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/75fac34630d08b91d724730b0096457f2087b02e",
-                "reference": "75fac34630d08b91d724730b0096457f2087b02e",
+                "url": "https://api.github.com/repos/akaunting/module-offline-payments/zipball/9ac105c829da615f244ecbebdb42295824c32c78",
+                "reference": "9ac105c829da615f244ecbebdb42295824c32c78",
                 "shasum": ""
             },
             "type": "library",
@@ -758,22 +758,22 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-offline-payments/issues",
-                "source": "https://github.com/akaunting/module-offline-payments/tree/3.0.1"
+                "source": "https://github.com/akaunting/module-offline-payments/tree/3.0.2"
             },
-            "time": "2022-11-14T08:09:41+00:00"
+            "time": "2023-07-06T10:00:06+00:00"
         },
         {
             "name": "akaunting/module-paypal-standard",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/module-paypal-standard.git",
-                "reference": "c34d74aa2e8321f1424ec6cd3d610fb908a46f8a"
+                "reference": "dbd7d2efadfcd99937a875abc335529fddf47739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/module-paypal-standard/zipball/c34d74aa2e8321f1424ec6cd3d610fb908a46f8a",
-                "reference": "c34d74aa2e8321f1424ec6cd3d610fb908a46f8a",
+                "url": "https://api.github.com/repos/akaunting/module-paypal-standard/zipball/dbd7d2efadfcd99937a875abc335529fddf47739",
+                "reference": "dbd7d2efadfcd99937a875abc335529fddf47739",
                 "shasum": ""
             },
             "type": "library",
@@ -792,9 +792,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/module-paypal-standard/issues",
-                "source": "https://github.com/akaunting/module-paypal-standard/tree/3.0.0"
+                "source": "https://github.com/akaunting/module-paypal-standard/tree/3.0.1"
             },
-            "time": "2022-06-02T15:10:31+00:00"
+            "time": "2023-07-06T10:03:44+00:00"
         },
         {
             "name": "aws/aws-crt-php",
