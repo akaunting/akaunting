@@ -235,7 +235,7 @@ class Currencies extends Controller
         if ($code) {
             $currencies = Currency::all()->pluck('rate', 'code');
 
-            $currency = config('money.' . $code);
+            $currency = config('money.currencies.' . $code);
 
             $currency['rate'] = isset($currencies[$code]) ? $currencies[$code] : null;
             $currency['symbol_first'] = ! empty($currency['symbol_first']) ? 1 : 0;

@@ -42,7 +42,7 @@ class MatchBankingDocumentTransaction extends Job
         $code = $this->transaction->currency_code;
         $rate = $this->transaction->currency_rate;
 
-        $precision = config('money.' . $code . '.precision');
+        $precision = config('money.currencies.' . $code . '.precision');
 
         $amount = $this->transaction->amount = round($this->transaction->amount, $precision);
 

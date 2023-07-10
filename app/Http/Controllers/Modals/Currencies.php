@@ -64,7 +64,7 @@ class Currencies extends Controller
      */
     public function store(Request $request)
     {
-        $currency = config('money.' . $request->get('code'));
+        $currency = config('money.currencies.' . $request->get('code'));
 
         $request['precision'] = (int) $currency['precision'];
         $request['symbol'] = $currency['symbol'];

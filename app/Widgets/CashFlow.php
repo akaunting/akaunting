@@ -191,7 +191,7 @@ class CashFlow extends Widget
             $totals[$i] += $item->getAmountConvertedToDefault();
         }
 
-        $precision = config('money.' . default_currency() . '.precision');
+        $precision = config('money.currencies.' . default_currency() . '.precision');
 
         foreach ($totals as $key => $value) {
             if ($type == 'expense') {
@@ -206,7 +206,7 @@ class CashFlow extends Widget
     {
         $profit = [];
 
-        $precision = config('money.' . default_currency() . '.precision');
+        $precision = config('money.currencies.' . default_currency() . '.precision');
 
         foreach ($incomes as $key => $income) {
             $value = $income - abs($expenses[$key]);

@@ -69,7 +69,7 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $this->request['company_id'] = $this->model->company_id;
         $this->request['currency_code'] = $currency_code;
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->toDateTimeString();
-        $this->request['currency_rate'] = config('money.' . $currency_code . '.rate');
+        $this->request['currency_rate'] = config('money.currencies.' . $currency_code . '.rate');
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
         $this->request['contact_id'] = isset($this->request['contact_id']) ? $this->request['contact_id'] : $this->model->contact_id;
@@ -83,7 +83,7 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $code = $this->request['currency_code'];
         $rate = $this->request['currency_rate'];
 
-        $precision = config('money.' . $code . '.precision');
+        $precision = config('money.currencies.' . $code . '.precision');
 
         $amount = $this->request['amount'] = round($this->request['amount'], $precision);
 

@@ -28,7 +28,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
     public function handle(): void
     {
-        $precision = config('money.' . $this->document->currency_code . '.precision');
+        $precision = config('money.currencies.' . $this->document->currency_code . '.precision');
 
         list($sub_total, $actual_total, $discount_amount_total, $taxes) = $this->createItems();
 

@@ -329,7 +329,7 @@ class Document extends Model
 
         $code = $this->currency_code;
         $rate = $this->currency_rate;
-        $precision = config('money.' . $code . '.precision');
+        $precision = config('money.currencies.' . $code . '.precision');
 
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
@@ -361,7 +361,7 @@ class Document extends Model
 
         $code = $this->currency_code;
         $rate = $this->currency_rate;
-        $precision = config('money.' . $code . '.precision');
+        $precision = config('money.currencies.' . $code . '.precision');
 
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
@@ -391,7 +391,7 @@ class Document extends Model
      */
     public function getAmountDueAttribute()
     {
-        $precision = config('money.' . $this->currency_code . '.precision');
+        $precision = config('money.currencies.' . $this->currency_code . '.precision');
 
         return round($this->amount - $this->paid, $precision);
     }

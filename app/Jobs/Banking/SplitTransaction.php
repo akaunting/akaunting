@@ -56,7 +56,7 @@ class SplitTransaction extends Job implements ShouldUpdate
             $total_amount += $item['amount'];
         }
 
-        $precision = config('money.' . $this->model->currency_code . '.precision');
+        $precision = config('money.currencies.' . $this->model->currency_code . '.precision');
 
         $compare = bccomp($total_amount, $this->model->amount, $precision);
 
