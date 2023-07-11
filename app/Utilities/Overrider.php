@@ -62,6 +62,9 @@ class Overrider
         // Set locale for Money package
 		Money::setLocale(app()->getLocale());
 
+        // Money
+        config(['money.defaults.currency' => setting('default.currency')]);
+
         // Set app url dynamically if empty
         if (! config('app.url')) {
             config(['app.url' => url('/')]);

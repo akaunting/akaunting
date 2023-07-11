@@ -25,7 +25,7 @@ class Transfer extends JsonResource
             'to_account' => $income_transaction->account->name,
             'to_account_id' => $income_transaction->account->id,
             'amount' => $expense_transaction->amount,
-            'amount_formatted' => money($expense_transaction->amount, $expense_transaction->currency_code, true)->format(),
+            'amount_formatted' => money($expense_transaction->amount, $expense_transaction->currency_code)->format(),
             'currency_code' => $expense_transaction->currency_code,
             'paid_at' => $expense_transaction->paid_at ? $expense_transaction->paid_at->toIso8601String() : '',
             'created_from' => $this->created_from,

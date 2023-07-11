@@ -97,8 +97,8 @@ class Bill extends Notification
 
         return [
             $this->bill->document_number,
-            money($this->bill->amount, $this->bill->currency_code, true),
-            money($this->bill->amount_due, $this->bill->currency_code, true),
+            money($this->bill->amount, $this->bill->currency_code),
+            money($this->bill->amount_due, $this->bill->currency_code),
             company_date($this->bill->issued_at),
             company_date($this->bill->due_at),
             route('bills.show', $route_params),

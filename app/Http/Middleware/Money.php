@@ -105,7 +105,7 @@ class Money
                 $money_format = Str::replaceFirst('.', config('money.currencies.' . $currency_code . '.decimal_mark'), $money_format);
             }
 
-            $amount = money($money_format, $currency_code)->getAmount();
+            $amount = money($money_format, $currency_code, false)->getAmount();
         } catch (InvalidArgumentException | OutOfBoundsException | UnexpectedValueException $e) {
             report($e);
 

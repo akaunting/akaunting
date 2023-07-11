@@ -391,7 +391,7 @@
                                                     $item->name = trans('transfers.messages.delete', [
                                                         'from' => $item->expense_transaction->account->name,
                                                         'to' => $item->income_transaction->account->name,
-                                                        'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code, true)
+                                                        'amount' => money($item->expense_transaction->amount, $item->expense_transaction->currency_code)
                                                     ]);
                                                 @endphp
 

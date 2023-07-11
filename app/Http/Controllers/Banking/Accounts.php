@@ -42,9 +42,9 @@ class Accounts extends Controller
                                 ->orWhereHas('income_transaction', fn ($query) => $query->where('account_id', $account->id))
                                 ->collect(['expense_transaction.paid_at' => 'desc']);
 
-        $incoming_amount = money($account->income_balance, $account->currency_code, true);
-        $outgoing_amount = money($account->expense_balance, $account->currency_code, true);
-        $current_amount = money($account->balance, $account->currency_code, true);
+        $incoming_amount = money($account->income_balance, $account->currency_code);
+        $outgoing_amount = money($account->expense_balance, $account->currency_code);
+        $current_amount = money($account->balance, $account->currency_code);
 
         $summary_amounts = [
             'incoming_exact'        => $incoming_amount->format(),

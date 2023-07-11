@@ -71,7 +71,7 @@ class MatchBankingDocumentTransaction extends Job
                 $error_amount = round($converted_amount, $precision);
             }
 
-            $message = trans('messages.error.over_match', ['type' => ucfirst($this->model->type), 'amount' => money($error_amount, $code, true)]);
+            $message = trans('messages.error.over_match', ['type' => ucfirst($this->model->type), 'amount' => money($error_amount, $code)]);
 
             throw new \Exception($message);
         } else {
@@ -83,7 +83,7 @@ class MatchBankingDocumentTransaction extends Job
 
     protected function createHistory(): void
     {
-        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code, true)->format() . ' ' . trans_choice('general.payments', 1);
+        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code)->format() . ' ' . trans_choice('general.payments', 1);
 
         $this->dispatch(new CreateDocumentHistory($this->model, 0, $history_desc));
     }

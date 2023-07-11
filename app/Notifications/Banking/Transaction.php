@@ -118,7 +118,7 @@ class Transaction extends Notification
         ];
 
         return [
-            money($this->transaction->amount, $this->transaction->currency_code, true),
+            money($this->transaction->amount, $this->transaction->currency_code),
             company_date($this->transaction->paid_at),
             URL::signedRoute('signed.payments.show', $route_params),
             route('transactions.show', $route_params),

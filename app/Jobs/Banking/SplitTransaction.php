@@ -65,7 +65,7 @@ class SplitTransaction extends Job implements ShouldUpdate
 
             $message = trans('messages.error.same_amount', [
                 'transaction' => ucfirst(trans_choice('general.' . Str::plural($this->model->type), 1)),
-                'amount' => money($error_amount, $this->model->currency_code, true)
+                'amount' => money($error_amount, $this->model->currency_code)
             ]);
 
             throw new \Exception($message);

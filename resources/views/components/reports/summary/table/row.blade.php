@@ -28,7 +28,7 @@
                 @endif
                     <span>{{ $class->row_names[$table_key][$id] }}</span>
                 </div>
-                <span>{{ $class->has_money ? money($row_total, default_currency(), true) : $row_total }}</span>
+                <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>
             </div>
         </li>
     @endif
@@ -73,7 +73,7 @@
                         @endif
                     @endif
                 </div>
-                <span>{{ $class->has_money ? money($row_total, default_currency(), true) : $row_total }}</span>
+                <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>
             </div>
         </li>
     @endif
@@ -91,7 +91,7 @@
             <div style="display:flex; align-items: center; padding-left: {{ ($tree_level + 1) * 20 }}px;">
                 <span>{{ $class->row_names[$table_key][$id] }}</span>
             </div>
-            <span>{{ $class->has_money ? money($row_total, default_currency(), true) : $row_total }}</span>
+            <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>
         </div>
     </li>
     @endif

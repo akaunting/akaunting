@@ -14,9 +14,9 @@
         @endif
 
         @foreach($rows as $row)
-            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row, default_currency(), true) : $row }}</td>
+            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row) : $row }}</td>
         @endforeach
-        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total, default_currency(), true) : $row }}</td>
+        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total) : $row }}</td>
     </tr>
     @endif
 @endif
@@ -57,9 +57,9 @@
         </div>
         </td>
         @foreach($parent_row_values as $row)
-            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row, default_currency(), true) : $row }}</td>
+            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row) : $row }}</td>
         @endforeach
-        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total, default_currency(), true) : $row }}</td>
+        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total) : $row }}</td>
     </tr>
     @endif
 
@@ -69,9 +69,9 @@
     <tr class="hover:bg-gray-100 border-b collapse-sub collapse-sub-report" data-collapse="child-{{ $id }}">
         <td class="{{ $class->column_name_width }} py-2 text-left text-black-400" style="padding-left: {{ ($tree_level + 1) * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
         @foreach($rows as $row)
-            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row, default_currency(), true) : $row }}</td>
+            <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row) : $row }}</td>
         @endforeach
-        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total, default_currency(), true) : $row }}</td>
+        <td class="{{ $class->column_name_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs uppercase">{{ $class->has_money ? money($row_total) : $row }}</td>
     </tr>
     @endif
 

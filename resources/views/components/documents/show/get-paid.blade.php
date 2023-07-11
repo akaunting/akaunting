@@ -62,7 +62,7 @@
                         <span>
                             <x-date :date="$transaction->paid_at" />
                              - {!! trans('documents.transaction', [
-                                 'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code, true) . '</span>',
+                                 'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code) . '</span>',
                                  'account' => '<span class="font-medium">' . $transaction->account->name . '</span>',
                              ]) !!}
                         </span>
@@ -103,7 +103,7 @@
 
                             @php
                                 $message = trans('general.delete_confirm', [
-                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format(company_date_format()) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
+                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format(company_date_format()) . ' - ' . money($transaction->amount, $transaction->currency_code) . ' - ' . $transaction->account->name . '</strong>',
                                     'type' => strtolower(trans_choice('general.transactions', 1))
                                 ]);
                             @endphp
