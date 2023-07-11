@@ -52,7 +52,7 @@ class Payables extends Widget
         });
 
         foreach ($periods as $period_name => $period_amount) {
-            $periods[$period_name] = money($period_amount, default_currency(), true);
+            $periods[$period_name] = money($period_amount);
         }
 
         $has_progress = !empty($open) || !empty($overdue);
@@ -61,9 +61,9 @@ class Payables extends Widget
         $grand = $open + $overdue;
 
         $totals = [
-            'grand'     => money($grand, default_currency(), true),
-            'open'      => money($open, default_currency(), true),
-            'overdue'   => money($overdue, default_currency(), true),
+            'grand'     => money($grand),
+            'open'      => money($open),
+            'overdue'   => money($overdue),
         ];
 
         $grand_total_text = trans('widgets.total_unpaid_bills');

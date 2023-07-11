@@ -259,7 +259,7 @@
                                 {{ trans('general.amount') }}
                             </span>
 
-                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
+                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
                         </td>
                     </tr>
                 </table>

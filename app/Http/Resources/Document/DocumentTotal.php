@@ -22,7 +22,7 @@ class DocumentTotal extends JsonResource
             'code' => $this->code,
             'name' => $this->name,
             'amount' => $this->amount,
-            'amount_formatted' => money($this->amount, $this->document->currency_code, true)->format(),
+            'amount_formatted' => money($this->amount, $this->document->currency_code)->format(),
             'sort_order' => $this->sort_order,
             'created_from' => $this->created_from,
             'created_by' => $this->created_by,

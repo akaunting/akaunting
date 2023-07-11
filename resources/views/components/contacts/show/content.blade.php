@@ -184,7 +184,7 @@
                         id="transactions"
                         name="{{ trans_choice('general.transactions', 2) }}"
                     />
-                    
+
                     @stack('transactions_nav_end')
                 </x-slot>
 
@@ -261,7 +261,7 @@
                                             </x-table.td>
 
                                             <x-table.td class="w-4/12 lg:w-3/12" kind="amount">
-                                                <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                                <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                             </x-table.td>
 
                                             <x-table.td kind="action">
@@ -359,7 +359,7 @@
                                             </x-table.td>
 
                                             <x-table.td class="w-4/12 lg:w-3/12" kind="amount">
-                                                <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                                <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                             </x-table.td>
 
                                             <x-table.td kind="action">

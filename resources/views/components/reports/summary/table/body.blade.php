@@ -1,12 +1,12 @@
 <div>
-    <div 
+    <div
         @class([
             'd-flex align-items-center justify-content-between rp-border-bottom-1 text' => $is_print,
             'flex items-center justify-between text-xl text-black-400 border-b pb-2' => !$is_print
         ])
         >
             <h2>{{ $table_name }}</h2>
-            <span>{{ $class->has_money ? money($grand_total, default_currency(), true) : $grand_total }}</span>
+            <span>{{ $class->has_money ? money($grand_total) : $grand_total }}</span>
     </div>
     @if (!empty($class->row_values[$table_key]))
         <ul

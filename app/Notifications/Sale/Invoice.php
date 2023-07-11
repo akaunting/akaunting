@@ -142,8 +142,8 @@ class Invoice extends Notification
 
         return [
             $this->invoice->document_number,
-            money($this->invoice->amount, $this->invoice->currency_code, true),
-            money($this->invoice->amount_due, $this->invoice->currency_code, true),
+            money($this->invoice->amount, $this->invoice->currency_code),
+            money($this->invoice->amount_due, $this->invoice->currency_code),
             company_date($this->invoice->issued_at),
             company_date($this->invoice->due_at),
             URL::signedRoute('signed.invoices.show', $route_params),

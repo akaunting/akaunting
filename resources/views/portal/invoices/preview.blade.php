@@ -111,7 +111,7 @@
                                                     <x-date :date="$transaction->paid_at" />
                                                 </x-link>
                                                 - {!! trans('documents.transaction', [
-                                                    'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code, true) . '</span>',
+                                                    'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code) . '</span>',
                                                     'account' => '<span class="font-medium">' . $transaction->account->name . '</span>',
                                                 ]) !!}
                                             </span>

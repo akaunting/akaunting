@@ -324,7 +324,7 @@
                         </span>
 
                         <span>
-                            <x-money :amount="$total->amount" :currency="$document->currency_code" convert />
+                            <x-money :amount="$total->amount" :currency="$document->currency_code" />
                         </span>
                     </div>
                     @stack($total->code . '_total_tr_end')
@@ -337,7 +337,7 @@
                             </span>
 
                             <span>
-                                - <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
+                                - <x-money :amount="$document->paid" :currency="$document->currency_code" />
                             </span>
                         </div>
                         @stack('paid_total_tr_end')
@@ -350,7 +350,7 @@
                         </span>
 
                         <span>
-                            <x-money :amount="$document->amount_due" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document->amount_due" :currency="$document->currency_code" />
                         </span>
                     </div>
                     @stack('grand_total_tr_end')

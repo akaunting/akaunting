@@ -62,7 +62,7 @@
                         </div>
 
                         <span class="font-normal">
-                            <x-money :amount="$document_item->price" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document_item->price" :currency="$document->currency_code" />
                         </span>
 
                         <div class="w-40 font-normal text-sm truncate">
@@ -100,7 +100,7 @@
 
                     @if ($document->paid)
                         <span>
-                            <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document->paid" :currency="$document->currency_code" />
                         </span>
                     @endif
                 </div>
@@ -111,7 +111,7 @@
                     </span>
 
                     <span>
-                        <x-money :amount="$document->amount" :currency="$document->currency_code" convert />
+                        <x-money :amount="$document->amount" :currency="$document->currency_code" />
                     </span>
                 </div>
             </div>

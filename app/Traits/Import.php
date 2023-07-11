@@ -95,11 +95,11 @@ trait Import
         $data = [
             'company_id'    => company_id(),
             'code'          => $row['currency_code'],
-            'name'          => isset($row['currency_name']) ? $row['currency_name'] : config('money.' . $row['currency_code'] . '.name'),
+            'name'          => isset($row['currency_name']) ? $row['currency_name'] : config('money.currencies.' . $row['currency_code'] . '.name'),
             'rate'          => isset($row['currency_rate']) ? $row['currency_rate'] : 1,
-            'symbol'        => isset($row['currency_symbol']) ? $row['currency_symbol'] : config('money.' . $row['currency_code'] . '.symbol'),
-            'precision'     => isset($row['currency_precision']) ? $row['currency_precision'] : config('money.' . $row['currency_code'] . '.precision'),
-            'decimal_mark'  => isset($row['currency_decimal_mark']) ? $row['currency_decimal_mark'] : config('money.' . $row['currency_code'] . '.decimal_mark'),
+            'symbol'        => isset($row['currency_symbol']) ? $row['currency_symbol'] : config('money.currencies.' . $row['currency_code'] . '.symbol'),
+            'precision'     => isset($row['currency_precision']) ? $row['currency_precision'] : config('money.currencies.' . $row['currency_code'] . '.precision'),
+            'decimal_mark'  => isset($row['currency_decimal_mark']) ? $row['currency_decimal_mark'] : config('money.currencies.' . $row['currency_code'] . '.decimal_mark'),
             'created_from'  => !empty($row['created_from']) ? $row['created_from'] : $this->getSourcePrefix() . 'import',
             'created_by'    => !empty($row['created_by']) ? $row['created_by'] : user()->id,
         ];

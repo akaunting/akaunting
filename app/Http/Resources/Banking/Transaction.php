@@ -25,7 +25,7 @@ class Transaction extends JsonResource
             'account_id' => $this->account_id,
             'paid_at' => $this->paid_at->toIso8601String(),
             'amount' => $this->amount,
-            'amount_formatted' => money($this->amount, $this->currency_code, true)->format(),
+            'amount_formatted' => money($this->amount, $this->currency_code)->format(),
             'currency_code' => $this->currency_code,
             'currency_rate' => $this->currency_rate,
             'document_id' => $this->document_id,

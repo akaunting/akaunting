@@ -44,7 +44,7 @@
                         </div>
 
                         <span class="text-sm">
-                            {{ trans('portal.payment_detail.description', ['date' => date($payment->paid_at), 'amount' => money($payment->amount, $payment->currency_code, true)]) }}
+                            {{ trans('portal.payment_detail.description', ['date' => date($payment->paid_at), 'amount' => money($payment->amount, $payment->currency_code)]) }}
                         </span>
                     </div>
                 @endif

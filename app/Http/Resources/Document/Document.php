@@ -32,7 +32,7 @@ class Document extends JsonResource
             'issued_at' => $this->issued_at ? $this->issued_at->toIso8601String() : '',
             'due_at' => $this->due_at ? $this->due_at->toIso8601String() : '',
             'amount' => $this->amount,
-            'amount_formatted' => money($this->amount, $this->currency_code, true)->format(),
+            'amount_formatted' => money($this->amount, $this->currency_code)->format(),
             'category_id' => $this->category_id,
             'currency_code' => $this->currency_code,
             'currency_rate' => $this->currency_rate,
