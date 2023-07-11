@@ -136,10 +136,10 @@
 
                                 <x-table.td class="w-4/12 sm:w-3/12" kind="amount">
                                     <x-slot name="first">
-                                        <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" convert />
+                                        <x-money :amount="$item->expense_transaction->amount" :currency="$item->expense_transaction->currency_code" />
                                     </x-slot>
                                     <x-slot name="second">
-                                        <x-money :amount="$item->income_transaction->amount" :currency="$item->income_transaction->currency_code" convert />
+                                        <x-money :amount="$item->income_transaction->amount" :currency="$item->income_transaction->currency_code" />
                                     </x-slot>
                                 </x-table.td>
 

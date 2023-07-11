@@ -354,12 +354,12 @@
 
                         <td class="price text-alignment-right text-right" style="color:#424242; font-size:12px; padding-right:0;">
                             @if (! $hideRelatedDocumentAmount)
-                                <x-money :amount="$transaction->document->amount" :currency="$transaction->document->currency_code" convert /> <br />
+                                <x-money :amount="$transaction->document->amount" :currency="$transaction->document->currency_code" /> <br />
                             @endif
 
                             @if (! $hideRelatedAmount)
                                 <span style="color: #6E6E6E">
-                                    <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" convert />
+                                    <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" />
                                 </span>
                             @endif
                         </td>
@@ -379,7 +379,7 @@
                                 <span class="ml-2 font-semibold">
                                     {{ trans($textAmount) }}
                                 </span>
-                                <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" convert />
+                                <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" />
                             </td>
                         </tr>
                     </table>

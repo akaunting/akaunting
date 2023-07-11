@@ -97,7 +97,7 @@
                             </x-table.td>
 
                             <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
-                                <x-money :amount="$item->balance" :currency="$item->currency_code" convert />
+                                <x-money :amount="$item->balance" :currency="$item->currency_code" />
                             </x-table.td>
 
                             <x-table.td kind="action">

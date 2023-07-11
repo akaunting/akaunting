@@ -253,7 +253,7 @@
     </table>
     @stack('details_end')
 
-    
+
     <table style="text-align: right; margin-top:55px;">
         <tr>
             <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
@@ -264,7 +264,7 @@
                                 {{ trans('general.amount') }}
                             </span>
 
-                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
+                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
                         </td>
                     </tr>
                 </table>
