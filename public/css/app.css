@@ -1543,16 +1543,13 @@ button, input, optgroup, select, textarea{
 .change-log-modal .badge{
   border-radius: 1.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(110 161 82 / var(--tw-bg-opacity));
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   line-height: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: #6ea152;
 }
 
 .change-log-modal h2{
@@ -1562,42 +1559,50 @@ button, input, optgroup, select, textarea{
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(85 88 139 / var(--tw-text-opacity));
-}
+} 
 
 .change-log-modal h3{
   margin-bottom: 0.5rem;
+  margin-top: 40px;
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(85 88 139 / var(--tw-text-opacity));
+  color: #55588B;
 }
 
 .change-log-modal ul{
   margin-bottom: 0.5rem;
   list-style-position: inside;
   list-style-type: disc;
+  border: 2px solid #eaeaea;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.change-log-modal li:last-child {
+  margin-bottom: 13px;
 }
 
 .change-log-modal li{
   font-size: 1rem;
   line-height: 1.5rem;
+  margin-top: 13px;
   --tw-text-opacity: 1;
   color: rgb(85 88 139 / var(--tw-text-opacity));
 }
 
+
 .change-log-modal a{
   --tw-text-opacity: 1;
   color: rgb(110 161 82 / var(--tw-text-opacity));
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
 }
 
 /* changelog modal styling for update center */
 
 #button-monthly {
-        margin-left: unset !important;
-    }
+  margin-left: unset !important;
+}
 
 /* width of container, custom choose */
 
@@ -62548,6 +62553,11 @@ body{
   background-color: rgb(85 88 139 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-purple-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 243 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-purple-700:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(64 66 104 / var(--tw-bg-opacity));
@@ -62575,11 +62585,6 @@ body{
 .hover\:bg-wisteria-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(101 99 140 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-purple-100:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(238 238 243 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-opacity-100:hover{
@@ -62660,13 +62665,6 @@ body{
 .hover\:underline:hover{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
-}
-
-.hover\:shadow-2xl:hover{
-  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-          box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .focus\:z-10:focus{
@@ -63550,12 +63548,6 @@ body{
   --tw-scale-x: 1;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-:is([dir="ltr"] .ltr\:items-start){
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
 }
 
 :is([dir="ltr"] .ltr\:space-x-2) > :not([hidden]) ~ :not([hidden]){
@@ -64579,12 +64571,6 @@ body{
   --tw-scale-x: -1;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-:is([dir="rtl"] .rtl\:items-end){
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
 }
 
 :is([dir="rtl"] .rtl\:space-x-reverse) > :not([hidden]) ~ :not([hidden]){
