@@ -13,7 +13,7 @@
             <directory suffix="Test.php">./modules/**/Tests/Feature</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
+    <coverage>
         <include>
             <directory suffix=".php">./app</directory>
         </include>

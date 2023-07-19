@@ -106,6 +106,8 @@ class Trackers extends Component
                 $params = [
                     'release' => version('short'),
                     'traces_sample_rate' => static::sentryTracesSampleRate(),
+                    'replays_session_sample_rate' => static::sentryReplaysSessionSampleRate(),
+                    'replays_on_error_sample_rate' => static::sentryReplaysOnErrorSampleRate(),
                 ];
                 break;
         }
@@ -128,5 +130,15 @@ class Trackers extends Component
         }
 
         return (float) config('sentry.traces_sample_rate', 1.0);
+    }
+
+    public static function sentryReplaysSessionSampleRate()
+    {
+        return (float) config('sentry.replays_session_sample_rate', 0.1);
+    }
+
+    public static function sentryReplaysOnErrorSampleRate()
+    {
+        return (float) config('sentry.replays_on_error_sample_rate', 1.0);
     }
 }

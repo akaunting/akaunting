@@ -32,8 +32,9 @@ class Tax extends Model
      * @var array
      */
     protected $casts = [
-        'rate' => 'double',
-        'enabled' => 'boolean',
+        'rate'          => 'double',
+        'enabled'       => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     /**

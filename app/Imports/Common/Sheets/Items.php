@@ -8,6 +8,8 @@ use App\Models\Common\Item as Model;
 
 class Items extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -24,10 +26,5 @@ class Items extends Import
         $row['category_id'] = $this->getCategoryId($row, 'item');
 
         return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }

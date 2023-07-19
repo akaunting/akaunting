@@ -15,6 +15,13 @@ class DocumentItem extends Model
 
     protected $table = 'document_items';
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['taxes'];
+
     protected $appends = ['discount'];
 
     protected $fillable = [
@@ -40,9 +47,10 @@ class DocumentItem extends Model
      * @var array
      */
     protected $casts = [
-        'price' => 'double',
-        'total' => 'double',
-        'tax' => 'double',
+        'price'         => 'double',
+        'total'         => 'double',
+        'tax'           => 'double',
+        'deleted_at'    => 'datetime',
     ];
 
     /**

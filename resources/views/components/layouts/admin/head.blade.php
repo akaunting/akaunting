@@ -1,10 +1,10 @@
 @props([
-    'metaTitle', 'title',
+    'metaTitle', 'title', 'currency'
 ])
 
 <head>
     @stack('head_start')
-    
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,7 @@
     <base href="{{ config('app.url') . '/' }}">
 
     <x-layouts.pwa.head />
-    
+
     <link rel="stylesheet" href="{{ asset('public/css/custom_loading.css?v=' . version('short')) }}" type="text/css">
 
     <!-- Favicon -->
@@ -43,6 +43,7 @@
         var url = '{{ url("/" . company_id()) }}';
         var app_url = '{{ config("app.url") }}';
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
+        var all_currencies = {!! !empty($currencies) ? $currencies : '[]' !!};
     //--></script>
 
     <x-script.exceptions.trackers />

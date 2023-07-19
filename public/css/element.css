@@ -14,7 +14,8 @@
     font-family: element-icons;
     src: url(fonts/element-icons.woff) format("woff"),url(fonts/element-icons.ttf) format("truetype");
     font-weight: 400;
-    font-display:"auto";font-style: normal
+    font-display:"auto";
+    font-style: normal;
 }
 
 [class*=" el-icon-"],[class^=el-icon-] {
@@ -10202,7 +10203,7 @@
 }
 
 .el-progress-bar__innerText {
-    color: #FFF;
+    color: #FFF !important;
     font-size: 12px;
     margin: 0 5px
 }

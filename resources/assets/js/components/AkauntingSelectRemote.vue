@@ -1107,12 +1107,12 @@ export default {
             this.selected = [];
 
             selected.forEach(function (select, index) {
-                if (this.sorted_options.find((option) => option.key == select)) {
+                if (Array.isArray(this.sorted_options) && this.sorted_options.find((option) => option.key == select)) {
                     this.selected.push(select);
                 }
             }, this);
         } else {
-            if (! options.find((option) => option == this.selected)) {
+            if (Array.isArray(options) && ! options.find((option) => option == this.selected)) {
                 this.selected = '';
             }
         }

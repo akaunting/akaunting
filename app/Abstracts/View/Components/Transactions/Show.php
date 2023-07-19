@@ -9,7 +9,6 @@ use App\Traits\Transactions;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -483,7 +482,7 @@ abstract class Show extends Component
             return $template;
         }
 
-        $transactionTemplate = setting($this->getSettingKey($type, 'template')) ?: 'default';
+        $transactionTemplate = setting($this->getTransactionSettingKey($type, 'template')) ?: 'default';
 
         return $transactionTemplate;
     }
@@ -501,7 +500,7 @@ abstract class Show extends Component
         if (! empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -514,7 +513,7 @@ abstract class Show extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
@@ -1114,9 +1113,7 @@ abstract class Show extends Component
             return $textRecurringType;
         }
 
-        $default_key = config('type.transaction.' . $type . '.translation.transactions');
-
-        $translation = $this->getTextFromConfig($type, 'recurring_type', $default_key);
+        $translation = config('type.transaction.' . $type . '.translation.transactions');
 
         if (! empty($translation)) {
             return $translation;

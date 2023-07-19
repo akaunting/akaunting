@@ -117,45 +117,39 @@
                 </div>
 
                 <div class="flex ltr:ml-2 rtl:mr-2">
-                    <span class="w-28 text-left block text-base truncate">
+                    <span class="w-28 ltr:text-left rtl:text-right block text-base truncate">
                         <x-button.hover>
                             {{ Str::limit(setting('company.name'), 22) }}
                         </x-button.hover>
                     </span>
 
-                    @can('read-common-companies')
-                        <div class="absolute top-2 ltr:-right-1 rtl:-left-1">
-                            <svg class="h-5 w-5 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                    @endcan
+                    <div class="absolute top-2 ltr:-right-1 rtl:-left-1">
+                        <svg class="h-5 w-5 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
                 </div>
             </button>
 
-            @can('read-common-companies')
-                <div id="dropdown-menu-company" class="absolute right-0 mt-3 pt-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
-                    @foreach($companies as $com)
-                        <x-link href="{{ route('companies.switch', $com->id) }}" id="menu-company-{{ $com->id }}" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
-                            <div class="w-full h-full flex items-center rounded-md px-2 hover:bg-lilac-100">
-                                <span class="material-icons-outlined text-purple text-xl">business</span>
-                                <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate">{{ Str::limit($com->name, 18) }}</span>
-                            </div>
-                        </x-link>
-                    @endforeach
+            <div id="dropdown-menu-company" class="absolute right-0 mt-3 pt-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
+                @foreach($companies as $com)
+                    <x-link href="{{ route('companies.switch', $com->id) }}" id="menu-company-{{ $com->id }}" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
+                        <div class="w-full h-full flex items-center rounded-md px-2 hover:bg-lilac-100">
+                            <span class="material-icons-outlined text-purple text-xl">business</span>
+                            <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate">{{ Str::limit($com->name, 18) }}</span>
+                        </div>
+                    </x-link>
+                @endforeach
 
-                    @can('update-common-companies')
-                        <x-link href="{{ route('companies.index') }}" class="h-9 leading-9 flex items-center text-sm px-2 mt-2 border-t rounded-bl rounded-br group hover:bg-purple" override="class">
-                            <div class="w-full h-full flex items-center rounded-md px-2">
-                                <span class="material-icons-outlined text-purple text-xl group-hover:text-white">settings</span>
-                                <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate group-hover:text-white">
-                                    {{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}
-                                </span>
-                            </div>
-                        </x-link>
-                    @endcan
-                </div>
-            @endcan
+                <x-link href="{{ route('companies.index') }}" class="h-9 leading-9 flex items-center text-sm px-2 mt-2 border-t rounded-bl rounded-br group hover:bg-purple" override="class">
+                    <div class="w-full h-full flex items-center rounded-md px-2">
+                        <span class="material-icons-outlined text-purple text-xl group-hover:text-white">settings</span>
+                        <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate group-hover:text-white">
+                            {{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}
+                        </span>
+                    </div>
+                </x-link>
+            </div>
         </div>
 
         <div class="main-menu transform">
@@ -235,3 +229,4 @@
 <x-loading.menu />
 
 @stack('menu_end')
+

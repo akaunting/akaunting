@@ -20,7 +20,7 @@ class UserInvitation extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['user_id', 'token'];
+    protected $fillable = ['user_id', 'token', 'created_from', 'created_by'];
 
     public function user()
     {

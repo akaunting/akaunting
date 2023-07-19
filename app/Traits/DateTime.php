@@ -3,8 +3,8 @@
 namespace App\Traits;
 
 use App\Traits\SearchString;
+use App\Utilities\Date;
 use Carbon\CarbonPeriod;
-use Date;
 
 trait DateTime
 {
@@ -32,8 +32,10 @@ trait DateTime
 
         $chars = ['dash' => '-', 'slash' => '/', 'dot' => '.', 'comma' => ',', 'space' => ' '];
 
-        $date_format = setting('localisation.date_format', $default);
-        $date_separator = $chars[setting('localisation.date_separator', 'space')];
+        $date_format = (setting('localisation.date_format', $default)) ?? $default;
+
+        $char = (setting('localisation.date_separator', 'space')) ?? 'space';
+        $date_separator = $chars[$char];
 
         return str_replace(' ', $date_separator, $date_format);
     }
@@ -60,42 +62,24 @@ trait DateTime
 
     public function getTimezones()
     {
-        $groups = [];
-
         // The list of available timezone groups to use.
-        $use_zones = array('Africa', 'America', 'Antarctica', 'Arctic', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific');
+        $use_zones = ['Africa', 'America', 'Antarctica', 'Arctic', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific'];
 
         // Get the list of time zones from the server.
         $zones = \DateTimeZone::listIdentifiers();
 
-        // Build the group lists.
-        foreach ($zones as $zone) {
-            // Time zones not in a group we will ignore.
-            if (strpos($zone, '/') === false) {
-                continue;
-            }
+        return collect($zones)
+                ->mapWithKeys(function ($timezone) use ($use_zones) {
+                    if (! in_array(str($timezone)->before('/'), $use_zones)) {
+                        return [];
+                    }
 
-            // Get the group/locale from the timezone.
-            list ($group, $locale) = explode('/', $zone, 2);
-
-            // Only use known groups.
-            if (in_array($group, $use_zones)) {
-                // Initialize the group if necessary.
-                if (!isset($groups[$group])) {
-                    $groups[$group] = [];
-                }
-
-                // Only add options where a locale exists.
-                if (!empty($locale)) {
-                    $groups[$group][$zone] = str_replace('_', ' ', $locale);
-                }
-            }
-        }
-
-        // Sort the group lists.
-        ksort($groups);
-
-        return $groups;
+                    return [$timezone => str($timezone)->after('/')->value()];
+                })
+                ->groupBy(function ($item, $key) {
+                    return str($key)->before('/')->value();
+                }, preserveKeys: true)
+                ->toArray();
     }
 
     public function getFinancialStart($year = null)
@@ -155,12 +139,8 @@ trait DateTime
             break;
         }
 
-        if (!isset($this_quarter)) {
+        if (! isset($this_quarter)) {
             $this_quarter = $financial_quarters[0];
-        }
-
-        if (!isset($previous_quarter)) {
-            $previous_quarter = $financial_quarters[0];
         }
 
         $date_picker_shortcuts = [
@@ -176,15 +156,18 @@ trait DateTime
                 'start' => $this_quarter->getStartDate()->format('Y-m-d'),
                 'end' => $this_quarter->getEndDate()->format('Y-m-d'),
             ],
-            trans('reports.previous_quarter') => [
-                'start' => $previous_quarter->getStartDate()->format('Y-m-d'),
-                'end' => $previous_quarter->getEndDate()->format('Y-m-d'),
-            ],
             trans('reports.last_12_months') => [
                 'start' => $today->copy()->subYear()->startOfDay()->format('Y-m-d'),
                 'end' => $today->copy()->subDay()->endOfDay()->format('Y-m-d'),
             ],
         ];
+
+        if (isset($previous_quarter)) {
+            $date_picker_shortcuts[trans('reports.previous_quarter')] = [
+                'start' => $previous_quarter->getStartDate()->format('Y-m-d'),
+                'end' => $previous_quarter->getEndDate()->format('Y-m-d'),
+            ];
+        }
 
         return $date_picker_shortcuts;
     }

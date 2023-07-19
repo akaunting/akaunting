@@ -56,9 +56,9 @@ class Transactions extends Controller
 
         $totals['profit'] = $totals['income'] - $totals['expense'];
 
-        $incoming_amount = money($totals['income'], default_currency(), true);
-        $expense_amount = money($totals['expense'], default_currency(), true);
-        $profit_amount = money($totals['profit'], default_currency(), true);
+        $incoming_amount = money($totals['income']);
+        $expense_amount = money($totals['expense']);
+        $profit_amount = money($totals['profit']);
 
         $summary_amounts = [
             'incoming_exact'        => $incoming_amount->format(),
@@ -98,10 +98,10 @@ class Transactions extends Controller
      */
     public function create()
     {
-        $type = request()->get('type', 'income');
+        $type = $this->getTypeTransaction(request()->get('type', 'income'));
         $real_type = $this->getRealTypeTransaction($type);
 
-        $number = $this->getNextTransactionNumber();
+        $number = $this->getNextTransactionNumber($type);
 
         $contact_type = config('type.transaction.' . $type . '.contact_type');
 

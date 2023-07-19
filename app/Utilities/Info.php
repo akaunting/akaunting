@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
+use App\Traits\Cloud;
 use Composer\InstalledVersions;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,15 @@ class Info
 {
     public static function all()
     {
-        return array_merge(static::versions(), [
+        static $info = [];
+
+        $is_cloud = (new class { use Cloud; })->isCloud();
+
+        if (! empty($info) || $is_cloud) {
+            return $info;
+        }
+
+        $info = array_merge(static::versions(), [
             'api_key' => setting('apps.api_key'),
             'ip' => static::ip(),
             'companies' => Company::count(),
@@ -22,11 +31,19 @@ class Info
             'customers' => Contact::customer()->count(),
             'php_extensions' => static::phpExtensions(),
         ]);
+
+        return $info;
     }
 
     public static function versions()
     {
-        return [
+        static $versions = [];
+
+        if (! empty($versions)) {
+            return $versions;
+        }
+
+        $versions = [
             'akaunting' => version('short'),
             'laravel' => InstalledVersions::getPrettyVersion('laravel/framework'),
             'php' => static::phpVersion(),
@@ -35,6 +52,8 @@ class Info
             'livewire' => InstalledVersions::getPrettyVersion('livewire/livewire'),
             'omnipay' => InstalledVersions::getPrettyVersion('league/omnipay'),
         ];
+
+        return $versions;
     }
 
     public static function phpVersion()

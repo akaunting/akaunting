@@ -8,13 +8,10 @@ use App\Models\Setting\Tax as Model;
 
 class Taxes extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
     }
 }

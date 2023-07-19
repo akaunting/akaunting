@@ -11,9 +11,13 @@
 
     <x-slot name="body">
         <div class="flex">
-            <x-link href="{{ route($editRoute, $document->id) }}" id="show-slider-actions-edit-{{ $document->type }}" @click="e => e.target.classList.add('disabled')">
-                {{ trans('general.edit') }}
-            </x-link>
+            @if (! $hideEdit)
+                @can($permissionUpdate)
+                    <x-link href="{{ route($editRoute, $document->id) }}" id="show-slider-actions-edit-{{ $document->type }}" @click="e => e.target.classList.add('disabled')">
+                        {{ trans('general.edit') }}
+                    </x-link>
+                @endcan
+            @endif
         </div>
     </x-slot>
 </x-show.accordion>

@@ -22,6 +22,8 @@ class InvoiceItems extends Export
 
         $model->invoice_number = $document->document_number;
         $model->item_name = $model->item->name;
+        $model->item_description = $model->item->description;
+        $model->item_type = $model->item->type;
 
         return parent::map($model);
     }
@@ -31,6 +33,8 @@ class InvoiceItems extends Export
         return [
             'invoice_number',
             'item_name',
+            'item_description',
+            'item_type',
             'quantity',
             'price',
             'total',

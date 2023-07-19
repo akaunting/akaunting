@@ -22,9 +22,9 @@ class Tax extends FormRequest
             $enabled = 'nullable';
         }
 
-        $company_id = (int) $this->request->get('company_id');
+        $company_id = (int) $this->request->get('company_id', company_id());
 
-        $type = 'required|string';
+        $type = 'required|string|in:fixed,normal,inclusive,withholding,compound';
 
         if (!empty($this->request->get('type')) && $this->request->get('type') == 'compound') {
             $type .= '|unique:taxes,NULL,' . $id . ',id,company_id,' . $company_id . ',type,compound,deleted_at,NULL';
@@ -32,7 +32,7 @@ class Tax extends FormRequest
 
         return [
             'name' => 'required|string',
-            'rate' => 'required|min:0|max:100',
+            'rate' => 'required|numeric|min:0|max:100',
             'type' => $type,
             'enabled' => $enabled,
         ];

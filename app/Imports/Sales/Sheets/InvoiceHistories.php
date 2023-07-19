@@ -9,6 +9,8 @@ use App\Models\Document\DocumentHistory as Model;
 
 class InvoiceHistories extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -19,6 +21,8 @@ class InvoiceHistories extends Import
         if ($this->isEmpty($row, 'invoice_number')) {
             return [];
         }
+
+        $row['invoice_number'] = (string) $row['invoice_number'];
 
         $row = parent::map($row);
 
@@ -31,10 +35,8 @@ class InvoiceHistories extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['invoice_number'] = 'required|string';
 
         unset($rules['invoice_id']);

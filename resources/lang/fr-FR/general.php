@@ -13,7 +13,7 @@ return [
     'recurring_expenses'    => 'Dépense récurrente|Dépenses récurrentes',
     'bills'                 => 'Facture|Factures',
     'recurring_bills'       => 'Facture récurrente|Factures récurrentes',
-    'vendors'               => 'Vendeur|Vendeurs',
+    'vendors'               => 'Fournisseur|Fournisseurs',
     'accounts'              => 'Compte|Comptes',
     'transfers'             => 'Transfert|Transferts',
     'income_transfers'      => 'Transfert de revenus|Transferts de revenus',
@@ -72,6 +72,7 @@ return [
     'attachments'           => 'Pièce jointe|Pièces jointes',
     'histories'             => 'Historique|Historiques',
     'your_notifications'    => 'Votre notification|Vos notifications',
+    'employees'             => 'Employé.e|Employé.e.s',
 
     'welcome'               => 'Bienvenue',
     'banking'               => 'Banque',
@@ -111,7 +112,7 @@ return [
     'delete_confirm'        => 'Valider la suppression de :name :type ?',
     'name'                  => 'Nom',
     'email'                 => 'Email',
-    'tax_number'            => 'Numéro de taxe',
+    'tax_number'            => 'SIRET',
     'phone'                 => 'Téléphone',
     'address'               => 'Adresse',
     'website'               => 'Site web',
@@ -228,6 +229,9 @@ return [
     'preview_mode'          => 'Mode Aperçu',
     'go_back'               => 'Revenir à :type',
     'validation_error'      => 'Erreur de validation',
+    'dismiss'               => 'Masquer',
+    'size'                  => 'Taille',
+    'media'                 => 'Média',
 
     'card' => [
         'cards'                 => 'Carte|Cartes',
@@ -253,7 +257,7 @@ return [
     ],
 
     'form' => [
-        'enter'             => 'Entrez :field',
+        'enter'             => 'Entrez :field',
         'select' => [
             'field'         => '- Selectionner :field -',
             'file'          => 'Selectionner un fichier',

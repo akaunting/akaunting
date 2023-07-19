@@ -16,6 +16,12 @@ class UpdateTransaction extends Job implements ShouldUpdate
 
         event(new TransactionUpdating($this->model, $this->request));
 
+        if (! array_key_exists($this->request->get('type'), config('type.transaction'))) {
+            $type = (empty($this->request->get('recurring_frequency')) || ($this->request->get('recurring_frequency') == 'no')) ? Transaction::INCOME_TYPE : Transaction::INCOME_RECURRING_TYPE;
+
+            $this->request->merge(['type' => $type]);
+        }
+
         \DB::transaction(function () {
             $this->model->update($this->request->all());
 

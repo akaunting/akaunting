@@ -1,10 +1,11 @@
 name: Tests
 
 on:
- push:
+  push:
   pull_request:
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   tests:
@@ -15,11 +16,11 @@ jobs:
 
     strategy:
       matrix:
-        php: ['8.0', '8.1']
+        php: ['8.1', '8.2']
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache Composer
         uses: actions/cache@v1

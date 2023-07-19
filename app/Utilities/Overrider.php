@@ -62,6 +62,9 @@ class Overrider
         // Set locale for Money package
 		Money::setLocale(app()->getLocale());
 
+        // Money
+        config(['money.defaults.currency' => setting('default.currency')]);
+
         // Set app url dynamically if empty
         if (! config('app.url')) {
             config(['app.url' => url('/')]);
@@ -73,16 +76,16 @@ class Overrider
         $currencies = Currency::all();
 
         foreach ($currencies as $currency) {
-            config(['money.' . $currency->code . '.name' => $currency->name]);
-            config(['money.' . $currency->code . '.rate' => $currency->rate]);
-            config(['money.' . $currency->code . '.precision' => $currency->precision]);
-            config(['money.' . $currency->code . '.symbol' => $currency->symbol]);
-            config(['money.' . $currency->code . '.symbol_first' => $currency->symbol_first]);
-            config(['money.' . $currency->code . '.decimal_mark' => $currency->decimal_mark]);
-            config(['money.' . $currency->code . '.thousands_separator' => $currency->thousands_separator]);
+            config(['money.currencies.' . $currency->code . '.name' => $currency->name]);
+            config(['money.currencies.' . $currency->code . '.rate' => $currency->rate]);
+            config(['money.currencies.' . $currency->code . '.precision' => $currency->precision]);
+            config(['money.currencies.' . $currency->code . '.symbol' => $currency->symbol]);
+            config(['money.currencies.' . $currency->code . '.symbol_first' => $currency->symbol_first]);
+            config(['money.currencies.' . $currency->code . '.decimal_mark' => $currency->decimal_mark]);
+            config(['money.currencies.' . $currency->code . '.thousands_separator' => $currency->thousands_separator]);
         }
 
         // Set currencies with new settings
-        \Akaunting\Money\Currency::setCurrencies(config('money'));
+        \Akaunting\Money\Currency::setCurrencies(config('money.currencies'));
     }
 }

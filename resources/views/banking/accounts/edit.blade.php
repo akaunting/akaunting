@@ -20,7 +20,6 @@
                                 'credit_card' => trans_choice('accounts.credit_cards', 1),
                             ]"
                             checked="{{ $account->type }}"
-                            @input="onType($event)"
                         />
 
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" form-group-class="sm:col-span-6" />

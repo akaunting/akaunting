@@ -8,7 +8,7 @@ return [
     'decimal_mark'          => 'Pemisah Desimal',
     'thousands_separator'   => 'Pemisah Ribuan',
     'precision'             => 'Presisi',
-    'conversion'            => 'Konversi mata uang: price (:currency_code) di :currency_rate',
+    'conversion'            => 'Konversi mata uang: :price (:currency_code) di :currency_rate',
     'symbol' => [
         'symbol'            => 'Simbol',
         'position'          => 'Posisi Simbol',

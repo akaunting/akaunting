@@ -34,6 +34,7 @@ class DeleteAccount extends Job implements ShouldDelete
     {
         $rels = [
             'transactions' => 'transactions',
+            'reconciliations' => 'reconciliations',
         ];
 
         $relationships = $this->countRelationships($this->model, $rels);

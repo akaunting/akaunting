@@ -31,7 +31,7 @@ class Invoices extends BulkAction
         ],
         'cancelled' => [
             'icon'          => 'cancel',
-            'name'          => 'general.cancel',
+            'name'          => 'documents.actions.cancel',
             'message'       => 'bulk_actions.message.cancelled',
             'permission'    => 'update-sales-invoices',
         ],
@@ -67,7 +67,7 @@ class Invoices extends BulkAction
         $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
-            if ($invoice->status == 'cancelled') {
+            if (in_array($invoice->status, ['cancelled', 'draft'])) {
                 continue;
             }
 

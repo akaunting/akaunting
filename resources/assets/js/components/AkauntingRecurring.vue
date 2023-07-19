@@ -20,6 +20,8 @@
 
             <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="interval" @input="change" v-if="frequency == 'custom'">
 
+            <div class="text-red text-sm mt-1 block" v-if="invertalError" v-html="invertalError"></div>
+
             <el-select class="w-36 ml-2" v-model="customFrequency" @input="change" v-if="frequency == 'custom'">
                 <el-option
                 v-for="(label, value) in customFrequencies"
@@ -28,6 +30,8 @@
                 :value="value">
                 </el-option>
             </el-select>
+
+            <div class="text-red text-sm mt-1 block" v-if="customFrequencyError" v-html="customFrequencyError"></div>
         </div>
 
         <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-start': limit !== 'never' }">
@@ -35,52 +39,60 @@
                 {{ startText }}
             </div>
 
-            <el-date-picker
-                class="w-36 recurring-invoice-data"
-                v-model="started_at"
-                @input="change"
-                type="date"
-                align="right"
-                :format="formatDate"
-                value-format="yyyy-MM-dd"
-                :picker-options="{
-                    disabledDate(time) {
-                        return time.getTime() < Date.now();
-                    },
-                    shortcuts: [
-                        {
-                            text: dateRangeText['today'],
-                            onClick(picker) {
-                                picker.$emit('pick', new Date());
-                            }
+            <div
+            :class="startedError ? 'pt-0' : '' && startedError || limitDateError ? 'pt-0 pb-5' : 'pb-10' && startedError && limitDateError ? 'pt-6 pb-5' : 'pb-10'">
+                    <el-date-picker
+                    class="w-36 cursor-pointer recurring-invoice-data"
+                    v-model="started_at"
+                    @input="change"
+                    type="date"
+                    align="right"
+                    :format="formatDate"
+                    value-format="yyyy-MM-dd"
+                    :picker-options="{
+                        disabledDate(time) {
+                            return time.getTime() < Date.now();
                         },
-                        {
-                            text: dateRangeText['yesterday'],
-                            onClick(picker) {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24);
+                        shortcuts: [
+                            {
+                                text: dateRangeText['today'],
+                                onClick(picker) {
+                                    picker.$emit('pick', new Date());
+                                }
+                            },
+                            {
+                                text: dateRangeText['yesterday'],
+                                onClick(picker) {
+                                    const date = new Date();
+                                    date.setTime(date.getTime() - 3600 * 1000 * 24);
 
-                                picker.$emit('pick', date);
+                                    picker.$emit('pick', date);
+                                }
+                            },
+                            {
+                                text: dateRangeText['week_ago'],
+                                onClick(picker) {
+                                    const date = new Date();
+                                    date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+
+                                    picker.$emit('pick', date);
+                                }
                             }
-                        },
-                        {
-                            text: dateRangeText['week_ago'],
-                            onClick(picker) {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                        ]
+                    }">
+                    </el-date-picker>
 
-                                picker.$emit('pick', date);
-                            }
-                        }
-                    ]
-                }">
-            </el-date-picker>
+                <div class="text-red text-sm mt-1 block" v-if="startedError" v-html="startedError"></div>
 
-            <div class="w-24 px-2 text-sm text-center">
+            </div>
+
+            <div class="w-24 px-2 text-sm text-center"
+            :class="(startedError || limitDateError ? 'pt-10 pb-14' : 'pb-10') && (startedError && limitDateError ? 'pt-6 pb-14' : 'pb-10')">
                 {{ middleText }}
             </div>
 
-            <el-select class="w-20" v-model="limit" @input="change">
+            <el-select class="w-20" v-model="limit" @input="change"
+            :class="startedError || limitDateError ? 'pt-0 pb-6' : '' && startedError && limitDateError ? 'pt-6 pb-16' : 'pb-10'">
                 <el-option
                 v-for="(label, value) in limits"
                 :key="value"
@@ -89,23 +101,46 @@
                 </el-option>
             </el-select>
 
-            <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+            <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+
+            <div class="text-red text-sm mt-1 block" v-if="limitCountError" v-html="limitCountError"></div>
 
             <div class="pl-2 text-sm" v-if="limit == 'after'">
                 {{ endText }}
             </div>
 
-            <el-date-picker
-                class="w-36 ml-2 recurring-invoice-data"
-                v-model="limitDate"
-                type="date"
-                align="right"
-                :format="formatDate"
-                value-format="yyyy-MM-dd"
-                v-if="limit == 'on'"
-                @input="change"
-            >
-            </el-date-picker>
+            <div 
+            :class="startedError || limitDateError ? 'pt-10 pb-10' : 'pb-10'  &&  startedError && limitDateError ? ' pt-20 pb-14' : 'pb-10'">
+                    <el-date-picker
+                    class="w-36 ml-2 cursor-pointer recurring-invoice-data"
+                    v-model="limitDate"
+                    type="date"
+                    align="right"
+                    :format="formatDate"
+                    value-format="yyyy-MM-dd"
+                    v-if="limit == 'on'"
+                    @input="change"
+                >
+                </el-date-picker>
+
+                <div class="text-red text-sm mt-1 ml-2 block" v-if="limitDateError" v-html="limitDateError"></div>
+            </div>
+        </div>
+
+        <div v-if="sendEmailShow" class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
+                {{ sendEmailText }}
+            </div>
+
+            <div class="flex items-center mt-1">
+                <label @click="sendEmail=1;change();" v-bind:class="[sendEmail == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
+                    {{ sendEmailYesText }}
+                </label>
+
+                <label @click="sendEmail=0;change();"v-bind:class="[sendEmail == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
+                    {{ sendEmailNoText }}
+                </label>
+            </div>
         </div>
     </div>
 </template>
@@ -163,6 +198,11 @@ export default {
             default: 'monthly',
             description: "Default reccuring type"
         },
+        invertalError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         customFrequencies: null,
         customFrequencyValue: {
@@ -170,11 +210,21 @@ export default {
             default: 'monthly',
             description: "Default reccuring type"
         },
+        customFrequencyError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         startedValue: {
             type: String,
             default: 'never',
             description: "Default reccuring limit"
+        },
+        startedError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
         },
 
         limits: null,
@@ -190,11 +240,21 @@ export default {
             default: 0,
             description: "Default reccuring limit"
         },
+        limitCountError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
 
         limitDateValue: {
             type: String,
             default: '',
             description: "Default reccuring limit"
+        },
+        limitDateError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
         },
 
         dateFormat: {
@@ -202,6 +262,32 @@ export default {
             default: 'dd MM yyyy',
             description: "Default date format"
         },
+
+        sendEmailShow: {
+            type: [String, Number, Array, Object, Boolean],
+            default: '1',
+            description: "Created recurring model send automatically option"
+        },
+        sendEmailText: {
+            type: String,
+            default: 'Send email automatically',
+            description: "Created recurring model send automatically option"
+        },
+        sendEmailYesText: {
+            type: String,
+            default: 'Yes',
+            description: "Send email option yes text"
+        },
+        sendEmailNoText: {
+            type: String,
+            default: 'No',
+            description: "Send email option no text"
+        },
+        sendEmailValue: {
+            type: [Number, String],
+            default: 0,
+            description: "Send Email value"
+        }
     },
 
     data() {
@@ -214,6 +300,7 @@ export default {
             limitCount: 0,
             limitDate: '',
             formatDate: 'dd MM YYYY',
+            sendEmail: 0,
         }
     },
 
@@ -239,6 +326,8 @@ export default {
         } else {
             this.limit = 'on';
         }
+
+        this.sendEmail = this.sendEmailValue;
 
         setTimeout(function() {
             this.change();
@@ -271,6 +360,8 @@ export default {
                     this.$emit('limit_count', 0);
                     break;
             }
+
+            this.$emit('send_email', this.sendEmail);
         },
 
         convertToDarteFormat(format) {

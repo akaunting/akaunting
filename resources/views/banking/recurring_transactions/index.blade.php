@@ -39,10 +39,6 @@
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr>
-                                        <x-table.th kind="bulkaction">
-                                            <x-index.bulkaction.all />
-                                        </x-table.th>
-
                                         <x-table.th class="w-4/12 sm:w-3/12">
                                             <x-slot name="first">
                                                 <x-sortablelink column="recurring.started_at" title="{{ trans('general.start_date') }}" />
@@ -83,10 +79,6 @@
                                 <x-table.tbody>
                                     @foreach($transactions as $item)
                                         <x-table.tr href="{{ route('recurring-transactions.show', $item->id) }}">
-                                            <x-table.td kind="bulkaction">
-                                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->contact->name }}" />
-                                            </x-table.td>
-
                                             <x-table.td class="w-4/12 sm:w-3/12">
                                                 <x-slot name="first">
                                                     <x-date date="{{ $item->recurring->started_at }}" />
@@ -129,7 +121,7 @@
                                             </x-table.td>
 
                                             <x-table.td class="w-4/12 sm:w-2/12" kind="amount">
-                                                <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                                <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                             </x-table.td>
 
                                             <x-table.td kind="action">

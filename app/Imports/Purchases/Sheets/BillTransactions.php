@@ -8,6 +8,8 @@ use App\Models\Banking\Transaction as Model;
 
 class BillTransactions extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -18,6 +20,8 @@ class BillTransactions extends Import
         if ($this->isEmpty($row, 'bill_number')) {
             return [];
         }
+
+        $row['bill_number'] = (string) $row['bill_number'];
 
         $row = parent::map($row);
 
@@ -32,10 +36,8 @@ class BillTransactions extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['bill_number'] = 'required|string';
 
         return $rules;

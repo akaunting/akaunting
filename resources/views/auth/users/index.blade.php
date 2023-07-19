@@ -46,7 +46,7 @@
 
                     <x-table.tbody>
                         @foreach($users as $item)
-                            <x-table.tr href="{{ route('users.edit', $item->id) }}">
+                            <x-table.tr href="{{ route('users.show', $item->id) }}">
                                 <x-table.td kind="bulkaction">
                                     <x-index.bulkaction.single
                                         id="{{ $item->id }}"

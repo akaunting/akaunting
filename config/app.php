@@ -188,6 +188,7 @@ return [
          */
         App\Providers\App::class,
         App\Providers\Auth::class,
+        App\Providers\Binding::class,
         App\Providers\Blade::class,
         // App\Providers\Broadcast::class,
         App\Providers\Event::class,

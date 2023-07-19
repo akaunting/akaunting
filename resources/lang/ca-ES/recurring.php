@@ -29,6 +29,7 @@ return [
     'child'                 => 'Es va crear automàticament :url el :date',
     'message'               => 'Això és :type recurrent i el següent :type es generarà automàticament el :date',
     'message_parent'        => 'Aquest/a :type s\'ha generat automàticament des de :link',
+    'send_email_auto'       => 'Envia el correu automàticament',
 
     'frequency_type'        => 'Repeteix aquest/a :type',
     'limit_date'            => 'Crea el primer :type el',

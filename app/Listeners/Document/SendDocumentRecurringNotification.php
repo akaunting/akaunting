@@ -3,6 +3,7 @@
 namespace App\Listeners\Document;
 
 use App\Events\Document\DocumentRecurring as Event;
+use App\Events\Document\DocumentSent;
 use App\Traits\Documents;
 
 class SendDocumentRecurringNotification
@@ -34,6 +35,8 @@ class SendDocumentRecurringNotification
         if ($this->canNotifyTheContactOfDocument($document)) {
             $document->contact->notify(new $notification($document, "{$document->type}_recur_customer"));
         }
+
+        event(new DocumentSent($document));
 
         // Check if should notify users
         if (! $config['notify_user']) {

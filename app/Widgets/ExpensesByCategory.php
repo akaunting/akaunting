@@ -15,7 +15,7 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
-        Category::with('expense_transactions')->expense()->each(function ($category) {
+        Category::with('expense_transactions')->expense()->withSubCategory()->getWithoutChildren()->each(function ($category) {
             $amount = 0;
 
             $this->applyFilters($category->expense_transactions)->each(function ($transaction) use (&$amount) {

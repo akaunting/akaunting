@@ -214,11 +214,7 @@
             </td>
 
             <td valign="top" valign="top" class="border-bottom-dashed-black" style="width:70%; margin: 0px; padding: 8px 0 0 0; font-size: 12px;">
-                @if (! empty($payment_methods[$transfer->expense_transaction->payment_method]))
-                    {!! $payment_methods[$transfer->expense_transaction->payment_method] !!}
-                @else
-                    <x-empty-data />
-                @endif
+                <x-payment-method :method="$transfer->expense_transaction->payment_method" />
             </td>
         </tr>
         @stack('payment_method_input_end')
@@ -257,7 +253,7 @@
     </table>
     @stack('details_end')
 
-    
+
     <table style="text-align: right; margin-top:55px;">
         <tr>
             <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
@@ -268,7 +264,7 @@
                                 {{ trans('general.amount') }}
                             </span>
 
-                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" convert />
+                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
                         </td>
                     </tr>
                 </table>

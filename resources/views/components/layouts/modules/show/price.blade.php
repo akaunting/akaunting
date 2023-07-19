@@ -15,7 +15,7 @@
                 </span>
             @else
                 <span class="text-5xl font-bold text-purple">
-                    {!! $module->monthly_price !!} 
+                    {!! $module->monthly_price !!}
                 </span>
             @endif
         </div>

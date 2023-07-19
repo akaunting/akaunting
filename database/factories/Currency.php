@@ -21,7 +21,7 @@ class Currency extends Factory
      */
     public function definition()
     {
-        $currencies = config('money');
+        $currencies = config('money.currencies');
 
         Model::pluck('code')->each(function ($db_code) use (&$currencies) {
             unset($currencies[$db_code]);

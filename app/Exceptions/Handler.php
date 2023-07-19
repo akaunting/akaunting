@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Akaunting\Money\Exceptions\UnexpectedAmountException;
+use App\Events\Email\InvalidEmailDetected;
 use App\Exceptions\Http\Resource as ResourceException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,6 +16,7 @@ use Illuminate\View\ViewException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\Exception\HttpTransportException as MailerHttpTransportException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -72,6 +74,14 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
+        if ($exception instanceof MailerHttpTransportException) {
+            $email = $this->handleMailerExceptions($exception);
+
+            if (! empty($email)) {
+                return;
+            }
+        }
+
         parent::report($exception);
     }
 
@@ -194,6 +204,24 @@ class Handler extends ExceptionHandler
             }
         }
 
+        if ($exception instanceof MailerHttpTransportException) {
+            $email = $this->handleMailerExceptions($exception);
+
+            if (! empty($email)) {
+                $message = trans('notifications.menu.invalid_email.description', ['email' => $email]);
+
+                if ($request->ajax()) {
+                    return response()->json([
+                        'error' => $message,
+                    ], $exception->getCode());
+                }
+
+                return response()->view('errors.403', [
+                    'message' => $message,
+                ], $exception->getCode());
+            }
+        }
+
         return parent::render($request, $exception);
     }
 
@@ -212,6 +240,28 @@ class Handler extends ExceptionHandler
         $response = $this->recursivelyRemoveEmptyApiReplacements($response);
 
         return new Response($response, $this->getStatusCode($exception), $this->getHeaders($exception));
+    }
+
+    protected function handleMailerExceptions(MailerHttpTransportException $exception): string
+    {
+        /**
+         * Couldn't access the SentMessage object to get the email address
+         * https://symfony.com/doc/current/mailer.html#debugging-emails
+         *
+         * https://codespeedy.com/extract-email-addresses-from-a-string-in-php
+         * https://phpliveregex.com/p/IMG
+         */
+        preg_match("/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/", $exception->getMessage(), $matches);
+
+        if (empty($matches[0])) {
+            return '';
+        }
+
+        $email = $matches[0];
+
+        event(new InvalidEmailDetected($email, $exception->getMessage()));
+
+        return $email;
     }
 
     /**

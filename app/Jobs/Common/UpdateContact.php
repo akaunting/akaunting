@@ -32,6 +32,8 @@ class UpdateContact extends Job implements ShouldUpdate
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
             }
 
+            $this->updateRecurringDocument();
+
             $this->model->update($this->request->all());
         });
 
@@ -72,6 +74,27 @@ class UpdateContact extends Job implements ShouldUpdate
         $user = $this->dispatch(new CreateUser($this->request));
 
         $this->request['user_id'] = $user->id;
+    }
+
+    public function updateRecurringDocument(): void
+    {
+        $recurring = $this->model->document_recurring;
+
+        if ($recurring) {
+            foreach ($recurring as $recur) {
+                $recur->update([
+                    'contact_name' => $this->request['name'],
+                    'contact_email' => $this->request['email'],
+                    'contact_tax_number' => $this->request['tax_number'],
+                    'contact_phone' => $this->request['phone'],
+                    'contact_address' => $this->request['address'],
+                    'contact_city' => $this->request['city'],
+                    'contact_state' => $this->request['state'],
+                    'contact_zip_code' => $this->request['zip_code'],
+                    'contact_country' => $this->request['country'],
+                ]);
+            }
+        }
     }
 
     public function getRelationships(): array

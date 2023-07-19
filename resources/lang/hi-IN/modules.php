@@ -28,11 +28,12 @@ return [
     'yearly_pricing'        => 'वार्षिक मूल्य निर्धारण',
     'monthly_price'         => ' :price से',
     'per_month'             => 'प्रति माह',
-    'billed_yearly'         => 'वार्षिक बिल किया गया',
+    'once'                  => 'एक बार',
     'billed_monthly'        => 'मासिक बिल किया गया',
+    'billed_yearly'         => 'वार्षिक बिल किया गया',
+    'billed_once'           => 'एक बार बिल किया',
     'save_year'             => 'आप सालाना <strong>:price</strong> बचाते हैं!',
     'if_paid_year'          => 'या <strong>:price/mo</strong> अगर सालाना भुगतान किया जाता है',
-    'information_monthly'   => 'यह विकल्प केवल <strong>क्लाउड सेवा</strong> के लिए मान्य है',
     'install'               => 'इंस्टॉल करें',
     'buy_now'               => 'अभी खरीदें',
     'get_api_key'           => 'अपनी एपीआई कुंजी प्राप्त करने के लिए यहां <a href=":url" target="_blank">क्लिक</a> करें।',
@@ -48,6 +49,8 @@ return [
     'get_premium_cloud'     => 'प्रीमियम क्लाउड प्राप्त करें',
     'switch_to_cloud'       => 'क्लाउड पर स्विच करें',
     'hosted_on_akaunting'   => 'akaunting.com पर होस्ट किया गया',
+    'information_on_preme'  => ':period विकल्प केवल  <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>क्लाउड</strong></a> पर उपलब्ध है।',
+    'information_monthly'   => 'यह विकल्प केवल <strong>क्लाउड सेवा</strong> के लिए मान्य है',
     'only_works_cloud'      => 'यह ऐप केवल <strong>क्लाउड सेवा</strong> पर काम करता है।',
     'only_premium_plan'     => 'यह ऐप केवल <strong>क्लाउड प्रीमियम सेवा</strong> पर काम करता है।',
     'not_found'             => 'कोई ऐप नहीं मिला',
@@ -100,6 +103,10 @@ return [
         'unzip'             => ':module अनज़िप करने में सक्षम नहीं है।',
         'file_copy'         => ':module फ़ाइलों को कॉपी करने में सक्षम नहीं है',
         'finish'            => ':module इंस्टॉलेसन को अंतिम रूप देने में सक्षम नहीं है',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'आप  :module के नवीनतम संस्करण का उपयोग कर रहे हैं, कोई अपडेट उपलब्ध नहीं है।',
     ],
 
     'badge' => [

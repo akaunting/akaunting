@@ -47,20 +47,6 @@ trait Jobs
     }
 
     /**
-     * Dispatch a command to its appropriate handler in the current process.
-     *
-     * @param mixed $job
-     * @param mixed $handler
-     * @return mixed
-     *
-     * @deprecated Will be removed in a future Laravel version.
-     */
-    public function dispatchNow($job, $handler = null)
-    {
-        return app(Dispatcher::class)->dispatchNow($job, $handler);
-    }
-
-    /**
      * Dispatch a job to its appropriate handler and return a response array for ajax calls.
      *
      * @param mixed $job

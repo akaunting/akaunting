@@ -72,6 +72,7 @@ return [
     'attachments'           => 'Attachment|Attachments',
     'histories'             => 'History|Histories',
     'your_notifications'    => 'Your notification|Your notifications',
+    'employees'             => 'Employee|Employees',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',
@@ -228,6 +229,9 @@ return [
     'preview_mode'          => 'Preview Mode',
     'go_back'               => 'Go back to :type',
     'validation_error'      => 'Validation error',
+    'dismiss'               => 'Dismiss',
+    'size'                  => 'Size',
+    'media'                 => 'Media',
 
     'card' => [
         'cards'                 => 'Card|Cards',

@@ -61,19 +61,28 @@ class BulkActions extends Controller
 
         $result = $bulk_actions->{$handle}($request);
 
-        $message = trans($bulk_actions->messages['general'], ['type' => $handle, 'count' => count($request->get('selected'))]);
+        $count = count($request->get('selected'));
+        $not_passed = 0;
 
-        if (array_key_exists($handle, $bulk_actions->messages)) {
+        flash()->messages->each(function ($message) use (&$not_passed) {
+            if (in_array($message->level, ['danger', 'warning'])) {
+                $not_passed++;
+            }
+        });
+
+        $message = trans($bulk_actions->messages['general'], ['type' => $handle, 'count' => $count - $not_passed]);
+
+        if (array_key_exists($handle, $bulk_actions->messages) && $not_passed === 0) {
             $message = trans($bulk_actions->messages[$handle], ['type' => $page]);
         }
 
-        if (! empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
-            flash($message)->success();
+        $level = $not_passed > 0 ? 'info' : 'success';
 
+        flash($message)->{$level}();
+
+        if (! empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
             return $result;
         } elseif (! empty($result) && ($result instanceof RedirectResponse)) {
-            flash($message)->success();
-
             return response()->json([
                 'success' => true,
                 'redirect' => $result->getTargetUrl(),
@@ -82,8 +91,6 @@ class BulkActions extends Controller
                 'message' => ''
             ]);
         } else {
-            flash($message)->success();
-
             return response()->json([
                 'success' => true,
                 'redirect' => true,

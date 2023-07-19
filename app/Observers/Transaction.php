@@ -60,7 +60,7 @@ class Transaction extends Observer
 
     protected function getDescription($transaction)
     {
-        $amount = money((double) $transaction->amount, (string) $transaction->currency_code, true)->format();
+        $amount = money((double) $transaction->amount, (string) $transaction->currency_code)->format();
 
         return trans('messages.success.deleted', ['type' => $amount . ' ' . trans_choice('general.payments', 1)]);
     }

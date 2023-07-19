@@ -54,7 +54,13 @@
                     @endif
                 </div>
 
-                <div class="relative w-full lg:w-5/12" x-data="{ price_type : 'yearly' }">
+                <div class="relative w-full lg:w-5/12"
+                    @if (in_array('cloud', $module->where_to_use) && count($module->where_to_use) == 1)
+                        x-data="{ price_type : 'lifetime' }"
+                    @else
+                        x-data="{ price_type : 'yearly' }"
+                    @endif
+                >
                     <div class="flex flex-col space-y-6">
                         <div class="flex flex-col cursor-default">
                             <div class="flex flex-col space-y-4">

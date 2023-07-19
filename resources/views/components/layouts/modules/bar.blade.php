@@ -31,7 +31,7 @@
                         @if ($popular)
                             <div class="flex flex-col gap-4">
                                 @foreach ($popular->data as $item)
-                                    <div class="hover:shadow-2xl rounded-lg">
+                                    <div class="hover:bg-purple-100 rounded-lg">
                                         <x-link href="{{ route('apps.app.show', $item->slug) }}" class="flex items-center p-2" override="class">
                                             @foreach ($item->files as $file)
                                                 @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
@@ -44,7 +44,7 @@
                                                     {!! $item->name !!}
                                                 </h6>
 
-                                                <div class="line-clamp-2">
+                                                <div class="line-clamp-2 h-12 overflow-hidden">
                                                     <p class="font-thin text-xs text-left">
                                                         {!! $item->description !!}
                                                     </p>

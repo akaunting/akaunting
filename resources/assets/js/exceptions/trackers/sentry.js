@@ -6,16 +6,27 @@ export default {
         Sentry.init({
             Vue,
             dsn: exception_tracker.action,
+
             logErrors: true,
+
             integrations: [
                 new BrowserTracing({
                     tracingOrigins: [],
                 }),
+                //new Sentry.Replay()
             ],
             // Set tracesSampleRate to 1.0 to capture 100%
             // of transactions for performance monitoring.
             // We recommend adjusting this value in production
             tracesSampleRate: exception_tracker.params.traces_sample_rate,
+
+            // This sets the sample rate to be 10%. You may want this to be 100% while
+            // in development and sample at a lower rate in production
+            //replaysSessionSampleRate: exception_tracker.params.replays_session_sample_rate,
+
+            // If the entire session is not sampled, use the below sample rate to sample
+            // sessions when an error occurs.
+            //replaysOnErrorSampleRate: exception_tracker.params.replays_on_error_sample_rate,
         });
 
         Sentry.setUser({

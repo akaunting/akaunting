@@ -68,7 +68,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         $this->request['company_id'] = $this->model->company_id;
         $this->request['currency_code'] = $currency_code;
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->toDateTimeString();
-        $this->request['currency_rate'] = config('money.' . $currency_code . '.rate');
+        $this->request['currency_rate'] = config('money.currencies.' . $currency_code . '.rate');
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
         $this->request['contact_id'] = isset($this->request['contact_id']) ? $this->request['contact_id'] : $this->model->contact_id;
@@ -82,7 +82,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         $code = $this->request['currency_code'];
         $rate = $this->request['currency_rate'];
 
-        $precision = config('money.' . $code . '.precision');
+        $precision = config('money.currencies.' . $code . '.precision');
 
         $amount = $this->request['amount'] = round($this->request['amount'], $precision);
 
@@ -92,7 +92,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
             $amount = round($converted_amount, $precision);
         }
 
-        // if you edit transaction before remove transaction amount 
+        // if you edit transaction before remove transaction amount
         $this->model->paid_amount = ($this->model->paid - $this->transaction->amount);
         event(new PaidAmountCalculated($this->model));
 
@@ -112,7 +112,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
                 $error_amount = round($converted_amount, $precision);
             }
 
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $code, true)]);
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $code)]);
 
             throw new \Exception($message);
         } else {
@@ -124,7 +124,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 
     protected function createHistory(): void
     {
-        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code, true)->format() . ' ' . trans_choice('general.payments', 1);
+        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code)->format() . ' ' . trans_choice('general.payments', 1);
 
         $this->dispatch(new CreateDocumentHistory($this->model, 0, $history_desc));
     }

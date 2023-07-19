@@ -28,6 +28,7 @@
                                         name="{{ $field['name'] }}"
                                         label="{{ trans($field['title']) }}"
                                         :options="$field['values']"
+                                        :clearable="'false'"
                                         :selected="setting($module->getAlias() . '.' . $field['name'], $field['selected'])"
                                         :dynamic-attributes="$field['attributes']"
                                     />
@@ -71,6 +72,7 @@
 
                                     <x-form.group.account
                                         :selected="$account"
+                                        :clearable="'false'"
                                         :dynamic-attributes="$field['attributes']"
                                         without-add-new
                                     />
@@ -81,6 +83,7 @@
 
                                     <x-form.group.category
                                         :value="$category"
+                                        :clearable="'false'"
                                         :dynamic-attributes="$field['attributes']"
                                         without-add-new
                                     />

@@ -56,9 +56,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.category type="{{ $type }}" />
+                        <x-form.group.category :type="$type" />
 
-                        <x-form.group.contact type="{{ config('type.transaction.' . $type . '.contact_type') }}" not-required />
+                        <x-form.group.contact :type="$contact_type" not-required />
 
                         @if ($transaction->document)
                             <x-form.group.text name="document" label="{{ trans_choice('general.' . Str::plural(config('type.transaction.' . $type . '.document_type')), 1) }}" not-required disabled value="{{ $transaction->document->document_number }}" />

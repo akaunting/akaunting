@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Fout: u kunt niet het laatste dashboard deactiveren. Maak aub eerst een nieuw dashboard!',
     ],
 
+    'form_description' => [
+        'general'               => 'Selecteer de gebruikers die u toegang wilt geven tot het nieuwe dashboard.',
+    ],
+
 ];

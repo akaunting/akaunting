@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Enviament de factura',
     'get_paid'              => 'Cobrament',
     'accept_payments'       => 'Accepta pagaments online',
-    'payment_received'      => 'S\'ha rebut un pagament',
+    'payments_received'     => 'S\'han rebut els pagaments',
 
     'form_description' => [
         'billing'           => 'Les dades de facturació es mostren a la factura. La data de la factura s\'utilitza al tauler i als informes. Selecciona la data que vols com a data de venciment.',
@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Aquest client no té adreça de correu electrònic!',
+        'totals_required'   => 'Cal incloure el total de les factures. Si us plau edita :type i grava\'l novament.',
+
         'draft'             => 'Això és un <b>ESBORRANY</b> de factura i es reflectirà als gràfics un cop s\'hagi enviat.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Cobrament pendent',
             ],
         ],
+
+        'name_or_description_required' => 'La teva factura ha de mostrar com a mínim o <b>:name</b> o <b>:description</b>.',
     ],
 
     'slider' => [

@@ -27,6 +27,11 @@ return [
         'body'          => 'Hello,<br /><br /> Based on {customer_name} recurring circle, <strong>{invoice_number}</strong> invoice has been automatically created.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} faktura zobrazena',
+        'body'          => 'Dobrý den,<br /><br />{customer_name} si prohlédl fakturu <strong>{invoice_number}</strong> .<br /><br />Podrobnosti faktury můžete vidět z následujícího odkazu: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />S pozdravem,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Platba za fakturu č. {invoice_number} přijata ',
         'body'          => 'Vážený {customer_name},<br /><br />Děkujeme za platbu. Údaje o platbě:<br /><br />-------------------------------------------------<br /><br />Částka: <strong>{transaction_total}<br /></strong>Datum: <strong>{transaction_paid_date}</strong><br />faktura číslo: <strong>{invoice_number}<br /><br /></strong>-----------------------------------------------------------------<br /><br />Detaily faktury na následujícím odkazu: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Neváhejte se na nás obrátit v případě dotazu.<br /><br />S pozdravem,<br />{company_name}',
@@ -47,4 +52,13 @@ return [
         'body'          => 'Hello,<br /><br /> Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'Vaše potvrzení od {company_name}',
+        'body'          => 'Vážený/á {contact_name},<br /><br />Děkujeme za platbu. <br /><br />Platební údaje můžete vidět z následujícího odkazu: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Neváhejte nás kontaktovat s dotazy.<br /><br />S pozdravem<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Platba od {company_name}',
+        'body'          => 'Vážený {contact_name},<br /><br />Provedli jsme následující platbu. <br /><br />Platební údaje můžete vidět z následujícího odkazu: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Neváhejte nás kontaktovat s dotazy.<br /><br />S pozdravem<br />{company_name}',
+    ],
 ];

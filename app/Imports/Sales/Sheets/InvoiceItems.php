@@ -9,6 +9,8 @@ use App\Models\Document\DocumentItem as Model;
 
 class InvoiceItems extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -20,15 +22,19 @@ class InvoiceItems extends Import
             return [];
         }
 
+        $row['invoice_number'] = (string) $row['invoice_number'];
+
         $row = parent::map($row);
 
         $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
-        if (empty($row['item_id']) && !empty($row['item_name'])) {
+        if (empty($row['item_id']) && ! empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);
 
             $row['name'] = $row['item_name'];
         }
+
+        $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
 
         $row['tax'] = (double) $row['tax'];
         $row['tax_id'] = 0;
@@ -37,10 +43,8 @@ class InvoiceItems extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['invoice_number'] = 'required|string';
 
         unset($rules['invoice_id']);

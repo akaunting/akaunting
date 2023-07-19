@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="flex ltr:ml-2 rtl:mr-2">
-                    <span class="w-28 text-left block text-base truncate">
+                    <span class="w-28 ltr:text-left rtl:text-right block text-base truncate">
                         <x-button.hover>
                             {{ Str::limit(setting('company.name'), 22) }}
                         </x-button.hover>
@@ -103,7 +103,7 @@
                     @endcan
                 </div>
             </button>
-            
+
             @can('read-common-companies')
                 <div id="dropdown-menu-company" class="absolute right-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
                     @foreach($companies as $com)
@@ -117,7 +117,7 @@
 
                     @can('update-common-companies')
                         <x-link href="{{ route('companies.index') }}" class="h-9 leading-9 flex items-center text-sm px-2 border-t rounded-bl rounded-br group hover:bg-purple" override="class">
-                            <div class="w-full h-full flex items-center rounded-md px-2 ">
+                            <div class="w-full h-full flex items-center rounded-md px-2">
                                 <span class="material-icons-outlined text-purple text-xl group-hover:text-white">settings</span>
                                 <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate group-hover:text-white">
                                     {{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}
@@ -182,3 +182,4 @@
 <x-loading.menu />
 
 @stack('menu_end')
+

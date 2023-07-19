@@ -32,7 +32,6 @@ return [
         'App\Classifiers\Observer',
         'App\Classifiers\Report',
         'App\Classifiers\Scope',
-        'App\Classifiers\Transformer',
         'App\Classifiers\Widget',
     ],
 

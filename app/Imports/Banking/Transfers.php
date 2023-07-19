@@ -26,10 +26,10 @@ class Transfers extends Import
         $row = parent::map($row);
 
         $row['transferred_at'] = Date::parse($row['transferred_at'])->format('Y-m-d');
-        $row['from_account_id'] = $this->getFromAccountId($row);
-        $row['to_account_id'] = $this->getToAccountId($row);
         $row['from_currency_code'] = $this->getFromCurrencyCode($row);
         $row['to_currency_code'] = $this->getToCurrencyCode($row);
+        $row['from_account_id'] = $this->getFromAccountId($row);
+        $row['to_account_id'] = $this->getToAccountId($row);
         $row['expense_transaction_id'] = $this->getExpenseTransactionId($row);
         $row['income_transaction_id'] = $this->getIncomeTransactionId($row);
 
@@ -41,10 +41,10 @@ class Transfers extends Import
         return [
             'from_account_id' => 'required|integer',
             'from_currency_code' => 'required|string|currency',
-            'from_currency_rate' => 'required',
+            'from_currency_rate' => 'required|gt:0',
             'to_account_id' => 'required|integer',
             'to_currency_code' => 'required|string|currency',
-            'to_currency_rate' => 'required',
+            'to_currency_rate' => 'required|gt:0',
             'amount' => 'required|amount',
             'transferred_at' => 'required|date_format:Y-m-d',
             'payment_method' => 'required|string',

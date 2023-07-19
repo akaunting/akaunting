@@ -31,7 +31,7 @@ class Bills extends BulkAction
         ],
         'cancelled' => [
             'icon'          => 'cancel',
-            'name'          => 'general.cancel',
+            'name'          => 'documents.actions.cancel',
             'message'       => 'bulk_actions.message.cancelled',
             'permission'    => 'update-purchases-bills',
         ],
@@ -67,7 +67,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            if ($bill->status == 'cancelled') {
+            if (in_array($bill->status, ['cancelled', 'draft'])) {
                 continue;
             }
 

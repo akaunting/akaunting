@@ -10,6 +10,12 @@ return [
     'billing'                   => 'Facturation',
     'advanced'                  => 'Avancé',
 
+    'item_price_hidden'         => 'Cette colonne est cachée sur votre :type.',
+
+    'actions' => [
+        'cancel'                => 'Annuler',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b> Vous </b> avez marqué cette facture comme',
         'services'              => 'Services',
@@ -83,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Il n\'y a aucun fichier attaché à ce :type.',
 ];

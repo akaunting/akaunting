@@ -9,10 +9,11 @@
 @else
     <span
         @class([
-            'material-icons-outlined' => (! $filled && ! $rounded),
+            'material-icons-outlined' => (! $filled && ! $rounded && ! $sharp),
             $class,
             'material-icons' => $filled,
             'material-icons-round' => $rounded,
+            'material-icons-sharp'=> $sharp,
         ])
         {{ $attributes }}
     >{{ $icon }}</span>

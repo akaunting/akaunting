@@ -31,7 +31,7 @@ class Item extends FormRequest
         }
 
         return [
-            'type'              => 'required|string',
+            'type'              => 'required|string|in:product,service',
             'name'              => 'required|string',
             'sale_price'        => $sale_price . '|regex:/^(?=.*?[0-9])[0-9.,]+$/',
             'purchase_price'    => $purchase_price . '|regex:/^(?=.*?[0-9])[0-9.,]+$/',

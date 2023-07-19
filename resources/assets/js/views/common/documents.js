@@ -120,15 +120,20 @@ const app = new Vue({
             let item_index = this.form.items.indexOf(this.form.items[event.oldIndex]);
             let item = this.form.items.splice(item_index, 1)[0];
 
-            this.form.items.splice(event.newIndex, 0, item);  
+            this.form.items.splice(event.newIndex, 0, item);
         },
 
         onRefFocus(ref) {
             let index = this.form.items.length - 1;
-            
+
             if (typeof (this.$refs['items-' + index + '-' + ref]) !== 'undefined') {
                 let first_ref = this.$refs['items-' + index + '-'  + ref];
-                first_ref != undefined ? first_ref[0].focus() : this.$refs[Object.keys(this.$refs)[0]][0].focus();
+
+                if (first_ref != undefined) {
+                    first_ref[0].focus();
+                } else if (this.$refs[Object.keys(this.$refs)[0]] != undefined) {
+                    this.$refs[Object.keys(this.$refs)[0]][0].focus();
+                }
             }
         },
 
@@ -481,26 +486,28 @@ const app = new Vue({
             }
 
             let selected_tax;
-            
+
             this.dynamic_taxes.forEach(function(tax) {
                 if (tax.id == this.tax_id) {
                     selected_tax = tax;
                 }
             }, this);
-        
-            this.items[item_index].tax_ids.push({
-                id: selected_tax.id,
-                name: selected_tax.title,
-                price: 0
-            });
 
-            this.form.items[item_index].tax_ids.push(this.tax_id);
+            if (selected_tax) {
+                this.items[item_index].tax_ids.push({
+                    id: selected_tax.id,
+                    name: selected_tax.title,
+                    price: 0
+                });
 
-            if (this.taxes.includes(this.tax_id)) {
-                this.taxes[this.tax_id].push(this.items[item_index].item_id);
-            } else {
-                this.taxes[this.tax_id] = [];
-                this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                this.form.items[item_index].tax_ids.push(this.tax_id);
+
+                if (this.taxes.includes(this.tax_id)) {
+                    this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                } else {
+                    this.taxes[this.tax_id] = [];
+                    this.taxes[this.tax_id].push(this.items[item_index].item_id);
+                }
             }
 
             this.tax_id = '';
@@ -614,6 +621,7 @@ const app = new Vue({
         onChangeCurrency(currency_code) {
             if (this.edit.status && this.edit.currency <= 2) {
                 this.edit.currency++;
+
                 return;
             }
 
@@ -670,7 +678,7 @@ const app = new Vue({
 
         onFormCapture() {
            let form_html = document.querySelector('form');
-           
+
            if (form_html && form_html.getAttribute('id') == 'document') {
                form_html.querySelectorAll('input, textarea, select, ul, li, a').forEach((element) => {
                   element.addEventListener('click', () => {
@@ -832,9 +840,9 @@ const app = new Vue({
 
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.discount = oldVal;
-                
+
                 if (Number(newVal) == null) {
-                    this.form.discount.replace(',', '.'); 
+                    this.form.discount.replace(',', '.');
                 }
 
                 return;

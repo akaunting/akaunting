@@ -32,23 +32,25 @@
                     </x-slot>
                 </x-form.section>
 
-                @if (user()->can('read-common-companies') || user()->hasRole(['admin', 'manager']))
-                    <x-form.section>
-                        <x-slot name="head">
-                            <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
-                        </x-slot>
+                <x-form.section>
+                    <x-slot name="head">
+                        <x-form.section.head title="{{ trans('general.assign') }}" description="{!! trans('auth.form_description.assign', ['url' => $roles_url]) !!}" />
+                    </x-slot>
 
-                        <x-slot name="body">
-                            @can('read-common-companies')
-                                <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" remote_action="{{ route('companies.index') }}" form-group-class="sm:col-span-6" />
+                    <x-slot name="body">
+                        <x-form.group.select multiple remote name="companies" label="{{ trans_choice('general.companies', 2) }}" :options="$companies" remote_action="{{ route('companies.index') }}" form-group-class="sm:col-span-6" />
+
+                        @if (module_is_enabled('roles'))
+                            @can('read-roles-roles')
+                                <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" change="onChangeRole" />
                             @endcan
-
+                        @else
                             @role('admin|manager')
                                 <x-form.group.select name="roles" label="{{ trans_choice('general.roles', 1) }}" :options="$roles" change="onChangeRole" />
                             @endrole
-                        </x-slot>
-                    </x-form.section>
-                @endif
+                        @endif
+                    </x-slot>
+                </x-form.section>
 
                 <x-form.section>
                     <x-slot name="head">

@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class Bills extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -19,6 +21,8 @@ class Bills extends Import
         if ($this->isEmpty($row, 'bill_number')) {
             return [];
         }
+
+        $row['bill_number'] = (string) $row['bill_number'];
 
         $row = parent::map($row);
 
@@ -35,16 +39,14 @@ class Bills extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['bill_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
         $rules['billed_at'] = $rules['issued_at'];
-        $rules['currency_rate'] = 'required';
+        $rules['currency_rate'] = 'required|gt:0';
 
         unset($rules['document_number'], $rules['issued_at'], $rules['type']);
 
-        return $this->replaceForBatchRules($rules);
+        return $rules;
     }
 }

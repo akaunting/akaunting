@@ -34,6 +34,10 @@
             @if ($document->status == 'draft')
                 <x-documents.show.message type="status" background-color="bg-red-100" text-color="text-red-600" message="{!! trans($textStatusMessage) !!}" />
             @endif
+
+            @if (! $document->totals->count())
+                <x-documents.show.message type="status" background-color="bg-red-100" text-color="text-red-600" message="{!! trans('invoices.messages.totals_required', ['type' => $type]) !!}" />
+            @endif
         @endif
 
         @stack('status_message_end')

@@ -20,7 +20,7 @@
 
                 <button type="button"
                     x-on:click="price_type = 'lifetime'"
-                    class="w-18 flex justify-center text-base px-2 py-1 rounded-tr-lg rounded-br-lg "
+                    class="w-18 flex justify-center text-base px-2 py-1 rounded-tr-lg rounded-br-lg"
                     x-bind:class="price_type == 'lifetime' ? 'bg-black-700 text-white' : 'bg-gray-200 btn-outline-primary'"
                 >
                     {{ trans('general.lifetime') }}

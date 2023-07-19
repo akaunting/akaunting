@@ -11,17 +11,17 @@ return [
     'bank_feeds'                => 'Bankkonten verbinden',
     'currencies'                => 'Währungen',
 
-    'view_report'               => 'Bericht Anzeigen',
-    'total_unpaid_invoices'     => 'Gesamte unbezahlte Rechnungen (Debitoren)',
-    'total_unpaid_bills'        => 'Gesamte unbezahlte Rechnungen (Kreditoren)',
+    'view_report'               => 'Bericht anzeigen',
+    'total_unpaid_invoices'     => 'Gesamtbetrag offener Ausgangsrechnungen',
+    'total_unpaid_bills'        => 'Gesamtbetrag offener Eingangsrechnungen',
 
     'description' => [
-        'receivables'           => 'Betrag, den Sie noch von Ihren Kunden erhalten müssen',
-        'payables'              => 'Betrag, den Sie noch an Ihre Kreditoren bezahlen müssen',
-        'cash_flow'             => 'Bargeld, das in Ihr Unternehmen ein- und ausgeht',
-        'profit_loss'           => 'Einnahmen und Ausgaben einschließlich unbezahlter Rechnungen',
-        'expenses_by_category'  => 'Top-Ausgaben in verschiedenen Kategorien',
-        'account_balance'       => 'Aktueller Kontostand Ihrer Bankkonten',
+        'receivables'           => 'Ausstehende Einnahmen, die Ihnen Ihre Kunden schulden.',
+        'payables'              => 'Ausstehende Ausgaben, die Sie Ihren Lieferanten schulden.',
+        'cash_flow'             => 'Zahlungseingänge und -ausgänge in Ihrem Unternehmen.',
+        'profit_loss'           => 'Einnahmen und Ausgaben, einschließlich unbezahlter Rechnungen.',
+        'expenses_by_category'  => 'Höchste Ausgaben in verschiedenen Kategorien.',
+        'account_balance'       => 'Aktueller Kontostand Ihrer Bankkonten.',
         'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Akaunting, </br>indem Sie Ihre Bankkonten verbinden',
     ],
 

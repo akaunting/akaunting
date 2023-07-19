@@ -29,6 +29,10 @@ class Blade extends ServiceProvider
             return "<?php echo show_widget($expression); ?>";
         });
 
+        Facade::directive('moduleIsEnabled', function ($expression) {
+            return "<?php echo module_is_enabled($expression); ?>";
+        });
+
         Facade::if('readonly', function () {
             return config('read-only.enabled');
         });

@@ -40,9 +40,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.category type="{{ $real_type }}" :selected="setting('default.' . $real_type . '_category')" />
+                        <x-form.group.category :type="$real_type" :selected="setting('default.' . $real_type . '_category')" />
 
-                        <x-form.group.contact type="{{ config('type.transaction.' . $real_type . '.contact_type') }}" not-required />
+                        <x-form.group.contact :type="$contact_type" not-required />
                     </x-slot>
                 </x-form.section>
 

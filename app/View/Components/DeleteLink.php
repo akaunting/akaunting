@@ -233,8 +233,8 @@ class DeleteLink extends Component
 
     protected function getModelTitle()
     {
-        if (! empty($this->text)) {
-            return $this->text;
+        if (! empty($this->title)) {
+            return $this->title;
         }
 
         $group = 'core';

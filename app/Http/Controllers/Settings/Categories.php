@@ -30,9 +30,9 @@ class Categories extends Controller
             $query->withSubcategory();
         }
 
-        $categories = $query->collect();
-
         $types = $this->getCategoryTypes();
+
+        $categories = $query->type(array_keys($types))->collect();
 
         return $this->response('settings.categories.index', compact('categories', 'types'));
     }
@@ -173,7 +173,9 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories'));
+        $parent_categories = $categories[$category->type] ?? [];
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories'));
     }
 
     /**

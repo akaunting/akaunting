@@ -53,9 +53,9 @@ class CashFlow extends Widget
             ->setDataset(trans('general.outgoing'), 'column', $expense)
             ->setDataset(trans_choice('general.profits', 1), 'line', $profit);
 
-        $incoming_amount = money(array_sum($income), default_currency(), true);
-        $outgoing_amount = money(abs(array_sum($expense)), default_currency(), true);
-        $profit_amount = money(array_sum($profit), default_currency(), true);
+        $incoming_amount = money(array_sum($income));
+        $outgoing_amount = money(abs(array_sum($expense)));
+        $profit_amount = money(array_sum($profit));
 
         $totals = [
             'incoming_exact'        => $incoming_amount->format(),
@@ -191,7 +191,7 @@ class CashFlow extends Widget
             $totals[$i] += $item->getAmountConvertedToDefault();
         }
 
-        $precision = config('money.' . default_currency() . '.precision');
+        $precision = config('money.currencies.' . default_currency() . '.precision');
 
         foreach ($totals as $key => $value) {
             if ($type == 'expense') {
@@ -206,7 +206,7 @@ class CashFlow extends Widget
     {
         $profit = [];
 
-        $precision = config('money.' . default_currency() . '.precision');
+        $precision = config('money.currencies.' . default_currency() . '.precision');
 
         foreach ($incomes as $key => $income) {
             $value = $income - abs($expenses[$key]);

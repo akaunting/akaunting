@@ -111,12 +111,18 @@ class Transaction extends Notification
 
     public function getTagsReplacement(): array
     {
+        $route_params = [
+            'company_id'    => $this->transaction->company_id,
+            'transaction'   => $this->transaction->id,
+            'payment'       => $this->transaction->id,
+        ];
+
         return [
-            money($this->transaction->amount, $this->transaction->currency_code, true),
+            money($this->transaction->amount, $this->transaction->currency_code),
             company_date($this->transaction->paid_at),
-            URL::signedRoute('signed.payments.show', [$this->transaction->id]),
-            route('transactions.show', $this->transaction->id),
-            route('portal.payments.show', $this->transaction->id),
+            URL::signedRoute('signed.payments.show', $route_params),
+            route('transactions.show', $route_params),
+            route('portal.payments.show', $route_params),
             $this->transaction->contact->name,
             $this->transaction->company->name,
             $this->transaction->company->email,

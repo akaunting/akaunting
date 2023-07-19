@@ -4,10 +4,12 @@ return [
 
     'invoice_number'        => 'Číslo faktury',
     'invoice_date'          => 'Datum faktury',
+    'invoice_amount'        => 'Částka faktury',
     'total_price'           => 'Celková cena',
     'due_date'              => 'Datum splatnosti',
     'order_number'          => 'Číslo objednávky',
     'bill_to'               => 'Faktura pro',
+    'cancel_date'           => 'Zrušit datum',
 
     'quantity'              => 'Množství',
     'price'                 => 'Cena',
@@ -18,6 +20,7 @@ return [
     'total'                 => 'Celkem',
 
     'item_name'             => 'Název položky|Název položek',
+    'recurring_invoices'    => 'Opakující se faktura|Opakující se faktury',
 
     'show_discount'         => 'Sleva :discount%',
     'add_discount'          => 'Přidat slevu',
@@ -39,9 +42,16 @@ return [
     'send_invoice'          => 'Odeslání faktury',
     'get_paid'              => 'Uhrazení faktury',
     'accept_payments'       => 'Přijímat online platby',
+    'payments_received'     => 'Obdržené platby',
+
+    'form_description' => [
+        'billing'           => 'Fakturační údaje jsou uvedeny ve vaší faktuře. Datum faktury se používá na nástěnce a reportech. Vyberte datum, které chcete zaplatit jako termín splatnosti.',
+    ],
 
     'messages' => [
         'email_required'    => 'Zákazník nemá uvedenou e-mailovou adresu!',
+        'totals_required'   => 'Součet faktury je vyžadován. Prosím upravte :type a znovu ji uložte.',
+
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude odeslána.',
 
         'status' => [
@@ -55,6 +65,25 @@ return [
                 'await'     => 'Čeká na platbu',
             ],
         ],
+
+        'name_or_description_required' => 'Vaše faktura musí obsahovat alespoň jeden z <b>:name</b> nebo <b>:description</b>.',
+    ],
+
+    'slider' => [
+        'create'            => ':user vytvořil tuto fakturu dne :date',
+        'create_recurring'  => ':user vytvořil tuto opakovanou šablonu dne :date',
+        'schedule'          => 'Opakovat každý :interval :frequency od :date',
+        'children'          => ':count faktur(y) bylo(y) vytvořeno(y) automaticky',
+    ],
+
+    'share' => [
+        'show_link'         => 'Váš zákazník může zobrazit fakturu na tomto odkazu',
+        'copy_link'         => 'Zkopírujte odkaz a sdílejte jej s Vaším zákazníkem.',
+        'success_message'   => 'Odkaz pro sdílení byl zkopírován do schránky!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Prohlížíte, jak Váš zákazník uvidí webovou verzi Vaší faktury.',
     ],
 
 ];

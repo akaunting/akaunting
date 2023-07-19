@@ -30,8 +30,6 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $dates = ['deleted_at', 'paid_at'];
-
     /**
      * Attributes that should be mass-assignable.
      *
@@ -64,8 +62,10 @@ class Transaction extends Model
      * @var array
      */
     protected $casts = [
-        'amount' => 'double',
-        'currency_rate' => 'double',
+        'paid_at'           => 'datetime',
+        'amount'            => 'double',
+        'currency_rate'     => 'double',
+        'deleted_at'        => 'datetime',
     ];
 
     /**
@@ -186,7 +186,10 @@ class Transaction extends Model
 
     public function scopeIncomeRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::INCOME_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::INCOME_RECURRING_TYPE)
+                ->whereHas('recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
     }
 
     public function scopeExpense(Builder $query): Builder
@@ -201,7 +204,10 @@ class Transaction extends Model
 
     public function scopeExpenseRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::EXPENSE_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::EXPENSE_RECURRING_TYPE)
+                ->whereHas('recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
     }
 
     public function scopeIsTransfer(Builder $query): Builder
@@ -298,6 +304,7 @@ class Transaction extends Model
         $this->number       = $this->getNextTransactionNumber($suffix);
         $this->document_id  = null;
         $this->split_id     = null;
+        unset($this->reconciled);
     }
 
     /**
@@ -312,7 +319,7 @@ class Transaction extends Model
         // Convert amount if not same currency
         if ($this->account->currency_code != $this->currency_code) {
             $to_code = $this->account->currency_code;
-            $to_rate = config('money.' . $this->account->currency_code . '.rate');
+            $to_rate = config('money.currencies.' . $this->account->currency_code . '.rate');
 
             $amount = $this->convertBetween($amount, $this->currency_code, $this->currency_rate, $to_code, $to_rate);
         }

@@ -10,7 +10,6 @@ use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
 use Image;
@@ -210,7 +209,7 @@ abstract class Template extends Component
             return $template;
         }
 
-        $documentTemplate =  setting($this->getSettingKey($type, 'template'), 'default');
+        $documentTemplate =  setting($this->getDocumentSettingKey($type, 'template'), 'default');
 
         return $documentTemplate;
     }
@@ -228,7 +227,7 @@ abstract class Template extends Component
         if (! empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -241,7 +240,7 @@ abstract class Template extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
@@ -275,16 +274,22 @@ abstract class Template extends Component
             return $backgroundColor;
         }
 
-        if ($background_color = config('type.document.' . $type . '.color', false)) {
-            return $background_color;
+        // checking setting color
+        $key = $this->getDocumentSettingKey($type, 'color');
+
+        if (! empty(setting($key))) {
+            $backgroundColor = setting($key);
         }
 
-
-        if (! empty($alias = config('type.document.' . $type . '.alias'))) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
+        // checking config color
+        if (empty($backgroundColor) && $background_color = config('type.document.' . $type . '.color', false)) {
+            $backgroundColor = $background_color;
         }
 
-        $backgroundColor = setting($this->getSettingKey($type, 'color'), '#55588b');
+        // set default color
+        if (empty($backgroundColor)) {
+            $backgroundColor = '#55588b';
+        }
 
         return $this->getHexCodeOfTailwindClass($backgroundColor);
     }
@@ -299,7 +304,7 @@ abstract class Template extends Component
             return $this->document->title;
         }
 
-        $key = $this->getSettingKey($type, 'title');
+        $key = $this->getDocumentSettingKey($type, 'title');
 
         if (! empty(setting($key))) {
             return setting($key);
@@ -324,7 +329,7 @@ abstract class Template extends Component
             return $this->document->subheading;
         }
 
-        $key = $this->getSettingKey($type, 'subheading');
+        $key = $this->getDocumentSettingKey($type, 'subheading');
 
         if (! empty(setting($key))) {
             return setting($key);
@@ -454,18 +459,18 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'item_name'), 'items') === 'custom') {
-            if (empty($textItems = setting($this->getSettingKey($type, 'item_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'item_name'), 'items') === 'custom') {
+            if (empty($textItems = setting($this->getDocumentSettingKey($type, 'item_name_input')))) {
                 $textItems = 'general.items';
             }
 
             return $textItems;
         }
 
-        if (setting($this->getSettingKey($type, 'item_name')) !== null
-            && (trans(setting($this->getSettingKey($type, 'item_name'))) != setting($this->getSettingKey($type, 'item_name')))
+        if (setting($this->getDocumentSettingKey($type, 'item_name')) !== null
+            && (trans(setting($this->getDocumentSettingKey($type, 'item_name'))) != setting($this->getDocumentSettingKey($type, 'item_name')))
         ) {
-            return setting($this->getSettingKey($type, 'item_name'));
+            return setting($this->getDocumentSettingKey($type, 'item_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'items');
@@ -484,18 +489,18 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
-            if (empty($textQuantity = setting($this->getSettingKey($type, 'quantity_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
+            if (empty($textQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name_input')))) {
                 $textQuantity = 'invoices.quantity';
             }
 
             return $textQuantity;
         }
 
-        if (setting($this->getSettingKey($type, 'quantity_name')) !== null
-            && (trans(setting($this->getSettingKey($type, 'quantity_name'))) != setting($this->getSettingKey($type, 'quantity_name')))
+        if (setting($this->getDocumentSettingKey($type, 'quantity_name')) !== null
+            && (trans(setting($this->getDocumentSettingKey($type, 'quantity_name'))) != setting($this->getDocumentSettingKey($type, 'quantity_name')))
         ) {
-            return setting($this->getSettingKey($type, 'quantity_name'));
+            return setting($this->getDocumentSettingKey($type, 'quantity_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'quantity');
@@ -514,18 +519,18 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if (setting($this->getSettingKey($type, 'price_name'), 'price') === 'custom') {
-            if (empty($textPrice = setting($this->getSettingKey($type, 'price_name_input')))) {
+        if (setting($this->getDocumentSettingKey($type, 'price_name'), 'price') === 'custom') {
+            if (empty($textPrice = setting($this->getDocumentSettingKey($type, 'price_name_input')))) {
                 $textPrice = 'invoices.price';
             }
 
             return $textPrice;
         }
 
-        if (setting($this->getSettingKey($type, 'price_name')) !== null
-            && (trans(setting($this->getSettingKey($type, 'price_name'))) != setting($this->getSettingKey($type, 'price_name')))
+        if (setting($this->getDocumentSettingKey($type, 'price_name')) !== null
+            && (trans(setting($this->getDocumentSettingKey($type, 'price_name'))) != setting($this->getDocumentSettingKey($type, 'price_name')))
         ) {
-            return setting($this->getSettingKey($type, 'price_name'));
+            return setting($this->getDocumentSettingKey($type, 'price_name'));
         }
 
         $translation = $this->getTextFromConfig($type, 'price');
@@ -592,9 +597,11 @@ abstract class Template extends Component
             return $hideName;
         }
 
+        $hideName = setting($this->getDocumentSettingKey($type, 'item_name'), false);
+
         // if you use settting translation
-        if ($hideName = setting($this->getSettingKey($type, 'item_name'), false) && $hideName == 'hide') {
-            return $hideName;
+        if ($hideName === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'name');
@@ -603,8 +610,7 @@ abstract class Template extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.item_name', $hideName) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHideDescription($type, $hideDescription)
@@ -614,8 +620,8 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if ($hideDescription = setting($this->getSettingKey($type, 'hide_item_description'), false)) {
-            return $hideDescription;
+        if (setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'description');
@@ -624,8 +630,7 @@ abstract class Template extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_item_description', $hideDescription);
+        return false;
     }
 
     protected function getHideQuantity($type, $hideQuantity)
@@ -634,9 +639,11 @@ abstract class Template extends Component
             return $hideQuantity;
         }
 
+        $hideQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name'), false);
+
         // if you use settting translation
-        if ($hideQuantity = setting($this->getSettingKey($type, 'hide_quantity'), false) && $hideQuantity == 'hide') {
-            return $hideQuantity;
+        if ($hideQuantity === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'quantity');
@@ -645,8 +652,7 @@ abstract class Template extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.quantity_name', $hideQuantity) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHidePrice($type, $hidePrice)
@@ -655,9 +661,11 @@ abstract class Template extends Component
             return $hidePrice;
         }
 
+        $hidePrice = setting($this->getDocumentSettingKey($type, 'price_name'), false);
+
         // if you use settting translation
-        if ($hidePrice = setting($this->getSettingKey($type, 'hide_price'), false) && $hidePrice == 'hide') {
-            return $hidePrice;
+        if ($hidePrice === 'hide') {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'price');
@@ -666,8 +674,7 @@ abstract class Template extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.price_name', $hidePrice) == 'hide' ? true : false;
+        return false;
     }
 
     protected function getHideDiscount($type, $hideDiscount)
@@ -677,7 +684,7 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if ($hideDiscount = setting($this->getSettingKey($type, 'hide_discount'), false)) {
+        if ($hideDiscount = setting($this->getDocumentSettingKey($type, 'hide_discount'), false)) {
             return $hideDiscount;
         }
 
@@ -698,8 +705,8 @@ abstract class Template extends Component
         }
 
         // if you use settting translation
-        if ($hideAmount = setting($this->getSettingKey($type, 'hide_amount'), false)) {
-            return $hideAmount;
+        if (setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
+            return true;
         }
 
         $hide = $this->getHideFromConfig($type, 'amount');
@@ -708,8 +715,7 @@ abstract class Template extends Component
             return $hide;
         }
 
-        // @todo what return value invoice or always false??
-        return setting('invoice.hide_amount', $hideAmount);
+        return false;
     }
 
     protected function getPrint($print)

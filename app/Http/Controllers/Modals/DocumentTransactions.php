@@ -51,9 +51,9 @@ class DocumentTransactions extends Controller
             $document->{$document_total->code} = $document_total->amount;
         }
 
-        $total = money($document->total, $currency->code, true)->format();
+        $total = money($document->total, $currency->code)->format();
 
-        $document->grand_total = money($total, $currency->code)->getAmount();
+        $document->grand_total = money($total, $currency->code, false)->getAmount();
 
         if (! empty($paid)) {
             $document->grand_total = round($document->total - $paid, $currency->precision);
@@ -140,7 +140,7 @@ class DocumentTransactions extends Controller
 
         $number = $transaction->number;
 
-        $document->grand_total = money($transaction->amount, $currency->code)->getAmount();
+        $document->grand_total = money($transaction->amount, $currency->code, false)->getAmount();
 
         $document->paid_at = $transaction->paid_at;
 

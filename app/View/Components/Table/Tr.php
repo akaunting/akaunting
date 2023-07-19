@@ -41,7 +41,14 @@ class Tr extends Component
 
         $values = $self->getValue();
 
-        if (array_key_exists('App\View\Components\Table\Tbody', $values)) {
+        $self = new ReflectionProperty($this::class, 'factory');
+        $self->setAccessible(true);
+
+        $factory = $self->getValue();
+
+        if (array_key_exists('App\View\Components\Table\Tbody', $values)
+            && ($factory instanceof \Illuminate\View\Factory && $factory->getLoopStack())
+        ) {
             return 'relative flex items-center px-1 group border-b hover:bg-gray-100';
         }
 

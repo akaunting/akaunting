@@ -75,6 +75,7 @@ class SearchString extends Component
                         'type' => $this->getFilterType($options),
                         'url' => $this->getFilterUrl($column, $options),
                         'values' => $this->getFilterValues($column, $options),
+                        'value_option_fields' => $options['fields'] ?? [],
                     ];
                 }
             }
@@ -113,6 +114,8 @@ class SearchString extends Component
 
     protected function getFilterName($column, $options)
     {
+        $column = last(explode('.', $column));
+
         if (strpos($column, '_id') !== false) {
             $column = str_replace('_id', '', $column);
         } else if (strpos($column, '_code') !== false) {
@@ -120,7 +123,7 @@ class SearchString extends Component
         }
 
         if (! empty($options['translation']) && ! isset($options['boolean'])) {
-            return $options['translation'];
+            return $this->findTranslation($options['translation']);
         }
 
         if (!empty($options['key'])) {

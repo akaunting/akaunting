@@ -58,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <span class="material-icons text-gray-500">chevron_right</span>
+                            <span class="material-icons text-gray-500 rtl:rotate-180">chevron_right</span>
                         </x-link>
                     </li>
                 @endforeach
@@ -67,7 +67,7 @@
     </div>
 
     <div class="w-full lg:w-1/2 flex justify-end mt-8 lg:mt-60">
-        <img src="{{ $image }}" alt="{{ $title }}" />
+        <img src="{{ $image }}" alt="{{ $title }}" class="ltr:scale-x-100 rtl:-scale-x-100" />
     </div>
 </div>
 
@@ -78,3 +78,4 @@
         }
     </style>
 @endpush
+

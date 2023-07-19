@@ -86,7 +86,7 @@
                                 <x-table.td class="w-6/12 sm:w-4/12">
                                     <x-slot name="first" class="flex font-bold" override="class">
                                         {{ $item->name }}
-                                        
+
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.items', 1) }}" />
                                         @endif
@@ -117,14 +117,14 @@
                                 <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
                                     <x-slot name="first">
                                         @if ($item->sale_price)
-                                            <x-money :amount="$item->sale_price" :currency="default_currency()" convert />
+                                            <x-money :amount="$item->sale_price" />
                                         @else
                                             <x-empty-data />
                                         @endif
                                     </x-slot>
                                     <x-slot name="second">
                                         @if ($item->purchase_price)
-                                            <x-money :amount="$item->purchase_price" :currency="default_currency()" convert />
+                                            <x-money :amount="$item->purchase_price" />
                                         @else
                                             <x-empty-data />
                                         @endif

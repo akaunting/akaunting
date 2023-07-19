@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Abstracts\Factory;
+use App\Interfaces\Utility\TransactionNumber;
 use App\Models\Banking\Transaction as Model;
+use App\Models\Common\Contact;
 use App\Traits\Transactions;
 use App\Utilities\Date;
 
@@ -40,7 +42,7 @@ class Transaction extends Factory
         return [
             'company_id' => $this->company->id,
             'type' => $this->type,
-            'number' => $this->getNumber(),
+            'number' => $this->getNumber($this->type),
             'account_id' => setting('default.account'),
             'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
@@ -61,10 +63,22 @@ class Transaction extends Factory
      */
     public function income()
     {
-        return $this->state([
-            'type' => 'income',
-            'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
-        ]);
+        return $this->state(function (array $attributes): array {
+            $contacts = Contact::customer()->enabled()->get();
+
+            if ($contacts->count()) {
+                $contact = $contacts->random(1)->first();
+            } else {
+                $contact = Contact::factory()->customer()->enabled()->create();
+            }
+
+            return [
+                'type' => 'income',
+                'number' => $this->getNumber('income', '', $contact),
+                'contact_id' => $contact->id,
+                'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
+            ];
+        });
     }
 
     /**
@@ -74,10 +88,22 @@ class Transaction extends Factory
      */
     public function expense()
     {
-        return $this->state([
-            'type' => 'expense',
-            'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
-        ]);
+        return $this->state(function (array $attributes): array {
+            $contacts = Contact::vendor()->enabled()->get();
+
+            if ($contacts->count()) {
+                $contact = $contacts->random(1)->first();
+            } else {
+                $contact = Contact::factory()->vendor()->enabled()->create();
+            }
+
+            return [
+                'type' => 'expense',
+                'number' => $this->getNumber('expense', '', $contact),
+                'contact_id' => $contact->id,
+                'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
+            ];
+        });
     }
 
     /**
@@ -87,15 +113,17 @@ class Transaction extends Factory
      */
     public function recurring()
     {
+        $type = $this->getRawAttribute('type') . '-recurring';
+
         return $this->state([
-            'type' => $this->getRawAttribute('type') . '-recurring',
-            'number' => $this->getNumber('-recurring'),
-            'recurring_started_at' => $this->getRawAttribute('paid_at'),
+            'type' => $type,
+            'number' => $this->getNumber($type, '-recurring'),
+            'recurring_started_at' => Date::now()->format('Y-m-d H:i:s'),
             'recurring_frequency' => 'daily',
             'recurring_custom_frequency' => 'daily',
             'recurring_interval' => '1',
             'recurring_limit' => 'date',
-            'recurring_limit_date' => Date::now()->addDay(7)->format('Y-m-d'),
+            'recurring_limit_date' => Date::now()->addDay(7)->format('Y-m-d H:i:s'),
             'disabled_transaction_paid' => "Auto-generated",
             'disabled_transaction_number' => "Auto-generated",
             'real_type' => $this->getRawAttribute('type'),
@@ -106,11 +134,13 @@ class Transaction extends Factory
      * Get transaction number
      *
      */
-    public function getNumber($suffix = '')
+    public function getNumber($type, $suffix = '', $contact = null)
     {
-        $number = $this->getNextTransactionNumber($suffix);
-        
-        $this->increaseNextTransactionNumber($suffix);
+        $utility = app(TransactionNumber::class);
+
+        $number = $utility->getNextNumber($type, $suffix, $contact);
+
+        $utility->increaseNextNumber($type, $suffix ,$contact);
 
         return $number;
     }

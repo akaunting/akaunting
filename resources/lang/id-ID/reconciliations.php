@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Jumlah yang dihapus',
     'deposit'               => 'Deposit',
     'withdrawal'            => 'Penarikan',
+    'reconciled_amount'     => 'Direkonsiliasi',
+    'in_progress'           => 'Dalam Proses',
+    'save_draft'            => 'Simpan sebagai draf',
+    'irreconcilable'        => 'Tidak dapat direkonsiliasi',
 
 ];

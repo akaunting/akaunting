@@ -12,7 +12,7 @@
                     <x-slot name="body">
                         <x-form.group.date name="financial_start" label="{{ trans('settings.localisation.financial_start') }}" icon="calendar_today" value="{{ setting('localisation.financial_start') }}" show-date-format="j F" date-format="d-m" autocomplete="off" hidden_year />
 
-                        <x-form.group.select name="financial_denote" label="{{ trans('settings.localisation.financial_denote.title') }}" :options="$financial_denote_options" :selected="setting('localisation.financial_denote')" not-required />
+                        <x-form.group.select name="financial_denote" label="{{ trans('settings.localisation.financial_denote.title') }}" :options="$financial_denote_options" :clearable="'false'" :selected="setting('localisation.financial_denote')" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -22,9 +22,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select name="date_format" label="{{ trans('settings.localisation.date.format') }}" :options="$date_formats" :selected="setting('localisation.date_format')" autocomplete="off" />
+                        <x-form.group.select name="date_format" label="{{ trans('settings.localisation.date.format') }}" :options="$date_formats" :clearable="'false'" :selected="setting('localisation.date_format')" autocomplete="off" />
 
-                        <x-form.group.select name="date_separator" label="{{ trans('settings.localisation.date.separator') }}" :options="$date_separators" :selected="setting('localisation.date_separator')" />
+                        <x-form.group.select name="date_separator" label="{{ trans('settings.localisation.date.separator') }}" :options="$date_separators" :clearable="'false'" :selected="setting('localisation.date_separator')" />
                     </x-slot>
                 </x-form.section>
 
@@ -34,11 +34,11 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select group name="timezone" label="{{ trans('settings.localisation.timezone') }}" :options="$timezones" :selected="setting('localisation.timezone')" />
+                        <x-form.group.select group name="timezone" label="{{ trans('settings.localisation.timezone') }}" :options="$timezones" :clearable="'false'" :selected="setting('localisation.timezone')" />
 
-                        <x-form.group.select name="percent_position" label="{{ trans('settings.localisation.percent.title') }}" :options="$percent_positions" :selected="setting('localisation.percent_position')" not-required />
+                        <x-form.group.select name="percent_position" label="{{ trans('settings.localisation.percent.title') }}" :options="$percent_positions" :clearable="'false'" :selected="setting('localisation.percent_position')" not-required />
 
-                        <x-form.group.select name="discount_location" label="{{ trans('settings.localisation.discount_location.name') }}" :options="$discount_locations" :selected="setting('localisation.discount_location')" not-required />
+                        <x-form.group.select name="discount_location" label="{{ trans('settings.localisation.discount_location.name') }}" :options="$discount_locations" :clearable="'false'" :selected="setting('localisation.discount_location')" not-required />
                     </x-slot>
                 </x-form.section>
 

@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Jste si jisti, že chcete zrušit <b>vyrovnání</b> vybraného záznamu?|Jste si jisti, že chcete zrušit <b>vyrovnání</b> vybraných záznamů?',
     ],
 
+    'success' => [
+        'general'       => ':count záznam :type.',
+    ],
 ];

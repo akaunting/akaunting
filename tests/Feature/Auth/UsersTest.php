@@ -55,7 +55,7 @@ class UsersTest extends FeatureTestCase
                 'success' => true,
                 'error' => false,
                 'message' => '',
-                'redirect' => route('users.index'),
+                'redirect' => route('users.show', User::max('id')),
             ])
             ->json();
 

@@ -440,7 +440,7 @@ trait Modules
         }
 
         // Check if module is installed in cloud
-        if (request()->getHost() == 'app.akaunting.com') {
+        if (request()->getHost() == 'app.akaunting.com' || request()->getHost() == 'localhost') {
             $modules = Cache::get('cloud.companies.' . company_id() . '.modules.installed', []);
 
             if (in_array($alias, $modules)) {

@@ -34,7 +34,6 @@ return [
     'billed_once'           => 'Facturé une fois',
     'save_year'             => 'Vous économisez <strong>:price</strong> par an !',
     'if_paid_year'          => 'Ou <strong>:price/mo</strong> si payé annuellement',
-    'information_monthly'   => 'Cette option n\'est valide que pour le <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud Service</strong></a>',
     'install'               => 'Installation',
     'buy_now'               => 'Acheter maintenant',
     'get_api_key'           => '<a href=":url" target="_blank">Cliquez ici</a> pour obtenir votre clé API.
@@ -51,6 +50,8 @@ return [
     'get_premium_cloud'     => 'Obtenez le Cloud Premium',
     'switch_to_cloud'       => 'Passer au Cloud',
     'hosted_on_akaunting'   => 'Hébergé sur akaunting.com',
+    'information_on_preme'  => 'L\'option :period n\'est disponible que sur le <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud.</strong></a>',
+    'information_monthly'   => 'Cette option n\'est valide que pour le <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud Service</strong></a>',
     'only_works_cloud'      => 'Cette application ne fonctionne que sur le <strong>Service Cloud</strong>.',
     'only_premium_plan'     => 'Cette application ne fonctionne que sur le <strong>Cloud Premium Service</strong>.',
     'not_found'             => 'Aucune application trouvée',

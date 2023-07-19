@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
+use App\Interfaces\Utility\TransactionNumber;
 use Illuminate\Support\Str;
 
 trait Transactions
@@ -132,7 +133,7 @@ trait Transactions
         return Str::slug($transaction->id, $separator, language()->getShortCode());
     }
 
-    protected function getSettingKey(string $type, string $setting_key): string
+    protected function getTransactionSettingKey(string $type, string $setting_key): string
     {
         $key = '';
         $alias = config('type.transaction.' . $type . '.alias');
@@ -204,6 +205,11 @@ trait Transactions
         ];
     }
 
+    public function getTypeTransaction(string $type = Transaction::INCOME_TYPE): string
+    {
+        return array_key_exists($type, config('type.transaction')) ? $type : Transaction::INCOME_TYPE;
+    }
+
     public function getRealTypeTransaction(string $type): string
     {
         $type = $this->getRealTypeOfRecurringTransaction($type);
@@ -211,6 +217,15 @@ trait Transactions
         $type = $this->getRealTypeOfSplitTransaction($type);
 
         return $type;
+    }
+
+    public function getTypeRecurringTransaction(string $type = Transaction::INCOME_RECURRING_TYPE): string
+    {
+        if (! Str::contains($type, '-recurring')) {
+            return Transaction::INCOME_RECURRING_TYPE;
+        }
+
+        return array_key_exists($type, config('type.transaction')) ? $type : Transaction::INCOME_RECURRING_TYPE;
     }
 
     public function getRealTypeOfRecurringTransaction(string $recurring_type): string
@@ -228,20 +243,13 @@ trait Transactions
         return Str::replace('-split', '', $transfer_type);
     }
 
-    public function getNextTransactionNumber($suffix = ''): string
+    public function getNextTransactionNumber($type = 'income', $suffix = ''): string
     {
-        $prefix = setting('transaction' . $suffix . '.number_prefix');
-        $next   = setting('transaction' . $suffix . '.number_next');
-        $digit  = setting('transaction' . $suffix . '.number_digit');
-
-        return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        return app(TransactionNumber::class)->getNextNumber($type, $suffix, null);
     }
 
-    public function increaseNextTransactionNumber($suffix = ''): void
+    public function increaseNextTransactionNumber($type = 'income', $suffix = ''): void
     {
-        $next = setting('transaction' . $suffix . '.number_next', 1) + 1;
-
-        setting(['transaction' . $suffix . '.number_next' => $next]);
-        setting()->save();
+        app(TransactionNumber::class)->increaseNextNumber($type, $suffix, null);
     }
 }

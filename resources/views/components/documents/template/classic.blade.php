@@ -17,9 +17,9 @@
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
                     @if (!empty($document->contact->logo) && !empty($document->contact->logo->id))
-                        <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
+                        <img  class="c-logo" src="{{ $logo }}" alt="{{ $document->contact_name }}"/>
                     @else
-                        <img  class="c-logo w-image" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
+                        <img  class="c-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}" />
                     @endif
                 @endif
                 @stack('company_logo_input_end')
@@ -52,7 +52,7 @@
                     @if (! $hideCompanyTaxNumber)
                         @if (setting('company.tax_number'))
                             <p>
-                                <span class="text-medium text-default">
+                                <span class="font-semibold">
                                     {{ trans('general.tax_number') }}:
                                 </span>
                                 {{ setting('company.tax_number') }}
@@ -113,7 +113,7 @@
 
     <div class="row top-spacing">
         <div class="col-60">
-            <div class="text p-index-left">
+            <div class="text p-index-left break-words">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
                         {{ trans($textContactInfo) }}
@@ -153,7 +153,7 @@
                     @if (! $hideContactTaxNumber)
                         @if ($document->contact_tax_number)
                             <p>
-                                <span class="text-medium text-default">    
+                                <span class="font-semibold">
                                     {{ trans('general.tax_number') }}:
                                 </span>
                                 {{ $document->contact_tax_number }}
@@ -236,7 +236,7 @@
                             </span>
 
                             <span class="float-right spacing">
-                                <x-money :amount="$total->amount - $document->paid" :currency="$document->currency_code" convert />
+                                <x-money :amount="$total->amount - $document->paid" :currency="$document->currency_code" />
                             </span>
                         </p>
                     @endif
@@ -328,7 +328,7 @@
 
     <div class="row mt-4 clearfix">
         <div class="col-60">
-            <div class="text p-index-right">
+            <div class="text p-index-right break-words">
                 @stack('notes_input_start')
                     @if ($hideNote)
                         @if ($document->notes)
@@ -353,7 +353,7 @@
                         </strong>
 
                         <span>
-                            <x-money :amount="$total->amount" :currency="$document->currency_code" convert />
+                            <x-money :amount="$total->amount" :currency="$document->currency_code" />
                         </span>
                     </div>
                     @stack($total->code . '_total_tr_end')
@@ -366,7 +366,7 @@
                             </span>
 
                             <span>
-                                - <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
+                                - <x-money :amount="$document->paid" :currency="$document->currency_code" />
                             </span>
                         </div>
                         @stack('paid_total_tr_end')
@@ -379,7 +379,7 @@
                         </span>
 
                         <span>
-                            <x-money :amount="$document->amount_due" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document->amount_due" :currency="$document->currency_code" />
                         </span>
                     </div>
                     @stack('grand_total_tr_end')

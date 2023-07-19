@@ -3,11 +3,14 @@
 namespace App\Imports\Sales;
 
 use App\Abstracts\Import;
+use App\Models\Auth\User;
 use App\Http\Requests\Common\Contact as Request;
 use App\Models\Common\Contact as Model;
 
 class Customers extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -24,11 +27,10 @@ class Customers extends Import
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['user_id'] = null;
 
-        return $row;
-    }
+        if (isset($row['can_login']) && isset($row['email'])) {
+            $row['user_id'] = User::where('email', $row['email'])->first()?->id ?? null;
+        }
 
-    public function rules(): array
-    {
-        return (new Request())->rules();
+        return $row;
     }
 }

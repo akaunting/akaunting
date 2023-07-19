@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class Invoices extends Import
 {
+    public $request_class = Request::class;
+
     public function model(array $row)
     {
         return new Model($row);
@@ -19,6 +21,8 @@ class Invoices extends Import
         if ($this->isEmpty($row, 'invoice_number')) {
             return [];
         }
+
+        $row['invoice_number'] = (string) $row['invoice_number'];
 
         $row = parent::map($row);
 
@@ -35,16 +39,14 @@ class Invoices extends Import
         return $row;
     }
 
-    public function rules(): array
+    public function prepareRules(array $rules): array
     {
-        $rules = (new Request())->rules();
-
         $rules['invoice_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
         $rules['invoiced_at'] = $rules['issued_at'];
-        $rules['currency_rate'] = 'required';
+        $rules['currency_rate'] = 'required|gt:0';
 
         unset($rules['document_number'], $rules['issued_at'], $rules['type']);
 
-        return $this->replaceForBatchRules($rules);
+        return $rules;
     }
 }

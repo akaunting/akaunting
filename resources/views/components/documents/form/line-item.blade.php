@@ -19,17 +19,20 @@
                 <tbody>
                     <tr>
                         @stack('move_td_start')
+
                         <td class="align-middle border-b-0 flex items-center justify-center" style="width:24px; height:100px; color: #8898aa;">
                             <div class="handle mt-2 hidden lg:block cursor-move">
                                 <span class="w-6 material-icons">list</span>
                             </div>
                         </td>
+
                         @stack('move_td_end')
 
                         @stack('items_td_start')
 
                         @if (! $hideItems || (! $hideItemName && ! $hideItemDescription))
                             @stack('name_td_start')
+
                             <td class="px-3 py-3 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right align-middle border-b-0 name">
                                 @if (! $hideItemName)
                                     <span class="flex items-center text-sm" tabindex="0" v-if="row.item_id">
@@ -123,28 +126,26 @@
                         @stack('price_td_start')
 
                         <td class="px-3 py-3 pr-1 border-b-0 price">
-                            @if (! $hideItemPrice)
-                                <div>
-                                    @stack('price_input_start')
+                            <div>
+                                @stack('price_input_start')
 
-                                    <x-form.input.money
-                                        name="price"
-                                        value="0"
-                                        row-input
-                                        data-item="price"
-                                        v-model="row.price"
-                                        v-error="form.errors.get('items.' + index + '.price')"
-                                        v-error-message="form.errors.get('items.' + index + '.price')"
-                                        change="row.price = $event; form.errors.clear('items.' + index + '.price'); onCalculateTotal"
-                                        :currency="$currency"
-                                        dynamicCurrency="currency"
-                                        money-class="text-right mt-0"
-                                        form-group-class="text-right"
-                                    />
+                                <x-form.input.money
+                                    name="price"
+                                    value="0"
+                                    row-input
+                                    data-item="price"
+                                    v-model="row.price"
+                                    v-error="form.errors.get('items.' + index + '.price')"
+                                    v-error-message="form.errors.get('items.' + index + '.price')"
+                                    change="row.price = $event; form.errors.clear('items.' + index + '.price'); onCalculateTotal"
+                                    :currency="$currency"
+                                    dynamicCurrency="currency"
+                                    money-class="text-right mt-0"
+                                    form-group-class="text-right"
+                                />
 
-                                    @stack('price_input_end')
-                                </div>
-                            @endif
+                                @stack('price_input_end')
+                            </div>
                         </td>
 
                         @stack('price_td_end')
@@ -230,7 +231,7 @@
                                                 :class="[{'btn-outline-primary' : row.discount_type !== 'fixed'}, {'bg-white rounded-lg' : row.discount_type === 'fixed'}]"
                                                 @click="onChangeLineDiscountType(index, 'fixed')"
                                             >
-                                                <span class="text-base">{{ $currency->symbol }}</span>
+                                                <span class="text-base">{{ ($currency) ? $currency->symbol : '$' }}</span>
                                             </button>
                                         </div>
 
@@ -272,7 +273,7 @@
                                         />
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteDiscount(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>
@@ -283,7 +284,7 @@
                             <div class="flex items-center justify-between h-10 ml-3 my-3" v-for="(row_tax, row_tax_index) in row.tax_ids"
                                 :index="row_tax_index"
                             >
-                                <span class="absolute text-sm ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
+                                <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
 
                                 <div class="lg:w-1/4 lg:absolute">
                                     @stack('taxes_input_start')
@@ -347,7 +348,7 @@
                                         />
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteTax(index, row_tax_index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>
@@ -356,7 +357,7 @@
                             </div>
 
                             <div v-if="row.add_tax" class="flex items-center justify-between h-10 ml-3 my-3" :class="{'pt-2' : row.add_discount}">
-                                <span class="absolute text-sm ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
+                                <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
 
                                 <div class="lg:w-1/4 lg:absolute">
                                     @stack('taxes_input_start')
@@ -412,7 +413,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="pl-2 group">
+                                    <div class="ltr:pl-2 rtl:pr-2 group">
                                         <button type="button" @click="onDeleteTax(index, 999)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                         </button>

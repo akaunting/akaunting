@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Send Invoice',
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
-    'payment_received'      => 'Payment received',
+    'payments_received'     => 'Payments received',
 
     'form_description' => [
         'billing'           => 'Billing details appear in your invoice. Invoice Date is used in the dashboard and reports. Select the date you expect to get paid as the Due Date.',
@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'No email address for this customer!',
+        'totals_required'   => 'Invoice totals are required Please edit the :type and save it again.',
+
         'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Awaiting payment',
             ],
         ],
+
+        'name_or_description_required' => 'Your invoice must show at least one of the <b>:name</b> or <b>:description</b>.',
     ],
 
     'slider' => [

@@ -28,7 +28,7 @@ trait Charts
 
     public function addMoneyToDonutChart($color, $amount, $description = '')
     {
-        $label = money($amount, default_currency(), true)->formatForHumans();
+        $label = money($amount)->formatForHumans();
 
         if (!empty($description)) {
             $label .= ' - ' . $description;
@@ -98,11 +98,11 @@ trait Charts
     public function getChartLabelFormatter($type = 'money', $position = null)
     {
         $label = '';
-        $decimal_mark = str_replace("'", "\\'", config('money.' . default_currency() . '.decimal_mark'));
-        $thousands_separator = str_replace("'", "\\'", config('money.' . default_currency() . '.thousands_separator'));
-        $symbol = str_replace("'", "\\'", config('money.' . default_currency() . '.symbol'));
-        $symbol_first = str_replace("'", "\\'", config('money.' . default_currency() . '.symbol_first'));
-        $precision = str_replace("'", "\\'", config('money.' . default_currency() . '.precision'));
+        $decimal_mark = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.decimal_mark'));
+        $thousands_separator = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.thousands_separator'));
+        $symbol = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.symbol'));
+        $symbol_first = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.symbol_first'));
+        $precision = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.precision'));
         $percent_position = $position ?: setting('localisation.percent_position');
 
         switch ($type) {

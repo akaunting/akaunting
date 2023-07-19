@@ -63,6 +63,17 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Courriel :type invalide',
+            'description'   => 'L\'adresse email :email a été signalée comme invalide et le compte de la personne a été désactivé. Veuillez vérifier le message d\'erreur suivant et corriger l\'adresse e-mail :',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -88,7 +99,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Importation échouée',
+            'title'         => 'Échec de l\'importation',
             'description'   => 'Impossible d\'importer le fichier en raison de plusieurs problèmes. Consultez votre e-mail pour plus de détails.',
 
         ],
@@ -177,6 +188,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Courriel :type invalide',
+            'description'   => 'L\'adresse e-mail <strong>:email</strong> a été signalée comme invalide et le compte de la personne a été désactivé. Veuillez vérifier et corriger l\'adresse e-mail.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -185,4 +203,16 @@ return [
         'mark_read_all'         => ':type est en train de lire toutes les notifications !',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuration des icônes dans Firefox',
+            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, merci d\'activer;</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
+
+        ],
+
+    ],
+
 ];

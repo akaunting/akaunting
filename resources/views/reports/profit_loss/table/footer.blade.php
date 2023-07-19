@@ -8,12 +8,12 @@
 
         @foreach($class->footer_totals[$table_key] as $total)
         <td class="{{ $class->column_value_width }} py-4 ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
-            <x-money :amount="$total" :currency="default_currency()" convert />
+            <x-money :amount="$total" />
         </td>
         @endforeach
 
         <td class="{{ $class->column_name_width }} py-4 ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
-            <x-money :amount="$grand_total" :currency="default_currency()" convert />
+            <x-money :amount="$grand_total" />
         </td>
     </tr>
 </tfoot>

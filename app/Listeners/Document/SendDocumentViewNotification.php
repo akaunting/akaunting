@@ -18,6 +18,14 @@ class SendDocumentViewNotification
     public function handle(Event $event)
     {
         $document = $event->document;
+
+        if (in_array($document->status, [
+            'viewed', 'approved', 'received', 'refused', 'partial', 'paid',
+            'cancelled', 'voided', 'completed', 'refunded',
+        ])) {
+            return;
+        }
+
         $config = config('type.document.' . $document->type . '.notification');
 
         if (empty($config) || empty($config['class'])) {

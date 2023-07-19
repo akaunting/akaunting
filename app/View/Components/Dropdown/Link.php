@@ -7,6 +7,7 @@ use App\Abstracts\View\Component;
 class Link extends Component
 {
     public $href;
+    public $target;
 
     /**
      * Create a new component instance.
@@ -14,9 +15,10 @@ class Link extends Component
      * @return void
      */
     public function __construct(
-        $href = '',
+        string $href = '', string $target = '_self'
     ) {
-        $this->href = $href;
+        $this->href     = $href;
+        $this->target   = $target;
     }
 
     /**

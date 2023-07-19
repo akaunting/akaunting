@@ -30,6 +30,35 @@ class Role extends LaratrustRole
     public $cloneable_relations = ['permissions'];
 
     /**
+     * Scope to get all rows filtered, sorted and paginated.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $sort
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCollect($query, $sort = 'display_name')
+    {
+        $request = request();
+
+        $search = $request->get('search');
+        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
+
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param  Document $src
+     * @param  boolean $child
+     */
+    public function onCloning($src, $child = null)
+    {
+        $this->name = $src->name . '-' . Role::max('id') + 1;
+    }
+
+    /**
      * Get the line actions.
      *
      * @return array
@@ -70,34 +99,5 @@ class Role extends LaratrustRole
         ];
 
         return $actions;
-    }
-
-    /**
-     * Scope to get all rows filtered, sorted and paginated.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param $sort
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeCollect($query, $sort = 'display_name')
-    {
-        $request = request();
-
-        $search = $request->get('search');
-        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
-
-        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
-    }
-
-    /**
-     * @inheritDoc
-     *
-     * @param  Document $src
-     * @param  boolean $child
-     */
-    public function onCloning($src, $child = null)
-    {
-        $this->name = $src->name . '-' . Role::max('id') + 1;
     }
 }

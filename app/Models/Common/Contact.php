@@ -6,6 +6,7 @@ use App\Traits\Media;
 use App\Abstracts\Model;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
+use App\Traits\Documents;
 use App\Traits\Transactions;
 use App\Scopes\Contact as Scope;
 use App\Models\Document\Document;
@@ -15,16 +16,22 @@ use Bkwld\Cloner\Cloneable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 class Contact extends Model
 {
-    use Cloneable, Contacts, Currencies, HasFactory, Media, Notifiable, Transactions;
+    use Cloneable, Contacts, Currencies, Documents, HasFactory, Media, Notifiable, Transactions;
 
     public const CUSTOMER_TYPE = 'customer';
     public const VENDOR_TYPE = 'vendor';
     public const EMPLOYEE_TYPE = 'employee';
 
     protected $table = 'contacts';
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['media'];
 
     /**
      * The accessors to append to the model's array form.
@@ -60,15 +67,6 @@ class Contact extends Model
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'enabled' => 'boolean',
-    ];
-
-    /**
      * Sortable columns.
      *
      * @var array
@@ -92,9 +90,29 @@ class Contact extends Model
         return $this->hasMany('App\Models\Document\Document');
     }
 
+    public function document_recurring()
+    {
+        return $this->documents()->whereIn('documents.type', $this->getRecurringDocumentTypes());
+    }
+
     public function bills()
     {
         return $this->documents()->where('documents.type', Document::BILL_TYPE);
+    }
+
+    public function bill_recurring()
+    {
+        return $this->documents()->where('documents.type', Document::BILL_RECURRING_TYPE);
+    }
+
+    public function invoices()
+    {
+        return $this->documents()->where('documents.type', Document::INVOICE_TYPE);
+    }
+
+    public function invoice_recurring()
+    {
+        return $this->documents()->where('documents.type', Document::INVOICE_RECURRING_TYPE);
     }
 
     public function currency()
@@ -110,11 +128,6 @@ class Contact extends Model
     public function income_transactions()
     {
         return $this->transactions()->whereIn('transactions.type', (array) $this->getIncomeTypes());
-    }
-
-    public function invoices()
-    {
-        return $this->documents()->where('documents.type', Document::INVOICE_TYPE);
     }
 
     public function transactions()
@@ -163,6 +176,17 @@ class Contact extends Model
     public function scopeCustomer($query)
     {
         return $query->whereIn($this->qualifyColumn('type'), (array) $this->getCustomerTypes());
+    }
+
+    /**
+     * Scope to include only employees.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEmployee($query)
+    {
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getEmployeeTypes());
     }
 
     public function scopeEmail($query, $email)
@@ -254,7 +278,7 @@ class Contact extends Model
             $location[] = $this->state;
         }
 
-        if ($this->country && in_array($this->country, trans('countries'))) {
+        if ($this->country && array_key_exists($this->country, trans('countries'))) {
             $location[] = trans('countries.' . $this->country);
         }
 

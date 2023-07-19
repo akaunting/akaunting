@@ -7,7 +7,6 @@ use App\Exports\Purchases\Bills as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
 use App\Imports\Purchases\Bills as Import;
-use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
@@ -31,7 +30,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Document::bill()->with('contact', 'transactions')->collect(['issued_at' => 'desc']);
+        $bills = Document::bill()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['issued_at' => 'desc']);
 
         return $this->response('purchases.bills.index', compact('bills'));
     }

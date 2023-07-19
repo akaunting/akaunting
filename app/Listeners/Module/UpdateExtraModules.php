@@ -44,7 +44,7 @@ class UpdateExtraModules
             }
 
             $installed_version = $extra_module->get('version');
-            $latest_version = Versions::latest($alias);
+            $latest_version = Versions::latest($alias)?->latest;
 
             // Skip if no update available
             if (version_compare($installed_version, $latest_version, '>=')) {

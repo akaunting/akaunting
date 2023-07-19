@@ -35,16 +35,16 @@ class Accounts extends Controller
      */
     public function show(Account $account)
     {
-        $transactions = Transaction::with('category', 'contact', 'document')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('category', 'contact', 'contact.media', 'document', 'document.totals', 'document.media', 'recurring', 'media')->where('account_id', $account->id)->collect(['paid_at'=> 'desc']);
 
         $transfers = Transfer::with('expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account')
                                 ->whereHas('expense_transaction', fn ($query) => $query->where('account_id', $account->id))
                                 ->orWhereHas('income_transaction', fn ($query) => $query->where('account_id', $account->id))
                                 ->collect(['expense_transaction.paid_at' => 'desc']);
 
-        $incoming_amount = money($account->income_balance, $account->currency_code, true);
-        $outgoing_amount = money($account->expense_balance, $account->currency_code, true);
-        $current_amount = money($account->balance, $account->currency_code, true);
+        $incoming_amount = money($account->income_balance, $account->currency_code);
+        $outgoing_amount = money($account->expense_balance, $account->currency_code);
+        $current_amount = money($account->balance, $account->currency_code);
 
         $summary_amounts = [
             'incoming_exact'        => $incoming_amount->format(),

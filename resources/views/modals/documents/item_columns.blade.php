@@ -33,10 +33,11 @@
             form-group-class="sm:col-span-6 sm:gap-0"
         />
 
-        <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="$hide_item_description" />
+        <x-form.group.toggle name="hide_item_description" label="{{ trans('settings.invoice.hide.item_description') }}" :value="$hide_item_description" change="settingsInvoice()" />
         <x-form.group.toggle name="hide_amount" label="{{ trans('settings.invoice.hide.amount') }}" :value="$hide_amount" not-required form-group-class="sm:col-span-6" />
 
         <x-form.input.hidden name="type" :value="$type" />
         <x-form.input.hidden name="enabled" value="1" />
+        <x-form.input.hidden name="message_name_or_description_required" :value="trans('invoices.messages.name_or_description_required', ['name' => trans('general.name'), 'description' => trans('general.description')])" />
     </div>
 </x-form>

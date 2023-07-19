@@ -41,7 +41,7 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-4/12 sm:w-3/12">
-                                    {{ $payment_methods[$item->payment_method] }}
+                                    <x-payment-method :method="$item->payment_method" type="customer" />
                                 </x-table.td>
 
                                 <x-table.td class="w-3/12" hidden-mobile>
@@ -49,7 +49,7 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-3/12" kind="amount">
-                                    <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                    <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                 </x-table.td>
                             </x-table.tr>
                         @endforeach

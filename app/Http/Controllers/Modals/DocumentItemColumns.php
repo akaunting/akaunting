@@ -32,22 +32,22 @@ class DocumentItemColumns extends Controller
 
         $item_names = [
             'hide' => trans('settings.invoice.hide.item_name'),
-            'settings.invoice.item' => trans('settings.' . $type . '.item'),
-            'settings.invoice.product' => trans('settings.' . $type . '.product'),
-            'settings.invoice.service' =>  trans('settings.' . $type . '.service'),
+            'settings.invoice.item' => trans('settings.invoice.item'),
+            'settings.invoice.product' => trans('settings.invoice.product'),
+            'settings.invoice.service' =>  trans('settings.invoice.service'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $price_names = [
             'hide' => trans('settings.invoice.hide.price'),
-            'settings.invoice.price' => trans('settings.' . $type . '.price'),
-            'settings.invoice.rate' => trans('settings.' . $type . '.rate'),
+            'settings.invoice.price' => trans('settings.invoice.price'),
+            'settings.invoice.rate' => trans('settings.invoice.rate'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
         $quantity_names = [
             'hide' => trans('settings.invoice.hide.quantity'),
-            'settings.invoice.quantity' => trans('settings.' . $type . '.quantity'),
+            'settings.invoice.quantity' => trans('settings.invoice.quantity'),
             'custom' => trans('settings.invoice.custom'),
         ];
 
@@ -60,17 +60,17 @@ class DocumentItemColumns extends Controller
             '90' => trans('settings.invoice.due_days', ['days' => 90]),
         ];
 
-        $item_name             = setting($this->getSettingKey($type, 'item_name'));
-        $item_name_input       = setting($this->getSettingKey($type, 'item_name_input'));
-        $price_name            = setting($this->getSettingKey($type, 'price_name'));
-        $price_name_input      = setting($this->getSettingKey($type, 'price_name_input'));
-        $quantity_name         = setting($this->getSettingKey($type, 'quantity_name'));
-        $quantity_name_input   = setting($this->getSettingKey($type, 'quantity_name_input'));
-        $hide_item_name        = setting($this->getSettingKey($type, 'hide_item_name'));
-        $hide_item_description = setting($this->getSettingKey($type, 'hide_item_description'));
-        $hide_quantity         = setting($this->getSettingKey($type, 'hide_quantity'));
-        $hide_price            = setting($this->getSettingKey($type, 'hide_price'));
-        $hide_amount           = setting($this->getSettingKey($type, 'hide_amount'));
+        $item_name             = setting($this->getDocumentSettingKey($type, 'item_name'));
+        $item_name_input       = setting($this->getDocumentSettingKey($type, 'item_name_input'));
+        $price_name            = setting($this->getDocumentSettingKey($type, 'price_name'));
+        $price_name_input      = setting($this->getDocumentSettingKey($type, 'price_name_input'));
+        $quantity_name         = setting($this->getDocumentSettingKey($type, 'quantity_name'));
+        $quantity_name_input   = setting($this->getDocumentSettingKey($type, 'quantity_name_input'));
+        $hide_item_name        = setting($this->getDocumentSettingKey($type, 'hide_item_name'));
+        $hide_item_description = setting($this->getDocumentSettingKey($type, 'hide_item_description'));
+        $hide_quantity         = setting($this->getDocumentSettingKey($type, 'hide_quantity'));
+        $hide_price            = setting($this->getDocumentSettingKey($type, 'hide_price'));
+        $hide_amount           = setting($this->getDocumentSettingKey($type, 'hide_amount'));
 
         $html = view('modals.documents.item_columns', compact(
             'type',
@@ -117,7 +117,7 @@ class DocumentItemColumns extends Controller
         }
 
         foreach ($fields as $key => $value) {
-            $real_key = $this->getSettingKey($type, $key);
+            $real_key = $this->getDocumentSettingKey($type, $key);
 
             // Don't process unwanted keys
             if (in_array($key, $this->skip_keys)) {

@@ -12,7 +12,9 @@ class Media extends BaseMedia
 {
     use Owners, SoftDeletes, Sources, Tenants;
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['company_id', 'created_from', 'created_by'];
+
+    protected $casts = [
+        'deleted_at'    => 'datetime',
+    ];
 }
