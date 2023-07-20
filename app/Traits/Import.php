@@ -16,6 +16,7 @@ use App\Jobs\Setting\CreateCurrency;
 use App\Jobs\Setting\CreateTax;
 use App\Models\Auth\User;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Document\Document;
@@ -144,6 +145,21 @@ trait Import
             } else {
                 $id = Document::bill()->number($row['invoice_bill_number'])->pluck('id')->first();
             }
+        }
+
+        return is_null($id) ? $id : (int) $id;
+    }
+
+    public function getParentId($row)
+    {
+        $id = isset($row['parent_id']) ? $row['parent_id'] : null;
+
+        if (empty($id) && isset($row['document_number']) && !empty($row['parent_number'])) {
+            $id = Document::number($row['parent_number'])->pluck('id')->first();
+        }
+
+        if (empty($id) && isset($row['number']) && !empty($row['parent_number'])) {
+            $id = Transaction::number($row['parent_number'])->pluck('id')->first();
         }
 
         return is_null($id) ? $id : (int) $id;

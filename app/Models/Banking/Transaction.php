@@ -165,6 +165,11 @@ class Transaction extends Model
         return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
     }
 
+    public function scopeNumber(Builder $query, string $number): Builder
+    {
+        return $query->where('number', '=', $number);
+    }
+
     public function scopeType(Builder $query, $types): Builder
     {
         if (empty($types)) {
