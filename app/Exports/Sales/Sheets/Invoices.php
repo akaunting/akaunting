@@ -26,6 +26,7 @@ class Invoices extends Export implements WithColumnFormatting
         $model->invoice_number = $model->document_number;
         $model->invoiced_at = $model->issued_at;
         $model->contact_country = $country;
+        $model->parent_number = Model::invoiceRecurring()->find($model->parent_id)?->document_number;
 
         return parent::map($model);
     }
@@ -53,6 +54,7 @@ class Invoices extends Export implements WithColumnFormatting
             'contact_city',
             'notes',
             'footer',
+            'parent_number',
         ];
     }
 

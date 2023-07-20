@@ -20,6 +20,7 @@ class Transactions extends Export implements WithColumnFormatting
         $model->contact_email = $model->contact->email;
         $model->category_name = $model->category->name;
         $model->invoice_bill_number = $model->document->document_number ?? 0;
+        $model->parent_number = Model::isRecurring()->find($model->parent_id)?->number;
 
         return parent::map($model);
     }
@@ -41,6 +42,7 @@ class Transactions extends Export implements WithColumnFormatting
             'payment_method',
             'reference',
             'reconciled',
+            'parent_number',
         ];
     }
 
