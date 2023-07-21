@@ -33,9 +33,25 @@ class DocumentTotal extends Model
         return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_TYPE);
     }
 
+    public function scopeInvoiceRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
+    }
+
     public function scopeBill(Builder $query)
     {
         return $query->where($this->qualifyColumn('type'), '=', Document::BILL_TYPE);
+    }
+
+    public function scopeBillRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::BILL_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
     }
 
     public function scopeCode($query, $code)

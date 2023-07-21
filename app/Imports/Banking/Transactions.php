@@ -24,6 +24,7 @@ class Transactions extends Import
         $row['category_id'] = $this->getCategoryId($row);
         $row['contact_id'] = $this->getContactId($row);
         $row['document_id'] = $this->getDocumentId($row);
+        $row['parent_id'] = $this->getParentId($row);
 
         return $row;
     }
