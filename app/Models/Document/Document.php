@@ -276,9 +276,11 @@ class Document extends Model
      */
     public function getAttachmentAttribute($value = null)
     {
-        if (!empty($value) && !$this->hasMedia('attachment')) {
+        $has_attachment = $this->hasMedia('attachment');
+
+        if (! empty($value) && ! $has_attachment) {
             return $value;
-        } elseif (!$this->hasMedia('attachment')) {
+        } elseif (! $has_attachment) {
             return false;
         }
 
