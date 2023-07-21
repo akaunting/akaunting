@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Setting\Category;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 trait Categories
@@ -34,7 +35,10 @@ trait Categories
 
     public function getTransferCategoryId(): mixed
     {
-        return Category::other()->pluck('id')->first();
+        // 1 hour set cache for same query
+        return Cache::remember('transferCategoryId', 60, function () {
+            return Category::other()->pluck('id')->first();
+        });
     }
 
     public function isTransferCategory(): bool
