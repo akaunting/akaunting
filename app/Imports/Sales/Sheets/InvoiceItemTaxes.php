@@ -28,10 +28,15 @@ class InvoiceItemTaxes extends Import
 
         $row = parent::map($row);
 
-        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
+        $document = Document::with('items')->invoice()->number($row['invoice_number'])->first();
+
+        $row['document_id'] = (int) $document->id;
 
         if (empty($row['document_item_id']) && !empty($row['item_name'])) {
-            $item_id = Item::name($row['item_name'])->pluck('id')->first();
+            $document_items_ids = $document->items->pluck('item_id')->toArray();
+
+            $item_id = Item::name($row['item_name'])->whereIn('id', $document_items_ids)->pluck('id')->first();
+
             $row['document_item_id'] = DocumentItem::invoice()->where('item_id', $item_id)->pluck('id')->first();
         }
 
