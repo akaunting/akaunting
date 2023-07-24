@@ -154,11 +154,15 @@ trait Import
     {
         $id = isset($row['parent_id']) ? $row['parent_id'] : null;
 
-        if (empty($id) && isset($row['document_number']) && !empty($row['parent_number'])) {
+        if (empty($row['parent_number'])) {
+            return null;
+        }
+
+        if (empty($id) && (!empty($row['document_number']) || !empty($row['invoice_number']) || !empty($row['bill_number']))) {
             $id = Document::number($row['parent_number'])->pluck('id')->first();
         }
 
-        if (empty($id) && isset($row['number']) && !empty($row['parent_number'])) {
+        if (empty($id) && isset($row['number'])) {
             $id = Transaction::number($row['parent_number'])->pluck('id')->first();
         }
 
