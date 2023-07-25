@@ -3,30 +3,48 @@
         {{ trans('import.title', ['type' => $title_type]) }}
     </x-slot>
 
+    <x-slot name="favorite"
+        title="{{ trans('import.title', ['type' => $title_type]) }}"
+        icon="import_export"
+        url="{{ route('import.create', ['group' => $group, 'type' => $type]) }}"
+    ></x-slot>
+
     <x-slot name="content">
         <div class="card">
             <x-form id="import" :route="$form_params['route']" :url="$form_params['url']">
-                <div class="card-body mt-8">
-                    <div class="border-t-4 border-orange-300 rounded-b-lg text-orange-700 px-4 py-3 shadow-md" role="alert">
-                        <div class="flex">
-                            <div>
-                                {!! trans('import.limitations', ['extensions' => strtoupper(config('excel.imports.extensions')),
-                                        'row_limit' => config('excel.imports.row_limit')
-                                    ])
-                                !!}
-                            </div>
-                        </div>
+                <div class="flex flex-col lg:flex-row">
+                    <div class="hidden lg:flex w-4/12 ltr:-ml-10 rtl:-mr-10 ltr:mr-10 rtl:ml-10">
+                        <img src="{{ asset('public/img/import.png') }}" alt="{{ trans('import.title', ['type' => $title_type]) }}">
                     </div>
 
-                    <div class="border-t-4 mt-8 border-blue-300 rounded-b-lg text-blue-700 px-4 py-3 shadow-md" role="alert">
-                        <div class="flex">
-                            <div>
-                                {!! trans('import.sample_file', ['download_link' => $sample_file]) !!}
+                    <!-- 
+                    <div class="hidden lg:flex w-4/12 mt-18 mr-14">
+                        <iframe width="560" height="244" src="https://www.youtube.com/embed/p98z142g2yY" frameborder="0"  title="{{ trans('import.title', ['type' => $title_type]) }}" class="rounded-lg"></iframe>
+                    </div>
+                     -->
+
+                    <div class="card-body mt-8 lg:w-8/12 w-full">
+                        <div class="w-full mt-8 bg-blue-100 rounded-lg text-blue-700 px-4 py-2" role="alert">
+                            <div class="flex">
+                                <span class="material-icons ltr:mr-3 rtl:ml-3">error_outline</span>
+
+                                <div class="font-semibold text-sm mt-1">
+                                    {!! trans('import.sample_file_and_document', [
+                                        'download_link' => $sample_file,
+                                        'document_link' => $document_link
+                                    ]) !!}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <x-form.group.file name="import" dropzone-class="form-file" singleWidthClasses :options="['acceptedFiles' => '.xls,.xlsx']" form-group-class="mt-8" />
+                        <x-form.group.import
+                            name="import"
+                            dropzone-class="form-file"
+                            singleWidthClasses
+                            :options="['acceptedFiles' => '.xls,.xlsx']"
+                            form-group-class="mt-8"
+                        />
+                    </div>
                 </div>
 
                 <div class="mt-8">
@@ -59,3 +77,4 @@
 
     <x-script folder="common" file="imports" />
 </x-layouts.admin>
+

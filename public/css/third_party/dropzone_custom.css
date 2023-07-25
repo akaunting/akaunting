@@ -20,43 +20,52 @@
   border-radius: .375rem;
 }
 
-.dz-message {
+.dz-message,
+.dz-preview-message {
   padding: 5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  border: 1px dashed #C7C9D9;
+  border: 2px dashed #C7C9D9;
   border-radius: .375rem;
+  font-weight: 500;
   text-align: center;
   color: #595959;
   transition: all .15s ease;
   order: -1;
   cursor: pointer;
+}
+
+.dz-message {
   z-index: 9;
 }
 
-.dz-message:hover {
-  border-color: #424242;
+.dz-message:hover,
+.dz-preview-message:hover {
+  border-color: #918b8b;
 }
 
-.dropzone-multiple .dz-message {
+.dropzone-multiple .dz-message,
+.dropzone-multiple .dz-preview-message {
   height: 5rem;
   padding: 0;
 }
 
-.dropzone-single .dz-message {
+.dropzone-single .dz-message,
+.dropzone-single .dz-preview-message {
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 1rem 0;
 }
 
-.dropzone-column .dz-message {
+.dropzone-column .dz-message,
+.dropzone-column .dz-preview-message {
   height: 100%;
   padding: 0;
 }
 
 .dropzone-single.dz-max-files-reached .dz-message {
-  background-color: rgba(0,0,0,.2);
+  /* background-color: rgba(0,0,0,.2); */
   color: #fff;
   opacity: 0;
 }
@@ -65,7 +74,8 @@
   opacity:1
 }
 
-.dz-message .dz-button {
+.dz-message .dz-button,
+.dz-preview-message .dz-button {
   background: hsla(0,0%,100%,0);
   border: none;
   color: #C7C9D9;
@@ -79,7 +89,7 @@
 }
 
 .dropzone-single.dz-max-files-reached .dz-message {
-  background-color: rgba(0,0,0,.9);
+  /* background-color: rgba(0,0,0,.9); */
   color: #fff;
   opacity: 0;
 }
@@ -99,4 +109,30 @@
 .form-file [data-dz-remove] {
   bottom: 7px;
   z-index: 99;
+}
+
+.dz-import-text {
+  color: #6B7280;
+  font-weight: 600;
+}
+
+.dz-import-upload {
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.dz-import-icon {
+  font-size: 38px;
+  outline: none;
+}
+
+.dz-import {
+  padding: 20px;
+  background: hsla(0,0%,100%,0);
+  border: none;
+  color: #C7C9D9;
+}
+
+.dz-import-width {
+  width: 120%;
 }

@@ -24,6 +24,7 @@ import AkauntingConnectTransactions from './../components/AkauntingConnectTransa
 import AkauntingSwitch from './../components/AkauntingSwitch';
 import AkauntingSlider from './../components/AkauntingSlider';
 import AkauntingColor from './../components/AkauntingColor';
+import AkauntingImport from './../components/AkauntingImport';
 import CardForm from './../components/CreditCard/CardForm';
 
 import NProgress from 'nprogress';
@@ -79,6 +80,7 @@ export default {
         AkauntingSwitch,
         AkauntingSlider,
         AkauntingColor,
+        AkauntingImport,
         CardForm,
         [Select.name]: Select,
         [Option.name]: Option,
