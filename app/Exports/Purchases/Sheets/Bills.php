@@ -26,7 +26,7 @@ class Bills extends Export implements WithColumnFormatting
         $model->bill_number = $model->document_number;
         $model->billed_at = $model->issued_at;
         $model->contact_country = $country;
-        $model->parent_number = Model::billRecurring()->find($model->parent_id)?->document_number ?? null;
+        $model->parent_number = Model::billRecurring()->find($model->parent_id)?->document_number;
 
         return parent::map($model);
     }
@@ -53,7 +53,7 @@ class Bills extends Export implements WithColumnFormatting
             'contact_zip_code',
             'contact_city',
             'notes',
-            'parent_number',
+            'parent_number'
         ];
     }
 
