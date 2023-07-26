@@ -373,7 +373,7 @@
 }
 
 .dropzone-single.dz-max-files-reached .dz-message {
-  /* background-color: rgba(0,0,0,.2); */
+  background-color: rgba(0,0,0,.2);
   color: #fff;
   opacity: 0;
 }
@@ -398,7 +398,7 @@
 }
 
 .dropzone-single.dz-max-files-reached .dz-message {
-  /* background-color: rgba(0,0,0,.9); */
+  background-color: rgba(0,0,0,.9);
   color: #fff;
   opacity: 0;
 }

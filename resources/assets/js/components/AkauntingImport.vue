@@ -16,7 +16,7 @@
                     <div class="dz-import-icon relative">
                         <span class="material-icons-outlined text-default text-7xl">file_copy</span>
 
-                        <button data-dz-remove="true" class="absolute z-10 right-18 top-0 hidden group-hover:flex bg-body">
+                        <button data-dz-remove="true" class="absolute z-10 right-18 top-0 hidden group-hover:flex bg-white">
                             <span class="material-icons-outlined text-gray-300 text-8xl">cancel</span>
                         </button>
                     </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="dz-default dz-message flex flex-col">
+        <div class="dz-default dz-message flex flex-col" style="background-color: white;">
             <div class="dz-import">
                 <div class="dz-import-icon">
                     <span class="material-icons-outlined text-7xl" :class="(files.length) ? 'text-default opacity-0' : ''">file_copy</span>
