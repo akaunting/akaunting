@@ -48,6 +48,8 @@ class Import extends Controller
             $form_params['url'] = $path . '/import';
         }
 
-        return view('common.import.create', compact('group', 'type', 'path', 'route', 'form_params', 'title_type', 'sample_file'));
+        $document_link = 'https://akaunting.com/hc/docs/import-export/';
+
+        return view('common.import.create', compact('group', 'type', 'path', 'route', 'form_params', 'title_type', 'sample_file', 'document_link'));
     }
 }
