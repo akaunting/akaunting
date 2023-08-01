@@ -14,13 +14,13 @@
                             {{ translations.finish.recommended_apps }}
                         </h1>
 
-                        <div v-for="(item, index) in modules" :key="index" class="sm:col-span-6 mb-3">
-                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4 bg-purple-50 rounded-md p-2">
+                        <div v-for="(item, index) in modules" :key="index" class="sm:col-span-6 mb-3 bg-default rounded-md">
+                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4 bg-purple-50 rounded-md p-2 sliding-app">
                                 <div class="w-1/4">
-                                    <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
-                                        :src="file.path_string"
-                                        :alt="item.name"
-                                        class="rounded-lg object-cover"
+                                <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
+                                    :src="file.path_string"
+                                    :alt="item.name"
+                                    class="rounded-lg object-cover"
                                     />
                                 </div>
 
@@ -42,9 +42,9 @@
                     </div>
                 </div>
 
-                <div class="absolute w-1/2 right-0 ltr:pl-10 rtl:pr-10 mt-3 hidden lg:flex lg:flex-col">
+                <div class="absolute w-1/2 ltr:right-0 rtl:left-0 ltr:pl-10 rtl:pr-10 mt-3 hidden lg:flex lg:flex-col">
                     <div class="flex">
-                        <img :src="image_src" class="absolute top-12 right-2 w-10/12 p-3 -mt-12" alt="Akaunting" />
+                        <img :src="image_src" class="absolute top-12 ltr:right-2 rtl:left-2 w-10/12 p-3 -mt-12" alt="Akaunting" />
                     </div>
 
                     <div class="flex">
@@ -150,6 +150,18 @@ export default {
 </script>
 
 <style scoped>
+    .sliding-app:hover {
+        animation: slidingAnimation 600ms ease-out forwards;
+    }   
+
+    @keyframes slidingAnimation {
+        0% { transform: translateX(0); }
+        40% { transform: translateX(36px); }
+        60% { transform: translateX(24px); }
+        80% { transform: translateX(30px); }
+        100% { transform: translateX(24px); }
+    }
+
     @media only screen and (max-width: 991px) {
         [modal-container] {
             height: 100% !important;
