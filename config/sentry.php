@@ -43,9 +43,6 @@ return [
         // Capture Livewire components as breadcrumbs
         'livewire' => env('SENTRY_BREADCRUMBS_LIVEWIRE_ENABLED', true),
 
-        // Capture storage access as breadcrumbs
-        'storage' => env('SENTRY_BREADCRUMBS_STORAGE_ENABLED', true),
-
         // Capture SQL queries as breadcrumbs
         'sql_queries' => env('SENTRY_BREADCRUMBS_SQL_QUERIES_ENABLED', true),
 
@@ -77,9 +74,6 @@ return [
 
         // Capture views rendered as spans
         'views' => env('SENTRY_TRACE_VIEWS_ENABLED', true),
-
-        // Capture storage access as spans
-        'storage' => env('SENTRY_TRACE_STORAGE_ENABLED', true),
 
         // Capture Livewire components as spans
         'livewire' => env('SENTRY_TRACE_LIVEWIRE_ENABLED', true),
