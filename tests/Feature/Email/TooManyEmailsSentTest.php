@@ -11,7 +11,7 @@ class TooManyEmailsSentTest extends FeatureTestCase
     {
         $this->loginAs();
 
-        config(['firewall.enabled' => true]);
+        config(['firewall.middleware.too_many_emails_sent.enabled' => true]);
 
         for ($i = 0; $i < 19; $i++) {
             event(new TooManyEmailsSent(user_id()));
@@ -31,7 +31,7 @@ class TooManyEmailsSentTest extends FeatureTestCase
     {
         $this->loginAs();
 
-        config(['firewall.enabled' => true]);
+        config(['firewall.middleware.too_many_emails_sent.enabled' => true]);
 
         for ($i = 0; $i < 20; $i++) {
             event(new TooManyEmailsSent(user_id()));
