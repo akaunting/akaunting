@@ -20,16 +20,16 @@
                                 <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
                                     :src="file.path_string"
                                     :alt="item.name"
-                                    class="rounded-lg object-cover"
+                                    class="rounded-lg object-cover ml-1 mt-0.5"
                                     />
                                 </div>
 
-                                <div class="w-3/4 ltr:pl-2 rtl:pr-2">
-                                    <span class="font-medium text-sm">
+                                <div class="w-3/4">
+                                    <h4 class="font-medium text-sm pb-1">
                                         {{ item.name }}
-                                    </span>
+                                    </h4>
 
-                                    <div class="text-black-300 text-sm mt-1 line-clamp-2 h-10" v-html="item.description"></div>
+                                    <div class="text-black-300 text-sm mt-1 line-clamp-2 h-10 ltr:pr-0 rtl:pr-2" v-html="item.description"></div>
                                 </div>
                             </a>
                         </div>
@@ -49,7 +49,7 @@
 
                     <div class="flex">
                         <base-button
-                            class="relative flex items-center justify-center text-base rounded-lg m-auto mt-96 hover:underline py-1.5 -right-20 font-semibold disabled:bg-gray-100 "
+                            class="relative rtl:right-20 flex items-center justify-center text-base rounded-lg m-auto mt-96 hover:underline py-1.5 -right-20 font-semibold disabled:bg-gray-100 "
                             :disabled="anchor_loading"
                             @click="finish()"
                             style="top: 5.9rem"
@@ -62,10 +62,10 @@
                         </base-button>
 
                         <base-button
-                            class="relative flex items-center justify-center text-base rounded-lg m-auto mt-96 bg-default hover:bg-default-hover text-white py-1.5 px-7 font-medium"
+                            class="relative ltr:-right-2 rtl:-left-2 flex items-center justify-center text-base rounded-lg m-auto mt-96 bg-default hover:bg-default-hover text-white py-1.5 px-7 font-medium"
                             :disabled="anchor_loading"
                             @click="finish()"
-                            style="top: 5.9rem; right: -0.6rem;"
+                            style="top: 5.9rem;"
                         >
                             <i v-if="anchor_loading" class="animate-submit_second delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-2.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit_second before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit_second before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
 
