@@ -11831,6 +11831,34 @@ button, input, optgroup, select, textarea{
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
 }
+@-webkit-keyframes hourglass{
+
+  0%{
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes hourglass{
+
+  0%{
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.animate-hourglass{
+  -webkit-animation: hourglass 1500ms infinite;
+          animation: hourglass 1500ms infinite;
+}
 @-webkit-keyframes marquee{
 
   0%{
@@ -12004,6 +12032,34 @@ button, input, optgroup, select, textarea{
 .animate-pulse{
   -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@-webkit-keyframes setting{
+
+  0%{
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes setting{
+
+  0%{
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.animate-setting{
+  -webkit-animation: setting 2000ms infinite;
+          animation: setting 2000ms infinite;
 }
 @-webkit-keyframes spin{
 
@@ -63531,6 +63587,10 @@ body{
   margin: 1px;
 }
 
+:is([dir="ltr"] .ltr\:-ml-10){
+  margin-left: -2.5rem;
+}
+
 :is([dir="ltr"] .ltr\:-ml-7){
   margin-left: -1.75rem;
 }
@@ -63555,6 +63615,10 @@ body{
   margin-right: 0.25rem;
 }
 
+:is([dir="ltr"] .ltr\:mr-10){
+  margin-right: 2.5rem;
+}
+
 :is([dir="ltr"] .ltr\:mr-2){
   margin-right: 0.5rem;
 }
@@ -63565,14 +63629,6 @@ body{
 
 :is([dir="ltr"] .ltr\:mr-4){
   margin-right: 1rem;
-}
-
-:is([dir="ltr"] .ltr\:-ml-10){
-  margin-left: -2.5rem;
-}
-
-:is([dir="ltr"] .ltr\:mr-10){
-  margin-right: 2.5rem;
 }
 
 :is([dir="ltr"] .ltr\:-rotate-90){
@@ -63865,10 +63921,6 @@ body{
 
 :is([dir="ltr"] .ltr\:pr-6){
   padding-right: 1.5rem;
-}
-
-:is([dir="ltr"] .ltr\:pr-9){
-  padding-right: 2.25rem;
 }
 
 :is([dir="ltr"] .ltr\:text-left){
@@ -64556,12 +64608,20 @@ body{
   margin: 1px;
 }
 
+:is([dir="rtl"] .rtl\:-mr-10){
+  margin-right: -2.5rem;
+}
+
 :is([dir="rtl"] .rtl\:-mr-7){
   margin-right: -1.75rem;
 }
 
 :is([dir="rtl"] .rtl\:ml-1){
   margin-left: 0.25rem;
+}
+
+:is([dir="rtl"] .rtl\:ml-10){
+  margin-left: 2.5rem;
 }
 
 :is([dir="rtl"] .rtl\:ml-2){
@@ -64590,14 +64650,6 @@ body{
 
 :is([dir="rtl"] .rtl\:mr-4){
   margin-right: 1rem;
-}
-
-:is([dir="rtl"] .rtl\:-mr-10){
-  margin-right: -2.5rem;
-}
-
-:is([dir="rtl"] .rtl\:ml-10){
-  margin-left: 2.5rem;
 }
 
 :is([dir="rtl"] .rtl\:-rotate-90){

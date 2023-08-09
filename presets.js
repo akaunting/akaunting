@@ -354,6 +354,16 @@ module.exports = {
                 marquee_long: {
                     '0%': { transform: 'translateX(0%)' },
                     '100%': { transform: 'translateX(-350%)' },
+                },
+
+                hourglass: {
+                    '0%': { transform: 'rotate(180deg)' },
+                    '100%': { transform: 'rotate(360deg)' },
+                },
+
+                setting: {
+                    '0%': {transform: 'rotate(0deg)' },
+                    '100%': { transform: 'rotate(360deg)'},
                 }
             },
 
@@ -365,7 +375,9 @@ module.exports = {
                 submit: 'submit 0.7s ease alternate infinite',
                 submit_second: 'submit_second 0.7s ease alternate infinite',
                 marquee: 'marquee 9s linear infinite',
-                marquee_long: 'marquee_long 14s linear infinite'
+                marquee_long: 'marquee_long 14s linear infinite',
+                hourglass: 'hourglass 1500ms infinite',
+                setting: 'setting 2000ms infinite'
             },
 
             transitionProperty: {
