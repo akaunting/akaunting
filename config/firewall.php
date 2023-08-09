@@ -436,6 +436,24 @@ return [
             ],
         ],
 
+        // Custom middleware
+        'too_many_emails_sent' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_TOO_MANY_EMAILS_SENT_ENABLED', env('FIREWALL_ENABLED', true)),
+
+            'methods' => ['post'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'auto_block' => [
+                'attempts' => env('FIREWALL_MIDDLEWARE_TOO_MANY_EMAILS_SENT_AUTO_BLOCK_ATTEMPTS', 20),
+                'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
     ],
 
 ];
