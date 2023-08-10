@@ -270,12 +270,12 @@ class Contact extends Model
             $location[] = $this->city;
         }
 
-        if ($this->zip_code) {
-            $location[] = $this->zip_code;
-        }
-
         if ($this->state) {
             $location[] = $this->state;
+        }
+
+        if ($this->zip_code) {
+            $location[] = $this->zip_code;
         }
 
         if ($this->country && array_key_exists($this->country, trans('countries'))) {
