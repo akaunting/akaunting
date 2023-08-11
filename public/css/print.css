@@ -805,7 +805,7 @@ html[dir='rtl'] .print-heading {
     vertical-align: top;
 }
 
-@media (max-width: 480px) {
+@media only screen and (min-width: 1024px) and (max-width: 1536px) {
     .col-60 {
         display: inline-block;
         width: 50%;
