@@ -30,7 +30,7 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Contact::customer()->with('invoices.histories', 'invoices.totals', 'invoices.transactions', 'media')->collect();
+        $customers = Contact::customer()->with('media', 'invoices.histories', 'invoices.totals', 'invoices.transactions', 'invoices.media')->collect();
 
         return $this->response('sales.customers.index', compact('customers'));
     }
