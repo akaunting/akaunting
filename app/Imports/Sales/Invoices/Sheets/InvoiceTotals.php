@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Sales\Sheets;
+namespace App\Imports\Sales\Invoices\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentTotal as Request;

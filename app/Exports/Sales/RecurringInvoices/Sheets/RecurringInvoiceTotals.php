@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Exports\Sales\Sheets;
+namespace App\Exports\Sales\RecurringInvoices\Sheets;
 
 use App\Abstracts\Export;
-use App\Models\Document\DocumentHistory as Model;
+use App\Models\Document\DocumentTotal as Model;
 
-class InvoiceHistories extends Export
+class RecurringInvoiceTotals extends Export
 {
     public function collection()
     {
-        return Model::with('document')->invoice()->collectForExport($this->ids, null, 'document_id');
+        return Model::with('document')->invoiceRecurring()->collectForExport($this->ids, null, 'document_id');
     }
 
     public function map($model): array
@@ -29,9 +29,10 @@ class InvoiceHistories extends Export
     {
         return [
             'invoice_number',
-            'status',
-            'notify',
-            'description',
+            'code',
+            'name',
+            'amount',
+            'sort_order',
         ];
     }
 }

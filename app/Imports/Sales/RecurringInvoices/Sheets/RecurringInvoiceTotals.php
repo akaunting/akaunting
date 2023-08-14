@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports\Sales\Sheets;
+namespace App\Imports\Sales\RecurringInvoices\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Document\DocumentHistory as Request;
+use App\Http\Requests\Document\DocumentTotal as Request;
 use App\Models\Document\Document;
-use App\Models\Document\DocumentHistory as Model;
+use App\Models\Document\DocumentTotal as Model;
 
-class InvoiceHistories extends Import
+class RecurringInvoiceTotals extends Import
 {
     public $request_class = Request::class;
 
@@ -26,11 +26,12 @@ class InvoiceHistories extends Import
 
         $row = parent::map($row);
 
-        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::where('type', '=', Document::INVOICE_RECURRING_TYPE)
+            ->number($row['invoice_number'])
+            ->pluck('id')
+            ->first();
 
-        $row['notify'] = (int) $row['notify'];
-
-        $row['type'] = Document::INVOICE_TYPE;
+        $row['type'] = Document::INVOICE_RECURRING_TYPE;
 
         return $row;
     }

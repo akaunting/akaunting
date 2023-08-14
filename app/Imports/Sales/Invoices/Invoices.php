@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Imports\Sales;
+namespace App\Imports\Sales\Invoices;
 
 use App\Abstracts\ImportMultipleSheets;
-use App\Imports\Sales\Sheets\Invoices as Base;
-use App\Imports\Sales\Sheets\InvoiceItems;
-use App\Imports\Sales\Sheets\InvoiceItemTaxes;
-use App\Imports\Sales\Sheets\InvoiceHistories;
-use App\Imports\Sales\Sheets\InvoiceTotals;
-use App\Imports\Sales\Sheets\InvoiceTransactions;
+use App\Imports\Sales\Invoices\Sheets\Invoices as Base;
+use App\Imports\Sales\Invoices\Sheets\InvoiceItems;
+use App\Imports\Sales\Invoices\Sheets\InvoiceItemTaxes;
+use App\Imports\Sales\Invoices\Sheets\InvoiceHistories;
+use App\Imports\Sales\Invoices\Sheets\InvoiceTotals;
+use App\Imports\Sales\Invoices\Sheets\InvoiceTransactions;
 
 class Invoices extends ImportMultipleSheets
 {

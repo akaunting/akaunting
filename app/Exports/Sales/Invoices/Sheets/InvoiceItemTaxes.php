@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports\Sales\Sheets;
+namespace App\Exports\Sales\Invoices\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentItemTax as Model;

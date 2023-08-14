@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Exports\Sales;
+namespace App\Exports\Sales\Invoices;
 
-use App\Exports\Sales\Sheets\Invoices as Base;
-use App\Exports\Sales\Sheets\InvoiceItems;
-use App\Exports\Sales\Sheets\InvoiceItemTaxes;
-use App\Exports\Sales\Sheets\InvoiceHistories;
-use App\Exports\Sales\Sheets\InvoiceTotals;
-use App\Exports\Sales\Sheets\InvoiceTransactions;
+use App\Exports\Sales\Invoices\Sheets\Invoices as Base;
+use App\Exports\Sales\Invoices\Sheets\InvoiceItems;
+use App\Exports\Sales\Invoices\Sheets\InvoiceItemTaxes;
+use App\Exports\Sales\Invoices\Sheets\InvoiceHistories;
+use App\Exports\Sales\Invoices\Sheets\InvoiceTotals;
+use App\Exports\Sales\Invoices\Sheets\InvoiceTransactions;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
