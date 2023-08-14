@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Purchases;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Purchases\RecurringBills\RecurringBills as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
+use App\Imports\Purchases\RecurringBills\RecurringBills as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
@@ -115,6 +118,30 @@ class RecurringBills extends Controller
     }
 
     /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.recurring_bills', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('recurring-bills.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['purchases', 'recurring-bills']);
+
+            flash($response['message'])->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Document $recurring_bill
@@ -153,6 +180,16 @@ class RecurringBills extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.recurring_bills', 2));
     }
 
     /**

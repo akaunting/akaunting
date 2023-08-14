@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports\Purchases\Sheets;
+namespace App\Imports\Purchases\Bills\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Document\DocumentHistory as Request;
+use App\Http\Requests\Document\DocumentItem as Request;
 use App\Models\Document\Document;
-use App\Models\Document\DocumentHistory as Model;
+use App\Models\Document\DocumentItem as Model;
 
-class BillHistories extends Import
+class BillItems extends Import
 {
     public $request_class = Request::class;
 
@@ -28,8 +28,16 @@ class BillHistories extends Import
 
         $row['document_id'] = (int) Document::bill()->number($row['bill_number'])->pluck('id')->first();
 
-        $row['notify'] = (int) $row['notify'];
+        if (empty($row['item_id']) && !empty($row['item_name'])) {
+            $row['item_id'] = $this->getItemIdFromName($row);
 
+            $row['name'] = $row['item_name'];
+        }
+
+        $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
+
+        $row['tax'] = (double) $row['tax'];
+        $row['tax_id'] = 0;
         $row['type'] = Document::BILL_TYPE;
 
         return $row;

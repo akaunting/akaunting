@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Exports\Purchases\Sheets;
+namespace App\Exports\Purchases\RecurringBills\Sheets;
 
 use App\Abstracts\Export;
-use App\Models\Document\DocumentTotal as Model;
+use App\Models\Document\DocumentItemTax as Model;
 
-class BillTotals extends Export
+class RecurringBillItemTaxes extends Export
 {
     public function collection()
     {
-        return Model::with('document')->bill()->collectForExport($this->ids, null, 'document_id');
+        return Model::with('document', 'item', 'tax')->billRecurring()->collectForExport($this->ids, null, 'document_id');
     }
 
     public function map($model): array
@@ -21,6 +21,8 @@ class BillTotals extends Export
         }
 
         $model->bill_number = $document->document_number;
+        $model->item_name = $model->item->name;
+        $model->tax_rate = $model->tax->rate;
 
         return parent::map($model);
     }
@@ -29,10 +31,9 @@ class BillTotals extends Export
     {
         return [
             'bill_number',
-            'code',
-            'name',
+            'item_name',
+            'tax_rate',
             'amount',
-            'sort_order',
         ];
     }
 }

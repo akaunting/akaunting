@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Imports\Purchases;
+namespace App\Imports\Purchases\Bills;
 
 use App\Abstracts\ImportMultipleSheets;
-use App\Imports\Purchases\Sheets\Bills as Base;
-use App\Imports\Purchases\Sheets\BillItems;
-use App\Imports\Purchases\Sheets\BillItemTaxes;
-use App\Imports\Purchases\Sheets\BillHistories;
-use App\Imports\Purchases\Sheets\BillTotals;
-use App\Imports\Purchases\Sheets\BillTransactions;
+use App\Imports\Purchases\Bills\Sheets\Bills as Base;
+use App\Imports\Purchases\Bills\Sheets\BillItems;
+use App\Imports\Purchases\Bills\Sheets\BillItemTaxes;
+use App\Imports\Purchases\Bills\Sheets\BillHistories;
+use App\Imports\Purchases\Bills\Sheets\BillTotals;
+use App\Imports\Purchases\Bills\Sheets\BillTransactions;
 
 class Bills extends ImportMultipleSheets
 {

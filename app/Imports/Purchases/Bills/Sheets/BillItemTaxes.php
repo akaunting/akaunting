@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Purchases\Sheets;
+namespace App\Imports\Purchases\Bills\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentItemTax as Request;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Exports\Purchases;
+namespace App\Exports\Purchases\Bills;
 
-use App\Exports\Purchases\Sheets\Bills as Base;
-use App\Exports\Purchases\Sheets\BillItems;
-use App\Exports\Purchases\Sheets\BillItemTaxes;
-use App\Exports\Purchases\Sheets\BillHistories;
-use App\Exports\Purchases\Sheets\BillTotals;
-use App\Exports\Purchases\Sheets\BillTransactions;
+use App\Exports\Purchases\Bills\Sheets\Bills as Base;
+use App\Exports\Purchases\Bills\Sheets\BillItems;
+use App\Exports\Purchases\Bills\Sheets\BillItemTaxes;
+use App\Exports\Purchases\Bills\Sheets\BillHistories;
+use App\Exports\Purchases\Bills\Sheets\BillTotals;
+use App\Exports\Purchases\Bills\Sheets\BillTransactions;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 

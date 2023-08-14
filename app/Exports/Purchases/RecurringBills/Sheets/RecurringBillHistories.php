@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Exports\Purchases\Sheets;
+namespace App\Exports\Purchases\RecurringBills\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentHistory as Model;
 
-class BillHistories extends Export
+class RecurringBillHistories extends Export
 {
     public function collection()
     {
-        return Model::with('document')->bill()->collectForExport($this->ids, null, 'document_id');
+        return Model::with('document')->billRecurring()->collectForExport($this->ids, null, 'document_id');
     }
 
     public function map($model): array

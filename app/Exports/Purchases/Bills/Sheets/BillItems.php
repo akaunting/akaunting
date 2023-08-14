@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports\Purchases\Sheets;
+namespace App\Exports\Purchases\Bills\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentItem as Model;
