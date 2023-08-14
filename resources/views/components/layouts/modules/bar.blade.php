@@ -44,7 +44,7 @@
                                                     {!! $item->name !!}
                                                 </h6>
 
-                                                <div class="line-clamp-2 h-12 overflow-hidden">
+                                                <div class="h-12 overflow-hidden">
                                                     <p class="font-thin text-xs text-left">
                                                         {!! $item->description !!}
                                                     </p>
