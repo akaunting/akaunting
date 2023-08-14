@@ -91,6 +91,10 @@
                     <x-table.tbody>
                         @foreach($transfers as $item)
                             @php
+                                if (empty($item->expense_transaction->amount)) {
+                                    continue;
+                                }
+
                                 $item->name = trans('transfers.messages.delete', [
                                     'from' => $item->expense_transaction->account->name,
                                     'to' => $item->income_transaction->account->name,
