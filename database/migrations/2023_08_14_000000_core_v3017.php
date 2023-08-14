@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->string('title')->nullable()->default('');
-            $table->string('subheading')->nullable()->default('');
+            $table->string('title')->nullable()->after('contact_country');
+            $table->string('subheading')->nullable()->after('title');
         });
     }
 

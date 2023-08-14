@@ -22,28 +22,6 @@
     <div class="sm:col-span-1"></div>
 
     <div class="sm:col-span-4 grid sm:grid-cols-4 gap-x-8 gap-y-6">
-        @stack('title_start')
-
-        @if (! $hideDocumentTitle)
-            <x-form.group.text
-                name="title"
-                label="{{ trans('settings.invoice.title') }}"
-                value="{{ $title }}"
-                not-required
-                form-group-class="sm:col-span-2" />
-        @endif
-
-        @stack('subheading_start')
-
-        @if (! $hideDocumentSubheading)
-            <x-form.group.text
-                name="subheading"
-                label="{{ trans('settings.invoice.subheading') }}"
-                value="{{ $subheading }}"
-                not-required
-                form-group-class="sm:col-span-2" />
-        @endif
-
         @stack('issue_start')
 
         @if (! $hideIssuedAt)

@@ -7,6 +7,30 @@
     </x-slot>
 
     <x-slot name="body">
+        <div class="sm:col-span-2 grid gap-x-8 gap-y-6">
+            @stack('title_start')
+
+            @if (! $hideDocumentTitle)
+                <x-form.group.text
+                    name="title"
+                    label="{{ trans('settings.invoice.title') }}"
+                    value="{{ $title }}"
+                    not-required
+                 />
+            @endif
+
+            @stack('subheading_start')
+
+            @if (! $hideDocumentSubheading)
+                <x-form.group.text
+                    name="subheading"
+                    label="{{ trans('settings.invoice.subheading') }}"
+                    value="{{ $subheading }}"
+                    not-required
+                 />
+            @endif
+        </div>
+
         <div class="sm:col-span-2">
             @if (! $hideLogo)
                 <x-form.input.hidden name="company_logo" data-field="setting" />
