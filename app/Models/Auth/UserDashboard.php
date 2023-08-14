@@ -33,4 +33,9 @@ class UserDashboard extends Model
     {
         return $this->belongsTo('App\Models\Common\Dashboard');
     }
+
+    public function dashboards()
+    {
+        return $this->belongsToMany('App\Models\Common\Dashboard', 'App\Models\Auth\UserDashboard');
+    }
 }
