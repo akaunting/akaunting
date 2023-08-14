@@ -28,10 +28,10 @@
             @if (! $hideMarkSent)
                 @can($permissionUpdate)
                     @if ($document->status == 'draft')
-                        <x-link 
-                        x-data="{ clicked: false }" x-on:click="clicked = true" x-bind:class="{ 'pointer-events-none cursor-default': clicked }" x-bind:disabled="clicked"
-                        id="show-slider-actions-mark-sent-{{ $document->type }}" href="{{ route($markSentRoute, $document->id) }}" @click="e => e.target.classList.add('disabled')">
-                            {{ trans($textMarkSent) }}
+                        <x-link id="show-slider-actions-mark-sent-{{ $document->type }}" href="{{ route($markSentRoute, $document->id) }}" @click="e => e.target.classList.add('disabled')">
+                            <x-link.loading>
+                                {{ trans($textMarkSent) }}
+                            </x-link.loading>
                         </x-link>
                     @else
                         <x-button disabled="disabled">

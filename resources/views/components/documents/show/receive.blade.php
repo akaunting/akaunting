@@ -15,7 +15,9 @@
                 @can($permissionUpdate)
                     @if ($document->status == 'draft')
                         <x-link href="{{ route($markReceivedRoute, $document->id) }}" id="show-slider-actions-mark-received-{{ $document->type }}" kind="secondary" @click="e => e.target.classList.add('disabled')">
-                            {{ trans($textMarkReceived) }}
+                            <x-link.loading>
+                                {{ trans($textMarkReceived) }}
+                            </x-link.loading>
                         </x-link>
                     @else
                         <x-button kind="secondary" disabled="disabled">
