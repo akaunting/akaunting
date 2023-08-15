@@ -656,12 +656,14 @@ export default {
 
                 for (const [key, value] of Object.entries(this.full_options)) {
                     if (selected == value.key) {
-                        this.sorted_options.push({
-                            index: value.index,
-                            key: value.key,
-                            value: value.value,
-                            level: value.level
-                        });
+                        if(! this.sorted_options.find((option) => option.key == selected)) {
+                            this.sorted_options.push({
+                                index: value.index,
+                                key: value.key,
+                                value: value.value,
+                                level: value.level
+                            });
+                        }
                     }
                 }
             }
