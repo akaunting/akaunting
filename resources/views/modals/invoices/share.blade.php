@@ -10,7 +10,7 @@
                 value="{{ $signedUrl }}"
                 ref="clone"
                 @click="onCopyLink()"
-                style="appearance: none; background-color: whitesmoke; border: none; font-size: 16px;"
+                style="appearance: none; background-color: whitesmoke; border: none; font-size: 16px; cursor: copy;"
             />
 
             <div data-copied class="hidden h-10 items-center justify-center">
