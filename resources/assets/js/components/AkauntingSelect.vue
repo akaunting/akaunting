@@ -654,8 +654,12 @@ export default {
 
                 this.setSortedOptions();
 
+                let current_sorted_option = false;
+
                 for (const [key, value] of Object.entries(this.full_options)) {
-                    if (selected == value.key) {
+                    current_sorted_option = Array.isArray(this.sorted_options) && this.sorted_options.find((option) => option.key == selected);
+
+                    if (selected == value.key && ! current_sorted_option) {
                         this.sorted_options.push({
                             index: value.index,
                             key: value.key,
