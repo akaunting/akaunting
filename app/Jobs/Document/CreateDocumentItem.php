@@ -68,6 +68,12 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
             // New variables by tax type & tax sorting
             foreach ((array) $this->request['tax_ids'] as $tax_id) {
                 $tax = Tax::find($tax_id);
+
+                // If tax not found, skip
+                if (! $tax) {
+                    continue;
+                }
+
                 ${$tax->type . 's'}[] = $tax;
             }
 
