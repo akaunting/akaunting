@@ -64,7 +64,7 @@ class Items extends Component
     protected function getModel($model)
     {
         if (! empty($model)) {
-            if (! empty($model->data)) {
+            if (isset($model->data)) {
                 return $model->data;
             }
 
