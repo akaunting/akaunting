@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Sales;
 
-use App\Exports\Sales\Invoices as Export;
+use App\Exports\Sales\Invoices\Invoices as Export;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
