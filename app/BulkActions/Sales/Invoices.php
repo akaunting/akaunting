@@ -7,7 +7,7 @@ use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentMarkedSent;
 use App\Events\Document\PaymentReceived;
-use App\Exports\Sales\Invoices as Export;
+use App\Exports\Sales\Invoices\Invoices as Export;
 use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
 

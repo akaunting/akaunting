@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Purchases;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Purchases\Bills as Export;
+use App\Exports\Purchases\Bills\Bills as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
-use App\Imports\Purchases\Bills as Import;
+use App\Imports\Purchases\Bills\Bills as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;

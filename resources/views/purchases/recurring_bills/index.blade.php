@@ -14,7 +14,7 @@
     </x-slot>
 
     <x-slot name="moreButtons">
-        <x-documents.index.more-buttons type="bill-recurring" hide-export hide-cancelled />
+        <x-documents.index.more-buttons type="bill-recurring" hide-cancelled />
     </x-slot>
 
     <x-slot name="content">

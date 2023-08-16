@@ -80,6 +80,8 @@ Route::group(['prefix' => 'sales'], function () {
 
     Route::get('recurring-invoices/{recurring_invoice}/duplicate', 'Sales\RecurringInvoices@duplicate')->name('recurring-invoices.duplicate');
     Route::get('recurring-invoices/{recurring_invoice}/end', 'Sales\RecurringInvoices@end')->name('recurring-invoices.end');
+    Route::post('recurring-invoices/import', 'Sales\RecurringInvoices@import')->middleware('import')->name('recurring-invoices.import');
+    Route::get('recurring-invoices/export', 'Sales\RecurringInvoices@export')->name('recurring-invoices.export');
     Route::resource('recurring-invoices', 'Sales\RecurringInvoices', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('customers/{customer}/create-invoice', 'Sales\Customers@createInvoice')->name('customers.create-invoice');
@@ -104,6 +106,8 @@ Route::group(['prefix' => 'purchases'], function () {
 
     Route::get('recurring-bills/{recurring_bill}/duplicate', 'Purchases\RecurringBills@duplicate')->name('recurring-bills.duplicate');
     Route::get('recurring-bills/{recurring_bill}/end', 'Purchases\RecurringBills@end')->name('recurring-bills.end');
+    Route::post('recurring-bills/import', 'Purchases\RecurringBills@import')->middleware('import')->name('recurring-bills.import');
+    Route::get('recurring-bills/export', 'Purchases\RecurringBills@export')->name('recurring-bills.export');
     Route::resource('recurring-bills', 'Purchases\RecurringBills', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('vendors/{vendor}/create-bill', 'Purchases\Vendors@createBill')->name('vendors.create-bill');
@@ -142,6 +146,8 @@ Route::group(['prefix' => 'banking'], function () {
 
     Route::get('recurring-transactions/{recurring_transaction}/duplicate', 'Banking\RecurringTransactions@duplicate')->name('recurring-transactions.duplicate');
     Route::get('recurring-transactions/{recurring_transaction}/end', 'Banking\RecurringTransactions@end')->name('recurring-transactions.end');
+    Route::post('recurring-transactions/import', 'Banking\RecurringTransactions@import')->middleware('import')->name('recurring-transactions.import');
+    Route::get('recurring-transactions/export', 'Banking\RecurringTransactions@export')->name('recurring-transactions.export');
     Route::resource('recurring-transactions', 'Banking\RecurringTransactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
     Route::get('transfers/{transfer}/print', 'Banking\Transfers@printTransfer')->name('transfers.print');
