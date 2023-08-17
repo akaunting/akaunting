@@ -327,7 +327,7 @@
     @endif
 
     <div class="row mt-4 clearfix">
-        <div class="col-60">
+        <div class="col-60 float-left">
             <div class="text p-index-right break-words">
                 @stack('notes_input_start')
                     @if ($hideNote)

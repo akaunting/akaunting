@@ -297,7 +297,7 @@
     @endif
 
     <div class="row mt-7 clearfix">
-        <div class="col-60">
+        <div class="col-60 float-left">
             <div class="text p-index-right p-modern break-words">
                 @stack('notes_input_start')
                     @if ($document->notes)
