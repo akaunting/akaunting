@@ -300,7 +300,7 @@
     @endif
 
     <div class="row mt-9 clearfix">
-        <div class="col-60">
+        <div class="col-60 float-left">
             <div class="text p-index-left break-words">
                 @stack('notes_input_start')
                     @if ($document->notes)
