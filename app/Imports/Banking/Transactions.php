@@ -11,10 +11,20 @@ class Transactions extends Import
 {
     use TraitsTransactions;
 
+    public $model = Model::class;
+
     public $request_class = Request::class;
+
+    public $columns = [
+        'number',
+    ];
 
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+
         return new Model($row);
     }
 
@@ -29,8 +39,15 @@ class Transactions extends Import
         $row['category_id'] = $this->getCategoryId($row, $real_type);
         $row['contact_id'] = $this->getContactId($row, $real_type);
         $row['document_id'] = $this->getDocumentId($row);
-        $row['parent_id'] = $this->getParentId($row);
+        $row['parent_id'] = $this->getParentId($row) ?? 0;
 
         return $row;
+    }
+
+    public function prepareRules($rules): array
+    {
+        $rules['number'] = 'required|string';
+
+        return $rules;
     }
 }
