@@ -99,3 +99,4 @@ ltr:float-right
 ltr:float-left
 rtl:float-right
 rtl:float-left
+rtl:rotate-180

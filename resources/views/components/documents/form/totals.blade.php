@@ -127,7 +127,7 @@
 
                                 <x-form.input.hidden name="discount" v-model="form.discount" />
 
-                                <span v-if="delete_discount" @click="onRemoveDiscountArea()" class="material-icons-outlined absolute w-6 h-7 flex justify-center -right-10 top-2 text-lg text-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-500">delete</span>
+                                <span v-if="delete_discount" @click="onRemoveDiscountArea()" class="material-icons-outlined absolute w-6 h-7 flex justify-center ltr:-right-10 rtl:-left-10 top-2 text-lg text-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-500">delete</span>
                             </td>
 
                             <td class="border-t-0 py-0" style="max-width: 50px"></td>
