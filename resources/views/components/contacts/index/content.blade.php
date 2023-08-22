@@ -138,9 +138,9 @@
                             <x-slot name="first" class="flex items-center">
                                 @if ($showLogo)
                                     @if (is_object($item->logo))
-                                        <img src="{{ Storage::url($item->logo->id) }}" class="absolute w-6 h-6 bottom-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                        <img src="{{ Storage::url($item->logo->id) }}" class="absolute w-6 h-6 bottom-6 rounded-full  ltr:mr-3 rtl:ml-3 hidden lg:block" alt="{{ $item->name }}" title="{{ $item->name }}">
                                     @else
-                                        <img src="{{ asset('public/img/user.svg') }}" class="absolute w-6 h-6 bottom-6 rounded-full mr-2 hidden lg:block" alt="{{ $item->name }}"/>
+                                        <img src="{{ asset('public/img/user.svg') }}" class="absolute w-6 h-6 bottom-6 rounded-full  ltr:mr-3 rtl:ml-3 hidden lg:block" alt="{{ $item->name }}"/>
                                     @endif
                                 @endif
 
