@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\AccountUpdating;
+use App\Events\Banking\AccountUpdated;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 
@@ -11,6 +13,8 @@ class UpdateAccount extends Job implements ShouldUpdate
     public function handle(): Account
     {
         $this->authorize();
+
+        event(new AccountUpdating($this->model, $this->request));
 
         \DB::transaction(function () {
             $this->model->update($this->request->all());
@@ -21,6 +25,8 @@ class UpdateAccount extends Job implements ShouldUpdate
                 setting()->save();
             }
         });
+
+        event(new AccountUpdated($this->model, $this->request));
 
         return $this->model;
     }
