@@ -593,7 +593,7 @@ class Transaction extends Model
                         $actions[] = [
                             'type' => 'delete',
                             'icon' => 'delete',
-                            'text' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
+                            'title' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
                             'route' => $prefix. '.destroy',
                             'permission' => 'delete-banking-transactions',
                             'attributes' => [
