@@ -22,7 +22,7 @@
 
                         <td class="align-top" style="width:24px; height:100px; color: #8898aa;">
                             <div class="handle mt-2 hidden lg:block cursor-move">
-                                <span class="w-6 material-icons">list</span>
+                                <span class="w-6 material-icons mt-0.5">list</span>
                             </div>
                         </td>
 
@@ -45,7 +45,7 @@
                                         <input
                                             type="text"
                                             :ref="'items-' + index + '-name'"
-                                            class="w-full text-sm px-3 py-2.5 mt-0 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple mt-0"
+                                            class="w-full text-sm px-3 py-2.5 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple mt-0"
                                             :name="'items.' + index + '.name'"
                                             autocomplete="off"
                                             required="required"
