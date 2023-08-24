@@ -7,6 +7,7 @@ use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
 use App\Models\Document\Document;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -161,7 +162,7 @@ abstract class PaymentController extends BaseController
     public function getLogger()
     {
         $log = new Logger($this->alias);
-        $log->pushHandler(new StreamHandler(storage_path('logs/' . $this->alias . '.log')), Logger::INFO);
+        $log->pushHandler(new StreamHandler(Storage::path('logs/' . $this->alias . '.log')), Logger::INFO);
 
         return $log;
     }

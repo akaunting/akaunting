@@ -6,6 +6,7 @@ use App\Events\Banking\TransactionPrinting;
 use App\Models\Banking\Transaction;
 use App\Interfaces\Utility\TransactionNumber;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 trait Transactions
 {
@@ -161,7 +162,7 @@ trait Transactions
 
         $file_name = $this->getTransactionFileName($transaction);
 
-        $pdf_path = storage_path('app/temp/' . $file_name);
+        $pdf_path = Storage::path('app/temp/' . $file_name);
 
         // Save the PDF file into temp folder
         $pdf->save($pdf_path);

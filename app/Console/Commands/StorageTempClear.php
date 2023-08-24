@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 
 class StorageTempClear extends Command
 {
@@ -31,7 +32,7 @@ class StorageTempClear extends Command
     {
         $filesystem = app(Filesystem::class);
 
-        $path = storage_path('app/temp');
+        $path = Storage::path('app/temp');
 
         foreach ($filesystem->glob("{$path}/*") as $file) {
             $filesystem->delete($file);
