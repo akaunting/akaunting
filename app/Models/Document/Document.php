@@ -540,7 +540,12 @@ class Document extends Model
             ];
         } catch (\Exception $e) {}
 
-        if ($this->status != 'paid' && (empty($this->transactions->count()) || (! empty($this->transactions->count()) && $this->paid != $this->amount))) {
+        if (
+            $this->status != 'paid'
+            && ! str_contains($this->type, 'recurring')
+            && (empty($this->transactions->count())
+            || (! empty($this->transactions->count()) && $this->paid != $this->amount))
+        ) {
             try {
                 if ($this->totals->count()) {
                     $actions[] = [

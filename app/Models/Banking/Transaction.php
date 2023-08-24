@@ -502,7 +502,12 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if ($this->is_splittable && empty($this->document_id) && empty($this->recurring) && $this->isNotTransferTransaction()) {
+            if (
+                $this->is_splittable
+                && empty($this->document_id)
+                && empty($this->recurring)
+                && $this->isNotTransferTransaction()
+            ) {
                 $connect = [
                     'type' => 'button',
                     'title' => trans('general.connect'),
