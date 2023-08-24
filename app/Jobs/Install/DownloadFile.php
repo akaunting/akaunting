@@ -6,7 +6,6 @@ use App\Abstracts\Job;
 use App\Traits\SiteApi;
 use App\Utilities\Info;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class DownloadFile extends Job
 {
@@ -48,7 +47,7 @@ class DownloadFile extends Job
         }
 
         $path = 'temp-' . md5(mt_rand());
-        $temp_path = Storage::path('app/temp/' . $path);
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file_path = $temp_path . '/upload.zip';
 

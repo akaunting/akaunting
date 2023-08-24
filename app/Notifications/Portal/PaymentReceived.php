@@ -7,9 +7,9 @@ use App\Models\Banking\Transaction;
 use App\Models\Setting\EmailTemplate;
 use App\Models\Document\Document;
 use App\Traits\Documents;
+use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 
 class PaymentReceived extends Notification
 {
@@ -67,9 +67,12 @@ class PaymentReceived extends Notification
 
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeDocumentPdfAndGetPath($this->invoice), [
-                'mime' => 'application/pdf',
-            ]);
+            $func = is_local_storage() ? 'fromPath' : 'fromStorage';
+
+            $path = $this->storeDocumentPdfAndGetPath($this->invoice);
+            $file = Attachment::$func($path)->withMime('application/pdf');
+
+            $message->attach($file);
         }
 
         return $message;

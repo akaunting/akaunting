@@ -6,9 +6,9 @@ use App\Abstracts\Notification;
 use App\Models\Setting\EmailTemplate;
 use App\Models\Document\Document;
 use App\Traits\Documents;
+use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 
 class Invoice extends Notification
 {
@@ -69,21 +69,27 @@ class Invoice extends Notification
 
         $message = $this->initMailMessage();
 
+        $func = is_local_storage() ? 'fromPath' : 'fromStorage';
+
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeDocumentPdfAndGetPath($this->invoice), [
-                'mime' => 'application/pdf',
-            ]);
+            $path = $this->storeDocumentPdfAndGetPath($this->invoice);
+            $file = Attachment::$func($path)->withMime('application/pdf');
+
+            $message->attach($file);
         }
 
         // Attach selected attachments
         if (! empty($this->invoice->attachment)) {
             foreach ($this->invoice->attachment as $attachment) {
-                if (in_array($attachment->id, $this->attachments)) {
-                    $message->attach($attachment->getAbsolutePath(), [
-                        'mime' => $attachment->mime_type,
-                    ]);
+                if (! in_array($attachment->id, $this->attachments)) {
+                    continue;
                 }
+
+                $path = is_local_storage() ? $attachment->getAbsolutePath() : $attachment->getDiskPath();
+                $file = Attachment::$func($path)->withMime($attachment->mime_type);
+
+                $message->attach($file);
             }
         }
 

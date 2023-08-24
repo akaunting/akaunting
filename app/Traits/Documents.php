@@ -13,7 +13,6 @@ use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 trait Documents
 {
@@ -188,7 +187,7 @@ trait Documents
 
         $file_name = $this->getDocumentFileName($document);
 
-        $pdf_path = Storage::path('app/temp/' . $file_name);
+        $pdf_path = get_storage_path('app/temp/' . $file_name);
 
         // Save the PDF file into temp folder
         $pdf->save($pdf_path);

@@ -5,7 +5,6 @@ namespace App\Jobs\Install;
 use App\Abstracts\Job;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class CopyFiles extends Job
 {
@@ -36,7 +35,7 @@ class CopyFiles extends Job
             throw new \Exception(trans('modules.errors.file_copy', ['module' => $this->alias]));
         }
 
-        $source = Storage::path('app/temp/' . $this->path);
+        $source = storage_path('app/temp/' . $this->path);
 
         $destination = $this->getDestination($source);
 

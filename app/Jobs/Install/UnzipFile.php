@@ -4,7 +4,6 @@ namespace App\Jobs\Install;
 
 use App\Abstracts\Job;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 class UnzipFile extends Job
@@ -36,7 +35,7 @@ class UnzipFile extends Job
             throw new \Exception(trans('modules.errors.unzip', ['module' => $this->alias]));
         }
 
-        $temp_path = Storage::path('app/temp/' . $this->path);
+        $temp_path = storage_path('app/temp/' . $this->path);
 
         $file = $temp_path . '/upload.zip';
 

@@ -6,6 +6,7 @@ use App\Traits\Sources;
 use App\Traits\Modules;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
+use Illuminate\Support\Facades\Storage;
 
 if (! function_exists('user')) {
     /**
@@ -246,5 +247,39 @@ if (! function_exists('env_is_testing')) {
     function env_is_testing(): bool
     {
         return config('app.env') === 'testing';
+    }
+}
+
+if (! function_exists('is_local_storage')) {
+    /**
+     * Determine if the storage is local.
+     */
+    function is_local_storage(): bool
+    {
+        $driver = config('filesystems.disks.' . config('filesystems.default') . '.driver');
+
+        return $driver == 'local';
+    }
+}
+
+if (! function_exists('is_cloud_storage')) {
+    /**
+     * Determine if the storage is cloud.
+     */
+    function is_cloud_storage(): bool
+    {
+        return ! is_local_storage();
+    }
+}
+
+if (! function_exists('get_storage_path')) {
+    /**
+     * Get the path from the storage.
+     */
+    function get_storage_path(string $path = ''): string
+    {
+        return is_local_storage()
+                ? storage_path($path)
+                : Storage::path($path);
     }
 }

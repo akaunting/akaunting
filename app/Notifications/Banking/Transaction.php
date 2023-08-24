@@ -6,9 +6,9 @@ use App\Abstracts\Notification;
 use App\Models\Banking\Transaction as Model;
 use App\Models\Setting\EmailTemplate;
 use App\Traits\Transactions;
+use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 
 class Transaction extends Notification
 {
@@ -63,9 +63,12 @@ class Transaction extends Notification
 
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeTransactionPdfAndGetPath($this->transaction), [
-                'mime' => 'application/pdf',
-            ]);
+            $func = is_local_storage() ? 'fromPath' : 'fromStorage';
+
+            $path = $this->storeTransactionPdfAndGetPath($this->transaction);
+            $file = Attachment::$func($path)->withMime('application/pdf');
+
+            $message->attach($file);
         }
 
         return $message;
