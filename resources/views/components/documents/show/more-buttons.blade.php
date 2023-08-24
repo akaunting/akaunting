@@ -98,7 +98,7 @@
 
         @stack('end_button_start')
 
-        @if (! $hideEnd && $document->recurring)
+        @if (! $hideEnd && $document->recurring && $document->recurring->status != 'ended')
             <x-dropdown.link href="{{ route($endRoute, $document->id) }}" id="show-more-actions-end-{{ $document->type }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>

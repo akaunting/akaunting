@@ -672,17 +672,19 @@ class Document extends Model
                 ];
             } catch (\Exception $e) {}
         } else {
-            try {
-                $actions[] = [
-                    'title' => trans('general.end'),
-                    'icon' => 'block',
-                    'url' => route($prefix. '.end', $this->id),
-                    'permission' => 'update-' . $group . '-' . $permission_prefix,
-                    'attributes' => [
-                        'id' => 'index-line-actions-end-' . $this->type . '-' . $this->id,
-                    ],
-                ];
-            } catch (\Exception $e) {}
+            if ($this->recurring && $this->recurring->status != 'ended') {
+                try {
+                    $actions[] = [
+                        'title' => trans('general.end'),
+                        'icon' => 'block',
+                        'url' => route($prefix. '.end', $this->id),
+                        'permission' => 'update-' . $group . '-' . $permission_prefix,
+                        'attributes' => [
+                            'id' => 'index-line-actions-end-' . $this->type . '-' . $this->id,
+                        ],
+                    ];
+                } catch (\Exception $e) {}
+            }
         }
 
         return $actions;
