@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html dir="{{ language()->direction() }}" lang="{{ app()->getLocale() }}">
+<html dir="{{ language()->direction() }}" lang="{{ app()->getLocale() }}" class="overflow-hidden">
     <x-layouts.install.head>
         <x-slot name="title">
             {!! !empty($title->attributes->has('title')) ? $title->attributes->get('title') : $title !!}
         </x-slot>
     </x-layouts.install.head>
 
-    <body class="overflow-hidden">
+    <body>
         @stack('body_start')
 
         <div class="h-screen lg:h-auto bg-no-repeat bg-cover bg-center" style="background-image: url({{ asset('public/img/auth/login-bg.png') }});">
