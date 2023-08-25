@@ -6,7 +6,7 @@
         </x-slot>
     </x-layouts.install.head>
 
-    <body>
+    <body class="overflow-hidden">
         @stack('body_start')
 
         <div class="h-screen lg:h-auto bg-no-repeat bg-cover bg-center" style="background-image: url({{ asset('public/img/auth/login-bg.png') }});">
