@@ -9,7 +9,7 @@
     @mobile
     <body class="bg-body">
     @elsemobile
-    <body class="bg-body overflow-y-overlay">
+    <body class="bg-body overflow-y-overlay overflow-hidden">
     @endmobile
 
         @stack('body_start')
