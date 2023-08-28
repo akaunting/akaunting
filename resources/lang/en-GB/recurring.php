@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'Send email automatically',
 
     'frequency_type'        => 'Repeat this :type',
+    'custom_frequency_desc' => 'Repeat every :interval :frequency',
     'limit_date'            => 'Create first :type on',
     'limit_middle'          => 'and end',
 

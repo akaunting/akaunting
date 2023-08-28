@@ -81,7 +81,20 @@
 
                 <x-table.td class="w-2/12" hidden-mobile>
                     <x-slot name="first">
-                        {{ trans('recurring.' . $item->recurring->frequency) }}
+                        @if ($item->recurring->interval > 1)
+                            <x-tooltip 
+                                id="tooltip-frequency-{{ $item->recurring->id }}"
+                                placement="top"
+                                message="{{ trans('recurring.custom_frequency_desc', [
+                                    'interval' => $item->recurring->interval,
+                                    'frequency' => str()->lower(trans('recurring.' . str_replace(['daily', 'ly'], ['days', 's'], $item->recurring->frequency)))
+                                ]) }}"
+                            >
+                                {{ trans('recurring.custom') }}
+                            </x-tooltip>
+                        @else
+                            {{ trans('recurring.' . $item->recurring->frequency) }}
+                        @endif
                     </x-slot>
                     <x-slot name="second">
                         @if ($item->recurring->limit_by == 'count')

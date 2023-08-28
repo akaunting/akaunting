@@ -198,6 +198,11 @@ export default {
             default: 'monthly',
             description: "Default reccuring type"
         },
+        intervalValue: {
+            type: String,
+            default: '',
+            description: 'Default interval value'
+        },
         invertalError: {
             type: String,
             default: null,
@@ -310,6 +315,7 @@ export default {
 
     mounted() {
         this.frequency = this.frequencyValue;
+        this.interval = this.intervalValue;
         this.customFrequency = this.customFrequencyValue;
         this.started_at = this.startedValue;
 

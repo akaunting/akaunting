@@ -21,6 +21,8 @@
     :custom-frequencies="{{ json_encode($customFrequencies) }}"
     custom-frequency-value="{{ $customFrequency }}"
     :custom-frequency-error="form.errors.get('recurring_custom_frequency')"
+
+    interval-value="{{ $interval }}"
     @if ($attributes->has('@interval'))
     @interval="form.recurring_interval = $event;{{ $attributes['@interval'] }}"
     @else

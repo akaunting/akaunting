@@ -12,6 +12,8 @@ class Recurring extends Component
     public $frequency;
     public $frequencies = [];
 
+    public $interval = '';
+
     public $customFrequency = '';
     public $customFrequencies = [];
 
@@ -35,6 +37,8 @@ class Recurring extends Component
         $frequency = '',
         $frequencies = [],
 
+        $interval = '',
+
         $customFrequency = '',
         $customFrequencies = [],
 
@@ -49,10 +53,13 @@ class Recurring extends Component
         $sendEmail = false
     ) {
         $this->type = $this->getType($type);
-        $this->frequency = $this->getFrequency($frequency);
+
+        $this->interval = $this->getInterval($interval);
+
+        $this->frequency = $this->getFrequency($frequency, $interval);
         $this->frequencies = $this->getFrequencies($frequencies);
 
-        $this->customFrequency = $this->getCustomFrequency($customFrequency);
+        $this->customFrequency = $this->getCustomFrequency($frequency, $customFrequency, $interval);
         $this->customFrequencies = $this->getCustomFrequencies($customFrequencies);
 
         $this->limit = $this->getLimit($limit);
@@ -85,8 +92,12 @@ class Recurring extends Component
         return 'invoice';
     }
 
-    protected function getFrequency($frequency)
+    protected function getFrequency($frequency, $interval = 0)
     {
+        if ($interval > 1) {
+            return 'custom';
+        }
+
         if (! empty($frequency)) {
             return $frequency;
         }
@@ -109,8 +120,21 @@ class Recurring extends Component
         ];
     }
 
-    protected function getCustomFrequency($customFrequency)
+    protected function getInterval($interval)
     {
+        if (! empty($interval)) {
+            return $interval;
+        }
+
+        return '';
+    }
+
+    protected function getCustomFrequency($frequency, $customFrequency, $interval = 0)
+    {
+        if ($interval > 1) {
+            return $frequency;
+        }
+
         if (! empty($customFrequency)) {
             return $customFrequency;
         }

@@ -59,6 +59,7 @@
                     <x-slot name="body">
                         <x-form.group.recurring
                             type="transaction"
+                            :interval="$recurring_transaction ? $recurring_transaction->recurring->interval : null"
                             :frequency="$recurring_transaction ? $recurring_transaction->recurring->frequency : null"
                             :custom-frequency="$recurring_transaction ? $recurring_transaction->recurring->custom_frequency : null"
                             :limit="$recurring_transaction ? $recurring_transaction->recurring->limit_by : null"

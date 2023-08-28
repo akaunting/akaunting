@@ -10,6 +10,7 @@
             <x-form.group.recurring
                 :type="$type"
                 @started="onChangeRecurringDate()"
+                :interval="$document ? $document->recurring->interval : null"
                 :frequency="$document ? $document->recurring->frequency : null"
                 :custom-frequency="$document ? $document->recurring->custom_frequency : null"
                 :limit="$document ? $document->recurring->limit_by : null"
