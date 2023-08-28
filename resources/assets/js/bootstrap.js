@@ -23,6 +23,7 @@ window.axios.defaults.headers.common['Content-Type'] = 'multipart/form-data';
 // #start NProgress integration
 // Added nprogress to use nprogress bar
 import NProgress from "nprogress";
+import 'nprogress/nprogress.css';
 
 window.axios.interceptors.request.use(function (config) {
     // Do something before request is sent
