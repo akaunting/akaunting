@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="{{ language()->direction() }}" lang="{{ app()->getLocale() }}" class="overflow-hidden">
+<html dir="{{ language()->direction() }}" lang="{{ app()->getLocale() }}">
     <x-layouts.install.head>
         <x-slot name="title">
             {!! !empty($title->attributes->has('title')) ? $title->attributes->get('title') : $title !!}
