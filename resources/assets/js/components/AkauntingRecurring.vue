@@ -352,16 +352,23 @@ export default {
                     this.$emit('limit', 'count');
                     this.$emit('limit_count', this.limitCount);
                     this.$emit('limit_date', null);
+
+                    this.limitDateError = '';
                     break;
                 case 'on':
                     this.$emit('limit', 'date');
                     this.$emit('limit_date', this.limitDate);
                     this.$emit('limit_count', 0);
+
+                    this.limitCountError = '';
                     break;
                 case 'never':
                 default:
                     this.$emit('limit', 'count');
                     this.$emit('limit_count', 0);
+
+                    this.limitCountError = '';
+                    this.limitDateError = '';
                     break;
             }
 
