@@ -1,7 +1,7 @@
 <template>
     <div class="sm:col-span-6 space-y-6 sm:space-y-2">
-        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0" :class="{ 'justify-start': frequency == 'custom' }">
-            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
+        <div class="flex flex-wrap lg:flex-nowrap items-start space-y-1 lg:space-y-0" :class="{ 'justify-start': frequency == 'custom' }">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm pt-4">
                 {{ frequencyText }}
             </div>
 
@@ -14,15 +14,16 @@
                 </el-option>
             </el-select>
 
-            <div class="w-20 sm:w-auto px-2 text-sm text-center" v-if="frequency == 'custom'">
+            <div class="w-24 px-2 text-sm text-center pt-4" v-if="frequency == 'custom'">
                 {{ frequencyEveryText }}
             </div>
 
-            <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="interval" @input="change" v-if="frequency == 'custom'">
+            <div class="flex flex-col">
+                <input type="text" class="w-20 text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="interval" @input="change" v-if="frequency == 'custom'">
+                <div class="text-red text-sm mt-1 block w-36" v-if="invertalError" v-html="invertalError"></div>
+            </div>
 
-            <div class="text-red text-sm mt-1 block" v-if="invertalError" v-html="invertalError"></div>
-
-            <el-select class="w-36 ml-2" v-model="customFrequency" @input="change" v-if="frequency == 'custom'">
+            <el-select class="w-36" v-model="customFrequency" @input="change" v-if="frequency == 'custom'" v-bind:class="invertalError ? '-ml-14' : 'ml-2' ">
                 <el-option
                 v-for="(label, value) in customFrequencies"
                 :key="value"
@@ -31,16 +32,15 @@
                 </el-option>
             </el-select>
 
-            <div class="text-red text-sm mt-1 block" v-if="customFrequencyError" v-html="customFrequencyError"></div>
+            <div class="text-red text-sm mt-1 block w-36" v-if="customFrequencyError" v-html="customFrequencyError"></div>
         </div>
 
-        <div class="flex flex-wrap lg:flex-nowrap items-center space-y-3 lg:space-y-0" :class="{ 'justify-start': limit !== 'never' }">
-            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
+        <div class="flex flex-wrap lg:flex-nowrap items-start space-y-3 lg:space-y-0 pt-4" :class="{ 'justify-start': limit !== 'never' }">
+            <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm pt-4">
                 {{ startText }}
             </div>
 
-            <div
-            :class="startedError ? 'pt-0' : '' && startedError || limitDateError ? 'pt-0 pb-5' : 'pb-10' && startedError && limitDateError ? 'pt-6 pb-5' : 'pb-10'">
+            <div>
                     <el-date-picker
                     class="w-36 cursor-pointer recurring-invoice-data"
                     v-model="started_at"
@@ -82,17 +82,15 @@
                     }">
                     </el-date-picker>
 
-                <div class="text-red text-sm mt-1 block" v-if="startedError" v-html="startedError"></div>
+                <div class="text-red text-sm mt-1 block w-36" v-if="startedError" v-html="startedError"></div>
 
             </div>
 
-            <div class="w-24 px-2 text-sm text-center"
-            :class="(startedError || limitDateError ? 'pt-10 pb-14' : 'pb-10') && (startedError && limitDateError ? 'pt-6 pb-14' : 'pb-10')">
+            <div class="w-24 px-2 text-sm text-center pt-4">
                 {{ middleText }}
             </div>
 
-            <el-select class="w-20" v-model="limit" @input="change"
-            :class="startedError || limitDateError ? 'pt-0 pb-6' : '' && startedError && limitDateError ? 'pt-6 pb-16' : 'pb-10'">
+            <el-select class="w-20" v-model="limit" @input="change">
                 <el-option
                 v-for="(label, value) in limits"
                 :key="value"
@@ -101,16 +99,16 @@
                 </el-option>
             </el-select>
 
-            <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+            <div class="flex flex-col">
+                <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+                <div class="text-red text-sm mt-1 ml-2 block w-36" v-show="limitCountError" v-html="limitCountError"></div>
+            </div>
 
-            <div class="text-red text-sm mt-1 block" v-if="limitCountError" v-html="limitCountError"></div>
-
-            <div class="pl-2 text-sm" v-if="limit == 'after'">
+            <div class="pl-2 pt-4 text-sm" v-if="limit == 'after'" v-bind:class="limitCountError ? '-ml-16' : ''">
                 {{ endText }}
             </div>
 
-            <div 
-            :class="startedError || limitDateError ? 'pt-10 pb-10' : 'pb-10'  &&  startedError && limitDateError ? ' pt-20 pb-14' : 'pb-10'">
+            <div class="flex flex-col">
                     <el-date-picker
                     class="w-36 ml-2 cursor-pointer recurring-invoice-data"
                     v-model="limitDate"
@@ -123,11 +121,11 @@
                 >
                 </el-date-picker>
 
-                <div class="text-red text-sm mt-1 ml-2 block" v-if="limitDateError" v-html="limitDateError"></div>
+                <div class="text-red text-sm mt-1 ml-2 block w-36" v-if="limitDateError" v-html="limitDateError"></div>
             </div>
         </div>
 
-        <div v-if="sendEmailShow" class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0">
+        <div v-if="sendEmailShow" class="flex flex-wrap lg:flex-nowrap items-center space-y-1 lg:space-y-0 pt-6">
             <div class="w-24 sm:w-60 px-0 sm:px-2 text-sm">
                 {{ sendEmailText }}
             </div>
