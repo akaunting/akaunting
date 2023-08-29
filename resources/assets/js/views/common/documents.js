@@ -702,7 +702,7 @@ const app = new Vue({
 
         onChangeRecurringDate() {
             let started_at = new Date(this.form.recurring_started_at);
-            let due_at = format(addDays(started_at, this.form.payment_terms), 'yyyy-MM-dd');
+            let due_at = format(addDays(started_at, this.form.payment_terms), 'yyyy-MM-dd hh:mm:ss');
 
             this.form.due_at = due_at;
         },
