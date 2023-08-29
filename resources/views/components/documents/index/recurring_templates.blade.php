@@ -62,7 +62,7 @@
                             @if ($last = $item->recurring->documents->last()?->issued_at)
                                 {{ $last->format(company_date_format()) }}
                             @else
-                             <x-empty-data />
+                                <x-empty-data />
                             @endif
                         @else
                             @if ($last = $item->recurring->getLastRecurring())
