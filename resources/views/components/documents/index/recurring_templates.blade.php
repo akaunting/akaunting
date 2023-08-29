@@ -58,8 +58,16 @@
                         <x-date date="{{ $item->recurring->started_at }}" />
                     </x-slot>
                     <x-slot name="second">
-                        @if ($last = $item->recurring->getLastRecurring())
-                            {{ $last->format(company_date_format()) }}
+                        @if ($item->recurring->status == 'ended')
+                            @if ($last = $item->recurring->documents->last()?->issued_at)
+                                {{ $last->format(company_date_format()) }}
+                            @else
+                             <x-empty-data />
+                            @endif
+                        @else
+                            @if ($last = $item->recurring->getLastRecurring())
+                                {{ $last->format(company_date_format()) }}
+                            @endif
                         @endif
                     </x-slot>
                 </x-table.td>

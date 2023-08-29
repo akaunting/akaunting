@@ -61,7 +61,13 @@ class Recurring extends Model
 
     public function documents()
     {
-        return $this->morphedByMany('App\Models\Document\Document', 'recurable');
+        return $this->morphedByMany(
+            'App\Models\Document\Document',
+            'recurable',
+            'recurring',
+            'recurable_id',
+            'id'
+        );
     }
 
     public function invoices()
@@ -72,6 +78,27 @@ class Recurring extends Model
     public function bills()
     {
         return $this->documents()->where('type', self::BILL_RECURRING_TYPE);
+    }
+
+    public function transactions()
+    {
+        return $this->morphedByMany(
+            'App\Models\Banking\Transaction',
+            'recurable',
+            'recurring',
+            'recurable_id',
+            'id'
+        );
+    }
+
+    public function incomes()
+    {
+        return $this->transactions()->where('type', self::INCOME_RECURRING_TYPE);
+    }
+
+    public function expenses()
+    {
+        return $this->transactions()->where('type', self::EXPENSE_RECURRING_TYPE);
     }
 
     public function scopeActive(Builder $query): Builder
@@ -132,5 +159,25 @@ class Recurring extends Model
             ->whereHas('recurable', function (Builder $query) {
                 $query->where('type', self::INCOME_RECURRING_TYPE);
             });
+    }
+
+    /**
+     * Determine if recurring is a document.
+     *
+     * @return bool
+     */
+    public function isDocument()
+    {
+        return (bool) ($this->recurable_type == 'App\\Models\\Document\\Document');
+    }
+
+    /**
+     * Determine if recurring is a transaction.
+     *
+     * @return bool
+     */
+    public function isTransaction()
+    {
+        return (bool) ($this->recurable_type == 'App\\Models\\Banking\\Transaction');
     }
 }
