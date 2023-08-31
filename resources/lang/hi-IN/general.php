@@ -231,6 +231,8 @@ return [
     'go_back'               => ':type में वापस जाएं',
     'validation_error'      => 'मान्यता त्रुटि',
     'dismiss'               => 'ख़ारिज करें',
+    'size'                  => 'आकार',
+    'media'                 => 'मीडिया ',
 
     'card' => [
         'cards'                 => 'कार्ड|कार्ड',

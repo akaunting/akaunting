@@ -19,7 +19,7 @@ return [
         'receivables'           => 'Sommes que vos clients vous doivent',
         'payables'              => 'Sommes que vous devez à vos fournisseurs',
         'cash_flow'             => 'Encaissement et décaissement de votre entreprise',
-        'profit_loss'           => 'Revenus et dépenses, y compris les achats et les factures encore impayées',
+        'profit_loss'           => 'Revenus et dépenses, y compris les achats et les ventes encore impayées',
         'expenses_by_category'  => 'Répartition des dépenses par catégorie',
         'account_balance'       => 'Solde actuel de vos comptes bancaires',
         'bank_feeds'            => 'Importez automatiquement vos transactions vers Akaunting </br>en connectant vos comptes bancaires',

@@ -176,15 +176,15 @@ return [
 
         'bill_remind_admin' => [
 
-            'title'         => 'Facture en retard',
-            'description'   => 'La facture <strong>:bill_number</strong> était due au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'title'         => 'Facture reçue en retard',
+            'description'   => 'Le paiement de la facture reçue <strong>:bill_number</strong> était dû au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'bill_recur_admin' => [
 
             'title'         => 'Nouvelle facture récurrente',
-            'description'   => 'La facture <strong>:bill_number</strong> est créée par <strong>:vendor_name</strong> sur la base du plan de facturation planifié. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'La facture d\'achat <strong>:bill_number</strong> a été créée sur la base du plan de facturation planifié de <strong>:vendor_name</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 

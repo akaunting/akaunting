@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'E-mail automatisch verzenden',
 
     'frequency_type'        => 'Herhaal dit :type',
+    'custom_frequency_desc' => 'Herhaal elke :interval :frequentie',
     'limit_date'            => 'Maak eerst :type op',
     'limit_middle'          => 'en eindigt',
 

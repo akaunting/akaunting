@@ -14,7 +14,7 @@ return [
 
         'form_description' => [
             'general'                   => 'Ces informations sont visibles dans les enregistrements que vous créez.',
-            'address'                   => 'L\'adresse sera utilisée dans les factures, ventes et autres dossiers que vous émettez.',
+            'address'                   => 'L\'adresse sera utilisée dans les factures émises et reçues et dans les autres documents que vous émettez.',
         ],
     ],
 
@@ -53,7 +53,7 @@ return [
         'form_description' => [
             'fiscal'                    => 'Définissez la période de l\'année financière utilisée par votre entreprise pour l\'imposition et la déclaration.',
             'date'                      => 'Sélectionnez le format de date que vous souhaitez voir partout dans l\'interface.',
-            'other'                     => 'Sélectionnez le point où le signe en pourcentage est affiché pour les taxes. Vous pouvez activer les remises sur les articles en ligne et au total pour les factures et factures.',
+            'other'                     => 'Sélectionnez le point où le signe en pourcentage est affiché pour les taxes. Vous pouvez activer les remises sur les articles en ligne et au total pour les factures reçues et émises.',
         ],
     ],
 
@@ -151,7 +151,7 @@ return [
             'subject'                   => 'Sujet',
             'body'                      => 'Corps',
             'tags'                      => '<strong>Mots-clés disponibles :</strong> :tag_list',
-            'invoice_new_customer'      => 'Nouveau modèle de facture (envoyé au client)',
+            'invoice_new_customer'      => 'Modèle de nouvelle facture (envoyé au client)',
             'invoice_remind_customer'   => 'Modèle de rappel de facture (envoyé au client)',
             'invoice_remind_admin'      => 'Modèle de rappel de facture (envoyé à l\'administrateur)',
             'invoice_recur_customer'    => 'Modèle de facture récurrente (envoyé au client)',
@@ -159,8 +159,8 @@ return [
             'invoice_view_admin'        => 'Modèle de vue de la facture (envoyé à l\'administrateur)',
             'invoice_payment_customer'  => 'Modèle de paiement reçu (envoyé au client)',
             'invoice_payment_admin'     => 'Modèle de paiement reçu (envoyé à l\'administrateur)',
-            'bill_remind_admin'         => 'Modèle de rappel de facture (envoyé à l\'administrateur)',
-            'bill_recur_admin'          => 'Modèle de facture récurrente (envoyé à l\'administrateur)',
+            'bill_remind_admin'         => 'Modèle de rappel de facture reçue (envoyé à l\'administrateur)',
+            'bill_recur_admin'          => 'Modèle de facture reçue récurrente (envoyé à l\'administrateur)',
             'payment_received_customer' => 'Modèle de reçu de paiement (envoyé au client)',
             'payment_made_vendor'       => 'Modèle de paiement effectué (envoyé au fournisseur)',
         ],
@@ -172,7 +172,7 @@ return [
         'search_keywords'               => 'automatique, rappel, récurrent, cron, commande',
         'send_invoice'                  => 'Envoyer un rappel de facture',
         'invoice_days'                  => 'Envoyer après les jours d\'échéance',
-        'send_bill'                     => 'Envoyer rappel de facture',
+        'send_bill'                     => 'Envoyer rappel de facture à régler',
         'bill_days'                     => 'Envoyer avant les jours d\'échéance',
         'cron_command'                  => 'Commande Cron',
         'command'                       => 'Commande',
@@ -180,7 +180,7 @@ return [
 
         'form_description' => [
             'invoice'                   => 'Activez ou désactivez, et définissez des rappels pour vos factures quand elles sont en retard.',
-            'bill'                      => 'Activez ou désactivez, et définissez des rappels pour vos factures avant qu\'elles soient en retard.',
+            'bill'                      => 'Activez, désactivez et définissez les rappels de vos factures à régler avant qu\'elles ne soient en retard de paiement.',
             'cron'                      => 'Copiez la commande cron que votre serveur devrait exécuter. Définissez le temps pour déclencher l\'événement.',
         ]
     ],
