@@ -7,7 +7,7 @@ return [
     'grand_total'               => 'Total global',
     'accept_payment_online'     => 'Accepter les paiements en ligne',
     'transaction'               => 'Un paiement de :amount a été effectué en utilisant :account.',
-    'billing'                   => 'Facturation',
+    'billing'                   => 'Facturation des achats',
     'advanced'                  => 'Avancé',
 
     'item_price_hidden'         => 'Cette colonne est cachée sur votre :type.',

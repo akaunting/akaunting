@@ -4,7 +4,7 @@ return [
 
     'dashboards'            => 'Nadzorna plošča | Nadzorne plošče',
     'items'                 => 'izdelek|Izdelki',
-    'invoices'              => 'račun|Računi',
+    'invoices'              => 'Račun|Računi',
     'recurring_invoices'    => 'Ponavljajoči se račun|Ponavljajoči se računi',
     'customers'             => 'stranko|Stranke',
     'incomes'               => 'Prihodki',
@@ -231,6 +231,8 @@ Dolgovani znesek',
     'go_back'               => 'Vrnite se na :type',
     'validation_error'      => 'Napaka pri vnosu',
     'dismiss'               => 'Opusti',
+    'size'                  => 'Velikost',
+    'media'                 => 'Predstavnost',
 
     'card' => [
         'cards'                 => 'Kartica|Kartice',

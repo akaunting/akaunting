@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'Automaticky odeslat e-mail',
 
     'frequency_type'        => 'Opakovat tento :type',
+    'custom_frequency_desc' => 'Opakovat každý :interval :frequency',
     'limit_date'            => 'Vytvořit první :type',
     'limit_middle'          => 'a konec',
 

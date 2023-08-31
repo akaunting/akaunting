@@ -20,4 +20,7 @@ return [
         'unreconcile'   => 'Seçili kayıt için <b>mutabakatı kaldırmak</b> istediğinizden emin misiniz?|Seçili kayıtlar için <b>mutabakatı kaldırmak</b> istediğinizden emin misiniz?',
     ],
 
+    'success' => [
+        'general'       => ':count kaydı :type.',
+    ],
 ];

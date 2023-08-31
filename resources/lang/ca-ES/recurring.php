@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'Envia el correu automàticament',
 
     'frequency_type'        => 'Repeteix aquest/a :type',
+    'custom_frequency_desc' => 'Repeteix cada :interval :frequency',
     'limit_date'            => 'Crea el primer :type el',
     'limit_middle'          => 'i acaba',
 

@@ -8,7 +8,7 @@ return [
     'total_price'           => 'Prix total',
     'due_date'              => 'Date d\'échéance',
     'order_number'          => 'Numéro de commande',
-    'bill_to'               => 'Facture de',
+    'bill_to'               => 'Destinataire',
     'cancel_date'           => 'Date d\'annulation',
 
     'quantity'              => 'Quantité',
@@ -42,14 +42,16 @@ return [
     'send_invoice'          => 'Envoyer une facture',
     'get_paid'              => 'Être payé',
     'accept_payments'       => 'Accepter les paiements en ligne',
-    'payment_received'      => 'Paiement reçu',
+    'payments_received'     => 'Paiements reçus',
 
     'form_description' => [
-        'billing'           => 'Les détails de facturation apparaissent dans votre facture. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous comptez payer comme date d\'échéance.',
+        'billing'           => 'Les détails de facturation apparaissent sur votre facture émise. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous souhaitez être payé comme Date d\'Échéance.',
     ],
 
     'messages' => [
         'email_required'    => 'Ce client ne possède pas d\'email !',
+        'totals_required'   => 'Les totaux de la facture sont requis Veuillez modifier le :type et l\'enregistrer à nouveau.',
+
         'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisé dans les graphiques après reception.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'En attente du paiement',
             ],
         ],
+
+        'name_or_description_required' => 'Votre facture doit afficher au moins le <b>:name</b> ou la <b>:description</b>.',
     ],
 
     'slider' => [
