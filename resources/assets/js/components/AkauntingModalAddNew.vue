@@ -1,8 +1,9 @@
 <template>
     <SlideYUpTransition :duration="animationDuration">
-        <div class="modal w-full h-full fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-hidden modal-add-new fade justify-center"
+        <div class="modal w-full h-full fixed top-0 left-0 right-0 overflow-y-auto overflow-hidden modal-add-new fade justify-center"
             @click.self="closeModal"
             :class="[modalPositionTop ? 'items-start' : 'items-center', {'show flex flex-wrap modal-background': show}, {'hidden': !show}]"
+            style="z-index: 100;"
             v-show="show"
             tabindex="-1"
             role="dialog"
