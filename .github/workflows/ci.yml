@@ -6,14 +6,13 @@ on:
       - master # You can specify the branch you want to trigger the workflow on
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # Specify the runner environment
-    
+  build-test:
+    runs-on: ubuntu-latest
     steps:
-      - name: PHP Unit Tests
       - uses: actions/checkout@v3
-      - uses: php-actions/composer@v6 # or alternative dependency management
-      - uses: php-actions/phpunit@v3
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - uses: php-actions/composer@v6
+      - run: echo "Composer dependencies have been installed"
       - run: vendor/bin/phpunit
 
     #- name: Checkout Code
