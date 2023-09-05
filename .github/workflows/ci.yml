@@ -1,0 +1,26 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master # You can specify the branch you want to trigger the workflow on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Specify the runner environment
+    
+    steps:
+    - name: Verification
+      run: echo "Verification Success"
+
+    # - name: Checkout Code
+    #   uses: actions/checkout@v2 # This action checks out your repository's code
+      
+    # - name: Install Dependencies
+    #   run: npm install
+
+    # - name: Build Application
+    #   run: npm run build # Replace with your actual build command
+      
+    # - name: Run Tests
+    #   run: npm test # Replace with your actual test command
