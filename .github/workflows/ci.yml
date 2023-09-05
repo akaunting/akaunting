@@ -14,7 +14,7 @@ jobs:
       run: echo "Verification Success" # This action verifies that ci.yml is working
 
     - name: Checkout Code
-      uses: myrrym/group-akaunting # This action checks out the repository's code
+      uses: actions/checkout@v2 # This action checks out the repository's code
 
     # - name: Build Application
     #   run: npm run build # Replace with your actual build command
