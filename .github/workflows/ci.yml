@@ -14,7 +14,7 @@ jobs:
     # - name: Verification
     #   run: echo "Verification Success" # This action verifies that ci.yml is working
 
-    - name: Install Composer
+    - name: Install Dependencies
       run: composer install
 
     - name: PHP Unit Tests
