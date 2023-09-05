@@ -18,10 +18,11 @@ jobs:
       run: composer install
 
     - name: PHP Unit Tests
-      uses: php-actions/phpunit@v3
-      with:
-        configuration: "phpunit.xml"
-        memory_limit: "256M"
+      run: vendor/bin/phpunit
+      # uses: php-actions/phpunit@v3
+      # with:
+      #   configuration: "phpunit.xml"
+      #   memory_limit: "256M"
 
     - name: Checkout Code
       uses: actions/checkout@v2 # This action checks out the repository's code
