@@ -10,31 +10,19 @@ jobs:
     runs-on: ubuntu-latest # Specify the runner environment
     
     steps:
-    # Debug
-    # - name: Verification
-    #   run: echo "Verification Success" # This action verifies that ci.yml is working
-
-    # - name: Install Dependencies
-    #   run: composer install
-
-    
     - name: PHP Unit Tests
-      uses: actions/checkout@v3
-      uses: php-actions/composer@v6 # or alternative dependency management
-      uses: php-actions/phpunit@v3
-      run: vendor/bin/phpunit
-      # uses: php-actions/phpunit@v3
-      # with:
-      #   configuration: "phpunit.xml"
-      #   memory_limit: "256M"
+    - uses: actions/checkout@v3
+    - uses: php-actions/composer@v6 # or alternative dependency management
+    - uses: php-actions/phpunit@v3
+    - run: vendor/bin/phpunit
 
-    - name: Checkout Code
-      uses: actions/checkout@v2 # This action checks out the repository's code
-
-    - name: Deploy Project
-      run: | # This action deploys the project on the server
-        cd /var/www/akaunting
-        git pull origin master 
-        composer install
-        npm install
-        chown -R www-data:www-data ../akaunting
+    #- name: Checkout Code
+    #  uses: actions/checkout@v2 # This action checks out the repository's code
+#
+    #- name: Deploy Project
+    #  run: | # This action deploys the project on the server
+    #    cd /var/www/akaunting
+    #    git pull origin master 
+    #    composer install
+    #    npm install
+    #    chown -R www-data:www-data ../akaunting
