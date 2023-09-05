@@ -16,9 +16,9 @@ jobs:
 
     - name: PHP Unit Tests
       run: php-actions/phpunit@v3
-      with:
-        configuration: "vendor/bin/phpunit"
-        memory_limit: "256M"
+      # with:
+      #   configuration: "vendor/bin/phpunit"
+      #   memory_limit: "256M"
 
     - name: Checkout Code
       uses: actions/checkout@v2 # This action checks out the repository's code
