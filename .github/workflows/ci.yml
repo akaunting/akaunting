@@ -20,7 +20,7 @@ jobs:
 
     #- name: Checkout Code
     #  uses: actions/checkout@v2 # This action checks out the repository's code
-#
+    
     #- name: Deploy Project
     #  run: | # This action deploys the project on the server
     #    cd /var/www/akaunting
