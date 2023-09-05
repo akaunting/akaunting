@@ -17,8 +17,14 @@ jobs:
     # - name: Install Dependencies
     #   run: composer install
 
+    
+    - uses: actions/checkout@v3
+    - uses: php-actions/composer@v6 # or alternative dependency management
+    - uses: php-actions/phpunit@v3
     - name: PHP Unit Tests
-      run: vendor/bin/phpunit
+      with:
+        configuration: "vendor/bin/phpunit"
+        memory_limit: "256M"
       # uses: php-actions/phpunit@v3
       # with:
       #   configuration: "phpunit.xml"
