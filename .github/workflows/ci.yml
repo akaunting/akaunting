@@ -6,7 +6,7 @@ on:
       - master # You can specify the branch you want to trigger the workflow on
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,14 +17,9 @@ jobs:
           php_extensions: bcmath intl gd zip
       - run: echo "Composer dependencies have been installed"
       - run: vendor/bin/phpunit
-
-    #- name: Checkout Code
-    #  uses: actions/checkout@v2 # This action checks out the repository's code
-    
-    #- name: Deploy Project
-    #  run: | # This action deploys the project on the server
-    #    cd /var/www/akaunting
-    #    git pull origin master 
-    #    composer install
-    #    npm install
-    #    chown -R www-data:www-data ../akaunting
+      - run: |
+        cd /var/www/akaunting
+        git pull origin master
+        composer install
+        npm install
+        chown -R www-data:www-data ../akaunting
