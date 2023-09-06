@@ -18,6 +18,10 @@ jobs:
         with:
           php_extensions: bcmath intl gd zip
 
+      # Install Dependencies
+      - run: npm install
+      - run: composer install
+
       # Run PHP Unit Tests
       # - run: vendor/bin/phpunit
 
