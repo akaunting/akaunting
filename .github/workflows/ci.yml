@@ -61,4 +61,4 @@ jobs:
 
         # Static Code Analysis
       - name: Run Static Analysis
-        run: ./vendor/bin/phpstan --error-format=github
+        run:  vendor/bin/phpstan analyze --level=7 --memory-limit=512M --no-progress
