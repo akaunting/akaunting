@@ -61,4 +61,7 @@ jobs:
 
         # Static Code Analysis
       - name: Run Static Analysis
-        run:  vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress
+        uses: php-actions/phpstan@master
+        with:
+          configuration: phpstan.neon
+          memory_limit: 256M
