@@ -47,3 +47,9 @@ jobs:
         with:
           name: build-history
           path: reports/build-history.txt
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Upload Build History Artifact  # Replace with the actual artifact name
+          path: reports/build-history-test.txt
