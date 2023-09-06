@@ -1,0 +1,27 @@
+name: Static Code Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  static-code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4  # Adjust to your PHP version
+
+      - name: Install Composer Dependencies
+        run: composer install
+
+      - name: Run Static Code Analysis (PHPStan)
+        run: vendor/bin/phpstan analyze --level=5 --memory-limit=512M --no-progress
