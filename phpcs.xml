@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset>
+    <description>My PHP_CodeSniffer Configuration</description>
+    <arg name="colors"/>
+    <arg name="extensions">php</arg>
+    <file>./app</file>
+    <file>./config</file>
+    <file>./database</file>
+    <file>./routes</file>
+    <!-- Add other directories/files to analyze -->
+    <rule ref="vendor/laravel-shift/standards"/>
+</ruleset>
