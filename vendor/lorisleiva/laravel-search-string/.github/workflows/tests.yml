@@ -1,0 +1,37 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        php: ["8.1", "8.2"]
+        laravel: ["^9.0", "^10.0"]
+        include:
+          - laravel: "^9.0"
+            testbench: "^7.0"
+          - laravel: "^10.0"
+            testbench: "^8.0"
+    name: Laravel ${{ matrix.laravel }} PHP${{ matrix.php }} on ${{ matrix.os }}
+    container:
+      image: lorisleiva/laravel-docker:${{ matrix.php }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Validate composer files
+        run: composer validate
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: /composer/cache/files
+          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+      - name: Install dependencies
+        run: |
+          composer require --prefer-dist --no-progress --no-suggest --no-interaction "illuminate/support:${{ matrix.laravel }}"
+          composer install --prefer-dist --no-progress --no-suggest --no-interaction
+      - name: Run tests
+        run: phpunit

@@ -1,0 +1,47 @@
+{
+    "name"       : "hoa/math",
+    "description": "The Hoa\\Math library.",
+    "type"       : "library",
+    "keywords"   : ["library", "math", "combinatorics", "arrangement",
+                    "combination", "counting", "set", "permutation", "sampler"],
+    "homepage"   : "https://hoa-project.net/",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name" : "Ivan Enderlin",
+            "email": "ivan.enderlin@hoa-project.net"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "https://hoa-project.net/"
+        }
+    ],
+    "support": {
+        "email" : "support@hoa-project.net",
+        "irc"   : "irc://chat.freenode.net/hoaproject",
+        "forum" : "https://users.hoa-project.net/",
+        "docs"  : "https://central.hoa-project.net/Documentation/Library/Math",
+        "source": "https://central.hoa-project.net/Resource/Library/Math"
+    },
+    "require": {
+        "hoa/compiler"   : "~3.0",
+        "hoa/consistency": "~1.0",
+        "hoa/exception"  : "~1.0",
+        "hoa/iterator"   : "~2.0",
+        "hoa/protocol"   : "~1.0",
+        "hoa/zformat"    : "~1.0"
+    },
+    "require-dev": {
+        "hoa/test": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hoa\\Math\\": "."
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

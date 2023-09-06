@@ -1,0 +1,22 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+[*.{yml,md,xml}]
+indent_style = space
+indent_size = 2
+
+[*.{rst,php}]
+indent_style = space
+indent_size = 4
+
+[composer.json]
+indent_style = space
+indent_size = 2
+
+[composer.lock]
+indent_style = space
+indent_size = 4

@@ -1,0 +1,38 @@
+{
+    "name": "laravel/prompts",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Laravel\\Prompts\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-mbstring": "*",
+        "illuminate/collections": "^10.0|^11.0",
+        "symfony/console": "^6.2"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "pestphp/pest": "^2.3",
+        "mockery/mockery": "^1.5",
+        "phpstan/phpstan-mockery": "^1.1"
+    },
+    "suggest": {
+        "ext-pcntl": "Required for the spinner to be animated."
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

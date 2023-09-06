@@ -1,0 +1,43 @@
+<?php
+
+namespace DummyNamespace;
+
+use Spatie\Ignition\Contracts\RunnableSolution;
+
+class DummyClass implements RunnableSolution
+{
+    public function getSolutionTitle(): string
+    {
+        return '';
+    }
+
+    public function getDocumentationLinks(): array
+    {
+        return [];
+    }
+
+    public function getSolutionActionDescription(): string
+    {
+        return '';
+    }
+
+    public function getRunButtonText(): string
+    {
+        return '';
+    }
+
+    public function getSolutionDescription(): string
+    {
+        return '';
+    }
+
+    public function getRunParameters(): array
+    {
+        return [];
+    }
+
+    public function run(array $parameters = [])
+    {
+        //
+    }
+}

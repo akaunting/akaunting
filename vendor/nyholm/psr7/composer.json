@@ -1,0 +1,49 @@
+{
+    "name": "nyholm/psr7",
+    "description": "A fast PHP7 implementation of PSR-7",
+    "license": "MIT",
+    "keywords": ["psr-7", "psr-17"],
+    "homepage": "https://tnyholm.se",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias.nyholm@gmail.com"
+        },
+        {
+            "name": "Martijn van der Ven",
+            "email": "martijn@vanderven.se"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "psr/http-message": "^1.1 || ^2.0",
+        "psr/http-factory": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+        "php-http/message-factory": "^1.0",
+        "php-http/psr7-integration-tests": "^1.0",
+        "http-interop/http-factory-tests": "^0.9",
+        "symfony/error-handler": "^4.4"
+    },
+    "provide": {
+        "php-http/message-factory-implementation": "1.0",
+        "psr/http-message-implementation": "1.0",
+        "psr/http-factory-implementation": "1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nyholm\\Psr7\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Nyholm\\Psr7\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.8-dev"
+        }
+    }
+}

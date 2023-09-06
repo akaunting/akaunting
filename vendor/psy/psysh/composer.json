@@ -1,0 +1,57 @@
+{
+    "name": "psy/psysh",
+    "description": "An interactive shell for modern PHP.",
+    "type": "library",
+    "keywords": ["console", "interactive", "shell", "repl"],
+    "homepage": "http://psysh.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Justin Hileman",
+            "email": "justin@justinhileman.info",
+            "homepage": "http://justinhileman.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0 || ^7.0.8",
+        "ext-json": "*",
+        "ext-tokenizer": "*",
+        "symfony/console": "^6.0 || ^5.0 || ^4.0 || ^3.4",
+        "symfony/var-dumper": "^6.0 || ^5.0 || ^4.0 || ^3.4",
+        "nikic/php-parser": "^4.0 || ^3.1"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.2"
+    },
+    "suggest": {
+        "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
+        "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well.",
+        "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history.",
+        "ext-pdo-sqlite": "The doc command requires SQLite to work."
+    },
+    "autoload": {
+        "files": ["src/functions.php"],
+        "psr-4": {
+            "Psy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Psy\\Test\\": "test/"
+        }
+    },
+    "bin": ["bin/psysh"],
+    "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.11.x-dev"
+        }
+    },
+    "conflict": {
+        "symfony/console": "4.4.37 || 5.3.14 || 5.3.15 || 5.4.3 || 5.4.4 || 6.0.3 || 6.0.4"
+    }
+}

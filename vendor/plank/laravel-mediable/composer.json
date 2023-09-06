@@ -1,0 +1,61 @@
+{
+    "name": "plank/laravel-mediable",
+    "description": "A package for easily uploading and attaching media files to models with Laravel",
+    "keywords": ["media", "image", "uploader", "eloquent", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sean Fraser",
+            "email": "sean@plankdesign.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0",
+        "ext-fileinfo": "*",
+        "illuminate/support": "^8.83.3|^9.0|^10.0",
+        "illuminate/filesystem": "^8.83.3|^9.0|^10.0",
+        "illuminate/database": "^8.83.3|^9.0|^10.0",
+        "league/flysystem": "^1.1.9|^2.4.2|^3.0.4",
+        "psr/http-message": "^2.0",
+        "intervention/image": "^2.7.1",
+        "guzzlehttp/guzzle": "^6.5.5|^7.4.1",
+        "symfony/http-foundation": "^5.0.11|^6.0.3"
+
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.6|^7.0|^8.0",
+        "phpunit/phpunit": "^9.5.13",
+        "mockery/mockery": "^1.4.2",
+        "vlucas/phpdotenv": "^4.2.2|^5.4.1",
+        "guzzlehttp/promises": "^1.5.1",
+        "league/flysystem-aws-s3-v3" : "^1.0.29|^2.1.0|^3.0",
+        "aws/aws-sdk-php": "^3.166.2",
+        "php-coveralls/php-coveralls": "^2.5.2",
+        "laravel/legacy-factories": "^1.3.0",
+        "doctrine/dbal": "^2.11|^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Plank\\Mediable\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4": {
+            "Plank\\Mediable\\Tests\\": "tests/"
+        },
+        "classmap": ["migrations/"]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Plank\\Mediable\\MediableServiceProvider"
+            ],
+            "aliases": {
+                "MediaUploader": "Plank\\Mediable\\Facades\\MediaUploader",
+                "ImageManipulator": "Plank\\Mediable\\Facades\\ImageManipulator"
+            }
+        }
+    }
+}

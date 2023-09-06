@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="colors"/>
+
+    <!-- Ignore warnings and show progress of the run -->
+    <arg value="np"/>
+
+    <!-- spec files do not seem to follow reasonable rules around the type system, and therefore should be ignored from CS -->
+    <!--<file>./spec</file>-->
+    <file>./src</file>
+    <file>./static-analysis</file>
+    <file>./tests</file>
+
+    <rule ref="Doctrine">
+        <!-- some variables and method names are not compliant with CS naming patterns -->
+        <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+
+        <!-- renaming exceptions in this library is too big of a BC break for no real benefit -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
+
+        <!-- language-level non-strict comparison is (consciously) used in the codebase for performance reasons -->
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator"/>
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator"/>
+    </rule>
+</ruleset>

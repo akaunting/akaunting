@@ -1,0 +1,59 @@
+{
+    "name": "sanmai/hoa-protocol",
+    "type": "library",
+    "description": "The Hoa\\Protocol library.",
+    "keywords": [
+        "library",
+        "protocol",
+        "resource",
+        "stream",
+        "wrapper"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Ivan Enderlin"
+        },
+        {
+            "name": "Hoa community"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "hoa/consistency": "*",
+        "hoa/exception": "*"
+    },
+    "replace": {
+        "hoa/protocol": "*"
+    },
+    "require-dev": {
+        "atoum/atoum": "^3",
+        "atoum/stubs": "*",
+        "hoa/test": "*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Hoa\\Protocol\\": "Source",
+            "Hoa\\Protocol\\Bin\\": "Bin"
+        },
+        "files": [
+            "Source/Wrapper.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hoa\\Protocol\\Test\\": "Test"
+        },
+        "files": [
+            "Test/Resolve.php"
+        ]
+    },
+    "support": {
+        "issues": "https://github.com/sanmai/Protocol/issues"
+    }
+}

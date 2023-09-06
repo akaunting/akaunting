@@ -1,0 +1,111 @@
+{
+    "version": "1.0",
+    "name": "php-http/message",
+    "bindings": {
+        "064d003d-78a1-48c4-8f3b-1f92ff25da69": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\DiactorosMessageFactory",
+            "type": "Http\\Message\\MessageFactory",
+            "parameters": {
+                "depends": "Zend\\Diactoros\\Request"
+            }
+        },
+        "0836751e-6558-4d1b-8993-4a52012947c3": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\SlimMessageFactory",
+            "type": "Http\\Message\\ResponseFactory"
+        },
+        "1d127622-dc61-4bfa-b9da-d221548d72c3": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\SlimMessageFactory",
+            "type": "Http\\Message\\RequestFactory"
+        },
+        "2438c2d0-0658-441f-8855-ddaf0f87d54d": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\GuzzleMessageFactory",
+            "type": "Http\\Message\\MessageFactory",
+            "parameters": {
+                "depends": "GuzzleHttp\\Psr7\\Request"
+            }
+        },
+        "253aa08c-d705-46e7-b1d2-e28c97eef792": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\GuzzleMessageFactory",
+            "type": "Http\\Message\\RequestFactory",
+            "parameters": {
+                "depends": "GuzzleHttp\\Psr7\\Request"
+            }
+        },
+        "273a34f9-62f4-4ba1-9801-b1284d49ff89": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\StreamFactory\\GuzzleStreamFactory",
+            "type": "Http\\Message\\StreamFactory",
+            "parameters": {
+                "depends": "GuzzleHttp\\Psr7\\Stream"
+            }
+        },
+        "304b83db-b594-4d83-ae75-1f633adf92f7": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\UriFactory\\GuzzleUriFactory",
+            "type": "Http\\Message\\UriFactory",
+            "parameters": {
+                "depends": "GuzzleHttp\\Psr7\\Uri"
+            }
+        },
+        "3f4bc1cd-aa95-4702-9fa7-65408e471691": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\UriFactory\\DiactorosUriFactory",
+            "type": "Http\\Message\\UriFactory",
+            "parameters": {
+                "depends": "Zend\\Diactoros\\Uri"
+            }
+        },
+        "4672a6ee-ad9e-4109-a5d1-b7d46f26c7a1": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\SlimMessageFactory",
+            "type": "Http\\Message\\MessageFactory"
+        },
+        "6234e947-d3bd-43eb-97d5-7f9e22e6bb1b": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\DiactorosMessageFactory",
+            "type": "Http\\Message\\ResponseFactory",
+            "parameters": {
+                "depends": "Zend\\Diactoros\\Response"
+            }
+        },
+        "6a9ad6ce-d82c-470f-8e30-60f21d9d95bf": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\UriFactory\\SlimUriFactory",
+            "type": "Http\\Message\\UriFactory"
+        },
+        "72c2afa0-ea56-4d03-adb6-a9f241a8a734": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\StreamFactory\\SlimStreamFactory",
+            "type": "Http\\Message\\StreamFactory"
+        },
+        "95c1be8f-39fe-4abd-8351-92cb14379a75": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\StreamFactory\\DiactorosStreamFactory",
+            "type": "Http\\Message\\StreamFactory",
+            "parameters": {
+                "depends": "Zend\\Diactoros\\Stream"
+            }
+        },
+        "a018af27-7590-4dcf-83a1-497f95604cd6": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\GuzzleMessageFactory",
+            "type": "Http\\Message\\ResponseFactory",
+            "parameters": {
+                "depends": "GuzzleHttp\\Psr7\\Response"
+            }
+        },
+        "c07955b1-de46-43db-923b-d07fae9382cb": {
+            "_class": "Puli\\Discovery\\Binding\\ClassBinding",
+            "class": "Http\\Message\\MessageFactory\\DiactorosMessageFactory",
+            "type": "Http\\Message\\RequestFactory",
+            "parameters": {
+                "depends": "Zend\\Diactoros\\Request"
+            }
+        }
+    }
+}

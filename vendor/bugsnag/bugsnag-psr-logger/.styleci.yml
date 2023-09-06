@@ -1,0 +1,5 @@
+disabled:
+  - align_double_arrow
+
+enabled:
+  - unalign_double_arrow

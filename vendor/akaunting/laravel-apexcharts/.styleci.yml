@@ -1,0 +1,4 @@
+preset: psr2
+
+enabled:
+ - concat_with_spaces

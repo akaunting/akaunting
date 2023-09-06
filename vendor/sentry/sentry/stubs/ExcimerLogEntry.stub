@@ -1,0 +1,60 @@
+<?php
+
+namespace {
+
+    class ExcimerLogEntry
+    {
+        /**
+         * ExcimerLogEntry is not constructible by user code.
+         */
+        private final function __construct()
+        {
+        }
+
+        /**
+         * Get the time at which the event occurred. This is the floating point
+         * number of seconds since the ExcimerProfiler object was constructed.
+         *
+         * @return float
+         */
+        public function getTimestamp()
+        {
+        }
+
+        /**
+         * Get the event count represented by this log entry. This will typically
+         * be 1. If there were overruns, it will be 1 plus the number of overruns.
+         *
+         * @return int
+         */
+        public function getEventCount()
+        {
+        }
+
+        /**
+         * Get an array of associative arrays describing the stack trace at the time
+         * of the event. The first element in the array is the function which was
+         * executing, the second function is the caller (parent) of that function,
+         * and so on. Each element is an associative array with the following
+         * optional fields:
+         *
+         *   - file: The filename in which the function appears
+         *   - line: The exact line number at which the event occurred.
+         *   - class: The class name in which the method is defined
+         *   - function: The name of the function or method
+         *   - closure_line: The line number at which the closure was defined
+         *
+         * @return array<int, array{
+         *     file: string,
+         *     line: int,
+         *     class?: string,
+         *     function?: string,
+         *     closure_line?: int,
+         * }>
+         */
+        public function getTrace(): array
+        {
+        }
+    }
+
+}

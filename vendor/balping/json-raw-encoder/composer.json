@@ -1,0 +1,30 @@
+{
+    "name": "balping/json-raw-encoder",
+    "description": "Encode arrays to json with raw JS objects (eg. callbacks) in them",
+    "keywords": ["json", "encode", "callback"],
+    "type": "library",
+    "require": {
+    	"php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1|^8.0|^9.0"
+    },
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Balázs Dura-Kovács"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Balping\\JsonRaw\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Balping\\JsonRaw\\Tests\\": "tests/"
+        }
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}

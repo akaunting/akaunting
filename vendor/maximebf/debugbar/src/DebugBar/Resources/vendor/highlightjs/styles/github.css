@@ -1,0 +1,125 @@
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+div.phpdebugbar .hljs {
+  display: block; padding: 0.5em;
+  color: #333;
+  background: #f8f8f8
+}
+
+div.phpdebugbar .hljs-comment,
+div.phpdebugbar .hljs-template_comment,
+div.phpdebugbar .diff .hljs-header,
+div.phpdebugbar .hljs-javadoc {
+  color: #998;
+  font-style: italic
+}
+
+div.phpdebugbar .hljs-keyword,
+div.phpdebugbar .css .rule .hljs-keyword,
+div.phpdebugbar .hljs-winutils,
+div.phpdebugbar .javascript .hljs-title,
+div.phpdebugbar .nginx .hljs-title,
+div.phpdebugbar .hljs-subst,
+div.phpdebugbar .hljs-request,
+div.phpdebugbar .hljs-status {
+  color: #333;
+  font-weight: bold
+}
+
+div.phpdebugbar .hljs-number,
+div.phpdebugbar .hljs-hexcolor,
+div.phpdebugbar .ruby .hljs-constant {
+  color: #099;
+}
+
+div.phpdebugbar .hljs-string,
+div.phpdebugbar .hljs-tag .hljs-value,
+div.phpdebugbar .hljs-phpdoc,
+div.phpdebugbar .tex .hljs-formula {
+  color: #d14
+}
+
+div.phpdebugbar .hljs-title,
+div.phpdebugbar .hljs-id,
+div.phpdebugbar .coffeescript .hljs-params,
+div.phpdebugbar .scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold
+}
+
+div.phpdebugbar .javascript .hljs-title,
+div.phpdebugbar .lisp .hljs-title,
+div.phpdebugbar .clojure .hljs-title,
+div.phpdebugbar .hljs-subst {
+  font-weight: normal
+}
+
+div.phpdebugbar .hljs-class .hljs-title,
+div.phpdebugbar .haskell .hljs-type,
+div.phpdebugbar .vhdl .hljs-literal,
+div.phpdebugbar .tex .hljs-command {
+  color: #458;
+  font-weight: bold
+}
+
+div.phpdebugbar .hljs-tag,
+div.phpdebugbar .hljs-tag .hljs-title,
+div.phpdebugbar .hljs-rules .hljs-property,
+div.phpdebugbar .django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+div.phpdebugbar .hljs-attribute,
+div.phpdebugbar .hljs-variable,
+div.phpdebugbar .lisp .hljs-body {
+  color: #008080
+}
+
+div.phpdebugbar .hljs-regexp {
+  color: #009926
+}
+
+div.phpdebugbar .hljs-symbol,
+div.phpdebugbar .ruby .hljs-symbol .hljs-string,
+div.phpdebugbar .lisp .hljs-keyword,
+div.phpdebugbar .tex .hljs-special,
+div.phpdebugbar .hljs-prompt {
+  color: #990073
+}
+
+div.phpdebugbar .hljs-built_in,
+div.phpdebugbar .lisp .hljs-title,
+div.phpdebugbar .clojure .hljs-built_in {
+  color: #0086b3
+}
+
+div.phpdebugbar .hljs-preprocessor,
+div.phpdebugbar .hljs-pragma,
+div.phpdebugbar .hljs-pi,
+div.phpdebugbar .hljs-doctype,
+div.phpdebugbar .hljs-shebang,
+div.phpdebugbar .hljs-cdata {
+  color: #999;
+  font-weight: bold
+}
+
+div.phpdebugbar .hljs-deletion {
+  background: #fdd
+}
+
+div.phpdebugbar .hljs-addition {
+  background: #dfd
+}
+
+div.phpdebugbar .diff .hljs-change {
+  background: #0086b3
+}
+
+div.phpdebugbar .hljs-chunk {
+  color: #aaa
+}

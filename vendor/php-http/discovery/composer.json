@@ -1,0 +1,63 @@
+{
+    "name": "php-http/discovery",
+    "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "keywords": ["http", "discovery", "client", "adapter", "message", "factory", "psr7", "psr17"],
+    "homepage": "http://php-http.org",
+    "authors": [
+        {
+            "name": "Márk Sági-Kazár",
+            "email": "mark.sagikazar@gmail.com"
+        }
+    ],
+    "provide": {
+        "php-http/async-client-implementation": "*",
+        "php-http/client-implementation": "*",
+        "psr/http-client-implementation": "*",
+        "psr/http-factory-implementation": "*",
+        "psr/http-message-implementation": "*"
+    },
+    "require": {
+        "php": "^7.1 || ^8.0",
+        "composer-plugin-api": "^1.0|^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^1.0.2|^2.0",
+        "graham-campbell/phpspec-skip-example-extension": "^5.0",
+        "php-http/httplug": "^1.0 || ^2.0",
+        "php-http/message-factory": "^1.0",
+        "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+        "symfony/phpunit-bridge": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\Discovery\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "src/Composer/Plugin.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\Http\\Discovery\\": "spec/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpspec run",
+            "vendor/bin/simple-phpunit --group NothingInstalled"
+        ],
+        "test-ci": "vendor/bin/phpspec run -c phpspec.ci.yml"
+    },
+    "extra": {
+        "class": "Http\\Discovery\\Composer\\Plugin",
+        "plugin-optional": true
+    },
+    "conflict": {
+        "nyholm/psr7": "<1.0",
+        "zendframework/zend-diactoros": "*"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "beta"
+}

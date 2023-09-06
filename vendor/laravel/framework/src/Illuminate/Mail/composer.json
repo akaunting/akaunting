@@ -1,0 +1,48 @@
+{
+    "name": "illuminate/mail",
+    "description": "The Illuminate Mail package.",
+    "license": "MIT",
+    "homepage": "https://laravel.com",
+    "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/collections": "^10.0",
+        "illuminate/container": "^10.0",
+        "illuminate/contracts": "^10.0",
+        "illuminate/macroable": "^10.0",
+        "illuminate/support": "^10.0",
+        "league/commonmark": "^2.2",
+        "psr/log": "^1.0|^2.0|^3.0",
+        "symfony/mailer": "^6.2",
+        "tijsverkoyen/css-to-inline-styles": "^2.2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Mail\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "10.x-dev"
+        }
+    },
+    "suggest": {
+        "aws/aws-sdk-php": "Required to use the SES mail driver (^3.235.5).",
+        "symfony/http-client": "Required to use the Symfony API mail transports (^6.2).",
+        "symfony/mailgun-mailer": "Required to enable support for the Mailgun mail transport (^6.2).",
+        "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.2)."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

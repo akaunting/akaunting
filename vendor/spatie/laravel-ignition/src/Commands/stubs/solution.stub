@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use Spatie\Ignition\Contracts\Solution;
+
+class DummyClass implements Solution
+{
+    public function getSolutionTitle(): string
+    {
+        return '';
+    }
+
+    public function getSolutionDescription(): string
+    {
+        return '';
+    }
+
+    public function getDocumentationLinks(): array
+    {
+        return [];
+    }
+}

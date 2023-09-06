@@ -1,0 +1,58 @@
+{
+   "name": "akaunting/laravel-menu",
+   "description": "Menu and sidebar management package for Laravel",
+   "keywords": [
+       "laravel",
+       "menu",
+       "navigation",
+       "sidebar",
+       "bootstrap"
+   ],
+   "license": "MIT",
+   "authors": [
+        {
+            "name": "Denis Duliçi",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+   ],
+   "require": {
+        "php": "^8.0",
+        "illuminate/config": "^9.0|^10.0",
+        "illuminate/support": "^9.0|^10.0",
+        "illuminate/view": "^9.0|^10.0",
+        "laravelcollective/html": "^6.3"
+   },
+   "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.12",
+        "mockery/mockery": "^1.5",
+        "orchestra/testbench": "^7.4|^8.0",
+        "phpunit/phpunit": "^9.5"
+   },
+   "autoload": {
+        "psr-4": {
+            "Akaunting\\Menu\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+   },
+    "autoload-dev": {
+        "psr-4": {
+            "Akaunting\\Menu\\Tests\\": "tests"
+        }
+    },
+   "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\Menu\\Provider"
+            ],
+            "aliases": {
+                "Menu": "Akaunting\\Menu\\Facade"
+            }
+        }
+   },
+   "minimum-stability": "dev",
+   "prefer-stable": true
+}

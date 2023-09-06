@@ -1,0 +1,84 @@
+{
+    "name": "sentry/sentry-laravel",
+    "type": "library",
+    "description": "Laravel SDK for Sentry (https://sentry.io)",
+    "keywords": [
+        "sentry",
+        "laravel",
+        "log",
+        "logging",
+        "error-monitoring",
+        "error-handler",
+        "crash-reporting",
+        "crash-reports"
+    ],
+    "homepage": "https://sentry.io",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sentry",
+            "email": "accounts@sentry.io"
+        }
+    ],
+    "require": {
+        "php": "^7.2 | ^8.0",
+        "illuminate/support": "^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0",
+        "sentry/sentry": "^3.20.1",
+        "sentry/sdk": "^3.4",
+        "symfony/psr-http-message-bridge": "^1.0 | ^2.0",
+        "nyholm/psr7": "^1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Sentry\\Laravel\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4 | ^9.3",
+        "laravel/framework": "^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0",
+        "orchestra/testbench": "^4.7 | ^5.1 | ^6.0 | ^7.0 | ^8.0",
+        "friendsofphp/php-cs-fixer": "^3.11",
+        "mockery/mockery": "^1.3",
+        "phpstan/phpstan": "^1.10",
+        "laravel/folio": "^1.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sentry\\Laravel\\Tests\\": "test/Sentry/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "tests": "@test",
+        "test:ci": "vendor/bin/phpunit --coverage-clover=coverage.xml",
+        "phpcs": "vendor/bin/php-cs-fixer fix",
+        "phpcs:ci": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "phpstan:ci": "vendor/bin/phpstan analyse --error-format github"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.x-dev",
+            "dev-2.x": "2.x-dev",
+            "dev-1.x": "1.x-dev",
+            "dev-0.x": "0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Sentry\\Laravel\\ServiceProvider",
+                "Sentry\\Laravel\\Tracing\\ServiceProvider"
+            ],
+            "aliases": {
+                "Sentry": "Sentry\\Laravel\\Facade"
+            }
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false,
+            "php-http/discovery": false
+        }
+    }
+}

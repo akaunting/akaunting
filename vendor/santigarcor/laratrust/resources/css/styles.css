@@ -1,0 +1,56 @@
+@tailwind base;
+
+@tailwind components;
+
+.nav-button,.nav-button-active {
+    @apply px-3 py-2 rounded-md text-sm font-medium text-gray-300;
+}
+.nav-button-active {
+    @apply text-white bg-gray-900;
+}
+
+.nav-button:focus, .nav-button-active:focus {
+    @apply outline-none text-white bg-gray-700;
+}
+
+.nav-button:hover {
+    @apply text-white bg-gray-700;
+}
+
+.th {
+    @apply px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.td {
+    @apply px-6 py-4 whitespace-no-wrap border-b border-gray-200;
+}
+
+.btn {
+    @apply font-bold py-2 px-4 rounded;
+}
+.btn-blue {
+    @apply bg-blue-500 text-white;
+}
+.btn-blue:hover {
+    @apply bg-blue-700;
+}
+.btn-red {
+    @apply bg-red-500 text-white;
+}
+.btn-red:hover {
+    @apply bg-red-700;
+}
+
+.alert-warning {
+    @apply bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4;
+}
+
+.alert-success {
+    @apply bg-green-100 border-l-4 border-green-500 text-green-700 p-4;
+}
+
+.alert-error {
+    @apply bg-red-100 border-l-4 border-red-500 text-red-700 p-4;
+}
+
+@tailwind utilities;

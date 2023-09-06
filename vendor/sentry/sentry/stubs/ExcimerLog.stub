@@ -1,0 +1,201 @@
+<?php
+
+namespace {
+
+    /**
+     * A collected series of stack traces and some utility methods to aggregate them.
+     *
+     * ExcimerLog acts as a container for ExcimerLogEntry objects. The Iterator or
+     * ArrayAccess interfaces may be used to access them. For example:
+     *
+     *   foreach ( $profiler->getLog() as $entry ) {
+     *      var_dump( $entry->getTrace() );
+     *   }
+     *
+     * @implements ArrayAccess<int, ExcimerLogEntry>
+     * @implements Iterator<int, ExcimerLogEntry>
+     */
+    class ExcimerLog implements ArrayAccess, Iterator
+    {
+        /**
+         * ExcimerLog is not constructible by user code. Objects of this type
+         * are available via:
+         *   - ExcimerProfiler::getLog()
+         *   - ExcimerProfiler::flush()
+         *   - The callback to ExcimerProfiler::setFlushCallback()
+         */
+        private final function __construct()
+        {
+        }
+
+        /**
+         * Aggregate the stack traces and convert them to a line-based format
+         * understood by Brendan Gregg's FlameGraph utility. Each stack trace is
+         * represented as a series of function names, separated by semicolons.
+         * After this identifier, there is a single space character, then a number
+         * giving the number of times the stack appeared. Then there is a line
+         * break. This is repeated for each unique stack trace.
+         *
+         * @return string
+         */
+        function formatCollapsed()
+        {
+        }
+
+        /**
+         * Produce an array with an element for every function which appears in
+         * the log. The key is a human-readable unique identifier for the function,
+         * method or closure. The value is an associative array with the following
+         * elements:
+         *
+         *   - self: The number of events in which the function itself was running,
+         *     no other userspace function was being called. This includes time
+         *     spent in internal functions that this function called.
+         *   - inclusive: The number of events in which this function appeared
+         *     somewhere in the stack.
+         *
+         * And optionally the following elements, if they are relevant:
+         *
+         *   - file: The filename in which the function appears
+         *   - line: The exact line number at which the first relevant event
+         *     occurred.
+         *   - class: The class name in which the method is defined
+         *   - function: The name of the function or method
+         *   - closure_line: The line number at which the closure was defined
+         *
+         * The event counts in the "self" and "inclusive" fields are adjusted for
+         * overruns. They represent an estimate of the number of profiling periods
+         * in which those functions were present.
+         *
+         * @return array
+         */
+        function aggregateByFunction()
+        {
+        }
+
+        /**
+         * Get an array which can be JSON encoded for import into speedscope
+         *
+         * @return array
+         */
+        function getSpeedscopeData()
+        {
+        }
+
+        /**
+         * Get the total number of profiling periods represented by this log.
+         *
+         * @return int
+         */
+        function getEventCount()
+        {
+        }
+
+        /**
+         * Get the current ExcimerLogEntry object. Part of the Iterator interface.
+         *
+         * @return ExcimerLogEntry
+         */
+        #[\ReturnTypeWillChange]
+        function current()
+        {
+        }
+
+        /**
+         * Get the current integer key or null. Part of the Iterator interface.
+         *
+         * @return int
+         */
+        #[\ReturnTypeWillChange]
+        function key()
+        {
+        }
+
+        /**
+         * Advance to the next log entry. Part of the Iterator interface.
+         *
+         * @return void
+         */
+        #[\ReturnTypeWillChange]
+        function next()
+        {
+        }
+
+        /**
+         * Rewind back to the first log entry. Part of the Iterator interface.
+         *
+         * @return void
+         */
+        #[\ReturnTypeWillChange]
+        function rewind()
+        {
+        }
+
+        /**
+         * Check if the current position is valid. Part of the Iterator interface.
+         *
+         * @return bool
+         */
+        #[\ReturnTypeWillChange]
+        function valid()
+        {
+        }
+
+        /**
+         * Get the number of log entries contained in this log. This is always less
+         * than or equal to the number returned by getEventCount(), which includes
+         * overruns.
+         *
+         * @return int
+         */
+        function count()
+        {
+        }
+
+        /**
+         * Determine whether a log entry exists at the specified array offset.
+         * Part of the ArrayAccess interface.
+         *
+         * @param int $offset
+         * @return bool
+         */
+        #[\ReturnTypeWillChange]
+        function offsetExists($offset)
+        {
+        }
+
+        /**
+         * Get the ExcimerLogEntry object at the specified array offset.
+         *
+         * @param int $offset
+         * @return ExcimerLogEntry
+         */
+        #[\ReturnTypeWillChange]
+        function offsetGet($offset)
+        {
+        }
+
+        /**
+         * This function is included for compliance with the ArrayAccess interface.
+         * It raises a warning and does nothing.
+         *
+         * @param int|null $offset
+         * @param ExcimerLogEntry $value
+         */
+        #[\ReturnTypeWillChange]
+        function offsetSet($offset, $value)
+        {
+        }
+
+        /**
+         * This function is included for compliance with the ArrayAccess interface.
+         * It raises a warning and does nothing.
+         *
+         * @param int $offset
+         */
+        #[\ReturnTypeWillChange]
+        function offsetUnset($offset)
+        {
+        }
+    }
+}

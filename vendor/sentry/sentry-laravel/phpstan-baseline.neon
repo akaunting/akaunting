@@ -1,0 +1,191 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestReceived not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestTerminated not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TaskReceived not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TaskTerminated not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TickReceived not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TickTerminated not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\WorkerErrorOccurred not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\WorkerStopping not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Class Laravel\\\\Sanctum\\\\Events\\\\TokenAuthenticated not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneRequestReceivedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\RequestReceived\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneRequestTerminatedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\RequestTerminated\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneTaskReceivedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\TaskReceived\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneTaskTerminatedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\TaskTerminated\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneTickReceivedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\TickReceived\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneTickTerminatedHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\TickTerminated\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneWorkerErrorOccurredHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\WorkerErrorOccurred\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:octaneWorkerStoppingHandler\\(\\) has invalid type Laravel\\\\Octane\\\\Events\\\\WorkerStopping\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$event of method Sentry\\\\Laravel\\\\EventHandler\\:\\:sanctumTokenAuthenticatedHandler\\(\\) has invalid type Laravel\\\\Sanctum\\\\Events\\\\TokenAuthenticated\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/EventHandler.php
+
+		-
+			message: "#^Parameter \\$component of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:handleComponentBoot\\(\\) has invalid type Livewire\\\\Component\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Parameter \\$component of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:handleComponentBooted\\(\\) has invalid type Livewire\\\\Component\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Parameter \\$component of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:handleComponentDehydrate\\(\\) has invalid type Livewire\\\\Component\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Parameter \\$component of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:handleComponentMount\\(\\) has invalid type Livewire\\\\Component\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Parameter \\$livewireManager of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:onBoot\\(\\) has invalid type Livewire\\\\LivewireManager\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Parameter \\$request of method Sentry\\\\Laravel\\\\Features\\\\LivewirePackageIntegration\\:\\:handleComponentBooted\\(\\) has invalid type Livewire\\\\Request\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/LivewirePackageIntegration.php
+
+		-
+			message: "#^Call to protected method resolve\\(\\) of class Illuminate\\\\Filesystem\\\\FilesystemManager\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Features/Storage/Integration.php
+
+		-
+			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
+			count: 3
+			path: src/Sentry/Laravel/ServiceProvider.php
+
+		-
+			message: "#^Class GraphQL\\\\Language\\\\AST\\\\DocumentNode not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class Nuwave\\\\Lighthouse\\\\Events\\\\EndExecution not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class Nuwave\\\\Lighthouse\\\\Events\\\\EndRequest not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class Nuwave\\\\Lighthouse\\\\Events\\\\StartExecution not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class Nuwave\\\\Lighthouse\\\\Events\\\\StartRequest not found\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Parameter \\$endExecution of method Sentry\\\\Laravel\\\\Tracing\\\\Integrations\\\\LighthouseIntegration\\:\\:handleEndExecution\\(\\) has invalid type Nuwave\\\\Lighthouse\\\\Events\\\\EndExecution\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Parameter \\$endRequest of method Sentry\\\\Laravel\\\\Tracing\\\\Integrations\\\\LighthouseIntegration\\:\\:handleEndRequest\\(\\) has invalid type Nuwave\\\\Lighthouse\\\\Events\\\\EndRequest\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Parameter \\$operation of method Sentry\\\\Laravel\\\\Tracing\\\\Integrations\\\\LighthouseIntegration\\:\\:extractOperationNames\\(\\) has invalid type GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Parameter \\$startExecution of method Sentry\\\\Laravel\\\\Tracing\\\\Integrations\\\\LighthouseIntegration\\:\\:handleStartExecution\\(\\) has invalid type Nuwave\\\\Lighthouse\\\\Events\\\\StartExecution\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Parameter \\$startRequest of method Sentry\\\\Laravel\\\\Tracing\\\\Integrations\\\\LighthouseIntegration\\:\\:handleStartRequest\\(\\) has invalid type Nuwave\\\\Lighthouse\\\\Events\\\\StartRequest\\.$#"
+			count: 1
+			path: src/Sentry/Laravel/Tracing/Integrations/LighthouseIntegration.php
+
+		-
+			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
+			count: 2
+			path: src/Sentry/Laravel/Tracing/ServiceProvider.php

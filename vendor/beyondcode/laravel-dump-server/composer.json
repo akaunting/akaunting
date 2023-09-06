@@ -1,0 +1,56 @@
+{
+    "name": "beyondcode/laravel-dump-server",
+    "description": "Symfony Var-Dump Server for Laravel",
+    "keywords": [
+        "beyondcode",
+        "laravel-dump-server"
+    ],
+    "homepage": "https://github.com/beyondcode/laravel-dump-server",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcel Pociot",
+            "email": "marcel@beyondco.de",
+            "homepage": "https://beyondco.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+        "illuminate/http": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+        "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+        "symfony/var-dumper": "^5.0|^6.0"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.0",
+        "phpunit/phpunit": "^7.0|^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "BeyondCode\\DumpServer\\": "src"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BeyondCode\\DumpServer\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BeyondCode\\DumpServer\\DumpServerServiceProvider"
+            ]
+        }
+    }
+}

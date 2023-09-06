@@ -1,0 +1,69 @@
+{
+    "name": "sabberworm/php-css-parser",
+    "type": "library",
+    "description": "Parser for CSS Files written in PHP",
+    "keywords": [
+        "parser",
+        "css",
+        "stylesheet"
+    ],
+    "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raphael Schweikert"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.20",
+        "ext-iconv": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.36",
+        "codacy/coverage": "^1.4"
+    },
+    "suggest": {
+        "ext-mbstring": "for parsing UTF-8 CSS"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sabberworm\\CSS\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sabberworm\\CSS\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "ci": [
+            "@ci:static"
+        ],
+        "ci:php:fixer": "@php ./.phive/php-cs-fixer.phar --config=config/php-cs-fixer.php fix --dry-run -v --show-progress=dots bin src tests",
+        "ci:php:sniffer": "@php ./.phive/phpcs.phar --standard=config/phpcs.xml bin src tests",
+        "ci:php:stan": "@php ./.phive/phpstan.phar --configuration=config/phpstan.neon",
+        "ci:static": [
+            "@ci:php:fixer",
+            "@ci:php:sniffer",
+            "@ci:php:stan"
+        ],
+        "fix:php": [
+            "@fix:php:fixer",
+            "@fix:php:sniffer"
+        ],
+        "fix:php:fixer": "@php ./.phive/php-cs-fixer.phar --config=config/php-cs-fixer.php fix bin src tests",
+        "fix:php:sniffer": "@php ./.phive/phpcbf.phar --standard=config/phpcs.xml bin src tests",
+        "phpstan:baseline": "@php ./.phive/phpstan.phar --configuration=config/phpstan.neon --generate-baseline=config/phpstan-baseline.neon"
+    },
+    "scripts-descriptions": {
+        "ci": "Runs all dynamic and static code checks (i.e. currently, only the static checks).",
+        "ci:php:fixer": "Checks the code style with PHP CS Fixer.",
+        "ci:php:sniffer": "Checks the code style with PHP_CodeSniffer.",
+        "ci:php:stan": "Checks the types with PHPStan.",
+        "ci:static": "Runs all static code analysis checks for the code.",
+        "fix:php": "Autofixes all autofixable issues in the PHP code.",
+        "fix:php:fixer": "Fixes autofixable issues found by PHP CS Fixer.",
+        "fix:php:sniffer": "Fixes autofixable issues found by PHP_CodeSniffer.",
+        "phpstand:baseline": "Updates the PHPStan baseline file to match the code."
+    }
+}

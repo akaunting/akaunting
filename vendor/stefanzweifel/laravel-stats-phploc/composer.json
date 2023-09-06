@@ -1,0 +1,45 @@
+{
+    "name": "stefanzweifel/laravel-stats-phploc",
+    "description": "A tool for quickly measuring the size of a PHP project. (Don't use this fork in your production apps)",
+    "homepage": "https://github.com/stefanzweifel/phploc",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Sebastian Bergmann",
+            "email": "sebastian@phpunit.de",
+            "role": "lead"
+        },
+        {
+            "name": "Stefan Zweifel",
+            "email": "stefan@stefanzweifel.dev"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/stefanzweifel/phploc/issues"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "sebastian/cli-parser": "^1.0 || ^2.0",
+        "sebastian/version": "^2.0 || ^3.0 || ^4.0",
+        "phpunit/php-file-iterator": "^3.0 || ^4.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "bin": [
+        "phploc"
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-main": "7.0-dev"
+        }
+    }
+}
