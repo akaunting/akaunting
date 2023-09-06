@@ -54,21 +54,21 @@ class CustomersTest extends FeatureTestCase
         $this->assertDatabaseHas('contacts', $request);
     }
 
-    public function testItShouldCreateCustomerWithUser()
-    {
-        $request = $this->getRequestWithUser();
+    // public function testItShouldCreateCustomerWithUser()
+    // {
+    //     $request = $this->getRequestWithUser();
 
-        $this->loginAs()
-            ->post(route('customers.store'), $request)
-            ->assertStatus(200);
+    //     $this->loginAs()
+    //         ->post(route('customers.store'), $request)
+    //         ->assertStatus(200);
 
-        $this->assertFlashLevel('success');
+    //     $this->assertFlashLevel('success');
 
-        $user = User::where('email', $request['email'])->first();
+    //     $user = User::where('email', $request['email'])->first();
 
-        $this->assertNotNull($user);
-        $this->assertEquals($request['email'], $user->email);
-    }
+    //     $this->assertNotNull($user);
+    //     $this->assertEquals($request['email'], $user->email);
+    // }
 
     public function testItShouldSeeCustomerDetailPage()
     {

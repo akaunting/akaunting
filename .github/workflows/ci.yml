@@ -10,11 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Check Out Code
       - uses: actions/checkout@v3
+
+      # Composer to Install Dependencies with Various Extensions
       - uses: php-actions/composer@v6
         with:
           php_extensions: bcmath intl gd zip
+
+      # Run PHP Unit Tests
       - run: vendor/bin/phpunit
+
+      # Deploy The Project
       - run: |
           cd /var/www/akaunting
           git pull origin master
