@@ -62,4 +62,4 @@ jobs:
         # Static Code Analysis
       - name: Run Static Analysis
         uses: php-actions/phpstan@master
-      - run: vendor/bin/phpstan analyse app/Http/Controllers
+      - run: php ./vendor/bin/phpstan analyse app/Http/Controllers
