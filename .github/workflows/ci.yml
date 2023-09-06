@@ -28,6 +28,7 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           php_extensions: bcmath intl gd zip
+      - run: php ./vendor/bin/phpstan analyse app/Http/Controllers
 
       # Install Dependencies
       # - run: npm install
@@ -60,8 +61,8 @@ jobs:
       #    path: reports/build-history.txt
 
         # Static Code Analysis
-      - name: Run Static Analysis
-        uses: php-actions/phpstan@master
-        with:
-          configuration: phpstan.neon
-          memory_limit: 256M
+      #- name: Run Static Analysis
+      #  uses: php-actions/phpstan@master
+      #  with:
+      #    configuration: phpstan.neon
+      #    memory_limit: 256M
