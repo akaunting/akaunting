@@ -36,13 +36,16 @@ jobs:
       # - run: vendor/bin/phpunit
 
       # Deploy The Project
-      - name: Deploy Project
+      # Deploy test
+      - name: Deploy to Server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          cd /var/www/akaunting
-          git pull origin master
-          composer install
-          npm install
-          chown -R www-data:www-data ../akaunting
+          ssh-keyscan -H 143.42.65.130 >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh root@143.42.65.130 "cd /var/www/group-akaunting && git pull origin master"
 
       - name: Capture Build History
         run: |
