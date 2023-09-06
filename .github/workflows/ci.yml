@@ -46,7 +46,7 @@ jobs:
       # Generate Reports
         # History of the Build
       - name: Upload Build History Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-history
           path: reports/build-history.txt
