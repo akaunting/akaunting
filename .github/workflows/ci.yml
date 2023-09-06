@@ -39,8 +39,6 @@ jobs:
           echo "Build started: $(date)" > build-history.txt
           echo "Commit: $(git rev-parse HEAD)" >> build-history.txt
           echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> build-history.txt
-          # Add more relevant information as needed
-        # ... other steps ...
 
       # Generate Reports
         # History of the Build
