@@ -3,10 +3,10 @@ name: Static Code Analysis
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 jobs:
   static-code-analysis:
     runs-on: ubuntu-latest
