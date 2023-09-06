@@ -13,10 +13,17 @@ jobs:
       # Check Out Code
       - uses: actions/checkout@v3
 
+      # Install Composer
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+
       # Composer to Install Dependencies with Various Extensions
-      # - uses: php-actions/composer@v6
-      #   with:
-      #     php_extensions: bcmath intl gd zip
+      - uses: php-actions/composer@v6
+        with:
+          php_extensions: bcmath intl gd zip
 
       # Install Dependencies
       # - run: npm install
