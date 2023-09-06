@@ -39,9 +39,9 @@ jobs:
       - name: Deploy Project
         run: |
           git pull origin master
+          chown -R www-data:www-data ../akaunting
           composer install
           npm install
-          chown -R www-data:www-data ../akaunting
 
       - name: Capture Build History
         run: |
