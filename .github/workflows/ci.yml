@@ -38,7 +38,6 @@ jobs:
       # Deploy The Project
       - name: Deploy Project
         run: |
-          cd /var/www/akaunting
           git pull origin master
           composer install
           npm install
