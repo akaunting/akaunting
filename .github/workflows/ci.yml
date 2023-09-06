@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-report
-          path: .github/workflows/reports
+          path: .github/workflows/reports/build-report.txt
