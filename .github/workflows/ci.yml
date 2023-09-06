@@ -62,4 +62,6 @@ jobs:
         # Static Code Analysis
       - name: Run Static Analysis
         uses: php-actions/phpstan@master
-      - run: php ./vendor/bin/phpstan analyse app/Http/Controllers
+        with:
+          configuration: phpstan.neon
+          memory_limit: 256M
