@@ -14,25 +14,25 @@ jobs:
       - uses: actions/checkout@v3
 
       # Composer to Install Dependencies with Various Extensions
-      - uses: php-actions/composer@v6
-        with:
-          php_extensions: bcmath intl gd zip
+      # - uses: php-actions/composer@v6
+      #   with:
+      #     php_extensions: bcmath intl gd zip
 
       # Install Dependencies
-      - run: npm install
-      - run: composer install
+      # - run: npm install
+      # - run: composer install
 
       # Run PHP Unit Tests
       # - run: vendor/bin/phpunit
 
       # Deploy The Project
       # cd /var/www/akaunting
-      - name: Deploy Project
-        run: |
-          git pull origin master
-          composer install
-          npm install
-          chown -R www-data:www-data ../akaunting
+      # - name: Deploy Project
+      #   run: |
+      #     git pull origin master
+      #     composer install
+      #     npm install
+      #     chown -R www-data:www-data ../akaunting
 
       # Generate Reports
         # History of the Build
