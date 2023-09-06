@@ -34,10 +34,18 @@ jobs:
       #     npm install
       #     chown -R www-data:www-data ../akaunting
 
+      - name: Capture Build History
+        run: |
+          echo "Build started: $(date)" > build-history.txt
+          echo "Commit: $(git rev-parse HEAD)" >> build-history.txt
+          echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> build-history.txt
+          # Add more relevant information as needed
+        # ... other steps ...
+
       # Generate Reports
         # History of the Build
       - name: Archive Report
         uses: actions/upload-artifact@v2
         with:
-          name: build-report
-          path: reports/
+          name: build-history.txt
+          path: reports/build-history.txt
