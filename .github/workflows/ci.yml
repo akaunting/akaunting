@@ -31,7 +31,6 @@ jobs:
 
       # Install Dependencies
       # - run: npm install
-      # - run: composer install
 
       # Run PHP Unit Tests
       # - run: vendor/bin/phpunit
