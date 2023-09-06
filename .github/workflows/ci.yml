@@ -59,3 +59,7 @@ jobs:
         with:
           name: build-history
           path: reports/build-history.txt
+
+        # Static Code Analysis
+      - name: Run Static Analysis
+        run: ./vendor/bin/phpstan --error-format=github
