@@ -1,68 +1,83 @@
-name: CI/CD Pipeline
+#name: CI/CD Pipeline
+#
+#on:
+#  push:
+#    branches:
+#      - master # You can specify the branch you want to trigger the workflow on
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      # Check Out Code
+#      - uses: actions/checkout@v3
+#
+#      ## Clear Composer Cache
+#      #- name: Clear Composer Cache
+#      #  run: composer clear-cache
+#
+#      # Install Composer
+#      #- name: Install Composer
+#      #  run: |
+#      #    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#      #    php composer-setup.php
+#      #    php -r "unlink('composer-setup.php');"
+#
+#      # Composer to Install Dependencies with Various Extensions
+#      - uses: php-actions/composer@v6
+#        with:
+#          php_extensions: bcmath intl gd zip
+#      #- run: php ./vendor/bin/phpstan analyse app/Http/Controllers
+#
+#      # Install Dependencies
+#      # - run: npm install
+#
+#      # Run PHP Unit Tests
+#      # - run: vendor/bin/phpunit
+#
+#      # Deploy The Project
+#      # cd /var/www/akaunting
+#      # - name: Deploy Project
+#      #   run: |
+#      #     git pull origin master
+#      #     composer install
+#      #     npm install
+#      #     chown -R www-data:www-data ../akaunting
+#
+#      #- name: Capture Build History
+#      #  run: |
+#      #    echo "Build started: $(date)" >> reports//build-history.txt
+#      #    echo "Commit: $(git rev-parse HEAD)" >> reports//build-history.txt
+#      #    echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> reports//build-history.txt
+#
+#      # Generate Reports
+#
+#      #  # History of the Build
+#      #- name: Upload Build History Artifact
+#      #  uses: actions/upload-artifact@v3
+#      #  with:
+#      #    name: build-history
+#      #    path: reports/build-history.txt
+#
+#        # Static Code Analysis
+#      - name: Run Static Analysis
+#        uses: php-actions/phpstan@master
+#        with:
+#          configuration: phpstan.neon
+#          memory_limit: 256M
 
-on:
-  push:
-    branches:
-      - master # You can specify the branch you want to trigger the workflow on
+name: CI
+
+on: [push]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Check Out Code
-      - uses: actions/checkout@v3
-
-      ## Clear Composer Cache
-      #- name: Clear Composer Cache
-      #  run: composer clear-cache
-
-      # Install Composer
-      #- name: Install Composer
-      #  run: |
-      #    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      #    php composer-setup.php
-      #    php -r "unlink('composer-setup.php');"
-
-      # Composer to Install Dependencies with Various Extensions
-      - uses: php-actions/composer@v6
+    - uses: actions/checkout@v3
+    - uses: php-actions/composer@v6 # or alternative dependency management
         with:
           php_extensions: bcmath intl gd zip
-      #- run: php ./vendor/bin/phpstan analyse app/Http/Controllers
-
-      # Install Dependencies
-      # - run: npm install
-
-      # Run PHP Unit Tests
-      # - run: vendor/bin/phpunit
-
-      # Deploy The Project
-      # cd /var/www/akaunting
-      # - name: Deploy Project
-      #   run: |
-      #     git pull origin master
-      #     composer install
-      #     npm install
-      #     chown -R www-data:www-data ../akaunting
-
-      #- name: Capture Build History
-      #  run: |
-      #    echo "Build started: $(date)" >> reports//build-history.txt
-      #    echo "Commit: $(git rev-parse HEAD)" >> reports//build-history.txt
-      #    echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> reports//build-history.txt
-
-      # Generate Reports
-
-      #  # History of the Build
-      #- name: Upload Build History Artifact
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: build-history
-      #    path: reports/build-history.txt
-
-        # Static Code Analysis
-      - name: Run Static Analysis
-        uses: php-actions/phpstan@master
-        with:
-          configuration: phpstan.neon
-          memory_limit: 256M
+    - uses: php-actions/phpstan@v3
