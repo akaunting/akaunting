@@ -11,15 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       - uses: php-actions/composer@v6
         with:
           php_extensions: bcmath intl gd zip
-      - run: echo "Composer dependencies have been installed"
       - run: vendor/bin/phpunit
       - run: |
-        cd /var/www/akaunting
-        git pull origin master
-        composer install
-        npm install
-        chown -R www-data:www-data ../akaunting
+          cd /var/www/akaunting
+          git pull origin master
+          composer install
+          npm install
+          chown -R www-data:www-data ../akaunting
