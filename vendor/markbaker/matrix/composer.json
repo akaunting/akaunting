@@ -1,0 +1,52 @@
+{
+    "name": "markbaker/matrix",
+    "type": "library",
+    "description": "PHP Class for working with matrices",
+    "keywords": ["matrix", "vector", "mathematics"],
+    "homepage": "https://github.com/MarkBaker/PHPMatrix",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mark Baker",
+            "email": "mark@demon-angel.eu"
+        }
+    ],
+    "require": {
+        "php": "^7.1 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+        "phpdocumentor/phpdocumentor": "2.*",
+        "phpmd/phpmd": "2.*",
+        "sebastian/phpcpd": "^4.0",
+        "phploc/phploc": "^4.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Matrix\\": "classes/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MatrixTest\\": "unitTests/classes/src/"
+        }
+    },
+    "scripts": {
+        "style": "phpcs --report-width=200 --standard=PSR2 --report=summary,full classes/src/ unitTests/classes/src -n",
+        "test": "phpunit -c phpunit.xml.dist",
+        "mess": "phpmd classes/src/ xml codesize,unusedcode,design,naming -n",
+        "lines": "phploc classes/src/ -n",
+        "cpd": "phpcpd classes/src/ -n",
+        "versions": "phpcs --report-width=200 --standard=PHPCompatibility --report=summary,full classes/src/ --runtime-set testVersion 7.2- -n",
+        "coverage": "phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage"
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

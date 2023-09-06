@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use Laratrust\Models\LaratrustTeam;
+
+class DummyClass extends LaratrustTeam
+{
+    public $guarded = [];
+}

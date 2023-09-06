@@ -1,0 +1,56 @@
+{
+    "name": "akaunting/laravel-debugbar-collector",
+    "description": "Laravel Debugbar collector package for Akaunting",
+    "keywords": [
+        "akaunting",
+        "laravel",
+        "debugbar"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Duliçi",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Sevan Nerse",
+            "email": "sevan@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "barryvdh/laravel-debugbar": ">=3.6"
+    },
+    "require-dev": {
+        "orchestra/testbench": ">=7.0",
+        "phpunit/phpunit": ">=9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Akaunting\\DebugbarCollector\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Akaunting\\DebugbarCollector\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\DebugbarCollector\\Provider"
+            ]
+        }
+    }
+}

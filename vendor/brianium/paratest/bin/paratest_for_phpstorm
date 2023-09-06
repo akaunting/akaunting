@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use ParaTest\Util\PhpstormHelper;
+
+require dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Util' . DIRECTORY_SEPARATOR . 'PhpstormHelper.php';
+
+require PhpstormHelper::handleArgvFromPhpstorm($_SERVER['argv'], __DIR__ . '/paratest');

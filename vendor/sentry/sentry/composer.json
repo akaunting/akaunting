@@ -1,0 +1,98 @@
+{
+    "name": "sentry/sentry",
+    "type": "library",
+    "description": "A PHP SDK for Sentry (http://sentry.io)",
+    "keywords": [
+        "sentry",
+        "log",
+        "logging",
+        "error-monitoring",
+        "error-handler",
+        "crash-reporting",
+        "crash-reports"
+    ],
+    "homepage": "http://sentry.io",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sentry",
+            "email": "accounts@sentry.io"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/promises": "^1.5.3|^2.0",
+        "jean85/pretty-package-versions": "^1.5|^2.0.4",
+        "php-http/async-client-implementation": "^1.0",
+        "php-http/client-common": "^1.5|^2.0",
+        "php-http/discovery": "^1.15",
+        "php-http/httplug": "^1.1|^2.0",
+        "php-http/message": "^1.5",
+        "php-http/message-factory": "^1.1",
+        "psr/http-factory": "^1.0",
+        "psr/http-factory-implementation": "^1.0",
+        "psr/log": "^1.0|^2.0|^3.0",
+        "symfony/options-resolver": "^3.4.43|^4.4.30|^5.0.11|^6.0",
+        "symfony/polyfill-php80": "^1.17"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.19|3.4.*",
+        "guzzlehttp/psr7": "^1.8.4|^2.1.1",
+        "http-interop/http-factory-guzzle": "^1.0",
+        "monolog/monolog": "^1.6|^2.0|^3.0",
+        "nikic/php-parser": "^4.10.3",
+        "php-http/mock-client": "^1.3",
+        "phpbench/phpbench": "^1.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^1.3",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^8.5.14|^9.4",
+        "symfony/phpunit-bridge": "^5.2|^6.0",
+        "vimeo/psalm": "^4.17"
+    },
+    "suggest": {
+        "monolog/monolog": "Allow sending log messages to Sentry by using the included Monolog handler."
+    },
+    "conflict": {
+        "php-http/client-common": "1.8.0",
+        "raven/raven": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
+        "psr-4": {
+            "Sentry\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sentry\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "tests": [
+            "vendor/bin/phpunit --verbose"
+        ],
+        "phpcs": [
+            "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run"
+        ],
+        "phpstan": [
+            "vendor/bin/phpstan analyse"
+        ],
+        "psalm": [
+            "vendor/bin/psalm"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "php-http/discovery": false,
+            "phpstan/extension-installer": true
+        }
+    },
+    "prefer-stable": true
+}

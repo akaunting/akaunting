@@ -1,0 +1,33 @@
+{
+  "name": "laratrust",
+  "version": "5.1.0",
+  "description": "Laratrust Docs",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
+    "cross-env": "^7.0.2",
+    "laravel-mix": "^5.0.4",
+    "tailwindcss": "^1.4.2",
+    "vuepress": "^0.14.4"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "author": "Santiago Garcia C",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/santigarcor/laratrust/issues"
+  },
+  "homepage": "https://github.com/santigarcor/laratrust#readme"
+}

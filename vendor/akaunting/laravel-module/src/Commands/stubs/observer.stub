@@ -1,0 +1,63 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use $MODELNAME$ as Model;
+
+class $CLASS$
+{
+    /**
+     * Handle the $SHORTMODELNAME$ "created" event.
+     *
+     * @param  \$MODELNAME$  $$MODELVARIABLE$
+     * @return void
+     */
+    public function created(Model $$MODELVARIABLE$)
+    {
+        //
+    }
+
+    /**
+     * Handle the $SHORTMODELNAME$ "updated" event.
+     *
+     * @param  \$MODELNAME$  $$MODELVARIABLE$
+     * @return void
+     */
+    public function updated(Model $$MODELVARIABLE$)
+    {
+        //
+    }
+
+    /**
+     * Handle the $SHORTMODELNAME$ "deleted" event.
+     *
+     * @param  \$MODELNAME$  $$MODELVARIABLE$
+     * @return void
+     */
+    public function deleted(Model $$MODELVARIABLE$)
+    {
+        //
+    }
+
+    /**
+     * Handle the $SHORTMODELNAME$ "restored" event.
+     *
+     * @param  \$MODELNAME$  $$MODELVARIABLE$
+     * @return void
+     */
+    public function restored(Model $$MODELVARIABLE$)
+    {
+        //
+    }
+
+    /**
+     * Handle the $SHORTMODELNAME$ "force deleted" event.
+     *
+     * @param  \$MODELNAME$  $$MODELVARIABLE$
+     * @return void
+     */
+    public function forceDeleted(Model $$MODELVARIABLE$)
+    {
+        //
+    }
+}

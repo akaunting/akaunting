@@ -1,0 +1,37 @@
+{
+    "name": "symfony/postmark-mailer",
+    "type": "symfony-mailer-bridge",
+    "description": "Symfony Postmark Mailer Bridge",
+    "keywords": [],
+    "homepage": "https://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "psr/event-dispatcher": "^1",
+        "symfony/mailer": "^5.4.21|^6.2.7"
+    },
+    "require-dev": {
+        "symfony/http-client": "^5.4|^6.0",
+        "symfony/webhook": "^6.3"
+    },
+    "conflict": {
+        "symfony/http-foundation": "<6.2"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Component\\Mailer\\Bridge\\Postmark\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev"
+}

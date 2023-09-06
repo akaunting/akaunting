@@ -1,0 +1,135 @@
+<?php
+
+namespace {
+
+    /**
+     * A sampling profiler.
+     *
+     * Collects a stack trace every time a timer event fires.
+     */
+    class ExcimerProfiler
+    {
+        /**
+         * Set the period.
+         *
+         * This will take effect the next time start() is called.
+         *
+         * If this method is not called, the default period of 0.1 seconds
+         * will be used.
+         *
+         * @param float $period The period in seconds
+         * @return void
+         */
+        public function setPeriod($period)
+        {
+        }
+
+        /**
+         * Set the event type. May be either EXCIMER_REAL, for real (wall-clock)
+         * time, or EXCIMER_CPU, for CPU time. The default is EXCIMER_REAL.
+         *
+         * This will take effect the next time start() is called.
+         *
+         * @param int $eventType
+         * @return void
+         */
+        public function setEventType($eventType)
+        {
+        }
+
+        /**
+         * Set the maximum depth of stack trace collection. If this depth is
+         * exceeded, the traversal up the stack will be terminated, so the function
+         * will appear to have no caller.
+         *
+         * By default, there is no limit. If this is called with a depth of zero,
+         * the limit is disabled.
+         *
+         * This will take effect immediately.
+         *
+         * @param int $maxDepth
+         * @return void
+         */
+        public function setMaxDepth($maxDepth)
+        {
+        }
+
+        /**
+         * Set a callback which will be called once the specified number of samples
+         * has been collected.
+         *
+         * When the ExcimerProfiler object is destroyed, the callback will also
+         * be called, unless no samples have been collected.
+         *
+         * The callback will be called with a single argument: the ExcimerLog
+         * object containing the samples. Before the callback is called, a new
+         * ExcimerLog object will be created and registered with the
+         * ExcimerProfiler. So ExcimerProfiler::getLog() should not be used from
+         * the callback, since it will not return the samples.
+         *
+         * @param callable $callback
+         * @param int $maxSamples
+         * @return void
+         */
+        public function setFlushCallback($callback, $maxSamples)
+        {
+        }
+
+        /**
+         * Clear the flush callback. No callback will be called regardless of
+         * how many samples are collected.
+         *
+         * @return void
+         */
+        public function clearFlushCallback()
+        {
+        }
+
+        /**
+         * Start the profiler. If the profiler was already running, it will be
+         * stopped and restarted with new options.
+         *
+         * @return void
+         */
+        public function start()
+        {
+        }
+
+        /**
+         * Stop the profiler.
+         *
+         * @return void
+         */
+        public function stop()
+        {
+        }
+
+        /**
+         * Get the current ExcimerLog object.
+         *
+         * Note that if the profiler is running, the object thus returned may be
+         * modified by a timer event at any time, potentially invalidating your
+         * analysis. Instead, the profiler should be stopped first, or flush()
+         * should be used.
+         *
+         * @return ExcimerLog
+         */
+        public function getLog()
+        {
+        }
+
+        /**
+         * Create and register a new ExcimerLog object, and return the old
+         * ExcimerLog object.
+         *
+         * This will return all accumulated events to this point, and reset the
+         * log with a new log of zero length.
+         *
+         * @return ExcimerLog
+         */
+        public function flush()
+        {
+        }
+    }
+
+}

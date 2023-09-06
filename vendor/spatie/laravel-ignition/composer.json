@@ -1,0 +1,91 @@
+{
+    "name": "spatie/laravel-ignition",
+    "description": "A beautiful error page for Laravel applications.",
+    "keywords": [
+        "error",
+        "page",
+        "laravel",
+        "flare"
+    ],
+    "authors": [
+        {
+            "name": "Spatie",
+            "email": "info@spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://flareapp.io/ignition",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "illuminate/support": "^10.0",
+        "spatie/flare-client-php": "^1.3.5",
+        "spatie/ignition": "^1.9",
+        "symfony/console": "^6.2.3",
+        "symfony/var-dumper": "^6.2.3"
+    },
+    "require-dev": {
+        "livewire/livewire": "^2.11",
+        "mockery/mockery": "^1.5.1",
+        "openai-php/client": "^0.3.4",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^1.22.3",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan-deprecation-rules": "^1.1.1",
+        "phpstan/phpstan-phpunit": "^1.3.3",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "suggest": {
+        "openai-php/client": "Require get solutions from OpenAI",
+        "psr/simple-cache-implementation": "Needed to cache solutions from OpenAI"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\LaravelIgnition\\IgnitionServiceProvider"
+            ],
+            "aliases": {
+                "Flare": "Spatie\\LaravelIgnition\\Facades\\Flare"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\LaravelIgnition\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\LaravelIgnition\\Tests\\": "tests"
+        }
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "baseline": "vendor/bin/phpstan --generate-baseline",
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "support": {
+        "issues": "https://github.com/spatie/laravel-ignition/issues",
+        "forum": "https://twitter.com/flareappio",
+        "source": "https://github.com/spatie/laravel-ignition",
+        "docs": "https://flareapp.io/docs/ignition-for-laravel/introduction"
+    }
+}

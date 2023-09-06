@@ -1,0 +1,71 @@
+{
+    "name": "genealabs/laravel-model-caching",
+    "description": "Automatic caching for Eloquent models.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Bronner",
+            "email": "hello@genealabs.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "genealabs/laravel-pivot-events": "^10.0",
+        "illuminate/cache": "^10.0",
+        "illuminate/config": "^10.0",
+        "illuminate/console": "^10.0",
+        "illuminate/container": "^10.0",
+        "illuminate/database": "^10.0",
+        "illuminate/http": "^10.0",
+        "illuminate/support": "^10.0"
+    },
+    "require-dev": {
+        "doctrine/dbal": "^3.3",
+        "fakerphp/faker": "^1.11",
+        "laravel/nova": "^3.9",
+        "orchestra/testbench-browser-kit": "^8.0",
+        "orchestra/testbench": "^8.0",
+        "php-coveralls/php-coveralls" : "^2.2",
+        "phpmd/phpmd": "^2.11",
+        "phpunit/phpunit": "^9.5",
+        "slevomat/coding-standard": "^7.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "symfony/thanks": "^1.2",
+        "laravel/legacy-factories": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeneaLabs\\LaravelModelCaching\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/database/factories",
+            "tests/database/seeds"
+        ],
+        "psr-4": {
+            "GeneaLabs\\LaravelModelCaching\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GeneaLabs\\LaravelModelCaching\\Providers\\Service"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "symfony/thanks": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

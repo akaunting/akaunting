@@ -1,0 +1,56 @@
+{
+    "name": "akaunting/laravel-apexcharts",
+    "description": "ApexCharts package for Laravel",
+    "keywords": [
+        "laravel",
+        "line",
+        "bar",
+        "pie",
+        "donut",
+        "charts",
+        "apexcharts"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cüneyt Şentürk",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "balping/json-raw-encoder": "^1.0",
+        "illuminate/support": "^9.0|^10.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5|^10.0",
+        "orchestra/testbench": "^7.4|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Akaunting\\Apexcharts\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Akaunting\\Apexcharts\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\Apexcharts\\Provider"
+            ],
+            "aliases": {
+                "Apexcharts": "Akaunting\\Apexcharts\\Facade"
+            }
+        }
+    }
+}

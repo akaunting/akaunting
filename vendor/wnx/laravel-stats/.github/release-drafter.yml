@@ -1,0 +1,45 @@
+ame-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+template: |
+  $CHANGES
+change-template: '- $TITLE ([#$NUMBER](https://github.com/stefanzweifel/laravel-stats/pull/$NUMBER))'
+categories:
+  - title: Added
+    labels:
+      - 'changelog:added'
+  - title: Changed
+    labels:
+      - 'changelog:changed'
+  - title: Deprecated
+    labels:
+      - 'changelog:deprecated'
+  - title: Removed
+    labels:
+    - 'changelog:removed'
+  - title: Fixed
+    labels:
+      - 'changelog:fixed'
+  - title: Security
+    labels:
+      - security
+      - changelog:security
+  - title: 'Dependency Updates'
+    labels:
+      - dependencies
+
+version-resolver:
+  major:
+    labels:
+      - 'changelog:removed'
+  minor:
+    labels:
+      - 'changelog:added'
+      - 'changelog:deprecated'
+  patch:
+    labels:
+      - 'changelog:fixed'
+      - 'changelog:security'
+      - 'dependency'
+
+exclude-labels:
+  - 'skip-changelog'

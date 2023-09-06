@@ -1,0 +1,64 @@
+{
+   "name": "akaunting/laravel-money",
+   "description": "Currency formatting and conversion package for Laravel",
+   "keywords": [
+      "laravel",
+      "money",
+      "currency",
+      "format",
+      "convert"
+   ],
+   "license": "MIT",
+   "authors": [
+      {
+         "name": "Denis Duliçi",
+         "email": "info@akaunting.com",
+         "homepage": "https://akaunting.com",
+         "role": "Developer"
+      }
+   ],
+   "require": {
+      "php": "^8.0",
+      "illuminate/contracts": "^9.0|^10.0",
+      "illuminate/support": "^9.0|^10.0",
+      "illuminate/validation": "^9.0|^10.0",
+      "illuminate/view": "^9.0|^10.0",
+      "vlucas/phpdotenv": "^5.4.1"
+   },
+   "require-dev": {
+      "phpunit/phpunit": "^9.5|^10.0",
+      "orchestra/testbench": "^7.4|^8.0",
+      "vimeo/psalm": "^4.23"
+   },
+   "autoload": {
+      "psr-4": {
+         "Akaunting\\Money\\": "src"
+      },
+      "files": [
+         "src/helpers.php"
+      ]
+   },
+   "autoload-dev": {
+      "psr-4": {
+         "Akaunting\\Money\\Tests\\": "tests"
+      }
+   },
+   "extra": {
+      "laravel": {
+         "providers": [
+            "Akaunting\\Money\\Provider"
+         ]
+      }
+   },
+   "scripts": {
+      "test": "vendor/bin/phpunit",
+      "psalm": "vendor/bin/psalm"
+   },
+   "config": {
+      "allow-plugins": {
+         "composer/package-versions-deprecated": true
+      }
+   },
+   "minimum-stability": "dev",
+   "prefer-stable": true
+}

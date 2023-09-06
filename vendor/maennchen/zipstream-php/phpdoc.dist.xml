@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+        configVersion="3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://www.phpdoc.org"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd"
+>
+    <title>💾 ZipStream-PHP</title>
+    <paths>
+        <output>docs</output>
+    </paths>
+    <version number="3.0.0">
+        <folder>latest</folder>
+        <api>
+            <source dsn=".">
+                <path>src</path>
+            </source>
+            <output>api</output>
+            <ignore hidden="true" symlinks="true">
+                <path>tests/**/*</path>
+                <path>vendor/**/*</path>
+            </ignore>
+            <extensions>
+                <extension>php</extension>
+            </extensions>
+            <visibility>public</visibility>
+            <default-package-name>ZipStream</default-package-name>
+            <include-source>true</include-source>
+        </api>
+        <guide>
+            <source dsn=".">
+                <path>guides</path>
+            </source>
+            <output>guide</output>
+        </guide>
+    </version>
+    <setting name="guides.enabled" value="true"/>
+    <template name="default" />
+</phpdocumentor>

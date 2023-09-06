@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
+use Throwable;
+
+class DummyClass implements HasSolutionsForThrowable
+{
+    public function canSolve(Throwable $throwable): bool
+    {
+        return false;
+    }
+
+    public function getSolutions(Throwable $throwable): array
+    {
+        return [];
+    }
+}

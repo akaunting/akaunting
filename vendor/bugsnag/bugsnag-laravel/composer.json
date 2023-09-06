@@ -1,0 +1,53 @@
+{
+    "name": "bugsnag/bugsnag-laravel",
+    "description": "Official Bugsnag notifier for Laravel applications.",
+    "keywords": ["bugsnag", "exceptions", "errors", "logging", "tracking", "laravel"],
+    "homepage": "https://github.com/bugsnag/bugsnag-laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Smith",
+            "email": "notifiers@bugsnag.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "bugsnag/bugsnag": "^3.29.0",
+        "bugsnag/bugsnag-psr-logger": "^1.4|^2.0",
+        "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+        "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+        "monolog/monolog": "^1.12|^2.0|^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0|^8.0",
+        "phpunit/phpunit": "^4.8.36|^6.3.1|^7.5.15|^8.3.5|^9.3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bugsnag\\BugsnagLaravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4" : {
+            "Bugsnag\\BugsnagLaravel\\Tests\\" : "tests/"
+        },
+        "files": [
+            "tests/bc.php"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.18-dev"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false
+        }
+    }
+}

@@ -1,0 +1,2 @@
+providers:
+  - Laravel\Sanctum\SanctumServiceProvider

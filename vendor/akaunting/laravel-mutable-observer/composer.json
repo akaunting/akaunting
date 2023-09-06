@@ -1,0 +1,47 @@
+{
+    "name": "akaunting/laravel-mutable-observer",
+    "description": "Mutable observer package for Laravel",
+    "keywords": [
+        "laravel",
+        "observer",
+        "mutable",
+        "mute",
+        "unmute"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Duliçi",
+            "email": "info@akaunting.com",
+            "homepage": "https://akaunting.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^9.0|^10.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.4|^8.0",
+        "phpunit/phpunit": "^9.5|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Akaunting\\MutableObserver\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Akaunting\\MutableObserver\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akaunting\\MutableObserver\\Provider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

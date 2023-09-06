@@ -1,0 +1,518 @@
+/**
+ * dompdf default stylesheet.
+ *
+ * @package dompdf
+ * @link    https://github.com/dompdf/dompdf
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ *
+ * Portions from Mozilla
+ * @link https://dxr.mozilla.org/mozilla-central/source/layout/style/res/html.css
+ * @license http://mozilla.org/MPL/2.0/ Mozilla Public License, v. 2.0
+ *
+ * Portions from W3C
+ * @link https://www.w3.org/TR/css-ui-3/#default-style-sheet
+ *
+ */
+
+@page {
+  margin: 1.2cm;
+}
+
+html {
+  display: -dompdf-page !important;
+  counter-reset: page;
+}
+
+/* blocks */
+
+article,
+aside,
+details,
+div,
+dt,
+figcaption,
+footer,
+form,
+header,
+hgroup,
+main,
+nav,
+noscript,
+section,
+summary {
+  display: block;
+}
+
+body {
+  page-break-before: avoid;
+  display: block !important;
+  counter-increment: page;
+}
+
+p, dl, multicol {
+  display: block;
+  margin: 1em 0;
+}
+
+dd {
+  display: block;
+  margin-left: 40px;
+}
+
+blockquote, figure {
+  display: block;
+  margin: 1em 40px;
+}
+
+address {
+  display: block;
+  font-style: italic;
+}
+
+center {
+  display: block;
+  text-align: center;
+}
+
+blockquote[type=cite] {
+  display: block;
+  margin: 1em 0;
+  padding-left: 1em;
+  border-left: solid;
+  border-color: blue;
+  border-width: thin;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: .83em 0;
+}
+
+h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+
+h4 {
+  margin: 1.33em 0;
+}
+
+h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0;
+}
+
+h6 {
+  font-size: 0.67em;
+  margin: 2.33em 0;
+}
+
+listing {
+  display: block;
+  font-family: fixed;
+  font-size: medium;
+  white-space: pre;
+  margin: 1em 0;
+}
+
+plaintext, pre, xmp {
+  display: block;
+  font-family: fixed;
+  white-space: pre;
+  margin: 1em 0;
+}
+
+/* tables */
+
+table {
+  display: table;
+  border-spacing: 2px;
+  border-collapse: separate;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-indent: 0;
+  text-align: left; /* quirk */
+}
+
+table[border] {
+  border: outset gray;
+}
+
+table[border] td,
+table[border] th {
+  border: 1px inset gray;
+}
+
+table[border="0"] td,
+table[border="0"] th {
+  border-width: 0;
+}
+
+/* make sure backgrounds are inherited in tables  -- see bug 4510 */
+td, th, tr {
+  background: inherit;
+}
+
+/* caption inherits from table not table-outer */
+caption {
+  display: table-caption;
+  text-align: center;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+}
+
+col {
+  display: table-column;
+}
+
+colgroup {
+  display: table-column-group;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+}
+
+tfoot {
+  display: table-footer-group;
+  vertical-align: middle;
+}
+
+/* To simulate tbody auto-insertion */
+table > tr {
+  vertical-align: middle;
+}
+
+td {
+  display: table-cell;
+  vertical-align: inherit;
+  text-align: inherit;
+  padding: 1px;
+}
+
+th {
+  display: table-cell;
+  vertical-align: inherit;
+  text-align: center;
+  font-weight: bold;
+  padding: 1px;
+}
+
+/* inlines */
+
+q::before {
+  content: open-quote;
+}
+
+q::after {
+  content: close-quote;
+}
+
+:link {
+  color: #00c;
+  text-decoration: underline;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+i, cite, em, var, dfn {
+  font-style: italic;
+}
+
+tt, code, kbd, samp {
+  font-family: fixed;
+}
+
+u, ins {
+  text-decoration: underline;
+}
+
+s, strike, del {
+  text-decoration: line-through;
+}
+
+big {
+  font-size: larger;
+}
+
+small {
+  font-size: smaller;
+}
+
+sub {
+  vertical-align: sub;
+  font-size: smaller;
+  line-height: normal;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+  line-height: normal;
+}
+
+nobr {
+  white-space: nowrap;
+}
+
+mark {
+  background: yellow;
+  color: black;
+}
+
+/* titles */
+
+abbr[title], acronym[title] {
+  text-decoration: dotted underline;
+}
+
+/* lists */
+
+ul, menu, dir {
+  display: block;
+  list-style-type: disc;
+  margin: 1em 0;
+  padding-left: 40px;
+}
+
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin: 1em 0;
+  padding-left: 40px;
+}
+
+li {
+  display: list-item;
+}
+
+/*li::before {
+  display: -dompdf-list-bullet !important;
+  content: counter(-dompdf-default-counter) ". ";
+  padding-right: 0.5em;
+}*/
+
+/* nested lists have no top/bottom margins */
+:matches(ul, ol, dir, menu, dl) ul,
+:matches(ul, ol, dir, menu, dl) ol,
+:matches(ul, ol, dir, menu, dl) dir,
+:matches(ul, ol, dir, menu, dl) menu,
+:matches(ul, ol, dir, menu, dl) dl {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* 2 deep unordered lists use a circle */
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul {
+  list-style-type: circle;
+}
+
+/* 3 deep (or more) unordered lists use a square */
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) menu,
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) dir {
+  list-style-type: square;
+}
+
+/* forms */
+/* From https://www.w3.org/TR/css-ui-3/#default-style-sheet */
+form {
+  display: block;
+}
+
+input, button, select {
+  display: inline-block;
+  font-family: sans-serif;
+}
+
+input[type=text],
+input[type=password],
+select {
+  width: 12em;
+}
+
+input[type=text],
+input[type=password],
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=file],
+button,
+textarea,
+select {
+  background: #FFF;
+  border: 1px solid #999;
+  padding: 2px;
+  margin: 2px;
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=file],
+button {
+  background: #CCC;
+  text-align: center;
+}
+
+input[type=file] {
+  width: 8em;
+}
+
+input[type=text]::before,
+input[type=button]::before,
+input[type=submit]::before,
+input[type=reset]::before {
+  content: attr(value);
+}
+
+input[type=file]::before {
+  content: "Choose a file";
+}
+
+input[type=password][value]::before {
+  font-family: "DejaVu Sans" !important;
+  content: "\2022\2022\2022\2022\2022\2022\2022\2022";
+  line-height: 1em;
+}
+
+input[type=checkbox],
+input[type=radio],
+select::after {
+  font-family: "DejaVu Sans" !important;
+  font-size: 18px;
+  line-height: 1;
+}
+
+input[type=checkbox]::before {
+  content: "\2610";
+}
+
+input[type=checkbox][checked]::before {
+  content: "\2611";
+}
+
+input[type=radio]::before {
+  content: "\25CB";
+}
+
+input[type=radio][checked]::before {
+  content: "\25C9";
+}
+
+textarea {
+  display: block;
+  height: 3em;
+  overflow: hidden;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+select {
+  position: relative!important;
+  overflow: hidden!important;
+}
+
+select::after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 5em;
+  width: 1.4em;
+  text-align: center;
+  background: #CCC;
+  content: "\25BE";
+}
+
+select option {
+  display: none;
+}
+
+select option[selected] {
+  display: inline;
+}
+
+fieldset {
+  display: block;
+  margin: 0.6em 2px 2px;
+  padding: 0.75em;
+  border: 1pt groove #666;
+  position: relative;
+}
+
+fieldset > legend {
+  position: absolute;
+  top: -0.6em;
+  left: 0.75em;
+  padding: 0 0.3em;
+  background: white;
+}
+
+legend {
+  display: inline-block;
+}
+
+/* leafs */
+
+hr {
+  display: block;
+  height: 0;
+  border: 1px inset;
+  margin: 0.5em auto 0.5em auto;
+}
+
+hr[size="1"] {
+  border-style: solid none none none;
+}
+
+iframe {
+  border: 2px inset;
+}
+
+noframes {
+  display: block;
+}
+
+br {
+  display: -dompdf-br;
+}
+
+img, img_generated {
+  display: -dompdf-image !important;
+}
+
+dompdf_generated {
+  display: inline;
+}
+
+/* hidden elements */
+area, base, basefont, head, meta, script, style, title,
+noembed, param {
+  display: none;
+  -dompdf-keep: yes;
+}

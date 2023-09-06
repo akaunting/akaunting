@@ -1,0 +1,66 @@
+{
+    "name": "wnx/laravel-stats",
+    "description": "Get insights about your Laravel Project",
+    "homepage": "https://github.com/stefanzweifel/laravel-stats",
+    "keywords": ["laravel", "wnx", "statistics", "stats"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefan Zweifel",
+            "email": "stefan@stefanzweifel.dev",
+            "homepage": "https://stefanzweifel.dev",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "illuminate/console": "^9.0 | ^10.0",
+        "illuminate/support": "^9.0 | ^10.0",
+        "stefanzweifel/laravel-stats-phploc": "^7.0 | ^8.0",
+        "symfony/finder": "^6.0",
+        "symfony/process": "^6.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.2",
+        "laravel/browser-kit-testing": "^6.0 | ^7.0",
+        "laravel/dusk": "^6.0|^7.0",
+        "livewire/livewire": "^2.0",
+        "orchestra/testbench": "^7.0 | ^8.0",
+        "pestphp/pest": "^1 || ^2",
+        "phpunit/phpunit": "^9.0 | ^10.0",
+        "rector/rector": "^0.15",
+        "vimeo/psalm": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wnx\\LaravelStats\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wnx\\LaravelStats\\Tests\\": "tests/",
+            "Laravel\\Nova\\": "test-stubs-nova/"
+        }
+    },
+    "scripts": {
+        "format": "php-cs-fixer fix",
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wnx\\LaravelStats\\StatsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

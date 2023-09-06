@@ -1,0 +1,8 @@
+vendor/
+composer.lock
+coverage/
+.env
+.idea/
+.phpunit.result.cache
+infection/
+docs/build/

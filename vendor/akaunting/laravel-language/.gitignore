@@ -1,0 +1,8 @@
+/.idea
+/.history
+/.vscode
+/.vagrant
+/vendor
+composer.phar
+composer.lock
+.DS_Store
