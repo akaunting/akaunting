@@ -39,7 +39,6 @@ jobs:
       - name: Deploy Project
         run: |
           git pull origin master
-          chown -R www-data:www-data ../group-akaunting
           composer install
           npm install
 
