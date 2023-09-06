@@ -36,9 +36,9 @@ jobs:
       - run: vendor/bin/phpunit
 
       # Deploy The Project
-      cd /var/www/akaunting
       - name: Deploy Project
         run: |
+          cd /var/www/akaunting
           git pull origin master
           composer install
           npm install
