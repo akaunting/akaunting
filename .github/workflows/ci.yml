@@ -59,9 +59,3 @@ jobs:
         with:
           name: build-history
           path: reports/build-history.txt
-
-        # Static Code Analysis
-      # - name: Run PHP_CodeSniffer
-      #   run: |
-      #     vendor/bin/phpcs --standard=Laravel app/Http/Controllers
-      #     vendor/bin/phpcs --standard=Laravel resources/views
