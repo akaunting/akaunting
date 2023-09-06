@@ -13,6 +13,10 @@ jobs:
       # Check Out Code
       - uses: actions/checkout@v3
 
+      # Clear Composer Cache
+      - name: Clear Composer Cache
+        run: composer clear-cache
+
       # Install Composer
       - name: Install Composer
         run: |
@@ -21,9 +25,9 @@ jobs:
           php -r "unlink('composer-setup.php');"
 
       # Composer to Install Dependencies with Various Extensions
-        - uses: php-actions/composer@v6
-          with:
-            php_extensions: bcmath intl gd zip
+      - uses: php-actions/composer@v6
+        with:
+          php_extensions: bcmath intl gd zip
 
       # Install Dependencies
       - run: npm install
