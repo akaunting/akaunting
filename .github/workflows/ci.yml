@@ -36,10 +36,6 @@ jobs:
 
       - name: Capture Build History
         run: |
-          echo "Capturing Build History..."
-          echo "Test" > reports/build-history.txt
-          echo "Build started: $(date)" > reports/build-history.txt
-          echo "Capturing Build History..." > reports//build-history.txt
           echo "Build started: $(date)" > reports//build-history.txt
           echo "Commit: $(git rev-parse HEAD)" >> reports//build-history.txt
           echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> reports//build-history.txt
