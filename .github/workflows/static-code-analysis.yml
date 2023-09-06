@@ -15,13 +15,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set Up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2  # Adjust to your PHP version
+      # Clear Composer Cache
+      - name: Clear Composer Cache
+        run: composer clear-cache
 
-      - name: Install Composer Dependencies
-        run: composer install
+      # Install Composer
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+
+      # Composer to Install Dependencies with Various Extensions
+      - uses: php-actions/composer@v6
+        with:
+          php_extensions: bcmath intl gd zip
 
       - name: Run Static Code Analysis (PHPStan)
         run: vendor/bin/phpstan analyze --level=7 --memory-limit=512M --no-progress
