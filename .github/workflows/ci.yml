@@ -13,10 +13,7 @@ jobs:
       # Check Out Code
       - uses: actions/checkout@v3
 
-      # Clear Composer Cache
-      - name: Clear Composer Cache
-        run: composer clear-cache
-
+      # Install Composer
       - name: Install Composer
         run: |
           php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
