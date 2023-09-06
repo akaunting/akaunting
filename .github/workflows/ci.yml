@@ -52,5 +52,5 @@ jobs:
         # Static Code Analysis
       - name: Run PHP_CodeSniffer
         run: |
-          phpcs --standard=Laravel app/Http/Controllers
-          phpcs --standard=Laravel resources/views
+          vendor/bin/phpcs --standard=Laravel app/Http/Controllers
+          vendor/bin/phpcs --standard=Laravel resources/views
