@@ -1,5 +1,0 @@
-services:
-    -
-        class: Carbon\PHPStan\MacroExtension
-        tags:
-            - phpstan.broker.methodsClassReflectionExtension

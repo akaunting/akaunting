@@ -1,8 +1,0 @@
-/.idea
-/.history
-/.vscode
-/tests/databases
-/vendor
-.DS_Store
-composer.phar
-composer.lock

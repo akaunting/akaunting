@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phive xmlns="https://phar.io/phive">
-  <phar name="phpdocumentor" version="^3.3.1" installed="3.3.1" location="./tools/phpdocumentor" copy="false"/>
-</phive>

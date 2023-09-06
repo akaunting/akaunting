@@ -1,5 +1,0 @@
-<table id="code" class="table table-borderless table-condensed">
-<tbody>
-{{lines}}
-</tbody>
-</table>

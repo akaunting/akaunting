@@ -1,6 +1,0 @@
-source:
-    - src/
-
-destination: build/api/
-
-templateTheme: bootstrap

@@ -1,9 +1,0 @@
-parameters:
-    level: 6
-    paths:
-        - lib
-        - tests
-
-includes:
-    - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-phpunit/rules.neon

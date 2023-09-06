@@ -1,1 +1,0 @@
-{{ money($amount, $currency, $convert) }}
