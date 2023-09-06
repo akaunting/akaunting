@@ -1,6 +1,8 @@
 <x-layouts.portal>
     <x-slot name="title">
         {{ trans_choice('general.dashboards', 1) }}
+
+        <h1>Version Control Test</h1>
     </x-slot>
 
     <x-slot name="content">
