@@ -78,6 +78,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6 # or alternative dependency management
-        with:
-          php_extensions: bcmath intl gd zip
+      with:
+        php_extensions: bcmath intl gd zip
     - uses: php-actions/phpstan@v3
