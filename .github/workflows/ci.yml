@@ -51,5 +51,5 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
-          name: Build History
+          name: build-history
           path: reports/build-history-test.txt
