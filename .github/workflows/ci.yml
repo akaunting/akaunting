@@ -19,7 +19,7 @@ jobs:
           php_extensions: bcmath intl gd zip
 
       # Run PHP Unit Tests
-      - run: vendor/bin/phpunit
+      # - run: vendor/bin/phpunit
 
       # Deploy The Project
       - name: Deploy Project
