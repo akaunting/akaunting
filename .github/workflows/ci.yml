@@ -36,6 +36,7 @@ jobs:
       # - run: vendor/bin/phpunit
 
       # Deploy The Project
+      # Deploy test
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
