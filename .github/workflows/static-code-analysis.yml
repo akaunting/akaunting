@@ -24,4 +24,4 @@ jobs:
         run: composer install
 
       - name: Run Static Code Analysis (PHPStan)
-        run: vendor/bin/phpstan analyze --level=5 --memory-limit=512M --no-progress
+        run: vendor/bin/phpstan analyze --level=7 --memory-limit=512M --no-progress

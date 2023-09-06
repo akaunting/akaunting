@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpstan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpstan.org/config.xsd">
+
+    <!-- PHPStan Level: Adjust the level based on your project's needs -->
+    <level>7</level>
+
+    <!-- Include Directories -->
+    <parameters>
+        <ignoreErrors>
+            <error>Unused variable $unusedVariable.</error>
+        </ignoreErrors>
+        <scanDirectories>
+            <directory>app</directory>
+            <directory>config</directory>
+            <directory>database</directory>
+            <directory>routes</directory>
+        </scanDirectories>
+    </parameters>
+
+</phpstan>
