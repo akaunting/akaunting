@@ -2,7 +2,7 @@
 
 parameters:
     level: 1 # Set the strictness level to 1 for basic checks
-    memoryLimit: 512M # Adjust memory limit as needed
+   # memoryLimit: 512M # Adjust memory limit as needed
     paths:
         - app
         - bootstrap
@@ -13,5 +13,5 @@ parameters:
         - routes
         - tests
 
-includes:
-    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+#includes:
+ #   - vendor/phpstan/phpstan/conf/bleedingEdge.neon

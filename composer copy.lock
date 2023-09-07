@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1397e8852f3e2365fb23802b600793dc",
+    "content-hash": "3c3051659078f500c1002a2cacd7d0e2",
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
@@ -15965,21 +15965,24 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1",
+        "ext-bcmath": "*",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
+        "ext-gd": "*",
+        "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-tokenizer": "*",
-        "ext-xml": "*"
+        "ext-xml": "*",
+        "ext-zip": "*"
     },
     "platform-dev": {
         "ext-curl": "*",
         "ext-dom": "*",
-        "ext-json": "*",
-        "ext-sqlite3": "*"
+        "ext-json": "*"
     },
     "plugin-api-version": "2.3.0"
 }

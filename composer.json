@@ -19,14 +19,11 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
-        "ext-gd": "*",
-        "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-tokenizer": "*",
         "ext-xml": "*",
-        "ext-zip": "*",
         "akaunting/laravel-apexcharts": "^3.0",
         "akaunting/laravel-debugbar-collector": "^2.0",
         "akaunting/laravel-firewall": "^2.0",
@@ -83,10 +80,14 @@
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0",
-        "wnx/laravel-stats": "^2.11"
+        "wnx/laravel-stats": "^2.11",
+        "ext-curl": "*",
+		"ext-dom": "*",
+		"ext-json": "*",
+        "ext-sqlite3": "*",
+		"phpstan/phpstan": "1.*"
     },
     "extra": {
         "laravel": {
@@ -160,6 +161,7 @@
             "composer install --prefer-dist --no-interaction --no-scripts --no-progress --no-ansi",
             "composer dump-autoload"
         ]
+        
     },
     "config": {
         "optimize-autoloader": true,
@@ -168,6 +170,10 @@
         "allow-plugins": {
             "mnsami/composer-custom-directory-installer": true,
             "php-http/discovery": true
+        },
+        "platform":{
+            "php": "8.1",
+            "ext-bcmath": "8.1"
         }
     }
 }
