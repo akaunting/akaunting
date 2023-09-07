@@ -89,7 +89,16 @@
         "ext-curl": "*",
 		"ext-dom": "*",
 		"ext-json": "*",
+        "ext-sqlite3": "*",
 		"phpstan/phpstan": "1.*"
+    },
+    "scripts": {
+        "safe-update-dev": [
+            "composer update --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip"
+        ],
+        "safe-install-dev": [
+            "composer install --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip"
+        ],
     },
     "extra": {
         "laravel": {
