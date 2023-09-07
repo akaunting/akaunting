@@ -1,0 +1,27 @@
+name: Code Analysis
+
+on: [push, pull_request]
+
+jobs:
+  phpstan:
+    name: Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: 8.1
+          extensions: xdebug, mbstring
+
+      - name: "Install dependencies"
+        run: composer install --no-suggest --no-interaction --optimize-autoloader 
+     
+      - name: PHPStan Static Analysis
+        uses: php-actions/phpstan@master
+        with:
+          configuration: phpstan.neon
+          memory_limit: 256M
