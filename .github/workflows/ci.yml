@@ -63,11 +63,11 @@ jobs:
           path: reports/build-history.txt
 
       # Static Code Analysis
-      # - name: PHPStan Analysis
-      #   run: vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress
+      # test 1650
+      - name: PHPStan Analysis
+        run: vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress
 
-      # test 1318
-      - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v3
-        with:
-          path: app/ bootstrap/ config/ database/ public/ resources/views/ routes/ tests/
+      # - name: PHPStan Static Analysis
+      #   uses: php-actions/phpstan@v3
+      #   with:
+      #     path: app/ bootstrap/ config/ database/ public/ resources/views/ routes/ tests/
