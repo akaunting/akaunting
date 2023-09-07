@@ -169,6 +169,10 @@
         "allow-plugins": {
             "mnsami/composer-custom-directory-installer": true,
             "php-http/discovery": true
+        },
+        "platform":{
+            "php": "8.1",
+            "ext-bcmath": "8.1"
         }
     }
 }

@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
  push:
    branches:
-     - master-2 # You can specify the branch you want to trigger the workflow on
+     - master
 
 jobs:
  build:
