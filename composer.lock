@@ -14117,7 +14117,7 @@
                 }
             ],
             "time": "2022-02-06T12:56:13+00:00"
-        }
+        },
         {
             "name": "phpunit/php-code-coverage",
             "version": "10.1.4",
