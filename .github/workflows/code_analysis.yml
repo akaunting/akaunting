@@ -1,18 +1,27 @@
-name: CI
+name: Code Analysis
 
-on:
- push:
-   branches:
-     - master # You can specify the branch you want to trigger the workflow on
+on: [push, pull_request]
 
 jobs:
   phpstan:
+    name: Code Analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: php-actions/composer@v6
+      - name: checkout code
+        uses: actions/checkout@master
 
-      - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v3
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
         with:
-          path: app/ bootstrap/ config/ database/ public/ resources/views/ routes/ tests/
+          coverage: "none"
+          php-version: 8.1
+          extensions: xdebug, mbstring
+
+      - name: "Install dependencies"
+        run: composer install --no-suggest --no-interaction --optimize-autoloader 
+     
+      - name: PHPStan Static Analysis
+        uses: php-actions/phpstan@master
+        with:
+          configuration: phpstan.neon
+          memory_limit: 512M
