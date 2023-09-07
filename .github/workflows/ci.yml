@@ -66,7 +66,7 @@ jobs:
       # - name: PHPStan Analysis
       #   run: vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress
 
-      # test 1508
+      # test 1318
       - name: PHPStan Static Analysis
         uses: php-actions/phpstan@v3
         with:
