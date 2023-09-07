@@ -7,7 +7,7 @@ return [
     'logout'                => '退出登录',
     'login'                 => '登录',
     'forgot'                => '忘记了',
-    'login_to'              => '登录',
+    'login_to'              => '进登录',
     'remember_me'           => '记住我',
     'forgot_password'       => '我忘记了我的密码',
     'reset_password'        => '重置密码',

@@ -4,7 +4,7 @@ return [
 
     'profile'               => 'Profil',
     'logout'                => 'Chiqish',
-    'login'                 => 'Kirish',
+    'login'                 => 'Iltimos Kiring',
     'login_to'              => 'Ishni boshlash uchun sistemaga kiring',
     'remember_me'           => 'Esda tut',
     'forgot_password'       => 'Parolni esdan chiqardim',
