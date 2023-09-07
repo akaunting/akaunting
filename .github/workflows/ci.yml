@@ -3,8 +3,7 @@ name: CI/CD Pipeline
 on:
  push:
    branches:
-    #  - master
-     - master-2 # You can specify the branch you want to trigger the workflow on
+     - master
 
 jobs:
  build:
@@ -34,10 +33,9 @@ jobs:
       - run: npm install
 
       # Run PHP Unit Tests
-      # - run: vendor/bin/phpunit
+      - run: vendor/bin/phpunit
 
       # Deploy The Project
-      # Deploy test
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -47,7 +45,8 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh root@143.42.65.130 "cd /var/www/group-akaunting && git pull origin master"
-
+          
+      # Capture the Build History
       - name: Capture Build History
         run: |
           echo "Build started: $(date)" >> reports//build-history.txt
@@ -56,19 +55,13 @@ jobs:
 
       # Generate Reports
 
-      # History of the Build
+        # History of the Build
       - name: Upload Build History Artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-history
           path: reports/build-history.txt
 
-      # Static Code Analysis
-      # - name: PHPStan Analysis
-      #   run: vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress
-
-      # test 1318
-      - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v3
-        with:
-          path: app/ bootstrap/ config/ database/ public/ resources/views/ routes/ tests/
+        # Static Code Analysis
+      - name: PHPStan Analysis
+        run: vendor/bin/phpstan analyze --level=1 --memory-limit=512M --no-progress

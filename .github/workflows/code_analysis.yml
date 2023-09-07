@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+ push:
+   branches:
+     - master # You can specify the branch you want to trigger the workflow on
 
 jobs:
   phpstan:

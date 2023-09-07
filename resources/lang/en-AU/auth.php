@@ -7,7 +7,7 @@ return [
     'logout'                => 'Logout',
     'login'                 => 'Login',
     'forgot'                => 'Forgot',
-    'login_to'              => 'Login to start your session',
+    'login_to'              => 'Please login to start your session',
     'remember_me'           => 'Remember Me',
     'forgot_password'       => 'I forgot my password',
     'reset_password'        => 'Reset Password',
