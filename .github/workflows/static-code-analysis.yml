@@ -1,0 +1,35 @@
+name: Static Code Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  static-code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Clear Composer Cache
+      - name: Clear Composer Cache
+        run: composer clear-cache
+
+      # Install Composer
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+
+      # Composer to Install Dependencies with Various Extensions
+      - uses: php-actions/composer@v6
+        with:
+          php_extensions: bcmath intl gd zip
+
+      - name: Run Static Code Analysis (PHPStan)
+        run: vendor/bin/phpstan analyze --level=7 --memory-limit=512M --no-progress
