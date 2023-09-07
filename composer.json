@@ -14,19 +14,15 @@
     "type": "project",
     "require": {
         "php": "^8.1",
-        "ext-bcmath": "*",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
-        "ext-gd": "*",
-        "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-tokenizer": "*",
         "ext-xml": "*",
-        "ext-zip": "*",
         "akaunting/laravel-apexcharts": "^3.0",
         "akaunting/laravel-debugbar-collector": "^2.0",
         "akaunting/laravel-firewall": "^2.0",
@@ -136,12 +132,6 @@
         }
     },
     "scripts": {
-        "safe-update-dev": [
-            "composer update --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip"
-        ],
-        "safe-install-dev": [
-            "composer install --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
@@ -173,14 +163,6 @@
         
     },
     "config": {
-        "platform": {
-            "php": "7.2.14",
-            "ext-fileinfo": "1.0.5",
-            "ext-pdo": "7.2.14",
-            "ext-session": "7.2.14",
-            "ext-iconv": "7.2.14",
-            "ext-zip": "1.15.4"
-        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
