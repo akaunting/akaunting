@@ -1,0 +1,17 @@
+# phpstan.neon
+
+parameters:
+    level: 1 # Set the strictness level to 1 for basic checks
+    
+    paths:
+        - app
+        - bootstrap
+        - config
+        - database
+        - public
+        - resources/views
+        - routes
+        - tests
+
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
