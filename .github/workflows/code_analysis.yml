@@ -21,7 +21,7 @@ jobs:
         run: composer install --no-suggest --no-interaction --optimize-autoloader 
      
       - name: PHPStan Static Analysis
-        uses: php-actions/phpstan
+        uses: php-actions/phpstan@LauKinHoong
         with:
           configuration: phpstan.neon
           memory_limit: 256M
