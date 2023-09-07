@@ -14,7 +14,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          php-version: 7.3
+          php-version: 8.0
           extensions: xdebug, mbstring
 
       - name: "Install dependencies"
