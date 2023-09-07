@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c3051659078f500c1002a2cacd7d0e2",
+    "content-hash": "4d3534098ef3df41a215fe5078b3ce0f",
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
@@ -6252,6 +6252,66 @@
                 }
             ],
             "time": "2023-08-11T04:02:34+00:00"
+        },
+        {
+            "name": "lorisleiva/laravel-search-string",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lorisleiva/laravel-search-string.git",
+                "reference": "3842079d0fe6315a3a24dbc30c15ed590c635357"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lorisleiva/laravel-search-string/zipball/3842079d0fe6315a3a24dbc30c15ed590c635357",
+                "reference": "3842079d0fe6315a3a24dbc30c15ed590c635357",
+                "shasum": ""
+            },
+            "require": {
+                "hoa/compiler": "^3.17",
+                "illuminate/support": "^9.0|^10.0",
+                "php": "^8.1",
+                "sanmai/hoa-protocol": "^1.17"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lorisleiva\\LaravelSearchString\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lorisleiva\\LaravelSearchString\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Loris Leiva",
+                    "email": "loris.leiva@gmail.com"
+                }
+            ],
+            "description": "Generates database queries based on one unique string using a simple and customizable syntax.",
+            "support": {
+                "issues": "https://github.com/lorisleiva/laravel-search-string/issues",
+                "source": "https://github.com/lorisleiva/laravel-search-string/tree/v1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lorisleiva",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-11T10:11:33+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -15922,7 +15982,8 @@
     "platform-dev": {
         "ext-curl": "*",
         "ext-dom": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-sqlite3": "*"
     },
     "plugin-api-version": "2.3.0"
 }
