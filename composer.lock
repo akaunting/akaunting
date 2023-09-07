@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acee698de61b5fc475b06b380fa3effa",
+    "content-hash": "3c3051659078f500c1002a2cacd7d0e2",
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
@@ -852,16 +852,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.281.0",
+            "version": "3.281.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e64af36b7951550ff3073cea260a641963ebcd8d"
+                "reference": "d7a52685e00941636f25f4d53f26a4fa186f36d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e64af36b7951550ff3073cea260a641963ebcd8d",
-                "reference": "e64af36b7951550ff3073cea260a641963ebcd8d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d7a52685e00941636f25f4d53f26a4fa186f36d4",
+                "reference": "d7a52685e00941636f25f4d53f26a4fa186f36d4",
                 "shasum": ""
             },
             "require": {
@@ -941,9 +941,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.281.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.281.1"
             },
-            "time": "2023-09-05T18:07:25+00:00"
+            "time": "2023-09-06T18:09:38+00:00"
         },
         {
             "name": "balping/json-raw-encoder",
@@ -3729,12 +3729,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Hoa\\Consistency\\": "."
-                },
                 "files": [
                     "Prelude.php"
-                ]
+                ],
+                "psr-4": {
+                    "Hoa\\Consistency\\": "."
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -14054,7 +14054,7 @@
             },
             "time": "2022-02-21T01:04:05+00:00"
         },
-       {
+        {
             "name": "phpstan/phpstan",
             "version": "1.10.33",
             "source": {
@@ -15979,6 +15979,10 @@
         "ext-xml": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-json": "*"
+    },
     "plugin-api-version": "2.3.0"
 }

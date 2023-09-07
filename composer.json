@@ -89,7 +89,6 @@
         "ext-curl": "*",
 		"ext-dom": "*",
 		"ext-json": "*",
-		"ext-sqlite3": "*",
 		"phpstan/phpstan": "1.*"
     },
     "extra": {
