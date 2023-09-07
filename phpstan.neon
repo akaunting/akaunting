@@ -13,5 +13,5 @@ parameters:
         - routes
         - tests
 
-includes:
-    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+#includes:
+ #   - vendor/phpstan/phpstan/conf/bleedingEdge.neon
