@@ -98,7 +98,7 @@
         ],
         "safe-install-dev": [
             "composer install --ignore-platform-req=ext-bcmath --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip"
-        ],
+        ]
     },
     "extra": {
         "laravel": {
