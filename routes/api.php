@@ -30,6 +30,9 @@ Route::group(['as' => 'api.'], function () {
     Route::get('yabu', function () {
         dd('yabu');
     });
+    Route::get('second-route', function () {
+        dd('second route');
+    });
 
     // Items
     Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
