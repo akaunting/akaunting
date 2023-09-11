@@ -27,6 +27,9 @@ Route::group(['as' => 'api.'], function () {
     Route::get('dashboards/{dashboard}/enable', 'Common\Dashboards@enable')->name('dashboards.enable');
     Route::get('dashboards/{dashboard}/disable', 'Common\Dashboards@disable')->name('dashboards.disable');
     Route::apiResource('dashboards', 'Common\Dashboards');
+    Route::get('yabu', function () {
+        dd('yabu');
+    });
 
     // Items
     Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
