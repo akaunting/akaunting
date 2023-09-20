@@ -54,7 +54,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $sortable = ['name', 'category.name', 'sale_price', 'purchase_price', 'enabled'];
+    protected $sortable = ['name', 'category.name', 'description', 'sale_price', 'purchase_price', 'enabled'];
 
     /**
      * @var array
