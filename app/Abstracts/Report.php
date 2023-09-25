@@ -10,6 +10,8 @@ use App\Events\Report\FilterShowing;
 use App\Events\Report\GroupApplying;
 use App\Events\Report\GroupShowing;
 use App\Events\Report\RowsShowing;
+use App\Events\Report\TotalCalculating;
+use App\Events\Report\TotalCalculated;
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
@@ -403,6 +405,8 @@ abstract class Report
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
+        event(new TotalCalculating($this, $items, $date_field, $check_type, $table, $with_tax));
+
         $group_field = $this->getSetting('group') . '_id';
 
         foreach ($items as $item) {
@@ -439,6 +443,8 @@ abstract class Report
                 $this->footer_totals[$table][$date] -= $amount;
             }
         }
+
+        event(new TotalCalculated($this, $items, $date_field, $check_type, $table, $with_tax));
     }
 
     public function setArithmeticTotals($items, $date_field, $operator = 'add', $table = 'default', $amount_field = 'amount')
