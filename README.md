@@ -1,4 +1,18 @@
-﻿# Akaunting™
+﻿## TABLE OF CONTENTS
+      -Akaunting™
+      -Features
+      -Website
+      -Requirements
+      -Framework
+      -Installation
+      -Contributing
+      -Translation
+      -Changelog
+      -Security
+      -Credits
+      -License
+
+# Akaunting™
 
 [![Release](https://img.shields.io/github/v/release/akaunting/akaunting?label=release)](https://github.com/akaunting/akaunting/releases)
 ![Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total?label=downloads)
@@ -14,6 +28,38 @@ Akaunting is a free, open source and online accounting software designed for sma
 * [Developer Portal](https://developer.akaunting.com) - Generate passive income
 * [App Store](https://akaunting.com/apps) - Extend your Akaunting
 * [Translations](https://crowdin.com/project/akaunting) - Help us translate Akaunting
+
+# Features
+
+Bank Accounts
+-Create unlimited bank and cash accounts and track their opening and current balances
+
+Multi Company
+-Manage the finances of multiple companies from one admin panel
+-Assign users to different companies
+
+Powerfil Reporting
+-Get detailed financial reports to help you better visualize all the information you need to improve your business
+
+Client Portal
+-Share the transations and invoices with your client and accept bulk payments, online
+
+Recur Everything
+-Automactically create invoices, revenues, bills, and payments for ongoing job with just a click
+
+Customer Summary
+-See the customer profile, address, list of transactions, and paid, open, and overdue totals at a glance
+
+# Website
+
+To run the application, do the following steps: 
+1. Navigate to the Accounting Software
+    Click on this link to be directed to the website: https://akaunting.com/
+2. New users click on "Get Started" and existing users click on "Log in"
+    Two options will appear to download the applciation, cloud or on-premise
+        Cloud is using the application on our server (Recommended)
+        On-premise is using the application on your own server
+3. With the cloud option you will create an account by entering in your name, email, and password and with the on-premise the application will be downloaded on your local machine
 
 ## Requirements
 
