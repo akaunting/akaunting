@@ -37,7 +37,7 @@ return [
     'limit_middle'          => 'et fini',
 
     'form_description' => [
-        'schedule'          => 'Choisissez les conditions et l\'heure de début/fin pour vous assurer que votre client reçoit votre :type le jour correct.',
+        'schedule'          => 'Choisissez les conditions et la date de début et de fin en vous assurant que votre client recevra votre :type à la bonne échéance.',
     ],
 
 ];

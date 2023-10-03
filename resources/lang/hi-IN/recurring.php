@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'ईमेल स्वचालित रूप से भेजें',
 
     'frequency_type'        => 'इस :type को दोहराएं',
+    'custom_frequency_desc' => 'प्रत्येक :interval :frequency को दोहराएँ',
     'limit_date'            => 'पर पहली :type बनाएं',
     'limit_middle'          => 'और अंत',
 

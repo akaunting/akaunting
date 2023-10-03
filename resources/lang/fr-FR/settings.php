@@ -4,7 +4,7 @@ return [
 
     'company' => [
         'description'                   => 'Changer le nom de la société, l\'email, l\'adresse, le numéro SIRET, etc',
-        'search_keywords'               => 'société, nom, courriel, téléphone, adresse, pays, numéro SIRET, logo, ville, ville, état, province, code postal',
+        'search_keywords'               => 'société, nom, courriel, téléphone, adresse, pays, numéro SIRET, logo, ville, état, province, code postal',
         'name'                          => 'Nom',
         'email'                         => 'Email',
         'phone'                         => 'Téléphone',
