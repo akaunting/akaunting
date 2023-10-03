@@ -20,7 +20,7 @@ class CurrenciesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+        $message = trans('messages.success.created', ['type' => trans_choice('general.currencies', 1)]);
 
         $this->loginAs()
             ->post(route('wizard.currencies.store'), $request)
