@@ -26,6 +26,8 @@ abstract class Index extends Component
 
     public $documents;
 
+    public $totalDocuments;
+
     /** @var string */
     public $group;
 
@@ -223,7 +225,7 @@ abstract class Index extends Component
      * @return void
      */
     public function __construct(
-        string $type, string $alias = '', $documents = [], string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
+        string $type, string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
         string $routeTabDocument = '', string $routeTabRecurring = '', string $routeParamsTabUnpaid = '', string $routeParamsTabDraft = '',
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         bool $hideAcceptPayment = false, bool $checkPermissionCreate = true,
@@ -246,6 +248,7 @@ abstract class Index extends Component
         $this->type = $type;
         $this->alias = $this->getAlias($type, $alias);
         $this->documents = ($documents) ? $documents : collect();
+        $this->totalDocuments = $this->getTotalDocuments($totalDocuments);
         $this->group = $this->getGroup($type, $group);
         $this->page = $this->getPage($type, $page);
         $this->textTabDocument = $this->getTextTabDocument($type, $textTabDocument);
@@ -278,7 +281,7 @@ abstract class Index extends Component
 
         /* -- Content Start -- */
         /* -- Empty Page Start -- */
-        $this->hideEmptyPage = $hideEmptyPage;
+        $this->hideEmptyPage = $this->getHideEmptyPage($hideEmptyPage);
 
         $this->emptyPageButtons = $this->getEmptyPageButtons($type, $emptyPageButtons);
         $this->imageEmptyPage = $this->getImageEmptyPage($type, $imageEmptyPage);
@@ -349,6 +352,32 @@ abstract class Index extends Component
 
         // Set Parent data
         $this->setParentData();
+    }
+
+    protected function getTotalDocuments($totalDocuments)
+    {
+        if (! is_null($totalDocuments)) {
+            return $totalDocuments;
+        }
+
+        return $this->documents->count();
+    }
+
+    protected function getHideEmptyPage($hideEmptyPage): bool
+    {
+        if ($hideEmptyPage) {
+            return $hideEmptyPage;
+        }
+
+        if ($this->totalDocuments > 0) {
+            return true;
+        }
+
+        if (request()->has('search') && ($this->totalDocuments > 0)) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function getEmptyPageButtons($type, $emptyPageButtons)

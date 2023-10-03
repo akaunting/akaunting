@@ -32,7 +32,9 @@ class Invoices extends Controller
 
         $invoices = Document::invoice()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['document_number'=> 'desc']);
 
-        return $this->response('sales.invoices.index', compact('invoices'));
+        $total_invoices = Document::invoice()->count();
+
+        return $this->response('sales.invoices.index', compact('invoices', 'total_invoices'));
     }
 
     /**

@@ -18,7 +18,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-documents.index.content type="bill" :documents="$bills" />
+        <x-documents.index.content type="bill" :documents="$bills" :total-documents="$total_bills" />
     </x-slot>
 
     <x-documents.script type="bill" />

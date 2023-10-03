@@ -1,4 +1,4 @@
-@if ($hideEmptyPage || ($documents->count() || (request()->has('search') && ! request()->has('programmatic'))))
+@if ($hideEmptyPage)
     @if (! $hideSummary)
     <x-index.summary :items="$summaryItems" />
     @endif

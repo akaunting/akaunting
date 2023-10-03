@@ -31,7 +31,9 @@ class Bills extends Controller
 
         $bills = Document::bill()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['issued_at' => 'desc']);
 
-        return $this->response('purchases.bills.index', compact('bills'));
+        $total_bills = Document::bill()->count();
+
+        return $this->response('purchases.bills.index', compact('bills', 'total_bills'));
     }
 
     /**
