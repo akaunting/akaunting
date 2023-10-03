@@ -22,6 +22,7 @@ return [
         'extension'         => ':extension udvidelse skal være indlæst!',
         'directory'         => ':directory folderen skal være skrivbar!',
         'executable'        => 'PHP CLI eksekverbar file virker ikke! Venligst  anmod din host om at sætte PHP_BINARY eller PHP_PATH miljøvariablen korrekt.',
+        'npm'               => '<b>Mangler JavaScript-filer !</b> <br><br><span>Du bør køre <em class="underline">npm install</em> og <em class="underline">npm run dev</em> kommandoer.</span>', 
     ],
 
     'database' => [
@@ -43,4 +44,8 @@ return [
         'connection'        => 'Error: Kunne ikke forbinde til databasen! Kontroller, at oplysningerne er korrekte.',
     ],
 
+    'update' => [
+        'core'              => 'Ny Akaunting version er tilgængelig! Opdater venligst din installation.',
+        'module'            => 'Ny :module version er tilgængelig! Opdater venligst din installation.',
+    ],
 ];

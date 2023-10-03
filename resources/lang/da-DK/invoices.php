@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Send faktura',
     'get_paid'              => 'Betal',
     'accept_payments'       => 'Accepter onlinebetalinger',
-    'payment_received'      => 'Betaling modtaget',
+    'payments_received'     => 'Betalinger modtaget',
 
     'form_description' => [
         'billing'           => 'Faktureringsoplysninger vises på din faktura. Faktureringsdato bruges i skrivebordet og rapporter. Vælg den dato, du forventer at blive betalt som forfaldsdato.',
@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Ingen E-mail-adresse for kunden!',
+        'totals_required'   => 'Faktura totaler kræves Rediger venligst :type og gem den igen.',
+
         'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil først blive vist i oversigten, når den er sendt.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Afventer betaling',
             ],
         ],
+
+        'name_or_description_required' => 'Din faktura skal vise mindst en af <b>:name</b> eller <b>:description</b>.',
     ],
 
     'slider' => [

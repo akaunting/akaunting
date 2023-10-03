@@ -64,6 +64,17 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Ugyldig :type email',
+            'description'   => 'E-mailadressen :email er blevet rapporteret som ugyldig, og personen er blevet deaktiveret. Tjek venligst følgende fejlmeddelelse og ret e-mailadressen:',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -89,7 +100,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Import mislykkedes',
+            'title'         => 'Import mislykkedes',
             'description'   => 'Ikke i stand til at importere filen på grund af flere problemer. Tjek din e-mail for detaljerne.',
 
         ],
@@ -178,6 +189,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Ugyldig :type email',
+            'description'   => 'E-mailadressen :email er blevet rapporteret som ugyldig, og personen er blevet deaktiveret. Tjek venligst følgende fejlmeddelelse og ret e-mailadressen:',
+
+        ],
+
     ],
 
     'messages' => [
@@ -186,4 +204,16 @@ return [
         'mark_read_all'         => ':type læs alle notifikationerne',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Indstilling Af Firefox Ikoner',
+            'description'  => '<span class="font-medium">Hvis dine ikoner ikke vises venligst;</span> <br /> <span class="font-medium">Tillad venligst sider at vælge deres egne skrifttyper, i stedet for dine valg herover</span> <br /><br /> <span class="font-bold"> Indstillinger > Skrifttyper > Avanceret </span>',
+
+        ],
+
+    ],
+
 ];
