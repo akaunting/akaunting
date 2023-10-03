@@ -4,7 +4,6 @@
 ![Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total?label=downloads)
 [![Translations](https://badges.crowdin.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting)
 [![Tests](https://img.shields.io/github/actions/workflow/status/akaunting/akaunting/tests.yml?label=tests)](https://github.com/akaunting/akaunting/actions)
-[![License](https://img.shields.io/github/license/akaunting/akaunting?label=license)](LICENSE.txt)
 
 Online accounting software designed for small businesses and freelancers. Akaunting is built with modern technologies such as Laravel, VueJS, Tailwind, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
