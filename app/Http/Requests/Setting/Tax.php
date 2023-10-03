@@ -32,7 +32,7 @@ class Tax extends FormRequest
 
         return [
             'name' => 'required|string',
-            'rate' => 'required|min:0|max:100',
+            'rate' => ['required', 'numeric', 'between:0,100', 'regex:/^\d+(\.\d{1,2})?$/'],
             'type' => $type,
             'enabled' => $enabled,
         ];
