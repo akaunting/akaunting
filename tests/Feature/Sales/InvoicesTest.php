@@ -300,7 +300,7 @@ class InvoicesTest extends FeatureTestCase
 
         return [
             'document_id'   => $invoice->id,
-            'to'            => $invoice->contact->email,
+            'to'            => [$invoice->contact->email],
             'subject'       => $notification->getSubject(),
             'body'          => $notification->getBody(),
         ];

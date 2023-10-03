@@ -240,7 +240,7 @@ class TransactionsTest extends FeatureTestCase
 
         return [
             'transaction_id'    => $transaction->id,
-            'to'                => $transaction->contact->email,
+            'to'                => [$transaction->contact->email],
             'subject'           => $notification->getSubject(),
             'body'              => $notification->getBody(),
         ];
