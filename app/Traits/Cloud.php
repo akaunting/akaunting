@@ -41,6 +41,6 @@ trait Cloud
     // @deprecated 3.1
     public function isCloud()
     {
-        return request()->isCloud();
+        return request()->isCloudHost();
     }
 }

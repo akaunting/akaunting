@@ -10,7 +10,7 @@
         "software",
         "online"
     ],
-    "license": "BSL",
+    "license": "BUSL-1.1",
     "type": "project",
     "require": {
         "php": "^8.1",
