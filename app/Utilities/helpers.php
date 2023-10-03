@@ -4,6 +4,7 @@ use App\Models\Common\Company;
 use App\Traits\DateTime;
 use App\Traits\Sources;
 use App\Traits\Modules;
+use App\Traits\SearchString;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
 use Illuminate\Support\Facades\Storage;
@@ -36,9 +37,7 @@ if (! function_exists('company_date_format')) {
      */
     function company_date_format(): string
     {
-        $date_time = new class() {
-            use DateTime;
-        };
+        $date_time = new class() { use DateTime; };
 
         return $date_time->getCompanyDateFormat();
     }
@@ -281,5 +280,21 @@ if (! function_exists('get_storage_path')) {
         return is_local_storage()
                 ? storage_path($path)
                 : Storage::path($path);
+    }
+}
+
+if (! function_exists('user_model_class')) {
+    function user_model_class(): string
+    {
+        return config('auth.providers.users.model');
+    }
+}
+
+if (! function_exists('search_string_value')) {
+    function search_string_value(string $name, string $default = '', string $input = ''): string|array
+    {
+        $search = new class() { use SearchString; };
+
+        return $search->getSearchStringValue($name, $default, $input);
     }
 }

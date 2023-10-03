@@ -6,13 +6,12 @@ use App\Abstracts\Job;
 use App\Events\Auth\UserUpdated;
 use App\Events\Auth\UserUpdating;
 use App\Interfaces\Job\ShouldUpdate;
-use App\Models\Auth\User;
 use App\Models\Common\Company;
 use Illuminate\Support\Facades\Artisan;
 
 class UpdateUser extends Job implements ShouldUpdate
 {
-    public function handle(): User
+    public function handle()
     {
         $this->authorize();
 

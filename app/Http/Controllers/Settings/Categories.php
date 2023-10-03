@@ -87,7 +87,7 @@ class Categories extends Controller
         if ($response['success']) {
             $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.categories', 1)]);
 
             flash($message)->success();
         } else {

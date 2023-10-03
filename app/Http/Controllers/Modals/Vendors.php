@@ -59,7 +59,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new CreateContact($request));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
+            $response['message'] = trans('messages.success.created', ['type' => trans_choice('general.vendors', 1)]);
         }
 
         return response()->json($response);

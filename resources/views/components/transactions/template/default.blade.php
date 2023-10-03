@@ -370,7 +370,34 @@
     @endif
 
     @if (! $hideAmount)
-        <table style="text-align: right; margin-top:55px;">
+        @if ($transaction->taxes->count())
+        <div class="row mt-3 clearfix">
+            <div class="col-40 float-right text-right">
+                <div class="text border-bottom-dashed-black py-1">
+                    <span class="float-left font-semibold">
+                        {{ trans('general.before_tax') }}:
+                    </span>
+
+                    <span>
+                        <x-money :amount="$transaction->amount_before_tax" :currency="$transaction->currency_code" />
+                    </span>
+                </div>
+                @foreach ($transaction->taxes as $tax)
+                <div class="text border-bottom-dashed-black py-1">
+                    <span class="float-left font-semibold">
+                        {{ $tax->tax->title }}:
+                    </span>
+
+                    <span>
+                        <x-money :amount="$tax->amount" :currency="$transaction->currency_code" />
+                    </span>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
+        <table style="text-align: right; margin-top:35px;">
             <tr>
                 <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
                     <table>

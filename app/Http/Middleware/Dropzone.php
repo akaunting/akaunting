@@ -36,7 +36,7 @@ class Dropzone
 
             foreach ($value as $index => $parameter) {
                 // single file uploaded..
-                if (! is_array($parameter) && !$multiple) {
+                if (! is_array($parameter) && ! $multiple) {
                     if (! Arr::has($value, 'dropzone')) {
                         continue;
                     }

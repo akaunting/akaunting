@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use App\Jobs\Auth\CreateUser;
-use App\Models\Auth\User;
 use App\Notifications\Auth\Invitation;
 use Illuminate\Support\Facades\Notification;
 use Tests\Feature\FeatureTestCase;
@@ -55,11 +54,11 @@ class UsersTest extends FeatureTestCase
                 'success' => true,
                 'error' => false,
                 'message' => '',
-                'redirect' => route('users.show', User::max('id')),
+                'redirect' => route('users.show', user_model_class()::max('id')),
             ])
             ->json();
 
-        $user = User::findOrFail($response['data']['id']);
+        $user = user_model_class()::findOrFail($response['data']['id']);
 
         $this->assertFlashLevel('success');
 
@@ -229,7 +228,7 @@ class UsersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return User::factory()->enabled()->raw();
+        return user_model_class()::factory()->enabled()->raw();
     }
 
     public function getAssertRequest($request)

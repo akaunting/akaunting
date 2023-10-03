@@ -26,7 +26,13 @@ class Account extends Form
 
         $this->path = route('modals.accounts.create');
 
-        $this->accounts = $this->getAccounts();
+        if (empty($this->accounts) && ! empty($this->options)) {
+            $this->accounts = $this->options;
+        } else if (empty($this->accounts)) {
+            $this->accounts = $this->getAccounts();
+        }
+
+        $model = $this->getParentData('model');
 
         $account_id = old('account.id', old('account_id', null));
 
@@ -36,11 +42,21 @@ class Account extends Form
             if (! $this->accounts->has($account_id)) {
                 $account = Model::find($account_id);
 
-                $this->accounts->put($account->id, $account->name);
+                $this->accounts->push($account);
             }
         }
 
-        if (empty($this->selected) && empty($this->getParentData('model'))) {
+        if (! empty($model) && ! empty($model->{$this->name})) {
+            $this->selected = $model->{$this->name};
+
+            $selected_account = $model->account;
+        }
+
+        if (! empty($selected_account) && ! $this->accounts->has($selected_account->id)) {
+            $this->accounts->push($selected_account);
+        }
+
+        if ($this->selected === null) {
             $this->selected = setting('default.account');
         }
 
@@ -50,9 +66,9 @@ class Account extends Form
     protected function getAccounts()
     {
         if ($this->hideCurrency) {
-            return Model::enabled()->orderBy('name')->pluck('name', 'id');
+            return Model::enabled()->orderBy('name')->get();
         }
 
-        return Model::enabled()->orderBy('name')->get()->pluck('title', 'id');
+        return Model::enabled()->orderBy('name')->get();
     }
 }

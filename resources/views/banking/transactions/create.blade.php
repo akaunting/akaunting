@@ -25,7 +25,7 @@
 
                         <x-form.group.account />
 
-                        <x-form.group.money name="amount" label="{{ trans('general.amount') }}" value="0" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" />
+                        <x-form.group.money name="amount" label="{{ trans('general.amount') }}" value="0" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" input="onChangeTax(form.tax_ids)" />
 
                         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
 
@@ -43,6 +43,8 @@
                         <x-form.group.category :type="$real_type" :selected="setting('default.' . $real_type . '_category')" />
 
                         <x-form.group.contact :type="$contact_type" not-required />
+
+                        <x-form.group.tax name="tax_ids" multiple with-summary not-required :currency="$currency" change="onChangeTax" />
                     </x-slot>
                 </x-form.section>
 
@@ -71,5 +73,10 @@
         </x-form.container>
     </x-slot>
 
+    @push('scripts_start')
+        <script type="text/javascript">
+            var transaction_taxes = {!! $taxes !!};
+        </script>
+    @endpush
     <x-script folder="banking" file="transactions" />
 </x-layouts.admin>

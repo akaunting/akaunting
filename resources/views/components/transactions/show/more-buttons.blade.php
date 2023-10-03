@@ -22,7 +22,12 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring) && $transaction->isNotTransferTransaction())
+        @if ($transaction->is_splittable
+            && $transaction->isNotSplitTransaction()
+            && empty($transaction->document_id)
+            && empty($transaction->recurring)
+            && $transaction->isNotTransferTransaction()
+        )
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
                 <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">

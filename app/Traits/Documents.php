@@ -208,7 +208,7 @@ trait Documents
         $documents = $documents ?: Document::type($type)->with('transactions')->future();
 
         $documents->each(function ($document) use (&$totals, $today) {
-            if (!in_array($document->status, $this->getDocumentStatusesForFuture())) {
+            if (! in_array($document->status, $this->getDocumentStatusesForFuture())) {
                 return;
             }
 

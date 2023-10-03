@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Common;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\BulkAction as Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
 class BulkActions extends Controller
 {
-
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +47,10 @@ class BulkActions extends Controller
             $bulk_actions = app('App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type));
         }
 
-        if (isset($bulk_actions->actions[$handle]['permission']) && !user()->can($bulk_actions->actions[$handle]['permission'])) {
+        if (
+            isset($bulk_actions->actions[$handle]['permission'])
+            && ! user()->can($bulk_actions->actions[$handle]['permission'])
+        ) {
             flash(trans('errors.message.403'))->error()->important();
 
             return response()->json([
@@ -78,25 +81,45 @@ class BulkActions extends Controller
 
         $level = $not_passed > 0 ? 'info' : 'success';
 
-        flash($message)->{$level}();
+        if (
+            (
+                isset($bulk_actions->actions[$handle]['type'])
+                && $bulk_actions->actions[$handle]['type'] != 'modal'
+            )
+            || ! isset($bulk_actions->actions[$handle]['type'])
+            || $not_passed > 0
+        ) {
+            flash($message)->{$level}();
+        }
 
-        if (! empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
+        if (
+            ! empty($result)
+            && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)
+        ) {
             return $result;
-        } elseif (! empty($result) && ($result instanceof RedirectResponse)) {
+        } else if (
+            ! empty($result)
+            && ($result instanceof RedirectResponse)
+        ) {
             return response()->json([
                 'success' => true,
                 'redirect' => $result->getTargetUrl(),
                 'error' => false,
                 'data' => [],
-                'message' => ''
+                'message' => $message,
             ]);
+        } else if (
+            ! empty($result)
+            && ($result instanceof JsonResponse)
+        ) {
+            return $result;
         } else {
             return response()->json([
                 'success' => true,
                 'redirect' => true,
                 'error' => false,
                 'data' => [],
-                'message' => ''
+                'message' => $message,
             ]);
         }
     }

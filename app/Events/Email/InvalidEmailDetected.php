@@ -3,7 +3,6 @@
 namespace App\Events\Email;
 
 use App\Abstracts\Event;
-use App\Models\Auth\User;
 use App\Models\Common\Contact;
 
 class InvalidEmailDetected extends Event
@@ -40,7 +39,7 @@ class InvalidEmailDetected extends Event
 
     public function setUser()
     {
-        $user = User::email($this->email)->enabled()->first();
+        $user = user_model_class()::email($this->email)->enabled()->first();
 
         if (empty($user)) {
             return;

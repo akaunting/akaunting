@@ -10,6 +10,8 @@ use App\Events\Report\FilterShowing;
 use App\Events\Report\GroupApplying;
 use App\Events\Report\GroupShowing;
 use App\Events\Report\RowsShowing;
+use App\Events\Report\TotalCalculating;
+use App\Events\Report\TotalCalculated;
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
@@ -255,6 +257,22 @@ abstract class Report
         return view($this->views['print'])->with('class', $this);
     }
 
+    public function pdf()
+    {
+        $view = view($this->views['print'])->with('class', $this)->render();
+
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        $pdf->setPaper('A4', 'landscape');
+
+        $file_name = $this->model->name . ' - ' . company()->name . '.pdf';
+
+        return $pdf->download($file_name);
+    }
+
     public function export()
     {
         return ExportHelper::toExcel(new Export($this->views[$this->type], $this), $this->model->name);
@@ -262,7 +280,7 @@ abstract class Report
 
     public function setColumnWidth()
     {
-        if (!$period = $this->getSetting('period')) {
+        if (! $period = $this->getPeriod()) {
             return;
         }
 
@@ -276,6 +294,9 @@ abstract class Report
                 $width = 'w-4/12 col-4';
                 break;
             case 'monthly':
+                $width = 'col-1 w-20';
+                break;
+            case 'weekly':
                 $width = 'col-1 w-20';
                 break;
         }
@@ -306,7 +327,7 @@ abstract class Report
 
     public function setYear()
     {
-        $this->year = $this->getSearchStringValue('year', Date::now()->year);
+        $this->year = request()->filled('start_date') ? Date::parse(request('start_date'))->year : Date::now()->year;
     }
 
     public function setViews()
@@ -346,34 +367,20 @@ abstract class Report
 
     public function setDates()
     {
-        if (! $period = $this->getSetting('period')) {
+        if (! $period = $this->getPeriod()) {
             return;
         }
 
-        $function = 'sub' . ucfirst(str_replace('ly', '', $period));
+        [$start, $end] = $this->getStartAndEndDates($this->year);
 
-        $start = $this->getFinancialStart($this->year)->copy()->$function();
+        $counter = match ($period) {
+            'weekly'    => $end->diffInWeeks($start),
+            'quarterly' => $end->diffInQuarters($start),
+            'yearly'    => $end->diffInYears($start),
+            default     => $end->diffInMonths($start),
+        };
 
-        for ($j = 1; $j <= 12; $j++) {
-            switch ($period) {
-                case 'yearly':
-                    $start->addYear();
-
-                    $j += 11;
-
-                    break;
-                case 'quarterly':
-                    $start->addQuarter();
-
-                    $j += 2;
-
-                    break;
-                default:
-                    $start->addMonth();
-
-                    break;
-            }
-
+        for ($j = 0; $j <= $counter; $j++) {
             $date = $this->getFormattedDate($start);
 
             $this->dates[] = $date;
@@ -381,6 +388,13 @@ abstract class Report
             foreach ($this->tables as $table_key => $table_name) {
                 $this->footer_totals[$table_key][$date] = 0;
             }
+
+            match ($period) {
+                'weekly'    => $start->addWeek(),
+                'quarterly' => $start->addQuarter(),
+                'yearly'    => $start->addYear(),
+                default     => $start->addMonth(),
+            };
         }
     }
 
@@ -403,6 +417,8 @@ abstract class Report
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
+        event(new TotalCalculating($this, $items, $date_field, $check_type, $table, $with_tax));
+
         $group_field = $this->getSetting('group') . '_id';
 
         foreach ($items as $item) {
@@ -439,6 +455,8 @@ abstract class Report
                 $this->footer_totals[$table][$date] -= $amount;
             }
         }
+
+        event(new TotalCalculated($this, $items, $date_field, $check_type, $table, $with_tax));
     }
 
     public function setArithmeticTotals($items, $date_field, $operator = 'add', $table = 'default', $amount_field = 'amount')
@@ -522,15 +540,15 @@ abstract class Report
     {
         $formatted_date = null;
 
-        switch ($this->getSetting('period')) {
+        switch ($this->getPeriod()) {
             case 'yearly':
                 $financial_year = $this->getFinancialYear($this->year);
 
                 if ($date->greaterThanOrEqualTo($financial_year->getStartDate()) && $date->lessThanOrEqualTo($financial_year->getEndDate())) {
                     if (setting('localisation.financial_denote') == 'begins') {
-                        $formatted_date = $financial_year->getStartDate()->copy()->format($this->getYearlyDateFormat());
+                        $formatted_date = $financial_year->copy()->getStartDate()->format($this->getYearlyDateFormat());
                     } else {
-                        $formatted_date = $financial_year->getEndDate()->copy()->format($this->getYearlyDateFormat());
+                        $formatted_date = $financial_year->copy()->getEndDate()->format($this->getYearlyDateFormat());
                     }
                 }
 
@@ -543,10 +561,25 @@ abstract class Report
                         continue;
                     }
 
-                    $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($this->year));
-                    $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($this->year));
+                    $start = $quarter->copy()->getStartDate()->format($this->getQuarterlyDateFormat($this->year));
+                    $end = $quarter->copy()->getEndDate()->format($this->getQuarterlyDateFormat($this->year));
 
-                    $formatted_date = $start . '-' . $end;
+                    $formatted_date = $start . ' - ' . $end;
+                }
+
+                break;
+            case 'weekly':
+                $weeks = $this->getFinancialWeeks($this->year);
+
+                foreach ($weeks as $week) {
+                    if ($date->lessThan($week->getStartDate()) || $date->greaterThan($week->getEndDate())) {
+                        continue;
+                    }
+
+                    $start = $week->copy()->getStartDate()->format($this->getDailyDateFormat($this->year));
+                    $end = $week->copy()->getEndDate()->format($this->getDailyDateFormat($this->year));
+
+                    $formatted_date = $start . ' - ' . $end;
                 }
 
                 break;
@@ -580,6 +613,11 @@ abstract class Report
     public function getBasis()
     {
         return $this->getSearchStringValue('basis', $this->getSetting('basis'));
+    }
+
+    public function getPeriod()
+    {
+        return $this->getSearchStringValue('period', $this->getSetting('period'));
     }
 
     public function getFields()
@@ -616,6 +654,7 @@ abstract class Report
             'title' => trans('general.period'),
             'icon' => 'calendar',
             'values' => [
+                'weekly' => trans('general.weekly'),
                 'monthly' => trans('general.monthly'),
                 'quarterly' => trans('general.quarterly'),
                 'yearly' => trans('general.yearly'),

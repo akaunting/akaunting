@@ -751,3 +751,7 @@ body {
     font-family: "Quicksand", sans-serif;
     height: 100%;
 }
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+    margin-right: 1rem;
+}

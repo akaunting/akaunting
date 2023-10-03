@@ -12,15 +12,21 @@
 
             @if (! $hideAddPayment)
                 @if ($document->totals->count())
-                    @if ($document->status != 'paid' && (empty($document->transactions->count()) || (! empty($document->transactions->count()) && $document->paid != $document->amount)))
-                        <x-button
-                            @click="onAddPayment('{{ route('modals.documents.document.transactions.create', $document->id) }}')"
-                            id="show-slider-actions-payment-{{ $document->type }}"
-                            class="px-3 py-1.5 mb-3 sm:mb-0 rounded-lg text-xs font-medium leading-6 bg-green hover:bg-green-700 text-white disabled:bg-green-100"
-                            override="class"
-                        >
-                            {{ trans('invoices.add_payment') }}
-                        </x-button>
+                    @if (($document->status != 'paid') && (empty($document->transactions->count()) || (! empty($document->transactions->count()) && ($document->paid != $document->amount))))
+                        @if ($document->status != 'cancelled')
+                            <x-button
+                                @click="onAddPayment('{{ route('modals.documents.document.transactions.create', $document->id) }}')"
+                                id="show-slider-actions-payment-{{ $document->type }}"
+                                class="px-3 py-1.5 mb-3 sm:mb-0 rounded-lg text-xs font-medium leading-6 bg-green hover:bg-green-700 text-white disabled:bg-green-100"
+                                override="class"
+                            >
+                                {{ trans('invoices.add_payment') }}
+                            </x-button>
+                        @else
+                            <x-button kind="disabled" disabled="disabled">
+                                {{ trans('invoices.add_payment') }}
+                            </x-button>
+                        @endif
                     @endif
                 @else
                     <x-tooltip message="{{ trans('invoices.messages.totals_required', ['type' => $type]) }}" placement="top">
@@ -78,7 +84,7 @@
                                 </x-button>
                             @else
                                 <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="top">
-                                    <x-button class="text-purple mt-1" override="class" disabled="disabled">
+                                    <x-button class="text-purple mt-1" override="class" kind="disabled" disabled="disabled">
                                         <x-button.hover color="to-purple">
                                             {{ trans('general.title.send', ['type' => trans_choice('general.receipts', 1)]) }}
                                         </x-button.hover>
@@ -110,7 +116,7 @@
 
                             <x-delete-link
                                 :model="$transaction"
-                                :route="'transactions.destroy'"
+                                :route="['modals.documents.document.transactions.destroy', $document->id, $transaction->id]"
                                 :title="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"
                                 :message="$message"
                                 :label="trans('general.title.delete', ['type' => trans_choice('general.payments', 1)])"

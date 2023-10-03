@@ -64,13 +64,13 @@ class Currencies extends Controller
      */
     public function store(Request $request)
     {
-        $currency = config('money.currencies.' . $request->get('code'));
+        $currency = currency($request->get('code'));
 
-        $request['precision'] = (int) $currency['precision'];
-        $request['symbol'] = $currency['symbol'];
-        $request['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
-        $request['decimal_mark'] = $currency['decimal_mark'];
-        $request['thousands_separator'] = $currency['thousands_separator'];
+        $request['precision'] = (int) $currency->getPrecision();
+        $request['symbol'] = $currency->getSymbol();
+        $request['symbol_first'] = $currency->isSymbolFirst() ? 1 : 0;
+        $request['decimal_mark'] = $currency->getDecimalMark();
+        $request['thousands_separator'] = $currency->getThousandsSeparator();
 
         $request['enabled'] = 1;
         $request['default_currency'] = false;
@@ -78,7 +78,7 @@ class Currencies extends Controller
         $response = $this->ajaxDispatch(new CreateCurrency($request->all()));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+            $response['message'] = trans('messages.success.created', ['type' => trans_choice('general.currencies', 1)]);
         }
 
         return response()->json($response);

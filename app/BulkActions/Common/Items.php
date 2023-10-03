@@ -5,6 +5,7 @@ namespace App\BulkActions\Common;
 use App\Abstracts\BulkAction;
 use App\Exports\Common\Items as Export;
 use App\Jobs\Common\DeleteItem;
+use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 
 class Items extends BulkAction
@@ -19,6 +20,14 @@ class Items extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-common-items',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'enable'    => [
             'icon'          => 'check_circle',
             'name'          => 'general.enable',
@@ -48,6 +57,26 @@ class Items extends BulkAction
             'type'          => 'download',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return $this->response('bulk-actions.common.items.edit', compact('selected'));
+    }
+
+    public function update($request)
+    {
+        $items = $this->getSelectedRecords($request, 'taxes');
+
+        foreach ($items as $item) {
+            try {
+                $this->dispatch(new UpdateItem($item, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function destroy($request)
     {

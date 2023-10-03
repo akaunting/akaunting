@@ -18,10 +18,7 @@ class Bills extends Controller
 {
     use Documents;
 
-    /**
-     * @var string
-     */
-    public $type = Document::BILL_TYPE;
+    public string $type = Document::BILL_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -30,6 +27,8 @@ class Bills extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForDocuments();
+
         $bills = Document::bill()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['issued_at' => 'desc']);
 
         return $this->response('purchases.bills.index', compact('bills'));
@@ -71,7 +70,7 @@ class Bills extends Controller
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.bills', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.bills', 1)]);
 
             flash($message)->success();
         } else {
@@ -234,6 +233,24 @@ class Bills extends Controller
         event(new \App\Events\Document\DocumentCancelled($bill));
 
         $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.bills', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Restore the bill.
+     *
+     * @param  Document $bill
+     *
+     * @return Response
+     */
+    public function restoreBill(Document $bill)
+    {
+        event(new \App\Events\Document\DocumentRestored($bill));
+
+        $message = trans('documents.messages.restored', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 

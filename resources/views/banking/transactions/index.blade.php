@@ -67,19 +67,32 @@
             </x-index.summary>
 
             <x-index.container>
-                <x-tabs active="transactions">
-                    <x-slot name="navs">
-                        <x-tabs.nav
-                            id="transactions"
-                            name="{{ trans_choice('general.transactions', 2) }}"
-                            active
-                        />
+                @php
+                    $search_type = search_string_value('type');
+                    $active_tab = empty($search_type) ? 'transactions' : (($search_type == 'income') ? 'transactions-income' : 'transactions-expense');
+                @endphp
 
-                        <x-tabs.nav-link
-                            id="recurring-templates"
-                            name="{{ trans_choice('general.recurring_templates', 2) }}"
-                            href="{{ route('recurring-transactions.index') }}"
-                        />
+                <x-tabs active="{{ $active_tab }}">
+                    <x-slot name="navs">
+                        @if ($search_type == 'income')
+                            <x-tabs.nav id="transactions-income" name="{{ trans_choice('general.incomes', 1) }}" active />
+                        @else
+                            <x-tabs.nav-link id="transactions-income" name="{{ trans_choice('general.incomes', 1) }}" href="{{ route('transactions.index', ['search' => 'type:income']) }}" />
+                        @endif
+
+                        @if ($search_type == 'expense')
+                            <x-tabs.nav id="transactions-expense" name="{{ trans_choice('general.expenses', 1) }}" active />
+                        @else
+                            <x-tabs.nav-link id="transactions-expense" name="{{ trans_choice('general.expenses', 1) }}" href="{{ route('transactions.index', ['search' => 'type:expense']) }}" />
+                        @endif
+
+                        @if (empty($search_type))
+                            <x-tabs.nav id="transactions" name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}" active />
+                        @else
+                            <x-tabs.nav-link id="transactions" name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}" href="{{ route('transactions.index') }}" />
+                        @endif
+
+                        <x-tabs.nav-link id="recurring-templates" name="{{ trans_choice('general.recurring_templates', 2) }}" href="{{ route('recurring-transactions.index') }}" />
                     </x-slot>
 
                     <x-slot name="content">
@@ -88,7 +101,7 @@
                             bulk-action="App\BulkActions\Banking\Transactions"
                         />
 
-                        <x-tabs.tab id="transactions">
+                        <x-tabs.tab id="{{ $active_tab }}">
                             <x-table>
                                 <x-table.thead>
                                     <x-table.tr>

@@ -84,7 +84,7 @@ class Accounts extends Controller
         if ($response['success']) {
             $response['redirect'] = route('accounts.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.accounts', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.accounts', 1)]);
 
             flash($message)->success();
         } else {

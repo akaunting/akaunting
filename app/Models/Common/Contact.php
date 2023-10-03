@@ -38,7 +38,7 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $appends = ['location'];
+    protected $appends = ['location', 'logo', 'initials'];
 
     /**
      * Attributes that should be mass-assignable.
@@ -83,6 +83,11 @@ class Contact extends Model
         parent::booted();
 
         static::addGlobalScope(new Scope);
+    }
+
+    public function contact_persons()
+    {
+        return $this->hasMany('App\Models\Common\ContactPerson');
     }
 
     public function documents()
@@ -138,6 +143,23 @@ class Contact extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'user_id', 'id');
+    }
+
+    public function withPersons()
+    {
+        $contacts = collect();
+
+        $contacts->push($this);
+
+        $contact_persons = $this->contact_persons()->whereNotNull('email')->get();
+
+        if ($contact_persons) {
+            foreach ($contact_persons as $contact_person) {
+                $contacts->push($contact_person);
+            }
+        }
+
+        return $contacts;
     }
 
     /**
@@ -212,9 +234,9 @@ class Contact extends Model
      */
     public function getLogoAttribute($value)
     {
-        if (!empty($value) && !$this->hasMedia('logo')) {
+        if (! empty($value) && ! $this->hasMedia('logo')) {
             return $value;
-        } elseif (!$this->hasMedia('logo')) {
+        } elseif (! $this->hasMedia('logo')) {
             return false;
         }
 
@@ -346,10 +368,12 @@ class Contact extends Model
         } catch (\Exception $e) {}
 
         try {
+            $delete_type = trans_choice('general.' . $translation_prefix, 1);
+
             $actions[] = [
                 'type' => 'delete',
                 'icon' => 'delete',
-                'title' => $translation_prefix,
+                'title' => trans('general.title.delete', ['type' => $delete_type]),
                 'route' => $prefix . '.destroy',
                 'permission' => 'delete-' . $group . '-' . $permission_prefix,
                 'attributes' => [

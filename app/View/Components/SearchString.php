@@ -76,6 +76,9 @@ class SearchString extends Component
                         'url' => $this->getFilterUrl($column, $options),
                         'values' => $this->getFilterValues($column, $options),
                         'value_option_fields' => $options['fields'] ?? [],
+                        //'operators' => $options['operators'] ?? $this->getOperators($options['type'] ?? 'string'),
+                        'operator' => $options['operator'] ?? '=',
+                        'multiple' => $options['multiple'] ?? false,
                     ];
                 }
             }
@@ -245,5 +248,42 @@ class SearchString extends Component
         }
 
         return $values;
+    }
+
+    protected function getOperators($type)
+    {
+        $operators = [
+            'equal' => [
+                'enabled'   => true,
+                'symbol'    => [
+                    'sign'  => '=',
+                    'icon'  => 'drag_handle',
+                ],
+                'text'      => trans('general.is'),
+            ],
+            'not_equal' => [
+                'enabled'   => true,
+                'symbol'    => [
+                    'sign'  => '!=',
+                    'img'   => asset('public/img/tailwind_icons/not-equal.svg'),
+                ],
+                'text'      => trans('general.isnot'),
+            ],
+            'range' => [
+                'enabled'   => false,
+                'symbol'    => [
+                    'sign'  => '><',
+                    'class' => 'transform rotate-90',
+                    'icon'  => 'height',
+                ],
+                'text'      => trans('general.range'),
+            ],
+        ];
+
+        if ($type == 'date') {
+            $operators['range']['enabled'] = true;
+        }
+
+        return $operators;
     }
 }

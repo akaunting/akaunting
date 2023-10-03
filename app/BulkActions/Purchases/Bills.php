@@ -9,6 +9,7 @@ use App\Exports\Purchases\Bills\Bills as Export;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Jobs\Document\DeleteDocument;
+use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
 
 class Bills extends BulkAction
@@ -23,6 +24,14 @@ class Bills extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-purchases-bills',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'received'  => [
             'icon'          => 'send',
             'name'          => 'bills.mark_received',
@@ -48,6 +57,41 @@ class Bills extends BulkAction
             'type'          => 'download',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return $this->response('bulk-actions.purchases.bills.edit', compact('selected'));
+    }
+
+    public function update($request)
+    {
+        $bills = $this->getSelectedRecords($request);
+
+        foreach ($bills as $bill) {
+            try {
+                $discount = $bill->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
+
+                // for extra total rows..
+                $totals = $bill->totals()->whereNotIn('code', ['sub_total', 'total', 'tax', 'discount'])->get()->toArray();
+
+                $request->merge([
+                    'items' => $bill->items->toArray(),
+                    'uploaded_attachment' => $bill->attachment,
+                    'category_id' => ($request->get('category_id')) ?? $bill->category_id,
+                    'discount' => $discount,
+                    'totals' => $totals,
+                ])->except([
+
+                ]);
+
+                $this->dispatch(new UpdateDocument($bill, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function received($request)
     {

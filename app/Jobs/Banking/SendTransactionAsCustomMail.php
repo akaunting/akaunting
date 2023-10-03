@@ -3,6 +3,7 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\TransactionSending;
 use App\Events\Banking\TransactionSent;
 use App\Http\Requests\Common\CustomMail as Request;
 use App\Models\Banking\Transaction;
@@ -22,14 +23,43 @@ class SendTransactionAsCustomMail extends Job
     {
         $transaction = Transaction::find($this->request->get('transaction_id'));
 
-        $custom_mail = $this->request->only(['to', 'subject', 'body']);
+        event(new TransactionSending($transaction));
+
+        $mail_request = $this->request->only(['to', 'subject', 'body']);
 
         if ($this->request->get('user_email', false)) {
-            $custom_mail['cc'] = user()->email;
+            $mail_request['cc'] = user()->email;
         }
 
-        // Notify the contact
-        $transaction->contact->notify(new Notification($transaction, $this->template_alias, true, $custom_mail));
+        $attachments = collect($this->request->get('attachments', []))
+            ->filter(fn($value) => $value == true)
+            ->keys()
+            ->all();
+
+        $attach_pdf = in_array('pdf', $attachments);
+
+        $contacts = $transaction->contact->withPersons();
+
+        $counter = 1;
+
+        foreach ($contacts as $contact) {
+            if (! in_array($contact->email, $mail_request['to'])) {
+                continue;
+            }
+
+            $custom_mail = [
+                'subject'   => $mail_request['subject'],
+                'body'      => $mail_request['body'],
+            ];
+
+            if (($counter == 1) && ! empty($mail_request['cc'])) {
+                $custom_mail['cc'] = $mail_request['cc'];
+            }
+
+            $contact->notify(new Notification($transaction, $this->template_alias, $attach_pdf, $custom_mail, $attachments));
+
+            $counter++;
+        }
 
         event(new TransactionSent($transaction));
     }

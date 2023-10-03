@@ -19,7 +19,7 @@
         @if ($users->count() || request()->get('search', false))
             <x-index.container>
                 <x-index.search
-                    search-string="App\Models\Auth\User"
+                    search-string="{{ user_model_class() }}"
                     bulk-action="App\BulkActions\Auth\Users"
                 />
 

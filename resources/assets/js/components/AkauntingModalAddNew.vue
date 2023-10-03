@@ -40,14 +40,32 @@
                                         {{ buttons.cancel.text }}
                                     </button>
 
-                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="px-6 py-1.5 text-xs bg-transparent hover:bg-gray-200 font-medium rounded-lg leading-6" :class="buttons.payment.class">
-                                        {{ buttons.payment.text }}
-                                    </a>
-
                                     <button :disabled="form.loading" type="button" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg" :class="buttons.confirm.class" @click="onSubmit">
-                                        <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
+                                        <i v-if="! send_to && form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
                                         <span :class="[{'opacity-0': form.loading}]">{{ buttons.confirm.text }}</span>
                                     </button>
+
+                                    <button v-if="buttons.send" :disabled="form.loading" type="button" class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg" :class="buttons.send.class" @click="onSubmitViaSendEmail">
+                                        <i v-if="form.loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i>
+                                        <span :class="[{'opacity-0': form.loading}]">{{ buttons.send.text }}</span>
+                                    </button>
+                                </div>
+
+                                <div v-if="buttons.payment" 
+                                    class="mt-5 bg-gray-100 py-3 sm:flex justify-end sm:px-5 -mb-5 -mx-5 rounded-b-lg"
+                                >
+                                    <div v-if="buttons.payment.before_text" class="text-xs mt-2.5 mr-2">
+                                        {{ buttons.payment.before_text }}
+                                    </div>
+
+                                    <a :href="buttons.payment.url"
+                                        :class="[
+                                            buttons.payment.class,
+                                            {'px-6 py-1.5 text-xs bg-transparent hover:bg-gray-200 font-medium rounded-lg leading-6': ! buttons.payment.class}
+                                        ]"
+                                    >
+                                        {{ buttons.payment.text }}
+                                    </a>
                                 </div>
                             </slot>
                         </div>
@@ -148,6 +166,7 @@ export default {
                 precision: 2,
                 masked: false /* doesn't work with directive */
             },
+            send_to: false,
         };
     },
 
@@ -284,6 +303,8 @@ export default {
                                 this.currency.prefix = (response.data.symbol_first) ? response.data.symbol : '';
                                 this.currency.suffix = (! response.data.symbol_first) ? response.data.symbol : '';
                                 this.currency.precision = parseInt(response.data.precision);
+
+                                this.onChangeCurrencyPaymentAccount(response.data.currency_code);
                             })
                             .catch(error => {
                             });
@@ -319,6 +340,14 @@ export default {
             this.$emit("submit", this.form);
         },
 
+        onSubmitViaSendEmail() {
+            this.form = this.$children[0].$children[0].form;
+            this.form.loading = true;
+            this.send_to = true;
+
+            this.$emit("submitViaSendEmail", this.form);
+        },
+
         onCancel() {
             let documentClasses = document.body.classList;
 
@@ -337,7 +366,13 @@ export default {
             } else {
                 documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
             }
-        }
+        },
+
+        'form.loading': function (newVal, oldVal) {
+            if (! newVal) {
+                this.send_to = false;
+            }
+        },
     }
 }
 </script>

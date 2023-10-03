@@ -222,7 +222,7 @@ class Company extends Eloquent implements Ownable
 
     public function owner()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsTo(user_model_class(), 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
     }
 
     public function reconciliations()
@@ -262,7 +262,7 @@ class Company extends Eloquent implements Ownable
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserCompany');
+        return $this->belongsToMany(user_model_class(), 'App\Models\Auth\UserCompany');
     }
 
     public function vendors()

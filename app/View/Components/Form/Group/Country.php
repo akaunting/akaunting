@@ -19,7 +19,7 @@ class Country extends Form
             $this->name = 'country';
         }
 
-        if (empty($this->selected) && empty($this->getParentData('model'))) {
+        if ($this->selected === null && empty($this->getParentData('model'))) {
             $this->selected = setting('company.country');
         }
 

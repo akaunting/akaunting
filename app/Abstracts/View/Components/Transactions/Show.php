@@ -285,6 +285,9 @@ abstract class Show extends Component
     public $hideChildren;
 
     /** @var bool */
+    public $hideConnect;
+
+    /** @var bool */
     public $hideTransfer;
 
     /** @var bool */
@@ -331,7 +334,7 @@ abstract class Show extends Component
         string $textRelatedTransansaction = '', string $textRelatedDocumentNumber = '', string $textRelatedContact = '', string $textRelatedDocumentDate = '', string $textRelatedDocumentAmount = '', string $textRelatedAmount = '',
         string $routeDocumentShow = '', string $routeTransactionShow = '', string $textButtonAddNew = '',
 
-        bool $hideSchedule = false, bool $hideChildren = false, bool $hideTransfer = false, bool $hideAttachment = false, $attachment = [],
+        bool $hideSchedule = false, bool $hideChildren = false, bool $hideConnect = false, bool $hideTransfer = false, bool $hideAttachment = false, $attachment = [],
         array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false, bool $hideCreated = false
     ) {
         $this->type = $type;
@@ -387,6 +390,9 @@ abstract class Show extends Component
 
         // Hide Children
         $this->hideChildren = $hideChildren;
+
+        // Hide Connect
+        $this->hideConnect = $hideConnect;
 
         // Hide Transfer
         $this->hideTransfer = $hideTransfer;

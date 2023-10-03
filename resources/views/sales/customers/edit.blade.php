@@ -7,5 +7,5 @@
         <x-contacts.form.content type="customer" :model="$customer" hide-logo />
     </x-slot>
 
-    <x-contacts.script type="customer" />
+    <x-contacts.script type="customer" :contact="$customer" />
 </x-layouts.admin>

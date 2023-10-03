@@ -18,7 +18,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-documents.index.content type="invoice" :documents="$invoices" active-tab="invoice" />
+        <x-documents.index.content type="invoice" :documents="$invoices" />
     </x-slot>
 
     <x-documents.script type="invoice" />

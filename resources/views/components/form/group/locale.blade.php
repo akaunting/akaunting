@@ -3,4 +3,9 @@
     label="{!! trans_choice('general.languages', 1) !!}"
     :options="language()->allowed()"
     :selected="$selected"
+
+    :required="$required"
+    form-group-class="{{ $formGroupClass }}"
+
+    {{ $attributes }}
 />

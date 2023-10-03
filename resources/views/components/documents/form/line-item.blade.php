@@ -112,7 +112,7 @@
                                     />
 
                                     <div class="text-red text-sm mt-1 mb-3 block"
-                                        v-if="form.errors.has('items.' + index + '.quantity')"
+                                        v-if="!form.errors.has('items.' + index + '.quantity')"
                                         v-html="form.errors.get('items.' + index + '.quantity')">
                                     </div>
 
@@ -296,7 +296,7 @@
                                         :title="''"
                                         :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
                                         :name="'items.' + index + '.taxes.' + row_tax_index"
-                                        :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                        :options="{{ json_encode($taxes) }}"
                                         :dynamic-options="dynamic_taxes"
                                         :disabled-options="form.items[index].tax_ids"
                                         :value="row_tax.id"
@@ -327,7 +327,36 @@
                                         :form-error="form.errors.get('items.' + index + '.taxes')"
                                         :no-data-text="'{{ trans('general.no_data') }}'"
                                         :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                                    ></akaunting-select>
+                                    >
+                                        <template #option="{option}">
+                                            <span class="tax-group flex items-center">
+                                                <span class="float-left">
+                                                    @{{ option.value }}
+                                                </span>
+
+                                                <span 
+                                                    class="inline-flex items-center h-5 rounded-md bg-gray-50 font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+                                                    style="width: auto; font-size: 0.56rem;"
+                                                >
+                                                    <template v-if="option.option.type == 'normal'">
+                                                        {{ trans('taxes.normal') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'fixed'">
+                                                        {{ trans('taxes.fixed') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'inclusive'">
+                                                        {{ trans('taxes.inclusive') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'withholding'">
+                                                        {{ trans('taxes.withholding') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'compound'">
+                                                        {{ trans('taxes.compound') }}
+                                                    </template>
+                                                </span>
+                                            </span>
+                                        </template>
+                                    </akaunting-select>
 
                                     @stack('taxes_input_end')
                                 </div>
@@ -370,7 +399,7 @@
                                         :title="''"
                                         :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
                                         :name="'items.' + index + '.taxes.999'"
-                                        :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                        :options="{{ json_encode($taxes) }}"
                                         :dynamic-options="dynamic_taxes"
                                         :disabled-options="form.items[index].tax_ids"
                                         :value="tax_id"
@@ -401,7 +430,36 @@
                                         :form-error="form.errors.get('items.' + index + '.taxes')"
                                         :no-data-text="'{{ trans('general.no_data') }}'"
                                         :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                                    ></akaunting-select>
+                                    >
+                                        <template #option="{option}">
+                                            <span class="tax-group flex items-center">
+                                                <span class="float-left">
+                                                    @{{ option.value }}
+                                                </span>
+
+                                                <span 
+                                                    class="inline-flex items-center h-5 rounded-md bg-gray-50 font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+                                                    style="width: auto; font-size: 0.56rem;"
+                                                >
+                                                    <template v-if="option.option.type == 'normal'">
+                                                        {{ trans('taxes.normal') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'fixed'">
+                                                        {{ trans('taxes.fixed') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'inclusive'">
+                                                        {{ trans('taxes.inclusive') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'withholding'">
+                                                        {{ trans('taxes.withholding') }}
+                                                    </template>
+                                                    <template v-if="option.option.type == 'compound'">
+                                                        {{ trans('taxes.compound') }}
+                                                    </template>
+                                                </span>
+                                            </span>
+                                        </template>
+                                    </akaunting-select>
 
                                     @stack('taxes_input_end')
                                 </div>

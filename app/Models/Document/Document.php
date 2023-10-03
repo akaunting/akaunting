@@ -333,7 +333,7 @@ class Document extends Model
 
         $code = $this->currency_code;
         $rate = $this->currency_rate;
-        $precision = config('money.currencies.' . $code . '.precision');
+        $precision = currency($code)->getPrecision();
 
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
@@ -365,7 +365,7 @@ class Document extends Model
 
         $code = $this->currency_code;
         $rate = $this->currency_rate;
-        $precision = config('money.currencies.' . $code . '.precision');
+        $precision = currency($code)->getPrecision();
 
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
@@ -395,7 +395,7 @@ class Document extends Model
      */
     public function getAmountDueAttribute()
     {
-        $precision = config('money.currencies.' . $this->currency_code . '.precision');
+        $precision = currency($this->currency_code)->getPrecision();
 
         return round($this->amount - $this->paid, $precision);
     }
@@ -665,6 +665,7 @@ class Document extends Model
                     'title' => $translation_prefix,
                     'route' => $prefix . '.destroy',
                     'permission' => 'delete-' . $group . '-' . $permission_prefix,
+                    'model-name' => 'document_number',
                     'attributes' => [
                         'id' => 'index-line-actions-delete-' . $this->type . '-' . $this->id,
                     ],

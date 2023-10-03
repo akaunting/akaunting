@@ -4,7 +4,6 @@ namespace Tests\Feature\Sales;
 
 use App\Exports\Sales\Customers as Export;
 use App\Jobs\Common\CreateContact;
-use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -64,7 +63,7 @@ class CustomersTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $user = User::where('email', $request['email'])->first();
+        $user = user_model_class()::where('email', $request['email'])->first();
 
         $this->assertNotNull($user);
         $this->assertEquals($request['email'], $user->email);

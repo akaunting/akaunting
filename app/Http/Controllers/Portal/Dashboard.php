@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Portal;
 use App\Models\Document\Document;
 use App\Traits\Charts;
 use App\Traits\DateTime;
-use Date;
+use App\Utilities\Date;
 
 class Dashboard
 {
@@ -25,19 +25,14 @@ class Dashboard
             return redirect(user()->getLandingPageOfUser());
         }
 
-        $financial_start = $this->getFinancialStart()->format('Y-m-d');
+        $financial_year = $this->getFinancialYear();
 
-        // check and assign year start
-        if (($year_start = Date::today()->startOfYear()->format('Y-m-d')) !== $financial_start) {
-            $year_start = $financial_start;
-        }
-
-        $start = Date::parse(request('start_date', $year_start));
-        $end = Date::parse(request('end_date', Date::parse($year_start)->addYear(1)->subDays(1)->format('Y-m-d')));
+        $start = Date::parse(request('start_date', $financial_year->copy()->getStartDate()->toDateString()));
+        $end = Date::parse(request('end_date', $financial_year->copy()->getEndDate()->toDateString()));
 
         //$invoices = Document::invoice()->accrued()->where('contact_id', $contact->id)->get();
         $invoices = Document::invoice()->accrued()->whereBetween('due_at', [$start, $end])->where('contact_id', $contact->id)->get();
-        
+
         $amounts = $this->calculateAmounts($invoices, $start, $end);
 
         return view('portal.dashboard.index', compact('contact', 'invoices'));

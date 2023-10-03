@@ -7,6 +7,8 @@
             valid: '{!! trans("validation.required", ["attribute" => "email"]) !!}',
             email: '{!! trans("customers.error.email") !!}'
         };
+
+        var contact_persons = {!! json_encode($contact_persons) !!};
     </script>
 @endpush
 

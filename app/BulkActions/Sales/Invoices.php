@@ -8,6 +8,7 @@ use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentMarkedSent;
 use App\Events\Document\PaymentReceived;
 use App\Exports\Sales\Invoices\Invoices as Export;
+use App\Jobs\Document\UpdateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
 
@@ -23,7 +24,15 @@ class Invoices extends BulkAction
     ];
 
     public $actions = [
-        'sent'      => [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-sales-invoices',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
+        'sent' => [
             'icon'          => 'send',
             'name'          => 'invoices.mark_sent',
             'message'       => 'bulk_actions.message.sent',
@@ -35,19 +44,54 @@ class Invoices extends BulkAction
             'message'       => 'bulk_actions.message.cancelled',
             'permission'    => 'update-sales-invoices',
         ],
-        'delete'    => [
+        'delete' => [
             'icon'          => 'delete',
             'name'          => 'general.delete',
             'message'       => 'bulk_actions.message.delete',
             'permission'    => 'delete-sales-invoices',
         ],
-        'export'    => [
+        'export' => [
             'icon'          => 'file_download',
             'name'          => 'general.export',
             'message'       => 'bulk_actions.message.export',
             'type'          => 'download',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return $this->response('bulk-actions.sales.invoices.edit', compact('selected'));
+    }
+
+    public function update($request)
+    {
+        $invoices = $this->getSelectedRecords($request);
+
+        foreach ($invoices as $invoice) {
+            try {
+                $discount = $invoice->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
+
+                // for extra total rows..
+                $totals = $invoice->totals()->whereNotIn('code', ['sub_total', 'total', 'tax', 'discount'])->get()->toArray();
+
+                $request->merge([
+                    'items' => $invoice->items->toArray(),
+                    'uploaded_attachment' => $invoice->attachment,
+                    'category_id' => ($request->get('category_id')) ?? $invoice->category_id,
+                    'discount' => $discount,
+                    'totals' => $totals,
+                ])->except([
+
+                ]);
+
+                $this->dispatch(new UpdateDocument($invoice, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function sent($request)
     {
@@ -106,5 +150,5 @@ class Invoices extends BulkAction
         $selected = $this->getSelectedInput($request);
 
         return $this->exportExcel(new Export($selected), trans_choice('general.invoices', 2));
-    }
+    }    
 }

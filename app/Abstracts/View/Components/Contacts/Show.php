@@ -92,6 +92,8 @@ abstract class Show extends Component
 
     public $hideUser;
 
+    public $hidePersons;
+
     public $hideBottomRight;
     /* -- Profile End -- */
 
@@ -112,7 +114,7 @@ abstract class Show extends Component
         bool $hideButtonDelete = false, $routeButtonDelete = '', $textDeleteModal = '',
         bool $hideTopLeft = false, bool $hideAvatar = false, bool $hideEmail = false, bool $hidePhone = false,
         bool $hideTopRight = false, bool $hideOverdue = false, bool $hideOpen = false, bool $hidePaid = false,
-        bool $hideBottomLeft = false, bool $hideAddress = false, bool $hideTaxNumber = false , bool $hideWebsite = false, bool $hideReference = false, bool $hideUser = false,
+        bool $hideBottomLeft = false, bool $hideAddress = false, bool $hideTaxNumber = false , bool $hideWebsite = false, bool $hideReference = false, bool $hideUser = false, bool $hidePersons = false,
         bool $hideBottomRight = false
     ) {
         /* -- Main Start -- */
@@ -169,6 +171,7 @@ abstract class Show extends Component
         $this->hideWebsite = $hideWebsite;
         $this->hideReference = $hideReference;
         $this->hideUser = $hideUser;
+        $this->hidePersons = $hidePersons;
 
         $this->hideContent = $hideBottomRight;
         /* -- Profile End -- */

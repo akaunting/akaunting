@@ -80,7 +80,7 @@ class Transaction extends Model
      *
      * @var array
      */
-    public $cloneable_relations = ['recurring'];
+    public $cloneable_relations = ['recurring', 'taxes'];
 
     /**
      * The "booted" method of the model.
@@ -162,7 +162,12 @@ class Transaction extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
+        return $this->belongsTo(user_model_class(), 'contact_id', 'id');
+    }
+
+    public function taxes()
+    {
+        return $this->hasMany('App\Models\Banking\TransactionTax');
     }
 
     public function scopeNumber(Builder $query, string $number): Builder
@@ -324,7 +329,7 @@ class Transaction extends Model
         // Convert amount if not same currency
         if ($this->account->currency_code != $this->currency_code) {
             $to_code = $this->account->currency_code;
-            $to_rate = config('money.currencies.' . $this->account->currency_code . '.rate');
+            $to_rate = currency($this->account->currency_code)->getRate();
 
             $amount = $this->convertBetween($amount, $this->currency_code, $this->currency_rate, $to_code, $to_rate);
         }
@@ -381,6 +386,52 @@ class Transaction extends Model
         $type = str_replace('-', '_', $type);
 
         return $value ?? trans_choice('general.' . Str::plural($type), 1);
+    }
+
+    /**
+     * Get the item id.
+     *
+     * @return string
+     */
+    public function getTaxIdsAttribute()
+    {
+        return $this->taxes()->pluck('tax_id');
+    }
+
+    /**
+     * Get the amount before tax.
+     *
+     * @return string
+     */
+    public function getTotalTaxAttribute()
+    {
+        $precision = currency($this->currency_code)->getPrecision();
+
+        $amount = 0;
+
+        if ($this->taxes->count()) {
+            foreach ($this->taxes as $tax) {
+                $amount += $tax->amount;
+            }
+        }
+
+        return round($amount, $precision);
+    }
+
+    /**
+     * Get the amount before tax.
+     *
+     * @return string
+     */
+    public function getAmountBeforeTaxAttribute()
+    {
+        if (empty($this->amount)) {
+            return false;
+        }
+
+        $precision = currency($this->currency_code)->getPrecision();
+
+        return round($this->amount - $this->total_tax, $precision);
     }
 
     /**
@@ -601,6 +652,7 @@ class Transaction extends Model
                             'title' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
                             'route' => $prefix. '.destroy',
                             'permission' => 'delete-banking-transactions',
+                            'model-name' => 'number',
                             'attributes' => [
                                 'id' => 'index-line-actions-delete-' . $this->type . '-'  . $this->id,
                             ],

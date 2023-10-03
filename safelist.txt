@@ -100,3 +100,4 @@ ltr:float-left
 rtl:float-right
 rtl:float-left
 rtl:rotate-180
+hover:bg-purple-200

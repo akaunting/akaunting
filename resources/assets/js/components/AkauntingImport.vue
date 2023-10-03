@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="relative h-12">
-                        <p class="absolute inset-x-2 dz-import-upload z-10 w-44 truncate" data-dz-name>...</p>
+                        <p class="absolute dz-import-upload z-10" data-dz-name>...</p>
 
                         <p class="dz-import-text pt-6" v-html="textExtensionAndLimitationFile"></p>
                     </div>

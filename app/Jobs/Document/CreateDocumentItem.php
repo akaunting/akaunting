@@ -29,7 +29,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
     public function handle(): DocumentItem
     {
         $item_id = ! empty($this->request['item_id']) ? $this->request['item_id'] : 0;
-        $precision = config('money.currencies.' . $this->document->currency_code . '.precision');
+        $precision = currency($this->document->currency_code)->getPrecision();
 
         $item_amount = (double) $this->request['price'] * (double) $this->request['quantity'];
 
@@ -58,7 +58,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $actual_price_item = $item_amount = $item_discounted_amount;
 
         $item_taxes = [];
-        $doc_parms = [
+        $doc_params = [
             'company_id'    => $this->document->company_id,
             'type'          => $this->document->type,
             'document_id'   => $this->document->id,
@@ -81,7 +81,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                 foreach ($inclusives as $inclusive) {
                     $tax_amount = $item_discounted_amount - ($item_discounted_amount / (1 + $inclusive->rate / 100));
 
-                    $item_taxes[] = $doc_parms + [
+                    $item_taxes[] = $doc_params + [
                         'tax_id' => $inclusive->id,
                         'name' => $inclusive->name,
                         'amount' => $tax_amount,
@@ -97,7 +97,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                 foreach ($fixeds as $tax) {
                     $tax_amount = $tax->rate * (double) $this->request['quantity'];
 
-                    $item_taxes[] = $doc_parms + [
+                    $item_taxes[] = $doc_params + [
                         'tax_id' => $tax->id,
                         'name' => $tax->name,
                         'amount' => $tax_amount,
@@ -112,7 +112,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                 foreach ($normals as $tax) {
                     $tax_amount = $actual_price_item * ($tax->rate / 100);
 
-                    $item_taxes[] = $doc_parms + [
+                    $item_taxes[] = $doc_params + [
                         'tax_id' => $tax->id,
                         'name' => $tax->name,
                         'amount' => $tax_amount,
@@ -127,7 +127,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                 foreach ($withholdings as $tax) {
                     $tax_amount = -($actual_price_item * ($tax->rate / 100));
 
-                    $item_taxes[] = $doc_parms + [
+                    $item_taxes[] = $doc_params + [
                         'tax_id' => $tax->id,
                         'name' => $tax->name,
                         'amount' => $tax_amount,
@@ -142,7 +142,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                 foreach ($compounds as $compound) {
                     $tax_amount = ($item_amount / 100) * $compound->rate;
 
-                    $item_taxes[] = $doc_parms + [
+                    $item_taxes[] = $doc_params + [
                         'tax_id' => $compound->id,
                         'name' => $compound->name,
                         'amount' => $tax_amount,

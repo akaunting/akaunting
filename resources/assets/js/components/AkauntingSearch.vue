@@ -23,7 +23,17 @@
                 </span>
 
                 <span v-if="filter.value" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-value">
-                    {{ filter.value }}
+                    <span v-if="Array.isArray(filter.value)">
+                        <span v-for="(multiple_filter, index) in filter.value" v-if="index < 3" class="-mr-0.5">
+                            {{ (index == 0) ? multiple_filter.value : ', ' + multiple_filter.value }}
+                        </span>
+                        <span v-if="filter.value.length > 3" class="-mr-0.5">
+                           &nbsp; {{ ' + ' + (filter.value.length - 3) + ' ' + moreText }}
+                        </span>
+                    </span>
+                    <span v-else>
+                        {{ filter.value }}
+                    </span>
 
                     <i class="mt-1 ltr:-right-2 rtl:left-0 rtl:right-0 el-tag__close el-icon-close" style="font-size: 16px;" @click="onFilterDelete(index)"></i>
                 </span>
@@ -93,7 +103,7 @@
             </div>
 
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
-                <li v-if="equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="equal" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
                         <span class="material-icons text-2xl transform pointer-events-none">drag_handle</span>
                         <span class="text-gray hidden pointer-events-none">{{ operatorIsText }}
@@ -101,14 +111,14 @@
                     </button>
                 </li>
 
-                <li v-if="not_equal" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="not_equal" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('!=')">
                         <img :src="not_equal_image" class="w-6 h-6 block m-auto pointer-events-none" />
                         <span class="text-gray hidden pointer-events-none">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
 
-                <li v-if="range" ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
+                <li v-if="range" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('><')">
                         <span class="material-icons text-2xl transform rotate-90 pointer-events-none">height</span>
                         <span class="text-gray hidden pointer-events-none">{{ operatorIsNotText }}</span>
@@ -118,13 +128,43 @@
 
             <div :id="'search-field-value-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu" :class="[{'show': visible.values}]">
                 <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
-                    <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">
-                        <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
-                        {{ value.value }}
-                    </button>
+                    <div v-if="! multiple" class="w-full flex items-center h-9 leading-9 whitespace-nowrap">
+                        <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">
+                            <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
+                            {{ value.value }}
+                        </button>
+                    </div>
+
+                    <div v-else class="w-full flex items-center h-9 leading-9 whitespace-nowrap rounded-md hover:bg-lilac-100">
+                        <div class="custom-control custom-checkbox flex text-sm px-2 ">
+                            <input type="checkbox" name="multiple-filter-values" :id="'search-field-value-' + _uid + '-multiple-' + value.key"  :value="value.key" v-model="multiple_values" data-type="single" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent mt-0.5">
+
+                            <label :for="'search-field-value-' + _uid + '-multiple-' + value.key" class="w-full h-full flex items-center rounded-md px-2">
+                                <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
+                                {{ value.value }}
+                            </label>
+                        </div>
+                    </div>
                 </li>
 
-                <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
+                <li v-if="multiple && filteredValues.length" 
+                    :disabled="! multiple_values.length" 
+                    @click="onMultipleValueSelected()"
+                    :class="[{
+                        'cursor-pointer' : multiple_values.length,
+                        'hover:bg-purple': multiple_values.length,
+                    },
+                    {
+                        'cursor-not-allowed' : ! multiple_values.length,
+                        'hover:bg-purple-200': ! multiple_values.length,
+                    }]"
+                    class="w-full flex items-center px-5 h-9 leading-9 whitespace-nowrap border-t relative text-purple hover:text-white hover:rounded-b-md"
+                    style="margin-bottom: -9px;"
+                >
+                    {{ operatorOkText }}
+                </li>
+
+                <li class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-if="!filteredValues.length">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100">{{ noMatchingDataText }}</button>
                 </li>
             </div>
@@ -133,8 +173,10 @@
 </template>
 
 <script>
+import moment from 'moment';
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import {getQueryVariable} from './../plugins/functions';
 
 export default {
     name: 'akaunting-search',
@@ -164,6 +206,12 @@ export default {
             description: 'Input placeholder'
         },
 
+        moreText: {
+            type: String,
+            default: 'more',
+            description: 'Input placeholder'
+        },
+
         operatorIsText: {
             type: String,
             default: 'is',
@@ -174,6 +222,12 @@ export default {
             type: String,
             default: 'is not',
             description: 'Operator is not "!="'
+        },
+
+        operatorOkText: {
+            type: String,
+            default: 'Ok',
+            description: 'Operator multiple button text'
         },
 
         noDataText: {
@@ -229,12 +283,15 @@ export default {
 
             equal: true,
             not_equal: true,
+            multiple: false,
             range: false,
             option_values: [],
             selected_options: [],
             selected_operator: [],
             selected_values: [],
             values: [],
+            multiple_values: [],
+            current_operator: '',
             current_value: null,
             show_date: false,
             show_button: false,
@@ -244,18 +301,28 @@ export default {
             input_focus: false,
             defaultPlaceholder: this.placeholder,
             dynamicPlaceholder: this.placeholder,
+            show_date_range: false,
         };
     },
 
     methods: {
         onInputFocus() {
-            this.show_button = true;
-
-            if (!this.filter_list.length) {
+            if (this.show_date_range) {
                 return;
             }
 
-            if (this.filter_last_step != 'values' || (this.filter_last_step == 'values' && this.selected_options[this.filter_index].type != 'date')) {
+            this.show_button = true;
+
+            if (! this.filter_list.length && this.filter_last_step == 'options') {
+                return;
+            }
+
+            if (this.filter_last_step != 'values'
+                || (
+                    this.filter_last_step == 'values'
+                    && this.selected_options[this.filter_index].type != 'date'
+                )
+            ) {
                 this.visible[this.filter_last_step] = true;
 
                 this.$nextTick(() => {
@@ -277,6 +344,10 @@ export default {
         },
 
         onInputDateSelected(selectedDates, dateStr, instance) {
+            if (! selectedDates.length) { // not selected date return here..
+                return;
+            }
+
             this.filtered[this.filter_index].value = dateStr;
 
             let date = selectedDates.length ? instance.formatDate(selectedDates[0], 'Y-m-d') : null;
@@ -372,11 +443,20 @@ export default {
 
         onInputConfirm() {
             let path = window.location.href.replace(window.location.search, '');
+            let list = getQueryVariable('list_records');
             let args = '';
+            let sign = '?';
+            let date_range_path = '';
             let redirect = true;
 
+            if (list) {
+                args = '?list_records=' + list;
+                sign = '&';
+            }
+
             if (this.search) {
-                args += '?search="' + this.search + '" ';
+                args += sign + 'search="' + this.search + '" ';
+                sign = '&';
             }
 
             let now = new Date();
@@ -387,12 +467,27 @@ export default {
             search_string[path] = {};
 
             this.filtered.forEach(function (filter, index) {
-                if (!args) {
-                    args += '?search=';
+                if (list) {
+                    args += sign + 'search=';
+                    sign = '&';
+                }
+
+                if (! args) {
+                    args += sign + 'search=';
+                    sign = '&';
                 }
 
                 if (! this.selected_operator.length || ! this.selected_values.length) {
                     redirect = false;
+                    return;
+                }
+
+                if (this.selected_options[index].key == 'date_range') {
+                    let dates = this.selected_values[index].key.split('-to-');
+
+                    date_range_path += sign + 'start_date=' + dates[0];
+                    date_range_path += '&end_date=' + dates[1];
+
                     return;
                 }
 
@@ -405,13 +500,28 @@ export default {
 
                     args += this.selected_options[index].key + '>=' + dates[0] + ' ';
                     args += this.selected_options[index].key + '<=' + dates[1] + ' ';
-                } else {
+                } else if (this.selected_options[index].multiple) {
+                    args += this.selected_options[index].key + ':';
+
+                    let multiple_values = '';
+
+                    this.selected_values[index].forEach(function (value, index) {
+                        if (index == 0) {
+                            multiple_values += value.key;
+                        } else {
+                            multiple_values += ',' + value.key;
+                        }
+                    }, this);
+
+                    args +=  multiple_values + ' ';
+                }
+                else {
                     args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
                 }
 
                 search_string[path][this.selected_options[index].key] = {
-                    'key': this.selected_values[index].key,
-                    'value': this.selected_values[index].value,
+                    'key': Array.isArray(this.selected_values[index]) ? this.selected_values[index] : this.selected_values[index].key,
+                    'value': Array.isArray(this.selected_values[index]) ? this.selected_values[index] : this.selected_values[index].value,
                     'operator': this.selected_operator[index].key,
                 };
             }, this);
@@ -419,7 +529,7 @@ export default {
             Cookies.set('search-string', search_string, expires);
 
             if (redirect) {
-                window.location = path + args;
+                window.location = path + args + date_range_path;
             }
         },
 
@@ -427,6 +537,7 @@ export default {
             this.current_value = value;
             this.equal = true;
             this.not_equal = true;
+            this.multiple = false;
             this.range = false;
 
             this.onChangeSearchAndFilterText(this.selectPlaceholder, false);
@@ -452,6 +563,10 @@ export default {
                         this.option_values[value] = this.filter_list[i].values;
                     }
 
+                    if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].multiple !== 'undefined' && this.filter_list[i].multiple) {
+                        this.multiple = true;
+                    }
+
                     if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].type == 'date') {
                         this.range = true;
                     }
@@ -459,6 +574,7 @@ export default {
                     if (typeof this.filter_list[i].operators !== 'undefined' && Object.keys(this.filter_list[i].operators).length) {
                         this.equal = (typeof this.filter_list[i].operators.equal) ? this.filter_list[i].operators.equal : this.equal;
                         this.not_equal = (typeof this.filter_list[i].operators['not_equal']) ? this.filter_list[i].operators['not_equal'] : this.not_equal;
+                        this.multiple = (typeof this.filter_list[i].operators['multiple']) ? this.filter_list[i].operators['multiple'] : this.multiple;
                         this.range = (typeof this.filter_list[i].operators['range']) ? this.filter_list[i].operators['range'] : this.range;
                     }
 
@@ -488,37 +604,9 @@ export default {
             }
 
             if (! this.option_values[value] && option_url) {
-                if (option_url.indexOf('limit') === -1) {
-                    option_url += ' limit:10';
-                }
-
-                window.axios.get(option_url)
-                .then(response => {
-                    let data = response.data.data;
-
-                    this.values = [];
-
-                    data.forEach(function (item) {
-                        if (Object.keys(option_fields).length) {
-                            this.values.push({
-                                key: (option_fields['key']) ? item[option_fields['key']] : (item.code) ? item.code : item.id,
-                                value: (option_fields['value']) ? item[option_fields['value']] : (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                                level: (option_fields['level']) ? item[option_fields['level']] : (item.level) ? item.level : null,
-                            });
-                        } else {
-                            this.values.push({
-                                key: (item.code) ? item.code : item.id,
-                                value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                                level: (item.level) ? item.level : null,
-                            });
-                        }
-                    }, this);
-
-                    this.option_values[value] = this.values;
-                })
-                .catch(error => {
-
-                });
+                this.onSetOptionValue(value, option_url, option_fields);
+            } else if (this.option_values[value] && ! this.option_values[value].length && option_url) { 
+                this.onSetOptionValue(value, option_url, option_fields);
             } else {
                 this.values = (this.option_values[value]) ? this.option_values[value] : [];
             }
@@ -534,6 +622,40 @@ export default {
             };
 
             this.filter_last_step = 'operator';
+        },
+
+        onSetOptionValue(value, option_url, option_fields) {
+            if (option_url.indexOf('limit') === -1) {
+                option_url += ' limit:10';
+            }
+
+            window.axios.get(option_url)
+            .then(response => {
+                let data = response.data.data;
+
+                this.values = [];
+
+                data.forEach(function (item) {
+                    if (Object.keys(option_fields).length) {
+                        this.values.push({
+                            key: (option_fields['key']) ? item[option_fields['key']] : (item.code) ? item.code : item.id,
+                            value: (option_fields['value']) ? item[option_fields['value']] : (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            level: (option_fields['level']) ? item[option_fields['level']] : (item.level) ? item.level : null,
+                        });
+                    } else {
+                        this.values.push({
+                            key: (item.code) ? item.code : item.id,
+                            value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                            level: (item.level) ? item.level : null,
+                        });
+                    }
+                }, this);
+
+                this.option_values[value] = this.values;
+            })
+            .catch(error => {
+
+            });
         },
 
         onOperatorSelected(value) {
@@ -568,6 +690,8 @@ export default {
                 };
             }
 
+            this.current_operator = value;
+
             this.selected_operator.push({
                 key: value
             });
@@ -576,6 +700,10 @@ export default {
         },
 
         onValueSelected(value) {
+            if (this.current_value == 'date_range' && value == 'custom') {
+                return this.onValueDateRange();
+            }
+
             this.show_close_icon = true;
             let select_value = false;
 
@@ -619,6 +747,72 @@ export default {
 
             this.filter_last_step = 'options';
             this.search = '';
+        },
+
+        onMultipleValueSelected() {
+            this.show_close_icon = true;
+            let select_values = [];
+
+            this.onChangeSearchAndFilterText(this.enterPlaceholder, false);
+
+            for (let i = 0; i < this.values.length; i++) {
+                this.multiple_values.forEach(function (value, index) {
+                    if (this.values[i].key == value) {
+                        select_values.push(this.values[i]);
+                    }
+                }, this);
+            }
+
+            this.selected_values.push(select_values);
+            //this.option_values[this.current_value].splice(i, 1);
+
+            this.filtered[this.filter_index].value = select_values;
+
+            this.$emit('change', this.filtered);
+
+            this.$nextTick(() => {
+                this.$refs['input-search-field-' + this._uid].focus();
+            });
+
+            this.filter_index++;
+
+            if (this.filter_list.length) {
+                this.visible = {
+                    options: true,
+                    operator: false,
+                    values: false,
+                };
+            } else {
+                this.visible = {
+                    options: false,
+                    operator: false,
+                    values: false,
+                };
+            }
+
+            this.show_date = false;
+
+            this.filter_last_step = 'options';
+            this.search = '';
+
+            this.multiple_values = [];
+        },
+
+        onValueDateRange() {
+            this.show_date = true;
+
+            this.visible = {
+                options: false,
+                operator: false,
+                values: false,
+            };
+
+            this.show_date_range = true;
+
+            this.$nextTick(() => {
+                this.$refs['input-search-date-field-' + this._uid].fp.set('mode', 'range');
+                this.$refs['input-search-date-field-' + this._uid].fp.open();
+            });
         },
 
         onFilterDelete(index) {
@@ -686,13 +880,25 @@ export default {
             return values;
         },
 
+        convertToDarteFormat(format) {
+            return format.replace('d', 'DD')
+                .replace('M', 'MMM')
+                .replace('m', 'MM')
+                .replace('F', 'MMMM')
+                .replace('y', 'yyyy')
+                .replace('Y', 'yyyy');
+        },
+
         closeIfClickedOutside(event) {
             if (document.getElementById('search-field-' + this._uid)) {
-                if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.getAttribute('data-btn') != 'btn btn-link') {
+                if (! document.getElementById('search-field-' + this._uid).contains(event.target)
+                    && event.target.getAttribute('data-btn') != 'btn btn-link'
+                ) {
                     this.visible.options = false;
                     this.visible.operator = false;
                     this.visible.values = false;
                     this.show_button = false;
+                    this.show_date_range = false;
 
                     document.removeEventListener('click', this.closeIfClickedOutside);
                 }
@@ -740,7 +946,7 @@ export default {
                                 }
                             }, this);
 
-                            if (!value && (cookie != undefined && cookie[_filter.key])) {
+                            if (! value && (cookie != undefined && cookie[_filter.key])) {
                                 value = cookie[_filter.key].value;
                             }
 
@@ -760,16 +966,41 @@ export default {
 
                             filter_values.forEach(function (value, j) {
                                 if (value.key == filter[1]) {
-                                    this.selected_values.push(value);
+                                    if (_filter.multiple) {
+                                        let multiple_selected_values = [];
+
+                                        if (Array.isArray(value)) {
+                                            value.forEach(function (multiple_value, m) {
+                                                multiple_selected_values.push(multiple_value);
+                                            });
+                                        } else {
+                                            multiple_selected_values.push(value);
+                                        }
+
+                                        this.selected_values.push(multiple_selected_values);
+                                    } else {
+                                        this.selected_values.push(value);
+                                    }
 
                                     this.option_values[_filter.key].splice(j, 1);
 
-                                    value_assigned = true
+                                    value_assigned = true;
                                 }
                             }, this);
 
-                            if (!value_assigned && (cookie != undefined && cookie[_filter.key])) {
-                                this.selected_values.push(cookie[_filter.key]);
+                            if (! value_assigned && (cookie != undefined && cookie[_filter.key])) {
+                                if (_filter.multiple) {
+                                    let multiple_selected_values = [];
+                                    let cookie_key = cookie[_filter.key];
+
+                                    cookie_key.value.forEach(function (multiple_value, m) {
+                                        multiple_selected_values.push(multiple_value);
+                                    });
+
+                                    this.selected_values.push(multiple_selected_values);
+                                } else {
+                                    this.selected_values.push(cookie[_filter.key]);
+                                }
                             }
                         }
                     }, this);
@@ -810,6 +1041,7 @@ export default {
 
                         this.filter_list.splice(i, 1);
 
+                        let value_assigned = false;
                         this.option_values[_filter.key] = filter_values;
 
                         filter_values.forEach(function (value, j) {
@@ -817,8 +1049,23 @@ export default {
                                 this.selected_values.push(value);
 
                                 this.option_values[_filter.key].splice(j, 1);
+
+                                value_assigned = true;
                             }
                         }, this);
+
+                        if (! value_assigned) {
+                            let dates = filter.value.split('-to-');
+
+                            let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
+
+                            value =  moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
+
+                            this.selected_values.push({
+                                key: 'date_range',
+                                value: value,
+                            });
+                        }
                     }
                 }, this);
 
@@ -826,6 +1073,62 @@ export default {
                     option: option,
                     operator: operator,
                     value: value
+                });
+
+                this.filter_index++;
+            }, this);
+        }
+
+        if (getQueryVariable('start_date') && getQueryVariable('end_date')) {
+            this.filter_list.forEach(function (_filter, i) {
+                if (_filter.key != 'date_range') {
+                    return;
+                }
+
+                this.selected_options.push(this.filter_list[i]);
+
+                this.selected_operator.push({
+                    key: '=',
+                });
+
+                this.filter_list.splice(i, 1);
+
+                let value_assigned = false;
+                let filter_values = this.convertOption(_filter.values);
+
+                this.option_values[_filter.key] = filter_values;
+
+                let date_range_value = getQueryVariable('start_date') + '-to-' + getQueryVariable('end_date');
+
+                filter_values.forEach(function (value, j) {
+                    if (value.key == date_range_value) {
+                        this.selected_values.push(value);
+
+                        this.option_values[_filter.key].splice(j, 1);
+
+                        value_assigned = true;
+                    }
+                }, this);
+
+                let date_range_value_format = '';
+
+                if (! value_assigned) {
+                    let dates = date_range_value.split('-to-');
+
+                    let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
+
+                    date_range_value_format =  moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
+
+                    this.selected_values.push({
+                        key: 'date_range',
+                        value: date_range_value,
+                    });
+                }
+
+                this.filtered.push({
+                    option: _filter.value,
+                    operator: '=',
+                    value: (_filter.values[date_range_value]) ? _filter.values[date_range_value] : date_range_value_format,
                 });
 
                 this.filter_index++;
@@ -867,6 +1170,22 @@ export default {
         },
 
         filteredValues() {
+            if (this.selected_options.length) {
+                let only_filter = false;
+
+                this.selected_options.forEach(function (value, index) {
+                    if (value.sort_options != undefined && ! value.sort_options) {
+                        only_filter = true;
+                    }
+                });
+
+                if (only_filter) {
+                    return this.values.filter(value => {
+                        return value.value.toLowerCase().includes(this.search.toLowerCase());
+                    });
+                }
+            }
+
             this.values.sort(function (a, b) {
                 var nameA = a.value.toUpperCase(); // ignore upper and lowercase
                 var nameB = b.value.toUpperCase(); // ignore upper and lowercase
@@ -884,8 +1203,8 @@ export default {
             });
 
             return this.values.filter(value => {
-                return value.value.toLowerCase().includes(this.search.toLowerCase())
-            })
+                return value.value.toLowerCase().includes(this.search.toLowerCase());
+            });
         }
     },
 
@@ -920,7 +1239,7 @@ export default {
 
     html[dir='ltr'] .searh-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
-        margin-left: 10px;
+        //margin-left: 10px;
     }
 
     html[dir='rtl'] .searh-field .el-tag-option {

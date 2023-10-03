@@ -20,15 +20,18 @@ export default {
             default: '',
             description: 'The name of the field',
         },
+
         value: {
             type: String,
             default: ''
         },
+
         model: {
             type: [String, Number, Array, Object],
             default: '',
             description: "Selectbox selected model"
         },
+
         disabled: {
             type: Boolean,
             default: false,
@@ -84,6 +87,13 @@ export default {
             // #337y1z3 This issue reason <p> tag broken email template
             newVal = newVal.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
 
+            let regex = /style="(.*?)"/gm;
+            let subst = ``;
+
+            newVal = newVal.replace(regex, subst);
+
+            this.content = newVal;
+
             this.$emit('input', newVal);
 
             document.querySelectorAll('.ql-tooltip').forEach((tooltip) => {
@@ -93,3 +103,10 @@ export default {
     },
  }
 </script>
+
+<style>
+    .ql-editor {
+        min-height: 120px !important;
+        max-height: 240px !important;
+    }
+</style>

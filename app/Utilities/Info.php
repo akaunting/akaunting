@@ -2,7 +2,6 @@
 
 namespace App\Utilities;
 
-use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
@@ -16,9 +15,7 @@ class Info
     {
         static $info = [];
 
-        $is_cloud = (new class { use Cloud; })->isCloud();
-
-        if (! empty($info) || $is_cloud) {
+        if (! empty($info) || request()->isCloudHost()) {
             return $info;
         }
 
@@ -26,9 +23,9 @@ class Info
             'api_key' => setting('apps.api_key'),
             'ip' => static::ip(),
             'companies' => Company::count(),
-            'users' => User::count(),
-            'invoices' => Document::invoice()->count(),
-            'customers' => Contact::customer()->count(),
+            'users' => user_model_class()::count(),
+            'invoices' => Document::allCompanies()->invoice()->count(),
+            'customers' => Contact::allCompanies()->customer()->count(),
             'php_extensions' => static::phpExtensions(),
         ]);
 

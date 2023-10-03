@@ -19,10 +19,7 @@ class Invoices extends Controller
 {
     use Documents;
 
-    /**
-     * @var string
-     */
-    public $type = Document::INVOICE_TYPE;
+    public string $type = Document::INVOICE_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -31,6 +28,8 @@ class Invoices extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForDocuments();
+
         $invoices = Document::invoice()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['document_number'=> 'desc']);
 
         return $this->response('sales.invoices.index', compact('invoices'));
@@ -78,7 +77,7 @@ class Invoices extends Controller
 
             $response['redirect'] = route('invoices.show', $paramaters);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.invoices', 1)]);
 
             flash($message)->success();
         } else {
@@ -159,7 +158,13 @@ class Invoices extends Controller
         $response = $this->ajaxDispatch(new UpdateDocument($invoice, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('invoices.show', $response['data']->id);
+            $paramaters = ['invoice' => $response['data']->id];
+
+            if ($request->has('senddocument')) {
+                $paramaters['senddocument'] = true;
+            }
+
+            $response['redirect'] = route('invoices.show', $paramaters);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -241,6 +246,24 @@ class Invoices extends Controller
         event(new \App\Events\Document\DocumentCancelled($invoice));
 
         $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.invoices', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Restore the invoice.
+     *
+     * @param  Document $invoice
+     *
+     * @return Response
+     */
+    public function restoreInvoice(Document $invoice)
+    {
+        event(new \App\Events\Document\DocumentRestored($invoice));
+
+        $message = trans('documents.messages.restored', ['type' => trans_choice('general.invoices', 1)]);
 
         flash($message)->success();
 

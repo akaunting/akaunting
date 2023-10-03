@@ -8,11 +8,9 @@ use App\Utilities\Date;
 
 class Recurring
 {
-    use DateTime;
-
     public static function reflect(&$items, $issued_date_field)
     {
-        $financial_year = (new static)->getFinancialYear();
+        $financial_year = (new class { use DateTime; })->getFinancialYear();
 
         foreach ($items as $key => $item) {
             // @todo cache recurrings

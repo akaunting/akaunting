@@ -120,6 +120,10 @@
     </div>
 
     <x-form.input.hidden name="senddocument_route" id="senddocument_route" value="{{ route($emailRoute, $document->id) }}" />
+    @if ($document->transactions->count())
+    <x-form.input.hidden name="sendtransaction_route" id="sendtransaction_route" value="{{ route($transactionEmailRoute, $document->transactions->last()->id) }}" />
+    <x-form.input.hidden name="sendtransaction_template" id="sendtransaction_template" value="{{ $transactionEmailTemplate }}" />
+    @endif
     <x-form.input.hidden name="document_id" :value="$document->id" />
     <x-form.input.hidden name="{{ $type . '_id' }}" :value="$document->id" />
 </div>

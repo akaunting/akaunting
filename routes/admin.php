@@ -42,6 +42,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action')->name('bulk-actions.action');
 
     Route::get('reports/{report}/print', 'Common\Reports@print')->name('reports.print');
+    Route::get('reports/{report}/pdf', 'Common\Reports@pdf')->name('reports.pdf');
     Route::get('reports/{report}/export', 'Common\Reports@export')->name('reports.export');
     Route::get('reports/{report}/duplicate', 'Common\Reports@duplicate')->name('reports.duplicate');
     Route::get('reports/{report}/clear', 'Common\Reports@clear')->name('reports.clear');
@@ -49,6 +50,8 @@ Route::group(['prefix' => 'common'], function () {
     Route::resource('reports', 'Common\Reports');
 
     Route::get('contacts/index', 'Common\Contacts@index')->name('contacts.index');
+
+    Route::get('plans/check', 'Common\Plans@check')->name('plans.check');
 });
 
 Route::group(['prefix' => 'auth'], function () {
@@ -70,6 +73,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/{invoice}/sent', 'Sales\Invoices@markSent')->name('invoices.sent');
     Route::get('invoices/{invoice}/cancelled', 'Sales\Invoices@markCancelled')->name('invoices.cancelled');
+    Route::get('invoices/{invoice}/restore', 'Sales\Invoices@restoreInvoice')->name('invoices.restore');
     Route::get('invoices/{invoice}/email', 'Sales\Invoices@emailInvoice')->name('invoices.email');
     Route::get('invoices/{invoice}/print', 'Sales\Invoices@printInvoice')->name('invoices.print');
     Route::get('invoices/{invoice}/pdf', 'Sales\Invoices@pdfInvoice')->name('invoices.pdf');
@@ -97,6 +101,7 @@ Route::group(['prefix' => 'sales'], function () {
 Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/{bill}/received', 'Purchases\Bills@markReceived')->name('bills.received');
     Route::get('bills/{bill}/cancelled', 'Purchases\Bills@markCancelled')->name('bills.cancelled');
+    Route::get('bills/{bill}/restore', 'Purchases\Bills@restoreBill')->name('bills.restore');
     Route::get('bills/{bill}/print', 'Purchases\Bills@printBill')->name('bills.print');
     Route::get('bills/{bill}/pdf', 'Purchases\Bills@pdfBill')->name('bills.pdf');
     Route::get('bills/{bill}/duplicate', 'Purchases\Bills@duplicate')->name('bills.duplicate');

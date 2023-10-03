@@ -6,6 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Banking\UpdateBankingDocumentTransaction;
+use App\Jobs\Banking\DeleteTransaction;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
@@ -13,7 +14,7 @@ use App\Utilities\Modules;
 use App\Traits\Uploads;
 use App\Traits\Transactions;
 use Date;
-
+use Illuminate\Support\Str;
 
 class DocumentTransactions extends Controller
 {
@@ -69,12 +70,18 @@ class DocumentTransactions extends Controller
             'payment' => [
                 'text' => trans('invoices.accept_payments'),
                 'class' => 'long-texts',
+                'before_text' => trans('general.get_paid_faster'),
+                'class' => 'px-6 py-1.5 text-xs bg-gray-200 hover:bg-purple-200 font-medium rounded-lg leading-6 long-texts',
                 'url' => route('apps.categories.show', [
                     'alias' => 'payment-method',
                     'utm_source' => $document->type . '_payment',
                     'utm_medium' => 'app',
                     'utm_campaign' => 'payment_method',
                 ])
+            ],
+            'send' => [
+                'text' => trans('general.save_and_send'),
+                'class' => 'disabled:bg-green-100'
             ],
             'confirm' => [
                 'text' => trans('general.save'),
@@ -113,7 +120,7 @@ class DocumentTransactions extends Controller
         $response = $this->ajaxDispatch(new CreateBankingDocumentTransaction($document, $request));
 
         if ($response['success']) {
-            $response['redirect'] = url()->previous();
+            $response['redirect'] = $this->getRedirectUrl($document, $request);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -151,8 +158,14 @@ class DocumentTransactions extends Controller
             ],
             'payment' => [
                 'text' => trans('invoices.accept_payments'),
-                'class' => 'long-texts',
-                'url' => route('apps.categories.show', 'payment-method')
+                'before_text' => trans('general.get_paid_faster'),
+                'class' => 'px-6 py-1.5 text-xs bg-gray-200 hover:bg-purple-200 font-medium rounded-lg leading-6 long-texts',
+                'url' => route('apps.categories.show', [
+                    'alias' => 'payment-method',
+                    'utm_source' => $document->type . '_payment',
+                    'utm_medium' => 'app',
+                    'utm_campaign' => 'payment_method',
+                ])
             ],
             'confirm' => [
                 'text' => trans('general.save'),
@@ -196,7 +209,9 @@ class DocumentTransactions extends Controller
                 $route = $alias . '.' . $route;
             }
 
-            $response['redirect'] = route($route . '.show', $document->id);
+            $redirect = route($route . '.show', $document->id);
+
+            $response['redirect'] = $this->getRedirectUrl($document, $request, $redirect);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 
@@ -206,5 +221,59 @@ class DocumentTransactions extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Transaction $transaction
+     *
+     * @return Response
+     */
+    public function destroy(Document $document, Transaction $transaction)
+    {
+        $response = $this->ajaxDispatch(new DeleteTransaction($transaction));
+
+        $route = config('type.document.' . $document->type . '.route.prefix');
+
+        if ($alias = config('type.document.' . $document->type . '.alias')) {
+            $route = $alias . '.' . $route;
+        }
+
+        $response['redirect'] = route($route . '.show', $document->id);
+
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.payments', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
+
+        return response()->json($response);
+    }
+
+    protected function getRedirectUrl($document, $request, $url = null)
+    {
+        $redirect = $url ?? url()->previous();
+
+        if ($request->has('sendtransaction')) {
+            $paramaters = [
+                $document->type => $document->id,
+                'sendtransaction' => true,
+            ];
+
+            $quin = '?';
+    
+            if (Str::contains($redirect, '?')) {
+                $quin = '&';
+            }
+
+            $redirect .= $quin . http_build_query($paramaters);
+        }
+
+        return $redirect;
     }
 }

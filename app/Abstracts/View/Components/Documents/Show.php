@@ -110,6 +110,9 @@ abstract class Show extends Component
     /** @var string */
     public $cancelledRoute;
 
+    /** @var string */
+    public $restoreRoute;
+
     /** @var bool */
     public $hideCustomize;
 
@@ -328,7 +331,7 @@ abstract class Show extends Component
         bool $hideCreate = false, string $createRoute = '', string $textCreate = '', bool $hideButtonStatuses = false, bool $hideEdit = false, string $editRoute = '', string $showRoute = '',
         bool $hideMoreActions = false, bool $hideDuplicate = false, string $duplicateRoute = '', bool $hidePrint = false, string $printRoute = '',
         bool $hideShare = false, string $shareRoute = '', string $signedUrl = '', bool $hideEmail = false, string $emailRoute = '', string $textEmail = '', bool $hidePdf = false, string $pdfRoute = '',
-        bool $hideCancel = false, string $cancelledRoute = '', bool $hideCustomize = false, string $permissionCustomize = '', string $customizeRoute = '',
+        bool $hideCancel = false, string $cancelledRoute = '', string $restoreRoute = '', bool $hideCustomize = false, string $permissionCustomize = '', string $customizeRoute = '',
         bool $hideEnd = false, string $endRoute = '',
         bool $hideDelete = false, bool $checkReconciled = true, string $deleteRoute = '', string $textDeleteModal = '',
         bool $hideDivider1 = false, bool $hideDivider2 = false, bool $hideDivider3 = false, bool $hideDivider4 = false,
@@ -392,6 +395,7 @@ abstract class Show extends Component
 
         $this->hideCancel = $hideCancel;
         $this->cancelledRoute = $this->getCancelledRoute($type, $cancelledRoute);
+        $this->restoreRoute = $this->getRestoreRoute($type, $restoreRoute);
 
         $this->hideCustomize = $hideCustomize;
         $this->permissionCustomize = $this->getPermissionCustomize($type, $permissionCustomize);
@@ -662,6 +666,24 @@ abstract class Show extends Component
         }
 
         return 'invoices.cancelled';
+    }
+
+    protected function getRestoreRoute($type, $restoreRoute)
+    {
+        if (! empty($restoreRoute)) {
+            return $restoreRoute;
+        }
+
+        //example route parameter.
+        $parameter = 1;
+
+        $route = $this->getRouteFromConfig($type, 'restore', $parameter);
+
+        if (! empty($route)) {
+            return $route;
+        }
+
+        return 'invoices.restore';
     }
 
     protected function getPermissionCustomize($type, $permissionCustomize)
@@ -993,7 +1015,7 @@ abstract class Show extends Component
     }
 
     protected function getTextDocumentTitle($type, $textDocumentTitle)
-    { 
+    {
         if (! empty($textDocumentTitle)) {
             return $textDocumentTitle;
         }

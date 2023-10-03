@@ -7,8 +7,8 @@ use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Auth\CreateUser;
+use App\Jobs\Common\CreateContactPersons;
 use App\Models\Auth\Role;
-use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
@@ -29,6 +29,8 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 
                 $this->model->attachMedia($media, 'logo');
             }
+
+            $this->dispatch(new CreateContactPersons($this->model, $this->request));
         });
 
         return $this->model;
@@ -37,7 +39,7 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
     public function createUser(): void
     {
         // Check if user exist
-        if ($user = User::where('email', $this->request['email'])->first()) {
+        if ($user = user_model_class()::where('email', $this->request['email'])->first()) {
             $message = trans('messages.error.customer', ['name' => $user->name]);
 
             throw new \Exception($message);

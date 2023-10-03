@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Auth\User;
 use App\Models\Common\Company;
 use Illuminate\Console\Command;
 
@@ -29,7 +28,7 @@ class InstallRefresh extends Command
      */
     public function handle()
     {
-        $user = User::first();
+        $user = user_model_class()::first();
         $company = Company::first();
 
         $this->info('Resetting migrations');

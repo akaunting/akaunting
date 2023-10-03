@@ -42,29 +42,17 @@
             value-format="yyyy-MM-dd"
             @change="onChangeFilterDate"
             range-separator="-"
-            start-placeholder="{{ $date_picker_shortcuts[trans('reports.this_year')]['start'] }}"
-            end-placeholder="{{ $date_picker_shortcuts[trans('reports.this_year')]['end'] }}"
+            start-placeholder="{{ $date_picker_shortcuts[trans('general.date_range.this_year')]['start'] }}"
+            end-placeholder="{{ $date_picker_shortcuts[trans('general.date_range.this_year')]['end'] }}"
             popper-class="dashboard-picker"
             :picker-options="{
                 shortcuts: [
-                    @php
-                        $shortcuts = [
-                            trans('reports.this_year'),
-                            trans('reports.previous_year'),
-                            trans('reports.this_quarter'),
-                            trans('reports.previous_quarter'),
-                            trans('reports.last_12_months')
-                        ];
-                    @endphp
-
-                    @foreach ($shortcuts as $shortcut)
-                        @continue(! isset($date_picker_shortcuts[$shortcut]))
-
+                    @foreach ($date_picker_shortcuts as $text => $shortcut)
                         {
-                            text: '{{ $shortcut }}',
+                            text: '{{ $text }}',
                             onClick(picker) {
-                                const start = new Date('{{ $date_picker_shortcuts[$shortcut]["start"] }}');
-                                const end = new Date('{{ $date_picker_shortcuts[$shortcut]["end"] }}');
+                                const start = new Date('{{ $shortcut["start"] }}');
+                                const end = new Date('{{ $shortcut["end"] }}');
 
                                 picker.$emit('pick', [start, end]);
                             }

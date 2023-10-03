@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type added!',
+        'created'			=> ':type created!',
         'updated'           => ':type updated!',
         'deleted'           => ':type deleted!',
         'duplicated'        => ':type duplicated!',
@@ -29,6 +30,7 @@ return [
         'transfer_category' => 'Error: Can not delete the transfer <b>:type</b> category!',
         'change_type'       => 'Error: Can not change the type because it has :text related!',
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
+        'empty_apikey'      => 'Error: You have not entered your API Key! <a href=":url" class="font-bold underline underline-offset-4">Click here</a> to enter your API Key.',
         'import_column'     => 'Error: :message Column name: :column. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
         'same_amount'       => 'Error: The total amount of split must be exactly the same as the :transaction total: :amount',

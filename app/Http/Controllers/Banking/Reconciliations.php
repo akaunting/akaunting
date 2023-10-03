@@ -83,7 +83,7 @@ class Reconciliations extends Controller
         if ($response['success']) {
             $response['redirect'] = route('reconciliations.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.reconciliations', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.reconciliations', 1)]);
 
             flash($message)->success();
         } else {

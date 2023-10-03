@@ -84,7 +84,7 @@ class Money
 
                     $amount = $item['price'];
 
-                    if (strpos($item['price'], config('money.currencies.' . $currency_code . '.symbol')) !== false) {
+                    if (strpos($item['price'], currency($currency_code)->getSymbol()) !== false) {
                         $amount = $this->getAmount($item['price'], $currency_code);
                     }
 
@@ -101,8 +101,8 @@ class Money
     protected function getAmount($money_format, $currency_code)
     {
         try {
-            if (config('money.currencies.' . $currency_code . '.decimal_mark') !== '.') {
-                $money_format = Str::replaceFirst('.', config('money.currencies.' . $currency_code . '.decimal_mark'), $money_format);
+            if (currency($currency_code)->getDecimalMark() !== '.') {
+                $money_format = Str::replaceFirst('.', currency($currency_code)->getDecimalMark(), $money_format);
             }
 
             $amount = money($money_format, $currency_code, false)->getAmount();

@@ -2,9 +2,9 @@
 
 namespace App\Imports\Sales\RecurringInvoices\Sheets;
 
+use App\Abstracts\Import;
 use App\Models\Document\Document;
 use App\Models\Common\Recurring as Model;
-use Modules\BackupRestore\Abstracts\Import;
 
 class Recurring extends Import
 {

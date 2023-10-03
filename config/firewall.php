@@ -39,6 +39,7 @@ return [
             'name' => env('FIREWALL_EMAIL_NAME', 'Akaunting Firewall'),
             'from' => env('FIREWALL_EMAIL_FROM', 'firewall@mydomain.com'),
             'to' => env('FIREWALL_EMAIL_TO', 'admin@mydomain.com'),
+            'queue' => env('FIREWALL_EMAIL_QUEUE', 'default'),
         ],
 
         'slack' => [
@@ -47,6 +48,7 @@ return [
             'from' => env('FIREWALL_SLACK_FROM', 'Akaunting Firewall'),
             'to' => env('FIREWALL_SLACK_TO'), // webhook url
             'channel' => env('FIREWALL_SLACK_CHANNEL', null), // set null to use the default channel of webhook
+            'queue' => env('FIREWALL_SLACK_QUEUE', 'default'),
         ],
 
     ],

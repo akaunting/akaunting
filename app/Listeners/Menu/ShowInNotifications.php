@@ -3,9 +3,10 @@
 namespace App\Listeners\Menu;
 
 use App\Events\Menu\NotificationsCreated as Event;
+use App\Models\Common\Notification;
 use App\Traits\Modules;
+use App\Utilities\Date;
 use App\Utilities\Versions;
-use Illuminate\Notifications\DatabaseNotification;
 
 class ShowInNotifications
 {
@@ -20,6 +21,14 @@ class ShowInNotifications
     public function handle(Event $event)
     {
         if (user()->cannot('read-notifications')) {
+            return;
+        }
+
+        static $notifications;
+
+        if (! empty($notifications)) {
+            $event->notifications->notifications = $notifications;
+
             return;
         }
 
@@ -39,7 +48,7 @@ class ShowInNotifications
 
                 $name = ($prefix == 'core') ? 'Akaunting' : module($key)?->getName();
 
-                $new = new DatabaseNotification();
+                $new = new Notification();
                 $new->id = $key;
                 $new->type = 'updates';
                 $new->notifiable_type = "users";
@@ -48,13 +57,13 @@ class ShowInNotifications
                     'title' => $name . ' (v' . $update?->latest . ')',
                     'description' => trans('install.update.' . $prefix, ['module' => $name, 'url' => route('updates.index')]),
                 ];
-                $new->created_at = \Carbon\Carbon::now();
+                $new->created_at = Date::now();
 
                 $notifications->push($new);
             }
         }
 
-        // New app notifcations
+        // New app notifications
         $new_apps = $this->getNotifications('new-apps');
 
         foreach ($new_apps as $key => $new_app) {
@@ -71,7 +80,7 @@ class ShowInNotifications
                 'utm_campaign'  => str_replace('-', '_', $new_app->alias),
             ]);
 
-            $new = new DatabaseNotification();
+            $new = new Notification();
             $new->id = $key;
             $new->type = 'new-apps';
             $new->notifiable_type = "users";
@@ -86,10 +95,8 @@ class ShowInNotifications
             $notifications->push($new);
         }
 
-        $unReadNotifications = user()->unReadNotifications;
-
-        foreach ($unReadNotifications as $unReadNotification) {
-            $notifications->push($unReadNotification);
+        foreach (user()->unreadNotifications as $unreadNotification) {
+            $notifications->push($unreadNotification);
         }
 
         $event->notifications->notifications = $notifications;

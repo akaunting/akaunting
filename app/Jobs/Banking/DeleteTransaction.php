@@ -16,7 +16,8 @@ class DeleteTransaction extends Job implements ShouldDelete
         event(new TransactionDeleting($this->model));
 
         \DB::transaction(function () {
-            $this->model->recurring()->delete();
+            $this->deleteRelationships($this->model, ['recurring', 'taxes']);
+
             $this->model->delete();
         });
 

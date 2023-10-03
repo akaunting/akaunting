@@ -27,7 +27,10 @@ class MatchBankingDocumentTransaction extends Job
         $this->checkAmount();
 
         \DB::transaction(function () {
-            $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, ['document_id' => $this->model->id]));
+            $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, [
+                'document_id'   => $this->model->id,
+                'type'          => $this->transaction->type, // Set missing type get default income typr for UpdateTransaction job.
+            ]));
 
             $this->model->save();
 
@@ -42,7 +45,7 @@ class MatchBankingDocumentTransaction extends Job
         $code = $this->transaction->currency_code;
         $rate = $this->transaction->currency_rate;
 
-        $precision = config('money.currencies.' . $code . '.precision');
+        $precision = currency($code)->getPrecision();
 
         $amount = $this->transaction->amount = round($this->transaction->amount, $precision);
 

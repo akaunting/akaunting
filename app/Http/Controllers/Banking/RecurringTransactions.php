@@ -100,7 +100,7 @@ class RecurringTransactions extends Controller
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.recurring_transactions', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.recurring_transactions', 1)]);
 
             flash($message)->success();
         } else {
@@ -214,7 +214,7 @@ class RecurringTransactions extends Controller
 
         return response()->json($response);
     }
-    
+
     /**
      * Export the specified resource.
      *

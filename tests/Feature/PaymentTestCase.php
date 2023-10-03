@@ -75,13 +75,13 @@ class PaymentTestCase extends FeatureTestCase
         } elseif ($this->invoice_currency != null) {
             $this->dispatch(new CreateCurrency([
                 'company_id'            => company_id(),
-                'name'                  => config('money.currencies.' . $this->invoice_currency . '.name'),
+                'name'                  => currency($this->invoice_currency)->getName(),
                 'code'                  => $this->invoice_currency,
                 'rate'                  => config(['money.' . $this->invoice_currency . '.rate' => 1]),
                 'enabled'               => 1,
-                'symbol_first'          => config('money.currencies.' . $this->invoice_currency . '.symbol_first'),
-                'decimal_mark'          => config('money.currencies.' . $this->invoice_currency . '.decimal_mark'),
-                'thousands_separator'   => config('money.currencies.' . $this->invoice_currency . '.thousands_separator'),
+                'symbol_first'          => currency($this->invoice_currency)->isSymbolFirst(),
+                'decimal_mark'          => currency($this->invoice_currency)->getDecimalMark(),
+                'thousands_separator'   => currency($this->invoice_currency)->getThousandsSeparator(),
                 'default_currency'      => true,
             ]));
         }

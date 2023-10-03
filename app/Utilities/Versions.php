@@ -65,10 +65,8 @@ class Versions
     public static function all($modules = null)
     {
         // Get data from cache
-        $versions = Cache::get('versions');
-
-        if (! empty($versions)) {
-            return $versions;
+        if (Cache::has('versions')) {
+            return Cache::get('versions');
         }
 
         $info = Info::all();
@@ -123,7 +121,7 @@ class Versions
             $versions[$alias] = static::getLatestVersion($url, $version);
         }
 
-        Cache::put('versions', $versions, Date::now()->addHour(6));
+        Cache::put('versions', $versions, Date::now()->addHours(6));
 
         return $versions;
     }
@@ -147,7 +145,7 @@ class Versions
 
         $versions[$alias] = static::getLatestVersion($url, $version);
 
-        Cache::put('versions', $versions, Date::now()->addHour(6));
+        Cache::put('versions', $versions, Date::now()->addHours(6));
 
         return $versions[$alias];
     }
@@ -180,10 +178,8 @@ class Versions
     public static function getUpdates()
     {
         // Get data from cache
-        $updates = Cache::get('updates');
-
-        if (! empty($updates)) {
-            return $updates;
+        if (Cache::has('updates')) {
+            return Cache::get('updates');
         }
 
         $updates = [];
@@ -212,7 +208,7 @@ class Versions
             $updates[$alias] = $latest_version;
         }
 
-        Cache::put('updates', $updates, Date::now()->addHour(6));
+        Cache::put('updates', $updates, Date::now()->addHours(6));
 
         return $updates;
     }

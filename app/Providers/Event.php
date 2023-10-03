@@ -26,6 +26,7 @@ class Event extends Provider
             'App\Listeners\Update\V30\Version3015',
             'App\Listeners\Update\V30\Version3016',
             'App\Listeners\Update\V30\Version3017',
+            'App\Listeners\Update\V31\Version310',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
@@ -50,6 +51,9 @@ class Event extends Provider
         ],
         'App\Events\Document\DocumentCancelled' => [
             'App\Listeners\Document\MarkDocumentCancelled',
+        ],
+        'App\Events\Document\DocumentRestored' => [
+            'App\Listeners\Document\RestoreDocument',
         ],
         'App\Events\Document\DocumentRecurring' => [
             'App\Listeners\Document\SendDocumentRecurringNotification',
@@ -125,7 +129,6 @@ class Event extends Provider
      */
     protected $subscribe = [
         'App\Listeners\Module\ClearCache',
-        'App\Listeners\Report\AddDate',
         'App\Listeners\Report\AddAccounts',
         'App\Listeners\Report\AddCustomers',
         'App\Listeners\Report\AddVendors',
@@ -135,5 +138,7 @@ class Event extends Provider
         'App\Listeners\Report\AddSearchString',
         'App\Listeners\Report\AddRowsToTax',
         'App\Listeners\Report\AddBasis',
+        'App\Listeners\Report\AddPeriod',
+        'App\Listeners\Report\AddDate',
     ];
 }

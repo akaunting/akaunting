@@ -10,7 +10,6 @@ use App\Jobs\Auth\CreateUser;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
 use App\Models\Auth\Role;
-use App\Models\Auth\User;
 use App\Traits\Cloud;
 use App\Traits\Uploads;
 use Illuminate\Http\Request as BaseRequest;
@@ -37,7 +36,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = User::with('media', 'roles')->collect();
+        $users = user_model_class()::with('media', 'roles')->collect();
 
         return $this->response('auth.users.index', compact('users'));
     }
@@ -47,8 +46,10 @@ class Users extends Controller
      *
      * @return Response
      */
-    public function show(User $user)
+    public function show($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $u = new \stdClass();
         $u->role = $user->roles()->first();
         $u->landing_pages = [];
@@ -124,12 +125,14 @@ class Users extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function edit(User $user)
+    public function edit($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         if (user()->cannot('read-auth-users') && ($user->id != user()->id)) {
             abort(403);
         }
@@ -187,13 +190,15 @@ class Users extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  User $user
+     * @param  $user_id
      * @param  Request $request
      *
      * @return Response
      */
-    public function update(User $user, Request $request)
+    public function update($user_id, Request $request)
     {
+        $user = user_model_class()::find($user_id);
+
         if (user()->cannot('update-auth-users') && ($user->id != user()->id)) {
             abort(403);
         }
@@ -220,12 +225,14 @@ class Users extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function enable(User $user)
+    public function enable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
@@ -238,12 +245,14 @@ class Users extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function disable(User $user)
+    public function disable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
@@ -256,12 +265,14 @@ class Users extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new DeleteUser($user));
 
         $response['redirect'] = route('users.index');
@@ -282,12 +293,14 @@ class Users extends Controller
     /**
      * Mark upcoming bills notifications are read and redirect to bills page.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function readUpcomingBills(User $user)
+    public function readUpcomingBills($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         // Mark bill notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not a bill notification
@@ -304,12 +317,14 @@ class Users extends Controller
     /**
      * Mark overdue invoices notifications are read and redirect to invoices page.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function readOverdueInvoices(User $user)
+    public function readOverdueInvoices($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         // Mark invoice notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not an invoice notification
@@ -334,13 +349,13 @@ class Users extends Controller
         if (! empty($column) && ! empty($value)) {
             switch ($column) {
                 case 'id':
-                    $user = User::find((int) $value);
+                    $user = user_model_class()::find((int) $value);
                     break;
                 case 'email':
-                    $user = User::where('email', $value)->first();
+                    $user = user_model_class()::where('email', $value)->first();
                     break;
                 default:
-                    $user = User::where($column, $value)->first();
+                    $user = user_model_class()::where($column, $value)->first();
             }
 
             $data = $user;
@@ -358,12 +373,14 @@ class Users extends Controller
     /**
      * Process request for reinviting the specified resource.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function invite(User $user)
+    public function invite($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new CreateInvitation($user, company()));
 
         if ($response['success']) {

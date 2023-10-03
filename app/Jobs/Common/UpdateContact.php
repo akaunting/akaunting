@@ -5,8 +5,8 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Auth\CreateUser;
+use App\Jobs\Common\CreateContactPersons;
 use App\Models\Auth\Role;
-use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
@@ -34,6 +34,10 @@ class UpdateContact extends Job implements ShouldUpdate
 
             $this->updateRecurringDocument();
 
+            $this->deleteRelationships($this->model, ['contact_persons']);
+
+            $this->dispatch(new CreateContactPersons($this->model, $this->request));
+
             $this->model->update($this->request->all());
         });
 
@@ -55,7 +59,7 @@ class UpdateContact extends Job implements ShouldUpdate
     public function createUser(): void
     {
         // Check if user exist
-        if ($user = User::where('email', $this->request['email'])->first()) {
+        if ($user = user_model_class()::where('email', $this->request['email'])->first()) {
             $message = trans('messages.error.customer', ['name' => $user->name]);
 
             throw new \Exception($message);

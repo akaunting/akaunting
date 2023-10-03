@@ -6,6 +6,7 @@ use App\Abstracts\Job;
 use App\Events\Banking\TransactionUpdated;
 use App\Events\Banking\TransactionUpdating;
 use App\Interfaces\Job\ShouldUpdate;
+use App\Jobs\Banking\CreateTransactionTaxes;
 use App\Models\Banking\Transaction;
 
 class UpdateTransaction extends Job implements ShouldUpdate
@@ -37,6 +38,10 @@ class UpdateTransaction extends Job implements ShouldUpdate
             } elseif (! $this->request->file('attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
+
+            $this->deleteRelationships($this->model, ['taxes'], true);
+
+            $this->dispatch(new CreateTransactionTaxes($this->model, $this->request));
 
             // Recurring
             $this->model->updateRecurring($this->request->all());

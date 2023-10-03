@@ -16,6 +16,8 @@ class DeleteContact extends Job implements ShouldDelete
         $this->authorize();
 
         \DB::transaction(function () {
+            $this->deleteRelationships($this->model, ['contact_persons']);
+
             if ($user = $this->model->user) {
                 $this->dispatch(new DeleteUser($user));
             }

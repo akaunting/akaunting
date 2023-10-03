@@ -7,6 +7,7 @@ use App\Http\Resources\Common\Contact;
 use App\Http\Resources\Setting\Category;
 use App\Http\Resources\Setting\Currency;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Banking\TransactionTax;
 
 class Transaction extends JsonResource
 {
@@ -45,6 +46,7 @@ class Transaction extends JsonResource
             'category' => new Category($this->category),
             'currency' => new Currency($this->currency),
             'contact' => new Contact($this->contact),
+            'taxes' => [static::$wrap => TransactionTax::collection($this->taxes)],
         ];
     }
 }

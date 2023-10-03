@@ -104,7 +104,7 @@ class Reports extends Controller
         if ($response['success']) {
             $response['redirect'] = route('reports.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.reports', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.reports', 1)]);
 
             flash($message)->success();
         } else {
@@ -219,6 +219,21 @@ class Reports extends Controller
         }
 
         return Utility::getClassInstance($report)->print();
+    }
+
+    /**
+     * Download PDF file of the report.
+     *
+     * @param  Report $report
+     * @return Response
+     */
+    public function pdf(Report $report)
+    {
+        if (Utility::cannotShow($report->class)) {
+            abort(403);
+        }
+
+        return Utility::getClassInstance($report)->pdf();
     }
 
     /**

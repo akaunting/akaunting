@@ -25,13 +25,94 @@
         <x-slot name="content">
             <x-tabs.tab id="general">
                 <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
-                    <x-form.group.date name="paid_at" label="{{ trans('general.date') }}" icon="calendar_today" value="{{ $document->paid_at }}" show-date-format="{{ company_date_format() }}" date-format="Y-m-d" autocomplete="off" form-group-class="col-span-6" />
+                    <x-form.group.date
+                        name="paid_at"
+                        label="{{ trans('general.date') }}"
+                        icon="calendar_today"
+                        value="{{ $document->paid_at }}"
+                        show-date-format="{{ company_date_format() }}"
+                        date-format="Y-m-d"
+                        autocomplete="off"
+                        form-group-class="col-span-6"
+                    />
 
-                    <x-form.group.money name="amount" label="{{ trans('general.amount') }}" value="{{ $document->grand_total }}" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" form-group-class="col-span-6" />
+                    <x-form.group.account
+                        change="onChangePaymentAccount"
+                        form-group-class="col-span-6"
+                        without-add-new
+                    />
+
+                    <x-form.group.money
+                        v-show="form.document_currency_code == form.currency_code"
+                        name="amount"
+                        label="{{ trans('general.amount') }}"
+                        value="{{ $document->grand_total }}"
+                        autofocus="autofocus"
+                        :currency="$currency"
+                        dynamicCurrency="currency"
+                        form-group-class="col-span-6"
+                    />
+
+                    <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4 gap-y-6 relative" v-if="form.document_currency_code != form.currency_code">
+                        <x-form.group.money
+                            name="amount"
+                            label="{{ trans('general.amount') }}"
+                            value="{{ $document->grand_total }}"
+                            v-model="form.amount"
+                            autofocus="autofocus"
+                            :currency="$currency"
+                            form-group-class="col-span-6"
+                            input="onChangeAmount($event)"
+                        />
+
+                        <div class="sm:col-span-2 text-xs absolute right-0 top-1">
+                            <div class="custom-control custom-checkbox">
+                                <x-form.input.checkbox
+                                    name="pay_in_full"
+                                    label="Pay in full"
+                                    id="checkbox-pay_in_full-{{ $document->id }}"
+                                    value="1"
+                                    checked
+                                    data-type="single"
+                                    v-model="form.pay_in_full"
+                                    @change="onChangePayInFull($event.target.checked)"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4" v-if="form.document_currency_code != form.currency_code">
+                        <x-form.group.text
+                            name="currency_rate"
+                            label="{{ trans_choice('general.currency_rates', 1) }}"
+                            form-group-class="col-span-6"
+                            ::disabled="form.pay_in_full"
+                            not-required
+                            @change="onChangeRatePayment($event)"
+                        />
+
+                        <div class="relative col-span-6 text-xs flex mt-2">
+                            <div class="w-auto text-xs mr-2"
+                                v-html="'{{ trans('general.currency_convert', ['from' => '#form', 'to' => $document->currency_code]) }}'.replace('#form', form.currency_code)"
+                            ></div>
+
+                            <div class="mr-2">-</div>
+
+                            <x-form.input.money
+                                name="default_amount"
+                                value="0"
+                                disabled
+                                row-input
+                                v-model="form.default_amount"
+                                :currency="$currency"
+                                dynamic-currency="{!! json_encode($currency) !!}"
+                                money-class="disabled-money p-0 m-0 text-xs"
+                                form-group-class="text-right disabled-money"
+                            />
+                        </div>
+                    </div>
 
                     <x-form.group.payment-method form-group-class="col-span-6"/>
-
-                    <x-form.group.account change="onChangePaymentAccount" form-group-class="col-span-6" without-add-new />
                 </div>
             </x-tabs.tab>
 
@@ -45,9 +126,14 @@
 
                     <x-form.input.hidden name="document_id" :value="$document->id" />
                     <x-form.input.hidden name="category_id" :value="$document->category->id" />
+                    <x-form.input.hidden name="paid_amount" :value="$document->paid" />
                     <x-form.input.hidden name="amount" :value="$document->grand_total" />
                     <x-form.input.hidden name="currency_code" :value="$document->currency_code" />
-                    <x-form.input.hidden name="currency_rate" :value="$document->currency_rate" />
+                    <x-form.input.hidden name="currency_rate" :value="$document->currency_rate" v-if="form.document_currency_code == form.currency_code" />
+                    <x-form.input.hidden name="company_currency_code" :value="default_currency()" />
+                    <x-form.input.hidden name="document_currency_code" :value="$document->currency_code" />
+                    <x-form.input.hidden name="document_currency_rate" :value="$document->currency_rate" />
+                    <x-form.input.hidden name="document_default_amount" :value="$document->grand_total" />
                     <x-form.input.hidden name="type" :value="config('type.document.' . $document->type . '.transaction_type')" />
                 </div>
             </x-tabs.tab>

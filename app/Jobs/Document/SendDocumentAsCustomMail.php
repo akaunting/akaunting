@@ -24,10 +24,10 @@ class SendDocumentAsCustomMail extends Job
 
         event(new DocumentSending($document));
 
-        $custom_mail = $this->request->only(['to', 'subject', 'body']);
+        $mail_request = $this->request->only(['to', 'subject', 'body']);
 
         if ($this->request->get('user_email', false)) {
-            $custom_mail['cc'] = user()->email;
+            $mail_request['cc'] = user()->email;
         }
 
         $attachments = collect($this->request->get('attachments', []))
@@ -35,10 +35,32 @@ class SendDocumentAsCustomMail extends Job
             ->keys()
             ->all();
 
+        $attach_pdf = in_array('pdf', $attachments);
+
         $notification = config('type.document.' . $document->type . '.notification.class');
 
-        // Notify the contact
-        $document->contact->notify(new $notification($document, $this->template_alias, true, $custom_mail, $attachments));
+        $contacts = $document->contact->withPersons();
+
+        $counter = 1;
+
+        foreach ($contacts as $contact) {
+            if (! in_array($contact->email, $mail_request['to'])) {
+                continue;
+            }
+
+            $custom_mail = [
+                'subject'   => $mail_request['subject'],
+                'body'      => $mail_request['body'],
+            ];
+
+            if (($counter == 1) && ! empty($mail_request['cc'])) {
+                $custom_mail['cc'] = $mail_request['cc'];
+            }
+
+            $contact->notify(new $notification($document, $this->template_alias, $attach_pdf, $custom_mail, $attachments));
+
+            $counter++;
+        }
 
         event(new DocumentSent($document));
     }

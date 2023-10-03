@@ -1,4 +1,4 @@
-@if ($hideEmptyPage || ($documents->count() || request()->get('search', false)))
+@if ($hideEmptyPage || ($documents->count() || (request()->has('search') && ! request()->has('programmatic'))))
     @if (! $hideSummary)
     <x-index.summary :items="$summaryItems" />
     @endif
@@ -9,10 +9,22 @@
                 <x-slot name="navs">
                     @stack('document_nav_start')
 
-                    @if ($tabActive == $type)
-                        <x-tabs.nav id="{{ $type }}" name="{{ trans_choice($textTabDocument, 2) }}" active />
+                    @if ($tabActive == $type . '-unpaid')
+                        <x-tabs.nav id="{{ $type . '-unpaid' }}" name="{{ trans('documents.statuses.unpaid') }}" active />
                     @else
-                        <x-tabs.nav-link id="{{ $type }}" name="{{ trans_choice($textTabDocument, 2) }}" href="{{ route($routeTabDocument) }}" />
+                        <x-tabs.nav-link id="{{ $type . '-unpaid' }}" name="{{ trans('documents.statuses.unpaid') }}" href="{{ route($routeTabDocument) }}" />
+                    @endif
+
+                    @if ($tabActive == $type . '-draft')
+                        <x-tabs.nav id="{{ $type . '-draft' }}" name="{{ trans('documents.statuses.draft') }}" active />
+                    @else
+                        <x-tabs.nav-link id="{{ $type . '-draft' }}" name="{{ trans('documents.statuses.draft') }}" href="{{ route($routeTabDocument, $routeParamsTabDraft) }}" />
+                    @endif
+
+                    @if ($tabActive == $type . '-all')
+                        <x-tabs.nav id="{{ $type . '-all' }}" name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}" active />
+                    @else
+                        <x-tabs.nav-link id="{{ $type . '-all' }}" name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}" href="{{ route($routeTabDocument, ['list_records' => 'all']) }}" />
                     @endif
 
                     @stack('document_nav_end')
@@ -51,8 +63,8 @@
 
                     @stack('document_tab_start')
 
-                    @if ($tabActive == $type)
-                        <x-tabs.tab id="{{ $type }}">
+                    @if ($tabActive != 'recurring-templates')
+                        <x-tabs.tab id="{{ $tabActive }}">
                             <x-documents.index.document :type="$type" :documents="$documents" />
                         </x-tabs.tab>
                     @endif

@@ -44,7 +44,9 @@
             <x-index.container>
                 <x-tabs active="recurring-templates">
                     <x-slot name="navs">
-                        <x-tabs.nav-link id="transactions" name="{{ trans_choice('general.transactions', 2) }}" href="{{ route('transactions.index') }}" />
+                        <x-tabs.nav-link id="transactions-income" name="{{ trans_choice('general.incomes', 1) }}" href="{{ route('transactions.index', ['search' => 'type:income']) }}" />
+                        <x-tabs.nav-link id="transactions-expense" name="{{ trans_choice('general.expenses', 1) }}" href="{{ route('transactions.index', ['search' => 'type:expense']) }}" />
+                        <x-tabs.nav-link id="transactions" name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}" href="{{ route('transactions.index') }}" />
                         <x-tabs.nav id="recurring-templates" name="{{ trans_choice('general.recurring_templates', 2) }}" active />
                     </x-slot>
 
@@ -132,7 +134,7 @@
                                             <x-table.td class="w-2/12" hidden-mobile>
                                                 <x-slot name="first">
                                                     @if ($item->recurring->interval > 1)
-                                                        <x-tooltip 
+                                                        <x-tooltip
                                                             id="tooltip-frequency-{{ $item->recurring->id }}"
                                                             placement="top"
                                                             message="{{ trans('recurring.custom_frequency_desc', [

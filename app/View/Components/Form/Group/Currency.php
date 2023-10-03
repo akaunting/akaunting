@@ -51,7 +51,7 @@ class Currency extends Form
             }
         }
 
-        if (empty($this->selected) && empty($this->getParentData('model'))) {
+        if ($this->selected === null && empty($this->getParentData('model'))) {
             $this->selected = default_currency();
         }
 

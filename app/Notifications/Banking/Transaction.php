@@ -36,9 +36,16 @@ class Transaction extends Notification
     public $attach_pdf;
 
     /**
+     * List of transaction attachments to attach when sending the email.
+     *
+     * @var array
+     */
+    public $attachments;
+
+    /**
      * Create a notification instance.
      */
-    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [])
+    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [], $attachments = [])
     {
         parent::__construct();
 
@@ -46,6 +53,7 @@ class Transaction extends Notification
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
         $this->custom_mail = $custom_mail;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -61,14 +69,28 @@ class Transaction extends Notification
 
         $message = $this->initMailMessage();
 
+        $func = is_local_storage() ? 'fromPath' : 'fromStorage';
+
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $func = is_local_storage() ? 'fromPath' : 'fromStorage';
-
             $path = $this->storeTransactionPdfAndGetPath($this->transaction);
             $file = Attachment::$func($path)->withMime('application/pdf');
 
             $message->attach($file);
+        }
+
+        // Attach selected attachments
+        if (! empty($this->transaction->attachment)) {
+            foreach ($this->transaction->attachment as $attachment) {
+                if (! in_array($attachment->id, $this->attachments)) {
+                    continue;
+                }
+
+                $path = is_local_storage() ? $attachment->getAbsolutePath() : $attachment->getDiskPath();
+                $file = Attachment::$func($path)->withMime($attachment->mime_type);
+
+                $message->attach($file);
+            }
         }
 
         return $message;

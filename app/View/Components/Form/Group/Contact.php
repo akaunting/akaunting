@@ -31,11 +31,17 @@ class Contact extends Form
             $this->name = 'contact_id';
         }
 
+        if (empty($this->label)) {
+            $this->label = trans_choice('general.' . Str::plural($this->type), 1);
+        }
+
+        if (empty($this->contacts) && ! empty($this->options)) {
+            $this->contacts = $this->options;
+        } else if (empty($this->contacts)) {
+            $this->contacts = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        }
+
         $this->setRoutes();
-
-        $this->label = trans_choice('general.' . Str::plural($this->type), 1);
-
-        $this->contacts = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $model = $this->getParentData('model');
 
@@ -47,7 +53,7 @@ class Contact extends Form
             if (! $this->contacts->has($contact_id)) {
                 $contact = Model::find($contact_id);
 
-                $this->contacts->put($contact->id, $contact->name);
+                $this->contacts->push($contact);
             }
         }
 
@@ -58,7 +64,7 @@ class Contact extends Form
         }
 
         if (! empty($selected_contact) && ! $this->contacts->has($selected_contact->id)) {
-            $this->contacts->put($selected_contact->id, $selected_contact->name);
+            $this->contacts->push($selected_contact);
         }
 
         return view($this->view);

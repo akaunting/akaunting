@@ -184,7 +184,7 @@ abstract class Form extends Component
         }
 
         if (empty($valueKey)) {
-            return '';
+            return $value;
         }
 
         // set model value.

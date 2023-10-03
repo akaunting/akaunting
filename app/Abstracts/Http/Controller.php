@@ -6,6 +6,7 @@ use App\Abstracts\Http\Response;
 use App\Traits\Jobs;
 use App\Traits\Permissions;
 use App\Traits\Relationships;
+use App\Traits\SearchString;
 use App\Utilities\Export;
 use App\Utilities\Import;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,7 +18,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 abstract class Controller extends BaseController
 {
-    use AuthorizesRequests, Jobs, Permissions, Relationships, ValidatesRequests;
+    use AuthorizesRequests, Jobs, Permissions, Relationships, SearchString, ValidatesRequests;
 
     /**
      * Instantiate a new controller instance.
@@ -95,5 +96,30 @@ abstract class Controller extends BaseController
     public function exportExcel($class, $translation, $extension = 'xlsx')
     {
         return Export::toExcel($class, $translation, $extension);
+    }
+
+    public function setActiveTabForDocuments(): void
+    {
+        if (request()->get('list_records') == 'all') {
+            return;
+        }
+
+        $status = $this->getSearchStringValue('status');
+
+        if (empty($status)) {
+            $search = config('type.document.' . $this->type . '.route.params.unpaid.search');
+
+            request()->offsetSet('search', $search);
+            request()->offsetSet('programmatic', '1');
+        } else {
+            $unpaid = str_replace('status:', '', config('type.document.' . $this->type . '.route.params.unpaid.search'));
+            $draft = str_replace('status:', '', config('type.document.' . $this->type . '.route.params.draft.search'));
+
+            if (($status == $unpaid) || ($status == $draft)) {
+                return;
+            }
+
+            request()->offsetSet('list_records', 'all');
+        }
     }
 }

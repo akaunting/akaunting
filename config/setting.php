@@ -101,7 +101,7 @@ return [
     'fallback' => [
         'localisation' => [
             'financial_start'           => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_START', '01-01'),
-            'financial_denote'          => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_DENOTE', 'ends'),
+            'financial_denote'          => env('SETTING_FALLBACK_LOCALISATION_FINANCIAL_DENOTE', 'begins'),
             'timezone'                  => env('SETTING_FALLBACK_LOCALISATION_TIMEZONE', 'Europe/London'),
             'date_format'               => env('SETTING_FALLBACK_LOCALISATION_DATE_FORMAT', 'd M Y'),
             'date_separator'            => env('SETTING_FALLBACK_LOCALISATION_DATE_SEPARATOR', 'space'),

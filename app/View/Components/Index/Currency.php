@@ -38,7 +38,7 @@ class Currency extends Component
     {
         $code = ($this->code) ? $this->code : default_currency();
 
-        $this->currency = config('money.currencies.' . $code . '.name');
+        $this->currency = currency($code)->getName();
 
         return view('components.index.currency');
     }

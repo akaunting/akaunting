@@ -10,12 +10,17 @@ use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Document\CreateDocumentItemsAndTotals;
 use App\Models\Document\Document;
+use App\Traits\Plans;
 use Illuminate\Support\Str;
 
 class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
 {
+    use Plans;
+
     public function handle(): Document
     {
+        $this->authorize();
+
         if (empty($this->request['amount'])) {
             $this->request['amount'] = 0;
         }
@@ -44,5 +49,16 @@ class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
         event(new DocumentCreated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     */
+    public function authorize(): void
+    {
+        $limit = $this->getAnyActionLimitOfPlan();
+        if (! $limit->action_status && ! empty($this->request['type']) && ($this->request['type'] == 'invoice')) {
+            throw new \Exception($limit->message);
+        }
     }
 }

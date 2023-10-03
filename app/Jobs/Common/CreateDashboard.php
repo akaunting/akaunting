@@ -7,7 +7,6 @@ use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Common\CreateWidget;
-use App\Models\Auth\User;
 use App\Models\Common\Company;
 use App\Models\Common\Dashboard;
 use App\Models\Common\Widget;
@@ -57,7 +56,7 @@ class CreateDashboard extends Job implements HasOwner, HasSource, ShouldCreate
             $user_ids = Arr::wrap($this->request->get('users'));
 
             foreach($user_ids as $user_id) {
-                $user = User::find($user_id);
+                $user = user_model_class()::find($user_id);
 
                 if (!$this->shouldCreateDashboardFor($user)) {
                     continue;

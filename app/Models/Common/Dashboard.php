@@ -29,7 +29,7 @@ class Dashboard extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserDashboard');
+        return $this->belongsToMany(user_model_class(), 'App\Models\Auth\UserDashboard');
     }
 
     public function widgets()

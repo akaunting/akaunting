@@ -6,7 +6,7 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/akaunting/akaunting/tests.yml?label=tests)](https://github.com/akaunting/akaunting/actions)
 [![License](https://img.shields.io/github/license/akaunting/akaunting?label=license)](LICENSE.txt)
 
-Akaunting is a free, open source and online accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, VueJS, Tailwind, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
+Online accounting software designed for small businesses and freelancers. Akaunting is built with modern technologies such as Laravel, VueJS, Tailwind, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
 * [Home](https://akaunting.com) - The house of Akaunting
 * [Forum](https://akaunting.com/forum) - Ask for support
@@ -67,4 +67,4 @@ Please review [our security policy](https://github.com/akaunting/akaunting/secur
 
 ## License
 
-Akaunting is released under the [GPLv3 license](LICENSE.txt).
+Akaunting is released under the [BSL license](LICENSE.txt).

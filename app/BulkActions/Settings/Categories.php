@@ -6,9 +6,12 @@ use App\Abstracts\BulkAction;
 use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
+use App\Traits\Categories as Helper;
 
 class Categories extends BulkAction
 {
+    use Helper;
+
     public $model = Category::class;
 
     public $text = 'general.categories';
@@ -19,6 +22,14 @@ class Categories extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-settings-categories',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'enable'    => [
             'icon'          => 'check_circle',
             'name'          => 'general.enable',
@@ -39,17 +50,29 @@ class Categories extends BulkAction
         ],
     ];
 
-    public function getSelectedRecords($request, $relationships = null)
+    public function edit($request)
     {
-        if (empty($relationships)) {
-            $model = $this->model::query();
-        } else {
-            $relationships = Arr::wrap($relationships);
+        $selected = $this->getSelectedInput($request);
+        $types = $this->getCategoryTypes();
 
-            $model = $this->model::with($relationships);
+        return $this->response('bulk-actions.settings.categories.edit', compact('selected', 'types'));
+    }
+
+    public function update($request)
+    {
+        $categories = $this->getSelectedRecords($request);
+
+        foreach ($categories as $category) {
+            try {
+                $request->merge([
+                    'enabled' => $category->enabled,
+                ]); // for update job authorize..
+
+                $this->dispatch(new UpdateCategory($category, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
         }
-
-        return $model->getWithoutChildren()->find($this->getSelectedInput($request));
     }
 
     public function disable($request)
@@ -76,5 +99,18 @@ class Categories extends BulkAction
                 flash($e->getMessage())->error()->important();
             }
         }
+    }
+
+    public function getSelectedRecords($request, $relationships = null)
+    {
+        if (empty($relationships)) {
+            $model = $this->model::query();
+        } else {
+            $relationships = Arr::wrap($relationships);
+
+            $model = $this->model::with($relationships);
+        }
+
+        return $model->getWithoutChildren()->find($this->getSelectedInput($request));
     }
 }

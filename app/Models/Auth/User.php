@@ -375,10 +375,6 @@ class User extends Authenticatable implements HasLocalePreference
     {
         $actions = [];
 
-        if (user()->id == $this->id) {
-            return $actions;
-        }
-
         $actions[] = [
             'title' => trans('general.show'),
             'icon' => 'visibility',
@@ -411,16 +407,18 @@ class User extends Authenticatable implements HasLocalePreference
             ];
         }
 
-        $actions[] = [
-            'type' => 'delete',
-            'icon' => 'delete',
-            'route' => 'users.destroy',
-            'permission' => 'delete-auth-users',
-            'attributes' => [
-                'id' => 'index-line-actions-delete-user-' . $this->id,
-            ],
-            'model' => $this,
-        ];
+        if (user()->id != $this->id) {
+            $actions[] = [
+                'type' => 'delete',
+                'icon' => 'delete',
+                'route' => 'users.destroy',
+                'permission' => 'delete-auth-users',
+                'attributes' => [
+                    'id' => 'index-line-actions-delete-user-' . $this->id,
+                ],
+                'model' => $this,
+            ];
+        }
 
         return $actions;
     }

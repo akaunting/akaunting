@@ -35,8 +35,8 @@ const app = new Vue({
 
     mounted() {
         if (typeof app_slug !== 'undefined') {
-            this.onReleases(1);
-            this.onReviews(1);
+            //this.onReleases(1);
+            //this.onReviews(1);
         }
     },
 

@@ -26,7 +26,7 @@ return [
         'api' => env('APP_THROTTLES_API', '60'),
         'import' => env('APP_THROTTLES_IMPORT', '1'),
         'email' => [
-            'minute' => env('APP_THROTTLES_EMAIL_MINUTE', '3'),
+            'minute' => env('APP_THROTTLES_EMAIL_MINUTE', '5'),
             'month' => env('APP_THROTTLES_EMAIL_MONTH', '500'),
         ],
     ],

@@ -98,11 +98,11 @@ trait Charts
     public function getChartLabelFormatter($type = 'money', $position = null)
     {
         $label = '';
-        $decimal_mark = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.decimal_mark'));
-        $thousands_separator = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.thousands_separator'));
-        $symbol = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.symbol'));
-        $symbol_first = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.symbol_first'));
-        $precision = str_replace("'", "\\'", config('money.currencies.' . default_currency() . '.precision'));
+        $decimal_mark = str_replace("'", "\\'", currency()->getDecimalMark());
+        $thousands_separator = str_replace("'", "\\'", currency()->getThousandsSeparator());
+        $symbol = str_replace("'", "\\'", currency()->getSymbol());
+        $symbol_first = str_replace("'", "\\'", currency()->isSymbolFirst());
+        $precision = str_replace("'", "\\'", currency()->getPrecision());
         $percent_position = $position ?: setting('localisation.percent_position');
 
         switch ($type) {

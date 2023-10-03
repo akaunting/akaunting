@@ -91,7 +91,7 @@ export default class BulkAction {
 
         this.loading = true;
 
-        // bwfore version 2.0.23
+        // before version 2.0.23
         if (this.value == 'export') {
             this.type = 'download';
         }
@@ -149,6 +149,35 @@ export default class BulkAction {
                 });
 
               break;
+            case 'modal':
+                this.loading = false;
+
+                let modal_promise = Promise.resolve(window.axios.post(this.path, {
+                    'handle': this.value,
+                    'selected': this.selected
+                }));
+
+                modal_promise.then(response => {
+                    let vue = document.querySelector('#app').__vue__;
+
+                    if (vue === undefined) {
+                        vue = document.querySelector('#main-body').__vue__;
+                    }
+
+                    vue.onDynamicComponentWithParams({
+                        modal: true,
+                        url: this.path,
+                        title: response.data.data.title,
+                        html: response.data.html,
+                        buttons: response.data.data.buttons
+                    });
+                })
+                .catch(error => {
+                    //this.loading = false;
+                    //this.modal = false;
+                });
+
+                break;
             default:
                 let type_promise = Promise.resolve(window.axios.post(this.path, {
                     'handle': this.value,

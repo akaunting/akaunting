@@ -2,7 +2,10 @@
     <x-slot name="head">
         <x-show.accordion.head
             title="{{ trans_choice('general.invoices', 2) }}"
-            description="{!! trans('invoices.slider.children', ['count' => $document->children()->count()]) !!}"
+            description="{!! trans('documents.slider.children', [
+                'count' => $document->children()->count(),
+                'type' => $type_lowercase,
+            ]) !!}"
         />
     </x-slot>
 

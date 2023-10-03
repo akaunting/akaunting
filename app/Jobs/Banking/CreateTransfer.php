@@ -107,7 +107,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
         $currency_rate = $this->request->get($type . '_account_rate');
 
         if (empty($currency_rate)) {
-            $currency_rate = config('money.currencies.' . $this->getCurrencyCode($type) . '.rate');
+            $currency_rate = currency($this->getCurrencyCode($type))->getRate();
         }
 
         return $currency_rate;

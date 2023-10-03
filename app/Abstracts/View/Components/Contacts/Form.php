@@ -37,6 +37,9 @@ abstract class Form extends Component
     /** @var bool */
     public $hideSectionAddress;
 
+    /** @var bool */
+    public $hideSectionPersons;
+
     /** @var string */
     public $textSectionGeneralTitle;
 
@@ -131,6 +134,12 @@ abstract class Form extends Component
     public $hideCountry;
 
     /** @var string */
+    public $textSectionPersonsTitle;
+
+    /** @var string */
+    public $textSectionPersonsDescription;
+
+    /** @var string */
     public $cancelRoute;
     /* -- Content End -- */
 
@@ -142,7 +151,7 @@ abstract class Form extends Component
     public function __construct(
         string $type, $model = false, $contact = false,
         string $formId = 'contact', $formRoute = '', $formMethod = '',
-        bool $hideSectionGeneral = false, bool $hideSectionBilling = false, bool $hideSectionAddress = false,
+        bool $hideSectionGeneral = false, bool $hideSectionBilling = false, bool $hideSectionAddress = false, bool $hideSectionPersons = false,
         string $textSectionGeneralTitle = '', string $textSectionGeneralDescription = '',
         bool $hideName = false, string $textName = '', string $classNameFromGroupClass = '',
         bool $hideEmail = false, string $textEmail = '',
@@ -160,6 +169,7 @@ abstract class Form extends Component
         bool $hideZipCode = false, string $textZipCode = '',
         bool $hideState = false, string $textState = '',
         bool $hideCountry = false,
+        string $textSectionPersonsTitle = '', string $textSectionPersonsDescription = '',
         string $cancelRoute = ''
     ) {
         $this->type = $type;
@@ -175,6 +185,7 @@ abstract class Form extends Component
         $this->hideSectionGeneral = $hideSectionGeneral;
         $this->hideSectionBilling = $hideSectionBilling;
         $this->hideSectionAddress = $hideSectionAddress;
+        $this->hideSectionPersons = $hideSectionPersons;
 
         /* -- General Start -- */
         $this->textSectionGeneralTitle = $this->getTextSectionGeneralTitle($type, $textSectionGeneralTitle);
@@ -228,6 +239,11 @@ abstract class Form extends Component
 
         $this->hideState = $hideTaxNumber;
         /* -- Address End -- */
+
+        /* -- Persons Start -- */
+        $this->textSectionPersonsTitle = $this->getTextSectionPersonsTitle($type, $textSectionPersonsTitle);
+        $this->textSectionPersonsDescription = $this->getTextSectionPersonsDescription($type, $textSectionPersonsDescription);
+        /* -- Persons End -- */
 
         /* -- Buttons Start -- */
         $this->cancelRoute = $this->getCancelRoute($type, $cancelRoute);
@@ -437,6 +453,37 @@ abstract class Form extends Component
         }
 
         return 'customers.form_description.address';
+    }
+
+    /* -- Persons Start -- */
+    protected function getTextSectionPersonsTitle($type, $textSectionPersonsTitle)
+    {
+        if (! empty($textSectionPersonsTitle)) {
+            return $textSectionPersonsTitle;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'section_contact_persons_title', 'contact_persons');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.contact_persons';
+    }
+
+    protected function getTextSectionPersonsDescription($type, $textSectionPersonsDescription)
+    {
+        if (! empty($textSectionPersonsDescription)) {
+            return $textSectionPersonsDescription;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'section_contact_persons_description');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'customers.form_description.contact_persons';
     }
 
     protected function getTextAddress($type, $textAddress)

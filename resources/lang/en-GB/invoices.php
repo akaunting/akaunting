@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Your invoice must show at least one of the <b>:name</b> or <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user created this invoice on :date',
-        'create_recurring'  => ':user created this recurring template on :date',
-        'schedule'          => 'Repeat every :interval :frequency since :date',
-        'children'          => ':count invoices were created automatically',
-    ],
-
     'share' => [
         'show_link'         => 'Your customer can view the invoice at this link',
         'copy_link'         => 'Copy the link and share it with your customer.',

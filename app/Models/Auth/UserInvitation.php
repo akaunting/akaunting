@@ -24,7 +24,7 @@ class UserInvitation extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Auth\User');
+        return $this->belongsTo(user_model_class());
     }
  
     /**

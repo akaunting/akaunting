@@ -3,8 +3,9 @@
         <x-show.accordion.head
             title="{{ trans('general.receive') }}"
             description="{!! trans($description, [
-                'user' => $document->owner->name,
-                'date' => $sent_date,
+                'user' => $user_name,
+                'type' => $type_lowercase,
+                'date' => $last_received_date,
             ]) !!}"
         />
     </x-slot>
@@ -20,7 +21,7 @@
                             </x-link.loading>
                         </x-link>
                     @else
-                        <x-button kind="secondary" disabled="disabled">
+                        <x-button kind="disabled" disabled="disabled">
                             {{ trans($textMarkReceived) }}
                         </x-button>
                     @endif

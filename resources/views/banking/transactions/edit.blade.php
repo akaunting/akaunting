@@ -41,7 +41,7 @@
 
                         <x-form.group.account />
 
-                        <x-form.group.money name="amount" label="{{ trans('general.amount') }}" :value="$transaction->amount" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" />
+                        <x-form.group.money name="amount" label="{{ trans('general.amount') }}" :value="$transaction->amount" autofocus="autofocus" :currency="$currency" dynamicCurrency="currency" input="onChangeTax(form.tax_ids)" />
 
                         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
 
@@ -59,6 +59,8 @@
                         <x-form.group.category :type="$type" />
 
                         <x-form.group.contact :type="$contact_type" not-required />
+
+                        <x-form.group.tax name="tax_ids" multiple with-summary not-required :currency="$currency" change="onChangeTax" />
 
                         @if ($transaction->document)
                             <x-form.group.text name="document" label="{{ trans_choice('general.' . Str::plural(config('type.transaction.' . $type . '.document_type')), 1) }}" not-required disabled value="{{ $transaction->document->document_number }}" />
@@ -95,5 +97,10 @@
         </x-form.container>
     </x-slot>
 
+    @push('scripts_start')
+        <script type="text/javascript">
+            var transaction_taxes = {!! $taxes !!};
+        </script>
+    @endpush
     <x-script folder="banking" file="transactions" />
 </x-layouts.admin>

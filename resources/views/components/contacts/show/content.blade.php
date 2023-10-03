@@ -163,6 +163,31 @@
                     </div>
                 @endif
             @stack('create_user_input_end')
+
+            @stack('persons_input_start')
+            @if (! $hidePersons)
+            @if ($contact->contact_persons->count())
+                <div class="flex flex-col text-sm sm:mb-5">
+                    <div class="font-medium">{{ trans_choice('general.contact_persons', 2) }}</div>
+                    @foreach ($contact->contact_persons as $person)
+                        <div class="mb-3">
+                            @if (! empty($person->name))
+                                <span>{{ $person->name }}</span>
+                                <br>
+                            @endif
+                            @if (! empty($person->email))
+                                <span>{{ $person->email }}</span>
+                                <br>
+                            @endif
+                            @if (! empty($person->phone))
+                                <span>{{ $person->phone }}</span>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            @endif
+            @stack('persons_input_end')
         </x-show.content.left>
         @endif
 

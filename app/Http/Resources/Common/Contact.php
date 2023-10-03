@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Common;
 
+use App\Http\Resources\Common\ContactPerson;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Contact extends JsonResource
@@ -32,6 +33,7 @@ class Contact extends JsonResource
             'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'contact_persons' => [static::$wrap => ContactPerson::collection($this->contact_persons)],
         ];
     }
 }

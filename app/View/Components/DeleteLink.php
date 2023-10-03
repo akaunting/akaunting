@@ -17,6 +17,8 @@ class DeleteLink extends Component
 
     public $modelName;
 
+    public $modelTitle;
+
     public $modelTable;
 
     /** @var string */
@@ -54,7 +56,7 @@ class DeleteLink extends Component
      */
     public function __construct(
         $label = '',
-        $model = false, $modelId = 'id', $modelName = 'name', string $modelTable = '',
+        $model = false, $modelId = 'id', $modelName = 'name', string $modelTitle = '', string $modelTable = '',
         $text = '', $type = '',
         $title = '',  $message = '', 
         $action = '', $route = '', $url = '',
@@ -66,6 +68,7 @@ class DeleteLink extends Component
         $this->model = $model;
         $this->modelId = $modelId;
         $this->modelName = $modelName;
+        $this->modelTitle = $modelTitle;
         $this->modelTable = $model->getTable();
 
         $this->text = $text;
@@ -233,8 +236,8 @@ class DeleteLink extends Component
 
     protected function getModelTitle()
     {
-        if (! empty($this->title)) {
-            return $this->title;
+        if (! empty($this->modelTitle)) {
+            return $this->modelTitle;
         }
 
         $group = 'core';

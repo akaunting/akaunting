@@ -56,6 +56,9 @@ class Button extends Component
             case 'secondary':
                 $default .= ' bg-purple hover:bg-purple-700 text-white disabled:bg-purple-100';
                 break;
+            case 'disabled':
+                $default .= ' bg-gray-100 disabled:bg-gray-100';
+                break;
             default:
                 $default .= ' bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50';
         }

@@ -4,13 +4,13 @@ namespace App\Abstracts;
 
 use App\Models\Common\Report;
 use App\Traits\Charts;
+use App\Traits\DateTime;
 use App\Utilities\Date;
 use App\Utilities\Reports;
-use Illuminate\Support\Str;
 
 abstract class Widget
 {
-    use Charts;
+    use Charts, DateTime;
 
     public $model;
 
@@ -98,16 +98,9 @@ abstract class Widget
         return view($name, array_merge(['class' => $this], (array) $data));
     }
 
-    public function applyFilters($model, $args = ['date_field' => 'paid_at'])
+    public function applyFilters($query, $args = ['date_field' => 'paid_at'])
     {
-        if (empty(request()->get('start_date', null))) {
-            return $model;
-        }
-
-        $start_date = request()->get('start_date') . ' 00:00:00';
-        $end_date = request()->get('end_date') . ' 23:59:59';
-
-        return $model->whereBetween($args['date_field'], [$start_date, $end_date]);
+        return $this->scopeDateFilter($query, $args['date_field']);
     }
 
     public function calculateDocumentTotals($model)

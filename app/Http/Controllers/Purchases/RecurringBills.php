@@ -85,7 +85,7 @@ class RecurringBills extends Controller
         if ($response['success']) {
             $response['redirect'] = route('recurring-bills.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.recurring_bills', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.recurring_bills', 1)]);
 
             flash($message)->success();
         } else {

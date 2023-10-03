@@ -24,7 +24,7 @@ class PaymentMethod extends Form
 
         $this->payment_methods = Modules::getPaymentMethods();
 
-        if (empty($this->selected) && empty($this->getParentData('model'))) {
+        if ($this->selected === null && empty($this->getParentData('model'))) {
             $this->selected = setting('default.payment_method');
         }
 

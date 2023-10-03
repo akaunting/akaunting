@@ -8,7 +8,6 @@ use App\Http\Resources\Auth\User as Resource;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
-use App\Models\Auth\User;
 
 class Users extends ApiController
 {
@@ -19,7 +18,7 @@ class Users extends ApiController
      */
     public function index()
     {
-        $users = User::with('companies', 'permissions', 'roles')->collect();
+        $users = user_model_class()::with('companies', 'permissions', 'roles')->collect();
 
         return Resource::collection($users);
     }
@@ -35,13 +34,13 @@ class Users extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = User::with('companies', 'permissions', 'roles')->find($id);
+            $user = user_model_class()::with('companies', 'permissions', 'roles')->find($id);
         } else {
-            $user = User::with('companies', 'permissions', 'roles')->where('email', $id)->first();
+            $user = user_model_class()::with('companies', 'permissions', 'roles')->where('email', $id)->first();
         }
 
-        if (! $user instanceof User) {
-            return $this->errorInternal('No query results for model [' . User::class . '] ' . $id);
+        if (! $user instanceof user_model_class()) {
+            return $this->errorInternal('No query results for model [' . user_model_class() . '] ' . $id);
         }
 
         return new Resource($user);
@@ -64,12 +63,14 @@ class Users extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  $user
+     * @param  $user_id
      * @param  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(User $user, Request $request)
+    public function update($user_id, Request $request)
     {
+        $user = user_model_class()::find($user_id);
+
         $user = $this->dispatch(new UpdateUser($user, $request));
 
         return new Resource($user->fresh());
@@ -78,12 +79,14 @@ class Users extends ApiController
     /**
      * Enable the specified resource in storage.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function enable(User $user)
+    public function enable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+        
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
         return new Resource($user->fresh());
@@ -92,12 +95,14 @@ class Users extends ApiController
     /**
      * Disable the specified resource in storage.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function disable(User $user)
+    public function disable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
         return new Resource($user->fresh());
@@ -106,14 +111,16 @@ class Users extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         try {
             $this->dispatch(new DeleteUser($user));
 

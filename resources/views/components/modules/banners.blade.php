@@ -23,7 +23,7 @@
                 <h1 class="text-lg lg:text-7xl font-semibold text-white" x-text="text"></h1>
             </div>
 
-            <x-link href="https://akaunting.com/plans" class="text-white transition-all hover:underline" override="class">
+            <x-link href="https://akaunting.com/plans-on-premise" target="_blank" class="text-white transition-all hover:underline" override="class">
                 {{ trans('modules.learn_more') }}
             </x-link>
         </div>
@@ -32,5 +32,4 @@
             <img src="{{ asset('/public/img/akaunting-logo-gold.png') }}" class="h-40" alt="Akaunting" />
         </div>
     </div>
-</div>
 @endif

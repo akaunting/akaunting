@@ -55,6 +55,17 @@
         @endif
         @stack('children_end')
 
+        @stack('connect_start')
+        @if (! $hideConnect
+            && $transaction->isSplitTransaction()
+        )
+            <x-transactions.show.connect
+                type="{{ $type }}"
+                :transaction="$transaction"
+            />
+        @endif
+        @stack('connect_end')
+
         @stack('transfer_start')
         @if (! $hideTransfer)
             <x-transactions.show.transfer

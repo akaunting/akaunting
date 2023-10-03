@@ -82,7 +82,7 @@ class Currencies extends Controller
         if ($response['success']) {
             $response['redirect'] = route('currencies.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.currencies', 1)]);
 
             flash($message)->success();
         } else {
@@ -235,12 +235,12 @@ class Currencies extends Controller
         if ($code) {
             $currencies = Currency::all()->pluck('rate', 'code');
 
-            $currency = config('money.currencies.' . $code);
+            $currency = (object) currency($code)->toArray()[$code];
 
-            $currency['rate'] = isset($currencies[$code]) ? $currencies[$code] : null;
-            $currency['symbol_first'] = ! empty($currency['symbol_first']) ? 1 : 0;
+            $currency->rate = isset($currencies[$code]) ? $currencies[$code] : null;
+            $currency->symbol_first = ! empty($currency->symbol_first) ? 1 : 0;
 
-            $json = (object) $currency;
+            $json = $currency;
         }
 
         return response()->json($json);

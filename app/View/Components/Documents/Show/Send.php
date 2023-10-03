@@ -2,14 +2,22 @@
 
 namespace App\View\Components\Documents\Show;
 
-use App\Models\Document\DocumentHistory;
 use App\Abstracts\View\Components\Documents\Show as Component;
+use Illuminate\Support\Str;
 
 class Send extends Component
 {
     public $description;
 
-    public $sent_date;
+    public $user_name;
+
+    public $type_lowercase;
+
+    public $last_sent;
+
+    public $last_sent_date;
+
+    public $histories;
 
     /**
      * Get the view / contents that represent the component.
@@ -18,13 +26,19 @@ class Send extends Component
      */
     public function render()
     {
-        $this->description = ($this->document->isRecurringDocument()) ? 'invoices.slider.create_recurring' : 'general.last_sent';
+        $this->description = $this->document->isRecurringDocument() ? 'documents.slider.create_recurring' : 'general.last_sent';
 
-        $last_sent = DocumentHistory::where('document_id', $this->document->id)->whereIn('status', ['sent', 'received'])->latest()->first();
+        $this->histories = $this->document->histories()->status('sent')->latest()->get();
 
-        $date = ($last_sent) ? company_date($last_sent->created_at) : trans('general.na');
+        $this->last_sent = $this->histories->first();
 
-        $this->sent_date = '<span class="font-medium">' . $date . '</span>';
+        $this->user_name = ($this->last_sent) ? $this->last_sent->owner->name : trans('general.na');
+
+        $this->type_lowercase = Str::lower(trans_choice($this->textPage, 1));
+
+        $date = ($this->last_sent) ? company_date($this->last_sent->created_at) : trans('general.na');
+
+        $this->last_sent_date = '<span class="font-medium">' . $date . '</span>';
 
         return view('components.documents.show.send');
     }

@@ -5,7 +5,6 @@ namespace App\Models\Document;
 use App\Abstracts\Model;
 use App\Traits\Currencies;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DocumentHistory extends Model
 {
@@ -49,5 +48,10 @@ class DocumentHistory extends Model
                     ->whereHas('document.recurring', function (Builder $query) {
                         $query->whereNull('deleted_at');
                     });
+    }
+
+    public function scopeStatus(Builder $query, string $status): Builder
+    {
+        return $query->where($this->qualifyColumn('status'), '=', $status);
     }
 }

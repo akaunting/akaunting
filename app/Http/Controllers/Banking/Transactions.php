@@ -24,6 +24,7 @@ use App\Notifications\Banking\Transaction as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Transactions as TransactionsTrait;
+use App\Models\Setting\Tax;
 
 class Transactions extends Controller
 {
@@ -85,6 +86,8 @@ class Transactions extends Controller
      */
     public function show(Transaction $transaction)
     {
+        $transaction->load('taxes');
+
         $title = $transaction->isIncome() ? trans_choice('general.receipts', 1) : trans('transactions.payment_made');
         $real_type = $this->getRealTypeTransaction($transaction->type);
 
@@ -109,13 +112,16 @@ class Transactions extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
+        $taxes = Tax::enabled()->orderBy('name')->get();
+
         return view('banking.transactions.create', compact(
             'type',
             'real_type',
             'number',
             'contact_type',
             'account_currency_code',
-            'currency'
+            'currency',
+            'taxes'
         ));
     }
 
@@ -133,7 +139,7 @@ class Transactions extends Controller
         if ($response['success']) {
             $response['redirect'] = route('transactions.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.transactions', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.transactions', 1)]);
 
             flash($message)->success();
         } else {
@@ -203,6 +209,8 @@ class Transactions extends Controller
 
         $currency = Currency::where('code', $transaction->currency_code)->first();
 
+        $taxes = Tax::enabled()->orderBy('name')->get();
+
         $date_format = $this->getCompanyDateFormat();
 
         return view('banking.transactions.edit', compact(
@@ -210,6 +218,7 @@ class Transactions extends Controller
             'contact_type',
             'transaction',
             'currency',
+            'taxes',
             'date_format'
         ));
     }
@@ -254,7 +263,7 @@ class Transactions extends Controller
     {
         $response = $this->ajaxDispatch(new DeleteTransaction($transaction));
 
-        $response['redirect'] = url()->previous();
+        $response['redirect'] = route('transactions.index');
 
         if ($response['success']) {
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.transactions', 1)]);
