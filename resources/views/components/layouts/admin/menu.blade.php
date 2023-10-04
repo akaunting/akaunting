@@ -109,7 +109,11 @@
         <livewire:menu.favorites />
     </div>
 
+    @stack('main_menu_start')
+
     <nav class="menu-list js-main-menu" id="sidenav-main">
+        @stack('main_menu_company_start')
+
         <div class="relative mb-5 cursor-pointer">
             <button type="button" class="flex items-center" data-dropdown-toggle="dropdown-menu-company">
                 <div class="w-8 h-8 flex items-center justify-center">
@@ -152,12 +156,22 @@
             </div>
         </div>
 
+        @stack('main_menu_admin_start')
+
         <div class="main-menu transform">
             {!! menu('admin') !!}
         </div>
+
+        @stack('main_menu_admin_end')
     </nav>
 
+    @stack('main_menu_end')
+
+    @stack('profile_menu_start')
+
     <div class="profile-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
+        @stack('profile_menu_avatar_start')
+
         <div class="flex h-12.5">
             @if (setting('default.use_gravatar', '0') == '1')
                 <img src="{{ user()->picture }}" alt="{{ user()->name }}" class="w-8 h-8 rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
@@ -176,11 +190,21 @@
             </div>
         </div>
 
+        @stack('profile_menu_profile_start')
+
         <livewire:menu.profile />
+
+        @stack('profile_menu_profile_end')
     </div>
 
+    @stack('profile_menu_end')
+
     @can('read-notifications')
+    @stack('notifications_menu_start')
+
     <div class="notifications-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
+        @stack('notifications_menu_title_start')
+
         <div class="flex items-center mb-3">
             <span name="notifications" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">notifications</span>
 
@@ -189,11 +213,21 @@
             </div>
         </div>
 
+        @stack('notifications_menu_notifications_start')
+
         <livewire:menu.notifications />
+
+        @stack('notifications_menu_notifications_end')
     </div>
+
+    @stack('notifications_menu_end')
     @endcan
 
+    @stack('settings_menu_start')
+
     <div class="settings-menu user-menu menu-list fixed h-full overflow-y-unset ltr:-left-80 rtl:-right-80">
+        @stack('settings_menu_title_start')
+
         <div class="flex items-center mb-3">
             <span name="settings" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">settings</span>
 
@@ -202,10 +236,20 @@
             </div>
         </div>
 
+        @stack('settings_menu_settings_start')
+
         <livewire:menu.settings />
+
+        @stack('settings_menu_settings_end')
     </div>
 
+    @stack('settings_menu_end')
+
+    @stack('add_new_menu_start')
+
     <div class="add-new-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
+        @stack('add_new_menu_title_start')
+
         <div class="flex items-center mb-3">
             <span name="add_circle_outline" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none">add_circle_outline</span>
 
@@ -214,8 +258,14 @@
             </div>
         </div>
 
+        @stack('add_new_menu_add_new_start')
+
         <livewire:menu.neww />
+
+        @stack('add_new_menu_add_new_end')
     </div>
+
+    @stack('add_new_menu_end')
 
     <button type="button" class="toggle-button absolute ltr:-right-2 rtl:-left-2 top-8 cursor-pointer transition-opacity ease-in-out z-50">
         <span class="material-icons text-lg text-purple transform ltr:rotate-90 rtl:-rotate-90 pointer-events-none">expand_circle_down</span>
