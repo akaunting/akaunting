@@ -88,7 +88,7 @@
                             form-group-class="col-span-6"
                             ::disabled="form.pay_in_full"
                             not-required
-                            @change="onChangeRatePayment($event)"
+                            @input="onChangeRatePayment($event)"
                         />
 
                         <div class="relative col-span-6 text-xs flex mt-2">

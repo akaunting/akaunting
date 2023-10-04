@@ -118,12 +118,13 @@ const app = new Vue({
 
     methods: {
         onChangeCurrencyPaymentAccount(currency_code) {
+            let code = currency_code;
+            let rate = this.form.currency_rate;
+            let precision = this.currency.precision;
+
             let amount = parseFloat(this.form.document_default_amount).toFixed(precision);
             let paid_amount = parseFloat(this.form.paid_amount).toFixed(precision);
             let total_amount = parseFloat(amount - paid_amount).toFixed(precision);
-            let code = currency_code;
-            let rate = this.form.currency_rate;    
-            let precision = this.currency.precision;
             let error_amount = 0;
 
             if (this.form.document_currency_code != code) {
@@ -160,7 +161,7 @@ const app = new Vue({
             let code = this.form.currency_code;
 
             if (this.form.document_currency_code != code) {
-                let rate = this.form.currency_rate;
+                let rate = (this.form.pay_in_full) ? parseFloat(this.form.amount / this.form.document_default_amount).toFixed(4): this.form.currency_rate;
                 let precision = this.currency.precision;
                 let paid_amount = parseFloat(this.form.paid_amount).toFixed(precision);
                 let total_amount = parseFloat(amount - paid_amount).toFixed(precision); 
@@ -183,11 +184,13 @@ const app = new Vue({
             }
         },
 
-        onChangeRatePayment() {
-
+        onChangeRatePayment(rate) {
+            this.onChangeAmount(this.form.amount);
         },
 
         onChangePayInFull(event) {
+            this.$forceUpdate();
+
             if (! event) {
                 return;
             }
@@ -195,6 +198,8 @@ const app = new Vue({
             let rate = parseFloat(this.form.amount / this.form.document_default_amount).toFixed(4);
 
             this.form.currency_rate = rate;
+
+            this.onChangeAmount(this.form.amount);
         },
 
         checkAmount() {
