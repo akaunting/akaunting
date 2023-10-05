@@ -940,6 +940,12 @@ abstract class Show extends Component
             return $logo;
         }
 
+        static $content;
+
+        if (! empty($content)) {
+            return $content;
+        }
+
         $media_id = (! empty($this->document->contact->logo) && ! empty($this->document->contact->logo->id)) ? $this->document->contact->logo->id : setting('company.logo');
 
         $media = Media::find($media_id);
@@ -985,7 +991,9 @@ abstract class Show extends Component
 
         $extension = File::extension($path);
 
-        return 'data:image/' . $extension . ';base64,' . base64_encode($image);
+        $content = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $content;
     }
 
     protected function getBackgroundColor($type, $backgroundColor)
