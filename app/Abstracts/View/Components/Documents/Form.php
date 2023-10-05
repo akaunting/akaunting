@@ -919,7 +919,7 @@ abstract class Form extends Component
 
         $hideItemName = setting($this->getDocumentSettingKey($type, 'item_name'), false);
 
-        // if you use settting translation
+        // if you use setting translation
         if ($hideItemName === 'hide') {
             return true;
         }
@@ -933,7 +933,7 @@ abstract class Form extends Component
             return $textItemName;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if (setting($this->getDocumentSettingKey($type, 'item_name'), 'items') === 'custom') {
             if (empty($textItemName = setting($this->getDocumentSettingKey($type, 'item_name_input')))) {
                 $textItemName = 'general.items';
@@ -978,7 +978,7 @@ abstract class Form extends Component
             return $hideSettingItemDescription;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if (setting($this->getDocumentSettingKey($type, 'hide_item_description'), false)) {
             return true;
         }
@@ -1024,7 +1024,7 @@ abstract class Form extends Component
 
         $hideItemQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name'), false);
 
-        // if you use settting translation
+        // if you use setting translation
         if ($hideItemQuantity === 'hide') {
             return true;
         }
@@ -1038,7 +1038,7 @@ abstract class Form extends Component
             return $textItemQuantity;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if (setting($this->getDocumentSettingKey($type, 'quantity_name'), 'quantity') === 'custom') {
             if (empty($textItemQuantity = setting($this->getDocumentSettingKey($type, 'quantity_name_input')))) {
                 $textItemQuantity = 'invoices.quantity';
@@ -1085,7 +1085,7 @@ abstract class Form extends Component
 
         $hideItemPrice = setting($this->getDocumentSettingKey($type, 'price_name'), false);
 
-        // if you use settting translation
+        // if you use setting translation
         if ($hideItemPrice === 'hide') {
             return true;
         }
@@ -1099,7 +1099,7 @@ abstract class Form extends Component
             return $textItemPrice;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if (setting($this->getDocumentSettingKey($type, 'price_name'), 'price') === 'custom') {
             if (empty($textItemPrice = setting($this->getDocumentSettingKey($type, 'price_name_input')))) {
                 $textItemPrice = 'invoices.price';
@@ -1144,7 +1144,7 @@ abstract class Form extends Component
             return $hideSettingItemAmount;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if (setting($this->getDocumentSettingKey($type, 'hide_amount'), false)) {
             return true;
         }
@@ -1173,7 +1173,7 @@ abstract class Form extends Component
             return $hideDiscount;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if ($hideDiscount = setting($this->getDocumentSettingKey($type, 'hide_discount'), false)) {
             return $hideDiscount;
         }
@@ -1194,7 +1194,7 @@ abstract class Form extends Component
             return $searchCharLimit;
         }
 
-        // if you use settting translation
+        // if you use setting translation
         if ($settingCharLimit = setting($this->getDocumentSettingKey($type, 'item_search_chart_limit'), false)) {
             return $settingCharLimit;
         }
