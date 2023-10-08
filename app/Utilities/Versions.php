@@ -64,66 +64,61 @@ class Versions
 
     public static function all($modules = null)
     {
-        // Get data from cache
-        if (Cache::has('versions')) {
-            return Cache::get('versions');
-        }
+        return Cache::remember('versions', Date::now()->addHours(6), function () use ($modules) {
+            $info = Info::all();
 
-        $info = Info::all();
+            $versions = [];
 
-        $versions = [];
+            // Check core first
+            $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        // Check core first
-        $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
+            # Installed modules start
+            $modules = Arr::wrap($modules);
 
-        # Installed modules start
-        $modules = Arr::wrap($modules);
+            $installed_modules = [];
+            $module_version = '?modules=';
 
-        $installed_modules = [];
-        $module_version = '?modules=';
+            foreach ($modules as $module) {
+                if (is_string($module)) {
+                    $module = module($module);
+                }
 
-        foreach ($modules as $module) {
-            if (is_string($module)) {
-                $module = module($module);
+                if (! $module instanceof \Akaunting\Module\Module) {
+                    continue;
+                }
+
+                $alias = $module->get('alias');
+
+                $installed_modules[] = $alias;
             }
 
-            if (! $module instanceof \Akaunting\Module\Module) {
-                continue;
+            $module_version .= implode(',', $installed_modules);
+
+            $url .= $module_version;
+            # Installed modules end
+
+            $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
+
+            // Then modules
+            foreach ($modules as $module) {
+                if (is_string($module)) {
+                    $module = module($module);
+                }
+
+                if (! $module instanceof \Akaunting\Module\Module) {
+                    continue;
+                }
+
+                $alias = $module->get('alias');
+                $version = $module->get('version');
+
+                $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
+
+                $versions[$alias] = static::getLatestVersion($url, $version);
             }
 
-            $alias = $module->get('alias');
-
-            $installed_modules[] = $alias;
-        }
-
-        $module_version .= implode(',', $installed_modules);
-
-        $url .= $module_version;
-        # Installed modules end
-
-        $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
-
-        // Then modules
-        foreach ($modules as $module) {
-            if (is_string($module)) {
-                $module = module($module);
-            }
-
-            if (! $module instanceof \Akaunting\Module\Module) {
-                continue;
-            }
-
-            $alias = $module->get('alias');
-            $version = $module->get('version');
-
-            $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
-
-            $versions[$alias] = static::getLatestVersion($url, $version);
-        }
-
-        Cache::put('versions', $versions, Date::now()->addHours(6));
-
-        return $versions;
+            return $versions;
+        });
     }
 
     public static function getVersionByAlias($alias)
@@ -177,40 +172,35 @@ class Versions
 
     public static function getUpdates()
     {
-        // Get data from cache
-        if (Cache::has('updates')) {
-            return Cache::get('updates');
-        }
+        return Cache::remember('updates', Date::now()->addHours(6), function () {
+            $updates = [];
 
-        $updates = [];
+            $modules = module()->all();
 
-        $modules = module()->all();
+            $versions = static::all($modules);
 
-        $versions = static::all($modules);
+            foreach ($versions as $alias => $latest_version) {
+                if ($alias == 'core') {
+                    $installed_version = version('short');
+                } else {
+                    $module = module($alias);
 
-        foreach ($versions as $alias => $latest_version) {
-            if ($alias == 'core') {
-                $installed_version = version('short');
-            } else {
-                $module = module($alias);
+                    if (! $module instanceof \Akaunting\Module\Module) {
+                        continue;
+                    }
 
-                if (!$module instanceof \Akaunting\Module\Module) {
+                    $installed_version = $module->get('version');
+                }
+
+                if (version_compare($installed_version, $latest_version->latest, '>=')) {
                     continue;
                 }
 
-                $installed_version = $module->get('version');
+                $updates[$alias] = $latest_version;
             }
 
-            if (version_compare($installed_version, $latest_version->latest, '>=')) {
-                continue;
-            }
-
-            $updates[$alias] = $latest_version;
-        }
-
-        Cache::put('updates', $updates, Date::now()->addHours(6));
-
-        return $updates;
+            return $updates;
+        });
     }
 
     public static function shouldUpdate($listener_version, $old_version, $new_version): bool
