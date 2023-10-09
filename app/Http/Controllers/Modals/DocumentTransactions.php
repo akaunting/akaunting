@@ -81,7 +81,8 @@ class DocumentTransactions extends Controller
             ],
             'send' => [
                 'text' => trans('general.save_and_send'),
-                'class' => 'disabled:bg-green-100'
+                'class' => 'disabled:bg-green-100',
+                'disabled' => ! empty($document->contact_email) ? false : true,
             ],
             'confirm' => [
                 'text' => trans('general.save'),
