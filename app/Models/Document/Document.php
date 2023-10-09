@@ -620,7 +620,7 @@ class Document extends Model
                 } catch (\Exception $e) {}
 
                 try {
-                    if (! empty($this->contact) && $this->contact->email && ($this->type == 'invoice')) {
+                    if (! empty($this->contact) && $this->contact->has_email && ($this->type == 'invoice')) {
                         $actions[] = [
                             'type' => 'button',
                             'title' => trans('invoices.send_mail'),

@@ -13,7 +13,7 @@
     <x-slot name="body">
         <div class="flex flex-wrap space-x-3 rtl:space-x-reverse">
             @if (! $hideEmail)
-                @if ($document->contact_email)
+                @if ($document->contact->has_email)
                     @if ($document->status != 'cancelled')
                         <x-button id="show-slider-actions-send-email-{{ $document->type }}" kind="secondary" @click="onSendEmail('{{ route($emailRoute, $document->id) }}')">
                             {{ trans($textEmail) }}
