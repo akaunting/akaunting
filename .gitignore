@@ -74,6 +74,7 @@ fabric.properties
 /public/hot
 /public/storage
 /public/js
+/public/vendor
 /public/mix-manifest.json
 /storage/*.key
 /vendor
