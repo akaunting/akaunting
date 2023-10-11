@@ -54,6 +54,10 @@ abstract class Notification extends BaseNotification implements ShouldQueue
         if (!empty($this->custom_mail['cc'])) {
             $message->cc($this->custom_mail['cc']);
         }
+        
+        if (!empty($this->custom_mail['bcc'])) {
+            $message->bcc($this->custom_mail['bcc']);
+        }
 
         return $message;
     }
