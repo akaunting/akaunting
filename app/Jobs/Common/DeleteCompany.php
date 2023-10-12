@@ -26,14 +26,12 @@ class DeleteCompany extends Job implements ShouldDelete
 
         $this->model->makeCurrent();
 
+        $this->model->relationships_to_delete = $this->getRelationshipsToDelete();
+
         event(new CompanyDeleting($this->model, $this->current_company_id));
 
         \DB::transaction(function () {
-            $this->deleteRelationships($this->model, [
-                'accounts', 'document_histories', 'document_item_taxes', 'document_items', 'document_totals', 'documents', 'categories',
-                'contacts', 'currencies', 'dashboards', 'email_templates', 'items', 'module_histories', 'modules', 'reconciliations',
-                'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
-            ]);
+            $this->deleteRelationships($this->model, $this->model->relationships_to_delete);
 
             $this->model->delete();
         });
@@ -65,5 +63,37 @@ class DeleteCompany extends Job implements ShouldDelete
 
             throw new \Exception($message);
         }
+    }
+
+    public function getRelationshipsToDelete(): array
+    {
+        return [
+            'accounts',
+            'categories',
+            'contact_persons',
+            'contacts',
+            'currencies',
+            'dashboards',
+            'document_histories',
+            'document_item_taxes',
+            'document_items',
+            'document_totals',
+            'documents',
+            'email_templates',
+            'item_taxes',
+            'items',
+            'media',
+            'module_histories',
+            'modules',
+            'reconciliations',
+            'recurring',
+            'reports',
+            'settings',
+            'taxes',
+            'transaction_taxes',
+            'transactions',
+            'transfers',
+            'widgets',
+        ];
     }
 }

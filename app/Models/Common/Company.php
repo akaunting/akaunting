@@ -150,6 +150,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Common\Contact');
     }
 
+    public function contact_persons()
+    {
+        return $this->hasMany('App\Models\Common\ContactPerson');
+    }
+
     public function currencies()
     {
         return $this->hasMany('App\Models\Setting\Currency');
@@ -210,6 +215,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Common\Item');
     }
 
+    public function item_taxes()
+    {
+        return $this->hasMany('App\Models\Common\ItemTax');
+    }
+
     public function modules()
     {
         return $this->hasMany('App\Models\Module\Module');
@@ -253,6 +263,11 @@ class Company extends Eloquent implements Ownable
     public function transactions()
     {
         return $this->hasMany('App\Models\Banking\Transaction');
+    }
+
+    public function transaction_taxes()
+    {
+        return $this->hasMany('App\Models\Banking\TransactionTax');
     }
 
     public function transfers()
