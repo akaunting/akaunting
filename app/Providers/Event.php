@@ -128,6 +128,7 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
+        'App\Listeners\Common\ClearPlansCache',
         'App\Listeners\Module\ClearCache',
         'App\Listeners\Report\AddAccounts',
         'App\Listeners\Report\AddCustomers',

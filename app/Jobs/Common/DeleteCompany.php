@@ -6,12 +6,11 @@ use App\Abstracts\Job;
 use App\Events\Common\CompanyDeleted;
 use App\Events\Common\CompanyDeleting;
 use App\Interfaces\Job\ShouldDelete;
-use App\Traits\Plans;
 use App\Traits\Users;
 
 class DeleteCompany extends Job implements ShouldDelete
 {
-    use Plans, Users;
+    use Users;
 
     protected $current_company_id;
 
@@ -35,8 +34,6 @@ class DeleteCompany extends Job implements ShouldDelete
 
             $this->model->delete();
         });
-
-        $this->clearPlansCache();
 
         event(new CompanyDeleted($this->model, $this->current_company_id));
 

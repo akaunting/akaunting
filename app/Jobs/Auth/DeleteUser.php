@@ -6,12 +6,9 @@ use App\Abstracts\Job;
 use App\Events\Auth\UserDeleted;
 use App\Events\Auth\UserDeleting;
 use App\Interfaces\Job\ShouldDelete;
-use App\Traits\Plans;
 
 class DeleteUser extends Job implements ShouldDelete
 {
-    use Plans;
-
     public function handle(): bool
     {
         $this->authorize();
@@ -25,8 +22,6 @@ class DeleteUser extends Job implements ShouldDelete
 
             $this->model->flushCache();
         });
-
-        $this->clearPlansCache();
 
         event(new UserDeleted($this->model));
 
