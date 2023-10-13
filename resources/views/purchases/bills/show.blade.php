@@ -17,6 +17,7 @@
             :document="$bill"
             hide-email
             hide-share
+            hide-divider2
             hide-divider3
             hide-customize
         />
