@@ -11,7 +11,7 @@ class ClearPlansCache
 {
     use Plans;
 
-    public function handle(string $event): void
+    public function handle($event): void
     {
         $this->clearPlansCache();
     }
