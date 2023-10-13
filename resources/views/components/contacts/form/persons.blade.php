@@ -29,15 +29,39 @@
             <x-table.tbody>
                 <x-table.tr class="relative flex items-start px-1 group/actions border-b" v-for="(row, index) in form.contact_persons" ::index="index">
                     <x-table.td class="w-4/12">
-                        <x-form.group.text name="contact_persons[][name]" data-item="name" v-model="row.name" @change="forceUpdate()" placeholder="{{ trans('general.name') }}" />
+                        <x-form.group.text 
+                            name="contact_persons[][name]" 
+                            data-item="name" 
+                            v-model="row.name" 
+                            @change="forceUpdate()" 
+                            placeholder="{{ trans('general.name') }}"
+                            v-error="form.errors.has('contact_persons.' + index + '.name')"
+                            v-error-message="form.errors.get('contact_persons.' + index + '.name')"
+                        />
                     </x-table.td>
 
                     <x-table.td class="w-4/12">
-                        <x-form.group.text name="contact_persons[][email]" data-item="email" v-model="row.email" @change="forceUpdate()" placeholder="{{ trans('general.email') }}" />
+                        <x-form.group.text 
+                            name="contact_persons[][email]" 
+                            data-item="email" 
+                            v-model="row.email" 
+                            @change="forceUpdate()" 
+                            placeholder="{{ trans('general.email') }}" 
+                            v-error="form.errors.has('contact_persons.' + index + '.email')" 
+                            v-error-message="form.errors.get('contact_persons.' + index + '.email')"
+                        />
                     </x-table.td>
 
                     <x-table.td class="w-4/12">
-                        <x-form.group.text name="contact_persons[][phone]" data-item="phone" v-model="row.phone" @change="forceUpdate()" placeholder="{{ trans('general.phone') }}" />
+                        <x-form.group.text 
+                            name="contact_persons[][phone]" 
+                            data-item="phone" 
+                            v-model="row.phone" 
+                            @change="forceUpdate()" 
+                            placeholder="{{ trans('general.phone') }}"
+                            v-error="form.errors.has('contact_persons.' + index + '.phone')" 
+                            v-error-message="form.errors.get('contact_persons.' + index + '.phone')"
+                        />
                     </x-table.td>
 
                     <x-table.td class="w-6 mt-2.5 none-truncate text-right align-top group" override="class">
