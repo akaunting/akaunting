@@ -38,7 +38,7 @@ class Contact extends Model
      *
      * @var array
      */
-    protected $appends = ['location', 'logo', 'initials'];
+    protected $appends = ['location', 'logo', 'initials', 'has_email'];
 
     /**
      * Attributes that should be mass-assignable.
@@ -282,6 +282,19 @@ class Contact extends Model
         });
 
         return $amount;
+    }
+    
+    public function getHasEmailAttribute()
+    {
+        if (! empty($this->email)) {
+            return true;
+        } 
+
+        if ($this->contact_persons()->whereNotNull('email')->count()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getLocationAttribute()
