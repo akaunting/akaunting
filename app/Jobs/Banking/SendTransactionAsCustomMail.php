@@ -28,7 +28,7 @@ class SendTransactionAsCustomMail extends Job
         $mail_request = $this->request->only(['to', 'subject', 'body']);
 
         if ($this->request->get('user_email', false)) {
-            $mail_request['cc'] = user()->email;
+            $mail_request['bcc'] = user()->email;
         }
 
         $attachments = collect($this->request->get('attachments', []))
@@ -52,8 +52,8 @@ class SendTransactionAsCustomMail extends Job
                 'body'      => $mail_request['body'],
             ];
 
-            if (($counter == 1) && ! empty($mail_request['cc'])) {
-                $custom_mail['cc'] = $mail_request['cc'];
+            if (($counter == 1) && ! empty($mail_request['bcc'])) {
+                $custom_mail['bcc'] = $mail_request['bcc'];
             }
 
             $contact->notify(new Notification($transaction, $this->template_alias, $attach_pdf, $custom_mail, $attachments));
