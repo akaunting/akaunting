@@ -7,6 +7,7 @@ use App\Abstracts\ImportMultipleSheets;
 use App\Jobs\Auth\NotifyUser;
 use App\Notifications\Common\ImportCompleted;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Exceptions\SheetNotFoundException;
 use Maatwebsite\Excel\Validators\ValidationException;
 use Throwable;
 
@@ -39,7 +40,9 @@ class Import
                 ['type' => $translation]
             );
         } catch (Throwable $e) {
-            report($e);
+            if (! $e instanceof SheetNotFoundException) {
+                report($e);
+            }
 
             $message = self::flashFailures($e);
 
