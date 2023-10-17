@@ -40,6 +40,8 @@ abstract class Report
 
     public $has_money = true;
 
+    public $groups = [];
+
     public $year;
 
     public $views = [];
@@ -405,8 +407,6 @@ abstract class Report
 
     public function setGroups()
     {
-        $this->groups = [];
-
         event(new GroupShowing($this));
     }
 
