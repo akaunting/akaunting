@@ -596,11 +596,17 @@ abstract class Report
     {
         $url = company_id() . '/common/reports/' . $this->model->id . '/' . $action;
 
-        $search = request('search');
+        $request = request()->all();
+        $parameters = '';
 
-        if (!empty($search)) {
-            $url .= '?search=' . $search;
+        foreach ($request as $key => $value) {
+            $parameters .= empty($parameters) ? ('?' . $key . '=' . $value) : ('&' . $key . '=' . $value);
         }
+
+        if (!empty($parameters)) {
+            $url .= $parameters;
+        }
+
 
         return $url;
     }
