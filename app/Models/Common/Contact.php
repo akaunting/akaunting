@@ -74,6 +74,11 @@ class Contact extends Model
     public $sortable = ['name', 'email', 'phone', 'enabled'];
 
     /**
+     * @var array
+     */
+    public $cloneable_relations = ['contact_persons'];
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
