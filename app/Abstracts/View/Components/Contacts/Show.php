@@ -188,7 +188,7 @@ abstract class Show extends Component
         $permission = '';
         $config_key = 'create';
 
-        // if set config trasnlation config_key
+        // if set config translation config_key
         if ($permission = config('type.document.' . $document_type . '.permission.' . $config_key)) {
             return $permission;
         }
