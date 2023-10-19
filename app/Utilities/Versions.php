@@ -130,7 +130,7 @@ class Versions
         $version = $info['akaunting'];
 
         if ($alias != 'core') {
-            $version = module($alias)->get('version');
+            $version = module($alias) ? module($alias)->get('version') : '1.0.0';
 
             $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
         }
