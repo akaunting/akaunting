@@ -61,6 +61,8 @@ class SettingFieldCreated
                 // Upload attachment    
                 $media = $this->getMedia($value, 'settings');
 
+                $real_key = $this->getDocumentSettingKey($type, $key);
+
                 $company->attachMedia($media, Str::snake($real_key));
 
                 $value = $media->id;
@@ -70,8 +72,6 @@ class SettingFieldCreated
 
                     continue;
                 }
-
-                $real_key = setting($this->getDocumentSettingKey($type, $key));
 
                 setting()->set($real_key, $value);
             }
