@@ -32,7 +32,7 @@ class DeleteDashboard extends Job implements ShouldDelete
     {
         // Can't delete last dashboard for any shared user
         foreach ($this->model->users as $user) {
-            if ($user->dashboards()->enabled()->count() > 1) {
+            if (! $this->model->enabled || $user->dashboards()->enabled()->count() > 1) {
                 continue;
             }
 
