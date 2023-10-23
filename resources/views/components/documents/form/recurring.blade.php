@@ -17,6 +17,7 @@
                 :started-value="$document ? $document->recurring->started_at : null"
                 :limit-count="$document ? $document->recurring->limit_count : null"
                 :limit-date-value="$document ? $document->recurring->limit_date : null"
+                :send-email="$document ? $document->recurring->auto_send : null"
             />
         @endif
     </x-slot>
