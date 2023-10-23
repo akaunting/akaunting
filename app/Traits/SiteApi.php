@@ -25,7 +25,7 @@ trait SiteApi
             'Information'   => json_encode(Info::all()),
         ];
 
-        $data = array_merge_recursive([
+        $data = array_merge([
             'timeout' => 30,
             'referer' => true,
             'http_errors' => false,
