@@ -25,13 +25,13 @@ trait SiteApi
             'Information'   => json_encode(Info::all()),
         ];
 
-        $data = array_merge([
+        $data = array_merge_recursive([
             'timeout' => 30,
             'referer' => true,
             'http_errors' => false,
         ], $extra_data);
 
-        $options = array_merge($data, $headers);
+        $options = array_merge_recursive($data, $headers);
 
         try {
             $response = $client->request($method, $path, $options);
