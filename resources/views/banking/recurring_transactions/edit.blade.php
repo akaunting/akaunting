@@ -66,6 +66,7 @@
                             :started-value="$recurring_transaction ? $recurring_transaction->recurring->started_at : null"
                             :limit-count="$recurring_transaction ? $recurring_transaction->recurring->limit_count : null"
                             :limit-date-value="$recurring_transaction ? $recurring_transaction->recurring->limit_date : null"
+                            :send-email="$recurring_transaction ? $recurring_transaction->recurring->auto_send : null"
                         />
                     </x-slot>
                 </x-form.section>
