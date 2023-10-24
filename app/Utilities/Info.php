@@ -15,13 +15,16 @@ class Info
     {
         static $info = [];
 
-        if (! empty($info) || request()->isCloudHost()) {
-            return $info;
-        }
-
-        $info = array_merge(static::versions(), [
+        $basic = [
             'api_key' => setting('apps.api_key'),
             'ip' => static::ip(),
+        ];
+
+        if (! empty($info) || request()->isCloudHost()) {
+            return array_merge($info, $basic);
+        }
+
+        $info = array_merge(static::versions(), $basic, [
             'companies' => Company::count(),
             'users' => user_model_class()::count(),
             'invoices' => Document::allCompanies()->invoice()->count(),
