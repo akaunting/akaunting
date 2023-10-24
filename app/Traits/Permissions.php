@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
 use App\Traits\SearchString;
 use App\Traits\Translations;
 use App\Utilities\Reports;
@@ -275,7 +274,7 @@ trait Permissions
             }
         }
 
-        return Role::firstOrCreate([
+        return role_model_class()::firstOrCreate([
             'name' => $name,
         ], [
             'display_name' => $display_name,
@@ -311,7 +310,7 @@ trait Permissions
     public function detachPermission($role, $permission, $delete = true)
     {
         if (is_string($role)) {
-            $role = Role::where('name', $role)->first();
+            $role = role_model_class()::where('name', $role)->first();
         }
 
         if (empty($role)) {
@@ -391,14 +390,14 @@ trait Permissions
 
     public function getRoles($require = 'read-admin-panel')
     {
-        return Role::all()->filter(function ($role) use ($require) {
+        return role_model_class()::all()->filter(function ($role) use ($require) {
             return $require ? $role->hasPermission($require) : true;
         });
     }
 
     public function getDefaultAdminRoles($custom = null)
     {
-        $roles = Role::whereIn('name', $custom ?? ['admin', 'manager'])->get();
+        $roles = role_model_class()::whereIn('name', $custom ?? ['admin', 'manager'])->get();
 
         if ($roles->isNotEmpty()) {
             return $roles;
@@ -409,7 +408,7 @@ trait Permissions
 
     public function getDefaultPortalRoles($custom = null)
     {
-        $roles = Role::whereIn('name', $custom ?? ['customer'])->get();
+        $roles = role_model_class()::whereIn('name', $custom ?? ['customer'])->get();
 
         if ($roles->isNotEmpty()) {
             return $roles;

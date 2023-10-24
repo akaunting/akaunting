@@ -290,6 +290,15 @@ if (! function_exists('user_model_class')) {
     }
 }
 
+if (! function_exists('role_model_class')) {
+    function role_model_class(): string
+    {
+        return module_is_enabled('roles')
+                ? config('roles.models.role')
+                : \App\Models\Auth\Role::class;
+    }
+}
+
 if (! function_exists('search_string_value')) {
     function search_string_value(string $name, string $default = '', string $input = ''): string|array
     {

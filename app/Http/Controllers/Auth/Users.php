@@ -9,7 +9,6 @@ use App\Jobs\Auth\CreateInvitation;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
-use App\Models\Auth\Role;
 use App\Traits\Cloud;
 use App\Traits\Uploads;
 use Illuminate\Http\Request as BaseRequest;
@@ -77,7 +76,7 @@ class Users extends Controller
 
         $landing_pages = $u->landing_pages;
 
-        $roles = Role::all()->reject(function ($r) {
+        $roles = role_model_class()::all()->reject(function ($r) {
             $status = $r->hasPermission('read-client-portal');
 
             if ($r->name == 'employee') {
@@ -147,15 +146,15 @@ class Users extends Controller
 
         if ($user->isCustomer()) {
             // Show only roles with customer permission
-            $roles = Role::all()->reject(function ($r) {
+            $roles = role_model_class()::all()->reject(function ($r) {
                 return ! $r->hasPermission('read-client-portal');
             })->pluck('display_name', 'id');
         } else if ($user->isEmployee()) {
             // Show only roles with employee permission
-            $roles = Role::where('name', 'employee')->get()->pluck('display_name', 'id');
+            $roles = role_model_class()::where('name', 'employee')->get()->pluck('display_name', 'id');
         } else {
             // Don't show roles with customer permission
-            $roles = Role::all()->reject(function ($r) {
+            $roles = role_model_class()::all()->reject(function ($r) {
                 $status = $r->hasPermission('read-client-portal');
 
                 if ($r->name == 'employee') {
@@ -399,7 +398,7 @@ class Users extends Controller
     /**
      * Process request for reinviting the specified resource.
      *
-     * @param  Role  $role
+     * @param  role_model_class()  $role
      *
      * @return Response
      */
@@ -408,7 +407,7 @@ class Users extends Controller
         $role = false;
 
         if ($request->has('role_id')) {
-            $role = Role::find($request->get('role_id'));
+            $role = role_model_class()::find($request->get('role_id'));
         }
 
         $u = new \stdClass();

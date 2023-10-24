@@ -94,7 +94,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Auth\Role', 'App\Models\Auth\UserRole');
+        return $this->belongsToMany(role_model_class(), 'App\Models\Auth\UserRole');
     }
 
     /**

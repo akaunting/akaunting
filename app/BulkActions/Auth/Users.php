@@ -6,7 +6,6 @@ use App\Abstracts\BulkAction;
 use App\Events\Auth\LandingPageShowing;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
-use App\Models\Auth\Role;
 
 class Users extends BulkAction
 {
@@ -58,7 +57,7 @@ class Users extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        $roles = Role::all()->reject(function ($r) {
+        $roles = role_model_class()::all()->reject(function ($r) {
             $status = $r->hasPermission('read-client-portal');
 
             if ($r->name == 'employee') {

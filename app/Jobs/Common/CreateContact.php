@@ -8,7 +8,6 @@ use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateContactPersons;
-use App\Models\Auth\Role;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
@@ -45,7 +44,7 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
             throw new \Exception($message);
         }
 
-        $customer_role_id = Role::all()->filter(function ($role) {
+        $customer_role_id = role_model_class()::all()->filter(function ($role) {
             return $role->hasPermission('read-client-portal');
         })->pluck('id')->first();
 
