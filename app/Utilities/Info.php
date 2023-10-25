@@ -2,10 +2,10 @@
 
 namespace App\Utilities;
 
+use Akaunting\Version\Version;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
-use App\Traits\Cloud;
 use Composer\InstalledVersions;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +20,7 @@ class Info
             'ip' => static::ip(),
         ];
 
-        if (! empty($info) || request()->isCloudHost()) {
+        if (! empty($info) || is_cloud()) {
             return array_merge($info, $basic);
         }
 
@@ -44,7 +44,7 @@ class Info
         }
 
         $versions = [
-            'akaunting' => version('short'),
+            'akaunting' => Version::short(),
             'laravel' => InstalledVersions::getPrettyVersion('laravel/framework'),
             'php' => static::phpVersion(),
             'mysql' => static::mysqlVersion(),

@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Module\Module;
+use App\Traits\Cloud;
 use App\Traits\SiteApi;
 use App\Utilities\Date;
 use App\Utilities\Info;
@@ -415,34 +416,29 @@ trait Modules
             return false;
         }
 
-        if (request()->isCloudHost()) {
-            static $modules;
-
-			if (empty($modules)) {
-				$modules = Cache::get('cloud.companies.' . company_id() . '.modules.installed', []);
-			}
-
-            if (in_array($alias, $modules)) {
-                return true;
-            }
-
-            return false;
-        }
-
-        if (module($alias)->disabled()) {
-            return false;
-        }
-
-        if (! Module::alias($alias)->enabled()->first()) {
-            return false;
-        }
-
-        return true;
+        return module($alias)->enabled();
     }
 
     public function moduleIsDisabled($alias): bool
     {
         return ! $this->moduleIsEnabled($alias);
+    }
+
+    public function loadSubscriptions()
+    {
+        $key = 'apps.subscriptions';
+
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            $data = [];
+
+            if (! is_cloud()) {
+                $data['headers'] = [
+                    'X-Akaunting-Modules' => implode(',', module()->getAvailable()),
+                ];
+            }
+
+            return (array) static::getResponseData('GET', 'apps/subscriptions', $data);
+        });
     }
 
     public function loadSuggestions()
@@ -494,6 +490,17 @@ trait Modules
 
             return $data;
         });
+    }
+
+    public function getSubscription($alias)
+    {
+        $data = $this->loadSubscriptions();
+
+        if (! empty($data) && array_key_exists($alias, $data)) {
+            return $data[$alias];
+        }
+
+        return false;
     }
 
     public function getSuggestions($path)

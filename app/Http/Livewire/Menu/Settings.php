@@ -52,25 +52,23 @@ class Settings extends Component
     public function addSettingsOfModulesFromJsonFile($menu): void
     {
         // Get enabled modules
-        $enabled_modules = Module::enabled()->get();
+        $enabled_modules = module()->allEnabled();
 
         $order = 110;
 
         foreach ($enabled_modules as $module) {
-            $m = module($module->alias);
-
-            // Check if the module exists and has settings
-            if (!$m || empty($m->get('settings'))) {
+            // Check if the module has settings
+            if (empty($module->get('settings'))) {
                 continue;
             }
 
-            if ($this->user->cannot('read-' . $m->getAlias() . '-settings')) {
+            if ($this->user->cannot('read-' . $module->getAlias() . '-settings')) {
                 continue;
             }
 
-            $menu->route('settings.module.edit', $m->getName(), ['alias' => $m->getAlias()], $m->get('setting_order', $order), [
-                'icon' => $m->get('icon', 'custom-akaunting'),
-                'search_keywords' => $m->getDescription(),
+            $menu->route('settings.module.edit', $module->getName(), ['alias' => $module->getAlias()], $module->get('setting_order', $order), [
+                'icon' => $module->get('icon', 'custom-akaunting'),
+                'search_keywords' => $module->getDescription(),
             ]);
 
             $order += 10;

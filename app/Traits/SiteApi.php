@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Utilities\Info;
+use Akaunting\Version\Version;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -20,7 +21,7 @@ trait SiteApi
             'Authorization' => 'Bearer ' . setting('apps.api_key'),
             'Accept'        => 'application/json',
             'Referer'       => app()->runningInConsole() ? config('app.url') : url('/'),
-            'Akaunting'     => version('short'),
+            'Akaunting'     => Version::short(),
             'Language'      => language()->getShortCode(),
             'Information'   => json_encode(Info::all()),
         ];

@@ -3,6 +3,7 @@
 namespace App\Exceptions\Trackers;
 
 use App\Traits\Trackers as Base;
+use Akaunting\Version\Version;
 use Throwable;
 
 class Bugsnag
@@ -11,7 +12,7 @@ class Bugsnag
 
     public static function beforeSend(Throwable $e): void
     {
-        app('bugsnag')->setAppVersion(version('short'));
+        app('bugsnag')->setAppVersion(Version::short());
 
         $tags = static::getTrackerTags();
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Common\Company;
+use App\Traits\Cloud;
 use App\Traits\DateTime;
 use App\Traits\Sources;
 use App\Traits\Modules;
@@ -95,9 +96,7 @@ if (! function_exists('module_is_enabled')) {
      */
     function module_is_enabled(string $alias): bool
     {
-        $module = new class() {
-            use Modules;
-        };
+        $module = new class() { use Modules; };
 
         return $module->moduleIsEnabled($alias);
     }
@@ -129,9 +128,7 @@ if (! function_exists('source_name')) {
      */
     function source_name(string|null $alias = null): string
     {
-        $tmp = new class() {
-            use Sources;
-        };
+        $tmp = new class() { use Sources; };
 
         return $tmp->getSourceName(null, $alias);
     }
@@ -305,5 +302,14 @@ if (! function_exists('search_string_value')) {
         $search = new class() { use SearchString; };
 
         return $search->getSearchStringValue($name, $default, $input);
+    }
+}
+
+if (! function_exists('is_cloud')) {
+    function is_cloud(): bool
+    {
+        $cloud = new class() { use Cloud; };
+
+        return $cloud->isCloud();
     }
 }

@@ -36,9 +36,8 @@ trait Cloud
         ]);
     }
 
-    // @deprecated 3.1
     public function isCloud()
     {
-        return request()->isCloudHost();
+        return request()->getHost() == config('cloud.host', 'app.akaunting.com');
     }
 }

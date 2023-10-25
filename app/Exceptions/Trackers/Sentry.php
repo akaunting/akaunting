@@ -2,6 +2,7 @@
 
 namespace App\Exceptions\Trackers;
 
+use Akaunting\Version\Version;
 use App\Traits\Trackers as Base;
 use Illuminate\Support\Str;
 use Sentry\Event;
@@ -14,7 +15,7 @@ class Sentry
 
     public static function beforeSend(Event $event, ?EventHint $hint): ?Event
     {
-        $event->setRelease(version('short'));
+        $event->setRelease(Version::short());
 
         $tags = static::getTrackerTags();
 
