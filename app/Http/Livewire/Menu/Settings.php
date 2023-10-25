@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Events\Menu\SettingsCreated;
-use App\Models\Module\Module;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Livewire\Component;

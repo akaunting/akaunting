@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Module\Module;
-use App\Traits\Cloud;
 use App\Traits\SiteApi;
 use App\Utilities\Date;
 use App\Utilities\Info;
