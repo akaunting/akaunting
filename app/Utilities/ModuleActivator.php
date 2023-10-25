@@ -117,6 +117,10 @@ class ModuleActivator implements ActivatorInterface
         $modules = Model::companyId($this->company_id)->pluck('enabled', 'alias')->toArray();
 
         foreach ($modules as $alias => $enabled) {
+            if (in_array($alias, ['offline-payments', 'paypal-standard'])) {
+                continue;
+            }
+
             $subscription = $this->getSubscription($alias);
 
             if (! is_object($subscription)) {
