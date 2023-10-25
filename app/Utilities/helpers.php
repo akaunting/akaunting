@@ -295,7 +295,7 @@ if (! function_exists('role_model_class')) {
     {
         return module_is_enabled('roles')
                 ? config('roles.models.role')
-                : \App\Models\Auth\Role::class;
+                : config('laratrust.models.role');
     }
 }
 
