@@ -271,16 +271,16 @@
         },
         {
             "name": "akaunting/laravel-menu",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-menu.git",
-                "reference": "5177c7ccdadc6e82a6426e6861296cbf14d84043"
+                "reference": "b69bb5c9d308eabb777fbb59269f7c8102ecda55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-menu/zipball/5177c7ccdadc6e82a6426e6861296cbf14d84043",
-                "reference": "5177c7ccdadc6e82a6426e6861296cbf14d84043",
+                "url": "https://api.github.com/repos/akaunting/laravel-menu/zipball/b69bb5c9d308eabb777fbb59269f7c8102ecda55",
+                "reference": "b69bb5c9d308eabb777fbb59269f7c8102ecda55",
                 "shasum": ""
             },
             "require": {
@@ -337,9 +337,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-menu/issues",
-                "source": "https://github.com/akaunting/laravel-menu/tree/3.1.1"
+                "source": "https://github.com/akaunting/laravel-menu/tree/3.1.2"
             },
-            "time": "2023-10-17T07:38:40+00:00"
+            "time": "2023-10-25T12:43:24+00:00"
         },
         {
             "name": "akaunting/laravel-module",
