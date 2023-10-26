@@ -93,6 +93,6 @@ class Info
     {
         $setting = new class() { use Settings; };
 
-        return $setting->getSettingValue('apps.api_key');
+        return $setting->getSettingValue('apps.api_key', '');
     }
 }
