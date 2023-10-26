@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Utilities\Info;
 use Akaunting\Version\Version;
+use App\Utilities\Info;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -18,7 +18,7 @@ trait SiteApi
         $client = new Client(['verify' => false, 'base_uri' => static::$base_uri]);
 
         $headers['headers'] = [
-            'Authorization' => 'Bearer ' . setting('apps.api_key'),
+            'Authorization' => 'Bearer ' . Info::getApiKey(),
             'Accept'        => 'application/json',
             'Referer'       => app()->runningInConsole() ? config('app.url') : url('/'),
             'Akaunting'     => Version::short(),

@@ -6,6 +6,7 @@ use Akaunting\Version\Version;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
+use App\Traits\Settings;
 use Composer\InstalledVersions;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class Info
         static $info = [];
 
         $basic = [
-            'api_key' => setting('apps.api_key'),
+            'api_key' => static::getApiKey(),
             'ip' => static::ip(),
         ];
 
@@ -86,5 +87,12 @@ class Info
         return request()->header('CF_CONNECTING_IP')
                 ? request()->header('CF_CONNECTING_IP')
                 : request()->ip();
+    }
+
+    public static function getApiKey(): string
+    {
+        $setting = new class() { use Settings; };
+
+        return $setting->getSettingValue('apps.api_key');
     }
 }
