@@ -1,6 +1,9 @@
 <div
-    x-data="{ }"
-    x-init="setTimeout(() => $refs.loadingMenu.remove(), 1000)"
+    x-data="{ loaded: false }"
+    x-init="window.addEventListener('load', () => { 
+        loaded = true; 
+        $refs.loadingMenu.remove();
+    })"
     x-ref="loadingMenu"
     class="w-70 h-screen hidden lg:flex fixed top-0 js-menu z-20 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0"
 >
