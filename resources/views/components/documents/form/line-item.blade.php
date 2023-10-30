@@ -112,7 +112,7 @@
                                     />
 
                                     <div class="text-red text-sm mt-1 mb-3 block"
-                                        v-if="!form.errors.has('items.' + index + '.quantity')"
+                                        v-if="form.errors.has('items.' + index + '.quantity')"
                                         v-html="form.errors.get('items.' + index + '.quantity')">
                                     </div>
 
