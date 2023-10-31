@@ -7,13 +7,13 @@
 <!-- Add to homescreen for Chrome on Android -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="application-name" content="{{ config('app.name') }}">
-<link rel="icon" sizes="512x512" href="{{ asset('public/img/pwa/akaunting-512x512.png') }}">
+<link rel="icon" sizes="512x512" href="{{ asset('public/img/pwa/icon-512x512.png') }}">
 
 <!-- Add to homescreen for Safari on iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
 <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
-<link rel="apple-touch-icon" href="{{ asset('public/img/pwa/akaunting-512x512.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('public/img/pwa/icon-512x512.png') }}">
 
 <link href="{{ asset('public/img/pwa/splash-640x1136.png') }}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
 <link href="{{ asset('public/img/pwa/splash-750x1334.png') }}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
