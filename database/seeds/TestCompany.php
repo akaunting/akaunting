@@ -7,12 +7,13 @@ use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\CreateContact;
 use App\Traits\Jobs;
+use App\Traits\Modules;
 use Artisan;
 use Illuminate\Database\Seeder;
 
 class TestCompany extends Seeder
 {
-    use Jobs;
+    use Jobs, Modules;
 
     /**
      * Run the database seeds.
@@ -40,20 +41,14 @@ class TestCompany extends Seeder
 
     private function migrateRoles()
     {
-        $modules = module()->all();
-
-        foreach ($modules as $module) {
-            $alias = $module->getAlias();
-
-            if ($alias !== 'roles') {
-                continue;
-            }
-
-            Artisan::call('module:migrate', [
-                'alias' => 'roles',
-                '--force' => true
-            ]);
+        if (! $this->moduleExists('roles')) {
+            return;
         }
+
+        Artisan::call('module:migrate', [
+            'alias' => 'roles',
+            '--force' => true
+        ]);
     }
 
     private function createCompany()
