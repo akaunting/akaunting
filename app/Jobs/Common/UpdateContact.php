@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ContactUpdated;
+use App\Events\Common\ContactUpdating;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateContactPersons;
@@ -14,6 +16,8 @@ class UpdateContact extends Job implements ShouldUpdate
     public function handle(): Contact
     {
         $this->authorize();
+
+        event(new ContactUpdating($this->model, $this->request));
 
         \DB::transaction(function () {
             if ($this->request->get('create_user', 'false') === 'true') {
@@ -39,6 +43,8 @@ class UpdateContact extends Job implements ShouldUpdate
 
             $this->model->update($this->request->all());
         });
+
+        event(new ContactUpdated($this->model, $this->request));
 
         return $this->model;
     }

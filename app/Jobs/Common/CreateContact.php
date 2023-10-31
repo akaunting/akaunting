@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ContactCreated;
+use App\Events\Common\ContactCreating;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -15,6 +17,8 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Contact
     {
+        event(new ContactCreating($this->request));
+
         \DB::transaction(function () {
             if ($this->request->get('create_user', 'false') === 'true') {
                 $this->createUser();
@@ -31,6 +35,8 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 
             $this->dispatch(new CreateContactPersons($this->model, $this->request));
         });
+
+        event(new ContactCreated($this->model, $this->request));
 
         return $this->model;
     }
