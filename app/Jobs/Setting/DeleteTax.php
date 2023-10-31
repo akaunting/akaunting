@@ -3,6 +3,8 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Events\Setting\TaxDeleted;
+use App\Events\Setting\TaxDeleting;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteTax extends Job implements ShouldDelete
@@ -11,9 +13,13 @@ class DeleteTax extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new TaxDeleting($this->model));
+
         \DB::transaction(function () {
             $this->model->delete();
         });
+
+        event(new TaxDeleted($this->model));
 
         return true;
     }

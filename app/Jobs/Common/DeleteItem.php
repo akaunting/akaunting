@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ItemDeleted;
+use App\Events\Common\ItemDeleting;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteItem extends Job implements ShouldDelete
@@ -11,11 +13,15 @@ class DeleteItem extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new ItemDeleting($this->model));
+
         \DB::transaction(function () {
             $this->deleteRelationships($this->model, ['taxes']);
 
             $this->model->delete();
         });
+
+        event(new ItemDeleted($this->model));
 
         return true;
     }
