@@ -52,7 +52,7 @@ If you'd like to contribute translations, please check out our [Crowdin](https:/
 
 ## Changelog
 
-Please see [Releases](../../releases) for more information what has changed recently.
+Please see [Releases](../../releases) for more information about what has changed recently.
 
 ## Security
 
