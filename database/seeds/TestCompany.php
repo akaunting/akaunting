@@ -23,6 +23,8 @@ class TestCompany extends Seeder
     {
         Model::unguard();
 
+        $this->migrateRoles();
+
         $this->call(Permissions::class);
 
         $this->createCompany();
@@ -34,6 +36,24 @@ class TestCompany extends Seeder
         $this->installModules();
 
         Model::reguard();
+    }
+
+    private function migrateRoles()
+    {
+        $modules = module()->all();
+
+        foreach ($modules as $module) {
+            $alias = $module->getAlias();
+
+            if ($alias !== 'roles') {
+                continue;
+            }
+
+            Artisan::call('module:migrate', [
+                'alias' => 'roles',
+                '--force' => true
+            ]);
+        }
     }
 
     private function createCompany()
