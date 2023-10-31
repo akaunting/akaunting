@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'आपके चालान में <b>:name</b> या <b>:description</b> में से कम से कम एक अवश्य दिखना चाहिए।',
     ],
 
-    'slider' => [
-        'create'            => ':user ने यह चालान :date को बनाया',
-        'create_recurring'  => ':user ने यह आवर्ती टेम्पलेट :date को बनाया',
-        'schedule'          => ':date  के बाद से हर :interval :frequency में दोहराएं',
-        'children'          => ':count चालान स्वचालित रूप से बनाए गए थे',
-    ],
-
     'share' => [
         'show_link'         => 'आपका ग्राहक इस लिंक पर चालान देख सकता है',
         'copy_link'         => 'लिंक को कॉपी करें और अपने ग्राहक के साथ साझा करें।',

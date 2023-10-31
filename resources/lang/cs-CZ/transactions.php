@@ -10,6 +10,8 @@ return [
     'related_bill'          => 'Související přijatá faktura',
     'recurring_income'      => 'Opakované příjmy',
     'recurring_expense'     => 'Opakované výdaje',
+    'included_tax'          => 'Včetně daně',
+    'connected'             => 'Připojeno',
 
     'form_description' => [
         'general'           => 'Zde můžete zadat obecné informace o transakcích, jako je datum, částka, účet, popis, atd.',
@@ -24,6 +26,7 @@ return [
         'create_recurring'  => ':user vytvořil tuto opakovanou šablonu dne :date',
         'schedule'          => 'Opakovat každý :interval :frequency od :date',
         'children'          => ':count transakcí bylo vytvořeno automaticky',
+        'connect'           => 'Tato transakce je připojena k :count transakcím',
         'transfer_headline' => '<div> <span class="font-bold"> Od: </span> :from_account </div> <div> <span class="font-bold"> na: </span> :to_account </div>',
         'transfer_desc'     => 'Převod vytvořen :date.',
     ],

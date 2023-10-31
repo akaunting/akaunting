@@ -63,6 +63,17 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Невалиден :type Email',
+            'description'   => 'Имейл адресът :email е докладван като невалиден и лицето е деактивирано. Моля, проверете следното съобщение за грешка и коригирайте имейл адреса:',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -88,7 +99,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Грешка при импорт',
+            'title'         => 'Грешка при импорт',
             'description'   => 'Не може да се импортира файл поради няколко проблема. Проверете имейла си за подробности.',
 
         ],
@@ -177,6 +188,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Невалиден :type Email',
+            'description'   => 'Имейл адресът <strong>:email<strong> е докладван като невалиден и лицето е деактивирано. Моля, проверете и коригирайте имейл адреса.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -185,4 +203,16 @@ return [
         'mark_read_all'         => ':type чете това известие!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Firefox настройка',
+            'description'  => '<span class="font-medium">Ако вашите икони не се показват, моля;</span> <br /> <span class="font-medium">Моля, позволете на страниците да избират свои собствени шрифтове, вместо избраните от вас по-горе</span> <br /><br /> <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span>',
+
+        ],
+
+    ],
+
 ];

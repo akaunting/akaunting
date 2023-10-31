@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'Rok|Roky',
+    'date_range'                    => 'Časové období',
     'preferences'                   => 'Předvolba|Předvolby',
-    'this_year'                     => 'Aktuální rok',
-    'previous_year'                 => 'Předchozí rok',
-    'this_quarter'                  => 'Aktuální čtvrtletí',
-    'previous_quarter'              => 'Předchozí čtvrtletí',
-    'last_12_months'                => 'Posledních 12 měsíců',
     'profit_loss'                   => 'Zisk a ztráty',
     'income_summary'                => 'Přehled příjmů',
     'expense_summary'               => 'Přehled výdajů',

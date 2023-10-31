@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'La teva factura ha de mostrar com a mínim o <b>:name</b> o <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user ha creat aquesta factura el :date',
-        'create_recurring'  => ':user ha creat aquesta plantilla recurrent el :date',
-        'schedule'          => 'Repeteix cada :interval :frequency des de :date',
-        'children'          => 'S\'han creat :count factures automàticament',
-    ],
-
     'share' => [
         'show_link'         => 'El teu client pot veure la factura des d\'aquest enllaç',
         'copy_link'         => 'Copia l\'enllaç i comparteix-lo amb el teu client.',

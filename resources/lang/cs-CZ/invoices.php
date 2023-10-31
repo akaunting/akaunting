@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Vaše faktura musí obsahovat alespoň jeden z <b>:name</b> nebo <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user vytvořil tuto fakturu dne :date',
-        'create_recurring'  => ':user vytvořil tuto opakovanou šablonu dne :date',
-        'schedule'          => 'Opakovat každý :interval :frequency od :date',
-        'children'          => ':count faktur(y) bylo(y) vytvořeno(y) automaticky',
-    ],
-
     'share' => [
         'show_link'         => 'Váš zákazník může zobrazit fakturu na tomto odkazu',
         'copy_link'         => 'Zkopírujte odkaz a sdílejte jej s Vaším zákazníkem.',

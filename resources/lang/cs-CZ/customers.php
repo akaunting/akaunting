@@ -20,6 +20,7 @@ return [
         'general'               => 'Kontaktní informace Vašich klientů se objeví na fakturách a jejich profilech. Můžete také svým klientům povolit, aby se přihlásili, abyste mohli sledovat Vaše faktury zaškrtnutím níže uvedeného políčka.',
         'billing'               => 'Daňové číslo se zobrazí v každé faktuře vystavené zákazníkovi. Zvolená měna se stane výchozí měnou pro tohoto zákazníka.',
         'address'               => 'Adresa je vyžadována pro faktury, takže je třeba přidat fakturační údaje pro zákazníka.',
+        'contact_persons'       => 'Chcete-li zahrnout další příjemce do e-mailu jako CC, přidejte je jako kontaktní osoby.',
     ],
 
     'no_records' => [

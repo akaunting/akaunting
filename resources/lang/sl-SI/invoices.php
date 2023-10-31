@@ -50,6 +50,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Za to stranko ne obstaja elektronski naslov!',
+        'totals_required'   => 'Zahtevane so skupne vrednosti računov. Uredite :type in znova shranite.',
+
         'draft'             => 'To je <b>osnutek</b> računa, ki bo v grafikonih viden šele, ko bo poslan.',
 
         'status' => [
@@ -63,13 +65,8 @@ return [
                 'await'     => 'Čakanje na plačilo',
             ],
         ],
-    ],
 
-    'slider' => [
-        'create'            => ':user je ustvaril ta račun dne :date',
-        'create_recurring'  => ':user je ustvaril to ponavljajočo se predlogo dne :date',
-        'schedule'          => 'Ponovi vsak :interval :pogostost od :date',
-        'children'          => ':count računov je bilo ustvarjeno samodejno',
+        'name_or_description_required' => 'Vaš račun mora vsebovati vsaj eno od <b>:name</b> ali <b>:description</b>.',
     ],
 
     'share' => [
