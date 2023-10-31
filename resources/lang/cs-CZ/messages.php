@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type přidán!',
+        'created'			=> ':type vytvořen!',
         'updated'           => ':type aktualizováno!',
         'deleted'           => ':type odstraněno!',
         'duplicated'        => ':type duplikováno!',
@@ -29,6 +30,7 @@ return [
         'transfer_category' => 'Chyba: Nemohu odstranit převod <b>:type</b> kategorie!',
         'change_type'       => 'Chyba: Nelze změnit typ, je k :text relativní!',
         'invalid_apikey'    => 'Chyba: Zadaný API klíč je neplatný!',
+        'empty_apikey'      => 'Chyba: Není vložen váš API klíč!  <a href=":url" class="font-bold underline underline-offset-4">Klikněte zde</a> pro vložení vašeho API klíče.',
         'import_column'     => 'Chyba: :message Tabulka :sheet. Řádek: :line.',
         'import_sheet'      => 'Chyba: Tabulka je neplatná. Prosím, zkontrolujte vzorový soubor.',
         'same_amount'       => 'Chyba: Celková částka rozdělení musí být přesně stejná jako :transaction celkem: :amount',

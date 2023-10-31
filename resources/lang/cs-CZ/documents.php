@@ -70,8 +70,18 @@ return [
         'attachment'            => 'Stáhnout soubory připojené k tomuto :type',
     ],
 
+    'slider' => [
+        'create'            => ':user vytvořil tento :type dne :date',
+        'create_recurring'  => ':user vytvořil tuto opakovanou šablonu dne :date',
+        'send'              => ':user odeslal tento :type dne :date',
+        'schedule'          => 'Opakovat každý :interval :frequency od :date',
+        'children'          => ':count :type byl vytvořen automaticky',
+        'cancel'            => ':user zrušil tento :type dne :date',
+    ],
+
     'messages' => [
         'email_sent'            => ':type e-mail byl odeslán!',
+        'restored'              => ':type byl obnoven!',
         'marked_as'             => ':type byl označen jako :status!',
         'marked_sent'           => ':type byl označen jako odeslán!',
         'marked_paid'           => ':type byl označen jako zaplacený!',

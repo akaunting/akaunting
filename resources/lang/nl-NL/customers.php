@@ -20,6 +20,7 @@ return [
         'general'               => 'De contactgegevens van uw klant verschijnen op de facturen en in hun profiel. Je kunt je klanten ook toestaan in te loggen om de facturen die je hen stuurt te volgen door het vakje hieronder aan te vinken.',
         'billing'               => 'Het Btw-nummer verschijnt op elke factuur die aan de klant wordt uitgereikt. De geselecteerde valuta wordt de standaardvaluta voor deze klant.',
         'address'               => 'Het adres is nodig voor de facturen, dus je moet factuuradres-gegevens voor je klant toevoegen.',
+        'contact_persons'       => 'Als u extra ontvangers in een e-mail wilt opnemen als CC, voegt u ze toe als contactpersonen.',
     ],
 
     'no_records' => [

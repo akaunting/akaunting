@@ -22,6 +22,7 @@ return [
         'extension'         => ':extension razširitev mora niti nameščena in naložena!',
         'directory'         => ':direktorij mora biti zapisljiv!',
         'executable'        => 'Izvršljiva datoteka PHP CLI ni definirana / deluje ali njena različica ni :php_version ali novejša! Prosite svojega ponudnika gostovanja, da pravilno nastavi spremenljivko okolja PHP_BINARY ali PHP_PATH.',
+        'npm'               => '<b>Manjkajo datoteke JavaScript!</b> <br><br><span>Morali bi zagnati <em class="underline">npm install</em> in <em class="underline">npm run dev</em> ukaze.</span>', 
     ],
 
     'database' => [
@@ -44,7 +45,7 @@ return [
     ],
 
     'update' => [
-        'core'              => 'Nova različica Akaunting je na voljo! Prosiomo posodobite vašo namestitev.',
-        'module'            => 'Nova različica Akaunting je na voljo! Prosiomo posodobite vašo namestitev.',
+        'core'              => 'Nova različica Akaunting je na voljo! Prosimo posodobite vašo namestitev.',
+        'module'            => 'Nova različica Akaunting je na voljo! Prosimo posodobite vašo namestitev.',
     ],
 ];

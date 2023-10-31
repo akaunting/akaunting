@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type ajouté !',
+        'created'			=> ':type créé!',
         'updated'           => ':type mise à jour !',
         'deleted'           => ':type supprimé !',
         'duplicated'        => ':type dupliqué !',
@@ -29,6 +30,7 @@ return [
         'transfer_category' => 'Erreur: Impossible de supprimer la catégorie de transfert <b>:type</b>!',
         'change_type'       => 'Erreur : Impossible de changer le type car il est lié à :text !',
         'invalid_apikey'    => 'Erreur : La clé API saisie n\'est pas valide !',
+        'empty_apikey'      => 'Erreur: Votre clé d\'API n\'a pas été entrée! <a href=":url" class="font-bold underline underline-offset-4">Cliquez ici</a> pour enregistre votre clé d\'API.',
         'import_column'     => 'Erreur : :message Nom de la feuille : :sheet. Numéro de ligne : :line.',
         'import_sheet'      => 'Erreur : Le nom de la feuille n\'est pas valide. Veuillez télécharger le modèle de fichier.',
         'same_amount'       => 'Erreur : Le montant total de la scission doit être exactement le même que le montant total de :transaction : :amount',

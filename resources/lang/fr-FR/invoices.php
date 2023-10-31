@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Votre facture doit afficher au moins le <b>:name</b> ou la <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user a créé cette facture le :date',
-        'create_recurring'  => ':user a créé ce modèle récurrent le :date',
-        'schedule'          => 'Répéter chaque :interval :frequency depuis :date',
-        'children'          => ':count factures ont été créées automatiquement',
-    ],
-
     'share' => [
         'show_link'         => 'Votre client peut voir la facture à ce lien',
         'copy_link'         => 'Copiez le lien et partagez-le avec votre client.',

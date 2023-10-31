@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Din faktura skal vise mindst en af <b>:name</b> eller <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user oprettede denne faktura den :date',
-        'create_recurring'  => ':user oprettede denne tilbagevendende skabelon den :date',
-        'schedule'          => 'Gentag hver :interval :frekvens siden :date',
-        'children'          => ':count fakturaer blev oprettet automatisk',
-    ],
-
     'share' => [
         'show_link'         => 'Din kunde kan se fakturaen på dette link',
         'copy_link'         => 'Kopier linket og del det med din kunde.',

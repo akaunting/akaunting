@@ -20,6 +20,7 @@ return [
         'general'               => 'Les coordonnées de vos clients apparaîtront sur les factures et dans leurs profils. Vous pouvez également permettre à vos clients de se connecter pour suivre les factures que vous leur envoyez en cochant la case ci-dessous.',
         'billing'               => 'Le numéro SIRET apparaît sur chaque facture envoyée à votre client. La devise sélectionnée devient la devise par défaut pour ce client.',
         'address'               => 'L\'adresse est nécessaire pour la création des factures, vous devez donc ajouter cette information à votre client.',
+        'contact_persons'       => 'Pour inclure des destinataires supplémentaires en copie dans un courriel, ajoutez-les en tant que contacts.',
     ],
 
     'no_records' => [

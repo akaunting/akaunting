@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'Jaar|Jaren',
+    'date_range'                    => 'Datumbereik',
     'preferences'                   => 'Voorkeur|Voorkeuren',
-    'this_year'                     => 'Dit jaar',
-    'previous_year'                 => 'Vorig jaar',
-    'this_quarter'                  => 'Dit kwartaal',
-    'previous_quarter'              => 'Vorige kwartaal',
-    'last_12_months'                => 'Afgelopen 12 maanden',
     'profit_loss'                   => 'Winst & verlies',
     'income_summary'                => 'Samenvatting inkomsten',
     'expense_summary'               => 'Kosten overzicht',

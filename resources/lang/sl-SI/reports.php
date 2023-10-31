@@ -2,13 +2,9 @@
 
 return [
 
-    'years'                         => 'Leto|Letih',
+    'years'                         => 'Leto|Leta',
+    'date_range'                    => 'Časovno obdobje',
     'preferences'                   => 'Nastavitev|Nastavitve',
-    'this_year'                     => 'Tekoče leto',
-    'previous_year'                 => 'Prejšnje leto',
-    'this_quarter'                  => 'To četrtletje',
-    'previous_quarter'              => 'Prejšnje četrtletje',
-    'last_12_months'                => 'Zadnjih 12 mesecev',
     'profit_loss'                   => 'Dobiček & Izguba',
     'income_summary'                => 'Prikaz prihodkov',
     'expense_summary'               => 'Prikaz stroškov',

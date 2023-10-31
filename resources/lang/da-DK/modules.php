@@ -37,7 +37,7 @@ return [
     'install'               => 'Installer',
     'buy_now'               => 'Køb nu',
     'get_api_key'           => '<a href=":url" target="_blank">Klik her</a> for at få din API nøgle.',
-    'no_apps'               => 'Der er ingen apps i denne kategori endnu.',
+    'no_apps'               => 'Tjek de mest professionelle apps til din virksomhed og få dem til den bedste pris.',
     'become_developer'      => 'Er du udvikler? <a href=":url" target="_blank">Her</a> kan du lære at udvikle en app og starte med at sælge i dag!',
     'recommended_apps'      => 'Anbefalede programmer',
     'can_not_install'       => 'Månedlige abonnementer er kun tilgængelige på Cloud service. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">Læs mere.</a>',

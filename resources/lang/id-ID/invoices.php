@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Faktur Anda harus menunjukkan setidaknya <b>:name</b> atau <b>:decription</b>',
     ],
 
-    'slider' => [
-        'create'            => ':user membuat faktur ini pada :date',
-        'create_recurring'  => ':user membuat template berulang ini pada :date',
-        'schedule'          => 'Ulangi setiap :interval :frekuensi sejak :tanggal',
-        'children'          => ':count faktur telah berhasil dibuat secara otomatis',
-    ],
-
     'share' => [
         'show_link'         => 'Pelanggan Anda dapat melihat faktur di tautan ini',
         'copy_link'         => 'Salin tautan dan bagikan dengan pelanggan Anda.',

@@ -69,13 +69,6 @@ return [
         'name_or_description_required' => 'Je factuur moet ten minste één van de volgende punten bevatten <b>:name</b> of <b>:description</b>.',
     ],
 
-    'slider' => [
-        'create'            => ':user heeft deze factuur aangemaakt op :datum',
-        'create_recurring'  => ':user heeft dit terugkerende sjabloon aangemaakt op :date',
-        'schedule'          => 'Herhaal elke :interval :frequency sinds :date',
-        'children'          => ':count facturen zijn automatisch aangemaakt',
-    ],
-
     'share' => [
         'show_link'         => 'Uw klant kan de factuur bekijken via deze link',
         'copy_link'         => 'Kopieer de link en deel deze met uw klant.',
