@@ -19,6 +19,6 @@ class CurrencyUpdating extends Event
     public function __construct($currency, $request)
     {
         $this->currency = $currency;
-        $this->request  = $request;
+        $this->request = $request;
     }
 }

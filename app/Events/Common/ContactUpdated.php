@@ -20,6 +20,6 @@ class ContactUpdated extends Event
     public function __construct(Contact $contact, $request)
     {
         $this->contact = $contact;
-        $this->request  = $request;
+        $this->request = $request;
     }
 }

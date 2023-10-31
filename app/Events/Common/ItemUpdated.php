@@ -20,6 +20,6 @@ class ItemUpdated extends Event
     public function __construct(Item $item, $request)
     {
         $this->item = $item;
-        $this->request  = $request;
+        $this->request = $request;
     }
 }

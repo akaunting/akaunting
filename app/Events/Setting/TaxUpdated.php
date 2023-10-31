@@ -19,6 +19,6 @@ class TaxUpdated extends Event
     public function __construct($tax, $request)
     {
         $this->tax = $tax;
-        $this->request  = $request;
+        $this->request = $request;
     }
 }
