@@ -49,8 +49,8 @@ class ModuleActivator implements ActivatorInterface
                 $this->company_id = $company_id;
             }
 
-            $model = Model::companyId($this->company_id)->alias($alias)->get('enabled')->first();
-            $status = $model ? $model->enabled : false;
+            $model = Model::companyId($this->company_id)->alias($alias)->first();
+            $status = $model ? $model->enabled : $active;
 
             $this->setActive($module, $status);
         }
@@ -72,11 +72,11 @@ class ModuleActivator implements ActivatorInterface
     {
         $this->statuses[$module->getAlias()] = $active;
 
-        Model::companyId($this->company_id)->alias($module->getAlias())->updateOrCreate([
-            'enabled'       => $active,
-        ], [
+        Model::updateOrCreate([
             'company_id'    => $this->company_id,
             'alias'         => $module->getAlias(),
+        ], [
+            'enabled'       => $active,
             'created_from'  => 'core::activator',
         ]);
 
