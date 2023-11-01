@@ -1,5 +1,7 @@
 @props(['companies'])
 
+<x-loading.menu />
+
 <div class="container flex items-center py-3 mb-4 border-b-2 xl:hidden">
     <span class="material-icons text-black js-hamburger-menu">menu</span>
 
@@ -29,7 +31,12 @@
 
 <div
     x-data="{ }"
-    x-init="setTimeout(() => $refs.realMenu.classList.remove('hidden'), 1000)"
+    x-init="() => {
+        const loadEvent = 'onpagehide' in window ? 'pageshow' : 'load';
+        window.addEventListener(loadEvent, () => {
+            $refs.realMenu.classList.remove('hidden');
+        });
+    }"
     x-ref="realMenu"
     class="w-70 h-screen flex hidden fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0"
 >
@@ -276,7 +283,4 @@
     <div class="fixed w-full h-full invisible lg:hidden js-menu-background" style="background-color: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
 </div>
 
-<x-loading.menu />
-
 @stack('menu_end')
-

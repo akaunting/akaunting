@@ -2,5 +2,6 @@
     @if (! isset($attributes['disable-loading']))
         <x-loading.absolute />
     @endif
+
     {!! $slot !!}
 </div>
