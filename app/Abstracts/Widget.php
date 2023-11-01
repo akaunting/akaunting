@@ -91,7 +91,7 @@ abstract class Widget
 
     public function view($name, $data = [])
     {
-        if (request()->isApi()) {
+        if (request_is_api()) {
             return $data;
         }
 

@@ -8,6 +8,7 @@ use App\Traits\Modules;
 use App\Traits\SearchString;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 if (! function_exists('user')) {
@@ -311,5 +312,41 @@ if (! function_exists('is_cloud')) {
         $cloud = new class() { use Cloud; };
 
         return $cloud->isCloud();
+    }
+}
+
+if (! function_exists('request_is_api')) {
+    function request_is_api(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is(config('api.prefix') . '/*');
+    }
+}
+
+if (! function_exists('request_is_auth')) {
+    function request_is_auth(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is('auth/*');
+    }
+}
+
+if (! function_exists('request_is_signed')) {
+    function request_is_signed(Request|null $request = null, int $company_id): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is($company_id . '/signed/*');
+    }
+}
+
+if (! function_exists('request_is_portal')) {
+    function request_is_portal(Request|null $request = null, int $company_id): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is($company_id . '/portal') || $r->is($company_id . '/portal/*');
     }
 }

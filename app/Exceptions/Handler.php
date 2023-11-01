@@ -96,7 +96,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($request->isApi()) {
+        if (request_is_api($request)) {
             return $this->handleApiExceptions($request, $exception);
         }
 
