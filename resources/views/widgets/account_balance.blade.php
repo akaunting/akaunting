@@ -3,7 +3,7 @@
 
     <ul class="text-sm space-y-3 my-3">
         @foreach($accounts as $item)
-            <li class="flex justify-between">
+            <li class="flex justify-between pr-3.5">
                 {{ $item->name }}
 
                 <span class="font-medium">
