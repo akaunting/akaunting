@@ -45,7 +45,7 @@
                                 <x-sortablelink column="bank_name" title="{{ trans('accounts.bank_name') }}" />
                             </x-slot>
                             <x-slot name="second">
-                                <x-sortablelink column="bank_phone" title="{{ trans('general.phone') }}" />
+                                <x-sortablelink column="bank_phone" title="{{ trans('accounts.bank_phone') }}" />
                             </x-slot>
                         </x-table.th>
 
@@ -88,8 +88,8 @@
                                     @endif
                                 </x-slot>
                                 <x-slot name="second">
-                                    @if (! empty($item->phone))
-                                        {{ $item->phone }}
+                                    @if (! empty($item->bank_phone))
+                                        {{ $item->bank_phone }}
                                     @else
                                         <x-empty-data />
                                     @endif
@@ -97,7 +97,7 @@
                             </x-table.td>
 
                             <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
-                                <x-money :amount="$item->balance" :currency="$item->currency_code" convert />
+                                <x-money :amount="$item->balance" :currency="$item->currency_code" />
                             </x-table.td>
 
                             <x-table.td kind="action">

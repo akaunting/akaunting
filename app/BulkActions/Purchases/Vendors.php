@@ -4,6 +4,7 @@ namespace App\BulkActions\Purchases;
 
 use App\Abstracts\BulkAction;
 use App\Exports\Purchases\Vendors as Export;
+use App\Jobs\Common\UpdateContact;
 use App\Models\Common\Contact;
 
 class Vendors extends BulkAction
@@ -18,6 +19,14 @@ class Vendors extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-purchases-vendors',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'enable'    => [
             'icon'          => 'check_circle',
             'name'          => 'general.enable',
@@ -43,6 +52,31 @@ class Vendors extends BulkAction
             'type'          => 'download',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return $this->response('bulk-actions.purchases.vendors.edit', compact('selected'));
+    }
+
+    public function update($request)
+    {
+        $vendors = $this->getSelectedRecords($request);
+
+        foreach ($vendors as $vendor) {
+            try {
+                $request->merge([
+                    'enabled' => $vendor->enabled,
+                    'uploaded_logo' => $vendor->logo,
+                ]); // for update job authorize..
+
+                $this->dispatch(new UpdateContact($vendor, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function disable($request)
     {

@@ -2,10 +2,11 @@
 
 namespace App\Utilities;
 
-use App\Models\Auth\User;
+use Akaunting\Version\Version;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
+use App\Traits\Settings;
 use Composer\InstalledVersions;
 use Illuminate\Support\Facades\DB;
 
@@ -13,21 +14,38 @@ class Info
 {
     public static function all()
     {
-        return array_merge(static::versions(), [
-            'api_key' => setting('apps.api_key'),
+        static $info = [];
+
+        $basic = [
+            'api_key' => static::getApiKey(),
             'ip' => static::ip(),
+        ];
+
+        if (! empty($info) || is_cloud()) {
+            return array_merge($info, $basic);
+        }
+
+        $info = array_merge(static::versions(), $basic, [
             'companies' => Company::count(),
-            'users' => User::count(),
-            'invoices' => Document::invoice()->count(),
-            'customers' => Contact::customer()->count(),
+            'users' => user_model_class()::count(),
+            'invoices' => Document::allCompanies()->invoice()->count(),
+            'customers' => Contact::allCompanies()->customer()->count(),
             'php_extensions' => static::phpExtensions(),
         ]);
+
+        return $info;
     }
 
     public static function versions()
     {
-        return [
-            'akaunting' => version('short'),
+        static $versions = [];
+
+        if (! empty($versions)) {
+            return $versions;
+        }
+
+        $versions = [
+            'akaunting' => Version::short(),
             'laravel' => InstalledVersions::getPrettyVersion('laravel/framework'),
             'php' => static::phpVersion(),
             'mysql' => static::mysqlVersion(),
@@ -35,6 +53,8 @@ class Info
             'livewire' => InstalledVersions::getPrettyVersion('livewire/livewire'),
             'omnipay' => InstalledVersions::getPrettyVersion('league/omnipay'),
         ];
+
+        return $versions;
     }
 
     public static function phpVersion()
@@ -67,5 +87,12 @@ class Info
         return request()->header('CF_CONNECTING_IP')
                 ? request()->header('CF_CONNECTING_IP')
                 : request()->ip();
+    }
+
+    public static function getApiKey(): string
+    {
+        $setting = new class() { use Settings; };
+
+        return $setting->getSettingValue('apps.api_key', '');
     }
 }

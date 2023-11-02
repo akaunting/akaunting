@@ -2,8 +2,8 @@
 
 /**
  * @package     Akaunting
- * @copyright   2017-2022 Akaunting. All rights reserved.
- * @license     GNU GPL version 3; see LICENSE.txt
+ * @copyright   2017-2023 Akaunting. All rights reserved.
+ * @license     BSL; see LICENSE.txt
  * @link        https://akaunting.com
  */
 

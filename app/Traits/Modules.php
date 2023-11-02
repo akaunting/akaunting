@@ -250,7 +250,7 @@ trait Modules
             $installed[] = $result;
         });
 
-        Cache::put($key, $installed, Date::now()->addHour(6));
+        Cache::put($key, $installed, Date::now()->addHours(6));
 
         return $installed;
     }
@@ -366,51 +366,27 @@ trait Modules
     {
         $key = 'apps.testimonials.' . $this->getDataKeyOfModules($data);
 
-        $testimonials = Cache::get($key);
-
-        if (! empty($testimonials)) {
-            return $testimonials;
-        }
-
-        $testimonials = static::getResponseData('GET', 'apps/testimonials', $data);
-
-        Cache::put($key, $testimonials, Date::now()->addHour());
-
-        return $testimonials;
+        return Cache::remember($key, Date::now()->addHours(6), function () use ($data) {
+            return static::getResponseData('GET', 'apps/testimonials', $data);
+        });
     }
 
     public function getWidgetsOfModules($data = [])
     {
         $key = 'apps.widgets.' . $this->getDataKeyOfModules($data);
 
-        $widgets = Cache::get($key);
-
-        if (! empty($widgets)) {
-            return $widgets;
-        }
-
-        $widgets = static::getResponseData('GET', 'apps/widgets');
-
-        Cache::put($key, $widgets, Date::now()->addHour());
-
-        return $widgets;
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            return static::getResponseData('GET', 'apps/widgets');
+        });
     }
 
     public function getModulesByWidget($alias, $data = [])
     {
         $key = 'apps.widgets.' . $alias . '.' . $this->getDataKeyOfModules($data);
 
-        $widget = Cache::get($key);
-
-        if (! empty($widget)) {
-            return $widget;
-        }
-
-        $widget = static::getResponseData('GET', 'apps/widgets/' . $alias, $data);
-
-        Cache::put($key, $widget, Date::now()->addHour());
-
-        return $widget;
+        return Cache::remember($key, Date::now()->addHours(6), function () use ($alias, $data) {
+            return static::getResponseData('GET', 'apps/widgets/' . $alias, $data);
+        });
     }
 
     public function getCoreVersion()
@@ -439,24 +415,7 @@ trait Modules
             return false;
         }
 
-        // Check if module is installed in cloud
-        if (request()->getHost() == 'app.akaunting.com') {
-            $modules = Cache::get('cloud.companies.' . company_id() . '.modules.installed', []);
-
-            if (in_array($alias, $modules)) {
-                return true;
-            }
-        }
-
-        if (module($alias)->disabled()) {
-            return false;
-        }
-
-        if (! Module::alias($alias)->enabled()->first()) {
-            return false;
-        }
-
-        return true;
+        return module($alias)->enabled();
     }
 
     public function moduleIsDisabled($alias): bool
@@ -464,90 +423,88 @@ trait Modules
         return ! $this->moduleIsEnabled($alias);
     }
 
+    public function loadSubscriptions()
+    {
+        $key = 'apps.subscriptions';
+
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            $data = [];
+
+            if (! is_cloud()) {
+                $data['headers'] = [
+                    'X-Akaunting-Modules' => implode(',', module()->getAvailable()),
+                ];
+            }
+
+            return (array) static::getResponseData('GET', 'apps/subscriptions', $data);
+        });
+    }
+
     public function loadSuggestions()
     {
         $key = 'apps.suggestions';
 
-        $data = Cache::get($key);
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            $data = [];
 
-        if (! empty($data)) {
+            $suggestions = (array) static::getResponseData('GET', 'apps/suggestions');
+
+            foreach ($suggestions as $suggestion) {
+                $data[$suggestion->path] = $suggestion;
+            }
+
             return $data;
-        }
-
-        $data = [];
-
-        if (! $suggestions = static::getResponseData('GET', 'apps/suggestions')) {
-            return $data;
-        }
-
-        foreach ($suggestions as $suggestion) {
-            $data[$suggestion->path] = $suggestion;
-        }
-
-        Cache::put($key, $data, Date::now()->addHour(6));
-
-        return $data;
+        });
     }
 
     public function loadNotifications()
     {
         $key = 'apps.notifications';
 
-        $data = Cache::get($key);
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            $data = [];
 
-        if (! empty($data)) {
+            $notifications = (array) static::getResponseData('GET', 'apps/notifications');
+
+            foreach ($notifications as $notification) {
+                $data[$notification->path][] = $notification;
+            }
+
             return $data;
-        }
-
-        $data = [];
-
-        if (! $notifications = static::getResponseData('GET', 'apps/notifications')) {
-            return $data;
-        }
-
-        foreach ($notifications as $notification) {
-            $data[$notification->path][] = $notification;
-        }
-
-        Cache::put($key, $data, Date::now()->addHour(6));
-
-        return $data;
+        });
     }
 
     public function loadTips()
     {
         $key = 'apps.tips';
 
-        $data = Cache::get($key);
+        return Cache::remember($key, Date::now()->addHours(6), function () {
+            $data = [];
 
-        if (! empty($data)) {
+            $tips = (array) static::getResponseData('GET', 'apps/tips');
+
+            foreach ($tips as $tip) {
+                $data[$tip->path][] = $tip;
+            }
+
             return $data;
+        });
+    }
+
+    public function getSubscription($alias)
+    {
+        $data = $this->loadSubscriptions();
+
+        if (! empty($data) && array_key_exists($alias, $data)) {
+            return $data[$alias];
         }
 
-        $data = [];
-
-        if (! $tips = static::getResponseData('GET', 'apps/tips')) {
-            return $data;
-        }
-
-        foreach ($tips as $tip) {
-            $data[$tip->path][] = $tip;
-        }
-
-        Cache::put($key, $data, Date::now()->addHour(6));
-
-        return $data;
+        return false;
     }
 
     public function getSuggestions($path)
     {
-        $key = 'apps.suggestions';
-
-        $data = Cache::get($key);
-
-        if (empty($data)) {
-            $data = $this->loadSuggestions();
-        }
+        $data = $this->loadSuggestions();
 
         if (! empty($data) && array_key_exists($path, $data)) {
             return $data[$path];
@@ -558,13 +515,7 @@ trait Modules
 
     public function getNotifications($path): array
     {
-        $key = 'apps.notifications';
-
-        $data = Cache::get($key);
-
-        if (empty($data)) {
-            $data = $this->loadNotifications();
-        }
+        $data = $this->loadNotifications();
 
         if (! empty($data) && array_key_exists($path, $data)) {
             return (array) $data[$path];
@@ -575,13 +526,7 @@ trait Modules
 
     public function getTips($path): array
     {
-        $key = 'apps.tips';
-
-        $data = Cache::get($key);
-
-        if (empty($data)) {
-            $data = $this->loadTips();
-        }
+        $data = $this->loadTips();
 
         if (! empty($data) && array_key_exists($path, $data)) {
             return (array) $data[$path];

@@ -10,6 +10,12 @@ return [
     'billing'                   => 'Facturació',
     'advanced'                  => 'Avançat',
 
+    'item_price_hidden'         => 'Aquesta columna no és visible pel teu/teva :type.',
+
+    'actions' => [
+        'cancel'                => 'Cancel·la',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b> Tu </b> has marcat aquesta factura com',
         'services'              => 'Serveis',
@@ -83,4 +89,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'No hi ha cap fitxer adjunt a aquest/a :type.',
 ];

@@ -1,5 +1,5 @@
 <x-form.container>
-    <x-form 
+    <x-form
         id="{{ $formId }}"
         :route="$formRoute"
         method="{{ $formMethod }}"
@@ -15,6 +15,10 @@
 
         @if (! $hideSectionAddress)
             <x-contacts.form.address type="{{ $type }}" />
+        @endif
+
+        @if (! $hideSectionPersons)
+            <x-contacts.form.persons type="{{ $type }}" />
         @endif
 
         <x-form.input.hidden name="type" value="{{ $type }}" />

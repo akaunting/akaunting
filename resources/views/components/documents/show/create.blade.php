@@ -3,7 +3,8 @@
         <x-show.accordion.head
             title="{{ trans('general.create') }}"
             description="{!! trans($description, [
-                'user' => $document->owner->name,
+                'user' => $user_name,
+                'type' => $type_lowercase,
                 'date' => $created_date,
             ]) !!}"
         />
@@ -11,9 +12,19 @@
 
     <x-slot name="body">
         <div class="flex">
-            <x-link href="{{ route($editRoute, $document->id) }}" id="show-slider-actions-edit-{{ $document->type }}" @click="e => e.target.classList.add('disabled')">
-                {{ trans('general.edit') }}
-            </x-link>
+            @if (! $hideEdit)
+                @can($permissionUpdate)
+                    @if ($document->status != 'cancelled')
+                        <x-link href="{{ route($editRoute, $document->id) }}" id="show-slider-actions-edit-{{ $document->type }}" @click="e => e.target.classList.add('disabled')">
+                            {{ trans('general.edit') }}
+                        </x-link>
+                    @else
+                        <x-button kind="disabled" disabled="disabled">
+                            {{ trans('general.edit') }}
+                        </x-button>
+                    @endif
+                @endcan
+            @endif
         </div>
     </x-slot>
 </x-show.accordion>

@@ -29,8 +29,11 @@ return [
     'child'                 => ':url е създаден автоматично на :date',
     'message'               => 'Това е повтарящ се :type и следващия :type ще се генерира автоматично на :date',
     'message_parent'        => 'Този :type е автоматично генериран от :link',
+    'send_email_auto'       => 'Изпрати и-мейл автоматично',
 
-    'frequency_type'        => 'Повтори този :type',
+    'frequency_type'        => 'Повтори :type',
+    'custom_frequency_desc' => 'Повтори на всеки :interval :frequency
+',
     'limit_date'            => 'Създай първи :type на',
     'limit_middle'          => 'добави край',
 

@@ -15,6 +15,13 @@ class DocumentItem extends Model
 
     protected $table = 'document_items';
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['taxes'];
+
     protected $appends = ['discount'];
 
     protected $fillable = [
@@ -40,9 +47,10 @@ class DocumentItem extends Model
      * @var array
      */
     protected $casts = [
-        'price' => 'double',
-        'total' => 'double',
-        'tax' => 'double',
+        'price'         => 'double',
+        'total'         => 'double',
+        'tax'           => 'double',
+        'deleted_at'    => 'datetime',
     ];
 
     /**
@@ -92,9 +100,25 @@ class DocumentItem extends Model
         return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_TYPE);
     }
 
+    public function scopeInvoiceRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
+    }
+
     public function scopeBill(Builder $query)
     {
         return $query->where($this->qualifyColumn('type'), '=', Document::BILL_TYPE);
+    }
+
+    public function scopeBillRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::BILL_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
     }
 
     public function getDiscountAttribute(): string

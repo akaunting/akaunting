@@ -163,7 +163,7 @@
                 @if (! $hideAmount)
                 <x-table.td class="{{ $classAmount }}" kind="amount">
                     @stack('amount_td_inside_start')
-                    <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                    <x-money :amount="$item->amount" :currency="$item->currency_code" />
                     @stack('amount_td_inside_end')
                 </x-table.td>
 

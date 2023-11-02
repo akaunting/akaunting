@@ -82,7 +82,7 @@ class Taxes extends Controller
         if ($response['success']) {
             $response['redirect'] = route('taxes.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.taxes', 1)]);
 
             flash($message)->success();
         } else {
@@ -236,7 +236,7 @@ class Taxes extends Controller
 
         return response()->json($response);
     }
-    
+
     /**
      * Export the specified resource.
      *

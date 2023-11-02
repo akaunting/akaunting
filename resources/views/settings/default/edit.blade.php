@@ -10,13 +10,19 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.account name="account" not-required without-change />
+                        <x-form.group.select
+                            name="account"
+                            label="{{ trans_choice('general.accounts', 1) }}"
+                            :options="$accounts"
+                            :selected="setting('default.account')"
+                            not-required
+                        />
 
                         <x-form.group.currency name="currency" not-required />
 
-                        <x-form.group.select name="tax" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="setting('default.tax')" not-required />
+                        <x-form.group.select name="tax" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="setting('default.tax')" :clearable="'false'" not-required />
 
-                        <x-form.group.payment-method not-required />
+                        <x-form.group.payment-method :clearable="'false'" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -26,9 +32,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select remote name="income_category" label="{{ trans('settings.default.income_category') }}" :options="$sales_categories" :selected="setting('default.income_category')" remote_action="{{ route('categories.index'). '?search=type:income enabled:1' }}" sort-options="false" />
+                        <x-form.group.select remote name="income_category" label="{{ trans('settings.default.income_category') }}" :options="$sales_categories" :clearable="'false'" :selected="setting('default.income_category')" remote_action="{{ route('categories.index'). '?search=type:income enabled:1' }}" sort-options="false" />
 
-                        <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:expense enabled:1' }}" sort-options="false" />
+                        <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :clearable="'false'" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:expense enabled:1' }}" sort-options="false" />
                     </x-slot>
                 </x-form.section>
 
@@ -38,9 +44,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.locale not-required />
+                        <x-form.group.locale  :clearable="'false'" not-required />
 
-                        <x-form.group.select name="list_limit" label="{{ trans('settings.default.list_limit') }}" :options="['10' => '10', '25' => '25', '50' => '50', '100' => '100']" :selected="setting('default.list_limit')" not-required />
+                        <x-form.group.select name="list_limit" label="{{ trans('settings.default.list_limit') }}" :options="['10' => '10', '25' => '25', '50' => '50', '100' => '100']" :clearable="'false'" :selected="setting('default.list_limit')" not-required />
                     </x-slot>
                 </x-form.section>
 

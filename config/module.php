@@ -175,19 +175,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Choose what module will register as custom namespaces.
-    | Setting one to false will require you to register that part
-    | in your own Service Provider class.
+    | Autoload
     |--------------------------------------------------------------------------
+    |
+    | Here is the load classes config.
+    |
     */
-    'register' => [
-        'translations' => true,
-        /**
-         * load files on boot or register method
-         *
-         * @example boot|register
-         */
-        'files' => 'register',
+    'autoload' => [
+        'translations'  => true,
+        'files'         => 'register',
+        'composer'      => 'register',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activator
+    |--------------------------------------------------------------------------
+    |
+    | Here is the activator class.
+    |
+    */
+    'activator' => env('MODULE_ACTIVATOR', \App\Utilities\ModuleActivator::class),
 
 ];

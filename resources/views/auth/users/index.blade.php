@@ -19,7 +19,7 @@
         @if ($users->count() || request()->get('search', false))
             <x-index.container>
                 <x-index.search
-                    search-string="App\Models\Auth\User"
+                    search-string="{{ user_model_class() }}"
                     bulk-action="App\BulkActions\Auth\Users"
                 />
 
@@ -46,7 +46,7 @@
 
                     <x-table.tbody>
                         @foreach($users as $item)
-                            <x-table.tr href="{{ route('users.edit', $item->id) }}">
+                            <x-table.tr href="{{ route('users.show', $item->id) }}">
                                 <x-table.td kind="bulkaction">
                                     <x-index.bulkaction.single
                                         id="{{ $item->id }}"

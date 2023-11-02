@@ -9,6 +9,7 @@ use App\Events\Document\DocumentReceived;
 use App\Events\Document\DocumentSent;
 use App\Events\Document\DocumentViewed;
 use App\Events\Document\PaymentReceived;
+use App\Interfaces\Utility\DocumentNumber;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
@@ -70,7 +71,7 @@ class Document extends AbstractFactory
 
             return [
                 'type' => Model::INVOICE_TYPE,
-                'document_number' => $this->getDocumentNumber(Model::INVOICE_TYPE),
+                'document_number' => $this->getDocumentNumber(Model::INVOICE_TYPE, $contact),
                 'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
                 'contact_id' => $contact->id,
                 'contact_name' => $contact->name,
@@ -101,7 +102,7 @@ class Document extends AbstractFactory
 
             return [
                 'type' => Model::BILL_TYPE,
-                'document_number' => $this->getDocumentNumber(Model::BILL_TYPE),
+                'document_number' => $this->getDocumentNumber(Model::BILL_TYPE, $contact),
                 'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
                 'contact_id' => $contact->id,
                 'contact_name' => $contact->name,
@@ -207,13 +208,16 @@ class Document extends AbstractFactory
     {
         $type = $this->getRawAttribute('type') . '-recurring';
 
+        $contact = Contact::find($this->getRawAttribute('contact_id'));
+
         return $this->state([
             'type' => $type,
-            'document_number' => $this->getDocumentNumber($type),
+            'document_number' => $this->getDocumentNumber($type, $contact),
             'recurring_started_at' => $this->getRawAttribute('issued_at'),
             'recurring_frequency' => 'daily',
             'recurring_interval' => '1',
             'recurring_limit_count' => '7',
+            'recurring_send_email' => '1',
         ]);
     }
 
@@ -255,21 +259,20 @@ class Document extends AbstractFactory
             ],
         ];
 
-        return $this->state([
-            'items' => $items,
-            'recurring_frequency' => 'no',
-        ]);
+        return $this->state(['items' => $items]);
     }
 
     /**
      * Get document number
      *
      */
-    public function getDocumentNumber($type)
+    public function getDocumentNumber($type, Contact $contact)
     {
-        $document_number = $this->getNextDocumentNumber($type);
-        
-        $this->increaseNextDocumentNumber($type);
+        $utility = app(DocumentNumber::class);
+
+        $document_number = $utility->getNextNumber($type, $contact);
+
+        $utility->increaseNextNumber($type, $contact);
 
         return $document_number;
     }

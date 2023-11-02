@@ -67,8 +67,8 @@ return [
     'in_array' => 'Le champ :attribute n’existe pas dans :other.',
     'integer' => 'Le champ :attribute doit être un entier.',
     'ip' => ':attribute doit être une adresse IP valide.',
-    'ipv4' => 'L\'attribut: doit être une adresse IPv4 valide.',
-    'ipv6' => 'L\'attribut: doit être une adresse IPv6 valide.',
+    'ipv4' => 'Le champ :attribute doit être une adresse IPv4 valide.',
+    'ipv6' => 'Le champ :attribute doit être une adresse IPv6 valide.',
     'json' => ':attribute doit respecté le format JSON.',
     'lt' => [
         'array' => 'Le champ :attribute doit avoir moins de :value éléments.',
@@ -133,7 +133,7 @@ return [
     'string' => 'Le champ :attribute doit être une chaîne de caractères.',
     'timezone' => ':attribute doit être une zone valide.',
     'unique' => 'La valeur du champ :attribute est déjà utilisée.',
-    'uploaded' => 'Le fichier du champ :attribute n\'a pu être téléversé.',
+    'uploaded' => 'Le fichier du champ :attribute n\'a pu être envoyé.',
     'url' => 'Le format de l\'URL de :attribute n\'est pas valide.',
     'uuid' => 'Le champ :attribute doit être un identifiant valide',
 

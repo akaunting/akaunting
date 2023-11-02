@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Zaúčtovaná částka',
     'deposit'               => 'Vklad',
     'withdrawal'            => 'Výběr',
+    'reconciled_amount'     => 'Ověřeno',
+    'in_progress'           => 'Probíhá',
+    'save_draft'            => 'Uložit jako koncept',
+    'irreconcilable'        => 'Neověřené',
 
 ];

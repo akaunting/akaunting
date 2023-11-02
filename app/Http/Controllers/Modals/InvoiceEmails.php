@@ -28,11 +28,13 @@ class InvoiceEmails extends Controller
 
     public function create(Document $invoice): JsonResponse
     {
+        $contacts = $invoice->contact->withPersons();
+
         $notification = new Notification($invoice, 'invoice_new_customer', true);
 
         $store_route = 'modals.invoices.emails.store';
 
-        $html = view('modals.invoices.email', compact('invoice', 'notification', 'store_route'))->render();
+        $html = view('modals.invoices.email', compact('invoice', 'contacts', 'notification', 'store_route'))->render();
 
         return response()->json([
             'success' => true,

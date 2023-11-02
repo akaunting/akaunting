@@ -72,6 +72,7 @@ return [
     'attachments'           => 'Adjunt|Adjunts',
     'histories'             => 'Història|Històries',
     'your_notifications'    => 'La teva notificació|Les teves notificacions',
+    'employees'             => 'Empleat|Empleats',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
@@ -195,7 +196,7 @@ return [
     'due_on'                => 'Venç el',
     'amount_due'            => 'Quantitat',
     'financial_year'        => 'Any fiscal',
-    'created'               => 'Creat/da',
+    'created'               => 'Creat',
     'state'                 => 'Província/Estat',
     'zip_code'              => 'Codi postal',
     'parent'                => 'Pare/Mare',
@@ -228,6 +229,9 @@ return [
     'preview_mode'          => 'Mode de previsualització',
     'go_back'               => 'Torna a :type',
     'validation_error'      => 'Error de validació',
+    'dismiss'               => 'Ignora',
+    'size'                  => 'Mida',
+    'media'                 => 'Multimèdia',
 
     'card' => [
         'cards'                 => 'Tarjeta|Tarjetes',

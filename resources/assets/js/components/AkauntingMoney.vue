@@ -109,6 +109,11 @@ export default {
             default: false,
             description: "Selectbox disabled status"
         },
+        isDynamic: {
+            type: Boolean,
+            default: true,
+            description: "Currency is dynamic"
+        },
         dynamicCurrency: {
             type: Object,
             default: function () {
@@ -168,18 +173,20 @@ export default {
     mounted() {
         //this.model = this.value;
 
-        if (this.dynamicCurrency.code != this.currency.code) {
-            if (! this.dynamicCurrency.decimal) {
-                this.money = {
-                    decimal: this.dynamicCurrency.decimal_mark,
-                    thousands: this.dynamicCurrency.thousands_separator,
-                    prefix: (this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
-                    suffix: (! this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
-                    precision: parseInt(this.dynamicCurrency.precision),
-                    masked: this.masked
-                };
-            } else {
-                this.money = this.dynamicCurrency;
+        if (this.isDynamic) {
+            if (this.dynamicCurrency.code != this.currency.code) {
+                if (! this.dynamicCurrency.decimal) {
+                    this.money = {
+                        decimal: this.dynamicCurrency.decimal_mark,
+                        thousands: this.dynamicCurrency.thousands_separator,
+                        prefix: (this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                        suffix: (! this.dynamicCurrency.symbol_first) ? this.dynamicCurrency.symbol : '',
+                        precision: parseInt(this.dynamicCurrency.precision),
+                        masked: this.masked
+                    };
+                } else {
+                    this.money = this.dynamicCurrency;
+                }
             }
         }
 
@@ -206,7 +213,7 @@ export default {
 
     watch: {
         dynamicCurrency: function (currency) {
-            if (!currency) {
+            if (! currency) {
                 return;
             }
 

@@ -98,7 +98,7 @@
 
         @stack('end_button_start')
 
-        @if (! $hideEnd && $document->recurring)
+        @if (! $hideEnd && $document->recurring && $document->recurring->status != 'ended')
             <x-dropdown.link href="{{ route($endRoute, $document->id) }}" id="show-more-actions-end-{{ $document->type }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>
@@ -108,15 +108,13 @@
 
         @stack('button_cancelled_start')
 
-        @if (! $hideCancel)
+        @if (! $hideCancel && ! in_array($document->status, ['cancelled', 'draft']))
             @can($permissionUpdate)
                 <x-dropdown.divider />
 
-                @if ($document->status != 'cancelled')
-                    <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
-                        {{ trans('general.cancel') }}
-                    </x-dropdown.link>
-                @endif
+                <x-dropdown.link href="{{ route($cancelledRoute, $document->id) }}" id="show-more-actions-cancel-{{ $document->type }}">
+                    {{ trans('documents.actions.cancel') }}
+                </x-dropdown.link>
             @endcan
         @endif
 

@@ -5,7 +5,7 @@ return [
     'can_login'                 => 'Login erlauben?',
     'can_login_description'     => 'Senden Sie diesem Benutzer eine Einladung, sich im Client Portal anzumelden.',
     'user_created'              => 'Benutzer angelegt',
-    'client_portal_description' => 'Das Kundenportal ist ein Umfeld, in dem Sie Transaktionen und Rechnungen mit Ihren Kunden teilen können, wo Sie Beziehungen zu Ihrem Unternehmen verfolgen, bezahlen. Sie können sich jederzeit mit ihrem Passwort anmelden.',
+    'client_portal_description' => 'Das Kundenportal bietet Ihren Kunden eine Übersicht aller Beziehungen zu Ihrem Unternehmen. Nach der Anmeldung kann der Kunde alle Transaktionen und Rechnungen einsehen und bezahlen.',
 
     'error' => [
         'email'                 => 'Diese Email ist bereits in Benutzung.',
@@ -17,7 +17,7 @@ return [
     ],
 
     'form_description' => [
-        'general'               => 'Die Kontaktinformationen Ihres Kunden werden in Rechnungen und deren Profilen angezeigt. Sie können Ihren Kunden auch erlauben, sich einzuloggen, um die Rechnungen zu verfolgen, die Sie ihnen gesendet haben, indem Sie das Kästchen unten anklicken.',
+        'general'               => 'Die Kontaktinformationen des Kunden werden in Rechnungen und Profilen angezeigt. Sie können Ihren Kunden erlauben, sich anzumelden, um ausgestellte Rechnungen zu verfolgen.',
         'billing'               => 'Die Steuernummer erscheint in jeder an den Kunden ausgestellten Rechnung. Die ausgewählte Währung wird zur Standardwährung für diesen Kunden.',
         'address'               => 'Die Adresse wird für die Rechnungen benötigt, daher müssen Sie die genaue Rechnungsadresse für Ihren Kunden angeben.',
     ],

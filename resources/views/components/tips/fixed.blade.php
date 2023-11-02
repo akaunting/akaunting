@@ -12,8 +12,8 @@
 
             <div
                 @class([
-                    'float-right' => $item->align == 'right',
-                    'float-left' => $item->align == 'left',
+                    'ltr:float-right rtl:float-left' => $item->align == 'right',
+                    'ltr:float-left rtl:float-right' => $item->align == 'left',
                 ])
 
                 style="width: 200px;"

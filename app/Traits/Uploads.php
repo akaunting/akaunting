@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use App\Models\Common\Media as MediaModel;
 use App\Utilities\Date;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MediaUploader;
 
@@ -112,14 +111,14 @@ trait Uploads
 
         $path = $media->getDiskPath();
 
-        if (Storage::missing($path)) {
+        if (! $media->fileExists()) {
             return false;
         }
 
         return $path;
     }
 
-    public function streamMedia($media)
+    public function streamMedia($media, $disposition = 'attachment')
     {
         return response()->streamDownload(
             function() use ($media) {
@@ -134,6 +133,7 @@ trait Uploads
                 'Content-Type'      => $media->mime_type,
                 'Content-Length'    => $media->size,
             ],
+            $disposition,
         );
     }
 

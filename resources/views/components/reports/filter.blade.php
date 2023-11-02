@@ -65,7 +65,7 @@
             }
 
             if ($key == 'year') {
-                $default_value = \Date::now()->year;
+                //$default_value = \Date::now()->year;
 
                 $operators = [
                     'equal'     => true,
@@ -81,6 +81,7 @@
                 'url'       => $url,
                 'values'    => $filter_values,
                 'operators' => $operators,
+                'sort_options' => ($key == 'date_range') ? false : true,
             ];
 
             if (! is_null($default_value)) {

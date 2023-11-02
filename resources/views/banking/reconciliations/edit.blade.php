@@ -64,7 +64,7 @@
 
                                 @if ($item->isIncome())
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
-                                        <x-money :amount="$item->amount" hidden-mobile :currency="$item->currency_code" convert />
+                                        <x-money :amount="$item->amount" hidden-mobile :currency="$item->currency_code" />
                                     </x-table.td>
 
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
@@ -76,7 +76,7 @@
                                     </x-table.td>
 
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
-                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                        <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                     </x-table.td>
                                 @endif
 
@@ -123,7 +123,7 @@
 
                                 <td id="closing-balance" class="w-3/12 text-right">
                                     <span class="w-auto pl-6 text-sm">
-                                        <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
+                                        <x-money :amount="$opening_balance" :currency="$account->currency_code" />
                                     </span>
                                 </td>
                             </tr>

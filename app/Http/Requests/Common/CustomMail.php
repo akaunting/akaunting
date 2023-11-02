@@ -14,9 +14,10 @@ class CustomMail extends FormRequest
     public function rules()
     {
         return [
-            'to'        => 'required|email',
-            'subject'   => 'required|string',
-            'body'      => 'required|string',
+            'to'            => 'required|array|max:' . config('app.throttles.email.minute'),
+            'subject'       => 'required|string',
+            'body'          => 'required|string',
+            'attachments.*' => 'nullable|boolean',
         ];
     }
 }

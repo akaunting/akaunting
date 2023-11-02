@@ -33,7 +33,7 @@ class AddBasis extends Listener
         $event->class->filters['operators']['basis'] = [
             'equal'     => true,
             'not_equal' => false,
-            'rande'     => false,
+            'range'     => false,
         ];
     }
 }

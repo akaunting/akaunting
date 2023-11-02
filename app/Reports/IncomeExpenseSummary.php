@@ -64,7 +64,7 @@ class IncomeExpenseSummary extends Report
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'transactions', 'items')->accrued(), ['date_field' => 'issued_at'])->get();
                 Recurring::reflect($invoices, 'issued_at');
                 $this->setTotals($invoices, 'issued_at', false, 'income');
 
@@ -74,7 +74,7 @@ class IncomeExpenseSummary extends Report
                 $this->setTotals($incomes, 'paid_at', false, 'income');
 
                 // Bills
-                $bills = $this->applyFilters(Document::bill()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                $bills = $this->applyFilters(Document::bill()->with('recurring', 'transactions', 'items')->accrued(), ['date_field' => 'issued_at'])->get();
                 Recurring::reflect($bills, 'issued_at');
                 $this->setTotals($bills, 'issued_at', false, 'expense');
 

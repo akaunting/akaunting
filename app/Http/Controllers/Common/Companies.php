@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Common;
 
+use Akaunting\Money\Currency as MoneyCurrency;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\Company as Request;
 use App\Jobs\Common\CreateCompany;
@@ -10,11 +11,19 @@ use App\Jobs\Common\UpdateCompany;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
 use App\Traits\Users;
-use Akaunting\Money\Currency as MoneyCurrency;
 
 class Companies extends Controller
 {
     use Uploads, Users;
+
+    public function __construct()
+    {
+        // Add CRUD permission checks to all methods only remove index method for all companies list.
+        $this->middleware('permission:create-common-companies')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-common-companies')->only('show', 'edit', 'export');
+        $this->middleware('permission:update-common-companies')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-common-companies')->only('destroy');
+    }
 
     /**
      * Display a listing of the resource.
@@ -72,7 +81,7 @@ class Companies extends Controller
         if ($response['success']) {
             $response['redirect'] = route('companies.switch', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.companies', 1)]);
 
             flash($message)->success();
         } else {

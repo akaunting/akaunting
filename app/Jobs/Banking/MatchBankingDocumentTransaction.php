@@ -27,7 +27,10 @@ class MatchBankingDocumentTransaction extends Job
         $this->checkAmount();
 
         \DB::transaction(function () {
-            $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, ['document_id' => $this->model->id]));
+            $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, [
+                'document_id'   => $this->model->id,
+                'type'          => $this->transaction->type, // Set missing type get default income typr for UpdateTransaction job.
+            ]));
 
             $this->model->save();
 
@@ -42,7 +45,7 @@ class MatchBankingDocumentTransaction extends Job
         $code = $this->transaction->currency_code;
         $rate = $this->transaction->currency_rate;
 
-        $precision = config('money.' . $code . '.precision');
+        $precision = currency($code)->getPrecision();
 
         $amount = $this->transaction->amount = round($this->transaction->amount, $precision);
 
@@ -71,7 +74,7 @@ class MatchBankingDocumentTransaction extends Job
                 $error_amount = round($converted_amount, $precision);
             }
 
-            $message = trans('messages.error.over_match', ['type' => ucfirst($this->model->type), 'amount' => money($error_amount, $code, true)]);
+            $message = trans('messages.error.over_match', ['type' => ucfirst($this->model->type), 'amount' => money($error_amount, $code)]);
 
             throw new \Exception($message);
         } else {
@@ -83,7 +86,7 @@ class MatchBankingDocumentTransaction extends Job
 
     protected function createHistory(): void
     {
-        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code, true)->format() . ' ' . trans_choice('general.payments', 1);
+        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code)->format() . ' ' . trans_choice('general.payments', 1);
 
         $this->dispatch(new CreateDocumentHistory($this->model, 0, $history_desc));
     }

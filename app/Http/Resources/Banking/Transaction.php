@@ -7,6 +7,7 @@ use App\Http\Resources\Common\Contact;
 use App\Http\Resources\Setting\Category;
 use App\Http\Resources\Setting\Currency;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Banking\TransactionTax;
 
 class Transaction extends JsonResource
 {
@@ -25,7 +26,7 @@ class Transaction extends JsonResource
             'account_id' => $this->account_id,
             'paid_at' => $this->paid_at->toIso8601String(),
             'amount' => $this->amount,
-            'amount_formatted' => money($this->amount, $this->currency_code, true)->format(),
+            'amount_formatted' => money($this->amount, $this->currency_code)->format(),
             'currency_code' => $this->currency_code,
             'currency_rate' => $this->currency_rate,
             'document_id' => $this->document_id,
@@ -45,6 +46,7 @@ class Transaction extends JsonResource
             'category' => new Category($this->category),
             'currency' => new Currency($this->currency),
             'contact' => new Contact($this->contact),
+            'taxes' => [static::$wrap => TransactionTax::collection($this->taxes)],
         ];
     }
 }

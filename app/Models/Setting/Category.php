@@ -35,15 +35,6 @@ class Category extends Model
     protected $fillable = ['company_id', 'name', 'type', 'color', 'enabled', 'created_from', 'created_by', 'parent_id'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'enabled' => 'boolean',
-    ];
-
-    /**
      * Sortable columns.
      *
      * @var array
@@ -231,7 +222,7 @@ class Category extends Model
 
     /**
      * Get the display name of the category.
-     */ 
+     */
     public function getDisplayNameAttribute()
     {
         return $this->name . ' (' . ucfirst($this->type) . ')';

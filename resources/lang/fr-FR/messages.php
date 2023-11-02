@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type ajouté !',
+        'created'			=> ':type créé!',
         'updated'           => ':type mise à jour !',
         'deleted'           => ':type supprimé !',
         'duplicated'        => ':type dupliqué !',
@@ -26,8 +27,10 @@ return [
         'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
         'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
+        'transfer_category' => 'Erreur: Impossible de supprimer la catégorie de transfert <b>:type</b>!',
         'change_type'       => 'Erreur : Impossible de changer le type car il est lié à :text !',
         'invalid_apikey'    => 'Erreur : La clé API saisie n\'est pas valide !',
+        'empty_apikey'      => 'Erreur: Votre clé d\'API n\'a pas été entrée! <a href=":url" class="font-bold underline underline-offset-4">Cliquez ici</a> pour enregistre votre clé d\'API.',
         'import_column'     => 'Erreur : :message Nom de la feuille : :sheet. Numéro de ligne : :line.',
         'import_sheet'      => 'Erreur : Le nom de la feuille n\'est pas valide. Veuillez télécharger le modèle de fichier.',
         'same_amount'       => 'Erreur : Le montant total de la scission doit être exactement le même que le montant total de :transaction : :amount',
@@ -35,8 +38,8 @@ return [
     ],
 
     'warning' => [
-        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :texte.',
-        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :texte.',
+        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :text.',
+        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :text.',
         'reconciled_tran'   => 'Avertissement : Vous n\'êtes pas autorisé à modifier/supprimer cette transaction car elle a été réconciliée !',
         'reconciled_doc'    => 'Avertissement : Vous n\'êtes pas autorisé à changer/supprimer :type car il a réconcilié les transactions !',
         'disable_code'      => 'Avertissement : vous n’êtes pas autorisé à désactiver ou modifier la devise de <b>:name</b> car elle est liée à :text.',

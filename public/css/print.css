@@ -17,7 +17,7 @@ th, td
 
 .print-template p {
     color: #424242;
-    margin-bottom: 9px;
+    margin-bottom: 1px;
 }
 
 .spacing {
@@ -415,7 +415,7 @@ html[dir='rtl'] .text-right
 }
 
 .w-numbers {
-    width: 93px;
+    width: 120px;
 }
 
 .lines
@@ -805,7 +805,7 @@ html[dir='rtl'] .print-heading {
     vertical-align: top;
 }
 
-@media (max-width: 480px) {
+@media only screen and (min-width: 1024px) and (max-width: 1536px) {
     .col-60 {
         display: inline-block;
         width: 50%;

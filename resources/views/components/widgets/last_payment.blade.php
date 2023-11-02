@@ -9,7 +9,7 @@
         </span>
 
         <span class="text-xl text-black my-3">
-            <x-money :amount="$payment->amount" :currency="$payment->currency_code" convert />
+            <x-money :amount="$payment->amount" :currency="$payment->currency_code" />
         </span>
     @else
         <span class="text-xs">

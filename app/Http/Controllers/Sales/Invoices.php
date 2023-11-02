@@ -3,26 +3,23 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Sales\Invoices as Export;
+use App\Exports\Sales\Invoices\Invoices as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
-use App\Imports\Sales\Invoices as Import;
+use App\Imports\Sales\Invoices\Invoices as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\SendDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
-use App\Notifications\Sale\Invoice as Notification;
 use App\Traits\Documents;
 
 class Invoices extends Controller
 {
     use Documents;
 
-    /**
-     * @var string
-     */
-    public $type = Document::INVOICE_TYPE;
+    public string $type = Document::INVOICE_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -31,9 +28,13 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Document::invoice()->with('contact', 'transactions')->collect(['document_number'=> 'desc']);
+        $this->setActiveTabForDocuments();
 
-        return $this->response('sales.invoices.index', compact('invoices'));
+        $invoices = Document::invoice()->with('contact', 'items', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['document_number'=> 'desc']);
+
+        $total_invoices = Document::invoice()->count();
+
+        return $this->response('sales.invoices.index', compact('invoices', 'total_invoices'));
     }
 
     /**
@@ -78,7 +79,7 @@ class Invoices extends Controller
 
             $response['redirect'] = route('invoices.show', $paramaters);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.invoices', 1)]);
 
             flash($message)->success();
         } else {
@@ -159,7 +160,13 @@ class Invoices extends Controller
         $response = $this->ajaxDispatch(new UpdateDocument($invoice, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('invoices.show', $response['data']->id);
+            $paramaters = ['invoice' => $response['data']->id];
+
+            if ($request->has('senddocument')) {
+                $paramaters['senddocument'] = true;
+            }
+
+            $response['redirect'] = route('invoices.show', $paramaters);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -248,6 +255,24 @@ class Invoices extends Controller
     }
 
     /**
+     * Restore the invoice.
+     *
+     * @param  Document $invoice
+     *
+     * @return Response
+     */
+    public function restoreInvoice(Document $invoice)
+    {
+        event(new \App\Events\Document\DocumentRestored($invoice));
+
+        $message = trans('documents.messages.restored', ['type' => trans_choice('general.invoices', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->back();
+    }
+
+    /**
      * Download the PDF file of invoice.
      *
      * @param  Document $invoice
@@ -260,12 +285,17 @@ class Invoices extends Controller
             return redirect()->back();
         }
 
-        // Notify the customer
-        $invoice->contact->notify(new Notification($invoice, 'invoice_new_customer', true));
+        $response = $this->ajaxDispatch(new SendDocument($invoice));
 
-        event(new \App\Events\Document\DocumentSent($invoice));
+        if ($response['success']) {
+            $message = trans('documents.messages.email_sent', ['type' => trans_choice('general.invoices', 1)]);
 
-        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.invoices', 1)]))->success();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
 
         return redirect()->back();
     }

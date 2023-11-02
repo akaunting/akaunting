@@ -71,12 +71,18 @@ class RecurringCheck extends Command
 
             $company_name = !empty($recur->company->name) ? $recur->company->name : 'Missing Company Name : ' . $recur->company->id;
 
+            $template = $recur->recurable()->where('company_id', $recur->company_id)->first();
+
             // Check if company is disabled
             if (! $recur->company->enabled) {
                 $this->info($company_name . ' company is disabled. Skipping...');
 
                 if (Date::parse($recur->company->updated_at)->format('Y-m-d') > Date::now()->subMonth(3)->format('Y-m-d')) {
                     $recur->delete();
+
+                    if ($template) {
+                        $template->delete();
+                    }
                 }
 
                 continue;
@@ -98,12 +104,16 @@ class RecurringCheck extends Command
 
                 $recur->delete();
 
+                if ($template) {
+                    $template->delete();
+                }
+
                 continue;
             }
 
             company($recur->company_id)->makeCurrent();
 
-            if (! $template = $recur->recurable) {
+            if (! $template) {
                 $this->info('Missing model.');
 
                 $recur->delete();

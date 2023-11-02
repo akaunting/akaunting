@@ -11,4 +11,12 @@ return [
         'disable_active'    => 'Hata: Etkin şirketi devre dışı bırakamazsınız. Lütfen, önce başka bir şirkete geçin!',
     ],
 
+    'form_description' => [
+        'general'           => 'Bu bilgiler oluşturduğunuz kayıtlarda görünür.',
+        'billing'           => 'Vergi numarası faturalarda görünür. Kontrol Paneli ve Raporlar varsayılan para birimini kullanır.',
+        'address'           => 'Girdiğiniz adres, kestiğiniz faturalarda ve diğer kayıtlarda kullanılacaktır.',
+    ],
+
+    'skip_step'             => 'Bu adımı atla',
+
 ];

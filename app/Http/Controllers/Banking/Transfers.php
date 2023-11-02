@@ -69,7 +69,7 @@ class Transfers extends Controller
         if ($response['success']) {
             $response['redirect'] = route('transfers.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.transfers', 1)]);
 
             flash($message)->success();
         } else {

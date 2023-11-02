@@ -9,7 +9,6 @@ use App\Traits\Transactions;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Exception\NotReadableException;
@@ -270,6 +269,12 @@ abstract class Template extends Component
             return $logo;
         }
 
+        static $content;
+
+        if (! empty($content)) {
+            return $content;
+        }
+
         $media_id = (!empty($this->transaction->contact->logo) && !empty($this->transaction->contact->logo->id)) ? $this->transaction->contact->logo->id : setting('company.logo');
 
         $media = Media::find($media_id);
@@ -277,7 +282,7 @@ abstract class Template extends Component
         if (!empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -290,7 +295,7 @@ abstract class Template extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
@@ -315,7 +320,9 @@ abstract class Template extends Component
 
         $extension = File::extension($path);
 
-        return 'data:image/' . $extension . ';base64,' . base64_encode($image);
+        $content = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $content;
     }
 
     protected function getTextContentTitle($type, $textContentTitle)

@@ -1,10 +1,15 @@
 <?php
 
 use App\Models\Common\Company;
+use App\Traits\Cloud;
 use App\Traits\DateTime;
 use App\Traits\Sources;
+use App\Traits\Modules;
+use App\Traits\SearchString;
 use App\Utilities\Date;
 use App\Utilities\Widgets;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 if (! function_exists('user')) {
     /**
@@ -34,9 +39,7 @@ if (! function_exists('company_date_format')) {
      */
     function company_date_format(): string
     {
-        $date_time = new class() {
-            use DateTime;
-        };
+        $date_time = new class() { use DateTime; };
 
         return $date_time->getCompanyDateFormat();
     }
@@ -88,6 +91,18 @@ if (! function_exists('company')) {
     }
 }
 
+if (! function_exists('module_is_enabled')) {
+    /**
+     * Check if a module is enabled.
+     */
+    function module_is_enabled(string $alias): bool
+    {
+        $module = new class() { use Modules; };
+
+        return $module->moduleIsEnabled($alias);
+    }
+}
+
 if (! function_exists('company_id')) {
     /**
      * Get id of current company.
@@ -114,9 +129,7 @@ if (! function_exists('source_name')) {
      */
     function source_name(string|null $alias = null): string
     {
-        $tmp = new class() {
-            use Sources;
-        };
+        $tmp = new class() { use Sources; };
 
         return $tmp->getSourceName(null, $alias);
     }
@@ -231,5 +244,109 @@ if (! function_exists('env_is_testing')) {
     function env_is_testing(): bool
     {
         return config('app.env') === 'testing';
+    }
+}
+
+if (! function_exists('is_local_storage')) {
+    /**
+     * Determine if the storage is local.
+     */
+    function is_local_storage(): bool
+    {
+        $driver = config('filesystems.disks.' . config('filesystems.default') . '.driver');
+
+        return $driver == 'local';
+    }
+}
+
+if (! function_exists('is_cloud_storage')) {
+    /**
+     * Determine if the storage is cloud.
+     */
+    function is_cloud_storage(): bool
+    {
+        return ! is_local_storage();
+    }
+}
+
+if (! function_exists('get_storage_path')) {
+    /**
+     * Get the path from the storage.
+     */
+    function get_storage_path(string $path = ''): string
+    {
+        return is_local_storage()
+                ? storage_path($path)
+                : Storage::path($path);
+    }
+}
+
+if (! function_exists('user_model_class')) {
+    function user_model_class(): string
+    {
+        return config('auth.providers.users.model');
+    }
+}
+
+if (! function_exists('role_model_class')) {
+    function role_model_class(): string
+    {
+        return module_is_enabled('roles')
+                ? config('roles.models.role')
+                : config('laratrust.models.role');
+    }
+}
+
+if (! function_exists('search_string_value')) {
+    function search_string_value(string $name, string $default = '', string $input = ''): string|array
+    {
+        $search = new class() { use SearchString; };
+
+        return $search->getSearchStringValue($name, $default, $input);
+    }
+}
+
+if (! function_exists('is_cloud')) {
+    function is_cloud(): bool
+    {
+        $cloud = new class() { use Cloud; };
+
+        return $cloud->isCloud();
+    }
+}
+
+if (! function_exists('request_is_api')) {
+    function request_is_api(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is(config('api.prefix') . '/*');
+    }
+}
+
+if (! function_exists('request_is_auth')) {
+    function request_is_auth(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is('auth/*');
+    }
+}
+
+if (! function_exists('request_is_signed')) {
+    function request_is_signed(Request|null $request = null, int $company_id): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is($company_id . '/signed/*');
+    }
+}
+
+if (! function_exists('request_is_portal')) {
+    function request_is_portal(Request|null $request = null, int $company_id): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is($company_id . '/portal') || $r->is($company_id . '/portal/*');
     }
 }

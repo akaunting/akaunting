@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -87,6 +87,7 @@ class Kernel extends HttpKernel
             'wizard.redirect',
             'menu.admin',
             'permission:read-admin-panel',
+            'plan.limits',
         ],
 
         'wizard' => [
@@ -145,13 +146,13 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware.
+     * The application's middleware aliases.
      *
-     * These middleware may be assigned to groups or used individually.
+     * Aliases may be used to conveniently assign middleware to routes and groups.
      *
-     * @var array
+     * @var array<string, class-string|string>
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         // Laravel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
@@ -178,6 +179,7 @@ class Kernel extends HttpKernel
         'company.identify' => \App\Http\Middleware\IdentifyCompany::class,
         'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
+        'plan.limits' => \App\Http\Middleware\RedirectIfHitPlanLimits::class,
         'menu.admin' => \App\Http\Middleware\AdminMenu::class,
         'menu.portal' => \App\Http\Middleware\PortalMenu::class,
         'date.format' => \App\Http\Middleware\DateFormat::class,

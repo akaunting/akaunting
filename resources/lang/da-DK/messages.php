@@ -26,6 +26,7 @@ return [
         'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne E-mail.',
         'no_file'           => 'Fejl: Ingen fil valgt!',
         'last_category'     => 'Fejl: Kan ikke slette sidste :type kategori!',
+        'transfer_category' => 'Fejl: Kan ikke slette overførslen <b>:type</b> kategori!',
         'change_type'       => 'Fejl: Kan ikke ændre type fordi den har :text relateret!',
         'invalid_apikey'    => 'Fejl: API nøglen er ikke gyldig!',
         'import_column'     => 'Error: :message arkets navn: :sheet. Linje nummer: :line.',

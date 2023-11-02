@@ -2,7 +2,7 @@
     <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-        <x-form.group.select multiple name="tax_ids" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="(setting('default.tax')) ? [setting('default.tax')] : null" not-required />
+        <x-form.group.tax name="tax_ids" multiple not-required without-add-new />
 
         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Feature\Wizard;
 
 use Illuminate\Http\UploadedFile;

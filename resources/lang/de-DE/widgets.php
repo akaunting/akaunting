@@ -11,9 +11,9 @@ return [
     'bank_feeds'                => 'Bankkonten verbinden',
     'currencies'                => 'Währungen',
 
-    'view_report'               => 'Bericht Anzeigen',
-    'total_unpaid_invoices'     => 'Gesamte unbezahlte Rechnungen (Debitoren)',
-    'total_unpaid_bills'        => 'Gesamte unbezahlte Rechnungen (Kreditoren)',
+    'view_report'               => 'Bericht anzeigen',
+    'total_unpaid_invoices'     => 'Gesamtbetrag offener Ausgangsrechnungen',
+    'total_unpaid_bills'        => 'Gesamtbetrag offener Eingangsrechnungen',
 
     'description' => [
         'receivables'           => 'Betrag, den Sie noch von Ihren Kunden erhalten müssen',

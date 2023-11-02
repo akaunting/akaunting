@@ -20,6 +20,7 @@ return [
         'general'               => 'Your client\'s contact information will appear in invoices and their profiles. You can also allow your clients to login to track the invoices you send them by checking the box below.',
         'billing'               => 'The tax number appears in every invoice issued to the customer. The selected currency becomes the default currency for this customer.',
         'address'               => 'The address is required for the invoices, so you need to add billing address details for your customer.',
+        'contact_persons'       => 'To include additional recipients in an email as CC, add them as contact persons.',
     ],
 
     'no_records' => [

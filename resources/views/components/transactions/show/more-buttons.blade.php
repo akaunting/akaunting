@@ -22,7 +22,12 @@
 
         @stack('connect_button_start')
 
-        @if ($transaction->is_splittable && empty($transaction->document_id) && empty($transaction->recurring) && $transaction->isNotTransferTransaction())
+        @if ($transaction->is_splittable
+            && $transaction->isNotSplitTransaction()
+            && empty($transaction->document_id)
+            && empty($transaction->recurring)
+            && $transaction->isNotTransferTransaction()
+        )
             @if (! $hideButtonConnect)
                 @can($permissionCreate)
                 <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
@@ -107,7 +112,7 @@
 
         @stack('button_end_start')
 
-        @if (! $hideButtonEnd)
+        @if (! $hideButtonEnd && $transaction->recurring && $transaction->recurring->status != 'ended')
             <x-dropdown.link href="{{ route($routeButtonEnd, $transaction->id) }}" id="show-more-actions-end-{{ $transaction->type }}">
                 {{ trans('recurring.end') }}
             </x-dropdown.link>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Banking;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Banking\RecurringTransactions as Export;
 use App\Http\Requests\Banking\Transaction as Request;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Banking\RecurringTransactions as Import;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Banking\UpdateTransaction;
 use App\Models\Banking\Account;
@@ -63,9 +66,9 @@ class RecurringTransactions extends Controller
      */
     public function create()
     {
-        $type = request()->get('type', 'income-recurring');
-        $real_type = request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type));
-        $contact_type = config('type.transaction.' . $real_type . '.contact_type');
+        $type = $this->getTypeRecurringTransaction(request()->get('type', 'income-recurring'));
+        $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
+        $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
         $number = $this->getNextTransactionNumber('-recurring');
 
@@ -97,7 +100,7 @@ class RecurringTransactions extends Controller
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.transactions', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.recurring_transactions', 1)]);
 
             flash($message)->success();
         } else {
@@ -122,11 +125,35 @@ class RecurringTransactions extends Controller
     {
         $clone = $recurring_transaction->duplicate();
 
-        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.transactions', 1)]);
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.recurring_transactions', 1)]);
 
         flash($message)->success();
 
         return redirect()->route('recurring-transactions.edit', $clone->id);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.recurring_transactions', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('recurring-transactions.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['banking', 'recurring-transactions']);
+
+            flash($response['message'])->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -139,8 +166,8 @@ class RecurringTransactions extends Controller
     public function edit(Transaction $recurring_transaction)
     {
         $type = $recurring_transaction->type;
-        $real_type = request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type));
-        $contact_type = config('type.transaction.' . $real_type . '.contact_type');
+        $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
+        $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
         $number = $this->getNextTransactionNumber('-recurring');
 
@@ -174,7 +201,7 @@ class RecurringTransactions extends Controller
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $recurring_transaction->id);
 
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.transactions', 1)]);
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.recurring_transactions', 1)]);
 
             flash($message)->success();
         } else {
@@ -186,6 +213,16 @@ class RecurringTransactions extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.recurring_transactions', 2));
     }
 
     /**

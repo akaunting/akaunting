@@ -30,7 +30,7 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Contact::customer()->with('invoices.transactions')->collect();
+        $customers = Contact::customer()->with('media', 'invoices.histories', 'invoices.totals', 'invoices.transactions', 'invoices.media')->collect();
 
         return $this->response('sales.customers.index', compact('customers'));
     }
@@ -71,7 +71,7 @@ class Customers extends Controller
         if ($response['success']) {
             $response['redirect'] = route('customers.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.customers', 1)]);
 
             flash($message)->success();
         } else {
@@ -152,7 +152,7 @@ class Customers extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($customer, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('customers.index');
+            $response['redirect'] = route('customers.show', $response['data']->id);
 
             $message = trans('messages.success.updated', ['type' => $customer->name]);
 

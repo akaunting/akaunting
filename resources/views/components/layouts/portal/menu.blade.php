@@ -1,5 +1,7 @@
 @props(['companies'])
 
+<x-loading.menu />
+
 <div class="container flex items-center py-3 mb-4 border-b-2 xl:hidden">
     <span class="material-icons text-black js-hamburger-menu">menu</span>
 
@@ -13,7 +15,12 @@
 
 <div
     x-data="{ }"
-    x-init="setTimeout(() => $refs.realMenu.classList.remove('hidden'), 1000)"
+    x-init="() => {
+        const loadEvent = 'onpagehide' in window ? 'pageshow' : 'load';
+        window.addEventListener(loadEvent, () => {
+            $refs.realMenu.classList.remove('hidden');
+        });
+    }"
     x-ref="realMenu"
     class="w-70 h-screen flex hidden fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0"
 >
@@ -49,7 +56,7 @@
             <x-tooltip id="tooltip-notifications" placement="right" message="{{ trans_choice('general.notifications', 2) }}">
                 <button type="button"
                     @class([
-                        'flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer js-menu-toggles',
+                        'flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer js-menu-toggles outline-none',
                         'animate-vibrate' => user()->unreadNotifications->count(),
                     ])
                     data-menu="notifications-menu">
@@ -65,7 +72,7 @@
             @endcan
 
             <x-tooltip id="tooltip-search" placement="right" message="{{ trans('general.search') }}">
-                <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer">
+                <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer outline-none">
                     <span name="search" class="material-icons-outlined text-purple text-2xl pointer-events-none">search</span>
                 </button>
             </x-tooltip>
@@ -88,7 +95,7 @@
                 </div>
 
                 <div class="flex ltr:ml-2 rtl:mr-2">
-                    <span class="w-28 text-left block text-base truncate">
+                    <span class="w-28 ltr:text-left rtl:text-right block text-base truncate">
                         <x-button.hover>
                             {{ Str::limit(setting('company.name'), 22) }}
                         </x-button.hover>
@@ -117,7 +124,7 @@
 
                     @can('update-common-companies')
                         <x-link href="{{ route('companies.index') }}" class="h-9 leading-9 flex items-center text-sm px-2 border-t rounded-bl rounded-br group hover:bg-purple" override="class">
-                            <div class="w-full h-full flex items-center rounded-md px-2 ">
+                            <div class="w-full h-full flex items-center rounded-md px-2">
                                 <span class="material-icons-outlined text-purple text-xl group-hover:text-white">settings</span>
                                 <span class="ltr:pl-2 rtl:pr-2 text-purple text-xs truncate group-hover:text-white">
                                     {{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}
@@ -174,11 +181,9 @@
         <span class="material-icons text-lg text-purple transform ltr:rotate-90 rtl:-rotate-90 pointer-events-none">expand_circle_down</span>
     </button>
 
-    <span data-menu-close class="material-icons absolute ltr:-right-2 rtl:right-12 transition-all top-8 text-lg text-purple cursor-pointer z-10 hidden">cancel</span>
+    <span data-menu-close class="material-icons absolute ltr:-right-2 rtl:-left-1.5 transition-all top-8 text-lg text-purple cursor-pointer z-10 hidden">cancel</span>
 
     <div class="fixed w-full h-full invisible lg:hidden js-menu-background" style="background-color: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
 </div>
-
-<x-loading.menu />
 
 @stack('menu_end')

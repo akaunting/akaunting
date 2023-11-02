@@ -80,7 +80,7 @@ trait ViewComponents
     {
         $route = '';
 
-        // if set config trasnlation config_key
+        // if set config translation config_key
         if ($route = config('type.' . static::OBJECT_TYPE . '.' . $type . '.route.' . $config_key)) {
             return $route;
         }
@@ -118,11 +118,18 @@ trait ViewComponents
         return $route;
     }
 
+    public function getRouteParamsFromConfig($type, $config_key)
+    {
+        $params = config('type.' . static::OBJECT_TYPE . '.' . $type . '.route.params.' . $config_key, []);
+
+        return $params;
+    }
+
     public function getPermissionFromConfig($type, $config_key)
     {
         $permission = '';
 
-        // if set config trasnlation config_key
+        // if set config translation config_key
         if ($permission = config('type.' . static::OBJECT_TYPE . '.' . $type . '.permission.' . $config_key)) {
             return $permission;
         }
@@ -172,7 +179,7 @@ trait ViewComponents
     {
         $category_type = '';
 
-        // if set config trasnlation config_key
+        // if set config translation config_key
         if ($category_type = config('type.' . static::OBJECT_TYPE . '.' . $type . '.category_type')) {
             return $category_type;
         }

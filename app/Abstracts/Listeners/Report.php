@@ -8,7 +8,6 @@ use App\Models\Setting\Category;
 use App\Traits\Contacts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
-use App\Utilities\Date;
 
 abstract class Report
 {
@@ -36,40 +35,37 @@ abstract class Report
                 || ($event->class->model->settings->group != $group);
     }
 
-    public function getYears()
+    public function setDateFilter($event)
     {
-        $now = Date::now();
+        $financial_year = $this->getFinancialYear();
 
-        $financial_start = setting('localisation.financial_start');
-        $setting = explode('-', $financial_start);
-        $financial_start_day = ! empty($setting[0]) ? $setting[0] : '01';
+        $start_date = request()->get('start_date', $financial_year->copy()->getStartDate()->toDateString());
+        $end_date = request()->get('end_date', $financial_year->copy()->getEndDate()->toDateString());
+        $default_value = $start_date . '-to-' . $end_date;
 
-        $format = ($financial_start == '01-01')
-                    ? $this->getYearlyDateFormat()
-                    : (($financial_start_day != '01') ? $this->getDailyDateFormat() : $this->getMonthlyDateFormat());
+        $event->class->filters['date_range'] = $this->getDateRange();
+        $event->class->filters['keys']['date_range'] = 'date_range';
+        $event->class->filters['defaults']['date_range'] = $default_value;
+        $event->class->filters['operators']['date_range'] = [
+            'equal'     => true,
+            'not_equal' => false,
+            'range'     => false,
+        ];
+    }
 
-        $years = [];
+    public function getDateRange()
+    {
+        $date_range = [];
 
-        $y = $now->addYears(2);
+        $shortcuts = $this->getDatePickerShortcuts();
 
-        for ($i = 0; $i < 10; $i++) {
-            $financial_year = $this->getFinancialYear($y->year);
-
-            if ($financial_start == '01-01') {
-                $title = $financial_year->getStartDate()->copy()->format($format);
-            } else {
-                $start = $financial_year->getStartDate()->copy()->format($format);
-                $end = $financial_year->getEndDate()->copy()->format($format);
-
-                $title = $start . ' - ' . $end;
-            }
-
-            $years[$y->year] = $title;
-
-            $y->subYear();
+        foreach ($shortcuts as $text => $shortcut) {
+            $date_range[$shortcut['start'] . '-to-' . $shortcut['end']] = $text;
         }
 
-        return $years;
+        $date_range['custom'] = trans('general.date_range.custom');
+
+        return $date_range;
     }
 
     public function getAccounts($limit = false)
@@ -143,22 +139,32 @@ abstract class Report
         ];
     }
 
+    public function getPeriod()
+    {
+        return [
+            'weekly' => trans('general.weekly'),
+            'monthly' => trans('general.monthly'),
+            'quarterly' => trans('general.quarterly'),
+            'yearly' => trans('general.yearly'),
+        ];
+    }
+
     public function applyDateFilter($event)
     {
-        $event->model->monthsOfYear($event->args['date_field']);
+        $event->model->dateFilter($event->args['date_field']);
     }
 
     public function applySearchStringFilter($event)
     {
         $input = request('search', '');
 
-        // Remove year as it's handled based on financial start
-        $search_year = 'year:' . $this->getSearchStringValue('year', '', $input);
-        $input = str_replace($search_year, '', $input);
-
         // Remove basis as it's handled based on report itself
         $search_basis = 'basis:' . $this->getSearchStringValue('basis', 'accrual', $input);
         $input = str_replace($search_basis, '', $input);
+
+        // Remove period as it's handled based on report itself
+        $search_period = 'period:' . $this->getSearchStringValue('period', 'quarterly', $input);
+        $input = str_replace($search_period, '', $input);
 
         $event->model->usingSearchString($input);
     }

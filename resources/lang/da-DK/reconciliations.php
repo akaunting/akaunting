@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Afstemt beløb',
     'deposit'               => 'Indbetal',
     'withdrawal'            => 'Udbetaling',
+    'reconciled_amount'     => 'Afstemt',
+    'in_progress'           => 'Igangværende',
+    'save_draft'            => 'Gem som kladde',
+    'irreconcilable'        => 'Uforenelige',
 
 ];

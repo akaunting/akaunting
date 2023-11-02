@@ -29,11 +29,13 @@ class Settings extends Controller
     public function store(Request $request)
     {
         DB::transaction(function () use ($request) {
+            $locale = session('locale') ?? config('app.locale');
+
             // Create company
-            Installer::createCompany($request->get('company_name'), $request->get('company_email'), session('locale'));
+            Installer::createCompany($request->get('company_name'), $request->get('company_email'), $locale);
 
             // Create user
-            Installer::createUser($request->get('user_email'), $request->get('user_password'), session('locale'));
+            Installer::createUser($request->get('user_email'), $request->get('user_password'), $locale);
         });
 
         // Make the final touches

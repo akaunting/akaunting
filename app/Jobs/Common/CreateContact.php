@@ -3,12 +3,13 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ContactCreated;
+use App\Events\Common\ContactCreating;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Jobs\Auth\CreateUser;
-use App\Models\Auth\Role;
-use App\Models\Auth\User;
+use App\Jobs\Common\CreateContactPersons;
 use App\Models\Common\Contact;
 use Illuminate\Support\Str;
 
@@ -16,6 +17,8 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Contact
     {
+        event(new ContactCreating($this->request));
+
         \DB::transaction(function () {
             if ($this->request->get('create_user', 'false') === 'true') {
                 $this->createUser();
@@ -29,7 +32,11 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
 
                 $this->model->attachMedia($media, 'logo');
             }
+
+            $this->dispatch(new CreateContactPersons($this->model, $this->request));
         });
+
+        event(new ContactCreated($this->model, $this->request));
 
         return $this->model;
     }
@@ -37,13 +44,13 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
     public function createUser(): void
     {
         // Check if user exist
-        if ($user = User::where('email', $this->request['email'])->first()) {
+        if ($user = user_model_class()::where('email', $this->request['email'])->first()) {
             $message = trans('messages.error.customer', ['name' => $user->name]);
 
             throw new \Exception($message);
         }
 
-        $customer_role_id = Role::all()->filter(function ($role) {
+        $customer_role_id = role_model_class()::all()->filter(function ($role) {
             return $role->hasPermission('read-client-portal');
         })->pluck('id')->first();
 

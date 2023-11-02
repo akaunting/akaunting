@@ -49,10 +49,10 @@ return [
         'draft'             => 'Ini adalah <b>DRAFT</b> tagihan dan akan terlihat di grafik setelah dibayarkan.',
 
         'status' => [
-            'created'       => 'Dibuat pada:date',
+            'created'       => 'Dibuat pada :date',
             'receive' => [
                 'draft'     => 'Tidak terkirim',
-                'received'  => 'Diterima pada:date',
+                'received'  => 'Diterima pada :date',
             ],
             'paid' => [
                 'await'     => 'Menunggu pembayaran',

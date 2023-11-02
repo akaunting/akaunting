@@ -11,8 +11,6 @@ class Reconciliation extends Model
 
     protected $table = 'reconciliations';
 
-    protected $dates = ['deleted_at', 'started_at', 'ended_at'];
-
     /**
      * Attributes that should be mass-assignable.
      *
@@ -26,9 +24,12 @@ class Reconciliation extends Model
      * @var array
      */
     protected $casts = [
-        'closing_balance' => 'double',
-        'reconciled' => 'boolean',
-        'transactions' => 'array',
+        'closing_balance'   => 'double',
+        'reconciled'        => 'boolean',
+        'transactions'      => 'array',
+        'deleted_at'        => 'datetime',
+        'started_at'        => 'datetime',
+        'ended_at'          => 'datetime',
     ];
 
     /**
@@ -40,7 +41,7 @@ class Reconciliation extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\Models\Banking\Account');
+        return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
     }
 
     /**

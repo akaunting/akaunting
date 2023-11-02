@@ -6,9 +6,9 @@ use App\Abstracts\Notification;
 use App\Models\Banking\Transaction as Model;
 use App\Models\Setting\EmailTemplate;
 use App\Traits\Transactions;
+use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 
 class Transaction extends Notification
 {
@@ -36,9 +36,16 @@ class Transaction extends Notification
     public $attach_pdf;
 
     /**
+     * List of transaction attachments to attach when sending the email.
+     *
+     * @var array
+     */
+    public $attachments;
+
+    /**
      * Create a notification instance.
      */
-    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [])
+    public function __construct(Model $transaction = null, string $template_alias = null, bool $attach_pdf = false, array $custom_mail = [], $attachments = [])
     {
         parent::__construct();
 
@@ -46,6 +53,7 @@ class Transaction extends Notification
         $this->template = EmailTemplate::alias($template_alias)->first();
         $this->attach_pdf = $attach_pdf;
         $this->custom_mail = $custom_mail;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -61,11 +69,28 @@ class Transaction extends Notification
 
         $message = $this->initMailMessage();
 
+        $func = is_local_storage() ? 'fromPath' : 'fromStorage';
+
         // Attach the PDF file
         if ($this->attach_pdf) {
-            $message->attach($this->storeTransactionPdfAndGetPath($this->transaction), [
-                'mime' => 'application/pdf',
-            ]);
+            $path = $this->storeTransactionPdfAndGetPath($this->transaction);
+            $file = Attachment::$func($path)->withMime('application/pdf');
+
+            $message->attach($file);
+        }
+
+        // Attach selected attachments
+        if (! empty($this->transaction->attachment)) {
+            foreach ($this->transaction->attachment as $attachment) {
+                if (! in_array($attachment->id, $this->attachments)) {
+                    continue;
+                }
+
+                $path = is_local_storage() ? $attachment->getAbsolutePath() : $attachment->getDiskPath();
+                $file = Attachment::$func($path)->withMime($attachment->mime_type);
+
+                $message->attach($file);
+            }
         }
 
         return $message;
@@ -111,12 +136,18 @@ class Transaction extends Notification
 
     public function getTagsReplacement(): array
     {
+        $route_params = [
+            'company_id'    => $this->transaction->company_id,
+            'transaction'   => $this->transaction->id,
+            'payment'       => $this->transaction->id,
+        ];
+
         return [
-            money($this->transaction->amount, $this->transaction->currency_code, true),
+            money($this->transaction->amount, $this->transaction->currency_code),
             company_date($this->transaction->paid_at),
-            URL::signedRoute('signed.payments.show', [$this->transaction->id]),
-            route('transactions.show', $this->transaction->id),
-            route('portal.payments.show', $this->transaction->id),
+            URL::signedRoute('signed.payments.show', $route_params),
+            route('transactions.show', $route_params),
+            route('portal.payments.show', $route_params),
             $this->transaction->contact->name,
             $this->transaction->company->name,
             $this->transaction->company->email,

@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\AccountDeleting;
+use App\Events\Banking\AccountDeleted;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteAccount extends Job implements ShouldDelete
@@ -11,9 +13,13 @@ class DeleteAccount extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new AccountDeleting($this->model));
+
         \DB::transaction(function () {
             $this->model->delete();
         });
+
+        event(new AccountDeleted($this->model));
 
         return true;
     }
@@ -34,6 +40,7 @@ class DeleteAccount extends Job implements ShouldDelete
     {
         $rels = [
             'transactions' => 'transactions',
+            'reconciliations' => 'reconciliations',
         ];
 
         $relationships = $this->countRelationships($this->model, $rels);

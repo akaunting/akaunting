@@ -8,7 +8,7 @@ return [
     'total_price'           => 'Prix total',
     'due_date'              => 'Date d\'échéance',
     'order_number'          => 'Numéro de commande',
-    'bill_from'             => 'Facture de',
+    'bill_from'             => 'Fournisseur',
 
     'quantity'              => 'Quantité',
     'price'                 => 'Prix',
@@ -42,11 +42,11 @@ return [
     'make_payment'          => 'Faire un paiement',
 
     'form_description' => [
-        'billing'           => 'Les détails de facturation apparaissent dans votre facture. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous comptez payer comme date d\'échéance.',
+        'billing'           => 'Les détails de facturation apparaissent dans vos factures à régler. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous comptez payer comme date d\'échéance.',
     ],
 
     'messages' => [
-        'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisée dans les graphiques une fois reçue.',
+        'draft'             => 'Ceci est un <b>BROUILLON</b> d\'une facture à régler et sera comptabilisée dans les graphiques une fois reçue.',
 
         'status' => [
             'created'       => 'Créée le :date',

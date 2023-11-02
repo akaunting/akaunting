@@ -109,6 +109,10 @@ trait Users
 
         $company_id = company_id() ?: $this->getFirstCompanyOfUser()?->id;
 
+        if (empty($company_id)) {
+            return route('login');
+        }
+
         return route($route_name, ['company_id' => $company_id]);
     }
 

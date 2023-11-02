@@ -14,7 +14,7 @@
     </x-slot>
 
     <x-slot name="moreButtons">
-        <x-documents.index.more-buttons type="invoice-recurring" hide-export />
+        <x-documents.index.more-buttons type="invoice-recurring" />
     </x-slot>
 
     <x-slot name="content">

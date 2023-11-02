@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\TransactionDeleting;
+use App\Events\Banking\TransactionDeleted;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteTransaction extends Job implements ShouldDelete
@@ -11,10 +13,15 @@ class DeleteTransaction extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new TransactionDeleting($this->model));
+
         \DB::transaction(function () {
-            $this->model->recurring()->delete();
+            $this->deleteRelationships($this->model, ['recurring', 'taxes']);
+
             $this->model->delete();
         });
+
+        event(new TransactionDeleted($this->model));
 
         return true;
     }

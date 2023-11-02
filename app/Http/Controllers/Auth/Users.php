@@ -9,8 +9,6 @@ use App\Jobs\Auth\CreateInvitation;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
-use App\Models\Auth\Role;
-use App\Models\Auth\User;
 use App\Traits\Cloud;
 use App\Traits\Uploads;
 use Illuminate\Http\Request as BaseRequest;
@@ -37,7 +35,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = User::with('media', 'roles')->collect();
+        $users = user_model_class()::with('media', 'roles')->collect();
 
         return $this->response('auth.users.index', compact('users'));
     }
@@ -47,9 +45,21 @@ class Users extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show($user_id)
     {
-        return redirect()->route('users.index');
+        $user = user_model_class()::find($user_id);
+
+        $u = new \stdClass();
+        $u->role = $user->roles()->first();
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
+
+        $companies = $user->companies()->collect();
+
+        return view('auth.users.show', compact('user', 'landing_pages', 'companies'));
     }
 
     /**
@@ -66,8 +76,14 @@ class Users extends Controller
 
         $landing_pages = $u->landing_pages;
 
-        $roles = Role::all()->reject(function ($r) {
-            return $r->hasPermission('read-client-portal');
+        $roles = role_model_class()::all()->reject(function ($r) {
+            $status = $r->hasPermission('read-client-portal');
+
+            if ($r->name == 'employee') {
+                $status = true;
+            }
+
+            return $status;
         })->pluck('display_name', 'id');
 
         $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
@@ -89,7 +105,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new CreateUser($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('users.index');
+            $response['redirect'] = route('users.show', $response['data']->id);
 
             $message = trans('messages.success.invited', ['type' => trans_choice('general.users', 1)]);
 
@@ -108,12 +124,14 @@ class Users extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function edit(User $user)
+    public function edit($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         if (user()->cannot('read-auth-users') && ($user->id != user()->id)) {
             abort(403);
         }
@@ -128,13 +146,22 @@ class Users extends Controller
 
         if ($user->isCustomer()) {
             // Show only roles with customer permission
-            $roles = Role::all()->reject(function ($r) {
-                return !$r->hasPermission('read-client-portal');
+            $roles = role_model_class()::all()->reject(function ($r) {
+                return ! $r->hasPermission('read-client-portal');
             })->pluck('display_name', 'id');
+        } else if ($user->isEmployee()) {
+            // Show only roles with employee permission
+            $roles = role_model_class()::where('name', 'employee')->get()->pluck('display_name', 'id');
         } else {
             // Don't show roles with customer permission
-            $roles = Role::all()->reject(function ($r) {
-                return $r->hasPermission('read-client-portal');
+            $roles = role_model_class()::all()->reject(function ($r) {
+                $status = $r->hasPermission('read-client-portal');
+
+                if ($r->name == 'employee') {
+                    $status = true;
+                }
+
+                return $status;
             })->pluck('display_name', 'id');
         }
 
@@ -162,13 +189,15 @@ class Users extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  User $user
+     * @param  $user_id
      * @param  Request $request
      *
      * @return Response
      */
-    public function update(User $user, Request $request)
+    public function update($user_id, Request $request)
     {
+        $user = user_model_class()::find($user_id);
+
         if (user()->cannot('update-auth-users') && ($user->id != user()->id)) {
             abort(403);
         }
@@ -176,7 +205,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, $request));
 
         if ($response['success']) {
-            $response['redirect'] = user()->can('read-auth-users') ? route('users.index') : route('users.edit', $user->id);
+            $response['redirect'] = user()->can('read-auth-users') ? route('users.show', $user->id) : route('users.edit', $user->id);
 
             $message = trans('messages.success.updated', ['type' => $user->name]);
 
@@ -195,12 +224,14 @@ class Users extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function enable(User $user)
+    public function enable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
@@ -213,12 +244,14 @@ class Users extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function disable(User $user)
+    public function disable($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
@@ -231,12 +264,14 @@ class Users extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         $response = $this->ajaxDispatch(new DeleteUser($user));
 
         $response['redirect'] = route('users.index');
@@ -257,12 +292,14 @@ class Users extends Controller
     /**
      * Mark upcoming bills notifications are read and redirect to bills page.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function readUpcomingBills(User $user)
+    public function readUpcomingBills($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         // Mark bill notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not a bill notification
@@ -279,12 +316,14 @@ class Users extends Controller
     /**
      * Mark overdue invoices notifications are read and redirect to invoices page.
      *
-     * @param  User $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function readOverdueInvoices(User $user)
+    public function readOverdueInvoices($user_id)
     {
+        $user = user_model_class()::find($user_id);
+
         // Mark invoice notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not an invoice notification
@@ -309,13 +348,13 @@ class Users extends Controller
         if (! empty($column) && ! empty($value)) {
             switch ($column) {
                 case 'id':
-                    $user = User::find((int) $value);
+                    $user = user_model_class()::find((int) $value);
                     break;
                 case 'email':
-                    $user = User::where('email', $value)->first();
+                    $user = user_model_class()::where('email', $value)->first();
                     break;
                 default:
-                    $user = User::where($column, $value)->first();
+                    $user = user_model_class()::where($column, $value)->first();
             }
 
             $data = $user;
@@ -333,15 +372,15 @@ class Users extends Controller
     /**
      * Process request for reinviting the specified resource.
      *
-     * @param  User  $user
+     * @param  $user_id
      *
      * @return Response
      */
-    public function invite(User $user)
+    public function invite($user_id)
     {
-        $response = $this->ajaxDispatch(new CreateInvitation($user, company()));
+        $user = user_model_class()::find($user_id);
 
-        $response['redirect'] = route('users.index');
+        $response = $this->ajaxDispatch(new CreateInvitation($user, company()));
 
         if ($response['success']) {
             $message = trans('messages.success.invited', ['type' => trans_choice('general.users', 1)]);
@@ -353,13 +392,13 @@ class Users extends Controller
             flash($message)->error()->important();
         }
 
-        return response()->json($response);
+        return redirect()->route('users.index');
     }
 
     /**
      * Process request for reinviting the specified resource.
      *
-     * @param  Role  $role
+     * @param  role_model_class()  $role
      *
      * @return Response
      */
@@ -368,7 +407,7 @@ class Users extends Controller
         $role = false;
 
         if ($request->has('role_id')) {
-            $role = Role::find($request->get('role_id'));
+            $role = role_model_class()::find($request->get('role_id'));
         }
 
         $u = new \stdClass();

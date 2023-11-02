@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'Година|Години',
+    'date_range'                    => 'Диапазон от време',
     'preferences'                   => 'Предпочитание|Предпочитания',
-    'this_year'                     => 'Текущата година',
-    'previous_year'                 => 'Миналата година',
-    'this_quarter'                  => 'Текущото тримесечие',
-    'previous_quarter'              => 'Предходното тримесечие',
-    'last_12_months'                => 'Последните 12 месеца',
     'profit_loss'                   => 'Печалба & загуба',
     'income_summary'                => 'Приходи',
     'expense_summary'               => 'Разходи',

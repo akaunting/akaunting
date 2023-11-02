@@ -19,6 +19,8 @@ class Script extends Component
 
     public $contact;
 
+    public $contact_persons;
+
     public $currencies;
 
     public $currency_code;
@@ -43,6 +45,7 @@ class Script extends Component
     ) {
         $this->type = $type;
         $this->contact = $contact;
+        $this->contact_persons = ($contact) ? $contact->contact_persons : [];
         $this->currencies = $this->getCurrencies($currencies);
         $this->currency_code = ($contact) ? $contact->currency_code : default_currency();
 

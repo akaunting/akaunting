@@ -33,7 +33,7 @@
 
                                     <span v-if="item.default" class="cursor-pointer">
                                         <span class="relative auto" data-tooltip-target="wizard-currency-default" data-tooltip-placement="right">
-                                            <span class="material-icons-round text-purple text-sm ml-2">lock</span>
+                                            <span class="material-icons-round text-purple text-sm ltr:ml-2 rtl:mr-2">lock</span>
                                         </span>
 
                                         <div id="wizard-currency-default" role="tooltip"

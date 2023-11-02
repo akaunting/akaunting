@@ -81,6 +81,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'throw' => false,
         ],
 
         'public' => [
@@ -88,6 +89,7 @@ return [
             'root' => storage_path('app/public'),
             'url' => app()->runningInConsole() ? '' : url('/') . '/storage',
             'visibility' => 'public',
+            'throw' => false,
         ],
 
         'temp' => [
@@ -95,6 +97,7 @@ return [
             'root' => storage_path('app/temp'),
             'url' => app()->runningInConsole() ? '' : url('/') . '/temp',
             'visibility' => 'private',
+            'throw' => false,
         ],
 
         'uploads' => [
@@ -102,6 +105,7 @@ return [
             'root' => storage_path('app/uploads'),
             'url' => app()->runningInConsole() ? '' : url('/') . '/uploads',
             'visibility' => 'private',
+            'throw' => false,
         ],
 
         's3' => [
@@ -115,6 +119,7 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'visibility' => env('AWS_VISIBILITY', 'private'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
         ],
 
     ],

@@ -31,7 +31,7 @@ class StorageTempClear extends Command
     {
         $filesystem = app(Filesystem::class);
 
-        $path = storage_path('app/temp');
+        $path = get_storage_path('app/temp');
 
         foreach ($filesystem->glob("{$path}/*") as $file) {
             $filesystem->delete($file);

@@ -26,5 +26,7 @@
 
     @stack('js')
 
+    @stack('scripts')
+
     @stack('head_end')
 </head>

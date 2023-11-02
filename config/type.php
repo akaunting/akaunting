@@ -110,6 +110,10 @@ return [
                 'document'              => 'invoices.index',
                 'recurring'             => 'recurring-invoices.index',
                 //'create'              => 'invoices.create', // if you change route, you can write full path
+                'params' => [
+                    'unpaid'            => ['search' => 'status:sent,viewed,partial'],
+                    'draft'             => ['search' => 'status:draft'],
+                ],
             ],
             'permission' => [
                 'prefix'                => 'invoices', // this controller file name.
@@ -129,7 +133,7 @@ return [
             'transaction_type'          => 'income',
             'contact_type'              => 'customer', // use contact type
             'inventory_stock_action'    => 'decrease', // decrease stock in stock tracking
-            'transaction'               => [
+            'transaction' => [
                 'email_template'        => 'invoice_payment_customer', // use email template
             ],
             'hide'                      => [], // for document items
@@ -209,6 +213,10 @@ return [
                 'document'              => 'bills.index',
                 'recurring'             => 'recurring-bills.index',
                 //'create'              => 'bilss.create',
+                'params' => [
+                    'unpaid'            => ['search' => 'status:received,partial'],
+                    'draft'             => ['search' => 'status:draft'],
+                ],
             ],
             'permission' => [
                 'prefix'                => 'bills',
@@ -227,7 +235,7 @@ return [
             'transaction_type'          => 'expense',
             'contact_type'              => 'vendor',
             'inventory_stock_action'    => 'increase', // increases stock in stock tracking
-            'transaction'   => [
+            'transaction' => [
                 'email_template'        => 'invoice_payment_customer', // use email template
             ],
             'hide'                      => [],
@@ -278,7 +286,7 @@ return [
             'category_type'             => 'expense',
             'transaction_type'          => 'expense',
             'contact_type'              => 'vendor',
-            'inventory_stock_action'    => 'increase', // increases stock in stock tracking 
+            'inventory_stock_action'    => 'increase', // increases stock in stock tracking
             'hide'                      => [],
             'notification' => [
 

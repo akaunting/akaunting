@@ -90,13 +90,18 @@ class Bill extends Notification
 
     public function getTagsReplacement(): array
     {
+        $route_params = [
+            'company_id'    => $this->bill->company_id,
+            'bill'          => $this->bill->id,
+        ];
+
         return [
             $this->bill->document_number,
-            money($this->bill->amount, $this->bill->currency_code, true),
-            money($this->bill->amount_due, $this->bill->currency_code, true),
+            money($this->bill->amount, $this->bill->currency_code),
+            money($this->bill->amount_due, $this->bill->currency_code),
             company_date($this->bill->issued_at),
             company_date($this->bill->due_at),
-            route('bills.show', $this->bill->id),
+            route('bills.show', $route_params),
             $this->bill->contact_name,
             $this->bill->company->name,
             $this->bill->company->email,

@@ -19,6 +19,8 @@ class DeleteButton extends Component
 
     public $modelTable;
 
+    public $modelTitle;
+
     /** @var string */
     public $text;
 
@@ -48,7 +50,7 @@ class DeleteButton extends Component
      */
     public function __construct(
         $label = '',
-        $model = false, $modelId = 'id', $modelName = 'name', string $modelTable = '',
+        $model = false, $modelId = 'id', $modelName = 'name', string $modelTitle = '', string $modelTable = '',
         $text = '', $type = '',
         $title = '',  $message = '', 
         $action = '', $route = '', $url = '',
@@ -59,6 +61,7 @@ class DeleteButton extends Component
         $this->model = $model;
         $this->modelId = $modelId;
         $this->modelName = $modelName;
+        $this->modelTitle = $modelTitle;
         $this->modelTable = $model->getTable();
 
         $this->text = $text;
@@ -229,15 +232,21 @@ class DeleteButton extends Component
 
     protected function getModelTitle()
     {
-        if (! empty($this->text)) {
-            return $this->text;
+        if (! empty($this->modelTitle)) {
+            return $this->modelTitle;
         }
 
         $group = 'core';
         $page = '';
 
         if (! empty($this->route)) {
-            $paths = explode('.', $this->route);
+            if (is_array($this->route)) {
+                $string = $this->route[0];
+            } else {
+                $string = $this->route;
+            }
+
+            $paths = explode('.', $string);
 
             $page = $paths[0];
         } elseif (! empty($this->url)) {

@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Končna vrednost',
     'deposit'               => 'Polog',
     'withdrawal'            => 'Izplačilo',
+    'reconciled_amount'     => 'Usklajeno',
+    'in_progress'           => 'V teku',
+    'save_draft'            => 'Shrani kot osnutek',
+    'irreconcilable'        => 'Nezdružljivo',
 
 ];

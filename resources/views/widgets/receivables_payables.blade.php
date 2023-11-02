@@ -43,7 +43,7 @@
                                         {{ trans('widgets.periods.' . $name) }}
                                     </div>
 
-                                    <div class="pl-12 text-sm">
+                                    <div class="ltr:pl-10 rtl:pr-10 text-sm">
                                         {{ $amount }}
                                     </div>
                                 </div>

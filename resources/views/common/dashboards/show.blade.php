@@ -42,56 +42,22 @@
             value-format="yyyy-MM-dd"
             @change="onChangeFilterDate"
             range-separator="-"
-            start-placeholder="{{ $date_picker_shortcuts[trans('reports.this_year')]['start'] }}"
-            end-placeholder="{{ $date_picker_shortcuts[trans('reports.this_year')]['end'] }}"
+            start-placeholder="{{ $date_picker_shortcuts[trans('general.date_range.this_year')]['start'] }}"
+            end-placeholder="{{ $date_picker_shortcuts[trans('general.date_range.this_year')]['end'] }}"
             popper-class="dashboard-picker"
             :picker-options="{
                 shortcuts: [
-                    {
-                        text: '{{ trans("reports.this_year") }}',
-                        onClick(picker) {
-                            const start = new Date('{{ $date_picker_shortcuts[trans("reports.this_year")]["start"] }}');
-                            const end = new Date('{{ $date_picker_shortcuts[trans("reports.this_year")]["end"] }}');
+                    @foreach ($date_picker_shortcuts as $text => $shortcut)
+                        {
+                            text: '{{ $text }}',
+                            onClick(picker) {
+                                const start = new Date('{{ $shortcut["start"] }}');
+                                const end = new Date('{{ $shortcut["end"] }}');
 
-                            picker.$emit('pick', [start, end]);
-                        }
-                    },
-                    {
-                        text: '{{ trans("reports.previous_year") }}',
-                        onClick(picker) {
-                            const start = new Date('{{ $date_picker_shortcuts[trans("reports.previous_year")]["start"] }}');
-                            const end = new Date('{{ $date_picker_shortcuts[trans("reports.previous_year")]["end"] }}');
-
-                            picker.$emit('pick', [start, end]);
-                        }
-                    },
-                    {
-                        text: '{{ trans("reports.this_quarter") }}',
-                        onClick(picker) {
-                            const start = new Date('{{ $date_picker_shortcuts[trans("reports.this_quarter")]["start"] }}');
-                            const end = new Date('{{ $date_picker_shortcuts[trans("reports.this_quarter")]["end"] }}');
-
-                            picker.$emit('pick', [start, end]);
-                        }
-                    },
-                    {
-                        text: '{{ trans("reports.previous_quarter") }}',
-                        onClick(picker) {
-                            const start = new Date('{{ $date_picker_shortcuts[trans("reports.previous_quarter")]["start"] }}');
-                            const end = new Date('{{ $date_picker_shortcuts[trans("reports.previous_quarter")]["end"] }}');
-
-                            picker.$emit('pick', [start, end]);
-                        }
-                    },
-                    {
-                        text: '{{ trans("reports.last_12_months") }}',
-                        onClick(picker) {
-                            const start = new Date('{{ $date_picker_shortcuts[trans("reports.last_12_months")]["start"] }}');
-                            const end = new Date('{{ $date_picker_shortcuts[trans("reports.last_12_months")]["end"] }}');
-
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }
+                                picker.$emit('pick', [start, end]);
+                            }
+                        },
+                    @endforeach
                 ]
             }">
         </el-date-picker>
@@ -120,7 +86,7 @@
                                 {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
                             </x-button>
                         </div>
-                        
+
                         <x-dropdown.divider />
                     @endcan
 

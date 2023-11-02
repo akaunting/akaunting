@@ -7,13 +7,14 @@ use App\Jobs\Common\UpdateContact;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
+use App\Traits\Translations;
 use App\Utilities\Export;
 use App\Utilities\Import;
 use Illuminate\Support\Arr;
 
 abstract class BulkAction
 {
-    use Jobs, Relationships;
+    use Jobs, Relationships, Translations;
 
     public $model = false;
 
@@ -83,6 +84,52 @@ abstract class BulkAction
     public function getSelectedInput($request)
     {
         return $request->get('selected', []);
+    }
+
+    public function getUpdateRequest($request)
+    {
+        foreach ($request->all() as $key => $value) {
+            if (empty($value)) {
+                unset($request[$key]);
+            }
+        }
+
+        return $request;
+    }
+
+    /**
+     * Generate a response based on request type like HTML, JSON, or anything else.
+     *
+     * @param string $view
+     * @param array $data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function response($view, $data = [])
+    {
+        $method = request()->get('handle', 'edit');
+
+        $handle = $this->actions[$method]['handle'] ?? 'update';
+        $url = route('bulk-actions.action', $this->path);
+
+        $html = view('components.index.bulkaction.modal', [
+            'url' => $url,
+            'handle' => $handle,
+            'selected' => $data['selected'] ?? $this->getSelectedInput(request()),
+            'html' => view($view, $data)->render(),
+        ])->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => '',
+            'data' => [
+                'title' => $this->findTranslation($this->text),
+                'path' => $url,
+                'handle' => $handle,
+            ],
+            'html' => $html,
+        ]);
     }
 
     /**

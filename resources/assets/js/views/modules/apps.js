@@ -35,8 +35,8 @@ const app = new Vue({
 
     mounted() {
         if (typeof app_slug !== 'undefined') {
-            this.onReleases(1);
-            this.onReviews(1);
+            //this.onReleases(1);
+            //this.onReviews(1);
         }
     },
 
@@ -106,6 +106,8 @@ const app = new Vue({
             add_to_cart_promise.then(response => {
                 if (response.data.success) {
                     this.$notify({
+                        verticalAlign: 'bottom',
+                        horizontalAlign: 'left',
                         message: response.data.message,
                         timeout: 0,
                         icon: "shopping_cart_checkout",

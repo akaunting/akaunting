@@ -47,7 +47,7 @@
                     <x-slot name="body">
                         <x-form.group.category type="{{ $real_type }}" />
 
-                        <x-form.group.contact type="{{ config('type.transaction.' . $real_type . '.contact_type') }}" not-required />
+                        <x-form.group.contact :type="$contact_type" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -59,12 +59,14 @@
                     <x-slot name="body">
                         <x-form.group.recurring
                             type="transaction"
+                            :interval="$recurring_transaction ? $recurring_transaction->recurring->interval : null"
                             :frequency="$recurring_transaction ? $recurring_transaction->recurring->frequency : null"
                             :custom-frequency="$recurring_transaction ? $recurring_transaction->recurring->custom_frequency : null"
                             :limit="$recurring_transaction ? $recurring_transaction->recurring->limit_by : null"
                             :started-value="$recurring_transaction ? $recurring_transaction->recurring->started_at : null"
                             :limit-count="$recurring_transaction ? $recurring_transaction->recurring->limit_count : null"
                             :limit-date-value="$recurring_transaction ? $recurring_transaction->recurring->limit_date : null"
+                            :send-email="$recurring_transaction ? $recurring_transaction->recurring->auto_send : null"
                         />
                     </x-slot>
                 </x-form.section>

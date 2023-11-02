@@ -36,11 +36,11 @@ class Currencies extends Seeder
                 'code' => 'USD',
                 'rate' => '1.00',
                 'enabled' => '1',
-                'precision' => config('money.USD.precision'),
-                'symbol' => config('money.USD.symbol'),
-                'symbol_first' => config('money.USD.symbol_first'),
-                'decimal_mark' => config('money.USD.decimal_mark'),
-                'thousands_separator' => config('money.USD.thousands_separator'),
+                'precision' => currency('USD')->getPrecision(),
+                'symbol' => currency('USD')->getSymbol(),
+                'symbol_first' => currency('USD')->isSymbolFirst(),
+                'decimal_mark' => currency('USD')->getDecimalMark(),
+                'thousands_separator' => currency('USD')->getThousandsSeparator(),
             ],
         ];
 

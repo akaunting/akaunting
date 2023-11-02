@@ -30,8 +30,6 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $dates = ['deleted_at', 'paid_at'];
-
     /**
      * Attributes that should be mass-assignable.
      *
@@ -64,8 +62,10 @@ class Transaction extends Model
      * @var array
      */
     protected $casts = [
-        'amount' => 'double',
-        'currency_rate' => 'double',
+        'paid_at'           => 'datetime',
+        'amount'            => 'double',
+        'currency_rate'     => 'double',
+        'deleted_at'        => 'datetime',
     ];
 
     /**
@@ -80,7 +80,7 @@ class Transaction extends Model
      *
      * @var array
      */
-    public $cloneable_relations = ['recurring'];
+    public $cloneable_relations = ['recurring', 'taxes'];
 
     /**
      * The "booted" method of the model.
@@ -162,7 +162,17 @@ class Transaction extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
+        return $this->belongsTo(user_model_class(), 'contact_id', 'id');
+    }
+
+    public function taxes()
+    {
+        return $this->hasMany('App\Models\Banking\TransactionTax');
+    }
+
+    public function scopeNumber(Builder $query, string $number): Builder
+    {
+        return $query->where('number', '=', $number);
     }
 
     public function scopeType(Builder $query, $types): Builder
@@ -186,7 +196,10 @@ class Transaction extends Model
 
     public function scopeIncomeRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::INCOME_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::INCOME_RECURRING_TYPE)
+                ->whereHas('recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
     }
 
     public function scopeExpense(Builder $query): Builder
@@ -201,7 +214,10 @@ class Transaction extends Model
 
     public function scopeExpenseRecurring(Builder $query): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', self::EXPENSE_RECURRING_TYPE);
+        return $query->where($this->qualifyColumn('type'), '=', self::EXPENSE_RECURRING_TYPE)
+                ->whereHas('recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
     }
 
     public function scopeIsTransfer(Builder $query): Builder
@@ -298,6 +314,7 @@ class Transaction extends Model
         $this->number       = $this->getNextTransactionNumber($suffix);
         $this->document_id  = null;
         $this->split_id     = null;
+        unset($this->reconciled);
     }
 
     /**
@@ -312,7 +329,7 @@ class Transaction extends Model
         // Convert amount if not same currency
         if ($this->account->currency_code != $this->currency_code) {
             $to_code = $this->account->currency_code;
-            $to_rate = config('money.' . $this->account->currency_code . '.rate');
+            $to_rate = currency($this->account->currency_code)->getRate();
 
             $amount = $this->convertBetween($amount, $this->currency_code, $this->currency_rate, $to_code, $to_rate);
         }
@@ -369,6 +386,52 @@ class Transaction extends Model
         $type = str_replace('-', '_', $type);
 
         return $value ?? trans_choice('general.' . Str::plural($type), 1);
+    }
+
+    /**
+     * Get the item id.
+     *
+     * @return string
+     */
+    public function getTaxIdsAttribute()
+    {
+        return $this->taxes()->pluck('tax_id');
+    }
+
+    /**
+     * Get the amount before tax.
+     *
+     * @return string
+     */
+    public function getTotalTaxAttribute()
+    {
+        $precision = currency($this->currency_code)->getPrecision();
+
+        $amount = 0;
+
+        if ($this->taxes->count()) {
+            foreach ($this->taxes as $tax) {
+                $amount += $tax->amount;
+            }
+        }
+
+        return round($amount, $precision);
+    }
+
+    /**
+     * Get the amount before tax.
+     *
+     * @return string
+     */
+    public function getAmountBeforeTaxAttribute()
+    {
+        if (empty($this->amount)) {
+            return false;
+        }
+
+        $precision = currency($this->currency_code)->getPrecision();
+
+        return round($this->amount - $this->total_tax, $precision);
     }
 
     /**
@@ -490,7 +553,12 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if ($this->is_splittable && empty($this->document_id) && empty($this->recurring) && $this->isNotTransferTransaction()) {
+            if (
+                $this->is_splittable
+                && empty($this->document_id)
+                && empty($this->recurring)
+                && $this->isNotTransferTransaction()
+            ) {
                 $connect = [
                     'type' => 'button',
                     'title' => trans('general.connect'),
@@ -581,9 +649,10 @@ class Transaction extends Model
                         $actions[] = [
                             'type' => 'delete',
                             'icon' => 'delete',
-                            'text' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
+                            'title' => ! empty($this->recurring) ? 'transactions' : 'recurring_template',
                             'route' => $prefix. '.destroy',
                             'permission' => 'delete-banking-transactions',
+                            'model-name' => 'number',
                             'attributes' => [
                                 'id' => 'index-line-actions-delete-' . $this->type . '-'  . $this->id,
                             ],
@@ -593,17 +662,19 @@ class Transaction extends Model
                 } catch (\Exception $e) {}
             }
         } else {
-            try {
-                $actions[] = [
-                    'title' => trans('general.end'),
-                    'icon' => 'block',
-                    'url' => route($prefix. '.end', $this->id),
-                    'permission' => 'update-banking-transactions',
-                    'attributes' => [
-                        'id' => 'index-line-actions-end-' . $this->type . '-'  . $this->id,
-                    ],
-                ];
-            } catch (\Exception $e) {}
+            if ($this->recurring && $this->recurring->status != 'ended') {
+                try {
+                    $actions[] = [
+                        'title' => trans('general.end'),
+                        'icon' => 'block',
+                        'url' => route($prefix. '.end', $this->id),
+                        'permission' => 'update-banking-transactions',
+                        'attributes' => [
+                            'id' => 'index-line-actions-end-' . $this->type . '-'  . $this->id,
+                        ],
+                    ];
+                } catch (\Exception $e) {}
+            }
         }
 
         return $actions;

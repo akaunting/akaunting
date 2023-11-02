@@ -104,7 +104,7 @@ export default class Form {
                         if (!this[form_element.getAttribute('data-field')][name].push) {
                             this[form_element.getAttribute('data-field')][name] = [this[form_element.getAttribute('data-field')][name]];
                         }
-    
+
                         if (form_element.checked) {
                             this[form_element.getAttribute('data-field')][name].push(form_element.value);
                         }
@@ -171,7 +171,7 @@ export default class Form {
                             this[name] = form_element.value;
                         }
                     } else {
-                        
+
                         if (form_element.dataset.type != undefined) {
                             if (form_element.dataset.type == 'multiple') {
                                 this[name] = [];
@@ -383,7 +383,7 @@ export default class Form {
     }
 
     submit() {
-        FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+        FormData.prototype.appendRecursive = function(data, wrapper = null) {
             for (var name in data) {
                 if (name == "previewElement" || name == "previewTemplate") {
                     continue;
@@ -427,7 +427,7 @@ export default class Form {
     }
 
     async asyncSubmit() {
-        FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+        FormData.prototype.appendRecursive = function(data, wrapper = null) {
             for (var name in data) {
                 if (name == "previewElement" || name == "previewTemplate") {
                     continue;
@@ -497,7 +497,7 @@ export default class Form {
             if (error.request.status == 419) {
                 window.location.href = '';
                 return;
-            }    
+            }
         }
 
         if (typeof this.errors != "undefined") {

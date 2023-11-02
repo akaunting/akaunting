@@ -11,6 +11,12 @@ return [
     'billing'                   => 'Фактуриране',
     'advanced'                  => 'Разширени',
 
+    'item_price_hidden'         => 'Тази колона е скрита във вашия :type.',
+
+    'actions' => [
+        'cancel'                => 'Отмени',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b>Вие</b> отбелязохте фактурата като',
         'services'              => 'Услуги',
@@ -65,8 +71,19 @@ return [
         'attachment'            => 'Изтеглете прикачените файлове към този :type',
     ],
 
+    'slider' => [
+        'create'            => ':user създаде тази :type на :date',
+        'create_recurring'  => ':user създаде този шаблон на :date',
+        'send'              => ':user изпрати тази :type на :date',
+        'schedule'          => 'Повтори на всеки :interval :frequency от :date
+',
+        'children'          => ':count :type бяха автоматично създадени',
+        'cancel'            => ':user анулира тази :type на :date',
+    ],
+
     'messages' => [
         'email_sent'            => ':type имейлът е изпратен!',
+        'restored'              => ':type е възстановен!',
         'marked_as'             => ':type е маркиран като :status!',
         'marked_sent'           => ':type е маркиран като изпратен!',
         'marked_paid'           => ':type е маркиран като платен!',
@@ -84,4 +101,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Няма прикачени файлове към този :type.',
 ];

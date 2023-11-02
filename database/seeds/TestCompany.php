@@ -7,12 +7,13 @@ use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\CreateContact;
 use App\Traits\Jobs;
+use App\Traits\Modules;
 use Artisan;
 use Illuminate\Database\Seeder;
 
 class TestCompany extends Seeder
 {
-    use Jobs;
+    use Jobs, Modules;
 
     /**
      * Run the database seeds.
@@ -22,6 +23,8 @@ class TestCompany extends Seeder
     public function run()
     {
         Model::unguard();
+
+        $this->migrateRoles();
 
         $this->call(Permissions::class);
 
@@ -34,6 +37,18 @@ class TestCompany extends Seeder
         $this->installModules();
 
         Model::reguard();
+    }
+
+    private function migrateRoles()
+    {
+        if (! $this->moduleExists('roles')) {
+            return;
+        }
+
+        Artisan::call('module:migrate', [
+            'alias' => 'roles',
+            '--force' => true
+        ]);
     }
 
     private function createCompany()

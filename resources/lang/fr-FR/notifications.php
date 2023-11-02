@@ -63,6 +63,17 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Courriel :type invalide',
+            'description'   => 'L\'adresse email :email a été signalée comme invalide et le compte de la personne a été désactivé. Veuillez vérifier le message d\'erreur suivant et corriger l\'adresse e-mail :',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -88,7 +99,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Importation échouée',
+            'title'         => 'Échec de l\'importation',
             'description'   => 'Impossible d\'importer le fichier en raison de plusieurs problèmes. Consultez votre e-mail pour plus de détails.',
 
         ],
@@ -165,15 +176,22 @@ return [
 
         'bill_remind_admin' => [
 
-            'title'         => 'Facture en retard',
-            'description'   => 'La facture <strong>:bill_number</strong> était due au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'title'         => 'Facture reçue en retard',
+            'description'   => 'Le paiement de la facture reçue <strong>:bill_number</strong> était dû au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'bill_recur_admin' => [
 
             'title'         => 'Nouvelle facture récurrente',
-            'description'   => 'La facture <strong>:bill_number</strong> est créée par <strong>:vendor_name</strong> sur la base du plan de facturation planifié. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'La facture d\'achat <strong>:bill_number</strong> a été créée sur la base du plan de facturation planifié de <strong>:vendor_name</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+
+        ],
+
+        'invalid_email' => [
+
+            'title'         => 'Courriel :type invalide',
+            'description'   => 'L\'adresse e-mail <strong>:email</strong> a été signalée comme invalide et le compte de la personne a été désactivé. Veuillez vérifier et corriger l\'adresse e-mail.',
 
         ],
 
@@ -185,4 +203,16 @@ return [
         'mark_read_all'         => ':type est en train de lire toutes les notifications !',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuration des icônes dans Firefox',
+            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, merci d\'activer;</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
+
+        ],
+
+    ],
+
 ];

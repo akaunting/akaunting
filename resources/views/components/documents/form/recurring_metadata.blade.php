@@ -43,11 +43,22 @@
         @stack('due_start')
 
         @if (! $hideDueAt)
+            @php
+            (string) $payment_term = setting($type . '.payment_terms', 0);
+
+            if (($document)) {
+                $payment_term = \Date::parse($document->due_at)->diffInDays(\Date::parse($document->issued_at));
+
+                if ($payment_term > 0) {
+                    $payment_term++;
+                }
+            }
+            @endphp
             <x-form.group.select
                 name="payment_terms"
                 label="{{ trans('invoices.payment_due') }}"
                 :options="$payment_terms"
-                :selected="($document) ? (string) \Date::parse($document->due_at)->diffInDays(\Date::parse($document->issued_at)) : setting($type . '.payment_terms', 0)"
+                :selected="(string) $payment_term"
                 visible-change="onChangeRecurringDate"
             />  
 

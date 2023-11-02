@@ -64,6 +64,17 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Correu :type no vàlid',
+            'description'   => 'L\'adreça de correu :email ha estat identificada com a no vàlida, i l\'usuari ha estat desactivat. Si us plau comprova el següent missatge d\'error i corregeix l\'adreça de correu.',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -89,7 +100,7 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
         'import_failed' => [
 
-            'subject'       => 'Ha fallat la importació',
+            'title'         => 'Ha fallat la importació',
             'description'   => 'No s\'ha pogut importar l\'arxiu per vàries raons. Pots mirar el teu correu per tenir-ne més detalls.',
 
         ],
@@ -178,6 +189,13 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Correu :type no vàlid',
+            'description'   => 'L\'adreça de correu <strong>:email</strong> ha estat identificada com a no vàlida, i l\'usuari ha estat desactivat. Si us plau comprova i corregeix l\'adreça de correu.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -186,4 +204,16 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
         'mark_read_all'         => ':type ha llegit totes les notificacions!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuració de la icona de Firefox',
+            'description'  => '<span class="font-medium">Si les teves icones no apareixen;</span> <br /> <span class="font-medium">Si us plau permet que les pàgines facin servir els seus propis tipus de lletra en comptes de la selecció de dalt</span> <br /><br /> <span class="font-bold"> Configuració (Preferències) > Tipus de lletra > Avançat </span>',
+
+        ],
+
+    ],
+
 ];

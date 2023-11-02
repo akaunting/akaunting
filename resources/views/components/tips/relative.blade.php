@@ -1,5 +1,5 @@
 @foreach ($tips as $item)
-    <div class="relative hidden lg:block w-4/12 mt-12 xl:mt-9.5 lg:pl-12">
+    <div class="relative hidden lg:block w-4/12 mt-12 xl:mt-9.5 ltr:pl-12 rtl:pl-0">
         <div @class([
                 'relative leading-4 z-10',
                 'ltr:text-right rtl:text-left' => $item->align == 'right',
@@ -12,8 +12,8 @@
 
             <div
                 @class([
-                    'float-right' => $item->align == 'right',
-                    'float-left' => $item->align == 'left',
+                    'ltr:float-right rtl:float-left' => $item->align == 'right',
+                    'ltr:float-left rtl:float-right' => $item->align == 'left',
                 ])
 
                 style="width: 200px;"

@@ -47,8 +47,8 @@
                         <x-form.group.text name="tax_number" label="{{ trans('general.tax_number') }}" value="{{ $user->contact->tax_number }}" not-required />
 
                         <x-form.group.locale />
-
-                        <x-form.group.country :selected="$user->contact->country" not-required />
+                            
+                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" :value="$user->contact->address" v-model="form.address" not-required />
 
                         <x-form.group.text name="city" label="{{ trans_choice('general.cities', 1) }}" value="{{ $user->contact->city }}" not-required />
 
@@ -56,7 +56,7 @@
 
                         <x-form.group.text name="state" label="{{ trans('general.state') }}" value="{{ $user->contact->state }}" not-required />
 
-                        <x-form.group.textarea name="address" label="{{ trans('general.address') }}" :value="$user->contact->address" />
+                        <x-form.group.country :selected="$user->contact->country" not-required />
                     </x-slot>
                 </x-form.section>
 

@@ -26,7 +26,8 @@ class Widget extends Model
      * @var array
      */
     protected $casts = [
-        'settings' => 'object',
+        'settings'      => 'object',
+        'deleted_at'    => 'datetime',
     ];
 
     /**
@@ -50,7 +51,7 @@ class Widget extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\Models\Auth\User', 'App\Models\Common\Dashboard');
+        return $this->hasManyThrough(user_model_class(), 'App\Models\Common\Dashboard');
     }
 
     /**

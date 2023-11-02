@@ -37,7 +37,7 @@ class Country extends Component
      */
     public function render()
     {
-        if (! empty($this->code) && in_array($this->code, trans('countries'))) {
+        if (! empty($this->code) && array_key_exists($this->code, trans('countries'))) {
             $this->country = trans('countries.' . $this->code);
         }
 

@@ -100,7 +100,7 @@
                         <x-slot name="body" class="block" override="class">
                             <div class="text-xs mt-1" style="margin-left: 0 !important;">
                                 <span class="font-medium">
-                                    {{ trans('invoices.payment_received') }} :
+                                    {{ trans('invoices.payments_received') }}:
                                 </span>
 
                                 @if ($invoice->transactions->count())
@@ -111,7 +111,7 @@
                                                     <x-date :date="$transaction->paid_at" />
                                                 </x-link>
                                                 - {!! trans('documents.transaction', [
-                                                    'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code, true) . '</span>',
+                                                    'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code) . '</span>',
                                                     'account' => '<span class="font-medium">' . $transaction->account->name . '</span>',
                                                 ]) !!}
                                             </span>

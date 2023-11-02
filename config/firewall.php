@@ -4,7 +4,7 @@ return [
 
     'enabled' => env('FIREWALL_ENABLED', false),
 
-    'whitelist' => [env('FIREWALL_WHITELIST', '')],
+    'whitelist' => explode(',', env('FIREWALL_WHITELIST', '')),
 
     'models' => [
         'user' => '\App\Models\Auth\User',
@@ -39,6 +39,7 @@ return [
             'name' => env('FIREWALL_EMAIL_NAME', 'Akaunting Firewall'),
             'from' => env('FIREWALL_EMAIL_FROM', 'firewall@mydomain.com'),
             'to' => env('FIREWALL_EMAIL_TO', 'admin@mydomain.com'),
+            'queue' => env('FIREWALL_EMAIL_QUEUE', 'default'),
         ],
 
         'slack' => [
@@ -47,6 +48,7 @@ return [
             'from' => env('FIREWALL_SLACK_FROM', 'Akaunting Firewall'),
             'to' => env('FIREWALL_SLACK_TO'), // webhook url
             'channel' => env('FIREWALL_SLACK_CHANNEL', null), // set null to use the default channel of webhook
+            'queue' => env('FIREWALL_SLACK_QUEUE', 'default'),
         ],
 
     ],
@@ -432,6 +434,24 @@ return [
             'auto_block' => [
                 'attempts' => env('FIREWALL_MIDDLEWARE_XSS_AUTO_BLOCK_ATTEMPTS', 3),
                 'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        // Custom middleware
+        'too_many_emails_sent' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_TOO_MANY_EMAILS_SENT_ENABLED', env('FIREWALL_ENABLED', true)),
+
+            'methods' => ['post'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'auto_block' => [
+                'attempts' => env('FIREWALL_MIDDLEWARE_TOO_MANY_EMAILS_SENT_AUTO_BLOCK_ATTEMPTS', 20),
+                'frequency' => 1 * 60, // 1 minute
                 'period' => 30 * 60, // 30 minutes
             ],
         ],

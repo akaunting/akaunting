@@ -19,6 +19,14 @@ class Currencies extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-settings-currencies',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'enable'    => [
             'icon'          => 'check_circle',
             'name'          => 'general.enable',
@@ -38,6 +46,39 @@ class Currencies extends BulkAction
             'permission'    => 'delete-settings-currencies',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        $precisions = (object) [
+            '0' => '0',
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+            '4' => '4',
+        ];
+
+        return $this->response('bulk-actions.settings.currencies.edit', compact('selected', 'precisions'));
+    }
+
+    public function update($request)
+    {
+        $currencies = $this->getSelectedRecords($request);
+
+        foreach ($currencies as $currency) {
+            try {
+                $request->merge([
+                    'code' => $currency->code,
+                    'enabled' => $currency->enabled,
+                ]); // for update job authorize..
+
+                $this->dispatch(new UpdateCurrency($currency, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function disable($request)
     {

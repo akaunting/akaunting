@@ -3,11 +3,12 @@
 namespace App\Traits;
 
 use App\Models\Setting\Category;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 trait Categories
 {
-    public function getCategoryTypes(): array
+    public function getCategoryTypes(bool $translate = true): array
     {
         $types = [];
         $configs = config('type.category');
@@ -21,7 +22,7 @@ trait Categories
                 $name = $attr['alias'] . '::' . $name;
             }
 
-            $types[$type] = trans_choice($name, 1);
+            $types[$type] = $translate ? trans_choice($name, 1) : $name;
         }
 
         return $types;
@@ -34,7 +35,10 @@ trait Categories
 
     public function getTransferCategoryId(): mixed
     {
-        return Category::other()->pluck('id')->first();
+        // 1 hour set cache for same query
+        return Cache::remember('transferCategoryId', 60, function () {
+            return Category::other()->pluck('id')->first();
+        });
     }
 
     public function isTransferCategory(): bool

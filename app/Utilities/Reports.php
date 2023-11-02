@@ -114,7 +114,7 @@ class Reports
             return true;
         }
 
-        if (Module::alias($alias)->enabled()->first()) {
+        if (module_is_enabled($alias)) {
             return true;
         }
 

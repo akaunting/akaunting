@@ -28,11 +28,12 @@ return [
     'yearly_pricing'        => 'Цена на година',
     'monthly_price'         => 'от :price',
     'per_month'             => 'на месец',
-    'billed_yearly'         => 'Фактурирано на година',
+    'once'                  => 'веднъж',
     'billed_monthly'        => 'Месечна фактура',
+    'billed_yearly'         => 'Фактурирано на година',
+    'billed_once'           => 'Таксува се веднъж',
     'save_year'             => 'Спестявате <strong>:price</strong> на година!',
     'if_paid_year'          => 'Или <strong>:price/mo</strong> ако се плаща годишно',
-    'information_monthly'   => 'Тази опция е валидна само за <strong>Cloud Service</strong>',
     'install'               => 'Инсталирай',
     'buy_now'               => 'Купете сега',
     'get_api_key'           => '<a href=":url" target="_blank">Натиснете тук</a> за да получите вашия API ключ.',
@@ -49,6 +50,8 @@ return [
 ',
     'switch_to_cloud'       => 'Преминете към Cloud',
     'hosted_on_akaunting'   => 'Хоствано на akaunting.com',
+    'information_on_preme'  => 'опцията за :period е достъпна само на <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud.</strong></a>',
+    'information_monthly'   => 'Тази опция е валидна само за <strong>Cloud Service</strong>',
     'only_works_cloud'      => 'Това приложение е достъпно само в <strong>Cloud</strong>.',
     'only_premium_plan'     => 'Това приложение е достъпно само в <strong>Premium Cloud</strong>.',
     'not_found'             => 'Не е открито приложение',
@@ -101,6 +104,10 @@ return [
         'unzip'             => 'Не е възможно да се разархивира :module',
         'file_copy'         => 'Не е възможно да се копират файловете на :module',
         'finish'            => 'Не е възможно да се приключи инсталацията на :module',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'Използвате най-новата версия на :module, няма налични актуализации.',
     ],
 
     'badge' => [

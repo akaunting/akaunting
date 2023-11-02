@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Interfaces\Utility\DocumentNumber;
 use App\Models\Document\Document;
 use App\Abstracts\View\Components\Documents\Document as DocumentComponent;
 use App\Utilities\Date;
@@ -29,29 +30,39 @@ trait Documents
         return ! $this->isRecurring();
     }
 
-    public function getNextDocumentNumber(string $type): string
+    public function getRecurringDocumentTypes() : array
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
+        $types = array_keys(config('type.document'));
+
+        $recurring_types = [];
+
+        foreach ($types as $type) {
+            if (Str::endsWith($type, '-recurring')) {
+                $recurring_types[] = $type;
+            }
         }
 
-        $prefix = setting($type . '.number_prefix');
-        $next = setting($type . '.number_next');
-        $digit = setting($type . '.number_digit');
-
-        return $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        return $recurring_types;
     }
 
+    /**
+     * Deprecated. Use the DocumentNumber::getNextNumber() method instead.
+     *
+     * @deprecated This method is deprecated and will be removed in future versions.
+     */
+    public function getNextDocumentNumber(string $type): string
+    {
+        return app(DocumentNumber::class)->getNextNumber($type, null);
+    }
+
+    /**
+     * Deprecated. Use the DocumentNumber::increaseNextNumber() method instead.
+     *
+     * @deprecated This method is deprecated and will be removed in future versions.
+     */
     public function increaseNextDocumentNumber(string $type): void
     {
-        if ($alias = config('type.document.' . $type . '.alias')) {
-            $type = $alias . '.' . str_replace('-', '_', $type);
-        }
-
-        $next = setting($type . '.number_next', 1) + 1;
-
-        setting([$type . '.number_next' => $next]);
-        setting()->save();
+        app(DocumentNumber::class)->increaseNextNumber($type, null);
     }
 
     public function getDocumentStatuses(string $type): Collection
@@ -138,7 +149,13 @@ trait Documents
         return 'documents.statuses.';
     }
 
+    // This function will be remoed in the future
     protected function getSettingKey($type, $setting_key)
+    {
+        return $this->getDocumentSettingKey($type, $setting_key);
+    }
+
+    protected function getDocumentSettingKey($type, $setting_key)
     {
         $key = '';
         $alias = config('type.document.' . $type . '.alias');
@@ -149,8 +166,11 @@ trait Documents
 
         $prefix = config('type.document.' . $type . '.setting.prefix');
 
-
-        $key .= $prefix . '.' . $setting_key;
+        if (! empty($prefix)) {
+            $key .= $prefix . '.' . $setting_key;
+        } else {
+            $key .= $setting_key;
+        }
 
         return $key;
     }
@@ -167,7 +187,7 @@ trait Documents
 
         $file_name = $this->getDocumentFileName($document);
 
-        $pdf_path = storage_path('app/temp/' . $file_name);
+        $pdf_path = get_storage_path('app/temp/' . $file_name);
 
         // Save the PDF file into temp folder
         $pdf->save($pdf_path);
@@ -188,7 +208,7 @@ trait Documents
         $documents = $documents ?: Document::type($type)->with('transactions')->future();
 
         $documents->each(function ($document) use (&$totals, $today) {
-            if (!in_array($document->status, $this->getDocumentStatusesForFuture())) {
+            if (! in_array($document->status, $this->getDocumentStatusesForFuture())) {
                 return;
             }
 

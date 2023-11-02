@@ -58,7 +58,7 @@
         function contentTransitionLeft() {
             sectionContent.classList.add("xl:ltr:ml-0", "xl:rtl:mr-0");
             sectionContent.classList.remove("xl:ltr:ml-64", "xl:rtl:mr-64");
-
+            toggleButton.querySelector("span").classList.remove("ltr:rotate-90", "rtl:-rotate-90");
             toggleButton.querySelector("span").classList.add("ltr:-rotate-90", "rtl:rotate-90");
         }
 
@@ -66,8 +66,8 @@
         function contentTransitionRight() {
             sectionContent.classList.remove("xl:ltr:ml-0", "xl:rtl:mr-0");
             sectionContent.classList.add("xl:ltr:ml-64", "xl:rtl:mr-64");
-
             toggleButton.querySelector("span").classList.remove("ltr:-rotate-90", "rtl:rotate-90");
+            toggleButton.querySelector("span").classList.add("ltr:rotate-90", "rtl:-rotate-90");
         }
 
         function hiddenSidebar() {

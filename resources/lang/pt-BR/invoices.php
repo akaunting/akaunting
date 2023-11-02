@@ -20,7 +20,7 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Item|Itens',
-    'recurring_invoices'    => 'Fatura recorrente|Faturas recorrentes',
+    'recurring_invoices'    => 'Fatura(s) recorrente(s)',
 
     'show_discount'         => ':discount% desconto',
     'add_discount'          => 'Adicionar desconto',
@@ -33,7 +33,7 @@ return [
     'add_payment'           => 'Novo Pagamento',
     'mark_paid'             => 'Marcar como pago',
     'mark_sent'             => 'Marcar Como Enviada',
-    'mark_viewed'           => 'Marcar como visualizado',
+    'mark_viewed'           => 'Marcar como lido',
     'mark_cancelled'        => 'Marcar como cancelado',
     'download_pdf'          => 'Baixar em PDF',
     'send_mail'             => 'Enviar E-mail',
@@ -42,7 +42,7 @@ return [
     'send_invoice'          => 'Enviar fatura',
     'get_paid'              => 'Quitar',
     'accept_payments'       => 'Aceitar Pagamentos Online',
-    'payment_received'      => 'Pagamento recebido',
+    'payments_received'     => 'Pagamentos recebidos',
 
     'form_description' => [
         'billing'           => 'Os detalhes de faturamento aparecem na sua conta. A Data da Fatura é usada no painel e nos relatórios. Selecione a data que pretende pagar como Data de Vencimento.',

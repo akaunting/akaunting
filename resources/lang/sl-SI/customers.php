@@ -2,7 +2,7 @@
 
 return [
 
-    'can_login'                 => 'Prijava?',
+    'can_login'                 => 'Povabi na portal za stranke',
     'can_login_description'     => '
 Temu uporabniku pošljite povabilo za prijavo v portal za stranke.',
     'user_created'              => 'Uporabnik je bil uspešno ustvarjen',
@@ -26,6 +26,7 @@ Kontaktni podatki vaše stranke bodo prikazani na računih in njihovih profilih.
         'billing'               => 'Davčna številka je navedena na vsakem računu, izdanem kupcu. Izbrana valuta postane privzeta valuta za to stranko.',
         'address'               => '
 Naslov je potreben za račune, zato morate dodati podrobnosti naslova za izstavitev računa za svojo stranko.',
+        'contact_persons'       => 'Če želite vključiti dodatne prejemnike v e-poštno sporočilo kot CC, jih dodajte kot kontaktne osebe.',
     ],
 
     'no_records' => [

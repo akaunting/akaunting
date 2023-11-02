@@ -28,7 +28,7 @@ class AddDate extends Listener
             return;
         }
 
-        $event->class->filters['years'] = $this->getYears();
+        $this->setDateFilter($event);
     }
 
     /**

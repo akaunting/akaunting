@@ -57,10 +57,9 @@ class Customers extends Controller
         $request['enabled'] = 1;
 
         $response = $this->ajaxDispatch(new CreateContact($request));
-        $this->ajaxDispatch(new UpdateContact($customer, $request));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+            $response['message'] = trans('messages.success.created', ['type' => trans_choice('general.customers', 1)]);
         }
 
         return response()->json($response);

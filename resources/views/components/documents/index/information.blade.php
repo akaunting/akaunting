@@ -1,4 +1,4 @@
-<div id="{{ $id }}" role="tooltip" class="w-full sm:w-96 inline-block absolute left-0 z-10 text-sm font-medium rounded-lg border border-gray-200 shadow-sm whitespace-nowrap transition-visible bg-lilac-900 border-none text-black p-6 cursor-auto opacity-0 invisible information-content">
+<div id="{{ $id }}" role="tooltip" class="w-full sm:w-96 inline-block absolute left-0 z-10 text-sm font-medium rounded-lg border border-gray-200 shadow-sm whitespace-nowrap transition-visible bg-lilac-900 border-none text-black p-6 cursor-auto opacity-0 invisible delay-700 information-content">
     <div class="absolute w-2 h-2 sm:inset-y-1/2 sm:-right-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-lilac-900 before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0 data-popper-arrow"></div>
 
     <ul>
@@ -62,7 +62,7 @@
                         </div>
 
                         <span class="font-normal">
-                            <x-money :amount="$document_item->price" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document_item->price" :currency="$document->currency_code" />
                         </span>
 
                         <div class="w-40 font-normal text-sm truncate">
@@ -100,7 +100,7 @@
 
                     @if ($document->paid)
                         <span>
-                            <x-money :amount="$document->paid" :currency="$document->currency_code" convert />
+                            <x-money :amount="$document->paid" :currency="$document->currency_code" />
                         </span>
                     @endif
                 </div>
@@ -111,7 +111,7 @@
                     </span>
 
                     <span>
-                        <x-money :amount="$document->amount" :currency="$document->currency_code" convert />
+                        <x-money :amount="$document->amount" :currency="$document->currency_code" />
                     </span>
                 </div>
             </div>

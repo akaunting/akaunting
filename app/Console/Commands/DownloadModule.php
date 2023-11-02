@@ -125,6 +125,6 @@ class DownloadModule extends Command
             $version = Versions::getLatestVersion($url, $current);
         }
 
-        return $version;
+        return $version?->latest;
     }
 }

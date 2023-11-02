@@ -12,6 +12,10 @@ class UpdateRole extends Job implements ShouldUpdate
 {
     public function handle(): Role
     {
+        if (in_array($this->model->name, config('roles.defaults', ['admin', 'manager', 'accountant', 'employee']))) {
+            $this->request->name = $this->model->name;
+        }
+
         event(new RoleUpdating($this->model, $this->request));
 
         \DB::transaction(function () {

@@ -63,6 +63,17 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Invalid :type Email',
+            'description'   => 'The :email email address has been reported as invalid, and the person has been disabled. Please check the following error message and fix the email address:',
+
+        ],
+
+    ],
+
     'menu' => [
 
         'export_completed' => [
@@ -88,7 +99,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Import failed',
+            'title'         => 'Import failed',
             'description'   => 'Not able to import the file due to several issues. Check out your email for the details.',
 
         ],
@@ -174,6 +185,13 @@ return [
 
             'title'         => 'New Recurring Bill',
             'description'   => '<strong>:bill_number</strong> bill is created based on <strong>:vendor_name</strong> recurring circle. You can <a href=":bill_admin_link">click here</a> to see the details.',
+
+        ],
+
+        'invalid_email' => [
+
+            'title'         => 'Invalid :type Email',
+            'description'   => 'The <strong>:email</strong> email address has been reported as invalid, and the person has been disabled. Please check and fix the email address.',
 
         ],
 

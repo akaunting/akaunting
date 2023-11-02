@@ -30,9 +30,9 @@ class Categories extends Controller
             $query->withSubcategory();
         }
 
-        $categories = $query->collect();
-
         $types = $this->getCategoryTypes();
+
+        $categories = $query->type(array_keys($types))->collect();
 
         return $this->response('settings.categories.index', compact('categories', 'types'));
     }
@@ -87,7 +87,7 @@ class Categories extends Controller
         if ($response['success']) {
             $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.categories', 1)]);
 
             flash($message)->success();
         } else {
@@ -173,7 +173,9 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories'));
+        $parent_categories = $categories[$category->type] ?? [];
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories'));
     }
 
     /**

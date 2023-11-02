@@ -17,13 +17,15 @@ export default class Errors {
     }
 
     get(field) {
-        if (this.errors[field]) {
+        if (this.has(field)) {
             return this.errors[field][0];
         }
     }
 
     record(errors) {
-        this.errors = errors;
+        if (errors instanceof Object) {
+            this.errors = errors;
+        }
     }
 
     clear(field) {

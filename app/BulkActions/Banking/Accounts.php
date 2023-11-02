@@ -19,6 +19,14 @@ class Accounts extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-banking-accounts',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'enable'    => [
             'icon'          => 'check_circle',
             'name'          => 'general.enable',
@@ -38,6 +46,31 @@ class Accounts extends BulkAction
             'permission'    => 'delete-banking-accounts',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return $this->response('bulk-actions.banking.accounts.edit', compact('selected'));
+    }
+
+    public function update($request)
+    {
+        $accounts = $this->getSelectedRecords($request);
+
+        foreach ($accounts as $account) {
+            try {
+                $request->merge([
+                    'enabled' => $account->enabled,
+                    'currency_code' => ($request->get('currency_code')) ?? $account->currency_code,
+                ]); // for update job authorize..
+
+                $this->dispatch(new UpdateAccount($account, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function disable($request)
     {

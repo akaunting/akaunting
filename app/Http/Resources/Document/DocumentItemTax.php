@@ -24,7 +24,7 @@ class DocumentItemTax extends JsonResource
             'tax_id' => $this->tax_id,
             'name' => $this->name,
             'amount' => $this->amount,
-            'amount_formatted' => money($this->amount, $this->document->currency_code, true)->format(),
+            'amount_formatted' => money($this->amount, $this->document->currency_code)->format(),
             'created_from' => $this->created_from,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',

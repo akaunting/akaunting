@@ -6,9 +6,10 @@ return [
     'invoice_date'          => 'Tanggal faktur',
     'invoice_amount'        => 'Jumlah Faktur',
     'total_price'           => 'Total harga',
-    'due_date'              => 'Batas tanggal terakhir',
+    'due_date'              => 'Tanggal Jatuh Tempo',
     'order_number'          => 'Jumlah Pesanan',
     'bill_to'               => 'Tagihan Kepada',
+    'cancel_date'           => 'Batalkan Tanggal',
 
     'quantity'              => 'Kuantitas',
     'price'                 => 'Harga',
@@ -19,6 +20,7 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Nama Item|Nama Item',
+    'recurring_invoices'    => 'Faktur Berulang|Faktur Berulang',
 
     'show_discount'         => 'Diskon :discount%',
     'add_discount'          => 'Tambahkan diskon',
@@ -40,9 +42,16 @@ return [
     'send_invoice'          => 'Kirim faktur',
     'get_paid'              => 'Telah dibayar',
     'accept_payments'       => 'Menerima pembayaran online',
+    'payments_received'     => 'Pembayaran diterima',
+
+    'form_description' => [
+        'billing'           => 'Detail penagihan muncul di faktur Anda. Tanggal Faktur digunakan di dasbor dan laporan. Pilih tanggal yang Anda harapkan untuk dibayar sebagai Tanggal Jatuh Tempo.',
+    ],
 
     'messages' => [
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
+        'totals_required'   => 'Total faktur diperlukan, mohon edit :type dan coba simpan kembali.',
+
         'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',
 
         'status' => [
@@ -56,6 +65,18 @@ return [
                 'await'     => 'Menunggu pembayaran',
             ],
         ],
+
+        'name_or_description_required' => 'Faktur Anda harus menunjukkan setidaknya <b>:name</b> atau <b>:decription</b>',
+    ],
+
+    'share' => [
+        'show_link'         => 'Pelanggan Anda dapat melihat faktur di tautan ini',
+        'copy_link'         => 'Salin tautan dan bagikan dengan pelanggan Anda.',
+        'success_message'   => 'Tautan berbagi disalin ke papan klip!',
+    ],
+
+    'sticky' => [
+        'description'       => 'Anda sedang mempratinjau bagaimana pelanggan Anda akan melihat versi web faktur Anda.',
     ],
 
 ];

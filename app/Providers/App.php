@@ -43,9 +43,13 @@ class App extends Provider
         Model::preventLazyLoading(config('app.eager_load'));
 
         Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
-            $class = get_class($model);
-
-            report("Attempted to lazy load [{$relation}] on model [{$class}].");
+            if (config('logging.default') == 'sentry') {
+                \Sentry\Laravel\Integration::lazyLoadingViolationReporter();
+            } else {
+                $class = get_class($model);
+    
+                report("Attempted to lazy load [{$relation}] on model [{$class}].");
+            }
         });
     }
 }

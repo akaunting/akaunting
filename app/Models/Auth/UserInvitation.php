@@ -20,11 +20,11 @@ class UserInvitation extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['user_id', 'token'];
+    protected $fillable = ['user_id', 'token', 'created_from', 'created_by'];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Auth\User');
+        return $this->belongsTo(user_model_class());
     }
  
     /**

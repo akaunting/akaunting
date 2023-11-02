@@ -22,6 +22,8 @@ class Customers extends Export
 
         $model->country = $country;
 
+        $model->can_login = $model->user_id ? true : false;
+
         return parent::map($model);
     }
 
@@ -41,6 +43,7 @@ class Customers extends Export
             'currency_code',
             'reference',
             'enabled',
+            'can_login',
         ];
     }
 }

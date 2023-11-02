@@ -3,8 +3,8 @@
 namespace App\Utilities;
 
 use App\Events\Module\PaymentMethodShowing;
-use Cache;
-use Date;
+use App\Utilities\Date;
+use Illuminate\Support\Facades\Cache;
 
 class Modules
 {

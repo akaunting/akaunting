@@ -48,7 +48,10 @@ class AddSearchString extends Listener
             }
 
             foreach ($request as $key => $value) {
-                if ($key == 'search') {
+                if ($key == 'search'
+                    || $key == 'start_date'
+                    || $key == 'end_date'
+                ) {
                     continue;
                 }
 

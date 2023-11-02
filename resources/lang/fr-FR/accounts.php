@@ -19,8 +19,8 @@ return [
     'credit_cards'          => 'Carte de Crédit|Cartes de Crédit',
 
     'form_description' => [
-        'general'           => 'Utilisez le type de carte de crédit pour le solde d\'ouverture négatif. Le numéro est essentiel pour concilier les comptes correctement. Le compte par défaut enregistrera toutes les transactions si ce n\'est pas le cas.',
-        'bank'              => 'Il se peut que vous ayez plusieurs comptes bancaires dans plusieurs banques. L\'enregistrement des informations sur votre banque facilitera la mise en correspondance des transactions au sein de votre banque.',
+        'general'           => 'Le type "carte de crédit" doit être utilisé avec un solde d\'ouverture négatif. Le numéro de compte est essentiel pour permettre la réconciliation des comptes. Le compte par défaut enregistrera toutes les transactions, à moins qu\'un choix différent ne soit fait lors de l\'enregistrement d\'une transaction.',
+        'bank'              => 'Il est possible que vous ayez plusieurs comptes bancaires dans différentes banques. L\'enregistrement des informations sur votre banque facilitera le rapprochement des transactions avec celle-ci.',
     ],
 
     'no_records' => [

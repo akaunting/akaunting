@@ -14,7 +14,7 @@ return [
     'form_description' => [
         'general'           => 'Hier können Sie die allgemeinen Transaktionsinformationen wie Datum, Betrag, Konto, Beschreibung usw. eingeben.',
         'assign_income'     => 'Wählen Sie eine Kategorie und einen Kunden aus, um Ihre Berichte detaillierter zu gestalten.',
-        'assign_expense'    => 'Wählen Sie eine Kategorie und einen Kreditor, um Ihre Berichte detaillierter zu gestalten.',
+        'assign_expense'    => 'Wählen Sie eine Kategorie und einen Lieferanten, um Ihre Berichte detaillierter zu gestalten.',
         'other'             => 'Geben Sie eine Referenz ein, um die Transaktion mit Ihren Datensätzen zu verknüpfen.',
     ],
 
@@ -35,8 +35,8 @@ return [
         ],
 
         'expense' => [
-            'show_link'     => 'Ihr Kreditor kann die Transaktion unter diesem Link ansehen',
-            'copy_link'     => 'Kopieren Sie den Link und teilen Sie ihn mit Ihrem Kreditor.',
+            'show_link'     => 'Ihr Lieferant kann die Transaktion unter diesem Link ansehen',
+            'copy_link'     => 'Kopieren und teilen Sie den Link mit Ihrem Lieferanten.',
         ],
     ],
 

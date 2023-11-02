@@ -2,18 +2,16 @@
 
 namespace App\Abstracts\View\Components\Documents;
 
-use Akaunting\Module\Module;
 use App\Abstracts\View\Component;
-use App\Events\Common\BulkActionsAdding;
 use App\Traits\Documents;
 use App\Traits\Modules;
+use App\Traits\SearchString;
 use App\Traits\ViewComponents;
 use Illuminate\Support\Str;
-use Illuminate\View\View;
 
 abstract class Index extends Component
 {
-    use Documents, Modules, ViewComponents;
+    use Documents, Modules, SearchString, ViewComponents;
 
     public const OBJECT_TYPE = 'document';
     public const DEFAULT_TYPE = 'invoice';
@@ -27,6 +25,8 @@ abstract class Index extends Component
     public $alias;
 
     public $documents;
+
+    public $totalDocuments;
 
     /** @var string */
     public $group;
@@ -42,6 +42,12 @@ abstract class Index extends Component
 
     /** @var string */
     public $routeTabRecurring;
+
+    /** @var string */
+    public $routeParamsTabUnpaid;
+
+    /** @var string */
+    public $routeParamsTabDraft;
 
     /** @var string */
     public $textPage;
@@ -112,6 +118,9 @@ abstract class Index extends Component
 
     /** @var string */
     public $tabActive;
+
+    /** @var string */
+    public $tabSuffix;
 
     /** @var bool */
     public $hideRecurringTemplates;
@@ -216,15 +225,15 @@ abstract class Index extends Component
      * @return void
      */
     public function __construct(
-        string $type, string $alias = '', $documents = [], string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
-        string $routeTabDocument = '', string $routeTabRecurring = '',
+        string $type, string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
+        string $routeTabDocument = '', string $routeTabRecurring = '', string $routeParamsTabUnpaid = '', string $routeParamsTabDraft = '',
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         bool $hideAcceptPayment = false, bool $checkPermissionCreate = true,
         bool $hideCreate = false, bool $hideImport = false, bool $hideExport = false,
         string $createRoute = '', string $importRoute = '', array $importRouteParameters = [], string $exportRoute = '',
         bool $hideEmptyPage = false, array $emptyPageButtons = [], string $imageEmptyPage = '', string $textEmptyPage = '', string $urlDocsPath = '',
         bool $hideSummary = false, array $summaryItems = [],
-        bool $withoutTabs = false, string $tabActive = '', bool $hideRecurringTemplates = false,
+        bool $withoutTabs = false, string $tabActive = '', string $tabSuffix = '', bool $hideRecurringTemplates = false,
         bool $hideSearchString = false, bool $hideBulkAction = false,
         string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '', string $classBulkAction = '',
         bool $hideDueAt = false, bool $hideIssuedAt = false, string $classDueAtAndIssueAt = '', string $textDueAt = '', string $textIssuedAt = '',
@@ -239,6 +248,7 @@ abstract class Index extends Component
         $this->type = $type;
         $this->alias = $this->getAlias($type, $alias);
         $this->documents = ($documents) ? $documents : collect();
+        $this->totalDocuments = $this->getTotalDocuments($totalDocuments);
         $this->group = $this->getGroup($type, $group);
         $this->page = $this->getPage($type, $page);
         $this->textTabDocument = $this->getTextTabDocument($type, $textTabDocument);
@@ -249,6 +259,8 @@ abstract class Index extends Component
         $this->permissionDelete = $this->getPermissionDelete($type, $permissionDelete);
 
         $this->routeTabDocument = $this->getRouteTabDocument($type, $routeTabDocument);
+        $this->routeParamsTabUnpaid = $this->getRouteParamsTabUnpaid($type, $routeParamsTabUnpaid);
+        $this->routeParamsTabDraft = $this->getRouteParamsTabDraft($type, $routeParamsTabDraft);
         $this->routeTabRecurring = $this->getRouteTabRecurring($type, $routeTabRecurring);
         /* -- Main End -- */
 
@@ -269,7 +281,7 @@ abstract class Index extends Component
 
         /* -- Content Start -- */
         /* -- Empty Page Start -- */
-        $this->hideEmptyPage = $hideEmptyPage;
+        $this->hideEmptyPage = $this->getHideEmptyPage($hideEmptyPage);
 
         $this->emptyPageButtons = $this->getEmptyPageButtons($type, $emptyPageButtons);
         $this->imageEmptyPage = $this->getImageEmptyPage($type, $imageEmptyPage);
@@ -284,6 +296,7 @@ abstract class Index extends Component
 
         /* Container Start */
         $this->withoutTabs = $withoutTabs;
+        $this->tabSuffix = $this->getTabSuffix($type, $tabSuffix);
         $this->tabActive = $this->getTabActive($type, $tabActive);
 
         $this->hideRecurringTemplates = $hideRecurringTemplates;
@@ -341,6 +354,32 @@ abstract class Index extends Component
         $this->setParentData();
     }
 
+    protected function getTotalDocuments($totalDocuments)
+    {
+        if (! is_null($totalDocuments)) {
+            return $totalDocuments;
+        }
+
+        return $this->documents->count();
+    }
+
+    protected function getHideEmptyPage($hideEmptyPage): bool
+    {
+        if ($hideEmptyPage) {
+            return $hideEmptyPage;
+        }
+
+        if ($this->totalDocuments > 0) {
+            return true;
+        }
+
+        if (request()->has('search') && ($this->totalDocuments > 0)) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected function getEmptyPageButtons($type, $emptyPageButtons)
     {
         if (! empty($emptyPageButtons)) {
@@ -392,8 +431,8 @@ abstract class Index extends Component
         foreach ($totals as $key => $total) {
             $title = ($key == 'overdue') ? trans('general.overdue') : trans('documents.statuses.' . $key);
             $href = route($route, ['search' => 'status:' . $key]);
-            $amount = money($total, default_currency(), true)->formatForHumans();
-            $tooltip = money($total, default_currency(), true)->format();
+            $amount = money($total)->formatForHumans();
+            $tooltip = money($total)->format();
 
             $items[] = [
                 'title'     => $title,
@@ -429,7 +468,26 @@ abstract class Index extends Component
             return $tabActive;
         }
 
-        return $type;
+        return $type . '-' . $this->tabSuffix;
+    }
+
+    public function getTabSuffix($type, $tabSuffix)
+    {
+        if (! empty($tabSuffix)) {
+            return $tabSuffix;
+        }
+
+        if (request()->get('list_records') == 'all') {
+            return 'all';
+        }
+
+        $status = $this->getSearchStringValue('status');
+
+        if ($status == 'draft') {
+            return 'draft';
+        }
+
+        return 'unpaid';
     }
 
     protected function getRouteTabDocument($type, $routeTabDocument)
@@ -445,6 +503,36 @@ abstract class Index extends Component
         }
 
         return 'invoices.index';
+    }
+
+    protected function getRouteParamsTabUnpaid($type, $routeParamsTabUnpaid)
+    {
+        if (! empty($routeParamsTabUnpaid)) {
+            return $routeParamsTabUnpaid;
+        }
+
+        $params = $this->getRouteParamsFromConfig($type, 'unpaid');
+
+        if (! empty($params)) {
+            return $params;
+        }
+
+        return ['search' => 'status:sent,viewed,partial'];
+    }
+
+    protected function getRouteParamsTabDraft($type, $routeParamsTabDraft)
+    {
+        if (! empty($routeParamsTabDraft)) {
+            return $routeParamsTabDraft;
+        }
+
+        $params = $this->getRouteParamsFromConfig($type, 'draft');
+
+        if (! empty($params)) {
+            return $params;
+        }
+
+        return ['search' => 'status:draft'];
     }
 
     protected function getRouteTabRecurring($type, $routeTabDocument)

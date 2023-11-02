@@ -7,11 +7,13 @@
         v-if="{{ $attributes['show'] }}"
         @endif
         >
-        <x-form.label for="{{ $name }}">{!! $label !!}</x-form.label>
+        <x-form.label for="{{ $name }}">
+            {!! $label !!}
+        </x-form.label>
 
         <div class="flex items-center mt-1">
             @if (empty($attributes['disabled']))
-                <label class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="form.{{ $name }}=1" v-bind:class="[form.{{ $name }} == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
+                <label class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="form.{{ $name }}=1; @if(isset($attributes['change'])) {!! $attributes['change'] !!} @endif" v-bind:class="[form.{{ $name }} == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
                     {{ empty($enable) ? trans('general.yes') : $enable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-1" class="absolute left-0 opacity-0">
                 </label>
@@ -23,7 +25,7 @@
             @endif
 
             @if (empty($attributes['disabled']))
-                <label class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="form.{{ $name }}=0" v-bind:class="[form.{{ $name }} == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
+                <label class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="form.{{ $name }}=0; @if(isset($attributes['change'])) {!! $attributes['change'] !!} @endif" v-bind:class="[form.{{ $name }} == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
                     {{ empty($disable) ? trans('general.no') : $disable }}
                     <input type="radio" name="{{ $name }}" id="{{ $name }}-0" class="absolute left-0 opacity-0">
                 </label>

@@ -130,7 +130,7 @@ class Menu extends Presenter
     {
         $id = Str::slug($item->title);
 
-        return '<details class="relative">
+        return '<details class="relative" ' . $this->getActiveStateOnChild($item) . '>
                     <summary class="' . $this->getClass($item). '" href="#navbar-' . $id . '" aria-controls="navbar-' . $id . '">
                         <div class="pb-2.5 flex items-center cursor-pointer text-purple text-sm '. $this->getActiveState($item) .'">
                             ' . $this->getIcon($item) . '

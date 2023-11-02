@@ -103,7 +103,7 @@
 
                                 <x-table.td class="w-6/12 sm:w-3/12" kind="amount">
                                     @if ($item->closing_balance)
-                                        <x-money :amount="$item->closing_balance" :currency="$item->account->currency_code" convert />
+                                        <x-money :amount="$item->closing_balance" :currency="$item->account->currency_code" />
                                     @else
                                         <x-empty-data />
                                     @endif
@@ -120,7 +120,7 @@
                 <x-pagination :items="$reconciliations" />
             </x-index.container>
         @else
-            <x-empty-page group="banking" page="reconciliations" />
+            <x-empty-page group="banking" page="reconciliations" hide-button-import />
         @endif
     </x-slot>
 

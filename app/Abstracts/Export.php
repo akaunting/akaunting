@@ -15,9 +15,10 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
-abstract class Export implements FromCollection, HasLocalePreference, ShouldAutoSize, ShouldQueue, WithHeadings, WithMapping, WithTitle
+abstract class Export implements FromCollection, HasLocalePreference, ShouldAutoSize, ShouldQueue, WithHeadings, WithMapping, WithTitle, WithStrictNullComparison
 {
     use Exportable;
 
@@ -48,12 +49,17 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
     {
         $map = [];
 
-        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at', 'transferred_at'];
+        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'transferred_at'];
 
         $evil_chars = ['=', '+', '-', '@'];
 
         foreach ($this->fields as $field) {
             $value = $model->$field;
+
+            // created_by is equal to the owner id. Therefore, the value in export is owner email.
+            if ($field == 'created_by') {
+                $value = $model->owner->email ?? null;
+            }
 
             if (in_array($field, $date_fields)) {
                 $value = ExcelDate::PHPToExcel(Date::parse($value)->format('Y-m-d'));

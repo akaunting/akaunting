@@ -27,6 +27,11 @@ return [
         'body'          => 'Hallo,<br /><br />{customer_name} heeft een betaling uitgevoerd van factuur <strong>{invoice_number}</strong>.<br /><br />U kunt de factuurgegevens bekijken via de volgende link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Met vriendelijke groeten,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} factuur bekeken',
+        'body'          => 'Hallo,<br /><br />{customer_name} heeft de <strong>{invoice_number}</strong> factuur bekeken.<br /><br />Je kunt de factuurgegevens bekijken via de volgende link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Met vriendelijke groeten,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Betaling ontvangen voor factuur: {invoice_number}',
         'body'          => 'Geachte {customer_name},<br /><br />Bedankt voor uw betaling. U vind de betalingsgegevens hieronder:<br /><br />-------------------------------------------------<br />Bedrag: <strong>{transaction_total}</strong><br />Datum: <strong>{transaction_paid_date}</strong><br />Factuurnummer: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Je kunt altijd de factuurgegevens zien van de volgende link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Neem gerust contact met ons op indien u vragen heeft.<br /><br />Met vriendelijke groeten,<br />{company_name}',
@@ -47,13 +52,13 @@ return [
         'body'          => 'Hallo,<br /><br />gebaseerd op {vendor_name} terugkerende betalingen, is rekening <strong>{bill_number}</strong>  automatisch aangemaakt.<br /><br />Je kunt de rekeninggegevens bekijken via de volgende link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Met vriendelijke groeten,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => 'Betaling met {revenue_date} aangemaakt',
-        'body'          => 'Geachte {customer_name},<br /><br />We hebben de volgende betaling aangemaakt. <br /><br />U kunt de betalingsgegevens bekijken via de volgende link: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Neem gerust contact met ons op met eventuele vragen.<br /><br />Met vriendelijke groet.<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'Uw ontvangstbewijs van {company_name}',
+        'body'          => 'Beste {contact_name},<br /><br />Bedankt voor de betaling. <br /><br />Je kunt de betalingsgegevens zien via de volgende link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Aarzel niet om contact met ons op te nemen als u vragen heeft.<br /><br />Met vriendelijke groet,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => 'Betaling met {revenue_date} aangemaakt',
-        'body'          => 'Geachte {vendor_name},<br /><br />We hebben de volgende betaling aangemaakt. <br /><br />U kunt de betalingsgegevens bekijken via de volgende link: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Neem gerust contact met ons op met eventuele vragen.<br /><br />Met vriendelijke groet.<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => 'Betaling gedaan door {company_name}',
+        'body'          => 'Beste {contact_name},<br /><br />We hebben de volgende betaling gedaan. <br /><br />U kunt de betalingsgegevens zien via de volgende link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Neem gerust contact met ons op als u vragen heeft.<br /><br />Met vriendelijke groet,<br />{company_name}',
     ],
 ];

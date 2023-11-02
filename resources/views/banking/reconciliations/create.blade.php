@@ -51,8 +51,8 @@
                             :currency="$currency"
                         />
 
-                        <x-form.group.account 
-                            form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input" 
+                        <x-form.group.account
+                            form-group-class="col-span-10 lg:col-span-5 xl:col-span-2 account-input"
                             selected="{{ request('account_id', setting('default.account')) }}"
                         />
 
@@ -130,7 +130,7 @@
 
                                 @if ($item->isIncome())
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
-                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                        <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                     </x-table.td>
 
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
@@ -142,7 +142,7 @@
                                     </x-table.td>
 
                                     <x-table.td class="w-6/12 lg:w-2/12" hidden-mobile kind="cursor-none">
-                                        <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                        <x-money :amount="$item->amount" :currency="$item->currency_code" />
                                     </x-table.td>
                                 @endif
 
@@ -174,7 +174,7 @@
 
                                     <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
                                         <span class="w-auto pl-6 text-sm">
-                                            <x-money :amount="$opening_balance" :currency="$account->currency_code" convert />
+                                            <x-money :amount="$opening_balance" :currency="$account->currency_code" />
                                         </span>
                                     </td>
                                 </tr>

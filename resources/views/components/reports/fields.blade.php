@@ -62,6 +62,7 @@
                 name="{{ $field['name'] }}"
                 label="{{ $field['title'] }}"
                 :options="$field['values']"
+                sort-options="false"
                 :selected="$field['selected']"
                 data-field="settings"
                 :dynamic-attributes="$field['attributes']"

@@ -21,15 +21,6 @@ class Dashboard extends Model
     protected $fillable = ['company_id', 'name', 'enabled', 'created_from', 'created_by'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'enabled' => 'boolean',
-    ];
-
-    /**
      * Sortable columns.
      *
      * @var array
@@ -38,7 +29,7 @@ class Dashboard extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserDashboard');
+        return $this->belongsToMany(user_model_class(), 'App\Models\Auth\UserDashboard');
     }
 
     public function widgets()

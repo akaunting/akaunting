@@ -1,5 +1,4 @@
 @stack($name . '_input_start')
-
     @if (! empty($remote))
     <akaunting-select-remote
     @else
@@ -186,7 +185,32 @@
         @if (isset($attributes['sort-options']))
         :sort-options="{{ $attributes['sort-options'] }}"
         @endif
+
+        @if (isset($attributes['option-style']))
+        option-style="{{ $attributes['option-style'] }}"
+        @endif
+
+        @if (isset($attributes['option_field']))
+        :option_field="{{ json_encode($attributes['option_field']) }}"
+        @endif
+
+        @if (isset($attributes['@index']))
+        @index="{{ $attributes['@index'] }}"
+        @endif
+
+        @if (isset($attributes['@value']))
+        @value="{{ $attributes['@value'] }}"
+        @endif
+
+        @if (isset($attributes['@option']))
+        @option="{{ $attributes['@option'] }}"
+        @endif
+
+        @if (isset($attributes['@label']))
+        @label="{{ $attributes['@label'] }}"
+        @endif
     >
+        {!! $slot !!}
     @if (! empty($remote))
     </akaunting-select-remote>
     @else

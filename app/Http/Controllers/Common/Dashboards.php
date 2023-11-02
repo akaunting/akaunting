@@ -76,8 +76,8 @@ class Dashboards extends Controller
         $date_picker_shortcuts = $this->getDatePickerShortcuts();
 
         if (! request()->has('start_date')) {
-            request()->merge(['start_date' => $date_picker_shortcuts[trans('reports.this_year')]['start']]);
-            request()->merge(['end_date' => $date_picker_shortcuts[trans('reports.this_year')]['end']]);
+            request()->merge(['start_date' => $date_picker_shortcuts[trans('general.date_range.this_year')]['start']]);
+            request()->merge(['end_date' => $date_picker_shortcuts[trans('general.date_range.this_year')]['end']]);
         }
 
         return view('common.dashboards.show', compact('dashboard', 'widgets', 'user_dashboards', 'date_picker_shortcuts'));
@@ -112,7 +112,7 @@ class Dashboards extends Controller
         if ($response['success']) {
             $response['redirect'] = route('dashboards.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.dashboards', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.dashboards', 1)]);
 
             flash($message)->success();
         } else {

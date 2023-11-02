@@ -10,12 +10,14 @@
             <x-form.group.recurring
                 :type="$type"
                 @started="onChangeRecurringDate()"
+                :interval="$document ? $document->recurring->interval : null"
                 :frequency="$document ? $document->recurring->frequency : null"
                 :custom-frequency="$document ? $document->recurring->custom_frequency : null"
                 :limit="$document ? $document->recurring->limit_by : null"
                 :started-value="$document ? $document->recurring->started_at : null"
                 :limit-count="$document ? $document->recurring->limit_count : null"
                 :limit-date-value="$document ? $document->recurring->limit_date : null"
+                :send-email="$document ? $document->recurring->auto_send : null"
             />
         @endif
     </x-slot>

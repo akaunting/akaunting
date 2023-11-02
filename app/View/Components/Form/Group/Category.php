@@ -51,7 +51,7 @@ class Category extends Form
             $selected_category = $model->category;
         }
 
-        if (empty($this->selected) && in_array($this->type, [Model::INCOME_TYPE, Model::EXPENSE_TYPE])) {
+        if ($this->selected === null && in_array($this->type, [Model::INCOME_TYPE, Model::EXPENSE_TYPE])) {
             $this->selected = setting('default.' . $this->type . '_category');
 
             $selected_category = Model::find($this->selected);

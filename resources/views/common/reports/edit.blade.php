@@ -97,6 +97,7 @@
                                         name="{{ $field['name'] }}"
                                         label="{{ $field['title'] }}"
                                         :options="$field['values']"
+                                        sort-options="false"
                                         :selected="isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']} : $field['selected']"
                                         data-field="settings"
                                         :attributes="$field['attributes']"

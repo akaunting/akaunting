@@ -9,7 +9,6 @@ use App\Traits\Transactions;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -286,6 +285,9 @@ abstract class Show extends Component
     public $hideChildren;
 
     /** @var bool */
+    public $hideConnect;
+
+    /** @var bool */
     public $hideTransfer;
 
     /** @var bool */
@@ -332,7 +334,7 @@ abstract class Show extends Component
         string $textRelatedTransansaction = '', string $textRelatedDocumentNumber = '', string $textRelatedContact = '', string $textRelatedDocumentDate = '', string $textRelatedDocumentAmount = '', string $textRelatedAmount = '',
         string $routeDocumentShow = '', string $routeTransactionShow = '', string $textButtonAddNew = '',
 
-        bool $hideSchedule = false, bool $hideChildren = false, bool $hideTransfer = false, bool $hideAttachment = false, $attachment = [],
+        bool $hideSchedule = false, bool $hideChildren = false, bool $hideConnect = false, bool $hideTransfer = false, bool $hideAttachment = false, $attachment = [],
         array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false, bool $hideCreated = false
     ) {
         $this->type = $type;
@@ -388,6 +390,9 @@ abstract class Show extends Component
 
         // Hide Children
         $this->hideChildren = $hideChildren;
+
+        // Hide Connect
+        $this->hideConnect = $hideConnect;
 
         // Hide Transfer
         $this->hideTransfer = $hideTransfer;
@@ -483,7 +488,7 @@ abstract class Show extends Component
             return $template;
         }
 
-        $transactionTemplate = setting($this->getSettingKey($type, 'template')) ?: 'default';
+        $transactionTemplate = setting($this->getTransactionSettingKey($type, 'template')) ?: 'default';
 
         return $transactionTemplate;
     }
@@ -494,6 +499,12 @@ abstract class Show extends Component
             return $logo;
         }
 
+        static $content;
+
+        if (! empty($content)) {
+            return $content;
+        }
+
         $media_id = (!empty($this->transaction->contact->logo) && !empty($this->transaction->contact->logo->id)) ? $this->transaction->contact->logo->id : setting('company.logo');
 
         $media = Media::find($media_id);
@@ -501,7 +512,7 @@ abstract class Show extends Component
         if (! empty($media)) {
             $path = $media->getDiskPath();
 
-            if (Storage::missing($path)) {
+            if (! $media->fileExists()) {
                 return $logo;
             }
         } else {
@@ -514,7 +525,7 @@ abstract class Show extends Component
                 $height = setting('invoice.logo_size_height');
 
                 if ($media) {
-                    $image->make(Storage::get($path))->resize($width, $height)->encode();
+                    $image->make($media->contents())->resize($width, $height)->encode();
                 } else {
                     $image->make($path)->resize($width, $height)->encode();
                 }
@@ -539,7 +550,9 @@ abstract class Show extends Component
 
         $extension = File::extension($path);
 
-        return 'data:image/' . $extension . ';base64,' . base64_encode($image);
+        $content = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $content;
     }
 
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)
@@ -1114,9 +1127,7 @@ abstract class Show extends Component
             return $textRecurringType;
         }
 
-        $default_key = config('type.transaction.' . $type . '.translation.transactions');
-
-        $translation = $this->getTextFromConfig($type, 'recurring_type', $default_key);
+        $translation = config('type.transaction.' . $type . '.translation.transactions');
 
         if (! empty($translation)) {
             return $translation;

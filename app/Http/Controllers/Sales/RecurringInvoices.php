@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
+use App\Exports\Sales\RecurringInvoices\RecurringInvoices as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
+use App\Imports\Sales\RecurringInvoices\RecurringInvoices as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
@@ -82,7 +85,7 @@ class RecurringInvoices extends Controller
         if ($response['success']) {
             $response['redirect'] = route('recurring-invoices.show', $response['data']->id);
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.recurring_invoices', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.recurring_invoices', 1)]);
 
             flash($message)->success();
         } else {
@@ -112,6 +115,30 @@ class RecurringInvoices extends Controller
         flash($message)->success();
 
         return redirect()->route('recurring-invoices.edit', $clone->id);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        $response = $this->importExcel(new Import, $request, trans_choice('general.recurring_invoices', 2));
+
+        if ($response['success']) {
+            $response['redirect'] = route('recurring-invoices.index');
+
+            flash($response['message'])->success();
+        } else {
+            $response['redirect'] = route('import.create', ['sales', 'recurring-invoices']);
+
+            flash($response['message'])->error()->important();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -153,6 +180,16 @@ class RecurringInvoices extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /** 
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return $this->exportExcel(new Export, trans_choice('general.recurring_invoices', 2));
     }
 
     /**

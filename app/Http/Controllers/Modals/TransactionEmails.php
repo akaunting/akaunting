@@ -29,6 +29,8 @@ class TransactionEmails extends Controller
 
     public function create(Transaction $transaction): JsonResponse
     {
+        $contacts = $transaction->contact->withPersons();
+
         $email_template = config('type.transaction.' . $transaction->type . '.email_template');
 
         if (request()->get('email_template')) {
@@ -47,7 +49,7 @@ class TransactionEmails extends Controller
 
         $store_route = 'modals.transactions.emails.store';
 
-        $html = view('modals.transactions.email', compact('transaction', 'notification', 'store_route'))->render();
+        $html = view('modals.transactions.email', compact('transaction', 'contacts', 'notification', 'store_route'))->render();
 
         return response()->json([
             'success' => true,

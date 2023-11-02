@@ -75,6 +75,10 @@ class SearchString extends Component
                         'type' => $this->getFilterType($options),
                         'url' => $this->getFilterUrl($column, $options),
                         'values' => $this->getFilterValues($column, $options),
+                        'value_option_fields' => $options['fields'] ?? [],
+                        //'operators' => $options['operators'] ?? $this->getOperators($options['type'] ?? 'string'),
+                        'operator' => $options['operator'] ?? '=',
+                        'multiple' => $options['multiple'] ?? false,
                     ];
                 }
             }
@@ -113,6 +117,8 @@ class SearchString extends Component
 
     protected function getFilterName($column, $options)
     {
+        $column = last(explode('.', $column));
+
         if (strpos($column, '_id') !== false) {
             $column = str_replace('_id', '', $column);
         } else if (strpos($column, '_code') !== false) {
@@ -120,7 +126,7 @@ class SearchString extends Component
         }
 
         if (! empty($options['translation']) && ! isset($options['boolean'])) {
-            return $options['translation'];
+            return $this->findTranslation($options['translation']);
         }
 
         if (!empty($options['key'])) {
@@ -242,5 +248,42 @@ class SearchString extends Component
         }
 
         return $values;
+    }
+
+    protected function getOperators($type)
+    {
+        $operators = [
+            'equal' => [
+                'enabled'   => true,
+                'symbol'    => [
+                    'sign'  => '=',
+                    'icon'  => 'drag_handle',
+                ],
+                'text'      => trans('general.is'),
+            ],
+            'not_equal' => [
+                'enabled'   => true,
+                'symbol'    => [
+                    'sign'  => '!=',
+                    'img'   => asset('public/img/tailwind_icons/not-equal.svg'),
+                ],
+                'text'      => trans('general.isnot'),
+            ],
+            'range' => [
+                'enabled'   => false,
+                'symbol'    => [
+                    'sign'  => '><',
+                    'class' => 'transform rotate-90',
+                    'icon'  => 'height',
+                ],
+                'text'      => trans('general.range'),
+            ],
+        ];
+
+        if ($type == 'date') {
+            $operators['range']['enabled'] = true;
+        }
+
+        return $operators;
     }
 }

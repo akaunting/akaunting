@@ -137,7 +137,7 @@
                                 <x-table.td class="w-6/12 sm:w-2/12" kind="amount">
                                     @stack('amount_td_inside_start')
 
-                                    <x-money :amount="$item->amount" :currency="$item->currency_code" convert />
+                                    <x-money :amount="$item->amount" :currency="$item->currency_code" />
 
                                         @stack('amount_td_inside_end')
                                 </x-table.td>

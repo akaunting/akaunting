@@ -4,10 +4,14 @@ namespace App\BulkActions\Banking;
 
 use App\Abstracts\BulkAction;
 use App\Exports\Banking\Transactions as Export;
+use App\Jobs\Banking\UpdateTransaction;
 use App\Models\Banking\Transaction;
+use App\Traits\Transactions as TransactionsTrait;
 
 class Transactions extends BulkAction
 {
+    use TransactionsTrait;
+
     public $model = Transaction::class;
 
     public $text = 'general.transactions';
@@ -18,6 +22,14 @@ class Transactions extends BulkAction
     ];
 
     public $actions = [
+        'edit' => [
+            'icon'          => 'edit',
+            'name'          => 'general.edit',
+            'message'       => '',
+            'permission'    => 'update-banking-transactions',
+            'type'          => 'modal',
+            'handle'        => 'update',
+        ],
         'delete'    => [
             'icon'          => 'delete',
             'name'          => 'general.delete',
@@ -31,6 +43,56 @@ class Transactions extends BulkAction
             'type'          => 'download',
         ],
     ];
+
+    public function edit($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        $real_type = 'income';
+        $contact_type = 'customer';
+        $account_currency_code = 'USD';
+
+        $types = [];
+        $transactions = $this->getSelectedRecords($request);
+
+        foreach ($transactions as $transaction) {
+            $r_type = $this->getRealTypeTransaction($transaction->type);
+
+            if (in_array($r_type, $types)) {
+                continue;
+            }
+
+            $types[] = $r_type;
+
+            $real_type = $r_type;
+            $contact_type = $transaction->contact->type;
+            $account_currency_code = $transaction->account->currency_code;
+        }
+
+        $category_and_contact = count($types) > 1 ? false : true;
+
+        return $this->response('bulk-actions.banking.transactions.edit', compact('selected' , 'category_and_contact', 'real_type', 'contact_type', 'account_currency_code'));
+    }
+
+    public function update($request)
+    {
+        $transactions = $this->getSelectedRecords($request);
+
+        foreach ($transactions as $transaction) {
+            try {
+                $request->merge([
+                    'type' => $transaction->type,
+                    'uploaded_attachment' => $transaction->attachment,
+                ])->except([
+
+                ]);
+
+                $this->dispatch(new UpdateTransaction($transaction, $this->getUpdateRequest($request)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
 
     public function destroy($request)
     {

@@ -27,6 +27,8 @@ class Company extends Eloquent implements Ownable
 
     protected $table = 'companies';
 
+    //protected $with = ['settings'];
+
     /**
      * The accessors to append to the model's array form.
      *
@@ -34,12 +36,11 @@ class Company extends Eloquent implements Ownable
      */
     protected $appends = ['location'];
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['domain', 'enabled', 'created_from', 'created_by'];
 
     protected $casts = [
-        'enabled' => 'boolean',
+        'enabled'       => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     public $allAttributes = [];
@@ -149,6 +150,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Common\Contact');
     }
 
+    public function contact_persons()
+    {
+        return $this->hasMany('App\Models\Common\ContactPerson');
+    }
+
     public function currencies()
     {
         return $this->hasMany('App\Models\Setting\Currency');
@@ -209,6 +215,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Common\Item');
     }
 
+    public function item_taxes()
+    {
+        return $this->hasMany('App\Models\Common\ItemTax');
+    }
+
     public function modules()
     {
         return $this->hasMany('App\Models\Module\Module');
@@ -221,7 +232,7 @@ class Company extends Eloquent implements Ownable
 
     public function owner()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsTo(user_model_class(), 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
     }
 
     public function reconciliations()
@@ -254,6 +265,11 @@ class Company extends Eloquent implements Ownable
         return $this->hasMany('App\Models\Banking\Transaction');
     }
 
+    public function transaction_taxes()
+    {
+        return $this->hasMany('App\Models\Banking\TransactionTax');
+    }
+
     public function transfers()
     {
         return $this->hasMany('App\Models\Banking\Transfer');
@@ -261,7 +277,7 @@ class Company extends Eloquent implements Ownable
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\Auth\User', 'App\Models\Auth\UserCompany');
+        return $this->belongsToMany(user_model_class(), 'App\Models\Auth\UserCompany');
     }
 
     public function vendors()
@@ -528,7 +544,7 @@ class Company extends Eloquent implements Ownable
 
         $country = setting('company.country');
 
-        if ($country && in_array($country, trans('countries'))) {
+        if ($country && array_key_exists($country, trans('countries'))) {
             $location[] = trans('countries.' . $country);
         }
 
@@ -549,7 +565,7 @@ class Company extends Eloquent implements Ownable
                 'title' => trans('general.switch'),
                 'icon' => 'settings_ethernet',
                 'url' => route('companies.switch', $this->id),
-                'permission' => 'read-common-companies',
+                //'permission' => 'read-common-companies', remove this permission to allow switching to any company
                 'attributes' => [
                     'id' => 'index-line-actions-switch-company-' . $this->id,
                 ],

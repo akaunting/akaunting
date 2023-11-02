@@ -8,24 +8,14 @@ trait Cloud
 {
     use Modules;
 
-    public $cloud_host = 'app.akaunting.com';
-
-    public function isCloud()
-    {
-        return request()->getHost() == $this->cloud_host;
-    }
-
     public function getCloudRolesPageUrl($location = 'user')
     {
-        if (! $this->isCloud()) {
-            return 'https://akaunting.com/apps/roles?utm_source=software&utm_medium=' . $location . '&utm_campaign=roles';
-        }
-
         if ($this->moduleIsEnabled('roles')) {
             return route('roles.roles.index');
         }
 
-        return route('cloud.plans.index', [
+        return route('apps.app.show', [
+            'alias'         => 'roles',
             'utm_source'    => $location,
             'utm_medium'    => 'app',
             'utm_campaign'  => 'roles',
@@ -34,14 +24,20 @@ trait Cloud
 
     public function getCloudBankFeedsUrl($location = 'widget')
     {
-        if (! $this->isCloud()) {
-            return 'https://akaunting.com/apps/bank-feeds?utm_source=software&utm_medium=' . $location . '&utm_campaign=bank_feeds';
+        if ($this->moduleIsEnabled('bank-feeds')) {
+            return route('bank-feeds.bank-connections.index');
         }
 
-        return route('cloud.plans.index', [
+        return route('apps.app.show', [
+            'alias'         => 'bank-feeds',
             'utm_source'    => $location,
             'utm_medium'    => 'app',
             'utm_campaign'  => 'bank_feeds',
         ]);
+    }
+
+    public function isCloud()
+    {
+        return request()->getHost() == config('cloud.host', 'app.akaunting.com');
     }
 }

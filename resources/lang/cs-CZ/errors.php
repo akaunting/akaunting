@@ -19,5 +19,7 @@ return [
         '404'       => 'Nemohli jsme najít stránku, kterou hledáte.',
         '500'       => 'Budeme neprodleně pracovat na nápravě.',
         'record'    => 'Nemohli jsme najít záznam, který hledáte.',
+        'amount'    => 'Tato stránka obsahuje neplatné částky! Obraťte se na správce systému.',
     ],
+
 ];

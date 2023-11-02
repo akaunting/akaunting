@@ -39,19 +39,6 @@ class Dashboards extends BulkAction
         ],
     ];
 
-    public function enable($request)
-    {
-        $dashboards = $this->getSelectedRecords($request);
-
-        foreach ($dashboards as $dashboard) {
-            try {
-                $this->dispatch(new UpdateDashboard($dashboard, $request->merge(['enabled' => 1])));
-            } catch (\Exception $e) {
-                flash($e->getMessage())->error()->important();
-            }
-        }
-    }
-
     public function disable($request)
     {
         $dashboards = $this->getSelectedRecords($request);

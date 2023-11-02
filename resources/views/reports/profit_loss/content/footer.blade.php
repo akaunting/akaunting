@@ -8,12 +8,12 @@
 
                 @foreach($class->net_profit as $profit)
                 <td class="{{ $class->column_value_width }} ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
-                    <x-money :amount="$profit" :currency="default_currency()" convert />
+                    <x-money :amount="$profit" />
                 </td>
                 @endforeach
 
                 <td class="{{ $class->column_name_width }} ltr:text-right rtl:text-left text-black-400 font-medium text-xs print-alignment">
-                    <x-money :amount="array_sum($class->net_profit)" :currency="default_currency()" convert />
+                    <x-money :amount="array_sum($class->net_profit)" />
                 </td>
             </tr>
         </tbody>

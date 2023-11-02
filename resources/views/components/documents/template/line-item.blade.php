@@ -1,16 +1,16 @@
 <tr>
     @stack('name_td_start')
         @if (! $hideItems || (! $hideName && ! $hideDescription))
-            <td class="item text text-alignment-left text-left">
+            <td class="item text text-alignment-left text-left max-w-0">
                 @if (! $hideName)
                     {{ $item->name }} <br/>
                 @endif
 
                 @if (! $hideDescription)
                     @if (! empty($item->description))
-                        <span class="small-text">
+                        <div class="small-text break-words">
                             {!! \Illuminate\Support\Str::limit(nl2br($item->description), 500) !!}
-                        </span>
+                        </div>
                     @endif
                 @endif
 
@@ -31,7 +31,7 @@
     @stack('price_td_start')
         @if (! $hidePrice)
             <td class="price text text-alignment-right text-right">
-                <x-money :amount="$item->price" :currency="$document->currency_code" convert />
+                <x-money :amount="$item->price" :currency="$document->currency_code" />
             </td>
         @endif
     @stack('price_td_end')
@@ -59,7 +59,7 @@
                     </td>
                 @else
                     <td class="discount text text-alignment-right text-right">
-                        <x-money :amount="$item->discount" :currency="$document->currency_code" convert />
+                        <x-money :amount="$item->discount" :currency="$document->currency_code" />
                     </td>
                 @endif
             @stack('discount_td_end')
@@ -69,7 +69,7 @@
     @stack('total_td_start')
         @if (! $hideAmount)
             <td class="total text text-alignment-right text-right">
-                <x-money :amount="$item->total" :currency="$document->currency_code" convert />
+                <x-money :amount="$item->total" :currency="$document->currency_code" />
             </td>
         @endif
     @stack('total_td_end')

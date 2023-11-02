@@ -21,6 +21,12 @@ class Event extends Provider
             'App\Listeners\Update\V30\Version305',
             'App\Listeners\Update\V30\Version307',
             'App\Listeners\Update\V30\Version309',
+            'App\Listeners\Update\V30\Version3013',
+            'App\Listeners\Update\V30\Version3014',
+            'App\Listeners\Update\V30\Version3015',
+            'App\Listeners\Update\V30\Version3016',
+            'App\Listeners\Update\V30\Version3017',
+            'App\Listeners\Update\V31\Version310',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
@@ -46,6 +52,9 @@ class Event extends Provider
         ],
         'App\Events\Document\DocumentCancelled' => [
             'App\Listeners\Document\MarkDocumentCancelled',
+        ],
+        'App\Events\Document\DocumentRestored' => [
+            'App\Listeners\Document\RestoreDocument',
         ],
         'App\Events\Document\DocumentRecurring' => [
             'App\Listeners\Document\SendDocumentRecurringNotification',
@@ -104,6 +113,14 @@ class Event extends Provider
         'App\Events\Setting\CategoryDeleted' => [
             'App\Listeners\Setting\DeleteCategoryDeletedSubCategories',
         ],
+        'App\Events\Email\TooManyEmailsSent' => [
+            'App\Listeners\Email\ReportTooManyEmailsSent',
+            'App\Listeners\Email\TellFirewallTooManyEmailsSent',
+        ],
+        'App\Events\Email\InvalidEmailDetected' => [
+            'App\Listeners\Email\DisablePersonDueToInvalidEmail',
+            'App\Listeners\Email\SendInvalidEmailNotification',
+        ],
     ];
 
     /**
@@ -112,8 +129,8 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
+        'App\Listeners\Common\ClearPlansCache',
         'App\Listeners\Module\ClearCache',
-        'App\Listeners\Report\AddDate',
         'App\Listeners\Report\AddAccounts',
         'App\Listeners\Report\AddCustomers',
         'App\Listeners\Report\AddVendors',
@@ -123,5 +140,7 @@ class Event extends Provider
         'App\Listeners\Report\AddSearchString',
         'App\Listeners\Report\AddRowsToTax',
         'App\Listeners\Report\AddBasis',
+        'App\Listeners\Report\AddPeriod',
+        'App\Listeners\Report\AddDate',
     ];
 }

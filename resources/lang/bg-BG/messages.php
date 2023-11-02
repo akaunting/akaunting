@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type добавен!',
+        'created'			=> ':type създаден!',
         'updated'           => ':type променен!',
         'deleted'           => ':type е изтрит/а!',
         'duplicated'        => ':type дублиран!',
@@ -26,8 +27,10 @@ return [
         'customer'          => 'Грешка: Потребителят не е създаден! :name вече използва този имейл адрес.',
         'no_file'           => 'Грешка: Няма избран файл!',
         'last_category'     => 'Грешка: Не може да изтриете последния :type категория!',
+        'transfer_category' => 'Грешка: Не може да изтриете :type категория!',
         'change_type'       => 'Грешка: Не може да променяте типа, защото има свързани :text!',
         'invalid_apikey'    => 'Грешка: Невалиден код!',
+        'empty_apikey'      => 'Грешка: Не сте въвели своя API ключ! <a href=":url" class="font-bold underline underline-offset-4">Щракнете тук</a>, за да въведете вашия API ключ.',
         'import_column'     => 'Грешк: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Грешка: Невалидно име. Моля, прегледайте примерния файл.',
         'same_amount'       => 'Грешка: Общата сума на разделянето трябва да е точно същата като :transaction: :amount',

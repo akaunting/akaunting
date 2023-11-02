@@ -36,7 +36,15 @@ class User extends FormRequest
 
         if ($this->getMethod() == 'PATCH') {
             // Updating user
-            $id = is_numeric($this->user) ? $this->user : $this->user->getAttribute('id');
+            if (is_numeric($this->user)) {
+                $id = $this->user;
+                $user = user_model_class()::find($id);
+
+                $this->user = $user;
+            } else {
+                $id = $this->user->getAttribute('id');
+            }
+
             $companies = $this->user->can('read-common-companies') ? 'required' : '';
             $roles = $this->user->can('read-auth-roles') ? 'required|string' : '';
 

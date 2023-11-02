@@ -7,5 +7,5 @@
         <x-contacts.form.content type="vendor" :model="$vendor" hide-can-login />
     </x-slot>
 
-    <x-contacts.script type="vendor" :model="$vendor" />
+    <x-contacts.script type="vendor" :contact="$vendor" />
 </x-layouts.admin>

@@ -283,8 +283,8 @@ abstract class Index extends Component
             $items[] = [
                 'title'     => ($key == 'overdue') ? trans('general.overdue') : trans('documents.statuses.' . $key),
                 //'href'      => route($route, ['search' => 'status:' . $key]),
-                'amount'    => money($total, default_currency(), true)->formatForHumans(),
-                'tooltip'   => money($total, default_currency(), true)->format(),
+                'amount'    => money($total)->formatForHumans(),
+                'tooltip'   => money($total)->format(),
             ];
         }
 

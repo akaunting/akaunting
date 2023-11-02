@@ -13,6 +13,10 @@ class Recurring extends Model
     public const ACTIVE_STATUS = 'active';
     public const END_STATUS = 'ended';
     public const COMPLETE_STATUS = 'completed';
+    public const INVOICE_RECURRING_TYPE = 'invoice-recurring';
+    public const BILL_RECURRING_TYPE = 'bill-recurring';
+    public const INCOME_RECURRING_TYPE = 'income-recurring';
+    public const EXPENSE_RECURRING_TYPE = 'expense-recurring';
 
     protected $table = 'recurring';
 
@@ -43,7 +47,8 @@ class Recurring extends Model
      * @var array
      */
     protected $casts = [
-        'auto_send' => 'boolean',
+        'auto_send'     => 'boolean',
+        'deleted_at'    => 'datetime',
     ];
 
     /**
@@ -52,6 +57,48 @@ class Recurring extends Model
     public function recurable()
     {
         return $this->morphTo()->isRecurring();
+    }
+
+    public function documents()
+    {
+        return $this->morphedByMany(
+            'App\Models\Document\Document',
+            'recurable',
+            'recurring',
+            'recurable_id',
+            'id'
+        );
+    }
+
+    public function invoices()
+    {
+        return $this->documents()->where('type', self::INVOICE_RECURRING_TYPE);
+    }
+
+    public function bills()
+    {
+        return $this->documents()->where('type', self::BILL_RECURRING_TYPE);
+    }
+
+    public function transactions()
+    {
+        return $this->morphedByMany(
+            'App\Models\Banking\Transaction',
+            'recurable',
+            'recurring',
+            'recurable_id',
+            'id'
+        );
+    }
+
+    public function incomes()
+    {
+        return $this->transactions()->where('type', self::INCOME_RECURRING_TYPE);
+    }
+
+    public function expenses()
+    {
+        return $this->transactions()->where('type', self::EXPENSE_RECURRING_TYPE);
     }
 
     public function scopeActive(Builder $query): Builder
@@ -67,5 +114,70 @@ class Recurring extends Model
     public function scopeCompleted(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('status'), '=', static::COMPLETE_STATUS);
+    }
+
+    public function scopeDocument(Builder $query, $type): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Document\\Document')
+            ->whereHas('recurable', function (Builder $query) use ($type) {
+                $query->where('type', $type);
+            });
+    }
+
+    public function scopeInvoice(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Document\\Document')
+            ->whereHas('recurable', function (Builder $query) {
+                $query->where('type', self::INVOICE_RECURRING_TYPE);
+            });
+    }
+
+    public function scopeBill(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Document\\Document')
+            ->whereHas('recurable', function (Builder $query) {
+                $query->where('type', self::BILL_RECURRING_TYPE);
+            });
+    }
+
+    public function scopeTransaction(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Banking\\Transaction');
+    }
+
+    public function scopeExpenseTransaction(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Banking\\Transaction')
+            ->whereHas('recurable', function (Builder $query) {
+                $query->where('type', self::EXPENSE_RECURRING_TYPE);
+            });
+    }
+
+    public function scopeIncomeTransaction(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Banking\\Transaction')
+            ->whereHas('recurable', function (Builder $query) {
+                $query->where('type', self::INCOME_RECURRING_TYPE);
+            });
+    }
+
+    /**
+     * Determine if recurring is a document.
+     *
+     * @return bool
+     */
+    public function isDocument()
+    {
+        return (bool) ($this->recurable_type == 'App\\Models\\Document\\Document');
+    }
+
+    /**
+     * Determine if recurring is a transaction.
+     *
+     * @return bool
+     */
+    public function isTransaction()
+    {
+        return (bool) ($this->recurable_type == 'App\\Models\\Banking\\Transaction');
     }
 }

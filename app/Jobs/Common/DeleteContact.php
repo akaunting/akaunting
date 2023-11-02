@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ContactDeleted;
+use App\Events\Common\ContactDeleting;
 use App\Interfaces\Job\ShouldDelete;
 use App\Jobs\Auth\DeleteUser;
 use App\Traits\Contacts;
@@ -15,13 +17,19 @@ class DeleteContact extends Job implements ShouldDelete
     {
         $this->authorize();
 
+        event(new ContactDeleting($this->model));
+
         \DB::transaction(function () {
+            $this->deleteRelationships($this->model, ['contact_persons']);
+
             if ($user = $this->model->user) {
                 $this->dispatch(new DeleteUser($user));
             }
 
             $this->model->delete();
         });
+
+        event(new ContactDeleted($this->model));
 
         return true;
     }

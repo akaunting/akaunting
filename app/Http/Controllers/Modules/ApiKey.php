@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Modules;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Module\Module as Request;
+use App\Traits\Plans;
 
 class ApiKey extends Controller
 {
+    use Plans;
 
     /**
      * Display a listing of the resource.
@@ -31,6 +33,8 @@ class ApiKey extends Controller
         setting()->set('apps.api_key', $request['api_key']);
 
         setting()->save();
+
+        $this->clearPlansCache();
 
         return response()->json([
             'success' => true,

@@ -24,8 +24,8 @@ class Reconciliations extends Controller
     {
         $reconciliations = Reconciliation::with('account')->collect();
 
-        $reconciled_amount = money($reconciliations->where('reconciled', 1)->sum('closing_balance'), default_currency(), true);
-        $in_progress_amount = money($reconciliations->where('reconciled', 0)->sum('closing_balance'), default_currency(), true);
+        $reconciled_amount = money($reconciliations->where('reconciled', 1)->sum('closing_balance'));
+        $in_progress_amount = money($reconciliations->where('reconciled', 0)->sum('closing_balance'));
 
         $summary_amounts = [
             'amount_exact'              => $reconciled_amount->format(),
@@ -83,7 +83,7 @@ class Reconciliations extends Controller
         if ($response['success']) {
             $response['redirect'] = route('reconciliations.index');
 
-            $message = trans('messages.success.added', ['type' => trans_choice('general.reconciliations', 1)]);
+            $message = trans('messages.success.created', ['type' => trans_choice('general.reconciliations', 1)]);
 
             flash($message)->success();
         } else {
@@ -246,9 +246,9 @@ class Reconciliations extends Controller
 
         $difference = $closing_balance - $cleared_amount;
 
-        $json->closing_balance = money($closing_balance, $currency_code, true)->format();
-        $json->cleared_amount = money($cleared_amount, $currency_code, true)->format();
-        $json->difference = money($difference, $currency_code, true)->format();
+        $json->closing_balance = money($closing_balance, $currency_code)->format();
+        $json->cleared_amount = money($cleared_amount, $currency_code)->format();
+        $json->difference = money($difference, $currency_code)->format();
         $json->difference_raw = (int) $difference;
 
         return response()->json($json);

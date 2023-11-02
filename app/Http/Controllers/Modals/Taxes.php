@@ -74,7 +74,7 @@ class Taxes extends Controller
         $response = $this->ajaxDispatch(new CreateTax($request));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
+            $response['message'] = trans('messages.success.created', ['type' => trans_choice('general.taxes', 1)]);
         }
 
         return response()->json($response);

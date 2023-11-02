@@ -26,11 +26,16 @@ class UserDashboard extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Auth\User');
+        return $this->belongsTo(user_model_class());
     }
 
     public function dashboard()
     {
         return $this->belongsTo('App\Models\Common\Dashboard');
+    }
+
+    public function dashboards()
+    {
+        return $this->belongsToMany('App\Models\Common\Dashboard', 'App\Models\Auth\UserDashboard');
     }
 }

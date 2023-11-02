@@ -16,15 +16,6 @@ class DocumentItemTax extends Model
 
     protected $fillable = ['company_id', 'type', 'document_id', 'document_item_id', 'tax_id', 'name', 'amount', 'created_from', 'created_by'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'amount' => 'double',
-    ];
-
     public function document()
     {
         return $this->belongsTo('App\Models\Document\Document')->withoutGlobalScope('App\Scopes\Document');
@@ -50,9 +41,25 @@ class DocumentItemTax extends Model
         return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_TYPE);
     }
 
+    public function scopeInvoiceRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::INVOICE_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
+    }
+
     public function scopeBill(Builder $query)
     {
         return $query->where($this->qualifyColumn('type'), '=', Document::BILL_TYPE);
+    }
+
+    public function scopeBillRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Document::BILL_RECURRING_TYPE)
+                    ->whereHas('document.recurring', function (Builder $query) {
+                        $query->whereNull('deleted_at');
+                    });
     }
 
     public function onCloned($src)

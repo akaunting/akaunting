@@ -27,7 +27,6 @@ class $NAME$ extends Provider
     {
         $this->loadViews();
         $this->loadViewComponents();
-        $this->loadTranslations();
         $this->loadMigrations();
     }
 
@@ -49,16 +48,6 @@ class $NAME$ extends Provider
     public function loadViewComponents()
     {
         Blade::componentNamespace('$COMPONENT_NAMESPACE$', '$ALIAS$');
-    }
-
-    /**
-     * Load translations.
-     *
-     * @return void
-     */
-    public function loadTranslations()
-    {
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', '$ALIAS$');
     }
 
     /**
