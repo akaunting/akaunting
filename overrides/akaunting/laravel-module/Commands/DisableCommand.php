@@ -30,13 +30,15 @@ class DisableCommand extends Command
     {
         $this->prepare();
 
-        if (!$this->getModel()) {
+        if (! $this->getModel()) {
             $this->info("Module [{$this->alias}] not found.");
+
             return;
         }
 
         if (!$this->model->enabled) {
             $this->comment("Module [{$this->alias}] is already disabled.");
+
             return;
         }
 

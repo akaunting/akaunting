@@ -10,13 +10,21 @@ use Symfony\Component\Console\Input\InputArgument;
 
 abstract class Module extends Command
 {
+    public string $alias;
+
+    public int $company_id;
+
+    public string $locale;
+
+    public object|null $model;
+
+    public int|null $old_company_id;
+
     protected function prepare()
     {
         $this->alias = Str::kebab($this->argument('alias'));
-        $this->company_id = $this->argument('company');
+        $this->company_id = (int) $this->argument('company');
         $this->locale = $this->argument('locale');
-
-        $this->module = module($this->alias);
     }
 
     protected function changeRuntime()
@@ -33,11 +41,11 @@ abstract class Module extends Command
 
     protected function revertRuntime()
     {
-        session()->forget('company_id');
-
-        if (!empty($this->old_company_id)) {
-            company($this->old_company_id)->makeCurrent();
+        if (empty($this->old_company_id)) {
+            return;
         }
+
+        company($this->old_company_id)->makeCurrent();
     }
 
     protected function getModel()
@@ -56,7 +64,7 @@ abstract class Module extends Command
         ModelHistory::create([
             'company_id' => $this->company_id,
             'module_id' => $this->model->id,
-            'version' => $this->module->get('version'),
+            'version' => module($this->alias)->get('version'),
             'description' => trans('modules.' . $action, ['module' => $this->alias]),
             'created_from' => source_name(),
             'created_by' => user_id(),

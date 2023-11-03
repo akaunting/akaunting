@@ -36,26 +36,11 @@ class ModuleActivator implements ActivatorInterface
             return true;
         }
 
-        $alias = $module->getAlias();
-
-        if (! isset($this->statuses[$alias])) {
-            if (empty($this->company_id)) {
-                $company_id = $this->getCompanyId();
-
-                if (empty($company_id)) {
-                    return false;
-                }
-
-                $this->company_id = $company_id;
-            }
-
-            $model = Model::companyId($this->company_id)->alias($alias)->first();
-            $status = $model ? $model->enabled : $active;
-
-            $this->setActive($module, $status);
+        if (! isset($this->statuses[$module->getAlias()])) {
+            return $active;
         }
 
-        return $this->statuses[$alias] === $active;
+        return $this->statuses[$module->getAlias()] === $active;
     }
 
     public function enable(Module $module): void
@@ -72,15 +57,33 @@ class ModuleActivator implements ActivatorInterface
     {
         $this->statuses[$module->getAlias()] = $active;
 
-        Model::updateOrCreate([
+        $this->flushCache();
+
+        if (empty($this->company_id)) {
+            $company_id = $this->getCompanyId();
+
+            if (empty($company_id)) {
+                return;
+            }
+
+            $this->company_id = $company_id;
+        }
+
+        $model = Model::companyId($this->company_id)->alias($module->getAlias())->first();
+
+        if (! empty($model)) {
+            $model->enabled = $active;
+            $model->save();
+
+            return;
+        }
+
+        Model::create([
             'company_id'    => $this->company_id,
             'alias'         => $module->getAlias(),
-        ], [
             'enabled'       => $active,
             'created_from'  => 'core::activator',
         ]);
-
-        $this->flushCache();
     }
 
     public function delete(Module $module): void
