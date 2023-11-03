@@ -8,8 +8,8 @@
             </div>
 
             <div class="flex flex-col lg:flex-row mt-4">
-                <div class="w-full lg:w-1/2 ltr:pr-10 rtl:pl-10 mt-3">
-                    <div class="grid sm:grid-cols-6 overflow-y-scroll lg:overflow-hidden scroll">
+                <div class="w-full lg:w-1/2 lg:ltr:pr-10 lg:rtl:pl-10 mt-3">
+                    <div class="grid sm:grid-cols-6 overflow-y-scroll overflow-x-hidden lg:overflow-hidden scroll">
                         <h1 class="sm:col-span-6 text-black-300 mb-2 text-lg font-light">
                             {{ translations.finish.recommended_apps }}
                         </h1>
@@ -36,7 +36,8 @@
                     </div>
 
                     <div class="lg:hidden">
-                        <base-button class="btn flex items-center justify-center text-base disabled:opacity-50 relative mt-5 mx-auto bg-green hover:bg-gray-100 text-white rounded-md py-3 px-5 font-medium" @click="finish()">
+                        <base-button class="btn flex items-center justify-center text-base disabled:opacity-50 relative mt-3 lg:mt-5 mx-auto bg-green hover:bg-gray-100 text-white rounded-md py-3 px-5 font-medium"
+                         @click="finish()">
                             {{ translations.finish.create_first_invoice }}
                         </base-button>
                     </div>
@@ -54,7 +55,7 @@
                             @click="finish()"
                             style="top: 5.9rem"
                         >
-                            <i v-if="anchor_loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-2.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit_second before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit_second before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                            <i v-if="anchor_loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
 
                             <span :class="[{'opacity-0': anchor_loading}]">
                                 {{ translations.company.skip }}
@@ -67,7 +68,7 @@
                             @click="finish()"
                             style="top: 5.9rem;"
                         >
-                            <i v-if="anchor_loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-2.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit_second before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit_second before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
+                            <i v-if="anchor_loading" class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"></i> 
 
                             <span :class="[{'opacity-0': anchor_loading}]">
                                 {{ translations.finish.create_first_invoice }}
@@ -106,7 +107,7 @@ export default {
 
     data() {
         return {
-            active: 3,
+            active: 4,
             route_url: url,
             image_src: app_url + "/public/img/wizard-rocket.gif",
             anchor_loading: false
