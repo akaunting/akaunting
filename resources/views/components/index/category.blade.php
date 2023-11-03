@@ -3,9 +3,7 @@
             'w-3 h-3 rounded-full ltr:mr-1 rtl:ml-1', $backgroundColor, $textColor
         ])
         @if (! empty($backgroundStyle))
-         style="background-color: {{ $backgroundStyle }}"
-        @else
-         style="background-color: {{ $backgroundStyle }}; display: none;"
+        style="background-color: {{ $backgroundStyle }}"
         @endif
     >
     </span>
