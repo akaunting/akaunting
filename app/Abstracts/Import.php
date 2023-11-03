@@ -49,9 +49,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
         $row['company_id'] = company_id();
 
         // created_by is equal to the owner id. Therefore, the value in export is owner email.
-        if (isset($row['created_by'])) {
-            $row['created_by'] = $this->getCreatedById($row);
-        }
+        $row['created_by'] = $this->getCreatedById($row);
 
         $row['created_from'] = $this->getSourcePrefix() . 'import';
 
