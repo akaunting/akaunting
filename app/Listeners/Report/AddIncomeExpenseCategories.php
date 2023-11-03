@@ -28,6 +28,7 @@ class AddIncomeExpenseCategories extends Listener
 
         $event->class->filters['categories'] = $this->getIncomeExpenseCategories(true);
         $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:income,expense enabled:1'];
+        $event->class->filters['multiple']['categories'] = true;
     }
 
     /**

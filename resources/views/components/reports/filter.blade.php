@@ -4,7 +4,7 @@
         $filtered = [];
 
         $skipped = [
-            'keys', 'names', 'types', 'routes', 'defaults', 'operators',
+            'keys', 'names', 'types', 'routes', 'multiple', 'defaults', 'operators',
         ];
 
         foreach ($class->filters as $filter_name => $filter_values) {
@@ -74,6 +74,12 @@
                 ];
             }
 
+            $multiple = false;
+
+            if (isset($class->filters['multiple']) && !empty($class->filters['multiple'][$filter_name])) {
+                $multiple = $class->filters['multiple'][$filter_name];
+            }
+
             $filters[] = [
                 'key'       => $key,
                 'value'     => $value,
@@ -81,6 +87,7 @@
                 'url'       => $url,
                 'values'    => $filter_values,
                 'operators' => $operators,
+                'multiple'  => $multiple ?? false, 
                 'sort_options' => ($key == 'date_range') ? false : true,
             ];
 
