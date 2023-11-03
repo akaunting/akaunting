@@ -113,6 +113,10 @@ trait Import
 
     public function getCreatedById($row)
     {
+        if (empty($row['created_by'])) {
+            return $this->user->id;
+        }
+
         $user = user_model_class()::where('email', $row['created_by'])->first();
 
         if (! empty($user)) {
