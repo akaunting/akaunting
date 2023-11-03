@@ -32,12 +32,12 @@ class ModuleActivator implements ActivatorInterface
 
     public function is(Module $module, bool $active): bool
     {
-        if (env_is_testing() && app()->runningInConsole()) {
+        if (app()->runningInConsole()) {
             return true;
         }
 
         if (! isset($this->statuses[$module->getAlias()])) {
-            return $active;
+            return false;
         }
 
         return $this->statuses[$module->getAlias()] === $active;
@@ -115,7 +115,7 @@ class ModuleActivator implements ActivatorInterface
 
     public function readDatabase(): array
     {
-        if (env_is_testing() && app()->runningInConsole()) {
+        if (app()->runningInConsole()) {
             return [];
         }
 
