@@ -429,7 +429,7 @@ trait Permissions
             return;
         }
 
-        $table = request()->isApi() ? request()->segment(2) : '';
+        $table = request_is_api() ? request()->segment(2) : '';
 
         // Find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents'])) {

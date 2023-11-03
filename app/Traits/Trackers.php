@@ -25,7 +25,7 @@ trait Trackers
             $app_type = 'queue';
         } elseif (Str::contains($hostname, '-cron-')) {
             $app_type = 'cron';
-        } elseif (request()->isApi()) {
+        } elseif (request_is_api()) {
             $app_type = 'api';
         } elseif (app()->runningInConsole()) {
             $app_type = 'console';

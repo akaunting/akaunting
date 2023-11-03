@@ -18,7 +18,7 @@ trait Companies
 
         $request = $this->request ?: request();
 
-        if ($this->isCompanyApiRequest($request)) {
+        if (request_is_api($request)) {
             return $this->getCompanyIdFromApi($request);
         }
 
@@ -53,10 +53,5 @@ trait Companies
     public function getCompanyIdFromHeader($request)
     {
         return (int) $request->header('X-Company');
-    }
-
-    public function isCompanyApiRequest($request)
-    {
-        return $request->is(config('api.prefix') . '/*');
     }
 }
