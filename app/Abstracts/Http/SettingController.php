@@ -3,6 +3,8 @@
 namespace App\Abstracts\Http;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Setting\SettingUpdated;
+use App\Events\Setting\SettingUpdating;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Common\Company;
 use App\Models\Setting\Currency;
@@ -35,6 +37,8 @@ abstract class SettingController extends Controller
         $fields = $request->all();
         $prefix = $request->get('_prefix', 'general');
         $company_id = $request->get('company_id');
+
+        event(new SettingUpdating($request));
 
         if (empty($company_id)) {
             $company_id = company_id();
@@ -124,6 +128,8 @@ abstract class SettingController extends Controller
 
         // Save all settings
         setting()->save();
+
+        event(new SettingUpdated($request));
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.settings', 2)]);
 
