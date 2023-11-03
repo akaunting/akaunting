@@ -13,7 +13,7 @@ class MarkDocumentSent
 
     public function handle(DocumentMarkedSent|DocumentSent $event): void
     {
-        if ($event->document->status != 'partial') {
+        if (! in_array($event->document->status, ['partial', 'paid'])) {
             $event->document->status = 'sent';
 
             $event->document->save();
