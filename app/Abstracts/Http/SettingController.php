@@ -99,7 +99,7 @@ abstract class SettingController extends Controller
             }
 
             if ($real_key == 'default.locale') {
-                if (!in_array($value, config('language.allowed'))) {
+                if (! in_array($value, config('language.allowed'))) {
                     continue;
                 }
 
@@ -109,7 +109,7 @@ abstract class SettingController extends Controller
             if ($real_key == 'default.currency') {
                 $currencies = Currency::enabled()->pluck('code')->toArray();
 
-                if (!in_array($value, $currencies)) {
+                if (! in_array($value, $currencies)) {
                     continue;
                 }
 
@@ -149,39 +149,25 @@ abstract class SettingController extends Controller
         return response()->json($response);
     }
 
-    protected function oneCompany($real_key, $value)
+    protected function oneCompany($real_key, $value): void
     {
-        switch ($real_key) {
-            case 'company.name':
-                Installer::updateEnv(['MAIL_FROM_NAME' => '"' . $value . '"']);
-                break;
-            case 'company.email':
-                Installer::updateEnv(['MAIL_FROM_ADDRESS' => '"' . $value . '"']);
-                break;
-            case 'default.locale':
-                Installer::updateEnv(['APP_LOCALE' => '"' . $value . '"']);
-                break;
-            case 'schedule.time':
-                Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $value . '"']);
-                break;
-            case 'email.protocol':
-                Installer::updateEnv(['MAIL_MAILER' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_host':
-                Installer::updateEnv(['MAIL_HOST' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_port':
-                Installer::updateEnv(['MAIL_PORT' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_username':
-                Installer::updateEnv(['MAIL_USERNAME' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_password':
-                Installer::updateEnv(['MAIL_PASSWORD' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_encryption':
-                Installer::updateEnv(['MAIL_ENCRYPTION' => '"' . $value . '"']);
-                break;
+        $key = match($real_key) {
+            'default.locale'            => 'APP_LOCALE',
+            'schedule.time'             => 'APP_SCHEDULE_TIME',
+            'company.name'              => 'MAIL_FROM_NAME',
+            'company.email'             => 'MAIL_FROM_ADDRESS',
+            'email.protocol'            => 'MAIL_MAILER',
+            'email.smtp_host'           => 'MAIL_HOST',
+            'email.smtp_port'           => 'MAIL_PORT',
+            'email.smtp_username'       => 'MAIL_USERNAME',
+            'email.smtp_password'       => 'MAIL_PASSWORD',
+            'email.smtp_encryption'     => 'MAIL_ENCRYPTION',
+        };
+
+        if (empty($key)) {
+            return;
         }
+
+        Installer::updateEnv([$key => '"' . $value . '"']);
     }
 }

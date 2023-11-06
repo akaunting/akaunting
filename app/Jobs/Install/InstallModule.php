@@ -26,7 +26,7 @@ class InstallModule extends Job
     public function __construct($alias, $company_id, $locale = null)
     {
         $this->alias = $alias;
-        $this->company_id = $company_id;
+        $this->company_id = (int) $company_id;
         $this->locale = $locale ?: company($company_id)->locale;
     }
 
@@ -57,6 +57,10 @@ class InstallModule extends Job
     {
         if (! $this->moduleExists($this->alias)) {
             throw new \Exception("Module [{$this->alias}] not found.");
+        }
+
+        if (! in_array($this->locale, config('language.allowed'))) {
+            throw new \Exception("Unknown locale: {$this->locale}");
         }
     }
 }

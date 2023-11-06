@@ -20,7 +20,7 @@ class DownloadModule extends Job
     public function __construct($alias, $company_id)
     {
         $this->alias = $alias;
-        $this->company_id = $company_id;
+        $this->company_id = (int) $company_id;
     }
 
     /**
