@@ -46,7 +46,7 @@
                         v-show="form.document_currency_code == form.currency_code"
                         name="amount"
                         label="{{ trans('general.amount') }}"
-                        value="{{ $document->grand_total }}"
+                        value="{{ $amount }}"
                         autofocus="autofocus"
                         :currency="$currency"
                         dynamicCurrency="currency"
@@ -57,13 +57,23 @@
                         <x-form.group.money
                             name="amount"
                             label="{{ trans('general.amount') }}"
-                            value="{{ $document->grand_total }}"
+                            value="{{ $amount }}"
                             v-model="form.amount"
                             autofocus="autofocus"
                             :currency="$currency"
                             form-group-class="col-span-6"
                             input="onChangeAmount($event)"
                         />
+
+                        <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4 -mt-6" v-if="form.error_amount">
+                            <div class="relative col-span-6 text-xs flex mt-5">
+                                <div class="rounded-xl px-5 py-3 bg-red-100">
+                                    <div class="w-auto text-xs mr-2 text-red-600"
+                                        v-html="'{{ trans('messages.error.over_payment', ['amount' => '#amount']) }}'.replace('#amount', form.error_amount)"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="sm:col-span-2 text-xs absolute right-0 top-1">
                             <div class="custom-control custom-checkbox">
@@ -81,7 +91,7 @@
                         </div>
                     </div>
 
-                    <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4" v-if="form.document_currency_code != form.currency_code">
+                    <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4 -mt-2" v-if="form.document_currency_code != form.currency_code">
                         <x-form.group.text
                             name="currency_rate"
                             label="{{ trans_choice('general.currency_rates', 1) }}"
@@ -126,8 +136,8 @@
 
                     <x-form.input.hidden name="document_id" :value="$document->id" />
                     <x-form.input.hidden name="category_id" :value="$document->category->id" />
-                    <x-form.input.hidden name="paid_amount" :value="$document->paid" />
-                    <x-form.input.hidden name="amount" :value="$document->grand_total" />
+                    <x-form.input.hidden name="paid_amount" :value="$document->paid_amount" />
+                    <x-form.input.hidden name="amount" :value="$amount" />
                     <x-form.input.hidden name="currency_code" :value="$document->currency_code" />
                     <x-form.input.hidden name="currency_rate" :value="$document->currency_rate" v-if="form.document_currency_code == form.currency_code" />
                     <x-form.input.hidden name="company_currency_code" :value="default_currency()" />
