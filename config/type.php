@@ -143,6 +143,7 @@ return [
                 'notify_contact'        => true,
                 'notify_user'           => true,
             ],
+            'auto_send' => 'App\Events\Document\DocumentSent',
             'script' => [
                 'folder'                => 'common',
                 'file'                  => 'documents',
@@ -192,6 +193,7 @@ return [
             'notification' => [
 
             ],
+            'auto_send'                 => 'App\Events\Document\DocumentSent',
             'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'                => 'common',
@@ -244,6 +246,7 @@ return [
                 'notify_contact'        => false,
                 'notify_user'           => true,
             ],
+            'auto_send' => 'App\Events\Document\DocumentReceived',
             'script' => [
                 'folder'                => 'common',
                 'file'                  => 'documents',
@@ -291,6 +294,7 @@ return [
             'notification' => [
 
             ],
+            'auto_send'                 => 'App\Events\Document\DocumentReceived',
             'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'                => 'common',

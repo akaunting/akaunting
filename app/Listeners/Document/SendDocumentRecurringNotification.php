@@ -36,7 +36,9 @@ class SendDocumentRecurringNotification
             $document->contact->notify(new $notification($document, "{$document->type}_recur_customer"));
         }
 
-        event(new DocumentSent($document));
+        $sent = config('type.document.' . $document->type . '.auto_send', DocumentSent::class);
+
+        event(new $sent($document));
 
         // Check if should notify users
         if (! $config['notify_user']) {
