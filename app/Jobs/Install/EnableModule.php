@@ -27,7 +27,7 @@ class EnableModule extends Job
     {
         $this->alias = $alias;
         $this->company_id = (int) $company_id;
-        $this->locale = $locale ?: company($company_id)->locale;
+        $this->locale = $locale ?: company($company_id)->locale ?: config('setting.fallback.default.locale');
     }
 
     /**
