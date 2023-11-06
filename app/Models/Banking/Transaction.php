@@ -338,6 +338,26 @@ class Transaction extends Model
     }
 
     /**
+     * Convert amount to double.
+     *
+     * @return float
+     */
+    public function getAmountForDocumentAttribute()
+    {
+        $amount = $this->amount;
+
+        // Convert amount if not same currency
+        if ($this->document->currency_code != $this->currency_code) {
+            $to_code = $this->document->currency_code;
+            $to_rate = currency($this->document->currency_code)->getRate();
+
+            $amount = $this->convertBetween($amount, $this->currency_code, $this->currency_rate, $to_code, $to_rate);
+        }
+
+        return $amount;
+    }
+
+    /**
      * Get the current balance.
      *
      * @return string

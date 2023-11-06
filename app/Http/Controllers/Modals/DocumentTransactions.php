@@ -11,6 +11,7 @@ use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
+use App\Traits\Currencies;
 use App\Traits\Uploads;
 use App\Traits\Transactions;
 use Date;
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
 
 class DocumentTransactions extends Controller
 {
-    use Uploads, Transactions;
+    use Currencies, Uploads, Transactions;
 
     /**
      * Instantiate a new controller instance.
@@ -45,6 +46,8 @@ class DocumentTransactions extends Controller
 
         $paid = $document->paid;
 
+        $document->paid_amount = $paid;
+
         $number = $this->getNextTransactionNumber();
 
         // Get document Totals
@@ -59,6 +62,8 @@ class DocumentTransactions extends Controller
         if (! empty($paid)) {
             $document->grand_total = round($document->total - $paid, $currency->precision);
         }
+
+        $amount =  $document->grand_total;
 
         $document->paid_at = Date::now()->toDateString();
 
@@ -94,7 +99,7 @@ class DocumentTransactions extends Controller
 
         $route = ['modals.documents.document.transactions.store', $document->id];
 
-        $html = view('modals.documents.payment', compact('document', 'method', 'route', 'currency', 'number'))->render();
+        $html = view('modals.documents.payment', compact('document', 'method', 'route', 'currency', 'number', 'amount'))->render();
 
         return response()->json([
             'success' => true,
@@ -144,11 +149,27 @@ class DocumentTransactions extends Controller
     {
         $currency = Currency::where('code', $document->currency_code)->first();
 
-        $paid = $document->paid;
+        // if you edit transaction before remove transaction amount
+        $paid = $document->paid - $transaction->amount_for_document;
+
+        $document->paid_amount = $paid;
 
         $number = $transaction->number;
 
-        $document->grand_total = money($transaction->amount, $currency->code, false)->getAmount();
+        $amount = money($transaction->amount, $currency->code, false)->getAmount();
+
+        // Get document Totals
+        foreach ($document->totals as $document_total) {
+            $document->{$document_total->code} = $document_total->amount;
+        }
+
+        $total = money($document->total, $currency->code)->format();
+
+        $document->grand_total = money($total, $currency->code, false)->getAmount();
+
+        if (! empty($paid)) {
+            $document->grand_total = round($document->total - $paid, $currency->precision);
+        }
 
         $document->paid_at = $transaction->paid_at;
 
@@ -178,7 +199,7 @@ class DocumentTransactions extends Controller
 
         $route = ['modals.documents.document.transactions.update', $document->id, $transaction->id];
 
-        $html = view('modals.documents.payment', compact('document', 'transaction', 'method', 'route', 'currency', 'number'))->render();
+        $html = view('modals.documents.payment', compact('document', 'transaction', 'method', 'route', 'currency', 'number', 'amount'))->render();
 
         return response()->json([
             'success' => true,
@@ -276,5 +297,28 @@ class DocumentTransactions extends Controller
         }
 
         return $redirect;
+    }
+
+    protected function getTransactionConvertAmount($document, $transaction)
+    {
+        if (empty($document->amount)) {
+            return 0;
+        }
+
+        $paid = 0;
+
+        $code = $document->currency_code;
+        $rate = $document->currency_rate;
+        $precision = currency($code)->getPrecision();
+
+        $amount = $transaction->amount;
+
+        if ($code != $transaction->currency_code) {
+            $amount = $this->convertBetween($amount, $transaction->currency_code, $transaction->currency_rate, $code, $rate);
+        }
+
+        $paid += $amount;
+
+        return round($paid, $precision);
     }
 }

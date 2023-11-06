@@ -93,7 +93,7 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
         }
 
         // if you edit transaction before remove transaction amount
-        $this->model->paid_amount = ($this->model->paid - $this->transaction->amount);
+        $this->model->paid_amount = ($this->model->paid - $this->transaction->amount_for_document);
         event(new PaidAmountCalculated($this->model));
 
         $total_amount = round($this->model->amount - $this->model->paid_amount, $precision);
