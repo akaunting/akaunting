@@ -171,7 +171,11 @@ if (! function_exists('running_in_queue')) {
      */
     function running_in_queue(): bool
     {
-        return defined('APP_RUNNING_IN_QUEUE') ?? false;
+        return app()->runningConsoleCommand([
+            'queue:work',
+            'queue:listen',
+            'horizon',
+        ]);
     }
 }
 
