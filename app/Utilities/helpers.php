@@ -179,6 +179,19 @@ if (! function_exists('running_in_queue')) {
     }
 }
 
+if (! function_exists('running_in_schedule')) {
+    /**
+     * Detect if application is running in schedule.
+     */
+    function running_in_schedule(): bool
+    {
+        return app()->runningConsoleCommand([
+            'schedule:run',
+            'schedule:work',
+        ]);
+    }
+}
+
 if (! function_exists('running_in_test')) {
     /**
      * Detect if application is running in test.
