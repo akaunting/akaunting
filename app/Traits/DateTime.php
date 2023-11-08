@@ -23,9 +23,9 @@ trait DateTime
 
         $chars = ['dash' => '-', 'slash' => '/', 'dot' => '.', 'comma' => ',', 'space' => ' '];
 
-        $date_format = (setting('localisation.date_format', $default)) ?? $default;
+        $date_format = setting('localisation.date_format', $default) ?? $default;
 
-        $char = (setting('localisation.date_separator', 'space')) ?? 'space';
+        $char = setting('localisation.date_separator', 'space') ?? 'space';
         $date_separator = $chars[$char];
 
         return str_replace(' ', $date_separator, $date_format);
