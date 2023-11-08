@@ -560,4 +560,9 @@ trait Modules
 
         return $result;
     }
+
+    public function registerModules(): void
+    {
+        app(\Akaunting\Module\Contracts\ActivatorInterface::class)->register();
+    }
 }

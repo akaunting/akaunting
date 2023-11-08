@@ -27,7 +27,8 @@ class ModuleActivator implements ActivatorInterface
     {
         $this->cache = $app['cache'];
         $this->config = $app['config'];
-        $this->statuses = $this->getStatuses();
+
+        $this->load();
     }
 
     public function is(Module $module, bool $active): bool
@@ -99,7 +100,19 @@ class ModuleActivator implements ActivatorInterface
         $this->flushCache();
     }
 
-    public function getStatuses(): array
+    public function reset(): void
+    {
+        $this->statuses = [];
+
+        $this->flushCache();
+    }
+
+    public function load(): void
+    {
+        $this->statuses = $this->getStatusesByCompany();
+    }
+
+    public function getStatusesByCompany(): array
     {
         if (! $this->config->get('module.cache.enabled')) {
             return $this->readDatabase();
@@ -146,17 +159,17 @@ class ModuleActivator implements ActivatorInterface
         return $modules;
     }
 
-    public function reset(): void
-    {
-        $this->statuses = [];
-
-        $this->flushCache();
-    }
-
     public function flushCache(): void
     {
         $key = $this->config->get('module.cache.key') . '.statuses';
 
         $this->cache->forget($key);
+    }
+
+    public function register(): void
+    {
+        $this->load();
+
+        app()->register(\Akaunting\Module\Providers\Bootstrap::class, true);
     }
 }

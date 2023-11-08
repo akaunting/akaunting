@@ -179,6 +179,16 @@ if (! function_exists('running_in_queue')) {
     }
 }
 
+if (! function_exists('running_in_test')) {
+    /**
+     * Detect if application is running in test.
+     */
+    function running_in_test(): bool
+    {
+        return env_is_testing() && app()->runningInConsole();
+    }
+}
+
 if (! function_exists('simple_icons')) {
     /**
      * Get the simple icon content

@@ -3,12 +3,15 @@
 namespace App\Providers;
 
 use App\Notifications\Common\ImportFailed;
+use App\Traits\Modules;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class Queue extends Provider
 {
+    use Modules;
+
     /**
      * Register any application services.
      *
@@ -52,6 +55,8 @@ class Queue extends Provider
             }
 
             $company->makeCurrent();
+
+            $this->registerModules();
         });
 
         app('events')->listen(JobFailed::class, function ($event) {
