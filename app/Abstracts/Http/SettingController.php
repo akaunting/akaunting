@@ -162,6 +162,7 @@ abstract class SettingController extends Controller
             'email.smtp_username'       => 'MAIL_USERNAME',
             'email.smtp_password'       => 'MAIL_PASSWORD',
             'email.smtp_encryption'     => 'MAIL_ENCRYPTION',
+            default                     => '',
         };
 
         if (empty($key)) {
