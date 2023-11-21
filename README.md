@@ -17,7 +17,7 @@ Online accounting software designed for small businesses and freelancers. Akaunt
 ## Requirements
 
 * PHP 8.1 or higher
-* Database (eg: MySQL, PostgreSQL, SQLite)
+* Database (e.g.: MySQL, PostgreSQL, SQLite)
 * Web Server (eg: Apache, Nginx, IIS)
 * [Other libraries](https://akaunting.com/hc/docs/on-premise/requirements/)
 
@@ -40,11 +40,11 @@ php artisan install --db-name="akaunting" --db-username="root" --db-password="pa
 
 ## Contributing
 
-Please, be very clear on your commit messages and pull requests, empty pull request messages may be rejected without reason.
+Please, be very clear on your commit messages and Pull Requests, empty Pull Request messages may be rejected without reason.
 
 When contributing code to Akaunting, you must follow the PSR coding standards. The golden rule is: Imitate the existing Akaunting code.
 
-Please note that this project is released with a [Contributor Code of Conduct](https://akaunting.com/conduct). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://akaunting.com/conduct). *By participating in this project you agree to abide by its terms*.
 
 ## Translation
 
