@@ -70,11 +70,8 @@ class Transactions extends Controller
             'profit_for_humans'     => $profit_amount->formatForHumans(),
         ];
 
-        $translations = $this->getTranslationsForConnect('income');
-
         return $this->response('banking.transactions.index', compact(
             'transactions',
-            'translations',
             'summary_amounts'
         ));
     }
@@ -381,10 +378,13 @@ class Transactions extends Controller
                                 ->toJson();
         }
 
+        $translations = collect($this->getTranslationsForConnect($transaction->type));
+
         $data = [
             'transaction' => $transaction->load(['account', 'category'])->toJson(),
             'currency' => $transaction->currency->toJson(),
             'documents' => $documents,
+            'translations' => $translations->toJson(),
         ];
 
         return response()->json($data);

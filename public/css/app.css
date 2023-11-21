@@ -66785,27 +66785,6 @@ body{
           animation: submit 0.7s ease alternate infinite;
 }
 
-@keyframes submit_second{
-
-  0%{
-    content: var(--tw-content);
-    -webkit-box-shadow: 0 28px 0 -28px #55588b;
-            box-shadow: 0 28px 0 -28px #55588b;
-  }
-
-  100%{
-    content: var(--tw-content);
-    -webkit-box-shadow: 0 28px 0 #55588b;
-            box-shadow: 0 28px 0 #55588b;
-  }
-}
-
-.before\:animate-submit_second::before{
-  content: var(--tw-content);
-  -webkit-animation: submit_second 0.7s ease alternate infinite;
-          animation: submit_second 0.7s ease alternate infinite;
-}
-
 .before\:rounded-full::before{
   content: var(--tw-content);
   border-radius: 9999px;
@@ -66934,27 +66913,6 @@ body{
   content: var(--tw-content);
   -webkit-animation: submit 0.7s ease alternate infinite;
           animation: submit 0.7s ease alternate infinite;
-}
-
-@keyframes submit_second{
-
-  0%{
-    content: var(--tw-content);
-    -webkit-box-shadow: 0 28px 0 -28px #55588b;
-            box-shadow: 0 28px 0 -28px #55588b;
-  }
-
-  100%{
-    content: var(--tw-content);
-    -webkit-box-shadow: 0 28px 0 #55588b;
-            box-shadow: 0 28px 0 #55588b;
-  }
-}
-
-.after\:animate-submit_second::after{
-  content: var(--tw-content);
-  -webkit-animation: submit_second 0.7s ease alternate infinite;
-          animation: submit_second 0.7s ease alternate infinite;
 }
 
 .after\:rounded-full::after{
@@ -67131,10 +67089,6 @@ body{
 
 .hover\:bg-full-2:hover{
   background-size: 100% 2px;
-}
-
-.hover\:font-bold:hover{
-  font-weight: 700;
 }
 
 .hover\:font-medium:hover{
@@ -69871,6 +69825,10 @@ body{
     margin-top: 1rem;
   }
 
+  .lg\:mt-5{
+    margin-top: 1.25rem;
+  }
+
   .lg\:mt-60{
     margin-top: 15rem;
   }
@@ -70297,6 +70255,10 @@ body{
     padding-left: 6rem;
   }
 
+  :is([dir="ltr"] .lg\:ltr\:pr-10){
+    padding-right: 2.5rem;
+  }
+
   :is([dir="ltr"] .lg\:ltr\:pr-12){
     padding-right: 3rem;
   }
@@ -70311,6 +70273,10 @@ body{
 
   :is([dir="rtl"] .lg\:rtl\:mr-72){
     margin-right: 18rem;
+  }
+
+  :is([dir="rtl"] .lg\:rtl\:pl-10){
+    padding-left: 2.5rem;
   }
 
   :is([dir="rtl"] .lg\:rtl\:pl-12){

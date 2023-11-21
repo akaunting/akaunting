@@ -299,7 +299,7 @@ export default {
         transaction: Object,
         currency: Object,
         documents: Array,
-        translations: Object,
+        translations: Array|Object,
         modalDialogClass: {
             type: String,
             default: '',
