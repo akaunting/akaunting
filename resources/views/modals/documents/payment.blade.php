@@ -69,7 +69,7 @@
                             <div class="relative col-span-6 text-xs flex mt-5">
                                 <div class="rounded-xl px-5 py-3 bg-red-100">
                                     <div class="w-auto text-xs mr-2 text-red-600"
-                                        v-html="'{{ trans('messages.error.over_payment', ['amount' => '#amount']) }}'.replace('#amount', form.error_amount)"
+                                        v-html="'{{ trans('invoices.over_payment', ['amount' => '#amount']) }}'.replace('#amount', form.error_amount)"
                                     ></div>
                                 </div>
                             </div>
