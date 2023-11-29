@@ -243,10 +243,10 @@ class Version300 extends Listener
             // Create the recurring template
             $clone = $model->duplicate();
             $clone->type = $clone->type . '-recurring';
-            $clone->$number_field = $this->getNextTransactionNumber('-recurring');
+            $clone->$number_field = $this->getNextTransactionNumber($clone->type, '-recurring');
             $clone->saveQuietly();
 
-            $this->increaseNextTransactionNumber('-recurring');
+            $this->increaseNextTransactionNumber($clone->type, '-recurring');
 
             // Update the recurring table
             $recurring->recurable_id = $clone->id;

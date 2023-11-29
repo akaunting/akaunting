@@ -70,7 +70,7 @@ class RecurringTransactions extends Controller
         $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
         $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
-        $number = $this->getNextTransactionNumber('-recurring');
+        $number = $this->getNextTransactionNumber($type, '-recurring');
 
         $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
@@ -169,7 +169,7 @@ class RecurringTransactions extends Controller
         $real_type = $this->getTypeTransaction(request()->get('real_type', $this->getRealTypeOfRecurringTransaction($type)));
         $contact_type = config('type.transaction.' . $real_type . '.contact_type', 'customer');
 
-        $number = $this->getNextTransactionNumber('-recurring');
+        $number = $this->getNextTransactionNumber($type, '-recurring');
 
         $currency = Currency::where('code', $recurring_transaction->currency_code)->first();
 
