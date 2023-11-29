@@ -43,7 +43,16 @@ class Transfer extends Model
      *
      * @var array
      */
-    public $sortable = ['expense.paid_at', 'expense.amount', 'expense.name', 'income.name'];
+    public $sortable = [
+        'expense_transaction.paid_at',
+        'expense_transaction.reference',
+        'expense_transaction.name',
+        'income_transaction.name',
+        'expense_transaction.rate',
+        'income_transaction.rate',
+        'expense_transaction.amount',
+        'income_transaction.amount',
+    ];
 
     /**
      * Clonable relationships.
