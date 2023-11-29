@@ -42,7 +42,7 @@ class Tax extends Model
      *
      * @var array
      */
-    public $sortable = ['name', 'rate', 'enabled'];
+    public $sortable = ['name', 'type', 'rate'];
 
     public function items()
     {
