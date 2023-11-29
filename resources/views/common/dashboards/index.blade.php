@@ -40,7 +40,7 @@
                                 <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
                             </x-table.td>
 
-                            <x-table.td class="w-5/12">
+                            <x-table.td class="flex w-5/12">
                                 {{ $item->name }}
 
                                 @if (! $item->enabled)
