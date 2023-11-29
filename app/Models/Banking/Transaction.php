@@ -73,7 +73,18 @@ class Transaction extends Model
      *
      * @var array
      */
-    public $sortable = ['type', 'number', 'paid_at', 'amount', 'category.name', 'account.name', 'customer.name', 'invoice.document_number'];
+    public $sortable = [
+        'paid_at',
+        'number',
+        'type',
+        'account.name',
+        'contact.name',
+        'category.name',
+        'document.document_number',
+        'amount',
+        'recurring.started_at',
+        'recurring.status',
+    ];
 
     /**
      * Clonable relationships.

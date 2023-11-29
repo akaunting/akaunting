@@ -44,7 +44,7 @@
                         </x-table.th>
 
                         <x-table.th class="w-2/12">
-                            <x-sortablelink column="type" title="{{ trans('currencies.rate') }}" />
+                            <x-sortablelink column="rate" title="{{ trans('currencies.rate') }}" />
                         </x-table.th>
                     </x-table.tr>
                 </x-table.thead>

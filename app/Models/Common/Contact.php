@@ -71,7 +71,15 @@ class Contact extends Model
      *
      * @var array
      */
-    public $sortable = ['name', 'email', 'phone', 'enabled'];
+    public $sortable = [
+        'name',
+        'tax_number',
+        'email',
+        'phone',
+        'country',
+        'currency_code',
+        'enabled'
+    ];
 
     /**
      * @var array

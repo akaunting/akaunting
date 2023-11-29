@@ -78,7 +78,17 @@ class Document extends Model
     /**
      * @var array
      */
-    public $sortable = ['document_number', 'contact_name', 'amount', 'status', 'issued_at', 'due_at'];
+    public $sortable = [
+        'issued_at',
+        'due_at',
+        'status',
+        'contact_name',
+        'document_number',
+        'amount',
+        'recurring.started_at',
+        'category.name',
+        'recurring.status',
+    ];
 
     /**
      * @var array
