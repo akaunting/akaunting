@@ -27,7 +27,7 @@ class Info
 
         $info = array_merge(static::versions(), $basic, [
             'companies' => Company::count(),
-            'users' => user_model_class()::count(),
+            'users' => user_model_class()::query()->isNotCustomer()->count(),
             'invoices' => Document::allCompanies()->invoice()->count(),
             'customers' => Contact::allCompanies()->customer()->count(),
             'php_extensions' => static::phpExtensions(),

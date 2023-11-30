@@ -18,7 +18,7 @@ class Users extends ApiController
      */
     public function index()
     {
-        $users = user_model_class()::with('companies', 'permissions', 'roles')->collect();
+        $users = user_model_class()::with('companies', 'media', 'permissions', 'roles')->isNotCustomer()->collect();
 
         return Resource::collection($users);
     }
@@ -69,7 +69,7 @@ class Users extends ApiController
      */
     public function update($user_id, Request $request)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
 
         $user = $this->dispatch(new UpdateUser($user, $request));
 
@@ -85,7 +85,7 @@ class Users extends ApiController
      */
     public function enable($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
         
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
@@ -101,7 +101,7 @@ class Users extends ApiController
      */
     public function disable($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
 
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
@@ -119,7 +119,7 @@ class Users extends ApiController
      */
     public function destroy($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
 
         try {
             $this->dispatch(new DeleteUser($user));
