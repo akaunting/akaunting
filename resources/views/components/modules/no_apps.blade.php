@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-6 mb-8">
     <div class="relative w-full mb-36 lg:mb-0">
-        <img src="{{ asset('public/img/empty_pages/no-apps.png') }}" class="w-full" />
+        <img src="{{ asset('/img/empty_pages/no-apps.png') }}" class="w-full" />
 
         <div class="absolute inset-0 flex flex-col top-1/4 items-center gap-4">
             <h1 class="text-xl lg:text-5xl text-center text-black font-semibold">

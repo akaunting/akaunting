@@ -9,5 +9,5 @@
 
     @livewireScripts
     
-    <script src="{{ asset('public/vendor/alpinejs/alpine.min.js') }}"></script>
+    <script src="{{ asset('/vendor/alpinejs/alpine.min.js') }}"></script>
 @stack('scripts_end')

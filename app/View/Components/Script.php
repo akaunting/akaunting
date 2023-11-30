@@ -45,7 +45,7 @@ class Script extends Component
 
     protected function getSource($alias, $folder, $file)
     {
-        $path = 'public/js/';
+        $path = '/js/';
         $version = version('short');
 
         if ($alias != 'core') {

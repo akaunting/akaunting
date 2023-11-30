@@ -109,7 +109,7 @@ export default {
         return {
             active: 4,
             route_url: url,
-            image_src: app_url + "/public/img/wizard-rocket.gif",
+            image_src: app_url + "/img/wizard-rocket.gif",
             anchor_loading: false
         };
     },

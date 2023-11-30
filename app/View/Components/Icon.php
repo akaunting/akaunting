@@ -69,7 +69,7 @@ class Icon extends Component
     {
         $slug = Str::replace('custom-', '', $icon);
 
-        $base_path = 'public/img/icons/';
+        $base_path = '/img/icons/';
 
         if (! empty($alias)) {
             $base_path = 'modules/' . Str::studly($alias) . '/Resources/assets/img/icons/';
@@ -78,7 +78,7 @@ class Icon extends Component
         $path = base_path($base_path . $slug . '.svg');
 
         if (! file_exists($path)) {
-            $path = 'public/img/akaunting-logo-purple.svg';
+            $path = '/img/akaunting-logo-purple.svg';
         }
 
         return $path;

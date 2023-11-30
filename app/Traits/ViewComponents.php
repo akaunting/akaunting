@@ -556,7 +556,7 @@ trait ViewComponents
         }
 
         $page = str_replace('-', '_', config('type.' . static::OBJECT_TYPE . '.' . $type . '.route.prefix', 'invoices'));
-        $image_path = 'public/img/empty_pages/' . $page . '.png';
+        $image_path = '/img/empty_pages/' . $page . '.png';
 
         if ($alias = config('type.' . static::OBJECT_TYPE . '.' . $type . '.alias')) {
             $image_path = 'modules/' . Str::studly($alias) . '/Resources/assets/img/empty_pages/' . $page . '.png';

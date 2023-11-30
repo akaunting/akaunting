@@ -17,18 +17,18 @@
     <x-layouts.pwa.head />
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
+    <link rel="icon" href="{{ asset('/img/favicon.ico') }}" type="image/png">
 
     <!--Icons-->
-    <link rel="stylesheet" href="{{ asset('public/css/fonts/material-icons/style.css?v=' . version('short')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/fonts/material-icons/style.css?v=' . version('short')) }}" type="text/css">
 
      <!-- Font -->
-    <link rel="stylesheet" href="{{ asset('public/vendor/quicksand/css/quicksand.css?v=' . version('short')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/vendor/quicksand/css/quicksand.css?v=' . version('short')) }}" type="text/css">
 
     <!-- Css -->
-    <link rel="stylesheet" href="{{ asset('public/css//third_party/swiper-bundle.min.css?v=' . version('short')) }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/css/element.css?v=' . version('short')) }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/third_party/swiper-bundle.min.css?v=' . version('short')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/element.css?v=' . version('short')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/app.css?v=' . version('short')) }}" type="text/css">
 
     @stack('css')
 

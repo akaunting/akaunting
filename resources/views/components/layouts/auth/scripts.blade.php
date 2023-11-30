@@ -1,6 +1,6 @@
 @stack('scripts_start')
 
-<!-- <script type="text/javascript" src="{{ asset('public/akaunting-js/hotkeys.js') }}" defer></script> -->
+<!-- <script type="text/javascript" src="{{ asset('/akaunting-js/hotkeys.js') }}" defer></script> -->
 
 @stack('body_css')
 
@@ -12,6 +12,6 @@
 
 @livewireScripts
 
-<script src="{{ asset('public/vendor/alpinejs/alpine.min.js') }}"></script>
+<script src="{{ asset('/vendor/alpinejs/alpine.min.js') }}"></script>
 
 @stack('scripts_end')

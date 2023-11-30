@@ -1,11 +1,11 @@
 @stack('slider_start')
-<div class="hidden lg:block md:w-6/12 h-full flex-col h-fit">
+<div class="hidden lg:block md:w-6/12 flex-col h-fit">
     <div class="swiper bg-cover bg-bottom bg-no-repeat h-screen py-24">
         <div class="swiper-container h-full">
             <div class="swiper-wrapper">
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/folder.png') }}" />
+                        <img src="{{ asset('/img/auth/folder.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -15,7 +15,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/chart.png') }}" />
+                        <img src="{{ asset('/img/auth/chart.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -25,7 +25,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/client.png') }}" />
+                        <img src="{{ asset('/img/auth/client.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -35,7 +35,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/layout.png') }}" />
+                        <img src="{{ asset('/img/auth/layout.png') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">

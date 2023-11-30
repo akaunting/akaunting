@@ -27,7 +27,7 @@ class Import extends Controller
             $sample_file = url('modules/' . $module->getStudlyName() . '/Resources/assets/' . $type . '.xlsx');
         } else {
             $title_type = trans_choice('general.' . str_replace('-', '_', $type), 2);
-            $sample_file = url('public/files/import/' . $type . '.xlsx');
+            $sample_file = url('/files/import/' . $type . '.xlsx');
         }
 
         $form_params = [

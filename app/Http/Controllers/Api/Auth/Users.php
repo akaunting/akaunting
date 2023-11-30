@@ -39,7 +39,7 @@ class Users extends ApiController
             $user = user_model_class()::with('companies', 'permissions', 'roles')->where('email', $id)->first();
         }
 
-        if (! $user instanceof user_model_class()) {
+        if (! $user instanceof( user_model_class())) {
             return $this->errorInternal('No query results for model [' . user_model_class() . '] ' . $id);
         }
 

@@ -15,17 +15,17 @@
     <base href="{{ config('app.url') . '/' }}">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
+    <link rel="icon" href="{{ asset('/img/favicon.ico') }}" type="image/png">
 
     <!-- Css -->
-    <link rel="stylesheet" href="{{ asset('public/css/print.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/print.css') }}" type="text/css">
 
     @if (isset($currency_style) && $currency_style || in_array(app()->getLocale(), ['zh-CN', 'ja-JP', 'zh-TW']))
     <style type="text/css">
         @font-face {
             font-family: 'Firefly Sung';
             font-weight: 'normal';
-            src: url('{{ asset("/public/css/fonts/firefly_sung_normal.ttf") }}') format("truetype");
+            src: url('{{ asset("/css/fonts/firefly_sung_normal.ttf") }}') format("truetype");
         }
 
         * {

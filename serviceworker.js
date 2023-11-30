@@ -1,7 +1,7 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
-    'public/img/pwa/icon-192x192.png',
-    'public/img/pwa/icon-512x512.png'
+    '/img/pwa/icon-192x192.png',
+    '/img/pwa/icon-512x512.png'
 ];
 
 /*

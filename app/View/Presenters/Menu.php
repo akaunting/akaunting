@@ -247,7 +247,7 @@ class Menu extends Presenter
     {
         $slug = Str::replace('custom-', '', $item->icon);
 
-        $base_path = 'public/img/icons/';
+        $base_path = '/img/icons/';
 
         $module_alias = '';
 
@@ -272,7 +272,7 @@ class Menu extends Presenter
         $path = base_path($base_path . $slug . '.svg');
 
         if (! file_exists($path)) {
-            $path = 'public/img/akaunting-logo-purple.svg';
+            $path = '/img/akaunting-logo-purple.svg';
         }
 
         return $path;

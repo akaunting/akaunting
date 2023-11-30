@@ -194,7 +194,7 @@ return [
 
             ],
             'auto_send'                 => 'App\Events\Document\DocumentSent',
-            'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'          => '/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'                => 'common',
                 'file'                  => 'documents',
@@ -295,7 +295,7 @@ return [
 
             ],
             'auto_send'                 => 'App\Events\Document\DocumentReceived',
-            'image_empty_page'          => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'          => '/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'                => 'common',
                 'file'                  => 'documents',
@@ -403,7 +403,7 @@ return [
                 'new'               => 'general.recurring_incomes',
                 'transactions'      => 'general.incomes',
             ],
-            'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'      => '/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'            => 'banking',
                 'file'              => 'transactions',
@@ -505,7 +505,7 @@ return [
                 'new'               => 'general.recurring_expenses',
                 'transactions'      => 'general.expenses',
             ],
-            'image_empty_page'      => 'public/img/empty_pages/recurring_templates.png',
+            'image_empty_page'      => '/img/empty_pages/recurring_templates.png',
             'script' => [
                 'folder'            => 'banking',
                 'file'              => 'transactions',

@@ -265,7 +265,7 @@ class SearchString extends Component
                 'enabled'   => true,
                 'symbol'    => [
                     'sign'  => '!=',
-                    'img'   => asset('public/img/tailwind_icons/not-equal.svg'),
+                    'img'   => asset('/img/tailwind_icons/not-equal.svg'),
                 ],
                 'text'      => trans('general.isnot'),
             ],
