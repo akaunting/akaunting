@@ -297,7 +297,7 @@ export default {
             show_button: false,
             show_close_icon: false,
             show_icon: true,
-            not_equal_image: app_url +  "/public/img/tailwind_icons/not-equal.svg",
+            not_equal_image: app_url +  "/img/tailwind_icons/not-equal.svg",
             input_focus: false,
             defaultPlaceholder: this.placeholder,
             dynamicPlaceholder: this.placeholder,
@@ -1239,7 +1239,6 @@ export default {
 
     html[dir='ltr'] .searh-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
-        //margin-left: 10px;
     }
 
     html[dir='rtl'] .searh-field .el-tag-option {

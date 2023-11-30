@@ -124,7 +124,7 @@
                         'enabled': true,
                         'symbol': {
                             'sign': '=',
-                            'img': app_url +  "/public/img/tailwind_icons/not-equal.svg",
+                            'img': app_url +  "/img/tailwind_icons/not-equal.svg",
                         },
                         'text': '',
                     },

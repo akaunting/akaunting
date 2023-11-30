@@ -34,7 +34,7 @@ export default class Currency {
 
     getConfig() {
         return new Promise(function (resolve, reject) {
-            axios.get('public/money.json')
+            axios.get('money.json')
             .then(
                 (response) => {
                     let result = response.data;

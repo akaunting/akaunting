@@ -131,8 +131,8 @@ export default {
       dinersCardPlaceholder: '#### ###### ####',
       defaultCardPlaceholder: '#### #### #### ####',
       currentPlaceholder: '',
-      chip_src: app_url + '/public/img/credit_card/chip.png',
-      card_type_src: app_url + '/public/img/credit_card/',
+      chip_src: app_url + '/img/credit_card/chip.png',
+      card_type_src: app_url + '/img/credit_card/',
     }
   },
   watch: {

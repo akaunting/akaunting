@@ -1,5 +1,5 @@
-@import url("../../../css/third_party/vue-html-editor_custom.css");
-@import url("../../../css/third_party/dropzone_custom.css");
+@import url("../../../public/css/third_party/vue-html-editor_custom.css");
+@import url("../../../public/css/third_party/dropzone_custom.css");
 
 @tailwind base;
 @tailwind components;

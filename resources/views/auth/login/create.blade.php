@@ -1,6 +1,6 @@
 <x-layouts.auth>
     <x-slot name="title">
-        {{ trans('auth.login') }}
+        {{ trans('auth.login') }} 
     </x-slot>
 
     <x-slot name="content">
