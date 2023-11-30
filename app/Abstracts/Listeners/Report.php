@@ -277,7 +277,7 @@ abstract class Report
 
     public function getFormattedDate($event, $date)
     {
-        return $this->getPeriodicDate($date, $event->class->getSetting('period'), $event->class->model->year);
+        return $this->getPeriodicDate($date, $event->class->getSetting('period'), $event->class->year);
     }
 
     /**
