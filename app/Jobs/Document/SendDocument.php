@@ -16,11 +16,13 @@ class SendDocument extends Job
 
     public function handle(): void
     {
-        event(new DocumentSending($document));
+        event(new DocumentSending($this->document));
+
+        $notification = config('type.document.' . $this->document->type . '.notification.class');
 
         // Notify the customer
-        $invoice->contact->notify(new Notification($invoice, 'invoice_new_customer', true));
+        $this->document->contact->notify(new $notification($this->document, 'invoice_new_customer', true));
 
-        event(new DocumentSent($document));
+        event(new DocumentSent($this->document));
     }
 }
