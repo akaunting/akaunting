@@ -173,11 +173,11 @@ export default {
                 },
                 {
                     label: '50%',
-                    value: 'w-full lg:w-2/4 lg:px-12'
+                    value: 'w-full lg:w-2/4 lg:px-6'
                 },
                 {
                     label: '100%',
-                    value: 'w-full lg:px-12'
+                    value: 'w-full lg:px-6'
                 }
             ],
             form: {
