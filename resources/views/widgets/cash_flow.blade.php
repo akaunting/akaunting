@@ -6,7 +6,7 @@
             {!! $chart->container() !!}
         </div>
 
-        <div class="w-full lg:w-1/12 flex flex-row lg:flex-col items-center justify-start sm:justify-center lg:mt-11 space-y-0 sm:space-y-2">
+        <div class="w-full lg:w-1/12 flex flex-row lg:flex-col items-center lg:justify-start justify-center lg:mt-11 space-y-0 sm:space-y-2">
             <div class="relative w-32 lg:w-auto flex flex-col items-center sm:justify-between text-center">
                 <div class="flex justify-end lg:block text-lg">
                     <x-tooltip id="tooltip-cashflow-incoming" placement="top" message="{{ $totals['incoming_exact'] }}">
