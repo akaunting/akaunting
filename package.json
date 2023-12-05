@@ -50,7 +50,9 @@
         "vuedraggable": "^2.24.3",
         "moment": ">=2.29.4",
         "qs": "^6.11.1",
-        "jsonwebtoken": "^9.0.0"
+        "jsonwebtoken": "^9.0.2",
+        "ws": "^8.14.2",
+        "ajv": "^6.12.6"
     },
     "devDependencies": {
         "@babel/core": "^7.23.5",
@@ -83,7 +85,11 @@
     },
     "overrides": {
         "lodash": "^4.17.21",
-        "moment": ">=2.29.4"
+        "moment": ">=2.29.4",
+        "jsonwebtoken": "^9.0.2",
+        "ws": "^8.14.2",
+        "postcss": "^8.4.32",
+        "ajv": "^6.12.6"
     },
     "browserslist": [
         "> 1%",
