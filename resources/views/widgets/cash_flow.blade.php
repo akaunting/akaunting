@@ -1,4 +1,4 @@
-<div id="widget-{{ $class->model->id }}" class="w-full my-8 px-12">
+<div id="widget-{{ $class->model->id }}" class="w-full my-8 px-6">
     @include($class->views['header'], ['header_class' => ''])
 
     <div class="flex flex-col-reverse lg:flex-row mt-3">

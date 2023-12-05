@@ -101,3 +101,9 @@ rtl:float-right
 rtl:float-left
 rtl:rotate-180
 hover:bg-purple-200
+lg:w-1/4
+lg:px-6
+lg:w-1/3
+px-6
+lg:w-2/4
+lg:px-6

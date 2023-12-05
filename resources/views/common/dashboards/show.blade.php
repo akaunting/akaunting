@@ -128,7 +128,7 @@
 
         <akaunting-widget
             v-if="widget_modal"
-            :title="'{{ trans_choice('general.widgets', 1) }}'"
+            :title="'{{ trans('general.title.edit') }}'.replace(':type', widget.name)"
             :show="widget_modal"
             :widget_id="widget.id"
             :name="widget.name"

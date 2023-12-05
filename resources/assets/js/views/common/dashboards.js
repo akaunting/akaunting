@@ -96,7 +96,7 @@ const dashboard = new Vue({
                 self.widget.id = widget_id;
                 self.widget.name = response.data.name;
                 self.widget.class = response.data.class;
-                self.widget.width = response.data.settings.width;
+                self.widget.width = (response.data.settings.raw_width) ? response.data.settings.raw_width : response.data.settings.width;
                 self.widget.action = 'edit';
                 self.widget.sort = response.data.sort;
 
