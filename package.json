@@ -53,8 +53,8 @@
         "jsonwebtoken": "^9.0.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.4",
-        "@babel/preset-env": "^7.21.4",
+        "@babel/core": "^7.23.5",
+        "@babel/preset-env": "^7.23.5",
         "@vue/cli-plugin-babel": "^5.0.8",
         "@vue/cli-plugin-eslint": "^5.0.8",
         "@vue/cli-service": "^5.0.8",
