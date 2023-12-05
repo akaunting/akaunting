@@ -88,10 +88,10 @@ class Version303 extends Listener
                     $widget_settings->width = 'w-full lg:w-1/3 px-6';
                     break;
                 case 'col-md-6':
-                    $widget_settings->width = 'w-full lg:w-2/4 px-12';
+                    $widget_settings->width = 'w-full lg:w-2/4 px-6';
                     break;
                 case 'col-md-12':
-                    $widget_settings->width = 'w-full px-12';
+                    $widget_settings->width = 'w-full px-6';
                     break;
             }
 
