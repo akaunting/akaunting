@@ -38,7 +38,7 @@
         "popper.js": "^1.16.1",
         "swiper": "^9.2.0",
         "tailwind": "^4.0.0",
-        "tailwindcss": "^3.3.1",
+        "tailwindcss": "^3.3.6",
         "v-money": "^0.8.1",
         "vee-validate": "^2.2.15",
         "vue": "^2.7.14",
@@ -66,7 +66,7 @@
         "laravel-mix": "^6.0.49",
         "mini-css-extract-plugin": "^2.7.5",
         "node-sass": "^8.0.0",
-        "postcss": "^8.4.21",
+        "postcss": "^8.4.32",
         "postcss-import": "^15.1.0",
         "postcss-loader": "^7.2.4",
         "postcss-nesting": "^11.2.2",
@@ -80,6 +80,10 @@
         "vue-template-compiler": "^2.7.14",
         "webpack": "^5.78.0",
         "webpack-cli": "^5.0.1"
+    },
+    "overrides": {
+        "lodash": "^4.17.21",
+        "moment": ">=2.29.4"
     },
     "browserslist": [
         "> 1%",
