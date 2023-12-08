@@ -11,6 +11,7 @@ class DeleteReport extends Job implements ShouldDelete
     {
         \DB::transaction(function () {
             $this->deleteFavorite();
+            $this->deletePin();
 
             $this->model->delete();
         });
@@ -40,6 +41,30 @@ class DeleteReport extends Job implements ShouldDelete
             }
 
             setting()->set('favorites.menu.' . $user_id, json_encode($user_favorites));
+            setting()->save();
+        }
+    }
+
+    public function deletePin()
+    {
+        $pins = setting('favorites.report', []);
+
+        if (empty($pins)) {
+            return;
+        }
+
+        foreach ($pins as $user_id => $user_pins) {
+            $user_pins = json_decode($user_pins, true);
+
+            foreach ($user_pins as $key => $pin) {
+                if ($this->model->id == $pin) {
+                    unset($user_pins[$key]);
+
+                    break;
+                }
+            }
+
+            setting()->set('favorites.report.' . $user_id, json_encode($user_pins));
             setting()->save();
         }
     }
