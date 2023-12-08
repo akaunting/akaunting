@@ -31,6 +31,7 @@ class FinishUninstallation
         $this->deleteWidgets($event->alias);
         $this->deleteEmailTemplates($event->alias);
         $this->deleteReports($event->alias);
+        $this->deleteFavorites($event->alias);
     }
 
     /**
@@ -103,5 +104,43 @@ class FinishUninstallation
                 report($e);
             }
         });
+    }
+
+    /**
+     * Delete any favorite created by the module.
+     *
+     * @param  string $alias
+     * @return void
+     */
+    protected function deleteFavorites($alias)
+    {
+        $favorites = setting('favorites.menu', []);
+
+        if (empty($favorites)) {
+            return;
+        }
+
+        try {
+            foreach ($favorites as $user_id => $user_favorites) {
+                $user_favorites = json_decode($user_favorites, true);
+    
+                foreach ($user_favorites as $key => $favorite) {
+                    $route = $favorite['route'];
+    
+                    if (is_array($route)) {
+                        $route = $route[0];
+                    }
+    
+                    if (str_contains($route, $alias)) {
+                        unset($user_favorites[$key]);
+                    }
+                }
+    
+                setting()->set('favorites.menu.' . $user_id, json_encode($user_favorites));
+                setting()->save();
+            }
+        } catch (Throwable $e) {
+            report($e);
+        }
     }
 }
