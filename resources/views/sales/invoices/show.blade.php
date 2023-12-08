@@ -16,7 +16,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-documents.show.content type="invoice" :document="$invoice" hide-receive hide-make-payment hide-schedule hide-children />
+        <x-documents.show.content type="invoice" :document="$invoice" hide-receive hide-make-payment hide-schedule hide-children hide-accept-payment/>
     </x-slot>
 
     @push('stylesheet')
