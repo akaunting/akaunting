@@ -18,7 +18,7 @@ class DateFormat
      */
     public function handle($request, Closure $next)
     {
-        if (($request->method() == 'POST') || ($request->method() == 'PATCH')) {
+        if (in_array($request->method(), ['POST', 'PATCH', 'PUT'])) {
             $columns = new \stdClass();
             $columns->fields = [
                 'paid_at',

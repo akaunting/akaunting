@@ -16,7 +16,7 @@ class Dropzone
      */
     public function handle($request, Closure $next)
     {
-        if (! in_array($request->method(), ['POST', 'PATCH'])) {
+        if (! in_array($request->method(), ['POST', 'PATCH', 'PUT'])) {
             return $next($request);
         }
 
