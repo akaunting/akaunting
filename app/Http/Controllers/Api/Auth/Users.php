@@ -32,15 +32,17 @@ class Users extends ApiController
      */
     public function show($id)
     {
+        $model_class = user_model_class();
+
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = user_model_class()::with('companies', 'permissions', 'roles')->find($id);
+            $user = $model_class::with('companies', 'permissions', 'roles')->find($id);
         } else {
-            $user = user_model_class()::with('companies', 'permissions', 'roles')->where('email', $id)->first();
+            $user = $model_class::with('companies', 'permissions', 'roles')->where('email', $id)->first();
         }
 
-        if (! $user instanceof user_model_class()) {
-            return $this->errorInternal('No query results for model [' . user_model_class() . '] ' . $id);
+        if (! $user instanceof $model_class) {
+            return $this->errorInternal('No query results for model [' . $model_class . '] ' . $id);
         }
 
         return new Resource($user);
@@ -86,7 +88,7 @@ class Users extends ApiController
     public function enable($user_id)
     {
         $user = user_model_class()::query()->isNotCustomer()->find($user_id);
-        
+
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
         return new Resource($user->fresh());
