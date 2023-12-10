@@ -34,7 +34,7 @@ class Favorites extends Component
                     continue;
                 }
 
-                $favorite['id'] = $this->getId($favorite);
+                $favorite['id'] = $this->getFavoriteId($favorite);
 
                 if ($this->isActive($favorite['url'])) {
                     $favorite['active'] = true;
@@ -87,7 +87,7 @@ class Favorites extends Component
         }
     }
 
-    public function getId($favorite)
+    public function getFavoriteId($favorite)
     {
         $id = Str::of($favorite['url'])
                 ->replace(url('/'), '-')

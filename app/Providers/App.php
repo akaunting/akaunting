@@ -47,7 +47,7 @@ class App extends Provider
                 \Sentry\Laravel\Integration::lazyLoadingViolationReporter();
             } else {
                 $class = get_class($model);
-    
+
                 report("Attempted to lazy load [{$relation}] on model [{$class}].");
             }
         });

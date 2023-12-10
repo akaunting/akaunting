@@ -70,7 +70,7 @@ class Favorite extends Component
 
         setting(['favorites.menu.' . user()->id => json_encode($favorites)])->save();
 
-        $this->emit('addedFavorite');
+        $this->dispatch('addedFavorite');
     }
 
     public function removeFavorite()
@@ -94,6 +94,6 @@ class Favorite extends Component
 
         setting(['favorites.menu.' . user()->id => json_encode($favorites)])->save();
 
-        $this->emit('removedFavorite');
+        $this->dispatch('removedFavorite');
     }
 }

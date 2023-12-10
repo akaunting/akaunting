@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /**
  * 'common' middleware applied to all routes
@@ -26,4 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['menu.portal', 'permission:read-client-portal']], function () {
         Route::get('portal', 'Portal\Dashboard@index')->name('portal.dashboard');
     });
+});
+
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('livewire/update', $handle);
 });

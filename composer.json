@@ -60,7 +60,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/oauth2-client": "^2.6",
         "league/omnipay": "^3.2",
-        "livewire/livewire": "^2.10",
+        "livewire/livewire": "^3.0",
         "lorisleiva/laravel-search-string": "^1.2",
         "maatwebsite/excel": "3.1.*",
         "mnsami/composer-custom-directory-installer": "2.0.*",
@@ -104,7 +104,7 @@
             "Database\\Seeds\\": "database/seeds/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
             "Illuminate\\View\\Concerns\\": "overrides/Illuminate/View/Concerns/",
-            "Livewire\\": "overrides/livewire/",
+            "Livewire\\": "overrides/livewire/livewire/",
             "Maatwebsite\\Excel\\": "overrides/maatwebsite/excel/",
             "Modules\\": "modules/",
             "Symfony\\Component\\Process\\": "overrides/symfony/process/"
@@ -116,7 +116,7 @@
             "vendor/akaunting/laravel-module/src/Commands/InstallCommand.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
             "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
-            "vendor/livewire/livewire/src/LivewireServiceProvider.php",
+            "vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php",
             "vendor/maatwebsite/excel/src/Fakes/ExcelFake.php",
             "vendor/maatwebsite/excel/src/QueuedWriter.php",
             "vendor/symfony/process/PhpExecutableFinder.php"
@@ -133,8 +133,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
+            "@php artisan package:discover --ansi"
         ],
         "post-install-cmd": [
             "php artisan ide-helper:generate",

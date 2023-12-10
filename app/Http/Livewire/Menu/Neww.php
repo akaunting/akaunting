@@ -13,9 +13,9 @@ class Neww extends Component
 
     public $keyword = '';
 
-    public $neww = [];
-
-    protected $listeners = ['resetKeyword'];
+    protected $listeners = [
+        'resetKeyword',
+    ];
 
     public function render(): View
     {
@@ -28,8 +28,6 @@ class Neww extends Component
 
             foreach($menu->getItems() as $item) {
                 if ($this->availableInSearch($item)) {
-                    $this->neww[] = $item;
-
                     continue;
                 }
 
