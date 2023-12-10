@@ -32,9 +32,7 @@ class HandleRequests
         )->start('/');*/
 
         // @akaunting change start
-        return (string) str(
-            route($this->updateRoute->getName())
-        );
+        return (string) route($this->updateRoute->getName());
         // @akaunting change end
     }
 
