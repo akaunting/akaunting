@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "akaunting/laravel-apexcharts",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-apexcharts.git",
-                "reference": "c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f"
+                "reference": "64a466e89c0ad9536a96115a53da7aaf655cd6f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f",
-                "reference": "c4b6d6b94bef2ae00c7ea1fdb0ef79a1bfb7f78f",
+                "url": "https://api.github.com/repos/akaunting/laravel-apexcharts/zipball/64a466e89c0ad9536a96115a53da7aaf655cd6f9",
+                "reference": "64a466e89c0ad9536a96115a53da7aaf655cd6f9",
                 "shasum": ""
             },
             "require": {
@@ -71,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-apexcharts/issues",
-                "source": "https://github.com/akaunting/laravel-apexcharts/tree/3.0.1"
+                "source": "https://github.com/akaunting/laravel-apexcharts/tree/3.0.2"
             },
-            "time": "2023-03-16T14:46:17+00:00"
+            "time": "2023-12-10T14:48:15+00:00"
         },
         {
             "name": "akaunting/laravel-debugbar-collector",
@@ -409,16 +409,16 @@
         },
         {
             "name": "akaunting/laravel-money",
-            "version": "5.1.2",
+            "version": "5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-money.git",
-                "reference": "193fcc98e9ab829952e4a1b075a8845e89d15e8d"
+                "reference": "3e3a4326b252c1a9ecaf0e43ff75e7262d6f28d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/193fcc98e9ab829952e4a1b075a8845e89d15e8d",
-                "reference": "193fcc98e9ab829952e4a1b075a8845e89d15e8d",
+                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/3e3a4326b252c1a9ecaf0e43ff75e7262d6f28d5",
+                "reference": "3e3a4326b252c1a9ecaf0e43ff75e7262d6f28d5",
                 "shasum": ""
             },
             "require": {
@@ -472,9 +472,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-money/issues",
-                "source": "https://github.com/akaunting/laravel-money/tree/5.1.2"
+                "source": "https://github.com/akaunting/laravel-money/tree/5.1.3"
             },
-            "time": "2023-07-28T06:57:28+00:00"
+            "time": "2023-12-10T14:47:48+00:00"
         },
         {
             "name": "akaunting/laravel-mutable-observer",
@@ -4680,6 +4680,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2023-02-25T19:40:47+00:00"
         },
         {
@@ -7136,16 +7137,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.0",
+            "version": "2.72.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "a6885fcbad2ec4360b0e200ee0da7d9b7c90786b"
+                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a6885fcbad2ec4360b0e200ee0da7d9b7c90786b",
-                "reference": "a6885fcbad2ec4360b0e200ee0da7d9b7c90786b",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
+                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
                 "shasum": ""
             },
             "require": {
@@ -7239,7 +7240,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-28T10:13:25+00:00"
+            "time": "2023-12-08T23:47:49+00:00"
         },
         {
             "name": "nette/schema",
@@ -13637,16 +13638,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e"
+                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/b8e0bb7d8c604046539c1115994632c74dcb361e",
-                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
+                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
                 "shasum": ""
             },
             "require": {
@@ -13659,9 +13660,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5 || ^9.6.10",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "symplify/easy-coding-standard": "^11.5.0",
-                "vimeo/psalm": "^4.30"
+                "symplify/easy-coding-standard": "^12.0.8"
             },
             "type": "library",
             "autoload": {
@@ -13718,7 +13717,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2023-08-09T00:03:52+00:00"
+            "time": "2023-12-10T02:24:34+00:00"
         },
         {
             "name": "myclabs/deep-copy",
