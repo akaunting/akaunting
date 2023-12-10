@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
 /**
- * 'guest' middleware applied to all routes
+ * 'web' middleware applied to all routes
  *
- * @see \App\Providers\Route::mapGuestRoutes
- * @see \modules\PaypalStandard\Routes\guest.php for module example
+ * @see \App\Providers\Route::mapWebRoutes
  */
 
  Livewire::setScriptRoute(function ($handle) {
