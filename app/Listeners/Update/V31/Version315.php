@@ -5,6 +5,7 @@ namespace App\Listeners\Update\V31;
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
 use App\Models\Common\Widget;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -28,9 +29,21 @@ class Version315 extends Listener
 
         Log::channel('stdout')->info('Updating to 3.1.5 version...');
 
+        $this->clearCache();
+
         $this->updateWidgets();
 
         Log::channel('stdout')->info('Done!');
+    }
+
+    public function clearCache(): void
+    {
+        Log::channel('stdout')->info('Clearing cache...');
+
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+
+        Log::channel('stdout')->info('Cleared cache.');
     }
 
     public function updateWidgets()
