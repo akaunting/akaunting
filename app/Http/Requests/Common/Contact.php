@@ -26,7 +26,7 @@ class Contact extends FormRequest
         $company_id = (int) $this->request->get('company_id');
 
         // Check if store or update
-        if ($this->getMethod() == 'PATCH') {
+        if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {
             $model = $this->isApi() ? 'contact' : $type;
 
             $id = is_numeric($this->$model) ? $this->$model : $this->$model->getAttribute('id');

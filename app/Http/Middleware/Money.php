@@ -19,7 +19,7 @@ class Money
      */
     public function handle($request, Closure $next)
     {
-        if (($request->method() != 'POST') && ($request->method() != 'PATCH')) {
+        if (! in_array($request->method(), ['POST', 'PATCH', 'PUT'])) {
             return $next($request);
         }
 

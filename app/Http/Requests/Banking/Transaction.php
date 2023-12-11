@@ -20,7 +20,7 @@ class Transaction extends FormRequest
         $type = config('type.transaction.' . $type . '.route.parameter');
 
         // Check if store or update
-        if ($this->getMethod() == 'PATCH') {
+        if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {
             $model = $this->isApi() ? 'transaction' : $type;
 
             $id = is_numeric($this->$model) ? $this->$model : $this->{$model}->getAttribute('id');
