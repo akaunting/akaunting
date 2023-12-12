@@ -100,15 +100,17 @@ const app = new Vue({
         this.currency_symbol.rate = this.form.currency_rate;
 
         if (company_currency_code) {
-           let default_currency_symbol = null;
+            let default_currency_symbol = null;
+            let default_currency = this.currency_symbol;
 
-           for (let symbol of this.currencies) {
-               if (symbol.code == company_currency_code) {
-                   default_currency_symbol = symbol.symbol;
-               }
-           }
+            for (let currency of this.currencies) {
+                if (currency.code == company_currency_code) {
+                    default_currency = currency;
+                    default_currency_symbol = currency.symbol;
+                }
+            }
 
-           this.currency_symbol.symbol = default_currency_symbol;
+            this.currency_symbol = default_currency;
         };
 
         if (document_app_env == 'production') {
