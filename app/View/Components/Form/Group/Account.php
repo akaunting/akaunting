@@ -52,7 +52,7 @@ class Account extends Form
             $selected_account = $model->account;
         }
 
-        if (! empty($selected_account) && ! $this->accounts->has($selected_account->id)) {
+        if (! empty($selected_account) && ! $this->accounts->contains('id', $selected_account->id)) {
             $this->accounts->push($selected_account);
         }
 
