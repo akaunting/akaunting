@@ -8,7 +8,7 @@
             <x-tabs.nav id="general">
                 {{ trans('general.general') }}
 
-                <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('paid_at')||form.errors.has('amount')||form.errors.has('payment_method')||form.errors.has('account_id')">
+                <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('paid_at') || form.errors.has('amount') || form.errors.has('payment_method') || form.errors.has('account_id')">
                     {{ trans('general.validation_error') }}
                 </span>
             </x-tabs.nav>
@@ -16,7 +16,7 @@
             <x-tabs.nav id="other">
                 {{ trans_choice('general.others', 1) }}
 
-                <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('number')||form.errors.has('description')||form.errors.has('recurring')">
+                <span class="invalid-feedback block text-xs text-red whitespace-normal" v-if="form.errors.has('number') || form.errors.has('description') || form.errors.has('recurring')">
                     {{ trans('general.validation_error') }}
                 </span>
             </x-tabs.nav>
@@ -48,8 +48,7 @@
                         label="{{ trans('general.amount') }}"
                         value="{{ $amount }}"
                         autofocus="autofocus"
-                        :currency="$currency"
-                        dynamicCurrency="currency"
+                        :currency="! empty($transaction) ? $transaction->currency : $currency"
                         form-group-class="col-span-6"
                     />
 
@@ -60,7 +59,7 @@
                             value="{{ $amount }}"
                             v-model="form.amount"
                             autofocus="autofocus"
-                            :currency="$currency"
+                            :currency="! empty($transaction) ? $transaction->currency : $currency"
                             form-group-class="col-span-6"
                             input="onChangeAmount($event)"
                         />
