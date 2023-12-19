@@ -318,9 +318,7 @@ if (! function_exists('user_model_class')) {
 if (! function_exists('role_model_class')) {
     function role_model_class(): string
     {
-        return module_is_enabled('roles')
-                ? config('roles.models.role')
-                : config('laratrust.models.role');
+        return config('laratrust.models.role');
     }
 }
 
