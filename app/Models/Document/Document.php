@@ -339,6 +339,10 @@ class Document extends Model
             return false;
         }
 
+        if ($this->status == 'paid' ) {
+            return $this->amount;
+        }
+
         $paid = 0;
 
         $code = $this->currency_code;

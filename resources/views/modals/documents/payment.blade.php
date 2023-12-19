@@ -64,16 +64,6 @@
                             input="onChangeAmount($event)"
                         />
 
-                        <div class="sm:col-span-6 grid sm:grid-cols-6 gap-x-4 -mt-6" v-if="form.error_amount">
-                            <div class="relative col-span-6 text-xs flex mt-5">
-                                <div class="rounded-xl px-5 py-3 bg-red-100">
-                                    <div class="w-auto text-xs mr-2 text-red-600"
-                                        v-html="'{{ trans('invoices.over_payment', ['amount' => '#amount']) }}'.replace('#amount', form.error_amount)"
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="sm:col-span-2 text-xs absolute right-0 top-1">
                             <div class="custom-control custom-checkbox">
                                 <x-form.input.checkbox

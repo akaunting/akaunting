@@ -161,8 +161,6 @@ const app = new Vue({
                 return;
             }
 
-            this.form.error_amount = 0;
-
             let code = this.form.currency_code;
             let rate = this.form.currency_rate;
             let precision = this.currency.precision;
@@ -187,11 +185,6 @@ const app = new Vue({
                 }
 
                 this.form.default_amount = amount;
-
-                if (error_amount) {
-                    this.form.error_amount = error_amount;
-                    //this.form.error_amount = new Money(this.form.currency_code, error_amount, true).format();
-                }
             }
         },
 

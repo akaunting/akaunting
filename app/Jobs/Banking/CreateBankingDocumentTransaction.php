@@ -104,17 +104,13 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $compare = bccomp($amount, $total_amount, $precision);
 
         if ($compare === 1) {
-            $error_amount = $total_amount;
+            if ($this->model->currency_code == $code) {
+                $message = trans('messages.error.over_payment', ['amount' => money($total_amount, $code)]);
 
-            if ($this->model->currency_code != $code) {
-                $converted_amount = $this->convertBetween($total_amount, $this->model->currency_code, $this->model->currency_rate, $code, $rate);
-
-                $error_amount = round($converted_amount, $precision);
+                throw new \Exception($message);
+            } else {
+                $this->model->status = 'paid';
             }
-
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $code)]);
-
-            throw new \Exception($message);
         } else {
             $this->model->status = ($compare === 0) ? 'paid' : 'partial';
         }
