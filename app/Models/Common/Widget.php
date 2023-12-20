@@ -77,12 +77,11 @@ class Widget extends Model
      */
     public function getSettingsAttribute($value)
     {
-        $settings = ! empty($value) ? json_decode($value) : (object) [];
+        $settings = ! empty($value) ? (object) json_decode($value) : (object) [];
 
         $settings->raw_width = false;
 
         if (isset($settings->width)) {
-
             $raw_width = $settings->width;
             $width = $this->getWidthAttribute($settings->width);
 
