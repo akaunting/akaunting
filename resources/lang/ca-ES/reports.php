@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'Any|Anys',
+    'date_range'                    => 'Rang de data',
     'preferences'                   => 'Preferència|Preferències',
-    'this_year'                     => 'Aquest any',
-    'previous_year'                 => 'Any anterior',
-    'this_quarter'                  => 'Aquest trimestre',
-    'previous_quarter'              => 'Trimestre anterior',
-    'last_12_months'                => 'Últims 12 mesos',
     'profit_loss'                   => 'Guanys i pèrdues',
     'income_summary'                => 'Resum d\'ingressos',
     'expense_summary'               => 'Resum de despeses',

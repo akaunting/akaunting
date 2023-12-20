@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type toegevoegd!',
+        'created'			=> ':type bijgewerkt!',
         'updated'           => ':type bijgewerkt!',
         'deleted'           => ':type verwijderd!',
         'duplicated'        => ':type gedupliceerd!',
@@ -29,6 +30,7 @@ return [
         'transfer_category' => 'Fout: Kan de overdracht niet verwijderen <b>:type</b> categorie!',
         'change_type'       => 'Fout: Kan het type niet wijzigen omdat :text gerelateerd is!',
         'invalid_apikey'    => 'Fout: De ingevoerde API-sleutel is ongeldig!',
+        'empty_apikey'      => 'Fout: U heeft uw API-sleutel niet ingevoerd! <a href=":url" class="font-bold underline underline-offset-4">Klik hier</a> om uw API-sleutel in te voeren.',
         'import_column'     => 'Fout: :message Blad naam: :sheet. Lijnnummer: :line.',
         'import_sheet'      => 'Fout: Bladnaam is niet geldig. Vergelijk het met het voorbeeldbestand.',
         'same_amount'       => 'Fout: Het totale bedrag van de splitsing moet precies hetzelfde zijn als het :transaction total: :bedrag',

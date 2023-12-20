@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Cobrament',
     'accept_payments'       => 'Accepta pagaments online',
     'payments_received'     => 'S\'han rebut els pagaments',
+    'over_payment'          => 'La quantitat introduïda passa del total: :amount',
 
     'form_description' => [
         'billing'           => 'Les dades de facturació es mostren a la factura. La data de la factura s\'utilitza al tauler i als informes. Selecciona la data que vols com a data de venciment.',

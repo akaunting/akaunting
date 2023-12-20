@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Versió',
-    'powered'               => 'Powered by Akaunting',
+    'powered'               => 'Creat per Akaunting',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Programari lliure de Facturació/Comptabilitat',
     'powered_by'            => 'Creat per',

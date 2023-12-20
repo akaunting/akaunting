@@ -27,6 +27,11 @@ return [
         'body'          => 'مرحبا,<br /><br /> بناء على الإتفاق الدورى ل {customer_name},<strong>{invoice_number}</strong> تم إنشاء الفاتورة أتوماتكيا <br /><br /> يمكنك الاطلاع على تفاصيل الفاتورة من الرابط:<a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات{br /> {company_name>',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'تم الاطلاع على الفاتورة',
+        'body'          => 'مرحبًا،<br /><br /> {customer_name} يمكنك الاطلاع على   <strong>{invoice_number}</strong>.رقم الفاتورة <br /><br />يمكنك الاطلاع على تفاصيل الفاتورة من الرابط التالي: <a href ="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'تم استلام الدفعة لفاتورة رقم {invoice_number}',
         'body'          => 'عزيزي {customer_name}،<br /><br />شكرا للسداد، سوف تجد تفاصيل الدفع في اﻷسفل:<br /><br />-------------------------------------------------<br /><br />القيمة: <strong>{transaction_total}<br /></strong> التاريخ: <strong>{transaction_paid_date}</strong><br /> رقم الفاتورة: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br /> يمكنك بالتاكيد اﻹطلاع على تفاصيل الفاتورة من خلال الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
@@ -47,4 +52,13 @@ return [
         'body'          => 'مرحبا,<br /><br /> بناء على الإتفاق الدورى ل <vendor_name} <strong>{bill_number}</strong} تم إنشاء الفاتورة أتوماتكيا <br /><br /> يمكنك الاطلاع على تفاصيل الفاتورة من الرابط: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br /< Regards,<br />{company_name} مع أطيب التحيات{br /> {company_name>',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'فاتورتك من {company_name}',
+        'body'          => 'عزيزي {contact_name}،<br /><br />شكرًا لك على الدفع. <br /><br />يمكنك الاطلاع على تفاصيل الدفع من الرابط التالي: <a href="{Payment_guest_link}">{Payment_date}</a>.<br /><br />لا تتردد في الاتصال بنا إذا كانت لديك أية أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'تم الدفع بواسطة {company_name}',
+        'body'          => 'عزيزي {contact_name}،<br /><br />شكرًا لك على الدفع. <br /><br />يمكنك الاطلاع على تفاصيل الدفع من الرابط التالي: <a href="{Payment_guest_link}">{Payment_date}</a>.<br /><br />لا تتردد في الاتصال بنا إذا كانت لديك أية أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
+    ],
 ];
