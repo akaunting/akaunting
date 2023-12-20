@@ -156,7 +156,7 @@ class DocumentTransactions extends Controller
 
         $number = $transaction->number;
 
-        $amount = money($transaction->amount, $currency->code, false)->getAmount();
+        $amount = money($transaction->amount_for_document, $currency->code, false)->getAmount();
 
         // Get document Totals
         foreach ($document->totals as $document_total) {

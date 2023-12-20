@@ -45,8 +45,8 @@
                     <x-form.group.money
                         v-show="form.document_currency_code == form.currency_code"
                         name="amount"
-                        label="{{ trans('general.amount') }}"
-                        value="{{ $amount }}"
+                        :label="trans('general.amount')"
+                        :value="$amount"
                         autofocus="autofocus"
                         :currency="! empty($transaction) ? $transaction->currency : $currency"
                         form-group-class="col-span-6"
@@ -56,7 +56,7 @@
                         <x-form.group.money
                             name="amount"
                             label="{{ trans('general.amount') }}"
-                            value="{{ $amount }}"
+                            :value="$amount"
                             v-model="form.amount"
                             autofocus="autofocus"
                             :currency="! empty($transaction) ? $transaction->currency : $currency"
@@ -127,8 +127,8 @@
                     <x-form.input.hidden name="category_id" :value="$document->category->id" />
                     <x-form.input.hidden name="paid_amount" :value="$document->paid_amount" />
                     <x-form.input.hidden name="amount" :value="$amount" />
-                    <x-form.input.hidden name="currency_code" :value="$document->currency_code" />
-                    <x-form.input.hidden name="currency_rate" :value="$document->currency_rate" v-if="form.document_currency_code == form.currency_code" />
+                    <x-form.input.hidden name="currency_code" :value="! empty($transaction) ? $transaction->currency_code : $document->currency_code" />
+                    <x-form.input.hidden name="currency_rate" :value="! empty($transaction) ? $transaction->currency_rate : $document->currency_rate" v-if="form.document_currency_code == form.currency_code" />
                     <x-form.input.hidden name="company_currency_code" :value="default_currency()" />
                     <x-form.input.hidden name="document_currency_code" :value="$document->currency_code" />
                     <x-form.input.hidden name="document_currency_rate" :value="$document->currency_rate" />
