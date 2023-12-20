@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Être payé',
     'accept_payments'       => 'Accepter les paiements en ligne',
     'payments_received'     => 'Paiements reçus',
+    'over_payment'          => 'Le montant saisi dépasse le montant total: :amount',
 
     'form_description' => [
         'billing'           => 'Les détails de facturation apparaissent sur votre facture émise. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous souhaitez être payé comme Date d\'Échéance.',

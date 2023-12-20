@@ -27,6 +27,11 @@ return [
         'body'          => 'Γειά σας,<br /><br /> Βάσει των επαναλαμβανόμενων χρεώσεων του {customer_name}, <strong>{invoice_number}</strong> έχει παραχθεί αυτόματα ένα τιμολόγιο.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου στον παρακάτω σύνδεσμο: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Μετα Τιμής,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => 'Προβλήθηκε το {invoice_number} τιμολόγιο',
+        'body'          => 'Γεια σας,<br /><br />{customer_name} έχει δει το τιμολόγιο <strong>{invoice_number}</strong> .<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου από τον ακόλουθο σύνδεσμο: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Καλύτερα Μέλη,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Ελήφθη πληρωμή για το τιμολόγιο {invoice_number}',
         'body'          => 'Αγαπητοί {customer_name},<br /><br />Ευχαριστούμε για την πληρωμή. Ακολουθούν οι λεπτομέρειες της πληρωμής:<br /><br />-------------------------------------------------<br /><br />Ποσό: <strong>{transaction_total}<br /></strong>Ημερμηνία: <strong>{transaction_paid_date}</strong><br />Αριθμός Τιμολογίου: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου στον παρακάτω σύνδεσμο:: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα Τιμής,<br />{company_name}',
@@ -47,4 +52,13 @@ return [
         'body'          => 'Γειά σας,<br /><br /> Βάσει της επαναλαμβανόμενης χρέωσης με την {vendor_name}, <strong>{bill_number}</strong> δημιουργήθηκε αυτόματα ένα τιμολόγιο.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου στον παρακάτω σύνδεσμο: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Μετα Τιμής,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'Απόδειξη από το {company_name}',
+        'body'          => 'Αγαπητοί{customer_name},<br /><br />Έχουμε δημιουργήσει το παρακάτω τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες και να προχωρήσετε στην πληρωμή από τον παρακάτω σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα τιμής,<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Πληρωμή από {company_name}',
+        'body'          => 'Αγαπητοί{customer_name},<br /><br />Έχουμε δημιουργήσει το παρακάτω τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες και να προχωρήσετε στην πληρωμή από τον παρακάτω σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα τιμής,<br />{company_name}',
+    ],
 ];

@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Prejmi plačilo',
     'accept_payments'       => 'Sprejmi Spletna Plačila',
     'payments_received'     => 'Prejeto plačilo',
+    'over_payment'          => 'Znesek, ki ste ga vnesli presega skupno: :amount',
 
     'form_description' => [
         'billing'           => 'Podrobnosti za obračun so prikazane na vašem računu. Datum računa se uporablja na nadzorni plošči in poročilih. Za datum zapadlosti izberite datum, za katerega pričakujete, da boste prejeli plačilo.',

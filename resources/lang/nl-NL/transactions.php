@@ -10,6 +10,8 @@ return [
     'related_bill'          => 'Gerelateerde rekening',
     'recurring_income'      => 'Terugkerende Inkomsten',
     'recurring_expense'     => 'Terugkerende Uitgaven',
+    'included_tax'          => 'Inclusief belastingbedrag',
+    'connected'             => 'Verbonden',
 
     'form_description' => [
         'general'           => 'Hier kunt u de algemene informatie van de transactie invoeren, zoals datum, bedrag, rekening, beschrijving, enz.',
@@ -24,6 +26,7 @@ return [
         'create_recurring'  => ':user maakte deze terugkerende sjabloon op :date',
         'schedule'          => 'Herhaal elke :interval :frequency sinds :date',
         'children'          => ':count transacties werden automatisch aangemaakt',
+        'connect'           => 'Deze transactie is gekoppeld aan :count transacties',
         'transfer_headline' => '<div> <span class="font-bold"> Van: </span> :from_account </div> <div> <span class="font-bold"> to: </span> :to_account </div>',
         'transfer_desc'     => 'Transactie gemaakt op :date.',
     ],

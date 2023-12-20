@@ -10,6 +10,8 @@ return [
     'related_bill'          => 'Factura relacionada',
     'recurring_income'      => 'Ingrés recurrent',
     'recurring_expense'     => 'Despesa recurrent',
+    'included_tax'          => 'Impostos inclosos',
+    'connected'             => 'Connectat',
 
     'form_description' => [
         'general'           => 'Aquí pots introduir la informació general de la transacció com ara data, quantitat, compte, descripció, etc.',
@@ -24,6 +26,7 @@ return [
         'create_recurring'  => ':user va crear aquesta plantilla recurrent el dia :date',
         'schedule'          => 'Repeteix cada :interval :frequency des de :date',
         'children'          => 'S\'han creat :count factures automàticament',
+        'connect'           => 'Aquesta transacció està connectada a :count transaccions',
         'transfer_headline' => 'Des de :from_account a :to_account',
         'transfer_desc'     => 'Transferència creada el :date.',
     ],
