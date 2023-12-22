@@ -1,10 +1,15 @@
 <akaunting-import
     text-drop-file="{{ trans('import.drop_file') }}"
+    text-choose-file="{{ trans('general.form.choose_file') }}"
+
+    @if (! empty($attributes['textExtensionAndLimitationFile']))
+    text-extension-and-limitation-file="{{ $attributes['textExtensionAndLimitationFile'] }}"
+    @else
     text-extension-and-limitation-file="{!! trans('import.file_type_and_limitations', [
         'extensions' => strtoupper(config('excel.imports.extensions')),
         'row_limit' => config('excel.imports.row_limit')
     ]) !!}"
-    text-choose-file="{{ trans('general.form.choose_file') }}"
+    @endif
 
     @if (! empty($attributes['dropzone-class']))
     class="{{ $attributes['dropzone-class'] }}"

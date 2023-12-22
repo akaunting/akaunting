@@ -110,6 +110,7 @@ export default {
                 show: false,
                 currency: {},
                 documents: [],
+                translations: [],
             },
 
             cardData: {
@@ -1425,8 +1426,10 @@ export default {
                     symbol_first: currency.symbol_first,
                     thousands_separator: currency.thousands_separator,
                 };
-    
+
                 this.connect.documents = JSON.parse(response.data.documents);
+
+                this.connect.translations = JSON.parse(response.data.translations);
             })
             .catch(error => {
             })

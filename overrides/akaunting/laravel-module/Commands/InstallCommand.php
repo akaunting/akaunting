@@ -33,6 +33,7 @@ class InstallCommand extends Command
 
         if ($this->getModel()) {
             $this->comment("Module [{$this->alias}] is already installed.");
+
             return;
         }
 

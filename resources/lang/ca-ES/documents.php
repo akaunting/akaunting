@@ -70,8 +70,18 @@ return [
         'attachment'            => 'Descarrega els arxius enllaçats a aquest :type',
     ],
 
+    'slider' => [
+        'create'            => ':user ha creat aquest/a :type el :date',
+        'create_recurring'  => ':user ha creat aquesta plantilla recurrent el :date',
+        'send'              => ':user va enviar aquest/a :type el :date',
+        'schedule'          => 'Repeteix cada :interval :frequency des de :date',
+        'children'          => 'S\'han creat :count :type automàticament',
+        'cancel'            => ':user ha cancel·lat aquest/a :type el :date',
+    ],
+
     'messages' => [
         'email_sent'            => 'S\'ha enviat :type per correu!',
+        'restored'              => 'S\'ha restaurat :type',
         'marked_as'             => 'S\'ha marcat :type com :status!',
         'marked_sent'           => 'S\'ha marcat :type com enviat!',
         'marked_paid'           => 'S\'ha marcat :type com enviat!',

@@ -34,7 +34,7 @@ class User extends FormRequest
 
         $email = 'required|email:rfc,dns';
 
-        if ($this->getMethod() == 'PATCH') {
+        if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {
             // Updating user
             if (is_numeric($this->user)) {
                 $id = $this->user;

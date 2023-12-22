@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
     'payments_received'     => 'Payments received',
+    'over_payment'          => 'The amount you entered passes the total: :amount',
 
     'form_description' => [
         'billing'           => 'Billing details appear in your invoice. Invoice Date is used in the dashboard and reports. Select the date you expect to get paid as the Due Date.',

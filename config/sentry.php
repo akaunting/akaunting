@@ -29,6 +29,12 @@ return [
     // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#send-default-pii
     'send_default_pii' => env('SENTRY_SEND_DEFAULT_PII', true),
 
+    // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#ignore-exceptions
+    'ignore_exceptions' => explode(',', env('SENTRY_IGNORE_EXCEPTIONS', '')),
+
+    // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#ignore-transactions
+    'ignore_transactions' => explode(',', env('SENTRY_IGNORE_TRANSACTIONS', '')),
+
     'before_send' => [env('SENTRY_BEFORE_SEND_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'beforeSend'],
 
     'traces_sampler' => [env('SENTRY_TRACES_SAMPLER_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'tracesSampler'],
@@ -68,6 +74,9 @@ return [
 
         // Capture SQL queries as spans
         'sql_queries' => env('SENTRY_TRACE_SQL_QUERIES_ENABLED', true),
+
+        // Capture SQL query bindings (parameters) in SQL query spans
+        'sql_bindings' => env('SENTRY_TRACE_SQL_BINDINGS_ENABLED', true),
 
         // Capture where the SQL query originated from on the SQL query spans
         'sql_origin' => env('SENTRY_TRACE_SQL_ORIGIN_ENABLED', true),

@@ -277,43 +277,7 @@ abstract class Report
 
     public function getFormattedDate($event, $date)
     {
-        $formatted_date = null;
-
-        switch ($event->class->getSetting('period')) {
-            case 'yearly':
-                $financial_year = $this->getFinancialYear($event->class->model->year);
-
-                if ($date->greaterThanOrEqualTo($financial_year->getStartDate()) && $date->lessThanOrEqualTo($financial_year->getEndDate())) {
-                    if (setting('localisation.financial_denote') == 'begins') {
-                        $formatted_date = $financial_year->getStartDate()->copy()->format($this->getYearlyDateFormat());
-                    } else {
-                        $formatted_date = $financial_year->getEndDate()->copy()->format($this->getYearlyDateFormat());
-                    }
-                }
-
-                break;
-            case 'quarterly':
-                $quarters = $this->getFinancialQuarters($event->class->model->year);
-
-                foreach ($quarters as $quarter) {
-                    if ($date->lessThan($quarter->getStartDate()) || $date->greaterThan($quarter->getEndDate())) {
-                        continue;
-                    }
-
-                    $start = $quarter->getStartDate()->format($this->getQuarterlyDateFormat($event->class->model->year));
-                    $end = $quarter->getEndDate()->format($this->getQuarterlyDateFormat($event->class->model->year));
-
-                    $formatted_date = $start . '-' . $end;
-                }
-
-                break;
-            default:
-                $formatted_date = $date->copy()->format($this->getMonthlyDateFormat($event->class->model->year));
-
-                break;
-        }
-
-        return $formatted_date;
+        return $this->getPeriodicDate($date, $event->class->getSetting('period'), $event->class->year);
     }
 
     /**

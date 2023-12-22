@@ -6,7 +6,7 @@
     <x-slot name="favorite"
         title="{{ trans_choice('general.tax_rates', 2) }}"
         icon="percent"
-        route="tax_rates.index"
+        route="taxes.index"
     ></x-slot>
 
     <x-slot name="buttons">

@@ -21,9 +21,4 @@
 
 @livewireScripts
 
-<!-- Livewire -->
-<script type="text/javascript">
-    window.livewire_app_url = {{ company_id() }};
-</script>
-
 @stack('scripts_end')

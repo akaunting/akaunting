@@ -45,7 +45,7 @@ class UninstallModule extends Command
         event(new Uninstalled($this->alias, $this->company_id));
 
         // Delete files
-        $this->module->delete();
+        module($this->alias)->delete();
 
         $this->revertRuntime();
 

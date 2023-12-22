@@ -171,7 +171,34 @@ if (! function_exists('running_in_queue')) {
      */
     function running_in_queue(): bool
     {
-        return defined('APP_RUNNING_IN_QUEUE') ?? false;
+        return app()->runningConsoleCommand([
+            'queue:work',
+            'queue:listen',
+            'horizon',
+        ]);
+    }
+}
+
+if (! function_exists('running_in_schedule')) {
+    /**
+     * Detect if application is running in schedule.
+     */
+    function running_in_schedule(): bool
+    {
+        return app()->runningConsoleCommand([
+            'schedule:run',
+            'schedule:work',
+        ]);
+    }
+}
+
+if (! function_exists('running_in_test')) {
+    /**
+     * Detect if application is running in test.
+     */
+    function running_in_test(): bool
+    {
+        return env_is_testing() && app()->runningInConsole();
     }
 }
 
@@ -291,9 +318,7 @@ if (! function_exists('user_model_class')) {
 if (! function_exists('role_model_class')) {
     function role_model_class(): string
     {
-        return module_is_enabled('roles')
-                ? config('roles.models.role')
-                : config('laratrust.models.role');
+        return config('laratrust.models.role');
     }
 }
 

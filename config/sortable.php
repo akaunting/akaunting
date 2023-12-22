@@ -4,7 +4,7 @@ return [
 
     'types' => [
         'alpha' => [
-            'fields'                => ['name', 'contact_name', 'customer_name', 'vendor_name', 'display_name', 'company_name', 'domain', 'email', 'description', 'code', 'type', 'status', 'vendor', 'account', 'category'],
+            'fields'                => ['name', 'contact_name', 'customer_name', 'vendor_name', 'display_name', 'company_name', 'domain', 'email', 'description', 'code', 'type', 'status', 'vendor', 'account', 'category', 'type'],
             'icon'                  => 'arrow_drop',
         ],
         'amount' => [

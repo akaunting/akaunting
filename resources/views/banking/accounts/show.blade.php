@@ -462,7 +462,7 @@
             :transaction="connect.transaction"
             :currency="connect.currency"
             :documents="connect.documents"
-            :translations="{{ json_encode($transactions) }}"
+            :translations="connect.translations"
             modal-dialog-class="max-w-screen-lg"
             v-on:close-modal="connect.show = false"
         ></akaunting-connect-transactions>

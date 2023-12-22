@@ -17,7 +17,7 @@ class CashFlow extends Widget
     public $default_name = 'widgets.cash_flow';
 
     public $default_settings = [
-        'width' => 'w-full my-8 lg:px-12',
+        'width' => '100',
     ];
 
     public $description = 'widgets.description.cash_flow';

@@ -37,7 +37,7 @@ class Reconciliation extends Model
      *
      * @var array
      */
-    public $sortable = ['created_at', 'account_id', 'started_at', 'ended_at', 'closing_balance', 'reconciled'];
+    public $sortable = ['created_at', 'account_id', 'started_at', 'ended_at', 'opening_balance', 'closing_balance', 'reconciled'];
 
     public function account()
     {

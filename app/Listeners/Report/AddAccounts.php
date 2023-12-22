@@ -31,6 +31,7 @@ class AddAccounts extends Listener
         // send true for add limit on search and filter..
         $event->class->filters['accounts'] = $this->getAccounts(true);
         $event->class->filters['routes']['accounts'] = ['accounts.index', 'search=enabled:1'];
+        $event->class->filters['multiple']['accounts'] = true;
     }
 
     /**

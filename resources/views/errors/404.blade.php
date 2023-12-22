@@ -33,5 +33,4 @@
             <img src="{{ asset('public/img/errors/404.png') }}" alt="404" />
         </div>
     </x-slot>
-</x-layout-error>
-
+</x-layouts.error>

@@ -30,7 +30,7 @@ export default class Money {
         let prefix = this.currency.getPrefix();
         let suffix = this.currency.getSuffix();
 
-        value = number_format(amount, this.currency.getPrecision(), decimals, thousands);
+        value = this.number_format(amount, this.currency.getPrecision(), decimals, thousands);
 
         return (negative ? '-' : '') + prefix + value + suffix;
     }
@@ -45,7 +45,7 @@ export default class Money {
         return rounded ? this.getRoundedAmount() : this.amount;
     }
 
-    getRoundedAmount(){
+    getRoundedAmount() {
         return this.round(this.amount);
     }
 
@@ -115,7 +115,7 @@ export default class Money {
         return this;
     }
 
-    round(amount, mode){
+    round(amount, mode) {
         let precision = this.currency.getPrecision();
         var amount_sign = amount >= 0 ? 1 : -1;
 
@@ -128,7 +128,7 @@ export default class Money {
         }
     }
 
-    isMutable(){
+    isMutable() {
         return this.mutable === true;
     }
 

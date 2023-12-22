@@ -165,19 +165,19 @@ export default {
             widthOptions: [
                 {
                     label: '25%',
-                    value: 'w-full lg:w-1/4 lg:px-6'
+                    value: '25'
                 },
                 {
                     label: '33%',
-                    value: 'w-full lg:w-1/3 lg:px-6'
+                    value: '33'
                 },
                 {
                     label: '50%',
-                    value: 'w-full lg:w-2/4 lg:px-12'
+                    value: '50'
                 },
                 {
                     label: '100%',
-                    value: 'w-full lg:px-12'
+                    value: '100'
                 }
             ],
             form: {

@@ -50,7 +50,7 @@ class Company extends Eloquent implements Ownable
      *
      * @var array
      */
-    public $sortable = ['id', 'name', 'domain', 'email', 'enabled', 'created_at', 'tax_number', 'country', 'currency'];
+    public $sortable = ['id', 'name', 'domain', 'email', 'phone', 'enabled', 'created_at', 'tax_number', 'country', 'currency'];
 
     /**
      * Fill the model with an array of attributes.

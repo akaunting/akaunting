@@ -25,9 +25,11 @@ class Info
             return array_merge($info, $basic);
         }
 
+        $users_count = user_model_class()::query()->isNotCustomer()->count();
+
         $info = array_merge(static::versions(), $basic, [
             'companies' => Company::count(),
-            'users' => user_model_class()::count(),
+            'users' => $users_count,
             'invoices' => Document::allCompanies()->invoice()->count(),
             'customers' => Contact::allCompanies()->customer()->count(),
             'php_extensions' => static::phpExtensions(),

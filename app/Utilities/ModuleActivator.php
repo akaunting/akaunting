@@ -27,35 +27,21 @@ class ModuleActivator implements ActivatorInterface
     {
         $this->cache = $app['cache'];
         $this->config = $app['config'];
-        $this->statuses = $this->getStatuses();
+
+        $this->load();
     }
 
     public function is(Module $module, bool $active): bool
     {
-        if (env_is_testing() && app()->runningInConsole()) {
+        if (app()->runningInConsole()) {
             return true;
         }
 
-        $alias = $module->getAlias();
-
-        if (! isset($this->statuses[$alias])) {
-            if (empty($this->company_id)) {
-                $company_id = $this->getCompanyId();
-
-                if (empty($company_id)) {
-                    return false;
-                }
-
-                $this->company_id = $company_id;
-            }
-
-            $model = Model::companyId($this->company_id)->alias($alias)->first();
-            $status = $model ? $model->enabled : $active;
-
-            $this->setActive($module, $status);
+        if (! isset($this->statuses[$module->getAlias()])) {
+            return false;
         }
 
-        return $this->statuses[$alias] === $active;
+        return $this->statuses[$module->getAlias()] === $active;
     }
 
     public function enable(Module $module): void
@@ -72,15 +58,33 @@ class ModuleActivator implements ActivatorInterface
     {
         $this->statuses[$module->getAlias()] = $active;
 
-        Model::updateOrCreate([
+        $this->flushCache();
+
+        if (empty($this->company_id)) {
+            $company_id = $this->getCompanyId();
+
+            if (empty($company_id)) {
+                return;
+            }
+
+            $this->company_id = $company_id;
+        }
+
+        $model = Model::companyId($this->company_id)->alias($module->getAlias())->first();
+
+        if (! empty($model)) {
+            $model->enabled = $active;
+            $model->save();
+
+            return;
+        }
+
+        Model::create([
             'company_id'    => $this->company_id,
             'alias'         => $module->getAlias(),
-        ], [
             'enabled'       => $active,
             'created_from'  => 'core::activator',
         ]);
-
-        $this->flushCache();
     }
 
     public function delete(Module $module): void
@@ -96,7 +100,19 @@ class ModuleActivator implements ActivatorInterface
         $this->flushCache();
     }
 
-    public function getStatuses(): array
+    public function reset(): void
+    {
+        $this->statuses = [];
+
+        $this->flushCache();
+    }
+
+    public function load(): void
+    {
+        $this->statuses = $this->getStatusesByCompany();
+    }
+
+    public function getStatusesByCompany(): array
     {
         if (! $this->config->get('module.cache.enabled')) {
             return $this->readDatabase();
@@ -112,7 +128,7 @@ class ModuleActivator implements ActivatorInterface
 
     public function readDatabase(): array
     {
-        if (env_is_testing() && app()->runningInConsole()) {
+        if (app()->runningInConsole()) {
             return [];
         }
 
@@ -143,17 +159,17 @@ class ModuleActivator implements ActivatorInterface
         return $modules;
     }
 
-    public function reset(): void
-    {
-        $this->statuses = [];
-
-        $this->flushCache();
-    }
-
     public function flushCache(): void
     {
         $key = $this->config->get('module.cache.key') . '.statuses';
 
         $this->cache->forget($key);
+    }
+
+    public function register(): void
+    {
+        $this->load();
+
+        app()->register(\Akaunting\Module\Providers\Bootstrap::class, true);
     }
 }

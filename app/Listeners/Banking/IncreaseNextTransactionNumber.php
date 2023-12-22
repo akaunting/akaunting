@@ -20,6 +20,6 @@ class IncreaseNextTransactionNumber
         $suffix = $event->transaction->isRecurringTransaction() ? '-recurring' : '';
 
         // Update next transaction number
-        $this->increaseNextTransactionNumber($suffix);
+        $this->increaseNextTransactionNumber($event->transaction->type, $suffix);
     }
 }

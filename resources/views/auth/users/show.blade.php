@@ -93,7 +93,7 @@
                     @stack('landing_page_input_start')
                     <div class="flex flex-col text-sm sm:mb-5">
                         <div class="font-medium">{{ trans('auth.landing_page') }}</div>
-                        <span>{{ $landing_pages[$user->landing_page] }}</span>
+                        <span>{{ isset($landing_pages[$user->landing_page]) ?  $landing_pages[$user->landing_page] : trans('general.na') }}</span>
                     </div>
                     @stack('landing_page_input_end')
 

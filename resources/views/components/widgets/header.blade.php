@@ -7,11 +7,23 @@
 
         <div class="flex items-center">
             @if ($report = $class->getReportUrl())
-                <x-link href="{{ $report }}" class="text-purple text-sm mr-3 text-right" override="class">
-                    <x-link.hover color="to-purple">
+                @if ($class->model?->settings?->raw_width == '25' || $class->model?->settings?->width == 'w-full lg:w-1/4 lg:px-6')
+                    <x-link href="{{ $report }}" class="lg:flex hidden text-purple hover:bg-gray-100 rounded-xl w-8 h-8 items-center justify-center text-sm text-right" override="class">
+                        <x-tooltip id="tooltip-view-report" placement="top" message="{{ trans('widgets.view_report') }}" class="text-black left-5">
+                            <x-icon icon="visibility" class="text-lg font-normal"></x-icon>
+                        </x-tooltip>
+                    </x-link>
+
+                    <x-link href="{{ $report }}" class="lg:hidden text-purple text-sm text-right" override="class">
                         {{ trans('widgets.view_report') }}
-                    </x-link.hover>
-                </x-link>
+                    </x-link>
+                @else
+                    <x-link href="{{ $report }}" class="text-purple text-sm mr-3 text-right" override="class">
+                        <x-link.hover color="to-purple">
+                            {{ trans('widgets.view_report') }}
+                        </x-link.hover>
+                    </x-link>
+                @endif
             @endif
 
             <x-dropdown id="show-more-actions-widget-{{ $class->model->id }}">

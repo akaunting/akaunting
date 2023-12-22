@@ -14,7 +14,7 @@ class Currency extends FormRequest
     public function rules()
     {
         // Check if store or update
-        if ($this->getMethod() == 'PATCH') {
+        if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {
             $id = is_numeric($this->currency) ? $this->currency : $this->currency->getAttribute('id');
         } else {
             $id = null;

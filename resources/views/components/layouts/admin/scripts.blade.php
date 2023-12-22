@@ -139,7 +139,7 @@
                     if (button.getAttribute("data-menu") !== menuRef && iconButton.children[0].textContent != "cancel") {
                         button.children[0].textContent = button.children[0].getAttribute("name");
                         button.children[0].classList.remove("active"); // inactive icon
-                        
+
                         let split_id = button.children[0].id.split("-cancel");
                         button.children[0].id = split_id[0];
                     }
@@ -167,7 +167,7 @@
                     } else {
                         menuClose.classList.add("ltr:-right-2", "rtl:right-12");
                     }
-                    
+
                     sectionContent.classList.remove("xl:ltr:ml-0", "xl:rtl:mr-0");
                     sectionContent.classList.add("xl:ltr:ml-64", "xl:rtl:mr-64");
                      //for hidden menu, show close icon scenario
@@ -309,12 +309,5 @@
 @stack('body_scripts')
 
 @livewireScripts
-
-<script src="{{ asset('public/vendor/alpinejs/alpine.min.js') }}"></script>
-
-<!-- Livewire -->
-<script type="text/javascript">
-    window.livewire_app_url = {{ company_id() }};
-</script>
 
 @stack('scripts_end')

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html dir="{{ language()->direction() }}" lang="{{ app()->getLocale() }}">
-    <x-layouts.admin.head>
+    <x-layouts.error.head>
         <x-slot name="title">
             {!! !empty($title->attributes->has('title')) ? $title->attributes->get('title') : $title !!}
         </x-slot>
-    </x-layouts.admin.head>
+    </x-layouts.error.head>
 
     @mobile
     <body class="bg-body">
@@ -17,9 +17,9 @@
         <div class="main-content xl:ltr:ml-64  xl:rtl:mr-64 transition-all ease-in-out" id="panel">
             <div id="main-body">
                 <div class="container">
-                    <x-layouts.admin.content>
+                    <x-layouts.error.content>
                         {!! $content !!}
-                    </x-layouts.admin.content>
+                    </x-layouts.error.content>
 
                 </div>
             </div>
@@ -27,6 +27,6 @@
 
         @stack('body_end')
 
-        <x-layouts.admin.scripts />
+        <x-layouts.error.scripts />
     </body>
 </html>

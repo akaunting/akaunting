@@ -71,6 +71,62 @@ class Widget extends Model
     }
 
     /**
+     * Get the alias based on class.
+     *
+     * @return object
+     */
+    public function getSettingsAttribute($value)
+    {
+        $settings = ! empty($value) ? (object) json_decode($value) : (object) [];
+
+        $settings->raw_width = false;
+
+        if (isset($settings->width)) {
+            $raw_width = $settings->width;
+            $width = $this->getWidthAttribute($settings->width);
+
+            if ($raw_width != $width) {
+                $settings->raw_width = $raw_width;
+            }
+
+            $settings->width = $width;
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Get the alias based on class.
+     *
+     * @return string
+     */
+    public function getWidthAttribute($value)
+    {
+        $width = $value;
+
+        switch ($width) {
+            case '25':
+                $width = 'w-full lg:w-1/4 lg:px-6';
+                break;
+            case '33':
+                $width = 'w-full lg:w-1/3 px-6';
+                break;
+            case '50':
+                $width = 'w-full lg:w-2/4 lg:px-6';
+                break;
+            case '100':
+                $width = 'w-full px-6';
+                break;
+        }
+
+        if (empty($width)) {
+            $width = 'w-full lg:w-2/4 lg:px-6';
+        }
+
+        return $width;
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

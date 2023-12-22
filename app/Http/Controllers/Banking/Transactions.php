@@ -13,6 +13,7 @@ use App\Imports\Banking\Transactions as Import;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Jobs\Banking\DuplicateTransaction;
+use App\Jobs\Banking\SendTransaction;
 use App\Jobs\Banking\MatchBankingDocumentTransaction;
 use App\Jobs\Banking\SplitTransaction;
 use App\Jobs\Banking\UpdateTransaction;
@@ -20,7 +21,6 @@ use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Models\Setting\Currency;
-use App\Notifications\Banking\Transaction as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Transactions as TransactionsTrait;
@@ -70,11 +70,8 @@ class Transactions extends Controller
             'profit_for_humans'     => $profit_amount->formatForHumans(),
         ];
 
-        $translations = $this->getTranslationsForConnect('income');
-
         return $this->response('banking.transactions.index', compact(
             'transactions',
-            'translations',
             'summary_amounts'
         ));
     }
@@ -301,12 +298,17 @@ class Transactions extends Controller
             return redirect()->back();
         }
 
-        // Notify the customer/vendor
-        $transaction->contact->notify(new Notification($transaction, config('type.transaction.' . $transaction->type . '.email_template'), true));
+        $response = $this->ajaxDispatch(new SendTransaction($transaction));
 
-        event(new TransactionSent($transaction));
+        if ($response['success']) {
+            $message = trans('documents.messages.email_sent', ['type' => trans_choice('general.transactions', 1)]);
 
-        flash(trans('documents.messages.email_sent', ['type' => trans_choice('general.transactions', 1)]))->success();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error()->important();
+        }
 
         return redirect()->back();
     }
@@ -381,10 +383,13 @@ class Transactions extends Controller
                                 ->toJson();
         }
 
+        $translations = collect($this->getTranslationsForConnect($transaction->type));
+
         $data = [
             'transaction' => $transaction->load(['account', 'category'])->toJson(),
             'currency' => $transaction->currency->toJson(),
             'documents' => $documents,
+            'translations' => $translations->toJson(),
         ];
 
         return response()->json($data);

@@ -239,7 +239,7 @@ class Item extends Controller
         try {
             event(new \App\Events\Module\Installing($request['alias'], company_id()));
 
-            $this->dispatch(new InstallModule($request['alias'], company_id()));
+            $this->dispatch(new InstallModule($request['alias'], company_id(), setting('default.locale')));
 
             $name = module($request['alias'])->getName();
             $module_routes = module_attribute($request['alias'], 'routes', []);
@@ -292,7 +292,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new UninstallModule($alias, company_id()));
+            $this->dispatch(new UninstallModule($alias, company_id(), setting('default.locale')));
 
             $message = trans('modules.uninstalled', ['module' => $name]);
 
@@ -311,7 +311,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new EnableModule($alias, company_id()));
+            $this->dispatch(new EnableModule($alias, company_id(), setting('default.locale')));
 
             $message = trans('modules.enabled', ['module' => $name]);
 
@@ -330,7 +330,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new DisableModule($alias, company_id()));
+            $this->dispatch(new DisableModule($alias, company_id(), setting('default.locale')));
 
             $message = trans('modules.disabled', ['module' => $name]);
 

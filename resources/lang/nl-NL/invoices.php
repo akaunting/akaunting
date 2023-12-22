@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Betaling afstemmen',
     'accept_payments'       => 'Online betalingen accepteren',
     'payments_received'     => 'Ontvangen betalingen',
+    'over_payment'          => 'Het bedrag dat je hebt ingevoerd, komt voorbij het totaal:',
 
     'form_description' => [
         'billing'           => 'Factuurgegevens verschijnen op uw factuur. Factuurdatum wordt gebruikt in het dashboard en in rapporten. Selecteer de datum waarop u verwacht betaald te worden als vervaldatum.',

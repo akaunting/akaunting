@@ -18,7 +18,7 @@ class MarkDocumentReceived
      */
     public function handle(Event $event)
     {
-        if ($event->document->status != 'partial') {
+        if (! in_array($event->document->status, ['partial', 'paid'])) {
             $event->document->status = 'received';
 
             $event->document->save();

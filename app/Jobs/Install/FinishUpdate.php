@@ -37,7 +37,7 @@ class FinishUpdate extends Job
         $this->alias = $alias;
         $this->new = $new;
         $this->old = $old;
-        $this->company_id = $company_id;
+        $this->company_id = (int) $company_id;
     }
 
     public function handle(): void

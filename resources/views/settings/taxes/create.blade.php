@@ -6,7 +6,7 @@
     <x-slot name="favorite"
         title="{{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}"
         icon="percent"
-        route="tax_rates.create"
+        route="taxes.create"
     ></x-slot>
 
     <x-slot name="content">

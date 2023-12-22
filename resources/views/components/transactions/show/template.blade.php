@@ -62,13 +62,13 @@
         @default
             @include($transactionTemplate)
     @endswitch
-    
+
     <akaunting-connect-transactions
         :show="connect.show"
         :transaction="connect.transaction"
         :currency="connect.currency"
         :documents="connect.documents"
-        :translations="{{ json_encode($connectTranslations) }}"
+        :translations="connect.translations"
         modal-dialog-class="max-w-screen-lg"
         v-on:close-modal="connect.show = false"
     ></akaunting-connect-transactions>

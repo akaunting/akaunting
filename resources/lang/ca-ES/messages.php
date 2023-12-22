@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => 'S\'ha afegit :type!',
+        'created'			=> ':type creat!',
         'updated'           => 'S\'ha actualitzat :type!',
         'deleted'           => 'S\'ha esborrat :type!',
         'duplicated'        => 'S\'ha duplicat :type!',
@@ -29,6 +30,7 @@ return [
         'transfer_category' => 'Error: No es pot esborrar l\'última categoria de :type!',
         'change_type'       => 'Error: No es pot canviar el tipus perquè té :text relacionat!',
         'invalid_apikey'    => 'Error: La clau API proporcionada no és vàlida!',
+        'empty_apikey'      => 'Error: No has introduït la teva clau API! <a href=":url" class="font-bold underline underline-offset-4">Prem aquí</a> per introduir-la.',
         'import_column'     => 'Error: :message Nom de la pàgina: :sheet. Número de línia: :line.',
         'import_sheet'      => 'Error: Nom de pàgina no vàlid. Si us plau, comprova el fitxer de mostra.',
         'same_amount'       => 'Error: l\'import total de la divisió ha de ser exactament el mateix que el total de :transaction: :amount',

@@ -3,6 +3,8 @@
 namespace App\Abstracts\Http;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Setting\SettingUpdated;
+use App\Events\Setting\SettingUpdating;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Common\Company;
 use App\Models\Setting\Currency;
@@ -35,6 +37,8 @@ abstract class SettingController extends Controller
         $fields = $request->all();
         $prefix = $request->get('_prefix', 'general');
         $company_id = $request->get('company_id');
+
+        event(new SettingUpdating($request));
 
         if (empty($company_id)) {
             $company_id = company_id();
@@ -95,7 +99,7 @@ abstract class SettingController extends Controller
             }
 
             if ($real_key == 'default.locale') {
-                if (!in_array($value, config('language.allowed'))) {
+                if (! in_array($value, config('language.allowed'))) {
                     continue;
                 }
 
@@ -105,7 +109,7 @@ abstract class SettingController extends Controller
             if ($real_key == 'default.currency') {
                 $currencies = Currency::enabled()->pluck('code')->toArray();
 
-                if (!in_array($value, $currencies)) {
+                if (! in_array($value, $currencies)) {
                     continue;
                 }
 
@@ -125,6 +129,8 @@ abstract class SettingController extends Controller
         // Save all settings
         setting()->save();
 
+        event(new SettingUpdated($request));
+
         $message = trans('messages.success.updated', ['type' => trans_choice('general.settings', 2)]);
 
         $redirect_url = !empty($this->redirect_route) ? route($this->redirect_route) : url()->previous();
@@ -143,39 +149,26 @@ abstract class SettingController extends Controller
         return response()->json($response);
     }
 
-    protected function oneCompany($real_key, $value)
+    protected function oneCompany($real_key, $value): void
     {
-        switch ($real_key) {
-            case 'company.name':
-                Installer::updateEnv(['MAIL_FROM_NAME' => '"' . $value . '"']);
-                break;
-            case 'company.email':
-                Installer::updateEnv(['MAIL_FROM_ADDRESS' => '"' . $value . '"']);
-                break;
-            case 'default.locale':
-                Installer::updateEnv(['APP_LOCALE' => '"' . $value . '"']);
-                break;
-            case 'schedule.time':
-                Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $value . '"']);
-                break;
-            case 'email.protocol':
-                Installer::updateEnv(['MAIL_MAILER' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_host':
-                Installer::updateEnv(['MAIL_HOST' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_port':
-                Installer::updateEnv(['MAIL_PORT' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_username':
-                Installer::updateEnv(['MAIL_USERNAME' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_password':
-                Installer::updateEnv(['MAIL_PASSWORD' => '"' . $value . '"']);
-                break;
-            case 'email.smtp_encryption':
-                Installer::updateEnv(['MAIL_ENCRYPTION' => '"' . $value . '"']);
-                break;
+        $key = match($real_key) {
+            'default.locale'            => 'APP_LOCALE',
+            'schedule.time'             => 'APP_SCHEDULE_TIME',
+            'company.name'              => 'MAIL_FROM_NAME',
+            'company.email'             => 'MAIL_FROM_ADDRESS',
+            'email.protocol'            => 'MAIL_MAILER',
+            'email.smtp_host'           => 'MAIL_HOST',
+            'email.smtp_port'           => 'MAIL_PORT',
+            'email.smtp_username'       => 'MAIL_USERNAME',
+            'email.smtp_password'       => 'MAIL_PASSWORD',
+            'email.smtp_encryption'     => 'MAIL_ENCRYPTION',
+            default                     => '',
+        };
+
+        if (empty($key)) {
+            return;
         }
+
+        Installer::updateEnv([$key => '"' . $value . '"']);
     }
 }

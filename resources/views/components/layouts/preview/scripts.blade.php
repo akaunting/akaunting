@@ -1,13 +1,13 @@
 @stack('scripts_start')
-    @stack('body_css')
 
-    @stack('body_stylesheet')
+@stack('body_css')
 
-    @stack('body_js')
+@stack('body_stylesheet')
 
-    @stack('body_scripts')
+@stack('body_js')
 
-    @livewireScripts
-    
-    <script src="{{ asset('public/vendor/alpinejs/alpine.min.js') }}"></script>
+@stack('body_scripts')
+
+@livewireScripts
+
 @stack('scripts_end')

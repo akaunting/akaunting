@@ -35,7 +35,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = user_model_class()::with('media', 'roles')->collect();
+        $users = user_model_class()::with('companies', 'media', 'permissions', 'roles')->isNotCustomer()->collect();
 
         return $this->response('auth.users.index', compact('users'));
     }
@@ -130,9 +130,9 @@ class Users extends Controller
      */
     public function edit($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
 
-        if (user()->cannot('read-auth-users') && ($user->id != user()->id)) {
+        if ((user()->cannot('read-auth-users') && ($user->id != user()->id)) || empty($user)) {
             abort(403);
         }
 
@@ -198,7 +198,7 @@ class Users extends Controller
     {
         $user = user_model_class()::find($user_id);
 
-        if (user()->cannot('update-auth-users') && ($user->id != user()->id)) {
+        if ((user()->cannot('update-auth-users') && ($user->id != user()->id)) || empty($user)) {
             abort(403);
         }
 
@@ -230,7 +230,11 @@ class Users extends Controller
      */
     public function enable($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+
+        if (user()->cannot('update-auth-users') || empty($user)) {
+            abort(403);
+        }
 
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
@@ -250,7 +254,11 @@ class Users extends Controller
      */
     public function disable($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+
+        if (user()->cannot('update-auth-users') || empty($user)) {
+            abort(403);
+        }
 
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
@@ -270,7 +278,11 @@ class Users extends Controller
      */
     public function destroy($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+
+        if (user()->cannot('delete-auth-users') || empty($user)) {
+            abort(403);
+        }
 
         $response = $this->ajaxDispatch(new DeleteUser($user));
 
@@ -298,7 +310,11 @@ class Users extends Controller
      */
     public function readUpcomingBills($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+
+        if (user()->cannot('read-auth-users') || empty($user)) {
+            abort(403);
+        }
 
         // Mark bill notifications as read
         foreach ($user->unreadNotifications as $notification) {
@@ -322,7 +338,11 @@ class Users extends Controller
      */
     public function readOverdueInvoices($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+
+        if (user()->cannot('read-auth-users') || empty($user)) {
+            abort(403);
+        }
 
         // Mark invoice notifications as read
         foreach ($user->unreadNotifications as $notification) {

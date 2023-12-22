@@ -210,7 +210,7 @@
         @label="{{ $attributes['@label'] }}"
         @endif
     >
-        {!! $slot !!}
+        {!! $slot ?? "" !!}
     @if (! empty($remote))
     </akaunting-select-remote>
     @else

@@ -81,7 +81,7 @@ class Pin extends Component
 
         setting(['favorites.report.' . user()->id => json_encode($pins)])->save();
 
-        $this->emit('addedPin');
+        $this->dispatch('addedPin');
     }
 
     public function removePin($report_id)
@@ -105,6 +105,6 @@ class Pin extends Component
 
         setting(['favorites.report.' . user()->id => json_encode($pins)])->save();
 
-        $this->emit('removedPin');
+        $this->dispatch('removedPin');
     }
 }
