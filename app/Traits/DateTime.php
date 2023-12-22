@@ -311,7 +311,7 @@ trait DateTime
                 break;
         }
 
-        return $formatted_date;
+        return $formatted_date ?? '';
     }
 
     public function getTimezones(): array
