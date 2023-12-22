@@ -152,7 +152,13 @@ trait DateTime
 
         $start = $this->getFinancialStart($year);
 
-        for ($i = 0; $i < 52; $i++) {
+        $w = 52;
+
+        if (request()->filled('start_date') && request()->filled('end_date')) {
+            $w = Date::parse(request('start_date'))->diffInWeeks(Date::parse(request('end_date'))) + 1;
+        }
+
+        for ($i = 0; $i < $w; $i++) {
             $weeks[] = CarbonPeriod::create($start->copy()->addWeeks($i), $start->copy()->addWeeks($i + 1)->subDay()->endOfDay());
         }
 
@@ -165,7 +171,13 @@ trait DateTime
 
         $start = $this->getFinancialStart($year);
 
-        for ($i = 0; $i < 12; $i++) {
+        $m = 12;
+
+        if (request()->filled('start_date') && request()->filled('end_date')) {
+            $m = Date::parse(request('start_date'))->diffInMonths(Date::parse(request('end_date'))) + 1;
+        }
+
+        for ($i = 0; $i < $m; $i++) {
             $months[] = CarbonPeriod::create($start->copy()->addMonths($i), $start->copy()->addMonths($i + 1)->subDay()->endOfDay());
         }
 
@@ -178,7 +190,13 @@ trait DateTime
 
         $start = $this->getFinancialStart($year);
 
-        for ($i = 0; $i < 4; $i++) {
+        $q = 4;
+
+        if (request()->filled('start_date') && request()->filled('end_date')) {
+            $q = Date::parse(request('start_date'))->diffInQuarters(Date::parse(request('end_date'))) + 1;
+        }
+
+        for ($i = 0; $i < $q; $i++) {
             $quarters[] = CarbonPeriod::create($start->copy()->addQuarters($i), $start->copy()->addQuarters($i + 1)->subDay()->endOfDay());
         }
 
@@ -262,6 +280,8 @@ trait DateTime
 
     public function getPeriodicDate(Date $date, string $period, string $year): string
     {
+        $formatted_date = '';
+
         switch ($period) {
             case 'yearly':
                 $financial_year = $this->getFinancialYear($year);
@@ -287,6 +307,8 @@ trait DateTime
                     $end = $quarter->copy()->getEndDate()->format($this->getQuarterlyDateFormat($year));
 
                     $formatted_date = $start . ' - ' . $end;
+
+                    break;
                 }
 
                 break;
@@ -302,6 +324,8 @@ trait DateTime
                     $end = $week->copy()->getEndDate()->format($this->getDailyDateFormat($year));
 
                     $formatted_date = $start . ' - ' . $end;
+
+                    break;
                 }
 
                 break;
