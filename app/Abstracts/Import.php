@@ -234,10 +234,12 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
                         // This query should be used if there is no deleted_at field in the table or if the deleted data is to be retrieved.
                         return $this->model::withTrashed()->get($this->columns)->each(function ($data) {
                             $data->setAppends([]);
+                            $data->unsetRelations();
                         });
                     } else {
                         return $this->model::get($this->columns)->each(function ($data) {
                             $data->setAppends([]);
+                            $data->unsetRelations();
                         });
                     }
                 });
