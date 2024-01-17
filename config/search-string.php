@@ -156,6 +156,7 @@ return [
     App\Models\Banking\Transaction::class => [
         'columns' => [
             'id',
+            'number',
             'type' => [
                 'values' => [
                     'income' => 'general.incomes',
