@@ -129,7 +129,8 @@ class Recurring extends Model
         return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Document\\Document')
             ->whereHas('recurable', function (Builder $query) {
                 $query->where('type', self::INVOICE_RECURRING_TYPE);
-            });
+            })
+            ->orWhereDoesntHave('recurable');
     }
 
     public function scopeBill(Builder $query): Builder
@@ -137,7 +138,8 @@ class Recurring extends Model
         return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Document\\Document')
             ->whereHas('recurable', function (Builder $query) {
                 $query->where('type', self::BILL_RECURRING_TYPE);
-            });
+            })
+            ->orWhereDoesntHave('recurable');
     }
 
     public function scopeTransaction(Builder $query): Builder
@@ -150,7 +152,8 @@ class Recurring extends Model
         return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Banking\\Transaction')
             ->whereHas('recurable', function (Builder $query) {
                 $query->where('type', self::EXPENSE_RECURRING_TYPE);
-            });
+            })
+            ->orWhereDoesntHave('recurable');
     }
 
     public function scopeIncomeTransaction(Builder $query): Builder
@@ -158,7 +161,8 @@ class Recurring extends Model
         return $query->where($this->qualifyColumn('recurable_type'), '=', 'App\\Models\\Banking\\Transaction')
             ->whereHas('recurable', function (Builder $query) {
                 $query->where('type', self::INCOME_RECURRING_TYPE);
-            });
+            })
+            ->orWhereDoesntHave('recurable');
     }
 
     /**
