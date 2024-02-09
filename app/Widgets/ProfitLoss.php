@@ -53,8 +53,8 @@ class ProfitLoss extends Widget
     {
         $financial_year = $this->getFinancialYear();
 
-        $this->start_date = Date::parse(request('start_date', $financial_year->copy()->getStartDate()->toDateString()));
-        $this->end_date = Date::parse(request('end_date', $financial_year->copy()->getEndDate()->toDateString()));
+        $this->start_date = Date::parse(request('start_date', $financial_year->copy()->getStartDate()->toDateString()))->startOfDay();
+        $this->end_date = Date::parse(request('end_date', $financial_year->copy()->getEndDate()->toDateString()))->endOfDay();
         $this->period = request('period', 'month');
     }
 

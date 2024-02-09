@@ -46,8 +46,8 @@ trait DateTime
         } else {
             $financial_year = $this->getFinancialYear($year);
 
-            $start = $financial_year->copy()->getStartDate();
-            $end = $financial_year->copy()->getEndDate();
+            $start = $financial_year->copy()->getStartDate()->startOfDay();
+            $end = $financial_year->copy()->getEndDate()->endOfDay();
         }
 
         return [$start, $end];
