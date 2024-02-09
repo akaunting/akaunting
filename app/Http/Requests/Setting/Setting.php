@@ -49,6 +49,10 @@ class Setting extends FormRequest
             $rules['number_next'] = 'required|integer';
         }
 
+        if ($this->request->has('color')) {
+            $rules['color'] = 'required|string|colour';
+        }
+
         return $rules;
     }
 
