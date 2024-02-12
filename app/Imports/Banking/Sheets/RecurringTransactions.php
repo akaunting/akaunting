@@ -20,12 +20,13 @@ class RecurringTransactions extends Import
     {
         $row = parent::map($row);
 
-        $transaction_type = str_replace('-recurring', '', $row['type']);
+        $transaction_type = $this->getRealTypeTransaction($row['type']);
+        $contact_type = config('type.transaction.' . $transaction_type . '.contact_type', $transaction_type == 'income' ? 'customer' : 'vendor');
 
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['account_id'] = $this->getAccountId($row);
         $row['category_id'] = $this->getCategoryId($row, $transaction_type);
-        $row['contact_id'] = $this->getContactId($row, $transaction_type);
+        $row['contact_id'] = $this->getContactId($row, $contact_type);
 
         if ($transaction_type == 'income') {
             $row['document_id'] = Document::invoiceRecurring()->number($row['invoice_bill_number'])->pluck('id')->first();
