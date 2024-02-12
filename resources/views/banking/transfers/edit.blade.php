@@ -81,6 +81,12 @@
     @push('scripts_start')
         <script type="text/javascript">
             var transfer_edit = {{ $transfer->id }};
+
+            if (typeof aka_currency !== 'undefined') {
+                aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+            } else {
+                var aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+            }
         </script>
     @endpush
 

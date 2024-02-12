@@ -159,7 +159,7 @@ const app = new Vue({
             }
 
             this.tax_summary = true;
-            this.tax_summary_total = tax_total.toFixed(2);
+            this.tax_summary_total = tax_total.toFixed(this.currency.precision ?? 2);
         },
     },
 });

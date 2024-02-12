@@ -106,5 +106,15 @@
         </x-form.container>
     </x-slot>
 
+    @push('scripts_start')
+        <script type="text/javascript">
+            if (typeof aka_currency !== 'undefined') {
+                aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+            } else {
+                var aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+            }
+        </script>
+    @endpush
+
     <x-script folder="banking" file="transactions" />
 </x-layouts.admin>
