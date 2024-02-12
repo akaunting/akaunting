@@ -71,9 +71,9 @@ return [
     ],
 
     'slider' => [
-        'create'            => ': user heeft dit :type aangemaakt op : date',
+        'create'            => ':user heeft dit :type aangemaakt op :date',
         'create_recurring'  => ':user maakte deze terugkerende sjabloon aan op :date',
-        'send'              => ': user verstuurde dit :type op : date',
+        'send'              => ':user verstuurde dit :type op :date',
         'schedule'          => 'Herhaal elke :interval :frequentie sinds :date',
         'children'          => ':count :type werden automatisch aangemaakt',
         'cancel'            => ':user annuleerde dit :type op :date',

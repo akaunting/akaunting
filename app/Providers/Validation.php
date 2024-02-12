@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Setting\Currency;
 use Illuminate\Support\ServiceProvider as Provider;
+use Illuminate\Support\Str;
 use Validator;
 
 class Validation extends Provider
@@ -67,6 +68,41 @@ class Validation extends Provider
             return !empty($extension) && in_array($extension, $parameters);
         },
             trans('validation.custom.invalid_extension')
+        );
+
+        Validator::extend('colour', function ($attribute, $value, $parameters, $validator) {
+            $status = false;
+
+            $colors = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
+            $variants = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+
+            foreach ($colors as $color) {
+                if (! Str::contains($value, $color)) {
+                    continue;
+                }
+
+                foreach ($variants as $variant) {
+                    $name = $color . '-' . $variant;
+
+                    if (Str::contains($value, $name)) {
+                        $status = true;
+
+                        break;
+                    }
+                }
+
+                if ($status) {
+                    break;
+                }
+            }
+
+            if (! $status && Str::contains($value, '#')) {
+                $status = true;
+            }
+
+            return $status;
+        },
+            trans('validation.custom.invalid_colour')
         );
     }
 

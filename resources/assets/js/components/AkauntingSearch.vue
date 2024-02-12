@@ -1059,10 +1059,12 @@ export default {
 
                             let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
 
+                            key = filter.value;
+
                             value =  moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
 
                             this.selected_values.push({
-                                key: 'date_range',
+                                key: key,
                                 value: value,
                             });
                         }
@@ -1117,11 +1119,11 @@ export default {
 
                     let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
 
-                    date_range_value_format =  moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
+                    date_range_value_format = moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
 
                     this.selected_values.push({
-                        key: 'date_range',
-                        value: date_range_value,
+                        key: date_range_value,
+                        value: date_range_value_format,
                     });
                 }
 

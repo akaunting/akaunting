@@ -16,6 +16,12 @@
         var document_currencies = {!! $currencies !!};
         var document_taxes = {!! $taxes !!};
         var document_app_env = '{{ $document_app_env }}';
+
+        if (typeof aka_currency !== 'undefined') {
+            aka_currency = {!! json_encode(! empty($document) ? $document->currency : company()->currency) !!};
+        } else {
+            var aka_currency = {!! json_encode(! empty($document) ? $document->currency : company()->currency) !!};
+        }
     </script>
 @endpush
 

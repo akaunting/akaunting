@@ -1600,5 +1600,11 @@ export default {
         setMinDate(date) {
             this.min_date = date;
         },
+    },
+
+    created() {
+        if (aka_currency) {
+            this.currency = aka_currency;
+        }
     }
 }

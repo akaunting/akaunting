@@ -901,11 +901,11 @@ const app = new Vue({
                     name: item.name,
                     description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
-                    price: (item.price).toFixed(2),
+                    price: (item.price).toFixed(this.currency.precision ?? 2),
                     tax_ids: item.tax_ids,
                     discount: item.discount_rate,
                     discount_type: item.discount_type,
-                    total: (item.total).toFixed(2)
+                    total: (item.total).toFixed(this.currency.precision ?? 2)
                 });
 
                 if (item.tax_ids) {
@@ -928,7 +928,7 @@ const app = new Vue({
                     item_taxes.push({
                         id: item_tax.tax_id,
                         name: item_tax.name,
-                        price: (item_tax.amount).toFixed(2),
+                        price: (item_tax.amount).toFixed(this.currency.precision ?? 2),
                     });
                 });
 
@@ -937,13 +937,13 @@ const app = new Vue({
                     name: item.name,
                     description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
-                    price: (item.price).toFixed(2),
+                    price: (item.price).toFixed(this.currency.precision ?? 2),
                     add_tax: false,
                     tax_ids: item_taxes,
                     add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
                     discount_type: item.discount_type,
-                    total: (item.total).toFixed(2),
+                    total: (item.total).toFixed(this.currency.precision ?? 2),
                     // @todo
                     // invoice_item_checkbox_sample: [],
                 });

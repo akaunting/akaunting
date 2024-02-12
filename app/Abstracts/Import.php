@@ -216,40 +216,42 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
         return str_replace($dependent_rules, $batch_rules, $rules);
     }
 
-        //This function is used in import classes. If the data in the row exists in the database, it is returned.
-        public function hasRow($row)
-        {
-            // must be models and columns
-            if (empty($this->model) || empty($this->columns)) {
-                return false;
-            }
-    
-            /*  This function is called for each row. 
-                This check is done in order not to query again for each row. 
-                When the model to which the query is thrown changes, the new query should be discarded. 
-            */
-            if (! $this->has_row || ! $this->has_row instanceof $this->model) {
-                $this->has_row = $this->model::withoutEvents(function () {
-                    if ($this->with_trashed) {
-                        // This query should be used if there is no deleted_at field in the table or if the deleted data is to be retrieved.
-                        return $this->model::withTrashed()->get($this->columns)->each(function ($data) {
-                            $data->setAppends([]);
-                        });
-                    } else {
-                        return $this->model::get($this->columns)->each(function ($data) {
-                            $data->setAppends([]);
-                        });
-                    }
-                });
-            }
-    
-            $search_value = [];
-    
-            //In the model, the fields to be searched for the row are determined.
-            foreach ($this->columns as $key) {
-                $search_value[$key] = isset($row[$key]) ? $row[$key] : null;
-            }
-    
-            return in_array($search_value, $this->has_row->toArray());
+    //This function is used in import classes. If the data in the row exists in the database, it is returned.
+    public function hasRow($row)
+    {
+        // must be models and columns
+        if (empty($this->model) || empty($this->columns)) {
+            return false;
         }
+
+        /*  This function is called for each row. 
+            This check is done in order not to query again for each row. 
+            When the model to which the query is thrown changes, the new query should be discarded. 
+        */
+        if (! $this->has_row || ! $this->has_row instanceof $this->model) {
+            $this->has_row = $this->model::withoutEvents(function () {
+                if ($this->with_trashed) {
+                    // This query should be used if there is no deleted_at field in the table or if the deleted data is to be retrieved.
+                    return $this->model::withTrashed()->get($this->columns)->each(function ($data) {
+                        $data->setAppends([]);
+                        $data->unsetRelations();
+                    });
+                } else {
+                    return $this->model::get($this->columns)->each(function ($data) {
+                        $data->setAppends([]);
+                        $data->unsetRelations();
+                    });
+                }
+            });
+        }
+
+        $search_value = [];
+
+        //In the model, the fields to be searched for the row are determined.
+        foreach ($this->columns as $key) {
+            $search_value[$key] = isset($row[$key]) ? $row[$key] : null;
+        }
+
+        return in_array($search_value, $this->has_row->toArray());
+    }
 }

@@ -40,8 +40,8 @@ class Receivables extends Widget
                     $arr[2] = '9999';
                 }
 
-                $start = Date::today()->subDays($arr[2])->toDateString() . ' 00:00:00';
-                $end = Date::today()->subDays($arr[1])->toDateString() . ' 23:59:59';
+                $start = Date::today()->subDays($arr[2])->startOfDay()->toDateString();
+                $end = Date::today()->subDays($arr[1])->endOfDay()->toDateString();
 
                 if (! Date::parse($invoice->due_at)->isBetween($start, $end)) {
                     continue;

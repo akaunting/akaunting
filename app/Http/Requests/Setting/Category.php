@@ -18,7 +18,7 @@ class Category extends FormRequest
         return [
             'name' => 'required|string',
             'type' => 'required|string|in:' . $types->implode(','),
-            'color' => 'required|string',
+            'color' => 'required|string|colour',
         ];
     }
 }

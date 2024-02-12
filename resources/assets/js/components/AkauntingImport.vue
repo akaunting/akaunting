@@ -16,15 +16,17 @@
                     <div class="dz-import-icon relative">
                         <span class="material-icons-outlined text-default text-7xl">file_copy</span>
 
-                        <button data-dz-remove="true" class="absolute z-10 right-18 top-0 hidden group-hover:flex bg-white">
+                        <button data-dz-remove="true" class="absolute z-10 right-24 top-0 hidden group-hover:flex bg-white">
                             <span class="material-icons-outlined text-gray-300 text-8xl">cancel</span>
                         </button>
                     </div>
 
                     <div class="relative h-12">
-                        <p class="absolute dz-import-upload z-10" data-dz-name>...</p>
-
-                        <p class="dz-import-text pt-6" v-html="textExtensionAndLimitationFile"></p>
+                        <div class="w-60">
+                            <p class="absolute dz-import-upload z-10 w-60 truncate" data-dz-name>...</p>
+    
+                            <p class="dz-import-text pt-6" v-html="textExtensionAndLimitationFile"></p>
+                        </div>
                     </div>
                 </div>
 
