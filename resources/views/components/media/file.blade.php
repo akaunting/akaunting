@@ -17,7 +17,7 @@
                 </span>
 
                 <span class="text-xs mb-0">
-                    {{ $file->readableSize() }}
+                    {{ is_int($file->size ) ? '0 B' : $file->readableSize() }}
                 </span>
             </div>
         </div>  
