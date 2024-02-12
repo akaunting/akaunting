@@ -32,22 +32,6 @@ trait Plans
 
     public function getAnyActionLimitOfPlan(): object
     {
-        $user_limit = $this->getUserLimitOfPlan();
-        $company_limit = $this->getCompanyLimitOfPlan();
-        $invoice_limit = $this->getInvoiceLimitOfPlan();
-
-        if (! $user_limit->action_status) {
-            return $user_limit;
-        }
-
-        if (! $company_limit->action_status) {
-            return $company_limit;
-        }
-
-        if (! $invoice_limit->action_status) {
-            return $invoice_limit;
-        }
-
         $limit = new \stdClass();
         $limit->action_status = true;
         $limit->view_status = true;
@@ -58,29 +42,11 @@ trait Plans
 
     public function getPlanLimitByType($type): object
     {
-        if (! config('app.installed') || running_in_test()) {
-            $limit = new \stdClass();
+        $limit = new \stdClass();
 
-            $limit->action_status = true;
-            $limit->view_status = true;
-            $limit->message = "Success";
-
-            return $limit;
-        }
-
-        if (! $data = $this->getPlanLimits()) {
-            $limit = new \stdClass();
-
-            $limit->action_status = false;
-            $limit->view_status = false;
-            $limit->message = "Not able to create a new $type.";
-
-            return $limit;
-        }
-
-        $limit = $data->$type;
-
-        $limit->message = str_replace('{company_id}', company_id(), $limit->message);
+        $limit->action_status = true;
+        $limit->view_status = true;
+        $limit->message = "Success";
 
         return $limit;
     }
