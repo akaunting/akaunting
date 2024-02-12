@@ -206,12 +206,14 @@ export default {
 
                 if (response.data.success) {
                     let data = this.form.data();
+                    data.location = response.data.data.location;
 
                     this.company.name = data.name;
                     this.company.email = data.email;
                     this.company.tax_number = data.tax_number;
                     this.company.phone = data.phone;
                     this.company.address = data.address;
+                    this.company.location = data.location;
 
                     this.company_form.show = false;
 

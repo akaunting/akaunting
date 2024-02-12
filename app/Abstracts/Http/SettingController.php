@@ -140,8 +140,8 @@ abstract class SettingController extends Controller
             'success' => true,
             'error' => false,
             'message' => $message,
-            'data' => null,
-            'redirect' => $redirect_url,
+            'data' => ['location' => company()->location],
+            'redirect' => $redirect_url
         ];
 
         flash($message)->success();
