@@ -7,6 +7,7 @@ use App\Traits\Sources;
 use App\Traits\Tenants;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Plank\Mediable\Media as BaseMedia;
+use Plank\Mediable\Helpers\File;
 
 class Media extends BaseMedia
 {
