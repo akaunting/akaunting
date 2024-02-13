@@ -30,10 +30,11 @@ class SendDocumentRecurringNotification
         }
 
         $notification = $config['class'];
+        $attach_pdf = true;
 
         // Notify the customer
         if ($this->canNotifyTheContactOfDocument($document)) {
-            $document->contact->notify(new $notification($document, "{$document->type}_recur_customer"));
+            $document->contact->notify(new $notification($document, "{$document->type}_recur_customer", $attach_pdf));
         }
 
         $sent = config('type.document.' . $document->type . '.auto_send', DocumentSent::class);
