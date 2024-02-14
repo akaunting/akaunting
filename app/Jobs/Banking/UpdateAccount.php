@@ -38,7 +38,7 @@ class UpdateAccount extends Job implements ShouldUpdate
     {
         $relationships = $this->getRelationships();
 
-        if (! $this->request->get('enabled') && ($this->model->id == setting('default.account'))) {
+        if (($this->request->has('enabled') && ! $this->request->get('enabled')) && ($this->model->id == setting('default.account'))) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
 
             $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);

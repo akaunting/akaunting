@@ -40,7 +40,7 @@ class UpdateTax extends Job implements ShouldUpdate
             throw new \Exception($message);
         }
 
-        if (! $this->request->get('enabled')) {
+        if ($this->request->has('enabled') && ! $this->request->get('enabled')) {
             $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);

@@ -54,7 +54,7 @@ class UpdateContact extends Job implements ShouldUpdate
      */
     public function authorize(): void
     {
-        if (($this->request['enabled'] == 0) && ($relationships = $this->getRelationships())) {
+        if (($this->request->has('enabled') && ! $this->request->get('enabled')) && ($relationships = $this->getRelationships())) {
             $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);

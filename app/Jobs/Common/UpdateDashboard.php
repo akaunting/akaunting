@@ -32,7 +32,7 @@ class UpdateDashboard extends Job implements ShouldUpdate
     public function authorize(): void
     {
         // Can't disable last dashboard for any shared user
-        if ($this->request->has('enabled') && !$this->request->get('enabled')) {
+        if ($this->request->has('enabled') && ! $this->request->get('enabled')) {
             foreach ($this->model->users as $user) {
                 if ($user->dashboards()->enabled()->count() > 1) {
                     continue;
