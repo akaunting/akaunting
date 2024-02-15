@@ -77,16 +77,26 @@
 
                             <span class="mt-1 mr-2 ml-2"> - </span>
 
-                            <x-button
-                                @click="onEditPayment('{{ route('modals.documents.document.transactions.edit', ['document' => $document->id, 'transaction' => $transaction->id]) }}')"
-                                id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
-                                class="text-purple mt-1"
-                                override="class"
-                            >
-                                <x-button.hover color="to-purple">
-                                    {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
-                                </x-button.hover>
-                            </x-button>
+                            @if ($document->totals->count())
+                                <x-button
+                                    @click="onEditPayment('{{ route('modals.documents.document.transactions.edit', ['document' => $document->id, 'transaction' => $transaction->id]) }}')"
+                                    id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}"
+                                    class="text-purple mt-1"
+                                    override="class"
+                                >
+                                    <x-button.hover color="to-purple">
+                                        {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
+                                    </x-button.hover>
+                                </x-button>
+                            @else
+                                <x-tooltip message="{{ trans('invoices.messages.totals_required', ['type' => $type]) }}" placement="top">
+                                    <x-button disabled="disabled" id="show-slider-actions-transaction-edit-{{ $document->type }}-{{ $transaction->id }}" class="text-purple mt-1" override="class">
+                                        <x-button.hover color="to-purple">
+                                            {{ trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]) }}
+                                        </x-button.hover>
+                                    </x-button>
+                                </x-tooltip>
+                            @endif
 
                             <span class="mt-1 mr-2 ml-2"> - </span>
 
