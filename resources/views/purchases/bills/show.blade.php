@@ -41,5 +41,5 @@
         <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
     @endpush
 
-    <x-documents.script type="bill" />
+    <x-documents.script type="bill" :document="$bill" />
 </x-layouts.admin>

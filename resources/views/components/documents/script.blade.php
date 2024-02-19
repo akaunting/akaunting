@@ -18,9 +18,9 @@
         var document_app_env = '{{ $document_app_env }}';
 
         if (typeof aka_currency !== 'undefined') {
-            aka_currency = {!! json_encode(! empty($document) ? $document->currency : company()->currency) !!};
+            aka_currency = {!! json_encode(! empty($document) ? $document->currency : config('money.currencies.' . company()->currency)) !!};
         } else {
-            var aka_currency = {!! json_encode(! empty($document) ? $document->currency : company()->currency) !!};
+            var aka_currency = {!! json_encode(! empty($document) ? $document->currency : config('money.currencies.' . company()->currency)) !!};
         }
     </script>
 @endpush

@@ -23,5 +23,5 @@
         <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
     @endpush
 
-    <x-documents.script type="invoice" />
+    <x-documents.script type="invoice" :document="$invoice" />
 </x-layouts.admin>

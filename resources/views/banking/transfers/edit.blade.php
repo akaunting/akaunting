@@ -83,9 +83,9 @@
             var transfer_edit = {{ $transfer->id }};
 
             if (typeof aka_currency !== 'undefined') {
-                aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+                aka_currency = {!! json_encode(! empty($currency) ? $currency : config('money.currencies.' . company()->currency)) !!};
             } else {
-                var aka_currency = {!! json_encode(! empty($currency) ? $currency : company()->currency) !!};
+                var aka_currency = {!! json_encode(! empty($currency) ? $currency : config('money.currencies.' . company()->currency)) !!};
             }
         </script>
     @endpush
