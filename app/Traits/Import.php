@@ -157,7 +157,7 @@ trait Import
     {
         $id = isset($row['parent_id']) ? $row['parent_id'] : null;
 
-        if (empty($row['parent_number'])) {
+        if (empty($row['parent_number']) && empty($row['parent_name'])){
             return null;
         }
 
@@ -167,6 +167,10 @@ trait Import
 
         if (empty($id) && isset($row['number'])) {
             $id = Transaction::number($row['parent_number'])->pluck('id')->first();
+        }
+
+        if (empty($id) && isset($row['parent_name'])) {
+            $id = Category::type($row['type'])->withSubCategory()->where('name', $row['parent_name'])->pluck('id')->first();
         }
 
         return is_null($id) ? $id : (int) $id;

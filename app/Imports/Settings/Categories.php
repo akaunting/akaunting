@@ -12,6 +12,10 @@ class Categories extends Import
 
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+
         return new Model($row);
     }
 
@@ -20,6 +24,7 @@ class Categories extends Import
         $row = parent::map($row);
 
         $row['type'] = $this->getCategoryType($row['type']);
+        $row['parent_id'] = $this->getParentId($row) ?? null;
 
         return $row;
     }

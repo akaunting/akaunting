@@ -12,12 +12,20 @@ class Categories extends Export
         return Model::collectForExport($this->ids);
     }
 
+    public function map($model): array
+    {
+        $model->parent_name = Model::find($model->parent_id)?->name;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
             'name',
             'type',
             'color',
+            'parent_name',
             'enabled',
         ];
     }

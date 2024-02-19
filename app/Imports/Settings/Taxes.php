@@ -16,6 +16,10 @@ class Taxes extends Import
             return;
         }
 
+        if (self::hasRow($row)) {
+            return;
+        }
+
         return new Model($row);
     }
 
