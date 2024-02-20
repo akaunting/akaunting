@@ -10,6 +10,11 @@ class Categories extends Import
 {
     public $request_class = Request::class;
 
+    public $columns = [
+        'name',
+        'type',
+    ];
+
     public function model(array $row)
     {
         if (self::hasRow($row)) {
