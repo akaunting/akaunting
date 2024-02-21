@@ -10,6 +10,8 @@ class Categories extends Import
 {
     public $request_class = Request::class;
 
+    public $model = Model::class;
+
     public $columns = [
         'name',
         'type',
@@ -32,5 +34,23 @@ class Categories extends Import
         $row['parent_id'] = $this->getParentId($row) ?? null;
 
         return $row;
+    }
+
+    //This function is used in import classes. If the data in the row exists in the database, it is returned.
+    public function hasRow($row)
+    {
+        $has_row = $this->model::getWithoutChildren($this->columns)->each(function ($data) {
+            $data->setAppends([]);
+            $data->unsetRelations();
+        });
+
+        $search_value = [];
+
+        //In the model, the fields to be searched for the row are determined.
+        foreach ($this->columns as $key) {
+            $search_value[$key] = isset($row[$key]) ? $row[$key] : null;
+        }
+
+        return in_array($search_value, $has_row->toArray());
     }
 }
