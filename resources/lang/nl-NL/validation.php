@@ -156,6 +156,7 @@ return [
         'invalid_amount'        => 'De hoeveelheid :attribute is ongeldig.',
         'invalid_extension'     => 'De bestandsextensie is ongeldig.',
         'invalid_dimension'     => 'De :attribute afmetingen moeten max :width x :height px zijn.',
+        'invalid_colour'        => 'Het :attribuut kleur is ongeldig.',
     ],
 
     /*

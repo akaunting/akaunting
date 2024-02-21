@@ -17,7 +17,7 @@ return [
     ],
 
     'form_description' => [
-        'general'           => 'Výchozí měna se používá na nástěnce a reportech. U ostatních měn musí být kurz nižší než 1 u slabších měn a vyšší než 1 u silnějších měn.',
+        'general'           => 'Výchozí měna se používá na nástěnce a v reportech. U ostatních měn musí být kurz nižší než 1 u slabších měn a vyšší než 1 u silnějších měn.',
     ],
 
     'no_currency'           => 'Žádná měna',

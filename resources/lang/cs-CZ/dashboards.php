@@ -3,13 +3,13 @@
 return [
 
     'error' => [
-        'not_user_dashboard'    => 'Chyba: Nemáte oprávnění měnit tento dashboard!',
-        'delete_last'           => 'Chyba: Nelze odstranit poslední dashboard. Nejdříve, prosím, vytvořte nový!',
-        'disable_last'          => 'Chyba: Nelze odstranit poslední dashboard. Nejdříve, prosím, vytvořte nový!',
+        'not_user_dashboard'    => 'Chyba: Nemáte oprávnění měnit tuto nástěnku!',
+        'delete_last'           => 'Chyba: Nelze odstranit poslední nástěnku. Nejdříve, prosím, vytvořte novou!',
+        'disable_last'          => 'Chyba: Nelze zakázat poslední nástěnku. Nejdříve, prosím, vytvořte novou!',
     ],
 
     'form_description' => [
-        'general'               => 'Vyberte uživatele, které chcete mít přístup k nové nástěnce.',
+        'general'               => 'Vyberte uživatele, kteři budou mít přístup k nové nástěnce.',
     ],
 
 ];
