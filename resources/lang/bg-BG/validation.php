@@ -156,6 +156,7 @@ return [
         'invalid_amount'        => 'Сумата :attribute е невалидна.',
         'invalid_extension'     => 'Това файлово разширение е невалидно.',
         'invalid_dimension'     => 'Размерите :attribute трябва да бъдат макс. :width x :height px.',
+        'invalid_colour'        => 'Кодът на :attribute е невалиден.',
     ],
 
     /*

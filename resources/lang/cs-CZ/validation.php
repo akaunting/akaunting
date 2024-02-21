@@ -156,6 +156,7 @@ return [
         'invalid_amount'        => 'Zvolená hodnota pro :attribute je neplatná.',
         'invalid_extension'     => 'Přípona souboru je neplatná.',
         'invalid_dimension'     => ':attribute musí mít maximálně :width x :height px.',
+        'invalid_colour'        => ':attribute barva je neplatná.',
     ],
 
     /*

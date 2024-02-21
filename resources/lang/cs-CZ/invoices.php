@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Uhrazení faktury',
     'accept_payments'       => 'Přijímat online platby',
     'payments_received'     => 'Obdržené platby',
+    'over_payment'          => 'Částka, kterou jste zadali, překračuje celkovou částku: :amount',
 
     'form_description' => [
         'billing'           => 'Fakturační údaje jsou uvedeny ve vaší faktuře. Datum faktury se používá na nástěnce a reportech. Vyberte datum, které chcete zaplatit jako termín splatnosti.',

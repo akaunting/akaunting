@@ -4,7 +4,7 @@ return [
 
     'receivables'               => 'Pohledávky',
     'payables'                  => 'Závazky',
-    'cash_flow'                 => 'Peněžní tok',
+    'cash_flow'                 => 'Tok peněz',
     'profit_loss'               => 'Zisk a ztráta',
     'expenses_by_category'      => 'Výdaje podle kategorie',
     'account_balance'           => 'Zůstatek na účtu',
@@ -18,7 +18,7 @@ return [
     'description' => [
         'receivables'           => 'Částka, kterou ještě obdržíte od vašich zákazníků',
         'payables'              => 'Částka, kterou ještě musíte zaplatit svým dodavatelům',
-        'cash_flow'             => 'Pžíchozí a odchozí hotovost',
+        'cash_flow'             => 'Příchozí a odchozí prostředky',
         'profit_loss'           => 'Výnosy a náklady včetně nezaplacených faktur a účtů',
         'expenses_by_category'  => 'Nejvyšší výdaje v různých kategoriích',
         'account_balance'       => 'Aktuální zůstatek Vašich bankovních účtů',
@@ -29,6 +29,6 @@ return [
         'overdue_1_30'          => '1–30 dnů po splatnosti',
         'overdue_30_60'         => '30–60 dnů po splatnosti',
         'overdue_60_90'         => '60–90 dnů po splatnosti',
-        'overdue_90_un'         => 'více jak 90 dnů po splatnosti',
+        'overdue_90_un'         => 'více než 90 dnů po splatnosti',
     ],
 ];

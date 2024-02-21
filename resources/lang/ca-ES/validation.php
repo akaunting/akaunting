@@ -156,6 +156,7 @@ return [
         'invalid_amount'        => 'La quantitat :attribute no és vàlida.',
         'invalid_extension'     => 'L\'extensió del fitxer no és vàlida.',
         'invalid_dimension'     => 'Les mides màximes pel camp :attribute són :width px :height px. ',
+        'invalid_colour'        => 'El color de :attribute no és vàlid.',
     ],
 
     /*
