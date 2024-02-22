@@ -8,8 +8,21 @@ use App\Models\Common\Recurring as Model;
 
 class Recurring extends Import
 {
+    public $model = Model::class;
+
+    public $columns = [
+        'recurable_type',
+        'recurable_id',
+        'started_at',
+        'limit_date',
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+        
         return new Model($row);
     }
 

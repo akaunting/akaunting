@@ -11,8 +11,27 @@ class RecurringBillItems extends Import
 {
     public $request_class = Request::class;
 
+    public $model = Model::class;
+
+    public $columns = [
+        'type',
+        'document_id',
+        'item_id',
+        'name',
+        'description',
+        'quantity',
+        'price',
+        'tax',
+        'discount_rate',
+        'total'
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+        
         return new Model($row);
     }
 
