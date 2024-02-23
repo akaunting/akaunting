@@ -27,6 +27,7 @@ class Recurring extends Export
             'frequency',
             'interval',
             'started_at',
+            'limit_date',
             'status',
             'limit_by',
             'limit_count',
