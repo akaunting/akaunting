@@ -10,8 +10,21 @@ class Items extends Import
 {
     public $request_class = Request::class;
 
+    public $model = Model::class;
+
+    public $columns = [
+        'type',
+        'name',
+        'sale_price',
+        'purchase_price',
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+
         return new Model($row);
     }
 

@@ -13,8 +13,22 @@ class RecurringBillItemTaxes extends Import
 {
     public $request_class = Request::class;
 
+    public $model = Model::class;
+
+    public $columns = [
+        'type',
+        'document_id',
+        'tax_id',
+        'name',
+        'amount'
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+        
         return new Model($row);
     }
 

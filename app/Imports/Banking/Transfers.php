@@ -16,8 +16,19 @@ class Transfers extends Import
 {
     use Categories, Currencies, Jobs, Transactions;
 
+    public $model = Model::class;
+
+    public $columns = [
+        'expense_transaction_id',
+        'income_transaction_id',
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+
         return new Model($row);
     }
 

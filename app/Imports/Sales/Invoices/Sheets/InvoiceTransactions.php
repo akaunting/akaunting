@@ -10,10 +10,22 @@ class InvoiceTransactions extends Import
 {
     public $request_class = Request::class;
 
+    public $model = Model::class;
+
+    public $columns = [
+        'type',
+        'number',
+    ];
+
     public function model(array $row)
     {
+        if (self::hasRow($row)) {
+            return;
+        }
+        
         return new Model($row);
     }
+
 
     public function map($row): array
     {
