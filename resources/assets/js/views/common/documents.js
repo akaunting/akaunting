@@ -930,7 +930,7 @@ const app = new Vue({
                         name: item_tax.name,
                         price: (item_tax.amount).toFixed(this.currency.precision ?? 2),
                     });
-                });
+                }, this);
 
                 this.items.push({
                     item_id: item.item_id,
