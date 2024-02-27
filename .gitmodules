@@ -11,3 +11,6 @@
 [submodule "modules/BankFeeds"]
     path = modules/BankFeeds
     url = git@github.com:mukellef/mod-wb-bankfeeds.git
+[submodule "modules/Receipt"]
+    path = modules/Receipt
+    url = git@github.com:mukellef/mod-wb-receipt.git
