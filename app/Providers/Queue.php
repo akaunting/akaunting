@@ -56,7 +56,10 @@ class Queue extends Provider
 
             $company->makeCurrent();
 
-            $this->registerModules();
+            // TODO: Move queue control at the beginning of the closure
+            if (should_queue()) {
+                $this->registerModules();
+            }
         });
 
         app('events')->listen(JobFailed::class, function ($event) {
