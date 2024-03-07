@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Auth\User;
 use Illuminate\Console\Command;
+use Modules\WbProxy\Models\Auth\User;
 
 class CreateToken extends Command
 {
