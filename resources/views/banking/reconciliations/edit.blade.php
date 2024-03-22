@@ -100,7 +100,7 @@
                                     <x-form.input.checkbox name="{{ $type . '_' . $item->id }}"
                                         label=""
                                         id="transaction-{{ $item->id . '-'. $type }}"
-                                        :value="$item->amount_for_account"
+                                        :value="! empty($item->amount_for_account) ? $item->amount_for_account : '0.00'"
                                         :checked="$checked"
                                         data-field="transactions"
                                         v-model="form.transactions.{{ $type . '_' . $item->id }}"
