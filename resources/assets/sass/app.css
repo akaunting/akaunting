@@ -344,11 +344,11 @@
 }
 
 .el-select-dropdown__item span:hover {
-    background-color: #F5F7FA;
+    background-color: transparent;
  }
  
  .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
-     background-color: transparent;
+    background-color: #F5F7FA;
  }
 
 .el-select__footer {
