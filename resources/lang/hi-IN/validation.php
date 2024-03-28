@@ -156,6 +156,7 @@ return [
         'invalid_amount'        => 'राशि :attribute अमान्य है।',
         'invalid_extension'     => 'फ़ाइल एक्सटेंशन अमान्य है।',
         'invalid_dimension'     => ':attribute आयाम अधिकतम :width px :height px होना चाहिए।',
+        'invalid_colour'        => ':attribute कलर अमान्य है।',
     ],
 
     /*
