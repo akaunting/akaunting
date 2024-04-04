@@ -27,7 +27,7 @@ class Tax extends FormRequest
         $type = 'required|string|in:fixed,normal,inclusive,withholding,compound';
 
         if (!empty($this->request->get('type')) && $this->request->get('type') == 'compound') {
-            $type .= '|unique:taxes,NULL,' . $id . ',id,company_id,' . $company_id . ',type,compound,deleted_at,NULL';
+            $type .= '|unique:taxes,NULL,' . ($id ?? 'null') . ',id,company_id,' . $company_id . ',type,compound,deleted_at,NULL';
         }
 
         return [

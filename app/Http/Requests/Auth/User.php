@@ -62,7 +62,7 @@ class User extends FormRequest
             $roles = 'required|string';
         }
 
-        $email .= '|unique:users,email,' . $id . ',id,deleted_at,NULL';
+        $email .= '|unique:users,email,' . ($id ?? 'null') . ',id,deleted_at,NULL';
 
         $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null;
 
