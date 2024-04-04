@@ -25,7 +25,7 @@ class Currency extends FormRequest
 
         return [
             'name' => 'required|string',
-            'code' => 'required|string|unique:currencies,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
+            'code' => 'required|string|unique:currencies,NULL,' . ($id ?? 'null') . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'rate' => 'required|gt:0',
             'enabled' => 'integer|boolean',
             'default_currency' => 'nullable|boolean',
