@@ -93,17 +93,21 @@ trait Import
             return $currency->code;
         }
 
-        $data = [
-            'company_id'    => company_id(),
-            'code'          => $row['currency_code'],
-            'name'          => isset($row['currency_name']) ? $row['currency_name'] : currency($row['currency_code'])->getName(),
-            'rate'          => isset($row['currency_rate']) ? $row['currency_rate'] : 1,
-            'symbol'        => isset($row['currency_symbol']) ? $row['currency_symbol'] : currency($row['currency_code'])->getSymbol(),
-            'precision'     => isset($row['currency_precision']) ? $row['currency_precision'] : currency($row['currency_code'])->getPrecision(),
-            'decimal_mark'  => isset($row['currency_decimal_mark']) ? $row['currency_decimal_mark'] : currency($row['currency_code'])->getDecimalMark(),
-            'created_from'  => !empty($row['created_from']) ? $row['created_from'] : $this->getSourcePrefix() . 'import',
-            'created_by'    => !empty($row['created_by']) ? $row['created_by'] : user()?->id,
-        ];
+        try {
+            $data = [
+                'company_id'    => company_id(),
+                'code'          => $row['currency_code'],
+                'name'          => isset($row['currency_name']) ? $row['currency_name'] : currency($row['currency_code'])->getName(),
+                'rate'          => isset($row['currency_rate']) ? $row['currency_rate'] : 1,
+                'symbol'        => isset($row['currency_symbol']) ? $row['currency_symbol'] : currency($row['currency_code'])->getSymbol(),
+                'precision'     => isset($row['currency_precision']) ? $row['currency_precision'] : currency($row['currency_code'])->getPrecision(),
+                'decimal_mark'  => isset($row['currency_decimal_mark']) ? $row['currency_decimal_mark'] : currency($row['currency_code'])->getDecimalMark(),
+                'created_from'  => !empty($row['created_from']) ? $row['created_from'] : $this->getSourcePrefix() . 'import',
+                'created_by'    => !empty($row['created_by']) ? $row['created_by'] : user()?->id,
+            ];
+        } catch (\OutOfBoundsException $e) {
+            return default_currency();
+        }
 
         Validator::validate($data, (new CurrencyRequest)->rules());
 
