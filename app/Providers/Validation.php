@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting\Currency;
+use App\Utilities\Modules;
 use Illuminate\Support\ServiceProvider as Provider;
 use Illuminate\Support\Str;
 use Validator;
@@ -103,6 +104,20 @@ class Validation extends Provider
             return $status;
         },
             trans('validation.custom.invalid_colour')
+        );
+
+        Validator::extend('payment_method', function ($attribute, $value, $parameters, $validator) {
+            $status = false;
+
+            $methods = Modules::getPaymentMethods('all');
+
+            if (array_key_exists($value, $methods)) {
+                $status = true;
+            }
+
+            return $status;
+        },
+            trans('validation.custom.invalid_payment_method')
         );
     }
 

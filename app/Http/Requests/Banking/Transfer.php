@@ -18,7 +18,7 @@ class Transfer extends FormRequest
             'to_account_id' => 'required|integer',
             'amount' => 'required|amount',
             'transferred_at' => 'required|date_format:Y-m-d',
-            'payment_method' => 'required|string',
+            'payment_method' => 'required|string|payment_method',
         ];
     }
 }

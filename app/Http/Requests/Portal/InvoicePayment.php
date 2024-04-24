@@ -14,7 +14,7 @@ class InvoicePayment extends FormRequest
     public function rules()
     {
         return [
-            //'payment_method' => 'required|string',
+            //'payment_method' => 'required|string|payment_method',
         ];
     }
 }

@@ -35,7 +35,7 @@ class Setting extends FormRequest
                 $rules = [
                     'currency'          => 'required|string|currency',
                     'locale'            => 'required|string',
-                    'payment_method'    => 'required|string',
+                    'payment_method'    => 'required|string|payment_method',
                 ];
 
                 break;

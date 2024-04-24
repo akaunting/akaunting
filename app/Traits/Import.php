@@ -24,6 +24,7 @@ use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Jobs;
 use App\Traits\Sources;
+use App\Utilities\Modules;
 use Illuminate\Support\Facades\Validator;
 
 trait Import
@@ -174,6 +175,32 @@ trait Import
         }
 
         return is_null($id) ? $id : (int) $id;
+    }
+
+    public function getPaymentMethod($row)
+    {
+        Modules::clearPaymentMethodsCache();
+
+        $methods = Modules::getPaymentMethods('all');
+
+        $payment_method = isset($row['payment_method']) ? $row['payment_method'] : null;
+
+        if (array_key_exists($payment_method, $methods)) {
+            return $payment_method;
+        }
+
+        if (module_is_enabled('offline-payments')) {
+            $offline_payment = $this->dispatch(new \Modules\OfflinePayments\Jobs\CreatePaymentMethod([
+                'name'          => $payment_method,
+                'customer'      => 1,
+                'order'         => count($methods) + 1,
+                'description'   => '',
+            ]));
+
+            $payment_method = $offline_payment['code'];
+        }
+
+        return $payment_method;
     }
 
     public function getItemId($row, $type = null)

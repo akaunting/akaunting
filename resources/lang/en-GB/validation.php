@@ -157,6 +157,7 @@ return [
         'invalid_extension'     => 'The file extension is invalid.',
         'invalid_dimension'     => 'The :attribute dimensions must be max :width x :height px.',
         'invalid_colour'        => 'The :attribute colour is invalid.',
+        'invalid_payment_method'=> 'The payment method is invalid.',
     ],
 
     /*

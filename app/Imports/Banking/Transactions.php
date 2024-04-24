@@ -41,6 +41,7 @@ class Transactions extends Import
         $row['contact_id'] = $this->getContactId($row, $contact_type);
         $row['document_id'] = $this->getDocumentId($row);
         $row['parent_id'] = $this->getParentId($row) ?? 0;
+        $row['payment_method'] = $this->getPaymentMethod($row);
 
         return $row;
     }
@@ -48,6 +49,7 @@ class Transactions extends Import
     public function prepareRules($rules): array
     {
         $rules['number'] = 'required|string';
+        //$rules['currency_rate'] = 'required|gt:0';
 
         return $rules;
     }

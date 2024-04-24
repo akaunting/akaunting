@@ -48,7 +48,7 @@ class Transaction extends FormRequest
             'document_id' => 'nullable|integer',
             'contact_id' => 'nullable|integer',
             'category_id' => 'required|integer',
-            'payment_method' => 'required|string',
+            'payment_method' => 'required|string|payment_method',
             'attachment.*' => $attachment,
             'recurring_count' => 'gte:0',
             'recurring_interval' => 'exclude_unless:recurring_frequency,custom|gt:0',
