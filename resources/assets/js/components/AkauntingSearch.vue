@@ -923,9 +923,13 @@ export default {
 
             search_string = search_string.split(' ');
 
+            let search_values = [];
+
             search_string.forEach(function (string) {
                 if (string.search(':') === -1) {
-                    this.search = string.replace(/[\"]+/g, '');
+                    let sv = string.replace(/[\"]+/g, '');
+
+                    search_values.push(sv);
                 } else {
                     let filter = string.split(':');
                     let option = '';
@@ -1014,6 +1018,8 @@ export default {
                     this.filter_index++;
                 }
             }, this);
+
+            this.search = (search_values.length > 1) ? search_values.join(' ') : search_values.join('');
         } else if (this.defaultFiltered) {
             this.defaultFiltered.forEach(function (filter) {
                 let option = '';
