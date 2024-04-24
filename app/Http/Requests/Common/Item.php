@@ -14,7 +14,9 @@ class Item extends FormRequest
      */
     public function rules()
     {
-        $picture = $sale_price = $purchase_price = 'nullable';
+        $picture = 'nullable';
+        $sale_price = 'nullable|required_without:purchase_price';
+        $purchase_price = 'nullable|required_without:sale_price';
 
         if ($this->files->get('picture')) {
             $picture = 'mimes:' . config('filesystems.mimes')
