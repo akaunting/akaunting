@@ -4,11 +4,15 @@ namespace App\Exports\Banking;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use App\Http\Requests\Banking\Transaction as Request;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
 class Transactions extends Export implements WithColumnFormatting
 {
+    public $request_class = Request::class;
+
     public function collection()
     {
         return Model::with('account', 'category', 'contact', 'document')->collectForExport($this->ids, ['paid_at' => 'desc']);
@@ -43,6 +47,24 @@ class Transactions extends Export implements WithColumnFormatting
             'reference',
             'reconciled',
             'parent_number',
+        ];
+    }
+
+    public function columnValidations(): array
+    {
+        return [
+            'type' => [
+                'options' => array_keys(config('type.transaction'))
+            ],
+            // 'paid_at' => [
+            //     'type' => DataValidation::TYPE_NONE,
+            //     'prompt_title' => trans('general.validation_warning'),
+            //     'prompt' => trans('validation.date_format', ['attribute' => 'paid_at', 'format' => 'yyyy-mm-dd']),
+            //     'hide_error' => true,
+            // ],
+            // 'contact_email' => [
+            //     'options' => $this->getDropdownOptions(Contact::class, 'email'),
+            // ]
         ];
     }
 

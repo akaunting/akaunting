@@ -236,6 +236,7 @@ return [
     'preview_mode'          => 'Preview Mode',
     'go_back'               => 'Go back to :type',
     'validation_error'      => 'Validation error',
+    'validation_warning'    => 'Validation warning',
     'dismiss'               => 'Dismiss',
     'size'                  => 'Size',
     'media'                 => 'Media',
