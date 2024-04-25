@@ -35,6 +35,8 @@
 
     @stack('stylesheet')
 
+    @livewireStyles
+
     <script type="text/javascript"><!--
         var url = '{{ url("/" . company_id()) }}';
         var app_url = '{{ config("app.url") }}';
@@ -56,3 +58,4 @@
 
     @stack('head_end')
 </head>
+
