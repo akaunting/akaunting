@@ -36,17 +36,19 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
     public $request_class = null;
 
-    public $row_count = 250; //number of rows that will have the dropdown
-
-    public $column_count = 25; //number of columns to be auto sized
+    public $column_count; //number of columns to be auto sized
 
     public $column_validations; //selects should have column_name and options
+
+    public $row_count; //number of rows that will have the dropdown
 
     public function __construct($ids = null)
     {
         $this->ids = $ids;
         $this->fields = $this->fields();
         $this->column_validations = $this->columnValidations();
+        $this->column_count = config('excel.exports.column_count');
+        $this->row_count = config('excel.exports.row_count');
         $this->user = user();
     }
 

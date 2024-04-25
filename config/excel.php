@@ -68,6 +68,26 @@ return [
             'manager'        => '',
             'company'        => '',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Export validations
+        |--------------------------------------------------------------------------
+        |
+        | Number of rows that will have the dropdown
+        |
+        */
+        'row_count'     => env('EXCEL_EXPORTS_ROW_COUNT', 250),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Export validations
+        |--------------------------------------------------------------------------
+        |
+        | Number of columns to be auto sized
+        |
+        */
+        'column_count'  => env('EXCEL_EXPORTS_COLUMN_COUNT', 25),
     ],
 
     'imports' => [
