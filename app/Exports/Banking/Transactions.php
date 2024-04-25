@@ -54,10 +54,7 @@ class Transactions extends Export implements WithColumnFormatting
     {
         return [
             'type' => [
-                'options' => [
-                    Model::INCOME_TYPE, Model::INCOME_TRANSFER_TYPE, Model::INCOME_SPLIT_TYPE, Model::INCOME_RECURRING_TYPE,
-                    Model::EXPENSE_TYPE, Model::EXPENSE_TRANSFER_TYPE, Model::EXPENSE_SPLIT_TYPE, Model::EXPENSE_RECURRING_TYPE,
-                ]
+                'options' => array_keys(config('type.transaction'))
             ],
             // 'paid_at' => [
             //     'type' => DataValidation::TYPE_NONE,
