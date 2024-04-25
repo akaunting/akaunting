@@ -146,30 +146,6 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
         }
     }
 
-    public function beforeSheet($event)
-    {
-        $condition = class_exists($this->request_class)
-            ? ! ($request = new $this->request_class) instanceof FormRequest
-            : true;
-
-
-        if (empty($this->column_validations) && $condition) {
-            return [];
-        }
-
-        $alphas = range('A', 'Z');
-
-        foreach ($this->fields as $key => $value) {
-            $drop_column = $alphas[$key];
-
-            if ($this->setColumnValidations($drop_column, $event, $value)) {
-                continue;
-            };
-
-            $this->validationWarning($drop_column, $event, $value, $request);
-        }
-    }
-
     public function setColumnValidations($drop_column, $event, $value)
     {
         if (! isset($this->column_validations[$value])) {
@@ -304,9 +280,6 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
         return [		   
             AfterSheet::class => function(AfterSheet $event) {
                 $this->afterSheet($event);
-            },
-            BeforeSheet::class => function(BeforeSheet $event) {
-                $this->beforeSheet($event);
             },
         ];
     }
