@@ -24,7 +24,7 @@ class Export
 
             //Todo: This improvement solves the filter issue on multiple excel sheets. This solution is a temporary solution.
             if (empty($class->ids) && method_exists($class, 'sheets') && is_array($sheets = $class->sheets())) {
-                $class->ids = (new $sheets[array_key_first($sheets)])->collection()->pluck('id')->toArray();
+                $class->ids = ! empty($ids = (new $sheets[array_key_first($sheets)])->collection()->pluck('id')->toArray()) ? $ids : [0];
             }
 
             if (should_queue()) {
