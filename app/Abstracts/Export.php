@@ -210,7 +210,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
             }
 
             if (strpos($r, 'amount') !== false) {
-                $r = 'integer';
+                $r = 'double';
             }
 
             if (strpos($r, 'date_format') !== false) {
@@ -227,7 +227,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
                 ]) . ' ';
             }
 
-            if (in_array($r, ['required', 'email', 'integer', 'unique', 'date_format'])) {
+            if (in_array($r, ['required', 'email', 'integer', 'unique', 'date_format', 'double'])) {
                 $prompt = $prompt . trans('validation.' . $r, ['attribute' => $value]) . ' ';
             }
         }
