@@ -18,12 +18,23 @@ class DeleteCategory extends Job implements ShouldDelete
         event(new CategoryDeleting($this->model));
 
         \DB::transaction(function () {
+            $this->deleteSubCategories($this->model);
+
             $this->model->delete();
         });
 
         event(new CategoryDeleted($this->model));
 
         return true;
+    }
+
+    public function deleteSubCategories($model)
+    {
+        $model->delete();
+
+        foreach ($model->sub_categories as $sub_category) {
+            $this->deleteSubCategories($sub_category);
+        }
     }
 
     /**
@@ -39,7 +50,7 @@ class DeleteCategory extends Job implements ShouldDelete
         }
 
         // Can not delete the last category by type
-        if (Category::where('type', $this->model->type)->count() == 1) {
+        if (Category::where('type', $this->model->type)->count() == 1 && $this->model->parent_id === null) {
             $message = trans('messages.error.last_category', ['type' => strtolower(trans_choice('general.' . $this->model->type . 's', 1))]);
 
             throw new LastCategoryDelete($message);
@@ -50,10 +61,18 @@ class DeleteCategory extends Job implements ShouldDelete
 
             throw new \Exception($message);
         }
+
+        foreach ($this->model->sub_categories as $sub_category) {
+            $this->getSubCategoryRelationships($sub_category);
+        }
     }
 
-    public function getRelationships(): array
+    public function getRelationships($model = null): array
     {
+        if (! $model) {
+            $model = $this->model;
+        } 
+
         $rels = [
             'items' => 'items',
             'invoices' => 'invoices',
@@ -61,16 +80,29 @@ class DeleteCategory extends Job implements ShouldDelete
             'transactions' => 'transactions',
         ];
 
-        $relationships = $this->countRelationships($this->model, $rels);
+        $relationships = $this->countRelationships($model, $rels);
 
-        if ($this->model->id == setting('default.income_category')) {
+        if ($model->id == setting('default.income_category')) {
             $relationships[] = strtolower(trans_choice('general.incomes', 1));
         }
 
-        if ($this->model->id == setting('default.expense_category')) {
+        if ($model->id == setting('default.expense_category')) {
             $relationships[] = strtolower(trans_choice('general.expenses', 1));
         }
 
         return $relationships;
+    }
+
+    public function getSubCategoryRelationships($model)
+    {
+        if ($relationships = $this->getRelationships($model)) {
+            $message = trans('messages.warning.deleted', ['name' => $model->name, 'text' => implode(', ', $relationships)]);
+    
+            throw new \Exception($message);
+        }
+
+        foreach ($model->sub_categories as $sub_category) {
+            $this->getSubCategoryRelationships($sub_category);
+        }
     }
 }
