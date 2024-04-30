@@ -44,6 +44,7 @@ return [
     'dimensions' => 'Les dimensions de la imatge :attribute no són vàlides.',
     'distinct' => 'El camp :attribute té un valor duplicat.',
     'doesnt_start_with' => 'El camp :attribute no pot començar amb un dels valors següents: :values.',
+    'double' => 'El camp :attribute ha de ser un número decimal vàlid.',
     'email' => 'El camp :attribute no és un <strong>correu electrònic</strong> vàlid.',
     'ends_with' => 'El camp :attribute ha d\'acabar amb un dels valors següents: :values.',
     'enum' => 'El camp :attribute seleccionat no és vàlid.',
@@ -157,6 +158,7 @@ return [
         'invalid_extension'     => 'L\'extensió del fitxer no és vàlida.',
         'invalid_dimension'     => 'Les mides màximes pel camp :attribute són :width px :height px. ',
         'invalid_colour'        => 'El color de :attribute no és vàlid.',
+        'invalid_payment_method'=> 'El mètode de pagament no és vàlid.',
     ],
 
     /*

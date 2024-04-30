@@ -10,6 +10,12 @@ return [
     'billing'                   => 'Abrechnung',
     'advanced'                  => 'Erweitert',
 
+    'item_price_hidden'         => 'Diese Spalte ist auf Ihrem :type ausgeblendet.',
+
+    'actions' => [
+        'cancel'                => 'Stornieren',
+    ],
+
     'invoice_detail' => [
         'marked'                => '<b>Sie</b> markierten diese Rechnung als',
         'services'              => 'Dienste',
@@ -64,8 +70,18 @@ return [
         'attachment'            => 'Laden Sie die an :type angehängten Dateien herunter',
     ],
 
+    'slider' => [
+        'create'            => ':user hat diese :type am :date erstellt',
+        'create_recurring'  => ':user hat diese wiederkehrende Vorlage am :date erstellt',
+        'send'              => ':user hat :type am :date gesendet',
+        'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
+        'children'          => ':count :type wurden automatisch erstellt',
+        'cancel'            => ':user hat :type am :date storniert',
+    ],
+
     'messages' => [
         'email_sent'            => ':type wurde per E-Mail versendet!',
+        'restored'              => ':type wurde wiederhergestellt!',
         'marked_as'             => ':type markiert als :status!',
         'marked_sent'           => ':type als gesendet markiert!',
         'marked_paid'           => ':type als bezahlt markiert!',
@@ -83,4 +99,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'Es gibt an dieser :type keine angehängten Dateien.',
 ];

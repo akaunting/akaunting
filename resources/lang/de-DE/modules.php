@@ -28,11 +28,12 @@ return [
     'yearly_pricing'        => 'Jährliche Rechnung',
     'monthly_price'         => 'Ab :price',
     'per_month'             => 'pro Monat',
-    'billed_yearly'         => 'Jährlich abgerechnet',
+    'once'                  => 'einmalig',
     'billed_monthly'        => 'Monatlich abgerechnet',
+    'billed_yearly'         => 'Jährlich abgerechnet',
+    'billed_once'           => 'Einmalig abgerechnet',
     'save_year'             => 'Sie sparen <strong>:price</strong> pro Jahr!',
     'if_paid_year'          => 'Oder <strong>:price/mo</strong> wenn jährlich bezahlt',
-    'information_monthly'   => 'Diese Option ist nur für <strong>Cloud-Service gültig</strong>',
     'install'               => 'Installieren',
     'buy_now'               => 'Jetzt kaufen',
     'get_api_key'           => '<a href=":url" target="_blank">Klicke hier</a> um Ihren API-Schlüssel zu erhalten.',
@@ -48,6 +49,8 @@ return [
     'get_premium_cloud'     => 'Holen Sie sich jetzt die Premium Cloud-Version',
     'switch_to_cloud'       => 'Zur Cloud wechseln',
     'hosted_on_akaunting'   => 'Auf akaunting.com hostet',
+    'information_on_preme'  => ':period Option ist nur in der <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud</strong></a> verfügbar.',
+    'information_monthly'   => 'Diese Option ist nur für <strong>Cloud-Service gültig</strong>',
     'only_works_cloud'      => 'Diese App ist nur in der <strong>Cloud</strong> verfügbar.',
     'only_premium_plan'     => 'Diese App ist nur in <strong>Premium Cloud</strong> verfügbar.',
     'not_found'             => 'Keine App gefunden',
@@ -100,6 +103,10 @@ return [
         'unzip'             => ':module kann nicht entpackt werden',
         'file_copy'         => ':module Dateien können nicht kopiert werden',
         'finish'            => ':module Installation kann nicht abgeschlossen werden',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'Sie verwenden bereits die neueste Version von :module, keine Aktualisierung verfügbar.',
     ],
 
     'badge' => [

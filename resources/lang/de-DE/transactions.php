@@ -10,6 +10,8 @@ return [
     'related_bill'          => 'Zugehörige Rechnung (Ausgabe)',
     'recurring_income'      => 'Wiederkehrende Einnahmen',
     'recurring_expense'     => 'Wiederkehrende Ausgaben',
+    'included_tax'          => 'Enthaltener Steuerbetrag',
+    'connected'             => 'Verbunden',
 
     'form_description' => [
         'general'           => 'Hier können Sie die allgemeinen Transaktionsinformationen wie Datum, Betrag, Konto, Beschreibung usw. eingeben.',
@@ -24,6 +26,7 @@ return [
         'create_recurring'  => ':user hat diese wiederkehrende Transaktion am :date erstellt',
         'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
         'children'          => ':count Transaktionen wurden automatisch erstellt',
+        'connect'           => 'Diese Transaktion ist mit :count Transaktionen verbunden',
         'transfer_headline' => 'Von :from_account an :to_account',
         'transfer_desc'     => 'Am :date erstellte Überweisung',
     ],

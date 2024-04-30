@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribute heeft ongeldige afbeelding afmetingen.',
     'distinct' => ':attribute velden bevat dubbele waarden.',
     'doesnt_start_with' => 'Het :attribute mag niet beginnen met een van de volgende: :values.',
+    'double' => ':attribute moet een geldige dubbele waarde zijn.',
     'email' => ':Attribute is geen geldig e-mailadres.',
     'ends_with' => ':Attribute moet met één van de volgende waarden eindigen: :values',
     'enum' => 'Het geselecteerde :attribute is ongeldig.',
@@ -157,6 +158,7 @@ return [
         'invalid_extension'     => 'De bestandsextensie is ongeldig.',
         'invalid_dimension'     => 'De :attribute afmetingen moeten max :width x :height px zijn.',
         'invalid_colour'        => 'Het :attribuut kleur is ongeldig.',
+        'invalid_payment_method'=> 'De betaalmethode is ongeldig.',
     ],
 
     /*
