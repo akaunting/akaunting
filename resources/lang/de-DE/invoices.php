@@ -42,7 +42,8 @@ return [
     'send_invoice'          => 'Rechnung senden',
     'get_paid'              => 'Zahlung erhalten',
     'accept_payments'       => 'Onlinezahlungen akzeptieren',
-    'payment_received'      => 'Zahlung erhalten',
+    'payments_received'     => 'Erhaltene Zahlungen',
+    'over_payment'          => 'Der eingegebene Betrag überschreitet den Gesamtbetrag',
 
     'form_description' => [
         'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.
@@ -51,6 +52,8 @@ return [
 
     'messages' => [
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
+        'totals_required'   => 'Gesamtbetrag ist erforderlich. Bitte bearbeiten Sie :type und speichern Sie erneut',
+
         'draft'             => 'Dies ist eine <b>Vorschau</b>-Rechnung und wird nach dem Versand in den Charts ersichtlich.',
 
         'status' => [
@@ -64,13 +67,8 @@ return [
                 'await'     => 'Zahlung erwartet',
             ],
         ],
-    ],
 
-    'slider' => [
-        'create'            => ':user hat diese Rechnung am :date erstellt',
-        'create_recurring'  => ':user hat diese wiederkehrende Vorlage am :date erstellt',
-        'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
-        'children'          => ':count Rechnungen wurden automatisch erstellt',
+        'name_or_description_required' => 'Ihre Rechnung muss einen Wert für entweder <b>:name</b> oder <b>:description</b> enthalten.',
     ],
 
     'share' => [

@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'साल|वर्षों',
+    'date_range'                    => 'तिथि सीमा',
     'preferences'                   => 'पसंद|पसंद',
-    'this_year'                     => 'इस साल',
-    'previous_year'                 => 'पिछला साल',
-    'this_quarter'                  => 'इस तिमाही',
-    'previous_quarter'              => 'पिछला तिमाही',
-    'last_12_months'                => 'पिछले 12 महीने',
     'profit_loss'                   => 'लाभ & हानि',
     'income_summary'                => 'आय का सारांश',
     'expense_summary'               => 'व्यय का सारांश',

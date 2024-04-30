@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribute hat ungültige Bildabmessungen.',
     'distinct' => ':attribute hat einen doppelten Wert.',
     'doesnt_start_with' => ':attribute darf nicht mit einem der folgenden Werte beginnen: :values',
+    'double' => 'Das :attribute muss eine gültige Dezimalzahl sein.',
     'email' => ':attribute Attribut muss eine gültige <strong>E-Mail-Adresse</strong> sein.',
     'ends_with' => ':attribute muss mit einem der folgenden Zeichen enden: :values',
     'enum' => 'Das ausgewählte :attribute ist ungültig.',
@@ -157,6 +158,8 @@ return [
         'invalid_amount'        => 'Die Menge von :attribute ist ungültig.',
         'invalid_extension'     => 'Die Dateiendung ist ungültig.',
         'invalid_dimension'     => ':attribute Dimensionen dürfen maximal :width x :height px sein.',
+        'invalid_colour'        => 'Die Farbe von :attribute ist ungültig.',
+        'invalid_payment_method'=> 'Die Zahlungsmethode ist ungültig.',
     ],
 
     /*

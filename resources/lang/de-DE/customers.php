@@ -20,6 +20,7 @@ return [
         'general'               => 'Die Kontaktinformationen des Kunden werden in Rechnungen und Profilen angezeigt. Sie können Ihren Kunden erlauben, sich anzumelden, um ausgestellte Rechnungen zu verfolgen.',
         'billing'               => 'Die Steuernummer erscheint in jeder an den Kunden ausgestellten Rechnung. Die ausgewählte Währung wird zur Standardwährung für diesen Kunden.',
         'address'               => 'Die Adresse wird für die Rechnungen benötigt, daher müssen Sie die genaue Rechnungsadresse für Ihren Kunden angeben.',
+        'contact_persons'       => 'Um weitere Empfänger in einer E-Mail als Kopie hinzuzufügen, erstellen Sie sie als Kontaktperson.',
     ],
 
     'no_records' => [

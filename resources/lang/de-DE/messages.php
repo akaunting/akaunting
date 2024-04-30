@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type hinzugefügt!',
+        'created'			=> ':type wurde erstellt!',
         'updated'           => ':type aktualisiert!',
         'deleted'           => ':type gelöscht!',
         'duplicated'        => ':type dupliziert!',
@@ -26,8 +27,10 @@ return [
         'customer'          => 'Fehler: User wurde nicht angelegt! :name benutzt schon diese Email-Adresse.',
         'no_file'           => 'Fehler: Keine Datei ausgewählt!',
         'last_category'     => 'Fehler: Kann die letzte Kategorie :type nicht löschen!',
+        'transfer_category' => 'Fehler: Kann die Transfer <b>:type</b> Kategorie nicht löschen!',
         'change_type'       => 'Fehler: Der Typ kann nicht geändert werden, da :text verwandt ist!',
         'invalid_apikey'    => 'Fehler: Der eingegebene API-Schlüssel ist ungültig!',
+        'empty_apikey'      => 'Fehler: Sie haben den API Key nicht hinterlegt!  <a href=":url" class="font-bold underline underline-offset-4">Klicken Sie hier</a> um den API Key einzugeben.',
         'import_column'     => 'Fehler: :message. Name des Blattes: :sheet. Zeilennummer: :line.',
         'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
         'same_amount'       => 'Fehler: Der Gesamtbetrag der Aufteilung muss genau der gleiche sein wie :transaction total: :amount',

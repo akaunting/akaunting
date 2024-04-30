@@ -236,6 +236,7 @@ return [
     'preview_mode'          => 'Voorbeeld Modus',
     'go_back'               => 'Terug naar :type',
     'validation_error'      => 'Validatiefout',
+    'validation_warning'    => 'Validatie waarschuwing',
     'dismiss'               => 'Verwerp',
     'size'                  => 'Grootte',
     'media'                 => 'Media',

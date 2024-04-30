@@ -10,6 +10,8 @@ return [
     'related_bill'          => 'संबंधित बिल',
     'recurring_income'      => 'आवर्ती आय',
     'recurring_expense'     => 'आवर्ती व्यय',
+    'included_tax'          => 'कर राशि शामिल है',
+    'connected'             => 'सफलतापूर्वक कनेक्ट किया गया',
 
     'form_description' => [
         'general'           => 'यहां आप लेन-देन की सामान्य जानकारी जैसे दिनांक, राशि, खाता, विवरण आदि दर्ज कर सकते हैं।',
@@ -24,6 +26,7 @@ return [
         'create_recurring'  => ':user ने यह आवर्ती टेम्पलेट :date को बनाया',
         'schedule'          => ':date  के बाद से हर :interval :frequency में दोहराएं',
         'children'          => ':count लेनदेन स्वचालित रूप से बनाए गए थे',
+        'connect'           => 'यह लेनदेन :count लेनदेन से जुड़ा है',
         'transfer_headline' => ':from_account से :to_account तक',
         'transfer_desc'     => '25/03/2022 को स्थानांतरण बनाया गया।',
     ],
