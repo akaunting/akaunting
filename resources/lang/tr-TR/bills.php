@@ -19,11 +19,13 @@ return [
     'total'                 => 'Toplam',
 
     'item_name'             => 'Öğe Adı | Öğe Adları',
+    'recurring_bills'       => 'Yinelenen Fatura|Yinelenen Faturalar',
 
     'show_discount'         => '%:discount İndirim',
     'add_discount'          => 'İndirim Ekle',
     'discount_desc'         => 'ara toplam üzerinden',
 
+    'payment_made'          => 'Yapılan ödeme',
     'payment_due'           => 'Son Ödeme Tarihi',
     'amount_due'            => 'Ödenecek Miktar',
     'paid'                  => 'Ödenmiş',
@@ -38,6 +40,10 @@ return [
     'create_bill'           => 'Fatura Oluştur',
     'receive_bill'          => 'Faturayı Al',
     'make_payment'          => 'Ödeme Yap',
+
+    'form_description' => [
+        'billing'           => 'Fatura detayları faturanızda görünür. Fatura Tarihi gösterge tablosunda ve raporlarda kullanılır. Son Ödeme Tarihi olarak ödemeyi beklediğiniz tarihi seçin.',
+    ],
 
     'messages' => [
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
