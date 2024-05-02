@@ -165,6 +165,16 @@ if (! function_exists('array_values_recursive')) {
     }
 }
 
+if (! function_exists('running_in_install')) {
+    /**
+     * Detect if application is running in queue.
+     */
+    function running_in_install(): bool
+    {
+        return request_is_install() && env('APP_INSTALLED', false) == false;
+    }
+}
+
 if (! function_exists('running_in_queue')) {
     /**
      * Detect if application is running in queue.
@@ -337,6 +347,15 @@ if (! function_exists('is_cloud')) {
         $cloud = new class() { use Cloud; };
 
         return $cloud->isCloud();
+    }
+}
+
+if (! function_exists('request_is_install')) {
+    function request_is_install(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is('install/*');
     }
 }
 

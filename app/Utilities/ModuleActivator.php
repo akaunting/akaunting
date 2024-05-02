@@ -37,6 +37,10 @@ class ModuleActivator implements ActivatorInterface
             return true;
         }
 
+        if (running_in_install() && in_array($module->getAlias(), ['offline-payments', 'paypal-standard'])) {
+            return true;
+        }
+
         if (! isset($this->statuses[$module->getAlias()])) {
             return false;
         }
