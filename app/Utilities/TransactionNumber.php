@@ -5,6 +5,7 @@ namespace App\Utilities;
 use App\Interfaces\Utility\TransactionNumber as TransactionNumberInterface;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
+use Illuminate\Support\Str;
 
 class TransactionNumber implements TransactionNumberInterface
 {
