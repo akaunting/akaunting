@@ -322,7 +322,7 @@ class Transaction extends Model
             $suffix = $src->isRecurringTransaction() ? '-recurring' : '';
         }
 
-        $this->number       = $this->getNextTransactionNumber($suffix);
+        $this->number       = $this->getNextTransactionNumber($this->type, $suffix);
         $this->document_id  = null;
         $this->split_id     = null;
         unset($this->reconciled);
