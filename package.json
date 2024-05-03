@@ -53,7 +53,8 @@
         "quill": "^2.0.1",
         "jsonwebtoken": "^9.0.2",
         "ws": "^8.14.2",
-        "ajv": "^6.12.6"
+        "ajv": "^6.12.6",
+        "express": "^4.19.2"
     },
     "devDependencies": {
         "@babel/core": "^7.23.5",
@@ -91,7 +92,8 @@
         "ws": "^8.14.2",
         "postcss": "^8.4.32",
         "ajv": "^6.12.6",
-        "quill": "^2.0.1"
+        "quill": "^2.0.1",
+        "express": "^4.19.2"
     },
     "browserslist": [
         "> 1%",
