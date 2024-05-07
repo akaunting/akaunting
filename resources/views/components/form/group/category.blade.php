@@ -20,7 +20,14 @@
         :disabled="$disabled"
 
         {{ $attributes }}
-    />
+    >
+        <template #option="{option}">
+            <div class="flex items-center">
+                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
+                <span> @{{ option.value }}</span>
+            </div>
+        </template>
+    </x-form.group.select>
 @elseif (($attributes->has('withoutRemote') && $attributes->has('without-remote')) && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new')))
     <x-form.group.select
         add-new
@@ -40,7 +47,14 @@
         :disabled="$disabled"
 
         {{ $attributes }}
-    />
+    >
+        <template #option="{option}">
+            <div class="flex items-center">
+                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
+                <span> @{{ option.value }}</span>
+            </div>
+        </template>
+    </x-form.group.select>
 @elseif ((! $attributes->has('withoutRemote') && ! $attributes->has('without-remote')) && ($attributes->has('withoutAddNew') && $attributes->has('without-add-new')))
     <x-form.group.select
         remote
@@ -60,7 +74,14 @@
         :disabled="$disabled"
 
         {{ $attributes }}
-    />
+    >
+        <template #option="{option}">
+            <div class="flex items-center">
+                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
+                <span> @{{ option.value }}</span>
+            </div>
+        </template>
+    </x-form.group.select>
 @else
     <x-form.group.select
         name="{{ $name }}"
@@ -77,5 +98,12 @@
         :disabled="$disabled"
 
         {{ $attributes }}
-    />
+    >
+        <template #option="{option}">
+            <div class="flex items-center">
+                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
+                <span> @{{ option.value }}</span>
+            </div>
+        </template>
+    </x-form.group.select>
 @endif
