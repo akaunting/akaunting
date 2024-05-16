@@ -261,7 +261,7 @@ class DeleteButton extends Component
             $group = $page;
             $page = (! empty($this->route)) ? $paths[1] : $paths[2];
 
-            $title = trans_choice($group . '::general.' . $page, 1);
+            $title = trans_choice($group . '::general.' . str_replace('-', '_', $page), 1);
         }
 
         return $title;
