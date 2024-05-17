@@ -29,7 +29,7 @@ class Category extends Form
         $this->path = route('modals.categories.create', ['type' => $this->type]);
         $this->remoteAction = route('categories.index', ['search' => 'type:' . $this->type . ' enabled:1']);
 
-        $this->categories = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+        $this->categories = Model::type($this->type)->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
 
         $model = $this->getParentData('model');
 
@@ -38,10 +38,14 @@ class Category extends Form
         if (! empty($category_id)) {
             $this->selected = $category_id;
 
-            if (! $this->categories->has($category_id)) {
+            $has_category = $this->categories->search(function ($category, int $key) use ($category_id) {
+                return $category->id === $category_id;
+            });
+
+            if (! $has_category) {
                 $category = Model::find($category_id);
 
-                $this->categories->put($category->id, $category->name);
+                $this->categories->push($category);
             }
         }
 
@@ -57,8 +61,16 @@ class Category extends Form
             $selected_category = Model::find($this->selected);
         }
 
-        if (! empty($selected_category) && ! $this->categories->has($selected_category->id)) {
-            $this->categories->put($selected_category->id, $selected_category->name);
+        if (! empty($selected_category)) {
+            $selected_category_id = $selected_category->id;
+
+            $has_selected_category = $this->categories->search(function ($category, int $key) use ($selected_category_id) {
+                return $category->id === $selected_category_id;
+            });
+
+            if (! $has_selected_category) {
+                $this->categories->push($selected_category);
+            }
         }
 
         return view('components.form.group.category');

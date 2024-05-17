@@ -23,8 +23,8 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
-                <span> @{{ option.value }}</span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span>@{{ option.option.name }}</span>
             </div>
         </template>
     </x-form.group.select>
@@ -50,8 +50,8 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
-                <span> @{{ option.value }}</span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span>@{{ option.option.name }}</span>
             </div>
         </template>
     </x-form.group.select>
@@ -77,8 +77,8 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
-                <span> @{{ option.value }}</span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span>@{{ option.option.name }}</span>
             </div>
         </template>
     </x-form.group.select>
@@ -101,8 +101,8 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" style="background-color:red !important;"></span>
-                <span> @{{ option.value }}</span>
+                <span class="w-5 h-4 rounded-full":style="{backgroundColor: option.option.color}"></span>
+                <span>@{{ option.option.name }}</span>
             </div>
         </template>
     </x-form.group.select>
