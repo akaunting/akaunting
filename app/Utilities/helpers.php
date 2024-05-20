@@ -113,6 +113,26 @@ if (! function_exists('company_id')) {
     }
 }
 
+if (! function_exists('team')) {
+    /**
+     * Get team of current company.
+     */
+    function team()
+    {
+        return company()?->team() !== null ? company()?->team() : company()?->owner?->team();
+    }
+}
+
+if (! function_exists('team_id')) {
+    /**
+     * Get id of current company team.
+     */
+    function team_id()
+    {
+        return team()?->id;
+    }
+}
+
 if (! function_exists('should_queue')) {
     /**
      * Check if queue is enabled.
@@ -329,6 +349,13 @@ if (! function_exists('role_model_class')) {
     function role_model_class(): string
     {
         return config('laratrust.models.role');
+    }
+}
+
+if (! function_exists('team_model_class')) {
+    function team_model_class(): string
+    {
+        return config('laratrust.models.team');
     }
 }
 
