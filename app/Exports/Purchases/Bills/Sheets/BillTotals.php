@@ -4,8 +4,9 @@ namespace App\Exports\Purchases\Bills\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentTotal as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class BillTotals extends Export
+class BillTotals extends Export implements WithParentSheet
 {
     public function collection()
     {

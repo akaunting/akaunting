@@ -4,8 +4,9 @@ namespace App\Exports\Purchases\RecurringBills\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentItemTax as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class RecurringBillItemTaxes extends Export
+class RecurringBillItemTaxes extends Export implements WithParentSheet
 {
     public function collection()
     {

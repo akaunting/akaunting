@@ -4,8 +4,9 @@ namespace App\Exports\Purchases\RecurringBills\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentHistory as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class RecurringBillHistories extends Export
+class RecurringBillHistories extends Export implements WithParentSheet
 {
     public function collection()
     {

@@ -4,10 +4,11 @@ namespace App\Exports\Banking\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
+use App\Interfaces\Export\WithParentSheet;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class RecurringTransactions extends Export implements WithColumnFormatting
+class RecurringTransactions extends Export implements WithColumnFormatting, WithParentSheet
 {
     public function collection()
     {

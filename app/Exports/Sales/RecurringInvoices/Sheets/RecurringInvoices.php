@@ -4,10 +4,11 @@ namespace App\Exports\Sales\RecurringInvoices\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\Document as Model;
+use App\Interfaces\Export\WithParentSheet;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class RecurringInvoices extends Export implements WithColumnFormatting
+class RecurringInvoices extends Export implements WithColumnFormatting, WithParentSheet
 {
     public function collection()
     {
