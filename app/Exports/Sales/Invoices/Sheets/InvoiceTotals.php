@@ -4,8 +4,10 @@ namespace App\Exports\Sales\Invoices\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentTotal as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class InvoiceTotals extends Export
+
+class InvoiceTotals extends Export implements WithParentSheet
 {
     public function collection()
     {

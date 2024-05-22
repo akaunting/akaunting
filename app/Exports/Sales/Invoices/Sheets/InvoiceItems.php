@@ -4,8 +4,9 @@ namespace App\Exports\Sales\Invoices\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentItem as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class InvoiceItems extends Export
+class InvoiceItems extends Export implements WithParentSheet
 {
     public function collection()
     {

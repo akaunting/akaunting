@@ -4,8 +4,9 @@ namespace App\Exports\Sales\RecurringInvoices\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\DocumentTotal as Model;
+use App\Interfaces\Export\WithParentSheet;
 
-class RecurringInvoiceTotals extends Export
+class RecurringInvoiceTotals extends Export implements WithParentSheet
 {
     public function collection()
     {

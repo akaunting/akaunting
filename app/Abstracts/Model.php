@@ -5,6 +5,7 @@ namespace App\Abstracts;
 use Akaunting\Sortable\Traits\Sortable;
 use App\Events\Common\SearchStringApplied;
 use App\Events\Common\SearchStringApplying;
+use App\Interfaces\Export\WithParentSheet;
 use App\Traits\DateTime;
 use App\Traits\Owners;
 use App\Traits\Sources;
@@ -161,7 +162,9 @@ abstract class Model extends Eloquent implements Ownable
         $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
         $offset = $page ? ($page - 1) * $limit : 0;
 
-        $query->offset($offset)->limit($limit);
+        if (! $this instanceof WithParentSheet && count((array) $ids) < $limit) {
+            $query->offset($offset)->limit($limit);
+        }
 
         return $query->cursor();
     }
