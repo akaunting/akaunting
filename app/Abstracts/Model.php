@@ -162,7 +162,7 @@ abstract class Model extends Eloquent implements Ownable
         $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
         $offset = $page ? ($page - 1) * $limit : 0;
 
-        if (! $this instanceof WithParentSheet && count((array) $ids) < $limit) {
+        if (! $this instanceof WithParentSheet && (empty($ids) || count((array) $ids) > $limit)) {
             $query->offset($offset)->limit($limit);
         }
 
