@@ -443,6 +443,22 @@ class Company extends Eloquent implements Ownable
     }
 
     /**
+     * Sort by company phone
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function phoneSortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'company.phone')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
      * Sort by company tax number
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
