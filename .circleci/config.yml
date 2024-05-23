@@ -1,0 +1,35 @@
+# This config was automatically generated from your source code
+# Stacks detected: cicd:github-actions:.github/workflows,deps:node:.,deps:php:.
+version: 2.1
+orbs:
+  php: circleci/php@1
+jobs:
+  test-php:
+    # Install php packages and run tests
+    docker:
+      - image: cimg/php:8.1-node
+    steps:
+      - checkout
+      - php/install-packages
+      - run:
+          name: run tests
+          command: ./vendor/bin/phpunit
+  deploy:
+    # This is an example deploy job, not actually used by the workflow
+    docker:
+      - image: cimg/base:stable
+    steps:
+      # Replace this with steps to deploy to users
+      - run:
+          name: deploy
+          command: '#e.g. ./deploy.sh'
+      - run:
+          name: found github actions config
+          command: ':'
+workflows:
+  build-and-test:
+    jobs:
+      - test-php
+    # - deploy:
+    #     requires:
+    #       - test-php
