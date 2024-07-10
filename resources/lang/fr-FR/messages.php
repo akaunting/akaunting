@@ -3,10 +3,10 @@
 return [
 
     'success' => [
-        'added'             => ':type ajouté !',
+        'added'             => ':type ajouté !',
         'created'			=> ':type créé!',
-        'updated'           => ':type mise à jour !',
-        'deleted'           => ':type supprimé !',
+        'updated'           => ':type mise à jour !',
+        'deleted'           => ':type supprimé !',
         'duplicated'        => ':type dupliqué !',
         'imported'          => ':type importé !',
         'import_queued'     => ':type import a été planifié ! Vous recevrez un email quand il sera terminé.',
@@ -22,10 +22,10 @@ return [
     ],
 
     'error' => [
-        'over_payment'      => 'Erreur : Ce paiement n\'a pas été ajouté ! Le montant entré dépasse le montant total :amount',
-        'not_user_company'  => 'Erreur : Vous n’êtes pas autorisé à gérer cette société !',
+        'over_payment'      => 'Erreur : Ce paiement n\'a pas été ajouté ! Le montant entré dépasse le montant total :amount',
+        'not_user_company'  => 'Erreur : Vous n\'êtes pas autorisé à gérer cette société !',
         'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
-        'no_file'           => 'Erreur : Aucun fichier sélectionné !',
+        'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
         'transfer_category' => 'Erreur: Impossible de supprimer la catégorie de transfert <b>:type</b>!',
         'change_type'       => 'Erreur : Impossible de changer le type car il est lié à :text !',
@@ -38,11 +38,11 @@ return [
     ],
 
     'warning' => [
-        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :text.',
-        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :text.',
+        'deleted'           => 'Avertissement : Vous n\'êtes pas autorisé à supprimer <b>:name</b> parce qu\'il est associé à :text.',
+        'disabled'          => 'Avertissement : Vous n\'êtes pas autorisé à désactiver <b>:name</b> parce qu\'il est associé à :text.',
         'reconciled_tran'   => 'Avertissement : Vous n\'êtes pas autorisé à modifier/supprimer cette transaction car elle a été réconciliée !',
         'reconciled_doc'    => 'Avertissement : Vous n\'êtes pas autorisé à changer/supprimer :type car il a réconcilié les transactions !',
-        'disable_code'      => 'Avertissement : vous n’êtes pas autorisé à désactiver ou modifier la devise de <b>:name</b> car elle est liée à :text.',
+        'disable_code'      => 'Avertissement : vous n\'êtes pas autorisé à désactiver ou modifier la devise de <b>:name</b> car elle est liée à :text.',
         'payment_cancel'    => 'Avertissement : Vous avez annulé votre paiement récent par :method !',
         'missing_transfer'  => 'Avertissement : Le transfert lié à cette transaction est manquant. Vous devriez envisager de supprimer cette transaction.',
     ],

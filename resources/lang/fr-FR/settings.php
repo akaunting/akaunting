@@ -136,7 +136,7 @@ return [
             'none'                      => 'Aucun',
         ],
         'sendmail'                      => 'Sendmail',
-        'sendmail_path'                 => 'Chemin d’accès de sendmail',
+        'sendmail_path'                 => 'Chemin d\'accès de sendmail',
         'log'                           => 'Journal des Emails',
         'email_service'                 => 'Service de messagerie',
         'email_templates'               => 'Modèles d\'e-mail',

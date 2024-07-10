@@ -49,7 +49,7 @@
                 shortcuts: [
                     @foreach ($date_picker_shortcuts as $text => $shortcut)
                         {
-                            text: '{{ $text }}',
+                            text: `{!! $text !!}`,
                             onClick(picker) {
                                 const start = new Date('{{ $shortcut["start"] }}');
                                 const end = new Date('{{ $shortcut["end"] }}');
