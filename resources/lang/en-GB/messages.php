@@ -12,6 +12,7 @@ return [
         'import_queued'     => ':type import has been scheduled! You will receive an email when it is finished.',
         'exported'          => ':type exported!',
         'export_queued'     => ':type export of the current page has been scheduled! You will receive an email when it is ready to download.',
+        'download_queued'   => ':type download of the current page has been scheduled! You will receive an email when it is ready to download.',
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
         'connected'         => ':type connected!',

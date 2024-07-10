@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Download is ready',
+            'description'   => 'The file is ready to download from the following link:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Download failed',
+            'description'   => 'Not able to create the file due to the following issue:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -75,6 +93,20 @@ return [
     ],
 
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Download is ready',
+            'description'   => 'Your <strong>:type</strong> file is ready to <a href=":url" target="_blank"><strong>download</strong></a>.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Download failed',
+            'description'   => 'Not able to create the file due to several issues. Check out your email for the details.',
+
+        ],
 
         'export_completed' => [
 
