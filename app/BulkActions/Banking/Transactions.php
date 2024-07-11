@@ -65,7 +65,21 @@ class Transactions extends BulkAction
             $types[] = $r_type;
 
             $real_type = $r_type;
+            
             $contact_type = $transaction->contact->type;
+
+            if (! $contact_type) {
+                if ($real_type == Transaction::INCOME_TYPE
+                    || $real_type == Transaction::INCOME_TRANSFER_TYPE
+                    || $real_type == Transaction::INCOME_SPLIT_TYPE
+                    || $real_type == Transaction::INCOME_RECURRING_TYPE
+                ) {
+                    $contact_type = 'customer';
+                } else {
+                    $contact_type = 'vendor';
+                }
+            }
+
             $account_currency_code = $transaction->account->currency_code;
         }
 
