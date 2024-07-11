@@ -10,6 +10,7 @@ use App\Imports\Sales\Invoices\Invoices as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\DownloadDocument;
 use App\Jobs\Document\SendDocument;
 use App\Jobs\Document\UpdateDocument;
 use App\Models\Document\Document;
@@ -327,19 +328,6 @@ class Invoices extends Controller
     {
         event(new \App\Events\Document\DocumentPrinting($invoice));
 
-        $currency_style = true;
-
-        $view = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
-
-        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
-
-        $pdf = app('dompdf.wrapper');
-        $pdf->loadHTML($html);
-
-        //$pdf->setPaper('A4', 'portrait');
-
-        $file_name = $this->getDocumentFileName($invoice);
-
-        return $pdf->download($file_name);
+        return $this->dispatch(new DownloadDocument($invoice, null, null, false, 'download'));
     }
 }
