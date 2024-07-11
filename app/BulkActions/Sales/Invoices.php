@@ -57,7 +57,7 @@ class Invoices extends BulkAction
             'type'          => 'download',
         ],
         'download' => [
-            'icon'          => 'folder_zip',
+            'icon'          => 'download',
             'name'          => 'general.download',
             'message'       => 'bulk_actions.message.download',
             'type'          => 'download',

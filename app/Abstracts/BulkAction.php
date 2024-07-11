@@ -56,7 +56,7 @@ abstract class BulkAction
         'delete'        => 'delete',
         'duplicate'     => 'file_copy',
         'export'        => 'file_download',
-        'download'      => 'folder_zip',
+        'download'      => 'download',
         'reconcile'     => 'published_with_changes',
         'unreconcile'   => 'layers_clear',
         'received'      => 'call_received',
