@@ -33,8 +33,11 @@ class Setting extends FormRequest
                 break;
             case 'default':
                 $rules = [
+                    'account'           => 'required|string',
                     'currency'          => 'required|string|currency',
                     'locale'            => 'required|string',
+                    'expense_category'  => 'required|integer',
+                    'income_category'   => 'required|integer',
                     'payment_method'    => 'required|string|payment_method',
                 ];
 

@@ -15,14 +15,13 @@
                             label="{{ trans_choice('general.accounts', 1) }}"
                             :options="$accounts"
                             :selected="setting('default.account')"
-                            not-required
                         />
 
-                        <x-form.group.currency name="currency" not-required />
+                        <x-form.group.currency name="currency" />
 
                         <x-form.group.select name="tax" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="setting('default.tax')" :clearable="'false'" not-required />
 
-                        <x-form.group.payment-method :clearable="'false'" not-required />
+                        <x-form.group.payment-method :clearable="'false'" />
                     </x-slot>
                 </x-form.section>
 
