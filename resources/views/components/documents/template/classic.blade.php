@@ -135,6 +135,7 @@
                                     {{ $document->contact_name }}
                                 </x-link.hover>
                             </x-link>
+                            <br>
                         @endif
                     @endif
                 @stack('name_input_end')
@@ -143,8 +144,10 @@
                     @if (! $hideContactAddress)
                         <p>
                             {!! nl2br($document->contact_address) !!}
-                            <br>
-                            {!! $document->contact_location !!}
+                            @if ($document->contact_location)
+                                <br>
+                                {!! $document->contact_location !!}
+                            @endif
                         </p>
                     @endif
                 @stack('address_input_end')
