@@ -156,9 +156,7 @@
                     @if (! $hideContactTaxNumber)
                         @if ($document->contact_tax_number)
                             <p>
-                                <span class="font-semibold">
-                                    {{ trans('general.tax_number') }}:
-                                </span>
+                                {{ trans('general.tax_number') }}:
                                 {{ $document->contact_tax_number }}
                             </p>
                         @endif
