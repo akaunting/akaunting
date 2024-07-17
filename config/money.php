@@ -1651,12 +1651,35 @@ return [
             'thousands_separator' => ',',
         ],
 
+        // This currency is no longer used. It will be removed soon.
         'VEF' => [
             'name'                => 'Bolivar',
             'code'                => 937,
             'precision'           => 2,
             'subunit'             => 100,
             'symbol'              => 'Bs F',
+            'symbol_first'        => true,
+            'decimal_mark'        => ',',
+            'thousands_separator' => '.',
+        ],
+
+        'VES' => [
+            'name'                => 'Bolívar Soberano',
+            'code'                => 928,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'Bs S',
+            'symbol_first'        => true,
+            'decimal_mark'        => ',',
+            'thousands_separator' => '.',
+        ],
+        
+        'VED' => [
+            'name'                => 'Dijital Bolívar',
+            'code'                => 926,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'Bs D',
             'symbol_first'        => true,
             'decimal_mark'        => ',',
             'thousands_separator' => '.',
