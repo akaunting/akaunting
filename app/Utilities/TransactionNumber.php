@@ -44,7 +44,7 @@ class TransactionNumber implements TransactionNumberInterface
         }
 
         if (Str::endsWith($type, '-split')) {
-            $number_exists = $number_exists->isSplitTransaction();
+            $number_exists = $number_exists->isSplit();
         }
 
         $number_exists = $number_exists->where('number', $number);

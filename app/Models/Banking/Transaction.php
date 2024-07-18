@@ -571,7 +571,10 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if (empty($this->document_id) && $this->isNotTransferTransaction()) {
+            if (empty($this->document_id) 
+                && $this->isNotTransferTransaction()
+                && $this->isNotSplitTransaction()
+            ) {
                 $actions[] = [
                     'title' => trans('general.duplicate'),
                     'icon' => 'file_copy',

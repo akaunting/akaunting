@@ -20,7 +20,6 @@ class SplitTransaction extends Job implements ShouldUpdate
         DB::transaction(function () {
             foreach ($this->request->items as $item) {
                 $transaction            = $this->model->duplicate();
-                $transaction->number    = $this->getNextTransactionNumber();
                 $transaction->split_id  = $this->model->id;
                 $transaction->amount    = $item['amount'];
                 $transaction->save();
