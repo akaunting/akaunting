@@ -39,6 +39,7 @@ class Setting extends FormRequest
                     'expense_category'  => 'required|integer',
                     'income_category'   => 'required|integer',
                     'payment_method'    => 'required|string|payment_method',
+                    'address_format'    => 'required|string',
                 ];
 
                 break;
