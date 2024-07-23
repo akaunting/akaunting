@@ -14,9 +14,7 @@
                         </th>
                     </tr>
                     <tr v-if="company.location">
-                        <th class="font-normal text-sm text-left p-0">
-                            {{ company.location }}
-                        </th>
+                        <th class="font-normal text-sm text-left p-0" v-html="company.location"></th>
                     </tr>
                     <tr v-if="company.tax_number">
                         <th class="font-normal text-sm text-left p-0">

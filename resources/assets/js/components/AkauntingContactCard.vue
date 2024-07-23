@@ -73,9 +73,7 @@
                                 </th>
                             </tr>
                             <tr v-if="contact.location">
-                                <th class="font-normal text-xs text-left p-0">
-                                    {{ contact.location }}
-                                </th>
+                                <th class="font-normal text-sm text-left p-0" v-html="contact.location"></th>
                             </tr>
                             <tr v-if="contact.tax_number">
                                 <th class="font-normal text-xs text-left p-0">
