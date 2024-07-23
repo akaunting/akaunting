@@ -29,6 +29,24 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'La descàrrega està llesta.',
+            'description'   => 'Pots descarregar el fitxer prement el següent enllaç:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'La descàrrega ha fallat',
+            'description'   => 'No s\'ha pogut crear el fitxer a causa de:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -76,6 +94,20 @@ L\'actualització de :alias des de :current_version a :new_version ha fallat al 
     ],
 
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'La descàrrega està llesta.',
+            'description'   => 'El teu fitxer <strong>:type</strong> està disponible per <a href=":url" target="_blank"><strong>descarregar</strong></a>.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'La descàrrega ha fallat',
+            'description'   => 'No s\'ha pogut crear l\'arxiu per vàries raons. Pots mirar el teu correu per tenir-ne més detalls.',
+
+        ],
 
         'export_completed' => [
 

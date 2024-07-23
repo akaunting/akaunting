@@ -10,6 +10,7 @@ return [
         'duplicate'     => 'Estàs segur de voler <b>duplicar</b> el registre seleccionat?',
         'delete'        => 'Estàs segur de voler <b>esborrar</b> el registre seleccionat?|Estàs segur de voler <b>esborrar</b> els registres seleccionats?',
         'export'        => 'Estàs segur de voler <b>exportar</b> el registre seleccionat?|Estàs segur de voler <b>exportar</b> els registres seleccionats?',
+        'download'      => 'Segur que vols <b>descarregar</b> el registre seleccionat?|Segur que vols <b>descarregar</b> els registres seleccionats?',
         'enable'        => 'Estàs segur de voler <b>activar</b> el registre seleccionat?|Estàs segur de voler <b>activar</b> els registres seleccionats?',
         'disable'       => 'Estàs segur de voler <b>desactivar</b> el registre seleccionat?|Estàs segur de voler <b>desactivar</b> els registres seleccionats?',
         'paid'          => 'Estàs segur de voler marcar la factura seleccionada com a <b>pagada</b>?|Estàs segur de voler marcar les factures seleccionades com a <b>pagades</b>?',
