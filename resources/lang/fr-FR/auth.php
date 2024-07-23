@@ -37,16 +37,16 @@ return [
     ],
 
     'error' => [
-        'self_delete'       => 'Erreur: Vous ne pouvez pas vous supprimer vous-même!',
-        'self_disable'      => 'Erreur: Vous ne pouvez pas vous désactiver vous-même!',
+        'self_delete'       => 'Erreur : Vous ne pouvez pas vous supprimer vous-même !',
+        'self_disable'      => 'Erreur : Vous ne pouvez pas vous désactiver vous-même !',
         'unassigned'        => 'Erreur: La société :company ne peut pas être désassignée ! La société :company doit être assignée à au moins un utilisateur.',
-        'no_company'        => 'Erreur: Aucune entreprise associée à votre compte. Veuillez contacter votre administrateur système.',
+        'no_company'        => 'Erreur : Aucune entreprise associée à votre compte. Veuillez contacter votre administrateur système.',
     ],
 
     'login_redirect'        => 'Vérification effectuée ! Vous êtes en cours de redirection...',
     'failed'                => 'Ces identifiants ne correspondent pas à un utilisateur.',
-    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
-    'disabled'              => 'Ce compte est désactivé. Veuillez contacter l\'administrateur système.',
+    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
+    'disabled'              => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
 
     'notification' => [
         'message_1'         => 'Vous recevez cet email car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',

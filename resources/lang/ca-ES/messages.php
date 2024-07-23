@@ -12,6 +12,7 @@ return [
         'import_queued'     => 'S\'ha planificat la importació de :type. Rebràs un correu quan hagi acabat.',
         'exported'          => 'S\'ha exportat :type!',
         'export_queued'     => 'S\'ha planificat l\'exportació de :type. Rebràs un correu quan estigui llesta per la descàrrega.',
+        'download_queued'   => 'S\'ha planificat la descàrrega de :type. Rebràs un correu quan estigui llesta per la descàrrega.',
         'enabled'           => 'S\'ha activat :type!',
         'disabled'          => 'S\'ha desactivat :type!',
         'connected'         => ':type connectat!',

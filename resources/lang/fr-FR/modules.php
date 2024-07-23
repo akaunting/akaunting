@@ -38,7 +38,7 @@ return [
     'buy_now'               => 'Acheter maintenant',
     'get_api_key'           => '<a href=":url" target="_blank">Cliquez ici</a> pour obtenir votre clé API.
 ',
-    'no_apps'               => 'Il n\'y a pas encore d\'application dans cette catégorie.',
+    'no_apps'               => 'Il n’y a pas encore d\'application dans cette catégorie.',
     'become_developer'      => 'Vous êtes développeur? <a href=":url" target="_blank"> Ici </a>, vous pouvez apprendre à créer une application et à commencer à vendre dès aujourd\'hui!',
     'recommended_apps'      => 'Applications recommandées',
     'can_not_install'       => 'Les abonnements mensuels ne sont disponibles que sur le service Cloud. <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">En savoir plus.</a>',
