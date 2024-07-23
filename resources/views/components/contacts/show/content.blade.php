@@ -90,7 +90,7 @@
             @if (! $hideAddress)
             <div class="flex flex-col text-sm sm:mb-5">
                 <div class="font-medium">{{ trans('general.address') }}</div>
-                <span>{{ $contact->address }}<br>{{ $contact->location }}</span>
+                <span>{{ $contact->address }}<br>{!! $contact->location !!}</span>
             </div>
             @endif
             @stack('address_input_end')
