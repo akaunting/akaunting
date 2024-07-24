@@ -19,7 +19,7 @@
 
 @stack('body_scripts')
 
-//should queue control added for bulk action download
+<!-- should queue control added for bulk action download -->
 @if (! should_queue())
     @livewireScripts
 @endif
