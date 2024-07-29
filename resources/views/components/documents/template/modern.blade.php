@@ -157,12 +157,12 @@
                 @stack('order_number_input_start')
                     @if (! $hideOrderNumber)
                         @if ($document->order_number)
-                            <p class="mb-0">
+                            <p class="mb-0 clearfix">
                                 <span class="font-semibold spacing">
                                     {{ trans($textOrderNumber) }}:
                                 </span>
 
-                                <span class="float-right spacing">
+                                <span class="float-right spacing order-max-width right-column">
                                     {{ $document->order_number }}
                                 </span>
                             </p>
