@@ -79,6 +79,14 @@ trait Contacts
 
     public function getFormattedAddress($city = null, $country = null, $state = null, $zip_code = null)
     {
+        if (is_null($city)
+            && is_null($country)
+            && is_null($state)
+            && is_null($zip_code)
+        ) {
+            return null;
+        }
+
         $address_format = setting('default.address_format');
 
         $formatted_address = str_replace(
