@@ -23,7 +23,7 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
                 <span>@{{ option.option.name }}</span>
             </div>
         </template>
@@ -50,7 +50,7 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
                 <span>@{{ option.option.name }}</span>
             </div>
         </template>
@@ -77,7 +77,7 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color}"></span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
                 <span>@{{ option.option.name }}</span>
             </div>
         </template>
@@ -101,7 +101,7 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full":style="{backgroundColor: option.option.color}"></span>
+                <span class="w-5 h-4 rounded-full":style="{backgroundColor: option.option.color_hex_code}"></span>
                 <span>@{{ option.option.name }}</span>
             </div>
         </template>
