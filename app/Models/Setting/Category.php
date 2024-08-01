@@ -26,7 +26,7 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    protected $appends = ['display_name'];
+    protected $appends = ['display_name', 'color_hex_code'];
 
     /**
      * Attributes that should be mass-assignable.
