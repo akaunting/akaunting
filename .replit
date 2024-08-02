@@ -1,0 +1,8 @@
+modules = ["php-8.2", "php-8.1", "nodejs-20", "nix", "web", "docker", "python-3.12", "python-3.8", "nodejs-14", "nodejs-16", "nodejs-18", "nodejs-19", "python-3.11", "python-3.10", "vue-node-20", "bash", "python-3.9", "nodejs-with-prybar-18"]
+run = "npm run dev"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "npm run dev"]
