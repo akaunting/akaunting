@@ -79,6 +79,8 @@ return [
         'subheading'                    => 'Subheading',
         'due_receipt'                   => 'Due upon receipt',
         'due_days'                      => 'Due within :days days',
+        'due_custom'                    => 'Custom day(s)',
+        'due_custom_day'                => 'after day',
         'choose_template'               => 'Choose invoice template',
         'default'                       => 'Default',
         'classic'                       => 'Classic',
