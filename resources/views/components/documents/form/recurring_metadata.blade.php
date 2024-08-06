@@ -54,13 +54,11 @@
                 }
             }
             @endphp
-            <x-form.group.select
-                name="payment_terms"
+            <x-form.group.payment-term
                 label="{{ trans('invoices.payment_due') }}"
-                :options="$payment_terms"
                 :selected="(string) $payment_term"
                 visible-change="onChangeRecurringDate"
-            />  
+            />
 
             <x-form.input.hidden name="due_at" :value="old('due_at', $dueAt)" v-model="form.due_at" />
         @else
