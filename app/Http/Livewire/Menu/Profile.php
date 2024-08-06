@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Events\Menu\ProfileCreated;
+use App\Events\Menu\ProfileCreating;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -14,6 +15,8 @@ class Profile extends Component
     {
         menu()->create('profile', function ($menu) {
             $menu->style('tailwind');
+
+            event(new ProfileCreating($menu));
 
             event(new ProfileCreated($menu));
 

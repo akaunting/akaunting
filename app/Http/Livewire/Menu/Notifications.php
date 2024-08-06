@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Events\Menu\NotificationsCreated;
+use App\Events\Menu\NotificationsCreating;
 use Illuminate\Contracts\View\View;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
@@ -87,6 +88,8 @@ class Notifications extends Component
         $notifications = new \stdClass();
         $notifications->notifications = collect();
         $notifications->keyword = $this->keyword;
+
+        event(new NotificationsCreating($notifications));
 
         event(new NotificationsCreated($notifications));
 

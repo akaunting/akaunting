@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Events\Menu\SettingsCreated;
+use App\Events\Menu\SettingsCreating;
+use App\Events\Menu\SettingsFinished;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -26,6 +28,7 @@ class Settings extends Component
         menu()->create('settings', function ($menu) {
             $menu->style('tailwind');
 
+            event(new SettingsCreating($menu));
             event(new SettingsCreated($menu));
 
             $this->addSettingsOfModulesFromJsonFile($menu);
@@ -41,6 +44,9 @@ class Settings extends Component
 
                 $menu->removeByTitle($item->title);
             }
+
+            #todo event name must be changed to SettingsCreated
+            event(new SettingsFinished($menu));
         });
 
         return view('livewire.menu.settings');
