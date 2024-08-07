@@ -44,6 +44,8 @@ return [
     'dimensions' => 'O :attribute não tem dimensões válidas.',
     'distinct' => 'O :attribute campo contém um valor duplicado.',
     'doesnt_start_with' => 'O :attribute não pode começar com um dos seguintes: :values.',
+    'double' => '
+O atributo deve ser um duplo válido',
     'email' => 'O :attribute deve ser um endereço de e-mail <strong>válido</strong>.',
     'ends_with' => 'O :attribute deve terminar com um dos seguintes: :values',
     'enum' => 'O :attribute selecionado é inválido.',
@@ -156,6 +158,9 @@ return [
         'invalid_amount'        => 'O :attribute é inválido.',
         'invalid_extension'     => 'A extensão do arquivo é inválida.',
         'invalid_dimension'     => 'As dimensões :attribute devem ser no máximo :width x :height px.',
+        'invalid_colour'        => '
+A cor do atributo é inválida.',
+        'invalid_payment_method'=> 'A forma de pagamento é inválida.',
     ],
 
     /*
