@@ -32,7 +32,6 @@ class DocumentRecurring
 
         $view->with([
             'type' => $type,
-            'payment_terms' => $payment_terms,
         ]);
 
         // Override the whole file
