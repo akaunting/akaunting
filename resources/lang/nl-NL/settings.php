@@ -79,6 +79,8 @@ return [
         'subheading'                    => 'Subkop',
         'due_receipt'                   => 'Vervalt bij ontvangst',
         'due_days'                      => 'Vervalt binnen :days',
+        'due_custom'                    => 'Aangepaste dag(en)',
+        'due_custom_day'                => 'na dag',
         'choose_template'               => 'Factuursjabloon kiezen',
         'default'                       => 'Standaard',
         'classic'                       => 'Klassiek',
@@ -113,6 +115,8 @@ return [
         'use_gravatar'                  => 'Gebruik Gravatar',
         'income_category'               => 'Inkomenscategorie',
         'expense_category'              => 'Onkostencategorie',
+        'address_format'                => 'Adres Formaat',
+        'address_tags'                  => '<strong>Beschikbare tags:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Selecteer de standaard rekening, belasting en betalingsmethode om snel records te creëren. Dashboard en rapporten worden weergegeven onder de standaardvaluta.',
