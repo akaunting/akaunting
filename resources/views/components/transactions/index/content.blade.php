@@ -58,16 +58,22 @@
             <x-slot name="content">
                 @if ((! $hideSearchString) && (! $hideBulkAction))
                     <x-index.search
+                        search-string="{{ $searchStringModel }}"
+                        bulk-action="{{ $bulkActionClass }}"
+                        route="{{ $searchRoute }}"
+
                         search-string="App\Models\Banking\Transaction"
                         bulk-action="App\BulkActions\Banking\Transactions"
                     />
                 @elseif ((! $hideSearchString) && $hideBulkAction)
                     <x-index.search
-                        search-string="App\Models\Banking\Transaction"
+                        search-string="{{ $searchStringModel }}"
+                        route="{{ $searchRoute }}"
                     />
                 @elseif ($hideSearchString && (! $hideBulkAction))
                     <x-index.search
-                        bulk-action="App\BulkActions\Banking\Transactions"
+                        bulk-action="{{ $bulkActionClass }}"
+                        route="{{ $searchRoute }}"
                     /> 
                 @endif
 

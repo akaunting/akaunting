@@ -71,6 +71,23 @@ abstract class Index extends Component
 
     public $hideBulkAction;
 
+    public $bulkActions;
+
+    /** @var string */
+    public $searchStringModel;
+
+    /** @var string */
+    public $bulkActionClass;
+
+    /** @var array */
+    public $bulkActionRouteParameters;
+
+    /** @var string */
+    public $searchRoute;
+
+    /** @var string */
+    public $classBulkAction;
+
     public $hidePaidAt;
 
     public $hideNumber;
@@ -154,6 +171,7 @@ abstract class Index extends Component
         bool $hideEmptyPage = false,
         bool $hideSummary = false, array $summaryItems = [],
         bool $hideSearchString = false, bool $hideBulkAction = false,
+        string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '', string $classBulkAction = '',
         bool $hidePaidAt = false, bool $hideNumber = false, string $classPaidAtAndNumber = '', string $textPaidAt = '', string $textNumber = '',
         bool $hideStartedAt = false, bool $hideEndedAt = false, string $classStartedAtAndEndedAt = '', string $textStartedAt = '', string $textEndedAt = '',
         bool $hideType = false, bool $hideCategory = false, string $classTypeAndCategory = '', string $textType = '', string $textCategory = '',
@@ -209,6 +227,15 @@ abstract class Index extends Component
         /* Container Start */
         $this->hideSearchString = $hideSearchString;
         $this->hideBulkAction = $hideBulkAction;
+
+        $this->searchStringModel = $this->getSearchStringModel($type, $searchStringModel);
+
+        $this->bulkActionClass = $this->getBulkActionClass($type, $bulkActionClass);
+        $this->bulkActionRouteParameters = $this->getBulkActionRouteParameters($type, $bulkActionRouteParameters);
+
+        $this->searchRoute = $this->getIndexRoute($type, $searchRoute);
+
+        $this->classBulkAction = $this->getClassBulkAction($type, $classBulkAction);
         
         /* Document Start */
         $this->hidePaidAt = $hidePaidAt;
