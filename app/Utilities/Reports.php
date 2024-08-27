@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Events\Report\ClassesCreated as ReportClassesCreated;
 use App\Models\Common\Report;
 use App\Models\Module\Module;
 use App\Traits\Modules;
@@ -32,6 +33,13 @@ class Reports
 
             $list = array_merge($list, (array) $m->get('reports'));
         });
+
+        // Added New Event
+        $report_classes = collect($list);
+
+        event(new ReportClassesCreated($report_classes));
+
+        $list = $report_classes->all();
 
         foreach ($list as $class) {
             if (! class_exists($class) || ($check_permission && static::cannotRead($class))) {

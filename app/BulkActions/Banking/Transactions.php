@@ -85,7 +85,7 @@ class Transactions extends BulkAction
 
         $category_and_contact = count($types) > 1 ? false : true;
 
-        return $this->response('bulk-actions.banking.transactions.edit', compact('selected' , 'category_and_contact', 'real_type', 'contact_type', 'account_currency_code'));
+        return $this->response('bulk-actions.banking.transactions.edit', compact('selected', 'category_and_contact', 'real_type', 'contact_type', 'account_currency_code'));
     }
 
     public function update($request)
