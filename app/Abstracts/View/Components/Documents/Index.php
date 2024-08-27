@@ -7,6 +7,7 @@ use App\Traits\Documents;
 use App\Traits\Modules;
 use App\Traits\SearchString;
 use App\Traits\ViewComponents;
+use App\Models\Document\Document;
 use Illuminate\Support\Str;
 
 abstract class Index extends Component
@@ -20,6 +21,12 @@ abstract class Index extends Component
     /* -- Main Start -- */
     /** @var string */
     public $type;
+
+    /** @var string */
+    public $contact_type;
+
+    /** @var string */
+    public $category_type;
 
     /** @var string */
     public $alias;
@@ -188,6 +195,9 @@ abstract class Index extends Component
     /** @var bool */
     public $hideCategory;
 
+    /** @var bool */
+    public $hideCurrency;
+
     /** @var string */
     public $textCategory;
 
@@ -255,7 +265,7 @@ abstract class Index extends Component
      * @return void
      */
     public function __construct(
-        string $type, string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
+        string $type, string $contact_type = '', string $category_type = '', string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
         string $routeTabDocument = '', string $routeTabRecurring = '', string $routeParamsTabUnpaid = '', string $routeParamsTabDraft = '',
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         bool $hideAcceptPayment = false, bool $checkPermissionCreate = true,
@@ -269,7 +279,7 @@ abstract class Index extends Component
         bool $hideDueAt = false, bool $hideIssuedAt = false, string $classDueAtAndIssueAt = '', string $textDueAt = '', string $textIssuedAt = '',
         bool $hideStartedAt = false, bool $hideEndedAt = false, string $classStartedAtAndEndedAt = '', string $textStartedAt = '', string $textEndedAt = '',
         bool $hideStatus = false, string $classStatus = '',
-        bool $hideCategory = false, string $textCategory = '',
+        bool $hideCategory = false, string $textCategory = '', bool $hideCurrency = false,
         bool $hideFrequency = false, bool $hideDuration = false, string $classFrequencyAndDuration = '',
         bool $hideContactName = false, bool $hideDocumentNumber = false, string $classContactNameAndDocumentNumber = '', string $textContactName = '', string $showContactRoute = '', string $textDocumentNumber = '',
         bool $hideAmount = false, string $classAmount = '',
@@ -279,6 +289,8 @@ abstract class Index extends Component
     ) {
         /* -- Main Start -- */
         $this->type = $type;
+        $this->contact_type = $this->getTypeContact($type, $contact_type);
+        $this->category_type = $this->getTypeCategory($type, $category_type);
         $this->alias = $this->getAlias($type, $alias);
         $this->documents = ($documents) ? $documents : collect();
         $this->totalDocuments = $this->getTotalDocuments($totalDocuments);
@@ -364,6 +376,7 @@ abstract class Index extends Component
 
         $this->hideCategory = $hideCategory;
         $this->textCategory = $this->getTextCategory($type, $textCategory);
+        $this->hideCurrency = $hideCurrency;
 
         $this->hideFrequency = $hideFrequency;
         $this->hideDuration = $hideDuration;
@@ -398,6 +411,31 @@ abstract class Index extends Component
 
         // Set Parent data
         $this->setParentData();
+    }
+
+    protected function getTypeContact($type, $typeContact)
+    {
+        if (! empty($typeContact)) {
+            return $typeContact;
+        }
+
+        return config('type.' . static::OBJECT_TYPE . '.' . $type . '.contact_type', 'customer');
+    }
+
+    protected function getTypeCategory($type, $typeCategory)
+    {
+        if (!empty($typeCategory)) {
+            return $typeCategory;
+        }
+
+        if ($category_type = config('type.' . static::OBJECT_TYPE . '.' . $type . '.category_type')) {
+            return $category_type;
+        }
+
+        // set default type
+        $type = Document::INVOICE_TYPE;
+
+        return config('type.' . static::OBJECT_TYPE .'.' . $type . '.category_type');
     }
 
     protected function getTotalDocuments($totalDocuments)
