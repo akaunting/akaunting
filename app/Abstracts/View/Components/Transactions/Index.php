@@ -88,6 +88,8 @@ abstract class Index extends Component
     /** @var string */
     public $classBulkAction;
 
+    public $hidePaymentMethod;
+
     public $hidePaidAt;
 
     public $hideNumber;
@@ -172,6 +174,7 @@ abstract class Index extends Component
         bool $hideSummary = false, array $summaryItems = [],
         bool $hideSearchString = false, bool $hideBulkAction = false,
         string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '', string $classBulkAction = '',
+        bool $hidePaymentMethod = false,
         bool $hidePaidAt = false, bool $hideNumber = false, string $classPaidAtAndNumber = '', string $textPaidAt = '', string $textNumber = '',
         bool $hideStartedAt = false, bool $hideEndedAt = false, string $classStartedAtAndEndedAt = '', string $textStartedAt = '', string $textEndedAt = '',
         bool $hideType = false, bool $hideCategory = false, string $classTypeAndCategory = '', string $textType = '', string $textCategory = '',
@@ -236,6 +239,9 @@ abstract class Index extends Component
         $this->searchRoute = $this->getIndexRoute($type, $searchRoute);
 
         $this->classBulkAction = $this->getClassBulkAction($type, $classBulkAction);
+
+        $this->hidePaymentMethod = $hidePaymentMethod;
+
         
         /* Document Start */
         $this->hidePaidAt = $hidePaidAt;
