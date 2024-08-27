@@ -253,7 +253,9 @@ class Category extends Model
      */
     public function getColorHexCodeAttribute(): string
     {
-        return $this->getHexCodeOfTailwindClass($this->color);
+        $color = $this->color ?? 'green-500';
+
+        return $this->getHexCodeOfTailwindClass($color);
     }
 
     /**
