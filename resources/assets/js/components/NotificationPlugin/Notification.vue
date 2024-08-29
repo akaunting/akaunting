@@ -4,7 +4,7 @@
         data-notify="container"
         :class="[
             'alert alert-notify',
-            'fixed w-full sm:w-500 flex items-center justify-between',
+            'fixed flex items-center justify-between',
             {
                 'rtl:right-0 ltr:left-0' : horizontalAlign == 'left',
                 'sm:rtl:right-4 sm:ltr:left-4' : horizontalAlign == 'left',
@@ -25,7 +25,7 @@
         ]"
         role="alert"
         :style="customPosition"
-        style="z-index: 100;"
+        style="z-index: 100; max-width: 60%;"
         data-notify-position="top-center"
     >
         <div class="flex items-center ltr:pr-3 rtl:pl-3">
