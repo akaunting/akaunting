@@ -61,6 +61,7 @@ lg:h-6
 lg:text-xl
 lg:grid-cols-2
 lg:grid-cols-3
+lg:grid-cols-4
 lg:my-16
 lg:h-98
 lg:leading-4
