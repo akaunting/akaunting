@@ -214,6 +214,19 @@ trait ViewComponents
         return $script_key;
     }
 
+    public function getTabActiveFromSetting($type)
+    {
+        $tabs = setting('favorites.tab.' . user()->id, []);
+
+        if (empty($tabs)) {
+            return false;
+        }
+
+        $tabs = json_decode($tabs, true);
+
+        return $tabs[$type] ?? false;
+    }
+
     protected function getTextPage($type, $textPage)
     {
         if (! empty($textPage)) {

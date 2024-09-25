@@ -113,6 +113,7 @@ return [
                 'params' => [
                     'unpaid'            => ['search' => 'status:sent,viewed,partial'],
                     'draft'             => ['search' => 'status:draft'],
+                    'all'               => ['list_records' => 'all'],
                 ],
             ],
             'permission' => [
@@ -218,6 +219,7 @@ return [
                 'params' => [
                     'unpaid'            => ['search' => 'status:received,partial'],
                     'draft'             => ['search' => 'status:draft'],
+                    'all'               => ['list_records' => 'all'],
                 ],
             ],
             'permission' => [

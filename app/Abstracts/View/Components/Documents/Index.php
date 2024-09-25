@@ -567,8 +567,22 @@ abstract class Index extends Component
 
         $status = $this->getSearchStringValue('status');
 
-        if ($status == 'draft') {
+        $unpaid = str_replace('status:', '', config('type.document.' . $type . '.route.params.unpaid.search'));
+
+        if ($status == $unpaid) {
+            return 'unpaid';
+        }
+
+        $draft = str_replace('status:', '', config('type.document.' . $type . '.route.params.draft.search'));
+
+        if ($status == $draft) {
             return 'draft';
+        }
+
+        $suffix = $this->getTabActiveFromSetting($type);
+
+        if (! empty($suffix)) {
+            return $suffix;
         }
 
         return 'unpaid';
