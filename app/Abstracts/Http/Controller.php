@@ -103,7 +103,7 @@ abstract class Controller extends BaseController
         // Added this method to set the active tab for documents
         if (! request()->has('list_records') && ! request()->has('search')) {
             $tab_pins = setting('favorites.tab.' . user()->id, []);
-            $tab_pins = json_decode($tab_pins, true);
+            $tab_pins = ! empty($tab_pins) ? json_decode($tab_pins, true) : [];
 
             if (! empty($tab_pins) && ! empty($tab_pins[$this->type])) {
                 $data = config('type.document.' . $this->type . '.route.params.' . $tab_pins[$this->type]);
@@ -142,7 +142,7 @@ abstract class Controller extends BaseController
         // Added this method to set the active tab for transactions
         if (! request()->has('list_records') && ! request()->has('search')) {
             $tab_pins = setting('favorites.tab.' . user()->id, []);
-            $tab_pins = json_decode($tab_pins, true);
+            $tab_pins = ! empty($tab_pins) ? json_decode($tab_pins, true) : [];
 
             if (! empty($tab_pins) && ! empty($tab_pins['transactions'])) {
                 $data = config('type.transaction.transactions.route.params.' . $tab_pins['transactions']);
