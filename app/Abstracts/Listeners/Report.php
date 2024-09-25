@@ -286,7 +286,13 @@ abstract class Report
 
     public function getFormattedDate($event, $date)
     {
-        return $this->getPeriodicDate($date, $event->class->getSetting('period'), $event->class->year);
+        $period = $this->getSearchStringValue('period');
+
+        if (empty($period)) {
+            $period = $event->class->getSetting('period');
+        }
+
+        return $this->getPeriodicDate($date, $period, $event->class->year);
     }
 
     protected function fireEvent($event_class, $event, $group = null)
