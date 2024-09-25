@@ -88,6 +88,12 @@ abstract class Index extends Component
     /** @var string */
     public $classBulkAction;
 
+    /** @var string */
+    public $tabActive;
+
+    /** @var string */
+    public $tabSuffix;
+
     public $hidePaymentMethod;
 
     public $hidePaidAt;
@@ -174,6 +180,7 @@ abstract class Index extends Component
         bool $hideSummary = false, array $summaryItems = [],
         bool $hideSearchString = false, bool $hideBulkAction = false,
         string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '', string $classBulkAction = '',
+        string $tabActive = '', string $tabSuffix = '',
         bool $hidePaymentMethod = false,
         bool $hidePaidAt = false, bool $hideNumber = false, string $classPaidAtAndNumber = '', string $textPaidAt = '', string $textNumber = '',
         bool $hideStartedAt = false, bool $hideEndedAt = false, string $classStartedAtAndEndedAt = '', string $textStartedAt = '', string $textEndedAt = '',
@@ -240,9 +247,11 @@ abstract class Index extends Component
 
         $this->classBulkAction = $this->getClassBulkAction($type, $classBulkAction);
 
+        $this->tabSuffix = $this->getTabSuffix($type, $tabSuffix);
+        $this->tabActive = $this->getTabActive($type, $tabActive);
+
         $this->hidePaymentMethod = $hidePaymentMethod;
 
-        
         /* Document Start */
         $this->hidePaidAt = $hidePaidAt;
         $this->hideNumber = $hideNumber;
@@ -441,6 +450,42 @@ abstract class Index extends Component
 
         #todo this lines
         return [];
+    }
+
+    public function getTabActive($type, $tabActive)
+    {
+        if (! empty($tabActive)) {
+            return $tabActive;
+        }
+
+        $search_type = $type == 'income-recurring' ? 'recurring-transactions' : search_string_value('type');
+
+        return ($this->tabSuffix) ? 'transactions-' . $this->tabSuffix : $search_type;
+    }
+
+    public function getTabSuffix($type, $tabSuffix)
+    {
+        if (! empty($tabSuffix)) {
+            return $tabSuffix;
+        }
+
+        $search_type = $type == 'income-recurring' ? 'recurring-transactions' : search_string_value('type');
+
+        if ($search_type == 'income') {
+            return 'income';
+        }
+
+        if ($search_type == 'expense') {
+            return 'expense';
+        }
+
+        $suffix = $this->getTabActiveFromSetting($type);
+
+        if (! empty($suffix)) {
+            return $suffix;
+        }
+
+        return 'all';
     }
 
     protected function getClassPaidAtAndNumber($type, $classPaidAtAndNumber)

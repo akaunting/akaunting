@@ -37,6 +37,8 @@ class Transactions extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForTransactions();
+
         $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
 
         $total_transactions = Transaction::count();

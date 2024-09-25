@@ -32,24 +32,57 @@
             $active_tab = empty($search_type) ? 'transactions' : (($search_type == 'income') ? 'transactions-income' : (($search_type == 'expense') ? 'transactions-expense' : 'recurring-templates'));
         @endphp
 
-        <x-tabs active="{{ $active_tab }}">
+        <x-tabs active="{{ $tabActive }}">
             <x-slot name="navs">
-                @if ($search_type == 'income')
-                    <x-tabs.nav id="transactions-income" name="{{ trans_choice('general.incomes', 1) }}" active />
+                @if ($tabActive == $type . '-income')
+                    <x-tabs.nav-pin
+                        id="transactions-income"
+                        name="{{ trans_choice('general.incomes', 1) }}"
+                        type="transactions"
+                        tab="income"
+                    />
                 @else
-                    <x-tabs.nav-link id="transactions-income" name="{{ trans_choice('general.incomes', 1) }}" href="{{ route('transactions.index', ['search' => 'type:income']) }}" />
+                    <x-tabs.nav-pin
+                        id="transactions-income"
+                        href="{{ route('transactions.index', ['search' => 'type:income']) }}"
+                        name="{{ trans_choice('general.incomes', 1) }}"
+                        type="transactions"
+                        tab="income"
+                    />
                 @endif
 
-                @if ($search_type == 'expense')
-                    <x-tabs.nav id="transactions-expense" name="{{ trans_choice('general.expenses', 1) }}" active />
+                @if ($tabActive == $type . '-expense')
+                    <x-tabs.nav-pin
+                        id="transactions-expense"
+                        name="{{ trans_choice('general.expenses', 1) }}"
+                        type="transactions"
+                        tab="expense"
+                    />
                 @else
-                    <x-tabs.nav-link id="transactions-expense" name="{{ trans_choice('general.expenses', 1) }}" href="{{ route('transactions.index', ['search' => 'type:expense']) }}" />
+                    <x-tabs.nav-pin
+                        id="transactions-expense"
+                        href="{{ route('transactions.index', ['search' => 'type:expense']) }}"
+                        name="{{ trans_choice('general.expenses', 1) }}"
+                        type="transactions"
+                        tab="expense"
+                    />
                 @endif
 
-                @if (empty($search_type))
-                    <x-tabs.nav id="transactions" name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}" active />
+                @if ($tabActive == $type . '-all')
+                    <x-tabs.nav-pin
+                        id="transactions"
+                        name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}"
+                        type="transactions"
+                        tab="all"
+                    />
                 @else
-                    <x-tabs.nav-link id="transactions" name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}" href="{{ route('transactions.index') }}" />
+                    <x-tabs.nav-pin
+                        id="transactions"
+                        href="{{ route('transactions.index', ['list_records' => 'all']) }}"
+                        name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}"
+                        type="transactions"
+                        tab="all"
+                    />
                 @endif
 
                 <x-tabs.nav-link id="recurring-templates" name="{{ trans_choice('general.recurring_templates', 2) }}" href="{{ route('recurring-transactions.index') }}" />
@@ -77,8 +110,8 @@
                     /> 
                 @endif
 
-                @if ($active_tab != 'recurring-templates')
-                    <x-tabs.tab id="{{ $active_tab }}">
+                @if ($tabActive != 'recurring-templates')
+                    <x-tabs.tab id="{{ $tabActive }}">
                         <x-transactions.index.transaction :type="$type" :transactions="$transactions" />
                     </x-tabs.tab>
                 @else
