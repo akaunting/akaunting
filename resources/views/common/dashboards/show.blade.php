@@ -4,31 +4,7 @@
     </x-slot>
 
     <x-slot name="title">
-        @if ($user_dashboards->count() > 1)
-            <div class="flex items-center relative cursor-pointer">
-                <x-dropdown id="show-dashboard-list">
-                    <x-slot name="trigger" class="flex items-center" override="class">
-                        <span class="text-2xl xl:text-5xl text-black font-light truncate">
-                            <x-button.hover color="to-black-700">
-                                {{ $dashboard->name }}
-                            </x-button.hover>
-                        </span>
-
-                        <svg class="w-5 h-5 mt-1 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </x-slot>
-
-                    @foreach ($user_dashboards as $user_dashboard)
-                        <x-dropdown.link href="{{ route('dashboards.switch', $user_dashboard->id) }}" id="show-dashboard-switch-{{ $user_dashboard->id }}">
-                            {{ $user_dashboard->name }}
-                        </x-dropdown.link>
-                    @endforeach
-                </x-dropdown>
-            </div>
-        @else
-            {{ $dashboard->name }}
-        @endif
+        {{ $dashboard->name }}
     </x-slot>
 
     <x-slot name="buttons">
@@ -145,6 +121,36 @@
     @endsection
 
     <x-slot name="content">
+        <div class="flex justify-between items-start border-b pt-8">
+            <div class="flex space-x-10">
+                @foreach ($user_dashboards as $user_dashboard)
+                    <a href="{{ route('dashboards.switch', $user_dashboard->id) }}"
+                    id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                    @class([
+                        'relative pb-3 font-medium text-gray-500 cursor-pointer inline-block',
+                        'border-b whitespace-nowrap border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md' => $dashboard->id == $user_dashboard->id,
+                    ])>
+                        {{ $user_dashboard->name }}
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="flex space-x-10">
+                <button
+                @click="onCreateWidget()"
+                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
+                type="button"
+                class="text-purple font-medium"
+                id="show-more-actions-add-widget">
+                    {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
+                </button>
+
+                <a href="{{ route('dashboards.create') }}" id="show-more-actions-new-dashboard" class="text-purple font-medium">
+                    {{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}
+                </a>
+            </div>
+        </div>
+
         <div class="dashboard flex flex-wrap px-6 lg:-mx-12">
             @foreach($widgets as $widget)
                 @widget($widget)
