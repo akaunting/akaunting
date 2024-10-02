@@ -42,8 +42,8 @@
     <script type="text/javascript"><!--
         var url = '{{ url("/" . company_id()) }}';
         var app_url = '{{ config("app.url") }}';
-        var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
-        var all_currencies = {!! !empty($currencies) ? $currencies : '[]' !!};
+        var aka_currency = {!! !empty($currency) ? json_encode($currency) : 'false' !!};
+        var all_currencies = {!! !empty($currencies) ? json_encode($currencies) : '[]' !!};
     //--></script>
 
     <x-script.exceptions.trackers />
