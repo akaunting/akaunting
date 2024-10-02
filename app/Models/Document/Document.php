@@ -58,6 +58,8 @@ class Document extends Model
         'subheading',
         'notes',
         'footer',
+        'template',
+        'color',
         'parent_id',
         'created_from',
         'created_by',
