@@ -40,7 +40,7 @@
     </x-slot>
 
     @section('dashboard_action')
-        @canany(['create-common-widgets', 'read-common-dashboards'])
+        @canany(['delete-common-dashboards', 'update-common-dashboards'])
             <div class="dashboard-action">
                 <x-dropdown id="show-more-actions-dashboard">
                     <x-slot name="trigger" class="flex" override="class">
@@ -49,30 +49,15 @@
                         </span>
                     </x-slot>
 
-                    @can('create-common-widgets')
-                        <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
-                            <x-button
-                                type="button"
-                                id="show-more-actions-add-widget"
-                                class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100"
-                                override="class"
-                                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
-                                @click="onCreateWidget()"
-                            >
-                                {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
-                            </x-button>
-                        </div>
+                    @can('delete-common-dashboards')
+                        <x-delete-link :model="$dashboard" :route="'dashboards.destroy'" />
 
-                        <x-dropdown.divider />
+                        <div class="py-2 px-2">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
                     @endcan
 
                     @can('update-common-dashboards')
-                        @can('create-common-dashboards')
-                        <x-dropdown.link href="{{ route('dashboards.create') }}" id="show-more-actions-new-dashboard">
-                            {{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}
-                        </x-dropdown.link>
-                        @endcan
-
                         <x-dropdown.link href="{{ route('dashboards.index') }}" id="show-more-actions-manage-dashboards">
                             {{ trans('general.title.manage', ['type' => trans_choice('general.dashboards', 2)]) }}
                         </x-dropdown.link>
@@ -136,18 +121,24 @@
             </div>
 
             <div class="flex space-x-10">
-                <button
-                @click="onCreateWidget()"
-                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
-                type="button"
-                class="text-purple font-medium"
-                id="show-more-actions-add-widget">
-                    {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
-                </button>
+                @can('create-common-widgets')
+                    <x-button
+                        type="button"
+                        id="show-more-actions-add-widget"
+                        class="text-purple font-medium"
+                        override="class"
+                        title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
+                        @click="onCreateWidget()"
+                    >
+                        {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
+                    </x-button>
+                @endcan
 
-                <a href="{{ route('dashboards.create') }}" id="show-more-actions-new-dashboard" class="text-purple font-medium">
-                    {{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}
-                </a>
+                @can('create-common-dashboards')
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="text-purple font-medium" id="show-more-actions-new-dashboard">
+                        {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
+                    </x-link>
+                @endcan
             </div>
         </div>
 
