@@ -280,19 +280,19 @@ trait Documents
             [
                 'id' => 'default',
                 'name' => trans('settings.invoice.default'),
-                'image' => asset('assets/img/templates/default.png'),
+                'image' => asset('public/img/invoice_templates/default.png'),
                 'template' => 'default',
             ],
             [
                 'id' => 'classic',
                 'name' => trans('settings.invoice.classic'),
-                'image' => asset('assets/img/templates/classic.png'),
+                'image' => asset('public/img/invoice_templates/classic.png'),
                 'template' => 'classic',
             ],
             [
                 'id' => 'modern',
                 'name' => trans('settings.invoice.modern'),
-                'image' => asset('assets/img/templates/modern.png'),
+                'image' => asset('public/img/invoice_templates/modern.png'),
                 'template' => 'modern',
             ],
         ]);
