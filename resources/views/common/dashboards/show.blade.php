@@ -106,26 +106,30 @@
     @endsection
 
     <x-slot name="content">
-        <div class="flex justify-between items-start border-b pt-8">
-            <div class="flex space-x-10">
-                @foreach ($user_dashboards as $user_dashboard)
-                    <a href="{{ route('dashboards.switch', $user_dashboard->id) }}"
-                    id="show-dashboard-switch-{{ $user_dashboard->id }}"
-                    @class([
-                        'relative pb-3 font-medium text-gray-500 cursor-pointer inline-block',
-                        'border-b whitespace-nowrap border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md' => $dashboard->id == $user_dashboard->id,
-                    ])>
-                        {{ $user_dashboard->name }}
-                    </a>
-                @endforeach
+        <div class="justify-between items-start border-b pt-8 grid sm:grid-cols-12">
+            <div class="space-x-10 col-span-9">
+                <x-tabs active="documents">
+                    <x-slot name="navs">
+                        @foreach ($user_dashboards as $user_dashboard)
+                            <x-tabs.nav-link 
+                                id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                                href="{{ route('dashboards.switch', $user_dashboard->id) }}"
+                                :active="$dashboard->id == $user_dashboard->id"
+                                name="{{ $user_dashboard->name }}"
+                            />
+                        @endforeach
+                    </x-slot>
+    
+                    <x-slot name="content"></x-slot>
+                </x-tabs>
             </div>
 
-            <div class="flex space-x-10">
+            <div class="space-x-10 col-span-3">
                 @can('create-common-widgets')
                     <x-button
                         type="button"
                         id="show-more-actions-add-widget"
-                        class="text-purple font-medium"
+                        class="text-purple font-medium tabs-link"
                         override="class"
                         title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
                         @click="onCreateWidget()"
@@ -135,7 +139,7 @@
                 @endcan
 
                 @can('create-common-dashboards')
-                    <x-link href="{{ route('dashboards.create') }}" override="class" class="text-purple font-medium" id="show-more-actions-new-dashboard">
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="text-purple font-medium tabs-link" id="show-more-actions-new-dashboard">
                         {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
                     </x-link>
                 @endcan
