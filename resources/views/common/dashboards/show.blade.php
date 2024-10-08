@@ -119,7 +119,7 @@
                             />
                         @endforeach
                     </x-slot>
-    
+
                     <x-slot name="content"></x-slot>
                 </x-tabs>
             </div>
@@ -129,7 +129,7 @@
                     <x-button
                         type="button"
                         id="show-more-actions-add-widget"
-                        class="px-3 py-1.5 mb-1 text-purple hover:bg-gray-100 rounded-xl font-medium tabs-link"
+                        class="relative flex-auto px-3 pb-2 h-8 text-purple font-medium tabs-link"
                         override="class"
                         title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
                         @click="onCreateWidget()"
@@ -139,7 +139,7 @@
                 @endcan
 
                 @can('create-common-dashboards')
-                    <x-link href="{{ route('dashboards.create') }}" override="class" class="px-3 py-2 mb-1 text-purple hover:bg-gray-100 rounded-xl font-medium tabs-link" id="show-more-actions-new-dashboard">
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 h-8 text-purple font-medium tabs-link" id="show-more-actions-new-dashboard">
                         {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
                     </x-link>
                 @endcan
