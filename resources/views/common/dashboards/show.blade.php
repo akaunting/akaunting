@@ -124,7 +124,7 @@
                 </x-tabs>
             </div>
 
-            <div class="col-span-3">
+            <div class="col-span-3 ml-6">
                 @can('create-common-widgets')
                     <x-button
                         type="button"
