@@ -1,11 +1,11 @@
 // remove dropdown menu when mouseleave in index more actions
 document.querySelectorAll("[data-table-list]").forEach((row) => {
-  row.addEventListener("mouseleave", function() {
-      if (row.querySelector("[data-dropdown-actions]")) {
-          row.querySelector("[data-dropdown-actions]").classList.remove("block");
-          row.querySelector("[data-dropdown-actions]").classList.add("hidden");
-      }
-  });
+    row.addEventListener("mouseleave", function() {
+        if (row.querySelector("[data-dropdown-actions]")) {
+            row.querySelector("[data-dropdown-actions]").classList.remove("block");
+            row.querySelector("[data-dropdown-actions]").classList.add("hidden");
+        }
+    });
 });
 // remove dropdown menu when mouseleave in index more actions
 
@@ -17,7 +17,7 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
         rows.forEach((row) => {
             let row_href = row.getAttribute("href");
 
-            if (!row_href) {
+            if (! row_href) {
                 return;
             }
 
@@ -32,10 +32,12 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                         if (document.body.clientWidth < 768 && event.target.closest('[overflow-x-hidden]')) {
                             return;
                         }
+
                         // click disabled when preview dialog is open
                         if (event.target.closest('[data-tooltip-target]')) {
                             return;
                         }
+
                         // click disabled when preview dialog is open
                         window.location.href = row_href;
                     });
@@ -45,8 +47,8 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
                         if (event.button == 1 || event.buttons == 4) {
                             window.open(row_href, "_blank");
                         }
-                     });
-                     // added target blank for click mouse middle button
+                    });
+                    // added target blank for click mouse middle button
                 }
             }
         });
@@ -55,11 +57,12 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
     if (document.body.clientWidth <= 768) {
         table.querySelectorAll('[data-table-list]').forEach((actions) => {
             let actions_html = actions.querySelector('[data-mobile-actions]');
+
             if (actions_html) {
                 actions_html.addEventListener('click', function() {
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.add('show');
                     this.closest('td').querySelector('[data-mobile-actions-modal]').classList.remove('opacity-0', 'invisible');
-            
+
                     this.closest('td').querySelector('[data-mobile-actions-modal]').addEventListener('click', function() {
                         this.classList.add('opacity-0', 'invisible');
                         this.classList.remove('show');
@@ -73,59 +76,58 @@ document.querySelectorAll("[data-table-body]").forEach((table) => {
 
 //collapse accordion
 function toggleSub(key, event) {
-  let isExpanded =
-      document.querySelectorAll(
-          `[data-collapse="${key}"]` + ".active-collapse"
-      ).length > 0;
+    let isExpanded =
+        document.querySelectorAll(
+            `[data-collapse="${key}"]` + ".active-collapse"
+        ).length > 0;
 
-  if (isExpanded) {
-      this.collapseSub(key, event);
-  } else {
-      this.expandSub(key, event);
-  }
+    if (isExpanded) {
+        this.collapseSub(key, event);
+    } else {
+        this.expandSub(key, event);
+    }
 }
 
 function collapseSub(key, event) {
-  event.stopPropagation();
-  event.target.classList.add("rotate-90");
+    event.stopPropagation();
+    event.target.classList.add("rotate-90");
 
-  document
-      .querySelectorAll(`[data-collapse="${key}"]` + ".active-collapse")
-      .forEach(function(element) {
-          element.classList.toggle("active-collapse");
-          element.classList.toggle("collapse-sub");
-      });
+    document
+        .querySelectorAll(`[data-collapse="${key}"]` + ".active-collapse")
+        .forEach(function(element) {
+            element.classList.toggle("active-collapse");
+            element.classList.toggle("collapse-sub");
+        });
 
-  // if collapsed key has childs(table row constantly), they will be collapsed as well
-  document
-      .querySelectorAll(`[data-collapse="${key}"]` + " button[node|='child']")
-      .forEach(function(element) {
-              element.childNodes[0].classList.add("rotate-90")
+    // if collapsed key has childs(table row constantly), they will be collapsed as well
+    document
+        .querySelectorAll(`[data-collapse="${key}"]` + " button[node|='child']")
+        .forEach(function(element) {
+            element.childNodes[0].classList.add("rotate-90");
 
-              this.collapseSub(element.getAttribute("node"), event);
-          }.bind(this)
-      );
+            this.collapseSub(element.getAttribute("node"), event);
+        }.bind(this));
 }
 
 function expandSub(key, event) {
-  event.stopPropagation();
-  event.target.classList.remove("rotate-90");
+    event.stopPropagation();
+    event.target.classList.remove("rotate-90");
 
-  document
-      .querySelectorAll(`[data-collapse="${key}"]`)
-      .forEach(function(element) {
-          if (element.getAttribute("data-animation")) {
-              element.classList.toggle("active-collapse-animation");
-          }
+    document
+        .querySelectorAll(`[data-collapse="${key}"]`)
+        .forEach(function(element) {
+            if (element.getAttribute("data-animation")) {
+                element.classList.toggle("active-collapse-animation");
+            }
 
-          element.classList.toggle("active-collapse");
-          element.classList.toggle("collapse-sub");
-      });
+            element.classList.toggle("active-collapse");
+            element.classList.toggle("collapse-sub");
+        });
 }
 //collapse accordion
 
 // run dropdown and tooltip functions for Virtual DOM
-document.addEventListener("DOMContentLoaded", () => {    
+document.addEventListener("DOMContentLoaded", () => {
     const triggers = [
         { event: "mouseover", checker: isHoverable },
         { event: "mouseout", checker: isHoverable },
@@ -139,16 +141,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dropdownToggleEl = e.target.closest(
                     "[data-dropdown-toggle]"
                 );
+
                 const tooltipToggleEl = e.target.closest(
                     "[data-tooltip-target]"
                 );
+
                 if (dropdownToggleEl !== null && event == "click") {
                     runDropdown(dropdownToggleEl);
                 }
 
                 if (tooltipToggleEl !== null && event == "mouseover") {
-                  runTooltip(tooltipToggleEl);
-              }
+                    runTooltip(tooltipToggleEl);
+                }
             },
             false
         );
@@ -169,8 +173,8 @@ function runDropdown(dropdownToggleEl) {
     const dropdownMenuId = dropdownToggleEl.getAttribute(
         "data-dropdown-toggle"
     );
-    const dropdownMenuEl = document.getElementById(dropdownMenuId); // options
 
+    const dropdownMenuEl = document.getElementById(dropdownMenuId); // options
     const placement = dropdownToggleEl.getAttribute("data-dropdown-placement");
 
     var element = dropdownToggleEl;
@@ -189,7 +193,8 @@ function runDropdown(dropdownToggleEl) {
                 },
             },
         ],
-    }); // toggle when click on the button
+    }); 
+    // toggle when click on the button
 
     if (dropdownMenuEl !== null) {
         dropdownMenuEl.classList.toggle("hidden");
@@ -197,7 +202,7 @@ function runDropdown(dropdownToggleEl) {
 
         function handleDropdownOutsideClick(event) {
             var targetElement = event.target; // clicked element
-    
+
             if (
                 targetElement !== dropdownMenuEl &&
                 targetElement !== dropdownToggleEl &&
@@ -205,23 +210,29 @@ function runDropdown(dropdownToggleEl) {
             ) {
                 dropdownMenuEl.classList.add("hidden");
                 dropdownMenuEl.classList.remove("block");
+
                 document.body.removeEventListener(
                     "click",
                     handleDropdownOutsideClick,
                     true
                 );
             }
-        } // hide popper when clicking outside the element
-    
+        }
+        // hide popper when clicking outside the element
+
         document.body.addEventListener("click", handleDropdownOutsideClick, true);
-    
+
         if (dropdownMenuEl.getAttribute("data-click-outside-none") != null) {
-            if (event.target.getAttribute("data-click-outside") != null || event.target.parentElement.getAttribute("data-click-outside") != null) {
+            if (
+                event.target.getAttribute("data-click-outside") != null
+                || event.target.parentElement.getAttribute("data-click-outside") != null
+            ) {
                 dropdownMenuEl.classList.add("hidden");
                 dropdownMenuEl.classList.remove("block");
+
                 return;
             }
-            
+
             dropdownMenuEl.classList.add("block");
             dropdownMenuEl.classList.remove("hidden");
         }
@@ -234,8 +245,10 @@ function runTooltip(tooltipToggleEl) {
     const tooltipEl = document.getElementById(
         tooltipToggleEl.getAttribute("data-tooltip-target")
     );
+
     const placement = tooltipToggleEl.getAttribute("data-tooltip-placement");
     const trigger = tooltipToggleEl.getAttribute("data-tooltip-trigger");
+
     const popperInstance = Popper.createPopper(tooltipToggleEl, tooltipEl, {
         placement: placement ? placement : "top",
         modifiers: [
@@ -257,8 +270,7 @@ function runTooltip(tooltipToggleEl) {
                 tooltipEl.classList.add("opacity-100", "visible");
             }
 
-             // Enable the event listeners
-
+            // Enable the event listeners
             popperInstance.setOptions((options) => ({
                 ...options,
                 modifiers: [
@@ -282,8 +294,8 @@ function runTooltip(tooltipToggleEl) {
             } else {
                 tooltipEl.classList.add("opacity-0", "invisible");
             }
-            // Disable the event listeners
 
+            // Disable the event listeners
             popperInstance.setOptions((options) => ({
                 ...options,
                 modifiers: [
@@ -319,6 +331,7 @@ function runTooltip(tooltipToggleEl) {
     showEvents.forEach((event) => {
         tooltipToggleEl.addEventListener(event, show);
     });
+
     hideEvents.forEach((event) => {
         tooltipToggleEl.addEventListener(event, hide);
     });
@@ -327,20 +340,22 @@ function runTooltip(tooltipToggleEl) {
 
 //Auto Height for Textarea
 const tx = document.querySelectorAll('[textarea-auto-height]');
+
 for (let i = 0; i < tx.length; i++) {
-  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
-  tx[i].addEventListener('input', OnInput, false);
+    tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+    tx[i].addEventListener('input', OnInput, false);
 }
 
 function OnInput() {
-  this.style.height = 'auto';
-  this.style.height = (this.scrollHeight) + 'px';
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
 }
 //Auto Height for Textarea
 
 //Loading scenario for href links
 document.querySelectorAll('[data-link-loading]').forEach((href) => {
     let target_link_html = href.parentElement;
+
     target_link_html.classList.add('relative');
 
     target_link_html.addEventListener('click', function () {
@@ -358,12 +373,17 @@ function marqueeAnimation(truncate) {
     if (truncate.closest('[disable-marquee]') !== null) {
         truncate.parentElement.classList.add('truncate');
         truncate.closest('[disable-marquee]').setAttribute('disable-marquee', 'data-disable-marquee');
+
         return;
     }
     // offsetwidth = width of the text, clientWidth = width of parent text (div)
     // because some index page has icons, we use two time parent element
 
-    if (truncate.children.length < 1 && truncate.offsetWidth > truncate.parentElement.clientWidth || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth) {
+    if (
+        truncate.children.length < 1
+        && truncate.offsetWidth > truncate.parentElement.clientWidth
+        || truncate.offsetWidth > truncate.parentElement.parentElement.parentElement.clientWidth
+    ) {
         truncate.addEventListener('mouseover', function () {
             truncate.parentElement.style.animationPlayState = 'running';
 
@@ -374,12 +394,12 @@ function marqueeAnimation(truncate) {
                 truncate.parentElement.classList.remove('animate-marquee_long');
                 truncate.parentElement.classList.add('animate-marquee');
             }
-    
+
             if (truncate.parentElement.classList.contains('truncate')) {
                 truncate.parentElement.classList.remove('truncate');
             }
         });
-    
+
         truncate.addEventListener('mouseout', function () {
             truncate.parentElement.style.animationPlayState = 'paused';
             truncate.parentElement.classList.remove('animate-marquee');
@@ -390,11 +410,14 @@ function marqueeAnimation(truncate) {
         truncate.classList.add('truncate');
 
         // if truncate has truncate class, text marquee animate doesn't pretty work
-        if (truncate.querySelector('.truncate') !== null && truncate.querySelector('.truncate').classList.contains('truncate')) {
+        if (
+            truncate.querySelector('.truncate') !== null
+            && truncate.querySelector('.truncate').classList.contains('truncate')
+        ) {
             let old_element = truncate.querySelector('.truncate');
             let parent = old_element.parentNode;
-            
             let new_element = document.createElement('span');
+
             new_element.innerHTML = old_element.innerHTML;
             new_element.classList = old_element.classList;
 
@@ -404,6 +427,7 @@ function marqueeAnimation(truncate) {
         
         // There needs to be two div for disable/enable icons. If I don't create this div, animation will work with disable/enable icons.-->
         let animate_element = document.createElement('div');
+
         animate_element.classList.add('truncate');
         truncate.parentElement.append(animate_element);
         animate_element.append(truncate);
@@ -423,7 +447,7 @@ document.querySelectorAll('[data-truncate-marquee]').forEach((truncate) => {
 document.querySelectorAll('[data-index-icon]').forEach((defaultText) => {
     if (defaultText.closest('[data-table-list]')) {
         let icon_parents_element = defaultText.parentElement.parentElement.parentElement;
-    
+
         if (icon_parents_element.classList.contains('flex')) {
             icon_parents_element.appendChild(defaultText);
             icon_parents_element.classList.remove('truncate');
@@ -449,7 +473,7 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
             //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
             first.querySelector('h1').classList.add('mr-0.5');
             //added for equalize h1 width and parent element width. Because parent element has -ml-0.5 so didn't equalize
-            
+
             if (first.clientWidth < title_truncate.clientWidth && second.clientHeight > 0) {
                 // added specific width styling for truncate text
                 title_truncate.style.width = first.clientWidth + 'px';
@@ -457,20 +481,20 @@ document.querySelectorAll('[data-page-title-first]').forEach((first) => {
                 title_truncate.style.width = subtract + 'px';
                 title_truncate.classList.add('truncate');
                 // added specific width styling for truncate text
-    
+
                 // added specific width styling into the parent title element for truncate text
                 first.classList.add('w-full', 'sm:w-6/12');
                 // added specific width styling into the parent title element for truncate text
-    
+
                 title_truncate.parentNode.classList.add('overflow-x-hidden', 'hide-scroll-bar');
-        
+
                 // added truncate animation for truncated text
                 title_truncate.addEventListener('mouseover', function () {
                     this.classList.add('animate-marquee');
                     this.classList.remove('truncate');
                     this.style.animationPlayState = 'running';
                 });
-        
+
                 title_truncate.addEventListener('mouseout', function () {
                     this.style.animationPlayState = 'paused';
                     this.classList.remove('animate-marquee');
