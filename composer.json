@@ -52,7 +52,7 @@
         "intervention/image": "^2.5",
         "intervention/imagecache": "^2.5",
         "laracasts/flash": "3.2.*",
-        "laravel/framework": "^10.0",
+        "laravel/framework": "10.48.20",
         "laravel/sanctum": "^3.2",
         "laravel/slack-notification-channel": "^2.3",
         "laravel/tinker": "^2.5",
