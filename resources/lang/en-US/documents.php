@@ -40,7 +40,7 @@ return [
         'invoiced'              => 'Invoiced',
         'overdue'               => 'Overdue',
         'unpaid'                => 'Unpaid',
-        'cancelled'             => 'Cancelled',
+        'cancelled'             => 'Canceled',
         'voided'                => 'Voided',
         'completed'             => 'Completed',
         'shipped'               => 'Shipped',
@@ -76,7 +76,7 @@ return [
         'send'              => ':user sent this :type on :date',
         'schedule'          => 'Repeat every :interval :frequency since :date',
         'children'          => ':count :type were created automatically',
-        'cancel'            => ':user cancelled this :type on :date',
+        'cancel'            => ':user canceled this :type on :date',
     ],
 
     'messages' => [
@@ -86,7 +86,7 @@ return [
         'marked_sent'           => ':type marked as sent!',
         'marked_paid'           => ':type marked as paid!',
         'marked_viewed'         => ':type marked as viewed!',
-        'marked_cancelled'      => ':type marked as cancelled!',
+        'marked_cancelled'      => ':type marked as canceled!',
         'marked_received'       => ':type marked as received!',
     ],
 

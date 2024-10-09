@@ -28,11 +28,12 @@ return [
     'yearly_pricing'        => 'Yearly Pricing',
     'monthly_price'         => 'from :price',
     'per_month'             => 'per month',
-    'billed_yearly'         => 'Billed Yearly',
+    'once'                  => 'once',
     'billed_monthly'        => 'Billed Monthly',
+    'billed_yearly'         => 'Billed Yearly',
+    'billed_once'           => 'Billed Once',
     'save_year'             => 'You save <strong>:price</strong> a year!',
     'if_paid_year'          => 'Or <strong>:price/mo</strong> if paid yearly',
-    'information_monthly'   => 'This option is valid only for <strong>Cloud Service</strong>',
     'install'               => 'Install',
     'buy_now'               => 'Buy Now',
     'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
@@ -48,6 +49,8 @@ return [
     'get_premium_cloud'     => 'Get Premium Cloud',
     'switch_to_cloud'       => 'Switch to Cloud',
     'hosted_on_akaunting'   => 'Hosted on akaunting.com',
+    'information_on_preme'  => ':period option is available only on <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud.</strong></a>',
+    'information_monthly'   => 'This option is valid only for <strong>Cloud Service</strong>',
     'only_works_cloud'      => 'This app only works on <strong>Cloud Service</strong>.',
     'only_premium_plan'     => 'This app only works on <strong>Cloud Premium Service</strong>.',
     'not_found'             => 'No app found',
@@ -100,6 +103,10 @@ return [
         'unzip'             => 'Not able to unzip :module',
         'file_copy'         => 'Not able to copy :module files',
         'finish'            => 'Not able to finalize :module installation',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'You are using the latest version of :module, no updates available.',
     ],
 
     'badge' => [

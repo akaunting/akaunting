@@ -3,12 +3,8 @@
 return [
 
     'years'                         => 'Year|Years',
+    'date_range'                    => 'Date Range',
     'preferences'                   => 'Preference|Preferences',
-    'this_year'                     => 'This Year',
-    'previous_year'                 => 'Previous Year',
-    'this_quarter'                  => 'This Quarter',
-    'previous_quarter'              => 'Previous Quarter',
-    'last_12_months'                => 'Last 12 Months',
     'profit_loss'                   => 'Profit & Loss',
     'income_summary'                => 'Income Summary',
     'expense_summary'               => 'Expense Summary',

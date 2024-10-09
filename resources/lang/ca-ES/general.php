@@ -202,7 +202,7 @@ return [
     'due_on'                => 'Venç el',
     'amount_due'            => 'Quantitat',
     'financial_year'        => 'Any fiscal',
-    'created'               => 'Creat/da',
+    'created'               => 'Creat',
     'state'                 => 'Província/Estat',
     'zip_code'              => 'Codi postal',
     'parent'                => 'Pare/Mare',
@@ -314,6 +314,11 @@ return [
         'previous_quarter'  => 'Trimestre anterior',
         'previous_year'     => 'Any anterior',
         'custom'            => 'Personalitzat',
+    ],
+
+    'pin_text' => [
+        'pin_tab' => 'Marca la pestanya per defecte',
+        'unpin_tab' => 'Desmarca la pestanya per defecte',
     ],
 
     'empty' => [

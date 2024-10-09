@@ -4,10 +4,12 @@ return [
 
     'invoice_number'        => 'Invoice Number',
     'invoice_date'          => 'Invoice Date',
+    'invoice_amount'        => 'Invoice Amount',
     'total_price'           => 'Total Price',
     'due_date'              => 'Due Date',
     'order_number'          => 'Order Number',
     'bill_to'               => 'Bill To',
+    'cancel_date'           => 'Cancel Date',
 
     'quantity'              => 'Quantity',
     'price'                 => 'Price',
@@ -18,6 +20,7 @@ return [
     'total'                 => 'Total',
 
     'item_name'             => 'Item Name|Item Names',
+    'recurring_invoices'    => 'Recurring Invoice|Recurring Invoices',
 
     'show_discount'         => ':discount% Discount',
     'add_discount'          => 'Add Discount',
@@ -39,9 +42,17 @@ return [
     'send_invoice'          => 'Send Invoice',
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
+    'payments_received'     => 'Payments received',
+    'over_payment'          => 'The amount you entered passes the total: :amount',
+
+    'form_description' => [
+        'billing'           => 'Billing details appear in your invoice. Invoice Date is used in the dashboard and reports. Select the date you expect to get paid as the Due Date.',
+    ],
 
     'messages' => [
         'email_required'    => 'No email address for this customer!',
+        'totals_required'   => 'Invoice totals are required. Please edit the :type and save it again.',
+
         'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
 
         'status' => [
@@ -55,6 +66,18 @@ return [
                 'await'     => 'Awaiting payment',
             ],
         ],
+
+        'name_or_description_required' => 'Your invoice must show at least one of the <b>:name</b> or <b>:description</b>.',
+    ],
+
+    'share' => [
+        'show_link'         => 'Your customer can view the invoice at this link',
+        'copy_link'         => 'Copy the link and share it with your customer.',
+        'success_message'   => 'Copied share link to clipboard!',
+    ],
+
+    'sticky' => [
+        'description'       => 'You are previewing how your customer will see the web version of your invoice.',
     ],
 
 ];

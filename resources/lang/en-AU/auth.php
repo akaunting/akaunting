@@ -39,6 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Error: Can not delete yourself!',
         'self_disable'      => 'Error: Can not disable yourself!',
+        'unassigned'        => 'Error: Can not unassign company! The :company company must be assigned at least one user.',
         'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
     ],
 
