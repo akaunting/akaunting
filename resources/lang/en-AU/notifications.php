@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Download is ready',
+            'description'   => 'The file is ready to download from the following link:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Download failed',
+            'description'   => 'Not able to create the file due to the following issue:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -63,7 +81,32 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Invalid :type Email',
+            'description'   => 'The :email email address has been reported as invalid, and the person has been disabled. Please check the following error message and fix the email address:',
+
+        ],
+
+    ],
+
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Download is ready',
+            'description'   => 'Your <strong>:type</strong> file is ready to <a href=":url" target="_blank"><strong>download</strong></a>.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Download failed',
+            'description'   => 'Not able to create the file due to several issues. Check out your email for the details.',
+
+        ],
 
         'export_completed' => [
 
@@ -88,7 +131,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Import failed',
+            'title'         => 'Import failed',
             'description'   => 'Not able to import the file due to several issues. Check out your email for the details.',
 
         ],
@@ -177,6 +220,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Invalid :type Email',
+            'description'   => 'The <strong>:email</strong> email address has been reported as invalid, and the person has been disabled. Please check and fix the email address.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -185,4 +235,16 @@ return [
         'mark_read_all'         => ':type is read all notifications!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Firefox Icon Configuration',
+            'description'  => '<span class="font-medium">If your icons not appear please;</span> <br /> <span class="font-medium">Please Allow pages to choose their own fonts, instead of your selections above</span> <br /><br /> <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span>',
+
+        ],
+
+    ],
+
 ];

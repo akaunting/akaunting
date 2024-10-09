@@ -79,6 +79,8 @@ return [
         'subheading'                    => 'Subtítol',
         'due_receipt'                   => 'Al recepcionar',
         'due_days'                      => 'En :days dies',
+        'due_custom'                    => 'Dia(es) personalitzats',
+        'due_custom_day'                => 'pròxim dia',
         'choose_template'               => 'Tria la plantilla de factura',
         'default'                       => 'Per defecte',
         'classic'                       => 'Clàssica',
@@ -113,6 +115,8 @@ return [
         'use_gravatar'                  => 'Fes servir Gravatar',
         'income_category'               => 'Categoria d\'ingrés',
         'expense_category'              => 'Categoria de despesa',
+        'address_format'                => 'Format de l\'adreça',
+        'address_tags'                  => '<strong>Etiquetes disponibles:</strong>:tags',
 
         'form_description' => [
             'general'                   => 'Selecciona el compte, l\'impost i el mètode de pagament predeterminats per crear registres ràpidament. El tauler i els informes es mostren amb la moneda predeterminada.',

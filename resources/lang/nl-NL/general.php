@@ -316,6 +316,11 @@ return [
         'custom'            => 'Aangepast',
     ],
 
+    'pin_text' => [
+        'pin_tab' => 'Standaard tabblad vastzetten',
+        'unpin_tab' => 'Standaard tabblad losmaken',
+    ],
+
     'empty' => [
         'documentation' => 'Bekijk de <a href=":url" target="_blank">documentatie</a> voor meer details.',
         'items' => 'Items kunnen producten of diensten zijn. U kunt items gebruiken bij het maken van facturen en facturen om de prijs, belastingvelden etc. te laten invullen.',

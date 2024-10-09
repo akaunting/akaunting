@@ -3,7 +3,7 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Efectiu',
+        'cash'              => '',
     ],
 
     'categories' => [

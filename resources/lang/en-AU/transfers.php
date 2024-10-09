@@ -28,6 +28,7 @@ return [
         'create'            => ':user created this transfer on :date',
         'transactions'      => 'In list here are the transactions that were created automatically.',
         'transactions_desc' => ':number transaction for :account',
+        'attachments'       => 'Download the files attached to this transfer',
     ],
 
 ];
