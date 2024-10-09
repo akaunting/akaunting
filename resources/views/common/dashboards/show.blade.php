@@ -107,16 +107,22 @@
 
     <x-slot name="content">
         <div class="justify-between items-start border-b pt-8 grid sm:grid-cols-12">
-            <div class="space-x-10 col-span-9">
-                <x-tabs active="documents">
+            <div class="space-x-10 col-span-9 -mx-8">
+                <x-tabs active="show-dashboard-switch-{{ $dashboard->id }}" class="mt-1">
                     <x-slot name="navs">
                         @foreach ($user_dashboards as $user_dashboard)
-                            <x-tabs.nav-link 
+                            <li 
+                                class="relative flex-auto px-4 text-sm text-center pb-2 cursor-pointer transition-all whitespace-nowrap tabs-link"
                                 id="show-dashboard-switch-{{ $user_dashboard->id }}"
-                                href="{{ route('dashboards.switch', $user_dashboard->id) }}"
-                                :active="$dashboard->id == $user_dashboard->id"
-                                name="{{ $user_dashboard->name }}"
-                            />
+                                data-id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                                data-tabs="{{ $user_dashboard->id }}"
+                                data-tabs-slide
+                                x-bind:class="active != 'show-dashboard-switch-{{ $user_dashboard->id }}' ? 'text-black' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
+                            >
+                                <a href="{{ route('dashboards.switch', $user_dashboard->id) }}">
+                                    {{ $user_dashboard->name }}
+                                </a>
+                            </li>
                         @endforeach
                     </x-slot>
 
@@ -124,12 +130,12 @@
                 </x-tabs>
             </div>
 
-            <div class="col-span-3 ml-6">
+            <div class="col-span-3 ml-6 text-right">
                 @can('create-common-widgets')
                     <x-button
                         type="button"
                         id="show-more-actions-add-widget"
-                        class="relative flex-auto px-3 pb-2 h-8 text-purple font-medium tabs-link"
+                        class="relative flex-auto px-3 pb-1.5 h-8 text-purple text-sm font-medium tabs-link"
                         override="class"
                         title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
                         @click="onCreateWidget()"
@@ -139,7 +145,7 @@
                 @endcan
 
                 @can('create-common-dashboards')
-                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 h-8 text-purple font-medium tabs-link" id="show-more-actions-new-dashboard">
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
                         {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
                     </x-link>
                 @endcan
