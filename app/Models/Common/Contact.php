@@ -162,7 +162,9 @@ class Contact extends Model
     {
         $contacts = collect();
 
-        $contacts->push($this);
+        if (! empty($this->email)) {
+            $contacts->push($this);
+        }
 
         $contact_persons = $this->contact_persons()->whereNotNull('email')->get();
 
