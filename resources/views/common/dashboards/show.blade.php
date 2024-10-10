@@ -106,31 +106,29 @@
     @endsection
 
     <x-slot name="content">
-        <div class="justify-between items-start border-b pt-8 grid sm:grid-cols-12">
-            <div class="space-x-10 col-span-9 -mx-8">
-                <x-tabs active="show-dashboard-switch-{{ $dashboard->id }}" class="mt-1">
-                    <x-slot name="navs">
-                        @foreach ($user_dashboards as $user_dashboard)
-                            <li 
-                                class="relative flex-auto px-4 text-sm text-center pb-2 cursor-pointer transition-all whitespace-nowrap tabs-link"
-                                id="show-dashboard-switch-{{ $user_dashboard->id }}"
-                                data-id="show-dashboard-switch-{{ $user_dashboard->id }}"
-                                data-tabs="{{ $user_dashboard->id }}"
-                                data-tabs-slide
-                                x-bind:class="active != 'show-dashboard-switch-{{ $user_dashboard->id }}' ? 'text-black' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
-                            >
-                                <a href="{{ route('dashboards.switch', $user_dashboard->id) }}">
-                                    {{ $user_dashboard->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </x-slot>
-
-                    <x-slot name="content"></x-slot>
-                </x-tabs>
+        <div class="flex flex-col lg:flex-row justify-between items-start border-b pt-8">
+            <div class="flex w-9/12">
+                <button type="button" id="dashboard-left" class="material-icons-outlined text-purple bg-body -mr-3">chevron_left</button>
+    
+                <div id="dashboard-slider" class="flex space-x-10 overflow-scroll hide-scroll-bar">
+                    @foreach ($user_dashboards as $user_dashboard)
+                        <li 
+                            id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                            class="relative flex-auto px-4 text-sm text-center pb-2 pt-1 cursor-pointer transition-all whitespace-nowrap list-none tabs-link"
+                            x-bind:class="active != 'show-dashboard-switch-{{ $user_dashboard->id }}' ? 'text-black' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
+                            style="margin-left:10px !important;"
+                        >
+                            <a href="{{ route('dashboards.switch', $user_dashboard->id) }}">
+                                {{ $user_dashboard->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </div>
+    
+                <button type="button" id="dashboard-right" class="material-icons-outlined text-purple bg-body mr-1">chevron_right</button>
             </div>
 
-            <div class="col-span-3 ml-6 text-right">
+            <div class="flex flex-col lg:flex-row col-span-3 ml-6 text-right">
                 @can('create-common-widgets')
                     <x-button
                         type="button"
