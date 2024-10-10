@@ -143,7 +143,7 @@
                 @endcan
 
                 @can('create-common-dashboards')
-                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pt-1 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
                         {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
                     </x-link>
                 @endcan
