@@ -258,7 +258,33 @@ export default {
             }
         }
         //swiper slider for long tabs items
+
+        const slider = document.getElementById('dashboard-slider');
+        const scrollLeft = document.getElementById('dashboard-left');
+        const scrollRight = document.getElementById('dashboard-right');
+        
+        scrollLeft.addEventListener('click', () => scrollToItem('left'));
+        scrollRight.addEventListener('click', () => scrollToItem('right'));
+
+        function scrollToItem(direction) {
+            const visibleItems = Array.from(slider.children);
+            const sliderRect = slider.getBoundingClientRect();
+
+            const currentIndex = visibleItems.findIndex(item => {
+                const itemRect = item.getBoundingClientRect();
+                return itemRect.left >= sliderRect.left && itemRect.right <= sliderRect.right;
+            });
+
+            const nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
+            if (nextIndex >= 0 && nextIndex < visibleItems.length) {
+                const nextItem = visibleItems[nextIndex];
+                slider.scrollBy({ left: nextItem.getBoundingClientRect().left - sliderRect.left, behavior: 'smooth' });
+            }
+        }
+        // Dashboard slider
     },
+
+
 
     methods: {
         // Check Default set notify > store / update action
