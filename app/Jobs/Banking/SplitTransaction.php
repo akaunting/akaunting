@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\TransactionSplitted;
+use App\Events\Banking\TransactionSplitting;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Document\Document;
 use App\Traits\Transactions;
@@ -17,10 +19,11 @@ class SplitTransaction extends Job implements ShouldUpdate
     {
         $this->checkAmount();
 
+        event(new TransactionSplitting($this->request, $this->model));
+
         DB::transaction(function () {
             foreach ($this->request->items as $item) {
                 $transaction            = $this->model->duplicate();
-                $transaction->number    = $this->getNextTransactionNumber();
                 $transaction->split_id  = $this->model->id;
                 $transaction->amount    = $item['amount'];
                 $transaction->save();
@@ -44,6 +47,8 @@ class SplitTransaction extends Job implements ShouldUpdate
             $this->model->type = config('type.transaction.' . $this->model->type . '.split_type');
             $this->model->save();
         });
+
+        event(new TransactionSplitted($this->request, $this->model));
 
         return $this->request->items;
     }

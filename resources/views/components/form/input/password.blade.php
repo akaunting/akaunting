@@ -1,6 +1,7 @@
 <div x-data="{ showPassword: false, password: '' }" x-cloak>
     <input 
         type="password"
+        x-bind:class="password ? 'pr-9' : 'pr-0'"
         x-bind:type="showPassword ? 'text' : 'password'"
         x-model="password"
         name="{{ $name }}"

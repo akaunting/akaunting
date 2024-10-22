@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type added!',
+        'created'			=> ':type created!',
         'updated'           => ':type updated!',
         'deleted'           => ':type deleted!',
         'duplicated'        => ':type duplicated!',
@@ -11,6 +12,7 @@ return [
         'import_queued'     => ':type import has been scheduled! You will receive an email when it is finished.',
         'exported'          => ':type exported!',
         'export_queued'     => ':type export has been scheduled! You will receive an email when it is ready to download.',
+        'download_queued'   => ':type download of the current page has been scheduled! You will receive an email when it is ready to download.',
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
         'connected'         => ':type connected!',
@@ -26,8 +28,10 @@ return [
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
         'last_category'     => 'Error: Can not delete the last :type category!',
+        'transfer_category' => 'Error: Can not delete the transfer <b>:type</b> category!',
         'change_type'       => 'Error: Can not change the type because it has :text related!',
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
+        'empty_apikey'      => 'Error: You have not entered your API Key! <a href=":url" class="font-bold underline underline-offset-4">Click here</a> to enter your API Key.',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
         'same_amount'       => 'Error: The total amount of split must be exactly the same as the :transaction total: :amount',

@@ -925,11 +925,28 @@ abstract class Show extends Component
             return $documentTemplate;
         }
 
+        if (! empty($this->document) && ! empty($this->document->template)) {
+            $document_templates = $this->getDocumentTemplates($type);
+
+            $template = 'default';
+
+            foreach ($document_templates as $template) {
+                if ($template['id'] != $this->document->template) {
+                    continue;
+                }
+
+                $template =  $template['template'];
+                break;
+            }
+
+            return $template;
+        }
+
         if ($template = config('type.' . static::OBJECT_TYPE . '.' . $type . '.template', false)) {
             return $template;
         }
 
-        $documentTemplate =  setting($this->getDocumentSettingKey($type, 'template'), 'default');
+        $documentTemplate = setting($this->getDocumentSettingKey($type, 'template'), 'default');
 
         return $documentTemplate;
     }
@@ -1000,6 +1017,10 @@ abstract class Show extends Component
     {
         if (! empty($backgroundColor)) {
             return $backgroundColor;
+        }
+
+        if (! empty($this->document) && $this->document->color !== '') {
+            return $this->getHexCodeOfTailwindClass($this->document->color);
         }
 
         // checking setting color

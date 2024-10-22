@@ -3,14 +3,14 @@
 namespace App\BulkActions\Sales;
 
 use App\Abstracts\BulkAction;
-use App\Events\Document\DocumentCancelled;
-use App\Events\Document\DocumentCreated;
-use App\Events\Document\DocumentMarkedSent;
-use App\Events\Document\PaymentReceived;
-use App\Exports\Sales\Invoices\Invoices as Export;
-use App\Jobs\Document\UpdateDocument;
-use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
+use App\Jobs\Document\DeleteDocument;
+use App\Jobs\Common\CreateZipForDownload;
+use App\Jobs\Document\UpdateDocument;
+use App\Events\Document\DocumentCreated;
+use App\Events\Document\DocumentCancelled;
+use App\Events\Document\DocumentMarkedSent;
+use App\Exports\Sales\Invoices\Invoices as Export;
 
 class Invoices extends BulkAction
 {
@@ -54,6 +54,12 @@ class Invoices extends BulkAction
             'icon'          => 'file_download',
             'name'          => 'general.export',
             'message'       => 'bulk_actions.message.export',
+            'type'          => 'download',
+        ],
+        'download' => [
+            'icon'          => 'download',
+            'name'          => 'general.download',
+            'message'       => 'bulk_actions.message.download',
             'type'          => 'download',
         ],
     ];
@@ -150,5 +156,17 @@ class Invoices extends BulkAction
         $selected = $this->getSelectedInput($request);
 
         return $this->exportExcel(new Export($selected), trans_choice('general.invoices', 2));
-    }    
+    }
+
+    public function download($request)
+    {
+        $selected = $this->getSelectedRecords($request);
+
+        $file_name = Document::INVOICE_TYPE . '-'. date('Y-m-d-H-i-s');
+
+        $class = '\App\Jobs\Document\DownloadDocument';
+
+        return $this->downloadPdf($selected, $class, $file_name, trans_choice('general.invoices', 2));
+    }
 }
+   

@@ -113,6 +113,7 @@ return [
                 'params' => [
                     'unpaid'            => ['search' => 'status:sent,viewed,partial'],
                     'draft'             => ['search' => 'status:draft'],
+                    'all'               => ['list_records' => 'all'],
                 ],
             ],
             'permission' => [
@@ -218,6 +219,7 @@ return [
                 'params' => [
                     'unpaid'            => ['search' => 'status:received,partial'],
                     'draft'             => ['search' => 'status:draft'],
+                    'all'               => ['list_records' => 'all'],
                 ],
             ],
             'permission' => [
@@ -310,12 +312,48 @@ return [
 
     // Transactions
     'transaction' => [
+        'transactions' => [
+            'group'                 => 'banking',
+            'route' => [
+                'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
+                'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
+                //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
+            ],
+            'permission' => [
+                'prefix'            => 'transactions',
+                //'create'          => 'create-banking-transactions',
+            ],
+            'translation' => [
+                'prefix'                    => 'transactions', // this translation file name.
+                'related_document_amount'   => 'invoices.invoice_amount',
+                'transactions'              => 'general.incomes',
+            ],
+            'contact_type'          => 'customer',
+            'document_type'         => 'invoice',
+            'split_type'            => Transaction::INCOME_SPLIT_TYPE,
+            'email_template'        => 'payment_received_customer',
+            'script' => [
+                'folder'            => 'banking',
+                'file'              => 'transactions',
+            ],
+        ],
+ 
         Transaction::INCOME_TYPE => [
             'group'                 => 'banking',
             'route' => [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -342,6 +380,11 @@ return [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -368,6 +411,11 @@ return [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -393,6 +441,11 @@ return [
                 'prefix'            => 'recurring-transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'recurring_transaction', // banking/recurring-transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -421,6 +474,11 @@ return [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -446,6 +504,11 @@ return [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -471,6 +534,11 @@ return [
                 'prefix'            => 'transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'transaction', // banking/transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',
@@ -495,6 +563,11 @@ return [
                 'prefix'            => 'recurring-transactions', // core use with group + prefix, module ex. estimates
                 'parameter'         => 'recurring_transaction', // banking/recurring-transactions/{parameter}/edit
                 //'create'          => 'transactions.create', // if you change route, you can write full path
+                'params' => [
+                    'income'        => ['search' => 'type:income'],
+                    'expense'       => ['search' => 'type:expense'],
+                    'all'           => ['list_records' => 'all'],
+                ],
             ],
             'permission' => [
                 'prefix'            => 'transactions',

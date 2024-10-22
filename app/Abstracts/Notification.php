@@ -146,7 +146,8 @@ abstract class Notification extends BaseNotification implements ShouldQueue
         $new_vars = [];
 
         foreach ($vars as $var) {
-            $new_vars[] = preg_quote($var);
+            // Ensure $var is a string, default to an empty string if it is null
+            $new_vars[] = preg_quote($var ?? '');
         }
 
         return $new_vars;

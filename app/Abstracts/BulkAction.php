@@ -2,6 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Jobs\Common\CreateMediableForDownload;
+use App\Jobs\Common\CreateZipForDownload;
 use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
 use App\Jobs\Banking\DeleteTransaction;
@@ -11,6 +13,8 @@ use App\Traits\Translations;
 use App\Utilities\Export;
 use App\Utilities\Import;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Bus;
+use Throwable;
 
 abstract class BulkAction
 {
@@ -39,6 +43,11 @@ abstract class BulkAction
             'message'       => 'bulk_actions.message.export',
             'type'          => 'download'
         ],
+        'download' => [
+            'name'          => 'general.download',
+            'message'       => 'bulk_actions.message.download',
+            'type'          => 'download',
+        ],
     ];
 
     public $icons = [
@@ -47,6 +56,7 @@ abstract class BulkAction
         'delete'        => 'delete',
         'duplicate'     => 'file_copy',
         'export'        => 'file_download',
+        'download'      => 'download',
         'reconcile'     => 'published_with_changes',
         'unreconcile'   => 'layers_clear',
         'received'      => 'call_received',
@@ -275,5 +285,44 @@ abstract class BulkAction
     public function exportExcel($class, $translation, $extension = 'xlsx')
     {
         return Export::toExcel($class, $translation, $extension);
+    }
+
+    /**
+     * Download the pdf file or catch errors
+     *
+     * @param $class
+     * @param $file_name
+     * @param $translation
+     *
+     * @return mixed
+     */
+    public function downloadPdf($selected, $class, $file_name, $translation)
+    {
+        try {
+            if (should_queue()) {
+                $batch[] = new CreateZipForDownload($selected, $class, $file_name);
+
+                $batch[] = new CreateMediableForDownload(user(), $file_name, $translation);
+
+                Bus::chain($batch)->onQueue('default')->dispatch();
+
+                $message = trans('messages.success.download_queued', ['type' => $translation]);
+
+                flash($message)->success();
+
+                return back();
+            } else {
+                $this->dispatch(new CreateZipForDownload($selected, $class, $file_name));
+
+                $folder_path = 'app/temp/' . company_id() . '/bulk_actions/';
+
+                return response()->download(get_storage_path($folder_path . $file_name . '.zip'))->deleteFileAfterSend(true);
+            }
+        } catch (Throwable $e) {
+            report($e);
+            flash($e->getMessage())->error()->important();
+
+            return back();
+        }
     }
 }

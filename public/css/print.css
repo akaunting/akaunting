@@ -805,6 +805,10 @@ html[dir='rtl'] .print-heading {
     vertical-align: top;
 }
 
+.order-max-width {
+    width: 150px;
+}
+
 @media only screen and (min-width: 1024px) and (max-width: 1536px) {
     .col-60 {
         display: inline-block;

@@ -7,6 +7,7 @@ use App\Traits\Documents;
 use App\Traits\Modules;
 use App\Traits\SearchString;
 use App\Traits\ViewComponents;
+use App\Models\Document\Document;
 use Illuminate\Support\Str;
 
 abstract class Index extends Component
@@ -20,6 +21,12 @@ abstract class Index extends Component
     /* -- Main Start -- */
     /** @var string */
     public $type;
+
+    /** @var string */
+    public $contact_type;
+
+    /** @var string */
+    public $category_type;
 
     /** @var string */
     public $alias;
@@ -162,6 +169,21 @@ abstract class Index extends Component
     public $textIssuedAt;
 
     /** @var bool */
+    public $hideStartedAt;
+
+    /** @var bool */
+    public $hideEndedAt;
+
+    /** @var string */
+    public $classStartedAtAndEndedAt;
+
+    /** @var string */
+    public $textStartedAt;
+
+    /** @var string */
+    public $textEndedAt;
+
+    /** @var bool */
     public $hideStatus;
 
     /** @var string */
@@ -169,6 +191,24 @@ abstract class Index extends Component
 
     /** @var bool */
     public $hideContactName;
+
+    /** @var bool */
+    public $hideCategory;
+
+    /** @var bool */
+    public $hideCurrency;
+
+    /** @var string */
+    public $textCategory;
+
+    /** @var bool */
+    public $hideFrequency;
+
+    /** @var string */
+    public $classFrequencyAndDuration;
+
+    /** @var bool */
+    public $hideDuration;
 
     /** @var bool */
     public $hideDocumentNumber;
@@ -225,7 +265,7 @@ abstract class Index extends Component
      * @return void
      */
     public function __construct(
-        string $type, string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
+        string $type, string $contact_type = '', string $category_type = '', string $alias = '', $documents = [], int $totalDocuments = null, string $group = '', string $page = '', string $textTabDocument = '', string $textPage = '',
         string $routeTabDocument = '', string $routeTabRecurring = '', string $routeParamsTabUnpaid = '', string $routeParamsTabDraft = '',
         string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '',
         bool $hideAcceptPayment = false, bool $checkPermissionCreate = true,
@@ -237,7 +277,10 @@ abstract class Index extends Component
         bool $hideSearchString = false, bool $hideBulkAction = false,
         string $searchStringModel = '', string $bulkActionClass = '', array $bulkActions = [], array $bulkActionRouteParameters = [], string $searchRoute = '', string $classBulkAction = '',
         bool $hideDueAt = false, bool $hideIssuedAt = false, string $classDueAtAndIssueAt = '', string $textDueAt = '', string $textIssuedAt = '',
+        bool $hideStartedAt = false, bool $hideEndedAt = false, string $classStartedAtAndEndedAt = '', string $textStartedAt = '', string $textEndedAt = '',
         bool $hideStatus = false, string $classStatus = '',
+        bool $hideCategory = false, string $textCategory = '', bool $hideCurrency = false,
+        bool $hideFrequency = false, bool $hideDuration = false, string $classFrequencyAndDuration = '',
         bool $hideContactName = false, bool $hideDocumentNumber = false, string $classContactNameAndDocumentNumber = '', string $textContactName = '', string $showContactRoute = '', string $textDocumentNumber = '',
         bool $hideAmount = false, string $classAmount = '',
         bool $hideShow = false, string $showRoute = '', bool $hideEdit = false, string $editRoute = '', bool $hideDuplicate = false, string $duplicateRoute = '',
@@ -246,6 +289,8 @@ abstract class Index extends Component
     ) {
         /* -- Main Start -- */
         $this->type = $type;
+        $this->contact_type = $this->getTypeContact($type, $contact_type);
+        $this->category_type = $this->getTypeCategory($type, $category_type);
         $this->alias = $this->getAlias($type, $alias);
         $this->documents = ($documents) ? $documents : collect();
         $this->totalDocuments = $this->getTotalDocuments($totalDocuments);
@@ -320,8 +365,22 @@ abstract class Index extends Component
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
 
+        $this->hideStartedAt = $hideStartedAt;
+        $this->hideEndedAt = $hideEndedAt;
+        $this->classStartedAtAndEndedAt = $this->getClassStartedAndEndedAt($type, $classStartedAtAndEndedAt);
+        $this->textStartedAt = $this->getTextStartedAt($type, $textStartedAt);
+        $this->textEndedAt = $this->getTextEndedAt($type, $textEndedAt);
+
         $this->hideStatus = $hideStatus;
         $this->classStatus = $this->getClassStatus($type, $classStatus);
+
+        $this->hideCategory = $hideCategory;
+        $this->textCategory = $this->getTextCategory($type, $textCategory);
+        $this->hideCurrency = $hideCurrency;
+
+        $this->hideFrequency = $hideFrequency;
+        $this->hideDuration = $hideDuration;
+        $this->classFrequencyAndDuration = $this->getClassFrequencyAndDuration($type, $classFrequencyAndDuration);
 
         $this->hideContactName = $hideContactName;
         $this->hideDocumentNumber = $hideDocumentNumber;
@@ -352,6 +411,31 @@ abstract class Index extends Component
 
         // Set Parent data
         $this->setParentData();
+    }
+
+    protected function getTypeContact($type, $typeContact)
+    {
+        if (! empty($typeContact)) {
+            return $typeContact;
+        }
+
+        return config('type.' . static::OBJECT_TYPE . '.' . $type . '.contact_type', 'customer');
+    }
+
+    protected function getTypeCategory($type, $typeCategory)
+    {
+        if (!empty($typeCategory)) {
+            return $typeCategory;
+        }
+
+        if ($category_type = config('type.' . static::OBJECT_TYPE . '.' . $type . '.category_type')) {
+            return $category_type;
+        }
+
+        // set default type
+        $type = Document::INVOICE_TYPE;
+
+        return config('type.' . static::OBJECT_TYPE .'.' . $type . '.category_type');
     }
 
     protected function getTotalDocuments($totalDocuments)
@@ -483,8 +567,22 @@ abstract class Index extends Component
 
         $status = $this->getSearchStringValue('status');
 
-        if ($status == 'draft') {
+        $unpaid = str_replace('status:', '', config('type.document.' . $type . '.route.params.unpaid.search'));
+
+        if ($status == $unpaid) {
+            return 'unpaid';
+        }
+
+        $draft = str_replace('status:', '', config('type.document.' . $type . '.route.params.draft.search'));
+
+        if ($status == $draft) {
             return 'draft';
+        }
+
+        $suffix = $this->getTabActiveFromSetting($type);
+
+        if (! empty($suffix)) {
+            return $suffix;
         }
 
         return 'unpaid';
@@ -606,6 +704,66 @@ abstract class Index extends Component
         return 'invoices.invoice_date';
     }
 
+    protected function getClassStartedAndEndedAt($type, $classStartedAtAndEndedAt)
+    {
+        if (! empty($classStartedAtAndEndedAt)) {
+            return $classStartedAtAndEndedAt;
+        }
+
+        $class = $this->getClassFromConfig($type, 'started_at_and_end_at');
+
+        if (! empty($class)) {
+            return $class;
+        }
+
+        return 'w-4/12 table-title hidden sm:table-cell';
+    }
+
+    protected function getClassFrequencyAndDuration($type, $classFrequencyAndDuration)
+    {
+        if (! empty($classFrequencyAndDuration)) {
+            return $classFrequencyAndDuration;
+        }
+
+        $class = $this->getClassFromConfig($type, 'frequency_and_duration');
+
+        if (! empty($class)) {
+            return $class;
+        }
+
+        return 'w-2/12';
+    }
+
+    protected function getTextStartedAt($type, $textStartedAt)
+    {
+        if (! empty($textStartedAt)) {
+            return $textStartedAt;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'started_at', 'started_date');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.start_date';
+    }
+
+    protected function getTextEndedAt($type, $textEndedAt)
+    {
+        if (! empty($textEndedAt)) {
+            return $textEndedAt;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'ended_at', 'ended_date');
+
+        if (! empty($translation)) {
+            return $translation;
+        }
+
+        return 'recurring.last_issued';
+    }
+
     protected function getClassStatus($type, $classStatus)
     {
         if (! empty($classStatus)) {
@@ -619,6 +777,21 @@ abstract class Index extends Component
         }
 
         return 'w-3/12 table-title hidden sm:table-cell';
+    }
+
+    protected function getTextCategory($type, $textCategory)
+    {
+        if (!empty($textCategory)) {
+            return $textCategory;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'categories', 'categories', 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.categories';
     }
 
     protected function getClassContactNameAndDocumentNumber($type, $classContactNameAndDocumentNumber)

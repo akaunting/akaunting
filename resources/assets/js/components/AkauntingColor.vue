@@ -9,7 +9,7 @@
             formClasses
         ]"
         :error="formError">
-        <div class="flex justify-between relative mt-1">
+        <div class="flex justify-between relative mt-1" ref="reference">
             <input type="text" @change="change" :name="name" :id="name" v-model="color" @keyup="addColor" class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple">
 
             <div class="absolute w-7 h-7 flex rounded-full my-auto bottom-2 ltr:right-2 rtl:left-2 cursor-pointer"
@@ -18,35 +18,49 @@
                 :class="`bg-${color}`"
                 :style="this.color.includes('#') ? `backgroundColor: ${color}` : `backgroundColor: #${color}`"
             ></div>
+        </div>
 
-            <transition name="fade">
-                <div v-show="isOpen" class="w-full border border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md shadow-lg z-10">
-                    <div class="rounded-md bg-white shadow-xs p-2">
-                        <div class="flex">
-                            <div class="w-full flex flex-wrap justify-between">
-                                <div v-for="color in colors" :key="color">
-                                    <div v-for="variant in variants"
-                                        :key="variant"
-                                        :colorId="`${color}-${variant}`"
-                                        class="rounded-full m-1 color cursor-pointer"
-                                        :class="[`bg-${color}-${variant}`, small ? 'w-6 h-6 lg:w-4 lg:h-4' : 'w-8 h-8 xl:w-6 xl:h-6 2xl:w-8 2xl:h-8']"
-                                        @click="setColor($event)"
-                                    ></div>
-                                </div>
+        <transition name="fade">
+            <div v-show="isOpen"
+                ref="popper" 
+                :append-to-body="appendToBody"
+                class="border border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md shadow-lg z-10 el-popper"
+                :class="[popperClass]"
+                :style="{ minWidth: minWidth }"
+            >
+                <div class="rounded-md bg-white shadow-xs p-2">
+                    <div class="flex">
+                        <div class="w-full flex flex-wrap justify-between">
+                            <div v-for="color in colors" :key="color">
+                                <div v-for="variant in variants"
+                                    :key="variant"
+                                    :colorId="`${color}-${variant}`"
+                                    class="rounded-full m-1 color cursor-pointer"
+                                    :class="[`bg-${color}-${variant}`, small ? 'w-6 h-6 lg:w-4 lg:h-4' : 'w-8 h-8 xl:w-6 xl:h-6 2xl:w-8 2xl:h-8']"
+                                    @click="setColor($event)"
+                                ></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </transition>
-        </div>
+            </div>
+        </transition>
     </base-input>
 </template>
 
 <script>
+import Popper from 'element-ui/src/utils/vue-popper';
+
 export default {
     name: 'akaunting-color',
 
+    mixins: [Popper],
+
     props: {
+        placement: {
+            default: 'bottom-start'
+        },
+
         title: {
             type: String,
             default: '',
@@ -115,6 +129,23 @@ export default {
             type: [Boolean, String],
             default: false,
         },
+
+        popperOptions: {
+            default() {
+                return {
+                    gpuAcceleration: false
+                };
+            }
+        },
+
+        visibleArrow: {
+            default: false
+        },
+
+        appendToBody: {
+            type: Boolean,
+            default: true
+        },
     },
 
     data() {
@@ -144,6 +175,9 @@ export default {
                 800,
                 900,
             ],
+
+            minWidth: '',
+            inputWidth: 0,
         }
     },
 
@@ -162,6 +196,17 @@ export default {
         setTimeout(function() {
             this.change();
         }.bind(this), 800);
+
+        this.inputWidth = this.$refs.reference.getBoundingClientRect().width;
+
+        this.referenceElm = this.$refs.reference;
+        this.$parent.popperElm = this.popperElm = this.$refs.popper;
+
+        this.$on('updatePopper', () => {
+            if (this.isOpen) this.updatePopper();
+        });
+
+        this.$on('destroyPopper', this.destroyPopper);
     },
 
     methods: {
@@ -197,6 +242,12 @@ export default {
         },
     },
 
+    computed: {
+        popperClass() {
+            return this.$parent.popperClass;
+        }
+    },
+
     watch: {
         color: function (value) {
             this.change();
@@ -208,6 +259,18 @@ export default {
 
         model: function (value) {
             this.color = value;
+        },
+
+        inputWidth() {
+            this.minWidth = this.$refs.reference.getBoundingClientRect().width + 'px';
+        },
+
+        isOpen(val) {
+            if (! val) {
+                this.destroyPopper();
+            } else {
+                this.updatePopper();
+            }
         },
     }
 }

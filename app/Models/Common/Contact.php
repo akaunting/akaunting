@@ -162,7 +162,9 @@ class Contact extends Model
     {
         $contacts = collect();
 
-        $contacts->push($this);
+        if (! empty($this->email)) {
+            $contacts->push($this);
+        }
 
         $contact_persons = $this->contact_persons()->whereNotNull('email')->get();
 
@@ -312,25 +314,11 @@ class Contact extends Model
 
     public function getLocationAttribute()
     {
-        $location = [];
-
-        if ($this->city) {
-            $location[] = $this->city;
-        }
-
-        if ($this->state) {
-            $location[] = $this->state;
-        }
-
-        if ($this->zip_code) {
-            $location[] = $this->zip_code;
-        }
-
         if ($this->country && array_key_exists($this->country, trans('countries'))) {
-            $location[] = trans('countries.' . $this->country);
+            $country = trans('countries.' . $this->country);
         }
 
-        return implode(', ', $location);
+        return $this->getFormattedAddress($this->city, $country ?? null, $this->state, $this->zip_code);
     }
 
     /**

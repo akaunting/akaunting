@@ -9,13 +9,14 @@ use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Documents;
+use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use App\Utilities\Date;
 use Illuminate\Support\Str;
 
 abstract class Form extends Component
 {
-    use Documents, ViewComponents;
+    use Documents, Tailwind, ViewComponents;
 
     public const OBJECT_TYPE = 'document';
     public const DEFAULT_TYPE = 'invoice';
@@ -263,6 +264,21 @@ abstract class Form extends Component
 
     /** @var string */
     public $classAttachment;
+
+    /** @var bool */
+    public $hideTemplate;
+
+    /** @var bool */
+    public $hideBackgroundColor;
+
+    /** @var array */
+    public $templates;
+
+    /** @var string */
+    public $template;
+
+    /** @var string */
+    public $backgroundColor;
     /* -- Advanced End -- */
 
     /* -- Buttons End -- */
@@ -300,6 +316,8 @@ abstract class Form extends Component
         bool $hideFooter = false, string $classFooter = '', string $footer = '',
         bool $hideCategory = false, string $classCategory = '', string $typeCategory = '', $categoryId = '',
         bool $hideAttachment = false, string $classAttachment = '',
+        bool $hideTemplate = false, bool $hideBackgroundColor = false,
+        array $templates = [], string $template = '', string $backgroundColor = '',
         bool $hideButtons = false, string $cancelRoute = '', $hideSendTo = false
     ) {
         $this->type = $type;
@@ -426,6 +444,13 @@ abstract class Form extends Component
 
         $this->hideAttachment = $hideAttachment;
         $this->classAttachment = !empty($classAttachment) ? $classAttachment : 'sm:col-span-4';
+
+        $this->hideTemplate = $hideTemplate;
+        $this->hideBackgroundColor = $hideBackgroundColor;
+
+        $this->templates = $this->getTemplates($type, $templates);
+        $this->template = $this->getDocumentTemplate($type, $template);
+        $this->backgroundColor = $this->getBackgroundColor($type, $backgroundColor);
         /** Advanced End */
 
         /** Buttons Start */
@@ -1306,5 +1331,65 @@ abstract class Form extends Component
         }
 
         return setting('default.' . $this->typeCategory . '_category');
+    }
+
+    protected function getTemplates($type, $templates)
+    {
+        if (! empty($templates)) {
+            return $templates;
+        }
+
+        $templates = $this->getDocumentTemplates($type);
+
+        return $templates;
+    }   
+
+    protected function getDocumentTemplate($type, $documentTemplate)
+    {
+        if (! empty($documentTemplate)) {
+            return $documentTemplate;
+        }
+
+        if (! empty($this->document) && ! empty($this->document->template)) {
+            return $this->document->template;
+        }
+
+        if ($template = config('type.document.' . $type . '.template', false)) {
+            return $template;
+        }
+
+        $documentTemplate = setting($this->getDocumentSettingKey($type, 'template'), 'default');
+
+        return $documentTemplate;
+    }
+
+    protected function getBackgroundColor($type, $backgroundColor)
+    {
+        if (! empty($backgroundColor)) {
+            return $backgroundColor;
+        }
+
+        if (! empty($this->document) && $this->document->color !== '') {
+            return $this->getHexCodeOfTailwindClass($this->document->color);
+        }
+
+        // checking setting color
+        $key = $this->getDocumentSettingKey($type, 'color');
+
+        if (! empty(setting($key))) {
+            $backgroundColor = setting($key);
+        }
+
+        // checking config color
+        if (empty($backgroundColor) && $background_color = config('type.document.' . $type . '.color', false)) {
+            $backgroundColor = $background_color;
+        }
+
+        // set default color
+        if (empty($backgroundColor)) {
+            $backgroundColor = '#55588b';
+        }
+
+        return $this->getHexCodeOfTailwindClass($backgroundColor);
     }
 }

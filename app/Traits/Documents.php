@@ -7,6 +7,7 @@ use App\Models\Document\Document;
 use App\Abstracts\View\Components\Documents\Document as DocumentComponent;
 use App\Utilities\Date;
 use App\Traits\Transactions;
+use App\Events\Document\DocumentTemplates;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\DNSCheckValidation;
 use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
@@ -269,5 +270,39 @@ trait Documents
     public function getRealTypeOfRecurringDocument(string $recurring_type): string
     {
         return Str::replace('-recurring', '', $recurring_type);
+    }
+
+    public function getDocumentTemplates($type)
+    {
+        $templates = new \stdClass();
+        $templates->templates = collect();
+        $config_templates = config('type.document.' . $type . '.templates', [
+            [
+                'id' => 'default',
+                'name' => trans('settings.invoice.default'),
+                'image' => asset('public/img/invoice_templates/default.png'),
+                'template' => 'default',
+            ],
+            [
+                'id' => 'classic',
+                'name' => trans('settings.invoice.classic'),
+                'image' => asset('public/img/invoice_templates/classic.png'),
+                'template' => 'classic',
+            ],
+            [
+                'id' => 'modern',
+                'name' => trans('settings.invoice.modern'),
+                'image' => asset('public/img/invoice_templates/modern.png'),
+                'template' => 'modern',
+            ],
+        ]);
+
+        foreach ($config_templates as $config_template) {
+            $templates->templates->push($config_template);
+        }
+
+        event(new DocumentTemplates($type, $templates));
+
+        return $templates->templates;
     }
 }

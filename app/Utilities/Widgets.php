@@ -3,6 +3,7 @@
 namespace App\Utilities;
 
 use App\Models\Common\Widget;
+use App\Events\Widget\ClassesCreated as WidgetClassesCreated;
 use App\Models\Module\Module;
 use App\Traits\Modules;
 use Illuminate\Support\Str;
@@ -42,6 +43,13 @@ class Widgets
 
             $list = array_merge($list, (array) $m->get('widgets'));
         });
+
+        // Added New Event
+        $widget_classes = collect($list);
+
+        event(new WidgetClassesCreated($widget_classes));
+
+        $list = $widget_classes->all();
 
         foreach ($list as $class) {
             if (! class_exists($class) || ($check_permission && ! static::canRead($class))) {

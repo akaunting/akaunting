@@ -15,14 +15,13 @@
                             label="{{ trans_choice('general.accounts', 1) }}"
                             :options="$accounts"
                             :selected="setting('default.account')"
-                            not-required
                         />
 
-                        <x-form.group.currency name="currency" not-required />
+                        <x-form.group.currency name="currency" />
 
                         <x-form.group.select name="tax" label="{{ trans_choice('general.taxes', 1) }}" :options="$taxes" :selected="setting('default.tax')" :clearable="'false'" not-required />
 
-                        <x-form.group.payment-method :clearable="'false'" not-required />
+                        <x-form.group.payment-method :clearable="'false'" />
                     </x-slot>
                 </x-form.section>
 
@@ -44,9 +43,19 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.locale  :clearable="'false'" not-required />
+                        <x-form.group.locale :clearable="'false'" not-required />
 
                         <x-form.group.select name="list_limit" label="{{ trans('settings.default.list_limit') }}" :options="['10' => '10', '25' => '25', '50' => '50', '100' => '100']" :clearable="'false'" :selected="setting('default.list_limit')" not-required />
+
+                        <x-form.group.textarea name="address_format" label="{{ trans('settings.default.address_format') }}" :value="setting('default.address_format')" form-group-class="sm:col-span-6" not-required />
+
+                        <div class="sm:col-span-6">
+                            <div class="bg-gray-200 rounded-md p-3">
+                                <small>
+                                    {!! trans('settings.default.address_tags', ['tags' => '{city}, {state}, {zip_code}, {country}']) !!}
+                                </small>
+                            </div>
+                        </div>
                     </x-slot>
                 </x-form.section>
 

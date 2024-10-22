@@ -10,8 +10,14 @@ return [
     'billing'                   => 'Billing',
     'advanced'                  => 'Advanced',
 
+    'item_price_hidden'         => 'This column is hidden on your :type.',
+
+    'actions' => [
+        'cancel'                => 'Cancel',
+    ],
+
     'invoice_detail' => [
-        'marked'                => '<b> You </b> marked this invoice as',
+        'marked'                => '<b>You</b> marked this invoice as',
         'services'              => 'Services',
         'another_item'          => 'Another Item',
         'another_description'   => 'and another description',
@@ -64,8 +70,18 @@ return [
         'attachment'            => 'Download the files attached to this :type',
     ],
 
+    'slider' => [
+        'create'            => ':user created this :type on :date',
+        'create_recurring'  => ':user created this recurring template on :date',
+        'send'              => ':user sent this :type on :date',
+        'schedule'          => 'Repeat every :interval :frequency since :date',
+        'children'          => ':count :type were created automatically',
+        'cancel'            => ':user cancelled this :type on :date',
+    ],
+
     'messages' => [
         'email_sent'            => ':type email has been sent!',
+        'restored'              => ':type has been restored!',
         'marked_as'             => ':type marked as :status!',
         'marked_sent'           => ':type marked as sent!',
         'marked_paid'           => ':type marked as paid!',
@@ -83,4 +99,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'There are no files attached to this :type.',
 ];

@@ -13,7 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\ViewException;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Symfony\Component\ErrorHandler\Error\FatalError;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\Exception\HttpTransportException as MailerHttpTransportException;
@@ -167,7 +167,7 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if ($exception instanceof FatalThrowableError) {
+        if ($exception instanceof FatalError) {
             // ajax 500 json feedback
             if ($request->ajax()) {
                 return response()->json([

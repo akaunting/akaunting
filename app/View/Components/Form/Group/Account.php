@@ -60,6 +60,9 @@ class Account extends Form
             $this->selected = setting('default.account');
         }
 
+        // Share accounts with all views
+        view()->share('accounts', $this->accounts);
+
         return view('components.form.group.account');
     }
 

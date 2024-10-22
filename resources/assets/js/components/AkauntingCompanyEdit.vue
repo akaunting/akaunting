@@ -4,32 +4,30 @@
             <table>
                 <tbody>
                     <tr>
-                        <th class="text-left p-0">
-                            <span class="font-medium text-left text-sm p-0">{{ company.name }}</span>
+                        <th class="ltr:text-left rtl:text-right p-0">
+                            <span class="font-medium ltr:text-left rtl:text-right text-sm p-0">{{ company.name }}</span>
                         </th>
                     </tr>
                     <tr v-if="company.address">
-                        <th class="font-normal text-sm text-left p-0">
+                        <th class="font-normal text-sm ltr:text-left rtl:text-right p-0">
                             {{ company.address }}
                         </th>
                     </tr>
                     <tr v-if="company.location">
-                        <th class="font-normal text-sm text-left p-0">
-                            {{ company.location }}
-                        </th>
+                        <th class="font-normal text-sm ltr:text-left rtl:text-right p-0" v-html="company.location"></th>
                     </tr>
                     <tr v-if="company.tax_number">
-                        <th class="font-normal text-sm text-left p-0">
+                        <th class="font-normal text-sm ltr:text-left rtl:text-right p-0">
                             {{ taxNumberText }}: {{ company.tax_number }}
                         </th>
                     </tr>
                     <tr v-if="company.phone">
-                        <th class="font-normal text-sm text-left p-0">
+                        <th class="font-normal text-sm ltr:text-left rtl:text-right p-0">
                             {{ company.phone }}
                         </th>
                     </tr>
                     <tr>
-                        <th class="font-normal text-sm text-left p-0">
+                        <th class="font-normal text-sm ltr:text-left rtl:text-right p-0">
                             {{ company.email }}
                         </th>
                     </tr>

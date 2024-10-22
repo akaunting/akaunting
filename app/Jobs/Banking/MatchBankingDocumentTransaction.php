@@ -29,7 +29,7 @@ class MatchBankingDocumentTransaction extends Job
         \DB::transaction(function () {
             $this->transaction = $this->dispatch(new UpdateTransaction($this->transaction, [
                 'document_id'   => $this->model->id,
-                'type'          => $this->transaction->type, // Set missing type get default income typr for UpdateTransaction job.
+                'type'          => $this->transaction->type, // Set missing type get default income type for UpdateTransaction job.
             ]));
 
             $this->model->save();

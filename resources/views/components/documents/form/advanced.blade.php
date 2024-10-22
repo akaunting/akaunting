@@ -33,6 +33,31 @@
                     <x-form.group.attachment />
                 </div>
             @endif
+
+            @if (! $hideTemplate)
+                <x-form.group.select
+                    name="template"
+                    label="{{ trans_choice('general.templates', 1) }}"
+                    :options="$templates"
+                    :selected="$template"
+                    option-style="height: 6rem;"
+                    form-group-class="sm:col-span-4" 
+                >
+                    <template #option="{option}">
+                        <span class="w-full flex h-16 items-center">
+                            <img :src="option.option.image" class="h-20 my-3" :alt="option.option.name" />
+                            
+                            <div class="flex flex-col text-black text-sm font-medium ml-2 sm:ml-4">
+                                <span>@{{ option.option.name }}</span>
+                            </div>
+                        </span>
+                    </template>
+                </x-form.group.select>
+            @endif
+
+            @if (! $hideBackgroundColor)
+                <x-form.group.color name="color" label="{{ trans('general.color') }}" :value="$backgroundColor" form-group-class="sm:col-span-4" />
+            @endif
         </div>
     </x-slot>
 </x-form.accordion>

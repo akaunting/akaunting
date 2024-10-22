@@ -25,11 +25,20 @@ abstract class Report
 
     public function skipThisClass($event)
     {
+        $fire_event = $event;
+
+        $this->fireEvent('App\Events\Report\SkipClass', $fire_event);
+
         return (empty($event->class) || !in_array(get_class($event->class), $this->classes));
     }
 
     public function skipRowsShowing($event, $group)
     {
+        $fire_event = $event;
+        $fire_group = $group;
+
+        $this->fireEvent('App\Events\Report\SkipRowsShowing', $fire_event, $fire_group);
+
         return $this->skipThisClass($event)
                 || empty($event->class->model->settings->group)
                 || ($event->class->model->settings->group != $group);
@@ -277,7 +286,24 @@ abstract class Report
 
     public function getFormattedDate($event, $date)
     {
-        return $this->getPeriodicDate($date, $event->class->getSetting('period'), $event->class->year);
+        $period = $this->getSearchStringValue('period');
+
+        if (empty($period)) {
+            $period = $event->class->getSetting('period');
+        }
+
+        return $this->getPeriodicDate($date, $period, $event->class->year);
+    }
+
+    protected function fireEvent($event_class, $event, $group = null)
+    {
+        $this->class = $event->class;
+
+        if ($group) {
+            $this->group = $group;
+        }
+
+        event(new $event_class($this));
     }
 
     /**

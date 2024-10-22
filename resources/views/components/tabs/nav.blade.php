@@ -1,7 +1,7 @@
 @props(['id', 'name', 'active'])
 
 <li 
-    class="relative flex-auto px-8 text-sm text-center pb-2 cursor-pointer transition-all border-b whitespace-nowrap tabs-link"
+    class="relative flex-auto px-4 text-sm text-center pb-2 cursor-pointer transition-all border-b whitespace-nowrap tabs-link"
     id="tab-{{ $id }}"
     data-id="tab-{{ $id }}"
     data-tabs="{{ $id }}"

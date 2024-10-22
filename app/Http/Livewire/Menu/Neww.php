@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Menu;
 
 use App\Events\Menu\NewwCreated;
+use App\Events\Menu\NewwCreating;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -23,6 +24,8 @@ class Neww extends Component
 
         menu()->create('neww', function ($menu) {
             $menu->style('tailwind');
+
+            event(new NewwCreating($menu));
 
             event(new NewwCreated($menu));
 

@@ -238,7 +238,7 @@ trait DateTime
             ],
             trans('general.date_range.previous_month') => [
                 'start' => $financial_month->copy()->getStartDate()->subMonth()->toDateString(),
-                'end' => $financial_month->copy()->getEndDate()->subMonth()->toDateString(),
+                'end' => $financial_month->copy()->getEndDate()->subMonth()->endOfMonth()->toDateString(),
             ],
             trans('general.date_range.previous_quarter') => [
                 'start' => $financial_quarter->copy()->getStartDate()->subQuarter()->toDateString(),

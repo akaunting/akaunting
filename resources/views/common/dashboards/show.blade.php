@@ -4,31 +4,7 @@
     </x-slot>
 
     <x-slot name="title">
-        @if ($user_dashboards->count() > 1)
-            <div class="flex items-center relative cursor-pointer">
-                <x-dropdown id="show-dashboard-list">
-                    <x-slot name="trigger" class="flex items-center" override="class">
-                        <span class="text-2xl xl:text-5xl text-black font-light truncate">
-                            <x-button.hover color="to-black-700">
-                                {{ $dashboard->name }}
-                            </x-button.hover>
-                        </span>
-
-                        <svg class="w-5 h-5 mt-1 text-gray-400" x-description="Heroicon name: solid/selector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </x-slot>
-
-                    @foreach ($user_dashboards as $user_dashboard)
-                        <x-dropdown.link href="{{ route('dashboards.switch', $user_dashboard->id) }}" id="show-dashboard-switch-{{ $user_dashboard->id }}">
-                            {{ $user_dashboard->name }}
-                        </x-dropdown.link>
-                    @endforeach
-                </x-dropdown>
-            </div>
-        @else
-            {{ $dashboard->name }}
-        @endif
+        {{ $dashboard->name }}
     </x-slot>
 
     <x-slot name="buttons">
@@ -49,7 +25,7 @@
                 shortcuts: [
                     @foreach ($date_picker_shortcuts as $text => $shortcut)
                         {
-                            text: '{{ $text }}',
+                            text: `{!! $text !!}`,
                             onClick(picker) {
                                 const start = new Date('{{ $shortcut["start"] }}');
                                 const end = new Date('{{ $shortcut["end"] }}');
@@ -64,7 +40,7 @@
     </x-slot>
 
     @section('dashboard_action')
-        @canany(['create-common-widgets', 'read-common-dashboards'])
+        @canany(['delete-common-dashboards', 'update-common-dashboards'])
             <div class="dashboard-action">
                 <x-dropdown id="show-more-actions-dashboard">
                     <x-slot name="trigger" class="flex" override="class">
@@ -73,30 +49,15 @@
                         </span>
                     </x-slot>
 
-                    @can('create-common-widgets')
-                        <div class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap">
-                            <x-button
-                                type="button"
-                                id="show-more-actions-add-widget"
-                                class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100"
-                                override="class"
-                                title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
-                                @click="onCreateWidget()"
-                            >
-                                {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
-                            </x-button>
-                        </div>
+                    @can('delete-common-dashboards')
+                        <x-delete-link :model="$dashboard" :route="'dashboards.destroy'" />
 
-                        <x-dropdown.divider />
+                        <div class="py-2 px-2">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
                     @endcan
 
                     @can('update-common-dashboards')
-                        @can('create-common-dashboards')
-                        <x-dropdown.link href="{{ route('dashboards.create') }}" id="show-more-actions-new-dashboard">
-                            {{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}
-                        </x-dropdown.link>
-                        @endcan
-
                         <x-dropdown.link href="{{ route('dashboards.index') }}" id="show-more-actions-manage-dashboards">
                             {{ trans('general.title.manage', ['type' => trans_choice('general.dashboards', 2)]) }}
                         </x-dropdown.link>
@@ -145,6 +106,52 @@
     @endsection
 
     <x-slot name="content">
+        <div class="justify-between items-start border-b pt-8 grid sm:grid-cols-12">
+            <div class="space-x-10 col-span-9 -mx-8">
+                <x-tabs active="show-dashboard-switch-{{ $dashboard->id }}" class="mt-1">
+                    <x-slot name="navs">
+                        @foreach ($user_dashboards as $user_dashboard)
+                            <li 
+                                class="relative flex-auto px-4 text-sm text-center pb-2 cursor-pointer transition-all whitespace-nowrap tabs-link"
+                                id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                                data-id="show-dashboard-switch-{{ $user_dashboard->id }}"
+                                data-tabs="{{ $user_dashboard->id }}"
+                                data-tabs-slide
+                                x-bind:class="active != 'show-dashboard-switch-{{ $user_dashboard->id }}' ? 'text-black' : 'active-tabs text-purple border-purple transition-all after:absolute after:w-full after:h-0.5 after:left-0 after:right-0 after:bottom-0 after:bg-purple after:rounded-tl-md after:rounded-tr-md'"
+                            >
+                                <a href="{{ route('dashboards.switch', $user_dashboard->id) }}">
+                                    {{ $user_dashboard->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </x-slot>
+
+                    <x-slot name="content"></x-slot>
+                </x-tabs>
+            </div>
+
+            <div class="col-span-3 ml-6 text-right">
+                @can('create-common-widgets')
+                    <x-button
+                        type="button"
+                        id="show-more-actions-add-widget"
+                        class="relative flex-auto px-3 pb-1.5 h-8 text-purple text-sm font-medium tabs-link"
+                        override="class"
+                        title="{{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}"
+                        @click="onCreateWidget()"
+                    >
+                        {{ trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]) }}
+                    </x-button>
+                @endcan
+
+                @can('create-common-dashboards')
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
+                        {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
+                    </x-link>
+                @endcan
+            </div>
+        </div>
+
         <div class="dashboard flex flex-wrap px-6 lg:-mx-12">
             @foreach($widgets as $widget)
                 @widget($widget)

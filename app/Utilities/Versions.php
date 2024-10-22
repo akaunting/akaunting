@@ -41,9 +41,23 @@ class Versions
                 continue;
             }
 
-            $output .= '<h2><span class="badge badge-pill badge-success">' . $release->tag_name . '</span></h2>';
+            if (empty($output)) {
+                $output .= '<div class="mx-6">';
+            } else {
+                $output .= '<div class="mx-6 my-6">';
+            }
 
-            $output .= Markdown::convertToHtml($release->body);
+            $output .= '    <div class="mb-4">';
+            $output .= '        <h2>';
+            $output .= '            <span class="rounded-xl bg-green px-3 py-2 text-base font-medium text-white ring-1 ring-inset ring-green">';
+            $output .=                  $release->tag_name;
+            $output .= '            </span>';
+            $output .= '        </h2>';
+            $output .= '    </div>';
+
+            $output .=      Markdown::convertToHtml($release->body);
+
+            $output .= '</div>';
 
             $output .= '<hr>';
         }

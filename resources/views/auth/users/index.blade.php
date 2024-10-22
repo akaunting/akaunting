@@ -56,13 +56,13 @@
                                 </x-table.td>
 
                                 <x-table.td class="w-8/12 sm:w-5/12">
-                                    <div class="flex items-center space-x-2">
+                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                         @if (setting('default.use_gravatar', '0') == '1')
-                                            <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" title="{{ $item->name }}" alt="{{ $item->name }}">
+                                            <img src="{{ $item->picture }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" title="{{ $item->name }}" alt="{{ $item->name }}">
                                         @elseif (is_object($item->picture))
-                                            <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                            <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" alt="{{ $item->name }}" title="{{ $item->name }}">
                                         @else
-                                            <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full mr-2 hidden lg:block text-transparent" alt="{{ $item->name }}"/>
+                                            <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" alt="{{ $item->name }}"/>
                                         @endif
 
                                         {{ !empty($item->name) ? $item->name : trans('general.na') }}

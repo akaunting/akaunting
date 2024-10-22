@@ -26,7 +26,7 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    protected $appends = ['display_name'];
+    protected $appends = ['display_name', 'color_hex_code'];
 
     /**
      * Attributes that should be mass-assignable.
@@ -253,7 +253,9 @@ class Category extends Model
      */
     public function getColorHexCodeAttribute(): string
     {
-        return $this->getHexCodeOfTailwindClass($this->color);
+        $color = $this->color ?? 'green-500';
+
+        return $this->getHexCodeOfTailwindClass($color);
     }
 
     /**

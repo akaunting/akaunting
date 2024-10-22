@@ -55,7 +55,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/slack-notification-channel": "^2.3",
-        "laravel/tinker": "^2.5",
+        "laravel/tinker": "2.9.0",
         "laravel/ui": "^4.2",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/oauth2-client": "^2.6",

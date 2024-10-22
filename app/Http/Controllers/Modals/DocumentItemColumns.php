@@ -51,15 +51,6 @@ class DocumentItemColumns extends Controller
             'custom' => trans('settings.invoice.custom'),
         ];
 
-        $payment_terms = [
-            '0' => trans('settings.invoice.due_receipt'),
-            '15' => trans('settings.invoice.due_days', ['days' => 15]),
-            '30' => trans('settings.invoice.due_days', ['days' => 30]),
-            '45' => trans('settings.invoice.due_days', ['days' => 45]),
-            '60' => trans('settings.invoice.due_days', ['days' => 60]),
-            '90' => trans('settings.invoice.due_days', ['days' => 90]),
-        ];
-
         $item_name             = setting($this->getDocumentSettingKey($type, 'item_name'));
         $item_name_input       = setting($this->getDocumentSettingKey($type, 'item_name_input'));
         $price_name            = setting($this->getDocumentSettingKey($type, 'price_name'));
@@ -77,7 +68,6 @@ class DocumentItemColumns extends Controller
             'item_names',
             'price_names',
             'quantity_names',
-            'payment_terms',
             'item_name',
             'item_name_input',
             'price_name',

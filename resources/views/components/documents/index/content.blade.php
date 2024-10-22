@@ -5,26 +5,63 @@
 
     <x-index.container>
         @if (! $withoutTabs)
-            <x-tabs active="{{ $tabActive }}">
+            @php
+                $real_type = str_replace('-recurring', '', $type);
+            @endphp
+
+            <x-tabs active="{{ $tabActive }}" id="tabs-{{ $real_type }}">
                 <x-slot name="navs">
                     @stack('document_nav_start')
 
-                    @if ($tabActive == $type . '-unpaid')
-                        <x-tabs.nav id="{{ $type . '-unpaid' }}" name="{{ trans('documents.statuses.unpaid') }}" active />
+                    @if ($tabActive == $real_type . '-unpaid')
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-unpaid' }}"
+                            name="{{ trans('documents.statuses.unpaid') }}"
+                            type="{{ $real_type }}"
+                            tab="unpaid"
+                        />
                     @else
-                        <x-tabs.nav-link id="{{ $type . '-unpaid' }}" name="{{ trans('documents.statuses.unpaid') }}" href="{{ route($routeTabDocument) }}" />
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-unpaid' }}"
+                            href="{{ route($routeTabDocument, $routeParamsTabUnpaid) }}"
+                            name="{{ trans('documents.statuses.unpaid') }}"
+                            type="{{ $real_type }}"
+                            tab="unpaid"
+                        />
                     @endif
 
-                    @if ($tabActive == $type . '-draft')
-                        <x-tabs.nav id="{{ $type . '-draft' }}" name="{{ trans('documents.statuses.draft') }}" active />
+                    @if ($tabActive == $real_type . '-draft')
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-draft' }}"
+                            name="{{ trans('documents.statuses.draft') }}"
+                            type="{{ $real_type }}"
+                            tab="draft"
+                        />
                     @else
-                        <x-tabs.nav-link id="{{ $type . '-draft' }}" name="{{ trans('documents.statuses.draft') }}" href="{{ route($routeTabDocument, $routeParamsTabDraft) }}" />
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-draft' }}"
+                            href="{{ route($routeTabDocument, $routeParamsTabDraft) }}"
+                            name="{{ trans('documents.statuses.draft') }}"
+                            type="{{ $real_type }}"
+                            tab="draft"
+                        />
                     @endif
 
-                    @if ($tabActive == $type . '-all')
-                        <x-tabs.nav id="{{ $type . '-all' }}" name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}" active />
+                    @if ($tabActive == $real_type . '-all')
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-all' }}"
+                            name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}"
+                            type="{{ $real_type }}"
+                            tab="all"
+                        />
                     @else
-                        <x-tabs.nav-link id="{{ $type . '-all' }}" name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}" href="{{ route($routeTabDocument, ['list_records' => 'all']) }}" />
+                        <x-tabs.nav-pin
+                            id="{{ $real_type . '-all' }}"
+                            href="{{ route($routeTabDocument, ['list_records' => 'all']) }}"
+                            name="{{ trans('general.all_type', ['type' => trans_choice($textTabDocument, 2)]) }}"
+                            type="{{ $real_type }}"
+                            tab="all"
+                        />
                     @endif
 
                     @stack('document_nav_end')

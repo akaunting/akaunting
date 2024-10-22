@@ -37,7 +37,11 @@ class Transactions extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForTransactions();
+
         $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
+
+        $total_transactions = Transaction::count();
 
         $totals = [
             'income' => 0,
@@ -70,8 +74,13 @@ class Transactions extends Controller
             'profit_for_humans'     => $profit_amount->formatForHumans(),
         ];
 
+        $search_type = search_string_value('type');
+        $type = empty($search_type) ? 'transactions' : (($search_type == 'income') ? 'income' : 'expense');
+
         return $this->response('banking.transactions.index', compact(
+            'type',
             'transactions',
+            'total_transactions',
             'summary_amounts'
         ));
     }

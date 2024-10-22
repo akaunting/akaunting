@@ -12,6 +12,7 @@ return [
         'import_queued'     => ':type import is ingepland! U ontvangt een e-mail wanneer het klaar is.',
         'exported'          => ':type geëxporteerd!',
         'export_queued'     => ':type export van de huidige pagina is ingepland! U ontvangt een e-mail wanneer deze klaar is om te downloaden.',
+        'download_queued'   => ':type download van de huidige pagina is gepland! U ontvangt een e-mail wanneer de pagina kan worden gedownload.',
         'enabled'           => ':type ingeschakeld!',
         'disabled'          => ':type uitgeschakeld!',
         'connected'         => ':type verbonden!',

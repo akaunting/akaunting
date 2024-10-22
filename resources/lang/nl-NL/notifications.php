@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Downloaden is klaar',
+            'description'   => 'Het bestand kan via de volgende link worden gedownload:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Downloaden mislukt',
+            'description'   => 'Kan het bestand niet aanmaken vanwege het volgende probleem:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -75,6 +93,20 @@ return [
     ],
 
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Downloaden is klaar',
+            'description'   => 'Je <strong>:type</strong> bestand is klaar om <a href=":url" target="_blank"><strong>te downloaden</strong></a>.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Downloaden mislukt',
+            'description'   => 'Kan het bestand niet aanmaken als gevolg van verschillende problemen. Kijk in je e-mail voor de details.',
+
+        ],
 
         'export_completed' => [
 

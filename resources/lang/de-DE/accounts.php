@@ -19,7 +19,7 @@ return [
     'credit_cards'          => 'Kreditkarte|Kreditkarten',
 
     'form_description' => [
-        'general'           => 'Kreditkartentyp für negativen Eröffnungssaldo verwenden. Die Nummer ist wichtig, um Konten korrekt abzugleichen. Das Standardkonto zeichnet alle Transaktionen auf, wenn nicht anders ausgewählt.',
+        'general'           => 'Kreditkartentyp für negativen Eröffnungssaldo verwenden. Die Auswahl ist notwendig, um Konten korrekt abzugleichen. Das Standardkonto zeichnet alle Transaktionen auf, wenn nicht anders ausgewählt.',
         'bank'              => 'Sie können mehrere Bankkonten bei mehr als einer Bank haben. Das Aufzeichnen von Informationen über Ihre Bank erleichtert die Übereinstimmung der Transaktionen innerhalb Ihrer Bank.',
     ],
 

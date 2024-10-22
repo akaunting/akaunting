@@ -24,10 +24,17 @@
                                     @break
                                 @case('select')
                                 @case('selectGroup')
+                                    @php 
+                                        $values = $field['values'];
+                                        foreach ($values as $key => $value) {
+                                            $values[$key] = trans($value);
+                                        }
+                                    @endphp
+
                                     <x-form.group.select
                                         name="{{ $field['name'] }}"
                                         label="{{ trans($field['title']) }}"
-                                        :options="$field['values']"
+                                        :options="$values"
                                         :clearable="'false'"
                                         :selected="setting($module->getAlias() . '.' . $field['name'], $field['selected'])"
                                         :dynamic-attributes="$field['attributes']"

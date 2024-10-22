@@ -98,6 +98,7 @@
                                     {{ $document->contact_name }}
                                 </x-link.hover>
                             </x-link>
+                            <br>
                         @endif
                     @endif
                 @stack('name_input_end')
@@ -106,8 +107,10 @@
                     @if (! $hideContactAddress)
                         <p>
                             {!! nl2br($document->contact_address) !!}
-                            <br>
-                            {!! $document->contact_location !!}
+                            @if ($document->contact_location)
+                                <br>
+                                {!! $document->contact_location !!}
+                            @endif
                         </p>
                     @endif
                 @stack('address_input_end')
@@ -116,9 +119,7 @@
                     @if (! $hideContactTaxNumber)
                         @if ($document->contact_tax_number)
                             <p>
-                                <span class="font-semibold">
-                                    {{ trans('general.tax_number') }}:
-                                </span>
+                                {{ trans('general.tax_number') }}:
                                 {{ $document->contact_tax_number }}
                             </p>
                         @endif
@@ -164,12 +165,12 @@
                 @stack('order_number_input_start')
                     @if (! $hideOrderNumber)
                         @if ($document->order_number)
-                            <p class="mb-0">
+                            <p class="mb-0 clearfix">
                                 <span class="font-semibold spacing w-numbers">
                                     {{ trans($textOrderNumber) }}:
                                 </span>
 
-                                <span class="float-right spacing">
+                                <span class="float-right spacing order-max-width right-column">
                                     {{ $document->order_number }}
                                 </span>
                             </p>

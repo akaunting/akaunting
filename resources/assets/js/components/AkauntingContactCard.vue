@@ -61,29 +61,27 @@
                     <table class="table table-borderless p-0">
                         <tbody>
                             <tr>
-                                <th class="font-medium text-left text-sm p-0">
+                                <th class="font-medium ltr:text-left rtl:text-right text-sm p-0">
                                     <span class="block">{{ contact.name }}</span>
                                 </th>
                             </tr>
                             <tr v-if="contact.address">
-                                <th class="font-normal text-xs text-left p-0">
+                                <th class="font-normal text-xs ltr:text-left rtl:text-right p-0">
                                     <div class="w-60 truncate">
                                         {{ contact.address }}
                                     </div>
                                 </th>
                             </tr>
                             <tr v-if="contact.location">
-                                <th class="font-normal text-xs text-left p-0">
-                                    {{ contact.location }}
-                                </th>
+                                <th class="font-normal text-sm ltr:text-left rtl:text-right p-0" v-html="contact.location"></th>
                             </tr>
                             <tr v-if="contact.tax_number">
-                                <th class="font-normal text-xs text-left p-0">
+                                <th class="font-normal text-xs ltr:text-left rtl:text-right p-0">
                                     {{ taxNumberText }}: {{ contact.tax_number }}
                                 </th>
                             </tr>
                             <tr v-if="contact.phone">
-                                <th class="font-normal text-xs text-left p-0">
+                                <th class="font-normal text-xs ltr:text-left rtl:text-right p-0">
                                     {{ contact.phone }} &nbsp;
                                     <span v-if="contact.email">
                                     - {{ contact.email }}
@@ -95,12 +93,12 @@
                 </div>
             </div>  
             <div :class="show.contact_selected ? 'flex' : 'hidden'" class="absolute flex-col mt-2">
-                <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactEdit">
+                <button type="button" class="p-0 text-xs text-purple ltr:ltr:text-left rtl:text-right rtl:text-right" @click="onContactEdit">
                     <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">
                         {{ editContactText.replace(':contact_name', contact.name).replace(':field', contact.name) }}
                     </span>
                 </button>
-                <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactList">
+                <button type="button" class="p-0 text-xs text-purple ltr:ltr:text-left rtl:text-right rtl:text-right" @click="onContactList">
                     <span class="bg-no-repeat bg-0-2 bg-0-full hover:bg-full-2 bg-gradient-to-b from-transparent to-purple transition-backgroundSize">
                         {{ chooseDifferentContactText }}
                     </span>

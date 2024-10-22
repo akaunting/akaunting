@@ -30,6 +30,10 @@ class Event extends Provider
             'App\Listeners\Update\V31\Version315',
             'App\Listeners\Update\V31\Version317',
             'App\Listeners\Update\V31\Version318',
+            'App\Listeners\Update\V31\Version3112',
+        ],
+        'Illuminate\Routing\Events\PreparingResponse' => [
+            'App\Listeners\Common\PreparingResponse',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
