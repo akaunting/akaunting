@@ -49,6 +49,12 @@
                         </span>
                     </x-slot>
 
+                    @can('update-common-dashboards')
+                        <x-dropdown.link href="{{ route('dashboards.edit', $dashboard->id) }}" id="show-more-actions-edit-dashboard-{{ $dashboard->id }}">
+                            {{ trans('general.edit') }}
+                        </x-dropdown.link>
+                    @endcan
+
                     @can('delete-common-dashboards')
                         <x-delete-link :model="$dashboard" :route="'dashboards.destroy'" />
 
