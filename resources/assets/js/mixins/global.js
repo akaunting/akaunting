@@ -281,10 +281,33 @@ export default {
                 slider.scrollBy({ left: nextItem.getBoundingClientRect().left - sliderRect.left, behavior: 'smooth' });
             }
         }
+
+        function updateSlider() {
+            const sliderWidth = slider.clientWidth;
+            const windowWidth = window.innerWidth;
+        
+            if (sliderWidth <= 850) {
+                slider.parentElement.classList.remove('w-9/12', 'w-8/12');
+                scrollLeft.classList.add('hidden');
+                scrollRight.classList.add('hidden');
+            } else {
+                if (windowWidth < 1396) {
+                    slider.parentElement.classList.remove('w-9/12');
+                    slider.parentElement.classList.add('w-8/12');
+                } else {
+                    slider.parentElement.classList.remove('w-8/12');
+                    slider.parentElement.classList.add('w-9/12');
+                }
+                scrollLeft.classList.remove('hidden');
+                scrollRight.classList.remove('hidden');
+            }
+        }
+        
+        updateSlider();
+        window.addEventListener('resize', updateSlider);
+        
         // Dashboard slider
     },
-
-
 
     methods: {
         // Check Default set notify > store / update action
