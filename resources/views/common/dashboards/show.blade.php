@@ -113,7 +113,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col lg:flex-row justify-between items-start border-b pt-8">
-            <div class="flex w-9/12">
+            <div class="flex">
                 <button type="button" id="dashboard-left" class="material-icons-outlined text-purple bg-body -mr-3">chevron_left</button>
     
                 <div id="dashboard-slider" class="flex space-x-10 overflow-scroll hide-scroll-bar">
@@ -134,7 +134,7 @@
                 <button type="button" id="dashboard-right" class="material-icons-outlined text-purple bg-body mr-1">chevron_right</button>
             </div>
 
-            <div class="flex flex-col lg:flex-row col-span-3 ml-6 text-right">
+            <div class="flex col-span-3 ml-6 text-right">
                 @can('create-common-widgets')
                     <x-button
                         type="button"
@@ -149,7 +149,7 @@
                 @endcan
 
                 @can('create-common-dashboards')
-                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pt-1 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
+                    <x-link href="{{ route('dashboards.create') }}" override="class" class="relative flex-auto px-3 pb-2.5 pt-1 h-8 text-purple text-sm font-medium tabs-link" id="show-more-actions-new-dashboard">
                         {{ trans('general.title.new', ['type' => trans_choice('general.dashboards', 1)]) }}
                     </x-link>
                 @endcan
