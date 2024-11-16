@@ -404,6 +404,7 @@ if (! function_exists('request_is_auth')) {
     }
 }
 
+/*
 if (! function_exists('request_is_signed')) {
     function request_is_signed(Request|null $request = null, int $company_id): bool
     {
@@ -421,3 +422,4 @@ if (! function_exists('request_is_portal')) {
         return $r->is($company_id . '/portal') || $r->is($company_id . '/portal/*');
     }
 }
+*/
