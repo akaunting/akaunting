@@ -55,7 +55,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/slack-notification-channel": "^2.3",
-        "laravel/tinker": "2.9.0",
+        "laravel/tinker": "^2.10",
         "laravel/ui": "^4.2",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/oauth2-client": "^2.6",
@@ -83,7 +83,7 @@
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "10.3.30",
         "spatie/laravel-ignition": "^2.0",
         "wnx/laravel-stats": "^2.11"
     },
