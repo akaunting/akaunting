@@ -198,13 +198,13 @@ export default {
                 try {
                     item.querySelectorAll('[data-tabs-slide]').forEach((slide, index, arr) => {
                         loop += slide.clientWidth;
-    
+
                         slide.classList.add('swiper-slide');
-        
+
                         if (slide.getAttribute('data-tabs') == hash_split) {
                             initial_slide = index;
                         }
-    
+
                         if (loop > item.clientWidth) {
                             slides_view = index;
                             throw BreakException;
@@ -213,15 +213,15 @@ export default {
                 } catch (e) {
                     if (e !== BreakException) throw e;
                 }
-                
+
                 item.querySelector('[data-tabs-swiper]').classList.add('swiper', 'swiper-links');
                 item.querySelector('[data-tabs-swiper-wrapper]').classList.add('swiper-wrapper');
-    
+
                 let html = `
                     <div class="swiper-tabs-container">
                         ${item.querySelector('[data-tabs-swiper]').innerHTML}
                     </div>
-    
+
                     <div class="swiper-button-next bg-body text-white flex items-center justify-center right-0">
                         <span class="material-icons text-purple text-4xl">chevron_right</span>
                     </div>
@@ -229,11 +229,11 @@ export default {
                         <span class="material-icons text-purple text-4xl">chevron_left</span>
                     </div>
                     `; 
-    
+
                 item.querySelector('[data-tabs-swiper]').innerHTML = html;
                 slides_view = Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view;
                 item.setAttribute('data-swiper', slides_view);
-                                
+
                 new Swiper(item.querySelector('.swiper-tabs-container'), {
                     loop: true,
                     slidesPerView: slides_view,
@@ -251,62 +251,13 @@ export default {
                 item.removeAttribute('data-swiper');
                 item.querySelector('[data-tabs-swiper]').removeAttribute('data-tabs-swiper');
                 item.querySelector('[data-tabs-swiper-wrapper]').removeAttribute('data-tabs-swiper-wrapper');
-    
+
                 item.querySelectorAll('[data-tabs-slide]').forEach((slide) => {
                     slide.removeAttribute('data-tabs-slide');
                 });
             }
         }
         //swiper slider for long tabs items
-
-        const slider = document.getElementById('dashboard-slider');
-        const scrollLeft = document.getElementById('dashboard-left');
-        const scrollRight = document.getElementById('dashboard-right');
-        
-        scrollLeft.addEventListener('click', () => scrollToItem('left'));
-        scrollRight.addEventListener('click', () => scrollToItem('right'));
-
-        function scrollToItem(direction) {
-            const visibleItems = Array.from(slider.children);
-            const sliderRect = slider.getBoundingClientRect();
-
-            const currentIndex = visibleItems.findIndex(item => {
-                const itemRect = item.getBoundingClientRect();
-                return itemRect.left >= sliderRect.left && itemRect.right <= sliderRect.right;
-            });
-
-            const nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
-            if (nextIndex >= 0 && nextIndex < visibleItems.length) {
-                const nextItem = visibleItems[nextIndex];
-                slider.scrollBy({ left: nextItem.getBoundingClientRect().left - sliderRect.left, behavior: 'smooth' });
-            }
-        }
-
-        function updateSlider() {
-            const sliderWidth = slider.clientWidth;
-            const windowWidth = window.innerWidth;
-        
-            if (sliderWidth <= 850) {
-                slider.parentElement.classList.remove('w-9/12', 'w-8/12');
-                scrollLeft.classList.add('hidden');
-                scrollRight.classList.add('hidden');
-            } else {
-                if (windowWidth < 1396) {
-                    slider.parentElement.classList.remove('w-9/12');
-                    slider.parentElement.classList.add('w-8/12');
-                } else {
-                    slider.parentElement.classList.remove('w-8/12');
-                    slider.parentElement.classList.add('w-9/12');
-                }
-                scrollLeft.classList.remove('hidden');
-                scrollRight.classList.remove('hidden');
-            }
-        }
-        
-        updateSlider();
-        window.addEventListener('resize', updateSlider);
-        
-        // Dashboard slider
     },
 
     methods: {
@@ -1050,7 +1001,7 @@ export default {
 
                             onSubmitViaSendEmail(event) {
                                 event['sendtransaction'] = true;
-                    
+
                                 this.onSubmit(event);
                             },
 
@@ -1132,7 +1083,7 @@ export default {
                             // Parent vue instance methods merge with child vue instance methods
                             if (this.$root.$options.methods) {
                                 let parent_methods = this.$root.$options.methods;
-    
+
                                 for (let method_key in parent_methods) {
                                     if (this.$options.methods[method_key] === undefined) {
                                         this[method_key] = parent_methods[method_key];
@@ -1143,7 +1094,7 @@ export default {
                             // Parent vue instance data merge with child vue instance data
                             if (this.$root._data) {
                                 let parent_data = this.$root._data;
-    
+
                                 for (let data_key in parent_data) {
                                     if (this[data_key] === undefined) {
                                         this[data_key] = parent_data[data_key];
@@ -1312,7 +1263,7 @@ export default {
                             // Parent vue instance methods merge with child vue instance methods
                             if (this.$root.$options.methods) {
                                 let parent_methods = this.$root.$options.methods;
-    
+
                                 for (let method_key in parent_methods) {
                                     if (this.$options.methods[method_key] === undefined) {
                                         this[method_key] = parent_methods[method_key];
@@ -1384,7 +1335,7 @@ export default {
                             // Parent vue instance methods merge with child vue instance methods
                             if (this.$root.$options.methods) {
                                 let parent_methods = this.$root.$options.methods;
-    
+
                                 for (let method_key in parent_methods) {
                                     if (this.$options.methods[method_key] === undefined) {
                                         this[method_key] = parent_methods[method_key];
@@ -1545,7 +1496,7 @@ export default {
                                 // Parent vue instance methods merge with child vue instance methods
                                 if (this.$root.$options.methods) {
                                     let parent_methods = this.$root.$options.methods;
-        
+
                                     for (let method_key in parent_methods) {
                                         if (this.$options.methods[method_key] === undefined) {
                                             this[method_key] = parent_methods[method_key];
@@ -1632,7 +1583,7 @@ export default {
                             return;
                         }
                     }, this);
-                }   
+                }
 
                 this.$notify({
                     verticalAlign: 'bottom',

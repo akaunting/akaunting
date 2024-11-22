@@ -67,6 +67,60 @@ const dashboard = new Vue({
         }
 
         this.getWidgets();
+
+        // dashboard slider starting
+        const slider = document.getElementById('dashboard-slider');
+        const scrollLeft = document.getElementById('dashboard-left');
+        const scrollRight = document.getElementById('dashboard-right');
+
+        scrollLeft.addEventListener('click', () => scrollToItem('left'));
+        scrollRight.addEventListener('click', () => scrollToItem('right'));
+
+        function scrollToItem(direction) {
+            const visibleItems = Array.from(slider.children);
+            const sliderRect = slider.getBoundingClientRect();
+
+            const currentIndex = visibleItems.findIndex(item => {
+                const itemRect = item.getBoundingClientRect();
+
+                return itemRect.left >= sliderRect.left && itemRect.right <= sliderRect.right;
+            });
+
+            const nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
+
+            if (nextIndex >= 0 && nextIndex < visibleItems.length) {
+                const nextItem = visibleItems[nextIndex];
+
+                slider.scrollBy({ left: nextItem.getBoundingClientRect().left - sliderRect.left, behavior: 'smooth' });
+            }
+        }
+
+        function updateSlider() {
+            const sliderWidth = slider.clientWidth;
+            const windowWidth = window.innerWidth;
+
+            if (sliderWidth <= 850) {
+                slider.parentElement.classList.remove('w-9/12', 'w-8/12');
+                scrollLeft.classList.add('hidden');
+                scrollRight.classList.add('hidden');
+            } else {
+                if (windowWidth < 1396) {
+                    slider.parentElement.classList.remove('w-9/12');
+                    slider.parentElement.classList.add('w-8/12');
+                } else {
+                    slider.parentElement.classList.remove('w-8/12');
+                    slider.parentElement.classList.add('w-9/12');
+                }
+
+                scrollLeft.classList.remove('hidden');
+                scrollRight.classList.remove('hidden');
+            }
+        }
+
+        updateSlider();
+
+        window.addEventListener('resize', updateSlider);
+        // dashboard slider ending
     },
 
     methods:{
