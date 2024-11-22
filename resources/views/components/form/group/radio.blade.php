@@ -30,7 +30,7 @@
         @endif
 
         <div @class([
-                'mt-2',
+                'mt-1',
                 $inputGroupClass,
             ])
         >

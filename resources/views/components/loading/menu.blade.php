@@ -2,6 +2,7 @@
     x-data="{ loaded: false }"
     x-init="() => {
         const loadEvent = 'onpagehide' in window ? 'pageshow' : 'load';
+
         window.addEventListener(loadEvent, () => {
             loaded = true; 
             $refs.loadingMenu.remove();
