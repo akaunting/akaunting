@@ -55,6 +55,7 @@ const app = new Vue({
 
             if (this.edit.status && this.edit.form_account < 2) {
                 this.edit.form_account++;
+
                 return;
             }
 

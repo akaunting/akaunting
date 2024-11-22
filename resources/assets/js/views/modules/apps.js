@@ -292,7 +292,7 @@ const app = new Vue({
                     this.page[type]++;
 
                     document.querySelector('.js-'+ type + '-content').innerHTML += response.data.html;
-                    
+
                     this.loadMoreLoading = false;
                 }
             })
@@ -323,6 +323,7 @@ const app = new Vue({
                 .catch(error => {
                     this.live_search.not_found = true;
                     this.live_search.data = [];
+
                     console.log(error);
                 })
             } else if (target_length == 0) {

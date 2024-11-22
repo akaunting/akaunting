@@ -186,7 +186,6 @@
                 type: Object,
                 default: function () {
                     return {
-
                     };
                 },
                 description: "FlatPckr date configuration"
@@ -305,7 +304,7 @@
                 event.preventDefault();
 
                 this.button_loading_company = true;
-                
+
                 FormData.prototype.appendRecursive = function (data, wrapper = null) {
                     for (var name in data) {
                         if (name == "previewElement" || name == "previewTemplate") {
@@ -314,9 +313,9 @@
 
                         if (wrapper) {
                             if (
-                            (typeof data[name] == "object" || Array.isArray(data[name])) &&
-                            data[name] instanceof File != true &&
-                            data[name] instanceof Blob != true
+                                (typeof data[name] == "object" || Array.isArray(data[name])) &&
+                                data[name] instanceof File != true &&
+                                data[name] instanceof Blob != true
                             ) {
                                 this.appendRecursive(data[name], wrapper + "[" + name + "]");
                             } else {
@@ -324,9 +323,9 @@
                             }
                         } else {
                             if (
-                            (typeof data[name] == "object" || Array.isArray(data[name])) &&
-                            data[name] instanceof File != true &&
-                            data[name] instanceof Blob != true
+                                (typeof data[name] == "object" || Array.isArray(data[name])) &&
+                                data[name] instanceof File != true &&
+                                data[name] instanceof Blob != true
                             ) {
                                 this.appendRecursive(data[name], name);
                             } else {
@@ -383,6 +382,7 @@
                 }, this)
                 .catch((error) => {
                     this.onFailError(error);
+
                     this.button_loading_company = false;
                 }, this);
             },

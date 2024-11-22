@@ -44,6 +44,7 @@ const app = new Vue({
         'form.sale_price': function (newVal, oldVal) {
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.sale_price = oldVal;
+
                 return;
             }
 
@@ -51,6 +52,7 @@ const app = new Vue({
                 if (this.form.sale_price.includes(item)) {
                     const removeLastChar  = newVal.length - 1;
                     const inputShown = newVal.slice(0, removeLastChar);
+
                     this.form.sale_price = inputShown;
                 }
             }
@@ -59,6 +61,7 @@ const app = new Vue({
         'form.purchase_price': function (newVal, oldVal) {
             if (newVal != '' && newVal.search('^(?=.*?[0-9])[0-9.,]+$') !== 0) {
                 this.form.purchase_price = oldVal;
+
                 return;
             }
 
@@ -66,6 +69,7 @@ const app = new Vue({
                 if (this.form.purchase_price.includes(item)) {
                     const removeLastChar  = newVal.length - 1;
                     const inputShown = newVal.slice(0, removeLastChar);
+
                     this.form.purchase_price = inputShown;
                 }
             }
@@ -76,10 +80,12 @@ const app = new Vue({
         if (this.form.sale_price != '' && this.form.purchase_price == '') {
             this.form.sale_information = true;
             this.form.purchase_information = false;
+
             this.purchase_information = true;
         } else if (this.form.sale_price == '' && this.form.purchase_price != '') {
             this.form.sale_information = false;
             this.form.purchase_information = true;
+
             this.sale_information = true;
         } else {
             this.form.sale_information = true;
@@ -92,28 +98,34 @@ const app = new Vue({
             if (event.target.checked) {
                 if (type == 'sale') {
                     this.sale_information = false;
+
                     this.form.sale_price = '';
                     this.form.purchase_information = true;
                 } else {
                     this.purchase_information = false;
+
                     this.form.purchase_price = '';
                 }
             } else {
                 if (type == 'sale') {
                     if (! this.form.purchase_information) {
                         this.purchase_information = false;
+
                         this.form.purchase_information = true;
                     }
 
                     this.sale_information = true;
+
                     this.form.sale_price = '';
                 } else {
                     if (! this.form.sale_information) {
                         this.sale_information = false;
+
                         this.form.sale_information = true;
                     }
 
                     this.purchase_information = true;
+
                     this.form.purchase_price = '';
                 }
             }

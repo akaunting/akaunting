@@ -1,12 +1,12 @@
 <template>
     <div>
         <nav aria-label="Progress">
-        	<ol role="list" class="flex mb-10">
+            <ol role="list" class="flex mb-10">
                 <li class="w-1/3">
-                	<span class="pr-6 flex flex-col">
+                    <span class="pr-6 flex flex-col">
                         <span
-                           	class="w-full h-1 bg-gray-300 rounded-xl text-transparent"
-                          	:class="[{ 'bg-purple': active_state >= 0 }]"
+                               class="w-full h-1 bg-gray-300 rounded-xl text-transparent"
+                              :class="[{ 'bg-purple': active_state >= 0 }]"
                         >
                             Text
                         </span>
@@ -17,8 +17,8 @@
                         >
                             {{ translations.company.title }}
                         </span>
-                	</span>
-              	</li>
+                    </span>
+                  </li>
 
                 <li class="w-1/3">
                     <span class="px-3 flex flex-col">

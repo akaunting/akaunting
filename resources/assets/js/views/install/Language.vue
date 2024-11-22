@@ -49,6 +49,7 @@
                 })
                 .catch((error) => {});
         },
+
         data() {
             return {
                 form: new Form("form-install"),
@@ -56,6 +57,7 @@
                 active: 0,
             };
         },
+
         methods: {
             // Form Submit
             onSubmit(event) {

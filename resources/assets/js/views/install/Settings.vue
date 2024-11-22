@@ -12,7 +12,7 @@
                     <span class="text-red ltr:ml-1 rtl:mr-1">*</span>
 
                     <div class="input-group input-group-merge">
-                        <input  
+                        <input
                             :class="[{'border-red': form.errors.get('company_name')}, {'border-light-gray': !form.errors.get('company_name')}]"
                             class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
                             data-name="company_name"
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="sm:col-span-6 flex items-center justify-end mt-3.5">
-                    <button 
+                    <button
                         type="submit"
                         @click="onSubmit($event)"
                         :disabled="form.loading"
@@ -160,10 +160,12 @@
                 showPassword: false,
             };
         },
+
         methods: {
             // Form Submit
             onSubmit(event) {
                 event.preventDefault();
+
                 this.form.submit();
             },
 

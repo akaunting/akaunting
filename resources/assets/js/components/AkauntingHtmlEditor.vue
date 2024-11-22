@@ -107,6 +107,6 @@ export default {
 <style>
     .ql-editor {
         min-height: 120px !important;
-        max-height: 240px !important;
+        max-height: 250px !important;
     }
 </style>

@@ -96,7 +96,7 @@ const app = new Vue({
             ];
 
             for (const [key, value] of Object.entries(this.form)) {
-                if (!skips.includes(key)) {
+                if (! skips.includes(key)) {
                     this.invoice_form[key] = value;
                 }
             }
@@ -106,7 +106,6 @@ const app = new Vue({
 
         addTemplate() {
             if (this.invoice_form.template != 1) {
-
                 this.invoice_form.submit();
 
                 this.template.errors = this.invoice_form.errors;
@@ -134,9 +133,11 @@ const app = new Vue({
             })
             .then(response => {
                 this.template_title = response.data.data.title;
+
                 this.form.subject = response.data.data.subject;
                 this.form.body = response.data.data.body;
                 this.form.id = response.data.data.id;
+
                 this.tags = response.data.data.tags;
             });
         },
