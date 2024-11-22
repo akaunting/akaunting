@@ -77,6 +77,19 @@ const dashboard = new Vue({
         scrollRight.addEventListener('click', () => scrollToItem('right'));
 
         function scrollToItem(direction) {
+            if (direction == 'right') {
+                scrollLeft.classList.add('text-purple');
+                scrollLeft.classList.remove('text-purple-200');
+                scrollLeft.removeAttribute('disabled');
+            }
+
+            if (direction == 'left') {
+                scrollRight.classList.add('text-purple');
+                scrollRight.classList.remove('text-purple-200');
+
+                scrollRight.removeAttribute('disabled');
+            }
+
             const visibleItems = Array.from(slider.children);
             const sliderRect = slider.getBoundingClientRect();
 
@@ -88,10 +101,29 @@ const dashboard = new Vue({
 
             const nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
 
+            if (nextIndex == 0) {
+                scrollLeft.classList.add('text-purple-200');
+                scrollLeft.classList.remove('text-purple');
+
+                scrollLeft.setAttribute('disabled', 'disabled');
+            }
+
             if (nextIndex >= 0 && nextIndex < visibleItems.length) {
                 const nextItem = visibleItems[nextIndex];
 
-                slider.scrollBy({ left: nextItem.getBoundingClientRect().left - sliderRect.left, behavior: 'smooth' });
+                slider.scrollBy({ 
+                    left: nextItem.getBoundingClientRect().left - sliderRect.left,
+                    behavior: 'smooth'
+                });
+            }
+
+            const tolerance = 5; // Pixel tolerance
+
+            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - tolerance) {
+                scrollRight.classList.add('text-purple-200');
+                scrollRight.classList.remove('text-purple');
+
+                scrollRight.setAttribute('disabled', 'disabled');
             }
         }
 
@@ -101,6 +133,7 @@ const dashboard = new Vue({
 
             if (sliderWidth <= 850) {
                 slider.parentElement.classList.remove('w-9/12', 'w-8/12');
+
                 scrollLeft.classList.add('hidden');
                 scrollRight.classList.add('hidden');
             } else {
