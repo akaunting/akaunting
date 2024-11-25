@@ -21,6 +21,11 @@ class MarkDocumentReceived
         if (! in_array($event->document->status, ['partial', 'paid'])) {
             $event->document->status = 'received';
 
+            //This control will be removed when approval status is added to documents.
+            if ($event->document->amount == 0) {
+                $event->document->status = 'paid';
+            }
+
             $event->document->save();
         }
 
