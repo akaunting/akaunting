@@ -197,7 +197,7 @@ export default {
         return {
             item_list: [],
             selected_items: [],
-            search_list_key: '',
+            search_list_key: this.searchListKey,
             changeBackground: true,
             search: '', // search column model
             show: {
@@ -243,8 +243,6 @@ export default {
                 this.money = this.dynamicCurrency;
             }
         }
-
-        this.search_list_key = this.searchListKey;
     },
 
     methods: {
@@ -285,9 +283,11 @@ export default {
             this.search = event.target.value;
 
             this.isItemMatched = false;
+
             //to optimize performance we kept the condition that checks for if search exists or not
-            if (!this.search) {
+            if (! this.search) {
                 this.isItemMatched = false; //to remove the style from matched item on input is cleared (option)
+
                 return;
             }
 
@@ -295,6 +295,7 @@ export default {
             if (this.search.length < this.searchCharLimit) {
                 this.setItemList(this.items); //once the user deletes the search input, we show the overall item list
                 this.sortItems(); // we order it as wanted
+
                 this.$emit('input', this.search); // keep the input binded to v-model
 
                 return;
@@ -314,7 +315,9 @@ export default {
         },
 
         async fetchMatchedItems() {
-            await window.axios.get(this.searchUrl + '?search="' + this.search + '" not ' + this.price + ':NULL enabled:1 limit:10')
+            let search_limit_value = this.getSearchLimitValue();
+
+            await window.axios.get(this.searchUrl + '?search="' + this.search + '"' + search_limit_value + ' not ' + this.price + ':NULL enabled:1 limit:10')
                 .then(response => {
                     this.item_list = [];
                     let items = response.data.data;
@@ -333,7 +336,7 @@ export default {
         },
 
         onItemSelected(clickSelectedItem) {
-            let item; 
+            let item;
             const firstMatchedItem = this.item_list[0];
             const isClickSelectedItem = clickSelectedItem ? true : false;
             isClickSelectedItem ? item = clickSelectedItem  : item = firstMatchedItem;
@@ -370,7 +373,7 @@ export default {
                 price: 0,
                 tax_ids: [],
             };
-            
+
             this.newItems.push(item);
 
             this.addItem(item, 'newItem');
@@ -503,6 +506,28 @@ export default {
             return sortedItemList;
         },
 
+        getSearchLimitValue() {
+            let value = '';
+
+            if (typeof this.search_list_key === 'string' && this.search_list_key !== 'value') {
+                value += ' or ' + this.search_list_key + ' = "' + this.search + '"';
+            } else if (Array.isArray(this.search_list_key)) {
+                this.search_list_key.forEach(key => {
+                    if (key !== 'value') {
+                        value += ' or ' + key + ' = "' + this.search + '"';
+                    }
+                });
+            } else if (typeof this.search_list_key === 'object') {
+                Object.keys(this.search_list_key).forEach(key => {
+                    if (key !== 'value') {
+                        value += ' or ' + key + ' = "' + this.search + '"';
+                    }
+                });
+            }
+
+            return value;
+        },
+
         getObjectItem(key, value, index) {
             let item = {
                 index: index,
@@ -552,11 +577,27 @@ export default {
 
             if (Array.isArray(this.search_list_key)) {
                 this.search_list_key.forEach(key => {
-                    list_item[key] = item[key] ? item[key] : '';
+                    list_item[key] = item[key]
+                        ? item[key]
+                        : (key.indexOf('.') > -1
+                            ? (item[key.split('.')[0]]
+                                ? (item[key.split('.')[0]][key.split('.')[1]]
+                                    ? item[key.split('.')[0]][key.split('.')[1]]
+                                    : '')
+                                : '')
+                            : '');
                 }, this);
             } else if (typeof this.search_list_key === 'object') {
                 Object.keys(this.search_list_key).forEach(key => {
-                    list_item[key] =item[key] ? item[key] : '';
+                    list_item[key] = item[key]
+                        ? item[key]
+                        : (key.indexOf('.') > -1
+                            ? (item[key.split('.')[0]]
+                                ? (item[key.split('.')[0]][key.split('.')[1]]
+                                    ? item[key.split('.')[0]][key.split('.')[1]]
+                                    : '')
+                                : '')
+                            : '');
                 }, this);
             }
 
