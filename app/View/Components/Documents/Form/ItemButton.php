@@ -16,20 +16,34 @@ class ItemButton extends Component
     /** @var bool */
     public $isPurchase;
 
+    /** @var string */
+    public $searchUrl;
+
     /** @var int */
     public $searchCharLimit;
+
+    /** @var string */
+    public $searchListKey;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $type = 'sale', bool $isSale = false, bool $isPurchase = false, int $searchCharLimit = 3)
-    {
+    public function __construct(
+        string $type = 'sale',
+        bool $isSale = false,
+        bool $isPurchase = false,
+        string $searchUrl = '',
+        int $searchCharLimit = 3,
+        string $searchListKey = 'value'
+    ) {
         $this->type = $type;
         $this->isSale = $isSale;
         $this->isPurchase = $isPurchase;
+        $this->searchUrl = $this->getSearchUrl($searchUrl);
         $this->searchCharLimit = $searchCharLimit;
+        $this->searchListKey = $searchListKey;
     }
 
     /**
@@ -52,6 +66,15 @@ class ItemButton extends Component
         $price = $price_type . '_price';
 
         return view('components.documents.form.item-button', compact('items', 'price'));
+    }
+
+    protected function getSearchUrl($url)
+    {
+        if (empty($url)) {
+            return route('items.index');
+        }
+
+        return $url;
     }
 
     protected function getPriceType($type, $is_sale, $is_purchase)
