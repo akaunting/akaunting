@@ -1,7 +1,7 @@
 @stack('slider_start')
 <div class="hidden lg:block md:w-6/12 h-full flex-col h-fit">
     <div class="swiper bg-cover bg-bottom bg-no-repeat h-screen py-24">
-        <div class="swiper-container h-full">
+        <div class="swiper-container h-full -mt-12">
             <div class="swiper-wrapper">
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">

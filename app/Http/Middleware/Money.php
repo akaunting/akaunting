@@ -43,7 +43,7 @@ class Money
 
             $money_format = $request->get($parameter);
 
-            if (!preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $money_format)) {
+            if (! preg_match("/^(?=.*?[0-9])[0-9.,]+$/", $money_format)) {
                 continue;
             }
 

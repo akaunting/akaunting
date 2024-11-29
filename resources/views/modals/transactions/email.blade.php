@@ -23,7 +23,7 @@
                                 'key' => 'email',
                                 'value' => 'email'
                             ]"
-                            :selected="[$transaction->contact->email]"
+                            :selected="$transaction->contact?->email ? [$transaction->contact->email] : []"
                             without-remote
                             without-add-new
                             multiple

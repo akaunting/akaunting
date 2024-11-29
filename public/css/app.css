@@ -47040,9 +47040,21 @@ button, input, optgroup, select, textarea{
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.text-lg\/6{
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+.text-lg\/8{
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+.text-sm\/6{
+  font-size: 0.875rem;
+  line-height: 1.5rem;
 }
 .text-xl{
   font-size: 1.25rem;
@@ -47051,6 +47063,10 @@ button, input, optgroup, select, textarea{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-xs\/5{
+  font-size: 0.75rem;
+  line-height: 1.25rem;
 }
 .font-black{
   font-weight: 900;
@@ -68577,6 +68593,11 @@ body{
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
+.group:hover .group-hover\:text-gray-600{
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
 .group:hover .group-hover\:text-purple-700{
   --tw-text-opacity: 1;
   color: rgb(64 66 104 / var(--tw-text-opacity));
@@ -68896,6 +68917,11 @@ body{
     line-height: 1.5rem;
   }
 
+  .sm\:text-5xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
   .sm\:text-6xl{
     font-size: 2.5rem;
     line-height: 2.75rem;
@@ -68982,6 +69008,11 @@ body{
   .lg\:-mx-12{
     margin-left: -3rem;
     margin-right: -3rem;
+  }
+
+  .lg\:mx-0{
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .lg\:my-0{
@@ -69217,6 +69248,10 @@ body{
 
   .lg\:max-w-lg{
     max-width: 32rem;
+  }
+
+  .lg\:max-w-none{
+    max-width: none;
   }
 
   .lg\:grid-cols-2{
