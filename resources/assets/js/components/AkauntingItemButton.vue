@@ -547,11 +547,15 @@ export default {
 
             if (Array.isArray(this.search_list_key)) {
                 this.search_list_key.forEach(key => {
-                    item[key] = value;
+                    if (key !== 'value') {
+                        item[key] = value;
+                    }
                 });
             } else if (typeof this.search_list_key === 'object') {
                 Object.keys(this.search_list_key).forEach(key => {
-                    item[key] = value;
+                    if (key !== 'value') {
+                        item[key] = value;
+                    }
                 });
             }
 
@@ -577,7 +581,8 @@ export default {
 
             if (Array.isArray(this.search_list_key)) {
                 this.search_list_key.forEach(key => {
-                    list_item[key] = item[key]
+                    if (key !== 'value') {
+                        list_item[key] = item[key]
                         ? item[key]
                         : (key.indexOf('.') > -1
                             ? (item[key.split('.')[0]]
@@ -586,10 +591,12 @@ export default {
                                     : '')
                                 : '')
                             : '');
+                    }
                 }, this);
             } else if (typeof this.search_list_key === 'object') {
                 Object.keys(this.search_list_key).forEach(key => {
-                    list_item[key] = item[key]
+                    if (key !== 'value') {
+                        list_item[key] = item[key]
                         ? item[key]
                         : (key.indexOf('.') > -1
                             ? (item[key.split('.')[0]]
@@ -598,6 +605,7 @@ export default {
                                     : '')
                                 : '')
                             : '');
+                    }
                 }, this);
             }
 
