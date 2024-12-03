@@ -17,6 +17,7 @@ class Validation extends Provider
      */
     public function boot()
     {
+        // Check currency code has 3 characters and is valid
         Validator::extend('currency', function ($attribute, $value, $parameters, $validator) {
             $status = false;
 
@@ -39,10 +40,12 @@ class Validation extends Provider
             return $status;
         });
 
+        // Custom message for currency validation
         Validator::replacer('currency', function($message, $attribute, $rule, $parameters) {
             return trans('validation.custom.invalid_currency', ['attribute' => $attribute]);
         });
 
+        // Check currency code is valid
         Validator::extend('currency_code', function ($attribute, $value, $parameters, $validator) {
             $status = false;
 
@@ -57,10 +60,12 @@ class Validation extends Provider
             return $status;
         });
 
+        // Custom message for currency code validation
         Validator::replacer('currency_code', function($message, $attribute, $rule, $parameters) {
             return trans('validation.custom.invalid_currency', ['attribute' => $attribute]);
         });
 
+        // Check amount is valid
         Validator::extend('amount', function ($attribute, $value, $parameters, $validator) {
             $status = false;
 
@@ -75,10 +80,12 @@ class Validation extends Provider
             return $status;
         });
 
+        // Custom message for amount validation
         Validator::replacer('amount', function($message, $attribute, $rule, $parameters) {
             return trans('validation.custom.invalid_amount', ['attribute' => $attribute]);
         });
 
+        // Check extension is valid
         Validator::extend('extension', function ($attribute, $value, $parameters, $validator) {
             $extension = $value->getClientOriginalExtension();
 
@@ -87,6 +94,7 @@ class Validation extends Provider
             trans('validation.custom.invalid_extension')
         );
 
+        // Check colour is valid
         Validator::extend('colour', function ($attribute, $value, $parameters, $validator) {
             $status = false;
 
@@ -122,6 +130,7 @@ class Validation extends Provider
             trans('validation.custom.invalid_colour')
         );
 
+        // Check payment method is valid
         Validator::extend('payment_method', function ($attribute, $value, $parameters, $validator) {
             $status = false;
 
