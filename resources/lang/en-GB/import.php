@@ -10,4 +10,9 @@ return [
     'drop_file'                 => '<span style="color: #006EA6;">Upload a file</span> or drag and drop',
     'file_type_and_limitations' => ':extensions up to :row_limit rows',
 
+    'bank_feeds'    => 'Import transactions securely to automate bookkeeping by connecting bank accounts',
+    'receipts'      => 'Save time recording expenses, scanning receipts, and eliminate manual work',
+    'ofx'           => 'Import your bank transactions into Akaunting today.',
+    'mt940'         => 'This app allows you to import your bank transactions into Akaunting through the MT940 file provided by the bank.',
+
 ];

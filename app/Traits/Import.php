@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Events\Common\ImportViewCreating;
+use App\Events\Common\ImportViewCreated;
 use App\Http\Requests\Banking\Account as AccountRequest;
 use App\Http\Requests\Common\Contact as ContactRequest;
 use App\Http\Requests\Common\Item as ItemRequest;
@@ -26,10 +28,61 @@ use App\Traits\Jobs;
 use App\Traits\Sources;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\Validator;
+use Akaunting\Module\Module;
 
 trait Import
 {
     use Jobs, Sources;
+
+    public function getImportView($group, $type, $route = null)
+    {
+        $path = company_id() . '/' . $group . '/' . $type;
+
+        $module = module($group);
+
+        if ($module instanceof Module) {
+            $title_type = trans_choice($group . '::general.' . str_replace('-', '_', $type), 2);
+            $sample_file = url('modules/' . $module->getStudlyName() . '/Resources/assets/' . $type . '.xlsx');
+        } else {
+            $title_type = trans_choice('general.' . str_replace('-', '_', $type), 2);
+            $sample_file = url('public/files/import/' . $type . '.xlsx');
+        }
+
+        $form_params = [
+            'id' => 'import',
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
+            'role' => 'form',
+            'class' => 'form-loading-button',
+            'novalidate' => true,
+            'route' => '',
+            'url' => '',
+        ];
+
+        if (! empty($route)) {
+            $form_params['route'] = $route;
+        } else {
+            $form_params['url'] = $path . '/import';
+        }
+
+        $document_link = 'https://akaunting.com/hc/docs/import-export/';
+
+        $view = 'common.import.create';
+
+        $import = new \stdClass();
+        $import->view = 'common.import.create';
+        $import->data = compact('group', 'type', 'path', 'route', 'form_params', 'title_type', 'sample_file', 'document_link');
+
+        event(new ImportViewCreating($import));
+
+        event(new ImportViewCreated($import));
+
+        return [
+            $import->view, 
+            $import->data
+        ];
+    }
 
     public function getAccountId($row)
     {
