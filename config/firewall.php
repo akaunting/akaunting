@@ -285,7 +285,9 @@ return [
 
             'inputs' => [
                 'only' => [], // i.e. 'first_name'
-                'except' => [], // i.e. 'password'
+                'except' => [
+                    'body', // for custom email add link
+                ], // i.e. 'password'
             ],
 
             'patterns' => [
