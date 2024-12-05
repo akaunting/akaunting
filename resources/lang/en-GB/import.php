@@ -11,8 +11,8 @@ return [
     'file_type_and_limitations' => ':extensions up to :row_limit rows',
 
     'bank_feeds'    => 'Import transactions securely to automate bookkeeping by connecting bank accounts',
-    'receipts'      => 'Save time recording expenses, scanning receipts, and eliminate manual work',
-    'ofx'           => 'Import your bank transactions into Akaunting today.',
-    'mt940'         => 'This app allows you to import your bank transactions into Akaunting through the MT940 file provided by the bank.',
+    'receipts'      => 'Save time by uploading receipts, recording expenses, and eliminating manual work effortlessly!',
+    'ofx'           => 'Effortlessly import your bank transactions with the OFX App and automate your financial management!',
+    'mt940'         => 'Seamlessly upload your bank statements in MT940 format and take control of your finances with ease!',
 
 ];
