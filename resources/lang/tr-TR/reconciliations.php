@@ -14,5 +14,9 @@ return [
     'cleared_amount'        => 'Temizlenen Tutar',
     'deposit'               => 'Yatırılan',
     'withdrawal'            => 'Çekilen',
+    'reconciled_amount'     => 'Mutabakat Yapılan',
+    'in_progress'           => 'Devam Etmekte',
+    'save_draft'            => 'Taslak Olarak Kaydet',
+    'irreconcilable'        => 'Mutabakat Yapılamaz',
 
 ];

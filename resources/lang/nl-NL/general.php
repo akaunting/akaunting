@@ -75,6 +75,10 @@ return [
     'your_notifications'    => 'Uw mededeling|Uw mededelingen',
     'employees'             => 'Werknemer|Werknemers',
     'contact_persons'       => 'Contactpersoon|Contactpersonen',
+    'bank_feeds'            => 'Bank Feed|Bank Feeds',
+    'receipts'              => 'Ontvangstbewijs|Ontvangstbewijzen',
+    'ofx'                   => 'OFX',
+    'mt940'                 => 'MT940',
 
     'welcome'               => 'Welkom',
     'banking'               => 'Banken',
