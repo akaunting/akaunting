@@ -75,6 +75,10 @@ return [
     'your_notifications'    => 'Your notification|Your notifications',
     'employees'             => 'Employee|Employees',
     'contact_persons'       => 'Contact Person|Contact Persons',
+    'bank_feeds'            => 'Bank Feed|Bank Feeds',
+    'receipts'              => 'Receipt|Receipts',
+    'ofx'                   => 'OFX',
+    'mt940'                 => 'MT940',
 
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',

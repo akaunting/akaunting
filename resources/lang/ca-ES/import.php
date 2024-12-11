@@ -10,4 +10,9 @@ return [
     'drop_file'                 => '<span style="color: #006EA6;">Puja un fitxer</span> o arrossega i deixa anar',
     'file_type_and_limitations' => ':extensions fins a :row_limit files',
 
+    'bank_feeds'    => 'Importa transaccions de manera segura connectant comptes bancaris per automatitzar les reserves',
+    'receipts'      => 'Estalvia temps pujant rebuts, enregistrant despeses i eliminant feina manual sense esforç!',
+    'ofx'           => 'Importa les transaccions bancaries amb l\'aplicació OFX App i automatitza la teva gestió financera',
+    'mt940'         => 'Importa les transaccions bancaries amb el format MT940 i pren el control de la teva gestió financera!',
+
 ];
