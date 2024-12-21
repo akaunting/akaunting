@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribute görsel ölçüleri geçersiz.',
     'distinct' => ':attribute alanı yinelenen bir değere sahip.',
     'doesnt_start_with' => ':attribute aşağıdakilerden biriyle başlamayabilir: :values.',
+    'double' => ':attribute geçerli bir ondalık sayı olmalıdır.',
     'email' => ':attribute biçimi geçersiz.',
     'ends_with' => ':attribute şunlardan biriyle bitmelidir: :values',
     'enum' => 'Seçili :attribute geçersiz.',
@@ -156,6 +157,8 @@ return [
         'invalid_amount'        => 'Tutar :attribute geçersiz.',
         'invalid_extension'     => 'Dosyanın uzantısı geçersiz.',
         'invalid_dimension'     => ':attribute boyutları en fazla :width x :height px olmalıdır.',
+        'invalid_colour'        => ':attribute rengi geçersiz.',
+        'invalid_payment_method'=> 'Ödeme yöntemi geçersiz.',
     ],
 
     /*
