@@ -10,6 +10,7 @@ return [
         'duplicate'     => 'Seçili kaydı <b>kopyalamak</b> istediğinizden emin misiniz?',
         'delete'        => 'Seçili kaydı <b>silmek</b> istediğinizden emin misiniz?|Seçili kayıtları <b>silmek</b> istediğinizden emin misiniz?',
         'export'        => 'Seçili kaydı <b>dışa aktarmak</b> istediğinizden emin misiniz?|Seçili kayıtları <b>dışa aktarmak</b> istediğinizden emin misiniz?',
+        'download'      => 'Seçili kaydı <b>indirmek</b> istediğinizden emin misiniz?|Seçili kayıtları <b>indirmek</b> istediğinizden emin misiniz?',
         'enable'        => 'Seçili kaydı <b>etkinleştirmek</b> istediğinizden emin misiniz?|Seçili kayıtları <b>etkinleştirmek</b> istediğinizden emin misiniz?',
         'disable'       => 'Seçili kaydı <b>devre dışı bırakmak</b> istediğinizden emin misiniz?|Seçili kayıtları <b>devre dışı bırakmak</b> istediğinizden emin misiniz?',
         'paid'          => 'Seçili faturayı <b>ödendi</b> olarak işaretlemek istediğinizden emin misiniz?|Seçili faturaları <b>ödendi</b> olarak işaretlemek istediğinizden emin misiniz?',

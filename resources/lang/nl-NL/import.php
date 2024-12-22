@@ -10,4 +10,9 @@ return [
     'drop_file'                 => '<span style="color: #006EA6;">Upload een bestand</span> of sleep en drop',
     'file_type_and_limitations' => ':extensions tot :row_limit rijen',
 
+    'bank_feeds'    => 'Transacties veilig importeren om boekhouding te automatiseren door bankrekeningen te koppelen',
+    'receipts'      => 'Bespaar tijd door bonnen te uploaden, kosten op te nemen en handmatige werkzaamheden uit te schakelen!',
+    'ofx'           => 'Importeer zonder problemen uw banktransacties via de OFX App en automatiseer uw financiële beheer!',
+    'mt940'         => 'Upload naadloos je bankafschriften in MT940 formaat en neem eenvoudig de controle over je financiën!',
+
 ];

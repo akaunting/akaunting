@@ -10,4 +10,9 @@ return [
     'drop_file'                 => '<span style="color: #006EA6;">Upload a file</span> or drag and drop',
     'file_type_and_limitations' => ':extensions up to :row_limit rows',
 
+    'bank_feeds'    => 'Import transactions securely to automate bookkeeping by connecting bank accounts',
+    'receipts'      => 'Save time by uploading receipts, recording expenses, and eliminating manual work effortlessly!',
+    'ofx'           => 'Effortlessly import your bank transactions with the OFX App and automate your financial management!',
+    'mt940'         => 'Seamlessly upload your bank statements in MT940 format and take control of your finances with ease!',
+
 ];
