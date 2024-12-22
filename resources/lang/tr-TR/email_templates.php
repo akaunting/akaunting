@@ -27,6 +27,11 @@ return [
         'body'          => 'Merhaba,<br /><br />{customer_name} müşterinizin ödeme dönemine uygun olarak <strong>{invoice_number}</strong> numaralı fatura otomatik olarak oluşturuldu.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} faturası görüntülendi',
+        'body'          => 'Merhaba,<br /><br />{customer_name}, <strong>{invoice_number}</strong> numaralı faturayı görüntüledi.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => '{invoice_number} faturasının ödemesi alındı',
         'body'          => 'Sayın {customer_name},<br /><br />Ödeme için teşekkür ederiz. Yaptığınız ödemenin detayları:<br /><br />-------------------------------------------------<br /><br />Tutar: <strong>{transaction_total}<br /></strong>Tarih: <strong>{transaction_paid_date}</strong><br />Fatura Numarası: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
@@ -47,13 +52,13 @@ return [
         'body'          => 'Merhaba,<br /><br />{vendor_name} tedarikçinizin ödeme dönemine uygun olarak <strong>{bill_number}</strong> numaralı gider faturası otomatik olarak oluşturuldu.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => '{revenue_date} ödemesi oluşturuldu',
-        'body'          => 'Sayın {customer_name},<br /><br />Aşağıdaki ödemeyi hazırladık. <br /><br />Ödeme ayrıntılarını şu bağlantıdan görebilirsiniz: <a href="{revenue_guest_link}">{revenue_date}</a>.<br /><br />Bizimle iletişime geçmekten çekinmeyin. herhangi bir sorunuz varsa..<br /><br />Saygılarımızla,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => '{company_name} firmasından makbuzunuz',
+        'body'          => 'Sayın {contact_name},<br /><br />Ödemeniz için teşekkür ederiz. <br /><br />Aşağıdaki bağlantıdan ödeme detaylarını görüntüleyebilirsiniz: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => '{revenue_date} ödemesi oluşturuldu',
-        'body'          => 'Sayın {vendor_name},<br /><br />Aşağıdaki ödemeyi hazırladık. <br /><br />Ödeme ayrıntılarını aşağıdaki bağlantıdan görebilirsiniz: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Bizimle iletişime geçmekten çekinmeyin. herhangi bir sorunuz varsa..<br /><br />Saygılarımızla,<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => '{company_name} tarafından yapılan ödeme',
+        'body'          => 'Sayın {contact_name},<br /><br />Aşağıdaki ödemeyi yapmış bulunuyoruz. <br /><br />Aşağıdaki bağlantıdan ödeme detaylarını görüntüleyebilirsiniz: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 ];

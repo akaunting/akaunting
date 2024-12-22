@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Hata: Son yönetim panelini devre dışı bırakamazsınız. Önce yeni bir panel oluşturun!',
     ],
 
+    'form_description' => [
+        'general'               => 'Yeni yönetim paneline erişmesini istediğiniz kullanıcıları seçin.',
+    ],
+
 ];
