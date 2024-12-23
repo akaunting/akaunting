@@ -8,7 +8,13 @@
     :items="{{ json_encode($items) }}"
     search-url="{{ $searchUrl }}"
     :search-char-limit="{{ $searchCharLimit }}"
-    :search-list-key="{{ is_array($searchListKey) ? json_encode($searchListKey) : (is_object($searchListKey) ? $searchListKey : $searchListKey) }}"
+    @if (is_array($searchListKey))
+    :search-list-key="{{ json_encode($searchListKey) }}"
+    @elseif (is_object($searchListKey))
+    :search-list-key="{{ $searchListKey }}"
+    @else
+    search-list-key="{{ $searchListKey }}"
+    @endif
     @item="onSelectedItem($event)"
     add-item-text="{{ trans('general.form.add_an', ['field' => trans_choice('general.items', 1)]) }}"
     create-new-item-text="{{ trans('general.title.new', ['type' =>  trans_choice('general.items', 1)]) }}"
