@@ -40,6 +40,8 @@ class Invoices extends Export implements WithColumnFormatting
             'invoiced_at',
             'due_at',
             'amount',
+            'discount_type',
+            'discount_rate',
             'currency_code',
             'currency_rate',
             'category_name',
