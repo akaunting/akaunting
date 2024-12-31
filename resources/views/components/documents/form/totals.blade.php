@@ -79,7 +79,7 @@
                             <td class="border-t-0 py-0"></td>
 
                             <td class="ltr:text-right rtl:text-left border-t-0 border-r-0 border-b-0 align-middle py-0 pr-0">
-                                <div v-if="show_discount_text" v-if="!totals.discount_text" @click="onAddDiscount()">
+                                <div v-if="show_discount_text" @click="onAddDiscount()">
                                     <x-button.hover color="to-purple">
                                         {{ trans('invoices.add_discount') }}
                                     </x-button.hover>
@@ -125,7 +125,8 @@
                                     />
                                 </div>
 
-                                <x-form.input.hidden name="discount" v-model="form.discount" />
+                                <x-form.input.hidden name="discount_type" value="{{ $document->discount_type ?? 'percentage' }}" v-model="form.discount_type" />
+                                <x-form.input.hidden name="discount" value="{{ $document->discount_rate ?? 0 }}" v-model="form.discount" />
 
                                 <span v-if="delete_discount" @click="onRemoveDiscountArea()" class="material-icons-outlined absolute w-6 h-7 flex justify-center ltr:-right-10 rtl:-left-10 top-2 text-lg text-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-500">delete</span>
                             </td>
