@@ -87,8 +87,6 @@ const app = new Vue({
     },
 
     mounted() {
-        this.form.discount_type = 'percentage';
-
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
@@ -751,7 +749,7 @@ const app = new Vue({
         },
 
         onAddDiscount() {
-            this.show_discount = !this.show_discount;
+            this.show_discount = ! this.show_discount;
 
             if (this.show_discount) {
                 this.show_discount_text = false;
@@ -764,6 +762,10 @@ const app = new Vue({
             this.show_discount_text = true;
             this.discount = false;
             this.delete_discount = false;
+
+            this.form.discount = 0;
+
+            this.onCalculateTotal();
         },
 
         onDeleteTax(item_index, tax_index) {
@@ -1015,6 +1017,11 @@ const app = new Vue({
             let email_template = document.getElementById('sendtransaction_template').value;
 
             this.onEmailViaTemplate(email_route, email_template);
+        }
+
+        // This line added edit document has discount show discount area
+        if (this.form.discount > 0) {
+            this.onAddDiscount();
         }
 
         this.page_loaded = true;

@@ -70,20 +70,20 @@ class DocumentTotal extends Model
         switch ($this->code) {
             case 'discount':
                 $title = trans($title);
-                $percent = $this->document->discount;
+                $percent = ($this->document->discount_rate && $this->document->discount_type == 'percentage') ? $this->document->discount_rate : 0;
 
                 break;
             case 'tax':
                 $tax = Tax::where('name', $title)->first();
 
-                if (!empty($tax->rate)) {
+                if (! empty($tax->rate)) {
                     $percent = $tax->rate;
                 }
 
                 break;
         }
 
-        if (!empty($percent)) {
+        if (! empty($percent)) {
             $title .= ' (';
 
             if (setting('localisation.percent_position', 'after') === 'after') {

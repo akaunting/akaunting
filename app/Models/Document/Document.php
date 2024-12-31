@@ -43,6 +43,8 @@ class Document extends Model
         'amount',
         'currency_code',
         'currency_rate',
+        'discount_type',
+        'discount_rate',
         'category_id',
         'contact_id',
         'contact_name',
@@ -309,6 +311,26 @@ class Document extends Model
                 MediaModel::where('id', $file->id)->delete();
             }
         }
+    }
+
+    /**
+     * Get the discount percentage.
+     *
+     * @return string
+     */
+    public function getDiscountRateAttribute($value)
+    {
+        return $value ?? 0;
+    }
+
+    /**
+     * Get the discount percentage.
+     *
+     * @return string
+     */
+    public function getDiscountTypeAttribute($value)
+    {
+        return $value ?? 'percentage';
     }
 
     /**

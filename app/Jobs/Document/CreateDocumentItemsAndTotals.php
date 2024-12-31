@@ -173,6 +173,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
         foreach ((array) $this->request['items'] as $key => $item) {
             $item['global_discount'] = 0;
 
+            /* // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
             if (! empty($this->request['discount'])) {
                 if (isset($for_fixed_discount)) {
                     $item['global_discount'] = ($for_fixed_discount[$key] / ($for_fixed_discount['total'] / 100)) * ($this->request['discount'] / 100);
@@ -182,6 +183,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                     $item['global_discount_type'] = $this->request['discount_type'];
                 }
             }
+            */
 
             $item['created_from'] = $this->request['created_from'];
             $item['created_by'] = $this->request['created_by'];
@@ -241,6 +243,15 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                         'amount' => $item_tax['amount'],
                     ];
                 }
+            }
+        }
+
+        // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
+        if (! empty($this->request['discount'])) {
+            if ($this->request['discount_type'] === 'percentage') {
+                $actual_total -= ($sub_total * ($this->request['discount'] / 100));
+            } else {
+                $actual_total -= $this->request['discount'];
             }
         }
 
