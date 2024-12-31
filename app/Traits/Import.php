@@ -44,7 +44,7 @@ trait Import
         $path = $this->getImportPath($group, $type);
         $title_type = $this->getImportTitleType($group, $type);
         $sample_file = $this->getImportSampleFile($group, $type);
-        $form_params = $this->getImportFormParams($group, $type);
+        $form_params = $this->getImportFormParams($group, $type, $path, $route);
         $document_link = $this->getImportDocumentLink($group, $type);
 
         // Create the import view
