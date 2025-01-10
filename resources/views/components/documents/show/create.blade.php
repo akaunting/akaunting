@@ -11,7 +11,11 @@
     </x-slot>
 
     <x-slot name="body">
+        @stack('timeline_create_body_start')
+
         <div class="flex">
+            @stack('timeline_create_body_button_edit_start')
+
             @if (! $hideEdit)
                 @can($permissionUpdate)
                     @if ($document->status != 'cancelled')
@@ -25,6 +29,10 @@
                     @endif
                 @endcan
             @endif
+
+            @stack('timeline_create_body_button_edit_end')
         </div>
+
+        @stack('timeline_create_body_end')
     </x-slot>
 </x-show.accordion>
