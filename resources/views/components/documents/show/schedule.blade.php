@@ -7,7 +7,11 @@
     </x-slot>
 
     <x-slot name="body" class="block" override="class">
+        @stack('timeline_schedule_body_start')
+
         <div class="flex my-3 space-x-2 rtl:space-x-reverse">
+            @stack('timeline_schedule_body_description_start')
+
             @if ($document->recurring && ($next = $document->recurring->getNextRecurring()))
                 {{ trans('recurring.next_date', ['date' => $next->format(company_date_format())]) }}
                 <br>
@@ -23,6 +27,10 @@
             @else
                 {{ trans('documents.statuses.ended') }}
             @endif
+
+            @stack('timeline_schedule_body_description_end')
         </div>
+
+        @stack('timeline_schedule_body_end')
     </x-slot>
 </x-show.accordion>

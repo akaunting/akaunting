@@ -11,7 +11,11 @@
     </x-slot>
 
     <x-slot name="body">
+        @stack('timeline_send_body_start')
+
         <div class="flex flex-wrap space-x-3 rtl:space-x-reverse">
+            @stack('timeline_send_body_button_email_start')
+
             @if (! $hideEmail)
                 @if ($document->contact->has_email)
                     @if ($document->status != 'cancelled')
@@ -32,6 +36,8 @@
                 @endif
             @endif
 
+            @stack('timeline_send_body_button_mark_sent_start')
+
             @if (! $hideMarkSent)
                 @can($permissionUpdate)
                     @if ($document->status == 'draft')
@@ -48,6 +54,8 @@
                 @endcan
             @endif
 
+            @stack('timeline_send_body_button_cancelled_start')
+
             @if (! $hideShare)
                 @if ($document->status != 'cancelled')
                     <x-button id="show-slider-actions-share-link-{{ $document->type }}" @click="onShareLink('{{ route($shareRoute, $document->id) }}')">
@@ -55,6 +63,10 @@
                     </x-button>
                 @endif
             @endif
+
+            @stack('timeline_send_body_button_cancelled_end')
+
+            @stack('timeline_send_body_history_start')
 
             @if ($histories->count())
                 <div class="text-xs mt-6" style="margin-left: 0 !important;">
@@ -75,6 +87,10 @@
                     @endforeach
                 </div>
             @endif
+
+            @stack('timeline_send_body_history_end')
         </div>
+
+        @stack('timeline_get_paid_body_end')
     </x-slot>
 </x-show.accordion>

@@ -11,7 +11,11 @@
     </x-slot>
 
     <x-slot name="body">
+        @stack('timeline_receive_body_start')
+
         <div class="flex flex-wrap space-x-3 rtl:space-x-reverse">
+            @stack('timeline_receive_body_button_mark_received_start')
+
             @if (! $hideMarkReceived)
                 @can($permissionUpdate)
                     @if ($document->status == 'draft')
@@ -27,6 +31,10 @@
                     @endif
                 @endcan
             @endif
+
+            @stack('timeline_receive_body_button_mark_received_end')
         </div>
+
+        @stack('timeline_receive_body_end')
     </x-slot>
 </x-show.accordion>

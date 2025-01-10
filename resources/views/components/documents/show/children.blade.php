@@ -10,6 +10,8 @@
     </x-slot>
 
     <x-slot name="body" class="block" override="class">
+        @stack('timeline_children_body_start')
+
         @if ($document->children()->count())
             @foreach ($document->children()->get() as $child)
                 @php
@@ -23,5 +25,7 @@
         @else
             {{ trans('general.none') }}
         @endif
+
+        @stack('timeline_children_body_end')
     </x-slot>
 </x-show.accordion>

@@ -9,6 +9,8 @@
         </x-slot>
 
         <x-slot name="body">
+            @stack('timeline_attachment_body_start')
+
             @foreach ($attachment as $file)
                 <x-media.file :file="$file" />
             @endforeach
@@ -28,6 +30,8 @@
                     <x-media.file :file="$file" />
                 @endforeach
             @endif
+
+            @stack('timeline_attachment_body_end')
         </x-slot>
     </x-show.accordion>
 @endif
