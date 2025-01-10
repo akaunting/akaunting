@@ -17,7 +17,7 @@ Online accounting software designed for small businesses and freelancers. Akaunt
 ## Requirements
 
 * PHP 8.1 or higher
-* Database (e.g.: MySQL, PostgreSQL, SQLite)
+* Database (e.g.: MariaDB, MySQL, PostgreSQL, SQLite)
 * Web Server (eg: Apache, Nginx, IIS)
 * [Other libraries](https://akaunting.com/hc/docs/on-premise/requirements/)
 
