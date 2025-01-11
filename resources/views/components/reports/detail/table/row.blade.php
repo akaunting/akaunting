@@ -49,12 +49,13 @@
 
         <div class="flex items-center">
             {{ $class->row_names[$table_key][$id] }}
-            @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
+            @if (! $print && array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
                 <button type="button" class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
                     <span class="material-icons transform rotate-90 transition-all text-lg leading-none mt-.05">expand_less</span>
                 </button>
             @endif
         </div>
+
         </td>
         @foreach($parent_row_values as $row)
             <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">{{ $class->has_money ? money($row) : $row }}</td>

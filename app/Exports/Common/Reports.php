@@ -24,7 +24,7 @@ class Reports implements FromView, ShouldAutoSize, WithTitle
 
     public function view(): View
     {
-        return view($this->view, ['class' => $this->class]);
+        return view($this->view, ['class' => $this->class, 'print' => true]);
     }
 
     public function title(): string
