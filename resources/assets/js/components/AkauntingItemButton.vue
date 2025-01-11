@@ -317,7 +317,7 @@ export default {
         async fetchMatchedItems() {
             let search_limit_value = this.getSearchLimitValue();
 
-            await window.axios.get(this.searchUrl + '?search="' + this.search + '"' + search_limit_value + ' not ' + this.price + ':NULL enabled:1 limit:10')
+            await window.axios.get(this.searchUrl + '?search="' + this.search + '"' + ' not ' + this.price + ':NULL enabled:1 limit:10' + search_limit_value)
                 .then(response => {
                     this.item_list = [];
                     let items = response.data.data;
@@ -510,17 +510,17 @@ export default {
             let value = '';
 
             if (typeof this.search_list_key === 'string' && this.search_list_key !== 'value') {
-                value += ' or ' + this.search_list_key + ' = "' + this.search + '"';
+                value += ' or ' + this.search_list_key + ' = "' + this.search + '" not ' + this.price + ':NULL enabled:1 limit:10';
             } else if (Array.isArray(this.search_list_key)) {
                 this.search_list_key.forEach(key => {
                     if (key !== 'value') {
-                        value += ' or ' + key + ' = "' + this.search + '"';
+                        value += ' or ' + key + ' = "' + this.search + '" not ' + this.price + ':NULL enabled:1 limit:10';
                     }
                 });
             } else if (typeof this.search_list_key === 'object') {
                 Object.keys(this.search_list_key).forEach(key => {
                     if (key !== 'value') {
-                        value += ' or ' + key + ' = "' + this.search + '"';
+                        value += ' or ' + key + ' = "' + this.search + '" not ' + this.price + ':NULL enabled:1 limit:10';
                     }
                 });
             }
