@@ -43,6 +43,10 @@ abstract class Job
             return;
         }
 
+        if (empty($arguments[0])) {
+            $arguments[0] = [];
+        }
+
         $request = $this->getRequestInstance($arguments[0]);
         if ($request instanceof Request) {
             $this->request = $request;
@@ -91,7 +95,7 @@ abstract class Job
 
     public function getRequestInstance($request)
     {
-        if (!is_array($request)) {
+        if (! is_array($request)) {
             return $request;
         }
 
