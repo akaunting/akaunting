@@ -47,6 +47,10 @@ abstract class JobShouldQueue implements ShouldQueue
             return;
         }
 
+        if (empty($arguments[0])) {
+            $arguments[0] = [];
+        }
+
         $request = $this->getRequestInstance($arguments[0]);
         if ($request instanceof QueueCollection) {
             $this->request = $request;
