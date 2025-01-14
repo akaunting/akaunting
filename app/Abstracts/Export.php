@@ -109,11 +109,19 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
     public function preferredLocale()
     {
+        if (! $this->user) {
+            return setting('default.locale');
+        }
+
         return $this->user->locale;
     }
 
     public function failed(\Throwable $exception): void
     {
+        if (! $this->user) {
+            return;
+        }
+
         $this->user->notify(new ExportFailed($exception->getMessage()));
     }
 
@@ -182,7 +190,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
         for ($i = 3; $i <= $this->row_count; $i++) {
             $event->sheet->getCell("{$drop_column}{$i}")->setDataValidation(clone $validation);
         }
-        
+
         // set columns to autosize
         for ($i = 1; $i <=  $this->column_count; $i++) {
             $column = Coordinate::stringFromColumnIndex($i);
@@ -215,14 +223,14 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
             if (strpos($r, 'date_format') !== false) {
                 $prompt = $prompt . trans('validation.date_format', [
-                    'attribute' => $value, 
+                    'attribute' => $value,
                     'format' => str_replace('date_format:', '', $r)
                 ]) . ' ';
             }
 
             if (strpos($r, 'required_without') !== false) {
                 $prompt = $prompt . trans('validation.required_without', [
-                    'attribute' => $value, 
+                    'attribute' => $value,
                     'values' => str_replace('required_without:', '', $r)
                 ]) . ' ';
             }
@@ -238,7 +246,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
         $validation->setShowInputMessage(true);
         $validation->setPromptTitle(trans('general.validation_warning'));
         $validation->setPrompt($prompt ?? null);
-        
+
         for ($i = 3; $i <= $this->row_count; $i++) {
             $event->sheet->getCell("{$drop_column}{$i}")->setDataValidation(clone $validation);
         }
@@ -257,7 +265,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
         $model::select($select)->each(function ($row) use (&$selects, &$totalLength, $limit, $select) {
             $nameLength = mb_strlen($row->$select);
-        
+
             if ($totalLength + $nameLength <= $limit && $nameLength !== 0) {
                 $selects[] = $row->$select;
                 $totalLength += $nameLength;
@@ -277,7 +285,7 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
 
     public function registerEvents(): array
     {
-        return [		   
+        return [
             AfterSheet::class => function(AfterSheet $event) {
                 $this->afterSheet($event);
             },
