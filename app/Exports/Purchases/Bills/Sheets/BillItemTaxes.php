@@ -23,6 +23,7 @@ class BillItemTaxes extends Export implements WithParentSheet
 
         $model->bill_number = $document->document_number;
         $model->item_name = $model->item->name;
+        $model->tax_name = $model->tax->name;
         $model->tax_rate = $model->tax->rate;
 
         return parent::map($model);
@@ -33,6 +34,7 @@ class BillItemTaxes extends Export implements WithParentSheet
         return [
             'bill_number',
             'item_name',
+            'tax_name',
             'tax_rate',
             'amount',
         ];

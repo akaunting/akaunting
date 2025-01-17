@@ -42,15 +42,19 @@ class RecurringBillItemTaxes extends Import
 
         $row = parent::map($row);
 
-        $row['document_id'] = (int) Document::where('type', '=', Document::BILL_RECURRING_TYPE)
-            ->number($row['bill_number'])
-            ->pluck('id')
-            ->first();
+        $document = Document::with('items')->billRecurring()->number($row['bill_number'])->first();
+
+        if (! $document) {
+            return [];
+        }
+
+        $row['document_id'] = (int) $document->id;
 
         if (empty($row['document_item_id']) && !empty($row['item_name'])) {
             $item_id = Item::name($row['item_name'])->pluck('id')->first();
             
-            $row['document_item_id'] = DocumentItem::where('type', '=', Document::BILL_RECURRING_TYPE)
+            $row['document_item_id'] = DocumentItem::billRecurring()
+                ->where('document_id', $row['document_id'])
                 ->where('item_id', $item_id)
                 ->pluck('id')
                 ->first();
