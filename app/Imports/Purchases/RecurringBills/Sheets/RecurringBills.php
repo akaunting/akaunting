@@ -5,10 +5,13 @@ namespace App\Imports\Purchases\RecurringBills\Sheets;
 use App\Abstracts\Import;
 use App\Http\Requests\Document\Document as Request;
 use App\Models\Document\Document as Model;
+use App\Traits\Documents;
 use Illuminate\Support\Str;
 
 class RecurringBills extends Import
 {
+    Use Documents;
+
     public $request_class = Request::class;
 
     public $model = Model::class;
@@ -46,6 +49,9 @@ class RecurringBills extends Import
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['type'] = Model::BILL_RECURRING_TYPE;
         $row['contact_country'] = !empty($country) ? $country : null;
+        $row['title'] = $row['title'] ?? Model::BILL_RECURRING_TYPE;
+        $row['template'] = $row['template'] ?? setting($this->getDocumentSettingKey(Model::BILL_RECURRING_TYPE, 'template'), 'default');
+        $row['color'] = $row['color'] ?? setting($this->getDocumentSettingKey(Model::BILL_RECURRING_TYPE, 'color'), '#55588b');
 
         return $row;
     }

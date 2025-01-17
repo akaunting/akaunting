@@ -28,7 +28,6 @@ class RecurringInvoices extends Export implements WithColumnFormatting, WithPare
         $model->invoiced_at = $model->issued_at;
         $model->contact_country = $country;
         
-
         return parent::map($model);
     }
 
@@ -55,8 +54,12 @@ class RecurringInvoices extends Export implements WithColumnFormatting, WithPare
             'contact_state',
             'contact_zip_code',
             'contact_city',
+            'title',
+            'subheading',
             'notes',
             'footer',
+            'template',
+            'color',
         ];
     }
 
