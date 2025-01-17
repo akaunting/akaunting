@@ -5,10 +5,13 @@ namespace App\Imports\Sales\RecurringInvoices\Sheets;
 use App\Abstracts\Import;
 use App\Http\Requests\Document\Document as Request;
 use App\Models\Document\Document as Model;
+use App\Traits\Documents;
 use Illuminate\Support\Str;
 
 class RecurringInvoices extends Import
 {
+    Use Documents;
+
     public $request_class = Request::class;
 
     public $model = Model::class;
@@ -45,6 +48,9 @@ class RecurringInvoices extends Import
         $row['contact_id'] = $this->getContactId($row, 'customer');
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['type'] = Model::INVOICE_RECURRING_TYPE;
+        $row['title'] = $row['title'] ?? Model::INVOICE_RECURRING_TYPE;
+        $row['template'] = $row['template'] ?? setting($this->getDocumentSettingKey(Model::INVOICE_RECURRING_TYPE, 'template'), 'default');
+        $row['color'] = $row['color'] ?? setting($this->getDocumentSettingKey(Model::INVOICE_RECURRING_TYPE, 'color'), '#55588b');
         $row['contact_country'] = !empty($country) ? $country : null;
 
         return $row;

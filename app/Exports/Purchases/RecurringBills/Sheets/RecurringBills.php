@@ -54,7 +54,11 @@ class RecurringBills extends Export implements WithColumnFormatting, WithParentS
             'contact_state',
             'contact_zip_code',
             'contact_city',
+            'title',
+            'subheading',
             'notes',
+            'template',
+            'color',
         ];
     }
 

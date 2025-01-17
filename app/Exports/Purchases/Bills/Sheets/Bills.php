@@ -54,7 +54,11 @@ class Bills extends Export implements WithColumnFormatting
             'contact_state',
             'contact_zip_code',
             'contact_city',
+            'title',
+            'subheading',
             'notes',
+            'template',
+            'color',
             'parent_number'
         ];
     }

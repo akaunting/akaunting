@@ -54,8 +54,12 @@ class Invoices extends Export implements WithColumnFormatting
             'contact_state',
             'contact_zip_code',
             'contact_city',
+            'title',
+            'subheading',
             'notes',
             'footer',
+            'template',
+            'color',
             'parent_number',
         ];
     }
