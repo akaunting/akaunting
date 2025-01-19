@@ -71,6 +71,10 @@ abstract class Job
             $this->model = $arguments[0];
         }
 
+        if (empty($arguments[1])) {
+            $arguments[1] = [];
+        }
+
         $request = $this->getRequestInstance($arguments[1]);
         if ($request instanceof Request) {
             $this->request = $request;
