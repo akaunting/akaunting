@@ -15,6 +15,13 @@ function getQueryVariable(variable) {
     return(false);
 }
 
+const { evaluate } = require('mathjs');
+
+// use the evaluate function to evaluate the expression
+function calculationToQuantity(quantity) {
+    return evaluate(quantity);
+}
+
 //This function wraps setTimeout function in a promise in order to display dom manipulations on root components asynchronously & fast 
 const setPromiseTimeout = time => 
     new Promise(resolve => 
@@ -23,4 +30,4 @@ const setPromiseTimeout = time =>
         , time)
     );
 
-export {getQueryVariable, setPromiseTimeout}
+export {getQueryVariable, calculationToQuantity, setPromiseTimeout}

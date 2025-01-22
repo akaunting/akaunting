@@ -31,7 +31,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $item_id = ! empty($this->request['item_id']) ? $this->request['item_id'] : 0;
         $precision = currency($this->document->currency_code)->getPrecision();
 
-        $item_amount = (double) $this->request['price'] * (double) $this->request['quantity'];
+        $item_amount = (double) $this->request['price'] * (double) calculation_to_quantity($this->request['quantity']);
 
         $item_discounted_amount = $item_amount;
 
@@ -159,7 +159,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $this->request['item_id'] = $item_id;
         $this->request['name'] = Str::limit($this->request['name'], 180, '');
         $this->request['description'] = ! empty($this->request['description']) ? $this->request['description'] : '';
-        $this->request['quantity'] = (double) $this->request['quantity'];
+        $this->request['quantity'] = (double) calculation_to_quantity($this->request['quantity']);
         $this->request['price'] = round($this->request['price'], $precision);
         $this->request['tax'] = round($item_tax_total, $precision);
         $this->request['discount_type'] = ! empty($this->request['discount_type']) ? $this->request['discount_type'] : 'percent';

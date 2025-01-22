@@ -429,3 +429,22 @@ if (! function_exists('request_is_portal')) {
         return $r->is($company_id . '/portal') || $r->is($company_id . '/portal/*');
     }
 }
+
+if (! function_exists('calculation_to_quantity')) {
+    function calculation_to_quantity($quantity)
+    {
+        if (! preg_match('/^[0-9+\-x*\/().\s]+$/', $quantity)) {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
+        }
+
+        $quantity = Str::replace('x', '*', $quantity);
+
+        try {
+            $result = eval('return ' . $quantity . ';');
+        } catch (\Throwable $e) {
+            throw new \InvalidArgumentException('Error evaluating the expression: ' . $e->getMessage());
+        }
+
+        return $result;
+    }
+}

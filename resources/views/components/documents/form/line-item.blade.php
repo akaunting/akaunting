@@ -98,7 +98,7 @@
                                     @stack('quantity_input_start')
 
                                     <input
-                                        type="number"
+                                        type="text"
                                         min="0"
                                         :ref="'items-' + index + '-quantity'"
                                         class="w-full text-sm px-3 py-2.5 mt-0 text-right rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple input-number-disabled"

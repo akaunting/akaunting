@@ -93,6 +93,8 @@ class Document extends FormRequest
             foreach ($items as $key => $item) {
                 $size = 10;
 
+                $items[$key]['quantity'] = calculation_to_quantity($item['quantity']);
+
                 if (Str::contains($item['quantity'], ['.', ','])) {
                     $size = 12;
                 }
@@ -101,6 +103,8 @@ class Document extends FormRequest
 
                 $this->items_quantity_size[$key] = $size;
             }
+
+            $this->request->set('items', $items);
         }
 
         return $rules;
