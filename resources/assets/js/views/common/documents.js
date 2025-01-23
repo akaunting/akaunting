@@ -8,7 +8,7 @@ import Vue from 'vue';
 
 import DashboardPlugin from './../../plugins/dashboard-plugin';
 import { addDays, format } from 'date-fns';
-import { setPromiseTimeout, getQueryVariable } from './../../plugins/functions';
+import { setPromiseTimeout, calculationToQuantity, getQueryVariable } from './../../plugins/functions';
 
 import Global from './../../mixins/global';
 
@@ -318,7 +318,7 @@ const app = new Vue({
 
             // items calculate
             this.items.forEach(function(item, index) {
-                item.total = item.grand_total = item.price * item.quantity;
+                item.total = item.grand_total = item.price * calculationToQuantity(item.quantity);
 
                 let item_discounted_total = items_amount[index];
 
@@ -346,7 +346,7 @@ const app = new Vue({
 
                 this.calculateItemTax(item, totals_taxes, total_discount + line_discount_amount);
 
-                item.total = item.price * item.quantity;
+                item.total = item.price * calculationToQuantity(item.quantity);
 
                 // calculate sub, tax, discount all items.
                 line_item_discount_total += line_discount_amount;
@@ -474,7 +474,7 @@ const app = new Vue({
                 if (fixed.length) {
                     fixed.forEach(function(fixed) {
                         item.tax_ids[fixed.tax_index].name = fixed.tax_name;
-                        item.tax_ids[fixed.tax_index].price = fixed.tax_rate * item.quantity;
+                        item.tax_ids[fixed.tax_index].price = fixed.tax_rate * calculationToQuantity(item.quantity);
 
                         total_tax_amount += item.tax_ids[fixed.tax_index].price;
 
@@ -536,7 +536,7 @@ const app = new Vue({
             this.items.forEach(function(item, index) {
                 let item_total = 0;
 
-                item_total = item.price * item.quantity;
+                item_total = item.price * calculationToQuantity(item.quantity);
 
                 // item discount calculate.
                 if (item.discount) {
@@ -1053,6 +1053,19 @@ const app = new Vue({
             }
 
            this.form.discount.replace(',', '.');
+        },
+
+        'items': {
+            handler(newItems, oldItems) {
+                const regex = /^[0-9+\-x*\/().\s]+$/;
+
+                newItems.forEach((item, index) => {
+                    if (item.quantity && ! regex.test(item.quantity)) {
+                        item.quantity = item.quantity.replace(/[^0-9+\-x*\/().\s]/g, "");
+                    }
+                });
+            },
+            deep: true,
         },
 
         'form.loading': function (newVal, oldVal) {
