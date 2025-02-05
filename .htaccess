@@ -24,6 +24,10 @@
         </IfModule>
     </FilesMatch>
 
+    # Prevent Direct Access to Protected Files (OpenLiteSpeed syntax)
+    RewriteCond %{REQUEST_URI} (^|/)(\.env|\.log|artisan)$ [NC]
+    RewriteRule .* - [F,L]
+
     # Prevent Direct Access To Protected Folders
     RewriteRule ^(app|bootstrap|config|database|overrides|resources|routes|storage|tests)/(.*) / [L,R=301]
 
