@@ -19,7 +19,7 @@ const { evaluate } = require('mathjs');
 
 // use the evaluate function to evaluate the expression
 function calculationToQuantity(quantity) {
-    return evaluate(quantity);
+    return evaluate(quantity.toString());
 }
 
 //This function wraps setTimeout function in a promise in order to display dom manipulations on root components asynchronously & fast 
