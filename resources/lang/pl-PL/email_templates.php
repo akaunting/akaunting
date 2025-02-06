@@ -27,6 +27,11 @@ return [
         'body'          => 'Witaj,<br /><br />Cykliczna faktura <strong>{invoice_number}</strong>  dla {customer_name} została wygenerowana automatycznie.<br /><br />Szczegóły faktury dostępne w poniższym linku: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Pozdrawiamy,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} wyświetlono fakturę',
+        'body'          => 'Witaj,<br /><br />{customer_name} wyświetlił fakturę <strong>{invoice_number}</strong>.<br /><br />Szczegóły faktury dostępne w poniższym linku: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Pozdrawiamy,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Płatność otrzymana za fakturę {invoice_number}',
         'body'          => 'Szanowny(a) {customer_name},<br /><br />Dziękujemy za płatność. Poniżej znajdziesz szczegóły płatności:<br /><br />-------------------------------------------------<br />Kwota: <strong>{transaction_total}</strong><br />Data: <strong>{transaction_paid_date}</strong><br />Numer faktury: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Zawsze możesz zobaczyć dane faktury pod linkiem: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu z nami.<br /><br />Pozdrawiamy,<br />{company_name}',
@@ -47,16 +52,13 @@ return [
         'body'          => 'Witaj,<br /><br />Cykliczny rachunek <strong>{bill_number}</strong>  dla {vendor_name} został wygenerowany automatycznie.<br /><br />Szczegóły rachunku są dostępne w poniższym linku: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Pozdrawiamy,<br />{company_name}',
     ],
 
-    'revenue_new_customer' => [
-        'subject'       => 'Płatność uworzono dnia {revenue_date}
-',
-        'body'          => 'Szanowny(a) {customer_name},<br /><br />Przygotowaliśmy dla Ciebie płatność za fakturę: <strong>{invoice_number}</strong>.<br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
+    'payment_received_customer' => [
+        'subject'       => 'Twój paragon od {company_name}',
+        'body'          => 'Szanowny {contact_name},<br /><br />Dziękujemy za płatność. <br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
     ],
 
-    'payment_new_vendor' => [
-        'subject'       => 'Płatność uworzono dnia {revenue_date}
-',
-        'body'          => '
-Szanowny {vendor_name},<br /><br />Przygotowaliśmy dla Ciebie płatność za fakturę. <br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{payment_admin_link}">{payment_date}</a>.<br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
+    'payment_made_vendor' => [
+        'subject'       => 'Płatność dokonana przez {company_name}',
+        'body'          => 'Szanowny {contact_name},<br /><br />Dokonaliśmy następującej płatności. <br /><br />Szczegóły płatności dostępne w poniższym linku: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Jeżeli masz jakieś pytania zapraszamy do kontaktu.<br /><br />Pozdrawiamy,<br />{company_name}',
     ],
 ];
