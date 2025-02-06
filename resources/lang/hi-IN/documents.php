@@ -70,8 +70,18 @@ return [
         'attachment'            => 'इस :type से जुड़ी फ़ाइलें डाउनलोड करें',
     ],
 
+    'slider' => [
+        'create'            => ':user ने यह :type :date को बनाया',
+        'create_recurring'  => ':user ने यह आवर्ती टेम्पलेट :date को बनाया',
+        'send'              => ':user ने यह :type :date को भेजा',
+        'schedule'          => ':date  के बाद से हर :interval :frequency में दोहराएं',
+        'children'          => ':count :type स्वचालित रूप से बनाए गए थे',
+        'cancel'            => ':user ने यह :type :date को रद्द किया',
+    ],
+
     'messages' => [
         'email_sent'            => ':type ईमेल भेजा गया है!',
+        'restored'              => ':type बहाल कर दिया गया है!',
         'marked_as'             => ':type :status के रूप में चिह्नित !',
         'marked_sent'           => ':type भेजे गए के रूप में मार्क किया गया!',
         'marked_paid'           => ':type भुगतान के रूप में मार्क किया गया!',
