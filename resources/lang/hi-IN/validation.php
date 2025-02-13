@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribute में अमान्य छवि पैमाना हैं।',
     'distinct' => ':attribute फील्ड का एक डुप्लिकेट मान होता है।',
     'doesnt_start_with' => ':attribute निम्न में से किसी एक से प्रारंभ नहीं हो सकता है: :values.',
+    'double' => ':attribute  एक वैध डबल होना चाहिए.',
     'email' => ':attribute एक मान्य <strong>ईमेल पता</strong> होना चाहिए।',
     'ends_with' => ':attribute को निम्न में से किसी एक के साथ समाप्त होना चाहिए: :values',
     'enum' => 'चुना गया :attribute अमान्य है।',
@@ -156,6 +157,8 @@ return [
         'invalid_amount'        => 'राशि :attribute अमान्य है।',
         'invalid_extension'     => 'फ़ाइल एक्सटेंशन अमान्य है।',
         'invalid_dimension'     => ':attribute आयाम अधिकतम :width px :height px होना चाहिए।',
+        'invalid_colour'        => ':attribute कलर अमान्य है।',
+        'invalid_payment_method'=> 'भुगतान विधि अमान्य है.',
     ],
 
     /*
