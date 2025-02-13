@@ -20,6 +20,7 @@ return [
         'general'               => 'Dane kontaktowe Twojego klienta pojawią się na fakturach i w ich profilach. Możesz również zezwolić swoim klientom na logowanie się do śledzenia faktur, które im wysyłasz, zaznaczając pole poniżej.',
         'billing'               => 'Numer NIP pojawia się w każdej fakturze wystawionej klientowi. Wybrana waluta staje się domyślną walutą dla tego klienta.',
         'address'               => 'Adres jest wymagany dla faktur, musisz dodać dane adresu rozliczeniowego dla klienta.',
+        'contact_persons'       => 'Aby dodać dodatkowych odbiorców w wiadomości e-mail jako DW (CC), dodaj je jako osoby kontaktowe.',
     ],
 
     'no_records' => [

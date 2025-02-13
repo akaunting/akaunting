@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'डाउनलोड तैयार है',
+            'description'   => 'फ़ाइल निम्न लिंक से डाउनलोड करने के लिए तैयार है:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'डाउनलोड विफल',
+            'description'   => 'निम्नलिखित समस्या के कारण फ़ाइल बनाने में असमर्थ:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -75,6 +93,20 @@ return [
     ],
 
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'डाउनलोड तैयार है',
+            'description'   => 'आपकी <strong>:type</strong> फ़ाइल <a href=":url" target="_blank"><strong>डाउनलोड</strong></a> के लिए तैयार है.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'डाउनलोड विफल',
+            'description'   => 'कई समस्याओं के कारण फ़ाइल नहीं बनाई जा सकी। विवरण के लिए अपना ईमेल देखें।',
+
+        ],
 
         'export_completed' => [
 
