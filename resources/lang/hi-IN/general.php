@@ -66,7 +66,7 @@ return [
     'email_templates'       => 'ईमेल टेम्पलेट|ईमेल टेम्पलेट्स',
     'bank_transactions'     => 'बैंक लेन - देन|बैंक लेन - देन',
     'recurring_templates'   => 'आवर्ती टेम्पलेट|आवर्ती टेम्पलेट्स',
-    'receipts'              => 'रसीद|रसीदे',
+    'receipts'              => 'रसीद|रसीदें',
     'products'              => 'उत्पाद|उत्पादों',
     'services'              => 'सेवा|सेवाएं',
     'invitations'           => 'आमंत्रण|आमंत्रण',
