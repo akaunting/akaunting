@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Instalar dependências do sistema
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     default-mysql-client \
     lsb-release \
@@ -25,29 +25,29 @@ RUN apt-get update && apt-get install -y \
     && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && service apache2 start
 
-# Instalar o Composer
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Instalar o Node.js e o NPM
+# Install Node.js and NPM
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
-# Instalar dependências do projeto
+# Set project working directory
 WORKDIR /var/www/html
 
-# Copiar os arquivos do repositório para o container
+# Copy repository files to the container
 COPY . /var/www/html/
 
-# Instalar dependências do Composer e NPM
+# Install Composer and NPM dependencies
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run dev
 
-# Expor a porta 80
+# Expose port 80
 EXPOSE 80
 
-# Copiar o script de entrada
+# Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Usar o script como ponto de entrada
+# Use the script as the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
