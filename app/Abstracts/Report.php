@@ -251,7 +251,7 @@ abstract class Report
 
     public function show()
     {
-        return view($this->views['show'])->with('class', $this);
+        return view($this->views['show'], ['print' => false])->with('class', $this);
     }
 
     public function print()
