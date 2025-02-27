@@ -50,6 +50,7 @@ class DocumentItem extends Model
         'price'         => 'double',
         'total'         => 'double',
         'tax'           => 'double',
+        'discount_rate' => 'double',
         'deleted_at'    => 'datetime',
     ];
 
@@ -132,7 +133,7 @@ class DocumentItem extends Model
         return $text;
     }
 
-    public function getDiscountRateAttribute(int $value = 0)
+    public function getDiscountRateAttribute($value = 0)
     {
         $discount_rate = 0;
 

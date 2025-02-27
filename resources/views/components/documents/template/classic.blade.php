@@ -346,6 +346,10 @@
 
         <div class="col-40 float-right text-right">
             @foreach ($document->totals_sorted as $total)
+                @if ($total->code == 'item_discount')
+                    @continue
+                @endif
+
                 @if ($total->code != 'total')
                     @stack($total->code . '_total_tr_start')
                     <div class="text border-bottom-dashed py-1">
