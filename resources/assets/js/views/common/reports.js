@@ -36,6 +36,12 @@ const app = new Vue({
 
     methods: {
         onChangeClass(class_name) {
+            if (! class_name) {
+                this.report_fields = '';
+
+                return;
+            }
+
             axios.get(url + '/common/reports/fields', {
                 params: {
                     class: class_name
