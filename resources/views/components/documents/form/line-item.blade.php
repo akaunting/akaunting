@@ -321,6 +321,10 @@
                                                 ]
                                             ]
                                         ])}}"
+                                        :option_field="{{ json_encode([
+                                            'key' => 'id',
+                                            'value' => 'title'
+                                        ]) }}"
                                         @interface="row_tax.id = $event"
                                         @change="onCalculateTotal()"
                                         @new="dynamic_taxes.push($event)"
@@ -331,7 +335,7 @@
                                         <template #option="{option}">
                                             <span class="tax-group flex items-center">
                                                 <span class="float-left">
-                                                    @{{ option.value }}
+                                                    @{{ option.option.title }}
                                                 </span>
 
                                                 <span 
@@ -424,6 +428,10 @@
                                                 ]
                                             ]
                                         ])}}"
+                                        :option_field="{{ json_encode([
+                                            'key' => 'id',
+                                            'value' => 'title'
+                                        ]) }}"
                                         @interface="tax_id = $event"
                                         @visible-change="onSelectedTax(index)"
                                         @new="dynamic_taxes.push($event)"
@@ -434,7 +442,7 @@
                                         <template #option="{option}">
                                             <span class="tax-group flex items-center">
                                                 <span class="float-left">
-                                                    @{{ option.value }}
+                                                    @{{ option.option.title }}
                                                 </span>
 
                                                 <span 

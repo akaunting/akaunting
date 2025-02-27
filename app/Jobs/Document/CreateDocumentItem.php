@@ -47,10 +47,12 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         // Apply total discount to amount
         if (! empty($this->request['global_discount'])) {
             if ($this->request['global_discount_type'] === 'percentage') {
-                $item_discounted_amount -= $item_discounted_amount * ($this->request['global_discount'] / 100);
+                $global_discount = $item_discounted_amount * ($this->request['global_discount'] / 100);
             } else {
-                $item_discounted_amount -= $this->request['global_discount'];
+                $global_discount = $this->request['global_discount'];
             }
+
+            $item_discounted_amount -= $global_discount;
         }
 
         $tax_amount = 0;
@@ -151,6 +153,12 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
                     $item_tax_total += $tax_amount;
                 }
             }
+        }
+
+        if (! empty($global_discount)) {
+            $actual_price_item += $global_discount;
+            $item_amount += $global_discount; 
+            $item_discounted_amount += $global_discount;
         }
 
         $this->request['company_id'] = $this->document->company_id;

@@ -70,7 +70,8 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
         if (! empty($this->request['discount'])) {
             if ($this->request['discount_type'] === 'percentage') {
-                $discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
+                //$discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
+                $discount_total = $sub_total * ($this->request['discount'] / 100);
             } else {
                 $discount_total = $this->request['discount'];
             }
@@ -173,17 +174,16 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
         foreach ((array) $this->request['items'] as $key => $item) {
             $item['global_discount'] = 0;
 
-            /* // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
+            // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
             if (! empty($this->request['discount'])) {
                 if (isset($for_fixed_discount)) {
                     $item['global_discount'] = ($for_fixed_discount[$key] / ($for_fixed_discount['total'] / 100)) * ($this->request['discount'] / 100);
-                    $item['global_discount_type'] = '';
+                    $item['global_discount_type'] = $this->request['discount_type'];
                 } else {
                     $item['global_discount'] = $this->request['discount'];
                     $item['global_discount_type'] = $this->request['discount_type'];
                 }
             }
-            */
 
             $item['created_from'] = $this->request['created_from'];
             $item['created_by'] = $this->request['created_by'];
@@ -211,7 +211,9 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
             $document_item = $this->dispatch(new CreateDocumentItem($this->document, $item));
 
-            $item_amount = (double) $item['price'] * (double) $item['quantity'];
+            # This line changed for discount calcualter issue
+            //$item_amount = (double) $item['price'] * (double) $item['quantity'];
+            $item_amount = $document_item->total;
 
             $discount_amount = 0;
 
