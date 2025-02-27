@@ -62,7 +62,7 @@
                                 <div class="relative sm:col-span-6 pt-3">
                                     <div style="table-layout: fixed;">
                                         <div class="overflow-x-visible overflow-y-hidden">
-                                            <table class="w-full" id="items" style="table-layout: fixed">
+                                            <table class="w-full" :id="'items-' + _uid" style="table-layout: fixed">
                                                 <thead class="border-b">
                                                     <tr>
                                                         <th colspan="3" class="w-12/12 px-0 text-left border-t-0 border-r-0 border-b-0">
@@ -133,7 +133,7 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr id="addItem">
+                                                    <tr :id="'addItem-' + _uid">
                                                         <td colspan="3" class="w-12/12 p-0">
                                                             <akaunting-document-button
                                                                 :items="documents"
@@ -154,14 +154,14 @@
 
                                 <div class="sm:col-span-6">
                                     <div class="overflow-y-hidden py-5">
-                                        <table id="totals" class="float-right">
+                                        <table :id="'totals-' + _uid" class="float-right">
                                             <colgroup>
                                                 <col style="width: 51.5%;">
                                                 <col style="width: 30%;">
                                                 <col style="width: 18.5%;">
                                             </colgroup>
-                                            <tbody id="document-total-rows">
-                                                <tr id="tr-total">
+                                            <tbody :id="'document-total-rows-' + _uid">
+                                                <tr :id="'tr-total-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
                                                     <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
@@ -183,7 +183,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr id="tr-transaction-amount">
+                                                <tr :id="'tr-transaction-amount-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
                                                     <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
@@ -219,7 +219,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr id="tr-difference">
+                                                <tr :id="'tr-difference-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
                                                     <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
