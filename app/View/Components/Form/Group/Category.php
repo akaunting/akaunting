@@ -42,7 +42,7 @@ class Category extends Form
                 return $category->id === $category_id;
             });
 
-            if (! $has_category) {
+            if ($has_category === false) {
                 $category = Model::find($category_id);
 
                 $this->categories->push($category);
@@ -68,7 +68,7 @@ class Category extends Form
                 return $category->id === $selected_category_id;
             });
 
-            if (! $has_selected_category) {
+            if ($has_selected_category === false) {
                 $this->categories->push($selected_category);
             }
         }
