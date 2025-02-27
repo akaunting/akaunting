@@ -6,6 +6,10 @@
         name="{{ $name }}"
         label="{{ trans_choice('general.accounts', 1) }}"
         :options="$accounts"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
         :selected="$selected"
         :required="$required"
         change="onChangeAccount"
@@ -30,6 +34,10 @@
         name="{{ $name }}"
         label="{{ trans_choice('general.accounts', 1) }}"
         :options="$accounts"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
         :selected="$selected"
         :required="$required"
         change="onChangeAccount"

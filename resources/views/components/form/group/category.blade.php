@@ -11,6 +11,10 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -38,6 +42,10 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -65,6 +73,10 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -89,6 +101,10 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"

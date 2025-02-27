@@ -17,6 +17,10 @@
         :selected="$selected"
         change="{{ $change }}"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -30,7 +34,7 @@
         <template #option="{option}">
             <span class="tax-group flex items-center">
                 <span class="float-left">
-                    @{{ option.value }}
+                    @{{ option.option.title }}
                 </span>
 
                 <span 
@@ -68,6 +72,10 @@
         :selected="$selected"
         change="{{ $change }}"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -81,7 +89,7 @@
         <template #option="{option}">
             <span class="tax-group flex items-center">
                 <span class="float-left">
-                    @{{ option.value }}
+                    @{{ option.option.title }}
                 </span>
 
                 <span 
@@ -119,6 +127,10 @@
         :selected="$selected"
         change="{{ $change }}"
         sort-options="false"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -132,7 +144,7 @@
         <template #option="{option}">
             <span class="tax-group flex items-center">
                 <span class="float-left">
-                    @{{ option.value }}
+                    @{{ option.option.title }}
                 </span>
 
                 <span 
@@ -167,6 +179,10 @@
         change="{{ $change }}"
         sort-options="false"
         :field="$field"
+        :option_field="[
+            'key' => 'id',
+            'value' => 'title'
+        ]"
 
         :multiple="$multiple"
         :group="$group"
@@ -180,7 +196,7 @@
         <template #option="{option}">
             <span class="tax-group flex items-center">
                 <span class="float-left">
-                    @{{ option.value }}
+                    @{{ option.option.title }}
                 </span>
 
                 <span 
