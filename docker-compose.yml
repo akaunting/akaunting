@@ -1,0 +1,43 @@
+services:
+    app:
+        build: .
+        container_name: php_apache_akaunting
+        restart: always
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - db
+        networks:
+            - akaunting_network
+        environment:
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: akaunting_database
+            DB_USERNAME: akaunting_user
+            DB_PASSWORD: akaunting_pass
+
+    db:
+        image: mysql:8.0
+        container_name: mysql_akaunting
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: akaunting_root_pass
+            MYSQL_DATABASE: akaunting_database
+            MYSQL_USER: akaunting_user
+            MYSQL_PASSWORD: akaunting_pass
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - akaunting_network
+
+volumes:
+    mysql_data:
+
+networks:
+    akaunting_network:
+        name: akaunting_network
+        driver: bridge
