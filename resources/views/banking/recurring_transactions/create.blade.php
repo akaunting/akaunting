@@ -55,6 +55,8 @@
                         <x-form.group.category type="{{ $real_type }}" :selected="setting('default.' . $real_type . '_category')" />
 
                         <x-form.group.contact :type="$contact_type" not-required />
+
+                        <x-form.group.tax name="tax_ids" multiple with-summary not-required :currency="$currency" change="onChangeTax" />
                     </x-slot>
                 </x-form.section>
 
@@ -108,6 +110,8 @@
 
     @push('scripts_start')
         <script type="text/javascript">
+            var transaction_taxes = {!! $taxes !!};
+
             if (typeof aka_currency !== 'undefined') {
                 aka_currency = {!! json_encode(! empty($currency) ? $currency : config('money.currencies.' . company()->currency)) !!};
             } else {

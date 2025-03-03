@@ -13,6 +13,7 @@ use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Recurring;
 use App\Models\Setting\Currency;
+use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Transactions as TransactionsTrait;
@@ -76,13 +77,16 @@ class RecurringTransactions extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
+        $taxes = Tax::enabled()->orderBy('name')->get();
+
         return view('banking.recurring_transactions.create', compact(
             'type',
             'real_type',
             'number',
             'contact_type',
             'account_currency_code',
-            'currency'
+            'currency',
+            'taxes'
         ));
     }
 
@@ -173,6 +177,8 @@ class RecurringTransactions extends Controller
 
         $currency = Currency::where('code', $recurring_transaction->currency_code)->first();
 
+        $taxes = Tax::enabled()->orderBy('name')->get();
+
         $date_format = $this->getCompanyDateFormat();
 
         return view('banking.recurring_transactions.edit', compact(
@@ -182,6 +188,7 @@ class RecurringTransactions extends Controller
             'contact_type',
             'recurring_transaction',
             'currency',
+            'taxes',
             'date_format'
         ));
     }
