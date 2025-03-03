@@ -267,6 +267,13 @@ trait Documents
         return true;
     }
 
+    public function getRealTypeOfDocument(string $type): string
+    {
+        $type = $this->getRealTypeOfRecurringDocument($type);
+
+        return $type;
+    }
+
     public function getRealTypeOfRecurringDocument(string $recurring_type): string
     {
         return Str::replace('-recurring', '', $recurring_type);
