@@ -37,6 +37,8 @@ class InvoiceItems extends Export implements WithParentSheet
             'item_description',
             'item_type',
             'quantity',
+            'discount_type',
+            'discount_rate',
             'price',
             'total',
             'tax',
