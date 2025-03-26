@@ -59,12 +59,7 @@
                             </x-table.th>
 
                             <x-table.th class="w-6/12 sm:w-4/12" kind="amount">
-                                <x-slot name="first">
-                                    <x-sortablelink column="opening_balance" title="{{ trans('reconciliations.opening_balance') }}" />
-                                </x-slot>
-                                <x-slot name="second">
-                                    <x-sortablelink column="closing_balance" title="{{ trans('reconciliations.closing_balance') }}" />
-                                </x-slot>
+                                <x-sortablelink column="closing_balance" title="{{ trans('reconciliations.closing_balance') }}" />
                             </x-table.th>
                         </x-table.tr>
                     </x-table.thead>
