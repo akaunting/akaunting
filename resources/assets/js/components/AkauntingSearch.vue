@@ -176,7 +176,7 @@
 import moment from 'moment';
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
-import {getQueryVariable} from './../plugins/functions';
+import {getQueryVariable, removeURLParameter} from './../plugins/functions';
 
 export default {
     name: 'akaunting-search',
@@ -486,8 +486,8 @@ export default {
                     let dates = this.selected_values[index].key.split('-to-');
 
                     date_range_path += sign + 'start_date=' + dates[0];
-                    date_range_path += '&end_date=' + dates[1];
-
+                    date_range_path += '&end_date=' + (dates[1] ? dates[1] : dates[0]);
+                    
                     return;
                 }
 
@@ -1088,59 +1088,72 @@ export default {
         }
 
         if (getQueryVariable('start_date') && getQueryVariable('end_date')) {
-            this.filter_list.forEach(function (_filter, i) {
-                if (_filter.key != 'date_range') {
-                    return;
-                }
+            let start = new Date(getQueryVariable('start_date'));
+            let end = new Date(getQueryVariable('end_date'));
+            let start_date = getQueryVariable('start_date');
+            let end_date = getQueryVariable('end_date');
 
-                this.selected_options.push(this.filter_list[i]);
+            if ((start instanceof Date && ! isNaN(start)) || (end instanceof Date && ! isNaN(end))) {
+                start_date = (start instanceof Date && ! isNaN(start)) ? start_date : ((end instanceof Date && ! isNaN(end)) ? end_date : false);
+                end_date = (end instanceof Date && ! isNaN(end)) ? end_date : ((start instanceof Date && ! isNaN(start)) ? start_date : false); 
 
-                this.selected_operator.push({
-                    key: '=',
-                });
-
-                this.filter_list.splice(i, 1);
-
-                let value_assigned = false;
-                let filter_values = this.convertOption(_filter.values);
-
-                this.option_values[_filter.key] = filter_values;
-
-                let date_range_value = getQueryVariable('start_date') + '-to-' + getQueryVariable('end_date');
-
-                filter_values.forEach(function (value, j) {
-                    if (value.key == date_range_value) {
-                        this.selected_values.push(value);
-
-                        this.option_values[_filter.key].splice(j, 1);
-
-                        value_assigned = true;
+                this.filter_list.forEach(function (_filter, i) {
+                    if (_filter.key != 'date_range') {
+                        return;
                     }
-                }, this);
 
-                let date_range_value_format = '';
+                    this.selected_options.push(this.filter_list[i]);
 
-                if (! value_assigned) {
-                    let dates = date_range_value.split('-to-');
-
-                    let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
-
-                    date_range_value_format = moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
-
-                    this.selected_values.push({
-                        key: date_range_value,
-                        value: date_range_value_format,
+                    this.selected_operator.push({
+                        key: '=',
                     });
-                }
 
-                this.filtered.push({
-                    option: _filter.value,
-                    operator: '=',
-                    value: (_filter.values[date_range_value]) ? _filter.values[date_range_value] : date_range_value_format,
-                });
+                    this.filter_list.splice(i, 1);
 
-                this.filter_index++;
-            }, this);
+                    let value_assigned = false;
+                    let filter_values = this.convertOption(_filter.values);
+
+                    this.option_values[_filter.key] = filter_values;
+
+                    let date_range_value = start_date + '-to-' + end_date;
+
+                    filter_values.forEach(function (value, j) {
+                        if (value.key == date_range_value) {
+                            this.selected_values.push(value);
+
+                            this.option_values[_filter.key].splice(j, 1);
+
+                            value_assigned = true;
+                        }
+                    }, this);
+
+                    let date_range_value_format = '';
+
+                    if (! value_assigned) {
+                        let dates = date_range_value.split('-to-');
+
+                        let date_format = this.convertToDarteFormat(this.dateConfig.altFormat);
+
+                        date_range_value_format = moment(dates[0]).format(date_format) + ' to ' + moment(dates[1]).format(date_format);
+
+                        this.selected_values.push({
+                            key: date_range_value,
+                            value: date_range_value_format,
+                        });
+                    }
+
+                    this.filtered.push({
+                        option: _filter.value,
+                        operator: '=',
+                        value: (_filter.values[date_range_value]) ? _filter.values[date_range_value] : date_range_value_format,
+                    });
+
+                    this.filter_index++;
+                }, this);
+            } else {
+                removeURLParameter('start_date');
+                removeURLParameter('end_date');
+            }
         }
     },
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\Report as Request;
+use App\Http\Requests\Common\ReportShow as ShowRequest;
 use App\Jobs\Common\CreateReport;
 use App\Jobs\Common\DeleteReport;
 use App\Jobs\Common\UpdateReport;
@@ -66,9 +67,10 @@ class Reports extends Controller
      * Show the form for viewing the specified resource.
      *
      * @param  Report $report
+     * @param  ShowRequest $request
      * @return Response
      */
-    public function show(Report $report)
+    public function show(Report $report, ShowRequest $request)
     {
         if (Utility::cannotShow($report->class)) {
             abort(403);

@@ -15,6 +15,16 @@ function getQueryVariable(variable) {
     return(false);
 }
 
+function removeURLParameter(param) {
+    let url = window.location.href;
+    let regex = new RegExp("[?&]" + param + "(=[^&#]*)?", "g");
+
+    url = url.replace(regex, "");
+    url = url.replace(/[?&]$/, "");
+
+    window.history.replaceState({}, document.title, url);
+}
+
 const { evaluate } = require('mathjs');
 
 // use the evaluate function to evaluate the expression
@@ -30,4 +40,4 @@ const setPromiseTimeout = time =>
         , time)
     );
 
-export {getQueryVariable, calculationToQuantity, setPromiseTimeout}
+export {getQueryVariable, removeURLParameter, calculationToQuantity, setPromiseTimeout}
