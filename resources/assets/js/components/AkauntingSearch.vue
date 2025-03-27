@@ -486,7 +486,7 @@ export default {
                     let dates = this.selected_values[index].key.split('-to-');
 
                     date_range_path += sign + 'start_date=' + dates[0];
-                    date_range_path += '&end_date=' + dates[1];
+                    date_range_path += '&end_date=' + (dates[1] ? dates[1] : dates[0]);
 
                     return;
                 }
