@@ -60,7 +60,7 @@ class CreateMediableForDownload extends JobShouldQueue
 
     public function getQueuedMedia()
     {
-        return config('excel.temporary_files.remote_disk') !== null
+        return config('dompdf.disk') !== null
                 ? $this->getRemoteQueuedMedia()
                 : $this->getLocalQueuedMedia();
     }
@@ -88,12 +88,15 @@ class CreateMediableForDownload extends JobShouldQueue
 
     public function getRemoteQueuedMedia()
     {
-        $disk = config('excel.temporary_files.remote_disk');
-        $prefix = config('excel.temporary_files.remote_prefix');
+        $disk = config('dompdf.disk');
 
-        $content = Storage::disk($disk)->get($this->file_name);
+        $folder_path = 'app/temp/' . company_id() . '/bulk_actions/';
 
-        $file_name = str_replace([$prefix, '.xlsx', '.xls'], '', $this->file_name);
+        $source = get_storage_path($folder_path . $this->file_name . '.zip');
+
+        $content = Storage::disk($disk)->get($source);
+
+        $file_name = str_replace(['.pdf', '.zip'], '', $this->file_name);
 
         $destination = $this->getMediaFolder('bulk_actions');
 
@@ -106,7 +109,7 @@ class CreateMediableForDownload extends JobShouldQueue
                         ->toDirectory($destination)
                         ->upload();
 
-        Storage::disk($disk)->delete($this->file_name);
+        Storage::disk($disk)->delete($source);
 
         return $media;
     }

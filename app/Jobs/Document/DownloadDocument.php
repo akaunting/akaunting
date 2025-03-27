@@ -49,28 +49,20 @@ class DownloadDocument extends Job
 
         switch ($this->method) {
             case 'download':
-                return $pdf->download($file_name);
+                $response = $pdf->download($file_name);
 
                 break;
             default:
-                if (empty($this->zip_archive)) {
-                    return;
-                }
-
                 $pdf_path = get_storage_path($this->folder_path . $file_name);
 
                 // Save the PDF file into temp folder
                 $pdf->save($pdf_path);
 
-                $this->zip_archive->addFile($pdf_path, $file_name);
-
-                if ($this->close_zip) {
-                    $this->zip_archive->close();
-                }
-
-                return;
+                $response = $pdf_path;
 
                 break;
         }
+
+        return $response;
     }
 }

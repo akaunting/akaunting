@@ -304,7 +304,7 @@ abstract class BulkAction
 
                 $batch[] = new CreateMediableForDownload(user(), $file_name, $translation);
 
-                Bus::chain($batch)->onQueue('default')->dispatch();
+                Bus::chain($batch)->onQueue('jobs')->dispatch();
 
                 $message = trans('messages.success.download_queued', ['type' => $translation]);
 
@@ -314,7 +314,7 @@ abstract class BulkAction
             } else {
                 $this->dispatch(new CreateZipForDownload($selected, $class, $file_name));
 
-                $folder_path = 'app/temp/' . company_id() . '/bulk_actions/';
+                $folder_path = 'app' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . company_id() . DIRECTORY_SEPARATOR . 'bulk_actions' . DIRECTORY_SEPARATOR;
 
                 return response()->download(get_storage_path($folder_path . $file_name . '.zip'))->deleteFileAfterSend(true);
             }
