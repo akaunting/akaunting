@@ -98,11 +98,15 @@ const app = new Vue({
                 cleared_amount = parseFloat(this.form.opening_balance) + transaction_total;
             }
 
+            // This line disable Ticket #7953 Clickup (86c2u3bty)
+            /*
             if (cleared_amount > 0) {
                 difference = (parseFloat(this.form.closing_balance) - parseFloat(cleared_amount)).toFixed(this.currency.precision);
             } else {
                 difference = (parseFloat(this.form.closing_balance) + parseFloat(cleared_amount)).toFixed(this.currency.precision);
             }
+            */
+            difference = (parseFloat(this.form.closing_balance) - parseFloat(cleared_amount)).toFixed(this.currency.precision);
 
             if (difference != 0) {
                 this.difference = 'bg-orange-300';
