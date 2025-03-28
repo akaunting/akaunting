@@ -73,6 +73,20 @@ class Bulkaction extends Component
             }
         }
 
+        $query = [];
+
+        if (request()->has('page')) {
+            $query['page'] = request()->get('page');
+        }
+
+        if (request()->has('limit')) {
+            $query['limit'] = request()->get('limit');
+        }
+
+        if ($query) {
+            $this->path .= '?' . http_build_query($query);
+        }
+
         $actions = [];
 
         if ($bulk_action->actions) {
