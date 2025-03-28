@@ -103,6 +103,16 @@ class Currency extends Model
     }
 
     /**
+     * Get the default currency.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function default()
+    {
+        return $this->code(default_currency())->first();
+    }
+
+    /**
      * Scope currency by code.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
