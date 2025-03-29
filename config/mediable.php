@@ -171,10 +171,12 @@ return [
             'mime_types' => [
                 'application/vnd.ms-excel',
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'text/csv',
             ],
             'extensions' => [
                 'xls',
                 'xlsx',
+                'csv',
             ]
         ],
         Plank\Mediable\Media::TYPE_PRESENTATION => [
