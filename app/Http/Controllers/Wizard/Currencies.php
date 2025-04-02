@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Wizard;
 
 use Akaunting\Money\Currency as MoneyCurrency;
 use App\Abstracts\Http\Controller;
-use App\Http\Requests\Setting\Currency as Request;
+use App\Http\Requests\Wizard\Currency as Request;
 use App\Jobs\Setting\CreateCurrency;
 use App\Jobs\Setting\DeleteCurrency;
 use App\Jobs\Setting\UpdateCurrency;
