@@ -29,7 +29,7 @@ class Currency extends FormRequest
             'rate' => 'required|gt:0',
             'enabled' => 'integer|boolean',
             'default_currency' => 'nullable|boolean',
-            'decimal_mark' => 'required|string|different:thousands_separator|regex:/^[A-Za-z.,_\s-]+$/',
+            'decimal_mark' => 'nullable|string|different:thousands_separator|regex:/^[A-Za-z.,_\s-]+$/',
             'symbol_first' => 'nullable|boolean',
             'thousands_separator' => 'nullable|different:decimal_mark|regex:/^[A-Za-z.,_\s-]+$/',
         ];
