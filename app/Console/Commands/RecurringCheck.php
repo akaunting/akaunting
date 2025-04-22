@@ -223,7 +223,7 @@ class RecurringCheck extends Command
 
     protected function getTransactionModel(Transaction $template, Date $schedule_date): Transaction
     {
-        $template->cloneable_relations = [];
+        $template->cloneable_relations = ['taxes'];
 
         $model = $template->duplicate();
 
