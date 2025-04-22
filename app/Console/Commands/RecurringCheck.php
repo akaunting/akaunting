@@ -218,12 +218,14 @@ class RecurringCheck extends Command
         $model->created_from = 'core::recurring';
         $model->save();
 
+        $this->updateRelationTypes($model, $template->cloneable_relations);
+
         return $model;
     }
 
     protected function getTransactionModel(Transaction $template, Date $schedule_date): Transaction
     {
-        $template->cloneable_relations = [];
+        $template->cloneable_relations = ['taxes'];
 
         $model = $template->duplicate();
 
@@ -232,6 +234,8 @@ class RecurringCheck extends Command
         $model->paid_at = $schedule_date->format('Y-m-d');
         $model->created_from = 'core::recurring';
         $model->save();
+
+        $this->updateRelationTypes($model, $template->cloneable_relations);
 
         return $model;
     }
@@ -265,5 +269,16 @@ class RecurringCheck extends Command
     public function getRealType(string $recurring_type): string
     {
         return Str::replace('-recurring', '', $recurring_type);
+    }
+
+    public function updateRelationTypes($model, $relations)
+    {
+        foreach ($relations as $relation) {
+            if (! method_exists($model, $relation)) {
+                continue;
+            }
+
+            $model->$relation()->update(['type' => $model->type]);
+        }
     }
 }
