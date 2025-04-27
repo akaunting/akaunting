@@ -246,6 +246,15 @@ abstract class Model extends Eloquent implements Ownable
         return $query->where($this->qualifyColumn('type'), 'not like', '%-recurring');
     }
 
+    public function scopeModuleEnabled(Builder $query, string $module): Builder
+    {
+        return $query->allCompanies()->whereHas('company', fn (Builder $q1) =>
+            $q1->enabled()->whereHas('modules', fn (Builder $q2) =>
+                $q2->allCompanies()->alias($module)->enabled(),
+            )
+        );
+    }
+
     public function ownerKey($owner)
     {
         if ($this->isNotOwnable()) {
