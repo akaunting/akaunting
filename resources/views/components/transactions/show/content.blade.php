@@ -28,6 +28,14 @@
 
         @stack('recurring_message_end')
 
+        @stack('connect_message_start')
+
+        @if (! $hideConnectMessage && $transaction->isSplitTransaction() && $transaction->taxes->count())
+            <x-documents.show.message type="connect" background-color="bg-orange-100" text-color="text-orange-600" message="{{ trans('transactions.connect_message', ['type' => Str::plural($type), 1]) }}" />
+        @endif
+
+        @stack('connect_message_end')
+
         @stack('row_create_start')
         @if (! $hideCreated)
         <x-transactions.show.create

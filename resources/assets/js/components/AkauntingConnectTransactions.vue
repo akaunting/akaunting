@@ -21,6 +21,11 @@
                                     </button>
                                 </slot>
                             </div>
+                            <div v-if="transaction && transaction.taxes.length" class="rounded-xl px-5 py-3 mt-4 bg-orange-100">
+                                <p class="text-sm mb-0 text-orange-600">
+                                    {{ translations.connect_tax }}
+                                </p>
+                            </div>
                         </div>
 
                         <slot name="modal-body">

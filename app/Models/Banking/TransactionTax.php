@@ -5,12 +5,13 @@ namespace App\Models\Banking;
 use App\Abstracts\Model;
 use App\Models\Banking\Transaction;
 use App\Traits\Currencies;
+use App\Traits\Transactions;
 use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Builder;
 
 class TransactionTax extends Model
 {
-    use Cloneable, Currencies;
+    use Cloneable, Currencies, Transactions;
 
     protected $table = 'transaction_taxes';
 
@@ -31,34 +32,92 @@ class TransactionTax extends Model
         return $this->belongsTo('App\Models\Banking\Transaction')->withDefault(['name' => trans('general.na')]);
     }
 
-    public function scopeType(Builder $query, string $type)
+    public function scopeType(Builder $query, $types): Builder
     {
-        return $query->where($this->qualifyColumn('type'), '=', $type);
+        if (empty($types)) {
+            return $query;
+        }
+
+        return $query->whereIn($this->qualifyColumn('type'), (array) $types);
     }
 
     public function scopeIncome(Builder $query)
     {
-        return $query->where($this->qualifyColumn('type'), '=', Transaction::INCOME_TYPE);
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getIncomeTypes());
+    }
+
+    public function scopeIncomeTransfer(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Transaction::INCOME_TRANSFER_TYPE);
     }
 
     public function scopeIncomeRecurring(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('type'), '=', Transaction::INCOME_RECURRING_TYPE)
-                    ->whereHas('document.recurring', function (Builder $query) {
-                        $query->whereNull('deleted_at');
-                    });
+                ->whereHas('transaction.recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
     }
 
     public function scopeExpense(Builder $query)
     {
-        return $query->where($this->qualifyColumn('type'), '=', Transaction::EXPENSE_TYPE);
+        return $query->whereIn($this->qualifyColumn('type'), (array) $this->getExpenseTypes());
+    }
+
+    public function scopeExpenseTransfer(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), '=', Transaction::EXPENSE_TRANSFER_TYPE);
     }
 
     public function scopeExpenseRecurring(Builder $query): Builder
     {
         return $query->where($this->qualifyColumn('type'), '=', Transaction::EXPENSE_RECURRING_TYPE)
-                    ->whereHas('document.recurring', function (Builder $query) {
-                        $query->whereNull('deleted_at');
-                    });
+                ->whereHas('transaction.recurring', function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                });
+    }
+
+    public function scopeIsTransfer(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'like', '%-transfer');
+    }
+
+    public function scopeIsNotTransfer(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'not like', '%-transfer');
+    }
+
+    public function scopeIsRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'like', '%-recurring');
+    }
+
+    public function scopeIsNotRecurring(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'not like', '%-recurring');
+    }
+
+    public function scopeIsSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'like', '%-split');
+    }
+
+    public function scopeIsNotSplit(Builder $query): Builder
+    {
+        return $query->where($this->qualifyColumn('type'), 'not like', '%-split');
+    }
+
+    public function scopeIsDocument(Builder $query): Builder
+    {
+        return $query->whereHas('transaction', function ($q) {
+                    $q->whereNotNull('document_id');
+                });
+    }
+
+    public function scopeIsNotDocument(Builder $query): Builder
+    {
+        return $query->whereHas('transaction', function ($q) {
+                    $q->whereNull('document_id');
+                });
     }
 }

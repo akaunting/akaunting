@@ -4,6 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
+use App\Models\Banking\TransactionTax;
 use App\Models\Document\Document;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
@@ -68,6 +69,14 @@ class TaxSummary extends Report
 
                 break;
         }
+
+        // Incomes 
+        $incomes = $this->applyFilters(Transaction::with('taxes')->income()->isNotDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $this->setTotals($incomes, 'paid_at');
+
+        // Expenses
+        $expenses = $this->applyFilters(Transaction::with('taxes')->expense()->isNotDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $this->setTotals($expenses, 'paid_at');
     }
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
@@ -77,6 +86,11 @@ class TaxSummary extends Report
             $item = $this->applyGroups($item);
 
             $type = ($item->type === Document::INVOICE_TYPE || $item->type === 'income') ? 'income' : 'expense';
+
+            if ($item instanceof Transaction && empty($item->document_id)) {
+                $this->setTransactionTaxTotal($item, $type, $date_field);
+                continue;
+            }
 
             $date = $this->getFormattedDate(Date::parse($item->$date_field));
 
@@ -118,6 +132,36 @@ class TaxSummary extends Report
 
                     $this->footer_totals[$item_total->name][$date] -= $amount;
                 }
+            }
+        }
+    }
+
+    public function setTransactionTaxTotal($item, $type, $date_field)
+    {
+        if (empty($item->taxes)) {
+            return;
+        }
+
+        $date = $this->getFormattedDate(Date::parse($item->$date_field));
+
+        foreach ($item->taxes as $tax) {
+            if (
+                !isset($this->row_values[$tax->name][$type][$date])
+                || !isset($this->footer_totals[$tax->name][$date])
+            ) {
+                continue;
+            }
+    
+            $amount = $this->convertToDefault($tax->amount, $item->currency_code, $item->currency_rate);
+    
+            if ($type == 'income') {
+                $this->row_values[$tax->name][$type][$date] += $amount;
+    
+                $this->footer_totals[$tax->name][$date] += $amount;
+            } else {
+                $this->row_values[$tax->name][$type][$date] -= $amount;
+    
+                $this->footer_totals[$tax->name][$date] -= $amount;
             }
         }
     }

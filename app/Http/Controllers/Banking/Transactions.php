@@ -39,7 +39,7 @@ class Transactions extends Controller
     {
         $this->setActiveTabForTransactions();
 
-        $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('account', 'category', 'contact', 'taxes')->collect(['paid_at'=> 'desc']);
 
         $total_transactions = Transaction::count();
 
@@ -395,7 +395,7 @@ class Transactions extends Controller
         $translations = collect($this->getTranslationsForConnect($transaction->type));
 
         $data = [
-            'transaction' => $transaction->load(['account', 'category'])->toJson(),
+            'transaction' => $transaction->load(['account', 'category', 'taxes'])->toJson(),
             'currency' => $transaction->currency->toJson(),
             'documents' => $documents,
             'translations' => $translations->toJson(),
