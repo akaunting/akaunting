@@ -44,6 +44,7 @@ return [
     'dimensions' => 'Невалидни размери за снимка :attribute.',
     'distinct' => 'Данните в полето :attribute се дублират.',
     'doesnt_start_with' => ':attribute не трябва да започва с един от следните: :values',
+    'double' => ':attribute трябва да е валиден двоен.',
     'email' => ':attribute трябва да е валиден <strong>имейл адрес</strong>.',
     'ends_with' => ':attribute трябва да завършва на един от следните: :values',
     'enum' => 'Избраният :attribute е невалиден.',
@@ -157,6 +158,7 @@ return [
         'invalid_extension'     => 'Това файлово разширение е невалидно.',
         'invalid_dimension'     => 'Размерите :attribute трябва да бъдат макс. :width x :height px.',
         'invalid_colour'        => 'Кодът на :attribute е невалиден.',
+        'invalid_payment_method'=> 'Методът на плащане е невалиден.',
     ],
 
     /*

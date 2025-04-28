@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Изтеглянето е готово',
+            'description'   => 'Файлът е готов за изтегляне от следната връзка:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Неуспешно изтегляне',
+            'description'   => 'Не може да се създаде файл поради следния проблем:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -75,6 +93,20 @@ return [
     ],
 
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Изтеглянето е готово',
+            'description'   => 'Вашият <strong>:type</strong> файл е готов за <a href=":url" target="_blank"><strong>изтегляне</strong></a>.',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Неуспешно изтегляне',
+            'description'   => 'Не може да се създаде файл поради няколко проблема. Проверете имейла си за подробности.',
+
+        ],
 
         'export_completed' => [
 
