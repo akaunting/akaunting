@@ -75,6 +75,10 @@ return [
     'your_notifications'    => 'La teva notificació|Les teves notificacions',
     'employees'             => 'Empleat|Empleats',
     'contact_persons'       => 'Persona de contacte|Persones de contacte',
+    'bank_feeds'            => 'Connexió bancària|Connexions bancàries',
+    'receipts'              => 'Rebut|Rebuts',
+    'ofx'                   => 'OFX',
+    'mt940'                 => 'MT940',
 
     'welcome'               => 'Benvingut/da',
     'banking'               => 'Bancs',
