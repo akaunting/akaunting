@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Recurring Expense',
     'included_tax'          => 'Included tax amount',
     'connected'             => 'Connected',
+    'connect_message'       => 'Taxes for this :type were not calculated during the connection process. Taxes can not be connected.',
 
     'form_description' => [
         'general'           => 'Here you can enter the general information of transaction such as date, amount, account, description, etc.',

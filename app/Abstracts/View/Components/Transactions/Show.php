@@ -305,6 +305,9 @@ abstract class Show extends Component
     public $hideRecurringMessage;
 
     /** @var bool */
+    public $hideConnectMessage;
+
+    /** @var bool */
     public $hideCreated;
 
     /**
@@ -335,7 +338,7 @@ abstract class Show extends Component
         string $routeDocumentShow = '', string $routeTransactionShow = '', string $textButtonAddNew = '',
 
         bool $hideSchedule = false, bool $hideChildren = false, bool $hideConnect = false, bool $hideTransfer = false, bool $hideAttachment = false, $attachment = [],
-        array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false, bool $hideCreated = false
+        array $connectTranslations = [], string $textRecurringType = '', bool $hideRecurringMessage = false, $hideConnectMessage = false, bool $hideCreated = false
     ) {
         $this->type = $type;
         $this->transaction = $transaction;
@@ -472,6 +475,7 @@ abstract class Show extends Component
 
         // Connect translations
         $this->connectTranslations = $this->getTranslationsForConnect($type);
+        $this->hideConnectMessage = $hideConnectMessage;
 
         $this->textRecurringType = $this->getTextRecurringType($type, $textRecurringType);
         $this->hideRecurringMessage = $hideRecurringMessage;
