@@ -97,4 +97,19 @@ class ProfitLoss extends Report
             }
         }
     }
+
+    public function array(): array
+    {
+        $data = parent::array();
+
+        $net_profit = $this->net_profit;
+
+        if ($this->has_money) {
+            $net_profit = array_map(fn($value) => money($value)->format(), $net_profit);
+        }
+
+        $data['net_profit'] = $net_profit;
+
+        return $data;
+    }
 }

@@ -19,6 +19,8 @@ class TaxSummary extends Report
 
     public $category = 'general.accounting';
 
+    public $group = 'tax';
+
     public $icon = 'percent';
 
     public $type = 'detail';

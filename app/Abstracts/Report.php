@@ -40,6 +40,8 @@ abstract class Report
 
     public $has_money = true;
 
+    public $group;
+
     public $groups = [];
 
     public $year;
@@ -257,6 +259,41 @@ abstract class Report
     public function print()
     {
         return view($this->views['print'], ['print' => true])->with('class', $this);
+    }
+
+    public function array(): array
+    {
+        $data = [];
+
+        $group = Str::plural($this->group ?? $this->getSetting('group'));
+
+        foreach ($this->tables as $table_key => $table_name) {
+            if (! isset($this->row_values[$table_key])) {
+                continue;
+            }
+
+            foreach ($this->row_values[$table_key] as $key => $values) {
+                if (empty($this->row_names[$table_key][$key])) {
+                    continue;
+                }
+
+                if ($this->has_money) {
+                    $values = array_map(fn($value) => money($value)->format(), $values);
+                }
+
+                $data[$table_key][$group][$this->row_names[$table_key][$key]] = $values;
+            }
+
+            $footer_totals = $this->footer_totals[$table_key];
+
+            if ($this->has_money) {
+                $footer_totals = array_map(fn($value) => money($value)->format(), $footer_totals);
+            }
+
+            $data[$table_key]['totals'] = $footer_totals;
+        }
+
+        return $data;
     }
 
     public function pdf()
