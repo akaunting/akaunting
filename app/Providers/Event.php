@@ -32,6 +32,7 @@ class Event extends Provider
             'App\Listeners\Update\V31\Version318',
             'App\Listeners\Update\V31\Version3112',
             'App\Listeners\Update\V31\Version3115',
+            'App\Listeners\Update\V31\Version3119',
         ],
         'Illuminate\Routing\Events\PreparingResponse' => [
             'App\Listeners\Common\PreparingResponse',
