@@ -149,5 +149,6 @@ class Event extends Provider
         'App\Listeners\Report\AddBasis',
         'App\Listeners\Report\AddPeriod',
         'App\Listeners\Report\AddDate',
+        'App\Listeners\Report\AddDiscount',
     ];
 }

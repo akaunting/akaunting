@@ -10,6 +10,7 @@ return [
     'expense_summary'               => 'Expense Summary',
     'income_expense_summary'        => 'Income vs Expense',
     'tax_summary'                   => 'Tax Summary',
+    'discount_summary'              => 'Discount Summary',
     'gross_profit'                  => 'Gross Profit',
     'net_profit'                    => 'Net Profit',
     'total_expenses'                => 'Total Expenses',

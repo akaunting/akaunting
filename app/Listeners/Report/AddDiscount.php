@@ -6,14 +6,9 @@ use App\Abstracts\Listeners\Report as Listener;
 use App\Events\Report\FilterApplying;
 use App\Events\Report\FilterShowing;
 
-class AddDate extends Listener
+class AddDiscount extends Listener
 {
     protected $classes = [
-        'App\Reports\IncomeSummary',
-        'App\Reports\ExpenseSummary',
-        'App\Reports\IncomeExpenseSummary',
-        'App\Reports\ProfitLoss',
-        'App\Reports\TaxSummary',
         'App\Reports\DiscountSummary',
     ];
 
@@ -29,7 +24,14 @@ class AddDate extends Listener
             return;
         }
 
-        $this->setDateFilter($event);
+        $event->class->filters['discounts'] = $this->getDiscount();
+        $event->class->filters['keys']['discounts'] = 'discount';
+        $event->class->filters['defaults']['discounts'] = 'both';
+        $event->class->filters['operators']['discounts'] = [
+            'equal'     => true,
+            'not_equal' => false,
+            'range'     => false,
+        ];
     }
 
     /**
@@ -40,11 +42,11 @@ class AddDate extends Listener
      */
     public function handleFilterApplying(FilterApplying $event)
     {
-        if (empty($event->args['date_field'])) {
+        if ($this->skipThisClass($event)) {
             return;
         }
-
-        // Apply date
-        $this->applyDateFilter($event);
+        
+        // Apply discount filter
+        $this->applyDiscountFilter($event);
     }
 }

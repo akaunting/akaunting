@@ -22,6 +22,7 @@ class Reports
             'App\Reports\IncomeExpenseSummary',
             'App\Reports\TaxSummary',
             'App\Reports\ProfitLoss',
+            'App\Reports\DiscountSummary',
         ];
 
         Module::enabled()->each(function ($module) use (&$list) {

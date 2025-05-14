@@ -158,9 +158,40 @@ abstract class Report
         ];
     }
 
+    public function getDiscount()
+    {
+        return [
+            'item' => trans('settings.localisation.discount_location.item'),
+            'total' => trans('settings.localisation.discount_location.total'),
+            'both' => trans('settings.localisation.discount_location.both'),
+        ];
+    }
+
     public function applyDateFilter($event)
     {
         $event->model->dateFilter($event->args['date_field']);
+    }
+
+    public function applyDiscountFilter($event)
+    {
+        $input = request('search', '');
+        $discount = $this->getSearchStringValue('discount', 'both', $input);
+
+        switch ($discount) {
+            case 'item':
+                $discount_types = ['item_discount'];
+                break;
+            case 'total':
+                $discount_types = ['discount'];
+                break;
+            default:
+                $discount_types = ['item_discount', 'discount'];
+                break;
+        }
+
+        $event->model->whereHas('totals', function ($query) use ($discount_types) {
+            $query->whereIn('code', $discount_types);
+        });
     }
 
     public function applySearchStringFilter($event)

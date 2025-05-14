@@ -77,6 +77,7 @@ return [
     'contact_persons'       => 'Contact Person|Contact Persons',
     'bank_feeds'            => 'Bank Feed|Bank Feeds',
     'receipts'              => 'Receipt|Receipts',
+    'discounts'             => 'Discount|Discounts',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 
