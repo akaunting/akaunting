@@ -69,7 +69,10 @@ class Payments extends Controller
         event(new TransactionPrinting($payment));
 
         $transaction = $payment;
-        $view = view('banking.transactions.print_default', compact('transaction'));
+
+        $real_type = $this->getRealTypeTransaction($transaction->type);
+
+        $view = view('banking.transactions.print_default', compact('transaction', 'real_type'));
 
         return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
     }
@@ -88,7 +91,10 @@ class Payments extends Controller
         $currency_style = true;
 
         $transaction = $payment;
-        $view = view('banking.transactions.print_default', compact('transaction', 'currency_style'))->render();
+
+        $real_type = $this->getRealTypeTransaction($transaction->type);
+
+        $view = view('banking.transactions.print_default', compact('transaction', 'currency_style', 'real_type'))->render();
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');

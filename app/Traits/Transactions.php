@@ -153,7 +153,9 @@ trait Transactions
     {
         event(new TransactionPrinting($transaction));
 
-        $view = view('banking.transactions.print_default', ['transaction' => $transaction])->render();
+        $real_type = $this->getRealTypeTransaction($transaction->type);
+
+        $view = view('banking.transactions.print_default', compact('transaction', 'real_type'))->render();
         $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
