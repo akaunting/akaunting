@@ -4,6 +4,6 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-transactions.template.ddefault type="{{ $transaction->type }}" :transaction="$transaction" />
+        <x-transactions.template.ddefault type="{{ $real_type }}" :transaction="$transaction" />
     </x-slot>
 </x-layout-print>
