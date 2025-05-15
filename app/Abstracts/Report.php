@@ -588,7 +588,6 @@ abstract class Report
             $url .= $parameters;
         }
 
-
         return $url;
     }
 
@@ -605,6 +604,11 @@ abstract class Report
     public function getPeriod()
     {
         return $this->getSearchStringValue('period', $this->getSetting('period'));
+    }
+
+    public function getDiscount()
+    {
+        return $this->getSearchStringValue('discount');
     }
 
     public function getFields()

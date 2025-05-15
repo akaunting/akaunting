@@ -13,6 +13,7 @@ class AddVendors extends Listener
     protected $classes = [
         'App\Reports\ExpenseSummary',
         'App\Reports\IncomeExpenseSummary',
+        'App\Reports\DiscountSummary',
     ];
 
     /**

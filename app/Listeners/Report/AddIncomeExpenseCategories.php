@@ -20,6 +20,7 @@ class AddIncomeExpenseCategories extends Listener
     {
         $classes = [
             'App\Reports\IncomeExpenseSummary',
+            'App\Reports\DiscountSummary',
         ];
 
         if (empty($event->class) || !in_array(get_class($event->class), $classes)) {
@@ -42,6 +43,7 @@ class AddIncomeExpenseCategories extends Listener
         $classes = [
             'App\Reports\IncomeExpenseSummary',
             'App\Reports\ProfitLoss',
+            'App\Reports\DiscountSummary',
         ];
 
         if (empty($event->class) || !in_array(get_class($event->class), $classes)) {
