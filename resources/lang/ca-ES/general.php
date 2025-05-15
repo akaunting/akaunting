@@ -312,7 +312,7 @@ return [
         'this_month'        => 'Aquest mes',
         'this_quarter'      => 'Aquest trimestre',
         'this_year'         => 'Aquest any',
-        'year_to_date'      => '',
+        'year_to_date'      => 'Any fins avui',
         'previous_week'     => 'Setmana anterior',
         'previous_month'    => 'Mes anterior',
         'previous_quarter'  => 'Trimestre anterior',
