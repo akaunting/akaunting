@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Terugkerende Uitgaven',
     'included_tax'          => 'Inclusief belastingbedrag',
     'connected'             => 'Verbonden',
+    'connect_message'       => 'Belastingen voor deze :type werden niet berekend tijdens het verbindingsproces. Belastingen kunnen niet worden verbonden.',
 
     'form_description' => [
         'general'           => 'Hier kunt u de algemene informatie van de transactie invoeren, zoals datum, bedrag, rekening, beschrijving, enz.',
