@@ -77,6 +77,7 @@ return [
     'contact_persons'       => 'Persona de contacte|Persones de contacte',
     'bank_feeds'            => 'Connexió bancària|Connexions bancàries',
     'receipts'              => 'Rebut|Rebuts',
+    'discounts'             => 'Descompte|Descomptes',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 
@@ -312,7 +313,7 @@ return [
         'this_month'        => 'Aquest mes',
         'this_quarter'      => 'Aquest trimestre',
         'this_year'         => 'Aquest any',
-        'year_to_date'      => '',
+        'year_to_date'      => 'Any fins avui',
         'previous_week'     => 'Setmana anterior',
         'previous_month'    => 'Mes anterior',
         'previous_quarter'  => 'Trimestre anterior',
