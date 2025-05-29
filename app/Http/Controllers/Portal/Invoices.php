@@ -44,6 +44,9 @@ class Invoices extends Controller
      */
     public function show(Document $invoice, Request $request)
     {
+        // Use DocumentService to optimally load all relationships needed for template rendering
+        app(\App\Services\DocumentService::class)->loadForShow($invoice);
+
         $payment_methods = Modules::getPaymentMethods();
 
         event(new \App\Events\Document\DocumentViewed($invoice));

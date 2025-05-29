@@ -37,7 +37,8 @@ class Dashboards extends Controller
      */
     public function index()
     {
-        $dashboards = user()->dashboards()->collect();
+        // Eager load users relationship to prevent N+1 queries in dashboard index view
+        $dashboards = user()->dashboards()->with('users')->collect();
 
         return $this->response('common.dashboards.index', compact('dashboards'));
     }

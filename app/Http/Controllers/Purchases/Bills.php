@@ -45,6 +45,9 @@ class Bills extends Controller
      */
     public function show(Document $bill)
     {
+        // Use DocumentService to optimally load all relationships needed for template rendering
+        app(\App\Services\DocumentService::class)->loadForShow($bill);
+
         return view('purchases.bills.show', compact('bill'));
     }
 
