@@ -22,7 +22,11 @@ class Info
         ];
 
         if (! empty($info) || is_cloud()) {
-            return array_merge($info, $basic);
+            if (is_cloud()) {
+                $basic['companies'] = 0;
+            }
+
+            return array_merge(static::versions(), $info, $basic);
         }
 
         $users_count = user_model_class()::query()->isNotCustomer()->count();
