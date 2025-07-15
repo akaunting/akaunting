@@ -10,7 +10,7 @@ return [
     'billing'                   => 'Facturation des achats',
     'advanced'                  => 'Avancé',
 
-    'item_price_hidden'         => 'Cette colonne est cachée sur votre :type.',
+    'item_price_hidden'         => 'Cette colonne est cachée sur vos :type.',
 
     'actions' => [
         'cancel'                => 'Annuler',

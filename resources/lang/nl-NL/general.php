@@ -77,6 +77,7 @@ return [
     'contact_persons'       => 'Contactpersoon|Contactpersonen',
     'bank_feeds'            => 'Bank Feed|Bank Feeds',
     'receipts'              => 'Ontvangstbewijs|Ontvangstbewijzen',
+    'discounts'             => 'Kortingen|Kortingen',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 
