@@ -10,6 +10,7 @@ use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Utilities\Recurring;
 use App\Utilities\Date;
+use Illuminate\Support\Str;
 
 class TaxSummary extends Report
 {
@@ -109,11 +110,19 @@ class TaxSummary extends Report
                     continue;
                 }
 
+                $item_total_name = $item_total->name;
+
                 if (
-                    !isset($this->row_values[$item_total->name][$type][$date])
-                    || !isset($this->footer_totals[$item_total->name][$date])
+                    !isset($this->row_values[$item_total_name][$type][$date])
+                    || !isset($this->footer_totals[$item_total_name][$date])
                 ) {
-                    continue;
+                    $item_total_name = Str::lcfirst($item_total_name); // #Clickup@86c3nzq4r
+
+                    if (!isset($this->row_values[$item_total_name][$type][$date])
+                        || !isset($this->footer_totals[$item_total_name][$date])
+                    ) {
+                        continue;
+                    }
                 }
 
                 if ($date_field == 'paid_at') {
@@ -126,13 +135,13 @@ class TaxSummary extends Report
                 $amount = $this->convertToDefault($item_amount, $item->currency_code, $item->currency_rate);
 
                 if ($type == 'income') {
-                    $this->row_values[$item_total->name][$type][$date] += $amount;
+                    $this->row_values[$item_total_name][$type][$date] += $amount;
 
-                    $this->footer_totals[$item_total->name][$date] += $amount;
+                    $this->footer_totals[$item_total_name][$date] += $amount;
                 } else {
-                    $this->row_values[$item_total->name][$type][$date] -= $amount;
+                    $this->row_values[$item_total_name][$type][$date] -= $amount;
 
-                    $this->footer_totals[$item_total->name][$date] -= $amount;
+                    $this->footer_totals[$item_total_name][$date] -= $amount;
                 }
             }
         }
