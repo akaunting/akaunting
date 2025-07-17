@@ -7,10 +7,10 @@
     @if ($row_total = array_sum($rows))
         @if (isset($parent_id))
             <tr class="hover:bg-gray-100 border-b collapse-sub collapse-sub-report" data-collapse="child-{{ $parent_id }}">
-                <td class="{{ $class->column_name_width }} py-2 text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
+                <td class="{{ $class->column_name_width }} w-24 py-2 text-left text-black-400" style="padding-left: {{ $tree_level * 20 }}px;" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
         @else
             <tr class="hover:bg-gray-100 border-b">
-                <td class="{{ $class->column_name_width }} py-2 text-left text-black-400" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
+                <td class="{{ $class->column_name_width }} w-24 py-2 text-left text-black-400" title="{{ $class->row_names[$table_key][$id] }}">{{ $class->row_names[$table_key][$id] }}</td>
         @endif
 
         @foreach($rows as $row)
