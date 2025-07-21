@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Despesa recurrent',
     'included_tax'          => 'Impostos inclosos',
     'connected'             => 'Connectat',
+    'connect_message'       => 'Els impostos per aquest :type no s\'han calculat durant el procés d\'enllaç. Els impostos no es poden enllaçar.',
 
     'form_description' => [
         'general'           => 'Aquí pots introduir la informació general de la transacció com ara data, quantitat, compte, descripció, etc.',

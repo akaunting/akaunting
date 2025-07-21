@@ -10,6 +10,7 @@ return [
     'expense_summary'               => 'Resum de despeses',
     'income_expense_summary'        => 'Ingressos i despeses',
     'tax_summary'                   => 'Resum d\'impostos',
+    'discount_summary'              => 'Resum de descomptes',
     'gross_profit'                  => 'Benefici brut',
     'net_profit'                    => 'Benefici net',
     'total_expenses'                => 'Total de despeses',

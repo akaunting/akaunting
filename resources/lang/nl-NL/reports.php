@@ -10,6 +10,7 @@ return [
     'expense_summary'               => 'Kosten overzicht',
     'income_expense_summary'        => 'Inkomen vs uitgaven',
     'tax_summary'                   => 'Belasting overzicht',
+    'discount_summary'              => 'Samenvatting korting',
     'gross_profit'                  => 'Bruto winst',
     'net_profit'                    => 'Nettowinst',
     'total_expenses'                => 'Totale uitgaven',
