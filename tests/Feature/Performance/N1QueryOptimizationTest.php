@@ -6,7 +6,6 @@ use App\Models\Common\Dashboard;
 use App\Models\Common\Item;
 use App\Models\Document\Document;
 use App\Models\Setting\Tax;
-use App\Services\DocumentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\Feature\FeatureTestCase;
@@ -100,65 +99,6 @@ class N1QueryOptimizationTest extends FeatureTestCase
         
         // Should use reasonable number of queries (not N+1)
         $this->assertLessThan(10, $queryCount, 'Autocomplete should not use excessive queries');
-    }
-
-    /**
-     * Test DocumentService optimization
-     * This validates our DocumentService implementation
-     */
-    public function testDocumentServiceOptimization()
-    {
-        $this->loginAs();
-        
-        // Create a realistic document scenario
-        $document = Document::factory()->invoice()->create([
-            'company_id' => $this->company->id
-        ]);
-        
-        $item = Item::factory()->create(['company_id' => $this->company->id]);
-        $tax = Tax::factory()->create(['company_id' => $this->company->id]);
-        
-        $documentItem = $document->items()->create([
-            'company_id' => $this->company->id,
-            'type' => $document->type,
-            'item_id' => $item->id,
-            'name' => $item->name,
-            'quantity' => 1,
-            'price' => 100,
-            'total' => 100
-        ]);
-        
-        $documentItem->taxes()->create([
-            'company_id' => $this->company->id,
-            'type' => $document->type,
-            'document_id' => $document->id,
-            'tax_id' => $tax->id,
-            'name' => $tax->name,
-            'amount' => 10
-        ]);
-
-        // Test our DocumentService
-        $documentService = app(DocumentService::class);
-        
-        // Test loadForShow method
-        $freshDocument = Document::find($document->id);
-        $optimizedDocument = $documentService->loadForShow($freshDocument);
-        
-        // Verify all critical relationships are loaded
-        $this->assertTrue($optimizedDocument->relationLoaded('items'), 'Items should be loaded');
-        $this->assertTrue($optimizedDocument->relationLoaded('contact'), 'Contact should be loaded');
-        $this->assertTrue($optimizedDocument->relationLoaded('currency'), 'Currency should be loaded');
-        $this->assertTrue($optimizedDocument->relationLoaded('totals'), 'Totals should be loaded');
-        
-        // Test nested relationships
-        if ($optimizedDocument->items->count() > 0) {
-            $firstItem = $optimizedDocument->items->first();
-            $this->assertTrue($firstItem->relationLoaded('taxes'), 'Item taxes should be loaded');
-            $this->assertTrue($firstItem->relationLoaded('item'), 'Item details should be loaded');
-        }
-        
-        // Test service methods
-        $this->assertTrue($documentService->hasTemplateRelationshipsLoaded($optimizedDocument));
     }
 
     /**

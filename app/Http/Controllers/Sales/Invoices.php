@@ -47,8 +47,19 @@ class Invoices extends Controller
      */
     public function show(Document $invoice)
     {
-        // Use DocumentService to optimally load all relationships needed for template rendering
-        app(\App\Services\DocumentService::class)->loadForShow($invoice);
+        $invoice->load([
+            'items.taxes.tax',
+            'items.item',
+            'totals',
+            'contact',
+            'currency',
+            'category',
+            'histories',
+            'media',
+            'transactions',
+            'recurring',
+            'children',
+        ]);
 
         return view('sales.invoices.show', compact('invoice'));
     }
