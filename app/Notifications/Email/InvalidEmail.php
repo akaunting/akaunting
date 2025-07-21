@@ -49,11 +49,12 @@ class InvalidEmail extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $dashboard_url = route('dashboard', ['company_id' => company_id()]);
 
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject(trans('notifications.email.invalid.title', ['type' => $this->type]))
             ->line(new HtmlString('<br><br>'))
             ->line(trans('notifications.email.invalid.description', ['email' => $this->email]))

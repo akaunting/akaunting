@@ -44,11 +44,12 @@ class ImportCompleted extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $dashboard_url = route('dashboard', ['company_id' => company_id()]);
 
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject(trans('notifications.import.completed.title'))
             ->line(new HtmlString('<br><br>'))
             ->line(trans('notifications.import.completed.description'))

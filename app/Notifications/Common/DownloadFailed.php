@@ -48,9 +48,10 @@ class DownloadFailed extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject(trans('notifications.download.failed.title'))
             ->line(new HtmlString('<br><br>'))
             ->line(trans('notifications.download.failed.description'))
