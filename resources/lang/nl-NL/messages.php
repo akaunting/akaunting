@@ -46,6 +46,7 @@ return [
         'disable_code'      => 'Waarschuwing: U mag <b>:name</b> niet uitschakelen omdat het gerelateerd is aan :text.',
         'payment_cancel'    => 'U heeft uw recente :method betaling geannuleerd!',
         'missing_transfer'  => 'Waarschuwing: De overdracht met betrekking tot deze transactie ontbreekt. Je kunt overwegen deze transactie te verwijderen.',
+        'connect_tax'       => 'Waarschuwing: Dit :type heeft een BTW-bedrag. Belastingen toegevoegd aan het :type kunnen niet worden verbonden, dus de belasting zal worden toegevoegd aan het totaal en zal overeenkomstig worden berekend.',
     ],
 
 ];

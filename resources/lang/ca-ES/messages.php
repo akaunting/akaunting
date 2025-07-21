@@ -46,6 +46,7 @@ return [
         'disable_code'      => 'Avís: No pots desactivar o canviar la moneda de <b>:name</b> perquè té :text relacionat.',
         'payment_cancel'    => 'Avís: Has cancel·lat el teu pagament recent :method!',
         'missing_transfer'  => 'Avís: No es troba la transferència relativa a aquesta transacció. S\'hauria d\'esborrar la transacció.',
+        'connect_tax'       => 'Avís: Aquest :type té un import d\'impost. Els impostos afegits a :type no es poden enllaçar, per tant l\'impost s\'afegirà al total.',
     ],
 
 ];
