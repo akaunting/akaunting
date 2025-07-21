@@ -88,7 +88,7 @@ class Versions
                 $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
             } catch (\Exception $e) {
                 // Handle exception
-                report($info, 'Error fetching core version');
+                report('Error fetching core version: ( $info = ' . json_encode($info) . ')' . $e->getMessage());
 
                 return $versions;
             }
