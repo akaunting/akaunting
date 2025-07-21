@@ -42,9 +42,10 @@ class Invitation extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->line(trans('auth.invitation.message_1'))
             ->action(trans('auth.invitation.button'), route('register', $this->invitation->token))
             ->line(trans('auth.invitation.message_2'));
