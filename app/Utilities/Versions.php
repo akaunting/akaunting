@@ -84,7 +84,14 @@ class Versions
             $versions = [];
 
             // Check core first
-            $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
+            try {
+                $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
+            } catch (\Exception $e) {
+                // Handle exception
+                report($info, 'Error fetching core version');
+
+                return $versions;
+            }
 
             # Installed modules start
             $modules = Arr::wrap($modules);
