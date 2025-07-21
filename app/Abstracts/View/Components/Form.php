@@ -93,6 +93,12 @@ abstract class Form extends Component
     /** @var string */
     public $inputGroupClass = '';
 
+    /** @var string */
+    public $icon = '';
+
+    /** @var string */
+    public $trailing = '';
+
     /** @var array */
     public $custom_attributes = [];
 
@@ -112,7 +118,7 @@ abstract class Form extends Component
         $options = [], $option = [], string $optionKey = 'id', string $optionValue = 'name', $fullOptions = [], $checked = null, $checkedKey = null, $selected = null, $selectedKey = null, $rows = '3',
         $remote = false, $multiple = false, $addNew = false, $group = false,
         bool $searchable = false, bool $disabled = false, bool $readonly = false, bool $required = true, bool $notRequired = false,
-        string $formGroupClass = '', string $inputGroupClass = '',
+        string $formGroupClass = '', string $inputGroupClass = '', $icon = '', $trailing = '',
         $dynamicAttributes = '',
         bool $hideCurrency = false
     ) {
@@ -145,6 +151,9 @@ abstract class Form extends Component
 
         $this->formGroupClass = $this->getFromGroupClass($formGroupClass);
         $this->inputGroupClass = $this->getInputGroupClass($inputGroupClass);
+
+        $this->icon = $icon;
+        $this->trailing = $trailing;
 
         $this->custom_attributes = $this->getCustomAttributes();
 

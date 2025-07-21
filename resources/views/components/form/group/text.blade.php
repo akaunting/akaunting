@@ -48,6 +48,12 @@
                 v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.' . $name : 'form.' . $name) }}"
                 {{ $attributes->merge($custom_attributes) }}
             />
+
+            @if (! $attributes->has('trailing') && ! empty($trailing->contents))
+                {!! $trailing ?? '' !!}
+            @elseif (! empty($trailing))
+                <x-form.icon icon="{{ $trailing }}" />
+            @endif
         </div>
 
         @if (! $attributes->has('error') && ! empty($error->contents))

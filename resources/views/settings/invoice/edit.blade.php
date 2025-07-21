@@ -81,6 +81,10 @@
 
                         <x-form.group.text name="subheading" label="{{ trans('settings.invoice.subheading') }}" value="{{ setting('invoice.subheading') }}" not-required />
 
+                        <x-form.group.text name="logo_size_width" label="{{ trans('settings.invoice.logo_size_width') }}" value="{{ setting('invoice.logo_size_width') }}" not-required trailing="PX" />
+
+                        <x-form.group.text name="logo_size_height" label="{{ trans('settings.invoice.logo_size_height') }}" value="{{ setting('invoice.logo_size_height') }}" not-required trailing="PX" />
+
                         <x-form.group.textarea name="notes" label="{{ trans_choice('general.notes', 2) }}" :value="setting('invoice.notes')" form-group-class="sm:col-span-3" not-required />
 
                         <x-form.group.textarea name="footer" label="{{ trans('general.footer') }}" :value="setting('invoice.footer')" form-group-class="sm:col-span-3" not-required />
