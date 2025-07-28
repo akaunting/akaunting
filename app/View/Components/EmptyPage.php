@@ -3,12 +3,11 @@
 namespace App\View\Components;
 
 use App\Abstracts\View\Component;
+use App\Events\Common\EmptyPageButtons;
 use App\Traits\Modules;
-use Illuminate\View\View;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Support\Facades\Route;
 
 class EmptyPage extends Component
 {
@@ -273,6 +272,8 @@ class EmptyPage extends Component
         if (! $this->hideButtonImport) {
             $buttons[] = $this->getImportButton();
         }
+
+        event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
 
         return $buttons;
     }
