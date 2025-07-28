@@ -25,10 +25,15 @@
                                         {{ $button['text'] }}
 
                                         @if (! empty($button['active_badge']))
-                                            <div class="absolute w-7 h-7 opacity-100 z-10 -top-1.5 -right-8">
-                                                <div class="absolute w-5 h-5 left-0 top-1 border border-gray-100 rounded-full animate-pulsate_transparent bg-white"></div>
-                                                <div class="absolute w-2 h-2 top-2.5 left-1.5 rounded-full bg-green-400"></div>
-                                            </div>
+                                            <span class="inline-flex items-center gap-x-1.5 rounded-md bg-opacity-10 bg-green-400 px-2 py-0.5 ml-2 text-xs font-bold text-green-400">
+                                                <div class="relative flex h-2 w-2">
+                                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                                                </div>
+                                                @if (! empty($button['active_badge_text']))
+                                                    {{ $button['active_badge_text'] }}
+                                                @endif
+                                            </span>
                                         @endif
                                     </h2>
                                 </div>
