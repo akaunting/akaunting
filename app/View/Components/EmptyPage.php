@@ -259,12 +259,12 @@ class EmptyPage extends Component
 
     protected function getButtons($page, $group, $buttons)
     {
-        if (! $this->hideButtonEvent) {
-            event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
-        }
-
         if (! empty($buttons)) {
             $suggestion = $this->getSuggestionModule();
+
+            if (! $this->hideButtonEvent) {
+                event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
+            }
 
             if (! empty($suggestion)) {
                 return array_slice($buttons, 0, 2);
@@ -279,6 +279,10 @@ class EmptyPage extends Component
 
         if (! $this->hideButtonImport) {
             $buttons[] = $this->getImportButton();
+        }
+
+        if (! $this->hideButtonEvent) {
+            event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
         }
 
         return $buttons;
