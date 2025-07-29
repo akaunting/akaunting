@@ -59,6 +59,9 @@ class EmptyPage extends Component
     public $hideButtonImport;
 
     /** @var bool */
+    public $hideButtonEvent;
+
+    /** @var bool */
     public $hideDocsDescription;
 
     /** @var string */
@@ -83,7 +86,7 @@ class EmptyPage extends Component
         string $title = '', string $createButtonTitle = '', string $importButtonTitle = '', 
         string $description = '', string $docsCategory = 'accounting', string $image = '', 
         string $imageEmptyPage = '', bool $checkPermissionCreate = true, string $permissionCreate = '',
-        array $buttons = [], bool $hideButtonCreate = false, bool $hideButtonImport = false,
+        array $buttons = [], bool $hideButtonCreate = false, bool $hideButtonImport = false, bool $hideButtonEvent = false,
         bool $hideDocsDescription = false, string $importRoute = '', array $importRouteParameters = []
     ) {
         if (empty($alias) && ! empty($group)) {
@@ -109,6 +112,7 @@ class EmptyPage extends Component
 
         $this->hideButtonCreate = $hideButtonCreate;
         $this->hideButtonImport = $hideButtonImport;
+        $this->hideButtonEvent = $hideButtonEvent;
         $this->hideDocsDescription = $hideDocsDescription;
 
         $this->buttons = $this->getButtons($page, $group, $buttons);
@@ -255,6 +259,10 @@ class EmptyPage extends Component
 
     protected function getButtons($page, $group, $buttons)
     {
+        if (! $this->hideButtonEvent) {
+            event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
+        }
+
         if (! empty($buttons)) {
             $suggestion = $this->getSuggestionModule();
 
@@ -272,8 +280,6 @@ class EmptyPage extends Component
         if (! $this->hideButtonImport) {
             $buttons[] = $this->getImportButton();
         }
-
-        event(new EmptyPageButtons($buttons, $this->group, $this->page, $this->permissionCreate, $this->title));
 
         return $buttons;
     }
