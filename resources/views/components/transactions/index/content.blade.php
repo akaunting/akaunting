@@ -173,14 +173,16 @@
                     'permission' => 'create-banking-transactions',
                     'text' => trans('general.title.new', ['type' => trans_choice('general.incomes', 1)]),
                     'description' => trans('general.empty.actions.new', ['type' => trans_choice('general.incomes', 1)]),
-                    'active_badge' => false
+                    'active_badge' => false,
+                    'stack' => 'create_income_button',
                 ],
                 [
                     'url' => route('transactions.create', ['type' => 'expense']),
                     'permission' => 'create-banking-transactions',
                     'text' => trans('general.title.new', ['type' => trans_choice('general.expenses', 1)]),
                     'description' => trans('general.empty.actions.new', ['type' => trans_choice('general.expenses', 1)]),
-                    'active_badge' => false
+                    'active_badge' => false,
+                    'stack' => 'create_expense_button',
                 ],
             ]"
         />

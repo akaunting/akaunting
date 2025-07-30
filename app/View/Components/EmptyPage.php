@@ -297,6 +297,7 @@ class EmptyPage extends Component
             'text'          => trans('general.title.new', ['type' => $title]),
             'description'   => trans('general.empty.actions.new', ['type' => strtolower($title)]),
             'active_badge'  => true,
+            'stack'         => 'create_button',
         ];
     }
 
@@ -317,6 +318,7 @@ class EmptyPage extends Component
             'text'          => trans('import.title', ['type' => $title]),
             'description'   => trans('general.empty.actions.import', ['type' => strtolower($title)]),
             'active_badge'  => false,
+            'stack'         => 'import_button',
         ];
     }
 
