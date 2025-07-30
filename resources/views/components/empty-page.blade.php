@@ -17,6 +17,7 @@
                 @if ($checkPermissionCreate)
                 @can ($button['permission'])
                 @endif
+                @stack($button['stack'] . '_start')
                     <li class="border-b p-2 hover:bg-gray-100">
                         <x-link href="{{ $button['url']}}" class="flex items-center justify-between text-xs" override="class">
                             <div class="truncate">
@@ -39,6 +40,7 @@
                             <span class="material-icons text-gray-500 transform rtl:rotate-180">chevron_right</span>
                         </x-link>
                     </li>
+                @stack($button['stack'] . '_end')
                 @if ($checkPermissionCreate)
                 @endcan
                 @endif
