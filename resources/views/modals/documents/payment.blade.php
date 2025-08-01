@@ -123,6 +123,8 @@
 
                     <x-form.group.text name="reference" label="{{ trans('general.reference') }}" not-required form-group-class="col-span-6" />
 
+                    <x-form.group.attachment />
+
                     <x-form.input.hidden name="document_id" :value="$document->id" />
                     <x-form.input.hidden name="category_id" :value="$document->category->id" />
                     <x-form.input.hidden name="paid_amount" :value="$document->paid_amount" />

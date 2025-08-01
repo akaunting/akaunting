@@ -38,13 +38,6 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         \DB::transaction(function () {
             $this->transaction = $this->dispatch(new CreateTransaction($this->request));
 
-            // Upload attachment
-            if ($this->request->file('attachment')) {
-                $media = $this->getMedia($this->request->file('attachment'), 'transactions');
-
-                $this->transaction->attachMedia($media, 'attachment');
-            }
-
             $this->model->save();
 
             $this->createHistory();
