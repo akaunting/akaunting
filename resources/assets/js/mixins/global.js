@@ -945,15 +945,19 @@ export default {
                                 let data = this.form.data();
 
                                 FormData.prototype.appendRecursive = function(data, wrapper = null) {
-                                    for(var name in data) {
+                                    for (var name in data) {
+                                        if (name == "previewElement" || name == "previewTemplate") {
+                                            continue;
+                                        }
+
                                         if (wrapper) {
-                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                            if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
                                                 this.appendRecursive(data[name], wrapper + '[' + name + ']');
                                             } else {
                                                 this.append(wrapper + '[' + name + ']', data[name]);
                                             }
                                         } else {
-                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                            if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
                                                 this.appendRecursive(data[name], name);
                                             } else {
                                                 this.append(name, data[name]);
