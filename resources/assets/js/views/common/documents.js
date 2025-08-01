@@ -461,7 +461,7 @@ const app = new Vue({
                 if (inclusives.length) {
                     inclusives.forEach(function(inclusive) {
                         item.tax_ids[inclusive.tax_index].name = inclusive.tax_name;
-                        item.tax_ids[inclusive.tax_index].price = item.grand_total - (item.grand_total / (1 + inclusive.tax_rate / 100));
+                        item.tax_ids[inclusive.tax_index].price = this.numberFormat(item.grand_total - (item.grand_total / (1 + inclusive.tax_rate / 100)), this.currency.precision);
 
                         inclusive_tax_total += item.tax_ids[inclusive.tax_index].price;
 
@@ -474,7 +474,7 @@ const app = new Vue({
                 if (fixed.length) {
                     fixed.forEach(function(fixed) {
                         item.tax_ids[fixed.tax_index].name = fixed.tax_name;
-                        item.tax_ids[fixed.tax_index].price = fixed.tax_rate * calculationToQuantity(item.quantity);
+                        item.tax_ids[fixed.tax_index].price = this.numberFormat(fixed.tax_rate * calculationToQuantity(item.quantity), this.currency.precision);
 
                         total_tax_amount += item.tax_ids[fixed.tax_index].price;
 
@@ -491,7 +491,7 @@ const app = new Vue({
                 if (normal.length) {
                     normal.forEach(function(normal) {
                         item.tax_ids[normal.tax_index].name = normal.tax_name;
-                        item.tax_ids[normal.tax_index].price = price_for_tax * (normal.tax_rate / 100);
+                        item.tax_ids[normal.tax_index].price = this.numberFormat((price_for_tax * (normal.tax_rate / 100)), this.currency.precision);
 
                         total_tax_amount += item.tax_ids[normal.tax_index].price;
 
@@ -502,7 +502,7 @@ const app = new Vue({
                 if (withholding.length) {
                     withholding.forEach(function(withholding) {
                         item.tax_ids[withholding.tax_index].name = withholding.tax_name;
-                        item.tax_ids[withholding.tax_index].price = -(price_for_tax * (withholding.tax_rate / 100));
+                        item.tax_ids[withholding.tax_index].price = -this.numberFormat((price_for_tax * (withholding.tax_rate / 100)), this.currency.precision);
 
                         total_tax_amount += item.tax_ids[withholding.tax_index].price;
 
@@ -515,7 +515,7 @@ const app = new Vue({
                 if (compounds.length) {
                     compounds.forEach(function(compound) {
                         item.tax_ids[compound.tax_index].name = compound.tax_name;
-                        item.tax_ids[compound.tax_index].price = (item.grand_total / 100) * compound.tax_rate;
+                        item.tax_ids[compound.tax_index].price = this.numberFormat((item.grand_total / 100) * compound.tax_rate, this.currency.precision);
 
                         totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, item.tax_ids[compound.tax_index].price);
 
@@ -886,6 +886,26 @@ const app = new Vue({
             this.send_to = true;
 
             this.onSubmit();
+        },
+
+        numberFormat(number, decimals = 0, decPoint = '.', thousandsSep = ',') {
+            number = parseFloat(number);
+
+            if (isNaN(number)) return '0';
+
+            // Ondalık basamakları ayarla
+            number = number.toFixed(decimals);
+
+            // Sayıyı parçalara ayır
+            let parts = number.split('.');
+            let integerPart = parts[0];
+            let decimalPart = parts[1] || '';
+
+            // Binlik ayıracı ekle
+            integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
+
+            // Sonucu birleştir
+            return decimals > 0 ? parseFloat(integerPart + decPoint + decimalPart) : parseFloat(integerPart);
         },
     },
 
