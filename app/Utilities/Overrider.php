@@ -76,6 +76,14 @@ class Overrider
         $currencies = Currency::all();
 
         foreach ($currencies as $currency) {
+            // If currency is not set in config, add it
+            if (! config("money.currencies.{$currency->code}")) {
+                config(['money.currencies.' . $currency->code => [
+                    'code' => $currency->code,
+                    'subunit' => 100,
+                ]]);
+            }
+
             config(['money.currencies.' . $currency->code . '.name' => $currency->name]);
             config(['money.currencies.' . $currency->code . '.rate' => $currency->rate]);
             config(['money.currencies.' . $currency->code . '.precision' => $currency->precision]);
