@@ -85,6 +85,8 @@ return [
         'default'                       => 'Standaard',
         'classic'                       => 'Klassiek',
         'modern'                        => 'Modern',
+        'logo_size_width'               => 'Logo Breedte',
+        'logo_size_height'              => 'Logo hoogte',
         'hide' => [
             'item_name'                 => 'Naam artikel/dienst verbergen',
             'item_description'          => 'Omschrijving artikel/dienst verbergen',
