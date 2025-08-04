@@ -238,11 +238,11 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             // Set taxes
             foreach ((array) $document_item->item_taxes as $item_tax) {
                 if (array_key_exists($item_tax['tax_id'], $taxes)) {
-                    $taxes[$item_tax['tax_id']]['amount'] += number_format($item_tax['amount'], $this->document->currency->precision);
+                    $taxes[$item_tax['tax_id']]['amount'] += round((float) $item_tax['amount'], $this->document->currency->precision);
                 } else {
                     $taxes[$item_tax['tax_id']] = [
                         'name' => $item_tax['name'],
-                        'amount' => number_format($item_tax['amount'], $this->document->currency->precision),
+                        'amount' => round((float) $item_tax['amount'], $this->document->currency->precision),
                     ];
                 }
             }

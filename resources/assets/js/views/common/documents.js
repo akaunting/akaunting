@@ -888,24 +888,14 @@ const app = new Vue({
             this.onSubmit();
         },
 
-        numberFormat(number, decimals = 0, decPoint = '.', thousandsSep = ',') {
+        numberFormat(number, decimals = 0) {
             number = parseFloat(number);
 
-            if (isNaN(number)) return '0';
+            if (isNaN(number)) return parseFloat('0');
 
-            // Ondalık basamakları ayarla
             number = number.toFixed(decimals);
 
-            // Sayıyı parçalara ayır
-            let parts = number.split('.');
-            let integerPart = parts[0];
-            let decimalPart = parts[1] || '';
-
-            // Binlik ayıracı ekle
-            integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
-
-            // Sonucu birleştir
-            return decimals > 0 ? parseFloat(integerPart + decPoint + decimalPart) : parseFloat(integerPart);
+            return parseFloat(number);
         },
     },
 
