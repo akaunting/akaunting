@@ -293,6 +293,7 @@ return [
             'contact_type'              => 'vendor',
             'inventory_stock_action'    => 'increase', // increases stock in stock tracking
             'hide'                      => [],
+            'class'                     => [],
             'notification' => [
 
             ],

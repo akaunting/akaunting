@@ -36,27 +36,34 @@
                 @endif
 
                 @if (! $hideCompanyDetails)
+                
+                    @stack('company_name_input_start')
                     @if (! $hideCompanyName)
                         <p>{{ setting('company.name') }}</p>
                     @endif
+                    @stack('company_name_input_end')
 
+                    
+                    @stack('company_address_input_start')
                     @if (! $hideCompanyAddress)
                         <p>
                             {!! nl2br(setting('company.address')) !!}
                             {!! $document->company->location !!}
                         </p>
                     @endif
+                    @stack('company_address_input_end')
 
+                    @stack('company_tax_number_input_start')
                     @if (! $hideCompanyTaxNumber)
-
                         @if (setting('company.tax_number'))
                             <p>
                                 {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
                             </p>
                         @endif
-
                     @endif
+                    @stack('company_tax_number_input_end')
 
+                    @stack('company_phone_input_start')
                     @if (! $hideCompanyPhone)
                         @if (setting('company.phone'))
                             <p>
@@ -64,10 +71,13 @@
                             </p>
                         @endif
                     @endif
+                    @stack('company_phone_input_end')
 
+                    @stack('company_email_input_start')
                     @if (! $hideCompanyEmail)
                         <p class="small-text">{{ setting('company.email') }}</p>
                     @endif
+                    @stack('company_email_input_end')
                 @endif
                 @stack('company_details_end')
             </div>

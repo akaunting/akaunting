@@ -35,20 +35,25 @@
                     </p>
                 @endif
 
+                @stack('company_name_input_start')
                 @if (! $hideCompanyName)
                     <p class="text-white">
                         {{ setting('company.name') }}
                     </p>
                 @endif
+                @stack('company_name_input_end')
 
                 @if (! $hideCompanyDetails)
+                    @stack('company_address_input_start')
                     @if (! $hideCompanyAddress)
                         <p class="text-white">
                             {!! nl2br(setting('company.address')) !!}
                             {!! $document->company->location !!}
                         </p>
                     @endif
+                    @stack('company_address_input_end')
 
+                    @stack('company_tax_number_input_start')
                     @if (! $hideCompanyTaxNumber)
                         <p class="text-white">
                             @if (setting('company.tax_number'))
@@ -60,7 +65,9 @@
                             @endif
                         </p>
                     @endif
+                    @stack('company_tax_number_input_end')
 
+                    @stack('company_phone_input_start')
                     @if (!$hideCompanyPhone)
                         <p class="text-white">
                             @if (setting('company.phone'))
@@ -68,12 +75,15 @@
                             @endif
                         </p>
                     @endif
+                    @stack('company_phone_input_end')
 
+                    @stack('company_email_input_start')
                     @if (!$hideCompanyEmail)
                         <p class="small-text text-white">
                             {{ setting('company.email') }}
                         </p>
                     @endif
+                    @stack('company_email_input_end')
                 @endif
                 @stack('company_details_end')
             </div>
