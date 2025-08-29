@@ -19,7 +19,7 @@ class Documents extends ApiController
      */
     public function index()
     {
-        $documents = Document::with('contact', 'histories', 'items', 'transactions')->collect(['issued_at'=> 'desc']);
+        $documents = Document::with('contact', 'histories', 'items', 'item_taxes', 'totals', 'transactions')->collect(['issued_at'=> 'desc']);
 
         return Resource::collection($documents);
     }

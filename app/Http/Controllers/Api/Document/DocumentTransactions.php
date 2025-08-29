@@ -6,6 +6,7 @@ use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Http\Resources\Banking\Transaction as Resource;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Banking\UpdateBankingDocumentTransaction;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
@@ -32,7 +33,7 @@ class DocumentTransactions extends ApiController
      */
     public function index($document_id)
     {
-        $transactions = Transaction::documentId($document_id)->get();
+        $transactions = Transaction::with(['document', 'taxes'])->documentId($document_id)->get();
 
         return Resource::collection($transactions);
     }
@@ -46,7 +47,7 @@ class DocumentTransactions extends ApiController
      */
     public function show($document_id, $id)
     {
-        $transaction = Transaction::documentId($document_id)->find($id);
+        $transaction = Transaction::with(['document', 'taxes'])->documentId($document_id)->find($id);
 
         if (! $transaction instanceof Transaction) {
             return $this->errorInternal('No query results for model [' . Transaction::class . '] ' . $id);
@@ -67,6 +68,25 @@ class DocumentTransactions extends ApiController
         $document = Document::find($document_id);
 
         $transaction = $this->dispatch(new CreateBankingDocumentTransaction($document, $request));
+
+        return $this->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), new Resource($transaction));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $document_id
+     * @param  $id
+     * @param  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($document_id, $id, Request $request)
+    {
+        $document = Document::find($document_id);
+
+        $transaction = Transaction::documentId($document_id)->find($id);
+
+        $transaction = $this->dispatch(new UpdateBankingDocumentTransaction($document, $transaction, $request));
 
         return $this->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), new Resource($transaction));
     }

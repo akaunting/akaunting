@@ -48,4 +48,10 @@ return [
         'description'       => 'You are previewing how your customer will see the web version of your payment.',
     ],
 
+    'messages' => [
+        'create_document_transaction_error' => 'This endpoint cannot be added to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
+        'update_document_transaction_error' => 'This endpoint cannot be updated to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'This endpoint cannot be deleted to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+    ]
+
 ];

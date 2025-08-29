@@ -43,6 +43,10 @@ class Transactions extends ApiController
      */
     public function store(Request $request)
     {
+        if ($request->has('document_id')) {
+            return $this->errorBadRequest(trans('transactions.messages.create_document_transaction_error'));
+        }
+
         $transaction = $this->dispatch(new CreateTransaction($request));
 
         return $this->created(route('api.transactions.show', $transaction->id), new Resource($transaction));
@@ -57,6 +61,10 @@ class Transactions extends ApiController
      */
     public function update(Transaction $transaction, Request $request)
     {
+        if ($request->has('document_id')) {
+            return $this->errorBadRequest(trans('transactions.messages.update_document_transaction_error'));
+        }
+
         $transaction = $this->dispatch(new UpdateTransaction($transaction, $request));
 
         return new Resource($transaction->fresh());
@@ -70,6 +78,10 @@ class Transactions extends ApiController
      */
     public function destroy(Transaction $transaction)
     {
+        if ($transaction->document_id) {
+            return $this->errorBadRequest(trans('transactions.messages.delete_document_transaction_error'));
+        }
+
         try {
             $this->dispatch(new DeleteTransaction($transaction));
 
