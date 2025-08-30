@@ -49,6 +49,7 @@ return [
     ],
 
     'messages' => [
+        'update_document_transaction' => 'You can update this transaction. You should go to the document and edit it there.',
         'create_document_transaction_error' => 'This endpoint cannot be added to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
         'update_document_transaction_error' => 'This endpoint cannot be updated to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
         'delete_document_transaction_error' => 'This endpoint cannot be deleted to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',

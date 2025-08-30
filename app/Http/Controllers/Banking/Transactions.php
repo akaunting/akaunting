@@ -239,6 +239,19 @@ class Transactions extends Controller
      */
     public function update(Transaction $transaction, Request $request)
     {
+        if ($transaction->document_id) {
+            $message = trans('transactions.messages.update_document_transaction');
+
+            flash($message)->error()->important();
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'redirect' => route('transactions.edit', $transaction->id),
+            ]);
+        }
+
         $response = $this->ajaxDispatch(new UpdateTransaction($transaction, $request));
 
         if ($response['success']) {
