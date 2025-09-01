@@ -30,6 +30,10 @@ abstract class Index extends Component
     public $page;
 
     public $permissionCreate;
+
+    public $permissionUpdate;
+
+    public $permissionDelete;
     /* -- Main End -- */
 
     /* -- Buttons Start -- */
