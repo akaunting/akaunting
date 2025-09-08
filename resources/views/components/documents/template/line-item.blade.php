@@ -1,4 +1,6 @@
 <tr>
+    @stack($item->id . '_line_item_start')
+
     @stack('name_td_start')
         @if (! $hideItems || (! $hideName && ! $hideDescription))
             <td class="item text text-alignment-left text-left max-w-0">
@@ -73,4 +75,6 @@
             </td>
         @endif
     @stack('total_td_end')
+
+    @stack($item->id . '_line_item_end')
 </tr>
