@@ -28,7 +28,7 @@ trait Documents
 
     public function isNotRecurringDocument(): bool
     {
-        return ! $this->isRecurring();
+        return ! $this->isRecurringDocument();
     }
 
     public function getRecurringDocumentTypes() : array
