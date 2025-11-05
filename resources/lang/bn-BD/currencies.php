@@ -4,15 +4,15 @@ return [
 
     'code'                  => 'কোড',
     'rate'                  => 'হার',
-    'default'               => 'পূর্বনির্ধারিত মুদ্রা',
+    'default'               => 'ডিফল্ট মুদ্রা',
     'decimal_mark'          => 'দশমিক চিহ্ন',
-    'thousands_separator'   => 'সহস্রাংক নির্দেশক',
-    'precision'             => 'সুচারু',
+    'thousands_separator'   => 'সহস্র বিভাজক',
+    'precision'             => 'দশমিক ঘর',
     'symbol' => [
         'symbol'            => 'প্রতীক',
         'position'          => 'প্রতীকের অবস্থান',
-        'before'            => 'মূল্যের পূর্বে',
-        'after'             => 'মূল্যের  পরে',
+        'before'            => 'মূল্যের আগে',
+        'after'             => 'মূল্যের পরে',
     ]
 
 ];

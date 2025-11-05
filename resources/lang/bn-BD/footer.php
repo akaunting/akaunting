@@ -3,8 +3,11 @@
 return [
 
     'version'               => 'সংস্করণ',
-    'powered'               => 'অ্যাকাউন্টিং(Akaunting) দ্বারা চালিত',
+    'powered'               => 'Akaunting দ্বারা চালিত',
     'link'                  => 'https://akaunting.com',
-    'software'              => 'মুক্ত হিসাবরক্ষণ সফটওয়্যার',
+    'software'              => 'অনলাইন হিসাবরক্ষণ সফটওয়্যার',
+    'powered_by'            => 'চালিত হয়েছে',
+    'tag_line'              => 'Akaunting দিয়ে ইনভয়েস পাঠান, খরচ অনুসরণ করুন এবং হিসাব অটোমেশন করুন। :get_started_url',
+    'get_started'           => 'শুরু করুন',
 
 ];
