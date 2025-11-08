@@ -42,7 +42,7 @@ trait Transactions
 
     public function isNotRecurringTransaction(): bool
     {
-        return ! $this->isRecurring();
+        return ! $this->isRecurringTransaction();
     }
 
     public function isTransferTransaction(): bool
@@ -194,7 +194,7 @@ trait Transactions
             'add_an' => trans('general.form.add_an', ['field' => trans_choice('general.' . Str::plural($document_type), 1)]),
             'transaction' => trans_choice('general.' . Str::plural($type), 1),
             'difference' => trans('general.difference'),
-            'connect_tax' => trans('messages.warning.connect_tax', ['type' => $type]), 
+            'connect_tax' => trans('messages.warning.connect_tax', ['type' => $type]),
         ];
     }
 
