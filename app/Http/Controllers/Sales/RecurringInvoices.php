@@ -80,7 +80,9 @@ class RecurringInvoices extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateDocument($request->merge(['issued_at' => $request->get('recurring_started_at')])));
+        $request->merge(['issued_at' => $request->get('recurring_started_at')]);
+
+        $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-invoices.show', $response['data']->id);
@@ -163,7 +165,9 @@ class RecurringInvoices extends Controller
      */
     public function update(Document $recurring_invoice, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateDocument($recurring_invoice, $request->merge(['issued_at' => $request->get('recurring_started_at')])));
+        $request->merge(['issued_at' => $request->get('recurring_started_at')]);
+
+        $response = $this->ajaxDispatch(new UpdateDocument($recurring_invoice, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-invoices.show', $response['data']->id);
