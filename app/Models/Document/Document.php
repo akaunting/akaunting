@@ -132,7 +132,7 @@ class Document extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\Document\DocumentItem', 'document_id');
+        return $this->hasMany('App\Models\Document\DocumentItem', 'document_id')->with('taxes');
     }
 
     public function item_taxes()

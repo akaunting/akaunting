@@ -42,6 +42,8 @@ class DocumentTransactions extends Controller
      */
     public function create(Document $document)
     {
+        $document->load(['totals', 'transactions']);
+
         $currency = Currency::where('code', $document->currency_code)->first();
 
         $paid = $document->paid;
@@ -149,6 +151,8 @@ class DocumentTransactions extends Controller
      */
     public function edit(Document $document, Transaction $transaction)
     {
+        $document->load(['totals', 'transactions']);
+
         $currency = Currency::where('code', $document->currency_code)->first();
 
         // if you edit transaction before remove transaction amount

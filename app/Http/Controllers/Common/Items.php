@@ -245,7 +245,7 @@ class Items extends Controller
             $currency_code = default_currency();
         }
 
-        $autocomplete = Item::autocomplete([
+        $autocomplete = Item::with('taxes')->autocomplete([
             'name' => $query
         ]);
 
