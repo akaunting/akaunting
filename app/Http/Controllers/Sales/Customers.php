@@ -30,7 +30,20 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Contact::customer()->with('media', 'invoices.histories', 'invoices.totals', 'invoices.transactions', 'invoices.media')->collect();
+        $customers = Contact::customer()
+            ->with([
+                'media',
+                'invoices.histories',
+                'invoices.totals',
+                'invoices.transactions',
+                'invoices.media'
+            ])
+            ->withCount([
+                'contact_persons as contact_persons_with_email_count' => function ($query) {
+                    $query->whereNotNull('email');
+                }
+            ])
+            ->collect();
 
         return $this->response('sales.customers.index', compact('customers'));
     }

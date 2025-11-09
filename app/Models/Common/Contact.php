@@ -303,7 +303,11 @@ class Contact extends Model
     {
         if (! empty($this->email)) {
             return true;
-        } 
+        }
+
+        if (isset($this->contact_persons_with_email_count)) {
+            return $this->contact_persons_with_email_count > 0;
+        }
 
         if ($this->contact_persons()->whereNotNull('email')->count()) {
             return true;

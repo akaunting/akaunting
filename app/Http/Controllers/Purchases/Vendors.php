@@ -30,7 +30,20 @@ class Vendors extends Controller
      */
     public function index()
     {
-        $vendors = Contact::with('media', 'bills.histories', 'bills.totals', 'bills.transactions', 'bills.media')->vendor()->collect();
+        $vendors = Contact::with([
+                'media',
+                'bills.histories',
+                'bills.totals',
+                'bills.transactions',
+                'bills.media'
+            ])
+            ->withCount([
+                'contact_persons as contact_persons_with_email_count' => function ($query) {
+                    $query->whereNotNull('email');
+                }
+            ])
+            ->vendor()
+            ->collect();
 
         return $this->response('purchases.vendors.index', compact('vendors'));
     }

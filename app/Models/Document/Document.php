@@ -274,14 +274,22 @@ class Document extends Model
 
     public function getSentAtAttribute(string $value = null)
     {
-        $sent = $this->histories()->where('document_histories.status', 'sent')->first();
+        if ($this->relationLoaded('histories')) {
+            $sent = $this->histories->where('status', 'sent')->first();
+        } else {
+            $sent = $this->histories()->where('document_histories.status', 'sent')->first();
+        }
 
         return $sent->created_at ?? null;
     }
 
     public function getReceivedAtAttribute(string $value = null)
     {
-        $received = $this->histories()->where('document_histories.status', 'received')->first();
+        if ($this->relationLoaded('histories')) {
+            $received = $this->histories->where('status', 'received')->first();
+        } else {
+            $received = $this->histories()->where('document_histories.status', 'received')->first();
+        }
 
         return $received->created_at ?? null;
     }
