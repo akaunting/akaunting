@@ -36,7 +36,8 @@ class Content extends Component
         // Handle documents
         $docs = $this->contact->isCustomer() ? 'invoices' : 'bills';
 
-        $this->documents = $this->contact->$docs()->with('transactions')->get();
+        // Eager load transactions with currency to prevent N+1 queries when calling getAmountConvertedToDefault()
+        $this->documents = $this->contact->$docs()->with(['transactions.currency'])->get();
 
         $this->counts['documents'] = $this->documents->count();
 
@@ -62,8 +63,8 @@ class Content extends Component
             }
         }
 
-        // Handle payments
-        $this->transactions = $this->contact->transactions()->with('account', 'category')->get();
+        // Handle payments - eager load currency to prevent N+1 queries
+        $this->transactions = $this->contact->transactions()->with(['account', 'category', 'currency'])->get();
 
         $this->counts['transactions'] = $this->transactions->count();
 

@@ -206,7 +206,8 @@ trait Documents
 
         $today = Date::today()->toDateString();
 
-        $documents = $documents ?: Document::type($type)->with('transactions')->future();
+        // Eager load transactions with currency to prevent N+1 queries when calling getAmountConvertedToDefault()
+        $documents = $documents ?: Document::type($type)->with(['transactions.currency'])->future();
 
         $documents->each(function ($document) use (&$totals, $today) {
             if (! in_array($document->status, $this->getDocumentStatusesForFuture())) {
