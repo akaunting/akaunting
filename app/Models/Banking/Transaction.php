@@ -301,7 +301,7 @@ class Transaction extends Model
 
     public function scopePaid(Builder $query): Builder
     {
-        return $query->sum('amount');
+        return $query->whereNotNull('paid_at');
     }
 
     public function scopeIsReconciled(Builder $query): Builder
