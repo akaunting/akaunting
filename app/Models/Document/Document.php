@@ -355,7 +355,11 @@ class Document extends Model
         if ($discount) {
             $sub_total = $this->totals->where('code', 'sub_total')->makeHidden('title')->pluck('amount')->first();
 
-            $percent = number_format((($discount * 100) / $sub_total), 0);
+            if ($sub_total && $sub_total > 0) {
+                $percent = number_format((($discount * 100) / $sub_total), 0);
+            } else {
+                $percent = 0;
+            }
         }
 
         return $percent;
@@ -423,7 +427,7 @@ class Document extends Model
                 }
 
                 if ($transaction->reconciled) {
-                    $reconciled_amount = +$amount;
+                    $reconciled_amount += $amount;
                 }
             }
         }
