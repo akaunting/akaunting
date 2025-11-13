@@ -299,9 +299,9 @@ class Transaction extends Model
         return $query->orderBy('paid_at', 'desc');
     }
 
-    public function scopePaid(Builder $query): Builder
+    public function scopePaid(Builder $query): float
     {
-        return $query->whereNotNull('paid_at');
+        return $query->sum('amount');
     }
 
     public function scopeIsReconciled(Builder $query): Builder
@@ -571,7 +571,7 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if (empty($this->document_id) 
+            if (empty($this->document_id)
                 && $this->isNotTransferTransaction()
                 && $this->isNotSplitTransaction()
             ) {
