@@ -546,11 +546,19 @@ abstract class Report
 
     public function divArithmeticAmount(&$current, $amount)
     {
+        if ($amount == 0) {
+            throw new \InvalidArgumentException('Division by zero is not allowed');
+        }
+
         $current = $current / $amount;
     }
 
     public function modArithmeticAmount(&$current, $amount)
     {
+        if ($amount == 0) {
+            throw new \InvalidArgumentException('Modulo by zero is not allowed');
+        }
+
         $current = $current % $amount;
     }
 
