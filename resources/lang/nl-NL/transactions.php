@@ -48,4 +48,11 @@ return [
         'description'       => 'Je bekijkt hoe je klant de webversie van je betaling zal zien.',
     ],
 
+    'messages' => [
+        'update_document_transaction' => 'U kunt deze transactie bijwerken. U moet naar het document gaan en het daar bewerken.',
+        'create_document_transaction_error' => 'Dit eindpunt kan niet worden toegevoegd aan een document. Gebruik {{akaunting_url}}/documenten/{{akaunting_document_id}}/Transacties',
+        'update_document_transaction_error' => 'Dit eindpunt kan niet worden bijgewerkt naar een document. Gebruik {{akaunting_url}}/documenten/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'Dit eindpunt kan niet worden verwijderd naar een document. Gebruik {{akaunting_url}}/documenten/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+    ]
+
 ];
