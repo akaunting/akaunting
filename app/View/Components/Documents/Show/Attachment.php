@@ -17,6 +17,11 @@ class Attachment extends Component
     {
         $this->transaction_attachment = collect();
 
+        // Eager load transactions with their media/attachments to prevent N+1 queries
+        if (!$this->document->relationLoaded('transactions')) {
+            $this->document->load(['transactions.media', 'transactions']);
+        }
+
         if ($this->document->transactions->count()) {
             foreach ($this->document->transactions as $transaction) {
                 if (! $transaction->attachment) {

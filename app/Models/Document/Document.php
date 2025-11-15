@@ -382,6 +382,11 @@ class Document extends Model
         $rate = $this->currency_rate;
         $precision = currency($code)->getPrecision();
 
+        // Lazy eager load transactions if not already loaded to prevent N+1 queries
+        if (!$this->relationLoaded('transactions')) {
+            $this->load('transactions');
+        }
+
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
                 $amount = $transaction->amount;
@@ -414,6 +419,11 @@ class Document extends Model
         $rate = $this->currency_rate;
         $precision = currency($code)->getPrecision();
 
+        // Lazy eager load transactions if not already loaded to prevent N+1 queries
+        if (!$this->relationLoaded('transactions')) {
+            $this->load('transactions');
+        }
+
         if ($this->transactions->count()) {
             foreach ($this->transactions as $transaction) {
                 $amount = $transaction->amount;
@@ -423,7 +433,7 @@ class Document extends Model
                 }
 
                 if ($transaction->reconciled) {
-                    $reconciled_amount = +$amount;
+                    $reconciled_amount += $amount;
                 }
             }
         }
