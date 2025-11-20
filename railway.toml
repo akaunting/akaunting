@@ -1,0 +1,6 @@
+[project]
+id = "<RAILWAY_PROJECT_ID>"
+name = "<your-project-name>"
+
+[build]
+builder = "docker"
