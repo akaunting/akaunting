@@ -122,7 +122,18 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
             } catch (ValidationException $e) {
                 foreach ($e->validator->failed() as $attribute => $value) {
                     foreach ($value as $rule => $params) {
-                        $validator->addFailure($row . '.' . $attribute, $rule, $params);
+                        if ($rule === 'In' && !empty($params)) {
+                            $actual_value = $data[$attribute] ?? 'null';
+                            $expected_values = implode(', ', $params);
+                            $custom_message = trans('validation.in_detailed', [
+                                'attribute' => $attribute,
+                                'value' => $actual_value,
+                                'values' => $expected_values
+                            ]);
+                            $validator->errors()->add($row . '.' . $attribute, $custom_message);
+                        } else {
+                            $validator->addFailure($row . '.' . $attribute, $rule, $params);
+                        }
                     }
                 }
 
