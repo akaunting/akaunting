@@ -126,8 +126,12 @@ class TaxSummary extends Report
                 }
 
                 if ($date_field == 'paid_at') {
-                    $rate = ($item->amount * 100) / $type_item->amount;
-                    $item_amount = ($item_total->amount / 100) * $rate;
+                    if ($type_item->amount != 0) {
+                        $rate = ($item->amount * 100) / $type_item->amount;
+                        $item_amount = ($item_total->amount / 100) * $rate;
+                    } else {
+                        $item_amount = $item_total->amount;
+                    }
                 } else {
                     $item_amount = $item_total->amount;
                 }
