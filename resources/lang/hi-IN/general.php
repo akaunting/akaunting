@@ -77,6 +77,7 @@ return [
     'contact_persons'       => 'संपर्क व्यक्ति|संपर्क व्यक्ति',
     'bank_feeds'            => 'बैंक फ़ीड|बैंक फ़ीड',
     'receipts'              => 'रसीद|रसीदें',
+    'discounts'             => 'छूट|छूट',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 
