@@ -85,6 +85,8 @@ return [
         'default'                       => 'पूर्व निर्धारित',
         'classic'                       => 'क्लासिक',
         'modern'                        => 'नवीन',
+        'logo_size_width'               => 'लोगो की चौड़ाई',
+        'logo_size_height'              => 'लोगो की ऊँचाई',
         'hide' => [
             'item_name'                 => 'वस्तु का नाम छिपाएं',
             'item_description'          => 'वस्तु का विवरण छिपाएँ',
