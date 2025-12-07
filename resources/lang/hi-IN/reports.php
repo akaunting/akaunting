@@ -10,6 +10,7 @@ return [
     'expense_summary'               => 'व्यय का सारांश',
     'income_expense_summary'        => 'आय vs व्यय',
     'tax_summary'                   => 'कर सारांश',
+    'discount_summary'              => 'छूट सारांश',
     'gross_profit'                  => 'कुल लाभ',
     'net_profit'                    => 'शुद्ध लाभ',
     'total_expenses'                => 'कुल व्यय',
