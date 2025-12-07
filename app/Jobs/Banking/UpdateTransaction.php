@@ -35,7 +35,9 @@ class UpdateTransaction extends Job implements ShouldUpdate
 
                     $this->model->attachMedia($media, 'attachment');
                 }
-            } elseif (! $this->request->file('attachment') && $this->model->attachment) {
+            } elseif ($this->request->isNotApi() && ! $this->request->file('attachment') && $this->model->attachment) {
+                $this->deleteMediaModel($this->model, 'attachment', $this->request);
+            } elseif ($this->request->isApi() && $this->request->has('remove_attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 

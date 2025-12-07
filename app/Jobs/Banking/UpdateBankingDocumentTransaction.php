@@ -18,6 +18,8 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 {
     use Currencies;
 
+    protected Transaction $transaction;
+
     public function __construct(Document $model, Transaction $transaction, $request)
     {
         $this->model = $model;
@@ -39,9 +41,15 @@ class UpdateBankingDocumentTransaction extends Job implements ShouldUpdate
 
             // Upload attachment
             if ($this->request->file('attachment')) {
+                $this->deleteMediaModel($this->transaction, 'attachment', $this->request);
+
                 $media = $this->getMedia($this->request->file('attachment'), 'transactions');
 
                 $this->transaction->attachMedia($media, 'attachment');
+            } elseif ($this->request->isNotApi() && ! $this->request->file('attachment') && $this->transaction->attachment) {
+                $this->deleteMediaModel($this->transaction, 'attachment', $this->request);
+            } elseif ($this->request->isApi() && $this->request->has('remove_attachment') && $this->transaction->attachment) {
+                $this->deleteMediaModel($this->transaction, 'attachment', $this->request);
             }
 
             $this->model->save();
