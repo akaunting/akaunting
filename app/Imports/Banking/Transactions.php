@@ -32,6 +32,10 @@ class Transactions extends Import
     {
         $row = parent::map($row);
 
+        if (!isset($row['type'])) {
+            return [];
+        }
+
         $real_type = $this->getRealTypeTransaction($row['type']);
         $contact_type = config('type.transaction.' . $real_type . '.contact_type', $real_type == 'income' ? 'customer' : 'vendor');
 
@@ -49,6 +53,7 @@ class Transactions extends Import
     public function prepareRules($rules): array
     {
         $rules['number'] = 'required|string';
+        $rules['type'] = 'required|string';
         //$rules['currency_rate'] = 'required|gt:0';
 
         return $rules;
