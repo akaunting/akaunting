@@ -84,6 +84,7 @@ class Kernel extends HttpKernel
             'menu.admin',
             'permission:read-admin-panel',
             'plan.limits',
+            'module.subscription',
         ],
 
         'wizard' => [
@@ -175,6 +176,7 @@ class Kernel extends HttpKernel
         'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
         'plan.limits' => \App\Http\Middleware\RedirectIfHitPlanLimits::class,
+        'module.subscription' => \App\Http\Middleware\RedirectIfHitModuleSubscription::class,
         'menu.admin' => \App\Http\Middleware\AdminMenu::class,
         'menu.portal' => \App\Http\Middleware\PortalMenu::class,
         'date.format' => \App\Http\Middleware\DateFormat::class,

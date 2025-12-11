@@ -2,10 +2,13 @@
 
 namespace App\Traits;
 
+use App\Jobs\Install\DisableModule;
+use App\Jobs\Install\UninstallModule;
 use App\Models\Module\Module;
 use App\Traits\SiteApi;
 use App\Utilities\Date;
 use App\Utilities\Info;
+use App\Utilities\Versions;
 use Illuminate\Support\Facades\Cache;
 
 trait Modules
@@ -421,6 +424,86 @@ trait Modules
     public function moduleIsDisabled($alias): bool
     {
         return ! $this->moduleIsEnabled($alias);
+    }
+
+    public function getModulesLimitOfSubscription()
+    {
+        $limit = new \stdClass();
+
+        $limit->action_status = true;
+        $limit->view_status = true;
+        $limit->message = "Success";
+
+        if (! config('app.installed') || running_in_test()) {
+            return $limit;
+        }
+
+        if (is_cloud()) {
+            return $limit;
+        }
+
+        $modules = module()->all();
+
+        $versions = Versions::all($modules);
+
+        foreach ($versions as $alias => $version) {
+            if ($alias == 'core') {
+                continue;
+            }
+
+            $module_limit = $this->getModuleLimitOfSubscription($alias, $version);
+
+            if ($module_limit->action_status === false) {
+                $limit->action_status = false;
+                $limit->view_status = false;
+                $limit->message = $module_limit->message;
+            }
+        }
+
+        return $limit;
+    }
+
+    public function getModuleLimitOfSubscription($alias, $version = null)
+    {
+        $limit = new \stdClass();
+
+        $limit->action_status = true;
+        $limit->view_status = true;
+        $limit->message = "Success";
+
+        if (empty($version)) {
+            $version = Versions::getVersionByAlias($alias);
+        }
+        
+        if (! $version->subscription) {
+            return $limit;
+        }
+
+        if (! in_array($version->subscription->action_status, ['disabled', 'uninstalled'])) {
+            return $limit;
+        }
+
+        $limit->action_status = false;
+        $limit->view_status = false;
+        $limit->message = "Not able to app $alias.";
+
+        $module_companies = Module::allCompanies()->alias($alias)->get();
+
+        foreach ($module_companies as $module) {
+            switch ($version->subscription->action_status) {
+                case 'disabled':
+                    dispatch(new DisableModule($alias, $module->company_id));
+                    break;
+                case 'uninstalled':
+                    dispatch(new UninstallModule($alias, $module->company_id));
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
+        }
+
+        return $limit;
     }
 
     public function loadSubscriptions()

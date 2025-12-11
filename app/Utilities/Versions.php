@@ -140,8 +140,6 @@ class Versions
                 $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
 
                 $versions[$alias] = static::getLatestVersion($url, $version);
-
-                static::enforceSubscriptionStatus($alias, $versions[$alias]);
             }
 
             return $versions;
@@ -166,10 +164,6 @@ class Versions
         $versions = Cache::get('versions', []);
 
         $versions[$alias] = static::getLatestVersion($url, $version);
-
-        if ($alias != 'core') {
-            static::enforceSubscriptionStatus($alias, $versions[$alias]);
-        }
 
         Cache::put('versions', $versions, Date::now()->addHours(6));
 
@@ -240,10 +234,10 @@ class Versions
         foreach ($module_companies as $module) {
             switch ($status) {
                 case 'disabled':
-                    dispatch_sync(new DisableModule($alias, $module->company_id));
+                    dispatch(new DisableModule($alias, $module->company_id));
                     break;
                 case 'uninstalled':
-                    dispatch_sync(new UninstallModule($alias, $module->company_id));
+                    dispatch(new UninstallModule($alias, $module->company_id));
                     break;
                 default:
                     // Do nothing
