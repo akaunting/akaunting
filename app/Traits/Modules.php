@@ -457,6 +457,10 @@ trait Modules
                 $limit->action_status = false;
                 $limit->view_status = false;
                 $limit->message = $module_limit->message;
+
+                // Clear cache to reflect changes
+                Cache::forget('updates');
+                Cache::forget('versions');
             }
         }
 
@@ -483,11 +487,15 @@ trait Modules
             return $limit;
         }
 
+        $module_companies = Module::allCompanies()->enabled()->alias($alias)->get();
+
+        if (! $module_companies->count()) {
+            return $limit;
+        }
+
         $limit->action_status = false;
         $limit->view_status = false;
         $limit->message = "Not able to app $alias.";
-
-        $module_companies = Module::allCompanies()->alias($alias)->get();
 
         foreach ($module_companies as $module) {
             switch ($version->subscription->action_status) {
