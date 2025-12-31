@@ -1,5 +1,6 @@
 name: CI - Akaunting
 
+
 on:
   push:
     branches: [ "master" ]
