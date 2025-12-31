@@ -1,0 +1,22 @@
+name: SAST - Semgrep
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep (PHP + JS)
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >
+            p/php
+            p/javascript
+        env:
+          SEMGREP_RULES: auto

@@ -1,0 +1,23 @@
+name: DAST - OWASP ZAP
+
+on:
+  workflow_dispatch:
+
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start app
+        run: |
+          docker compose up -d
+          sleep 60
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.11.0
+        with:
+          target: http://localhost:8000
+          fail_action: false
