@@ -26,6 +26,15 @@ jobs:
           fail_action: false
           allow_issue_writing: false
 
+      - name: Upload ZAP DAST reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-zap-report
+          path: |
+            report_html.html
+            report_md.md
+            report_json.json
+
       - name: Stop containers
         run: docker compose down
 
