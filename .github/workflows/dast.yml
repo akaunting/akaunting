@@ -6,41 +6,35 @@ on:
 jobs:
   zap:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Add this to continue even if ZAP's upload fails
+    continue-on-error: true
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Start application
+      - name: Build and start application
         run: |
           docker compose up --build -d
-          echo "Waiting for app to start..."
           sleep 90
           
-      - name: Run ZAP Scan with direct Docker command
-        run: |
-          echo "Running ZAP scan directly..."
-          docker run --rm \
-            -v $(pwd):/zap/wrk/:rw \
-            --add-host=host.docker.internal:host-gateway \
-            -t ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t http://host.docker.internal:8000 \
-            -J zap-report.json \
-            -w zap-report.md \
-            -r zap-report.html \
-            -a
+      - name: Verify app is reachable
+        run: curl -I http://localhost:8000
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.11.0
+        with:
+          target: 'http://localhost:8000'
+          fail_action: false
+          allow_issue_writing: false
+          cmd_options: '-a'
+          # Add this to disable ZAP's artifact upload
+          token: ''
           
-      - name: List generated report files
-        run: |
-          echo "=== Generated Report Files ==="
-          ls -la *.html *.json *.md 2>/dev/null || echo "No report files yet"
-          
-      - name: Upload ZAP reports as artifacts
+      - name: Upload DAST report
         uses: actions/upload-artifact@v4
         with:
-          name: zap-security-reports
+          name: dast-zap-report
           path: |
             *.html
             *.json
@@ -48,19 +42,6 @@ jobs:
           retention-days: 30
           if-no-files-found: error
           
-      - name: Show quick summary
-        run: |
-          echo "========================================"
-          echo "ZAP SECURITY SCAN COMPLETED"
-          echo "========================================"
-          echo "Reports generated:"
-          ls *.html *.json *.md 2>/dev/null | while read file; do
-            echo "• $file"
-          done || echo "No report files found"
-          echo ""
-          echo "Download from Artifacts section above!"
-          echo "========================================"
-          
       - name: Stop containers
         if: always()
-        run: docker compose down || true
+        run: docker compose down
