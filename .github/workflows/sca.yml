@@ -3,7 +3,6 @@ name: SCA - Dependency & Image Scan
 on:
   workflow_dispatch:
 
-
 jobs:
   trivy:
     runs-on: ubuntu-latest
@@ -18,5 +17,8 @@ jobs:
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@0.24.0
         with:
+          scan-type: image
           image-ref: akaunting-app
           severity: HIGH,CRITICAL
+          exit-code: 0
+

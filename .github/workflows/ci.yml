@@ -1,6 +1,5 @@
 name: CI - Akaunting
 
-
 on:
   workflow_dispatch:
 
@@ -16,11 +15,5 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: |
-          docker build -t akaunting-app .
+        run: docker build -t akaunting-app .
 
-      - name: Security scan (Trivy)
-        uses: aquasecurity/trivy-action@0.24.0
-        with:
-          image-ref: akaunting-app
-          severity: CRITICAL,HIGH

@@ -3,7 +3,6 @@ name: SAST - Semgrep
 on:
   workflow_dispatch:
 
-
 jobs:
   semgrep:
     runs-on: ubuntu-latest
@@ -15,8 +14,7 @@ jobs:
       - name: Run Semgrep (PHP + JS)
         uses: returntocorp/semgrep-action@v1
         with:
-          config: >
+          config: |
             p/php
             p/javascript
-        env:
-          SEMGREP_RULES: auto
+

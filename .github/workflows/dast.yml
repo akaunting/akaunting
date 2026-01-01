@@ -3,7 +3,6 @@ name: DAST - OWASP ZAP
 on:
   workflow_dispatch:
 
-
 jobs:
   zap:
     runs-on: ubuntu-latest
@@ -25,7 +24,8 @@ jobs:
         with:
           target: http://localhost:8000
           fail_action: false
-          allow_issue_writing: false   
+          allow_issue_writing: false
 
       - name: Stop containers
         run: docker compose down
+
