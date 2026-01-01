@@ -2,10 +2,18 @@ name: DAST - OWASP ZAP
 
 on:
   workflow_dispatch:
+  # Optional: Add schedule or push triggers
+  # schedule:
+  #   - cron: '0 0 * * 0'  # Weekly scan
+  # push:
+  #   branches: [ main ]
 
 jobs:
   zap:
     runs-on: ubuntu-latest
+    
+    # Add timeout to prevent hanging
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -14,37 +22,78 @@ jobs:
       - name: Build and start application
         run: |
           docker compose up --build -d
-          sleep 90
+          # Better health check instead of static sleep
+          for i in {1..30}; do
+            if curl -s -f http://localhost:8000 > /dev/null; then
+              echo "Application is up!"
+              break
+            fi
+            echo "Waiting for application to start... ($i/30)"
+            sleep 10
+          done
           
       - name: Verify app is reachable
-        run: curl -I http://localhost:8000
-
+        run: |
+          curl -I http://localhost:8000
+          echo "Application is running"
+          
       - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: 'http://localhost:8000'
-          fail_action: false
+          fail_action: false  # Set to true if you want to fail on critical findings
           allow_issue_writing: false
-          cmd_options: '-a'  # Generate all reports
-
-      - name: Check for generated reports
+          cmd_options: '-a -j'  # -j for JSON only, or keep -a for all
+          token: ${{ github.token }}  # For artifact upload
+          
+      - name: List all generated files
         run: |
-          echo "Looking for report files..."
-          find . -name "*.html" -o -name "*.json" -o -name "*.md" | grep -i zap || echo "No ZAP reports found"
-          ls -la *.html *.json *.md 2>/dev/null || true
-
-      - name: Upload DAST report
+          echo "=== All files in workspace ==="
+          find . -type f -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" | head -50
+          echo "=== Current directory contents ==="
+          ls -la
+          
+      - name: Rename reports for better identification
+        run: |
+          # Rename the generic report files if they exist
+          [ -f "report_json.json" ] && mv report_json.json zap-report-$(date +%Y%m%d-%H%M%S).json
+          [ -f "report_md.md" ] && mv report_md.md zap-report-$(date +%Y%m%d-%H%M%S).md
+          [ -f "report_html.html" ] && mv report_html.html zap-report-$(date +%Y%m%d-%H%M%S).html
+          
+      - name: Upload DAST report artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: dast-zap-report
+          name: dast-zap-reports
           path: |
             *.html
             *.json
             *.md
+            *.xml
           retention-days: 30
           if-no-files-found: ignore
           
+      - name: Generate summary of findings
+        if: always()
+        run: |
+          echo "=== ZAP Scan Summary ==="
+          echo "Scan completed at: $(date)"
+          
+          # Try to extract summary from JSON if it exists
+          if [ -f "*.json" ]; then
+            JSON_FILE=$(ls *.json | head -1)
+            if [ -f "$JSON_FILE" ]; then
+              echo "Findings summary from $JSON_FILE:"
+              jq -r '
+                "Total alerts: \(.site[0].alerts | length)",
+                "High risk alerts: \((.site[0].alerts[] | select(.riskcode == "3")) // [] | length)",
+                "Medium risk alerts: \((.site[0].alerts[] | select(.riskcode == "2")) // [] | length)",
+                "Low risk alerts: \((.site[0].alerts[] | select(.riskcode == "1")) // [] | length)",
+                "Informational alerts: \((.site[0].alerts[] | select(.riskcode == "0")) // [] | length)"
+              ' "$JSON_FILE" 2>/dev/null || echo "Could not parse JSON file"
+            fi
+          fi
+          
       - name: Stop containers
         if: always()
-        run: docker compose down
+        run: docker compose down || true
