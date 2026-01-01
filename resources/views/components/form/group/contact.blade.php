@@ -56,7 +56,7 @@
             </template>
         @endif
     </x-form.group.select>
-@elseif (($attributes->has('withoutRemote') && $attributes->has('without-remote')) && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new')))
+@elseif (($attributes->has('withoutRemote') || $attributes->has('without-remote')) && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new')))
     <x-form.group.select
         add-new
         path="{{ $path }}"
@@ -111,7 +111,7 @@
             </template>
         @endif
     </x-form.group.select>
-@elseif ((! $attributes->has('withoutRemote') && ! $attributes->has('without-remote')) && ($attributes->has('withoutAddNew') && $attributes->has('without-add-new')))
+@elseif ((! $attributes->has('withoutRemote') && ! $attributes->has('without-remote')) && ($attributes->has('withoutAddNew') || $attributes->has('without-add-new')))
     <x-form.group.select
         remote
         remote_action="{{ $remoteAction }}"
