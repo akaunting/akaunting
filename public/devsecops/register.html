@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - DevSecOps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .register-container {
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .register-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .account-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .account-type {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .account-type:hover {
+            border-color: #667eea;
+        }
+        
+        .account-type.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .account-type i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #718096;
+        }
+        
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .alert-error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+        
+        .password-strength {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .strength-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            background: #e53e3e;
+            transition: all 0.3s;
+        }
+        
+        .strength-fill.weak { width: 33%; background: #e53e3e; }
+        .strength-fill.medium { width: 66%; background: #d69e2e; }
+        .strength-fill.strong { width: 100%; background: #38a169; }
+        
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 25px 20px;
+            }
+            
+            .account-types {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Créer un compte</h1>
+                <p class="subtitle">Rejoignez la plateforme DevSecOps</p>
+            </div>
+            
+            <div id="successAlert" class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <span>Compte créé avec succès ! Redirection...</span>
+            </div>
+            
+            <div id="errorAlert" class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorMessage"></span>
+            </div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">Nom complet *</label>
+                    <input type="text" id="fullName" placeholder="Jean Dupont" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse email *</label>
+                    <input type="email" id="email" placeholder="jean@exemple.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur *</label>
+                    <input type="text" id="username" placeholder="jeandupont" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Type de compte</label>
+                    <div class="account-types">
+                        <div class="account-type" data-type="developer">
+                            <i class="fas fa-code"></i>
+                            <div>Développeur</div>
+                        </div>
+                        <div class="account-type" data-type="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>Sécurité</div>
+                        </div>
+                        <div class="account-type selected" data-type="admin">
+                            <i class="fas fa-cogs"></i>
+                            <div>Administrateur</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="accountType" value="admin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe *</label>
+                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                    <div class="password-strength">
+                        <span id="strengthText">Force du mot de passe</span>
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmer le mot de passe *</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn-register" id="submitBtn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Créer le compte</span>
+                </button>
+            </form>
+            
+            <div class="login-link">
+                Vous avez déjà un compte ? <a href="index.html">Connectez-vous ici</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sélection type de compte
+        const accountTypes = document.querySelectorAll('.account-type');
+        const accountTypeInput = document.getElementById('accountType');
+        
+        accountTypes.forEach(type => {
+            type.addEventListener('click', function() {
+                accountTypes.forEach(t => t.classList.remove('selected'));
+                this.classList.add('selected');
+                accountTypeInput.value = this.dataset.type;
+            });
+        });
+        
+        // Force mot de passe
+        const passwordInput = document.getElementById('password');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            strengthFill.className = 'strength-fill';
+            
+            if (password.length === 0) {
+                strengthText.textContent = 'Force du mot de passe';
+            } else if (strength <= 2) {
+                strengthText.textContent = 'Faible';
+                strengthFill.classList.add('weak');
+            } else if (strength <= 4) {
+                strengthText.textContent = 'Moyen';
+                strengthFill.classList.add('medium');
+            } else {
+                strengthText.textContent = 'Fort';
+                strengthFill.classList.add('strong');
+            }
+        });
+        
+        // Envoi formulaire
+        const form = document.getElementById('registerForm');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showError('Les mots de passe ne correspondent pas');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Le mot de passe doit contenir au moins 6 caractères');
+                return;
+            }
+            
+            // Données utilisateur
+            const userData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                password: password,
+                accountType: accountTypeInput.value
+            };
+            
+            // Envoi
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création...';
+            
+            try {
+                const response = await fetch('../api/register.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess();
+                    setTimeout(() => {
+                        window.location.href = 'index.html?registered=true';
+                    }, 2000);
+                } else {
+                    showError(data.message);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Créer le compte';
+                }
+            } catch (error) {
+                showError('Erreur de connexion au serveur');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Créer le compte';
+            }
+        });
+        
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorAlert').style.display = 'flex';
+            document.getElementById('successAlert').style.display = 'none';
+            
+            setTimeout(() => {
+                document.getElementById('errorAlert').style.display = 'none';
+            }, 5000);
+        }
+        
+        function showSuccess() {
+            document.getElementById('successAlert').style.display = 'flex';
+            document.getElementById('errorAlert').style.display = 'none';
+        }
+        
+        // Vérifier si déjà connecté
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../api/check-auth.php')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.authenticated) {
+                        window.location.href = 'index.html';
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

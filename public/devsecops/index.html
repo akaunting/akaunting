@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akaunting DevSecOps - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            color: #2d3748;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #667eea;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .user-info {
+            background: #f7fafc;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .user-info span {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #2d3748;
+            color: white;
+        }
+
+        .btn-success {
+            background: #38a169;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f7fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pipeline-status {
+            list-style: none;
+        }
+
+        .pipeline-status li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .pipeline-status li:last-child {
+            border-bottom: none;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-running {
+            background: #fed7d7;
+            color: #742a2a;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .status-pending {
+            background: #feebc8;
+            color: #744210;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: #edf2f7;
+            transform: scale(1.05);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .alert {
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .alert-warning {
+            background: #feebc8;
+            color: #744210;
+            border: 1px solid #fbd38d;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: #667eea;"></i>
+                <div>
+                    <h1>Akaunting <span>DevSecOps</span></h1>
+                    <div class="subtitle">Pipeline de Sécurité et Déploiement Automatisé</div>
+                </div>
+            </div>
+            
+            <div class="status-badge">
+                <i class="fas fa-check-circle"></i>
+                Pipeline Actif - GitHub Actions
+            </div>
+            
+            <!-- User info section (hidden by default) -->
+            <div id="userInfo" class="user-info" style="display: none;">
+                <div>
+                    <span>Connecté en tant que :</span>
+                    <span id="currentUsername"></span>
+                    (<span id="currentAccountType"></span>)
+                </div>
+                <button onclick="logout()" class="btn btn-danger" style="padding: 8px 20px; font-size: 0.9rem;">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </button>
+            </div>
+            
+            <!-- Welcome message for new users -->
+            <div id="welcomeAlert" class="alert alert-success" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <span id="welcomeMessage"></span>
+            </div>
+            
+            <!-- Login prompt -->
+            <div id="loginPrompt" class="alert alert-warning">
+                <i class="fas fa-info-circle"></i>
+                <span>Connectez-vous pour accéder à toutes les fonctionnalités</span>
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="register.html" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Créer un Compte
+                </a>
+                <button onclick="showLoginModal()" class="btn btn-success">
+                    <i class="fas fa-sign-in-alt"></i> Se Connecter
+                </button>
+                <a href="https://github.com/akaunting/akaunting" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> Code Source
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3><i class="fas fa-stream"></i> Statut du Pipeline</h3>
+                <ul class="pipeline-status">
+                    <li>
+                        <div class="status-icon status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>
+                            <strong>Checkout du Code</strong>
+                            <div style="color: #718096; font-size: 0.9rem;">Dernière exécution: Maintenant</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="status-icon status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>
+                            <strong>Build Docker</strong>
+                            <div style="color: #718096; font-size: 0.9rem;">Image: akaunting-app:latest</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="status-icon status-running">
+                            <i class="fas fa-sync-alt fa-spin"></i>
+                        </div>
+                        <div>
+                            <strong>Scan Sécurité (Trivy)</strong>
+                            <div style="color: #718096; font-size: 0.9rem;">Analyse en cours...</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="status-icon status-pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Déploiement AWS EKS</strong>
+                            <div style="color: #718096; font-size: 0.9rem;">En attente de validation</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-chart-bar"></i> Métriques de Sécurité</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="criticalCount">0</span>
+                        <span class="stat-label">Vulnérabilités CRITIQUES</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="highCount">2</span>
+                        <span class="stat-label">Vulnérabilités HAUTES</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">98%</span>
+                        <span class="stat-label">Couverture de Tests</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Sécurité Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-server"></i> Environnement Cloud</h3>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="fab fa-aws"></i>
+                        <strong>AWS EKS</strong>
+                        <div style="color: #718096; font-size: 0.9rem;">Kubernetes</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-docker"></i>
+                        <strong>Docker</strong>
+                        <div style="color: #718096; font-size: 0.9rem;">Conteneurs</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-github"></i>
+                        <strong>GitHub Actions</strong>
+                        <div style="color: #718096; font-size: 0.9rem;">CI/CD</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <strong>Trivy</strong>
+                        <div style="color: #718096; font-size: 0.9rem;">Sécurité</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-info-circle"></i> À propos de ce Pipeline</h3>
+            <p style="margin-bottom: 20px; line-height: 1.8; color: #4a5568;">
+                Ce pipeline DevSecOps automatise le déploiement sécurisé de l'application Akaunting sur AWS EKS.
+                Chaque commit déclenche une série d'étapes de sécurité, de tests et de déploiement.
+            </p>
+            <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <h4 style="color: #2d3748; margin-bottom: 10px;">Fonctionnalités principales:</h4>
+                <ul style="color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                    <li>Scan de sécurité automatique avec Trivy</li>
+                    <li>Build et push d'images Docker</li>
+                    <li>Déploiement sur Kubernetes (AWS EKS)</li>
+                    <li>Tests automatisés et validation</li>
+                    <li>Monitoring et alertes en temps réel</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 15px; width: 90%; max-width: 400px;">
+            <h2 style="margin-bottom: 25px; color: #2d3748;">Connexion</h2>
+            
+            <div id="loginError" style="color: #e53e3e; margin-bottom: 15px; display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="loginErrorMessage"></span>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: #4a5568; font-weight: 500;">Email ou Nom d'utilisateur</label>
+                <input type="text" id="loginUsername" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;" placeholder="votre@email.com">
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; color: #4a5568; font-weight: 500;">Mot de passe</label>
+                <input type="password" id="loginPassword" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;" placeholder="••••••••">
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: flex-end;">
+                <button onclick="hideLoginModal()" style="padding: 12px 25px; background: #e2e8f0; border: none; border-radius: 8px; color: #4a5568; cursor: pointer;">
+                    Annuler
+                </button>
+                <button onclick="login()" id="loginButton" style="padding: 12px 25px; background: #667eea; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer;">
+                    Se Connecter
+                </button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; color: #718096; font-size: 0.9rem;">
+                Pas encore de compte ? <a href="register.html" style="color: #667eea; text-decoration: none; font-weight: 500;">S'inscrire</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Système DevSecOps - Akaunting | Sécurité par Conception</p>
+        <a href="https://github.com/akaunting/akaunting" target="_blank" style="color: #667eea; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-top: 15px;">
+            <i class="fab fa-github"></i> Voir le Repository GitHub
+        </a>
+    </div>
+
+    <script>
+        // Vérifier l'authentification au chargement
+        async function checkAuth() {
+            try {
+                const response = await fetch('../api/check-auth.php');
+                const data = await response.json();
+                
+                if (data.authenticated && data.user) {
+                    // Afficher les informations utilisateur
+                    document.getElementById('userInfo').style.display = 'flex';
+                    document.getElementById('currentUsername').textContent = data.user.username;
+                    document.getElementById('currentAccountType').textContent = data.user.accountType;
+                    document.getElementById('loginPrompt').style.display = 'none';
+                    
+                    // Stocker les données utilisateur
+                    localStorage.setItem('devsecops_user', JSON.stringify(data.user));
+                } else {
+                    // Cacher les informations utilisateur
+                    document.getElementById('userInfo').style.display = 'none';
+                    document.getElementById('loginPrompt').style.display = 'flex';
+                }
+            } catch (error) {
+                console.error('Erreur de vérification d\'authentification:', error);
+            }
+        }
+
+        // Vérifier si c'est une nouvelle inscription
+        function checkNewRegistration() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const registered = urlParams.get('registered');
+            const username = urlParams.get('user');
+            
+            if (registered === 'true' && username) {
+                document.getElementById('welcomeAlert').style.display = 'flex';
+                document.getElementById('welcomeMessage').textContent = `Bienvenue ${username} ! Votre compte a été créé avec succès.`;
+                
+                // Nettoyer l'URL
+                setTimeout(() => {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 3000);
+            }
+        }
+
+        // Login function
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showLoginError('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            const loginButton = document.getElementById('loginButton');
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            
+            try {
+                const response = await fetch('../api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Cacher le modal
+                    hideLoginModal();
+                    
+                    // Rafraîchir la page pour afficher les nouvelles informations
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showLoginError(data.message || 'Échec de la connexion');
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Se Connecter';
+                }
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                showLoginError('Erreur réseau. Veuillez réessayer.');
+                loginButton.disabled = false;
+                loginButton.textContent = 'Se Connecter';
+            }
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                // Supprimer la session
+                const response = await fetch('../api/check-auth.php');
+                
+                // Nettoyer le localStorage
+                localStorage.removeItem('devsecops_user');
+                
+                // Rediriger vers la page d'accueil
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Erreur de déconnexion:', error);
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        function hideLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function showLoginError(message) {
+            document.getElementById('loginError').style.display = 'flex';
+            document.getElementById('loginErrorMessage').textContent = message;
+        }
+
+        // Simulation de mises à jour en temps réel
+        function updatePipelineStatus() {
+            const statusIcons = document.querySelectorAll('.status-icon');
+            const randomIndex = Math.floor(Math.random() * statusIcons.length);
+            
+            statusIcons.forEach((icon, index) => {
+                if (index === randomIndex && !icon.classList.contains('status-success')) {
+                    icon.classList.remove('status-pending');
+                    icon.classList.add('status-running');
+                    icon.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i>';
+                } else if (index < randomIndex) {
+                    icon.classList.remove('status-running', 'status-pending');
+                    icon.classList.add('status-success');
+                    icon.innerHTML = '<i class="fas fa-check"></i>';
+                }
+            });
+        }
+
+        function updateSecurityMetrics() {
+            const critical = document.getElementById('criticalCount');
+            const high = document.getElementById('highCount');
+            
+            // Simuler des changements aléatoires
+            const newCritical = Math.random() > 0.9 ? Math.floor(Math.random() * 3) : 0;
+            const newHigh = Math.floor(Math.random() * 5);
+            
+            critical.textContent = newCritical;
+            high.textContent = newHigh;
+            
+            // Changer la couleur selon la sévérité
+            critical.style.color = newCritical > 0 ? '#e53e3e' : '#48bb78';
+            high.style.color = newHigh > 3 ? '#d69e2e' : '#48bb78';
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            checkNewRegistration();
+            
+            // Mettre à jour toutes les 8 secondes
+            setInterval(updatePipelineStatus, 8000);
+            setInterval(updateSecurityMetrics, 10000);
+            
+            // Fermer le modal en cliquant à l'extérieur
+            document.getElementById('loginModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideLoginModal();
+                }
+            });
+            
+            // Permettre la connexion avec Enter
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
