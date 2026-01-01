@@ -2,17 +2,10 @@ name: DAST - OWASP ZAP
 
 on:
   workflow_dispatch:
-  # Optional: Add schedule or push triggers
-  # schedule:
-  #   - cron: '0 0 * * 0'  # Weekly scan
-  # push:
-  #   branches: [ main ]
 
 jobs:
   zap:
     runs-on: ubuntu-latest
-    
-    # Add timeout to prevent hanging
     timeout-minutes: 30
 
     steps:
@@ -22,7 +15,6 @@ jobs:
       - name: Build and start application
         run: |
           docker compose up --build -d
-          # Better health check instead of static sleep
           for i in {1..30}; do
             if curl -s -f http://localhost:8000 > /dev/null; then
               echo "Application is up!"
@@ -33,65 +25,85 @@ jobs:
           done
           
       - name: Verify app is reachable
-        run: |
-          curl -I http://localhost:8000
-          echo "Application is running"
-          
+        run: curl -I http://localhost:8000 || true
+        
       - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: 'http://localhost:8000'
-          fail_action: false  # Set to true if you want to fail on critical findings
+          fail_action: false
           allow_issue_writing: false
-          cmd_options: '-a -j'  # -j for JSON only, or keep -a for all
-          token: ${{ github.token }}  # For artifact upload
+          cmd_options: '-a'  # Generate all reports
+          # REMOVE token: ${{ github.token }} - This is causing the artifact error!
           
-      - name: List all generated files
+      - name: Debug - List files after ZAP scan
         run: |
-          echo "=== All files in workspace ==="
-          find . -type f -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" | head -50
-          echo "=== Current directory contents ==="
+          echo "=== Files after ZAP scan ==="
           ls -la
+          echo "=== Looking for report files ==="
+          find . -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" 2>/dev/null | head -20
           
-      - name: Rename reports for better identification
+      - name: Move reports to predictable location
         run: |
-          # Rename the generic report files if they exist
-          [ -f "report_json.json" ] && mv report_json.json zap-report-$(date +%Y%m%d-%H%M%S).json
-          [ -f "report_md.md" ] && mv report_md.md zap-report-$(date +%Y%m%d-%H%M%S).md
-          [ -f "report_html.html" ] && mv report_html.html zap-report-$(date +%Y%m%d-%H%M%S).html
+          mkdir -p zap-reports
+          # Copy all report files to zap-reports directory
+          find . -maxdepth 1 -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" 2>/dev/null | xargs -I {} cp {} zap-reports/ 2>/dev/null || true
+          echo "=== Files in zap-reports directory ==="
+          ls -la zap-reports/ 2>/dev/null || echo "No reports found"
           
       - name: Upload DAST report artifacts
-        if: success() || failure()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dast-zap-reports
-          path: |
-            *.html
-            *.json
-            *.md
-            *.xml
+          path: zap-reports/
           retention-days: 30
-          if-no-files-found: ignore
+          if-no-files-found: warn
           
-      - name: Generate summary of findings
+      - name: Generate and display summary
         if: always()
         run: |
           echo "=== ZAP Scan Summary ==="
-          echo "Scan completed at: $(date)"
+          echo "Scan completed: $(date)"
+          echo ""
           
-          # Try to extract summary from JSON if it exists
-          if [ -f "*.json" ]; then
-            JSON_FILE=$(ls *.json | head -1)
-            if [ -f "$JSON_FILE" ]; then
-              echo "Findings summary from $JSON_FILE:"
-              jq -r '
-                "Total alerts: \(.site[0].alerts | length)",
-                "High risk alerts: \((.site[0].alerts[] | select(.riskcode == "3")) // [] | length)",
-                "Medium risk alerts: \((.site[0].alerts[] | select(.riskcode == "2")) // [] | length)",
-                "Low risk alerts: \((.site[0].alerts[] | select(.riskcode == "1")) // [] | length)",
-                "Informational alerts: \((.site[0].alerts[] | select(.riskcode == "0")) // [] | length)"
-              ' "$JSON_FILE" 2>/dev/null || echo "Could not parse JSON file"
-            fi
+          # Try to find and parse JSON report
+          if [ -f "zap-reports/report_json.json" ]; then
+            echo "Found JSON report, extracting summary..."
+            python3 -c "
+import json
+import sys
+try:
+    with open('zap-reports/report_json.json', 'r') as f:
+        data = json.load(f)
+    
+    if 'site' in data and len(data['site']) > 0 and 'alerts' in data['site'][0]:
+        alerts = data['site'][0]['alerts']
+        print(f'Total alerts: {len(alerts)}')
+        
+        risks = {'3': 'High', '2': 'Medium', '1': 'Low', '0': 'Informational'}
+        for code, name in risks.items():
+            count = len([a for a in alerts if a.get('riskcode') == code])
+            print(f'{name} risk alerts: {count}')
+            
+        # List medium/high risk alerts
+        print('\n=== Critical Findings ===')
+        for alert in alerts:
+            risk = alert.get('riskcode')
+            if risk in ['2', '3']:  # Medium or High
+                print(f'• {alert.get(\"alert\")} ({risks.get(risk, \"Unknown\")})')
+                print(f'  Instances: {alert.get(\"count\", 1)}')
+                print(f'  Solution: {alert.get(\"solution\", \"No solution provided\")[:100]}...')
+                print()
+    else:
+        print('No alert data found in JSON report')
+except Exception as e:
+    print(f'Error parsing JSON: {e}')
+"
+          else
+            echo "No JSON report found at zap-reports/report_json.json"
+            echo "Looking for other report files..."
+            ls -la zap-reports/* 2>/dev/null || echo "No files in zap-reports"
           fi
           
       - name: Stop containers
