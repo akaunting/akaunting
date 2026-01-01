@@ -6,13 +6,12 @@ on:
 jobs:
   zap:
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build and start application
+      - name: Start application
         run: |
           docker compose up --build -d
           sleep 90
@@ -20,25 +19,26 @@ jobs:
       - name: Verify app is reachable
         run: curl -I http://localhost:8000
 
-      - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.11.0
-        with:
-          target: 'http://localhost:8000'
-          fail_action: false
-          allow_issue_writing: false
-          cmd_options: '-a'
-          artifact_name: ''   # 🔥 THIS IS THE KEY FIX
+      - name: Run OWASP ZAP Baseline (Docker)
+        run: |
+          docker run --network=host \
+            -v ${{ github.workspace }}:/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://localhost:8000 \
+            -r zap-report.html \
+            -J zap-report.json \
+            -w zap-report.md \
+            -a || true
 
       - name: Upload DAST report
         uses: actions/upload-artifact@v4
         with:
           name: dast-zap-report
           path: |
-            *.html
-            *.json
-            *.md
-          retention-days: 30
-          if-no-files-found: warn
+            zap-report.html
+            zap-report.json
+            zap-report.md
 
       - name: Stop containers
         if: always()
