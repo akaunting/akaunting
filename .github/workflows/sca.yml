@@ -1,8 +1,8 @@
 name: SCA - Dependency & Image Scan
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
+
 
 jobs:
   trivy:
