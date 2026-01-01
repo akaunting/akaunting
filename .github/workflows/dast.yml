@@ -18,15 +18,15 @@ jobs:
           docker compose up --build -d
           sleep 90
 
-      - name: Check app availability
-        run: |
-          curl -I http://localhost:8000 || exit 1
+      - name: Verify app is reachable
+        run: curl -I http://localhost:8000
 
       - name: OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: http://localhost:8000
           fail_action: false
+          allow_issue_writing: false   
 
       - name: Stop containers
         run: docker compose down
