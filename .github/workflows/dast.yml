@@ -15,6 +15,7 @@ jobs:
       - name: Build and start application
         run: |
           docker compose up --build -d
+          # Better health check instead of static sleep
           for i in {1..30}; do
             if curl -s -f http://localhost:8000 > /dev/null; then
               echo "Application is up!"
@@ -25,34 +26,34 @@ jobs:
           done
           
       - name: Verify app is reachable
-        run: curl -I http://localhost:8000 || true
-        
+        run: |
+          curl -I http://localhost:8000
+          echo "Application is running"
+          
       - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: 'http://localhost:8000'
           fail_action: false
           allow_issue_writing: false
-          cmd_options: '-a'  # Generate all reports
-          # REMOVE token: ${{ github.token }} - This is causing the artifact error!
+          cmd_options: '-a'
           
-      - name: Debug - List files after ZAP scan
+      - name: Debug - Show files after ZAP
         run: |
           echo "=== Files after ZAP scan ==="
           ls -la
           echo "=== Looking for report files ==="
-          find . -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" 2>/dev/null | head -20
+          find . -name "*.html" -o -name "*.json" -o -name "*.md" 2>/dev/null | head -20
           
-      - name: Move reports to predictable location
+      - name: Collect reports to directory
         run: |
           mkdir -p zap-reports
-          # Copy all report files to zap-reports directory
-          find . -maxdepth 1 -name "*.html" -o -name "*.json" -o -name "*.md" -o -name "*.xml" 2>/dev/null | xargs -I {} cp {} zap-reports/ 2>/dev/null || true
-          echo "=== Files in zap-reports directory ==="
-          ls -la zap-reports/ 2>/dev/null || echo "No reports found"
+          # Copy all report files
+          find . -maxdepth 1 -name "*.html" -o -name "*.json" -o -name "*.md" 2>/dev/null | xargs -I {} cp {} zap-reports/ 2>/dev/null || true
+          echo "=== Reports collected ==="
+          ls -la zap-reports/
           
       - name: Upload DAST report artifacts
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dast-zap-reports
@@ -60,51 +61,13 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
           
-      - name: Generate and display summary
-        if: always()
+      - name: Show summary in logs
         run: |
-          echo "=== ZAP Scan Summary ==="
-          echo "Scan completed: $(date)"
+          echo "=== ZAP SCAN COMPLETED ==="
+          echo "Time: $(date)"
           echo ""
-          
-          # Try to find and parse JSON report
-          if [ -f "zap-reports/report_json.json" ]; then
-            echo "Found JSON report, extracting summary..."
-            python3 -c "
-import json
-import sys
-try:
-    with open('zap-reports/report_json.json', 'r') as f:
-        data = json.load(f)
-    
-    if 'site' in data and len(data['site']) > 0 and 'alerts' in data['site'][0]:
-        alerts = data['site'][0]['alerts']
-        print(f'Total alerts: {len(alerts)}')
-        
-        risks = {'3': 'High', '2': 'Medium', '1': 'Low', '0': 'Informational'}
-        for code, name in risks.items():
-            count = len([a for a in alerts if a.get('riskcode') == code])
-            print(f'{name} risk alerts: {count}')
-            
-        # List medium/high risk alerts
-        print('\n=== Critical Findings ===')
-        for alert in alerts:
-            risk = alert.get('riskcode')
-            if risk in ['2', '3']:  # Medium or High
-                print(f'• {alert.get(\"alert\")} ({risks.get(risk, \"Unknown\")})')
-                print(f'  Instances: {alert.get(\"count\", 1)}')
-                print(f'  Solution: {alert.get(\"solution\", \"No solution provided\")[:100]}...')
-                print()
-    else:
-        print('No alert data found in JSON report')
-except Exception as e:
-    print(f'Error parsing JSON: {e}')
-"
-          else
-            echo "No JSON report found at zap-reports/report_json.json"
-            echo "Looking for other report files..."
-            ls -la zap-reports/* 2>/dev/null || echo "No files in zap-reports"
-          fi
+          echo "If you see report files above, download them from the Artifacts section."
+          echo "If not, check the ZAP scan logs for errors."
           
       - name: Stop containers
         if: always()
