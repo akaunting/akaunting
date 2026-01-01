@@ -12,62 +12,54 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build and start application
+      - name: Start application
         run: |
           docker compose up --build -d
-          # Better health check instead of static sleep
-          for i in {1..30}; do
-            if curl -s -f http://localhost:8000 > /dev/null; then
-              echo "Application is up!"
-              break
-            fi
-            echo "Waiting for application to start... ($i/30)"
-            sleep 10
-          done
+          echo "Waiting for app to start..."
+          sleep 90
           
-      - name: Verify app is reachable
+      - name: Run ZAP Scan with direct Docker command
         run: |
-          curl -I http://localhost:8000
-          echo "Application is running"
+          echo "Running ZAP scan directly..."
+          docker run --rm \
+            -v $(pwd):/zap/wrk/:rw \
+            --add-host=host.docker.internal:host-gateway \
+            -t ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://host.docker.internal:8000 \
+            -J zap-report.json \
+            -w zap-report.md \
+            -r zap-report.html \
+            -a
           
-      - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.11.0
-        with:
-          target: 'http://localhost:8000'
-          fail_action: false
-          allow_issue_writing: false
-          cmd_options: '-a'
-          
-      - name: Debug - Show files after ZAP
+      - name: List generated report files
         run: |
-          echo "=== Files after ZAP scan ==="
-          ls -la
-          echo "=== Looking for report files ==="
-          find . -name "*.html" -o -name "*.json" -o -name "*.md" 2>/dev/null | head -20
+          echo "=== Generated Report Files ==="
+          ls -la *.html *.json *.md 2>/dev/null || echo "No report files yet"
           
-      - name: Collect reports to directory
-        run: |
-          mkdir -p zap-reports
-          # Copy all report files
-          find . -maxdepth 1 -name "*.html" -o -name "*.json" -o -name "*.md" 2>/dev/null | xargs -I {} cp {} zap-reports/ 2>/dev/null || true
-          echo "=== Reports collected ==="
-          ls -la zap-reports/
-          
-      - name: Upload DAST report artifacts
+      - name: Upload ZAP reports as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dast-zap-reports
-          path: zap-reports/
+          name: zap-security-reports
+          path: |
+            *.html
+            *.json
+            *.md
           retention-days: 30
-          if-no-files-found: warn
+          if-no-files-found: error
           
-      - name: Show summary in logs
+      - name: Show quick summary
         run: |
-          echo "=== ZAP SCAN COMPLETED ==="
-          echo "Time: $(date)"
+          echo "========================================"
+          echo "ZAP SECURITY SCAN COMPLETED"
+          echo "========================================"
+          echo "Reports generated:"
+          ls *.html *.json *.md 2>/dev/null | while read file; do
+            echo "• $file"
+          done || echo "No report files found"
           echo ""
-          echo "If you see report files above, download them from the Artifacts section."
-          echo "If not, check the ZAP scan logs for errors."
+          echo "Download from Artifacts section above!"
+          echo "========================================"
           
       - name: Stop containers
         if: always()
