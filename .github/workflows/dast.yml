@@ -21,12 +21,11 @@ jobs:
 
       - name: OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
-        env:
-          ZAP_SKIP_REPORTS: true
         with:
           target: http://localhost:8000
           fail_action: false
           allow_issue_writing: false
+          artifact_name: ""   # 🔥 THIS IS THE KEY FIX
 
       - name: Upload ZAP DAST reports
         uses: actions/upload-artifact@v4
