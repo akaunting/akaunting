@@ -1,8 +1,8 @@
 name: SAST - Semgrep
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
+
 
 jobs:
   semgrep:
