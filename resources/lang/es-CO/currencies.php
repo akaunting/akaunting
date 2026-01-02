@@ -8,7 +8,7 @@ return [
     'decimal_mark'          => 'Punto decimal',
     'thousands_separator'   => 'Separador de miles',
     'precision'             => 'Precisión',
-    'conversion'            => 'Conversión de moneda: :price (:currecy_code) a :currency_rate',
+    'conversion'            => 'Conversión de moneda: :price (:currency_code) a :currency_rate',
     'symbol' => [
         'symbol'            => 'Símbolo',
         'position'          => 'Posición del Símbolo',

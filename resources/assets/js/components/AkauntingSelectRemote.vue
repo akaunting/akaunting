@@ -491,7 +491,7 @@ export default {
         currencyCode: {
             type: String,
             default: 'USD',
-            description: "Get remote item price currecy code"
+            description: "Get remote item price currency code"
         },
 
         optionStyle: {
