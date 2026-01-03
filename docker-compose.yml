@@ -1,23 +1,74 @@
 services:
-  app:
-    build: .
+  mysql:
+    image: mysql:8.0
+    container_name: akaunting_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: akaunting
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - akaunting_network
+
+  akaunting:
+    image: akaunting/akaunting:latest
     container_name: akaunting_app
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: akaunting
+      DB_USERNAME: akaunting
+      DB_PASSWORD: akauntingpass
+      DB_PREFIX: akon_
     ports:
       - "8000:80"
-    environment:
-      APP_ENV: local
-      APP_DEBUG: true
-      APP_URL: http://localhost:8000
-    depends_on:
-      - db
+    volumes:
+      - akaunting_data:/var/www/html
+    networks:
+      - akaunting_network
 
-  db:
-    image: mysql:8.0
-    container_name: akaunting_db
-    environment:
-      MYSQL_DATABASE: akaunting
-      MYSQL_USER: akaunting
-      MYSQL_PASSWORD: akaunting
-      MYSQL_ROOT_PASSWORD: root
+  php-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: php_api
+    restart: unless-stopped
+    depends_on:
+      - mysql
     ports:
-      - "3306:3306"
+      - "8080:80"
+    volumes:
+      - ./public/api:/var/www/html
+      - php_api_sessions:/tmp
+    networks:
+      - akaunting_network
+    environment:
+      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: akaunting_mysql
+      PMA_PORT: 3306
+    networks:
+      - akaunting_network
+
+volumes:
+  mysql_data:
+  akaunting_data:
+  php_api_sessions:
+
+networks:
+  akaunting_network:
+    driver: bridge

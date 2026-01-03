@@ -539,7 +539,7 @@
         // Vérifier l'authentification au chargement
         async function checkAuth() {
             try {
-                const response = await fetch('../api/check-auth.php');
+                const response = await fetch('http://localhost:8080/check-auth.php');
                 const data = await response.json();
                 
                 if (data.authenticated && data.user) {
@@ -593,7 +593,7 @@
             loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
             
             try {
-                const response = await fetch('../api/login.php', {
+                const response = await fetch('http://localhost:8080/login.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -631,7 +631,7 @@
         async function logout() {
             try {
                 // Supprimer la session
-                const response = await fetch('../api/check-auth.php');
+                const response = await fetch('http://localhost:8080/check-auth.php');
                 
                 // Nettoyer le localStorage
                 localStorage.removeItem('devsecops_user');

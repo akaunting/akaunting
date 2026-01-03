@@ -1,55 +1,31 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
-# ======================
-# System dependencies
-# ======================
 RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    curl \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libxml2-dev \
-    libonig-dev \
-    libicu-dev
+    git curl libpng-dev libonig-dev libxml2-dev \
+    libicu-dev libzip-dev zip unzip \
+    && docker-php-ext-install \
+        pdo_mysql mbstring gd bcmath intl zip \
+    && a2enmod rewrite
 
-# ======================
-# PHP extensions
-# ======================
-RUN docker-php-ext-install \
-    pdo \
-    pdo_mysql \
-    mbstring \
-    bcmath \
-    gd \
-    zip \
-    xml \
-    dom \
-    intl
+RUN git config --global --add safe.directory /var/www/html
 
-# ======================
-# Apache config
-# ======================
-RUN a2enmod rewrite
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
-# ======================
-# Install Composer
-# ======================
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm
 
-# ======================
-# App setup
-# ======================
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+COPY . /var/www/html/
 WORKDIR /var/www/html
-COPY . .
 
-# Install PHP dependencies (NO npm)
-RUN composer install --no-interaction --no-dev --optimize-autoloader
-
-# Permissions
-RUN chown -R www-data:www-data /var/www/html
+RUN composer install --no-interaction --prefer-dist \
+    && npm install \
+    && cp .env.example .env \
+    && php artisan key:generate \
+    && chmod -R 755 storage bootstrap/cache
 
 EXPOSE 80
-
+CMD ["apache2-foreground"]

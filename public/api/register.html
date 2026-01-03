@@ -374,7 +374,7 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création...';
             
             try {
-                const response = await fetch('../api/register.php', {
+                const response = await fetch('http://localhost:8080/register.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -418,7 +418,7 @@
         
         // Vérifier si déjà connecté
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('../api/check-auth.php')
+            fetch('http://localhost:8080/check-auth.php')
                 .then(r => r.json())
                 .then(data => {
                     if (data.authenticated) {

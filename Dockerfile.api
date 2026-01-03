@@ -1,0 +1,37 @@
+FROM php:8.2-apache
+
+# Install MySQL PDO extension
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Configure PHP sessions
+RUN echo "session.save_path = \"/tmp\"" >> /usr/local/etc/php/conf.d/sessions.ini
+RUN echo "session.cookie_httponly = 1" >> /usr/local/etc/php/conf.d/sessions.ini
+RUN echo "session.cookie_samesite = \"Lax\"" >> /usr/local/etc/php/conf.d/sessions.ini
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy API files
+COPY public/api/ /var/www/html/
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 /var/www/html
+
+# Configure Apache to serve from /var/www/html
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html\n\
+    <Directory /var/www/html>\n\
+        Options Indexes FollowSymLinks\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+EXPOSE 80
+
+CMD ["apache2-foreground"]
+
