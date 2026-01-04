@@ -327,6 +327,161 @@
                 text-align: center;
             }
         }
+
+        /* Login Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h2 {
+            margin-bottom: 25px;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-cancel {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .modal-btn-login {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #742a2a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 <body>
@@ -345,7 +500,7 @@
                 Pipeline Actif - GitHub Actions
             </div>
             
-            <!-- User info section (hidden by default) -->
+            <!-- User info section -->
             <div id="userInfo" class="user-info" style="display: none;">
                 <div>
                     <span>Connecté en tant que :</span>
@@ -357,7 +512,7 @@
                 </button>
             </div>
             
-            <!-- Welcome message for new users -->
+            <!-- Welcome message -->
             <div id="welcomeAlert" class="alert alert-success" style="display: none;">
                 <i class="fas fa-check-circle"></i>
                 <span id="welcomeMessage"></span>
@@ -491,39 +646,40 @@
                 </ul>
             </div>
         </div>
+
     </div>
 
     <!-- Login Modal -->
-    <div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 40px; border-radius: 15px; width: 90%; max-width: 400px;">
-            <h2 style="margin-bottom: 25px; color: #2d3748;">Connexion</h2>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Connexion</h2>
             
-            <div id="loginError" style="color: #e53e3e; margin-bottom: 15px; display: none;">
+            <div id="loginError" class="error-message">
                 <i class="fas fa-exclamation-circle"></i>
                 <span id="loginErrorMessage"></span>
             </div>
             
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; color: #4a5568; font-weight: 500;">Email ou Nom d'utilisateur</label>
-                <input type="text" id="loginUsername" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;" placeholder="votre@email.com">
+            <div class="form-group">
+                <label>Email ou Nom d'utilisateur</label>
+                <input type="text" id="loginUsername" class="form-input" placeholder="votre@email.com">
             </div>
             
-            <div style="margin-bottom: 25px;">
-                <label style="display: block; margin-bottom: 8px; color: #4a5568; font-weight: 500;">Mot de passe</label>
-                <input type="password" id="loginPassword" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;" placeholder="••••••••">
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="loginPassword" class="form-input" placeholder="••••••••">
             </div>
             
-            <div style="display: flex; gap: 15px; justify-content: flex-end;">
-                <button onclick="hideLoginModal()" style="padding: 12px 25px; background: #e2e8f0; border: none; border-radius: 8px; color: #4a5568; cursor: pointer;">
+            <div class="modal-buttons">
+                <button onclick="hideLoginModal()" class="modal-btn modal-btn-cancel">
                     Annuler
                 </button>
-                <button onclick="login()" id="loginButton" style="padding: 12px 25px; background: #667eea; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer;">
+                <button onclick="login()" id="loginButton" class="modal-btn modal-btn-login">
                     Se Connecter
                 </button>
             </div>
             
-            <div style="text-align: center; margin-top: 20px; color: #718096; font-size: 0.9rem;">
-                Pas encore de compte ? <a href="register.html" style="color: #667eea; text-decoration: none; font-weight: 500;">S'inscrire</a>
+            <div class="login-link">
+                Pas encore de compte ? <a href="register.html">S'inscrire</a>
             </div>
         </div>
     </div>
@@ -539,26 +695,40 @@
         // Vérifier l'authentification au chargement
         async function checkAuth() {
             try {
+                // Vérifier d'abord localStorage
+                const userData = localStorage.getItem('devsecops_user');
+                if (userData) {
+                    const user = JSON.parse(userData);
+                    showUserInfo(user);
+                    return;
+                }
+
+                // Sinon, vérifier avec le backend
                 const response = await fetch('http://localhost:8080/check-auth.php');
                 const data = await response.json();
                 
                 if (data.authenticated && data.user) {
-                    // Afficher les informations utilisateur
-                    document.getElementById('userInfo').style.display = 'flex';
-                    document.getElementById('currentUsername').textContent = data.user.username;
-                    document.getElementById('currentAccountType').textContent = data.user.accountType;
-                    document.getElementById('loginPrompt').style.display = 'none';
-                    
-                    // Stocker les données utilisateur
+                    showUserInfo(data.user);
                     localStorage.setItem('devsecops_user', JSON.stringify(data.user));
                 } else {
-                    // Cacher les informations utilisateur
-                    document.getElementById('userInfo').style.display = 'none';
-                    document.getElementById('loginPrompt').style.display = 'flex';
+                    hideUserInfo();
                 }
             } catch (error) {
                 console.error('Erreur de vérification d\'authentification:', error);
+                hideUserInfo();
             }
+        }
+
+        function showUserInfo(user) {
+            document.getElementById('userInfo').style.display = 'flex';
+            document.getElementById('currentUsername').textContent = user.username;
+            document.getElementById('currentAccountType').textContent = user.accountType;
+            document.getElementById('loginPrompt').style.display = 'none';
+        }
+
+        function hideUserInfo() {
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('loginPrompt').style.display = 'flex';
         }
 
         // Vérifier si c'est une nouvelle inscription
@@ -582,6 +752,7 @@
         async function login() {
             const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
             
             if (!username || !password) {
                 showLoginError('Veuillez remplir tous les champs');
@@ -589,8 +760,10 @@
             }
             
             const loginButton = document.getElementById('loginButton');
+            const originalText = loginButton.innerHTML;
+            
             loginButton.disabled = true;
-            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin loading"></i> Connexion...';
             
             try {
                 const response = await fetch('http://localhost:8080/login.php', {
@@ -607,41 +780,40 @@
                 const data = await response.json();
                 
                 if (data.success) {
+                    // Stocker les données utilisateur
+                    localStorage.setItem('devsecops_user', JSON.stringify(data.user));
+                    
                     // Cacher le modal
                     hideLoginModal();
                     
-                    // Rafraîchir la page pour afficher les nouvelles informations
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    // Rediriger vers l'interface utilisateur
+                    window.location.href = 'user-dashboard.html';
+                    
                 } else {
                     showLoginError(data.message || 'Échec de la connexion');
                     loginButton.disabled = false;
-                    loginButton.textContent = 'Se Connecter';
+                    loginButton.innerHTML = originalText;
                 }
             } catch (error) {
                 console.error('Erreur de connexion:', error);
                 showLoginError('Erreur réseau. Veuillez réessayer.');
                 loginButton.disabled = false;
-                loginButton.textContent = 'Se Connecter';
+                loginButton.innerHTML = originalText;
             }
         }
 
         // Logout function
-        async function logout() {
-            try {
-                // Supprimer la session
-                const response = await fetch('http://localhost:8080/check-auth.php');
-                
-                // Nettoyer le localStorage
-                localStorage.removeItem('devsecops_user');
-                
-                // Rediriger vers la page d'accueil
-                window.location.href = 'index.html';
-            } catch (error) {
-                console.error('Erreur de déconnexion:', error);
-                window.location.href = 'index.html';
-            }
+        function logout() {
+            // Nettoyer le localStorage
+            localStorage.removeItem('devsecops_user');
+            
+            // Afficher message de déconnexion
+            showSuccessMessage('Déconnexion réussie');
+            
+            // Mettre à jour l'interface
+            setTimeout(() => {
+                hideUserInfo();
+            }, 500);
         }
 
         // Login modal functions
@@ -650,6 +822,7 @@
             document.getElementById('loginError').style.display = 'none';
             document.getElementById('loginUsername').value = '';
             document.getElementById('loginPassword').value = '';
+            document.getElementById('loginUsername').focus();
         }
 
         function hideLoginModal() {
@@ -657,8 +830,28 @@
         }
 
         function showLoginError(message) {
-            document.getElementById('loginError').style.display = 'flex';
+            const errorDiv = document.getElementById('loginError');
             document.getElementById('loginErrorMessage').textContent = message;
+            errorDiv.style.display = 'flex';
+        }
+
+        function showSuccessMessage(message) {
+            // Créer un toast de succès
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success';
+            toast.style.position = 'fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '1001';
+            toast.style.display = 'flex';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            
+            document.body.appendChild(toast);
+            
+            // Supprimer après 3 secondes
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
         }
 
         // Simulation de mises à jour en temps réel
@@ -717,6 +910,12 @@
                     login();
                 }
             });
+            
+            // Focus sur le champ username quand le modal s'ouvre
+            document.getElementById('loginModal').addEventListener('shown', function() {
+                document.getElementById('loginUsername').focus();
+            });
+            
         });
     </script>
 </body>

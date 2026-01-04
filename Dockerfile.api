@@ -21,13 +21,17 @@ COPY public/api/ /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 
-# Configure Apache to serve from /var/www/html
+# Configure Apache to serve from /var/www/html and process PHP files
 RUN echo '<VirtualHost *:80>\n\
+    ServerName localhost\n\
     DocumentRoot /var/www/html\n\
     <Directory /var/www/html>\n\
         Options Indexes FollowSymLinks\n\
         AllowOverride All\n\
         Require all granted\n\
+        <FilesMatch \.php$>\n\
+            SetHandler application/x-httpd-php\n\
+        </FilesMatch>\n\
     </Directory>\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 

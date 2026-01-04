@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - Akaunting DevSecOps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --success: #2ec4b6;
+            --danger: #e71d36;
+            --warning: #ff9f1c;
+            --info: #4cc9f0;
+            --dark: #0d1b2a;
+            --light: #f8f9fa;
+            --gray-100: #f1f3f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Layout */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: linear-gradient(180deg, var(--dark) 0%, #1a2c47 100%);
+            color: white;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .logo-text span {
+            color: var(--warning);
+        }
+
+        .logo-text small {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .nav-menu {
+            padding: 2rem 0;
+        }
+
+        .nav-item {
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-left-color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: rgba(67, 97, 238, 0.1);
+            color: white;
+            border-left-color: var(--primary);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        .user-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--success);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .logout-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #c91b30;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 29, 54, 0.3);
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .welcome-card h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--info) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* File Manager Card */
+        .file-manager-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .file-manager-header {
+            padding: 1.5rem;
+            background: var(--gray-100);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .file-manager-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-manager-title i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #26a89d;
+            transform: translateY(-2px);
+        }
+
+        .file-content {
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        .file-path-bar {
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .file-item:hover {
+            background: var(--gray-200);
+            transform: translateX(5px);
+        }
+
+        .file-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .file-icon.folder {
+            background: linear-gradient(135deg, #ffd166 0%, var(--warning) 100%);
+            color: #744210;
+        }
+
+        .file-icon.file {
+            background: linear-gradient(135deg, #90e0ef 0%, var(--info) 100%);
+            color: #22543d;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .file-meta {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        .file-size {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-600);
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #c33;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ec4b6;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Recent Activity */
+        .activity-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+        }
+
+        .activity-card h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .activity-icon.create {
+            background: var(--success);
+        }
+
+        .activity-icon.modify {
+            background: var(--warning);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content strong {
+            color: var(--dark);
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        /* Settings Page */
+        .settings-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .settings-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .settings-section h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-section h3 i {
+            color: var(--primary);
+        }
+
+        .settings-group {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .settings-group:last-child {
+            border-bottom: none;
+        }
+
+        .settings-label {
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 0.95rem;
+        }
+
+        .settings-value {
+            color: var(--gray-700);
+            font-size: 1rem;
+        }
+
+        .settings-value.email {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .settings-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .settings-badge.developer {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .settings-badge.security {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .settings-badge.admin {
+            background: #feebc8;
+            color: #744210;
+        }
+
+        .settings-badge.user {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+        }
+
+        .profile-header-info h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header-info p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block !important;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 27, 42, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c91b30;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 29, 54, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                height: auto;
+                position: static;
+            }
+
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .nav-item.active {
+                border-bottom-color: var(--primary);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .welcome-card h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .file-manager-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .file-actions {
+                flex-direction: column;
+            }
+
+            .settings-group {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .settings-label {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>Akaunting <span>DevSecOps</span></h2>
+                    <small>Secure Development Platform</small>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="javascript:void(0)" class="nav-item active" onclick="showPage('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('profile')">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Mon Profil</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('files')">
+                    <i class="fas fa-folder"></i>
+                    <span>Mes Fichiers</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <h3 id="usernameDisplay">John Doe <span class="user-badge" id="accountTypeDisplay">Security</span></h3>
+                        <p id="emailDisplay">john.doe@example.com</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Déconnexion
+                </button>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboardPage" class="page-section active">
+                <!-- Welcome Card -->
+                <div class="welcome-card">
+                    <h1>Bienvenue sur votre tableau de bord</h1>
+                    <p>Gérez vos fichiers, surveillez la sécurité et accédez à toutes vos fonctionnalités DevSecOps en un seul endroit.</p>
+                </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Fichiers</h4>
+                        <div class="stat-icon">
+                            <i class="fas fa-file"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="filesCount">24</div>
+                    <div class="stat-label">Fichiers au total</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Dossiers</h4>
+                        <div class="stat-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="foldersCount">8</div>
+                    <div class="stat-label">Dossiers créés</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Espace</h4>
+                        <div class="stat-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">2.4 GB</div>
+                    <div class="stat-label">Stockage utilisé</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Sécurité</h4>
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Protection active</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-card">
+                <h3>
+                    <i class="fas fa-history"></i>
+                    Activité Récente
+                </h3>
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <div class="activity-icon create">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="activity-content">
+                            <strong>document.pdf</strong> créé
+                            <div class="activity-time">Il y a 5 minutes</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon modify">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="activity-content">
+                            <strong>config.yml</strong> modifié
+                            <div class="activity-time">Il y a 2 heures</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon create">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="activity-content">
+                            Dossier <strong>images</strong> créé
+                            <div class="activity-time">Hier, 14:30</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Files Page -->
+            <div id="filesPage" class="page-section">
+                <!-- File Manager -->
+                <div class="file-manager-card">
+                    <div class="file-manager-header">
+                        <div class="file-manager-title">
+                            <i class="fas fa-folder-open"></i>
+                            <h3>Gestionnaire de Fichiers</h3>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn btn-success" onclick="showCreateFolderModal()">
+                                <i class="fas fa-folder-plus"></i>
+                                Nouveau Dossier
+                            </button>
+                            <button class="btn btn-primary" onclick="showCreateFileModal()">
+                                <i class="fas fa-file-plus"></i>
+                                Nouveau Fichier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="file-content">
+                        <div class="file-path-bar">
+                            <button id="backButton" onclick="navigateUp()" style="display: none; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; margin-right: 10px;">
+                                <i class="fas fa-arrow-left"></i> Retour
+                            </button>
+                            <i class="fas fa-folder"></i>
+                            <span id="currentPath">/racine</span>
+                        </div>
+
+                        <div class="file-list" id="filesList">
+                            <!-- Les fichiers seront chargés ici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profilePage" class="page-section">
+                <div class="profile-header">
+                    <div class="profile-avatar-large" id="profileAvatarLarge">U</div>
+                    <div class="profile-header-info">
+                        <h2 id="profileHeaderName">Chargement...</h2>
+                        <p id="profileHeaderEmail">-</p>
+                        <span class="settings-badge" id="profileHeaderBadge" style="margin-top: 0.5rem; display: inline-block;">-</span>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="settings-section">
+                        <h3><i class="fas fa-id-card"></i> Informations Personnelles</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-user" style="margin-right: 8px; color: var(--primary);"></i>
+                                Nom d'utilisateur
+                            </div>
+                            <div class="settings-value" style="display: flex; align-items: center; gap: 1rem;">
+                                <span id="profileUsername" style="font-weight: 600; font-size: 1.1rem;">-</span>
+                                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showEditProfileModal()">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </button>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i>
+                                Adresse Email
+                            </div>
+                            <div class="settings-value email" id="profileEmail" style="font-size: 1.1rem;">-</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-id-badge" style="margin-right: 8px; color: var(--primary);"></i>
+                                Type de Compte
+                            </div>
+                            <div class="settings-value">
+                                <span class="settings-badge" id="profileAccountType" style="font-size: 1rem; padding: 8px 16px;">-</span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-hashtag" style="margin-right: 8px; color: var(--primary);"></i>
+                                ID Utilisateur
+                            </div>
+                            <div class="settings-value" id="profileUserId" style="font-family: monospace; color: var(--gray-600);">-</div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-calendar-alt"></i> Historique du Compte</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-calendar-plus" style="margin-right: 8px; color: var(--primary);"></i>
+                                Date de Création
+                            </div>
+                            <div class="settings-value" id="profileCreatedAt">-</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-sign-in-alt" style="margin-right: 8px; color: var(--primary);"></i>
+                                Dernière Connexion
+                            </div>
+                            <div class="settings-value" id="profileLastLogin">-</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-clock" style="margin-right: 8px; color: var(--primary);"></i>
+                                Statut du Compte
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--success); font-weight: 600;">
+                                    <i class="fas fa-check-circle"></i> Compte Actif
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-shield-alt"></i> Sécurité</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-lock" style="margin-right: 8px; color: var(--primary);"></i>
+                                Authentification
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--success); font-weight: 600;">
+                                    <i class="fas fa-check-circle"></i> Session Active
+                                </span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-key" style="margin-right: 8px; color: var(--primary);"></i>
+                                Mot de passe
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--gray-600); font-family: monospace; letter-spacing: 2px;">••••••••</span>
+                                <button class="btn btn-outline" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showChangePasswordModal()">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settingsPage" class="page-section">
+                <div class="settings-card">
+                    <div class="settings-section">
+                        <h3><i class="fas fa-user"></i> Informations du Compte</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i>
+                                Adresse Email
+                            </div>
+                            <div class="settings-value email" id="settingsEmail">-</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-user" style="margin-right: 8px; color: var(--primary);"></i>
+                                Nom d'utilisateur
+                            </div>
+                            <div class="settings-value" id="settingsUsername">-</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-id-badge" style="margin-right: 8px; color: var(--primary);"></i>
+                                Type de Compte
+                            </div>
+                            <div class="settings-value">
+                                <span class="settings-badge" id="settingsAccountType">-</span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-id-card" style="margin-right: 8px; color: var(--primary);"></i>
+                                ID Utilisateur
+                            </div>
+                            <div class="settings-value" id="settingsUserId">-</div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-shield-alt"></i> Sécurité du Compte</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-lock" style="margin-right: 8px; color: var(--primary);"></i>
+                                Statut du Compte
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--success); font-weight: 600;">
+                                    <i class="fas fa-check-circle"></i> Actif
+                                </span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-key" style="margin-right: 8px; color: var(--primary);"></i>
+                                Mot de passe
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--gray-600);">••••••••</span>
+                                <button class="btn btn-outline" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="alert('Fonctionnalité de changement de mot de passe à venir')">
+                                    Modifier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-info-circle"></i> Informations Système</h3>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-calendar" style="margin-right: 8px; color: var(--primary);"></i>
+                                Date de Création
+                            </div>
+                            <div class="settings-value" id="settingsCreatedAt">Chargement...</div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-clock" style="margin-right: 8px; color: var(--primary);"></i>
+                                Dernière Connexion
+                            </div>
+                            <div class="settings-value" id="settingsLastLogin">Maintenant</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Page -->
+            <div id="securityPage" class="page-section">
+                <div class="settings-card">
+                    <div class="settings-section">
+                        <h3><i class="fas fa-shield-alt"></i> Sécurité</h3>
+                        <p style="color: var(--gray-600); margin-bottom: 2rem;">
+                            Votre compte est protégé par des mesures de sécurité avancées.
+                        </p>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-check-circle" style="margin-right: 8px; color: var(--success);"></i>
+                                Authentification
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--success); font-weight: 600;">Active</span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-label">
+                                <i class="fas fa-check-circle" style="margin-right: 8px; color: var(--success);"></i>
+                                Protection des Données
+                            </div>
+                            <div class="settings-value">
+                                <span style="color: var(--success); font-weight: 600;">Chiffrée</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Folder Modal -->
+    <div id="createFolderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-folder-plus"></i> Créer un Dossier</h3>
+            </div>
+            <div class="modal-body">
+                <div id="folderError" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label class="form-label">Nom du dossier</label>
+                    <input type="text" id="folderName" class="form-input" placeholder="Ex: Projet_Akaunting">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideCreateFolderModal()">Annuler</button>
+                <button class="btn btn-success" onclick="createFolder()">Créer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create File Modal -->
+    <div id="createFileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-plus"></i> Créer un Fichier</h3>
+            </div>
+            <div class="modal-body">
+                <div id="fileError" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label class="form-label">Nom du fichier</label>
+                    <input type="text" id="fileName" class="form-input" placeholder="Ex: configuration.yml">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contenu (optionnel)</label>
+                    <textarea id="fileContent" class="form-input form-textarea" placeholder="Contenu du fichier..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideCreateFileModal()">Annuler</button>
+                <button class="btn btn-primary" onclick="createFile()">Créer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-edit"></i> Modifier mon Profil</h3>
+            </div>
+            <div class="modal-body">
+                <div id="profileError" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label class="form-label">Nom d'utilisateur</label>
+                    <input type="text" id="editUsername" class="form-input" placeholder="Votre nom d'utilisateur">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Adresse Email</label>
+                    <input type="email" id="editEmail" class="form-input" placeholder="votre.email@example.com">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideEditProfileModal()">Annuler</button>
+                <button class="btn btn-primary" onclick="updateProfile()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit File Modal -->
+    <div id="editFileModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-edit"></i> Modifier le Fichier</h3>
+            </div>
+            <div class="modal-body">
+                <div id="editFileError" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label class="form-label">Nom du fichier</label>
+                    <input type="text" id="editFileName" class="form-input" readonly style="background: var(--gray-100);">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contenu</label>
+                    <textarea id="editFileContent" class="form-input form-textarea" style="min-height: 300px; font-family: 'Courier New', monospace;" placeholder="Contenu du fichier..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideEditFileModal()">Annuler</button>
+                <button class="btn btn-primary" onclick="saveFile()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPath = '';
+
+        // Variables globales
+        let currentUser = null;
+
+        // Vérification d'authentification
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Vérifier d'abord localStorage pour afficher rapidement
+                const storedUser = localStorage.getItem('devsecops_user');
+                if (storedUser) {
+                    try {
+                        const user = JSON.parse(storedUser);
+                        currentUser = user;
+                        displayUserInfo(user);
+                        showPage('dashboard');
+                    } catch (e) {
+                        console.error('Erreur parsing localStorage:', e);
+                    }
+                }
+                
+                // Ensuite vérifier avec le backend
+                const authenticated = await checkAuth();
+                if (authenticated) {
+                    // S'assurer que le dashboard est affiché par défaut
+                    showPage('dashboard');
+                    
+                    // Charger les statistiques du dashboard
+                    try {
+                        await loadDashboardStats();
+                    } catch (e) {
+                        console.error('Erreur chargement stats:', e);
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur initialisation:', error);
+                // Afficher quand même le contenu si on a des données en localStorage
+                const storedUser = localStorage.getItem('devsecops_user');
+                if (storedUser) {
+                    try {
+                        const user = JSON.parse(storedUser);
+                        currentUser = user;
+                        displayUserInfo(user);
+                        showPage('dashboard');
+                    } catch (e) {
+                        console.error('Erreur:', e);
+                    }
+                }
+            }
+        });
+
+        function showLoadingState() {
+            // Ne pas masquer le contenu, juste indiquer le chargement
+        }
+
+        function hideLoadingState() {
+            // État de chargement terminé
+        }
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('http://localhost:8080/check-auth.php', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    // Si erreur HTTP, utiliser localStorage
+                    const storedUser = localStorage.getItem('devsecops_user');
+                    if (storedUser) {
+                        try {
+                            const user = JSON.parse(storedUser);
+                            currentUser = user;
+                            displayUserInfo(user);
+                            return true;
+                        } catch (e) {
+                            console.error('Erreur parsing localStorage:', e);
+                        }
+                    }
+                    return false;
+                }
+                
+                const data = await response.json();
+                
+                if (data.authenticated && data.user) {
+                    currentUser = data.user;
+                    // Afficher les informations utilisateur
+                    displayUserInfo(data.user);
+                    
+                    // Stocker dans localStorage
+                    localStorage.setItem('devsecops_user', JSON.stringify(data.user));
+                    return true;
+                } else {
+                    // Vérifier localStorage comme fallback
+                    const storedUser = localStorage.getItem('devsecops_user');
+                    if (storedUser) {
+                        try {
+                            const user = JSON.parse(storedUser);
+                            currentUser = user;
+                            displayUserInfo(user);
+                            return true;
+                        } catch (e) {
+                            console.error('Erreur parsing localStorage:', e);
+                        }
+                    }
+                    // Ne pas rediriger immédiatement, laisser l'utilisateur voir la page
+                    console.warn('Non authentifié, mais affichage avec données localStorage si disponibles');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Erreur de vérification:', error);
+                
+                // Fallback sur localStorage - ne pas rediriger
+                const storedUser = localStorage.getItem('devsecops_user');
+                if (storedUser) {
+                    try {
+                        const user = JSON.parse(storedUser);
+                        currentUser = user;
+                        displayUserInfo(user);
+                        return true;
+                    } catch (e) {
+                        console.error('Erreur parsing localStorage:', e);
+                    }
+                }
+                
+                // Ne pas rediriger automatiquement, laisser voir la page
+                return false;
+            }
+        }
+
+        function displayUserInfo(user) {
+            try {
+                console.log('Affichage des informations utilisateur:', user);
+                
+                // Avatar avec initiales
+                const initials = user.username?.charAt(0).toUpperCase() || 
+                               user.email?.charAt(0).toUpperCase() || 'U';
+                const avatarEl = document.getElementById('userAvatar');
+                if (avatarEl) avatarEl.textContent = initials;
+                
+                // Informations utilisateur dans la barre du haut
+                const usernameEl = document.getElementById('usernameDisplay');
+                if (usernameEl) {
+                    usernameEl.innerHTML = 
+                        (user.username || user.email) + 
+                        ` <span class="user-badge">${user.accountType || 'Utilisateur'}</span>`;
+                }
+                
+                const emailEl = document.getElementById('emailDisplay');
+                if (emailEl) emailEl.textContent = user.email || 'Non spécifié';
+                
+                const accountTypeEl = document.getElementById('accountTypeDisplay');
+                if (accountTypeEl) accountTypeEl.textContent = user.accountType || 'Utilisateur';
+                
+                // Informations dans la page Paramètres
+                const settingsEmailEl = document.getElementById('settingsEmail');
+                if (settingsEmailEl) settingsEmailEl.textContent = user.email || 'Non spécifié';
+                
+                const settingsUsernameEl = document.getElementById('settingsUsername');
+                if (settingsUsernameEl) settingsUsernameEl.textContent = user.username || user.email || 'Non spécifié';
+                
+                const settingsUserIdEl = document.getElementById('settingsUserId');
+                if (settingsUserIdEl) settingsUserIdEl.textContent = user.id || 'N/A';
+                
+                // Badge du type de compte dans les paramètres
+                const accountType = (user.accountType || 'user').toLowerCase();
+                const accountTypeBadge = document.getElementById('settingsAccountType');
+                if (accountTypeBadge) {
+                    accountTypeBadge.textContent = accountType;
+                    accountTypeBadge.className = 'settings-badge ' + accountType;
+                }
+            } catch (error) {
+                console.error('Erreur dans displayUserInfo:', error);
+            }
+        }
+
+        function showPage(pageName) {
+            try {
+                console.log('Affichage de la page:', pageName);
+                
+                // Masquer toutes les pages
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Afficher la page demandée
+                const pageElement = document.getElementById(pageName + 'Page');
+                if (pageElement) {
+                    pageElement.classList.add('active');
+                    console.log('Page affichée:', pageName);
+                } else {
+                    console.error('Page non trouvée:', pageName + 'Page');
+                }
+                
+                // Mettre à jour la navigation active
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+            // Trouver et activer le bon élément de navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            const pageNames = ['dashboard', 'profile', 'files', 'settings'];
+            navItems.forEach((item, index) => {
+                if (pageNames[index] === pageName) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Charger les données selon la page
+            if (pageName === 'files') {
+                loadFiles();
+            } else if (pageName === 'dashboard') {
+                loadDashboardStats();
+            } else if (pageName === 'profile') {
+                loadUserProfile();
+            } else if (pageName === 'settings') {
+                // Les données sont déjà affichées via displayUserInfo
+                updateSettingsPage();
+            }
+            } catch (error) {
+                console.error('Erreur dans showPage:', error);
+            }
+        }
+
+        async function loadDashboardStats() {
+            try {
+                // Charger les fichiers pour calculer les statistiques
+                const response = await fetch('http://localhost:8080/list-files.php');
+                const data = await response.json();
+                
+                if (data.success && data.files) {
+                    const fileCount = data.files.filter(f => f.type === 'file').length;
+                    const folderCount = data.files.filter(f => f.type === 'folder').length;
+                    const totalSize = data.files
+                        .filter(f => f.type === 'file')
+                        .reduce((sum, f) => sum + (f.size || 0), 0);
+                    
+                    document.getElementById('filesCount').textContent = fileCount;
+                    document.getElementById('foldersCount').textContent = folderCount;
+                    
+                    // Mettre à jour l'espace utilisé
+                    const sizeElement = document.querySelector('.stat-card:nth-child(3) .stat-value');
+                    if (sizeElement) {
+                        sizeElement.textContent = formatFileSize(totalSize);
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur de chargement des statistiques:', error);
+            }
+        }
+
+        async function loadUserProfile() {
+            try {
+                const response = await fetch('http://localhost:8080/get-user-profile.php', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Erreur de réponse');
+                }
+                
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    const user = data.user;
+                    
+                    // Avatar large dans le header
+                    const initials = (user.username || user.email || 'U').charAt(0).toUpperCase();
+                    const avatarLarge = document.getElementById('profileAvatarLarge');
+                    if (avatarLarge) avatarLarge.textContent = initials;
+                    
+                    // Header du profil
+                    document.getElementById('profileHeaderName').textContent = user.username || user.email || 'Utilisateur';
+                    document.getElementById('profileHeaderEmail').textContent = user.email || 'Non spécifié';
+                    
+                    const accountType = (user.accountType || 'user').toLowerCase();
+                    const headerBadge = document.getElementById('profileHeaderBadge');
+                    if (headerBadge) {
+                        headerBadge.textContent = accountType;
+                        headerBadge.className = 'settings-badge ' + accountType;
+                    }
+                    
+                    // Afficher les informations du profil
+                    document.getElementById('profileUsername').textContent = user.username || user.email || 'Non spécifié';
+                    document.getElementById('profileEmail').textContent = user.email || 'Non spécifié';
+                    document.getElementById('profileUserId').textContent = '#' + user.id;
+                    
+                    // Badge du type de compte
+                    const accountTypeBadge = document.getElementById('profileAccountType');
+                    if (accountTypeBadge) {
+                        accountTypeBadge.textContent = accountType;
+                        accountTypeBadge.className = 'settings-badge ' + accountType;
+                    }
+                    
+                    // Date de création
+                    if (user.createdAt) {
+                        const createdDate = new Date(user.createdAt);
+                        document.getElementById('profileCreatedAt').textContent = 
+                            createdDate.toLocaleDateString('fr-FR', {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                    } else {
+                        document.getElementById('profileCreatedAt').textContent = 'Non disponible';
+                    }
+                    
+                    // Dernière connexion
+                    if (user.lastLogin) {
+                        const lastLoginDate = new Date(user.lastLogin);
+                        document.getElementById('profileLastLogin').textContent = 
+                            lastLoginDate.toLocaleDateString('fr-FR', {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                    } else {
+                        const now = new Date();
+                        document.getElementById('profileLastLogin').textContent = 
+                            now.toLocaleDateString('fr-FR', {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                    }
+                    
+                    // Mettre à jour currentUser
+                    currentUser = user;
+                } else {
+                    console.error('Erreur de chargement du profil:', data.message);
+                    // Utiliser les données de currentUser si disponibles
+                    if (currentUser) {
+                        displayProfileFromCurrentUser();
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur de chargement du profil:', error);
+                // Utiliser les données de currentUser si disponibles
+                if (currentUser) {
+                    displayProfileFromCurrentUser();
+                }
+            }
+        }
+
+        function displayProfileFromCurrentUser() {
+            if (!currentUser) return;
+            
+            const user = currentUser;
+            
+            // Avatar large
+            const initials = (user.username || user.email || 'U').charAt(0).toUpperCase();
+            const avatarLarge = document.getElementById('profileAvatarLarge');
+            if (avatarLarge) avatarLarge.textContent = initials;
+            
+            // Header
+            document.getElementById('profileHeaderName').textContent = user.username || user.email || 'Utilisateur';
+            document.getElementById('profileHeaderEmail').textContent = user.email || 'Non spécifié';
+            
+            const accountType = (user.accountType || 'user').toLowerCase();
+            const headerBadge = document.getElementById('profileHeaderBadge');
+            if (headerBadge) {
+                headerBadge.textContent = accountType;
+                headerBadge.className = 'settings-badge ' + accountType;
+            }
+            
+            // Informations
+            document.getElementById('profileUsername').textContent = user.username || user.email || 'Non spécifié';
+            document.getElementById('profileEmail').textContent = user.email || 'Non spécifié';
+            document.getElementById('profileUserId').textContent = '#' + (user.id || 'N/A');
+            
+            const accountTypeBadge = document.getElementById('profileAccountType');
+            if (accountTypeBadge) {
+                accountTypeBadge.textContent = accountType;
+                accountTypeBadge.className = 'settings-badge ' + accountType;
+            }
+            
+            const now = new Date();
+            document.getElementById('profileCreatedAt').textContent = 'Non disponible';
+            document.getElementById('profileLastLogin').textContent = 
+                now.toLocaleDateString('fr-FR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+        }
+
+        function showChangePasswordModal() {
+            alert('Fonctionnalité de changement de mot de passe sera disponible prochainement.\n\nPour modifier votre mot de passe, veuillez contacter l\'administrateur.');
+        }
+
+        // Profile editing functions
+        function showEditProfileModal() {
+            if (!currentUser) {
+                alert('Erreur: Informations utilisateur non disponibles');
+                return;
+            }
+            
+            document.getElementById('editProfileModal').style.display = 'flex';
+            document.getElementById('profileError').style.display = 'none';
+            document.getElementById('editUsername').value = currentUser.username || '';
+            document.getElementById('editEmail').value = currentUser.email || '';
+            document.getElementById('editUsername').focus();
+        }
+
+        function hideEditProfileModal() {
+            document.getElementById('editProfileModal').style.display = 'none';
+        }
+
+        async function updateProfile() {
+            const username = document.getElementById('editUsername').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const errorDiv = document.getElementById('profileError');
+            
+            if (!username && !email) {
+                errorDiv.textContent = 'Veuillez remplir au moins un champ';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errorDiv.textContent = 'Veuillez entrer une adresse email valide';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8080/update-user-profile.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        username: username || undefined,
+                        email: email || undefined
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    // Mettre à jour currentUser
+                    currentUser = data.user;
+                    
+                    // Mettre à jour localStorage
+                    localStorage.setItem('devsecops_user', JSON.stringify(data.user));
+                    
+                    // Mettre à jour l'affichage
+                    displayUserInfo(data.user);
+                    
+                    // Recharger le profil si on est sur la page profil
+                    if (document.getElementById('profilePage').classList.contains('active')) {
+                        loadUserProfile();
+                    }
+                    
+                    hideEditProfileModal();
+                    showSuccessMessage('Profil mis à jour avec succès !');
+                } else {
+                    errorDiv.textContent = data.message || 'Erreur lors de la mise à jour';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Erreur de mise à jour:', error);
+                errorDiv.textContent = 'Erreur de connexion';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        async function updateSettingsPage() {
+            // Charger les informations complètes depuis le backend
+            try {
+                const response = await fetch('http://localhost:8080/get-user-profile.php', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success && data.user) {
+                        // Mettre à jour la date de création
+                        if (data.user.createdAt) {
+                            const createdDate = new Date(data.user.createdAt);
+                            document.getElementById('settingsCreatedAt').textContent = 
+                                createdDate.toLocaleDateString('fr-FR', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+                        } else {
+                            document.getElementById('settingsCreatedAt').textContent = 'Non disponible';
+                        }
+                        
+                        // Dernière connexion
+                        const now = new Date();
+                        document.getElementById('settingsLastLogin').textContent = 
+                            now.toLocaleDateString('fr-FR', {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur chargement infos:', error);
+                const now = new Date();
+                document.getElementById('settingsLastLogin').textContent = 
+                    now.toLocaleString('fr-FR', { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+            }
+        }
+
+        async function loadFiles() {
+            try {
+                const response = await fetch(`http://localhost:8080/list-files.php?path=${encodeURIComponent(currentPath)}`);
+                const data = await response.json();
+                
+                const filesList = document.getElementById('filesList');
+                const pathDisplay = document.getElementById('currentPath');
+                
+                // Mettre à jour le chemin
+                pathDisplay.textContent = currentPath || '/racine';
+                
+                // Afficher/masquer le bouton retour
+                const backButton = document.getElementById('backButton');
+                if (currentPath) {
+                    backButton.style.display = 'inline-block';
+                } else {
+                    backButton.style.display = 'none';
+                }
+                
+                if (data.success && data.files && data.files.length > 0) {
+                    filesList.innerHTML = '';
+                    
+                    data.files.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        
+                        const iconClass = file.type === 'folder' ? 'folder' : 'file';
+                        const icon = file.type === 'folder' ? 'fa-folder' : 'fa-file';
+                        
+                        fileItem.innerHTML = `
+                            <div class="file-icon ${iconClass}">
+                                <i class="fas ${icon}"></i>
+                            </div>
+                            <div class="file-info" style="flex: 1; cursor: pointer;">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-meta">
+                                    ${file.type === 'folder' ? 'Dossier' : 'Fichier'} • 
+                                    ${new Date(file.modified * 1000).toLocaleDateString('fr-FR')}
+                                </div>
+                            </div>
+                            ${file.size ? `<div class="file-size">${formatFileSize(file.size)}</div>` : ''}
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                ${file.type === 'file' ? `
+                                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="event.stopPropagation(); editFile('${file.path}', '${file.name.replace(/'/g, "\\'")}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                ` : ''}
+                                <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--danger); color: white;" onclick="event.stopPropagation(); deleteFile('${file.path}', '${file.name.replace(/'/g, "\\'")}', '${file.type}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        `;
+                        
+                        if (file.type === 'folder') {
+                            const fileInfo = fileItem.querySelector('.file-info');
+                            fileInfo.onclick = () => {
+                                currentPath = file.path;
+                                loadFiles();
+                            };
+                        }
+                        
+                        filesList.appendChild(fileItem);
+                    });
+                } else {
+                    filesList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-folder-open"></i>
+                            <h4>Aucun fichier ou dossier</h4>
+                            <p>Commencez par créer un dossier ou un fichier</p>
+                        </div>
+                    `;
+                }
+                
+                // Mettre à jour les statistiques
+                updateFileStats(data.files || []);
+                
+            } catch (error) {
+                console.error('Erreur de chargement:', error);
+                document.getElementById('filesList').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Erreur de connexion</h4>
+                        <p>Impossible de charger les fichiers</p>
+                    </div>
+                `;
+            }
+        }
+
+        function updateFileStats(files) {
+            const fileCount = files.filter(f => f.type === 'file').length;
+            const folderCount = files.filter(f => f.type === 'folder').length;
+            
+            // Mettre à jour uniquement si les éléments existent (page dashboard active)
+            const filesCountEl = document.getElementById('filesCount');
+            const foldersCountEl = document.getElementById('foldersCount');
+            
+            if (filesCountEl) filesCountEl.textContent = fileCount;
+            if (foldersCountEl) foldersCountEl.textContent = folderCount;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Modal functions
+        function showCreateFolderModal() {
+            document.getElementById('createFolderModal').style.display = 'flex';
+            document.getElementById('folderError').style.display = 'none';
+            document.getElementById('folderName').value = '';
+            document.getElementById('folderName').focus();
+        }
+
+        function hideCreateFolderModal() {
+            document.getElementById('createFolderModal').style.display = 'none';
+        }
+
+        function showCreateFileModal() {
+            document.getElementById('createFileModal').style.display = 'flex';
+            document.getElementById('fileError').style.display = 'none';
+            document.getElementById('fileName').value = '';
+            document.getElementById('fileContent').value = '';
+            document.getElementById('fileName').focus();
+        }
+
+        function hideCreateFileModal() {
+            document.getElementById('createFileModal').style.display = 'none';
+        }
+
+        // File operations
+        async function createFolder() {
+            const folderName = document.getElementById('folderName').value.trim();
+            const errorDiv = document.getElementById('folderError');
+            
+            if (!folderName) {
+                errorDiv.textContent = 'Veuillez entrer un nom de dossier';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8080/create-folder.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        folderName: folderName,
+                        path: currentPath
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    hideCreateFolderModal();
+                    showSuccessMessage('Dossier créé avec succès !');
+                    loadFiles();
+                    addActivity(`Dossier "${folderName}" créé`);
+                } else {
+                    errorDiv.textContent = data.message || 'Erreur lors de la création';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Erreur de connexion';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        async function createFile() {
+            const fileName = document.getElementById('fileName').value.trim();
+            const fileContent = document.getElementById('fileContent').value;
+            const errorDiv = document.getElementById('fileError');
+            
+            if (!fileName) {
+                errorDiv.textContent = 'Veuillez entrer un nom de fichier';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8080/create-file.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        fileName: fileName,
+                        content: fileContent,
+                        path: currentPath
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    hideCreateFileModal();
+                    showSuccessMessage('Fichier créé avec succès !');
+                    loadFiles();
+                    addActivity(`Fichier "${fileName}" créé`);
+                } else {
+                    errorDiv.textContent = data.message || 'Erreur lors de la création';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Erreur de connexion';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function addActivity(text) {
+            const activityList = document.getElementById('activityList');
+            const now = new Date();
+            const timeString = `Il y a quelques minutes`;
+            
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            activityItem.innerHTML = `
+                <div class="activity-icon create">
+                    <i class="fas fa-file"></i>
+                </div>
+                <div class="activity-content">
+                    <strong>${text}</strong>
+                    <div class="activity-time">${timeString}</div>
+                </div>
+            `;
+            
+            activityList.insertBefore(activityItem, activityList.firstChild);
+            
+            // Limiter à 5 activités
+            if (activityList.children.length > 5) {
+                activityList.removeChild(activityList.lastChild);
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const toast = document.createElement('div');
+            toast.className = 'success-message';
+            toast.style.display = 'flex';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function navigateUp() {
+            if (!currentPath) return;
+            
+            const parts = currentPath.split('/').filter(p => p);
+            if (parts.length > 0) {
+                parts.pop();
+                currentPath = parts.join('/');
+                loadFiles();
+            } else {
+                currentPath = '';
+                loadFiles();
+            }
+        }
+
+        async function logout() {
+            try {
+                // Appeler l'endpoint de déconnexion si disponible
+                await fetch('http://localhost:8080/logout.php', {
+                    method: 'POST',
+                    credentials: 'include'
+                }).catch(() => {
+                    // Ignorer les erreurs si l'endpoint n'existe pas
+                });
+            } catch (error) {
+                console.error('Erreur de déconnexion:', error);
+            } finally {
+                // Nettoyer localStorage
+                localStorage.removeItem('devsecops_user');
+                currentUser = null;
+                
+                // Rediriger vers la page de connexion
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Fermer les modals en cliquant à l'extérieur
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+        });
+
+        // Permettre la fermeture des modals avec la touche Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (modal.style.display === 'flex') {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // File editing and deletion functions
+        let currentEditingFile = null;
+
+        async function editFile(filePath, fileName) {
+            try {
+                const response = await fetch(`http://localhost:8080/get-file-content.php?path=${encodeURIComponent(filePath)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentEditingFile = filePath;
+                    document.getElementById('editFileModal').style.display = 'flex';
+                    document.getElementById('editFileError').style.display = 'none';
+                    document.getElementById('editFileName').value = fileName;
+                    document.getElementById('editFileContent').value = data.content;
+                    document.getElementById('editFileContent').focus();
+                } else {
+                    alert('Erreur: ' + (data.message || 'Impossible de charger le fichier'));
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion');
+            }
+        }
+
+        function hideEditFileModal() {
+            document.getElementById('editFileModal').style.display = 'none';
+            currentEditingFile = null;
+            document.getElementById('editFileContent').value = '';
+            document.getElementById('editFileName').value = '';
+        }
+
+        async function saveFile() {
+            if (!currentEditingFile) return;
+            
+            const content = document.getElementById('editFileContent').value;
+            const errorDiv = document.getElementById('editFileError');
+            
+            try {
+                const response = await fetch('http://localhost:8080/update-file.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        path: currentEditingFile,
+                        content: content
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    hideEditFileModal();
+                    showSuccessMessage('Fichier mis à jour avec succès !');
+                    loadFiles();
+                    addActivity(`Fichier "${document.getElementById('editFileName').value}" modifié`);
+                } else {
+                    errorDiv.textContent = data.message || 'Erreur lors de la mise à jour';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                errorDiv.textContent = 'Erreur de connexion';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        async function deleteFile(filePath, fileName, fileType) {
+            if (!confirm(`Êtes-vous sûr de vouloir supprimer ${fileType === 'folder' ? 'le dossier' : 'le fichier'} "${fileName}" ?\n\nCette action est irréversible.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8080/delete-file.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        path: filePath
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccessMessage(`${fileType === 'folder' ? 'Dossier' : 'Fichier'} supprimé avec succès !`);
+                    loadFiles();
+                    addActivity(`${fileType === 'folder' ? 'Dossier' : 'Fichier'} "${fileName}" supprimé`);
+                    // Recharger les statistiques
+                    loadDashboardStats();
+                } else {
+                    alert('Erreur: ' + (data.message || 'Impossible de supprimer'));
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion');
+            }
+        }
+    </script>
+</body>
+</html>
