@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akaunting
+  namespace: akaunting
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: akaunting
+  template:
+    metadata:
+      labels:
+        app: akaunting
+    spec:
+      containers:
+        - name: akaunting
+          image: 147997152282.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: akaunting-config
+            - secretRef:
+                name: akaunting-secret
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

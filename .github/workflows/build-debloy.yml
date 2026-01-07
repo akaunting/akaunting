@@ -1,0 +1,138 @@
+name: Build and Deploy to EKS
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+  ECR_REPOSITORY: akaunting
+  IMAGE_TAG: ${{ github.sha }}
+  K8S_NAMESPACE: akaunting
+  EKS_CLUSTER_NAME: akaunting-devsecops2
+
+jobs:
+  build-and-push:
+    name: Build and Push to ECR
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Update deployment with new image
+        run: |
+          # Update deployment.yaml with the new image tag
+          sed -i "s|147997152282.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
+          
+          # Also update app-configmap.yaml (if it exists)
+          if [ -f k8s/app-configmap.yaml ]; then
+            sed -i "s|http://localhost|http://akaunting-loadbalancer|g" k8s/app-configmap.yaml
+          fi
+
+      - name: Upload updated k8s files
+        uses: actions/upload-artifact@v4
+        with:
+          name: k8s-manifests
+          path: k8s/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment: production
+    
+    steps:
+      - name: Download k8s manifests
+        uses: actions/download-artifact@v4
+        with:
+          name: k8s-manifests
+          path: k8s/
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up kubectl
+        uses: aws-actions/amazon-eks-set-kubectl@v1
+        with:
+          version: 'v1.29.0'
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig \
+            --region ${{ env.AWS_REGION }} \
+            --name ${{ env.EKS_CLUSTER_NAME }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          echo "Deploying to namespace: $K8S_NAMESPACE"
+          
+          # Apply namespace first
+          kubectl apply -f k8s/namespace.yaml
+          
+          # Deploy MySQL with PVC
+          kubectl apply -f k8s/mysql-pvc.yaml
+          kubectl apply -f k8s/mysql-deployment.yaml
+          kubectl apply -f k8s/mysql-service.yaml
+          
+          # Wait for MySQL to be ready (max 5 minutes)
+          echo "Waiting for MySQL to be ready..."
+          kubectl wait --for=condition=ready pod -l app=mysql -n $K8S_NAMESPACE --timeout=300s
+          
+          # Deploy application configuration
+          kubectl apply -f k8s/app-configmap.yaml
+          kubectl apply -f k8s/app-secret.yaml
+          
+          # Deploy application
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          
+          # Optional: Deploy ingress
+          if [ -f k8s/ingress.yaml ]; then
+            kubectl apply -f k8s/ingress.yaml
+          fi
+          
+          # Wait for application rollout
+          echo "Waiting for application rollout..."
+          kubectl rollout status deployment/akaunting -n $K8S_NAMESPACE --timeout=300s
+
+      - name: Get service information
+        run: |
+          echo "=== Kubernetes Resources ==="
+          kubectl get pods -n $K8S_NAMESPACE
+          echo ""
+          echo "=== Services ==="
+          kubectl get svc -n $K8S_NAMESPACE
+          echo ""
+          echo "=== LoadBalancer URL ==="
+          kubectl get svc akaunting-service -n $K8S_NAMESPACE -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "LoadBalancer not ready yet"
+          echo ""
+          echo "=== Application logs (last 10 lines) ==="
+          kubectl logs -n $K8S_NAMESPACE deployment/akaunting --tail=10 || echo "No logs available yet"

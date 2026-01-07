@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: akaunting-service
+  namespace: akaunting
+spec:
+  type: LoadBalancer
+  selector:
+    app: akaunting
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP

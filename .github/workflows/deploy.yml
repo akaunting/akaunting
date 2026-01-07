@@ -1,0 +1,70 @@
+name: Deploy Akaunting to EKS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+    
+    - name: Build Docker image
+      run: |
+        docker build -t akaunting-app .
+        docker tag akaunting-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest
+    
+    - name: Push to ECR
+      run: |
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest
+    
+    - name: Setup kubectl
+      uses: aws-actions/amazon-eks-set-kubectl@v1
+      with:
+        version: 'v1.29.0'
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig \
+          --region us-east-1 \
+          --name akaunting-devsecops2
+    
+    - name: Deploy to Kubernetes
+      run: |
+        # Update image in deployment
+        sed -i "s|147997152282.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/akaunting:latest|g" k8s/deployment.yaml
+        
+        # Apply all manifests
+        kubectl apply -f k8s/namespace.yaml
+        kubectl apply -f k8s/mysql-pvc.yaml
+        kubectl apply -f k8s/mysql-deployment.yaml
+        kubectl apply -f k8s/mysql-service.yaml
+        sleep 30
+        kubectl apply -f k8s/app-configmap.yaml
+        kubectl apply -f k8s/app-secret.yaml
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+        
+        echo "Waiting for deployment..."
+        sleep 60
+        
+        # Show status
+        kubectl get pods -n akaunting
+        kubectl get svc -n akaunting
+        
+        echo ""
+        echo "LoadBalancer URL:"
+        kubectl get svc akaunting-service -n akaunting -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+        echo ""
