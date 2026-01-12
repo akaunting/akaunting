@@ -2,19 +2,20 @@ name: Tests
 
 on:
   push:
+    branches: [ master, main ]
   pull_request:
+    branches: [ master, main ]
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   tests:
-
     name: PHP ${{ matrix.php }}
-
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false # Permet de voir si les autres versions de PHP passent même si l'une échoue
       matrix:
         php: ['8.1', '8.2', '8.3']
 
@@ -22,30 +23,45 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache Composer
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache/files
-          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          extensions: bcmath, ctype, dom, fileinfo, intl, gd, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
           coverage: none
+          tools: composer:v2
 
-      - name: Copy .env
-        run: cp .env.testing .env
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: php-${{ matrix.php }}-composer-
 
-      - name: Install NPM
-        run: npm install
+      - name: Install Composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: node-
+
+      - name: Install NPM dependencies
+        run: npm ci # Plus rapide et plus propre que 'npm install' pour la CI
 
       - name: Compile assets
         run: npm run production
 
-      - name: Install Composer
-        run: composer test
+      - name: Prepare Application
+        run: |
+          cp .env.testing .env || cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite # Crée la DB SQLite si nécessaire
 
       - name: Execute tests
         run: php artisan test --parallel
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
