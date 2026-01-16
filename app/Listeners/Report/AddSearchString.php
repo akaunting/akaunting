@@ -28,8 +28,8 @@ class AddSearchString extends Listener
             return;
         }
 
-        $old = old();
-        $request = request()->all();
+        $old = old() ?? [];
+        $request = request()->all() ?? [];
 
         if ($old || $request) {
             $input = request('search');
