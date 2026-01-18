@@ -35,6 +35,16 @@ class Information extends Component
     ) {
         $this->document = $document;
         $this->hideShow = $hideShow;
+
+        // Load relations if not loaded to prevent lazy loading
+        $relations = ['contact', 'last_history', 'items', 'totals'];
+
+        foreach ($relations as $relation) {
+            if (! $document->relationLoaded($relation)) {
+                $document->load($relation);
+            }
+        }
+
         $this->showRoute = $this->getShowRoute($document->contact->type, $showRoute);
         $this->showDocumentRoute = $this->getShowRoute($document->type, $showDocumentRoute);
         $this->placement = (! empty($placement)) ? $placement : 'left';
