@@ -26,7 +26,7 @@ return [
 
     'slider' => [
         'create'            => ':user, bu transferi :date tarihinde oluşturdu',
-        'transactions'      => 'Bu transferle ilgili işlemlerin listesi',
+        'transactions'      => 'Bu transfer ile ilgili işlemlerin listesi',
         'transactions_desc' => ':account için :number işlem',
         'attachments'       => 'Bu transfere eklenmiş dosyaları indir',
     ],

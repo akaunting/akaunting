@@ -77,7 +77,7 @@ return [
     ],
 
     'sticky' => [
-        'description'       => 'Müşterinizin faturanızın web sürümünü nasıl göreceğini önizliyorsunuz.',
+        'description'       => 'Müşteriniz faturanızı web üzerinde nasıl göreceğini önizliyorsunuz.',
     ],
 
 ];
