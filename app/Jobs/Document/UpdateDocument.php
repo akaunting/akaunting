@@ -27,7 +27,10 @@ class UpdateDocument extends Job implements ShouldUpdate
 
         event(new DocumentUpdating($this->model, $this->request));
 
-        \DB::transaction(function () {
+        // Track original contact_id to sync transactions if it changes
+        $originalContactId = $this->model->contact_id;
+
+        \DB::transaction(function () use ($originalContactId) {
             // Upload attachment
             if ($this->request->file('attachment')) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
@@ -65,6 +68,13 @@ class UpdateDocument extends Job implements ShouldUpdate
             unset($this->model->paid_amount);
 
             $this->model->update($this->request->all());
+
+            // Sync transaction contact_id if document contact changed
+            if (isset($this->request['contact_id']) && $originalContactId != $this->request['contact_id']) {
+                $this->model->transactions()->update([
+                    'contact_id' => $this->request['contact_id'],
+                ]);
+            }
 
             $this->model->updateRecurring($this->request->all());
         });
