@@ -3,7 +3,7 @@
 return [
 
     'account_name'          => 'Hesap İsmi',
-    'account_balance'       => 'Hesap bakiyesi',
+    'account_balance'       => 'Hesap Bakiyesi',
     'number'                => 'Numara',
     'opening_balance'       => 'Açılış Bakiyesi',
     'current_balance'       => 'Mevcut Bakiye',
@@ -14,7 +14,7 @@ return [
     'incoming'              => 'Gelen',
     'outgoing'              => 'Giden',
     'see_performance'       => 'Performansı Görüntüle',
-    'create_report'         => 'Hesap performansını görmek istiyorsanız, gelir - gider raporu örneği oluşturabilirsiniz.',
+    'create_report'         => 'Hesap performansını görmek istiyorsanız.  Gelir - Gider raporu örneği oluşturabilirsiniz.',
     'banks'                 => 'Banka|Bankalar',
     'credit_cards'          => 'Kredi Kartı|Kredi Kartları',
 
