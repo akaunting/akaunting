@@ -17,8 +17,8 @@ return [
             'failed' => '{1} :count başarısız dışa aktarma|[2,*] :count başarısız dışa aktarma',
         ],
         'imports' => [
-            'completed' => '{1} :count tamamlanan dışa aktarım|[2,*] :count tamamlanan dışa aktarım',
-            'failed' => '{1} :count başarısız dışa aktarım|[2,*] :count başarısız dışa aktarım',
+            'completed' => '{1} :count tamamlanan içe aktarım|[2,*] :count tamamlanan içe aktarım',
+            'failed' => '{1} :count başarısız içe aktarım|[2,*] :count başarısız içe aktarım',
         ],
     ],
 
