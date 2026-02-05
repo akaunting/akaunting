@@ -64,8 +64,7 @@ trait DateTime
         $year = $year ?? $start_of_year->year;
 
         $financial_start = Date::create($year, $month, $day);
-
-        if ((setting('localisation.financial_denote') == 'ends') && ($financial_start->dayOfYear != 1) || 
+        if ((setting('localisation.financial_denote') == 'ends') && ($financial_start->dayOfYear != 1) ||
             $financial_start->greaterThan($date ?? Date::now())
         ) {
             $financial_start->subYear();
@@ -156,7 +155,7 @@ trait DateTime
         $w = 52;
 
         if (request()->filled('start_date') && request()->filled('end_date')) {
-            $w = Date::parse(request('start_date'))->diffInWeeks(Date::parse(request('end_date'))) + 1;
+            $w = Date::parse($start->copy())->diffInWeeks(Date::parse(request('end_date'))) + 1;
         }
 
         for ($i = 0; $i < $w; $i++) {
@@ -175,7 +174,7 @@ trait DateTime
         $m = 12;
 
         if (request()->filled('start_date') && request()->filled('end_date')) {
-            $m = Date::parse(request('start_date'))->diffInMonths(Date::parse(request('end_date'))) + 1;
+            $m = Date::parse($start->copy())->diffInMonths(Date::parse(request('end_date'))) + 1;
         }
 
         for ($i = 0; $i < $m; $i++) {
@@ -193,8 +192,13 @@ trait DateTime
 
         $q = 4;
 
+        /*
+            Previously, diffInQuarters was calculated from start_date, which caused errors
+            when the financial start value differed from the default value.
+            Therefore, this change has been made. Ticket: #8106
+         */
         if (request()->filled('start_date') && request()->filled('end_date')) {
-            $q = Date::parse(request('start_date'))->diffInQuarters(Date::parse(request('end_date'))) + 1;
+            $q = Date::parse($start->copy())->diffInQuarters(Date::parse(request('end_date'))) + 1;
         }
 
         for ($i = 0; $i < $q; $i++) {
