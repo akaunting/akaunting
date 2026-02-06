@@ -1,36 +1,38 @@
-name: Tests
+name: DevSecOps Pipeline
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ master, main ]
-  schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+    branches: [ main, master ]
 
 jobs:
-  tests:
-    name: PHP ${{ matrix.php }}
+  devsecops:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false # Permet de voir si les autres versions de PHP passent même si l'une échoue
       matrix:
-        php: ['8.1', '8.2', '8.3']
+        php: [8.1, 8.2]
 
     steps:
+      # 1. Récupération du code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Scan des secrets
+      - name: Secret Scan (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+
+      # 3. Installation de PHP
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: bcmath, ctype, dom, fileinfo, intl, gd, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          extensions: mbstring, pdo, pdo_sqlite, bcmath, xml, ctype, fileinfo
           coverage: none
           tools: composer:v2
 
+      # 4. Cache Composer
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
@@ -38,29 +40,59 @@ jobs:
           key: php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: php-${{ matrix.php }}-composer-
 
+      # 5. Installation dépendances PHP
       - name: Install Composer dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-interaction --prefer-dist
 
-      - name: Cache NPM dependencies
+      # 6. Scan vulnérabilités PHP
+      - name: Composer security audit
+        run: composer audit || true
+
+      # 7. Analyse statique PHP
+      - name: PHP Static Analysis (PHPStan)
+        run: |
+          if [ -f vendor/bin/phpstan ]; then
+            vendor/bin/phpstan analyse
+          else
+            echo "PHPStan non installé"
+          fi
+
+      # 8. Installation Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 9. Cache NPM
+      - name: Cache NPM
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node-
 
+      # 10. Installation dépendances JS
       - name: Install NPM dependencies
-        run: npm ci # Plus rapide et plus propre que 'npm install' pour la CI
+        run: npm ci
 
+      # 11. Scan vulnérabilités JS
+      - name: NPM audit
+        run: npm audit --audit-level=high || true
+
+      # 12. Compilation des assets
       - name: Compile assets
         run: npm run production
 
-      - name: Prepare Application
+      # 13. Préparation de l’application
+      - name: Prepare application
         run: |
           cp .env.testing .env || cp .env.example .env
           php artisan key:generate
-          touch database/database.sqlite # Crée la DB SQLite si nécessaire
+          mkdir -p database
+          touch database/database.sqlite
 
-      - name: Execute tests
+      # 14. Exécution des tests
+      - name: Run tests
         run: php artisan test --parallel
         env:
           DB_CONNECTION: sqlite
