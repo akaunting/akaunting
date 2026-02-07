@@ -32,6 +32,13 @@ class CashFlow extends Widget
 
     public function show()
     {
+        $this->setData();
+
+        return $this->view('widgets.cash_flow', $this->data);
+    }
+
+    public function setData(): void
+    {
         $this->setFilter();
 
         $income = array_values($this->calculateTotals('income'));
@@ -66,10 +73,10 @@ class CashFlow extends Widget
             'profit_for_humans'     => $profit_amount->formatForHumans(),
         ];
 
-        return $this->view('widgets.cash_flow', [
+        $this->data = [
             'chart' => $chart,
             'totals' => $totals,
-        ]);
+        ];
     }
 
     public function setFilter(): void

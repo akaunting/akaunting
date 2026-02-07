@@ -15,6 +15,13 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
+        $this->setData();
+
+        return $this->view('widgets.donut_chart', $this->data);
+    }
+
+    public function setData(): void
+    {
         Category::with('expense_transactions')->expense()->withSubCategory()->getWithoutChildren()->each(function ($category) {
             $amount = 0;
 
@@ -30,8 +37,8 @@ class ExpensesByCategory extends Widget
         $chart->options['legend']['width'] = 160;
         $chart->options['legend']['position'] = 'right';
 
-        return $this->view('widgets.donut_chart', [
+        $this->data = [
             'chart' => $chart,
-        ]);
+        ];
     }
 }

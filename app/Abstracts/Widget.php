@@ -28,6 +28,8 @@ abstract class Widget
         'header' => 'components.widgets.header',
     ];
 
+    public array $data = [];
+
     public function __construct($model = null)
     {
         $this->model = $model;

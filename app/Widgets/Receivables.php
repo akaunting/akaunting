@@ -16,6 +16,13 @@ class Receivables extends Widget
 
     public function show()
     {
+        $this->setData();
+
+        return $this->view('widgets.receivables_payables', $this->data);
+    }
+
+    public function setData(): void
+    {
         $open = $overdue = 0;
 
         $periods = [
@@ -68,12 +75,12 @@ class Receivables extends Widget
 
         $grand_total_text = trans('widgets.total_unpaid_invoices');
 
-        return $this->view('widgets.receivables_payables', [
+        $this->data = [
             'totals'            => $totals,
             'has_progress'      => $has_progress,
             'progress'          => $progress,
             'periods'           => $periods,
             'grand_total_text'  => $grand_total_text,
-        ]);
+        ];
     }
 }

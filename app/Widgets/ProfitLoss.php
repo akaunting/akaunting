@@ -29,6 +29,13 @@ class ProfitLoss extends Widget
 
     public function show()
     {
+        $this->setData();
+
+        return $this->view('widgets.bar_chart', $this->data);
+    }
+
+    public function setData(): void
+    {
         $this->setFilter();
 
         $chart = new Chart();
@@ -44,9 +51,9 @@ class ProfitLoss extends Widget
             ->setDataset(trans_choice('general.incomes', 1), 'column', array_values($this->getIncome()))
             ->setDataset(trans_choice('general.expenses', 1), 'column', array_values($this->getExpense()));
 
-        return $this->view('widgets.bar_chart', [
+        $this->data = [
             'chart' => $chart,
-        ]);
+        ];
     }
 
     public function setFilter(): void

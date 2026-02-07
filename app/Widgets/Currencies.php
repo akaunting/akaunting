@@ -11,11 +11,17 @@ class Currencies extends Widget
 
     public function show()
     {
-        $currencies = Currency::enabled()->take(5)->get();
+        $this->setData();
 
-        return $this->view('widgets.currencies', [
-            'currencies' => $currencies,
-        ]);
+        return $this->view('widgets.currencies', $this->data);
     }
 
+    public function setData(): void
+    {
+        $currencies = Currency::enabled()->take(5)->get();
+
+        $this->data = [
+            'currencies' => $currencies,
+        ];
+    }
 }
