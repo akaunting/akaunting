@@ -9,7 +9,7 @@ return [
     ],
 
     'form_description' => [
-        'general'               => 'Yeni yönetim paneline erişmesini istediğiniz kullanıcıları seçin.',
+        'general'               => 'Yeni yönetim panele erişim izni vermek istediğiniz kullanıcıları seçin.',
     ],
 
 ];

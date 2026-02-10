@@ -10,8 +10,8 @@ return [
     'purchase_information'      => 'Alış Bilgisi',
 
     'form_description' => [
-        'general'               => 'Raporlarınızı daha ayrıntılı hale getirmek için bir kategori seçin. Açıklama, kalem bir fatura veya faturada seçildiğinde doldurulacaktır.',
-        'billing'               => 'Satış bilgileri faturalarda, Satın Alma Bilgileri ise faturalarda kullanılır. Vergi hem faturalara hem de faturalara uygulanacaktır.',
+        'general'               => 'Raporlarınızı daha ayrıntılı hale getirmek için bir kategori seçin. Açıklama, gelir faturası veya gider faturasında öğe seçildiğinde doldurulacaktır.',
+        'billing'               => 'Satış bilgileri gelir faturalarında, Satın Alma Bilgileri ise gider faturalarda kullanılır. Vergi hem gelir faturalarına hem de gider faturalarına uygulanacaktır.',
     ],
 
 ];

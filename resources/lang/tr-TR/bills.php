@@ -51,7 +51,7 @@ return [
         'status' => [
             'created'       => ':date tarihinde oluşturuldu',
             'receive' => [
-                'draft'     => 'Alınamadı',
+                'draft'     => 'Gönderilmedi',
                 'received'  => ':date tarihinde alındı',
             ],
             'paid' => [
