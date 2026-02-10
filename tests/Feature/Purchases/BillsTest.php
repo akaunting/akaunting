@@ -4,6 +4,9 @@ namespace Tests\Feature\Purchases;
 
 use App\Exports\Purchases\Bills\Bills as Export;
 use App\Jobs\Document\CreateDocument;
+use App\Jobs\Document\UpdateDocument;
+use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
 use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
@@ -233,6 +236,44 @@ class BillsTest extends FeatureTestCase
         Excel::assertImported('bills.xlsx');
 
         $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldUpdateTransactionContactWhenBillVendorChanges()
+    {
+        // Create two different vendors
+        $vendorA = Contact::factory()->vendor()->enabled()->create();
+        $vendorB = Contact::factory()->vendor()->enabled()->create();
+
+        // Create a bill with vendor A
+        $request = $this->getRequest();
+        $request['contact_id'] = $vendorA->id;
+        $request['contact_name'] = $vendorA->name;
+        $request['contact_email'] = $vendorA->email;
+
+        $bill = $this->dispatch(new CreateDocument($request));
+
+        // Create a transaction (payment) for this bill with vendor A
+        $transaction = Transaction::factory()->expense()->create([
+            'document_id' => $bill->id,
+            'contact_id' => $vendorA->id,
+            'type' => 'expense',
+        ]);
+
+        // Verify transaction has vendor A's contact_id
+        $this->assertEquals($vendorA->id, $transaction->contact_id);
+
+        // Update the bill to use vendor B
+        $request['contact_id'] = $vendorB->id;
+        $request['contact_name'] = $vendorB->name;
+        $request['contact_email'] = $vendorB->email;
+
+        $this->dispatch(new UpdateDocument($bill, $request));
+
+        // Refresh the transaction from database
+        $transaction->refresh();
+
+        // Verify transaction's contact_id was updated to vendor B
+        $this->assertEquals($vendorB->id, $transaction->contact_id);
     }
 
     public function getRequest($recurring = false)
