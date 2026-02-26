@@ -9,7 +9,7 @@ return [
     'mark_read'           => 'Okundu İşaretle',
     'mark_read_all'       => 'Hepsini Okundu İşaretle',
     'empty'               => 'Woohoo, hiç bildirim yok!',
-    'new_apps'            => 'Yeni Uygulama|Yeni Uygulamalar',
+    'new_apps'            => ':app mevcuttur. <a href=":url">Şimdi kontrol edin</a>!',
 
     'update' => [
 
@@ -32,7 +32,7 @@ return [
 
         'completed' => [
 
-            'title'         => 'İndirme hazır',
+            'title'         => 'İndirme başarılı',
             'description'   => 'Dosya aşağıdaki bağlantıdan indirilmeye hazır:',
 
         ],
@@ -67,7 +67,7 @@ return [
 
         'completed' => [
 
-            'title'         => 'Dışarı aktarma hazır',
+            'title'         => 'Dışarı aktarma tamamlandı',
             'description'   => 'Dışarı aktarma dosyası aşağıdaki bağlantıdan indirilmeye hazırdır:',
 
         ],
@@ -96,7 +96,7 @@ return [
 
         'download_completed' => [
 
-            'title'         => 'İndirme hazır',
+            'title'         => 'İndirme tamamlandı',
             'description'   => '<strong>:type</strong> dosyanız <a href=":url" target="_blank"><strong>indirilmeye</strong></a> hazır.',
 
         ],
@@ -110,7 +110,7 @@ return [
 
         'export_completed' => [
 
-            'title'         => 'Dışarı aktarma hazır',
+            'title'         => 'Dışarı aktarma tamamlandı',
             'description'   => '<strong>:type</strong> dışa aktarma dosyanız <a href=":url" target="_blank"><strong>indirilmeye</strong></a> hazır.',
 
         ],

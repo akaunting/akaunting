@@ -9,7 +9,7 @@ return [
         'deleted'           => ':type silindi!',
         'duplicated'        => ':type çoğaltıldı!',
         'imported'          => ':type içe aktarıldı!',
-        'import_queued'     => ':type içe aktarma planlandı! Tamamlandığında bir e-posta alacaksınız.',
+        'import_queued'     => ':type dışa aktarımı planlandı! İndirmeye hazır olduğunda bir e-posta alacaksınız.',
         'exported'          => ':type dışa aktarıldı!',
         'export_queued'     => ':type dışa aktarımı planlandı! İndirmeye hazır olduğunda bir e-posta alacaksınız.',
         'download_queued'   => 'Mevcut sayfanın :type indirmesi planlandı! İndirmeye hazır olduğunda bir e-posta alacaksınız.',
@@ -46,6 +46,7 @@ return [
         'disable_code'      => 'Uyarı: <b>:name</b> devre dışı bırakılamaz veya kur değiştirilemez çünkü :text ile ilişkilidir.',
         'payment_cancel'    => 'Uyarı: :method ödemesini iptal ettiniz!',
         'missing_transfer'  => 'Uyarı: Bu işlemle ilgili transfer eksik. Bu işlemi silmeyi düşünmelisiniz.',
+        'connect_tax'       => 'Uyarı: Bu :type\'da vergi tutarı var. :type\'a eklenen vergiler bağlanamaz, bu nedenle vergi toplama eklenir ve buna göre hesaplanır.',
     ],
 
 ];
