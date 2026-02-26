@@ -116,9 +116,9 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        // Store the current url in the session
-        if ($request->url() !== config('app.url')) {
-            session(['url.intended' => $request->url()]);
+        // Store the current url in the session (fullUrl includes query string)
+        if ($request->fullUrl() !== config('app.url')) {
+            session(['url.intended' => $request->fullUrl()]);
         }
 
         return $request->expectsJson()
