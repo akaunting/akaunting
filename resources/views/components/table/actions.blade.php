@@ -26,7 +26,7 @@
 
                 @switch($type)
                     @case('button')
-                        <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group/tooltip" {!! $action['attributes'] ?? null !!}>
+                        <button type="button" class="relative bg-white hover:bg-purple-50 border border-gray-200 hover:border-purple-200 rounded-md py-1 px-1.5 cursor-pointer index-actions group/tooltip transition-all duration-150" {!! $action['attributes'] ?? null !!}>
                             <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                                 {{ $action['icon'] }}
                             </span>
@@ -52,7 +52,7 @@
                         @break
 
                     @default
-                        <a href="{{ $action['url'] }}" x-data="{ clicked: false }" x-on:click="clicked = true;" x-bind:class="{ 'pointer-events-none': clicked }" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer index-actions group/tooltip" {!! $action['attributes'] ?? null !!}>
+                        <a href="{{ $action['url'] }}" x-data="{ clicked: false }" x-on:click="clicked = true;" x-bind:class="{ 'pointer-events-none': clicked }" class="relative bg-white hover:bg-purple-50 border border-gray-200 hover:border-purple-200 rounded-md py-1 px-1.5 cursor-pointer index-actions group/tooltip transition-all duration-150" {!! $action['attributes'] ?? null !!}>
                             <span class="material-icons-outlined text-purple text-lg pointer-events-none">
                                 {{ $action['icon'] }}
                             </span>
