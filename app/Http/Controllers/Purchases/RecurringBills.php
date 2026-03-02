@@ -13,6 +13,7 @@ use App\Jobs\Document\UpdateDocument;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
 use App\Traits\Documents;
+use App\Utilities\Date;
 
 class RecurringBills extends Controller
 {
@@ -80,7 +81,11 @@ class RecurringBills extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateDocument($request->merge(['issued_at' => $request->get('recurring_started_at')])));
+        $issue_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['issued_at' => $issue_at]);
+
+        $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-bills.show', $response['data']->id);
@@ -163,7 +168,11 @@ class RecurringBills extends Controller
      */
     public function update(Document $recurring_bill, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateDocument($recurring_bill, $request->merge(['issued_at' => $request->get('recurring_started_at')])));
+        $issue_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['issued_at' => $issue_at]);
+
+        $response = $this->ajaxDispatch(new UpdateDocument($recurring_bill, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-bills.show', $response['data']->id);

@@ -17,6 +17,7 @@ use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Transactions as TransactionsTrait;
+use App\Utilities\Date;
 
 class RecurringTransactions extends Controller
 {
@@ -99,7 +100,11 @@ class RecurringTransactions extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateTransaction($request->merge(['paid_at' => $request->get('recurring_started_at')])));
+        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['paid_at' => $paid_at]);
+
+        $response = $this->ajaxDispatch(new CreateTransaction($request->merge(['paid_at' => $paid_at])));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $response['data']->id);
@@ -203,7 +208,11 @@ class RecurringTransactions extends Controller
      */
     public function update(Transaction $recurring_transaction, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateTransaction($recurring_transaction, $request->merge(['paid_at' => $request->get('recurring_started_at')])));
+        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['paid_at' => $paid_at]);
+
+        $response = $this->ajaxDispatch(new UpdateTransaction($recurring_transaction, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $recurring_transaction->id);
