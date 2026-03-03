@@ -100,11 +100,9 @@ class RecurringTransactions extends Controller
      */
     public function store(Request $request)
     {
-        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d 00:00:00');
+        $request->merge(['paid_at' => $request->get('recurring_started_at')]);
 
-        $request->merge(['paid_at' => $paid_at]);
-
-        $response = $this->ajaxDispatch(new CreateTransaction($request->merge(['paid_at' => $paid_at])));
+        $response = $this->ajaxDispatch(new CreateTransaction($request));
 
         if ($response['success']) {
             $response['redirect'] = route('recurring-transactions.show', $response['data']->id);
@@ -208,9 +206,7 @@ class RecurringTransactions extends Controller
      */
     public function update(Transaction $recurring_transaction, Request $request)
     {
-        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d 00:00:00');
-
-        $request->merge(['paid_at' => $paid_at]);
+        $request->merge(['paid_at' => $request->get('recurring_started_at')]);
 
         $response = $this->ajaxDispatch(new UpdateTransaction($recurring_transaction, $request));
 
