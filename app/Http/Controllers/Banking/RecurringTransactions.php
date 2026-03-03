@@ -100,7 +100,7 @@ class RecurringTransactions extends Controller
      */
     public function store(Request $request)
     {
-        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d 00:00:00');
 
         $request->merge(['paid_at' => $paid_at]);
 
@@ -208,7 +208,7 @@ class RecurringTransactions extends Controller
      */
     public function update(Transaction $recurring_transaction, Request $request)
     {
-        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+        $paid_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d 00:00:00');
 
         $request->merge(['paid_at' => $paid_at]);
 
