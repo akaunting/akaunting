@@ -12,10 +12,11 @@ use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
 use App\Traits\Categories as Helper;
+use App\Traits\Modules;
 
 class Categories extends Controller
 {
-    use Helper;
+    use Helper, Modules;
 
     /**
      * Display a listing of the resource.
@@ -24,17 +25,44 @@ class Categories extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForCategories();
+
         $query = Category::with('sub_categories');
 
-        if (request()->has('search')) {
-            $query->withSubcategory();
+        if (search_string_value('searchable')) {
+            $query->withSubCategory();
         }
 
         $types = $this->getCategoryTypes();
 
-        $categories = $query->type(array_keys($types))->collect();
+        if (request()->get('list_records') == 'all') {
+            $query->type(array_keys($types));
+        }
 
-        return $this->response('settings.categories.index', compact('categories', 'types'));
+        $categories = $query->collect();
+
+        $tabs = $this->getCategoryTabs();
+
+        $tab = request()->get('list_records');
+        $tab_active = ! empty($tab) ? 'categories-' . $tab : 'categories-all';
+
+        $hide_code_column = true;
+
+        $search_string_type = search_string_value('type');
+        $selected_types = ! empty($search_string_type) ? explode(',', $search_string_type) : array_keys($types);
+
+        foreach (config('type.category', []) as $type => $config) {
+            if (! in_array($type, $selected_types)) {
+                continue;
+            }
+
+            if (empty($config['hide']) || !in_array('code', $config['hide'])) {
+                $hide_code_column = false;
+                break;
+            }
+        }
+
+        return $this->response('settings.categories.index', compact('categories', 'types', 'tabs', 'tab_active', 'hide_code_column'));
     }
 
     /**
@@ -54,13 +82,15 @@ class Categories extends Controller
      */
     public function create()
     {
-        $types = $this->getCategoryTypes();
+        $types = $this->getCategoryTypes(true, true);
 
         $categories = [];
 
         foreach (config('type.category') as $type => $config) {
             $categories[$type] = [];
         }
+
+        $has_code = $this->moduleIsEnabled('double-entry');
 
         Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
             $categories[$category->type][] = [
@@ -70,7 +100,7 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.create', compact('types', 'categories'));
+        return view('settings.categories.create', compact('types', 'categories', 'has_code'));
     }
 
     /**
@@ -134,7 +164,7 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        $types = $this->getCategoryTypes();
+        $types = $this->getCategoryTypes(true, true);
 
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
@@ -175,7 +205,9 @@ class Categories extends Controller
 
         $parent_categories = $categories[$category->type] ?? [];
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories'));
+        $has_code = $this->moduleIsEnabled('double-entry');
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'has_code'));
     }
 
     /**
