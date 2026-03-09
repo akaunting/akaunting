@@ -20,6 +20,7 @@
             :collapse-tags="collapse"
             :remote-method="remoteMethod"
             :loading="loading"
+            :class="[{ 'with-color-prefix': selectedOptionColor, 'with-icon-prefix': icon }]"
         >
             <div
                 v-if="loading"
@@ -56,21 +57,24 @@
             <div v-if="!loading && addNew.status && options.length == 0">
                 <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
 
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer bg-purple sticky bottom-0">
-                        <div class="w-full flex items-center" @click="onAddItem">
-                            <span class="material-icons text-xl text-purple">add</span>
-                            <span class="flex-1 font-bold text-purple">
-                                {{ addNew.text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+                <li class="el-select-dropdown__item el-select__footer bg-purple sticky bottom-0">
+                    <div class="w-full flex items-center" @click="onAddItem">
+                        <span class="material-icons text-xl text-purple">add</span>
+                        <span class="flex-1 font-bold text-purple">
+                            {{ addNew.text }}
+                        </span>
+                    </div>
+                </li>
             </div>
 
             <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                <span class="aka-select-prefix">
+                    <span
+                        v-if="!isDropdownVisible && selectedOptionColor"
+                        class="w-4 h-4 rounded-full mt-1 ml-2"
+                        :style="{ backgroundColor: selectedOptionColor }"
+                    ></span>
+                    <i v-if="icon" :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
                 </span>
             </template>
 
@@ -141,12 +145,19 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected)">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+
+        <span
+            slot="infoBlock"
+            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            v-if="!isDropdownVisible && group && selectedGroupLabel"
+        >
+            {{ selectedGroupLabel }}
+        </span>
 
         <select :name="name"  :id="name + '-' + _uid" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
-
     </base-input>
 
     <span v-else>
@@ -159,6 +170,7 @@
             :collapse-tags="collapse"
             :remote-method="remoteMethod"
             :loading="loading"
+            :class="[{ 'with-color-prefix': selectedOptionColor, 'with-icon-prefix': icon }]"
         >
             <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty pt-2 pb-0 loading">
@@ -185,21 +197,25 @@
 
             <div v-if="!loading && addNew.status && options.length == 0">
                 <el-option class="text-center" disabled :label="noDataText" value="value"></el-option>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer bg-purple sticky bottom-0">
-                        <div class="w-full flex items-center" @click="onAddItem">
-                            <span class="material-icons text-xl text-purple">add</span>
-                            <span class="flex-1 font-bold text-purple">
-                                {{ addNew.text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+
+                <li class="el-select-dropdown__item el-select__footer bg-purple sticky bottom-0">
+                    <div class="w-full flex items-center" @click="onAddItem">
+                        <span class="material-icons text-xl text-purple">add</span>
+                        <span class="flex-1 font-bold text-purple">
+                            {{ addNew.text }}
+                        </span>
+                    </div>
+                </li>
             </div>
 
             <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                <span class="aka-select-prefix">
+                    <span
+                        v-if="selectedOptionColor"
+                        class="aka-select-prefix-dot"
+                        :style="{ backgroundColor: selectedOptionColor }"
+                    ></span>
+                    <i v-if="icon" :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
                 </span>
             </template>
 
@@ -265,12 +281,19 @@
                     </span>
                 </div>
             </el-option>
-
         </el-select>
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected)">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+
+        <span
+            slot="infoBlock"
+            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            v-if="!isDropdownVisible && group && selectedGroupLabel"
+        >
+            {{ selectedGroupLabel }}
+        </span>
 
         <select :name="name" :id="name + '-' + _uid" v-model="selected" class="d-none">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
@@ -520,6 +543,7 @@ export default {
             full_options:[],
             new_options: {},
             loading: false,
+            isDropdownVisible: false,
         }
     },
 
@@ -548,6 +572,48 @@ export default {
             }
 
             return this.sorted_options;
+        },
+
+        selectedGroupLabel() {
+            if (!this.group || !Array.isArray(this.sorted_options) || !this.sorted_options.length) {
+                return '';
+            }
+
+            if (this.multiple) {
+                if (!Array.isArray(this.selected) || !this.selected.length) {
+                    return '';
+                }
+
+                const labels = this.selected
+                    .map(value => this.findGroupLabelByOptionKey(value))
+                    .filter(Boolean);
+
+                return [...new Set(labels)].join(', ');
+            }
+
+            return this.findGroupLabelByOptionKey(this.selected);
+        },
+
+        selectedOptionColor() {
+            const selectedOption = this.getSelectedOptionData();
+
+            if (!selectedOption || typeof selectedOption !== 'object') {
+                return '';
+            }
+
+            if (selectedOption.color_hex_code) {
+                return selectedOption.color_hex_code;
+            }
+
+            if (selectedOption.color_hex) {
+                return selectedOption.color_hex;
+            }
+
+            if (selectedOption.color && selectedOption.color.toString().startsWith('#')) {
+                return selectedOption.color;
+            }
+
+            return '';
         },
     },
 
@@ -579,6 +645,78 @@ export default {
     },
 
     methods: {
+        getSelectedOptionData() {
+            const selectedKey = this.multiple
+                ? (Array.isArray(this.selected) && this.selected.length ? this.selected[0] : null)
+                : this.selected;
+
+            if (selectedKey === null || selectedKey === undefined || selectedKey === '') {
+                return null;
+            }
+
+            const foundOption = this.findOptionByKey(selectedKey);
+
+            if (!foundOption) {
+                return null;
+            }
+
+            return foundOption.option ? foundOption.option : foundOption;
+        },
+
+        findOptionByKey(optionKey) {
+            const normalizedKey = optionKey.toString();
+
+            if (this.group) {
+                for (const groupOption of this.sorted_options) {
+                    if (!Array.isArray(groupOption.value)) {
+                        continue;
+                    }
+
+                    const found = groupOption.value.find(option => option.key == normalizedKey);
+
+                    if (found) {
+                        return found;
+                    }
+                }
+            } else {
+                const found = this.sorted_options.find(option => option.key == normalizedKey);
+
+                if (found) {
+                    return found;
+                }
+            }
+
+            const foundInFullOptions = this.full_options.find(option => option.key == normalizedKey);
+
+            if (foundInFullOptions) {
+                return foundInFullOptions;
+            }
+
+            return null;
+        },
+
+        findGroupLabelByOptionKey(optionKey) {
+            if (optionKey === null || optionKey === undefined || optionKey === '') {
+                return '';
+            }
+
+            const normalizedKey = optionKey.toString();
+
+            const foundGroup = this.sorted_options.find(groupOption => {
+                if (!Array.isArray(groupOption.value)) {
+                    return false;
+                }
+
+                return groupOption.value.some(option => option.key == normalizedKey);
+            });
+
+            if (!foundGroup) {
+                return '';
+            }
+
+            return foundGroup.key ? foundGroup.key.toString() : '';
+        },
+
         sortBy(option) {
             return (firstEl, secondEl) => {
                 let first_element = firstEl[option].toUpperCase(); // ignore upper and lowercase
@@ -909,6 +1047,8 @@ export default {
 
         visibleChange(event) {
             this.$emit('visible-change', event);
+
+            this.isDropdownVisible = event;
 
             this.dynamicPlaceholder = this.placeholder;
 
@@ -1492,11 +1632,25 @@ export default {
 </script>
 
 <style>
+    .aka-select-prefix {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .with-color-prefix .el-input__inner {
+        padding-left: 2.25rem !important;
+    }
+
+    .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: 2.8rem !important;
+    }
+
     .el-select-dropdown__item.el-select__footer.bg-purple.sticky.bottom-0 {
         background-color: #fff !important;
     }
 
     .el-select-dropdown__item.el-select__footer.bg-purple.sticky.bottom-0:hover {
-        background-color: 55588b !important;
+        background-color: #55588b !important;
     }
 </style>

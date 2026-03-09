@@ -5,13 +5,14 @@ namespace App\Abstracts\Listeners;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
+use App\Traits\Categories;
 use App\Traits\Contacts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
 
 abstract class Report
 {
-    use Contacts, DateTime, SearchString;
+    use Categories, Contacts, DateTime, SearchString;
 
     protected $classes = [];
 
@@ -90,22 +91,24 @@ abstract class Report
 
     public function getItemCategories($limit = false)
     {
-        return $this->getCategories('item', $limit);
+        return $this->getCategories($this->getItemCategoryTypes(), $limit);
     }
 
     public function getIncomeCategories($limit = false)
     {
-        return $this->getCategories('income', $limit);
+        return $this->getCategories($this->getIncomeCategoryTypes(), $limit);
     }
 
     public function getExpenseCategories($limit = false)
     {
-        return $this->getCategories('expense', $limit);
+        return $this->getCategories($this->getExpenseCategoryTypes(), $limit);
     }
 
     public function getIncomeExpenseCategories($limit = false)
     {
-        return $this->getCategories(['income', 'expense'], $limit);
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes());
+
+        return $this->getCategories($types, $limit);
     }
 
     public function getCategories($types, $limit = false)
