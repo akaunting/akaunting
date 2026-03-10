@@ -3,11 +3,9 @@
 namespace App\Http\Requests\Setting;
 
 use App\Abstracts\Http\FormRequest;
-use App\Traits\Modules;
 
 class Category extends FormRequest
 {
-    use Modules;
     /**
      * Get the validation rules that apply to the request.
      *
@@ -17,7 +15,10 @@ class Category extends FormRequest
     {
         $types = collect(config('type.category'))->keys();
 
-        $code = $this->moduleIsEnabled('double-entry') ? 'required|string' : 'nullable|string';
+        $type = $this->request->get('type');
+        $config = config('type.category.' . $type, []);
+        $code_hidden = !empty($config['hide']) && in_array('code', $config['hide']);
+        $code = $code_hidden ? 'nullable|string' : 'required|string';
 
         return [
             'name' => 'required|string',

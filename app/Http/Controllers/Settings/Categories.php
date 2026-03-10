@@ -12,11 +12,10 @@ use App\Jobs\Setting\DeleteCategory;
 use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
 use App\Traits\Categories as Helper;
-use App\Traits\Modules;
 
 class Categories extends Controller
 {
-    use Helper, Modules;
+    use Helper;
 
     /**
      * Display a listing of the resource.
@@ -85,12 +84,15 @@ class Categories extends Controller
         $types = $this->getCategoryTypes(true, true);
 
         $categories = [];
+        $has_code = false;
 
         foreach (config('type.category') as $type => $config) {
+            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
+                $has_code = true;
+            }
+
             $categories[$type] = [];
         }
-
-        $has_code = $this->moduleIsEnabled('double-entry');
 
         Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
             $categories[$category->type][] = [
@@ -171,8 +173,14 @@ class Categories extends Controller
         $edited_category_id = $category->id;
 
         $categories = [];
+        $has_code = false;
 
         foreach (config('type.category') as $type => $config) {
+            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
+                $has_code = true;
+                break;
+            }
+
             $categories[$type] = [];
         }
 
@@ -204,8 +212,6 @@ class Categories extends Controller
         });
 
         $parent_categories = $categories[$category->type] ?? [];
-
-        $has_code = $this->moduleIsEnabled('double-entry');
 
         return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'has_code'));
     }
