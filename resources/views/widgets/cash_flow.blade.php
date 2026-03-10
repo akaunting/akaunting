@@ -18,7 +18,7 @@
                     {{ trans('general.incoming') }}
                 </span>
 
-                <span class="absolute lg:relative lg:block material-icons mt-2 -right-4 lg:right-0">remove</span>
+                <span class="absolute lg:relative lg:block material-icons mt-2 ltr:-right-4 rtl:-left-4 lg:ltr:right-0 lg:rtl:left-0">remove</span>
             </div>
 
             <div class="relative w-32 lg:w-auto flex flex-col items-center sm:justify-between">
@@ -32,7 +32,7 @@
                     {{ trans('general.outgoing') }}
                 </span>
 
-                <span class="absolute lg:relative lg:block material-icons mt-2 -right-4 lg:right-0">drag_handle</span>
+                <span class="absolute lg:relative lg:block material-icons mt-2 ltr:-right-4 rtl:-left-4 lg:ltr:right-0 lg:rtl:left-0">drag_handle</span>
             </div>
 
             <div class="relative w-32 lg:w-auto flex flex-col items-center sm:justify-between">

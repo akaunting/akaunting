@@ -7,7 +7,7 @@
 
             <div id="dropdown" data-click-outside-none class="w-full px-0 hidden z-10">
                 <div class="flex flex-col md:flex-row">
-                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 lg:pl-8 py-8 gap-2 rounded-l-xl">
+                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 lg:pl-8 py-8 gap-2 ltr:rounded-l-xl rtl:rounded-r-xl">
                         <h4 class="capitalize font-thin">
                             {{ trans_choice('general.categories', 1) }}
                         </h4>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-purple-lighter px-4 lg:px-12 py-8 gap-2 rounded-r-xl">
+                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-purple-lighter px-4 lg:px-12 py-8 gap-2 ltr:rounded-r-xl rtl:rounded-l-xl">
                         <h4 class="capitalize font-thin mb-2">
                             {{ trans('modules.popular_this_week') }}
                         </h4>

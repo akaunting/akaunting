@@ -35,7 +35,7 @@
 
             <div class="flex flex-col">
                 @php $history = $document->last_history; @endphp
-                <span class="w-72 font-medium mr-2 truncate">
+                <span class="w-72 font-medium ltr:mr-2 rtl:ml-2 truncate">
                     {{ $history->description }}
                 </span>
 
@@ -74,7 +74,7 @@
         @endif
 
         @if ($document->items->count() > 2)
-            <li class="ml-10 mb-10">
+            <li class="ltr:ml-10 rtl:mr-10 mb-10">
             @if (! $hideShow)
                 <x-link href="{{ route($showDocumentRoute, $document->id) }}" class="border-b" override="class">
                     {{ trans('documents.invoice_detail.more_item', ['count' => $document->items->count() - 2]) }}

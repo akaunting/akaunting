@@ -11,7 +11,7 @@
                         </x-slot>
 
                         @foreach($limits as $item)
-                            <x-link href="javascript:;" @click="onChangePaginationLimit($event)" value="{{ $item }}"
+                            <x-link href="javascript:void();" @click="onChangePaginationLimit($event)" value="{{ $item }}"
                                 class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
                                 override="class"
                             >

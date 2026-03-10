@@ -281,7 +281,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between h-10 ml-3 my-3" v-for="(row_tax, row_tax_index) in row.tax_ids"
+                            <div class="flex items-center justify-between h-10 ltr:ml-3 rtl:mr-3 my-3" v-for="(row_tax, row_tax_index) in row.tax_ids"
                                 :index="row_tax_index"
                             >
                                 <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
@@ -389,7 +389,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="row.add_tax" class="flex items-center justify-between h-10 ml-3 my-3" :class="{'pt-2' : row.add_discount}">
+                            <div v-if="row.add_tax" class="flex items-center justify-between h-10 ltr:ml-3 rtl:mr-3 my-3" :class="{'pt-2' : row.add_discount}">
                                 <span class="absolute text-sm ltr:right-1/2 rtl:left-1/2 ltr:-ml-7 rtl:-mr-7">{{ trans_choice('general.taxes', 1) }}</span>
 
                                 <div class="lg:w-1/4 lg:absolute">

@@ -114,7 +114,7 @@
 
                                 @stack('due_at_and_issued_at_td_start')
 
-                                <x-table.td class="w-3/12  sm:table-cell">
+                                <x-table.td class="w-3/12 sm:table-cell">
                                     @stack('document_number_td_inside_start')
 
                                     <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">

@@ -18,7 +18,7 @@
                         {{ trans('widgets.view_report') }}
                     </x-link>
                 @else
-                    <x-link href="{{ $report }}" class="text-purple text-sm mr-3 text-right" override="class">
+                    <x-link href="{{ $report }}" class="text-purple text-sm ltr:mr-3 rtl:ml-3 text-right" override="class">
                         <x-link.hover color="to-purple">
                             {{ trans('widgets.view_report') }}
                         </x-link.hover>

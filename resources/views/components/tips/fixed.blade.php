@@ -3,7 +3,7 @@
         <div @class([
                 'relative leading-4 z-10',
                 'ltr:text-right rtl:text-left' => $item->align == 'right',
-                'ltr::text-left rtl:text-right' => $item->align == 'left',
+                'ltr:text-left rtl:text-right' => $item->align == 'left',
             ])
         >
             <h2 class="font-bold mb-1">

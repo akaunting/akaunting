@@ -5,7 +5,7 @@
     ])
 >
     <div class="hidden lg:block px-4">
-        <img src="{{ $image }}" class="w-60 h-60 object-contain mt-10 m-auto" />
+        <img src="{{ $image }}" class="w-60 h-60 object-contain mt-10 m-auto" alt="{{ $title ?? trans('general.no_records') }}" />
     </div>
 
     <div @class([

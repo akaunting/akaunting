@@ -255,7 +255,7 @@
                 <table>
                     <tr>
                         <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
-                            <span class="ml-2">
+                            <span class="ltr:ml-2 rtl:mr-2">
                                 {{ trans('general.amount') }}
                             </span>
 

@@ -291,7 +291,7 @@
             <table class="table" cellspacing="0" cellpadding="0" style="padding:15px 0 0 0;">
                 <thead style="color:#424242; font-size:12px;">
                     <tr class="border-bottom-1">
-                        <td class="item text-alignment-left text-left font-semibold" style="padding:5px 0;">
+                        <td class="item text-alignment-left ltr:text-left rtl:text-right font-semibold" style="padding:5px 0;">
                             @if (! $hideRelatedDocumentNumber)
                                 <span style="font-size: 13px;">
                                     {{ trans_choice($textRelatedDocumentNumber, 1) }}
@@ -312,7 +312,7 @@
                             </td>
                         @endif
 
-                        <td class="price text-alignment-right text-right font-semibold" style="padding: 5px 0;">
+                        <td class="price text-alignment-right ltr:text-right rtl:text-left font-semibold" style="padding: 5px 0;">
                             @if (! $hideRelatedDocumentAmount)
                                 <span style="font-size: 13px;">
                                     {{ trans($textRelatedDocumentAmount) }}
@@ -331,7 +331,7 @@
 
                 <tbody>
                     <tr>
-                        <td class="item text-alignment-left text-left" style="color:#424242; font-size:12px; padding-left:0;">
+                        <td class="item text-alignment-left ltr:text-left rtl:text-right" style="color:#424242; font-size:12px; padding-left:0;">
                             @if (! $hideRelatedDocumentNumber)
                                 <a class="text-medium" style="border-bottom:1px solid;" href="{{ route($routeDocumentShow, $transaction->document->id) }}">
                                     {{ $transaction->document->document_number }}
@@ -352,7 +352,7 @@
                             </td>
                         @endif
 
-                        <td class="price text-alignment-right text-right" style="color:#424242; font-size:12px; padding-right:0;">
+                        <td class="price text-alignment-right ltr:text-right rtl:text-left" style="color:#424242; font-size:12px; padding-right:0;">
                             @if (! $hideRelatedDocumentAmount)
                                 <x-money :amount="$transaction->document->amount" :currency="$transaction->document->currency_code" /> <br />
                             @endif
@@ -372,9 +372,9 @@
     @if (! $hideAmount)
         @if ($transaction->taxes->count())
         <div class="row mt-3 clearfix">
-            <div class="col-40 float-right text-right">
+            <div class="col-40 ltr:float-right rtl:float-left ltr:text-right rtl:text-left">
                 <div class="text border-bottom-dashed-black py-1">
-                    <span class="float-left font-semibold">
+                    <span class="ltr:float-left rtl:float-right font-semibold">
                         {{ trans('general.before_tax') }}:
                     </span>
 
@@ -384,7 +384,7 @@
                 </div>
                 @foreach ($transaction->taxes as $tax)
                 <div class="text border-bottom-dashed-black py-1">
-                    <span class="float-left font-semibold">
+                    <span class="ltr:float-left rtl:float-right font-semibold">
                         {{ $tax->tax->title }}:
                     </span>
 
@@ -403,7 +403,7 @@
                     <table>
                         <tr>
                             <td valign="center" style="font-size: 14px; color: #ffffff; padding: 0;">
-                                <span class="ml-2 font-semibold">
+                                <span class="ltr:ml-2 rtl:mr-2 font-semibold">
                                     {{ trans($textAmount) }}
                                 </span>
                                 <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" />

@@ -140,7 +140,7 @@
                 @endif
             </div>
 
-            <div class="flex col-span-3 ml-6 text-right">
+            <div class="flex col-span-3 ltr:ml-6 rtl:mr-6 text-right">
                 @can('create-common-widgets')
                     <x-button
                         type="button"

@@ -13,7 +13,7 @@
             @if (! file_exists(public_path('js/install.min.js')))
                 <div class="relative w-full lg:max-w-7xl flex flex-col lg:flex-row items-center m-auto">
                     <div class="md:w-6/12 h-screen hidden lg:flex flex-col items-center justify-center">
-                        <img src="{{ asset('public/img/empty_pages/transactions.png') }}" alt="" />
+                        <img src="{{ asset('public/img/empty_pages/transactions.png') }}" alt="Akaunting Installation" />
                     </div>
 
                     <div class="w-full lg:w-46 h-31 flex flex-col justify-center gap-12 px-6 lg:px-24 py-24 mt-12 lg:mt-0">

@@ -20,6 +20,6 @@
     {{ $attributes->except(['placeholder', 'disabled', 'required', 'readonly', 'v-error', 'v-error-message', 'option', 'optionKey', 'optionValue']) }}
 />
 
-<label class="ml-2" for="{{ ! empty($attributes[':id']) ? $attributes[':id'] : $id }}">
+<label class="ltr:ml-2 rtl:mr-2" for="{{ ! empty($attributes[':id']) ? $attributes[':id'] : $id }}">
     {{ !empty($option) ? $option->$optionValue : $label }}
 </label>

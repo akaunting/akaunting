@@ -6,7 +6,7 @@
         class="h-12 bg-purple-lighter items-center rounded-tl-xl rounded-tr-xl px-12 my-5 py-2 hidden"
         v-if="bulk_action.show"
     >
-        <div class="mr-6">
+        <div class="ltr:mr-6 rtl:ml-6">
             <span class="text-sm hidden sm:block">
                 <span v-text="bulk_action.count"></span>
                 <span v-if="bulk_action.count === 1">
@@ -26,7 +26,7 @@
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
                                 id="index-bulk-actions-{{ $key }}"
-                                class="relative w-8 h-8 flex items-center px-2 mr-2 rounded-lg hover:bg-gray-200"
+                                class="relative w-8 h-8 flex items-center px-2 ltr:mr-2 rtl:ml-2 rounded-lg hover:bg-gray-200"
                                 override="class"
                                 data-message="{{ ! empty($action['message']) ? trans_choice($action['message'], 2, ['type' => strtolower(trans_choice($text, 2))]) : '' }}"
                                 data-path="{{ (isset($path) && ! empty($path)) ? $path : '' }}"

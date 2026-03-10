@@ -1,4 +1,4 @@
-<div class="w-full lg:max-w-6xl px-4 lg:px-0  m-auto">
+<div class="w-full lg:max-w-6xl px-4 lg:px-0 m-auto">
     <x-layouts.signed>
         <x-slot name="title">
             {{ setting('invoice.title', trans_choice('general.invoices', 1)) . ': ' . $invoice->document_number }}
@@ -54,11 +54,11 @@
                                     </div>
 
                                     @if (count($payment_methods) > 3)
-                                        <div class="swiper-button-next bg-body text-white flex items-center justify-center right-0 top-3">
+                                        <div class="swiper-button-next bg-body text-white flex items-center justify-center ltr:right-0 rtl:left-0 top-3">
                                             <span class="material-icons text-purple text-4xl">chevron_right</span>
                                         </div>
 
-                                        <div class="swiper-button-prev bg-body text-white flex items-center justify-center left-0 top-3">
+                                        <div class="swiper-button-prev bg-body text-white flex items-center justify-center ltr:left-0 rtl:right-0 top-3">
                                             <span class="material-icons text-purple text-4xl">chevron_left</span>
                                         </div>
                                     @endif

@@ -95,7 +95,7 @@
                                 v-html="'{{ trans('general.currency_convert', ['from' => '#form', 'to' => $document->currency_code]) }}'.replace('#form', form.currency_code)"
                             ></div>
 
-                            <div class="mr-2">-</div>
+                            <div class="ltr:mr-2 rtl:ml-2">-</div>
 
                             <x-form.input.money
                                 name="default_amount"

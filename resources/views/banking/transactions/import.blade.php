@@ -124,7 +124,7 @@
                 <div class="mt-8">
                     <div class="sm:col-span-6 flex items-center justify-end">
                         @if (! empty($route))
-                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" override="class">
+                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 ltr:mr-2 rtl:ml-2 hover:bg-gray-200 rounded-lg" override="class">
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @else
@@ -151,4 +151,3 @@
 
     <x-script folder="common" file="imports" />
 </x-layouts.admin>
-

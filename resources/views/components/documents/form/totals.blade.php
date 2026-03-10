@@ -142,7 +142,7 @@
                     <tr v-for="(tax, tax_index) in totals.taxes" :index="tax_index">
                         <td class="border-t-0 pt-5 pb-0"></td>
 
-                        <td class="ltr:text-right rtl:text-left border-t-0  border-r-0 border-b-0 align-middle pt-5 pb-0 pr-0">
+                        <td class="ltr:text-right rtl:text-left border-t-0 border-r-0 border-b-0 align-middle pt-5 pb-0 pr-0">
                             <span class="font-medium" v-html="tax.name"></span>
                         </td>
 
