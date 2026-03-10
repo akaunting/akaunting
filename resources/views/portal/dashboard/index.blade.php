@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="grid sm:grid-cols-3 my-10 divide-y lg:divide-y-0 lg:divide-x space-y-10 lg:space-y-0">
+        <div class="grid sm:grid-cols-3 my-10 divide-y lg:divide-y-0 lg:divide-x rtl:divide-x-reverse space-y-10 lg:space-y-0">
             <div class="lg:ltr:pr-12 lg:rtl:pl-12">
                 <x-widgets.contact />
 

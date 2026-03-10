@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="p-5 bg-body rounded-bl-lg rounded-br-lg border-gray-300">
-                    <div class="flex items-center justify-end space-x-2">
+                    <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
                         <button onclick="closeConfirmFirefox()" class="relative px-6 py-1.5 hover:bg-gray-100 rounded-lg disabled:bg-green-100">
                             {{ trans('general.cancel') }}
                         </button>

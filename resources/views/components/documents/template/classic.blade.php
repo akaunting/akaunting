@@ -203,7 +203,7 @@
                                     {{ trans($textOrderNumber) }}:
                                 </span>
 
-                                <span class="float-right spacing order-max-width right-column">
+                                <span class="ltr:float-right rtl:float-left spacing order-max-width right-column">
                                     {{ $document->order_number }}
                                 </span>
                             </p>
@@ -218,7 +218,7 @@
                                 {{ trans($textIssuedAt) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 @date($document->issued_at)
                             </span>
                         </p>
@@ -232,7 +232,7 @@
                                 {{ trans($textDueAt) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 @date($document->due_at)
                             </span>
                         </p>
@@ -246,7 +246,7 @@
                                 {{ trans($total->name) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 <x-money :amount="$total->amount - $document->paid" :currency="$document->currency_code" />
                             </span>
                         </p>
@@ -338,7 +338,7 @@
     @endif
 
     <div class="row mt-4 clearfix">
-        <div class="col-60 float-left">
+        <div class="col-60 ltr:float-left rtl:float-right">
             <div class="text p-index-right break-words">
                 @stack('notes_input_start')
                     @if ($hideNote)
@@ -354,7 +354,7 @@
             </div>
         </div>
 
-        <div class="col-40 float-right text-right">
+        <div class="col-40 ltr:float-right rtl:float-left ltr:text-right rtl:text-left">
             @foreach ($document->totals_sorted as $total)
                 @if ($total->code == 'item_discount')
                     @continue
@@ -363,7 +363,7 @@
                 @if ($total->code != 'total')
                     @stack($total->code . '_total_tr_start')
                     <div class="text border-bottom-dashed py-1">
-                        <strong class="float-left font-semibold">
+                        <strong class="ltr:float-left rtl:float-right font-semibold">
                             {{ trans($total->title) }}:
                         </strong>
 
@@ -376,7 +376,7 @@
                     @if ($document->paid)
                         @stack('paid_total_tr_start')
                         <div class="text border-bottom-dashed py-1">
-                            <span class="float-left font-semibold">
+                            <span class="ltr:float-left rtl:float-right font-semibold">
                                 {{ trans('invoices.paid') }}:
                             </span>
 
@@ -389,7 +389,7 @@
 
                     @stack('grand_total_tr_start')
                     <div class="text border-bottom-dashed py-1">
-                        <span class="float-left font-semibold">
+                        <span class="ltr:float-left rtl:float-right font-semibold">
                             {{ trans($total->name) }}:
                         </span>
 

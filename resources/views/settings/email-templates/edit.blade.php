@@ -3,7 +3,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col lg:flex-row">
-            <div class="relative flex flex-col lg:flex-row mt-4 gap-12 sm:divide-x-2 lg:w-full">
+            <div class="relative flex flex-col lg:flex-row mt-4 gap-12 sm:divide-x-2 rtl:divide-x-reverse lg:w-full">
                 <div class="w-full lg:w-1/3">
                     @foreach ($templates as $group => $template)
                         <div>
