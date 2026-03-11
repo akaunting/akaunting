@@ -3,13 +3,13 @@
     @if ($paginator->onFirstPage())
         <li class="font-medium ltr:mr-4 rtl:ml-4 disabled">
             <a class="page-link" href="#" tabindex="-1">
-                <span class="material-icons">chevron_left</span>
+                <span class="material-icons rtl:rotate-180">chevron_left</span>
             </a>
         </li>
     @else
         <li class="font-medium ltr:mr-4 rtl:ml-4">
             <button type="button" dusk="previousPage" class="page-link" wire:click="previousPage" wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
-                <span class="material-icons">chevron_left</span>
+                <span class="material-icons rtl:rotate-180">chevron_left</span>
             </button>
         </li>
     @endif
@@ -37,13 +37,13 @@
     @if ($paginator->hasMorePages())
         <li class="font-medium ltr:mr-4 rtl:ml-4">
             <button type="button" dusk="nextPage" class="page-link" wire:click="nextPage" wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">
-                <span class="material-icons">chevron_right</span>
+                <span class="material-icons rtl:rotate-180">chevron_right</span>
             </button>
         </li>
     @else
         <li class="font-medium ltr:mr-4 rtl:ml-4 disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
             <span class="page-link" aria-hidden="true">
-                <span class="material-icons">chevron_right</span>
+                <span class="material-icons rtl:rotate-180">chevron_right</span>
             </span>
         </li>
     @endif

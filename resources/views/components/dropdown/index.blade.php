@@ -17,7 +17,7 @@
         @if ($attributes->has('style'))
         style="{{ $attributes->get('style') }}"
         @else
-        style="left: auto; min-width: 10rem;"
+        style="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}: auto; min-width: 10rem;"
         @endif
     >
         @stack('button_dropdown_start')

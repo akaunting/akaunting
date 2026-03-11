@@ -55,11 +55,11 @@
 
                                     @if (count($payment_methods) > 3)
                                         <div class="swiper-button-next bg-body text-white flex items-center justify-center ltr:right-0 rtl:left-0 top-3">
-                                            <span class="material-icons text-purple text-4xl">chevron_right</span>
+                                            <span class="material-icons rtl:rotate-180 text-purple text-4xl">chevron_right</span>
                                         </div>
 
                                         <div class="swiper-button-prev bg-body text-white flex items-center justify-center ltr:left-0 rtl:right-0 top-3">
-                                            <span class="material-icons text-purple text-4xl">chevron_left</span>
+                                            <span class="material-icons rtl:rotate-180 text-purple text-4xl">chevron_left</span>
                                         </div>
                                     @endif
                                 </div>

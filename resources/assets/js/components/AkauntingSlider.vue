@@ -12,11 +12,11 @@
         <div v-if="pagination" class="swiper-pagination w-full flex justify-center gap-1"></div>
 
         <div v-if="arrow" class="swiper-button-next ltr:-right-8 rtl:-left-8 top-12">
-            <span class="material-icons text-5xl">chevron_right</span>
+            <span class="material-icons rtl:rotate-180 text-5xl">chevron_right</span>
         </div>
 
         <div v-if="arrow" class="swiper-button-prev ltr:-left-8 rtl:-right-8 top-12">
-            <span class="material-icons text-5xl">chevron_left</span>
+            <span class="material-icons rtl:rotate-180 text-5xl">chevron_left</span>
         </div>
       </div>
     </div>

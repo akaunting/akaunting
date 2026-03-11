@@ -27,7 +27,7 @@
     <div class="w-14 py-7 px-1 bg-lilac-900 z-10 menu-scroll overflow-y-auto overflow-x-hidden">
         <div 
             data-tooltip-target="tooltip-profile"
-            data-tooltip-placement="right"
+            data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}"
             class="flex flex-col items-center justify-center mb-5 cursor-pointer menu-button"
             data-menu="profile-menu"
         >
@@ -53,7 +53,7 @@
 
         <div class="group flex flex-col items-center justify-center menu-toggle-buttons">
             @can('read-notifications')
-            <x-tooltip id="tooltip-notifications" placement="right" message="{{ trans_choice('general.notifications', 2) }}">
+            <x-tooltip id="tooltip-notifications" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans_choice('general.notifications', 2) }}">
                 <button type="button"
                     @class([
                         'flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer js-menu-toggles outline-none',
@@ -71,13 +71,13 @@
             </x-tooltip>
             @endcan
 
-            <x-tooltip id="tooltip-search" placement="right" message="{{ trans('general.search') }}">
+            <x-tooltip id="tooltip-search" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans('general.search') }}">
                 <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer outline-none">
                     <span name="search" class="material-icons-outlined text-purple text-2xl pointer-events-none">search</span>
                 </button>
             </x-tooltip>
 
-            <x-tooltip id="tooltip-support" placement="right" message="{{ trans('general.help') }}">
+            <x-tooltip id="tooltip-support" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans('general.help') }}">
                 <x-link href="{{ url(trans('header.support_link')) }}" target="_blank" class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" override="class">
                     <span class="material-icons-outlined text-purple text-2xl pointer-events-none">support</span>
                 </x-link>
