@@ -299,6 +299,11 @@
     padding-right: unset !important;
 }
 
+html[dir='rtl'] .el-color-picker--mini {
+    padding-right: initial !important;
+    padding-left: unset !important;
+}
+
 .el-color-picker--mini .el-color-picker__trigger {
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -384,6 +389,16 @@
 
 .el-select .el-select__tags {
     top: 54%;
+}
+
+/* Country select with flag icon: offset tags to avoid overlap with flag */
+.el-select-tags-pl-38 .el-select__tags {
+    padding-left: 38px;
+}
+
+html[dir='rtl'] .el-select-tags-pl-38 .el-select__tags {
+    padding-left: 0;
+    padding-right: 38px;
 }
 
 .el-select .el-select__tags .el-tag {
@@ -502,6 +517,11 @@ html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
     border-bottom: 1px solid transparent;
     padding-left: 0;
     margin-bottom: 3px;
+}
+
+html[dir='rtl'] .el-picker-panel__shortcut {
+    padding-left: revert;
+    padding-right: 0;
 }
 
 .el-picker-panel__shortcut:hover {

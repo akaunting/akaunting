@@ -17,7 +17,7 @@
        {'prepend-input-icon': prependIcon},
        inputGroupClasses
        ]">
-      <div v-if="prependIcon || $slots.prepend" class="input-group-prepend absolute left-2 bottom-3 text-light-gray">
+      <div v-if="prependIcon || $slots.prepend" class="input-group-prepend absolute ltr:left-2 rtl:right-2 bottom-3 text-light-gray">
         <span class="input-group-text">
           <slot name="prepend">
             <span class="material-icons w-4 h-5 text-sm">{{ prependIcon }}</span>

@@ -19,7 +19,7 @@
                 </li>
 
                 <li v-if="search" class="p-2 hover:bg-lilac-900 dropdown-item">
-                    <button type="button" class="text-left" @click="onInputConfirm">
+                    <button type="button" class="ltr:text-left rtl:text-right" @click="onInputConfirm">
                         {{ searchText }}
                     </button>
                 </li>

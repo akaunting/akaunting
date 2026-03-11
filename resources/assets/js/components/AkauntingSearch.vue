@@ -24,10 +24,10 @@
 
                 <span v-if="filter.value" class="flex items-center bg-purple-lighter text-black border-0 mt-3 px-3 py-4 text-sm cursor-pointer el-tag el-tag--small el-tag-value">
                     <span v-if="Array.isArray(filter.value)">
-                        <span v-for="(multiple_filter, index) in filter.value" v-if="index < 3" class="-mr-0.5">
+                        <span v-for="(multiple_filter, index) in filter.value" v-if="index < 3" class="ltr:-mr-0.5 rtl:-ml-0.5">
                             {{ (index == 0) ? multiple_filter.value : ', ' + multiple_filter.value }}
                         </span>
-                        <span v-if="filter.value.length > 3" class="-mr-0.5">
+                        <span v-if="filter.value.length > 3" class="ltr:-mr-0.5 rtl:-ml-0.5">
                            &nbsp; {{ ' + ' + (filter.value.length - 3) + ' ' + moreText }}
                         </span>
                     </span>
@@ -98,7 +98,7 @@
                 </li>
 
                 <li ref="" v-if="search" class="p-2 hover:bg-lilac-900 dropdown-item">
-                    <button type="button" class="text-left" @click="onInputConfirm">{{ searchText }}</button>
+                    <button type="button" class="ltr:text-left rtl:text-right" @click="onInputConfirm">{{ searchText }}</button>
                 </li>
             </div>
 
