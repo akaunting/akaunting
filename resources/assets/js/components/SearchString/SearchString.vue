@@ -746,7 +746,7 @@ export default {
     }
 
     .searh-field .btn-helptext {
-        margin-left: auto;
+        margin-inline-start: auto;
         color: var(--gray);
     }
 

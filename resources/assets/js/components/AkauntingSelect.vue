@@ -75,12 +75,12 @@
                 :style="optionStyle"
             >
                 <slot name="option" :option="option">
-                    <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
+                    <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
                         <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
                     </span>
                 </slot>
 
-                <span 
+                <span
                     class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs"
                     v-if="new_options[option.key] || (option.mark_new)"
                 >
@@ -102,7 +102,7 @@
                     :style="optionStyle"
                 >
                     <slot name="option" :option="option">
-                        <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
+                        <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
                             <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
                         </span>
                     </slot>

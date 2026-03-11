@@ -140,8 +140,8 @@
                                     change="row.price = $event; form.errors.clear('items.' + index + '.price'); onCalculateTotal"
                                     :currency="$currency"
                                     dynamicCurrency="currency"
-                                    money-class="text-right mt-0"
-                                    form-group-class="text-right"
+                                    money-class="ltr:text-right rtl:text-left mt-0"
+                                    form-group-class="ltr:text-right rtl:text-left"
                                 />
 
                                 @stack('price_input_end')
@@ -152,7 +152,7 @@
 
                         @stack('total_td_start')
 
-                        <td class="px-3 py-3 text-right border-b-0 align-top total">
+                        <td class="px-3 py-3 ltr:text-right rtl:text-left border-b-0 align-top total">
                             @if (! $hideItemAmount)
                                 <div>
                                     <x-form.input.money
@@ -258,7 +258,7 @@
                                 @stack('discount_input_end')
 
                                 <div class="flex items-center lg:absolute ltr:right-0 rtl:left-0">
-                                    <div class="text-right">
+                                    <div class="ltr:text-right rtl:text-left">
                                         <x-form.input.money
                                             name="discount_amount"
                                             value="0"
@@ -366,7 +366,7 @@
                                 </div>
 
                                 <div class="flex items-center lg:absolute ltr:right-0 rtl:left-0">
-                                    <div class="text-right">
+                                    <div class="ltr:text-right rtl:text-left">
                                         <x-form.input.money
                                             name="tax"
                                             value="0"
@@ -376,8 +376,8 @@
                                             v-model="row_tax.price"
                                             :currency="$currency"
                                             dynamicCurrency="currency"
-                                            money-class="text-right disabled-money px-0"
-                                            form-group-class="text-right disabled-money"
+                                            money-class="ltr:text-right rtl:text-left disabled-money px-0"
+                                            form-group-class="ltr:text-right rtl:text-left disabled-money"
                                         />
                                     </div>
 

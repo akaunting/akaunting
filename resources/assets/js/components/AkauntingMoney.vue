@@ -76,7 +76,7 @@ export default {
         },
         moneyClass: {
             type: String,
-            default: null,
+            default: 'ltr:text-left rtl:text-right',
             description: "Selectbox disabled status"
         },
         group_class: {
@@ -240,7 +240,11 @@ export default {
 </script>
 
 <style scoped>
-    .text-right.input-price .v-money {
+    html[dir='ltr'] .text-right.input-price .v-money {
         text-align: right;
+    }
+
+    html[dir='rtl'] .text-right.input-price .v-money {
+        text-align: left;
     }
 </style>

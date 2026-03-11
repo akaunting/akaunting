@@ -8,7 +8,7 @@
         <div :class="[{'is-open': show.item_list}]" tabindex="-1">
             <div class="-mt-10.5 left-0 right-0 bg-white border rounded-lg" v-if="show.item_list">
                <div class="relative">
-                   <span class="material-icons-round absolute left-4 top-3 text-lg">search</span>
+                   <span class="material-icons-round absolute ltr:left-4 rtl:right-4 top-3 text-lg">search</span>
                    <input 
                        type="text"
                        data-input="true"
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="flex items-center justify-center h-11 text-center text-purple font-bold border border-l-0 border-r-0 border-b-0 rounded-bl-lg rounded-br-lg hover:bg-gray-100 cursor-pointer" @click="onItemCreate">
-                     <span class="material-icons text-lg font-bold mr-1">add</span>
+                     <span class="material-icons text-lg font-bold ltr:mr-1 rtl:ml-1">add</span>
                      {{ createNewItemText }}
                 </div>
             </div>
