@@ -96,7 +96,7 @@
         </div>
 
         <div class="col-33">
-            <div class="invoice-classic-frame ml-1 mt-1" style="border: 1px solid {{ $backgroundColor }}">
+            <div class="invoice-classic-frame ltr:ml-1 rtl:mr-1 mt-1" style="border: 1px solid {{ $backgroundColor }}">
                 <div class="invoice-classic-inline-frame text-center" style="border: 1px solid {{ $backgroundColor }}">
                     @stack('document_number_input_start')
                     @if (! $hideDocumentNumber)

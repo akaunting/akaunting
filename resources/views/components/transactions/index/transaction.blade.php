@@ -178,8 +178,7 @@
                                         {{ $item->document->document_number }}
                                     </x-link>
 
-                                    <div class="w-28 absolute h-10 -ml-12 -mt-6">
-                                    </div>
+                                    <div class="w-28 absolute h-10 ltr:-ml-12 rtl:-mr-12 -mt-6"></div>
 
                                     <x-documents.index.information :document="$item->document" />
                                 </div>

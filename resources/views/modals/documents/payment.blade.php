@@ -106,7 +106,7 @@
                                 :currency="$currency"
                                 dynamic-currency="{!! json_encode($currency) !!}"
                                 money-class="disabled-money p-0 m-0 text-xs"
-                                form-group-class="text-right disabled-money"
+                                form-group-class="ltr:text-right rtl:text-left disabled-money"
                             />
                         </div>
                     </div>

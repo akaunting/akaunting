@@ -709,6 +709,10 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
         margin-left: unset !important;
     }
 
+    html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
+        margin-right: unset !important;
+    }
+
     .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
         width: 100% !important;
     }

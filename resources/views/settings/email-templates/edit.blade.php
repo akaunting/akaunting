@@ -14,7 +14,7 @@
                             <div class="flex flex-col">
                                 <div class="mb-3">
                                     @foreach ($template as $item)
-                                        <x-button class="text-xs truncate text-left" @click="onEditEmailTemplate({{ $item->id }}, $event)" override="class">
+                                        <x-button class="text-xs truncate ltr:text-left rtl:text-right" @click="onEditEmailTemplate({{ $item->id }}, $event)" override="class">
                                             <x-button.hover color="to-purple">
                                                 {{ trans($item->name) }}
                                             </x-button.hover>

@@ -11,7 +11,7 @@
     <div @class([
             'lg:w-3/5',
             $textColor,
-            'text-right py-4 lg:py-0 px-4 space-y-2',
+            'ltr:text-right rtl:text-left py-4 lg:py-0 px-4 space-y-2',
         ])
     >
         <p class="mb-5">
