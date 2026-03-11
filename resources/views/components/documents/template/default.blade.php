@@ -228,7 +228,7 @@
                             <tr>
                                 @stack('name_th_start')
                                     @if (! $hideItems || (! $hideName && ! $hideDescription))
-                                        <td class="item text font-semibold text-alignment-left text-left text-white">
+                                        <td class="item text font-semibold text-alignment-left ltr:text-left rtl:text-right text-white">
                                             <span>
                                                 {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
                                             </span>
@@ -238,7 +238,7 @@
 
                                 @stack('quantity_th_start')
                                     @if (! $hideQuantity)
-                                        <td class="quantity text font-semibold text-alignment-right text-right text-white">
+                                        <td class="quantity text font-semibold text-alignment-right ltr:text-right rtl:text-left text-white">
                                             <span>
                                                 {{ trans($textQuantity) }}
                                             </span>
@@ -248,7 +248,7 @@
 
                                 @stack('price_th_start')
                                     @if (! $hidePrice)
-                                        <td class="price text font-semibold text-alignment-right text-right text-white">
+                                        <td class="price text font-semibold text-alignment-right ltr:text-right rtl:text-left text-white">
                                             <span>
                                                 {{ trans($textPrice) }}
                                             </span>
@@ -259,7 +259,7 @@
                                 @if (! $hideDiscount)
                                     @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                         @stack('discount_td_start')
-                                            <td class="discount text font-semibold text-alignment-right text-right text-white">
+                                            <td class="discount text font-semibold text-alignment-right ltr:text-right rtl:text-left text-white">
                                                 <span>
                                                     {{ trans('invoices.discount') }}
                                                 </span>
@@ -270,7 +270,7 @@
 
                                 @stack('total_th_start')
                                     @if (! $hideAmount)
-                                        <td class="total text font-semibold text-white text-alignment-right text-right">
+                                        <td class="total text font-semibold text-white text-alignment-right ltr:text-right rtl:text-left">
                                             <span>
                                                 {{ trans($textAmount) }}
                                             </span>

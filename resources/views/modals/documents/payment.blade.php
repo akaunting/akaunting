@@ -91,7 +91,7 @@
                         />
 
                         <div class="relative col-span-6 text-xs flex mt-2">
-                            <div class="w-auto text-xs mr-2"
+                            <div class="w-auto text-xs ltr:mr-2 rtl:ml-2"
                                 v-html="'{{ trans('general.currency_convert', ['from' => '#form', 'to' => $document->currency_code]) }}'.replace('#form', form.currency_code)"
                             ></div>
 

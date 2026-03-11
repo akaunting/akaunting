@@ -48,7 +48,7 @@
 
         <div id="tooltip-profile" class="inline-block absolute z-20 py-1 px-2 text-sm font-medium rounded-lg bg-white text-gray-900 w-auto border border-gray-200 shadow-sm whitespace-nowrap opacity-0 invisible">
             {{ trans('auth.profile') }}
-            <div class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border -left-1 before:border-t-0 before:border-r-0 border-gray-200" data-popper-arrow></div>
+            <div class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border ltr:-left-1 rtl:-right-1 before:border-t-0 ltr:before:border-r-0 rtl:before:border-l-0 border-gray-200" data-popper-arrow></div>
         </div>
 
         <div class="group flex flex-col items-center justify-center menu-toggle-buttons">
@@ -153,7 +153,7 @@
 
             @stack('navbar_profile_welcome')
 
-            <div class="flex flex-col text-black ml-2">
+            <div class="flex flex-col text-black ltr:ml-2 rtl:mr-2">
                 <span class="text-xs">{{ trans('general.welcome') }}</span>
 
                 {{ user()->name }}

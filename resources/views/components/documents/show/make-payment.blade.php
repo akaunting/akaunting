@@ -44,7 +44,7 @@
 
         @stack('timeline_make_payment_body_detail_start')
 
-        <div class="text-xs mt-6" style="margin-left: 0 !important;">
+        <div class="text-xs mt-6" style="margin-inline-start: 0 !important;">
             <span class="font-medium">
                 {{ trans('bills.payment_made') }} :
             </span>

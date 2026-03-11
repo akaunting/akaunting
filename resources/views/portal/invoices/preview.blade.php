@@ -98,7 +98,7 @@
                         </x-slot>
 
                         <x-slot name="body" class="block" override="class">
-                            <div class="text-xs mt-1" style="margin-left: 0 !important;">
+                            <div class="text-xs mt-1" style="margin-inline-start: 0 !important;">
                                 <span class="font-medium">
                                     {{ trans('invoices.payments_received') }}:
                                 </span>

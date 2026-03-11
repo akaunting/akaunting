@@ -1,6 +1,6 @@
 @props(['module', 'installed', 'enable'])
 
-<div x-show="price_type == 'monthly'" class="w-full flex space-x-6">
+<div x-show="price_type == 'monthly'" class="w-full flex space-x-6 rtl:space-x-reverse">
     <x-tooltip message="{{ trans('modules.hosted_on_akaunting') }}" placement="top" width="w-full">
         <x-link
             href="{{ $module->monthly_url }}"
@@ -13,7 +13,7 @@
     </x-tooltip>
 </div>
 
-<div x-show="price_type == 'yearly'" class="w-full flex space-x-6">
+<div x-show="price_type == 'yearly'" class="w-full flex space-x-6 rtl:space-x-reverse">
     @if (in_array('onprime', $module->where_to_use) || $module->isPurchase)
         @if ($installed)
             @can('delete-modules-item')
@@ -98,7 +98,7 @@
     @endif
 </div>
 
-<div x-show="price_type == 'lifetime'" class="w-full flex space-x-6">
+<div x-show="price_type == 'lifetime'" class="w-full flex space-x-6 rtl:space-x-reverse">
     @if (empty($module->plan))
         @if ($installed)
             @can('delete-modules-item')

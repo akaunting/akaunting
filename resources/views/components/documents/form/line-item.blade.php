@@ -212,7 +212,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="row.add_discount" class="flex items-center justify-between pb-3 ml-2">
+                            <div v-if="row.add_discount" class="flex items-center justify-between pb-3 ltr:ml-2 rtl:mr-2">
                                 @stack('discount_input_start')
 
                                 <div class="mb-0" style="display: inline-block; position: relative;">

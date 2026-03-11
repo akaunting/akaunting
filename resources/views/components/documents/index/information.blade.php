@@ -3,7 +3,7 @@
 
     <ul>
         <li class="relative flex items-center text-sm mb-7">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">person</span>
             </div>
 
@@ -29,7 +29,7 @@
         </li>
 
         <li class="relative flex items-center text-sm mb-7">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">bookmark_border</span>
             </div>
 
@@ -52,7 +52,7 @@
                 @endif
 
                 <li class="relative flex items-center text-sm mb-7">
-                    <div class="flex flex-col items-center mr-2">
+                    <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                         <span class="material-icons-outlined text-black-300">sell</span>
                     </div>
 
@@ -88,7 +88,7 @@
         @endif
 
         <li class="relative flex items-center text-sm">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">attach_money</span>
             </div>
 
