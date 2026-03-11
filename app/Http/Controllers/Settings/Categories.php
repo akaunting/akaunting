@@ -87,9 +87,7 @@ class Categories extends Controller
         $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            $show_code = empty($config['hide']) || ! in_array('code', $config['hide']);
-
-            $type_codes[$type] = $show_code;
+            $type_codes[$type] = empty($config['hide']) || ! in_array('code', $config['hide']);
             $categories[$type] = [];
         }
 
@@ -175,9 +173,7 @@ class Categories extends Controller
         $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            $show_code = empty($config['hide']) || ! in_array('code', $config['hide']);
-
-            $type_codes[$type] = $show_code;
+            $type_codes[$type] = empty($config['hide']) || ! in_array('code', $config['hide']);
             $categories[$type] = [];
         }
 
