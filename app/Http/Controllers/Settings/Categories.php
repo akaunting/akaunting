@@ -84,13 +84,12 @@ class Categories extends Controller
         $types = $this->getCategoryTypes(true, true);
 
         $categories = [];
-        $has_code = false;
+        $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
-                $has_code = true;
-            }
+            $show_code = empty($config['hide']) || ! in_array('code', $config['hide']);
 
+            $type_codes[$type] = $show_code;
             $categories[$type] = [];
         }
 
@@ -102,7 +101,7 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.create', compact('types', 'categories', 'has_code'));
+        return view('settings.categories.create', compact('types', 'categories', 'type_codes'));
     }
 
     /**
@@ -173,14 +172,12 @@ class Categories extends Controller
         $edited_category_id = $category->id;
 
         $categories = [];
-        $has_code = false;
+        $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
-                $has_code = true;
-                break;
-            }
+            $show_code = empty($config['hide']) || ! in_array('code', $config['hide']);
 
+            $type_codes[$type] = $show_code;
             $categories[$type] = [];
         }
 
@@ -213,7 +210,7 @@ class Categories extends Controller
 
         $parent_categories = $categories[$category->type] ?? [];
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'has_code'));
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'type_codes'));
     }
 
     /**
