@@ -20,7 +20,7 @@
                                 <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
                                     :src="file.path_string"
                                     :alt="item.name"
-                                    class="rounded-lg object-cover ml-1 mt-0.5"
+                                    class="rounded-lg object-cover ltr:ml-1 rtl:mr-1 mt-0.5"
                                     />
                                 </div>
 

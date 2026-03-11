@@ -168,7 +168,7 @@
                         <div class="flex items-center" v-if="storeCard">
                             <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent">
 
-                            <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:ml-2">
+                            <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:mr-2">
                                 <strong>{{ textStoreCard }}</strong>
                             </label>
                         </div>
@@ -307,7 +307,7 @@
                     <div class="flex items-center" v-if="storeCard">
                         <input @input="changeStoreCard" :id="'store_card' + _uid" name="store_card" type="checkbox" value="true" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent">
 
-                        <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:ml-2">
+                        <label :for="'store_card' + _uid" class="text-black text-sm font-medium ltr:ml-2 rtl:mr-2">
                             <strong>{{ textStoreCard }}</strong>
                         </label>
                     </div>

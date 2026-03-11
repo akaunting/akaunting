@@ -479,7 +479,7 @@ html[dir='ltr'] .el-picker-panel__sidebar {
 
 html[dir='rtl'] .el-picker-panel__sidebar {
     padding-right: 12px;
-    left: 0;
+    right: 0;
 }
 
 html[dir='ltr'] .dashboard-picker .el-picker-panel__body {
@@ -507,6 +507,13 @@ html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
     box-shadow: -10px 0 0 #888aae !important;
 }
 
+html[dir='rtl'] .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir='rtl'] .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir='rtl'] .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    -webkit-box-shadow: 10px 0 0 #888aae !important;
+    box-shadow: 10px 0 0 #888aae !important;
+}
+
 .el-date-editor .el-range-input, .el-date-editor .el-range-input::placeholder {
     color: #424242;
 }
@@ -532,7 +539,7 @@ html[dir='rtl'] .el-picker-panel__shortcut {
 
 html[dir='rtl'] .el-input__suffix {
     left: 5px;
-    right: 0;
+    right: unset;
     text-align: left;
 }
 

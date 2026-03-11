@@ -3,10 +3,10 @@
         <label class="text-black text-sm font-medium mb-1 xl:hidden">{{ label }}</label>
 
         <div class="relative full flex items-center cursor-pointer">
-            <input type="radio" :name="name" v-show="selected == '0'" @click="enabled = 1" value="1" id="enabled-1" v-model="selected" class="w-full h-full absolute right-0 z-20 opacity-0 cursor-pointer">
-            <input type="radio" :name="name" v-show="selected == '1'" @click="enabled = 0" value="0" id="enabled-0" v-model="selected" class="w-full h-full absolute left-0 z-20 opacity-0 cursor-pointer">
+            <input type="radio" :name="name" v-show="selected == '0'" @click="enabled = 1" value="1" id="enabled-1" v-model="selected" class="w-full h-full absolute ltr:right-0 rtl:left-0 z-20 opacity-0 cursor-pointer">
+            <input type="radio" :name="name" v-show="selected == '1'" @click="enabled = 0" value="0" id="enabled-0" v-model="selected" class="w-full h-full absolute ltr:left-0 rtl:right-0 z-20 opacity-0 cursor-pointer">
 
-            <div class="absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform" :class="selected == '1' ? 'translate-x-full' : 'translate-x-0'"></div>
+            <div class="absolute ltr:left-1 rtl:right-1 top-1 bg-white w-5 h-5 rounded-full transition transform" :class="selected == '1' ? 'ltr:translate-x-full rtl:-translate-x-full' : 'translate-x-0'"></div>
             <div class="block w-full h-7 rounded-full transition transition-color" :class="selected == '1' ? 'bg-green' : 'bg-green-200'"></div>
         </div>
     </div>

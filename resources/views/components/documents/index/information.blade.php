@@ -1,5 +1,5 @@
 <div id="{{ $id }}" role="tooltip" class="w-full sm:w-96 inline-block absolute ltr:left-0 rtl:right-0 z-10 text-sm font-medium rounded-lg border border-gray-200 shadow-sm whitespace-nowrap transition-visible bg-lilac-900 border-none text-black p-6 cursor-auto opacity-0 invisible delay-700 information-content">
-    <div class="absolute w-2 h-2 sm:inset-y-1/2 sm:-right-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-lilac-900 before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0 data-popper-arrow"></div>
+    <div class="absolute w-2 h-2 sm:inset-y-1/2 sm:ltr:-right-1 sm:rtl:-left-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-lilac-900 before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0 data-popper-arrow"></div>
 
     <ul>
         <li class="relative flex items-center text-sm mb-7">

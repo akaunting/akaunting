@@ -20,7 +20,7 @@
     <div class="flex flex-col lg:flex-row col-span-3 gap-y-8 gap-x-12 ltr:pl-8 rtl:pr-8 my-8">
         @foreach ($modules as $item)
             <div>
-                <div class="relative right-10 bottom-4">
+                <div class="relative ltr:right-10 rtl:left-10 bottom-4">
                     <i class="absolute material-icons text-purple transform rotate-180 text-7xl">format_quote</i> 
                 </div>
 

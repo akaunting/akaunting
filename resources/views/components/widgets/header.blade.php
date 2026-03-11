@@ -9,7 +9,7 @@
             @if ($report = $class->getReportUrl())
                 @if ($class->model?->settings?->raw_width == '25' || $class->model?->settings?->width == 'w-full lg:w-1/4 lg:px-6')
                     <x-link href="{{ $report }}" class="lg:flex hidden text-purple hover:bg-gray-100 rounded-xl w-8 h-8 items-center justify-center text-sm ltr:text-right rtl:text-left" override="class">
-                        <x-tooltip id="tooltip-view-report" placement="top" message="{{ trans('widgets.view_report') }}" class="text-black left-5">
+                        <x-tooltip id="tooltip-view-report" placement="top" message="{{ trans('widgets.view_report') }}" class="text-black ltr:left-5 rtl:right-5">
                             <x-icon icon="visibility" class="text-lg font-normal"></x-icon>
                         </x-tooltip>
                     </x-link>

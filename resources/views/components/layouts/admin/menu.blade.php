@@ -80,7 +80,7 @@
                     <span id="menu-notification-icon" name="notifications" class="material-icons-outlined text-purple text-2xl pointer-events-none">notifications</span>
 
                     @if ($notification_count)
-                        <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
+                        <span data-notification-count class="w-2 h-2 absolute top-2 ltr:right-2 rtl:left-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
                             {{ $notification_count }}
                         </span>
                     @endif

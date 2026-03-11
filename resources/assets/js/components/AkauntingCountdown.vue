@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="flex text-xl justify-center content-center">
-            <div class="days mr-2 relative"> {{ displayDays}} </div>
+            <div class="days ltr:mr-2 rtl:ml-2 relative"> {{ displayDays}} </div>
             <span class="leading-snug">:</span>
 
             <div class="hours mx-2 relative"> {{ displayHours }} </div>
@@ -10,7 +10,7 @@
             <div class="minutes mx-2 relative"> {{ displayMinutes }} </div>
             <span class="leading-snug">:</span>
 
-            <div class="seconds ml-2 relative"> {{ displaySeconds }} </div>
+            <div class="seconds ltr:ml-2 rtl:mr-2 relative"> {{ displaySeconds }} </div>
         </section>
     </div>
 </template>
