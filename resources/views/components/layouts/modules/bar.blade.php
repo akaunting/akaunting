@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <div class="lg:absolute lg:bottom-2.5 ltr:lg:right-0 rtl:lg:left-0 flex flex-row items-end lg:items-center mb-1 divide-x divide-black-400 mt-4 lg:mt-0">
+    <div class="lg:absolute lg:bottom-2.5 ltr:lg:right-0 rtl:lg:left-0 flex flex-row items-end lg:items-center mb-1 divide-x rtl:divide-x-reverse divide-black-400 mt-4 lg:mt-0">
         <x-link href="{{ route('apps.home.index') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
             <x-link.hover color="to-black-400">
                 {{ trans('modules.home') }}

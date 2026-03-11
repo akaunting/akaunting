@@ -714,7 +714,7 @@ export default {
 
     html[dir='ltr'] .searh-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
-        //margin-left: 10px;
+        /* margin-left: 10px; */
     }
 
     html[dir='rtl'] .searh-field .el-tag-option {

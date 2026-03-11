@@ -4,7 +4,7 @@
             <div class="w-58 flex items-center">
                 <button type="button"
                     x-on:click="price_type = 'monthly'"
-                    class="w-18 flex justify-center text-base px-2 py-1 rounded-tl-lg rounded-bl-lg"
+                    class="w-18 flex justify-center text-base px-2 py-1 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg"
                     x-bind:class="price_type == 'monthly' ? 'bg-black-700 text-white' : 'bg-gray-200 btn-outline-primary'"
                 >
                     {{ trans('general.monthly') }}
@@ -20,7 +20,7 @@
 
                 <button type="button"
                     x-on:click="price_type = 'lifetime'"
-                    class="w-18 flex justify-center text-base px-2 py-1 rounded-tr-lg rounded-br-lg"
+                    class="w-18 flex justify-center text-base px-2 py-1 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg"
                     x-bind:class="price_type == 'lifetime' ? 'bg-black-700 text-white' : 'bg-gray-200 btn-outline-primary'"
                 >
                     {{ trans('general.lifetime') }}

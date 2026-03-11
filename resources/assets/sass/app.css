@@ -241,7 +241,7 @@
     /* changelog modal styling for update center */
 
     #button-monthly {
-        margin-left: unset !important;
+        margin-inline-start: unset !important;
     }
 
     /* width of container, custom choose */
@@ -261,13 +261,13 @@
 }
 
 .menu__submenu li::before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
 
 .menu__submenu details.relative:before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
@@ -320,7 +320,7 @@
 
 .el-select-dropdown__item .new-badge {
     width: 45px !important;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     z-index: 99;
 }
 
@@ -335,7 +335,7 @@
 }
 
 .el-select-dropdown__item .badge-success {
-    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs text-right m-0;
+    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs ltr:text-right rtl:text-left m-0;
     width: auto;
 }
 
@@ -423,8 +423,15 @@
 
 .el-date-editor .el-input__prefix {
     top: 3px;
-    left: 0;
     color: #595959;
+}
+
+html[dir='ltr'] .el-date-editor .el-input__prefix {
+    left: 0;
+}
+
+html[dir='rtl'] .el-date-editor .el-input__prefix {
+    right: 0;
 }
 
 .recurring-invoice-data {
@@ -451,17 +458,23 @@
     width: 200px !important;
 }
 
-.el-picker-panel__sidebar {
+html[dir='ltr'] .el-picker-panel__sidebar {
     padding-left: 12px;
 }
 
 html[dir='rtl'] .el-picker-panel__sidebar {
+    padding-right: 12px;
     left: 0;
 }
 
-.dashboard-picker .el-picker-panel__body {
+html[dir='ltr'] .dashboard-picker .el-picker-panel__body {
     width: 700px !important;
     margin-left: 200px !important;
+}
+
+html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
+    width: 700px !important;
+    margin-right: 200px !important;
 }
 
 .el-input__suffix[style*="direction:rtl"] {
@@ -508,8 +521,12 @@ html[dir='rtl'] .el-scrollbar__wrap {
     margin-right: unset !important;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     right: 15px !important;
+}
+
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+    left: 15px !important;
 }
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
@@ -752,6 +769,10 @@ body {
     height: 100%;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
     margin-right: 1rem;
+}
+
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+    margin-left: 1rem;
 }

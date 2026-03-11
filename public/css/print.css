@@ -25,9 +25,8 @@ th, td
     margin-bottom: 9px;
 }
 
-.print-report-padding {
-    padding-left: 25px;
-}
+html[dir='ltr'] .print-report-padding { padding-left: 25px; }
+html[dir='rtl'] .print-report-padding { padding-right: 25px; }
 
 html[dir='ltr'] .right-column {
     text-align: right;
@@ -88,18 +87,16 @@ html[dir='rtl'] .print-template .ml-1
 
 html[dir='ltr'] .print-template .ml-2
 {
-    margin-right: 16px;
+    margin-left: 16px;
 }
 
 html[dir='rtl'] .print-template .ml-2
 {
-    margin-left: 16px;
+    margin-right: 16px;
 }
 
-.pl-head
-{
-    padding-left: 18px;
-}
+html[dir='ltr'] .pl-head { padding-left: 18px; }
+html[dir='rtl'] .pl-head { padding-right: 18px; }
 
 .print-template .mt-0
 {
@@ -173,13 +170,11 @@ html[dir='rtl'] .print-template .ml-2
     padding-top: 16px;
 }
 
-.p-index-left {
-    padding: 0 15px 0 0;
-}
+html[dir='ltr'] .p-index-left { padding: 0 15px 0 0; }
+html[dir='rtl'] .p-index-left { padding: 0 0 0 15px; }
 
-.p-index-right {
-    padding: 0 0 0 15px;
-}
+html[dir='ltr'] .p-index-right { padding: 0 0 0 15px; }
+html[dir='rtl'] .p-index-right { padding: 0 15px 0 0; }
 
 .p-modern {
     padding: 0 10px 0 10px;
@@ -195,40 +190,26 @@ html[dir='rtl'] .print-template .ml-2
     padding-bottom: 16px;
 }
 
-.print-template .pl-3
-{
-    padding-left: 24px;
-}
+html[dir='ltr'] .print-template .pl-3 { padding-left: 24px; }
+html[dir='rtl'] .print-template .pl-3 { padding-right: 24px; }
 
-.print-template .pl-4
-{
-    padding-left: 32px;
-}
+html[dir='ltr'] .print-template .pl-4 { padding-left: 32px; }
+html[dir='rtl'] .print-template .pl-4 { padding-right: 32px; }
 
-.print-template .pl-5
-{
-    padding-left: 40px;
-}
+html[dir='ltr'] .print-template .pl-5 { padding-left: 40px; }
+html[dir='rtl'] .print-template .pl-5 { padding-right: 40px; }
 
-.print-template .pl-6
-{
-    padding-left: 48px;
-}
+html[dir='ltr'] .print-template .pl-6 { padding-left: 48px; }
+html[dir='rtl'] .print-template .pl-6 { padding-right: 48px; }
 
-.print-template .pl-7
-{
-    padding-left: 56px;
-}
+html[dir='ltr'] .print-template .pl-7 { padding-left: 56px; }
+html[dir='rtl'] .print-template .pl-7 { padding-right: 56px; }
 
-.print-template .pl-8
-{
-    padding-left: 64px;
-}
+html[dir='ltr'] .print-template .pl-8 { padding-left: 64px; }
+html[dir='rtl'] .print-template .pl-8 { padding-right: 64px; }
 
-.print-template .pl-9
-{
-    padding-left: 72px;
-}
+html[dir='ltr'] .print-template .pl-9 { padding-left: 72px; }
+html[dir='rtl'] .print-template .pl-9 { padding-right: 72px; }
 
 .border-1
 {
@@ -317,10 +298,8 @@ html[dir='rtl'] .float-right
     white-space: nowrap;
 }
 
-.text-left
-{
-    text-align: left;
-}
+html[dir='ltr'] .text-left { text-align: left; }
+html[dir='rtl'] .text-left { text-align: right; }
 
 html[dir='ltr'] .text-alignment-left {
     text-align: left !important;
@@ -446,26 +425,34 @@ html[dir='rtl'] .text-right
 .lines .quantity
 {
     width: 10%;
-    text-align: right;
 }
+
+html[dir='ltr'] .lines .quantity { text-align: right; }
+html[dir='rtl'] .lines .quantity { text-align: left; }
 
 .lines .price
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .lines .price { text-align: right; }
+html[dir='rtl'] .lines .price { text-align: left; }
 
 .lines .discount
 {
     width: 10%;
-    text-align: right;
 }
+
+html[dir='ltr'] .lines .discount { text-align: right; }
+html[dir='rtl'] .lines .discount { text-align: left; }
 
 .lines .total
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .lines .total { text-align: right; }
+html[dir='rtl'] .lines .total { text-align: left; }
 
 .modern-lines {
     border-bottom: unset;
@@ -551,26 +538,34 @@ html[dir='rtl'] .text-right
 .c-lines .quantity
 {
     width: 10%;
-    text-align: right;
 }
+
+html[dir='ltr'] .c-lines .quantity { text-align: right; }
+html[dir='rtl'] .c-lines .quantity { text-align: left; }
 
 .c-lines .price
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .c-lines .price { text-align: right; }
+html[dir='rtl'] .c-lines .price { text-align: left; }
 
 .c-lines .discount
 {
     width: 10%;
-    text-align: right;
 }
+
+html[dir='ltr'] .c-lines .discount { text-align: right; }
+html[dir='rtl'] .c-lines .discount { text-align: left; }
 
 .c-lines .total
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .c-lines .total { text-align: right; }
+html[dir='rtl'] .c-lines .total { text-align: left; }
 
 .border-bottom-dashed
 {
@@ -624,20 +619,26 @@ html[dir='rtl'] .text-right
 .modern-lines .price
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .modern-lines .price { text-align: right; }
+html[dir='rtl'] .modern-lines .price { text-align: left; }
 
 .modern-lines .discount
 {
     width: 10%;
-    text-align: right;
 }
+
+html[dir='ltr'] .modern-lines .discount { text-align: right; }
+html[dir='rtl'] .modern-lines .discount { text-align: left; }
 
 .modern-lines .total
 {
     width: 20%;
-    text-align: right;
 }
+
+html[dir='ltr'] .modern-lines .total { text-align: right; }
+html[dir='rtl'] .modern-lines .total { text-align: left; }
 /*--Print Template Modern Finish--*/
 
 /*--Print Reports Start--*/
@@ -666,15 +667,11 @@ html[dir='rtl'] .text-right
     border-collapse: collapse;
 }
 
-.rp-float-left
-{
-    float: left;
-}
+html[dir='ltr'] .rp-float-left { float: left; }
+html[dir='rtl'] .rp-float-left { float: right; }
 
-.rp-float-right
-{
-    float: right;
-}
+html[dir='ltr'] .rp-float-right { float: right; }
+html[dir='rtl'] .rp-float-right { float: left; }
 /*--Print Reports Finish--*/
 
 .clearfix:after {
