@@ -2,7 +2,7 @@
     <tr v-for="(row, index) in items" :index="index">
         @stack('name_td_start')
 
-        <td class="border-r-0 border-b-0 p-0"
+        <td class="ltr:border-r-0 rtl:border-l-0 border-b-0 p-0"
             :class="[{'has-error': form.errors.has('items.' + index + '.name') }]"
             colspan="7">
             <table class="w-full border-b pb-3">
@@ -175,7 +175,7 @@
 
                         @stack('delete_td_start')
 
-                        <td class="text-right align-top group">
+                        <td class="ltr:text-right rtl:text-left align-top group">
                             <button type="button" @click="onDeleteItem(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100 mt-4">
                                 <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                             </button>
@@ -193,7 +193,7 @@
                             <div class="relative">
                                 <div class="absolute -top-6 ltr:left-3 rtl:right-3 flex items-center">
                                     @if (! $hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
-                                        <div class="text-left border-0 p-0 mr-16" v-if="!row.add_discount">
+                                        <div class="ltr:text-left rtl:text-right border-0 p-0 ltr:mr-16 rtl:ml-16" v-if="!row.add_discount">
                                             <x-button type="button" class="text-xs text-purple" @click="onAddLineDiscount(index)" override="class">
                                                 <x-button.hover color="to-purple">
                                                     {{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}
@@ -202,7 +202,7 @@
                                         </div>
                                     @endif
 
-                                    <div class="text-right border-0 p-0 pr-4">
+                                    <div class="ltr:text-right rtl:text-left border-0 p-0 ltr:pr-4 rtl:pl-4">
                                         <x-button type="button" class="text-xs text-purple" @click="onAddTax(index)" override="class">
                                             <x-button.hover color="to-purple">
                                                 {{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}
@@ -334,7 +334,7 @@
                                     >
                                         <template #option="{option}">
                                             <span class="tax-group flex items-center">
-                                                <span class="float-left">
+                                                <span class="ltr:float-left rtl:float-right">
                                                     @{{ option.option.title }}
                                                 </span>
 
@@ -441,7 +441,7 @@
                                     >
                                         <template #option="{option}">
                                             <span class="tax-group flex items-center">
-                                                <span class="float-left">
+                                                <span class="ltr:float-left rtl:float-right">
                                                     @{{ option.option.title }}
                                                 </span>
 
@@ -473,8 +473,8 @@
                                 </div>
 
                                 <div class="flex items-center lg:absolute ltr:right-0 rtl:left-0">
-                                    <div class="text-right">
-                                        <div class="required disabled text-right input-price disabled-money">
+                                    <div class="ltr:text-right rtl:text-left">
+                                        <div class="required disabled ltr:text-right rtl:text-left input-price disabled-money">
                                             <input type="tel" class="v-money form-control ltr:text-right rtl:text-left" name="discount_amount" disabled="disabled" value="__">
                                         </div>
                                     </div>

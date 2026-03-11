@@ -1,6 +1,6 @@
 <div class="relative w-full flex flex-col sm:flex-row border-b pt-8 mb-4">
     <div class="flex items-center">
-        <div class="flex flex-row items-center place-center border-r">
+        <div class="flex flex-row items-center place-center ltr:border-r rtl:border-l">
             <button class="flex items-center" id="dropdownButton" data-dropdown-toggle="dropdown">
                 <i class="material-icons w-10 flex items-center aspect-square text-light-gray ltr:pl-2 rtl:pr-2 hover:text-gray-700"> apps_outlined </i>
             </button>
@@ -45,7 +45,7 @@
                                                 </h6>
 
                                                 <div class="h-12 overflow-hidden">
-                                                    <p class="font-thin text-xs text-left">
+                                                    <p class="font-thin text-xs ltr:text-left rtl:text-right">
                                                         {!! $item->description !!}
                                                     </p>
                                                 </div>

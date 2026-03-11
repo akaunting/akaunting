@@ -16,7 +16,7 @@
                     <tr>
                         @stack('move_th_start')
 
-                        <th class="w-6 block text-left border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                        <th class="w-6 block ltr:text-left rtl:text-right border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0" style="vertical-align:bottom;">
                             @if (! $hideEditItemColumns)
                                 <x-documents.form.item-columns :type="$type" />
                             @endif
@@ -27,7 +27,7 @@
                         @if (! $hideItems)
                             @stack('name_th_start')
 
-                                <th class="px-3 py-1 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                                <th class="px-3 py-1 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right text-xs font-normal border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0" style="vertical-align:bottom;">
                                     @if (! $hideItemName)
                                         {{ (trans_choice($textItemName, 2) != $textItemName) ? trans_choice($textItemName, 2) : trans($textItemName) }}
 
@@ -44,7 +44,7 @@
 
                             @stack('description_th_start')
 
-                            <th class="px-3 py-1 text-left text-xs font-normal border-t-0 border-r-0 border-b-0" style=" vertical-align:bottom;">
+                            <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0" style=" vertical-align:bottom;">
                                 @if (! $hideItemDescription)
                                     {{ trans($textItemDescription) }}
 
@@ -62,7 +62,7 @@
 
                         @stack('quantity_th_start')
 
-                        <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0" style="vertical-align:bottom;">
+                        <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0" style="vertical-align:bottom;">
                             @if (! $hideItemQuantity)
                                 {{ trans($textItemQuantity) }}
 
@@ -79,7 +79,7 @@
 
                         @stack('price_th_start')
 
-                        <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 border-r-0 border-b-0 pr-1" style="vertical-align:bottom;">
+                        <th class="px-3 py-1 ltr:text-left rtl:text-right text-xs font-normal border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0 ltr:pr-1 rtl:pl-1" style="vertical-align:bottom;">
                             @if (! $hideItemPrice)
                                 {{ trans($textItemPrice) }}
 
@@ -113,7 +113,7 @@
 
                         @stack('remove_th_start')
 
-                        <th class="border-t-0 border-r-0 border-b-0 align-bottom" style="width:24px; display:block;">
+                        <th class="border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0 align-bottom" style="width:24px; display:block;">
                             <div></div>
                         </th>
 
