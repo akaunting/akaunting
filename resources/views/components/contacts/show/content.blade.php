@@ -279,7 +279,7 @@
                                                         {{ $item->document_number }}
                                                     </span>
 
-                                                    <div class="w-28 absolute h-10 -left-10 -mt-6"></div>
+                                                    <div class="w-28 absolute h-10 ltr:-left-10 rtl:-right-10 -mt-6"></div>
 
                                                     <x-documents.index.information :document="$item" />
                                                 </x-slot>
@@ -374,7 +374,7 @@
                                                             {{ $item->document->document_number }}
                                                         </x-link>
 
-                                                        <div class="w-28 absolute h-10 -left-10 -mt-6"></div>
+                                                        <div class="w-28 absolute h-10 ltr:-left-10 rtl:-right-10 -mt-6"></div>
 
                                                         <x-documents.index.information id="tooltip-information-transaction-{{ $item->id }}" :document="$item->document" />
                                                     @else

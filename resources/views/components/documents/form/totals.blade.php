@@ -146,7 +146,7 @@
                             <span class="font-medium" v-html="tax.name"></span>
                         </td>
 
-                        <td class="ltr:text-right rtl:text-left border-t-0 border-b-0 long-texts pt-5 pb-0 pl-3">
+                        <td class="ltr:text-right rtl:text-left border-t-0 border-b-0 long-texts pt-5 pb-0 ltr:pl-3 rtl:pr-3">
                             <div>
                                 <x-form.input.money
                                     name="tax_total"

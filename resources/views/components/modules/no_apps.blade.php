@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="flex flex-col gap-y-6">
-                    <p class="font-semibold text-sm text-left leading-loose">
+                    <p class="font-semibold text-sm ltr:text-left rtl:text-right leading-loose">
                         {!! nl2br($item->text) !!}
                     </p>
 

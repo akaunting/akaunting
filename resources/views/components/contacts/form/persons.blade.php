@@ -22,7 +22,7 @@
                         {{ trans('general.phone') }}
                     </x-table.th>
 
-                    <x-table.th class="w-6 none-truncate text-right align-top group" override="class"></x-table.th>
+                    <x-table.th class="w-6 none-truncate ltr:text-right rtl:text-left align-top group" override="class"></x-table.th>
                 </x-table.tr>
             </x-table.thead>
 
@@ -64,7 +64,7 @@
                         />
                     </x-table.td>
 
-                    <x-table.td class="w-6 mt-2.5 none-truncate text-right align-top group" override="class">
+                    <x-table.td class="w-6 mt-2.5 none-truncate ltr:text-right rtl:text-left align-top group" override="class">
                         <button type="button" @click="onDeletePerson(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100 mt-4">
                             <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                         </button>

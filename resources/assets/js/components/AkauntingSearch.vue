@@ -1258,6 +1258,11 @@ export default {
         background-color: transparent;
     }
 
+    html[dir='rtl'] .searh-field .el-tag .el-tag__close.el-icon-close {
+        right: auto;
+        left: -5px;
+    }
+
     html[dir='ltr'] .searh-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
         /* margin-left: 10px; */
@@ -1310,8 +1315,14 @@ export default {
         min-width: 50px !important;
     }
 
-    .searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
+    html[dir='ltr'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='ltr'] .btn svg:not(:last-child) {
         margin-right: inherit !important;
+    }
+
+    html[dir='rtl'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='rtl'] .btn svg:not(:last-child) {
+        margin-left: inherit !important;
     }
 
     .dropdown-menu {

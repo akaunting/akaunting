@@ -375,7 +375,7 @@
         @stack('footer_input_start')
             <div class="row mt-7">
                 <div class="col-100 py-top p-modern" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
-                    <div class="text pl-2">
+                    <div class="text ltr:pl-2 rtl:pr-2">
                         <span class="text-white font-bold">
                             {!! nl2br($document->footer) !!}
                         </span>

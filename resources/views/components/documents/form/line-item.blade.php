@@ -101,7 +101,7 @@
                                         type="text"
                                         min="0"
                                         :ref="'items-' + index + '-quantity'"
-                                        class="w-full text-sm px-3 py-2.5 mt-0 text-right rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple input-number-disabled"
+                                        class="w-full text-sm px-3 py-2.5 mt-0 ltr:text-right rtl:text-left rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple input-number-disabled"
                                         :name="'items.' + index + '.quantity'"
                                         autocomplete="off"
                                         required="required"
@@ -125,7 +125,7 @@
 
                         @stack('price_td_start')
 
-                        <td class="px-3 py-3 pr-1 border-b-0 align-top price">
+                        <td class="px-3 py-3 ltr:pr-1 rtl:pl-1 border-b-0 align-top price">
                             <div>
                                 @stack('price_input_start')
 
@@ -397,7 +397,7 @@
 
                                     <akaunting-select
                                         class="mb-0 select-tax"
-                                        style="margin-left: 1px; margin-right: -2px;"
+                                        style="{{ language()->direction() === 'rtl' ? 'margin-right: 1px; margin-left: -2px;' : 'margin-left: 1px; margin-right: -2px;' }}"
                                         :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
                                         :icon="''"
                                         :title="''"

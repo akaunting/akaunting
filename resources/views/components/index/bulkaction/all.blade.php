@@ -1,6 +1,6 @@
 @stack('bulk_action_all_input_start')
 
-<div class="text-left">
+<div class="ltr:text-left rtl:text-right">
     <input type="checkbox"
         id="table-check-all"
         class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent" 

@@ -112,7 +112,7 @@
             </button>
 
             @can('read-common-companies')
-                <div id="dropdown-menu-company" class="absolute right-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
+                <div id="dropdown-menu-company" class="absolute ltr:right-0 rtl:left-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="{{ language()->direction() === 'rtl' ? 'right: auto;' : 'left: auto;' }} min-width: 10rem;">
                     @foreach($companies as $com)
                         <x-link href="{{ route('companies.switch', $com->id) }}" id="menu-company-{{ $com->id }}" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
                             <div class="w-full h-full flex items-center rounded-md px-2 hover:bg-lilac-100">

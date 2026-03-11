@@ -1,7 +1,7 @@
 <div class="flex flex-col lg:flex-row">
     <div class="w-full lg:w-1/2">
         <div class="border-b px-2 pb-3">
-            <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light -ml-0.5">
+            <h1 class="flex items-center text-2xl xl:text-5xl text-black font-light ltr:-ml-0.5 rtl:-mr-0.5">
                 <x-title>
                     {!! $title !!}
                 </x-title>

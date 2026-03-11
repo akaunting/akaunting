@@ -64,7 +64,7 @@
                             input="onChangeAmount($event)"
                         />
 
-                        <div class="sm:col-span-2 text-xs absolute right-0 top-1">
+                        <div class="sm:col-span-2 text-xs absolute ltr:right-0 rtl:left-0 top-1">
                             <div class="custom-control custom-checkbox">
                                 <x-form.input.checkbox
                                     name="pay_in_full"

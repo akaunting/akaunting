@@ -331,7 +331,7 @@
 
                 <tbody>
                     <tr>
-                        <td class="item text-alignment-left ltr:text-left rtl:text-right" style="color:#424242; font-size:12px; padding-left:0;">
+                        <td class="item text-alignment-left ltr:text-left rtl:text-right" style="color:#424242; font-size:12px; padding-{{ language()->direction() === 'rtl' ? 'right' : 'left' }}:0;">
                             @if (! $hideRelatedDocumentNumber)
                                 <a class="text-medium" style="border-bottom:1px solid;" href="{{ route($routeDocumentShow, $transaction->document->id) }}">
                                     {{ $transaction->document->document_number }}
@@ -352,7 +352,7 @@
                             </td>
                         @endif
 
-                        <td class="price text-alignment-right ltr:text-right rtl:text-left" style="color:#424242; font-size:12px; padding-right:0;">
+                        <td class="price text-alignment-right ltr:text-right rtl:text-left" style="color:#424242; font-size:12px; padding-{{ language()->direction() === 'rtl' ? 'left' : 'right' }}:0;">
                             @if (! $hideRelatedDocumentAmount)
                                 <x-money :amount="$transaction->document->amount" :currency="$transaction->document->currency_code" /> <br />
                             @endif
@@ -397,9 +397,9 @@
         </div>
         @endif
 
-        <table style="text-align: right; margin-top:35px;">
+        <table style="text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }}; margin-top:35px;">
             <tr>
-                <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
+                <td valign="center" style="width:80%; display:block; float:{{ language()->direction() === 'rtl' ? 'left' : 'right' }}; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
                     <table>
                         <tr>
                             <td valign="center" style="font-size: 14px; color: #ffffff; padding: 0;">

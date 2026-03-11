@@ -193,7 +193,7 @@
                                             v-model="totals.closing_balance"
                                             :currency="$currency"
                                             dynamicCurrency="currency"
-                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
                                             form-group-class="ltr:text-right rtl:text-left disabled-money"
                                         />
                                     </td>
@@ -213,7 +213,7 @@
                                             v-model="totals.cleared_amount"
                                             :currency="$currency"
                                             dynamicCurrency="currency"
-                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
                                             form-group-class="ltr:text-right rtl:text-left disabled-money"
                                         />
                                     </td>
@@ -236,7 +236,7 @@
                                                 v-model="totals.difference"
                                                 :currency="$currency"
                                                 dynamicCurrency="currency"
-                                                money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                                money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
                                                 form-group-class="ltr:text-right rtl:text-left disabled-money"
                                             />
                                         </div>
