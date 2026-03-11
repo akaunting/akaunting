@@ -35,6 +35,8 @@ class Categories extends Controller
     {
         $type = $request->get('type', Category::ITEM_TYPE);
 
+        $type_codes = [];
+
         switch ($type) {
             case Category::INCOME_TYPE:
                 $types = $this->getIncomeCategoryTypes();
@@ -52,6 +54,14 @@ class Categories extends Controller
                 $types = [$type];
         }
 
+        foreach ($types as $type) {
+            $config_type = config('type.category.' . $type, []);
+            $type_codes[$type] = empty($config_type['hide']) || ! in_array('code', $config_type['hide']);
+        }
+
+        $config_type = config('type.category.' . $type, []);
+        $show_code_field = ! empty($config_type['hide']) && in_array('code', $config_type['hide']) ? false : true;
+
         $categories = collect();
 
         Category::type($types)
@@ -66,9 +76,7 @@ class Categories extends Controller
                 ]);
             });
 
-        $has_code = $this->moduleIsEnabled('double-entry');
-
-        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'has_code'))->render();
+        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'show_code_field', 'type_codes'))->render();
 
         return response()->json([
             'success' => true,
