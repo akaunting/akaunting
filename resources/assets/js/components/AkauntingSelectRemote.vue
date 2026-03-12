@@ -87,7 +87,7 @@
             >
                 <slot name="option" :option="option">
                     <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
-                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                     </span>
                 </slot>
 
@@ -114,7 +114,7 @@
                 >
                     <slot name="option" :option="option">
                         <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
-                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                         </span>
                     </slot>
 
@@ -145,11 +145,11 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute ltr:right-8 rtl:left-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
 
         <span
             slot="infoBlock"
-            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            class="absolute ltr:right-8 rtl:left-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
             v-if="!isDropdownVisible && group && selectedGroupLabel"
         >
             {{ selectedGroupLabel }}
@@ -158,6 +158,7 @@
         <select :name="name"  :id="name + '-' + _uid" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
+
     </base-input>
 
     <span v-else>
@@ -228,7 +229,7 @@
             >
                 <slot name="option" :option="option">
                     <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
-                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                     </span>
                 </slot>
 
@@ -255,7 +256,7 @@
                 >
                     <slot name="option" :option="option">
                         <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
-                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                         </span>
                     </slot>
 
@@ -281,15 +282,16 @@
                     </span>
                 </div>
             </el-option>
+
         </el-select>
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute ltr:right-8 rtl:left-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
 
         <span
             slot="infoBlock"
-            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            class="absolute ltr:right-8 rtl:left-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
             v-if="!isDropdownVisible && group && selectedGroupLabel"
         >
             {{ selectedGroupLabel }}

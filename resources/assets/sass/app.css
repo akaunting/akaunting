@@ -811,3 +811,15 @@ html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.select
 html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
     margin-left: 1rem;
 }
+
+/* Native <select> arrow direction for RTL */
+html[dir='rtl'] select {
+    background-position: left 0.5rem center;
+    padding-right: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+/* Report tree expand/collapse toggle - flip icon to point left in RTL expanded state */
+html[dir='rtl'] button[node^='child'] .material-icons:not(.rotate-90) {
+    transform: rotate(180deg);
+}
