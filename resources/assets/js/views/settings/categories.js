@@ -30,14 +30,30 @@ const app = new Vue({
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
             categoriesBasedTypes: null,
-            selected_type: true
+            selected_type: true,
+            type_codes: {},
+            show_code_field: false
+        }
+    },
+
+    mounted() {
+        if (typeof type_codes !== 'undefined') {
+            this.type_codes = type_codes;
+
+            if (this.form.type) {
+                this.show_code_field = this.type_codes[this.form.type] || false;
+            }
         }
     },
 
     methods: {
-        updateParentCategories(event) {
+        changeCategories(event) {
             if (event === '') {
                 return;
+            }
+
+            if (this.type_codes[event] !== undefined) {
+                this.show_code_field = this.type_codes[event];
             }
 
             if (typeof JSON.parse(this.form.categories)[event] === 'undefined') {

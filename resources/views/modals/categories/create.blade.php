@@ -6,7 +6,27 @@
 
         <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="$categories" not-required sort-options="false" searchable form-group-class="col-span-6" />
 
-        <x-form.input.hidden name="type" value="{{ $type }}" />
+        @if (!empty($types) && count($types) > 1)
+            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" value="{{ $type }}" form-group-class="col-span-6" change="changeCategories" />
+
+            <x-form.group.text name="code" label="{{ trans('general.code') }}" form-group-class="col-span-6" v-show="show_code_field" />
+        @else
+            <x-form.input.hidden name="type" value="{{ $type }}" />
+
+            @if ($show_code_field)
+                <x-form.group.text name="code" label="{{ trans('general.code') }}" form-group-class="col-span-6" />
+            @endif
+        @endif
+
+        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
+
         <x-form.input.hidden name="enabled" value="1" />
     </div>
 </x-form>
+
+<script type="text/javascript">
+    if (typeof type_codes === 'undefined') {
+        var type_codes = {!! json_encode($type_codes) !!};
+    }
+</script>
+

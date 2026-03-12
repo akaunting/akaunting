@@ -35,7 +35,7 @@
                 <div class="relative flex">
                     <span class="material-icons-round cursor-pointer">arrow_drop_down</span>
 
-                    <div id="widgets-list-{{ $class->model->id }}" class="absolute ltr:right-0 rtl:left-0 mt-3 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
+                    <div id="widgets-list-{{ $class->model->id }}" class="absolute ltr:right-0 rtl:left-0 mt-3 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 hidden" style="min-width: 10rem;">
                         @foreach ($periods as $name => $amount)
                             <div id="dashboard-widget-{{ strtolower(class_basename($class)) }}-{{ str_replace('_', '-', $name) }}" class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap cursor-auto">
                                 <div class="w-full h-full flex items-center justify-between rounded-md px-2 text-sm hover:bg-lilac-100">

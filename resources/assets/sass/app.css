@@ -291,6 +291,10 @@
     color:#595959 !important;
 }
 
+.el-select-group__title {
+    @apply text-purple-500 font-bold;
+}
+
 .el-select-dropdown .popper__arrow::after {
     display: none;
 }

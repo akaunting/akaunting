@@ -55,7 +55,7 @@
             @can('create-modules-item')
                 @if ($module->install)
                     @if (! empty($module->isPurchase) && (! empty($module->purchase_type) && $module->purchase_type == 'monthly'))
-                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="right">
+                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
                             <x-button disabled="disabled">
                                 {{ trans('modules.install') }}
                             </x-button>
@@ -140,7 +140,7 @@
             @can('create-modules-item')
                 @if ($module->install)
                     @if (! empty($module->isPurchase) && (! empty($module->purchase_type) && $module->purchase_type == 'monthly'))
-                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="right">
+                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
                             <x-button disabled="disabled">
                                 {{ trans('modules.install') }}
                             </x-button>

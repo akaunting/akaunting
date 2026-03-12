@@ -115,9 +115,10 @@ const dashboard = new Vue({
 
             if (nextIndex >= 0 && nextIndex < visibleItems.length) {
                 const nextItem = visibleItems[nextIndex];
+                const scrollAmount = nextItem.getBoundingClientRect().left - sliderRect.left;
 
                 slider.scrollBy({
-                    left: nextItem.getBoundingClientRect().left - sliderRect.left,
+                    left: isRtl ? -scrollAmount : scrollAmount,
                     behavior: 'smooth'
                 });
             }

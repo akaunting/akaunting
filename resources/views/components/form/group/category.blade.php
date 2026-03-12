@@ -1,4 +1,7 @@
-@if ((! $attributes->has('withoutRemote') && ! $attributes->has('without-remote')) && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new')))
+@if (
+    (! $attributes->has('withoutRemote') && ! $attributes->has('without-remote'))
+    && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new'))
+)
     <x-form.group.select
         remote
         remote_action="{{ $remoteAction }}"
@@ -11,10 +14,7 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
-        :option_field="[
-            'key' => 'id',
-            'value' => 'title'
-        ]"
+        :option_field="$option_field"
 
         :multiple="$multiple"
         :group="$group"
@@ -28,11 +28,19 @@
         <template #option="{option}">
             <div class="flex items-center">
                 <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
+
+                @if ($option_field['value'] == 'title')
+                <span>@{{ option.option.title }}</span>
+                @else
                 <span>@{{ option.option.name }}</span>
+                @endif
             </div>
         </template>
     </x-form.group.select>
-@elseif (($attributes->has('withoutRemote') || $attributes->has('without-remote')) && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new')))
+@elseif (
+    ($attributes->has('withoutRemote') || $attributes->has('without-remote'))
+    && (! $attributes->has('withoutAddNew') && ! $attributes->has('without-add-new'))
+)
     <x-form.group.select
         add-new
         path="{{ $path }}"
@@ -42,10 +50,7 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
-        :option_field="[
-            'key' => 'id',
-            'value' => 'title'
-        ]"
+        :option_field="$option_field"
 
         :multiple="$multiple"
         :group="$group"
@@ -59,11 +64,19 @@
         <template #option="{option}">
             <div class="flex items-center">
                 <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
+
+                @if ($option_field['value'] == 'title')
+                <span>@{{ option.option.title }}</span>
+                @else
                 <span>@{{ option.option.name }}</span>
+                @endif
             </div>
         </template>
     </x-form.group.select>
-@elseif ((! $attributes->has('withoutRemote') && ! $attributes->has('without-remote')) && ($attributes->has('withoutAddNew') || $attributes->has('without-add-new')))
+@elseif (
+    (! $attributes->has('withoutRemote') && ! $attributes->has('without-remote'))
+    && ($attributes->has('withoutAddNew') || $attributes->has('without-add-new'))
+)
     <x-form.group.select
         remote
         remote_action="{{ $remoteAction }}"
@@ -73,10 +86,7 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
-        :option_field="[
-            'key' => 'id',
-            'value' => 'title'
-        ]"
+        :option_field="$option_field"
 
         :multiple="$multiple"
         :group="$group"
@@ -90,7 +100,12 @@
         <template #option="{option}">
             <div class="flex items-center">
                 <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
+
+                @if ($option_field['value'] == 'title')
+                <span>@{{ option.option.title }}</span>
+                @else
                 <span>@{{ option.option.name }}</span>
+                @endif
             </div>
         </template>
     </x-form.group.select>
@@ -101,10 +116,7 @@
         :options="$categories"
         :selected="$selected"
         sort-options="false"
-        :option_field="[
-            'key' => 'id',
-            'value' => 'title'
-        ]"
+        :option_field="$option_field"
 
         :multiple="$multiple"
         :group="$group"
@@ -117,8 +129,13 @@
     >
         <template #option="{option}">
             <div class="flex items-center">
-                <span class="w-5 h-4 rounded-full":style="{backgroundColor: option.option.color_hex_code}"></span>
+                <span class="w-5 h-4 rounded-full" :style="{backgroundColor: option.option.color_hex_code}"></span>
+
+                @if ($option_field['value'] == 'title')
+                <span>@{{ option.option.title }}</span>
+                @else
                 <span>@{{ option.option.name }}</span>
+                @endif
             </div>
         </template>
     </x-form.group.select>
