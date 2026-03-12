@@ -14,20 +14,25 @@
                     <x-slot name="body">
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
+
                         <x-form.group.color name="color" label="{{ trans('general.color') }}" />
 
                         @if ($type_disabled)
-                            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" v-disabled="true" />
+                            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" v-disabled="true" group />
 
                             <input type="hidden" name="type" value="{{ $category->type }}" />
                         @else
-                            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" change="updateParentCategories" />
+                            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" change="changeCategories" group />
+
+                            <x-form.group.text name="code" label="{{ trans('general.code') }}" v-show="show_code_field" />
 
                             <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="$parent_categories" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" />
 
                             <x-form.input.hidden name="parent_category_id" value="{{ $category->parent_id }}" />
                             <x-form.input.hidden name="categories" value="{{ json_encode($categories) }}" />
                         @endif
+
+                        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
                     </x-slot>
                 </x-form.section>
 
@@ -45,6 +50,12 @@
             </x-form>
         </x-form.container>
     </x-slot>
+
+    @push('scripts_start')
+        <script type="text/javascript">
+            var type_codes = {!! json_encode($type_codes) !!};
+        </script>
+    @endpush
 
     <x-script folder="settings" file="categories" />
 </x-layouts.admin>

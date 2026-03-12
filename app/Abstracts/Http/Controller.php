@@ -153,4 +153,54 @@ abstract class Controller extends BaseController
             }
         }
     }
+
+    public function setActiveTabForCategories(): void
+    {
+        if (! request()->has('list_records') && ! request()->has('search')) {
+            $tab_pins = setting('favorites.tab.' . user()->id, []);
+            $tab_pins = ! empty($tab_pins) ? json_decode($tab_pins, true) : [];
+
+            if (! empty($tab_pins) && ! empty($tab_pins['categories'])) {
+                $tab = $tab_pins['categories'];
+
+                if (! empty($tab)) {
+
+                    request()->offsetSet('list_records', $tab);
+                    request()->offsetSet('programmatic', '1');
+                }
+            }
+        }
+
+        if (request()->get('list_records') == 'all') {
+            return;
+        }
+
+        $types = $this->getSearchStringValue('type');
+
+        if (!empty($types)) {
+            $types = is_string($types) ? explode(',', $types) : $types;
+
+            $tab = config('type.category.' . $types[0] . '.group') ? config('type.category.' . $types[0] . '.group') : 'all';
+
+            if (!empty($types) && count($types) > 0) {
+                request()->offsetSet('list_records', $tab);
+
+                $currentSearch = request('search', '');
+                $searchParts = array_filter(explode(' ', $currentSearch), function($part) {
+                    return !empty(trim($part)) && !str_starts_with(trim($part), 'type:');
+                });
+
+                $searchParts[] = 'type:' . implode(',', $types);
+
+                request()->offsetSet('search', implode(' ', $searchParts));
+                request()->offsetSet('programmatic', '1');
+                return;
+            }
+        }
+
+        if (empty($tab)) {
+            request()->offsetSet('list_records', 'all');
+            request()->offsetSet('programmatic', '1');
+        }
+    }
 }
