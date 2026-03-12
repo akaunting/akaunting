@@ -102,6 +102,8 @@ ltr:float-left
 rtl:float-right
 rtl:float-left
 rtl:rotate-180
+ltr:ml-8
+rtl:mr-8
 hover:bg-purple-200
 lg:w-1/4
 lg:px-6

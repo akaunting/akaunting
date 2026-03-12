@@ -76,7 +76,7 @@ export default {
         },
         moneyClass: {
             type: String,
-            default: 'ltr:text-right rtl:text-left',
+            default: 'ltr:text-left rtl:text-right',
             description: "Selectbox disabled status"
         },
         group_class: {
