@@ -18,6 +18,8 @@ class UpdateDocument extends Job implements ShouldUpdate
 
     public function handle(): Document
     {
+        $this->authorize();
+
         if (empty($this->request['amount'])) {
             $this->request['amount'] = 0;
         }
@@ -82,5 +84,24 @@ class UpdateDocument extends Job implements ShouldUpdate
         event(new DocumentUpdated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     */
+    public function authorize(): void
+    {
+        $lockedStatuses = ['sent', 'received', 'viewed', 'partial', 'paid', 'overdue', 'unpaid', 'cancelled'];
+
+        if (
+            isset($this->request['contact_id']) &&
+            (int) $this->request['contact_id'] !== (int) $this->model->contact_id &&
+            in_array($this->model->status, $lockedStatuses)
+        ) {
+            $type = Str::plural($this->model->type);
+            $message = trans('messages.warning.contact_change', ['type' => trans_choice("general.$type", 1)]);
+
+            throw new \Exception($message);
+        }
     }
 }
