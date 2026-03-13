@@ -36,6 +36,28 @@ trait Categories
         return in_array($type, $this->getOtherCategoryTypes());
     }
 
+    public function getTypeCategoryTypes(string $type, string $return = 'array'): string|array
+    {
+        switch ($type) {
+            case Category::INCOME_TYPE:
+                $types = $this->getIncomeCategoryTypes($return);
+                break;
+            case Category::EXPENSE_TYPE:
+                $types = $this->getExpenseCategoryTypes($return);
+                break;
+            case Category::ITEM_TYPE:
+                $types = $this->getItemCategoryTypes($return);
+                break;
+            case Category::OTHER_TYPE:
+                $types = $this->getOtherCategoryTypes($return);
+                break;
+            default:
+                $types = ($return == 'array') ? [$type] : $type;
+        }
+
+        return $types;
+    }
+
     public function getIncomeCategoryTypes(string $return = 'array'): string|array
     {
         return $this->getCategoryTypesByIndex(Category::INCOME_TYPE, $return);
@@ -98,10 +120,46 @@ trait Categories
         ])->save();
     }
 
-    public function getCategoryTypes(bool $translate = true, bool $group = false): array
+    public function isGroupCategoryType(): bool
     {
-        $types = [];
-        $configs = config('type.category');
+        $setting_category_types = setting('category.type');
+
+        foreach ($setting_category_types as $type => $category) {
+            $categories = explode(',', $category);
+
+            if (count($categories) > 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hideCodeCategoryType(string $type, bool $default = true): bool
+    {
+        return $this->hideCodeCategoryTypes($type)[$type] ?? $default;
+    }
+
+    public function hideCodeCategoryTypes(string|array $types): array
+    {
+        $types = is_string($types) ? explode(',', $types) : $types;
+
+        $type_codes = [];
+
+        foreach ($types as $type) {
+            $config_type = config('type.category.' . $type, []);
+
+            $type_codes[$type] = ! empty($config_type['hide']) && in_array('code', $config_type['hide']) ? true : false;
+        }
+
+        return $type_codes;
+    }
+
+    public function getCategoryTypes(bool $translate = true, bool $group = false, array $types = []): array
+    {
+        $category_types = [];
+
+        $configs = empty($types) ? config('type.category') : array_intersect_key(config('type.category'), array_flip($types));
 
         foreach ($configs as $type => $attr) {
             $plural_type = Str::plural($type);
@@ -114,13 +172,14 @@ trait Categories
 
             if ($group) {
                 $group_key = $attr['group'] ?? $type;
-                $types[$group_key][$type] = $translate ? trans_choice($name, 1) : $name;
+
+                $category_types[$group_key][$type] = $translate ? trans_choice($name, 1) : $name;
             } else {
-                $types[$type] = $translate ? trans_choice($name, 1) : $name;
+                $category_types[$type] = $translate ? trans_choice($name, 1) : $name;
             }
         }
 
-        return $types;
+        return $category_types;
     }
 
     public function getCategoryTabs(): array

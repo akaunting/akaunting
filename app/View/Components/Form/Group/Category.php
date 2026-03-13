@@ -39,27 +39,13 @@ class Category extends Form
             $this->name = 'category_id';
         }
 
-        switch ($this->type) {
-            case Model::INCOME_TYPE:
-                $types = $this->getIncomeCategoryTypes();
-                break;
-            case Model::EXPENSE_TYPE:
-                $types = $this->getExpenseCategoryTypes();
-                break;
-            case Model::ITEM_TYPE:
-                $types = $this->getItemCategoryTypes();
-                break;
-            case Model::OTHER_TYPE:
-                $types = $this->getOtherCategoryTypes();
-                break;
-            default:
-                $types = [$this->type];
-        }
+        $types = $this->getTypeCategoryTypes($this->type);
+        $types_string = implode(',', $types);
 
         $this->path = route('modals.categories.create', ['type' => $this->type]);
-        $this->remoteAction = route('categories.index', ['search' => 'type:' . implode(',', $types) . ' enabled:1']);
+        $this->remoteAction = route('categories.index', ['search' => 'type:' . $types_string . ' enabled:1']);
 
-        $typeLabels = collect($this->getCategoryTypes())->only($types)->all();
+        $typeLabels = $this->getCategoryTypes(types: $types);
 
         $is_code = false;
 
