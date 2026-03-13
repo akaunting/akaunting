@@ -244,8 +244,10 @@ class BillsTest extends FeatureTestCase
         $vendorA = Contact::factory()->vendor()->enabled()->create();
         $vendorB = Contact::factory()->vendor()->enabled()->create();
 
-        // Create a bill with vendor A
+        // Create a bill with vendor A (must be draft so authorize() allows contact change)
         $request = $this->getRequest();
+
+        $request['status'] = 'draft';
         $request['contact_id'] = $vendorA->id;
         $request['contact_name'] = $vendorA->name;
         $request['contact_email'] = $vendorA->email;
