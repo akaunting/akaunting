@@ -136,8 +136,8 @@
                                         @endif
 
                                         <x-table.td class="{{ $name_class }}">
-                                            <div class="flex items-center">
-                                                @if ($item->sub_categories->count())
+                                            @if ($item->sub_categories->count())
+                                                <div class="flex items-center">
                                                     <x-tooltip id="tooltip-category-{{ $item->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
                                                         <button
                                                             type="button"
@@ -152,7 +152,7 @@
                                                     <div class="flex items-center font-bold">
                                                         {{ $item->name }}
                                                     </div>
-                                            </div>
+                                                </div>
                                             @else
                                                 <div class="flex items-center">
                                                     <span class="material-icons text-{{ $item->color }}" class="text-3xl" style="color:{{ $item->color }};">circle</span>
