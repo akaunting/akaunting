@@ -57,7 +57,7 @@ trait Import
         event(new ImportViewCreated($import));
 
         return [
-            $import->view, 
+            $import->view,
             $import->data
         ];
     }
@@ -103,7 +103,7 @@ trait Import
     {
         $id = isset($row['contact_id']) ? $row['contact_id'] : null;
 
-        $type = !empty($type) ? $type : (!empty($row['type']) ? (($row['type'] == Transaction::INCOME_TYPE) ? 'customer' : 'vendor') : 'customer');
+        $type = !empty($type) ? $type : (!empty($row['type']) ? (($row['type'] == Transaction::INCOME_TYPE) ? Contact::CUSTOMER_TYPE : Contact::VENDOR_TYPE) : Contact::CUSTOMER_TYPE);
 
         if (empty($row['contact_id']) && !empty($row['contact_email'])) {
             $id = $this->getContactIdFromEmail($row, $type);
