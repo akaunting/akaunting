@@ -288,7 +288,7 @@ html[dir='ltr'] .float-left {
 }
 
 html[dir='rtl'] .float-left {
-    float: right !important;
+    float: left !important;
 }
 
 html[dir='ltr'] .float-right {
@@ -297,7 +297,7 @@ html[dir='ltr'] .float-right {
 
 html[dir='rtl'] .float-right {
 
-    float: left !important;
+    float: right !important;
 }
 
 .font-size-unset {
