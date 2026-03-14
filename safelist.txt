@@ -113,3 +113,4 @@ lg:w-1/3
 px-6
 lg:w-2/4
 lg:px-6
+rtl:rotate-270

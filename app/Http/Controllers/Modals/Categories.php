@@ -35,36 +35,12 @@ class Categories extends Controller
     {
         $type = $request->get('type', Category::ITEM_TYPE);
 
-        $type_codes = [];
-
-        switch ($type) {
-            case Category::INCOME_TYPE:
-                $types = $this->getIncomeCategoryTypes();
-                break;
-            case Category::EXPENSE_TYPE:
-                $types = $this->getExpenseCategoryTypes();
-                break;
-            case Category::ITEM_TYPE:
-                $types = $this->getItemCategoryTypes();
-                break;
-            case Category::OTHER_TYPE:
-                $types = $this->getOtherCategoryTypes();
-                break;
-            default:
-                $types = [$type];
-        }
-
-        foreach ($types as $type) {
-            $config_type = config('type.category.' . $type, []);
-            $type_codes[$type] = empty($config_type['hide']) || ! in_array('code', $config_type['hide']);
-        }
-
-        $config_type = config('type.category.' . $type, []);
-        $show_code_field = ! empty($config_type['hide']) && in_array('code', $config_type['hide']) ? false : true;
+        $category_types = $this->getTypeCategoryTypes($type);
+        $hide_code_types = $this->hideCodeCategoryTypes($category_types);
 
         $categories = collect();
 
-        Category::type($types)
+        Category::type($category_types)
             ->enabled()
             ->orderBy('name')
             ->get()
@@ -76,7 +52,10 @@ class Categories extends Controller
                 ]);
             });
 
-        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'show_code_field', 'type_codes'))->render();
+        $type_group = count($category_types) > 1 ? true : false;
+        $types = $this->getCategoryTypes(group: true, types: $category_types);
+
+        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'type_group', 'hide_code_types'))->render();
 
         return response()->json([
             'success' => true,

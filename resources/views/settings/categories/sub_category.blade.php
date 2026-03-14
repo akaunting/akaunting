@@ -114,6 +114,7 @@
         @php
             $sub_category->load(['sub_categories']);
         @endphp
+
         @include('settings.categories.sub_category', ['parent_category' => $parent_category, 'sub_category' => $sub_category, 'tree_level' => $tree_level, 'hide_code_column' => $hide_code_column, 'name_class' => $name_class])
     @endforeach
 @endif
