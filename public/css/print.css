@@ -321,6 +321,41 @@ html[dir="rtl"] .ltr\:float-right {
     float: right !important;
 }
 
+/* DomPDF compatibility: [class~] fallback for Tailwind escaped class names (ltr\: / rtl\:) */
+html[dir="ltr"] [class~="ltr:float-left"],
+html[dir="rtl"] [class~="ltr:float-left"] {
+    float: left !important;
+}
+
+html[dir="ltr"] [class~="ltr:float-right"],
+html[dir="rtl"] [class~="ltr:float-right"] {
+    float: right !important;
+}
+
+html[dir="rtl"] [class~="rtl:float-left"] {
+    float: left !important;
+}
+
+html[dir="rtl"] [class~="rtl:float-right"] {
+    float: right !important;
+}
+
+html[dir="ltr"] [class~="ltr:text-left"] {
+    text-align: left;
+}
+
+html[dir="ltr"] [class~="ltr:text-right"] {
+    text-align: right;
+}
+
+html[dir="rtl"] [class~="rtl:text-left"] {
+    text-align: left;
+}
+
+html[dir="rtl"] [class~="rtl:text-right"] {
+    text-align: right;
+}
+
 .font-size-unset {
     font-size: unset;
 }
