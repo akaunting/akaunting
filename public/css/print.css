@@ -59,8 +59,24 @@ html[dir="rtl"] .right-column {
     font-weight: 600;
 }
 
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
 .row {
     font-size: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
 }
 
 .mb-1 {
@@ -187,6 +203,16 @@ html[dir="rtl"] .p-index-right {
 
 .print-template .pb-2 {
     padding-bottom: 16px;
+}
+
+html[dir="ltr"] .print-template .pl-2,
+html[dir="ltr"] .print-template .ltr\:pl-2 {
+    padding-left: 16px;
+}
+
+html[dir="rtl"] .print-template .pr-2,
+html[dir="rtl"] .print-template .rtl\:pr-2 {
+    padding-right: 16px;
 }
 
 html[dir="ltr"] .print-template .pl-3,
@@ -372,6 +398,28 @@ html[dir="rtl"] [class~="rtl:text-right"] {
     text-align: right;
 }
 
+/* DomPDF compatibility: [class~] fallback for escaped margin/padding classes */
+html[dir="ltr"] .print-template [class~="ltr:ml-1"] { margin-left: 8px; }
+html[dir="rtl"] .print-template [class~="rtl:mr-1"] { margin-right: 8px; }
+html[dir="ltr"] .print-template [class~="ltr:ml-2"] { margin-left: 16px; }
+html[dir="rtl"] .print-template [class~="rtl:mr-2"] { margin-right: 16px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-2"] { padding-left: 16px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-2"] { padding-right: 16px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-3"] { padding-left: 24px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-3"] { padding-right: 24px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-4"] { padding-left: 32px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-4"] { padding-right: 32px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-5"] { padding-left: 40px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-5"] { padding-right: 40px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-6"] { padding-left: 48px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-6"] { padding-right: 48px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-7"] { padding-left: 56px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-7"] { padding-right: 56px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-8"] { padding-left: 64px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-8"] { padding-right: 64px; }
+html[dir="ltr"] .print-template [class~="ltr:pl-9"] { padding-left: 72px; }
+html[dir="rtl"] .print-template [class~="rtl:pr-9"] { padding-right: 72px; }
+
 .font-size-unset {
     font-size: unset;
 }
@@ -388,6 +436,15 @@ html[dir="rtl"] [class~="rtl:text-right"] {
 
 .text-nowrap {
     white-space: nowrap;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.break-words {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 html[dir="ltr"] .text-left, html[dir="ltr"] .ltr\:text-left {
