@@ -81,15 +81,16 @@ class Categories extends Controller
      */
     public function create()
     {
-        $types = $this->getCategoryTypes(true, true);
-
         $categories = [];
-        $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            $type_codes[$type] = empty($config['hide']) || ! in_array('code', $config['hide']);
             $categories[$type] = [];
         }
+
+        $type_group = $this->isGroupCategoryType();
+        $hide_code_types = $this->hideCodeCategoryTypes(array_keys($categories));
+
+        $types = $this->getCategoryTypes(group: $type_group);
 
         Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
             $categories[$category->type][] = [
@@ -99,7 +100,7 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.create', compact('types', 'categories', 'type_codes'));
+        return view('settings.categories.create', compact('types', 'categories', 'type_group', 'hide_code_types'));
     }
 
     /**
@@ -163,19 +164,20 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        $types = $this->getCategoryTypes(true, true);
-
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
         $edited_category_id = $category->id;
 
         $categories = [];
-        $type_codes = [];
 
         foreach (config('type.category') as $type => $config) {
-            $type_codes[$type] = empty($config['hide']) || ! in_array('code', $config['hide']);
             $categories[$type] = [];
         }
+
+        $type_group = $this->isGroupCategoryType();
+        $hide_code_types = $this->hideCodeCategoryTypes(array_keys($categories));
+
+        $types = $this->getCategoryTypes(group: $type_group);
 
         $skip_categories = [];
         $skip_categories[] = $edited_category_id;
@@ -206,7 +208,7 @@ class Categories extends Controller
 
         $parent_categories = $categories[$category->type] ?? [];
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'type_codes'));
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'type_group', 'hide_code_types'));
     }
 
     /**

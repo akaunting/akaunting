@@ -27,8 +27,10 @@ class AddIncomeExpenseCategories extends Listener
             return;
         }
 
-        $event->class->filters['categories'] = $this->getIncomeExpenseCategories(true);
-        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:' . implode(',', array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes())) . ' enabled:1'];
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes());
+
+        $event->class->filters['categories'] = $this->getIncomeExpenseCategories();
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:' . implode(',', $types) . ' enabled:1'];
         $event->class->filters['multiple']['categories'] = true;
     }
 

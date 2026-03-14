@@ -292,10 +292,9 @@ class Category extends Model
      */
     public function getDisplayNameAttribute(): string
     {
-        $typeConfig = config('type.category.' . $this->type, []);
-        $hideCode = isset($typeConfig['hide']) && in_array('code', $typeConfig['hide']);
-
+        $hideCode = $this->hideCodeCategoryType($this->type);
         $typeNames = $this->getCategoryTypes();
+
         $typeName = $typeNames[$this->type] ?? ucfirst($this->type);
 
         $prefix = (!$hideCode && $this->code) ? $this->code . ' - ' : '';
