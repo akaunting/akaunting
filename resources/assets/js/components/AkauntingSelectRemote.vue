@@ -71,7 +71,7 @@
                 <span class="aka-select-prefix">
                     <span
                         v-if="!isDropdownVisible && selectedOptionColor"
-                        class="w-4 h-4 rounded-full mt-1 ml-2"
+                        class="w-4 h-4 rounded-full mt-1 ltr:ml-2 rtl:mr-2"
                         :style="{ backgroundColor: selectedOptionColor }"
                     ></span>
                     <i v-if="icon" :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
