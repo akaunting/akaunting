@@ -1,5 +1,5 @@
 <form wire:click.stop class="navbar-search navbar-search-light form-inline mb-0" id="navbar-search-main" autocomplete="off">
-    <div class="mb-0 ltr:sm:mr-3 rtl:sm:ml-3">
+    <div class="mb-0 sm:ltr:mr-3 sm:rtl:ml-3">
         <div class="input-group input-group-alternative input-group-merge">
             <div class="input-group-prepend">
                 <span class="input-group-text">

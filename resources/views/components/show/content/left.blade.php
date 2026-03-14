@@ -1,3 +1,3 @@
-<div class="lg:w-4/12 ltr:lg:border-r rtl:lg:border-l border-gray-300 ltr:lg:pr-12 rtl:lg:pl-12 mb-4 sm:mb-0">
+<div class="lg:w-4/12 lg:ltr:border-r lg:rtl:border-l border-gray-300 lg:ltr:pr-12 lg:rtl:pl-12 mb-4 sm:mb-0">
     {!! $slot !!}
 </div>
