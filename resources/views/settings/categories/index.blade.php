@@ -145,7 +145,7 @@
                                                             node="child-{{ $item->id }}"
                                                             onClick="toggleSub('child-{{ $item->id }}', event)"
                                                         >
-                                                            <span class="material-icons transform rotate-90 -ml-2 transition-all text-xl leading-none align-middle rounded-full bg-{{ $item->color }} text-white" style="background-color:{{ $item->color }};">chevron_right</span>
+                                                            <span class="material-icons transform rotate-90 ltr:-ml-2 rtl:-mr-2 transition-all text-xl leading-none align-middle rounded-full bg-{{ $item->color }} text-white" style="background-color:{{ $item->color }};">chevron_right</span>
                                                         </button>
                                                     </x-tooltip>
 

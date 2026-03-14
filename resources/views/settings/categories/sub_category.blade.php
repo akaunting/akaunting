@@ -15,8 +15,8 @@
                 </x-table.td>
             @endif
 
-            <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-left: {{ $tree_level * 30 }}px;">
-                <div class="flex items-center ml-2">
+            <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-inline-start: {{ $tree_level * 30 }}px;">
+                <div class="flex items-center ltr:ml-2 rtl:mr-2">
                     <span class="material-icons text-3xl text-{{ $parent_category->color }}" style="color:{{ $sub_category->color }};">circle</span>
 
                     <div class="flex items-center font-bold table-submenu ltr:ml-2 rtl:mr-2">
@@ -58,8 +58,8 @@
             </x-table.td>
         @endif
 
-        <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-left: {{ $tree_level * 30 }}px;">
-            <div class="flex items-center ml-2">
+        <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-inline-start: {{ $tree_level * 30 }}px;">
+            <div class="flex items-center ltr:ml-2 rtl:mr-2">
                 @if ($sub_category->sub_categories->count())
                     <x-tooltip id="tooltip-category-{{ $parent_category->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
                         <button
@@ -68,7 +68,7 @@
                             node="child-{{ $sub_category->id }}"
                             onClick="toggleSub('child-{{ $sub_category->id }}', event)"
                         >
-                            <span class="material-icons -ml-2 transform rotate-90 transition-all text-xl leading-none align-middle rounded-full text-white bg-{{ $sub_category->color }}" style="background-color:{{ $sub_category->color }};">chevron_right</span>
+                            <span class="material-icons ltr:-ml-2 rtl:-mr-2 transform rotate-90 transition-all text-xl leading-none align-middle rounded-full text-white bg-{{ $sub_category->color }}" style="background-color:{{ $sub_category->color }};">chevron_right</span>
                         </button>
                     </x-tooltip>
                     <div class="flex items-center font-bold  table-submenu">

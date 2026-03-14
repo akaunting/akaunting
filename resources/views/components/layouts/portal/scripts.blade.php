@@ -225,7 +225,7 @@
         //if mobile menu, menu is hidden
         function mobileMenuHidden() {
             navbarMenu.classList.remove("ltr:left-0", "rtl:right-0");
-            navbarMenu.classList.add("ltr:-left-80", "rtl:-right:80");
+            navbarMenu.classList.add("ltr:-left-80", "rtl:-right-80");
             mainContent.classList.remove("hidden");
 
             menus.forEach((menu) => {
