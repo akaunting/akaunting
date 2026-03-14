@@ -26,7 +26,7 @@
                     @endforeach
                 </div>
 
-                <div class="w-full lg:w-2/3 flex-col xl:m-0 ltr:lg:pl-12 rtl:lg:pr-12 justify-evenly xl:w-2/3">
+                <div class="w-full lg:w-2/3 flex-col xl:m-0 lg:ltr:pl-12 lg:rtl:pr-12 justify-evenly xl:w-2/3">
                     @php
                         $first = Arr::first($templates);
                         $template = Arr::first($first);
