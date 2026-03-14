@@ -299,6 +299,14 @@ html[dir="ltr"] .lines-radius-border thead td:first-child {
 html[dir="ltr"] .lines-radius-border thead td:last-child {
     border-radius: 0px 10px 10px 0px;
 }
+
+html[dir="rtl"] .lines-radius-border thead td:first-child {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir="rtl"] .lines-radius-border thead td:last-child {
+    border-radius: 10px 0px 0px 10px;
+}
 /* template table border radius control */
 
 html[dir="ltr"] .float-left,
@@ -318,6 +326,14 @@ html[dir="ltr"] .ltr\:float-right {
 
 html[dir="rtl"] .float-right,
 html[dir="rtl"] .ltr\:float-right {
+    float: right !important;
+}
+
+html[dir="rtl"] .rtl\:float-left {
+    float: left !important;
+}
+
+html[dir="rtl"] .rtl\:float-right {
     float: right !important;
 }
 
