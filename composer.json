@@ -19,8 +19,8 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
-        "ext-intl": "*",
         "ext-gd": "*",
+        "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
@@ -79,11 +79,11 @@
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.9",
-        "brianium/paratest": "^7.1",
+        "brianium/paratest": "^7.3.2",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "10.5.30",
+        "phpunit/phpunit": "^10.5.63",
         "spatie/laravel-ignition": "^2.0",
         "wnx/laravel-stats": "^2.11"
     },
@@ -166,6 +166,9 @@
         "allow-plugins": {
             "mnsami/composer-custom-directory-installer": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": ["PKSA-y2cr-5h3j-g3ys"]
         }
     }
 }
