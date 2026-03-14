@@ -23,19 +23,19 @@ th, td {
     margin-bottom: 9px;
 }
 
-html[dir='ltr'] .print-report-padding {
+html[dir="ltr"] .print-report-padding {
     padding-left: 25px;
 }
 
-html[dir='rtl'] .print-report-padding {
+html[dir="rtl"] .print-report-padding {
     padding-right: 25px;
 }
 
-html[dir='ltr'] .right-column {
+html[dir="ltr"] .right-column {
     text-align: right;
 }
 
-html[dir='rtl'] .right-column {
+html[dir="rtl"] .right-column {
     text-align: left;
 }
 
@@ -75,27 +75,31 @@ html[dir='rtl'] .right-column {
     margin-top: 8px;
 }
 
-html[dir='ltr'] .print-template .ml-1 {
+html[dir="ltr"] .print-template .ml-1,
+html[dir="ltr"] .print-template .ltr\:ml-1 {
     margin-left: 8px;
 }
 
-html[dir='rtl'] .print-template .mr-1 {
+html[dir="rtl"] .print-template .mr-1,
+html[dir="rtl"] .print-template .rtl\:mr-1 {
     margin-right: 8px;
 }
 
-html[dir='ltr'] .print-template .ml-2 {
+html[dir="ltr"] .print-template .ml-2,
+html[dir="ltr"] .print-template .ltr\:ml-2 {
     margin-left: 16px;
 }
 
-html[dir='rtl'] .print-template .mr-2 {
+html[dir="rtl"] .print-template .mr-2,
+html[dir="rtl"] .print-template .rtl\:mr-2 {
     margin-right: 16px;
 }
 
-html[dir='ltr'] .pl-head {
+html[dir="ltr"] .pl-head {
     padding-left: 18px;
 }
 
-html[dir='rtl'] .pl-head {
+html[dir="rtl"] .pl-head {
     padding-right: 18px;
 }
 
@@ -157,19 +161,19 @@ html[dir='rtl'] .pl-head {
     padding-top: 16px;
 }
 
-html[dir='ltr'] .p-index-left {
+html[dir="ltr"] .p-index-left {
     padding: 0 15px 0 0;
 }
 
-html[dir='rtl'] .p-index-left {
+html[dir="rtl"] .p-index-left {
     padding: 0 0 0 15px;
 }
 
-html[dir='ltr'] .p-index-right {
+html[dir="ltr"] .p-index-right {
     padding: 0 0 0 15px;
 }
 
-html[dir='rtl'] .p-index-right {
+html[dir="rtl"] .p-index-right {
     padding: 0 15px 0 0;
 }
 
@@ -185,59 +189,73 @@ html[dir='rtl'] .p-index-right {
     padding-bottom: 16px;
 }
 
-html[dir='ltr'] .print-template .pl-3 {
+html[dir="ltr"] .print-template .pl-3,
+html[dir="ltr"] .print-template .ltr\:pl-3 {
     padding-left: 24px;
 }
 
-html[dir='rtl'] .print-template .pr-3 {
+html[dir="rtl"] .print-template .pr-3,
+html[dir="rtl"] .print-template .rtl\:pr-3 {
     padding-right: 24px;
 }
 
-html[dir='ltr'] .print-template .pl-4 {
+html[dir="ltr"] .print-template .pl-4,
+html[dir="ltr"] .print-template .ltr\:pl-4 {
     padding-left: 32px;
 }
 
-html[dir='rtl'] .print-template .pr-4 {
+html[dir="rtl"] .print-template .pr-4,
+html[dir="rtl"] .print-template .rtl\:pr-4 {
     padding-right: 32px;
 }
 
-html[dir='ltr'] .print-template .pl-5 {
+html[dir="ltr"] .print-template .pl-5,
+html[dir="ltr"] .print-template .ltr\:pl-5 {
     padding-left: 40px;
 }
 
-html[dir='rtl'] .print-template .pr-5 {
+html[dir="rtl"] .print-template .pr-5,
+html[dir="rtl"] .print-template .rtl\:pr-5 {
     padding-right: 40px;
 }
 
-html[dir='ltr'] .print-template .pl-6 {
+html[dir="ltr"] .print-template .pl-6,
+html[dir="ltr"] .print-template .ltr\:pl-6 {
     padding-left: 48px;
 }
 
-html[dir='rtl'] .print-template .pr-6 {
+html[dir="rtl"] .print-template .pr-6,
+html[dir="rtl"] .print-template .rtl\:pr-6 {
     padding-right: 48px;
 }
 
-html[dir='ltr'] .print-template .pl-7 {
+html[dir="ltr"] .print-template .pl-7,
+html[dir="ltr"] .print-template .ltr\:pl-7 {
     padding-left: 56px;
 }
 
-html[dir='rtl'] .print-template .pr-7 {
+html[dir="rtl"] .print-template .pr-7,
+html[dir="rtl"] .print-template .rtl\:pr-7 {
     padding-right: 56px;
 }
 
-html[dir='ltr'] .print-template .pl-8 {
+html[dir="ltr"] .print-template .pl-8,
+html[dir="ltr"] .print-template .ltr\:pl-8 {
     padding-left: 64px;
 }
 
-html[dir='rtl'] .print-template .pr-8 {
+html[dir="rtl"] .print-template .pr-8,
+html[dir="rtl"] .print-template .rtl\:pr-8 {
     padding-right: 64px;
 }
 
-html[dir='ltr'] .print-template .pl-9 {
+html[dir="ltr"] .print-template .pl-9,
+html[dir="ltr"] .print-template .ltr\:pl-9 {
     padding-left: 72px;
 }
 
-html[dir='rtl'] .print-template .pr-9 {
+html[dir="rtl"] .print-template .pr-9,
+html[dir="rtl"] .print-template .rtl\:pr-9 {
     padding-right: 72px;
 }
 
@@ -257,19 +275,19 @@ html[dir='rtl'] .print-template .pr-9 {
     border-radius: 0.25rem
 }
 
-/* html[dir='ltr'] .border-radius-first {
+/* html[dir="ltr"] .border-radius-first {
     border-radius: 10px 0px 0px 10px;
 }
 
-html[dir='rtl'] .border-radius-first {
+html[dir="rtl"] .border-radius-first {
     border-radius: 0px 10px 10px 0px;
 }
 
-html[dir='ltr'] .border-radius-last {
+html[dir="ltr"] .border-radius-last {
     border-radius: 0px 10px 10px 0px;
 }
 
-html[dir='rtl'] .border-radius-last {
+html[dir="rtl"] .border-radius-last {
     border-radius: 10px 0px 0px 10px;
 } */
 
@@ -283,20 +301,23 @@ html[dir="ltr"] .lines-radius-border thead td:last-child {
 }
 /* template table border radius control */
 
-html[dir='ltr'] .float-left {
+html[dir="ltr"] .float-left,
+html[dir="ltr"] .ltr\:float-left {
     float: left !important;
 }
 
-html[dir='rtl'] .float-left {
+html[dir="rtl"] .float-left,
+html[dir="rtl"] .ltr\:float-left {
     float: left !important;
 }
 
-html[dir='ltr'] .float-right {
+html[dir="ltr"] .float-right,
+html[dir="ltr"] .ltr\:float-right {
     float: right !important;
 }
 
-html[dir='rtl'] .float-right {
-
+html[dir="rtl"] .float-right,
+html[dir="rtl"] .ltr\:float-right {
     float: right !important;
 }
 
@@ -318,35 +339,35 @@ html[dir='rtl'] .float-right {
     white-space: nowrap;
 }
 
-html[dir='ltr'] .text-left {
+html[dir="ltr"] .text-left, html[dir="ltr"] .ltr\:text-left {
     text-align: left;
 }
 
-html[dir='rtl'] .text-left {
+html[dir="rtl"] .text-left, html[dir="rtl"] .rtl\:text-left {
     text-align: left;
 }
 
-html[dir='ltr'] .text-alignment-left {
+html[dir="ltr"] .text-alignment-left {
     text-align: left !important;
 }
 
-html[dir='rtl'] .text-alignment-left {
+html[dir="rtl"] .text-alignment-left {
     text-align: right !important;
 }
 
-html[dir='ltr'] .text-alignment-right {
+html[dir="ltr"] .text-alignment-right {
     text-align: right !important;
 }
 
-html[dir='rtl'] .text-alignment-right {
+html[dir="rtl"] .text-alignment-right {
     text-align: left !important;
 }
 
-html[dir='ltr'] .text-right {
+html[dir="ltr"] .text-right, html[dir="ltr"] .ltr\:text-right {
     text-align: right;
 }
 
-html[dir='rtl'] .text-right {
+html[dir="rtl"] .text-right, html[dir="rtl"] .rtl\:text-right {
     text-align: left;
 }
 
@@ -438,11 +459,11 @@ html[dir='rtl'] .text-right {
     width: 10%;
 }
 
-html[dir='ltr'] .lines .quantity {
+html[dir="ltr"] .lines .quantity {
     text-align: right;
 }
 
-html[dir='rtl'] .lines .quantity {
+html[dir="rtl"] .lines .quantity {
     text-align: left;
 }
 
@@ -450,11 +471,11 @@ html[dir='rtl'] .lines .quantity {
     width: 20%;
 }
 
-html[dir='ltr'] .lines .price {
+html[dir="ltr"] .lines .price {
     text-align: right;
 }
 
-html[dir='rtl'] .lines .price {
+html[dir="rtl"] .lines .price {
     text-align: left;
 }
 
@@ -462,11 +483,11 @@ html[dir='rtl'] .lines .price {
     width: 10%;
 }
 
-html[dir='ltr'] .lines .discount {
+html[dir="ltr"] .lines .discount {
     text-align: right;
 }
 
-html[dir='rtl'] .lines .discount {
+html[dir="rtl"] .lines .discount {
     text-align: left;
 }
 
@@ -474,11 +495,11 @@ html[dir='rtl'] .lines .discount {
     width: 20%;
 }
 
-html[dir='ltr'] .lines .total {
+html[dir="ltr"] .lines .total {
     text-align: right;
 }
 
-html[dir='rtl'] .lines .total {
+html[dir="rtl"] .lines .total {
     text-align: left;
 }
 
@@ -556,11 +577,11 @@ html[dir='rtl'] .lines .total {
     width: 10%;
 }
 
-html[dir='ltr'] .c-lines .quantity {
+html[dir="ltr"] .c-lines .quantity {
     text-align: right;
 }
 
-html[dir='rtl'] .c-lines .quantity {
+html[dir="rtl"] .c-lines .quantity {
     text-align: left;
 }
 
@@ -568,11 +589,11 @@ html[dir='rtl'] .c-lines .quantity {
     width: 20%;
 }
 
-html[dir='ltr'] .c-lines .price {
+html[dir="ltr"] .c-lines .price {
     text-align: right;
 }
 
-html[dir='rtl'] .c-lines .price {
+html[dir="rtl"] .c-lines .price {
     text-align: left;
 }
 
@@ -580,11 +601,11 @@ html[dir='rtl'] .c-lines .price {
     width: 10%;
 }
 
-html[dir='ltr'] .c-lines .discount {
+html[dir="ltr"] .c-lines .discount {
     text-align: right;
 }
 
-html[dir='rtl'] .c-lines .discount {
+html[dir="rtl"] .c-lines .discount {
     text-align: left;
 }
 
@@ -592,11 +613,11 @@ html[dir='rtl'] .c-lines .discount {
     width: 20%;
 }
 
-html[dir='ltr'] .c-lines .total {
+html[dir="ltr"] .c-lines .total {
     text-align: right;
 }
 
-html[dir='rtl'] .c-lines .total {
+html[dir="rtl"] .c-lines .total {
     text-align: left;
 }
 
@@ -644,11 +665,11 @@ html[dir='rtl'] .c-lines .total {
     width: 20%;
 }
 
-html[dir='ltr'] .modern-lines .price {
+html[dir="ltr"] .modern-lines .price {
     text-align: right;
 }
 
-html[dir='rtl'] .modern-lines .price {
+html[dir="rtl"] .modern-lines .price {
     text-align: left;
 }
 
@@ -656,11 +677,11 @@ html[dir='rtl'] .modern-lines .price {
     width: 10%;
 }
 
-html[dir='ltr'] .modern-lines .discount {
+html[dir="ltr"] .modern-lines .discount {
     text-align: right;
 }
 
-html[dir='rtl'] .modern-lines .discount {
+html[dir="rtl"] .modern-lines .discount {
     text-align: left;
 }
 
@@ -668,11 +689,11 @@ html[dir='rtl'] .modern-lines .discount {
     width: 20%;
 }
 
-html[dir='ltr'] .modern-lines .total {
+html[dir="ltr"] .modern-lines .total {
     text-align: right;
 }
 
-html[dir='rtl'] .modern-lines .total {
+html[dir="rtl"] .modern-lines .total {
     text-align: left;
 }
 /*--Print Template Modern Finish--*/
@@ -698,19 +719,19 @@ html[dir='rtl'] .modern-lines .total {
     border-collapse: collapse;
 }
 
-html[dir='ltr'] .rp-float-left {
+html[dir="ltr"] .rp-float-left {
     float: left;
 }
 
-html[dir='rtl'] .rp-float-left {
+html[dir="rtl"] .rp-float-left {
     float: right;
 }
 
-html[dir='ltr'] .rp-float-right {
+html[dir="ltr"] .rp-float-right {
     float: right;
 }
 
-html[dir='rtl'] .rp-float-right {
+html[dir="rtl"] .rp-float-right {
     float: left;
 }
 /*--Print Reports Finish--*/
@@ -774,11 +795,11 @@ html[dir='rtl'] .rp-float-right {
     width: 33.333333%;
 }
 
-html[dir='ltr'] .print-alignment {
+html[dir="ltr"] .print-alignment {
     text-align: right;
 }
 
-html[dir='rtl'] .print-alignment {
+html[dir="rtl"] .print-alignment {
     text-align: left;
 }
 
@@ -790,11 +811,11 @@ html[dir='rtl'] .print-alignment {
     border-bottom: 1px solid;
 }
 
-html[dir='ltr'] .print-heading {
+html[dir="ltr"] .print-heading {
     text-align: left;
 }
 
-html[dir='rtl'] .print-heading {
+html[dir="rtl"] .print-heading {
     text-align: right;
 }
 
