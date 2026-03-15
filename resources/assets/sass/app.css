@@ -823,3 +823,25 @@ html[dir='rtl'] select {
 html[dir='rtl'] button[node^='child'] .material-icons:not(.rotate-90) {
     transform: rotate(180deg);
 }
+
+/* Quill editor tooltip button spacing - RTL */
+html[dir='rtl'] .ql-tooltip .ql-action,
+html[dir='rtl'] .ql-tooltip .ql-remove {
+    margin-left: 0;
+    margin-right: 0.25rem;
+}
+
+/* Avatar attachment margin in multi-select tax group dropdown - LTR/RTL */
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.avatar-attachment.items-center {
+    margin-right: 1rem;
+}
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.avatar-attachment {
+    margin-right: 1rem;
+}
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.avatar-attachment.items-center {
+    margin-left: 1rem;
+}
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.avatar-attachment {
+    margin-left: 1rem;
+}
+/* End avatar attachment margin */
