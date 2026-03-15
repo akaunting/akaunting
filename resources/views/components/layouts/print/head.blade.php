@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8; charset=ISO-8859-1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <title>{!! $title !!} - @setting('company.name')</title>
 
@@ -37,6 +37,13 @@
         * {
             font-family: DejaVu Sans, sans-serif !important;
         }
+
+        @if (language()->direction() === 'rtl')
+        body {
+            direction: rtl;
+            unicode-bidi: embed;
+        }
+        @endif
     </style>
     @endif
 
