@@ -59,7 +59,6 @@ html[dir="rtl"] .right-column {
     font-weight: 600;
 }
 
-/*
 .font-semibold {
     font-weight: 600;
 }
@@ -71,7 +70,6 @@ html[dir="rtl"] .right-column {
 .font-medium {
     font-weight: 500;
 }
-*/
 
 .row {
     font-size: 0;
@@ -345,6 +343,25 @@ html[dir="rtl"] .lines-radius-border thead td:first-child {
 html[dir="rtl"] .lines-radius-border thead td:last-child {
     border-radius: 10px 0px 0px 10px;
 }
+
+/* DomPDF fallback: class-based selectors (DomPDF does not reliably support :first-child/:last-child on td) */
+/*
+html[dir="ltr"] .lines-radius-border thead td.item {
+    border-radius: 10px 0px 0px 10px;
+}
+
+html[dir="ltr"] .lines-radius-border thead td.total {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir="rtl"] .lines-radius-border thead td.item {
+    border-radius: 0px 10px 10px 0px;
+}
+
+html[dir="rtl"] .lines-radius-border thead td.total {
+    border-radius: 10px 0px 0px 10px;
+}
+*/
 /* template table border radius control */
 
 html[dir="ltr"] .float-left,
