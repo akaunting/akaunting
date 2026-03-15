@@ -32,18 +32,28 @@
             font-family: 'Firefly Sung', sans-serif !important;
         }
     </style>
+    @elseif (language()->direction() === 'rtl')
+    <style type="text/css">
+        @font-face {
+            font-family: 'Noto Sans Arabic';
+            font-weight: normal;
+            src: url('{{ asset("/public/css/fonts/NotoSansArabic.ttf") }}') format("truetype");
+        }
+
+        * {
+            font-family: 'Noto Sans Arabic', DejaVu Sans, sans-serif !important;
+        }
+
+        body {
+            direction: rtl;
+            unicode-bidi: embed;
+        }
+    </style>
     @else
     <style type="text/css">
         * {
             font-family: DejaVu Sans, sans-serif !important;
         }
-
-        @if (language()->direction() === 'rtl')
-        body {
-            direction: rtl;
-            unicode-bidi: embed;
-        }
-        @endif
     </style>
     @endif
 
