@@ -1640,6 +1640,22 @@ export default {
         height: 100%;
     }
 
+    html[dir="rtl"] .el-input__prefix {
+        right: 5px;
+        left: unset;
+        transition: all .3s;
+    }
+
+    html[dir="rtl"] .with-color-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.25rem !important;
+    }
+
+    html[dir="rtl"] .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.8rem !important;
+    }
+
     .with-color-prefix .el-input__inner {
         padding-left: 2.25rem !important;
     }
