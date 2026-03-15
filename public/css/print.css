@@ -111,6 +111,16 @@ html[dir="rtl"] .print-template .rtl\:mr-2 {
     margin-right: 16px;
 }
 
+html[dir="ltr"] .print-template .mr-2,
+html[dir="ltr"] .print-template .ltr\:mr-2 {
+    margin-right: 16px;
+}
+
+html[dir="rtl"] .print-template .ml-2,
+html[dir="rtl"] .print-template .rtl\:ml-2 {
+    margin-left: 16px;
+}
+
 html[dir="ltr"] .pl-head {
     padding-left: 18px;
 }
@@ -403,6 +413,8 @@ html[dir="ltr"] .print-template [class~="ltr:ml-1"] { margin-left: 8px; }
 html[dir="rtl"] .print-template [class~="rtl:mr-1"] { margin-right: 8px; }
 html[dir="ltr"] .print-template [class~="ltr:ml-2"] { margin-left: 16px; }
 html[dir="rtl"] .print-template [class~="rtl:mr-2"] { margin-right: 16px; }
+html[dir="ltr"] .print-template [class~="ltr:mr-2"] { margin-right: 16px; }
+html[dir="rtl"] .print-template [class~="rtl:ml-2"] { margin-left: 16px; }
 html[dir="ltr"] .print-template [class~="ltr:pl-2"] { padding-left: 16px; }
 html[dir="rtl"] .print-template [class~="rtl:pr-2"] { padding-right: 16px; }
 html[dir="ltr"] .print-template [class~="ltr:pl-3"] { padding-left: 24px; }

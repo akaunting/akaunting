@@ -2,7 +2,7 @@
     <table class="border-bottom-1" style="width: 100%;">
         <tbody>
             <tr>
-                <td style="width: 50%; padding: 0 15px 15px 0;" valign="top">
+                <td style="width: 50%; padding: {{ language()->direction() === 'rtl' ? '0 0 15px 15px' : '0 15px 15px 0' }};" valign="top">
                     @stack('from_account_start')
                     <table>
                         <tbody>
@@ -96,7 +96,7 @@
                     @stack('from_account_end')
                 </td>
 
-                <td style="width: 50%; padding: 0 0 15px 15px;" valign="top">
+                <td style="width: 50%; padding: {{ language()->direction() === 'rtl' ? '0 15px 15px 0' : '0 0 15px 15px' }};" valign="top">
                     @stack('to_account_start')
                     <table>
                         <tbody>

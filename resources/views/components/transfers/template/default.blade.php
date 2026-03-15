@@ -12,7 +12,7 @@
                     <table>
                         @stack('from_account_name_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.account_name') }}
                             </td>
 
@@ -26,7 +26,7 @@
                     <table>
                         @stack('from_account_number_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.number') }}
                             </td>
 
@@ -41,7 +41,7 @@
                     <table>
                         @stack('from_account_bank_name_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.bank_name') }}
                             </td>
 
@@ -57,7 +57,7 @@
                     <table>
                         @stack('from_account_phone_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('general.phone') }}
                             </td>
 
@@ -73,7 +73,7 @@
                     <table>
                         @stack('from_account_address_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold"  style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('general.address') }}
                             </td>
 
@@ -104,7 +104,7 @@
                     <table>
                         @stack('to_account_name_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.account_name') }}
                             </td>
 
@@ -118,7 +118,7 @@
                     <table>
                         @stack('to_account_number_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.number') }}
                             </td>
 
@@ -133,7 +133,7 @@
                     <table>
                         @stack('to_account_bank_name_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('accounts.bank_name') }}
                             </td>
 
@@ -149,7 +149,7 @@
                     <table>
                         @stack('to_account_phone_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('general.phone') }}
                             </td>
 
@@ -165,7 +165,7 @@
                     <table>
                         @stack('to_account_address_input_start')
                         <tr>
-                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+                            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                                 {{ trans('general.address') }}
                             </td>
 
@@ -197,7 +197,7 @@
     <table class="border-bottom-1" style="padding-bottom:15px;">
         @stack('transferred_at_input_start')
         <tr>
-            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                 {{ trans('general.date') }}
             </td>
 
@@ -209,7 +209,7 @@
 
         @stack('payment_method_input_start')
         <tr>
-            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                 {{ trans_choice('general.payment_methods', 1) }}
             </td>
 
@@ -221,7 +221,7 @@
 
         @stack('reference_input_start')
         <tr>
-            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                 {{ trans('general.reference') }}
             </td>
 
@@ -233,7 +233,7 @@
 
         @stack('description_input_start')
         <tr>
-            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px 4px 0 0; font-size: 12px;">
+            <td valign="top" class="font-semibold" style="width: 30%; margin: 0px; padding: 8px {{ language()->direction() === 'rtl' ? '0 0 4px' : '4px 0 0' }}; font-size: 12px;">
                 {{ trans('general.description') }}
             </td>
 
