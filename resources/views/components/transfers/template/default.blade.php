@@ -187,7 +187,7 @@
     <table style="margin-top:15px;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <div class="ltr:text-left rtl:text-right text-uppercase font-semibold" style="font-size: 14px;">
+                <div class="ltr:text-left rtl:text-right font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
                 </div>
             </td>
