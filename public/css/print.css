@@ -461,11 +461,13 @@ html[dir="rtl"] .print-template [class~="rtl:pr-9"] { padding-right: 72px; }
     word-break: break-word;
 }
 
-html[dir="ltr"] .text-left, html[dir="ltr"] .ltr\:text-left {
+html[dir="ltr"] .text-left,
+html[dir="ltr"] .ltr\:text-left {
     text-align: left;
 }
 
-html[dir="rtl"] .text-left, html[dir="rtl"] .rtl\:text-left {
+html[dir="rtl"] .text-left,
+html[dir="rtl"] .rtl\:text-left {
     text-align: left;
 }
 
@@ -485,12 +487,14 @@ html[dir="rtl"] .text-alignment-right {
     text-align: left !important;
 }
 
-html[dir="ltr"] .text-right, html[dir="ltr"] .ltr\:text-right {
+html[dir="ltr"] .text-right,
+html[dir="ltr"] .ltr\:text-right {
     text-align: right;
 }
 
-html[dir="rtl"] .text-right, html[dir="rtl"] .rtl\:text-right {
-    text-align: left;
+html[dir="rtl"] .text-right,
+html[dir="rtl"] .rtl\:text-right {
+    text-align: right;
 }
 
 .text-alignment-center {
