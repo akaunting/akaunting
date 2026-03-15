@@ -397,20 +397,20 @@
         </div>
         @endif
 
-        <table style="text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }}; margin-top:35px;">
+        <table style="width:100%; text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }}; margin-top:35px;">
             <tr>
-                <td valign="center" style="width:80%; display:block; float:{{ language()->direction() === 'rtl' ? 'left' : 'right' }}; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
-                    <table>
-                        <tr>
-                            <td valign="center" style="font-size: 14px; color: #ffffff; padding: 0;">
-                                <span class="ltr:mr-2 rtl:ml-2 font-semibold">
-                                    {{ trans($textAmount) }}
-                                </span>
-                                <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" />
-                            </td>
-                        </tr>
-                    </table>
+                @if (language()->direction() !== 'rtl')
+                <td style="width:20%;"></td>
+                @endif
+                <td valign="center" style="width:80%; font-size: 14px; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
+                    <span class="ltr:mr-2 rtl:ml-2 font-semibold" style="color: #ffffff;">
+                        {{ trans($textAmount) }}
+                    </span>
+                    <x-money :amount="$transaction->amount" :currency="$transaction->currency_code" />
                 </td>
+                @if (language()->direction() === 'rtl')
+                <td style="width:20%;"></td>
+                @endif
             </tr>
         </table>
     @endif

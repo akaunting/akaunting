@@ -59,6 +59,7 @@ html[dir="rtl"] .right-column {
     font-weight: 600;
 }
 
+/*
 .font-semibold {
     font-weight: 600;
 }
@@ -70,6 +71,7 @@ html[dir="rtl"] .right-column {
 .font-medium {
     font-weight: 500;
 }
+*/
 
 .row {
     font-size: 0;

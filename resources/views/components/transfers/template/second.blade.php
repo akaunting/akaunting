@@ -249,21 +249,20 @@
     </table>
     @stack('to_account_end')
 
-    <table style="text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
+    <table style="width:100%; text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
         <tr>
-            <td valign="center" style="width:80%; display:block; float:{{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
-                <table>
-                    <tr>
-                        <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
-                            <span class="ltr:ml-2 rtl:mr-2">
-                                {{ trans('general.amount') }}
-                            </span>
-
-                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
-                        </td>
-                    </tr>
-                </table>
+            @if (language()->direction() !== 'rtl')
+            <td style="width:20%;"></td>
+            @endif
+            <td valign="center" class="font-semibold" style="width:80%; font-size: 14px;">
+                <span class="ltr:ml-2 rtl:mr-2">
+                    {{ trans('general.amount') }}
+                </span>
+                <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
             </td>
+            @if (language()->direction() === 'rtl')
+            <td style="width:20%;"></td>
+            @endif
         </tr>
     </table>
 </div>
