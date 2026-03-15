@@ -197,7 +197,7 @@
     <table style="width: 100%; margin-top:15px;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <div class="ltr:text-left rtl:text-right text-uppercase font-semibold" style="font-size: 14px;">
+                <div class="ltr:text-left rtl:text-right font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
                 </div>
             </td>
@@ -269,7 +269,7 @@
             <td style="width:20%;"></td>
             @endif
             <td valign="center" class="font-semibold" style="width:80%; font-size: 14px;">
-                <span class="ltr:ml-2 rtl:mr-2">
+                <span class="ltr:mr-2 rtl:ml-2">
                     {{ trans('general.amount') }}
                 </span>
                 <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />

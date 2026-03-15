@@ -255,7 +255,7 @@
             <td style="width:20%;"></td>
             @endif
             <td valign="center" class="font-semibold" style="width:80%; font-size: 14px;">
-                <span class="ltr:ml-2 rtl:mr-2">
+                <span class="ltr:mr-2 rtl:ml-2">
                     {{ trans('general.amount') }}
                 </span>
                 <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
