@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }} text-white" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
-        <div class="col-58">
+    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }} text-white clearfix" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
+        <div class="col-58 ltr:float-left rtl:float-right">
             <div class="text text-white p-modern">
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-42">
+        <div class="col-42 ltr:float-right rtl:float-left">
             <div class="text text-white p-modern right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
@@ -90,8 +90,8 @@
         </div>
     </div>
 
-    <div class="row top-spacing">
-        <div class="col-50">
+    <div class="row top-spacing clearfix">
+        <div class="col-50 ltr:float-left rtl:float-right">
             <div class="text p-modern">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
@@ -162,7 +162,7 @@
             </div>
         </div>
 
-        <div class="col-50">
+        <div class="col-50 ltr:float-right rtl:float-left">
             <div class="text p-modern">
                 @stack('order_number_input_start')
                     @if (! $hideOrderNumber)

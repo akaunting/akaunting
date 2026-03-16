@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="row border-bottom-1">
-        <div class="col-58">
+    <div class="row border-bottom-1 clearfix">
+        <div class="col-58 ltr:float-left rtl:float-right">
             <div class="text">
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-42">
+        <div class="col-42 ltr:float-right rtl:float-left">
             <div class="text right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
@@ -84,8 +84,8 @@
         </div>
     </div>
 
-    <div class="row top-spacing">
-        <div class="col-60">
+    <div class="row top-spacing clearfix">
+        <div class="col-60 ltr:float-left rtl:float-right">
             <div class="text p-index-left break-words">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
@@ -156,7 +156,7 @@
             </div>
         </div>
 
-        <div class="col-40">
+        <div class="col-40 ltr:float-right rtl:float-left">
             <div class="text p-index-right">
                 @stack('document_number_input_start')
                     @if (! $hideDocumentNumber)
