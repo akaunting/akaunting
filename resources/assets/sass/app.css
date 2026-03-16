@@ -546,6 +546,18 @@ html[dir="rtl"] .el-input__suffix {
     text-align: left;
 }
 
+html[dir="rtl"] .el-select .el-input .el-input__inner,
+html[dir="rtl"] .un-el-select {
+    text-align: right;
+    padding-left: 30px;
+    padding-right: 12px;
+}
+
+/* Toggle YES/NO buttons: maintain consistent left-to-right order in RTL mode */
+html[dir="rtl"] .toggle-group {
+    flex-direction: row-reverse;
+}
+
 html[dir="rtl"] .el-scrollbar__wrap {
     margin-left: -15px !important;
     margin-right: unset !important;
