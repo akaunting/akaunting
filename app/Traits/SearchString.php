@@ -23,7 +23,7 @@ trait SearchString
     public function getSearchStringValue(
         string $name,
         string $default = '',
-        string $input = ''
+        string $input = '',
     ): string|array {
         $value = $default;
 
@@ -87,7 +87,7 @@ trait SearchString
     public function getSearchStringOperator(
         string $name,
         string $default = '=',
-        string $input = ''
+        string $input = '',
     ): string {
         $input = $input ?: request('search', '');
 
@@ -121,5 +121,39 @@ trait SearchString
         }
 
         return $default;
+    }
+
+    /**
+     * Strip tokens from a search string whose keys are not recognised columns
+     * for the given model class. Tokens whose keys appear in neither the model's
+     * search-string config nor the default keywords / columns are removed before
+     * the string is passed to usingSearchString().
+     *
+     * Falls back to returning $input unchanged when the model has no config entry.
+     */
+    public function stripUnknownSearchStringTokens(
+        string $input,
+        string $model_class,
+    ): string {
+        $model_config_columns = config('search-string.' . $model_class . '.columns', null);
+
+        if ($model_config_columns === null) {
+            return $input;
+        }
+
+        $valid_columns = array_unique(array_merge(
+            array_keys($model_config_columns),
+            array_values(config('search-string.default.keywords', [])),
+            array_keys(config('search-string.default.columns', [])),
+        ));
+
+        // Match optional "not " prefix + key + operator + value (quoted or unquoted)
+        $input = preg_replace_callback(
+            pattern: '/\b(?:not\s+)?(\w+)\s*(?:>=|<=|>|<|=|:)\s*(?:"[^"]*"|\S+)/',
+            callback: fn (array $matches) => in_array($matches[1], $valid_columns) ? $matches[0] : '',
+            subject: $input,
+        );
+
+        return trim(preg_replace('/\s+/', ' ', $input));
     }
 }

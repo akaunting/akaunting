@@ -17,18 +17,18 @@ abstract class Report
     protected $classes = [];
 
     protected $events = [
-        'App\Events\Report\FilterShowing',
-        'App\Events\Report\FilterApplying',
-        'App\Events\Report\GroupShowing',
-        'App\Events\Report\GroupApplying',
-        'App\Events\Report\RowsShowing',
+        \App\Events\Report\FilterShowing::class,
+        \App\Events\Report\FilterApplying::class,
+        \App\Events\Report\GroupShowing::class,
+        \App\Events\Report\GroupApplying::class,
+        \App\Events\Report\RowsShowing::class,
     ];
 
     public function skipThisClass($event)
     {
         $fire_event = $event;
 
-        $this->fireEvent('App\Events\Report\SkipClass', $fire_event);
+        $this->fireEvent(\App\Events\Report\SkipClass::class, $fire_event);
 
         return (empty($event->class) || !in_array(get_class($event->class), $this->classes));
     }
@@ -38,7 +38,7 @@ abstract class Report
         $fire_event = $event;
         $fire_group = $group;
 
-        $this->fireEvent('App\Events\Report\SkipRowsShowing', $fire_event, $fire_group);
+        $this->fireEvent(\App\Events\Report\SkipRowsShowing::class, $fire_event, $fire_group);
 
         return $this->skipThisClass($event)
                 || empty($event->class->model->settings->group)
@@ -203,17 +203,7 @@ abstract class Report
 
     public function applySearchStringFilter($event)
     {
-        $input = request('search', '');
-
-        // Remove basis as it's handled based on report itself
-        $search_basis = 'basis:' . $this->getSearchStringValue('basis', 'accrual', $input);
-        $input = str_replace($search_basis, '', $input);
-
-        // Remove period as it's handled based on report itself
-        $search_period = 'period:' . $this->getSearchStringValue('period', 'quarterly', $input);
-        $input = str_replace($search_period, '', $input);
-
-        $event->model->usingSearchString($input);
+        $event->model->usingSearchString();
     }
 
     public function applyAccountGroup($event)
