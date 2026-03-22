@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
+use App\Http\Requests\OAuth\ScopeRequest;
+use App\Jobs\OAuth\CreateScope;
+use App\Jobs\OAuth\DeleteScope;
+use App\Jobs\OAuth\UpdateScope;
 use App\Models\OAuth\Scope;
 use Illuminate\Http\Request;
 
@@ -57,40 +61,17 @@ class OAuthScopes extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScopeRequest $request)
     {
-        $validated = $request->validate([
-            'key' => 'required|string|max:100|unique:oauth_scopes,key|regex:/^[a-z0-9:_-]+$/i',
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'group' => 'nullable|string|max:50',
-            'enabled' => 'boolean',
-            'is_default' => 'boolean',
-            'sort_order' => 'nullable|integer',
-        ], [
-            'key.regex' => trans('oauth.scopes.key_format_error'),
-            'key.unique' => trans('oauth.scopes.key_exists'),
-        ]);
+        $response = $this->ajaxDispatch(new CreateScope($request));
 
-        $scope = Scope::create([
-            'key' => $validated['key'],
-            'name' => $validated['name'],
-            'description' => $validated['description'] ?? '',
-            'group' => $validated['group'] ?? 'custom',
-            'enabled' => $validated['enabled'] ?? true,
-            'is_default' => $validated['is_default'] ?? false,
-            'sort_order' => $validated['sort_order'] ?? 0,
-        ]);
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('settings.oauth.scopes.index'),
+            ]));
+        }
 
-        $message = trans('messages.success.added', ['type' => trans('oauth.scope')]);
-
-        flash($message)->success();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'redirect' => route('settings.oauth.scopes.index'),
-        ]);
+        return $response;
     }
 
     /**
@@ -114,42 +95,19 @@ class OAuthScopes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, ScopeRequest $request)
     {
         $scope = Scope::findOrFail($id);
 
-        $validated = $request->validate([
-            'key' => 'required|string|max:100|regex:/^[a-z0-9:_-]+$/i|unique:oauth_scopes,key,' . $id,
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'group' => 'nullable|string|max:50',
-            'enabled' => 'boolean',
-            'is_default' => 'boolean',
-            'sort_order' => 'nullable|integer',
-        ], [
-            'key.regex' => trans('oauth.scopes.key_format_error'),
-            'key.unique' => trans('oauth.scopes.key_exists'),
-        ]);
+        $response = $this->ajaxDispatch(new UpdateScope($scope, $request));
 
-        $scope->update([
-            'key' => $validated['key'],
-            'name' => $validated['name'],
-            'description' => $validated['description'] ?? '',
-            'group' => $validated['group'] ?? 'custom',
-            'enabled' => $validated['enabled'] ?? $scope->enabled,
-            'is_default' => $validated['is_default'] ?? $scope->is_default,
-            'sort_order' => $validated['sort_order'] ?? $scope->sort_order,
-        ]);
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('settings.oauth.scopes.index'),
+            ]));
+        }
 
-        $message = trans('messages.success.updated', ['type' => trans('oauth.scope')]);
-
-        flash($message)->success();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'redirect' => route('settings.oauth.scopes.index'),
-        ]);
+        return $response;
     }
 
     /**
@@ -162,17 +120,15 @@ class OAuthScopes extends Controller
     {
         $scope = Scope::findOrFail($id);
 
-        $scope->delete();
+        $response = $this->ajaxDispatch(new DeleteScope($scope));
 
-        $message = trans('messages.success.deleted', ['type' => trans('oauth.scope')]);
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('settings.oauth.scopes.index'),
+            ]));
+        }
 
-        flash($message)->success();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'redirect' => route('settings.oauth.scopes.index'),
-        ]);
+        return $response;
     }
 
     /**
@@ -181,20 +137,13 @@ class OAuthScopes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function enable($id)
+    public function enable($id, Request $request)
     {
         $scope = Scope::findOrFail($id);
-        $scope->update(['enabled' => true]);
 
-        $message = trans('messages.success.enabled', ['type' => trans('oauth.scope')]);
+        $request->merge(['enabled' => true]);
 
-        flash($message)->success();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'redirect' => route('settings.oauth.scopes.index'),
-        ]);
+        return $this->ajaxDispatch(new UpdateScope($scope, $request));
     }
 
     /**
@@ -203,20 +152,13 @@ class OAuthScopes extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function disable($id)
+    public function disable($id, Request $request)
     {
         $scope = Scope::findOrFail($id);
-        $scope->update(['enabled' => false]);
 
-        $message = trans('messages.success.disabled', ['type' => trans('oauth.scope')]);
+        $request->merge(['enabled' => false]);
 
-        flash($message)->success();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'redirect' => route('settings.oauth.scopes.index'),
-        ]);
+        return $this->ajaxDispatch(new UpdateScope($scope, $request));
     }
 
     /**

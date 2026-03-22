@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\OAuth;
 
 use App\Abstracts\Http\Controller;
-use App\Events\OAuth\ClientCreated;
-use App\Events\OAuth\ClientDeleted;
 use App\Events\OAuth\ClientSecretRegenerated;
-use App\Events\OAuth\ClientUpdated;
+use App\Http\Requests\OAuth\ClientRequest;
+use App\Jobs\OAuth\CreateClient;
+use App\Jobs\OAuth\DeleteClient;
+use App\Jobs\OAuth\UpdateClient;
 use App\Models\OAuth\Client as ClientModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,10 +25,10 @@ class Client extends Controller
         parent::__construct();
 
         $this->middleware('auth');
-        $this->middleware('permission:create-auth-users')->only('create', 'store');
-        $this->middleware('permission:read-auth-users')->only('index', 'show');
-        $this->middleware('permission:update-auth-users')->only('edit', 'update');
-        $this->middleware('permission:delete-auth-users')->only('destroy');
+        $this->middleware('permission:create-oauth-clients')->only('create', 'store');
+        $this->middleware('permission:read-oauth-clients')->only('index', 'show');
+        $this->middleware('permission:update-oauth-clients')->only('edit', 'update', 'secret');
+        $this->middleware('permission:delete-oauth-clients')->only('destroy');
     }
 
     /**
@@ -65,16 +66,10 @@ class Client extends Controller
      * @param  \Laravel\Passport\ClientRepository  $clients
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ClientRepository $clients)
+    public function store(ClientRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:191',
-            'redirect' => 'required|string',
-            'confidential' => 'boolean',
-        ]);
-
         // Support multiple redirect URLs (comma-separated or JSON array)
-        $redirectUrls = $this->parseRedirectUrls($validated['redirect']);
+        $redirectUrls = $this->parseRedirectUrls($request->get('redirect'));
 
         if (empty($redirectUrls)) {
             return response()->json([
@@ -84,42 +79,19 @@ class Client extends Controller
             ], 422);
         }
 
-        // Store as JSON array for multiple URLs or single URL
-        $validated['redirect'] = count($redirectUrls) > 1 ? json_encode($redirectUrls) : $redirectUrls[0];
+        $request->merge([
+            'redirect' => count($redirectUrls) > 1 ? json_encode($redirectUrls) : $redirectUrls[0],
+        ]);
 
-        $client = $clients->create(
-            user_id(),
-            $validated['name'],
-            $validated['redirect'],
-            null,
-            false,
-            false,
-            !$request->filled('confidential')
-        );
+        $response = $this->ajaxDispatch(new CreateClient($request));
 
-        // Set company_id and created_from
-        if (config('oauth.company_aware', true)) {
-            $client->company_id = company_id();
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('oauth.clients.index'),
+            ]));
         }
 
-        $client->created_from = 'oauth.web';
-        $client->created_by = user_id();
-        $client->save();
-
-        // Fire event
-        event(new ClientCreated($client, !$request->filled('confidential')));
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.clients', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'data' => [
-                'client' => $client,
-            ],
-            'redirect' => route('oauth.clients.index'),
-        ]);
+        return $response;
     }
 
     /**
@@ -161,15 +133,10 @@ class Client extends Controller
      * @param  string  $client_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClientRepository $clients, $client_id)
+    public function update($client_id, ClientRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:191',
-            'redirect' => 'required|string',
-        ]);
-
         // Support multiple redirect URLs (comma-separated or JSON array)
-        $redirectUrls = $this->parseRedirectUrls($validated['redirect']);
+        $redirectUrls = $this->parseRedirectUrls($request->get('redirect'));
 
         if (empty($redirectUrls)) {
             return response()->json([
@@ -179,28 +146,21 @@ class Client extends Controller
             ], 422);
         }
 
-        // Store as JSON array for multiple URLs or single URL
-        $validated['redirect'] = count($redirectUrls) > 1 ? json_encode($redirectUrls) : $redirectUrls[0];
+        $request->merge([
+            'redirect' => count($redirectUrls) > 1 ? json_encode($redirectUrls) : $redirectUrls[0],
+        ]);
 
         $client = ClientModel::findOrFail($client_id);
-        $original = $client->getOriginal();
 
-        $clients->update($client, $validated['name'], $validated['redirect']);
+        $response = $this->ajaxDispatch(new UpdateClient($client, $request));
 
-        // Fire event
-        event(new ClientUpdated($client->fresh(), $original));
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('oauth.clients.index'),
+            ]));
+        }
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.clients', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'data' => [
-                'client' => $client->fresh(),
-            ],
-            'redirect' => route('oauth.clients.index'),
-        ]);
+        return $response;
     }
 
     /**
@@ -210,23 +170,19 @@ class Client extends Controller
      * @param  string  $client_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClientRepository $clients, $client_id)
+    public function destroy(ClientRepository $client)
     {
         $client = ClientModel::findOrFail($client_id);
 
-        // Fire event before deletion
-        event(new ClientDeleted($client));
+        $response = $this->ajaxDispatch(new DeleteClient($client));
 
-        $clients->delete($client);
+        if ($response->getData(true)['success']) {
+            $response->setData(array_merge($response->getData(true), [
+                'redirect' => route('oauth.clients.index'),
+            ]));
+        }
 
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.clients', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'redirect' => route('oauth.clients.index'),
-        ]);
+        return $response;
     }
 
     /**

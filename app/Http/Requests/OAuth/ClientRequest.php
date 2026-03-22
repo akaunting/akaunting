@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\OAuth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Abstracts\Http\FormRequest;
 
 class ClientRequest extends FormRequest
 {
@@ -24,14 +24,13 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|string|max:255',
-            'redirect' => 'required|url',
+            'name'         => 'required|string|max:191',
+            'redirect'     => 'required|string',
             'confidential' => 'nullable|boolean',
         ];
 
-        // For updates, make redirect optional
         if ($this->isMethod('PATCH') || $this->isMethod('PUT')) {
-            $rules['redirect'] = 'nullable|url';
+            $rules['redirect'] = 'nullable|string';
         }
 
         return $rules;
