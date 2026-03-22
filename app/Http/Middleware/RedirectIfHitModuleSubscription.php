@@ -32,7 +32,7 @@ class RedirectIfHitModuleSubscription
         }
 
         if (! $this->getModulesLimitOfSubscription()->action_status) {
-            //return redirect()->route('dashboard');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

@@ -202,7 +202,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::patch('oauth', 'Settings\OAuth@update')->name('oauth.update');
         
         Route::get('email-templates', 'Settings\EmailTemplates@edit')->name('email-templates.edit');
-        Route::patch('email-templates', 'Settings\EmailTemplates@update')->name('email-template/./.s.update');
+        Route::patch('email-templates', 'Settings\EmailTemplates@update')->name('email-templates.update');
         Route::get('email-templates/get', 'Settings\EmailTemplates@get')->name('email-templates.get');
         Route::get('schedule', 'Settings\Schedule@edit')->name('schedule.edit');
         Route::patch('schedule', 'Settings\Schedule@update')->name('schedule.update');
@@ -213,12 +213,14 @@ Route::group(['prefix' => 'settings'], function () {
         // OAuth Scopes Management
         Route::get('oauth/scopes/{scope}/enable', 'Settings\OAuthScopes@enable')->name('oauth.scopes.enable');
         Route::get('oauth/scopes/{scope}/disable', 'Settings\OAuthScopes@disable')->name('oauth.scopes.disable');
-        Route::get('oauth/scopes', 'Settings\OAuthScopes@index')->name('oauth.scopes.index');
-        Route::get('oauth/scopes/create', 'Settings\OAuthScopes@create')->name('oauth.scopes.create');
-        Route::post('oauth/scopes', 'Settings\OAuthScopes@store')->name('oauth.scopes.store');
-        Route::get('oauth/scopes/{scope}/edit', 'Settings\OAuthScopes@edit')->name('oauth.scopes.edit');
-        Route::patch('oauth/scopes/{scope}', 'Settings\OAuthScopes@update')->name('oauth.scopes.update');
-        Route::delete('oauth/scopes/{scope}', 'Settings\OAuthScopes@destroy')->name('oauth.scopes.destroy');
+        Route::resource('oauth/scopes', 'Settings\OAuthScopes')->except(['show'])->names([
+            'index'   => 'oauth.scopes.index',
+            'create'  => 'oauth.scopes.create',
+            'store'   => 'oauth.scopes.store',
+            'edit'    => 'oauth.scopes.edit',
+            'update'  => 'oauth.scopes.update',
+            'destroy' => 'oauth.scopes.destroy',
+        ]);
         
         // OAuth Activity Logs
         Route::get('oauth/activity', 'Settings\OAuthActivity@index')->name('oauth.activity.index');

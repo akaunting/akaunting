@@ -40,11 +40,6 @@ Route::delete('authorize', 'OAuth\Authorize@deny')
     ->withoutMiddleware('oauth')
     ->middleware(['web', 'auth', 'throttle:oauth']);
 
-// OAuth Discovery Endpoint (RFC 8414)
-Route::get('.well-known/oauth-authorization-server', 'OAuth\Discovery@metadata')
-    ->name('oauth.metadata')
-    ->withoutMiddleware('oauth');
-
 // Protected Resource Metadata Endpoint (RFC 9728) - MCP REQUIRED
 Route::get('.well-known/oauth-protected-resource', 'OAuth\Discovery@protectedResourceMetadata')
     ->name('oauth.protected-resource-metadata')
