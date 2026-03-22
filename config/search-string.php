@@ -347,7 +347,10 @@ return [
                 'route' => ['currencies.index', 'search=enabled:1'],
                 'multiple' => true,
             ],
-            'contact_id',
+            'contact_id' => [
+                'route' => 'contacts.index',
+                'multiple' => true,
+            ],
             'contact_name' => ['searchable' => true],
             'contact_email' => ['searchable' => true],
             'contact_tax_number',
