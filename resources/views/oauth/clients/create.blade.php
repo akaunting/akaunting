@@ -4,12 +4,12 @@
     <x-slot name="favorite"
         title="{{ trans('oauth.clients') }}"
         icon="key"
-        route="passport.clients.create"
+        route="oauth.clients.create"
     ></x-slot>
 
     <x-slot name="content">
         <x-form.container>
-            <x-form id="oauth-client" route="passport.clients.store">
+            <x-form id="oauth-client" route="oauth.clients.store">
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head 
@@ -80,7 +80,7 @@
 
                 <x-form.section>
                     <x-slot name="foot">
-                        <x-form.buttons cancel-route="passport.clients.index" />
+                        <x-form.buttons cancel-route="oauth.clients.index" />
                     </x-slot>
                 </x-form.section>
             </x-form>

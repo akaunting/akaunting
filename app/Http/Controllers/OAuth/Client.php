@@ -65,7 +65,7 @@ class Client extends Controller
 
         if ($response->getData(true)['success']) {
             $response->setData(array_merge($response->getData(true), [
-                'redirect' => route('oauth.passport.clients.index'),
+                'redirect' => route('oauth.clients.index'),
             ]));
         }
 
@@ -109,7 +109,7 @@ class Client extends Controller
 
         if ($response->getData(true)['success']) {
             $response->setData(array_merge($response->getData(true), [
-                'redirect' => route('oauth.passport.clients.index'),
+                'redirect' => route('oauth.clients.index'),
             ]));
         }
 
@@ -128,7 +128,7 @@ class Client extends Controller
 
         if ($response->getData(true)['success']) {
             $response->setData(array_merge($response->getData(true), [
-                'redirect' => route('oauth.passport.clients.index'),
+                'redirect' => route('oauth.clients.index'),
             ]));
         }
 

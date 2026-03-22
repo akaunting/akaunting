@@ -146,6 +146,6 @@ class Clients extends Controller
 
         flash($message)->success();
 
-        return redirect()->route('oauth.passport.clients.index');
+        return redirect()->route('oauth.clients.index');
     }
 }

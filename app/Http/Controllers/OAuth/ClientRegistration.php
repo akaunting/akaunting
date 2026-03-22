@@ -4,10 +4,12 @@ namespace App\Http\Controllers\OAuth;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\OAuth\ClientRegistration as ClientRegistrationRequest;
+use App\Http\Requests\OAuth\ClientRegistrationUpdateRequest;
 use App\Models\OAuth\AccessToken;
 use App\Models\OAuth\Client;
 use App\Models\OAuth\RefreshToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -100,41 +102,31 @@ class ClientRegistration extends Controller
      *
      * Requires the registration_access_token as a Bearer token.
      */
-    public function update(Request $request, $clientId)
+    public function update(ClientRegistrationUpdateRequest $request, $clientId)
     {
         $client = Client::withoutGlobalScope('company')->findOrFail($clientId);
 
-        if (!$this->validateRegistrationToken($request, $client)) {
+        if (! $this->validateRegistrationToken($request, $client)) {
             return $this->invalidTokenResponse();
         }
 
-        try {
-            $validated = $request->validate([
-                'client_name'   => 'required|string|max:255',
-                'redirect_uris' => 'required|array|min:1',
-                'redirect_uris.*' => [
-                    'required',
-                    'string',
-                    'url',
-                    function ($attribute, $value, $fail) {
-                        if (!$this->isValidRedirectUri($value)) {
-                            $fail("The redirect URI '{$value}' is not allowed. Production URIs must use HTTPS.");
-                        }
-                    },
-                ],
-                'grant_types'                => 'sometimes|array',
-                'token_endpoint_auth_method' => 'sometimes|string|in:client_secret_post,client_secret_basic,none',
-            ]);
-        } catch (ValidationException $e) {
+        // Extra redirect URI security check beyond basic URL validation
+        $invalidUris = collect($request->redirect_uris)->filter(
+            fn (string $uri) => ! $this->isValidRedirectUri($uri)
+        );
+
+        if ($invalidUris->isNotEmpty()) {
             return response()->json([
                 'error'             => 'invalid_client_metadata',
-                'error_description' => $e->getMessage(),
+                'error_description' => "The redirect URI '{$invalidUris->first()}' is not allowed. Production URIs must use HTTPS.",
             ], 400);
         }
 
-        $client->name     = $validated['client_name'];
-        $client->redirect = json_encode($validated['redirect_uris']);
-        $client->save();
+        DB::transaction(function () use ($client, $request) {
+            $client->name     = $request->client_name;
+            $client->redirect = json_encode($request->redirect_uris);
+            $client->save();
+        });
 
         return response()->json(
             $this->buildClientMetadata($client),
@@ -280,41 +272,53 @@ class ClientRegistration extends Controller
     {
         $isConfidential = ($validated['token_endpoint_auth_method'] ?? 'client_secret_post') !== 'none';
 
-        $client = new Client();
-        $client->name                   = $validated['client_name'];
-        $client->redirect               = json_encode($validated['redirect_uris']);
-        $client->personal_access_client = false;
-        $client->password_client        = false;
-        $client->revoked                = false;
-        $client->created_from           = 'oauth.dcr';
-        $client->created_by             = null;
+        $plainSecret = null;
+        $plainToken  = null;
 
-        if ($isConfidential) {
-            $plainSecret = Str::random(40);
+        $client = DB::transaction(function () use ($validated, $isConfidential, &$plainSecret, &$plainToken) {
+            $client = new Client();
+            $client->name                   = $validated['client_name'];
+            $client->redirect               = json_encode($validated['redirect_uris']);
+            $client->personal_access_client = false;
+            $client->password_client        = false;
+            $client->revoked                = false;
+            $client->created_from           = 'oauth.dcr';
+            $client->created_by             = null;
 
-            $client->secret = config('oauth.hash_client_secrets', false)
-                ? password_hash($plainSecret, PASSWORD_BCRYPT)
-                : $plainSecret;
+            if ($isConfidential) {
+                $plainSecret = Str::random(40);
 
-            // Temporary — needed in buildRegistrationResponse(), not persisted
+                $client->secret = config('oauth.hash_client_secrets', false)
+                    ? password_hash($plainSecret, PASSWORD_BCRYPT)
+                    : $plainSecret;
+            }
+
+            if (config('oauth.company_aware', true)) {
+                $client->company_id = company_id() ?? 1;
+            }
+
+            if (config('oauth.dcr.enable_management', false)) {
+                $plainToken = Str::random(64);
+
+                // Store only the hash; the plain token is returned once in the response
+                $client->registration_token = hash('sha256', $plainToken);
+            }
+
+            $client->save();
+
+            return $client;
+        });
+
+        // Attach plain values as virtual properties after the transaction
+        // so buildRegistrationResponse() can include them in the response.
+        // These are never persisted to the database.
+        if ($plainSecret !== null) {
             $client->plain_secret = $plainSecret;
         }
 
-        if (config('oauth.company_aware', true)) {
-            $client->company_id = company_id() ?? 1;
-        }
-
-        if (config('oauth.dcr.enable_management', false)) {
-            $plainToken = Str::random(64);
-
-            // Store only the hash; the plain token is returned once in the response
-            $client->registration_token = hash('sha256', $plainToken);
-
-            // Temporary — needed in buildRegistrationResponse(), not persisted
+        if ($plainToken !== null) {
             $client->plain_registration_token = $plainToken;
         }
-
-        $client->save();
 
         return $client;
     }

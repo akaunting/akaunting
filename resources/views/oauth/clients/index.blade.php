@@ -4,12 +4,12 @@
     <x-slot name="favorite"
         title="{{ trans('oauth.clients') }}"
         icon="key"
-        route="passport.clients.index"
+        route="oauth.clients.index"
     ></x-slot>
 
     <x-slot name="buttons">
         @can('create-auth-users')
-            <x-link href="{{ route('passport.clients.create') }}" kind="primary">
+            <x-link href="{{ route('oauth.clients.create') }}" kind="primary">
                 {{ trans('general.title.new', ['type' => trans('oauth.client')]) }}
             </x-link>
         @endcan
@@ -43,7 +43,7 @@
 
                     <x-table.tbody>
                         @foreach($clients as $client)
-                            <x-table.tr href="{{ route('passport.clients.show', $client->id) }}">
+                            <x-table.tr href="{{ route('oauth.clients.show', $client->id) }}">
                                 <x-table.td class="w-5/12">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
@@ -98,7 +98,7 @@
                 page="clients"
                 :buttons="[
                     'new' => [
-                        'url' => route('passport.clients.create'),
+                        'url' => route('oauth.clients.create'),
                         'permission' => 'create-auth-users',
                     ],
                 ]"

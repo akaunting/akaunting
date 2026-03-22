@@ -4,7 +4,7 @@
     <x-slot name="favorite"
         title="{{ trans('oauth.personal_access_tokens') }}"
         icon="vpn_key"
-        route="passport.tokens.index"
+        route="oauth.tokens.index"
     ></x-slot>
 
     <x-slot name="buttons">
@@ -102,7 +102,7 @@
                                 <x-table.td class="w-1/12" kind="action">
                                     @if (!$token->revoked)
                                         <x-delete-link
-                                            :route="['passport.tokens.destroy', $token->id]"
+                                            :route="['oauth.tokens.destroy', $token->id]"
                                             text="{{ trans('oauth.revoke') }}"
                                         />
                                     @endif
@@ -129,7 +129,7 @@
 
         <!-- Create Token Modal -->
         <x-modal id="create-token-modal" title="{{ trans('oauth.create_token') }}">
-            <x-form id="create-personal-token" route="passport.personal.tokens.store">
+            <x-form id="create-personal-token" route="oauth.personal-tokens.store">
                 <x-form.group.text 
                     name="name" 
                     label="{{ trans('general.name') }}" 
@@ -146,7 +146,7 @@
                 />
 
                 <x-form.buttons 
-                    cancel-route="passport.tokens.index" 
+                    cancel-route="oauth.tokens.index" 
                     text="{{ trans('oauth.create_token') }}"
                 />
             </x-form>

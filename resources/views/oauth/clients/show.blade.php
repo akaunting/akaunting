@@ -4,12 +4,12 @@
     <x-slot name="favorite"
         title="{{ $client->name }}"
         icon="key"
-        :route="['passport.clients.show', $client->id]"
+        :route="['oauth.clients.show', $client->id]"
     ></x-slot>
 
     <x-slot name="buttons">
         @can('update-auth-users')
-            <x-link href="{{ route('passport.clients.edit', $client->id) }}" kind="secondary">
+            <x-link href="{{ route('oauth.clients.edit', $client->id) }}" kind="secondary">
                 {{ trans('general.edit') }}
             </x-link>
         @endcan
@@ -17,7 +17,7 @@
         @can('delete-auth-users')
             <x-delete-button 
                 :model="$client" 
-                :route="['passport.clients.destroy', $client->id]"
+                :route="['oauth.clients.destroy', $client->id]"
                 text="{{ trans('general.delete') }}"
             />
         @endcan
@@ -111,7 +111,7 @@
                                                 <x-form 
                                                     id="regenerate-secret-{{ $client->id }}" 
                                                     method="POST" 
-                                                    :route="['passport.clients.secret', $client->id]"
+                                                    :route="['oauth.clients.secret', $client->id]"
                                                 >
                                                     <x-button type="submit" kind="danger" size="sm">
                                                         {{ trans('oauth.regenerate_secret') }}

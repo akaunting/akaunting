@@ -3,7 +3,7 @@
 
     <x-slot name="content">
         <x-form.container>
-            <x-form id="oauth-client" method="PATCH" :route="['passport.clients.update', $client->id]" :model="$client">
+            <x-form id="oauth-client" method="PATCH" :route="['oauth.clients.update', $client->id]" :model="$client">
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head 
@@ -102,7 +102,7 @@
 
                 <x-form.section>
                     <x-slot name="foot">
-                        <x-form.buttons cancel-route="passport.clients.index" />
+                        <x-form.buttons cancel-route="oauth.clients.index" />
                     </x-slot>
                 </x-form.section>
             </x-form>

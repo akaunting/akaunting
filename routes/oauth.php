@@ -3,14 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 /**
- * 'auth' middleware applied to all routes
+ * 'oauth' middleware applied to all routes
  *
  * @see \App\Providers\Route::mapOAuthRoutes
  */
 
 // OAuth Token Endpoint (stateless, no auth required - handled by Passport)
 Route::post('token', 'OAuth\AccessToken@issueToken')
-    ->name('passport.token')
+    ->name('oauth.token')
     ->withoutMiddleware('oauth')
     ->middleware(['throttle:oauth', 'bindings']);
 
@@ -26,19 +26,24 @@ Route::post('token/revoke', 'OAuth\Token@revoke')
 
 // Authorization Endpoints (require auth)
 Route::get('authorize', 'OAuth\Authorize@show')
-    ->name('passport.authorizations.authorize')
+    ->name('oauth.authorize')
     ->withoutMiddleware('oauth')
     ->middleware(['web', 'auth', 'throttle:oauth']);
 
 Route::post('authorize', 'OAuth\Authorize@approve')
-    ->name('passport.authorizations.approve')
+    ->name('oauth.authorize.approve')
     ->withoutMiddleware('oauth')
     ->middleware(['web', 'auth', 'throttle:oauth']);
 
 Route::delete('authorize', 'OAuth\Authorize@deny')
-    ->name('passport.authorizations.deny')
+    ->name('oauth.authorize.deny')
     ->withoutMiddleware('oauth')
     ->middleware(['web', 'auth', 'throttle:oauth']);
+
+// Discovery Endpoints
+Route::get('.well-known/oauth-authorization-server', 'OAuth\Discovery@metadata')
+    ->name('oauth.metadata')
+    ->withoutMiddleware('oauth');
 
 // Protected Resource Metadata Endpoint (RFC 9728) - MCP REQUIRED
 Route::get('.well-known/oauth-protected-resource', 'OAuth\Discovery@protectedResourceMetadata')
@@ -72,30 +77,28 @@ Route::delete('register/{client_id}', 'OAuth\ClientRegistration@destroy')
     ->withoutMiddleware('oauth')
     ->middleware(['throttle:oauth', 'bindings']);
 
-Route::group(['as' => 'passport.'], function () {
-    // Token Management (User's personal tokens)
-    Route::get('tokens', 'OAuth\Token@index')->name('tokens.index');
-    Route::delete('tokens/{token_id}', 'OAuth\Token@destroy')->name('tokens.destroy');
+// Token Management (User's personal tokens)
+Route::get('tokens', 'OAuth\Token@index')->name('oauth.tokens.index');
+Route::delete('tokens/{token_id}', 'OAuth\Token@destroy')->name('oauth.tokens.destroy');
 
-    // Client Management - Admin (CRUD)
-    Route::get('clients/create', 'OAuth\Client@create')->name('clients.create');
-    Route::post('clients', 'OAuth\Client@store')->name('clients.store');
-    Route::get('clients/{client}/edit', 'OAuth\Client@edit')->name('clients.edit');
-    Route::put('clients/{client}', 'OAuth\Client@update')->name('clients.update');
-    Route::patch('clients/{client}', 'OAuth\Client@update');
-    Route::post('clients/{client}/secret', 'OAuth\Client@secret')->name('clients.secret');
+// Client Management — Admin (CRUD)
+Route::get('clients/create', 'OAuth\Client@create')->name('oauth.clients.create');
+Route::post('clients', 'OAuth\Client@store')->name('oauth.clients.store');
+Route::get('clients/{client}/edit', 'OAuth\Client@edit')->name('oauth.clients.edit');
+Route::put('clients/{client}', 'OAuth\Client@update')->name('oauth.clients.update');
+Route::patch('clients/{client}', 'OAuth\Client@update');
+Route::post('clients/{client}/secret', 'OAuth\Client@secret')->name('oauth.clients.secret');
 
-    // Client Management - User (Authorized Applications)
-    Route::get('clients', 'OAuth\Clients@index')->name('clients.index');
-    Route::get('clients/{client}', 'OAuth\Clients@show')->name('clients.show');
-    Route::post('clients/{client}/revoke', 'OAuth\Clients@revoke')->name('clients.revoke');
-    Route::delete('clients/{client}', 'OAuth\Clients@destroy')->name('clients.destroy');
+// Client Management — User (Authorized Applications)
+Route::get('clients', 'OAuth\Clients@index')->name('oauth.clients.index');
+Route::get('clients/{client}', 'OAuth\Clients@show')->name('oauth.clients.show');
+Route::post('clients/{client}/revoke', 'OAuth\Clients@revoke')->name('oauth.clients.revoke');
+Route::delete('clients/{client}', 'OAuth\Clients@destroy')->name('oauth.clients.destroy');
 
-    // Personal Access Tokens
-    Route::get('personal-access-tokens', 'OAuth\PersonalAccessToken@index')->name('personal.tokens.index');
-    Route::post('personal-access-tokens', 'OAuth\PersonalAccessToken@store')->name('personal.tokens.store');
-    Route::delete('personal-access-tokens/{token_id}', 'OAuth\PersonalAccessToken@destroy')->name('personal.tokens.destroy');
+// Personal Access Tokens
+Route::get('personal-access-tokens', 'OAuth\PersonalAccessToken@index')->name('oauth.personal-tokens.index');
+Route::post('personal-access-tokens', 'OAuth\PersonalAccessToken@store')->name('oauth.personal-tokens.store');
+Route::delete('personal-access-tokens/{token_id}', 'OAuth\PersonalAccessToken@destroy')->name('oauth.personal-tokens.destroy');
 
-    // Scopes (API - read only)
-    Route::get('scopes', 'OAuth\Scope@index')->name('scopes.index');
-});
+// Scopes (API - read only)
+Route::get('scopes', 'OAuth\Scope@index')->name('oauth.scopes.index');

@@ -36,7 +36,7 @@
         </div>
 
         @if (count($companies) > 0)
-            <form id="authorize" method="POST" action="{{ route('passport.authorizations.approve') }}">
+            <form id="authorize" method="POST" action="{{ route('oauth.authorize.approve') }}">
                 @csrf
                 <input type="hidden" name="auth_token" value="{{ $authToken }}">
 
