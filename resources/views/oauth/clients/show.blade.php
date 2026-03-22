@@ -8,13 +8,13 @@
     ></x-slot>
 
     <x-slot name="buttons">
-        @can('update-auth-users')
+        @can('update-oauth-clients')
             <x-link href="{{ route('oauth.clients.edit', $client->id) }}" kind="secondary">
                 {{ trans('general.edit') }}
             </x-link>
         @endcan
 
-        @can('delete-auth-users')
+        @can('delete-oauth-clients')
             <x-delete-button 
                 :model="$client" 
                 :route="['oauth.clients.destroy', $client->id]"

@@ -80,7 +80,7 @@ window.copyToken = function() {
 
 function loadScopes() {
     // Load available scopes from API
-    fetch(window.url + '/oauth/scopes')
+    fetch(window.url + '/' + window.locale + '/oauth/scopes')
         .then(response => response.json())
         .then(data => {
             if (data.success && data.data) {

@@ -64,6 +64,10 @@ mix
     // Portal
     .js('resources/assets/js/views/portal/apps.js', 'public/js/portal/apps.min.js')
 
+    // OAuth
+    .js('resources/assets/js/views/oauth/clients.js', 'public/js/oauth/clients.min.js')
+    .js('resources/assets/js/views/oauth/tokens.js', 'public/js/oauth/tokens.min.js')
+
     // Settings
     .js('resources/assets/js/views/settings/categories.js', 'public/js/settings/categories.min.js')
     .js('resources/assets/js/views/settings/currencies.js', 'public/js/settings/currencies.min.js')

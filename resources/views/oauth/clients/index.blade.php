@@ -8,7 +8,7 @@
     ></x-slot>
 
     <x-slot name="buttons">
-        @can('create-auth-users')
+        @can('create-oauth-clients')
             <x-link href="{{ route('oauth.clients.create') }}" kind="primary">
                 {{ trans('general.title.new', ['type' => trans('oauth.client')]) }}
             </x-link>
@@ -99,7 +99,7 @@
                 :buttons="[
                     'new' => [
                         'url' => route('oauth.clients.create'),
-                        'permission' => 'create-auth-users',
+                        'permission' => 'create-oauth-clients',
                     ],
                 ]"
             />
