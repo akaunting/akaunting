@@ -16,7 +16,7 @@
                     </x-link.hover>
                 </x-link>
 
-                <i class="material-icons text-sm ltr:ml-1 rtl:mr-1 transform transition-all group-hover:translate-x-1">arrow_forward</i>
+                <i class="material-icons text-sm ltr:ml-1 rtl:mr-1 transform transition-all ltr:group-hover:translate-x-1 rtl:group-hover:-translate-x-1">arrow_forward</i>
             </div>
         @endif
     </div>

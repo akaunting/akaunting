@@ -35,9 +35,9 @@
             </table>
         </div>
 
-        <div class="absolute right-0 top-0 group">
+        <div class="absolute ltr:right-0 rtl:left-0 top-0 group">
             <div class="w-6 h-7 flex items-center justify-center rounded-lg p-0 group-hover:bg-gray-100">
-                <span class="material-icons-outlined text-lg opacity-70 group-hover:text-gray-500 cursor-pointer" @click="onEditCompany">edit</span>
+                <span class="material-icons-outlined rtl:-rotate-90 text-lg opacity-70 group-hover:text-gray-500 cursor-pointer" @click="onEditCompany">edit</span>
             </div>
         </div>
 

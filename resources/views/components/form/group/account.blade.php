@@ -22,7 +22,7 @@
                 <div class="w-12 h-12 flex items-center justify-center text-2xl font-regular border border-gray-300 rounded-full p-6">
                     @{{ option.option.initials }}
                 </div>
-                <div class="flex flex-col text-black text-sm font-medium ml-2 sm:ml-4">
+                <div class="flex flex-col text-black text-sm font-medium ltr:ml-2 rtl:mr-2 sm:ltr:ml-4 sm:rtl:mr-4">
                     <span>@{{ option.option.title }}</span>
                     <span>@{{ option.option.number }}</span>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="w-12 h-12 flex items-center justify-center text-2xl font-regular border border-gray-300 rounded-full p-6">
                     @{{ option.option.initials }}
                 </div>
-                <div class="flex flex-col text-black text-sm font-medium ml-2 sm:ml-4">
+                <div class="flex flex-col text-black text-sm font-medium ltr:ml-2 rtl:mr-2 sm:ltr:ml-4 sm:rtl:mr-4">
                     <span>@{{ option.option.title }}</span>
                     <span>@{{ option.option.number }}</span>
                 </div>

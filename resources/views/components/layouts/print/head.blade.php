@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8; charset=ISO-8859-1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <title>{!! $title !!} - @setting('company.name')</title>
 
@@ -30,6 +30,23 @@
 
         * {
             font-family: 'Firefly Sung', sans-serif !important;
+        }
+    </style>
+    @elseif (language()->direction() === 'rtl')
+    <style type="text/css">
+        @font-face {
+            font-family: 'Noto Sans Arabic';
+            font-weight: normal;
+            src: url('{{ asset("/public/css/fonts/NotoSansArabic.ttf") }}') format("truetype");
+        }
+
+        * {
+            font-family: 'Noto Sans Arabic', DejaVu Sans, sans-serif !important;
+        }
+
+        body {
+            direction: rtl;
+            unicode-bidi: embed;
         }
     </style>
     @else

@@ -64,7 +64,7 @@
                             input="onChangeAmount($event)"
                         />
 
-                        <div class="sm:col-span-2 text-xs absolute right-0 top-1">
+                        <div class="sm:col-span-2 text-xs absolute ltr:right-0 rtl:left-0 top-1">
                             <div class="custom-control custom-checkbox">
                                 <x-form.input.checkbox
                                     name="pay_in_full"
@@ -91,11 +91,11 @@
                         />
 
                         <div class="relative col-span-6 text-xs flex mt-2">
-                            <div class="w-auto text-xs mr-2"
+                            <div class="w-auto text-xs ltr:mr-2 rtl:ml-2"
                                 v-html="'{{ trans('general.currency_convert', ['from' => '#form', 'to' => $document->currency_code]) }}'.replace('#form', form.currency_code)"
                             ></div>
 
-                            <div class="mr-2">-</div>
+                            <div class="ltr:mr-2 rtl:ml-2">-</div>
 
                             <x-form.input.money
                                 name="default_amount"
@@ -106,7 +106,7 @@
                                 :currency="$currency"
                                 dynamic-currency="{!! json_encode($currency) !!}"
                                 money-class="disabled-money p-0 m-0 text-xs"
-                                form-group-class="text-right disabled-money"
+                                form-group-class="ltr:text-right rtl:text-left disabled-money"
                             />
                         </div>
                     </div>

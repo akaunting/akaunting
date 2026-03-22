@@ -21,6 +21,7 @@
                                     </button>
                                 </slot>
                             </div>
+
                             <div v-if="transaction && transaction.taxes.length" class="rounded-xl px-5 py-3 mt-4 bg-orange-100">
                                 <p class="text-sm mb-0 text-orange-600">
                                     {{ translations.connect_tax }}
@@ -32,7 +33,7 @@
                             <div class="px-5">
                                 <template v-if="transaction">
                                     <div class="flex flex-col items-start gap-y-3">
-                                        <div class="text-left text-sm">
+                                        <div class="ltr:text-left rtl:text-right text-sm">
                                             <div class="font-medium">
                                                 {{ translations.contact }}
                                             </div>
@@ -42,7 +43,7 @@
                                             </span>
                                         </div>
 
-                                        <div class="text-left text-sm">
+                                        <div class="ltr:text-left rtl:text-right text-sm">
                                             <div class="font-medium">
                                                 {{ translations.category }}
                                             </div>
@@ -52,7 +53,7 @@
                                             </span>
                                         </div>
 
-                                        <div class="text-left text-sm">
+                                        <div class="ltr:text-left rtl:text-right text-sm">
                                             <div class="font-medium">
                                                 {{ translations.account }}
                                             </div>
@@ -70,7 +71,7 @@
                                             <table class="w-full" :id="'items-' + _uid" style="table-layout: fixed">
                                                 <thead class="border-b">
                                                     <tr>
-                                                        <th colspan="3" class="w-12/12 px-0 text-left border-t-0 border-r-0 border-b-0">
+                                                        <th colspan="3" class="w-12/12 px-0 ltr:text-left rtl:text-right border-t-0 ltr:border-r-0 rtl:border-l-0 border-b-0">
                                                             {{ translations.document }}
                                                         </th>
                                                     </tr>
@@ -83,7 +84,7 @@
 
                                                 <tbody>
                                                     <tr v-for="(row, index) in form.items" :index="index" class="border-b border-gray-200">
-                                                        <td class="px-0 border-r-0 border-b-0 truncate">
+                                                        <td class="px-0 ltr:border-r-0 rtl:border-l-0 border-b-0 truncate">
                                                             <div class="text-sm">
                                                                 <div class="truncate">
                                                                     <b>{{ translations.number }}:</b> {{ row.number }}
@@ -112,7 +113,7 @@
                                                                     :dynamic-currency="currency"
                                                                     :value="row.amount"
                                                                     :row-input="true"
-                                                                    :money-class="'text-right input-price'"
+                                                                    :money-class="'ltr:text-right rtl:text-left input-price'"
                                                                     @input="checkAmount(index, $event)"
                                                                 ></akaunting-money>
 
@@ -129,7 +130,7 @@
                                                                     :disabled="true"
                                                                 ></akaunting-money>
 
-                                                                <div class="pl-2 group">
+                                                                <div class="ltr:pl-2 rtl:pr-2 group">
                                                                     <button type="button" @click="onDeleteItem(index)" class="w-6 h-7 flex items-center rounded-lg p-0 group-hover:bg-gray-100">
                                                                         <span class="w-full material-icons-outlined text-lg text-gray-300 group-hover:text-gray-500">delete</span>
                                                                     </button>
@@ -159,7 +160,7 @@
 
                                 <div class="sm:col-span-6">
                                     <div class="overflow-y-hidden py-5">
-                                        <table :id="'totals-' + _uid" class="float-right">
+                                        <table :id="'totals-' + _uid" class="ltr:float-right rtl:float-left">
                                             <colgroup>
                                                 <col style="width: 51.5%;">
                                                 <col style="width: 30%;">
@@ -169,11 +170,11 @@
                                                 <tr :id="'tr-total-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
-                                                    <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
+                                                    <td class="font-medium text-sm ltr:text-right rtl:text-left ltr:border-r-0 rtl:border-l-0 border-b-0 align-middle py-0 ltr:pr-0 rtl:pl-0">
                                                         {{ translations.total }}
                                                     </td>
 
-                                                    <td class="text-sm text-right border-b-0 p-0">
+                                                    <td class="text-sm ltr:text-right rtl:text-left border-b-0 p-0">
                                                         <div>
                                                             <money
                                                                 name="total_amount"
@@ -181,7 +182,7 @@
                                                                 v-bind="money"
                                                                 masked
                                                                 disabled
-                                                                class="px-0 disabled-money text-right banking-price-text"
+                                                                class="px-0 disabled-money ltr:text-right rtl:text-left banking-price-text"
                                                                 style="height: unset;"
                                                             ></money>
                                                         </div>
@@ -191,11 +192,11 @@
                                                 <tr :id="'tr-transaction-amount-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
-                                                    <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
+                                                    <td class="font-medium text-sm ltr:text-right rtl:text-left ltr:border-r-0 rtl:border-l-0 border-b-0 align-middle py-0 ltr:pr-0 rtl:pl-0">
                                                         {{ translations.transaction + ' ' + translations.amount }}
                                                     </td>
 
-                                                    <td class="text-sm text-right border-b-0 p-0">
+                                                    <td class="text-sm ltr:text-right rtl:text-left border-b-0 p-0">
                                                         <div>
                                                             <money
                                                                 :name="'transaction_amount'"
@@ -203,11 +204,12 @@
                                                                 v-bind="money"
                                                                 masked
                                                                 disabled
-                                                                class="px-0 disabled-money text-right banking-price-text"
+                                                                class="px-0 disabled-money ltr:text-right rtl:text-left banking-price-text"
                                                                 style="height: unset;"
                                                                 v-if="transaction"
                                                             ></money>
                                                         </div>
+
                                                         <akaunting-money
                                                             class="hidden"
                                                             :masked="true"
@@ -227,11 +229,11 @@
                                                 <tr :id="'tr-difference-' + _uid">
                                                     <td class="border-t-0 p-0"></td>
 
-                                                    <td class="font-medium text-sm text-right border-r-0 border-b-0 align-middle py-0 pr-0">
+                                                    <td class="font-medium text-sm ltr:text-right rtl:text-left ltr:border-r-0 rtl:border-l-0 border-b-0 align-middle py-0 ltr:pr-0 rtl:pl-0">
                                                         {{ translations.difference }}
                                                     </td>
 
-                                                    <td class="text-right text-sm border-b-0 p-0">
+                                                    <td class="ltr:text-right rtl:text-left text-sm border-b-0 p-0">
                                                         <div>
                                                             <money
                                                                 name="difference_amount"
@@ -239,7 +241,7 @@
                                                                 v-bind="money"
                                                                 masked
                                                                 disabled
-                                                                class="px-0 disabled-money text-right banking-price-text"
+                                                                class="px-0 disabled-money ltr:text-right rtl:text-left banking-price-text"
                                                                 style="height: unset;"
                                                             ></money>
                                                         </div>
@@ -255,7 +257,7 @@
                         <div class="p-5 border-gray-300">
                             <slot name="card-footer">
                                 <div class="flex items-center justify-end">
-                                    <button type="button" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" @click="onCancel">
+                                    <button type="button" class="px-6 py-1.5 ltr:mr-2 rtl:ml-2 hover:bg-gray-200 rounded-lg" @click="onCancel">
                                         {{ translations.cancel }}
                                     </button>
 

@@ -3,7 +3,7 @@
     <table style="width: 100%;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <div class="text-left font-semibold" style="font-size: 14px;">
+                <div class="ltr:text-left rtl:text-right font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
                 </div>
             </td>
@@ -249,21 +249,20 @@
     </table>
     @stack('to_account_end')
 
-    <table style="text-align: right;">
+    <table style="width:100%; text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
         <tr>
-            <td valign="center" style="width:80%; display:block; float:right;">
-                <table>
-                    <tr>
-                        <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
-                            <span class="ml-2">
-                                {{ trans('general.amount') }}
-                            </span>
-
-                            <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
-                        </td>
-                    </tr>
-                </table>
+            @if (language()->direction() !== 'rtl')
+            <td style="width:20%;"></td>
+            @endif
+            <td valign="center" class="font-semibold" style="width:80%; font-size: 14px;">
+                <span class="ltr:mr-2 rtl:ml-2">
+                    {{ trans('general.amount') }}
+                </span>
+                <x-money :amount="$transfer->expense_transaction->amount" :currency="$transfer->expense_transaction->currency_code" />
             </td>
+            @if (language()->direction() === 'rtl')
+            <td style="width:20%;"></td>
+            @endif
         </tr>
     </table>
 </div>

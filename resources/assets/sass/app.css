@@ -5,7 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer container {
     .container {
         @apply px-4 lg:px-0;
@@ -42,7 +41,7 @@
         content: '';
         @apply w-full h-0.5 absolute left-0 right-0 bottom-0 bg-purple rounded-tl-md rounded-tr-md opacity-0 invisible transition-all;
     }
-    
+
     .tabs-link:hover::before {
        @apply opacity-100 visible;
     }
@@ -50,7 +49,7 @@
     .notifications-menu ul li a {
         border-bottom: 1px solid;
     }
-      
+
     .avatar-attachment {
         @apply text-white inline-flex items-center justify-center;
         background-color: #adb5bd;
@@ -59,7 +58,7 @@
         height: 45px;
         width: 45px;
     }
-     /* index */
+    /* index */
 }
 
 @layer base {
@@ -126,12 +125,12 @@
     summary {
         outline:none;
     }
-      
+
     details summary::-webkit-details-marker {
         display:none;
     }
-      
-      @keyframes details-fade {
+
+    @keyframes details-fade {
         from {
             opacity:0;
             -webkit-transform: translateY(-0.5em);
@@ -139,14 +138,13 @@
             -webkit-transform: var(--details-translate, translateY(-0.5em));
             transform: var(--details-translate, translateY(-0.5em));
         }
-      }
-      
-      .menu-list details[open] > *:not(summary) {
-            -webkit-animation: details-fade 500ms ease-out;
-            animation: details-fade 500ms ease-out;
-      }
+    }
 
-       /* menu */
+    .menu-list details[open] > *:not(summary) {
+        -webkit-animation: details-fade 500ms ease-out;
+        animation: details-fade 500ms ease-out;
+    }
+    /* menu */
 
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
@@ -157,7 +155,7 @@
     .d-none {
         display: none;
     }
-    
+
     .d-block {
         display: block;
     }
@@ -198,6 +196,7 @@
         overflow: hidden; 
         height: 4rem;
     }
+
     /* widget container name will change as lg:px-12 on database. When container class name change on database, this code will clean  */
     .dashboard .px-12 {
         @apply px-0 lg:pl-12 lg:pr-12;
@@ -241,7 +240,7 @@
     /* changelog modal styling for update center */
 
     #button-monthly {
-        margin-left: unset !important;
+        margin-inline-start: unset !important;
     }
 
     /* width of container, custom choose */
@@ -261,13 +260,13 @@
 }
 
 .menu__submenu li::before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
 
 .menu__submenu details.relative:before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
@@ -303,6 +302,11 @@
     padding-right: unset !important;
 }
 
+html[dir="rtl"] .el-color-picker--mini {
+    padding-right: initial !important;
+    padding-left: unset !important;
+}
+
 .el-color-picker--mini .el-color-picker__trigger {
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -324,7 +328,7 @@
 
 .el-select-dropdown__item .new-badge {
     width: 45px !important;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     z-index: 99;
 }
 
@@ -339,7 +343,7 @@
 }
 
 .el-select-dropdown__item .badge-success {
-    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs text-right m-0;
+    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs ltr:text-right rtl:text-left m-0;
     width: auto;
 }
 
@@ -350,8 +354,8 @@
 .el-select-dropdown__item span:hover {
     background-color: transparent;
  }
- 
- .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
     background-color: #F5F7FA;
  }
 
@@ -388,6 +392,16 @@
 
 .el-select .el-select__tags {
     top: 54%;
+}
+
+/* Country select with flag icon: offset tags to avoid overlap with flag */
+.el-select-tags-pl-38 .el-select__tags {
+    padding-left: 38px;
+}
+
+html[dir="rtl"] .el-select-tags-pl-38 .el-select__tags {
+    padding-left: 0;
+    padding-right: 38px;
 }
 
 .el-select .el-select__tags .el-tag {
@@ -427,8 +441,15 @@
 
 .el-date-editor .el-input__prefix {
     top: 3px;
-    left: 0;
     color: #595959;
+}
+
+html[dir="ltr"] .el-date-editor .el-input__prefix {
+    left: 0;
+}
+
+html[dir="rtl"] .el-date-editor .el-input__prefix {
+    right: 0;
 }
 
 .recurring-invoice-data {
@@ -455,17 +476,23 @@
     width: 200px !important;
 }
 
-.el-picker-panel__sidebar {
+html[dir="ltr"] .el-picker-panel__sidebar {
     padding-left: 12px;
 }
 
-html[dir='rtl'] .el-picker-panel__sidebar {
-    left: 0;
+html[dir="rtl"] .el-picker-panel__sidebar {
+    padding-right: 12px;
+    right: 0;
 }
 
-.dashboard-picker .el-picker-panel__body {
+html[dir="ltr"] .dashboard-picker .el-picker-panel__body {
     width: 700px !important;
     margin-left: 200px !important;
+}
+
+html[dir="rtl"] .dashboard-picker .el-picker-panel__body {
+    width: 700px !important;
+    margin-right: 200px !important;
 }
 
 .el-input__suffix[style*="direction:rtl"] {
@@ -483,6 +510,13 @@ html[dir='rtl'] .el-picker-panel__sidebar {
     box-shadow: -10px 0 0 #888aae !important;
 }
 
+html[dir="rtl"] .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir="rtl"] .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir="rtl"] .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    -webkit-box-shadow: 10px 0 0 #888aae !important;
+    box-shadow: 10px 0 0 #888aae !important;
+}
+
 .el-date-editor .el-range-input, .el-date-editor .el-range-input::placeholder {
     color: #424242;
 }
@@ -495,25 +529,46 @@ html[dir='rtl'] .el-picker-panel__sidebar {
     margin-bottom: 3px;
 }
 
+html[dir="rtl"] .el-picker-panel__shortcut {
+    padding-left: revert;
+    padding-right: 0;
+}
+
 .el-picker-panel__shortcut:hover {
     color: #000000 !important;
     border-bottom: 1px solid black;
     transition: all 0.2s ease-in;
 }
 
-html[dir='rtl'] .el-input__suffix {
+html[dir="rtl"] .el-input__suffix {
     left: 5px;
-    right: 0;
+    right: unset;
     text-align: left;
 }
 
-html[dir='rtl'] .el-scrollbar__wrap {
+html[dir="rtl"] .el-select .el-input .el-input__inner,
+html[dir="rtl"] .un-el-select {
+    text-align: right;
+    padding-left: 30px;
+    padding-right: 12px;
+}
+
+/* Toggle YES/NO buttons: maintain consistent left-to-right order in RTL mode */
+html[dir="rtl"] .toggle-group {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .el-scrollbar__wrap {
     margin-left: -15px !important;
     margin-right: unset !important;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+html[dir="ltr"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     right: 15px !important;
+}
+
+html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+    left: 15px !important;
 }
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
@@ -524,6 +579,7 @@ html[dir='rtl'] .el-scrollbar__wrap {
     .el-range-editor.el-input__inner {
         width: 100%;
     }
+
     /* apex-chart cash-flow */
     .apex-chart-cash-flow .apexcharts-legend {
         width: 100% !important;
@@ -542,29 +598,29 @@ html[dir='rtl'] .el-scrollbar__wrap {
         top: 45px !important;
     }
     /* apex-chart cash-flow */
-  }
- /* element-ui */
+}
+/* element-ui */
 
- /* apex-chart */
-    .apexcharts-donut-custom span.apexcharts-legend-text {
-        display: -webkit-box !important;
-        -webkit-line-clamp: 1 !important;
-        -webkit-box-orient: vertical !important;
-        overflow: hidden !important;
-        height: 1rem !important;
-    }
+/* apex-chart */
+.apexcharts-donut-custom span.apexcharts-legend-text {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    height: 1rem !important;
+}
 
-    .apexcharts-donut-custom .apexcharts-legend-series {
-        display: flex !important;
-        align-items: center !important;
-    }
+.apexcharts-donut-custom .apexcharts-legend-series {
+    display: flex !important;
+    align-items: center !important;
+}
 
-    .apexcharts-donut-custom .apexcharts-legend {
-        padding: 0 !important;
-    }
- /* apex-chart */
+.apexcharts-donut-custom .apexcharts-legend {
+    padding: 0 !important;
+}
+/* apex-chart */
 
- /* collapse */
+/* collapse */
  .active-collapse {
     @apply opacity-100;
     height: auto;
@@ -639,23 +695,23 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     opacity: 1 !important;
     visibility: visible !important;
     height: auto !important;
-  }
-  
-  .active-accordion i {
+}
+
+.active-accordion i {
     transform: rotate(180deg);
-  }
-  /* plans page accordion */
+}
+/* plans page accordion */
 
-  /* hidden scroll-bar */
-  .hide-scroll-bar::-webkit-scrollbar {
+/* hidden scroll-bar */
+.hide-scroll-bar::-webkit-scrollbar {
     display: none;
-  }
+}
 
-  .hide-scroll-bar {
+.hide-scroll-bar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-  }
-  /* hidden scroll-bar */
+}
+/* hidden scroll-bar */
 
 @media only screen and (max-width: 480px) {
     .small-table-width {
@@ -696,6 +752,10 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
         margin-left: unset !important;
     }
 
+    html[dir="rtl"] .dashboard-picker .el-picker-panel__body {
+        margin-right: unset !important;
+    }
+
     .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
         width: 100% !important;
     }
@@ -734,6 +794,7 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
     background: #55588B;
     color: #FFFFFF;
 }
+
 ::selection { 
     background: #55588B;
     color: #FFFFFF;
@@ -742,8 +803,8 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
 
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 form {
@@ -756,6 +817,49 @@ body {
     height: 100%;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+html[dir="ltr"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
     margin-right: 1rem;
 }
+
+html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+    margin-left: 1rem;
+}
+
+/* Native <select> arrow direction for RTL */
+html[dir="rtl"] select {
+    background-position: left 0.5rem center;
+    padding-right: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+/* Report tree expand/collapse toggle - flip icon to point left in RTL expanded state */
+html[dir="rtl"] button[node^='child'] .material-icons:not(.rotate-90) {
+    transform: rotate(180deg);
+}
+
+/* Quill editor tooltip button spacing - RTL */
+html[dir="rtl"] .ql-tooltip .ql-action,
+html[dir="rtl"] .ql-tooltip .ql-remove {
+    margin-left: 0;
+    margin-right: 0.25rem;
+}
+
+/* Avatar attachment margin in multi-select tax group dropdown - LTR/RTL */
+/*
+html[dir="ltr"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.avatar-attachment.items-center {
+    margin-right: 1rem;
+}
+
+html[dir="ltr"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.avatar-attachment {
+    margin-right: 1rem;
+}
+
+html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.avatar-attachment.items-center {
+    margin-left: 1rem;
+}
+
+html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.avatar-attachment {
+    margin-left: 1rem;
+}
+*/
+/* End avatar attachment margin */

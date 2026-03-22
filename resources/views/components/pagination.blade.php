@@ -5,13 +5,13 @@
         @if ($items->firstItem())
             <div class="w-full sm:w-6/12 flex items-center">
                 <div class="flex items-center text-sm text-black">
-                    <x-dropdown id="pagination-limit" style="left:auto;">
+                    <x-dropdown id="pagination-limit">
                         <x-slot name="trigger" class="p-0 mt-0 mx-1 bg-transparent text-sm text-center border-b border-black rounded-none" override="class">
                             {{ request('limit', setting('default.list_limit', '25')) }}
                         </x-slot>
 
                         @foreach($limits as $item)
-                            <x-link href="javascript:;" @click="onChangePaginationLimit($event)" value="{{ $item }}"
+                            <x-link href="javascript:void();" @click="onChangePaginationLimit($event)" value="{{ $item }}"
                                 class="w-full flex items-center text-purple px-2 h-9 leading-9 whitespace-nowrap"
                                 override="class"
                             >

@@ -1,5 +1,5 @@
 <div>
-    <x-tooltip id="favorite" placement="right" message="{{ ($favorited) ? trans('header.favorite.added_favorite') : trans('header.favorite.add_favorite') }}">
+    <x-tooltip id="favorite" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ ($favorited) ? trans('header.favorite.added_favorite') : trans('header.favorite.add_favorite') }}">
         <span
             id="{{ $favorited ? 'remove-from-favorite' : 'add-to-favorite' }}"
             @class([

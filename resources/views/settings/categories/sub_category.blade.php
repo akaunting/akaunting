@@ -6,7 +6,7 @@
             </x-table.td>
 
             @if (!$hide_code_column && (empty(config('type.category.' . $parent_category->type . '.hide', [])) || ! in_array('code', config('type.category.' . $sub_category->type . '.hide'))))
-                <x-table.td class="w-1/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
+                <x-table.td class="w-2/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
                     @if(!empty($parent_category->code))
                         {{ $parent_category->code }}
                     @else
@@ -15,9 +15,9 @@
                 </x-table.td>
             @endif
 
-            <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-left: {{ $tree_level * 30 }}px;">
-                <div class="flex items-center ml-2">
-                    <span class="material-icons text-3xl text-{{ $parent_category->color }}" style="color:{{ $sub_category->color }};">circle</span>
+            <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-inline-start: {{ $tree_level * 30 }}px;">
+                <div class="flex items-center ltr:ml-2 rtl:mr-2">
+                    <span class="material-icons text-3xl text-{{ $parent_category->color }}" style="color:{{ $parent_category->color }};">circle</span>
 
                     <div class="flex items-center font-bold table-submenu ltr:ml-2 rtl:mr-2">
                         {{ $parent_category->name }}
@@ -29,9 +29,9 @@
                 @endif
             </x-table.td>
 
-            <x-table.td class="w-3/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
-                @if (! empty($types[$item->type]))
-                    {{ $types[$item->type] }}
+            <x-table.td class="{{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
+                @if (! empty($types[$parent_category->type]))
+                    {{ $types[$parent_category->type] }}
                 @else
                     <x-empty-data />
                 @endif
@@ -49,7 +49,7 @@
         </x-table.td>
 
         @if (!$hide_code_column && (empty(config('type.category.' . $sub_category->type . '.hide', [])) || ! in_array('code', config('type.category.' . $sub_category->type . '.hide'))))
-            <x-table.td class="w-1/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
+            <x-table.td class="w-2/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
                 @if(!empty($sub_category->code))
                     {{ $sub_category->code }}
                 @else
@@ -58,8 +58,8 @@
             </x-table.td>
         @endif
 
-        <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-left: {{ $tree_level * 30 }}px;">
-            <div class="flex items-center ml-2">
+        <x-table.td class="relative {{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate" style="padding-inline-start: {{ $tree_level * 30 }}px;">
+            <div class="flex items-center ltr:ml-2 rtl:mr-2">
                 @if ($sub_category->sub_categories->count())
                     <x-tooltip id="tooltip-category-{{ $parent_category->id }}" placement="bottom" message="{{ trans('categories.collapse') }}">
                         <button
@@ -68,7 +68,7 @@
                             node="child-{{ $sub_category->id }}"
                             onClick="toggleSub('child-{{ $sub_category->id }}', event)"
                         >
-                            <span class="material-icons -ml-2 transform rotate-90 transition-all text-xl leading-none align-middle rounded-full text-white bg-{{ $sub_category->color }}" style="background-color:{{ $sub_category->color }};">chevron_right</span>
+                            <span class="material-icons ltr:-ml-2 rtl:-mr-2 transform rotate-90 transition-all text-xl leading-none align-middle rounded-full text-white bg-{{ $sub_category->color }}" style="background-color:{{ $sub_category->color }};">chevron_right</span>
                         </button>
                     </x-tooltip>
                     <div class="flex items-center font-bold  table-submenu">
@@ -88,9 +88,9 @@
             @endif
         </x-table.td>
 
-        <x-table.td class="w-3/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
-            @if (! empty($types[$item->type]))
-                {{ $types[$item->type] }}
+        <x-table.td class="{{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
+            @if (! empty($types[$sub_category->type]))
+                {{ $types[$sub_category->type] }}
             @else
                 <x-empty-data />
             @endif
@@ -115,6 +115,12 @@
             $sub_category->load(['sub_categories']);
         @endphp
 
-        @include('settings.categories.sub_category', ['parent_category' => $parent_category, 'sub_category' => $sub_category, 'tree_level' => $tree_level, 'hide_code_column' => $hide_code_column, 'name_class' => $name_class])
+        @include('settings.categories.sub_category', [
+            'parent_category' => $parent_category,
+            'sub_category' => $sub_category,
+            'tree_level' => $tree_level,
+            'hide_code_column' => $hide_code_column,
+            'name_class' => $name_class
+        ])
     @endforeach
 @endif

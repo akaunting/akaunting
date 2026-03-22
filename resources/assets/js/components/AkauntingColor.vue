@@ -24,7 +24,7 @@
             <div v-show="isOpen"
                 ref="popper" 
                 :append-to-body="appendToBody"
-                class="border border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md shadow-lg z-10 el-popper"
+                class="border border-gray-300 ltr:origin-top-right rtl:origin-top-left absolute left-0 top-full mt-2 rounded-md shadow-lg z-10 el-popper"
                 :class="[popperClass]"
                 :style="{ minWidth: minWidth }"
             >

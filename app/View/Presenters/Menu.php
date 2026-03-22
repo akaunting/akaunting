@@ -38,7 +38,7 @@ class Menu extends Presenter
                     <a id="' . $this->getId($item) . '" class="' . $this->getClass($item) . ''. $this->getActiveState($item) . '" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>
                         ' . $this->getIcon($item) . '
                         ' . $item->title . '
-                        <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
+                        <span class="bg-purple absolute h-5 ltr:-right-5 rtl:-left-5 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
                     </a>
                 </li>'
                 . PHP_EOL;
@@ -110,7 +110,7 @@ class Menu extends Presenter
                     ' . $this->getChevron($item) . '
                 </div>
             </summary>
-            <div class="mt-2 ml-8 menu__submenu" id="navbar-' . $id . '">
+            <div class="mt-2 ltr:ml-8 rtl:mr-8 menu__submenu" id="navbar-' . $id . '">
                 <ul class="relative pb-2.5">
                     ' . $this->getChildMenuItems($item) . '
                 </ul>
@@ -135,11 +135,11 @@ class Menu extends Presenter
                         <div class="pb-2.5 flex items-center cursor-pointer text-purple text-sm '. $this->getActiveState($item) .'">
                             ' . $this->getIcon($item) . '
                             ' . $item->title . '
-                            <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
+                            <span class="bg-purple absolute h-5 ltr:-right-5 rtl:-left-5 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"></span>
                             ' . $this->getChevron($item) . '
                         </div>
                     </summary>
-                    <div class="mt-2 ml-8 menu__submenu' . $this->getShowStateOnChild($item) . '" id="navbar-' . $id . '">
+                    <div class="mt-2 ltr:ml-8 rtl:mr-8 menu__submenu' . $this->getShowStateOnChild($item) . '" id="navbar-' . $id . '">
                         <ul class="relative pb-2.5">
                             ' . $this->getChildMenuItems($item) . '
                         </ul>

@@ -3,7 +3,7 @@
         <nav aria-label="Progress">
             <ol role="list" class="flex mb-10">
                 <li class="w-1/3">
-                    <span class="pr-6 flex flex-col">
+                    <span class="ltr:pr-6 rtl:pl-6 flex flex-col">
                         <span
                                class="w-full h-1 bg-gray-300 rounded-xl text-transparent"
                               :class="[{ 'bg-purple': active_state >= 0 }]"

@@ -1,9 +1,9 @@
-<div id="{{ $id }}" role="tooltip" class="w-full sm:w-96 inline-block absolute left-0 z-10 text-sm font-medium rounded-lg border border-gray-200 shadow-sm whitespace-nowrap transition-visible bg-lilac-900 border-none text-black p-6 cursor-auto opacity-0 invisible delay-700 information-content">
-    <div class="absolute w-2 h-2 sm:inset-y-1/2 sm:-right-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-lilac-900 before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0 data-popper-arrow"></div>
+<div id="{{ $id }}" role="tooltip" class="w-full sm:w-96 inline-block absolute ltr:left-0 rtl:right-0 z-10 text-sm font-medium rounded-lg border border-gray-200 shadow-sm whitespace-nowrap transition-visible bg-lilac-900 border-none text-black p-6 cursor-auto opacity-0 invisible delay-700 information-content">
+    <div class="absolute w-2 h-2 sm:inset-y-1/2 sm:ltr:-right-1 sm:rtl:-left-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-lilac-900 before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0 data-popper-arrow"></div>
 
     <ul>
         <li class="relative flex items-center text-sm mb-7">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">person</span>
             </div>
 
@@ -29,13 +29,13 @@
         </li>
 
         <li class="relative flex items-center text-sm mb-7">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">bookmark_border</span>
             </div>
 
             <div class="flex flex-col">
                 @php $history = $document->last_history; @endphp
-                <span class="w-72 font-medium mr-2 truncate">
+                <span class="w-72 font-medium ltr:mr-2 rtl:ml-2 truncate">
                     {{ $history->description }}
                 </span>
 
@@ -52,7 +52,7 @@
                 @endif
 
                 <li class="relative flex items-center text-sm mb-7">
-                    <div class="flex flex-col items-center mr-2">
+                    <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                         <span class="material-icons-outlined text-black-300">sell</span>
                     </div>
 
@@ -74,7 +74,7 @@
         @endif
 
         @if ($document->items->count() > 2)
-            <li class="ml-10 mb-10">
+            <li class="ltr:ml-10 rtl:mr-10 mb-10">
             @if (! $hideShow)
                 <x-link href="{{ route($showDocumentRoute, $document->id) }}" class="border-b" override="class">
                     {{ trans('documents.invoice_detail.more_item', ['count' => $document->items->count() - 2]) }}
@@ -88,7 +88,7 @@
         @endif
 
         <li class="relative flex items-center text-sm">
-            <div class="flex flex-col items-center mr-2">
+            <div class="flex flex-col items-center ltr:mr-2 rtl:ml-2">
                 <span class="material-icons-outlined text-black-300">attach_money</span>
             </div>
 

@@ -102,6 +102,10 @@ ltr:float-left
 rtl:float-right
 rtl:float-left
 rtl:rotate-180
+ltr:ml-8
+rtl:mr-8
+ltr:-right-5
+rtl:-left-5
 hover:bg-purple-200
 lg:w-1/4
 lg:px-6
@@ -109,3 +113,4 @@ lg:w-1/3
 px-6
 lg:w-2/4
 lg:px-6
+rtl:rotate-270

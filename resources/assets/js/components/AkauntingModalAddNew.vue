@@ -54,7 +54,7 @@
                                 <div v-if="buttons.payment" 
                                     class="mt-5 bg-gray-100 py-3 sm:flex justify-end sm:px-5 -mb-5 -mx-5 rounded-b-lg"
                                 >
-                                    <div v-if="buttons.payment.before_text" class="text-xs mt-2.5 mr-2">
+                                    <div v-if="buttons.payment.before_text" class="text-xs mt-2.5 ltr:mr-2 rtl:ml-2">
                                         {{ buttons.payment.before_text }}
                                     </div>
 

@@ -714,7 +714,7 @@ export default {
 
     html[dir='ltr'] .searh-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
-        //margin-left: 10px;
+        /* margin-left: 10px; */
     }
 
     html[dir='rtl'] .searh-field .el-tag-option {
@@ -746,7 +746,7 @@ export default {
     }
 
     .searh-field .btn-helptext {
-        margin-left: auto;
+        margin-inline-start: auto;
         color: var(--gray);
     }
 
@@ -764,8 +764,14 @@ export default {
         min-width: 50px !important;
     }
 
-    .searh-field .dropdown-menu.operator .btn i:not(:last-child), .btn svg:not(:last-child) {
+    html[dir='ltr'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='ltr'] .btn svg:not(:last-child) {
         margin-right: inherit !important;
+    }
+
+    html[dir='rtl'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='rtl'] .btn svg:not(:last-child) {
+        margin-left: inherit !important;
     }
 
     .dropdown-menu {

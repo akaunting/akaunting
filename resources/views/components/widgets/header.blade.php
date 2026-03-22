@@ -8,17 +8,17 @@
         <div class="flex items-center">
             @if ($report = $class->getReportUrl())
                 @if ($class->model?->settings?->raw_width == '25' || $class->model?->settings?->width == 'w-full lg:w-1/4 lg:px-6')
-                    <x-link href="{{ $report }}" class="lg:flex hidden text-purple hover:bg-gray-100 rounded-xl w-8 h-8 items-center justify-center text-sm text-right" override="class">
-                        <x-tooltip id="tooltip-view-report" placement="top" message="{{ trans('widgets.view_report') }}" class="text-black left-5">
+                    <x-link href="{{ $report }}" class="lg:flex hidden text-purple hover:bg-gray-100 rounded-xl w-8 h-8 items-center justify-center text-sm ltr:text-right rtl:text-left" override="class">
+                        <x-tooltip id="tooltip-view-report" placement="top" message="{{ trans('widgets.view_report') }}" class="text-black ltr:left-5 rtl:right-5">
                             <x-icon icon="visibility" class="text-lg font-normal"></x-icon>
                         </x-tooltip>
                     </x-link>
 
-                    <x-link href="{{ $report }}" class="lg:hidden text-purple text-sm text-right" override="class">
+                    <x-link href="{{ $report }}" class="lg:hidden text-purple text-sm ltr:text-right rtl:text-left" override="class">
                         {{ trans('widgets.view_report') }}
                     </x-link>
                 @else
-                    <x-link href="{{ $report }}" class="text-purple text-sm mr-3 text-right" override="class">
+                    <x-link href="{{ $report }}" class="text-purple text-sm ltr:mr-3 rtl:ml-3 ltr:text-right rtl:text-left" override="class">
                         <x-link.hover color="to-purple">
                             {{ trans('widgets.view_report') }}
                         </x-link.hover>

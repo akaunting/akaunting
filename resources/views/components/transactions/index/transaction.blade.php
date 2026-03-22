@@ -173,13 +173,12 @@
                         @if (! $hideDocument)
                         <x-slot name="second" class="w-20 font-normal group">
                             @if ($item->document)
-                                <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="left" override="class">
+                                <div data-tooltip-target="tooltip-information-{{ $item->document_id }}" data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}" override="class">
                                     <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                         {{ $item->document->document_number }}
                                     </x-link>
 
-                                    <div class="w-28 absolute h-10 -ml-12 -mt-6">
-                                    </div>
+                                    <div class="w-28 absolute h-10 ltr:-ml-12 rtl:-mr-12 -mt-6"></div>
 
                                     <x-documents.index.information :document="$item->document" />
                                 </div>
@@ -212,4 +211,3 @@
     </x-table>
 
     <x-pagination :items="$transactions" />
-    

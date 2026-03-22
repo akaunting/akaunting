@@ -16,7 +16,7 @@
                     <div class="dz-import-icon relative">
                         <span class="material-icons-outlined text-default text-7xl">file_copy</span>
 
-                        <button data-dz-remove="true" class="absolute z-10 right-24 top-0 hidden group-hover:flex bg-white">
+                        <button data-dz-remove="true" class="absolute z-10 ltr:right-24 rtl:left-24 top-0 hidden group-hover:flex bg-white">
                             <span class="material-icons-outlined text-gray-300 text-8xl">cancel</span>
                         </button>
                     </div>

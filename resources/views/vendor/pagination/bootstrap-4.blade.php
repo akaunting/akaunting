@@ -1,47 +1,64 @@
 @if ($paginator->hasPages())
+    @php
+        $paginationItemClass = 'page-link font-medium ltr:mr-2 rtl:ml-2 w-10 h-10 inline-flex items-center justify-center rounded-lg';
+        $paginationLastItemClass = 'page-link font-medium w-10 h-10 inline-flex items-center justify-center rounded-lg';
+    @endphp
+
     <ul class="pagination flex items-center justify-end text-black text-sm">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <li class="font-medium disabled ltr:mr-2 rtl:ml-2">
-                <button disabled class="material-icons page-link flex">chevron_left</button>
+            <li class="font-medium disabled">
+                <button disabled class="{{ $paginationItemClass }}">
+                    <span class="material-icons rtl:rotate-180">chevron_left</span>
+                </button>
             </li>
         @else
-            <li class="font-medium ltr:mr-2 rtl:ml-2"><a class="page-link flex" href="{{ $paginator->previousPageUrl() }}" rel="prev">
-                <span class="material-icons px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_left</span>
-            </a></li>
+            <li class="font-medium">
+                <a class="{{ $paginationItemClass }} hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->previousPageUrl() }}" rel="prev">
+                    <span class="material-icons rtl:rotate-180">chevron_left</span>
+                </a>
+            </li>
         @endif
 
-        @if($paginator->currentPage() > 3)
-            <li><a class="page-link font-medium d-none d-sm-block ltr:mr-2 rtl:ml-2 px-3 py-1 rounded-lg hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->url(1) }}">1</a></li>
+        @if ($paginator->currentPage() > 3)
+            <li><a class="{{ $paginationItemClass }} d-none d-sm-block hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->url(1) }}">1</a></li>
         @endif
-        @if($paginator->currentPage() > 4)
-            <li><span class="page-link flex font-medium ltr:mr-2 rtl:ml-2 px-3 py-1 rounded-lg hover:bg-lilac-300 hover:text-purple">...</span></li>
+
+        @if ($paginator->currentPage() > 4)
+            <li><span class="{{ $paginationItemClass }} hover:bg-lilac-300 hover:text-purple">...</span></li>
         @endif
-        @foreach(range(1, $paginator->lastPage()) as $i)
-            @if($i >= $paginator->currentPage() - 2 && $i <= $paginator->currentPage() + 2)
+
+        @foreach (range(1, $paginator->lastPage()) as $i)
+            @if ($i >= $paginator->currentPage() - 2 && $i <= $paginator->currentPage() + 2)
                 @if ($i == $paginator->currentPage())
-                    <li><button class="page-link font-medium ltr:mr-2 rtl:ml-2 active bg-lilac-300 text-purple px-3 py-1 rounded-lg">{{ $i }}</span></li>
+                    <li><button class="{{ $paginationItemClass }} active bg-lilac-300 text-purple">{{ $i }}</button></li>
                 @else
-                    <li><a class="page-link font-medium ltr:mr-2 rtl:ml-2 px-3 py-1 rounded-lg hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->url($i) }}">{{ $i }}</a></li>
+                    <li><a class="{{ $paginationItemClass }} hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->url($i) }}">{{ $i }}</a></li>
                 @endif
             @endif
         @endforeach
-        @if($paginator->currentPage() < $paginator->lastPage() - 3)
-            <li><span class="page-link flex font-medium ltr:mr-2 rtl:ml-2 px-3 py-1 rounded-lg hover:bg-lilac-300 hover:text-purple">...</span></li>
+
+        @if ($paginator->currentPage() < $paginator->lastPage() - 3)
+            <li><span class="{{ $paginationItemClass }} hover:bg-lilac-300 hover:text-purple">...</span></li>
         @endif
-        @if($paginator->currentPage() < $paginator->lastPage() - 2)
-            <li><a class="page-link font-medium ltr:mr-2 rtl:ml-2 px-3 py-1 rounded-lg hover:bg-lilac-300 hover:text-purple hidden sm-block" href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
+
+        @if ($paginator->currentPage() < $paginator->lastPage() - 2)
+            <li><a class="{{ $paginationItemClass }} hidden sm-block hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
         @endif
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li class="font-medium"><a class="page-link flex" href="{{ $paginator->nextPageUrl() }}" rel="next">
-                <span class="material-icons px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_right</span>
-            </a></li>
+            <li class="font-medium">
+                <a class="{{ $paginationLastItemClass }} hover:bg-lilac-300 hover:text-purple" href="{{ $paginator->nextPageUrl() }}" rel="next">
+                    <span class="material-icons rtl:rotate-180">chevron_right</span>
+                </a>
+            </li>
         @else
-            <li class="font-medium disabled"><button disabled class="page-link flex">
-                <span class="material-icons">chevron_right</span>
-            </button></li>
+            <li class="font-medium disabled">
+                <button disabled class="{{ $paginationLastItemClass }}">
+                    <span class="material-icons rtl:rotate-180">chevron_right</span>
+                </button>
+            </li>
         @endif
     </ul>
 @endif

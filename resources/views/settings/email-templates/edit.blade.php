@@ -3,7 +3,7 @@
 
     <x-slot name="content">
         <div class="flex flex-col lg:flex-row">
-            <div class="relative flex flex-col lg:flex-row mt-4 gap-12 sm:divide-x-2 lg:w-full">
+            <div class="relative flex flex-col lg:flex-row mt-4 gap-12 sm:divide-x-2 rtl:divide-x-reverse lg:w-full">
                 <div class="w-full lg:w-1/3">
                     @foreach ($templates as $group => $template)
                         <div>
@@ -14,7 +14,7 @@
                             <div class="flex flex-col">
                                 <div class="mb-3">
                                     @foreach ($template as $item)
-                                        <x-button class="text-xs truncate text-left" @click="onEditEmailTemplate({{ $item->id }}, $event)" override="class">
+                                        <x-button class="text-xs truncate ltr:text-left rtl:text-right" @click="onEditEmailTemplate({{ $item->id }}, $event)" override="class">
                                             <x-button.hover color="to-purple">
                                                 {{ trans($item->name) }}
                                             </x-button.hover>
@@ -26,7 +26,7 @@
                     @endforeach
                 </div>
 
-                <div class="w-full lg:w-2/3 flex-col xl:m-0 lg:pl-12 justify-evenly xl:w-2/3">
+                <div class="w-full lg:w-2/3 flex-col xl:m-0 lg:ltr:pl-12 lg:rtl:pr-12 justify-evenly xl:w-2/3">
                     @php
                         $first = Arr::first($templates);
                         $template = Arr::first($first);

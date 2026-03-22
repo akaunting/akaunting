@@ -71,7 +71,7 @@
                 <span class="aka-select-prefix">
                     <span
                         v-if="!isDropdownVisible && selectedOptionColor"
-                        class="w-4 h-4 rounded-full mt-1 ml-2"
+                        class="w-4 h-4 rounded-full mt-1 ltr:ml-2 rtl:mr-2"
                         :style="{ backgroundColor: selectedOptionColor }"
                     ></span>
                     <i v-if="icon" :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
@@ -86,13 +86,13 @@
                 :style="optionStyle"
             >
                 <slot name="option" :option="option">
-                    <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
-                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                    <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                     </span>
                 </slot>
 
                 <span
-                    class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs"
+                    class="new-badge absolute ltr:right-2 rtl:left-2 bg-green text-white px-2 py-1 rounded-md text-xs"
                     v-if="new_options[option.key] || (option.mark_new)"
                 >
                     {{ addNew.new_text }}
@@ -113,13 +113,13 @@
                     :style="optionStyle"
                 >
                     <slot name="option" :option="option">
-                        <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
-                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                        <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                         </span>
                     </slot>
 
                     <span 
-                        class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs"
+                        class="new-badge absolute ltr:right-2 rtl:left-2 bg-green text-white px-2 py-1 rounded-md text-xs"
                         v-if="new_options[option.key] || (option.mark_new)"
                     >
                         {{ addNew.new_text }}
@@ -145,11 +145,11 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute ltr:right-8 rtl:left-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
 
         <span
             slot="infoBlock"
-            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            class="absolute ltr:right-8 rtl:left-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
             v-if="!isDropdownVisible && group && selectedGroupLabel"
         >
             {{ selectedGroupLabel }}
@@ -158,6 +158,7 @@
         <select :name="name"  :id="name + '-' + _uid" class="hidden">
             <option v-for="option in sortedOptions" :key="option.key" :value="option.key">{{ option.value }}</option>
         </select>
+
     </base-input>
 
     <span v-else>
@@ -227,13 +228,13 @@
                 :style="optionStyle"
             >
                 <slot name="option" :option="option">
-                    <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
-                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                    <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                        <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                     </span>
                 </slot>
 
                 <span 
-                    class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs"
+                    class="new-badge absolute ltr:right-2 rtl:left-2 bg-green text-white px-2 py-1 rounded-md text-xs"
                     v-if="new_options[option.key] || (option.mark_new)"
                 >
                     {{ addNew.new_text }}
@@ -254,13 +255,13 @@
                     :style="optionStyle"
                 >
                     <slot name="option" :option="option">
-                        <span class="float-left" :style="'padding-left: ' + (10 * option.level).toString() + 'px;'">
-                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2">subdirectory_arrow_right</i>{{ option.value }}
+                        <span class="ltr:float-left rtl:float-right" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                            <i v-if="option.level != 0" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180">subdirectory_arrow_right</i>{{ option.value }}
                         </span>
                     </slot>
 
                     <span 
-                        class="new-badge absolute right-2 bg-green text-white px-2 py-1 rounded-md text-xs"
+                        class="new-badge absolute ltr:right-2 rtl:left-2 bg-green text-white px-2 py-1 rounded-md text-xs"
                         v-if="new_options[option.key] || (option.mark_new)"
                     >
                         {{ addNew.new_text }}
@@ -281,15 +282,16 @@
                     </span>
                 </div>
             </el-option>
+
         </el-select>
 
         <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <span slot="infoBlock" class="absolute right-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
+        <span slot="infoBlock" class="absolute ltr:right-8 rtl:left-8 top-3 bg-green text-white px-2 py-1 rounded-md text-xs" v-if="!isDropdownVisible && (new_options[selected] || (sorted_options.length && sorted_options[sorted_options.length - 1].mark_new && sorted_options[sorted_options.length - 1].key == selected))">{{ addNew.new_text }}</span>
 
         <span
             slot="infoBlock"
-            class="absolute right-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            class="absolute ltr:right-8 rtl:left-8 top-4 rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
             v-if="!isDropdownVisible && group && selectedGroupLabel"
         >
             {{ selectedGroupLabel }}
@@ -1636,6 +1638,22 @@ export default {
         display: inline-flex;
         align-items: center;
         height: 100%;
+    }
+
+    html[dir="rtl"] .el-input__prefix {
+        right: 5px;
+        left: unset;
+        transition: all .3s;
+    }
+
+    html[dir="rtl"] .with-color-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.25rem !important;
+    }
+
+    html[dir="rtl"] .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.8rem !important;
     }
 
     .with-color-prefix .el-input__inner {
