@@ -132,9 +132,13 @@ abstract class Report
         return $this->getContacts($this->getVendorTypes(), $limit);
     }
 
-    public function getContacts($types, $limit = false)
+    public function getContacts($types = null, $limit = false)
     {
-        $model = Contact::type($types)->orderBy('name');
+        if ($types) {
+            $model = Contact::type($types)->orderBy('name');
+        } else {
+            $model = Contact::orderBy('name');
+        }
 
         if ($limit !== false) {
             $model->take(setting('default.select_limit'));
