@@ -223,4 +223,88 @@ class Discovery extends Controller
             'Access-Control-Allow-Origin' => '*', // Allow CORS for discovery
         ]);
     }
+
+    /**
+     * Get ChatGPT AI Plugin Manifest.
+     *
+     * Served at /.well-known/ai-plugin.json — dynamic per installation
+     * so that URLs reflect the actual server base URL.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function aiPlugin(Request $request)
+    {
+        $oauthPrefix = config('oauth.routes.prefix', 'oauth');
+
+        return response()->json([
+            'schema_version'          => 'v1',
+            'name_for_human'          => config('app.name', 'Akaunting'),
+            'name_for_model'          => 'akaunting',
+            'description_for_human'   => trans('oauth.plugin.description_human'),
+            'description_for_model'   => trans('oauth.plugin.description_model'),
+            'auth'                    => [
+                'type'                         => 'oauth',
+                'authorization_url'            => url("/{$oauthPrefix}/authorize"),
+                'authorization_content_type'   => 'application/x-www-form-urlencoded',
+                'client_url'                   => url("/{$oauthPrefix}/token"),
+                'scope'                        => 'mcp:use',
+                'verification_tokens'          => (object) [],
+            ],
+            'api'                     => [
+                'type'                  => 'openapi',
+                'url'                   => url('/api/documentation'),
+                'is_user_authenticated' => false,
+            ],
+            'logo_url'      => asset('img/akaunting-logo-green.svg'),
+            'contact_email' => config('mail.from.address', 'support@akaunting.com'),
+            'legal_info_url' => url('/LICENSE.txt'),
+        ], 200, [
+            'Content-Type'                => 'application/json',
+            'Cache-Control'               => 'public, max-age=3600',
+            'Access-Control-Allow-Origin' => '*',
+        ]);
+    }
+
+    /**
+     * Get MCP (Model Context Protocol) Manifest.
+     *
+     * Served at /.well-known/mcp.json — dynamic per installation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mcpManifest(Request $request)
+    {
+        $oauthPrefix = config('oauth.routes.prefix', 'oauth');
+
+        return response()->json([
+            'version'      => '2025-06-18',
+            'name'         => config('app.name', 'Akaunting') . ' MCP Server',
+            'description'  => trans('oauth.plugin.mcp_description'),
+            'capabilities' => [
+                'resources' => true,
+                'tools'     => true,
+                'prompts'   => true,
+            ],
+            'protocol' => [
+                'version' => '1.0.0',
+            ],
+            'oauth' => [
+                'authorization_endpoint' => url("/{$oauthPrefix}/authorize"),
+                'token_endpoint'         => url("/{$oauthPrefix}/token"),
+                'scopes'                 => ['mcp:use'],
+                'pkce_required'          => true,
+                'grant_types'            => ['authorization_code', 'refresh_token'],
+            ],
+            'discovery' => [
+                'oauth_server'       => url('/.well-known/oauth-authorization-server'),
+                'protected_resource' => url("/{$oauthPrefix}/.well-known/oauth-protected-resource"),
+            ],
+        ], 200, [
+            'Content-Type'                => 'application/json',
+            'Cache-Control'               => 'public, max-age=3600',
+            'Access-Control-Allow-Origin' => '*',
+        ]);
+    }
 }
