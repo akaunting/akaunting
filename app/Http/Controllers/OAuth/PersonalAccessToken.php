@@ -5,6 +5,7 @@ namespace App\Http\Controllers\OAuth;
 use App\Abstracts\Http\Controller;
 use App\Events\OAuth\TokenCreated;
 use App\Events\OAuth\TokenRevoked;
+use App\Http\Requests\OAuth\PersonalAccessTokenRequest;
 use App\Models\OAuth\PersonalAccessClient as PersonalAccessClientModel;
 use Illuminate\Http\Request;
 use Laravel\Passport\TokenRepository;
@@ -63,15 +64,12 @@ class PersonalAccessToken extends Controller
     /**
      * Create a new personal access token for the user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\OAuth\PersonalAccessTokenRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonalAccessTokenRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:191',
-            'scopes' => 'array',
-        ]);
+        $validated = $request->validated();
 
         $user = $request->user();
 
@@ -82,7 +80,7 @@ class PersonalAccessToken extends Controller
             return response()->json([
                 'success' => false,
                 'error' => true,
-                'message' => trans('oauth::messages.no_personal_access_client'),
+                'message' => trans('oauth.messages.no_personal_access_client'),
             ], 400);
         }
 
