@@ -28,7 +28,7 @@ class AddContacts extends Listener
             return;
         }
 
-        $event->class->filters['contacts'] = $this->getContacts(true);
+        $event->class->filters['contacts'] = $this->getContacts(limit: true);
         $event->class->filters['routes']['contacts'] = ['contacts.index', 'search=enabled:1'];
         $event->class->filters['multiple']['contacts'] = true;
     }
