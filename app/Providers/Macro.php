@@ -97,7 +97,7 @@ class Macro extends ServiceProvider
         });
 
         Request::macro('isMcp', function () {
-            return $this->is('mpc');
+            return $this->is('mcp') || $this->is('mcp/*');
         });
 
         Request::macro('isNotMcp', function () {

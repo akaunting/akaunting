@@ -151,6 +151,5 @@ class Event extends Provider
         'App\Listeners\Report\AddPeriod',
         'App\Listeners\Report\AddDate',
         'App\Listeners\Report\AddDiscount',
-        'App\Listeners\OAuth\LogOAuthActivity',
     ];
 }
