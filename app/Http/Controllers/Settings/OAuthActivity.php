@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
 class OAuthActivity extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-settings-oauth-activity');
+    }
+
+    /**
      * Display a listing of OAuth activity logs.
      *
      * @param  \Illuminate\Http\Request  $request

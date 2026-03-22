@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\OAuth;
 
 use App\Abstracts\Http\Controller;
-use App\Events\OAuth\ClientDeleted;
 use App\Events\OAuth\TokenRevoked;
-use App\Models\OAuth\Client;
+use App\Jobs\OAuth\DeleteClient;
 use App\Models\OAuth\AccessToken;
+use App\Models\OAuth\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Clients extends Controller
 {
@@ -103,13 +104,18 @@ class Clients extends Controller
             ->get();
 
         $revokedCount = 0;
+
+        DB::transaction(function () use ($tokens, $client, $user, &$revokedCount) {
+            foreach ($tokens as $token) {
+                $token->revoked = true;
+                $token->save();
+                $revokedCount++;
+            }
+        });
+
+        // Fire events after successful transaction
         foreach ($tokens as $token) {
-            $token->revoked = true;
-            $token->save();
-            
-            // Fire event for each token
             event(new TokenRevoked($token->id, $client->id, $user->id));
-            $revokedCount++;
         }
 
         $message = trans('oauth.access_revoked', [
@@ -134,19 +140,12 @@ class Clients extends Controller
             ->whereIn('provider', [null, 'dcr']) // Only allow deletion of dynamic clients
             ->firstOrFail();
 
-        // Delete associated tokens
-        AccessToken::where('client_id', $client->id)->delete();
-
-        // Fire event before deletion
-        event(new ClientDeleted($client));
-
-        // Delete the client
-        $client->delete();
+        $response = $this->ajaxDispatch(new DeleteClient($client));
 
         $message = trans('oauth.client_deleted', ['name' => $client->name]);
 
         flash($message)->success();
 
-        return redirect()->route('oauth.clients.index');
+        return redirect()->route('oauth.passport.clients.index');
     }
 }

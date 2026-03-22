@@ -16,7 +16,7 @@ class CreateClient extends Job implements HasOwner, HasSource, ShouldCreate
     {
         $name       = $this->request->get('name');
         $redirect   = $this->request->get('redirect');
-        $confidential = $this->request->filled('confidential');
+        $confidential = $this->request->boolean('confidential');
 
         /** @var ClientRepository $repository */
         $repository = app(ClientRepository::class);

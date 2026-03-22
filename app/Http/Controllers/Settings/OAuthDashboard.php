@@ -11,6 +11,18 @@ class OAuthDashboard extends Controller
     use Statistics;
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-settings-oauth-dashboard');
+    }
+
+    /**
      * Display OAuth statistics dashboard.
      *
      * @param  \Illuminate\Http\Request  $request

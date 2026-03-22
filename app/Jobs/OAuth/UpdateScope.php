@@ -3,9 +3,11 @@
 namespace App\Jobs\OAuth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldUpdate;
 
-class UpdateScope extends Job implements ShouldUpdate
+class UpdateScope extends Job implements HasOwner, HasSource, ShouldUpdate
 {
     public function handle()
     {

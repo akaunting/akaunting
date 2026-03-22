@@ -11,14 +11,14 @@ class DeleteClient extends Job implements ShouldDelete
 {
     public function handle()
     {
-        event(new ClientDeleted($this->model));
-
         /** @var ClientRepository $repository */
         $repository = app(ClientRepository::class);
 
         \DB::transaction(function () use ($repository) {
             $repository->delete($this->model);
         });
+
+        event(new ClientDeleted($this->model));
 
         return $this->model;
     }

@@ -58,9 +58,56 @@ class ClientRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => trans('oauth.client_name'),
-            'redirect' => trans('oauth.redirect_url'),
+            'name'         => trans('oauth.client_name'),
+            'redirect'     => trans('oauth.redirect_url'),
             'confidential' => trans('oauth.confidential_client'),
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     * Normalises the redirect field to a single string:
+     *   - JSON array  → json_encode (multi-URL)
+     *   - comma/space separated → json_encode (multi-URL)
+     *   - single URL  → as-is
+     * Also strips any invalid (non-URL) entries silently.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $raw = $this->input('redirect', '');
+
+        if (empty($raw)) {
+            return;
+        }
+
+        $urls = $this->parseRedirectUrls($raw);
+
+        $this->merge([
+            'redirect' => count($urls) > 1 ? json_encode($urls) : ($urls[0] ?? ''),
+        ]);
+    }
+
+    /**
+     * Parse redirect URLs from a raw string input.
+     * Supports JSON arrays, comma-separated, newline-separated, or single URLs.
+     *
+     * @param  string  $input
+     * @return array<string>
+     */
+    public function parseRedirectUrls(string $input): array
+    {
+        // Try JSON array first
+        $decoded = json_decode($input, true);
+
+        $candidates = is_array($decoded)
+            ? $decoded
+            : preg_split('/[\s,\n\r]+/', $input, -1, PREG_SPLIT_NO_EMPTY);
+
+        return array_values(array_filter(
+            array_map('trim', $candidates),
+            fn (string $url) => filter_var($url, FILTER_VALIDATE_URL) !== false,
+        ));
     }
 }

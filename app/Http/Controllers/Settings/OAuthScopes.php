@@ -21,7 +21,10 @@ class OAuthScopes extends Controller
     {
         parent::__construct();
 
-        $this->middleware('permission:update-settings-defaults');
+        $this->middleware('permission:read-settings-oauth')->only(['index']);
+        $this->middleware('permission:create-settings-oauth')->only(['create', 'store']);
+        $this->middleware('permission:update-settings-oauth')->only(['edit', 'update', 'enable', 'disable']);
+        $this->middleware('permission:delete-settings-oauth')->only(['destroy']);
     }
 
     /**
@@ -58,7 +61,7 @@ class OAuthScopes extends Controller
     /**
      * Store a newly created scope.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\OAuth\ScopeRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ScopeRequest $request)
@@ -77,12 +80,11 @@ class OAuthScopes extends Controller
     /**
      * Show the form for editing the specified scope.
      *
-     * @param  int  $id
+     * @param  \App\Models\OAuth\Scope  $scope
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Scope $scope)
     {
-        $scope = Scope::findOrFail($id);
         $groups = $this->getGroupOptions();
 
         return $this->response('settings.oauth.scopes.edit', compact('scope', 'groups'));
@@ -91,14 +93,12 @@ class OAuthScopes extends Controller
     /**
      * Update the specified scope.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\OAuth\Scope  $scope
+     * @param  \App\Http\Requests\OAuth\ScopeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function update($id, ScopeRequest $request)
+    public function update(Scope $scope, ScopeRequest $request)
     {
-        $scope = Scope::findOrFail($id);
-
         $response = $this->ajaxDispatch(new UpdateScope($scope, $request));
 
         if ($response->getData(true)['success']) {
@@ -113,13 +113,11 @@ class OAuthScopes extends Controller
     /**
      * Remove the specified scope.
      *
-     * @param  int  $id
+     * @param  \App\Models\OAuth\Scope  $scope
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Scope $scope)
     {
-        $scope = Scope::findOrFail($id);
-
         $response = $this->ajaxDispatch(new DeleteScope($scope));
 
         if ($response->getData(true)['success']) {
@@ -134,13 +132,12 @@ class OAuthScopes extends Controller
     /**
      * Enable the specified scope.
      *
-     * @param  int  $id
+     * @param  \App\Models\OAuth\Scope  $scope
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function enable($id, Request $request)
+    public function enable(Scope $scope, Request $request)
     {
-        $scope = Scope::findOrFail($id);
-
         $request->merge(['enabled' => true]);
 
         return $this->ajaxDispatch(new UpdateScope($scope, $request));
@@ -149,13 +146,12 @@ class OAuthScopes extends Controller
     /**
      * Disable the specified scope.
      *
-     * @param  int  $id
+     * @param  \App\Models\OAuth\Scope  $scope
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function disable($id, Request $request)
+    public function disable(Scope $scope, Request $request)
     {
-        $scope = Scope::findOrFail($id);
-
         $request->merge(['enabled' => false]);
 
         return $this->ajaxDispatch(new UpdateScope($scope, $request));

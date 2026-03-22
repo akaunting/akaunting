@@ -3,10 +3,12 @@
 namespace App\Jobs\OAuth;
 
 use App\Abstracts\Job;
+use App\Interfaces\Job\HasOwner;
+use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\OAuth\Scope;
 
-class CreateScope extends Job implements ShouldCreate
+class CreateScope extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle()
     {
