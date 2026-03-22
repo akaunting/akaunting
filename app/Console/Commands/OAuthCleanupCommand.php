@@ -69,33 +69,29 @@ class OAuthCleanupCommand extends Command
     protected function cleanupExpiredClients(): void
     {
         $expirationDays = config('oauth.dcr.client_expiration_days', 90);
-        $cutoffDate = Carbon::now()->subDays($expirationDays);
+        $cutoffDate     = Carbon::now()->subDays($expirationDays);
 
-        // Only cleanup dynamically registered clients (those with provider=null or provider='dcr')
-        $expiredClients = Client::where(function ($query) {
-                $query->whereNull('provider')
-                      ->orWhere('provider', 'dcr');
+        // Collect IDs of recently-used clients so we can exclude them
+        $activeClientIds = AccessToken::where('created_at', '>', $cutoffDate)
+            ->pluck('client_id')
+            ->unique();
+
+        // Build the candidate query — DCR clients not recently used
+        $query = Client::where(function ($q) {
+                $q->whereNull('provider')->orWhere('provider', 'dcr');
             })
             ->where('updated_at', '<', $cutoffDate)
-            ->get();
+            ->whereNotIn('id', $activeClientIds);
 
-        $count = 0;
-        foreach ($expiredClients as $client) {
-            // Check if client has been used recently
-            $recentlyUsed = AccessToken::where('client_id', $client->id)
-                ->where('created_at', '>', $cutoffDate)
-                ->exists();
+        // Collect IDs first, then cascade-delete in bulk
+        $clientIds = $query->pluck('id');
+        $count     = $clientIds->count();
 
-            if (!$recentlyUsed) {
-                // Delete associated tokens first
-                AccessToken::where('client_id', $client->id)->delete();
-                RefreshToken::where('client_id', $client->id)->delete();
-                AuthCode::where('client_id', $client->id)->delete();
-                
-                // Delete the client
-                $client->delete();
-                $count++;
-            }
+        if ($count > 0) {
+            AccessToken::whereIn('client_id', $clientIds)->delete();
+            RefreshToken::whereIn('client_id', $clientIds)->delete();
+            AuthCode::whereIn('client_id', $clientIds)->delete();
+            Client::whereIn('id', $clientIds)->delete();
         }
 
         $this->info("Cleaned up {$count} expired dynamic clients (inactive for {$expirationDays}+ days).");

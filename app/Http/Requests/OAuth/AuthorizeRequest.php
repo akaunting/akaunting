@@ -2,18 +2,31 @@
 
 namespace App\Http\Requests\OAuth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Abstracts\Http\FormRequest;
 
 class AuthorizeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     * Also validates that the selected company belongs to the authenticated user.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return auth()->check();
+        if (! auth()->check()) {
+            return false;
+        }
+
+        // If a company_id is present, verify the user has access to it
+        if ($this->company_id) {
+            return auth()->user()
+                ->companies()
+                ->where('id', $this->company_id)
+                ->exists();
+        }
+
+        return true;
     }
 
     /**
@@ -21,7 +34,7 @@ class AuthorizeRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'auth_token' => 'required|string',
@@ -34,12 +47,12 @@ class AuthorizeRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'auth_token.required' => trans('general.invalid_token'),
             'company_id.required' => trans('oauth.company_selection_required'),
-            'company_id.exists' => trans('general.error.not_in_company'),
+            'company_id.exists'   => trans('general.error.not_in_company'),
         ];
     }
 
@@ -48,31 +61,11 @@ class AuthorizeRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'auth_token' => 'authorization token',
-            'company_id' => 'company',
+            'company_id' => trans('general.company'),
         ];
-    }
-
-    /**
-     * Validate company access for the authenticated user.
-     *
-     * @return void
-     */
-    protected function prepareForValidation()
-    {
-        // Ensure user has access to the selected company
-        if ($this->company_id) {
-            $hasAccess = auth()->user()
-                ->companies()
-                ->where('id', $this->company_id)
-                ->exists();
-
-            if (!$hasAccess) {
-                abort(403, trans('general.error.not_in_company'));
-            }
-        }
     }
 }
