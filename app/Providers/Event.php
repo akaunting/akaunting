@@ -12,122 +12,122 @@ class Event extends Provider
      * @var array
      */
     protected $listen = [
-        'App\Events\Install\UpdateFinished' => [
-            'App\Listeners\Update\CreateModuleUpdatedHistory',
-            'App\Listeners\Module\UpdateExtraModules',
-            'App\Listeners\Update\V30\Version300',
-            'App\Listeners\Update\V30\Version303',
-            'App\Listeners\Update\V30\Version304',
-            'App\Listeners\Update\V30\Version305',
-            'App\Listeners\Update\V30\Version307',
-            'App\Listeners\Update\V30\Version309',
-            'App\Listeners\Update\V30\Version3013',
-            'App\Listeners\Update\V30\Version3014',
-            'App\Listeners\Update\V30\Version3015',
-            'App\Listeners\Update\V30\Version3016',
-            'App\Listeners\Update\V30\Version3017',
-            'App\Listeners\Update\V31\Version310',
-            'App\Listeners\Update\V31\Version315',
-            'App\Listeners\Update\V31\Version317',
-            'App\Listeners\Update\V31\Version318',
-            'App\Listeners\Update\V31\Version3112',
-            'App\Listeners\Update\V31\Version3115',
-            'App\Listeners\Update\V31\Version3119',
+        \App\Events\Install\UpdateFinished::class => [
+            \App\Listeners\Update\CreateModuleUpdatedHistory::class,
+            \App\Listeners\Module\UpdateExtraModules::class,
+            \App\Listeners\Update\V30\Version300::class,
+            \App\Listeners\Update\V30\Version303::class,
+            \App\Listeners\Update\V30\Version304::class,
+            \App\Listeners\Update\V30\Version305::class,
+            \App\Listeners\Update\V30\Version307::class,
+            \App\Listeners\Update\V30\Version309::class,
+            \App\Listeners\Update\V30\Version3013::class,
+            \App\Listeners\Update\V30\Version3014::class,
+            \App\Listeners\Update\V30\Version3015::class,
+            \App\Listeners\Update\V30\Version3016::class,
+            \App\Listeners\Update\V30\Version3017::class,
+            \App\Listeners\Update\V31\Version310::class,
+            \App\Listeners\Update\V31\Version315::class,
+            \App\Listeners\Update\V31\Version317::class,
+            \App\Listeners\Update\V31\Version318::class,
+            \App\Listeners\Update\V31\Version3112::class,
+            \App\Listeners\Update\V31\Version3115::class,
+            \App\Listeners\Update\V31\Version3119::class,
         ],
-        'Illuminate\Routing\Events\PreparingResponse' => [
-            'App\Listeners\Common\PreparingResponse',
+        \Illuminate\Routing\Events\PreparingResponse::class => [
+            \App\Listeners\Common\PreparingResponse::class,
         ],
-        'Illuminate\Auth\Events\Login' => [
-            'App\Listeners\Auth\Login',
+        \Illuminate\Auth\Events\Login::class => [
+            \App\Listeners\Auth\Login::class,
         ],
-        'Illuminate\Auth\Events\Logout' => [
-            'App\Listeners\Auth\Logout',
+        \Illuminate\Auth\Events\Logout::class => [
+            \App\Listeners\Auth\Logout::class,
         ],
         //'Illuminate\Console\Events\ScheduledTaskStarting' => [
-        'Illuminate\Console\Events\CommandStarting' => [
-            'App\Listeners\Common\SkipScheduleInReadOnlyMode',
+        \Illuminate\Console\Events\CommandStarting::class => [
+            \App\Listeners\Common\SkipScheduleInReadOnlyMode::class,
         ],
-        'App\Events\Auth\LandingPageShowing' => [
-            'App\Listeners\Auth\AddLandingPages',
+        \App\Events\Auth\LandingPageShowing::class => [
+            \App\Listeners\Auth\AddLandingPages::class,
         ],
-        'App\Events\Document\DocumentCreated' => [
-            'App\Listeners\Document\CreateDocumentCreatedHistory',
-            'App\Listeners\Document\IncreaseNextDocumentNumber',
-            'App\Listeners\Document\SettingFieldCreated',
+        \App\Events\Document\DocumentCreated::class => [
+            \App\Listeners\Document\CreateDocumentCreatedHistory::class,
+            \App\Listeners\Document\IncreaseNextDocumentNumber::class,
+            \App\Listeners\Document\SettingFieldCreated::class,
         ],
-        'App\Events\Document\DocumentReceived' => [
-            'App\Listeners\Document\MarkDocumentReceived',
+        \App\Events\Document\DocumentReceived::class => [
+            \App\Listeners\Document\MarkDocumentReceived::class,
         ],
-        'App\Events\Document\DocumentCancelled' => [
-            'App\Listeners\Document\MarkDocumentCancelled',
+        \App\Events\Document\DocumentCancelled::class => [
+            \App\Listeners\Document\MarkDocumentCancelled::class,
         ],
-        'App\Events\Document\DocumentRestored' => [
-            'App\Listeners\Document\RestoreDocument',
+        \App\Events\Document\DocumentRestored::class => [
+            \App\Listeners\Document\RestoreDocument::class,
         ],
-        'App\Events\Document\DocumentRecurring' => [
-            'App\Listeners\Document\SendDocumentRecurringNotification',
+        \App\Events\Document\DocumentRecurring::class => [
+            \App\Listeners\Document\SendDocumentRecurringNotification::class,
         ],
-        'App\Events\Document\DocumentReminded' => [
-            'App\Listeners\Document\SendDocumentReminderNotification',
+        \App\Events\Document\DocumentReminded::class => [
+            \App\Listeners\Document\SendDocumentReminderNotification::class,
         ],
-        'App\Events\Document\PaymentReceived' => [
-            'App\Listeners\Document\CreateDocumentTransaction',
-            'App\Listeners\Document\SendDocumentPaymentNotification',
+        \App\Events\Document\PaymentReceived::class => [
+            \App\Listeners\Document\CreateDocumentTransaction::class,
+            \App\Listeners\Document\SendDocumentPaymentNotification::class,
         ],
-        'App\Events\Document\DocumentMarkedSent' => [
-            'App\Listeners\Document\MarkDocumentSent',
+        \App\Events\Document\DocumentMarkedSent::class => [
+            \App\Listeners\Document\MarkDocumentSent::class,
         ],
-        'App\Events\Document\DocumentSent' => [
-            'App\Listeners\Document\MarkDocumentSent',
+        \App\Events\Document\DocumentSent::class => [
+            \App\Listeners\Document\MarkDocumentSent::class,
         ],
-        'App\Events\Document\DocumentUpdated' => [
-            'App\Listeners\Document\SettingFieldUpdated',
+        \App\Events\Document\DocumentUpdated::class => [
+            \App\Listeners\Document\SettingFieldUpdated::class,
         ],
-        'App\Events\Document\DocumentViewed' => [
-            'App\Listeners\Document\MarkDocumentViewed',
-            'App\Listeners\Document\SendDocumentViewNotification',
+        \App\Events\Document\DocumentViewed::class => [
+            \App\Listeners\Document\MarkDocumentViewed::class,
+            \App\Listeners\Document\SendDocumentViewNotification::class,
         ],
-        'App\Events\Install\UpdateFailed' => [
-            'App\Listeners\Update\SendNotificationOnFailure',
+        \App\Events\Install\UpdateFailed::class => [
+            \App\Listeners\Update\SendNotificationOnFailure::class,
         ],
-        'App\Events\Menu\NotificationsCreated' => [
-            'App\Listeners\Menu\ShowInNotifications',
+        \App\Events\Menu\NotificationsCreated::class => [
+            \App\Listeners\Menu\ShowInNotifications::class,
         ],
-        'App\Events\Menu\AdminCreated' => [
-            'App\Listeners\Menu\ShowInAdmin',
+        \App\Events\Menu\AdminCreated::class => [
+            \App\Listeners\Menu\ShowInAdmin::class,
         ],
-        'App\Events\Menu\ProfileCreated' => [
-            'App\Listeners\Menu\ShowInProfile',
+        \App\Events\Menu\ProfileCreated::class => [
+            \App\Listeners\Menu\ShowInProfile::class,
         ],
-        'App\Events\Menu\SettingsCreated' => [
-            'App\Listeners\Menu\ShowInSettings',
+        \App\Events\Menu\SettingsCreated::class => [
+            \App\Listeners\Menu\ShowInSettings::class,
         ],
-        'App\Events\Menu\NewwCreated' => [
-            'App\Listeners\Menu\ShowInNeww',
+        \App\Events\Menu\NewwCreated::class => [
+            \App\Listeners\Menu\ShowInNeww::class,
         ],
-        'App\Events\Menu\PortalCreated' => [
-            'App\Listeners\Menu\ShowInPortal',
+        \App\Events\Menu\PortalCreated::class => [
+            \App\Listeners\Menu\ShowInPortal::class,
         ],
-        'App\Events\Module\Installed' => [
-            'App\Listeners\Module\InstallExtraModules',
-            'App\Listeners\Module\FinishInstallation',
+        \App\Events\Module\Installed::class => [
+            \App\Listeners\Module\InstallExtraModules::class,
+            \App\Listeners\Module\FinishInstallation::class,
         ],
-        'App\Events\Module\Uninstalled' => [
-            'App\Listeners\Module\FinishUninstallation',
+        \App\Events\Module\Uninstalled::class => [
+            \App\Listeners\Module\FinishUninstallation::class,
         ],
-        'App\Events\Banking\TransactionCreated' => [
-            'App\Listeners\Banking\IncreaseNextTransactionNumber',
+        \App\Events\Banking\TransactionCreated::class => [
+            \App\Listeners\Banking\IncreaseNextTransactionNumber::class,
         ],
-        'App\Events\Setting\CategoryDeleted' => [
-            'App\Listeners\Setting\DeleteCategoryDeletedSubCategories',
+        \App\Events\Setting\CategoryDeleted::class => [
+            \App\Listeners\Setting\DeleteCategoryDeletedSubCategories::class,
         ],
-        'App\Events\Email\TooManyEmailsSent' => [
-            'App\Listeners\Email\ReportTooManyEmailsSent',
-            'App\Listeners\Email\TellFirewallTooManyEmailsSent',
+        \App\Events\Email\TooManyEmailsSent::class => [
+            \App\Listeners\Email\ReportTooManyEmailsSent::class,
+            \App\Listeners\Email\TellFirewallTooManyEmailsSent::class,
         ],
-        'App\Events\Email\InvalidEmailDetected' => [
-            'App\Listeners\Email\DisablePersonDueToInvalidEmail',
-            'App\Listeners\Email\SendInvalidEmailNotification',
+        \App\Events\Email\InvalidEmailDetected::class => [
+            \App\Listeners\Email\DisablePersonDueToInvalidEmail::class,
+            \App\Listeners\Email\SendInvalidEmailNotification::class,
         ],
     ];
 
@@ -137,19 +137,20 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
-        'App\Listeners\Common\ClearPlansCache',
-        'App\Listeners\Module\ClearCache',
-        'App\Listeners\Report\AddAccounts',
-        'App\Listeners\Report\AddCustomers',
-        'App\Listeners\Report\AddVendors',
-        'App\Listeners\Report\AddExpenseCategories',
-        'App\Listeners\Report\AddIncomeCategories',
-        'App\Listeners\Report\AddIncomeExpenseCategories',
-        'App\Listeners\Report\AddSearchString',
-        'App\Listeners\Report\AddRowsToTax',
-        'App\Listeners\Report\AddBasis',
-        'App\Listeners\Report\AddPeriod',
-        'App\Listeners\Report\AddDate',
-        'App\Listeners\Report\AddDiscount',
+        \App\Listeners\Common\ClearPlansCache::class,
+        \App\Listeners\Module\ClearCache::class,
+        \App\Listeners\Report\AddAccounts::class,
+        \App\Listeners\Report\AddContacts::class,
+        \App\Listeners\Report\AddCustomers::class,
+        \App\Listeners\Report\AddVendors::class,
+        \App\Listeners\Report\AddExpenseCategories::class,
+        \App\Listeners\Report\AddIncomeCategories::class,
+        \App\Listeners\Report\AddIncomeExpenseCategories::class,
+        \App\Listeners\Report\AddSearchString::class,
+        \App\Listeners\Report\AddRowsToTax::class,
+        \App\Listeners\Report\AddBasis::class,
+        \App\Listeners\Report\AddPeriod::class,
+        \App\Listeners\Report\AddDate::class,
+        \App\Listeners\Report\AddDiscount::class,
     ];
 }
