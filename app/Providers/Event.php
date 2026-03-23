@@ -129,6 +129,32 @@ class Event extends Provider
             'App\Listeners\Email\DisablePersonDueToInvalidEmail',
             'App\Listeners\Email\SendInvalidEmailNotification',
         ],
+
+        // OAuth Events
+        'App\Events\OAuth\TokenCreated' => [
+            'App\Listeners\OAuth\LogTokenCreated',
+        ],
+        'App\Events\OAuth\TokenRevoked' => [
+            'App\Listeners\OAuth\LogTokenRevoked',
+        ],
+        'App\Events\OAuth\ClientCreated' => [
+            'App\Listeners\OAuth\LogClientCreated',
+        ],
+        'App\Events\OAuth\ClientUpdated' => [
+            'App\Listeners\OAuth\LogClientUpdated',
+        ],
+        'App\Events\OAuth\ClientDeleted' => [
+            'App\Listeners\OAuth\LogClientDeleted',
+        ],
+        'App\Events\OAuth\ClientSecretRegenerated' => [
+            'App\Listeners\OAuth\LogClientSecretRegenerated',
+        ],
+        'App\Events\OAuth\AuthorizationApproved' => [
+            'App\Listeners\OAuth\LogAuthorizationApproved',
+        ],
+        'App\Events\OAuth\AuthorizationDenied' => [
+            'App\Listeners\OAuth\LogAuthorizationDenied',
+        ],
     ];
 
     /**
