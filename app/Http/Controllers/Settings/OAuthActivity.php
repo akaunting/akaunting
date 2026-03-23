@@ -104,8 +104,7 @@ class OAuthActivity extends Controller
      */
     protected function getClientOptions(): array
     {
-        $clients = Client::where('company_id', company_id())
-            ->orderBy('name')
+        $clients = Client::orderBy('name')
             ->pluck('name', 'id')
             ->toArray();
 

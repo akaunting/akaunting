@@ -28,7 +28,7 @@ class ScopeRequest extends FormRequest
         $uniqueKey = 'unique:oauth_scopes,key' . ($id ? ',' . $id : '');
 
         return [
-            'key'        => 'required|string|max:100|regex:/^[a-z0-9:_-]+$/i|' . $uniqueKey,
+            'key'        => 'required|string|max:100|regex:/^[a-z0-9:_-]+$/|' . $uniqueKey,
             'name'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'group'      => 'nullable|string|max:50',

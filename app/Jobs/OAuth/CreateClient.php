@@ -8,6 +8,7 @@ use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\OAuth\Client;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\ClientRepository;
 
 class CreateClient extends Job implements HasOwner, HasSource, ShouldCreate
@@ -21,7 +22,7 @@ class CreateClient extends Job implements HasOwner, HasSource, ShouldCreate
         /** @var ClientRepository $repository */
         $repository = app(ClientRepository::class);
 
-        \DB::transaction(function () use ($repository, $name, $redirect, $confidential) {
+        DB::transaction(function () use ($repository, $name, $redirect, $confidential) {
             $this->model = $repository->create(
                 user_id(),
                 $name,

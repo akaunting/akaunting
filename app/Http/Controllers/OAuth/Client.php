@@ -73,19 +73,6 @@ class Client extends Controller
     }
 
     /**
-     * Display the specified client.
-     *
-     * @param  \App\Models\OAuth\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ClientModel $client)
-    {
-        $client->load('user');
-
-        return $this->response('oauth.clients.show', compact('client'));
-    }
-
-    /**
      * Show the form for editing the specified client.
      *
      * @param  \App\Models\OAuth\Client  $client

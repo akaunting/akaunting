@@ -14,6 +14,8 @@ class Clients extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('auth');
         $this->middleware('permission:read-oauth-clients|read-auth-profile')->only('index', 'show');
         $this->middleware('permission:update-oauth-clients|update-auth-profile')->only('revoke');
@@ -141,10 +143,13 @@ class Clients extends Controller
             ->firstOrFail();
 
         $response = $this->ajaxDispatch(new DeleteClient($client));
+        $data = $response->getData(true);
 
-        $message = trans('oauth.client_deleted', ['name' => $client->name]);
-
-        flash($message)->success();
+        if ($data['success']) {
+            flash(trans('oauth.client_deleted', ['name' => $client->name]))->success();
+        } else {
+            flash($data['message'] ?? trans('messages.error.deleted', ['type' => trans_choice('oauth.client', 1)]))->error();
+        }
 
         return redirect()->route('oauth.clients.index');
     }

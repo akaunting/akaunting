@@ -5,6 +5,7 @@ namespace App\Jobs\OAuth;
 use App\Abstracts\Job;
 use App\Events\OAuth\ClientUpdated;
 use App\Interfaces\Job\ShouldUpdate;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\ClientRepository;
 
 class UpdateClient extends Job implements ShouldUpdate
@@ -18,7 +19,7 @@ class UpdateClient extends Job implements ShouldUpdate
         /** @var ClientRepository $repository */
         $repository = app(ClientRepository::class);
 
-        \DB::transaction(function () use ($repository, $name, $redirect) {
+        DB::transaction(function () use ($repository, $name, $redirect) {
             $repository->update($this->model, $name, $redirect);
         });
 

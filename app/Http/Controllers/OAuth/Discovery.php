@@ -14,7 +14,9 @@ class Discovery extends Controller
      */
     public function __construct()
     {
-        // No authentication required for discovery endpoint
+        parent::__construct();
+
+        // No authentication required for discovery endpoints
     }
 
     /**

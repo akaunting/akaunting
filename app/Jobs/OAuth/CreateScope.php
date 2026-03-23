@@ -7,12 +7,13 @@ use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\OAuth\Scope;
+use Illuminate\Support\Facades\DB;
 
 class CreateScope extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle()
     {
-        \DB::transaction(function () {
+        DB::transaction(function () {
             $this->model = Scope::create([
                 'key'         => $this->request->get('key'),
                 'name'        => $this->request->get('name'),

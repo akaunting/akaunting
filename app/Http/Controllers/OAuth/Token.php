@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\OAuth;
 
 use App\Abstracts\Http\Controller;
+use App\Http\Requests\OAuth\TokenIntrospectRequest;
+use App\Http\Requests\OAuth\TokenRevokeRequest;
 use Illuminate\Http\Request;
 use Laravel\Passport\TokenRepository;
 
@@ -93,14 +95,8 @@ class Token extends Controller
      * @param  \Laravel\Passport\TokenRepository  $tokens
      * @return \Illuminate\Http\Response
      */
-    public function introspect(Request $request, TokenRepository $tokens)
+    public function introspect(TokenIntrospectRequest $request, TokenRepository $tokens)
     {
-        // Validate input
-        $request->validate([
-            'token' => 'required|string',
-            'token_type_hint' => 'sometimes|string|in:access_token,refresh_token',
-        ]);
-
         $tokenId = $request->input('token');
 
         try {
@@ -163,14 +159,8 @@ class Token extends Controller
      * @param  \Laravel\Passport\TokenRepository  $tokens
      * @return \Illuminate\Http\Response
      */
-    public function revoke(Request $request, TokenRepository $tokens)
+    public function revoke(TokenRevokeRequest $request, TokenRepository $tokens)
     {
-        // Validate input
-        $request->validate([
-            'token' => 'required|string',
-            'token_type_hint' => 'sometimes|string|in:access_token,refresh_token',
-        ]);
-
         $tokenId = $request->input('token');
         $tokenTypeHint = $request->input('token_type_hint', 'access_token');
 

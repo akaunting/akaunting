@@ -80,7 +80,7 @@ class PersonalAccessToken extends Controller
             return response()->json([
                 'success' => false,
                 'error' => true,
-                'message' => trans('oauth.messages.no_personal_access_client'),
+                'message' => trans('oauth.no_personal_access_client'),
             ], 400);
         }
 

@@ -122,6 +122,10 @@ return [
     'scopes.admin.name'             => 'Admin Access',
     'scopes.admin.description'      => 'Full administrative access to your account',
 
+    // Scope Management Validation
+    'scopes.key_format_error'       => 'The scope key may only contain lowercase letters, numbers, hyphens, underscores, and colons.',
+    'scopes.key_exists'             => 'A scope with this key already exists.',
+
     // Scope Management
     'scopes.title'                  => 'OAuth Scopes',
     'scopes.scope_key'              => 'Scope Key',
@@ -201,6 +205,11 @@ return [
     'dashboard.activities_count'    => ':count activities',
     'dashboard.no_data'             => 'No data available',
     'dashboard.search_keywords'     => 'oauth, dashboard, statistics, metrics, analytics',
+
+    // Plugin / AI Manifests
+    'plugin.description_human'      => 'Manage your finances, invoices, and accounting data with Akaunting.',
+    'plugin.description_model'      => 'Akaunting financial management system. Use this plugin to create invoices, manage customers and vendors, track expenses, and view financial reports.',
+    'plugin.mcp_description'        => 'Access Akaunting financial data and operations via Model Context Protocol.',
 
     // Messages
     'no_personal_access_client'     => 'No personal access client found. Please run passport:client --personal command first.',

@@ -5,6 +5,7 @@ namespace App\Jobs\OAuth;
 use App\Abstracts\Job;
 use App\Events\OAuth\ClientDeleted;
 use App\Interfaces\Job\ShouldDelete;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\ClientRepository;
 
 class DeleteClient extends Job implements ShouldDelete
@@ -14,7 +15,7 @@ class DeleteClient extends Job implements ShouldDelete
         /** @var ClientRepository $repository */
         $repository = app(ClientRepository::class);
 
-        \DB::transaction(function () use ($repository) {
+        DB::transaction(function () use ($repository) {
             $repository->delete($this->model);
         });
 
