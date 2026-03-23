@@ -1,0 +1,925 @@
+/**
+ * Akaunting UI Enhancements
+ * Modern, professional SaaS dashboard progressive CSS improvements.
+ * Loaded AFTER app.css — overrides are intentional and additive only.
+ *
+ * Design tokens stay within the Akaunting palette:
+ *   Primary   : #55588b (purple)
+ *   Success   : #6ea152 (green)
+ *   Background: #F5F7FA (lilac-100 tint)
+ *   Card      : #ffffff
+ *   Border    : #E3E6F3
+ *   Text      : #424242 (black)
+ *   Muted     : #7F8997 (silver)
+ *
+ * @version 1.0.0
+ */
+
+/* ============================================================
+   1. DESIGN TOKENS  (CSS custom properties)
+   ============================================================ */
+:root {
+    /* Shadows — purple-tinted for cohesion with brand */
+    --aka-shadow-xs :  0 1px 2px 0 rgba(85, 88, 139, 0.06);
+    --aka-shadow-sm :  0 1px 3px 0 rgba(85, 88, 139, 0.09), 0 1px 2px -1px rgba(85, 88, 139, 0.06);
+    --aka-shadow-md :  0 4px 8px -2px rgba(85, 88, 139, 0.10), 0 2px 4px -2px rgba(85, 88, 139, 0.06);
+    --aka-shadow-lg :  0 10px 18px -4px rgba(85, 88, 139, 0.12), 0 4px 8px -4px rgba(85, 88, 139, 0.06);
+    --aka-shadow-xl :  0 20px 30px -6px rgba(85, 88, 139, 0.14), 0 8px 12px -6px rgba(85, 88, 139, 0.06);
+    --aka-btn-shadow:  0 1px 3px rgba(85, 88, 139, 0.25), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+    /* Transitions */
+    --aka-t-fast    : 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --aka-t-base    : 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --aka-t-slow    : 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Radii */
+    --aka-r-sm      : 0.375rem;   /* 6px  */
+    --aka-r         : 0.5rem;     /* 8px  */
+    --aka-r-md      : 0.75rem;    /* 12px */
+    --aka-r-lg      : 1rem;       /* 16px */
+    --aka-r-xl      : 1.25rem;    /* 20px */
+
+    /* Brand colours (copy of Tailwind presets for CSS var usage) */
+    --aka-purple        : #55588b;
+    --aka-purple-light  : #eeeef3;
+    --aka-purple-lighter: #F2F4FC;
+    --aka-green         : #6ea152;
+    --aka-green-light   : #f1f6ee;
+    --aka-red           : #cc0000;
+    --aka-orange        : #f59e0b;
+    --aka-border        : #E3E6F3;
+    --aka-bg            : #F5F7FA;
+    --aka-surface       : #ffffff;
+    --aka-text          : #424242;
+    --aka-muted         : #7F8997;
+}
+
+
+/* ============================================================
+   2. GLOBAL / BODY
+   ============================================================ */
+body.bg-body {
+    background-color: var(--aka-bg) !important;
+}
+
+/* Smooth font rendering across all browsers */
+* {
+    -webkit-font-smoothing : antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global focus-visible ring — keeps keyboard accessibility */
+:focus-visible {
+    outline        : 2px solid var(--aka-purple);
+    outline-offset : 2px;
+}
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+
+/* ============================================================
+   3. SCROLLBARS  (Webkit)
+   ============================================================ */
+::-webkit-scrollbar {
+    width : 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background     : #C8CDEA;
+    border-radius  : 100px;
+    transition     : background var(--aka-t-fast);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9EA4C8;
+}
+
+
+/* ============================================================
+   4. PAGE HEADER
+   ============================================================ */
+#header {
+    padding-bottom: 1.25rem;
+    margin-bottom : 1.5rem;
+    border-bottom : 1px solid var(--aka-border);
+}
+
+/* Tighter, stronger page title — still uses Quicksand */
+#header h1 {
+    font-size  : 1.5rem     !important; /* 24px on desktop  */
+    font-weight: 700        !important;
+    line-height: 2rem       !important;
+    color      : #2d2f5e    !important;
+    letter-spacing: -0.02em !important;
+}
+
+@media (min-width: 1280px) {
+    #header h1 {
+        font-size  : 1.875rem  !important; /* 30px on xl */
+        line-height: 2.25rem  !important;
+    }
+}
+
+/* Action buttons row in header — consistent gap */
+#header [data-page-title-second] {
+    gap: 0.5rem;
+}
+
+/* Suggestion / secondary buttons spacing */
+.suggestion-buttons button,
+.suggestion-buttons a {
+    margin-top   : 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+
+/* ============================================================
+   5. SIDEBAR — ICON STRIP  (bg-lilac-900 = #DCE2F9)
+   ============================================================ */
+/* Give the narrow icon strip a more defined appearance */
+.w-14.py-7.bg-lilac-900 {
+    background   : linear-gradient(180deg, #dde2f8 0%, #ccd3f4 100%) !important;
+    box-shadow   : 2px 0 6px rgba(85, 88, 139, 0.10);
+    border-right : 1px solid #C5CBEC;
+}
+
+/* Sidebar icon buttons — smoother hover */
+.w-14.py-7.bg-lilac-900 button,
+.w-14.py-7.bg-lilac-900 a {
+    border-radius: var(--aka-r-sm);
+    transition   : background-color var(--aka-t-fast), transform var(--aka-t-fast);
+    padding      : 0.25rem;
+}
+.w-14.py-7.bg-lilac-900 button:hover,
+.w-14.py-7.bg-lilac-900 a:hover {
+    background-color: rgba(85, 88, 139, 0.12);
+    transform       : scale(1.05);
+}
+
+/* Notification count badge */
+[data-notification-count] {
+    box-shadow: 0 0 0 2px #DCE2F9;
+}
+
+
+/* ============================================================
+   6. SIDEBAR — MAIN MENU LIST  (.menu-list = bg-purple-lighter #F2F4FC)
+   ============================================================ */
+.menu-list {
+    border-right: 1px solid var(--aka-border) !important;
+    box-shadow  : 2px 0 6px rgba(85, 88, 139, 0.05) !important;
+}
+
+/* Section / group headings in menu */
+.menu-list .text-xs.font-medium,
+.menu-list .text-xs.text-silver {
+    font-size     : 0.625rem !important;   /* 10px */
+    font-weight   : 700      !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em   !important;
+    color         : var(--aka-muted) !important;
+    padding-top   : 0.75rem;
+}
+
+/* Nav link base */
+.menu-list ul li a,
+.menu__submenu li a {
+    border-radius: var(--aka-r-sm) !important;
+    transition   : background-color var(--aka-t-fast), color var(--aka-t-fast) !important;
+    font-weight  : 500 !important;
+}
+.menu-list ul li a:hover,
+.menu__submenu li a:hover {
+    background-color: var(--aka-purple-light) !important;
+    color           : var(--aka-purple)        !important;
+}
+
+/* Active nav link — solid left indicator */
+.menu-list ul li a[aria-current="page"],
+.menu-list ul li a.router-link-exact-active,
+.menu-list ul li a.active {
+    background-color: var(--aka-purple-light) !important;
+    color           : var(--aka-purple)        !important;
+    font-weight     : 700                      !important;
+}
+
+/* Sub-menu SVG icon stroke inherit from parent text */
+.menu-list ul li a:hover svg,
+.menu-list ul li a.active svg {
+    stroke: var(--aka-purple) !important;
+}
+
+/* Vertical left-border connector for sub-menus */
+.menu__submenu li::before,
+.menu__submenu details.relative::before {
+    background: #C5CBEC !important;
+}
+
+
+/* ============================================================
+   7. CARDS & WHITE PANELS
+   ============================================================ */
+/* Any white rounded element acts as a card */
+.bg-white.rounded-2xl,
+.bg-white.rounded-xl,
+.bg-white.rounded-lg {
+    box-shadow: var(--aka-shadow-sm) !important;
+    border    : 1px solid var(--aka-border) !important;
+    transition: box-shadow var(--aka-t-base) !important;
+}
+.bg-white.rounded-2xl:hover,
+.bg-white.rounded-xl:hover,
+.bg-white.rounded-lg:hover {
+    box-shadow: var(--aka-shadow-md) !important;
+}
+
+
+/* ============================================================
+   8. BUTTONS
+   ============================================================ */
+
+/* ---- 8a. Primary / green ---- */
+button.bg-green:not([class*="bg-green-"]):not(.text-green):not(.border-green),
+a.bg-green:not([class*="bg-green-"]):not(.text-green):not(.border-green) {
+    background : linear-gradient(135deg, #78a85d 0%, #5d9040 100%) !important;
+    border     : 1px solid rgba(93, 144, 64, 0.25)                  !important;
+    box-shadow : 0 1px 3px rgba(110, 161, 82, 0.30), 0 1px 2px rgba(0,0,0,0.06) !important;
+    color      : #ffffff                                             !important;
+    transition : box-shadow var(--aka-t-fast), transform var(--aka-t-fast) !important;
+}
+button.bg-green:not([class*="bg-green-"]):not(.text-green):hover,
+a.bg-green:not([class*="bg-green-"]):not(.text-green):hover {
+    box-shadow: 0 4px 8px rgba(110, 161, 82, 0.38), 0 1px 3px rgba(0,0,0,0.10) !important;
+    transform : translateY(-1px) !important;
+}
+button.bg-green:not([class*="bg-green-"]):not(.text-green):active,
+a.bg-green:not([class*="bg-green-"]):not(.text-green):active {
+    transform : translateY(0)     !important;
+    box-shadow: var(--aka-shadow-xs) !important;
+}
+
+/* ---- 8b. Secondary / purple ---- */
+button.bg-purple,
+a.bg-purple {
+    background: linear-gradient(135deg, #5f62a0 0%, #484b83 100%) !important;
+    border    : 1px solid rgba(72, 75, 131, 0.25)                  !important;
+    box-shadow: var(--aka-btn-shadow)                               !important;
+    color     : #ffffff                                             !important;
+    transition: box-shadow var(--aka-t-fast), transform var(--aka-t-fast) !important;
+}
+button.bg-purple:hover,
+a.bg-purple:hover {
+    box-shadow: 0 4px 8px rgba(85, 88, 139, 0.38), 0 1px 3px rgba(0,0,0,0.10) !important;
+    transform : translateY(-1px) !important;
+}
+button.bg-purple:active,
+a.bg-purple:active {
+    transform : translateY(0)        !important;
+    box-shadow: var(--aka-shadow-xs) !important;
+}
+
+/* ---- 8c. Outline / border-purple buttons ---- */
+button.border-purple,
+a.border-purple {
+    border    : 1.5px solid var(--aka-purple) !important;
+    color     : var(--aka-purple)             !important;
+    background: transparent                   !important;
+    transition: background-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+button.border-purple:hover,
+a.border-purple:hover {
+    background-color: var(--aka-purple-light) !important;
+    box-shadow      : var(--aka-shadow-xs)    !important;
+}
+
+/* ---- 8d. Danger / red ---- */
+button.bg-red,
+a.bg-red {
+    background: linear-gradient(135deg, #e03333 0%, #b80000 100%) !important;
+    border    : 1px solid rgba(184, 0, 0, 0.20)                   !important;
+    box-shadow: 0 1px 3px rgba(204, 0, 0, 0.28), 0 1px 2px rgba(0,0,0,0.06) !important;
+    color     : #ffffff                                            !important;
+    transition: box-shadow var(--aka-t-fast), transform var(--aka-t-fast) !important;
+}
+button.bg-red:hover,
+a.bg-red:hover {
+    box-shadow: 0 4px 8px rgba(204, 0, 0, 0.36), 0 1px 3px rgba(0,0,0,0.10) !important;
+    transform : translateY(-1px) !important;
+}
+
+/* ---- 8e. Table action buttons (small icon buttons) ---- */
+.index-actions {
+    transition    : background-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+    border-color  : var(--aka-border)  !important;
+    background    : var(--aka-surface) !important;
+}
+.index-actions:hover {
+    background-color: var(--aka-purple-lighter) !important;
+    box-shadow      : var(--aka-shadow-xs)       !important;
+}
+.index-actions .material-icons-outlined {
+    transition: color var(--aka-t-fast) !important;
+}
+.index-actions:hover .material-icons-outlined {
+    color: var(--aka-purple) !important;
+}
+
+
+/* ============================================================
+   9. FORM INPUTS
+   ============================================================ */
+
+/* Labels */
+label {
+    font-size  : 0.8125rem !important; /* 13px */
+    font-weight: 600       !important;
+    color      : #363853   !important;
+    letter-spacing: 0.01em;
+}
+
+/* Base input / textarea */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea {
+    border          : 1.5px solid #DDE0F0 !important;
+    background-color: #FAFBFD            !important;
+    color           : #363853            !important;
+    transition      : border-color var(--aka-t-fast), box-shadow var(--aka-t-fast), background-color var(--aka-t-fast) !important;
+}
+
+/* Focus state  */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    border-color    : var(--aka-purple)                   !important;
+    box-shadow      : 0 0 0 3px rgba(85, 88, 139, 0.15)  !important;
+    background-color: #ffffff                             !important;
+    outline         : none !important;
+}
+
+/* Hover (unfocused) */
+input[type="text"]:hover:not(:focus):not(:disabled):not([readonly]),
+input[type="email"]:hover:not(:focus):not(:disabled):not([readonly]),
+input[type="password"]:hover:not(:focus):not(:disabled):not([readonly]),
+textarea:hover:not(:focus):not(:disabled):not([readonly]) {
+    border-color    : #B2B5D4 !important;
+    background-color: #ffffff !important;
+}
+
+/* Disabled / readonly */
+input:disabled,
+textarea:disabled,
+input[readonly],
+textarea[readonly] {
+    background-color: #F0F1F8 !important;
+    border-color    : #E3E6F3 !important;
+    color           : #9CA3AF !important;
+    cursor          : not-allowed;
+}
+
+/* Money input helper class */
+.input-money {
+    border          : 1.5px solid #DDE0F0 !important;
+    background-color: #FAFBFD            !important;
+    transition      : border-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+.input-money:focus {
+    border-color: var(--aka-purple)                  !important;
+    box-shadow  : 0 0 0 3px rgba(85, 88, 139, 0.15) !important;
+}
+
+/* Element-UI Select */
+.el-select .el-input .el-input__inner,
+.un-el-select {
+    border          : 1.5px solid #DDE0F0 !important;
+    background-color: #FAFBFD            !important;
+    transition      : border-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+.el-select .el-input.is-focus .el-input__inner,
+.el-select .el-input .el-input__inner:focus {
+    border-color: var(--aka-purple)                  !important;
+    box-shadow  : 0 0 0 3px rgba(85, 88, 139, 0.15) !important;
+    background  : #ffffff                            !important;
+}
+
+/* Element-UI Date editor */
+.el-date-editor input {
+    border          : 1.5px solid #DDE0F0 !important;
+    background-color: #FAFBFD            !important;
+    transition      : border-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+.el-date-editor input:focus {
+    border-color: var(--aka-purple)                  !important;
+    box-shadow  : 0 0 0 3px rgba(85, 88, 139, 0.15) !important;
+    background  : #ffffff                            !important;
+}
+
+/* Dropdown list — rounder and shadowed */
+.el-select-dropdown {
+    border-radius : var(--aka-r-md) !important;
+    border        : 1px solid var(--aka-border) !important;
+    box-shadow    : var(--aka-shadow-lg)         !important;
+    overflow      : hidden;
+    padding       : 0.25rem 0 !important;
+}
+.el-select-dropdown__item {
+    border-radius: var(--aka-r-sm) !important;
+    margin       : 0 0.25rem         !important;
+}
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+    background-color: var(--aka-purple-lighter) !important;
+}
+
+/* Error state */
+.has-error input,
+.has-error select,
+.has-error textarea {
+    border-color: var(--aka-red)                   !important;
+    box-shadow  : 0 0 0 3px rgba(204, 0, 0, 0.10) !important;
+}
+
+
+/* ============================================================
+   10. TABLE  (flex-based layout — flex flex-col)
+   ============================================================ */
+/* Wrap the table in a card-like container */
+table.flex.flex-col {
+    background   : var(--aka-surface) !important;
+    border-radius: var(--aka-r-md)    !important;
+    overflow     : hidden;
+    box-shadow   : var(--aka-shadow-sm) !important;
+    border       : 1px solid var(--aka-border) !important;
+}
+
+/* Table header row */
+table.flex.flex-col thead {
+    background   : #F7F8FD !important;
+    border-bottom: 2px solid var(--aka-border) !important;
+}
+
+/* Header cells */
+table.flex.flex-col thead th {
+    font-size     : 0.6875rem  !important; /* 11px */
+    font-weight   : 700        !important;
+    text-transform: uppercase  !important;
+    letter-spacing: 0.07em     !important;
+    color         : var(--aka-muted) !important;
+    padding-top   : 0.875rem   !important;
+    padding-bottom: 0.875rem   !important;
+}
+
+/* Table body rows */
+table.flex.flex-col tbody tr {
+    transition  : background-color var(--aka-t-fast) !important;
+    border-bottom: 1px solid #F0F1F9 !important;
+}
+table.flex.flex-col tbody tr:last-child {
+    border-bottom: none !important;
+}
+table.flex.flex-col tbody tr:hover {
+    background-color: #F7F8FD !important;
+}
+
+/* Clickable rows  */
+table.flex.flex-col tbody tr[data-table-list] {
+    cursor: pointer;
+}
+table.flex.flex-col tbody tr[data-table-list]:hover {
+    background-color: #EEEEF8 !important;
+}
+
+/* Table data cells  */
+table.flex.flex-col tbody td {
+    padding-top   : 0.875rem !important;
+    padding-bottom: 0.875rem !important;
+    font-size     : 0.875rem !important;
+    color         : var(--aka-text) !important;
+    vertical-align: middle;
+}
+
+/* Column headers with sort links */
+table thead a {
+    background-position: 0 100%  !important;
+    background-size    : 0 2px   !important;
+    background-repeat  : no-repeat;
+}
+table thead a:hover {
+    border-color: #424242 !important;
+}
+
+
+/* ============================================================
+   11. STATUS BADGES / PILLS
+   ============================================================ */
+/* Tighten and sharpen badge typography */
+.badge,
+span[class*="rounded-full"][class*="px-"],
+span[class*="rounded-3xl"][class*="px-"] {
+    font-weight   : 600        !important;
+    font-size     : 0.6875rem  !important; /* 11px */
+    letter-spacing: 0.04em     !important;
+    line-height   : 1          !important;
+}
+
+
+/* ============================================================
+   12. DROPDOWNS / CONTEXT MENUS
+   ============================================================ */
+[data-dropdown-menu],
+[x-ref="panel"] {
+    border-radius: var(--aka-r-md) !important;
+    border       : 1px solid var(--aka-border) !important;
+    box-shadow   : var(--aka-shadow-lg)         !important;
+    overflow     : hidden;
+}
+[data-dropdown-menu] a,
+[data-dropdown-menu] button {
+    border-radius: var(--aka-r-sm) !important;
+    transition   : background-color var(--aka-t-fast) !important;
+}
+[data-dropdown-menu] a:hover,
+[data-dropdown-menu] button:hover {
+    background-color: var(--aka-purple-lighter) !important;
+    color           : var(--aka-purple)          !important;
+}
+
+
+/* ============================================================
+   13. TOOLTIPS
+   ============================================================ */
+[data-tooltip-target] + [id^="tooltip-"],
+[id^="tooltip-"] {
+    border-radius: var(--aka-r-sm)           !important;
+    box-shadow   : var(--aka-shadow-md)      !important;
+    font-size    : 0.75rem                   !important;
+    font-weight  : 600                       !important;
+    border       : 1px solid var(--aka-border) !important;
+}
+
+
+/* ============================================================
+   14. MODAL / DIALOG
+   ============================================================ */
+/* Modals get xl radius and shadow */
+[class*="fixed"][class*="z-50"] > [class*="bg-white"],
+.modal-card {
+    border-radius: var(--aka-r-xl)  !important;
+    box-shadow   : var(--aka-shadow-xl) !important;
+}
+
+
+/* ============================================================
+   15. MOBILE TOPBAR  (xl:hidden bar with hamburger)
+   ============================================================ */
+.container.flex.items-center.py-3.mb-4.border-b-2.xl\\:hidden {
+    background  : var(--aka-surface)             !important;
+    border-bottom: 1px solid var(--aka-border)   !important;
+    box-shadow   : var(--aka-shadow-xs)          !important;
+    padding-top   : 0.875rem                      !important;
+    padding-bottom: 0.875rem                      !important;
+}
+
+
+/* ============================================================
+   16. PROGRESS BAR  (NProgress)
+   ============================================================ */
+#nprogress .bar {
+    background: var(--aka-purple)   !important;
+    height    : 3px                !important;
+}
+#nprogress .peg {
+    box-shadow: 0 0 10px var(--aka-purple), 0 0 5px var(--aka-purple) !important;
+}
+#nprogress .spinner .spinner-icon {
+    border-top-color : var(--aka-purple) !important;
+    border-left-color: var(--aka-purple) !important;
+}
+
+
+/* ============================================================
+   17. MAIN CONTENT AREA spacing refinement
+   ============================================================ */
+#main-body .container {
+    padding-top: 0.25rem;
+}
+
+
+/* ============================================================
+   18. CHART LEGEND  (ApexCharts)
+   ============================================================ */
+.apexcharts-legend-text {
+    font-family: "Quicksand", sans-serif !important;
+    font-weight: 600                     !important;
+    font-size  : 0.75rem                 !important;
+}
+
+
+/* ============================================================
+   19. FLATPICKR CALENDAR
+   ============================================================ */
+.flatpickr-calendar {
+    border-radius: var(--aka-r-md)  !important;
+    box-shadow   : var(--aka-shadow-lg) !important;
+    border       : 1px solid var(--aka-border) !important;
+}
+.flatpickr-months .flatpickr-month {
+    border-radius: var(--aka-r-md) var(--aka-r-md) 0 0 !important;
+}
+
+
+/* ============================================================
+   20. TABS
+   ============================================================ */
+/* Active tab indicator line — thicker and rounded */
+.tabs-link.active-tabs::before {
+    display: none !important;
+}
+.tabs-link::before {
+    content      : '';
+    position     : absolute;
+    left         : 0;
+    right        : 0;
+    bottom       : 0;
+    height       : 2.5px;
+    background   : var(--aka-purple);
+    border-radius: 2px 2px 0 0;
+    opacity      : 0;
+    visibility   : hidden;
+    transition   : opacity var(--aka-t-fast), visibility var(--aka-t-fast);
+}
+.tabs-link:hover::before {
+    opacity   : 1 !important;
+    visibility: visible !important;
+}
+
+
+/* ============================================================
+   21. EMPTY STATE PAGES
+   ============================================================ */
+.empty-page,
+[class*="empty"] .material-icons {
+    color: #C5CBEC !important;
+}
+
+
+/* ============================================================
+   22. PAGINATION
+   ============================================================ */
+/* Paginator links — rounder, with hover */
+nav[aria-label*="pagination"] button,
+nav[role="navigation"] button,
+[class*="pagination"] button {
+    border-radius: var(--aka-r-sm)                !important;
+    transition   : background-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+[class*="pagination"] button:hover {
+    background-color: var(--aka-purple-light) !important;
+    color           : var(--aka-purple)        !important;
+}
+[class*="pagination"] button[aria-current="page"],
+[class*="pagination"] button.active {
+    background-color: var(--aka-purple) !important;
+    color           : #ffffff           !important;
+    box-shadow      : var(--aka-btn-shadow) !important;
+}
+
+
+/* ============================================================
+   23. NOTIFICATIONS PANEL
+   ============================================================ */
+.notifications-menu {
+    border-radius: var(--aka-r-md) !important;
+    box-shadow   : var(--aka-shadow-lg) !important;
+    border       : 1px solid var(--aka-border) !important;
+    overflow     : hidden;
+}
+.notifications-menu ul li a {
+    border-bottom: 1px solid #F0F2FA !important;
+    transition   : background-color var(--aka-t-fast) !important;
+}
+.notifications-menu ul li a:hover {
+    background-color: var(--aka-purple-lighter) !important;
+}
+
+
+/* ============================================================
+   24. MOBILE RESPONSIVE IMPROVEMENTS
+   ============================================================ */
+@media (max-width: 640px) {
+    /* Compact container padding */
+    .container {
+        padding-left : 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Smaller page title */
+    #header h1 {
+        font-size  : 1.25rem !important;
+        line-height: 1.75rem !important;
+    }
+
+    /* Stack header buttons */
+    #header [data-page-title-second] {
+        flex-direction: column !important;
+        align-items   : flex-start !important;
+        gap           : 0.5rem    !important;
+    }
+
+    /* Full-width primary action button on mobile */
+    #header [data-page-title-second] > a,
+    #header [data-page-title-second] > button {
+        width          : 100%            !important;
+        justify-content: center          !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Content padding tweak */
+    #main-body .container {
+        padding-top: 0 !important;
+    }
+}
+
+
+/* ============================================================
+   25. PRINT  — strip decorative shadows for clean print
+   ============================================================ */
+@media print {
+    body {
+        background: #ffffff !important;
+    }
+    table,
+    .bg-white.rounded-2xl,
+    .bg-white.rounded-xl,
+    .bg-white.rounded-lg {
+        box-shadow: none    !important;
+        border    : 1px solid #ddd !important;
+    }
+}
+
+
+/* ============================================================
+   26. ALERT BANNERS  — improve border-radius and Shadow
+   ============================================================ */
+/* Alerts with rounded-md class */
+[class*="rounded-md"][class*="p-4"][class*="my-4"] {
+    border-radius: var(--aka-r) !important;
+    box-shadow   : var(--aka-shadow-xs) !important;
+}
+/* Left-border alerts get extra polish */
+[class*="border-l-4"][class*="rounded-md"] {
+    border-left-width: 4px !important;
+    border-radius: 0 var(--aka-r) var(--aka-r) 0 !important;
+}
+
+
+/* ============================================================
+   27. FORM SECTION / GROUP SPACING
+   ============================================================ */
+/* Give each form row breathing room */
+.relative.mt-4 > .grid,
+.relative.mt-4 > .flex {
+    gap: 1rem;
+}
+
+/* Form section separator */
+.form-section-separator {
+    border-top : 1px solid var(--aka-border) !important;
+    margin-top: 1.5rem   !important;
+    padding-top: 1.5rem  !important;
+}
+
+
+/* ============================================================
+   28. DASHBOARD DATE PICKER  (header date range)
+   ============================================================ */
+.el-date-range-picker .el-picker-panel__body,
+.el-date-range-picker .el-picker-panel__sidebar {
+    font-family: "Quicksand", sans-serif !important;
+}
+.dashboard-picker.el-date-range-picker.el-popper {
+    border-radius: var(--aka-r-md) !important;
+    box-shadow   : var(--aka-shadow-xl) !important;
+    border       : 1px solid var(--aka-border) !important;
+    overflow     : hidden;
+}
+
+
+/* ============================================================
+   29. SELECT NUMBER INPUT  (money/amount fields)
+   ============================================================ */
+.input-money-field,
+[class*="money-input"],
+input[type="number"] {
+    font-variant-numeric: tabular-nums;
+    letter-spacing      : 0.02em;
+}
+
+
+/* ============================================================
+   30. CARD HEADERS  — section titles and divider inside cards
+   ============================================================ */
+.card-header,
+[class*="bg-white"] > [class*="border-b"] {
+    border-bottom-color: var(--aka-border) !important;
+}
+/* Inner card section titles  */
+.bg-white h2.text-xl,
+.bg-white h2.text-2xl,
+.bg-white h3 {
+    color      : #2d2f5e !important;
+    font-weight: 700     !important;
+    letter-spacing: -0.01em;
+}
+
+
+/* ============================================================
+   31. BREADCRUMBS / PAGE SUBTITLE
+   ============================================================ */
+/* Muted subtitle text under page title */
+#header .text-sm.text-silver,
+#header .text-xs.text-silver {
+    color      : var(--aka-muted) !important;
+    font-weight: 500 !important;
+}
+
+
+/* ============================================================
+   32. ICON BUTTONS  (rounded icon-only buttons like more_vert)
+   ============================================================ */
+.w-8.h-8.flex.items-center.justify-center.hover\\:bg-gray-100 {
+    border-radius: var(--aka-r-sm) !important;
+    transition   : background-color var(--aka-t-fast), box-shadow var(--aka-t-fast) !important;
+}
+.w-8.h-8.flex.items-center.justify-center.hover\\:bg-gray-100:hover {
+    background-color: var(--aka-purple-light) !important;
+    box-shadow      : var(--aka-shadow-xs)    !important;
+}
+
+
+/* ============================================================
+   33. SWIPER / MODULE CARDS
+   ============================================================ */
+.swiper-slide .bg-white,
+.swiper .bg-white {
+    box-shadow: var(--aka-shadow-sm) !important;
+    border    : 1px solid var(--aka-border) !important;
+}
+
+
+/* ============================================================
+   34. EMPTY PAGE STATE
+   ============================================================ */
+.empty-page {
+    padding   : 3rem !important;
+    text-align: center;
+}
+.empty-page .material-icons,
+.empty-page .material-icons-outlined {
+    font-size: 3rem   !important;
+    color    : #C5CBEC!important;
+}
+
+
+/* ============================================================
+   35.  TOGGLE / CHECKBOX / RADIO  — more polished
+   ============================================================ */
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--aka-purple);
+    width       : 1rem;
+    height      : 1rem;
+    cursor      : pointer;
+    transition  : box-shadow var(--aka-t-fast);
+}
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+    box-shadow: 0 0 0 3px rgba(85, 88, 139, 0.18) !important;
+    outline   : none !important;
+}
+
+
+/* ============================================================
+   36. DIVIDERS  — slightly lighter internal dividers
+   ============================================================ */
+.divide-y > * + * {
+    border-color: #EEF0FB !important;
+}
+hr {
+    border-color: var(--aka-border) !important;
+}
