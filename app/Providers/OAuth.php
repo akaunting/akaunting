@@ -68,6 +68,15 @@ class OAuth extends ServiceProvider
             Passport::ignoreRoutes();
         }
 
+        // Warn if deprecated Password Grant is enabled
+        if (config('oauth.password_grant_client.enabled', false)) {
+            logger()->warning(
+                'OAuth: Password Grant is enabled. This grant type is deprecated in OAuth 2.1. ' .
+                'Consider migrating to Authorization Code Grant with PKCE. ' .
+                'Set OAUTH_PASSWORD_GRANT_ENABLED=false to disable.'
+            );
+        }
+
         // Set token expiration from config
         Passport::tokensExpireIn(
             now()->addMinutes(config('oauth.expiration.access_token', 60))

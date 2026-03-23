@@ -153,6 +153,11 @@ return [
     |
     */
 
+    /*
+     * @deprecated The Password Grant is deprecated in OAuth 2.1 and will be removed in a future version.
+     * Use Authorization Code Grant with PKCE instead (recommended for all client types).
+     * Reference: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics
+     */
     'password_grant_client' => [
         'enabled' => env('OAUTH_PASSWORD_GRANT_ENABLED', false),
         'id' => env('OAUTH_PASSWORD_GRANT_CLIENT_ID'),
