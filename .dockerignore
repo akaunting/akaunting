@@ -1,0 +1,12 @@
+.git
+.github
+.DS_Store
+.idea
+.vscode
+.env
+.env.*
+node_modules
+vendor
+storage
+bootstrap/cache
+public/uploads
