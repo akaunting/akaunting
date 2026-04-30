@@ -17,12 +17,12 @@ Route::post('token', 'OAuth\AccessToken@issueToken')
 // Token Introspection Endpoint (RFC 7662)
 Route::post('token/introspect', 'OAuth\Token@introspect')
     ->name('oauth.token.introspect')
-    ->middleware(['throttle:oauth', 'bindings']);
+    ->middleware(['bindings']); // throttle:oauth comes from the 'oauth' group
 
 // Token Revocation Endpoint (RFC 7009)
 Route::post('token/revoke', 'OAuth\Token@revoke')
     ->name('oauth.token.revoke')
-    ->middleware(['throttle:oauth', 'bindings']);
+    ->middleware(['bindings']); // throttle:oauth comes from the 'oauth' group
 
 // Authorization Endpoints (require auth)
 Route::get('authorize', 'OAuth\Authorize@show')
@@ -65,7 +65,8 @@ Route::post('register', 'OAuth\ClientRegistration@register')
 // Enable via OAUTH_DCR_ENABLE_MANAGEMENT=true in .env
 Route::get('register/{client_id}', 'OAuth\ClientRegistration@show')
     ->name('oauth.register.show')
-    ->withoutMiddleware('oauth');
+    ->withoutMiddleware('oauth')
+    ->middleware(['throttle:oauth']); // Rate limit DCR reads even without full oauth middleware
 
 Route::put('register/{client_id}', 'OAuth\ClientRegistration@update')
     ->name('oauth.register.update')
@@ -86,7 +87,7 @@ Route::get('clients/create', 'OAuth\Client@create')->name('oauth.clients.create'
 Route::post('clients', 'OAuth\Client@store')->name('oauth.clients.store');
 Route::get('clients/{client}/edit', 'OAuth\Client@edit')->name('oauth.clients.edit');
 Route::put('clients/{client}', 'OAuth\Client@update')->name('oauth.clients.update');
-Route::patch('clients/{client}', 'OAuth\Client@update');
+Route::patch('clients/{client}', 'OAuth\Client@update')->name('oauth.clients.patch');
 Route::post('clients/{client}/secret', 'OAuth\Client@secret')->name('oauth.clients.secret');
 
 // Client Management — User (Authorized Applications)

@@ -164,6 +164,102 @@ class MultiTenancyTest extends OAuthTestCase
     }
 
     // ------------------------------------------------------------------
+    // API + OAuth: company_id comes from the token (Priority 0)
+    // ------------------------------------------------------------------
+
+    public function testGetCompanyIdFromApiUsesTokenCompanyIdFirst(): void
+    {
+        $companyId = company_id();
+        $client    = $this->createClient(['company_id' => $companyId]);
+        $token     = $this->createAccessToken($client, ['company_id' => $companyId]);
+
+        // Build a fake API request with a Bearer token
+        $request = \Illuminate\Http\Request::create(
+            '/' . $companyId . '/api/accounts', 'GET'
+        );
+        $request->headers->set('Authorization', 'Bearer ' . $token->id);
+
+        // Use the Companies trait directly
+        $helper = new class {
+            use \App\Traits\Companies;
+        };
+        $helper->request = $request;
+
+        // With oauth.enabled, token company_id should win
+        config(['oauth.enabled' => true]);
+
+        $resolved = $helper->getCompanyIdFromApi($request);
+
+        // Token's company_id should be returned
+        $this->assertEquals($companyId, $resolved);
+    }
+
+    public function testGetCompanyIdFromApiFallsBackToQueryStringWhenNoBearer(): void
+    {
+        $companyId = company_id();
+
+        // Request with query string, no Bearer
+        $request = \Illuminate\Http\Request::create(
+            '/api/accounts?company_id=' . $companyId, 'GET'
+        );
+
+        $helper = new class {
+            use \App\Traits\Companies;
+        };
+        $helper->request = $request;
+
+        config(['oauth.enabled' => true]);
+
+        $resolved = $helper->getCompanyIdFromApi($request);
+
+        $this->assertEquals($companyId, $resolved);
+    }
+
+    public function testGetCompanyIdFromApiFallsBackToHeaderWhenNoBearer(): void
+    {
+        $companyId = company_id();
+
+        $request = \Illuminate\Http\Request::create('/api/accounts', 'GET');
+        $request->headers->set('X-Company', (string) $companyId);
+
+        $helper = new class {
+            use \App\Traits\Companies;
+        };
+        $helper->request = $request;
+
+        config(['oauth.enabled' => true]);
+
+        $resolved = $helper->getCompanyIdFromApi($request);
+
+        $this->assertEquals($companyId, $resolved);
+    }
+
+    public function testGetCompanyIdFromApiIgnoresTokenWhenOAuthDisabled(): void
+    {
+        $companyId = company_id();
+        $client    = $this->createClient(['company_id' => 9999]);
+        $token     = $this->createAccessToken($client, ['company_id' => 9999]);
+
+        $request = \Illuminate\Http\Request::create(
+            '/api/accounts?company_id=' . $companyId, 'GET'
+        );
+        $request->headers->set('Authorization', 'Bearer ' . $token->id);
+
+        $helper = new class {
+            use \App\Traits\Companies;
+        };
+        $helper->request = $request;
+
+        // OAuth disabled → token should be ignored → falls back to query string
+        config(['oauth.enabled' => false]);
+
+        $resolved = $helper->getCompanyIdFromApi($request);
+
+        $this->assertEquals($companyId, $resolved,
+            'When oauth.enabled=false, token company_id should be ignored');
+    }
+
+    // ------------------------------------------------------------------
     // DCR: company_id from session when company_aware
     // ------------------------------------------------------------------
 

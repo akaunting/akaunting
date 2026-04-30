@@ -37,6 +37,18 @@ trait Companies
 
     public function getCompanyIdFromApi($request): ?int
     {
+        // Priority 0: OAuth token — when the request carries a Bearer token,
+        // the token's company_id is the authoritative source (Salesforce/Shopify model).
+        // This ensures an OAuth client can only access the company the token
+        // was issued for, regardless of URL or headers.
+        if ($request->bearerToken() && config('oauth.enabled', false)) {
+            $company_id = $this->getCompanyIdFromToken($request);
+
+            if ($company_id) {
+                return $company_id;
+            }
+        }
+
         // Priority 1: Query string (?company_id=2)
         $company_id = $this->getCompanyIdFromQuery($request);
 

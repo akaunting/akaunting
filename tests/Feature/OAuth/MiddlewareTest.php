@@ -171,6 +171,65 @@ class MiddlewareTest extends OAuthTestCase
     }
 
     // ------------------------------------------------------------------
+    // DualApiAuth — class & kernel alias
+    // ------------------------------------------------------------------
+
+    public function testDualApiAuthMiddlewareClassExists(): void
+    {
+        $this->assertTrue(class_exists(\App\Http\Middleware\DualApiAuth::class));
+    }
+
+    public function testDualApiAuthAliasIsRegisteredInKernel(): void
+    {
+        $router     = $this->app->make(\Illuminate\Contracts\Routing\Registrar::class);
+        $middleware = $this->app->make('router')->getMiddleware();
+
+        $this->assertArrayHasKey('dual.api.auth', $middleware);
+        $this->assertEquals(\App\Http\Middleware\DualApiAuth::class, $middleware['dual.api.auth']);
+    }
+
+    public function testDualApiAuthIsInApiMiddlewareGroup(): void
+    {
+        $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
+        $ref    = new \ReflectionClass($kernel);
+        $prop   = $ref->getProperty('middlewareGroups');
+        $prop->setAccessible(true);
+        $groups = $prop->getValue($kernel);
+
+        $this->assertArrayHasKey('api', $groups);
+        $this->assertContains('dual.api.auth', $groups['api']);
+    }
+
+    public function testApiMiddlewareGroupNoLongerContainsAuthBasicOnce(): void
+    {
+        $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
+        $ref    = new \ReflectionClass($kernel);
+        $prop   = $ref->getProperty('middlewareGroups');
+        $prop->setAccessible(true);
+        $groups = $prop->getValue($kernel);
+
+        $this->assertNotContains('auth.basic.once', $groups['api'],
+            'auth.basic.once should be replaced by dual.api.auth in the api group');
+    }
+
+    // ------------------------------------------------------------------
+    // ValidateOAuthScopes — class & kernel alias
+    // ------------------------------------------------------------------
+
+    public function testValidateOAuthScopesClassExists(): void
+    {
+        $this->assertTrue(class_exists(\App\Http\Middleware\ValidateOAuthScopes::class));
+    }
+
+    public function testValidateOAuthScopesAliasIsRegisteredInKernel(): void
+    {
+        $middleware = $this->app->make('router')->getMiddleware();
+
+        $this->assertArrayHasKey('oauth.scopes', $middleware);
+        $this->assertEquals(\App\Http\Middleware\ValidateOAuthScopes::class, $middleware['oauth.scopes']);
+    }
+
+    // ------------------------------------------------------------------
     // Audience matching — case-insensitive, trailing slash
     // ------------------------------------------------------------------
 

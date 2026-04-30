@@ -48,7 +48,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'auth.basic.once',
+            'dual.api.auth',   // Accepts Bearer (OAuth) OR Basic Auth — auto-detected
             'auth.disabled',
             'throttle:api',
             'permission:read-api',
@@ -64,7 +64,7 @@ class Kernel extends HttpKernel
             'auth.oauth.once',
             'auth.disabled',
             'throttle:oauth',
-            'permission:read-api,guard:passport', // guard:passport because auth.oauth.once authenticates via passport, not web guard
+            'permission:read-api', // auth.oauth.once already sets the active user via the passport guard
             'company.identify',
             'bindings',
             'read.only',
@@ -186,10 +186,12 @@ class Kernel extends HttpKernel
         'auth.basic.once' => \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         'auth.oauth.once' => \App\Http\Middleware\AuthenticateOnceWithOAuth::class,
         'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
-        'dynamic.api.auth' => \App\Http\Middleware\DynamicApiAuth::class,
+        'dual.api.auth' => \App\Http\Middleware\DualApiAuth::class,
+        'dynamic.api.auth' => \App\Http\Middleware\DynamicApiAuth::class, // @deprecated — use dual.api.auth (auto-detects Bearer vs Basic per request)
         'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'oauth.www.authenticate' => \App\Http\Middleware\AddOAuthWWWAuthenticateHeader::class,
         'oauth.validate.audience' => \App\Http\Middleware\ValidateOAuthTokenAudience::class,
+        'oauth.scopes' => \App\Http\Middleware\ValidateOAuthScopes::class,
         'company.identify' => \App\Http\Middleware\IdentifyCompany::class,
         'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
@@ -210,8 +212,9 @@ class Kernel extends HttpKernel
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
 
         // OAuth Scopes (Akaunting - extends Passport)
-        'scopes' => \App\Http\Middleware\CheckScopes::class,      // ALL listed scopes required (AND)
-        'scope'  => \App\Http\Middleware\CheckForAnyScope::class, // ANY listed scope sufficient (OR)
+        // @deprecated — use 'oauth.scopes' instead; it integrates with ScopeMapper + Laratrust permissions
+        'scopes' => \App\Http\Middleware\CheckScopes::class,      // ALL listed scopes required (AND) — Passport built-in, no ScopeMapper
+        'scope'  => \App\Http\Middleware\CheckForAnyScope::class, // ANY listed scope sufficient (OR) — Passport built-in, no ScopeMapper
     ];
 
     /**
