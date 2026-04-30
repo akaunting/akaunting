@@ -616,9 +616,10 @@ class Company extends Eloquent implements Ownable
         setting()->forgetAll();
         setting()->load(true);
 
-        // Override settings and currencies
+        // Override settings, currencies, and category types
         Overrider::load('settings');
         Overrider::load('currencies');
+        Overrider::load('categoryTypes');
 
         event(new CompanyMadeCurrent($this));
 

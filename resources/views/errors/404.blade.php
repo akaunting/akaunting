@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="h-full flex flex-col sm:flex-row items-center justify-center sm:justify-between xl:-ml-64">
+        <div class="h-full flex flex-col sm:flex-row items-center justify-center sm:justify-between ltr:xl:-ml-64 rtl:xl:-mr-64">
             <div class="flex flex-col items-start gap-y-4 mb-10 sm:mb-0 sm:-mt-24">
                 <h1 class="font-medium text-5xl lg:text-8xl">
                     {{ trans('errors.header.404') }}

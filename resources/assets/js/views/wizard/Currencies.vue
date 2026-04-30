@@ -41,7 +41,7 @@
                                         >
                                             {{ translations.currencies.default }}
                                             <div 
-                                                class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border -left-1 before:border-t-0 before:border-r-0 border-gray-200"
+                                                class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border ltr:-left-1 rtl:-right-1 before:border-t-0 before:border-r-0 border-gray-200"
                                                 data-popper-arrow
                                             >
                                             </div>
@@ -60,7 +60,7 @@
                                         <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer group/tooltip index-actions" @click="onEditItem(item, index)">
                                             <span class="material-icons-outlined text-purple text-lg">edit</span>
 
-                                           <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 -left-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
+                                           <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 ltr:-left-2 rtl:-right-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
                                                 <span>{{ translations.currencies.edit }}</span>
                                                 <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                                             </div>
@@ -69,7 +69,7 @@
                                         <button type="button" class="relative bg-white hover:bg-gray-100 border py-0.5 px-1 cursor-pointer group/tooltip index-actions" @click="onClickDelete(item)">
                                             <span class="material-icons-outlined text-purple text-lg">delete</span>
 
-                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 -left-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
+                                            <div class="inline-block absolute invisible z-20 py-1 px-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 whitespace-nowrap -top-10 ltr:-left-2 rtl:-right-2 group-hover/tooltip:opacity-100 group-hover/tooltip:visible" data-tooltip-placement="top">
                                                 <span>{{ translations.currencies.delete }}</span>
                                                 <div class="absolute w-2 h-2 -bottom-1 before:content-[' '] before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border before:border-t-0 before:border-l-0" data-popper-arrow></div>
                                             </div>
@@ -106,14 +106,14 @@
 
                                         <base-input :label="translations.currencies.default" class="sm:col-span-2" :error="onFailErrorGet('default_currency')">
                                             <div class="flex items-center mt-1">
-                                                <label class="relative w-10 rounded-tl-lg rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(1)" v-bind:class="[model.default_currency == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
+                                                <label class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(1)" v-bind:class="[model.default_currency == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
                                                     Yes
-                                                    <input type="radio" name="default_currency" id="default-1" class="absolute left-0 opacity-0">
+                                                    <input type="radio" name="default_currency" id="default-1" class="absolute ltr:left-0 rtl:right-0 opacity-0">
                                                 </label>
 
-                                                <label class="relative w-10 rounded-tr-lg rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(0)" v-bind:class="[model.default_currency == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
+                                                <label class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(0)" v-bind:class="[model.default_currency == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
                                                     No
-                                                    <input type="radio" name="default_currency" id="default-0" class="absolute left-0 opacity-0">
+                                                    <input type="radio" name="default_currency" id="default-0" class="absolute ltr:left-0 rtl:right-0 opacity-0">
                                                 </label>
                                             </div>
 
@@ -183,14 +183,14 @@
 
                             <base-input :label="translations.currencies.default" class="sm:col-span-2" :error="onFailErrorGet('default_currency')">
                                 <div class="flex items-center mt-1">
-                                    <label class="relative w-10 rounded-tl-lg rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(1)" v-bind:class="[model.default_currency == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
+                                    <label class="relative w-10 ltr:rounded-tl-lg ltr:rounded-bl-lg rtl:rounded-tr-lg rtl:rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(1)" v-bind:class="[model.default_currency == 1 ? ['bg-green-500','text-white'] : 'bg-black-100']">
                                         Yes
-                                        <input type="radio" name="default_currency" id="default-1" class="absolute left-0 opacity-0">
+                                        <input type="radio" name="default_currency" id="default-1" class="absolute ltr:left-0 rtl:right-0 opacity-0">
                                     </label>
 
-                                    <label class="relative w-10 rounded-tr-lg rounded-br-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(0)" v-bind:class="[model.default_currency == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
+                                    <label class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer" @click="onChangeDefault(0)" v-bind:class="[model.default_currency == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']">
                                         No
-                                        <input type="radio" name="default_currency" id="default-0" class="absolute left-0 opacity-0">
+                                        <input type="radio" name="default_currency" id="default-0" class="absolute ltr:left-0 rtl:right-0 opacity-0">
                                     </label>
                                 </div>
 

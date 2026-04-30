@@ -23,7 +23,7 @@
                 <div class="text-red text-sm mt-1 block w-36" v-if="invertalError" v-html="invertalError"></div>
             </div>
 
-            <el-select class="w-36" v-model="customFrequency" @input="change" v-if="frequency == 'custom'" v-bind:class="invertalError ? '-ml-14' : 'ml-2' ">
+            <el-select class="w-36" v-model="customFrequency" @input="change" v-if="frequency == 'custom'" v-bind:class="invertalError ? 'ltr:-ml-14 rtl:-mr-14' : 'ltr:ml-2 rtl:mr-2' ">
                 <el-option
                 v-for="(label, value) in customFrequencies"
                 :key="value"
@@ -100,17 +100,17 @@
             </el-select>
 
             <div class="flex flex-col">
-                <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ml-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
-                <div class="text-red text-sm mt-1 ml-2 block w-36" v-show="limitCountError" v-html="limitCountError"></div>
+                <input type="text" class="w-20 cursor-pointer text-sm px-3 py-2.5 mt-1 ltr:ml-2 rtl:mr-2 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" v-model="limitCount" v-if="limit == 'after'" @input="change">
+                <div class="text-red text-sm mt-1 ltr:ml-2 rtl:mr-2 block w-36" v-show="limitCountError" v-html="limitCountError"></div>
             </div>
 
-            <div class="pl-2 pt-4 text-sm" v-if="limit == 'after'" v-bind:class="limitCountError ? '-ml-16' : ''">
+            <div class="ltr:pl-2 rtl:pr-2 pt-4 text-sm" v-if="limit == 'after'" v-bind:class="limitCountError ? 'ltr:-ml-16 rtl:-mr-16' : ''">
                 {{ endText }}
             </div>
 
             <div class="flex flex-col">
                     <el-date-picker
-                    class="w-36 ml-2 cursor-pointer recurring-invoice-data"
+                    class="w-36 ltr:ml-2 rtl:mr-2 cursor-pointer recurring-invoice-data"
                     v-model="limitDate"
                     type="date"
                     align="right"
@@ -121,7 +121,7 @@
                 >
                 </el-date-picker>
 
-                <div class="text-red text-sm mt-1 ml-2 block w-36" v-if="limitDateError" v-html="limitDateError"></div>
+                <div class="text-red text-sm mt-1 ltr:ml-2 rtl:mr-2 block w-36" v-if="limitDateError" v-html="limitDateError"></div>
             </div>
         </div>
 
@@ -135,7 +135,7 @@
                     {{ sendEmailYesText }}
                 </label>
 
-                <label @click="sendEmail=0;change();"v-bind:class="[sendEmail == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
+                <label @click="sendEmail=0;change();" v-bind:class="[sendEmail == 0 ? ['bg-red-500','text-white'] : 'bg-black-100']" class="relative w-10 ltr:rounded-tr-lg ltr:rounded-br-lg rtl:rounded-tl-lg rtl:rounded-bl-lg py-2 px-1 text-sm text-center transition-all cursor-pointer">
                     {{ sendEmailNoText }}
                 </label>
             </div>

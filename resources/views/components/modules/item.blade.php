@@ -18,7 +18,7 @@
             </h4>
 
             @if (! empty($module->subscription_type))
-                <span class="mr--3 float-right">
+                <span class="ltr:mr--3 rtl:ml--3 ltr:float-right rtl:float-left">
                     @php $subscription_color = 'bg-info'; @endphp
 
                     @if ($module->subscription_type == 'monthly')
@@ -36,7 +36,7 @@
             @endif
 
             @if ($module->status_type == 'pre_sale')
-                <span class="mr--3 float-right">
+                <span class="ltr:mr--3 rtl:ml--3 ltr:float-right rtl:float-left">
                     <span class="badge bg-danger text-white">
                         {{ trans('modules.badge.pre_sale') }}
                     </span>
@@ -50,7 +50,7 @@
                     @php $color = 'bg-warning'; @endphp
                 @endif
 
-                <span class="{{ !empty($module->subscription_type) ? 'mr-2' : 'mr--3' }} float-right">
+                <span class="{{ !empty($module->subscription_type) ? 'ltr:mr-2 rtl:ml-2' : 'ltr:mr--3 rtl:ml--3' }} ltr:float-right rtl:float-left">
                     <span class="badge {{ $color }} text-white">
                         {{ trans('modules.badge.installed') }}
                     </span>

@@ -274,12 +274,12 @@
                                                     {{ $item->contact_name }}
                                                 </x-slot>
 
-                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
+                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}" override="class,data-tooltip-target,data-tooltip-placement">
                                                     <span class="border-black border-b border-dashed">
                                                         {{ $item->document_number }}
                                                     </span>
 
-                                                    <div class="w-28 absolute h-10 -left-10 -mt-6"></div>
+                                                    <div class="w-28 absolute h-10 ltr:-left-10 rtl:-right-10 -mt-6"></div>
 
                                                     <x-documents.index.information :document="$item" />
                                                 </x-slot>
@@ -368,13 +368,13 @@
                                                 <x-slot name="first">
                                                     {{ $item->account->name }}
                                                 </x-slot>
-                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-transaction-{{ $item->id }}" data-tooltip-placement="left" override="class,data-tooltip-target,data-tooltip-placement">
+                                                <x-slot name="second" class="w-20 font-normal group" data-tooltip-target="tooltip-information-transaction-{{ $item->id }}" data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}" override="class,data-tooltip-target,data-tooltip-placement">
                                                     @if ($item->document)
                                                         <x-link href="{{ route($item->route_name, $item->route_id) }}" class="font-normal truncate border-b border-black border-dashed" override="class">
                                                             {{ $item->document->document_number }}
                                                         </x-link>
 
-                                                        <div class="w-28 absolute h-10 -left-10 -mt-6"></div>
+                                                        <div class="w-28 absolute h-10 ltr:-left-10 rtl:-right-10 -mt-6"></div>
 
                                                         <x-documents.index.information id="tooltip-information-transaction-{{ $item->id }}" :document="$item->document" />
                                                     @else

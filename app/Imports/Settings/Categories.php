@@ -15,6 +15,8 @@ class Categories extends Import
     public $columns = [
         'name',
         'type',
+        'code',
+        'description',
     ];
 
     public function model(array $row)

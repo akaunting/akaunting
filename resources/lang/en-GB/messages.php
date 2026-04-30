@@ -47,6 +47,7 @@ return [
         'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
         'missing_transfer'  => 'Warning: The transfer related to this transaction is missing. You should consider deleting this transaction.',
         'connect_tax'       => 'Warning: This :type has a tax amount. Taxes added to the :type can not be connected, so the tax will be added to the total and calculated accordingly.',
+        'contact_change'    => 'Warning: You are not allowed to change the contact on a :type that has already been sent, received, or paid!',
     ],
 
 ];

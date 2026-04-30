@@ -33,7 +33,7 @@
     >
         <template #option="{option}">
             <span class="tax-group flex items-center">
-                <span class="float-left">
+                <span class="ltr:float-left rtl:float-right">
                     @{{ option.option.title }}
                 </span>
 
@@ -88,7 +88,7 @@
     >
         <template #option="{option}">
             <span class="tax-group flex items-center">
-                <span class="float-left">
+                <span class="ltr:float-left rtl:float-right">
                     @{{ option.option.title }}
                 </span>
 
@@ -143,7 +143,7 @@
     >
         <template #option="{option}">
             <span class="tax-group flex items-center">
-                <span class="float-left">
+                <span class="ltr:float-left rtl:float-right">
                     @{{ option.option.title }}
                 </span>
 
@@ -195,7 +195,7 @@
     >
         <template #option="{option}">
             <span class="tax-group flex items-center">
-                <span class="float-left">
+                <span class="ltr:float-left rtl:float-right">
                     @{{ option.option.title }}
                 </span>
 

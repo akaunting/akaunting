@@ -30,7 +30,7 @@ const app = new Vue({
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
             categoriesBasedTypes: null,
-            selected_type: true
+            selected_type: true,
         }
     },
 

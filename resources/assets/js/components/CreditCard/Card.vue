@@ -31,7 +31,7 @@
             </transition>
           </div>
         </div>
-        
+
         <div class="flex items-start justify-between text-white">
           <label :for="fields.cardName" class="p-2 block cursor-pointer text-white" :ref="fields.cardName">
             <transition name="slide-fade-up">
@@ -91,9 +91,9 @@
       <div class="absolute w-full h-full bg-black left-0 top-0 rounded-lg overflow-hidden" style="background-image: linear-gradient(147deg, #354fce 0%, #0c296b 74%);">
       </div>
       <div class="absolute w-full h-32 mt-12 bg-black"></div>
-      <div class="relative p-4 text-right">
-        <div class="pr-4 text-white mb-3">CVV</div>
-        <div class="h-12 flex items-center justify-end text-black rounded-sm shadow-lg bg-white text-right">
+      <div class="relative p-4 ltr:text-right rtl:text-left">
+        <div class="ltr:pr-4 rtl:pl-4 text-white mb-3">CVV</div>
+        <div class="h-12 flex items-center justify-end text-black rounded-sm shadow-lg bg-white ltr:text-right rtl:text-left">
           <span v-for="(n, $index) in labels.cardCvv" :key="$index">*</span>
         </div>
         <div class="relative w-24 h-12 flex justify-end">

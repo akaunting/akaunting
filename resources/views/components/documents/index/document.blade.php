@@ -142,13 +142,13 @@
 
                     @stack('document_number_td_start')
                     @if (! $hideDocumentNumber)
-                    <x-slot name="second" class="w-20 group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
+                    <x-slot name="second" class="w-20 group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}" override="class">
                         @stack('document_number_td_inside_start')
                         <span class="border-black border-b border-dashed">
                             {{ $item->document_number }}
                         </span>
 
-                        <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
+                        <div class="w-28 absolute h-10 ltr:-ml-12 rtl:-mr-12 -mt-6"></div>
                         @stack('document_number_td_inside_end')
 
                         <x-documents.index.information :document="$item" :hide-show="$hideShow" :show-route="$showContactRoute" />

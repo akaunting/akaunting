@@ -13,6 +13,7 @@ use App\Jobs\Document\UpdateDocument;
 use App\Models\Common\Recurring;
 use App\Models\Document\Document;
 use App\Traits\Documents;
+use App\Utilities\Date;
 
 class RecurringInvoices extends Controller
 {
@@ -80,7 +81,9 @@ class RecurringInvoices extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['issued_at' => $request->get('recurring_started_at')]);
+        $issue_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['issued_at' => $issue_at]);
 
         $response = $this->ajaxDispatch(new CreateDocument($request));
 
@@ -165,7 +168,9 @@ class RecurringInvoices extends Controller
      */
     public function update(Document $recurring_invoice, Request $request)
     {
-        $request->merge(['issued_at' => $request->get('recurring_started_at')]);
+        $issue_at = Date::parse($request->get('recurring_started_at'))->format('Y-m-d');
+
+        $request->merge(['issued_at' => $issue_at]);
 
         $response = $this->ajaxDispatch(new UpdateDocument($recurring_invoice, $request));
 

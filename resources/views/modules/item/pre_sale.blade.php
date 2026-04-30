@@ -20,7 +20,7 @@
                     @foreach ($module->files as $file)
                         @if ($loop->first)
                             <div class="relative w-full">
-                                <img src="{{ $file->path_string }}" class="w-full h-auto rounded-xl" /> 
+                                <img src="{{ $file->path_string }}" class="w-full h-auto rounded-xl" alt="{{ $module->name }}" /> 
                                     @if ($module->video)
                                     @php
                                         if (strpos($module->video->link, '=') !== false) {

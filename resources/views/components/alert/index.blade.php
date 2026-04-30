@@ -1,7 +1,7 @@
 <div 
     @class([
         'rounded-md' => $rounded,
-        'border-l-4 border-' . $color . '-400' => $border,
+        'ltr:border-l-4 rtl:border-r-4 border-' . $color . '-400' => $border,
         'bg-' . $color . '-50' => $color != 'green',
         'bg-' . $color . '-100' => $color == 'green',
         'p-4 my-4',
@@ -13,7 +13,7 @@
             <x-icon icon="{{ $icon }}" sharp class="h-5 w-5 text-{{ $color }}-400" />
         </div>
 
-        <div class="ml-3">
+        <div class="ltr:ml-3 rtl:mr-3">
             @if ($title)
                 <h3 class="text-sm font-medium text-{{ $color }}-800">
                     {!! $title !!}
@@ -25,7 +25,7 @@
                     <p>{!! $description !!}</p>
 
                     @if ($list)
-                        <ul role="list" class="list-disc space-y-1 pl-5">
+                        <ul role="list" class="list-disc space-y-1 ltr:pl-5 rtl:pr-5">
                             @foreach ($list as $message)
                                 <li>{!! $message !!}</li>
                             @endforeach
@@ -48,7 +48,7 @@
                                 <button type="button"
                                     {{ $action['attributes'] }}
                                     @class([
-                                        'ml-3' => ! $loop->first,
+                                        'ltr:ml-3 rtl:mr-3' => ! $loop->first,
                                         'rounded-md',
                                         'bg-' . $color . '-50',
                                         'px-2 py-1.5',
@@ -65,7 +65,7 @@
                             @else
                                 <a href="{{ $action['url'] }}"
                                     @class([
-                                        'ml-3' => ! $loop->first,
+                                        'ltr:ml-3 rtl:mr-3' => ! $loop->first,
                                         'rounded-md',
                                         'bg-' . $color . '-50',
                                         'px-2 py-1.5',
@@ -87,7 +87,7 @@
         </div>
 
         @if ($dismiss)
-            <div class="ml-auto pl-3">
+            <div class="ltr:ml-auto rtl:mr-auto ltr:pl-3 rtl:pr-3">
                 <div class="-mx-1.5 -my-1.5">
                     <button type="button"
                         x-on:click="$el.remove()"

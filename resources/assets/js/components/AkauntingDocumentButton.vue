@@ -10,7 +10,7 @@
         <div :class="[{'is-open': show.item_list}]" tabindex="-1">
             <div class="-mt-10.5 left-0 right-0 bg-white border rounded-lg" v-if="show.item_list">
                 <div class="relative">
-                    <span class="material-icons-round absolute left-4 top-3 text-lg">search</span>
+                    <span class="material-icons-round absolute ltr:left-4 rtl:right-4 top-3 text-lg">search</span>
                     <input 
                         type="text"
                         data-input="true"
@@ -32,7 +32,7 @@
                         @click="onItemSelected(item)"
                     >
                         <div class="w-full flex items-center justify-between">
-                            <span class="w-9/12">{{ item.name }}</span>
+                            <span class="w-6/12">{{ item.name }}</span>
 
                             <money 
                                 :name="'item-id-' + item.id"
@@ -40,7 +40,7 @@
                                 v-bind="money"
                                 masked
                                 disabled
-                                class="w-1/12 text-right disabled-money text-gray"
+                                class="w-2/12 ltr:text-right rtl:text-left disabled-money text-gray"
                             ></money>
                             -
                             <money 
@@ -49,7 +49,7 @@
                                 v-bind="money"
                                 masked
                                 disabled
-                                class="w-1/12 text-right disabled-money text-gray"
+                                class="w-2/12 ltr:text-right rtl:text-left disabled-money text-gray"
                             ></money>
                             =
                             <money 
@@ -58,7 +58,7 @@
                                 v-bind="money"
                                 masked
                                 disabled
-                                class="w-1/12 text-right disabled-money text-gray"
+                                class="w-2/12 ltr:text-right rtl:text-left disabled-money text-gray"
                             ></money>
                         </div>
                     </div>

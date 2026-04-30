@@ -17,9 +17,11 @@ class Category extends JsonResource
         return [
             'id' => $this->id,
             'company_id' => $this->company_id,
+            'code' => $this->code,
             'name' => $this->name,
             'type' => $this->type,
             'color' => $this->color,
+            'description' => $this->description,
             'enabled' => $this->enabled,
             'parent_id' => $this->parent_id,
             'created_from' => $this->created_from,

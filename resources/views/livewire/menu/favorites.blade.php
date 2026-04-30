@@ -2,7 +2,7 @@
     <div class="w-8 h-8 mb-2.5"></div>
 
     @foreach ($favorites as $favorite)
-        <x-tooltip id="{{ $favorite['title'] }}" placement="right" message="{{ $favorite['title'] }}">
+        <x-tooltip id="{{ $favorite['title'] }}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ $favorite['title'] }}">
             <x-link href="{{ $favorite['url'] }}" class="w-8 h-8 flex items-center justify-center mb-2.5" override="class">
                 <span
                     id="{{ $favorite['id'] }}"

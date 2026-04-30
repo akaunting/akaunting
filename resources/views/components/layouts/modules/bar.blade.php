@@ -1,20 +1,20 @@
 <div class="relative w-full flex flex-col sm:flex-row border-b pt-8 mb-4">
     <div class="flex items-center">
-        <div class="flex flex-row items-center place-center border-r">
+        <div class="flex flex-row items-center place-center ltr:border-r rtl:border-l">
             <button class="flex items-center" id="dropdownButton" data-dropdown-toggle="dropdown">
                 <i class="material-icons w-10 flex items-center aspect-square text-light-gray ltr:pl-2 rtl:pr-2 hover:text-gray-700"> apps_outlined </i>
             </button>
 
             <div id="dropdown" data-click-outside-none class="w-full px-0 hidden z-10">
                 <div class="flex flex-col md:flex-row">
-                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 lg:pl-8 py-8 gap-2 rounded-l-xl">
+                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 ltr:lg:pl-8 rtl:lg:pr-8 py-8 gap-2 ltr:rounded-l-xl rtl:rounded-r-xl">
                         <h4 class="capitalize font-thin">
                             {{ trans_choice('general.categories', 1) }}
                         </h4>
 
                         <div class="grid grid-cols-2 gap-2">
                             @foreach ($categories as $slug => $category)
-                                <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 lg:pr-0 truncate bg-transparent" override="class">
+                                <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 ltr:lg:pr-0 rtl:lg:pl-0 truncate bg-transparent" override="class">
                                     <x-link.hover>
                                         {{ $category }}
                                     </x-link.hover>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-purple-lighter px-4 lg:px-12 py-8 gap-2 rounded-r-xl">
+                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-purple-lighter px-4 lg:px-12 py-8 gap-2 ltr:rounded-r-xl rtl:rounded-l-xl">
                         <h4 class="capitalize font-thin mb-2">
                             {{ trans('modules.popular_this_week') }}
                         </h4>
@@ -45,7 +45,7 @@
                                                 </h6>
 
                                                 <div class="h-12 overflow-hidden">
-                                                    <p class="font-thin text-xs text-left">
+                                                    <p class="font-thin text-xs ltr:text-left rtl:text-right">
                                                         {!! $item->description !!}
                                                     </p>
                                                 </div>
@@ -63,13 +63,13 @@
 
         <div class="w-8/12 h-full">
             <form method="GET" action="{{ url("/" . company_id()) }}/apps/search">
-                <div class="h-full flex items-center pl-2 gap-2">
+                <div class="h-full flex items-center ltr:pl-2 rtl:pr-2 gap-2">
                     <i class="material-icons text-light-gray">search</i>
 
                     <input
                         type="text"
                         name="keyword"
-                        class="w-full bg-transparent text-black text-sm border-0 pr-10 pl-0 pb-2 focus:outline-none focus:ring-transparent focus:border-purple"
+                        class="w-full bg-transparent text-black text-sm border-0 ltr:pr-10 rtl:pl-10 ltr:pl-0 rtl:pr-0 pb-2 focus:outline-none focus:ring-transparent focus:border-purple"
                         value="{{ isset($keyword) ? $keyword : '' }}"
                         placeholder="{{ trans('general.search_placeholder') }}"
                         autocomplete="off"
@@ -85,7 +85,7 @@
                 >
                     <ul class="grid sm:grid-cols-6 gap-8">
                         <li v-for="(item, index) in live_search.data.slice(0,8)" :key="index" class="sm:col-span-3 p-3 rounded-lg hover:bg-gray-100">
-                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4">
+                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4 rtl:space-x-reverse">
                                 <img v-for="(file, indis) in item.files"
                                     :src="file.path_string"
                                     :alt="item.name"
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <div class="lg:absolute lg:bottom-2.5 ltr:lg:right-0 rtl:lg:left-0 flex flex-row items-end lg:items-center mb-1 divide-x divide-black-400 mt-4 lg:mt-0">
+    <div class="lg:absolute lg:bottom-2.5 ltr:lg:right-0 rtl:lg:left-0 flex flex-row items-end lg:items-center mb-1 divide-x rtl:divide-x-reverse divide-black-400 mt-4 lg:mt-0">
         <x-link href="{{ route('apps.home.index') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
             <x-link.hover color="to-black-400">
                 {{ trans('modules.home') }}

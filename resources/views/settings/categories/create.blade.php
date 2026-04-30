@@ -22,11 +22,16 @@
 
                         <x-form.group.color name="color" label="{{ trans('general.color') }}" />
 
-                        <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" :selected="config('general.types')" change="updateParentCategories" />
+                        <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" :selected="config('general.types')" change="updateParentCategories" :group="$type_group" />
+
+                        <x-form.group.text name="code" label="{{ trans('general.code') }}" v-show="isCategoryCodeFieldVisible()" />
 
                         <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="[]" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" v-disabled="selected_type" />
 
+                        <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
+
                         <x-form.input.hidden name="categories" value="{{ json_encode($categories) }}" />
+                        <x-form.input.hidden name="type_codes" value="{{ json_encode($hide_code_types) }}" />
                     </x-slot>
                 </x-form.section>
 

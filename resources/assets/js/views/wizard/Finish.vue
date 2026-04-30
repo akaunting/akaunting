@@ -15,12 +15,12 @@
                         </h1>
 
                         <div v-for="(item, index) in modules" :key="index" class="sm:col-span-6 mb-3 bg-default rounded-md">
-                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4 bg-purple-50 rounded-md p-2 sliding-app">
+                            <a :href="route_url + '/apps/' + item.slug" class="flex items-center space-x-4 rtl:space-x-reverse bg-purple-50 rounded-md p-2 sliding-app">
                                 <div class="w-1/4">
                                 <img v-for="(file, indis) in item.files" :key="indis" v-if="file.media_type == 'image' && file.pivot.zone == 'thumbnail'"
                                     :src="file.path_string"
                                     :alt="item.name"
-                                    class="rounded-lg object-cover ml-1 mt-0.5"
+                                    class="rounded-lg object-cover ltr:ml-1 rtl:mr-1 mt-0.5"
                                     />
                                 </div>
 

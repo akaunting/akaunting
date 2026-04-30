@@ -6,10 +6,14 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Category as Request;
 use App\Jobs\Setting\CreateCategory;
 use App\Models\Setting\Category;
+use App\Traits\Categories as Helper;
+use App\Traits\Modules;
 use Illuminate\Http\Request as IRequest;
 
 class Categories extends Controller
 {
+    use Helper, Modules;
+
     /**
      * Instantiate a new controller instance.
      */
@@ -29,19 +33,29 @@ class Categories extends Controller
      */
     public function create(IRequest $request)
     {
-        $type = $request->get('type', 'item');
+        $type = $request->get('type', Category::ITEM_TYPE);
+
+        $category_types = $this->getTypeCategoryTypes($type);
+        $hide_code_types = $this->hideCodeCategoryTypes($category_types);
 
         $categories = collect();
 
-        Category::type($type)->enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
-            $categories->push([
-                'id' => $category->id,
-                'title' => $category->name,
-                'level' => $category->level,
-            ]);
-        });
+        Category::type($category_types)
+            ->enabled()
+            ->orderBy('name')
+            ->get()
+            ->each(function ($category) use (&$categories) {
+                $categories->push([
+                    'id' => $category->id,
+                    'title' => $category->name,
+                    'level' => $category->level,
+                ]);
+            });
 
-        $html = view('modals.categories.create', compact('type', 'categories'))->render();
+        $type_group = count($category_types) > 1 ? true : false;
+        $types = $this->getCategoryTypes(group: true, types: $category_types);
+
+        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'type_group', 'hide_code_types'))->render();
 
         return response()->json([
             'success' => true,
@@ -61,7 +75,7 @@ class Categories extends Controller
     public function store(Request $request)
     {
         $request['enabled'] = 1;
-        $request['type'] = $request->get('type', 'income');
+        $request['type'] = $request->get('type', Category::ITEM_TYPE);
         $request['color'] = $request->get('color', '#' . dechex(rand(0x000000, 0xFFFFFF)));
 
         $response = $this->ajaxDispatch(new CreateCategory($request));

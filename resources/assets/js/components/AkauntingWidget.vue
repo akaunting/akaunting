@@ -22,7 +22,7 @@
                         <base-input
                             :error="form.errors.class[0]"
                             :label="text.type">
-                            
+
                             <el-select
                                 @change="form.errors.class[0] = ''"
                                 v-model="form.class" filterable
@@ -66,7 +66,7 @@
 
         <template #card-footer>
             <div class="flex items-center justify-end">
-                <button type="button" class="flex items-center justify-center px-6 py-1.5 text-base rounded-lg mr-2 bg-transparent hover:bg-gray-300 disabled:bg-gray-200" @click="onCancel">
+                <button type="button" class="flex items-center justify-center px-6 py-1.5 text-base rounded-lg ltr:mr-2 rtl:ml-2 bg-transparent hover:bg-gray-300 disabled:bg-gray-200" @click="onCancel">
                     {{ text.cancel }}
                 </button>
 

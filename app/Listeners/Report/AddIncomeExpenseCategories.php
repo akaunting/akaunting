@@ -27,8 +27,10 @@ class AddIncomeExpenseCategories extends Listener
             return;
         }
 
-        $event->class->filters['categories'] = $this->getIncomeExpenseCategories(true);
-        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:income,expense enabled:1'];
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes());
+
+        $event->class->filters['categories'] = $this->getIncomeExpenseCategories();
+        $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:' . implode(',', $types) . ' enabled:1'];
         $event->class->filters['multiple']['categories'] = true;
     }
 
@@ -69,7 +71,7 @@ class AddIncomeExpenseCategories extends Listener
             return;
         }
 
-        $categories = Category::type(['income', 'expense'])->orderBy('name')->get();
+        $categories = Category::type(array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes()))->orderBy('name')->get();
         $rows = $categories->pluck('name', 'id')->toArray();
 
         $this->setRowNamesAndValuesForCategories($event, $rows, $categories);
@@ -83,10 +85,12 @@ class AddIncomeExpenseCategories extends Listener
     {
         foreach ($event->class->dates as $date) {
             foreach ($event->class->tables as $table_key => $table_name) {
+                $table_keys = $table_key == Category::INCOME_TYPE ? $this->getIncomeCategoryTypes() : $this->getExpenseCategoryTypes();
+
                 foreach ($rows as $id => $name) {
                     $category = $categories->where('id', $id)->first();
 
-                    if ($category->type != $table_key) {
+                    if (!in_array($category->type, $table_keys)) {
                         continue;
                     }
 
@@ -100,10 +104,12 @@ class AddIncomeExpenseCategories extends Listener
     public function setTreeNodesForCategories($event, $nodes, $categories)
     {
         foreach ($event->class->tables as $table_key => $table_name) {
+            $table_keys = $table_key == Category::INCOME_TYPE ? $this->getIncomeCategoryTypes() : $this->getExpenseCategoryTypes();
+
             foreach ($nodes as $id => $node) {
                 $category = $categories->where('id', $id)->first();
 
-                if ($category->type != $table_key) {
+                if (!in_array($category->type, $table_keys)) {
                     continue;
                 }
 

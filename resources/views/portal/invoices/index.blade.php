@@ -114,15 +114,15 @@
 
                                 @stack('due_at_and_issued_at_td_start')
 
-                                <x-table.td class="w-3/12  sm:table-cell">
+                                <x-table.td class="w-3/12 sm:table-cell">
                                     @stack('document_number_td_inside_start')
 
-                                    <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="left" override="class">
+                                    <x-slot name="first" class="w-20 font-normal group" data-tooltip-target="tooltip-information-{{ $item->id }}" data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}" override="class">
                                         <span class="border-black border-b border-dashed">
                                             {{ $item->document_number }}
                                         </span>
 
-                                        <div class="w-28 absolute h-10 -ml-12 -mt-6"></div>
+                                        <div class="w-28 absolute h-10 ltr:-ml-12 rtl:-mr-12 -mt-6"></div>
 
                                         <x-documents.index.information :document="$item" show-route="portal.invoices.show"/>
                                     </x-slot>

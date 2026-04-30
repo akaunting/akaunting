@@ -172,7 +172,7 @@
                                     {{ trans($textOrderNumber) }}:
                                 </span>
 
-                                <span class="float-right spacing order-max-width right-column">
+                                <span class="ltr:float-right rtl:float-left spacing order-max-width right-column">
                                     {{ $document->order_number }}
                                 </span>
                             </p>
@@ -187,7 +187,7 @@
                                 {{ trans($textDocumentNumber) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 {{ $document->document_number }}
                             </span>
                         </p>
@@ -201,7 +201,7 @@
                                 {{ trans($textIssuedAt) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 @date($document->issued_at)
                             </span>
                         </p>
@@ -215,7 +215,7 @@
                                 {{ trans($textDueAt) }}:
                             </span>
 
-                            <span class="float-right spacing">
+                            <span class="ltr:float-right rtl:float-left spacing">
                                 @date($document->due_at)
                             </span>
                         </p>
@@ -234,7 +234,7 @@
                             <tr>
                                 @stack('name_th_start')
                                     @if (! $hideItems || (! $hideName && ! $hideDescription))
-                                        <td class="item text font-semibold text-alignment-left text-left text-white">
+                                        <td class="item text font-semibold ltr:text-alignment-left rtl:text-alignment-right ltr:text-left rtl:text-right text-white">
                                             {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
                                         </td>
                                     @endif
@@ -242,7 +242,7 @@
 
                                 @stack('quantity_th_start')
                                     @if (! $hideQuantity)
-                                        <td class="quantity text font-semibold text-white text-alignment-right text-right">
+                                        <td class="quantity text font-semibold text-white ltr:text-alignment-right rtl:text-alignment-left ltr:text-right rtl:text-left">
                                             {{ trans($textQuantity) }}
                                         </td>
                                     @endif
@@ -250,7 +250,7 @@
 
                                 @stack('price_th_start')
                                     @if (! $hidePrice)
-                                        <td class="price text font-semibold text-white text-alignment-right text-right">
+                                        <td class="price text font-semibold text-white ltr:text-alignment-right rtl:text-alignment-left ltr:text-right rtl:text-left">
                                             {{ trans($textPrice) }}
                                         </td>
                                     @endif
@@ -259,7 +259,7 @@
                                 @if (! $hideDiscount)
                                     @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                         @stack('discount_td_start')
-                                            <th class="discount text font-semibold text-white text-alignment-right text-right">
+                                            <th class="discount text font-semibold text-white ltr:text-alignment-right rtl:text-alignment-left ltr:text-right rtl:text-left">
                                                 {{ trans('invoices.discount') }}
                                             </th>
                                         @stack('discount_td_end')
@@ -268,7 +268,7 @@
 
                                 @stack('total_th_start')
                                     @if (! $hideAmount)
-                                        <td class="total text font-semibold text-white text-alignment-right text-right">
+                                        <td class="total text font-semibold text-white ltr:text-alignment-right rtl:text-alignment-left ltr:text-right rtl:text-left">
                                             {{ trans($textAmount) }}
                                         </td>
                                     @endif
@@ -307,7 +307,7 @@
     @endif
 
     <div class="row mt-7 clearfix">
-        <div class="col-60 float-left">
+        <div class="col-60 ltr:float-left rtl:float-right">
             <div class="text p-index-right p-modern break-words">
                 @stack('notes_input_start')
                     @if ($document->notes)
@@ -321,7 +321,7 @@
             </div>
         </div>
 
-        <div class="col-40 float-right text-right">
+        <div class="col-40 ltr:float-right rtl:float-left ltr:text-right rtl:text-left">
             @foreach ($document->totals_sorted as $total)
                 @if ($total->code == 'item_discount')
                     @continue
@@ -330,7 +330,7 @@
                 @if ($total->code != 'total')
                     @stack($total->code . '_total_tr_start')
                     <div class="text">
-                        <span class="float-left font-semibold">
+                        <span class="ltr:float-left rtl:float-right font-semibold">
                             {{ trans($total->title) }}:
                         </span>
 
@@ -343,7 +343,7 @@
                     @if ($document->paid)
                         @stack('paid_total_tr_start')
                         <div class="text">
-                            <span class="float-left font-semibold">
+                            <span class="ltr:float-left rtl:float-right font-semibold">
                                 {{ trans('invoices.paid') }}:
                             </span>
 
@@ -356,7 +356,7 @@
 
                     @stack('grand_total_tr_start')
                         <div class="text">
-                            <span class="float-left font-semibold">
+                            <span class="ltr:float-left rtl:float-right font-semibold">
                                 {{ trans($total->name) }}:
                             </span>
 
@@ -375,7 +375,7 @@
         @stack('footer_input_start')
             <div class="row mt-7">
                 <div class="col-100 py-top p-modern" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
-                    <div class="text pl-2">
+                    <div class="text ltr:pl-2 rtl:pr-2">
                         <span class="text-white font-bold">
                             {!! nl2br($document->footer) !!}
                         </span>

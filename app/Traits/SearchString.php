@@ -23,6 +23,10 @@ trait SearchString
         foreach ($columns as $column) {
             $variable = preg_split('/:|>?<?=/', $column);
 
+            if ($name == 'searchable' && count($variable) == 1 && preg_match('/^".*"$/', $variable[0])) {
+                return trim($variable[0], '"');
+            }
+
             if (empty($variable[0]) || ($variable[0] != $name) || empty($variable[1])) {
                 continue;
             }

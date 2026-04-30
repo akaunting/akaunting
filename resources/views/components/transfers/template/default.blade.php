@@ -187,7 +187,7 @@
     <table style="margin-top:15px;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <div class="text-left text-uppercase font-semibold" style="font-size: 14px;">
+                <div class="ltr:text-left rtl:text-right text-uppercase font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
                 </div>
             </td>
@@ -254,13 +254,13 @@
     @stack('details_end')
 
 
-    <table style="text-align: right; margin-top:55px;">
+    <table style="text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }}; margin-top:55px;">
         <tr>
-            <td valign="center" style="width:80%; display:block; float:right; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
+            <td valign="center" style="width:80%; display:block; float:{{ language()->direction() === 'rtl' ? 'left' : 'right' }}; background-color: #55588B; -webkit-print-color-adjust: exact; color:#ffffff; border-radius: 5px;">
                 <table>
                     <tr>
                         <td valign="center" class="font-semibold" style="padding:0; font-size: 14px; color:#ffffff;">
-                            <span class="ml-2">
+                            <span class="ltr:ml-2 rtl:mr-2">
                                 {{ trans('general.amount') }}
                             </span>
 

@@ -76,6 +76,8 @@ const dashboard = new Vue({
         scrollLeft.addEventListener('click', () => scrollToItem('left'));
         scrollRight.addEventListener('click', () => scrollToItem('right'));
 
+        const isRtl = document.documentElement.dir === 'rtl';
+
         function scrollToItem(direction) {
             if (direction == 'right') {
                 scrollLeft.classList.add('text-purple');
@@ -99,31 +101,39 @@ const dashboard = new Vue({
                 return itemRect.left >= sliderRect.left && itemRect.right <= sliderRect.right;
             });
 
-            const nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
+            // In RTL, items flow right-to-left so physical direction is reversed
+            const effectiveDirection = isRtl ? (direction === 'right' ? 'left' : 'right') : direction;
+            const nextIndex = effectiveDirection === 'right' ? currentIndex + 1 : currentIndex - 1;
 
             if (nextIndex == 0) {
-                scrollLeft.classList.add('text-purple-200');
-                scrollLeft.classList.remove('text-purple');
+                const startButton = isRtl ? scrollRight : scrollLeft;
+                startButton.classList.add('text-purple-200');
+                startButton.classList.remove('text-purple');
 
-                scrollLeft.setAttribute('disabled', 'disabled');
+                startButton.setAttribute('disabled', 'disabled');
             }
 
             if (nextIndex >= 0 && nextIndex < visibleItems.length) {
                 const nextItem = visibleItems[nextIndex];
+                const scrollAmount = nextItem.getBoundingClientRect().left - sliderRect.left;
 
-                slider.scrollBy({ 
-                    left: nextItem.getBoundingClientRect().left - sliderRect.left,
+                slider.scrollBy({
+                    left: isRtl ? -scrollAmount : scrollAmount,
                     behavior: 'smooth'
                 });
             }
 
             const tolerance = 5; // Pixel tolerance
+            const atEnd = isRtl
+                ? Math.abs(slider.scrollLeft) + slider.clientWidth >= slider.scrollWidth - tolerance
+                : slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - tolerance;
 
-            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - tolerance) {
-                scrollRight.classList.add('text-purple-200');
-                scrollRight.classList.remove('text-purple');
+            if (atEnd) {
+                const endButton = isRtl ? scrollLeft : scrollRight;
+                endButton.classList.add('text-purple-200');
+                endButton.classList.remove('text-purple');
 
-                scrollRight.setAttribute('disabled', 'disabled');
+                endButton.setAttribute('disabled', 'disabled');
             }
         }
 

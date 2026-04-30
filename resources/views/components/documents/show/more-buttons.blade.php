@@ -69,7 +69,7 @@
                         {{ trans($textEmail) }}
                     </x-dropdown.button>
                 @else
-                    <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="left">
+                    <x-tooltip message="{{ trans('invoices.messages.email_required') }}" placement="{{ language()->direction() === 'rtl' ? 'right' : 'left' }}">
                         <x-dropdown.button disabled="disabled">
                             {{ trans($textEmail) }}
                         </x-dropdown.button>

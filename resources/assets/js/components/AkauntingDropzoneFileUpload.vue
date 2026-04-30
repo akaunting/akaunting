@@ -16,10 +16,10 @@
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-pdf>picture_as_pdf</span>
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-word>content_paste</span>
                 <span class="material-icons-outlined avatar hidden" data-dz-thumbnail-excel>table_chart</span>
-                <span class="mb-1 text-sm ml-3 text-gray-500 hidden" data-dz-name>...</span>
+                <span class="mb-1 text-sm ltr:ml-3 rtl:mr-3 text-gray-500 hidden" data-dz-name>...</span>
 
                 <div class="gap-x-1 relative">
-                    <button data-dz-remove="true" class="absolute group right-0">
+                    <button data-dz-remove="true" class="absolute group ltr:right-0 rtl:left-0">
                         <span class="material-icons-outlined text-base text-gray-300 px-1.5 py-1 rounded-lg group-hover:bg-gray-100">delete</span>
                     </button>
                 </div>
@@ -38,7 +38,7 @@
                             <span class="material-icons-outlined hidden" data-dz-thumbnail-excel>table_chart</span>  
                         </div>
 
-                        <div class="col text-gray-500 ml-3">
+                        <div class="col text-gray-500 ltr:ml-3 rtl:mr-3">
                             <h4 class="w-56 lg:w-96 text-sm mb-1 truncate" data-dz-name>...</h4>
 
                             <p class="text-xs text-muted mb-0" data-dz-size>...</p>

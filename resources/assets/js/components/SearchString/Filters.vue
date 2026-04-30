@@ -19,7 +19,7 @@
                 </li>
 
                 <li v-if="search" class="p-2 hover:bg-lilac-900 dropdown-item">
-                    <button type="button" class="text-left" @click="onInputConfirm">
+                    <button type="button" class="ltr:text-left rtl:text-right" @click="onInputConfirm">
                         {{ searchText }}
                     </button>
                 </li>
@@ -63,7 +63,7 @@
                 <li ref="" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap" v-for="(value) in filteredValues" :data-value="value.key">
                     <div v-if="current_operator != '||'" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                         <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onValueSelected(value.key)">
-                            <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
+                            <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180 pointer-events-none">subdirectory_arrow_right</i>
                             {{ value.value }}
                         </button>
                     </div>
@@ -73,7 +73,7 @@
                             <input type="checkbox" name="multiple-filter-values" :id="'search-field-value-' + _uid + '-multiple-' + value.key"  :value="value.key" v-model="multiple_values" data-type="single" class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent">
 
                             <label :for="'search-field-value-' + _uid + '-multiple-' + value.key" class="w-full h-full flex items-center rounded-md px-2">
-                                <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 pointer-events-none">subdirectory_arrow_right</i>
+                                <i v-if="value.level != null" class="material-icons align-middle text-lg ltr:mr-2 rtl:ml-2 rtl:rotate-180 pointer-events-none">subdirectory_arrow_right</i>
                                 {{ value.value }}
                             </label>
                         </div>
@@ -351,9 +351,14 @@
         min-width: 50px !important;
     }
 
-    .searh-field .dropdown-menu.operator .btn i:not(:last-child),
-    .btn svg:not(:last-child) {
+    html[dir='ltr'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='ltr'] .btn svg:not(:last-child) {
         margin-right: inherit !important;
+    }
+
+    html[dir='rtl'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='rtl'] .btn svg:not(:last-child) {
+        margin-left: inherit !important;
     }
 
     .dropdown-menu {

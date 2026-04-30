@@ -2,7 +2,7 @@
     x-data="{ {{ $type }} : {{ ($open) ? "'open'" : "'close'" }} }"
 >
     @if (! empty($head) && $head->isNotEmpty())
-        <div class="relative w-full text-left cursor-pointer group" x-on:click="{{ $type }} !== 'open' ? {{ $type }} = 'open' : {{ $type }} = 'close'">
+        <div class="relative w-full ltr:text-left rtl:text-right cursor-pointer group" x-on:click="{{ $type }} !== 'open' ? {{ $type }} = 'open' : {{ $type }} = 'close'">
             {!! $head !!}
 
             <x-icon filled class="absolute ltr:right-0 rtl:left-0 top-0 transition-all transform" :icon="$icon" x-bind:class="{{ $type }} === 'open' ? 'rotate-180' : ''" />

@@ -177,7 +177,7 @@
 
     <div class="col-span-3 grid sm:grid-cols-12 mt-6" v-show="form.{{ $name }} == 'custom'">
         <x-form.group.text name="payment_terms" value="{{ !empty($value) ? $value : 0 }}" form-group-class="col-span-4" />
-        <div class="col-span-8 mt-3 ml-1">
+        <div class="col-span-8 mt-3 ltr:ml-1 rtl:mr-1">
             {{ trans('settings.invoice.due_custom_day') }}
         </div>
     </div>

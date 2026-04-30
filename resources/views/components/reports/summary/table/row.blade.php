@@ -22,7 +22,7 @@
                 ])
             >
                 @if (isset($parent_id))
-                <div style="display:flex; align-items: center; padding-left: {{ $tree_level * 20 }}px;">
+                <div style="display:flex; align-items: center; padding-inline-start: {{ $tree_level * 20 }}px;">
                 @else
                 <div style="display:flex; align-items: center;">
                 @endif
@@ -63,7 +63,7 @@
         <li class="hover:bg-gray-100">
         @endif
             <div style="display: flex; justify-content: space-between;">
-                <div style="display:flex; align-items: center; padding-left: {{ $tree_level * 20 }}px;">
+                <div style="display:flex; align-items: center; padding-inline-start: {{ $tree_level * 20 }}px;">
                     <span>{{ $class->row_names[$table_key][$id] }}</span>
                     @if (! $is_print)
                         @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
@@ -88,7 +88,7 @@
         ])
         data-collapse="child-{{ $id }}">
         <div style="display: flex; justify-content: space-between;">
-            <div style="display:flex; align-items: center; padding-left: {{ ($tree_level + 1) * 20 }}px;">
+            <div style="display:flex; align-items: center; padding-inline-start: {{ ($tree_level + 1) * 20 }}px;">
                 <span>{{ $class->row_names[$table_key][$id] }}</span>
             </div>
             <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>

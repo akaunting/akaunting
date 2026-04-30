@@ -31,9 +31,9 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-form.group.select remote name="income_category" label="{{ trans('settings.default.income_category') }}" :options="$sales_categories" :clearable="'false'" :selected="setting('default.income_category')" remote_action="{{ route('categories.index'). '?search=type:income enabled:1' }}" sort-options="false" />
+                        <x-form.group.select remote name="income_category" label="{{ trans('settings.default.income_category') }}" :options="$sales_categories" :clearable="'false'" :selected="setting('default.income_category')" remote_action="{{ route('categories.index'). '?search=type:' . $income_category_types . ' enabled:1' }}" sort-options="false" />
 
-                        <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :clearable="'false'" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:expense enabled:1' }}" sort-options="false" />
+                        <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :clearable="'false'" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:' . $expense_category_types . ' enabled:1' }}" sort-options="false" />
                     </x-slot>
                 </x-form.section>
 

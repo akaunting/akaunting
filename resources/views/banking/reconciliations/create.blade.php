@@ -166,14 +166,14 @@
 
                     @if ($transactions->count())
                         <table class="min-w-full divide-y divide-gray-200">
-                            <tbody class="sm:float-right">
+                            <tbody class="ltr:sm:float-right rtl:sm:float-left">
                                 <tr class="border-b">
                                     <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                         {{ trans('reconciliations.opening_balance') }}:
                                     </th>
 
                                     <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
-                                        <span class="w-auto pl-6 text-sm">
+                                        <span class="w-auto ltr:pl-6 rtl:pr-6 text-sm">
                                             <x-money :amount="$opening_balance" :currency="$account->currency_code" />
                                         </span>
                                     </td>
@@ -184,7 +184,7 @@
                                         {{ trans('reconciliations.closing_balance') }}:
                                     </th>
 
-                                    <td id="closing-balance" class="w-3/12 text-right">
+                                    <td id="closing-balance" class="w-3/12 ltr:text-right rtl:text-left">
                                         <x-form.input.money
                                             name="closing_balance_total"
                                             value="0"
@@ -193,8 +193,8 @@
                                             v-model="totals.closing_balance"
                                             :currency="$currency"
                                             dynamicCurrency="currency"
-                                            money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                            form-group-class="text-right disabled-money"
+                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            form-group-class="ltr:text-right rtl:text-left disabled-money"
                                         />
                                     </td>
                                 </tr>
@@ -204,7 +204,7 @@
                                         {{ trans('reconciliations.cleared_amount') }}:
                                     </th>
 
-                                    <td id="cleared-amount" class="w-3/12 text-right">
+                                    <td id="cleared-amount" class="w-3/12 ltr:text-right rtl:text-left">
                                         <x-form.input.money
                                             name="cleared_amount_total"
                                             value="0"
@@ -213,8 +213,8 @@
                                             v-model="totals.cleared_amount"
                                             :currency="$currency"
                                             dynamicCurrency="currency"
-                                            money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                            form-group-class="text-right disabled-money"
+                                            money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                            form-group-class="ltr:text-right rtl:text-left disabled-money"
                                         />
                                     </td>
                                 </tr>
@@ -226,7 +226,7 @@
                                         </span>
                                     </th>
 
-                                    <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-0 text-right">
+                                    <td id="difference" class="w-3/12 ltr:pl-6 rtl:pr-6 ltr:text-right rtl:text-left">
                                         <div class="difference-money">
                                             <x-form.input.money
                                                 name="difference_total"
@@ -236,8 +236,8 @@
                                                 v-model="totals.difference"
                                                 :currency="$currency"
                                                 dynamicCurrency="currency"
-                                                money-class="text-right disabled-money banking-price-text w-auto position-absolute right-4 ltr:pr-0 rtl:pl-0 text-sm"
-                                                form-group-class="text-right disabled-money"
+                                                money-class="ltr:text-right rtl:text-left disabled-money banking-price-text w-auto position-absolute ltr:right-4 rtl:left-4 ltr:pr-0 rtl:pl-0 text-sm"
+                                                form-group-class="ltr:text-right rtl:text-left disabled-money"
                                             />
                                         </div>
                                     </td>

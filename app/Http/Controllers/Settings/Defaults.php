@@ -6,9 +6,12 @@ use App\Abstracts\Http\SettingController;
 use App\Models\Banking\Account;
 use App\Models\Setting\Category;
 use App\Models\Setting\Tax;
+use App\Traits\Categories;
 
 class Defaults extends SettingController
 {
+    use Categories;
+
     public function edit()
     {
         $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
@@ -39,11 +42,16 @@ class Defaults extends SettingController
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
+        $income_category_types = $this->getIncomeCategoryTypes('string');
+        $expense_category_types = $this->getExpenseCategoryTypes('string');
+
         return view('settings.default.edit', compact(
             'accounts',
             'sales_categories',
             'purchases_categories',
             'taxes',
+            'income_category_types',
+            'expense_category_types',
         ));
     }
 }

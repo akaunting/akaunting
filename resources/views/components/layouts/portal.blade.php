@@ -16,7 +16,7 @@
 
         <x-layouts.portal.menu />
 
-        <div class="main-content xl:ltr:ml-64  xl:rtl:mr-64 transition-all ease-in-out" id="panel">
+        <div class="main-content xl:ltr:ml-64 xl:rtl:mr-64 transition-all ease-in-out" id="panel">
             <div id="main-body">
                 <div class="container">
                     <x-layouts.portal.header>

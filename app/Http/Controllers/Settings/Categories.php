@@ -24,17 +24,44 @@ class Categories extends Controller
      */
     public function index()
     {
+        $this->setActiveTabForCategories();
+
         $query = Category::with('sub_categories');
 
-        if (request()->has('search')) {
-            $query->withSubcategory();
+        if (search_string_value('searchable')) {
+            $query->withSubCategory();
         }
 
         $types = $this->getCategoryTypes();
 
-        $categories = $query->type(array_keys($types))->collect();
+        if (request()->get('list_records') == 'all') {
+            $query->type(array_keys($types));
+        }
 
-        return $this->response('settings.categories.index', compact('categories', 'types'));
+        $categories = $query->collect();
+
+        $tabs = $this->getCategoryTabs();
+
+        $tab = request()->get('list_records');
+        $tab_active = ! empty($tab) ? 'categories-' . $tab : 'categories-all';
+
+        $hide_code_column = true;
+
+        $search_string_type = search_string_value('type');
+        $selected_types = ! empty($search_string_type) ? explode(',', $search_string_type) : array_keys($types);
+
+        foreach (config('type.category', []) as $type => $config) {
+            if (! in_array($type, $selected_types)) {
+                continue;
+            }
+
+            if (empty($config['hide']) || !in_array('code', $config['hide'])) {
+                $hide_code_column = false;
+                break;
+            }
+        }
+
+        return $this->response('settings.categories.index', compact('categories', 'types', 'tabs', 'tab_active', 'hide_code_column'));
     }
 
     /**
@@ -54,13 +81,16 @@ class Categories extends Controller
      */
     public function create()
     {
-        $types = $this->getCategoryTypes();
-
         $categories = [];
 
         foreach (config('type.category') as $type => $config) {
             $categories[$type] = [];
         }
+
+        $type_group = $this->isGroupCategoryType();
+        $hide_code_types = $this->hideCodeCategoryTypes(array_keys($categories));
+
+        $types = $this->getCategoryTypes(group: $type_group);
 
         Category::enabled()->orderBy('name')->get()->each(function ($category) use (&$categories) {
             $categories[$category->type][] = [
@@ -70,7 +100,7 @@ class Categories extends Controller
             ];
         });
 
-        return view('settings.categories.create', compact('types', 'categories'));
+        return view('settings.categories.create', compact('types', 'categories', 'type_group', 'hide_code_types'));
     }
 
     /**
@@ -134,8 +164,6 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        $types = $this->getCategoryTypes();
-
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
 
         $edited_category_id = $category->id;
@@ -145,6 +173,11 @@ class Categories extends Controller
         foreach (config('type.category') as $type => $config) {
             $categories[$type] = [];
         }
+
+        $type_group = $this->isGroupCategoryType();
+        $hide_code_types = $this->hideCodeCategoryTypes(array_keys($categories));
+
+        $types = $this->getCategoryTypes(group: $type_group);
 
         $skip_categories = [];
         $skip_categories[] = $edited_category_id;
@@ -175,7 +208,7 @@ class Categories extends Controller
 
         $parent_categories = $categories[$category->type] ?? [];
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories'));
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'type_group', 'hide_code_types'));
     }
 
     /**

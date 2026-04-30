@@ -27,7 +27,7 @@
     <div class="w-14 py-7 px-1 bg-lilac-900 z-10 menu-scroll overflow-y-auto overflow-x-hidden">
         <div 
             data-tooltip-target="tooltip-profile"
-            data-tooltip-placement="right"
+            data-tooltip-placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}"
             class="flex flex-col items-center justify-center mb-5 cursor-pointer menu-button"
             data-menu="profile-menu"
         >
@@ -36,11 +36,11 @@
             </span>
 
             @if (setting('default.use_gravatar', '0') == '1')
-                <img src="{{ user()->picture }}" alt="{{ user()->name }}" class="w-8 h-8 m-auto rounded-full text-transparent" alt="{{ user()->name }}" title="{{ user()->name }}">
+                <img src="{{ user()->picture }}" class="w-8 h-8 m-auto rounded-full text-transparent" alt="{{ user()->name }}" title="{{ user()->name }}">
             @elseif (is_object(user()->picture))
                 <img src="{{ Storage::url(user()->picture->id) }}" class="w-8 h-8 m-auto rounded-full text-transparent" alt="{{ user()->name }}" title="{{ user()->name }}">
             @else
-                <span name="account_circle" class="material-icons-outlined text-purple w-8 h-8 flex items-center justify-center text-center text-2xl pointer-events-none" alt="{{ user()->name }}" title="{{ user()->name }}">
+                <span name="account_circle" class="material-icons-outlined text-purple w-8 h-8 flex items-center justify-center text-center text-2xl pointer-events-none" title="{{ user()->name }}" aria-label="{{ user()->name }}">
                     account_circle
                 </span>
             @endif
@@ -48,12 +48,12 @@
 
         <div id="tooltip-profile" class="inline-block absolute z-20 py-1 px-2 text-sm font-medium rounded-lg bg-white text-gray-900 w-auto border border-gray-200 shadow-sm whitespace-nowrap opacity-0 invisible">
             {{ trans('auth.profile') }}
-            <div class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border -left-1 before:border-t-0 before:border-r-0 border-gray-200" data-popper-arrow></div>
+            <div class="absolute w-2 h-2 before:absolute before:w-2 before:h-2 before:bg-white before:border-gray-200 before:transform before:rotate-45 before:border ltr:-left-1 rtl:-right-1 before:border-t-0 ltr:before:border-r-0 rtl:before:border-l-0 border-gray-200" data-popper-arrow></div>
         </div>
 
         <div class="group flex flex-col items-center justify-center menu-toggle-buttons">
             @can('read-notifications')
-            <x-tooltip id="tooltip-notifications" placement="right" message="{{ trans_choice('general.notifications', 2) }}">
+            <x-tooltip id="tooltip-notifications" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans_choice('general.notifications', 2) }}">
                 <button type="button"
                     @class([
                         'flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer js-menu-toggles outline-none',
@@ -63,7 +63,7 @@
                     <span name="notifications" class="material-icons-outlined text-purple text-2xl pointer-events-none">notifications</span>
 
                     @if (user()->unreadNotifications->count())
-                        <span data-notification-count class="w-2 h-2 absolute top-2 right-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
+                        <span data-notification-count class="w-2 h-2 absolute top-2 ltr:right-2 rtl:left-2 inline-flex items-center justify-center p-2.5 text-xs text-white font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-orange rounded-full">
                             {{ user()->unreadNotifications->count() }}
                         </span>
                     @endif
@@ -71,13 +71,13 @@
             </x-tooltip>
             @endcan
 
-            <x-tooltip id="tooltip-search" placement="right" message="{{ trans('general.search') }}">
+            <x-tooltip id="tooltip-search" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans('general.search') }}">
                 <button type="button" class="flex items-center menu-button justify-center w-8 h-8 mb-2.5 relative cursor-pointer outline-none">
                     <span name="search" class="material-icons-outlined text-purple text-2xl pointer-events-none">search</span>
                 </button>
             </x-tooltip>
 
-            <x-tooltip id="tooltip-support" placement="right" message="{{ trans('general.help') }}">
+            <x-tooltip id="tooltip-support" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}" message="{{ trans('general.help') }}">
                 <x-link href="{{ url(trans('header.support_link')) }}" target="_blank" class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" override="class">
                     <span class="material-icons-outlined text-purple text-2xl pointer-events-none">support</span>
                 </x-link>
@@ -112,7 +112,7 @@
             </button>
 
             @can('read-common-companies')
-                <div id="dropdown-menu-company" class="absolute right-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="left: auto; min-width: 10rem;">
+                <div id="dropdown-menu-company" class="absolute ltr:right-0 rtl:left-0 mt-3 py-2 bg-white rounded-md shadow-xl z-20 hidden" style="{{ language()->direction() === 'rtl' ? 'right: auto;' : 'left: auto;' }} min-width: 10rem;">
                     @foreach($companies as $com)
                         <x-link href="{{ route('companies.switch', $com->id) }}" id="menu-company-{{ $com->id }}" class="h-9 leading-9 flex items-center text-sm px-2" override="class" role="menuitem" tabindex="-1">
                             <div class="w-full h-full flex items-center rounded-md px-2 hover:bg-lilac-100">
@@ -144,16 +144,16 @@
     <div class="profile-menu user-menu menu-list fixed h-full ltr:-left-80 rtl:-right-80">
         <div class="flex h-12.5">
             @if (setting('default.use_gravatar', '0') == '1')
-                <img src="{{ user()->picture }}" alt="{{ user()->name }}" class="w-8 h-8 rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
+                <img src="{{ user()->picture }}" class="w-8 h-8 rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
             @elseif (is_object(user()->picture))
                 <img src="{{ Storage::url(user()->picture->id) }}" class="w-8 h-8 rounded-full" alt="{{ user()->name }}" title="{{ user()->name }}">
             @else
-                <span name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none" alt="{{ user()->name }}" title="{{ user()->name }}">account_circle</span>
+                <span name="account_circle" class="material-icons-outlined w-8 h-8 flex items-center justify-center text-purple text-2xl pointer-events-none" title="{{ user()->name }}" aria-label="{{ user()->name }}">account_circle</span>
             @endif
 
             @stack('navbar_profile_welcome')
 
-            <div class="flex flex-col text-black ml-2">
+            <div class="flex flex-col text-black ltr:ml-2 rtl:mr-2">
                 <span class="text-xs">{{ trans('general.welcome') }}</span>
 
                 {{ user()->name }}

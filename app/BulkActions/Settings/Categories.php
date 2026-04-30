@@ -53,6 +53,7 @@ class Categories extends BulkAction
     public function edit($request)
     {
         $selected = $this->getSelectedInput($request);
+
         $types = $this->getCategoryTypes();
 
         return $this->response('bulk-actions.settings.categories.edit', compact('selected', 'types'));

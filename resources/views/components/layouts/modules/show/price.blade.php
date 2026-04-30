@@ -6,7 +6,7 @@
 
         <div x-show="price_type == 'monthly'">
             @if (! empty($module->is_discount))
-                <del class="text-red mr-2">
+                <del class="text-red ltr:mr-2 rtl:ml-2">
                     {!! $module->monthly_price !!}
                 </del>
 
@@ -22,7 +22,7 @@
 
         <div x-show="price_type == 'yearly'">
             @if (! empty($module->is_discount))
-                <del class="text-red mr-2">
+                <del class="text-red ltr:mr-2 rtl:ml-2">
                     {!! $module->yearly_per_monthly_price !!}
                 </del>
 
@@ -38,7 +38,7 @@
 
         <div x-show="price_type == 'lifetime'">
             @if (! empty($module->is_discount))
-                <del class="text-red mr-2">
+                <del class="text-red ltr:mr-2 rtl:ml-2">
                     {!! $module->lifetime_price !!}
                 </del>
 

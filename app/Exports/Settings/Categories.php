@@ -25,9 +25,11 @@ class Categories extends Export
     public function fields(): array
     {
         return [
+            'code',
             'name',
             'type',
             'color',
+            'description',
             'parent_name',
             'enabled',
         ];

@@ -21,7 +21,7 @@
         <div class="flex flex-col lg:flex-row my-10 lg:space-x-24 rtl:space-x-reverse space-y-12 lg:space-y-0">
             <div class="w-full lg:w-5/12 space-y-8">
                 <div class="border-b-2 border-gray-200 pb-1">
-                    <div class="relative w-full text-left group">
+                    <div class="relative w-full ltr:text-left rtl:text-right group">
                         <x-button.hover group-hover>
                             {{ trans('portal.received_date') }}
                         </x-button.hover>

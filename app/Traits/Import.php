@@ -57,7 +57,7 @@ trait Import
         event(new ImportViewCreated($import));
 
         return [
-            $import->view, 
+            $import->view,
             $import->data
         ];
     }
@@ -85,7 +85,7 @@ trait Import
     {
         $id = isset($row['category_id']) ? $row['category_id'] : null;
 
-        $type = !empty($type) ? $type : (!empty($row['type']) ? $row['type'] : 'income');
+        $type = !empty($type) ? $type : (!empty($row['type']) ? $row['type'] : Category::INCOME_TYPE);
 
         if (empty($id) && !empty($row['category_name'])) {
             $id = $this->getCategoryIdFromName($row, $type);
@@ -96,14 +96,14 @@ trait Import
 
     public function getCategoryType($type)
     {
-        return array_key_exists($type, config('type.category')) ? $type : 'other';
+        return array_key_exists($type, config('type.category')) ? $type : Category::OTHER_TYPE;
     }
 
     public function getContactId($row, $type = null)
     {
         $id = isset($row['contact_id']) ? $row['contact_id'] : null;
 
-        $type = !empty($type) ? $type : (!empty($row['type']) ? (($row['type'] == 'income') ? 'customer' : 'vendor') : 'customer');
+        $type = !empty($type) ? $type : (!empty($row['type']) ? (($row['type'] == Transaction::INCOME_TYPE) ? Contact::CUSTOMER_TYPE : Contact::VENDOR_TYPE) : Contact::CUSTOMER_TYPE);
 
         if (empty($row['contact_id']) && !empty($row['contact_email'])) {
             $id = $this->getContactIdFromEmail($row, $type);
@@ -180,7 +180,7 @@ trait Import
         }
 
         if (empty($id) && !empty($row['invoice_bill_number'])) {
-            if ($row['type'] == 'income') {
+            if ($row['type'] == Transaction::INCOME_TYPE) {
                 $id = Document::invoice()->number($row['invoice_bill_number'])->pluck('id')->first();
             } else {
                 $id = Document::bill()->number($row['invoice_bill_number'])->pluck('id')->first();

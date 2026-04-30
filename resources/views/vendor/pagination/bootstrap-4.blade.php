@@ -3,11 +3,11 @@
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="font-medium disabled ltr:mr-2 rtl:ml-2">
-                <button disabled class="material-icons page-link flex">chevron_left</button>
+                <button disabled class="material-icons rtl:rotate-180 page-link flex">chevron_left</button>
             </li>
         @else
             <li class="font-medium ltr:mr-2 rtl:ml-2"><a class="page-link flex" href="{{ $paginator->previousPageUrl() }}" rel="prev">
-                <span class="material-icons px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_left</span>
+                <span class="material-icons rtl:rotate-180 px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_left</span>
             </a></li>
         @endif
 
@@ -36,11 +36,11 @@
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
             <li class="font-medium"><a class="page-link flex" href="{{ $paginator->nextPageUrl() }}" rel="next">
-                <span class="material-icons px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_right</span>
+                <span class="material-icons rtl:rotate-180 px-3 py-1 rounded-lg hover:bg-lilac-300">chevron_right</span>
             </a></li>
         @else
             <li class="font-medium disabled"><button disabled class="page-link flex">
-                <span class="material-icons">chevron_right</span>
+                <span class="material-icons rtl:rotate-180">chevron_right</span>
             </button></li>
         @endif
     </ul>

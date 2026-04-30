@@ -228,7 +228,7 @@ export default {
                     <div class="swiper-button-prev bg-body text-white flex items-center justify-center left-0">
                         <span class="material-icons text-purple text-4xl">chevron_left</span>
                     </div>
-                    `; 
+                    `;
 
                 item.querySelector('[data-tabs-swiper]').innerHTML = html;
                 slides_view = Number(item.getAttribute('data-swiper')) != 0 ? Number(item.getAttribute('data-swiper'))  : slides_view;
@@ -299,6 +299,28 @@ export default {
         onHandleFileUpload(key, event) {
             this.form[key] = '';
             this.form[key] = event.target.files[0];
+        },
+
+        isCategoryCodeFieldVisible() {
+            if (!this.form || !this.form.type || !this.form.type_codes) {
+                return false;
+            }
+
+            let type_codes = this.form.type_codes;
+
+            if (typeof type_codes === 'string') {
+                try {
+                    type_codes = JSON.parse(type_codes);
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            if (typeof type_codes[this.form.type] === 'undefined') {
+                return true;
+            }
+
+            return !Boolean(type_codes[this.form.type]);
         },
 
         // Bulk Action Select all

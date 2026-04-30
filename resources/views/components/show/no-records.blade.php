@@ -5,13 +5,13 @@
     ])
 >
     <div class="hidden lg:block px-4">
-        <img src="{{ $image }}" class="w-60 h-60 object-contain mt-10 m-auto" />
+        <img src="{{ $image }}" class="w-60 h-60 object-contain mt-10 m-auto" alt="{{ $title ?? trans('general.no_records') }}" />
     </div>
 
     <div @class([
             'lg:w-3/5',
             $textColor,
-            'text-right py-4 lg:py-0 px-4 space-y-2',
+            'ltr:text-right rtl:text-left py-4 lg:py-0 px-4 space-y-2',
         ])
     >
         <p class="mb-5">

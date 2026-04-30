@@ -11,7 +11,7 @@
 
     <x-slot name="content">
         <div class="pt-6">
-            <div class="relative -m-2 flex items-center space-x-4 rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
+            <div class="relative -m-2 flex items-center space-x-4 rtl:space-x-reverse rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
                 <div>
                     <h2 class="text-base font-semibold text-gray-900">
                         <a href="{{ module_is_enabled('bank-feeds') ? route('bank-feeds.bank-connections.create') : route('apps.app.show', 'bank-feeds') }}" class="focus:outline-none">
@@ -29,7 +29,7 @@
 
             <ul role="list" class="mt-6 grid grid-cols-1 gap-x-8 gap-y-16 border-b border-t border-gray-200 py-6 sm:grid-cols-3">
                 <li class="flow-root">
-                    <div class="relative -m-2 flex items-center space-x-4 rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
+                    <div class="relative -m-2 flex items-center space-x-4 rtl:space-x-reverse rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
                         <div>
                             <h3 class="text-sm font-medium text-gray-900">
                                 <a href="{{ module_is_enabled('receipt') ? route('receipt.receipts.create') : route('apps.app.show', 'receipt') }}" class="focus:outline-none">
@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="flow-root">
-                    <div class="relative -m-2 flex items-center space-x-4 rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
+                    <div class="relative -m-2 flex items-center space-x-4 rtl:space-x-reverse rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
                         <div>
                             <h3 class="text-sm font-medium text-gray-900">
                                 <a href="{{ module_is_enabled('ofx') ? route('ofx.ofx.create') : route('apps.app.show', 'ofx') }}" class="focus:outline-none">
@@ -65,7 +65,7 @@
                 </li>
 
                 <li class="flow-root">
-                    <div class="relative -m-2 flex items-center space-x-4 rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
+                    <div class="relative -m-2 flex items-center space-x-4 rtl:space-x-reverse rounded-xl p-4 focus-within:ring-2 focus-within:ring-gray-500 hover:bg-gray-100">
                         <div>
                             <h3 class="text-sm font-medium text-gray-900">
                                 <a href="{{ module_is_enabled('mt940') ? route('mt940.create') : route('apps.app.show', 'mt940') }}" class="focus:outline-none">
@@ -124,7 +124,7 @@
                 <div class="mt-8">
                     <div class="sm:col-span-6 flex items-center justify-end">
                         @if (! empty($route))
-                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 mr-2 hover:bg-gray-200 rounded-lg" override="class">
+                            <x-link href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="px-6 py-1.5 ltr:mr-2 rtl:ml-2 hover:bg-gray-200 rounded-lg" override="class">
                                 {{ trans('general.cancel') }}
                             </x-link>
                         @else
@@ -151,4 +151,3 @@
 
     <x-script folder="common" file="imports" />
 </x-layouts.admin>
-

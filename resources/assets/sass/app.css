@@ -241,7 +241,7 @@
     /* changelog modal styling for update center */
 
     #button-monthly {
-        margin-left: unset !important;
+        margin-inline-start: unset !important;
     }
 
     /* width of container, custom choose */
@@ -261,13 +261,13 @@
 }
 
 .menu__submenu li::before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
 
 .menu__submenu details.relative:before {
-    @apply h-full absolute bg-gray-200 -left-4;
+    @apply h-full absolute bg-gray-200 ltr:-left-4 rtl:-right-4;
     content: '';
     width: 1px;
 }
@@ -291,12 +291,21 @@
     color:#595959 !important;
 }
 
+.el-select-group__title {
+    @apply text-purple-500 font-bold;
+}
+
 .el-select-dropdown .popper__arrow::after {
     display: none;
 }
 
 .el-color-picker--mini {
     padding-right: unset !important;
+}
+
+html[dir='rtl'] .el-color-picker--mini {
+    padding-right: initial !important;
+    padding-left: unset !important;
 }
 
 .el-color-picker--mini .el-color-picker__trigger {
@@ -320,7 +329,7 @@
 
 .el-select-dropdown__item .new-badge {
     width: 45px !important;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     z-index: 99;
 }
 
@@ -335,7 +344,7 @@
 }
 
 .el-select-dropdown__item .badge-success {
-    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs text-right m-0;
+    @apply absolute bg-green text-white px-2 py-1 ltr:right-8 rtl:left-8 rounded-md text-xs ltr:text-right rtl:text-left m-0;
     width: auto;
 }
 
@@ -386,6 +395,16 @@
     top: 54%;
 }
 
+/* Country select with flag icon: offset tags to avoid overlap with flag */
+.el-select-tags-pl-38 .el-select__tags {
+    padding-left: 38px;
+}
+
+html[dir='rtl'] .el-select-tags-pl-38 .el-select__tags {
+    padding-left: 0;
+    padding-right: 38px;
+}
+
 .el-select .el-select__tags .el-tag {
     @apply bg-purple text-white;
 }
@@ -423,8 +442,15 @@
 
 .el-date-editor .el-input__prefix {
     top: 3px;
-    left: 0;
     color: #595959;
+}
+
+html[dir='ltr'] .el-date-editor .el-input__prefix {
+    left: 0;
+}
+
+html[dir='rtl'] .el-date-editor .el-input__prefix {
+    right: 0;
 }
 
 .recurring-invoice-data {
@@ -451,17 +477,23 @@
     width: 200px !important;
 }
 
-.el-picker-panel__sidebar {
+html[dir='ltr'] .el-picker-panel__sidebar {
     padding-left: 12px;
 }
 
 html[dir='rtl'] .el-picker-panel__sidebar {
-    left: 0;
+    padding-right: 12px;
+    right: 0;
 }
 
-.dashboard-picker .el-picker-panel__body {
+html[dir='ltr'] .dashboard-picker .el-picker-panel__body {
     width: 700px !important;
     margin-left: 200px !important;
+}
+
+html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
+    width: 700px !important;
+    margin-right: 200px !important;
 }
 
 .el-input__suffix[style*="direction:rtl"] {
@@ -479,6 +511,13 @@ html[dir='rtl'] .el-picker-panel__sidebar {
     box-shadow: -10px 0 0 #888aae !important;
 }
 
+html[dir='rtl'] .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir='rtl'] .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+html[dir='rtl'] .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    -webkit-box-shadow: 10px 0 0 #888aae !important;
+    box-shadow: 10px 0 0 #888aae !important;
+}
+
 .el-date-editor .el-range-input, .el-date-editor .el-range-input::placeholder {
     color: #424242;
 }
@@ -491,6 +530,11 @@ html[dir='rtl'] .el-picker-panel__sidebar {
     margin-bottom: 3px;
 }
 
+html[dir='rtl'] .el-picker-panel__shortcut {
+    padding-left: revert;
+    padding-right: 0;
+}
+
 .el-picker-panel__shortcut:hover {
     color: #000000 !important;
     border-bottom: 1px solid black;
@@ -499,7 +543,7 @@ html[dir='rtl'] .el-picker-panel__sidebar {
 
 html[dir='rtl'] .el-input__suffix {
     left: 5px;
-    right: 0;
+    right: unset;
     text-align: left;
 }
 
@@ -508,8 +552,12 @@ html[dir='rtl'] .el-scrollbar__wrap {
     margin-right: unset !important;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     right: 15px !important;
+}
+
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
+    left: 15px !important;
 }
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
@@ -692,6 +740,10 @@ html[dir="rtl"] .lines-radius-border thead td:last-child {
         margin-left: unset !important;
     }
 
+    html[dir='rtl'] .dashboard-picker .el-picker-panel__body {
+        margin-right: unset !important;
+    }
+
     .dashboard-picker.el-date-range-picker.el-popper.has-sidebar {
         width: 100% !important;
     }
@@ -752,6 +804,22 @@ body {
     height: 100%;
 }
 
-.el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+html[dir='ltr'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
     margin-right: 1rem;
+}
+
+html[dir='rtl'] .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .tax-group span.inline-flex.items-center {
+    margin-left: 1rem;
+}
+
+/* Native <select> arrow direction for RTL */
+html[dir='rtl'] select {
+    background-position: left 0.5rem center;
+    padding-right: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+/* Report tree expand/collapse toggle - flip icon to point left in RTL expanded state */
+html[dir='rtl'] button[node^='child'] .material-icons:not(.rotate-90) {
+    transform: rotate(180deg);
 }

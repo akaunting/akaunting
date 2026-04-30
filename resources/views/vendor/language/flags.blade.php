@@ -4,7 +4,7 @@
         <div class="col-auto">
             <img src="{{ asset('vendor/akaunting/language/src/Resources/assets/img/flags/'. language()->country($code) .'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" />
         </div>
-            <div class="col ml--2">
+            <div class="col ltr:-ml-2 rtl:-mr-2">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h4 class="mb-0 text-sm">

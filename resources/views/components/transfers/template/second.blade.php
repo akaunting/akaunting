@@ -3,7 +3,7 @@
     <table style="width: 100%;">
         <tr>
             <td style="padding:0 0 15px 0;">
-                <div class="text-left font-semibold" style="font-size: 14px;">
+                <div class="ltr:text-left rtl:text-right font-semibold" style="font-size: 14px;">
                     {{ trans_choice('transfers.details', 2) }}
                 </div>
             </td>
@@ -249,13 +249,13 @@
     </table>
     @stack('to_account_end')
 
-    <table style="text-align: right;">
+    <table style="text-align: {{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
         <tr>
-            <td valign="center" style="width:80%; display:block; float:right;">
+            <td valign="center" style="width:80%; display:block; float:{{ language()->direction() === 'rtl' ? 'left' : 'right' }};">
                 <table>
                     <tr>
                         <td valign="center" class="font-semibold" style="padding:0; font-size: 14px;">
-                            <span class="ml-2">
+                            <span class="ltr:ml-2 rtl:mr-2">
                                 {{ trans('general.amount') }}
                             </span>
 

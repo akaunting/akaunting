@@ -78,10 +78,12 @@
                                             'border-light-gray': !form.errors.get('password')
                                         },
                                         {
-                                            'pr-9': form.password
+                                            'ltr:pr-9': form.password,
+                                            'rtl:pl-9': form.password
                                         },
                                         {
-                                            'pr-0': ! form.password
+                                            'ltr:pr-0': ! form.password,
+                                            'rtl:pl-0': ! form.password
                                         },
                                     ]"
                                     class="relative w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
@@ -95,7 +97,7 @@
 
                                 <button 
                                     type="button" 
-                                    class="absolute inset-y-0 top-2 right-0 flex items-center pr-3 text-gray-400"
+                                    class="absolute inset-y-0 top-2 ltr:right-0 rtl:left-0 flex items-center ltr:pr-3 rtl:pl-3 text-gray-400"
                                     @click="showPassword = ! showPassword" v-show="form.password"
                                 >
                                     <span v-show="! showPassword" class="material-icons-outlined text-gray-500 text-lg">visibility_off</span>

@@ -46,4 +46,38 @@
         -moz-border-radius: 6px 0 6px 6px;
         border-radius: 6px 0 6px 6px;
     }
+
+    html[dir='rtl'] .dropdown-submenu>.dropdown-menu {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: -1px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
+
+    html[dir='rtl'] .dropdown-submenu>a:after {
+        float: left;
+        border-width: 5px 5px 5px 0;
+        border-left-color: transparent;
+        border-right-color: #ccc;
+        margin-right: 0;
+        margin-left: -10px;
+    }
+
+    html[dir='rtl'] .dropdown-submenu:hover>a:after {
+        border-right-color: #fff;
+        border-left-color: transparent;
+    }
+
+    html[dir='rtl'] .dropdown-submenu.pull-left>.dropdown-menu {
+        left: auto;
+        right: -100%;
+        margin-left: 0;
+        margin-right: 10px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
 </style>
